@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tomboy 0.1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-10-08 05:10-0400\n"
+"POT-Creation-Date: 2004-10-15 20:30+0200\n"
 "PO-Revision-Date: 2004-09-27 22:56+0200\n"
 "Last-Translator: Benoît Dejean <TazForEver@dlfp.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,8 +15,90 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: Tomboy/Note.cs:361 Tomboy/NoteManager.cs:60 Tomboy/NoteManager.cs:64
-#: Tomboy/Tray.cs:107
+#: tomboy.desktop.in.h:1
+msgid "Quick and handy note-taker"
+msgstr ""
+
+#: tomboy.desktop.in.h:2 Tomboy/Tray.cs:33
+#, fuzzy
+msgid "Tomboy Notes"
+msgstr "Tomboy"
+
+#: tomboy.schemas.in.h:1
+msgid "Create a new Note"
+msgstr "Créer une nouvelle note"
+
+#: tomboy.schemas.in.h:2
+#, fuzzy
+msgid "Open Recent Changes"
+msgstr "Ouvrir les modifications récentes"
+
+#: tomboy.schemas.in.h:3
+msgid "Open Search Dialog"
+msgstr "Ouvrir la boîte de dialogue de recherche"
+
+#: tomboy.schemas.in.h:4
+#, fuzzy
+msgid "Open Start Here"
+msgstr "Démarrez ici"
+
+#: tomboy.schemas.in.h:5
+msgid "Show applet menu"
+msgstr ""
+
+#: tomboy.schemas.in.h:6
+msgid ""
+"The global keybinding for creating and displaying a new Note. The format "
+"looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The "
+"parser is fairly liberal and allows lower or upper case, and also "
+"abbreviations such as \"&lt;Ctl&gt;\" and \"&lt;Ctrl&gt;\". If you set the "
+"option to the special string \"disabled\", then there will be no keybinding "
+"for this action."
+msgstr ""
+
+#: tomboy.schemas.in.h:7
+msgid ""
+"The global keybinding for opening the \"Start Here\" note. The format looks "
+"like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
+"fairly liberal and allows lower or upper case, and also abbreviations such "
+"as \"&lt;Ctl&gt;\" and \"&lt;Ctrl&gt;\". If you set the option to the "
+"special string \"disabled\", then there will be no keybinding for this "
+"action."
+msgstr ""
+
+#: tomboy.schemas.in.h:8
+msgid ""
+"The global keybinding for opening the Note Search dialog. The format looks "
+"like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
+"fairly liberal and allows lower or upper case, and also abbreviations such "
+"as \"&lt;Ctl&gt;\" and \"&lt;Ctrl&gt;\". If you set the option to the "
+"special string \"disabled\", then there will be no keybinding for this "
+"action."
+msgstr ""
+
+#: tomboy.schemas.in.h:9
+msgid ""
+"The global keybinding for opening the Recent Changes dialog. The format "
+"looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The "
+"parser is fairly liberal and allows lower or upper case, and also "
+"abbreviations such as \"&lt;Ctl&gt;\" and \"&lt;Ctrl&gt;\". If you set the "
+"option to the special string \"disabled\", then there will be no keybinding "
+"for this action."
+msgstr ""
+
+#: tomboy.schemas.in.h:10
+msgid ""
+"The global keybinding for showing the Tomboy applet's menu. The format looks "
+"like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
+"fairly liberal and allows lower or upper case, and also abbreviations such "
+"as \"&lt;Ctl&gt;\" and \"&lt;Ctrl&gt;\". If you set the option to the "
+"special string \"disabled\", then there will be no keybinding for this "
+"action."
+msgstr ""
+
+#. Open the Start Here note
+#: Tomboy/Note.cs:373 Tomboy/NoteManager.cs:60 Tomboy/NoteManager.cs:64
+#: Tomboy/Tomboy.cs:180 Tomboy/Tray.cs:107
 msgid "Start Here"
 msgstr "Démarrez ici"
 
@@ -37,112 +119,111 @@ msgstr ""
 msgid "New Note {0}"
 msgstr "Nouvelle note {0}"
 
-#: Tomboy/NoteManager.cs:132
+#: Tomboy/NoteManager.cs:133
 msgid "Describe your new note here."
 msgstr "Décrivez votre nouvelle note ici."
 
-#: Tomboy/NoteWindow.cs:146
+#: Tomboy/NoteWindow.cs:151
 msgid "Really delete this note?"
 msgstr "Souhaitez-vous vraiment supprimer cette note ?"
 
-#: Tomboy/NoteWindow.cs:147
+#: Tomboy/NoteWindow.cs:152
 msgid "If you delete a note it is permanently lost."
-msgstr ""
+msgstr "Si vous supprimer une note, elle sera définitivement perdue."
 
-#: Tomboy/NoteWindow.cs:207
-#, fuzzy
+#: Tomboy/NoteWindow.cs:212
 msgid "_Link to New Note"
-msgstr "_Lier à la note"
+msgstr "_Lier à une nouvelle note"
 
-#: Tomboy/NoteWindow.cs:219
+#: Tomboy/NoteWindow.cs:225
 msgid "Te_xt"
 msgstr "Te_xte"
 
-#: Tomboy/NoteWindow.cs:227
+#: Tomboy/NoteWindow.cs:233
 msgid "_Search"
 msgstr "_Rechercher"
 
-#: Tomboy/NoteWindow.cs:241
+#: Tomboy/NoteWindow.cs:247
 msgid "_Close Window"
 msgstr "_Fermer la fenêtre"
 
-#: Tomboy/NoteWindow.cs:311
+#: Tomboy/NoteWindow.cs:317
 msgid "Link"
 msgstr "Lien"
 
-#: Tomboy/NoteWindow.cs:312
+#: Tomboy/NoteWindow.cs:318
 msgid "Link selected text to a new note"
 msgstr "Lier le texte sélectionné à une nouvelle note"
 
-#: Tomboy/NoteWindow.cs:325
+#: Tomboy/NoteWindow.cs:331
 msgid "Search"
 msgstr "Rechercher"
 
-#: Tomboy/NoteWindow.cs:326
+#: Tomboy/NoteWindow.cs:332
 msgid "Search your notes"
 msgstr "Rechercher dans vos notes"
 
-#: Tomboy/NoteWindow.cs:348
+#: Tomboy/NoteWindow.cs:354
 msgid "Set properties of text"
 msgstr "Règle les propriétés du texte"
 
-#: Tomboy/NoteWindow.cs:354
+#: Tomboy/NoteWindow.cs:360
 msgid "Delete"
 msgstr "Supprimer"
 
-#: Tomboy/NoteWindow.cs:355
+#: Tomboy/NoteWindow.cs:361
 msgid "Delete this note"
 msgstr "Supprimer cette note"
 
-#: Tomboy/NoteWindow.cs:377
+#: Tomboy/NoteWindow.cs:383
 msgid "_Text"
 msgstr "_Texte"
 
-#: Tomboy/NoteWindow.cs:412
+#: Tomboy/NoteWindow.cs:418
 msgid "_Search..."
 msgstr "_Rechercher..."
 
-#: Tomboy/NoteWindow.cs:423 Tomboy/Search.cs:170
+#: Tomboy/NoteWindow.cs:429 Tomboy/Search.cs:167
 msgid "Find _Next"
 msgstr "Rechercher le _suivant"
 
-#: Tomboy/NoteWindow.cs:436
+#: Tomboy/NoteWindow.cs:442
 msgid "Find _Previous"
 msgstr "Rechercher le _précédent"
 
-#: Tomboy/NoteWindow.cs:618
+#: Tomboy/NoteWindow.cs:624
 msgid "<b>_Bold</b>"
 msgstr "<b>_Gras</b>"
 
-#: Tomboy/NoteWindow.cs:628
+#: Tomboy/NoteWindow.cs:634
 msgid "<i>_Italic</i>"
 msgstr "<i>_Italique</i>"
 
-#: Tomboy/NoteWindow.cs:638
+#: Tomboy/NoteWindow.cs:644
 msgid "<s>_Strikeout</s>"
 msgstr "<s>_Barré</s>"
 
-#: Tomboy/NoteWindow.cs:649
+#: Tomboy/NoteWindow.cs:655
 msgid "_Highlight"
 msgstr "_Surbrillance"
 
-#: Tomboy/NoteWindow.cs:662
+#: Tomboy/NoteWindow.cs:668
 msgid "Font Size"
 msgstr "Taille de la police"
 
-#: Tomboy/NoteWindow.cs:665
+#: Tomboy/NoteWindow.cs:671
 msgid "_Normal"
 msgstr "_Normale"
 
-#: Tomboy/NoteWindow.cs:672
+#: Tomboy/NoteWindow.cs:678
 msgid "H_uge"
 msgstr "Énorm_e"
 
-#: Tomboy/NoteWindow.cs:680
+#: Tomboy/NoteWindow.cs:686
 msgid "_Large"
 msgstr "_Grande"
 
-#: Tomboy/NoteWindow.cs:688
+#: Tomboy/NoteWindow.cs:694
 msgid "S_mall"
 msgstr "_Petite"
 
@@ -179,75 +260,84 @@ msgstr "il y a {0} jours, {1}"
 
 #: Tomboy/RecentChanges.cs:244
 msgid "MMMM d, h:mm tt"
-msgstr ""
+msgstr "d MMMM, H:mm"
 
 #: Tomboy/RecentChanges.cs:246
 msgid "MMMM d yyyy, h:mm tt"
-msgstr ""
+msgstr "d MMMM yyyy, H:mm"
 
-#: Tomboy/Search.cs:83 Tomboy/Search.cs:459
+#: Tomboy/Search.cs:80 Tomboy/Search.cs:467
 msgid "Search All Notes"
 msgstr "Rechercher dans toutes les notes"
 
-#: Tomboy/Search.cs:84 Tomboy/Search.cs:463
+#: Tomboy/Search.cs:81 Tomboy/Search.cs:471
 msgid "Search Note"
 msgstr "Rechercher dans cette note"
 
-#: Tomboy/Search.cs:96
+#: Tomboy/Search.cs:93
 msgid "Find:"
 msgstr "Rechercher :"
 
-#: Tomboy/Search.cs:107
+#: Tomboy/Search.cs:104
 msgid "Search _All Notes"
 msgstr "Rechercher dans _toutes les notes"
 
-#: Tomboy/Search.cs:113
+#: Tomboy/Search.cs:110
 msgid "_Case Sensitive"
 msgstr "Respecter la _casse"
 
-#: Tomboy/Search.cs:158
+#: Tomboy/Search.cs:155
 msgid "_Previous"
 msgstr "_Précédent"
 
-#: Tomboy/Search.cs:242
+#: Tomboy/Search.cs:239
 msgid "Search Results"
 msgstr "Résultats de la recherche"
 
-#: Tomboy/Search.cs:641
+#: Tomboy/Search.cs:660
 #, csharp-format
 msgid "({0} matches)"
 msgstr "({0} correspondances)"
 
-#: Tomboy/Search.cs:644
+#: Tomboy/Search.cs:663
 #, csharp-format
 msgid "({0} match)"
 msgstr "({0} correspondance)"
 
 #. title
-#: Tomboy/Search.cs:660
+#: Tomboy/Search.cs:679
 msgid "No notes found"
 msgstr "Aucune note n'a été trouvée."
 
-#: Tomboy/Tomboy.cs:125
+#: Tomboy/Tomboy.cs:127
 msgid ""
 "Tomboy: A simple, easy to use desktop note-taking application.\n"
 "Copyright (C) 2004 Alex Graveley <alex@beatniksoftware.com>\n"
 "\n"
 msgstr ""
+"Tomboy : une application de prise de notes simple et facile à utiliser.\n"
+"Copyright (C) 2004 Alex Graveley <alex@beatniksoftware.com>\n"
+"\n"
 
-#: Tomboy/Tomboy.cs:131
+#: Tomboy/Tomboy.cs:133
 msgid ""
 "Usage:\n"
-"  --new-note\t\tCreate and display a new note\n"
-"  --new-note [title]\tCreate and display a new note, with a title\n"
-"  --open-note [title]\tDisplay the existing note matching title\n"
-"  --help\t\tPrint this usage message.\n"
+"  --new-note\t\t\tCreate and display a new note\n"
+"  --new-note [title]\t\tCreate and display a new note, with a title\n"
+"  --open-note [title/url]\tDisplay the existing note matching title\n"
+"  --start-here\t\t\tDisplay the Start Here note\n"
+"  --highlight-search [text]\tSearch and highlight text in the opened note\n"
+"  --help\t\t\tPrint this usage message.\n"
 msgstr ""
-
-#: Tomboy/Tray.cs:33
-#, fuzzy
-msgid "Tomboy Notes"
-msgstr "Tomboy"
+"Usage:\n"
+"  --new-note\t\t\tCréer et afficher une nouvelle note\n"
+"  --new-note [titre]\t\tCréer et afficher une nouvelle note, avec un titre\n"
+"  --open-note [titre/url]\tAfficher une note existante correspondant au "
+"titre\n"
+"  --start-here\t\t\tAfficher la note « Démarrez-ici »\n"
+"  --highlight-search [texte]\tRechercher et mettre en surbrillance le texte "
+"dans la note ouverte\n"
+"  --help\t\t\tAfficher de message d'aide\n"
 
 #: Tomboy/Tray.cs:45
 msgid "Tomboy"
@@ -273,7 +363,12 @@ msgstr "_Quitter"
 msgid " (new)"
 msgstr " (nouveau)"
 
-#: Tomboy/Watchers.cs:125
+#: Tomboy/Watchers.cs:123
+#, csharp-format
+msgid "(Untitled {0})"
+msgstr "(Sans titre {0})"
+
+#: Tomboy/Watchers.cs:173
 #, csharp-format
 msgid ""
 "A note with the title <b>{0}</b> already exists. Please choose another name "
@@ -282,21 +377,16 @@ msgstr ""
 "Une note avec le titre <b>{0}</b> existe déjà. Veuillez choisir un autre nom "
 "pour cette note avant de continuer."
 
-#: Tomboy/Watchers.cs:137
-#, fuzzy
+#: Tomboy/Watchers.cs:185
 msgid "Note title taken"
 msgstr "Ce titre de note est déjà utilisé"
 
-#: Tomboy/Watchers.cs:315
-#, fuzzy
+#: Tomboy/Watchers.cs:360
 msgid "Cannot open location"
 msgstr "Impossible d'ouvrir l'emplacement"
 
 #~ msgid "Note-taker"
 #~ msgstr "Gestionnaire de notes"
-
-#~ msgid "Create a new Note"
-#~ msgstr "Créer une nouvelle note"
 
 #~ msgid "Unable to open location..."
 #~ msgstr "Impossible d'ouvrir l'emplacement..."
