@@ -19,6 +19,8 @@ void tomboy_keybinder_unbind (const char           *keystring,
 
 gboolean tomboy_keybinder_is_modifier (guint keycode);
 
+guint32 tomboy_keybinder_get_current_event_time (void);
+
 G_END_DECLS
 
 #endif /* __TOMBOY_KEY_BINDER_H__ */

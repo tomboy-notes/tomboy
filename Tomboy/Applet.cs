@@ -66,17 +66,20 @@ namespace Tomboy
 
 		void ShowPreferencesVerb ()
 		{
-			tray.ShowPreferences ();
+			if (tray != null)
+				tray.ShowPreferences ();
 		}
 
 		void ShowPluginsVerb ()
 		{
-			manager.PluginManager.ShowPluginsDirectory ();
+			if (manager != null)
+				manager.PluginManager.ShowPluginsDirectory ();
 		}
 
 		void ShowAboutVerb ()
 		{
-			tray.ShowAbout ();
+			if (tray != null)
+				tray.ShowAbout ();
 		}
 
 		// NOTE: This is needed to support transparent/pixmap panel

@@ -8,8 +8,6 @@
 #include "eggaccelerators.h"
 #include "tomboykeybinder.h"
 
-static GSList *bindings = NULL;
-
 /* Uncomment the next line to print a debug trace. */
 /* #define DEBUG */
 
@@ -26,6 +24,10 @@ typedef struct _Binding {
 	uint                  keycode;
 	uint                  modifiers;
 } Binding;
+
+static GSList *bindings = NULL;
+static guint32 last_event_time = 0;
+static gboolean processing_event = FALSE;
 
 static gboolean 
 do_grab_key (Binding *binding)
@@ -109,6 +111,13 @@ filter_func (GdkXEvent *gdk_xevent, GdkEvent *event, gpointer data)
 				xevent->xkey.keycode, 
 				xevent->xkey.state));
 
+		/* 
+		 * Set the last event time for use when showing
+		 * windows to avoid anti-focus-stealing code.
+		 */
+		processing_event = TRUE;
+		last_event_time = xevent->xkey.time;
+
 		for (iter = bindings; iter != NULL; iter = iter->next) {
 			Binding *binding = (Binding *) iter->data;
 
@@ -122,6 +131,8 @@ filter_func (GdkXEvent *gdk_xevent, GdkEvent *event, gpointer data)
 						    binding->user_data);
 			}
 		}
+
+		processing_event = FALSE;
 		break;
 	case KeyRelease:
 		TRACE (g_print ("Got KeyRelease! \n"));
@@ -131,7 +142,7 @@ filter_func (GdkXEvent *gdk_xevent, GdkEvent *event, gpointer data)
 	return return_val;
 }
 
-void 
+static void 
 keymap_changed (GdkKeymap *map)
 {
 	GSList *iter;
@@ -236,4 +247,13 @@ tomboy_keybinder_is_modifier (guint keycode)
 	XFreeModifiermap (mod_keymap);
 
 	return retval;
+}
+
+guint32
+tomboy_keybinder_get_current_event_time (void)
+{
+	if (processing_event) 
+		return last_event_time;
+	else
+		return GDK_CURRENT_TIME;
 }
