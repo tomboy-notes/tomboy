@@ -1,3 +1,14 @@
+2004-10-03  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/NoteManager.cs: Properly Url encode filenames on creation
+	and rename.  Allows '/' in note titles and fixes bug #154396 filed
+	by Erik Volkman.
+
+	* Tomboy/Search.cs: Fix bug with GetInstance implementation being
+	passed a string to search.  Instead add SearchText property.
+	Fixes a bug where just selecting text then right-clicking would
+	activate searching for the selected text.
+
 2004-10-02  Alex Graveley  <alex@beatniksoftware.com>
 
 	* Tomboy/NoteWindow.cs: Implement simple (and broken) DND to note

@@ -2,6 +2,7 @@
 using System;
 using System.IO;
 using System.Collections;
+using System.Web;
 using Mono.Posix;
 
 namespace Tomboy
@@ -136,9 +137,14 @@ namespace Tomboy
 		string ConvertTitleToFileName (string title)
 		{
 			//
-			// FIXME: handle encoding conversions here.
+			// Url encode titles after replacing " " with "_"
 			//
-			string filename = title.Replace (" ", "_") + ".note";
+
+			string filename;
+			filename = title.Replace (" ", "_");
+			filename = HttpUtility.UrlEncode (filename);
+			filename += ".note";
+
 			return Path.Combine (notes_dir, filename);
 		}
 
