@@ -350,7 +350,8 @@ namespace Tomboy
 				if (note.Title.Length > longest_title)
 					longest_title = note.Title.Length;
 
-				note_titles.Add (note.Title.ToLower ());
+				if (note.Title.Length > 0)
+					note_titles.Add (note.Title.ToLower ());
 			}
 		}
 

@@ -2,9 +2,24 @@
 
 if [ -e ./@target@ ] && [ -e ./Makefile.am ] ; then
     echo "*** Running uninstalled @target@ ***"
+
+    if [ -n $LD_LIBRARY_PATH ]; then
+        export LD_LIBRARY_PATH="../TrayIcon/libtrayicon/.libs:$LD_LIBRARY_PATH"
+    else
+        export LD_LIBRARY_PATH="../TrayIcon/libtrayicon/.libs"
+    fi
+
+    THIS_PATH="../TrayIcon:."
     THIS_EXE="./@target@"
 else
+    if [ -n $LD_LIBRARY_PATH ]; then
+        export LD_LIBRARY_PATH="@pkglibdir@:$LD_LIBRARY_PATH"
+    else
+        export LD_LIBRARY_PATH="@pkglibdir@"
+    fi
+
+    THIS_PATH="@pkglibdir@"
     THIS_EXE="@pkglibdir@/@target@"
 fi
- 
-mono --debug $MONO_EXTRA_ARGS $THIS_EXE "$@"
+
+MONO_PATH="$THIS_PATH:$MONO_PATH" mono --debug $MONO_EXTRA_ARGS $THIS_EXE "$@"

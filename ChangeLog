@@ -1,5 +1,17 @@
 2004-09-18  Alex Graveley  <alex@beatniksoftware.com>
 
+	* TrayIcon/libtrayicon/Makefile.am: Install libtrayicon.so into
+	pkglibdir.
+
+	* TrayIcon/Makefile.am: Install TrayIcon.dll into pkglibdir.
+
+	* Tomboy/tomboy.in: Set LD_LIBRARY_PATH, and MONO_PATH.
+
+	* Tomboy/Watchers.cs: Avoid an infinite loop for buffers with no
+	content.
+
+2004-09-18  Alex Graveley  <alex@beatniksoftware.com>
+
 	* Tomboy/NoteWindow.cs: 
 	* Tomboy/RecentChanges.cs: 
 	* Tomboy/Search.cs: Gtk.ScrolledWindow.Child is read-only on Gtk#
