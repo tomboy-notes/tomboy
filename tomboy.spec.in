@@ -39,21 +39,46 @@ won't break, even when renaming and reorganizing them.
 
 %install
 %{__rm} -rf ${RPM_BUILD_ROOT}
+export GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL=1
 %makeinstall
+unset GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL
+
+%find_lang %{name}
+
+
+%post
+export GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source`
+SCHEMAS="tomboy.schemas"
+for S in $SCHEMAS; do
+  gconftool-2 --makefile-install-rule %{_sysconfdir}/gconf/schemas/$S > /dev/null
+done
+
 
 %clean
 %{__rm} -rf ${RPM_BUILD_ROOT}
 
-%files
+
+%files -f %{name}.lang
 %defattr(-,root,root,-)
 %doc ChangeLog
+%doc README
+%doc COPYING
+%doc AUTHORS
+%doc NEWS
 %{_bindir}/%{name}
 %dir %{_libdir}/%{name}
 %{_libdir}/%{name}/TrayIcon.dll
 %{_libdir}/%{name}/libtrayicon.so
 %{_libdir}/%{name}/Tomboy.exe
+%{_libdir}/dbus-1.0/services/com.beatniksoftware.Tomboy.service
+%{_datadir}/pixmaps/tintin.png
+%{_datadir}/applications/tomboy.desktop
+%{_sysconfdir}/gconf/schemas/tomboy.schemas
 
 %changelog
+* 2004-10-08  Alex Graveley  <alex@beatniksoftware.com>
+- Update to add .schemas, .desktop, .service, %find_lang, and %doc files.
+
 * Sun Sep 18 2004 Ricardo Veguilla <veguilla@hpcf.upr.edu> - 0.1
 - Initial package.
 
