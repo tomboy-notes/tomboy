@@ -58,7 +58,7 @@ AC_SUBST(LIBTRAYICON_LIBS)
 # Check for GtkSpell here, as we call into it from C#.
 # http://gtkspell.sourceforge.net/
 #
-PKG_CHECK_MODULES(GTKSPELL, gtkspell-2.0 >= 2.0.5, OLD_GTKSPELL="no", OLD_GTKSPELL="yes")
+PKG_CHECK_MODULES(GTKSPELL, gtkspell-2.0 > 2.0.5, OLD_GTKSPELL="no", OLD_GTKSPELL="yes")
 PKG_CHECK_MODULES(GTKSPELL, gtkspell-2.0)
 AM_CONDITIONAL(OLD_GTKSPELL, test "$OLD_GTKSPELL" = "yes")
 
