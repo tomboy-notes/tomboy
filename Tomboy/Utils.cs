@@ -31,6 +31,10 @@ namespace Tomboy
 		{
 			Gtk.Menu menu = (Gtk.Menu) sender;
 			menu.Popdown ();
+
+			// Unhighlight the parent
+			if (menu.AttachWidget != null)
+				menu.AttachWidget.State = Gtk.StateType.Normal;
 		}
 
 		// Place the menu underneath an arbitrary parent widget.  The
@@ -45,6 +49,10 @@ namespace Tomboy
 				    IntPtr.Zero, 
 				    (ev == null) ? 0 : ev.Button, 
 				    (ev == null) ? Gtk.Global.CurrentEventTime : ev.Time);
+
+			// Highlight the parent
+			if (menu.AttachWidget != null)
+				menu.AttachWidget.State = Gtk.StateType.Selected;
 		}
 
 		public static Gdk.Pixbuf GetIcon (string resource_name) 
