@@ -281,7 +281,7 @@ namespace Tomboy
 		void OnDragDataReceived (object sender, Gtk.DragDataReceivedArgs args)
 		{
 			UriList uri_list = new UriList (args.SelectionData);
-			if (uri_list == null)
+			if (uri_list.Count == 0)
 				return;
 
 			NoteBuffer buffer = note.Buffer;
