@@ -35,9 +35,9 @@ namespace Tomboy
 			program.Run ();
 		}
 
-		[System.Diagnostics.Conditional ("ENABLE_DBUS")] 
 		static void RegisterRemoteControl (NoteManager manager)
 		{
+#if ENABLE_DBUS
 			const string service_ns = "com.beatniksoftware.Tomboy";
 
 			try {
@@ -52,6 +52,7 @@ namespace Tomboy
 				Console.WriteLine ("Tomboy remote control disabled: {0}",
 						   e.Message);
 			}
+#endif
 		}
 
 		static void RegisterSessionRestart (string [] args)
