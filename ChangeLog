@@ -1,5 +1,18 @@
 2005-03-09  Alex Graveley  <agraveley@beatniksoftware.com>
 
+	* Tomboy/Tomboy.cs: Start in TrayIcon mode by default, remove
+	--tray-icon option, and accept --panel-applet to register for
+	panel startup.  This should fix the case of people running
+	'tomboy' from the command-line expecting something to happen, but
+	it just exits or hangs.
+
+	* data/GNOME_TomboyApplet.server.in.in: Pass --panel-applet.
+
+	* data/tomboy.desktop.in: Don't pass --tray-icon, since this is
+	the default now.
+
+2005-03-09  Alex Graveley  <agraveley@beatniksoftware.com>
+
 	* data/tomboy-plugins.pc.in: Actually add this file.
 
 	* Tomboy/Makefile.am (CLEANFILES): Clean up .mdb files.
