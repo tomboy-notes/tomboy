@@ -1,0 +1,59 @@
+Name:           @PACKAGE@
+Version:        @VERSION@
+Release:        1
+Epoch:          0
+Summary:        Tomboy is a desktop note-taking application for Linux and Unix. 
+
+Group:          Office
+License:        GPL
+URL:            http://www.beatniksoftware.com/tomboy/
+Source0:        %{name}-%{version}.tar.gz
+BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+
+
+BuildRequires:  gtk2-devel >= 2.2.3
+BuildRequires:  atk-devel >= 1.2.4
+BuildRequires:  gtkspell-devel >= 2.0.6
+BuildRequires:  gtk-sharp
+Requires:       gtk2-devel >= 2.2.3 
+Requires:       atk-devel >= 1.2.4
+Requires:       gtkspell >= 2.0.6
+Requires:       gtk-sharp
+
+%description
+Tomboy is a desktop note-taking application for Linux and Unix. Simple and easy to use, 
+but with potential to help you organize the ideas and information you deal with every day.
+The key to Tomboy's usefulness lies in the ability to relate notes and ideas together. 
+Using a  WikiWiki-like linking system, organizing ideas is as simple as typing a name. 
+Branching an idea off is easy as pressing the Link button. And links between your ideas 
+won't break, even when renaming and reorganizing them.
+
+%prep
+%setup -q
+
+
+%build
+%configure
+%{__make} %{?_smp_mflags}
+
+
+%install
+%{__rm} -rf ${RPM_BUILD_ROOT}
+%makeinstall
+
+%clean
+%{__rm} -rf ${RPM_BUILD_ROOT}
+
+%files
+%defattr(-,root,root,-)
+%doc ChangeLog
+%{_bindir}/%{name}
+%dir %{_libdir}/%{name}
+%{_libdir}/%{name}/TrayIcon.dll
+%{_libdir}/%{name}/libtrayicon.so
+%{_libdir}/%{name}/Tomboy.exe
+
+%changelog
+* Sun Sep 18 2004 Ricardo Veguilla <veguilla@hpcf.upr.edu> - 0.1
+- Initial package.
+
