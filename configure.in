@@ -74,7 +74,7 @@ AM_CONDITIONAL(FIXED_GTKSPELL, test "$FIXED_GTKSPELL" = "yes")
 #
 # Use DBus# to export our remote control if available.
 #
-PKG_CHECK_MODULES(DBUS, dbus-sharp, ENABLE_DBUS="yes", ENABLE_DBUS="no")
+PKG_CHECK_MODULES(DBUS, dbus-sharp >= 0.23.2, ENABLE_DBUS="yes", ENABLE_DBUS="no")
 AC_ARG_ENABLE(dbus, 
 	      [  --enable-dbus=[no/yes]    compile with dbus support (default: yes)],
 	      ENABLE_DBUS="$enableval")
