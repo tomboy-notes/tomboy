@@ -163,7 +163,7 @@ namespace Tomboy
 			string filename = MakeNewFileName ();
 
 			Note new_note = new Note (title, filename, this);
-			new_note.Text = xml_content;
+			new_note.XmlContent = xml_content;
 			new_note.Renamed += OnNoteRename;
 
 			notes.Add (new_note);

@@ -1,6 +1,7 @@
 
 using System;
 using System.Collections;
+using System.Text;
 using Mono.Posix;
 using System.Runtime.InteropServices;
 
@@ -48,6 +49,8 @@ namespace Tomboy
 			tips.SetTip (this, tip_text, null);
 			tips.Enable ();
 			tips.Sink ();
+
+			SetupDragAndDrop ();
 		}
 
 		void ButtonPress (object sender, Gtk.ButtonPressEventArgs args) 
@@ -185,6 +188,7 @@ namespace Tomboy
 			recent.Show ();
 		}
 
+		// Used by TomboyApplet to modify the icon background.
 		public Gtk.Image Image
 		{
 			get { return image; }
@@ -244,8 +248,85 @@ namespace Tomboy
 			about.Show ();
 		}
 
-		// FIXME: If receiving a drag, pop up last window used, or a new
-		//        window, or the recent list?  I think recent list
+		// Support dropping text/uri-lists and _NETSCAPE_URLs currently.
+		void SetupDragAndDrop ()
+		{
+			Gtk.TargetEntry [] targets = 
+				new Gtk.TargetEntry [] {
+					new Gtk.TargetEntry ("text/uri-list", 0, 0),
+					new Gtk.TargetEntry ("_NETSCAPE_URL", 0, 0)
+				};
+
+			Gtk.Drag.DestSet (this, 
+					  Gtk.DestDefaults.All, 
+					  targets,
+					  Gdk.DragAction.Copy);
+
+			DragDataReceived += OnDragDataReceived;
+		}
+
+		// Pop up Start Here and insert dropped links, in the form:
+		//	Wednesday, December 8, 6:45 AM
+		//	http://luna/kwiki/index.cgi?AdelaideUniThoughts
+		//	http://www.beatniksoftware.com/blog/
+		// And select the inserted text.
+		//
+		// FIXME: Make undoable, make sure our date-sizing tag never "bleeds".
+		//
+		void OnDragDataReceived (object sender, Gtk.DragDataReceivedArgs args)
+		{
+			UriList uri_list = new UriList (args.SelectionData);
+			if (uri_list.Count == 0)
+				return;
+
+			Note link_note = manager.Find (Catalog.GetString ("Start Here"));
+			link_note.Window.Present ();
+
+			NoteBuffer buffer = link_note.Buffer;
+			StringBuilder insert_text = new StringBuilder ();
+
+			insert_text.Append ("\n"); // initial newline
+
+			string date_format = Catalog.GetString ("dddd, MMMM d, h:mm tt");
+			insert_text.Append (DateTime.Now.ToString (date_format));
+
+			foreach (Uri uri in uri_list) {
+				insert_text.Append ("\n");
+
+				if (uri.IsFile) 
+					insert_text.Append (uri.LocalPath);
+				else
+					insert_text.Append (uri.ToString ());
+			}
+
+			insert_text.Append ("\n"); // trailing newline
+
+			buffer.Undoer.FreezeUndo ();
+
+			// Insert the date and list of links...
+			Gtk.TextIter cursor = buffer.StartIter;
+			cursor.ForwardLines (1); // skip title
+
+			buffer.Insert (cursor, insert_text.ToString ());
+
+			// Make the date string a small font...
+			cursor = buffer.StartIter;
+			cursor.ForwardLines (2); // skip title & leading newline
+
+			Gtk.TextIter end = cursor;
+			end.ForwardLines (1); // end of date
+
+			buffer.ApplyTag ("size:small", cursor, end);
+
+			// Select the text we've inserted (avoid trailing newline)...
+			end = cursor;
+			end.ForwardChars (insert_text.Length - 1);
+
+			buffer.MoveMark (buffer.SelectionBound, cursor);
+			buffer.MoveMark (buffer.InsertMark, end);
+
+			buffer.Undoer.ThawUndo ();
+		}
 	}
 
 	// 

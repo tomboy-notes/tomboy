@@ -42,7 +42,7 @@ namespace Tomboy
 
 	public class NoteRenameWatcher : NotePlugin
 	{
-		uint rename_timeout_id;
+		bool editing_title;
 
 		public override void Initialize ()
 		{
@@ -65,51 +65,89 @@ namespace Tomboy
 
 		void OnNoteOpened (object sender, EventArgs args)
 		{
+			Buffer.MarkSet += OnMarkSet;
 			Buffer.InsertText += OnInsertText;
 			Buffer.DeleteRange += OnDeleteRange;
-			Buffer.TagApplied += OnTagApplied;
+
+			// FIXME: Needed because we hide on delete event, and
+			// just hide on accelerator key, so we can't use delete
+			// event.  This means the window will flash if closed
+			// with a name clash.
+			Window.UnmapEvent += OnWindowClosed;
 
 			// Clean up title line
 			Buffer.RemoveAllTags (TitleStart, TitleEnd);
 			Buffer.ApplyTag ("note-title", TitleStart, TitleEnd);
 		}
 
-		void OnDeleteRange (object sender, Gtk.DeleteRangeArgs args)
+		// This only gets called on an explicit move, not by
+		void OnMarkSet (object sender, Gtk.MarkSetArgs args)
 		{
-			if (args.Start.Line != 0)
-				return;
-
-			UpdateTitle ();
+			Update ();
 		}
 
 		void OnInsertText (object sender, Gtk.InsertTextArgs args)
 		{
-			Gtk.TextIter start = args.Pos;
-			start.BackwardChars (args.Length);
-
-			if (start.Line != 0)
-				return;
+			Changed ();
+			Update ();
 
 			Gtk.TextIter end = args.Pos;
 			end.ForwardToLineEnd ();
 
-			// FIXME: RemoveTag isn't working if you insert a
-			//        newline at the start of the buffer.
-
-			// Don't allow note-title to extend past first line
-			Buffer.RemoveTag ("note-title", start, end);
-
-			UpdateTitle ();
+			// Avoid lingering note-title after a multi-line insert...
+			Buffer.RemoveTag ("note-title", TitleEnd, end);
 		}
 
-		void OnTagApplied (object sender, Gtk.TagAppliedArgs args)
+		void OnDeleteRange (object sender, Gtk.DeleteRangeArgs args)
 		{
-			if (args.StartChar.Line != 0)
+			Changed ();
+			Update ();
+		}
+
+		void Update ()
+		{
+			Gtk.TextIter insert = Buffer.GetIterAtMark (Buffer.InsertMark);
+			Gtk.TextIter selection = Buffer.GetIterAtMark (Buffer.SelectionBound);
+
+			if (insert.Line == 0 || selection.Line == 0) {
+				if (!editing_title)
+					editing_title = true;
+			} else {
+				if (editing_title) {
+					UpdateNoteTitle ();
+					editing_title = false;
+				}
+			}
+		}
+
+		void Changed ()
+		{
+			if (!editing_title)
 				return;
 
-			// Don't allow tags on first line
-			if (args.Tag.Name != "note-title") {
-				Buffer.RemoveTag (args.Tag, TitleStart, TitleEnd);
+			// Make sure the title line is big and red...
+			Buffer.RemoveAllTags (TitleStart, TitleEnd);
+			Buffer.ApplyTag ("note-title", TitleStart, TitleEnd);
+
+			// NOTE: Use "(Untitled #)" for empty first lines...
+			string title = TitleStart.GetText (TitleEnd).Trim ();
+			if (title == string.Empty)
+				title = GetUniqueUntitled ();
+
+			// Only set window title here, to give feedback that we
+			// are indeed changing the title.
+			Window.Title = title;
+		}
+
+		[GLib.ConnectBefore]
+		void OnWindowClosed (object sender, Gtk.UnmapEventArgs args)
+		{
+			if (!editing_title)
+				return;
+
+			if (!UpdateNoteTitle ()) {
+				args.RetVal = true;
+				return;
 			}
 		}
 
@@ -126,47 +164,25 @@ namespace Tomboy
 			}
 		}
 
-		void UpdateTitle ()
-		{
-			// Replace the existing save timeout...
-			if (rename_timeout_id != 0)
-				GLib.Source.Remove (rename_timeout_id);
-
-			// Wait .5 seconds before renaming, to cluster buffer
-			// changes somewhat...
-			rename_timeout_id = 
-				GLib.Timeout.Add (500, 
-						  new GLib.TimeoutHandler (UpdateTitleTimeout));
-
-			// Make sure the title line is big and red...
-			Buffer.ApplyTag ("note-title", TitleStart, TitleEnd);
-
-			// NOTE: Use "(Untitled #)" for empty first lines...
-			string title = TitleStart.GetText (TitleEnd).Trim ();
-			if (title == string.Empty)
-				title = GetUniqueUntitled ();
-
-			// Only set window title here, to give feedback that we
-			// are indeed changing the title.
-			Window.Title = title;
-		}
-
-		bool UpdateTitleTimeout ()
+		bool UpdateNoteTitle ()
 		{
 			string title = Window.Title;
 
 			Note existing = Manager.Find (title);
-
 			if (existing != null && existing != this.Note) {
-				ShowNameClashError (Note, title);
-			} else {
-				Note.Title = title;
+				// Present the window in case it got unmapped...
+				// FIXME: Causes flicker.
+				Note.Window.Present ();
+
+				ShowNameClashError (title);
+				return false;
 			}
 
-			return false;
+			Note.Title = title;
+			return true;
 		}
 
-		void ShowNameClashError (Note note, string title)
+		void ShowNameClashError (string title)
 		{
 			string message = 
 				String.Format (Catalog.GetString ("A note with the title " +
@@ -637,9 +653,8 @@ namespace Tomboy
 
 		bool ContainsText (string text)
 		{
-			/* Encode any entities */
-			string match = XmlEncoder.Encode (text.ToLower ());
-			string body = Note.Text.ToLower ();
+			string body = Note.TextContent.ToLower ();
+			string match = text.ToLower ();
 
 			return body.IndexOf (match) > -1;
 		}
@@ -714,6 +729,8 @@ namespace Tomboy
 
 			TextTagEnumerator enumerator = new TextTagEnumerator (Buffer, link_tag);
 			foreach (TextRange range in enumerator) {
+				Console.WriteLine ("RENAME: Checking '{0}' in note '{1}'", range.Text, Note.Title);
+
 				if (range.Text.ToLower () != old_title_lower)
 					continue;
 

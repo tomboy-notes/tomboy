@@ -24,10 +24,10 @@ namespace Tomboy
 
 		Gtk.ListStore store;
 
+		InterruptableTimeout entry_changed_timeout;
+
 		Note current_note;
 		ArrayList current_matches;
-
-		uint changed_timeout_id = 0;
 
 		static string [] previous_searches;
 		static NoteFindDialog instance;
@@ -69,6 +69,7 @@ namespace Tomboy
 				instance.search_all_notes.Sensitive = false; // force it
 
 				instance.UpdateResults ();
+				instance.AddManagerChangeListeners ();
 			}
 
 			return instance;
@@ -91,8 +92,6 @@ namespace Tomboy
 			// Allow resizing if showing the results list
 			this.Resizable = search_all;
 
-			Gtk.Label label = new Gtk.Label (Catalog.GetString ("Find:"));
-
 			find_combo = new Gtk.Combo ();
 			find_combo.AllowEmpty = false;
 			find_combo.CaseSensitive = false;
@@ -101,6 +100,9 @@ namespace Tomboy
 			if (previous_searches != null)
 				find_combo.PopdownStrings = previous_searches;
 
+			Gtk.Label label = new Gtk.Label (Catalog.GetString ("_Find:"));
+			label.MnemonicWidget = find_combo.Entry;
+
 			search_all_notes = 
 				new Gtk.CheckButton (Catalog.GetString ("Search _All Notes"));
 			search_all_notes.Active = search_all;
@@ -108,7 +110,7 @@ namespace Tomboy
 			search_all_notes.Toggled += OnAllNotesToggled;
 
 			case_sensitive = 
-				new Gtk.CheckButton (Catalog.GetString ("_Case Sensitive"));
+				new Gtk.CheckButton (Catalog.GetString ("Case _Sensitive"));
 			case_sensitive.Toggled += OnCaseSensitiveToggled;
 
 			Gtk.Table widgets = new Gtk.Table (3, 2, false);
@@ -237,7 +239,7 @@ namespace Tomboy
 			Gtk.CellRenderer renderer;
 
 			Gtk.TreeViewColumn title = new Gtk.TreeViewColumn ();
-			title.Title = Catalog.GetString ("Search Results");
+			title.Title = Catalog.GetString ("Search _Results");
 			title.Sizing = Gtk.TreeViewColumnSizing.Autosize;
 			title.Resizable = true;
 			
@@ -336,9 +338,9 @@ namespace Tomboy
 
 		bool CheckNoteHasMatch (Note note, string [] encoded_words, bool match_case)
 		{
-			string note_text = note.Text;
+			string note_text = note.XmlContent;
 			if (!match_case)
-				note_text = note.Text.ToLower ();
+				note_text = note_text.ToLower ();
 
 			foreach (string word in encoded_words) {
 				if (note_text.IndexOf (word) > -1)
@@ -528,28 +530,30 @@ namespace Tomboy
 
 		void OnEntryChanged (object sender, EventArgs args)
 		{
-			if (changed_timeout_id != 0)
-				GLib.Source.Remove (changed_timeout_id);
+			if (entry_changed_timeout == null) {
+				entry_changed_timeout = new InterruptableTimeout ();
+				entry_changed_timeout.Timeout += EntryChangedTimeout;
+			}
 
-			changed_timeout_id = 
-				GLib.Timeout.Add (500, 
-						  new GLib.TimeoutHandler (EntryChangedTimeout));
+			entry_changed_timeout.Reset (500);
 		}
 
-		// Called in after .25 seconds of typing inactivity.  Redo the
+		// Called in after .5 seconds of typing inactivity.  Redo the
 		// search, and update the results...
-		bool EntryChangedTimeout ()
+		void EntryChangedTimeout (object sender, EventArgs args)
 		{
 			CleanupMatches ();
 
 			string text = find_combo.Entry.Text;
-			if (text == null || text == String.Empty) {
-				changed_timeout_id = 0;
-				return false;
-			}
+			if (text == null || text == String.Empty)
+				return;
 
 			UpdateResults ();
+			AddToPreviousSearches (text);
+		}
 
+		void AddToPreviousSearches (string text)
+		{
 			// Update previous searches, by either creating the
 			// initial list, or adding a new term to the list, or
 			// shuffling an existing term to the top...
@@ -573,9 +577,24 @@ namespace Tomboy
 			}
 
 			find_combo.PopdownStrings = previous_searches;
+		}
 
-			changed_timeout_id = 0;
-			return false;
+		void AddManagerChangeListeners ()
+		{
+			// Update on changes to notes
+			manager.NoteDeleted += OnNotesChanged;
+			manager.NoteAdded += OnNotesChanged;
+			manager.NoteRenamed += OnNoteRenamed;
+		}
+
+		void OnNotesChanged (object sender, Note changed)
+		{
+			UpdateResults ();
+		}
+
+		void OnNoteRenamed (Note note, string old_title)
+		{
+			UpdateResults ();
 		}
 
 		void UpdateResults ()

@@ -326,6 +326,7 @@ namespace Tomboy
 		}
 	}
 
+	// Encode xml entites
 	public class XmlEncoder 
 	{
 		static StringBuilder builder;
@@ -342,6 +343,39 @@ namespace Tomboy
 		public static string Encode (string source)
 		{
 			xml.WriteString (source);
+
+			string val = builder.ToString ();
+			builder.Length = 0;
+			return val;
+		}
+	}
+
+	// Strip xml tags
+	public class XmlDecoder 
+	{
+		static StringBuilder builder;
+
+		static XmlDecoder ()
+		{
+			builder = new StringBuilder ();
+		}
+
+		public static string Decode (string source)
+		{
+			StringReader reader = new StringReader (source);
+			XmlTextReader xml = new XmlTextReader (reader);
+			xml.Namespaces = false;
+
+			while (xml.Read ()) {
+				switch (xml.NodeType) {
+				case XmlNodeType.Text:
+				case XmlNodeType.Whitespace:
+					builder.Append (xml.Value);
+					break;
+				}
+			}
+
+			xml.Close ();
 
 			string val = builder.ToString ();
 			builder.Length = 0;
@@ -458,5 +492,38 @@ namespace Tomboy
 		{
 			return this;
 		}
+	}
+
+	public class InterruptableTimeout
+	{
+		uint timeout_id;
+
+		public InterruptableTimeout ()
+		{
+		}
+
+		public void Reset (uint timeout_millis)
+		{
+			Cancel ();
+			timeout_id = GLib.Timeout.Add (timeout_millis, 
+						       new GLib.TimeoutHandler (TimeoutExpired));
+		}
+
+		public void Cancel ()
+		{
+			if (timeout_id != 0)
+				GLib.Source.Remove (timeout_id);
+		}
+
+		bool TimeoutExpired ()
+		{
+			if (Timeout != null)
+				Timeout (this, new EventArgs ());
+
+			timeout_id = 0;
+			return false;
+		}
+
+		public event EventHandler Timeout;
 	}
 }

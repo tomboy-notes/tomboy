@@ -1,3 +1,36 @@
+2004-12-08  Alex Graveley  <alex@beatniksoftware.com>
+
+	* data/tomboy.desktop.in: Add OnlyShowIn=KDE, which executes
+	`tomboy --tray-icon`.  In Gnome, you start Tomboy through the
+	normal applet adding mechanism.
+
+	* Tomboy/Watchers.cs: Update the note title only when the cursor
+	leaves the title line, or when the window is closed to avoid
+	popping up annoying nameclash dialog while you type a title.  Use
+	Note.TextContent when searching other notes for link references on
+	add/delete/rename, to handle matching <link>Full</link>Title xml.
+
+	* Tomboy/Utils.cs: Add XmlDecoder which reads xml and returns only
+	the text/whitespace content.  Add InterruptableTimeout, a simple
+	wrapper around GLib timeouts that allow resetting and cancelling a
+	currently active timeout.
+
+	* Tomboy/Tray.cs: Support dropping links/urls/files onto the
+	tomboy applet/tray icon.  Drops open Start Here and insert a
+	timestamp and the URL(s) into the note.
+
+	* Tomboy/Tomboy.cs: Add --tray-icon option, which displays in the
+	notification area.
+
+	* Tomboy/Note.cs: Rename Text to XmlContent, and add TextContent
+	that is a stripped version of XmlContent using the new XmlDecoder
+	utility.  Switch to using InterruptableTimeout for save timeouts.
+
+	* Tomboy/Search.cs: Update results when notes are
+	added/deleted. Switch to InterruptableTimeout for keypress
+	timeout.  Fix conflicting Alt-C accellerators, make Alt-F jump the
+	find entry.
+
 2004-12-03  Sigurd Gartmann  <sigurd-translate@brogar.org>
 
 	* configure.in: Add 'nb' and 'no' to ALL_LINGUAS.

@@ -17,22 +17,40 @@ namespace Tomboy
 			// Initialize GETTEXT
 			Catalog.Init ("tomboy", Defines.GNOME_LOCALE_DIR);
 
-			// Execute any args at an existing tomboy instance
-			if (TomboyRemoteExecute.Execute (args))
+			TomboyCommandLine cmd_line = new TomboyCommandLine (args);
+
+			if (cmd_line.NeedsExecute) {
+				// Execute args at an existing tomboy instance...
+				cmd_line.Execute ();
 				return;
+			}
 
 			program = new Gnome.Program ("Tomboy", 
 						     Defines.VERSION, 
 						     Gnome.Modules.UI, 
 						     args);
 
-			// This will block if there is no existing instance running
-			PanelApplet.AppletFactory.Register (typeof (TomboyApplet));
-
-			// Not needed if running panel applet
-			//RegisterSessionRestart (args);
+			if (cmd_line.UseTrayIcon) {
+				StartTrayIcon ();
+			} else {
+				RegisterPanelAppletFactory (); 
+			}
 
 			Console.WriteLine ("All done.  Ciao!");
+		}
+
+		static void StartTrayIcon ()
+		{
+			// Create the tray icon and run the main loop
+			TomboyTrayIcon tray_icon = new TomboyTrayIcon ();
+			tray_icon.Show ();
+			program.Run ();
+		}
+
+		static void RegisterPanelAppletFactory ()
+		{
+			// This will block if there is no existing instance running
+			PanelApplet.AppletFactory.Register (typeof (TomboyApplet));
 		}
 
 		public static void RegisterRemoteControl (NoteManager manager)
@@ -55,24 +73,6 @@ namespace Tomboy
 #endif
 		}
 
-		static void RegisterSessionRestart (string [] args)
-		{
-			// $TOMBOY_WRAPPER_PATH gets set by the wrapper script...
-			string wrapper = Environment.GetEnvironmentVariable ("TOMBOY_WRAPPER_PATH");
-			if (wrapper == null)
-				return;
-
-			// Get the args for session restart...
-			string [] restart_args = new string [args.Length + 1];
-			restart_args [0] = wrapper;
-			args.CopyTo (restart_args, 1);
-
-			// Restart if we are running when the session ends...
-			Gnome.Client client = Gnome.Global.MasterClient ();
-			client.RestartStyle = Gnome.RestartStyle.IfRunning;
-			client.SetRestartCommand (restart_args.Length, restart_args);
-		}
-
 		static void RegisterSignalHandlers ()
 		{
 			sig_handler = OnExitSignal;
@@ -88,7 +88,8 @@ namespace Tomboy
 			if (ExitingEvent != null)
 				ExitingEvent (null, new EventArgs ());
 
-			System.Environment.Exit (0);
+			if (signal >= 0)
+				System.Environment.Exit (0);
 		}
 
 		public static event EventHandler ExitingEvent;
@@ -100,18 +101,30 @@ namespace Tomboy
 		}
 	}
 
-	public class TomboyRemoteExecute
+	public class TomboyCommandLine
 	{
 		bool new_note;
+		bool tray_icon;
 		string new_note_name;
 		string open_note_uri;
 		string open_note_name;
 		string highlight_search;
 
-		public static bool Execute (string [] args)
+		public TomboyCommandLine (string [] args)
 		{
-			TomboyRemoteExecute obj = new TomboyRemoteExecute ();
-			return obj.Parse (args) || obj.Execute ();
+			Parse (args);
+		}
+
+		public bool UseTrayIcon
+		{
+			get { return tray_icon; }
+		}
+
+		public bool NeedsExecute
+		{
+			get { 
+				return new_note || open_note_name != null || open_note_uri != null;
+			}
 		}
 
 		public static void PrintAbout () 
@@ -126,8 +139,6 @@ namespace Tomboy
 
 		public static void PrintUsage () 
 		{
-			PrintAbout ();
-
 #if ENABLE_DBUS
 			string usage = 
 				Catalog.GetString (
@@ -137,26 +148,33 @@ namespace Tomboy
 					"  --open-note [title/url]\tDisplay the existing note matching title.\n" +
 					"  --start-here\t\t\tDisplay the 'Start Here' note.\n" +
 					"  --highlight-search [text]\tSearch and highlight text in the opened note.\n" +
+					"  --tray-icon\t\t\tRun Tomboy in the system tray.\n" +
 					"  --version\t\t\tPrint version information.\n" +
 					"  --help\t\t\tPrint this usage message.\n");
 			Console.WriteLine (usage);
 #else
-			string usage = "Tomboy remote control disabled.";
+			string usage = 
+				Catalog.GetString (
+					"Usage:\n" +
+					"  --tray-icon\t\t\tRun Tomboy in the system tray.\n" +
+					"  --version\t\t\tPrint version information.\n" +
+					"  --help\t\t\tPrint this usage message.\n" +
+					"\n" +
+					"D-BUS remote control disabled.");
 			Console.WriteLine (usage);
 #endif
                 }
 
 		public static void PrintVersion()
 		{
-			PrintAbout ();
-
-			Console.WriteLine (Catalog.GetString ("Version {0}"),
-					   Defines.VERSION);
+			Console.WriteLine (Catalog.GetString ("Version {0}"), Defines.VERSION);
 		}
 
-		public bool Parse (string [] args)
+		public void Parse (string [] args)
 		{
 			for (int idx = 0; idx < args.Length; idx++) {
+				bool quit = false;
+
 				switch (args [idx]) {
 #if ENABLE_DBUS
 				case "--new-note":
@@ -172,7 +190,7 @@ namespace Tomboy
 					// Get required name for note to open...
 					if (idx + 1 >= args.Length || args [idx + 1][0] == '-') {
 						PrintUsage ();
-						return true;
+						quit = true;
 					}
 
 					++idx;
@@ -194,50 +212,56 @@ namespace Tomboy
 					// Get required search string to highlight
 					if (idx + 1 >= args.Length || args [idx + 1][0] == '-') {
 						PrintUsage ();
-						return true;
+						quit = true;
 					}
 
 					++idx;
 					highlight_search = args [idx];
 					break;
+#else
+				case "--new-note":
+				case "--open-note":
+				case "--start-here":
+				case "--highlight-search":
+					string unknown_opt = 
+						Catalog.GetString ("Tomboy: unsupported option '{0}'\n" +
+								   "Try 'tomboy --help' for more information.\n" +
+								   "D-BUS remote control disabled.",
+								   args [idx]);
+					Console.WriteLine (unknown_opt);
+					quit = true;
+					break;
 #endif // ENABLE_DBUS
 
+				case "--tray-icon":
+					tray_icon = true;
+					break;
+
 				case "--version":
+					PrintAbout ();
 					PrintVersion();
-					return true;
+					quit = true;
+					break;
 
 				case "--help":
 				case "--usage":
+					PrintAbout ();
 					PrintUsage ();
-					return true;
+					quit = true;
+					break;
 
 				default:
-					if (args [idx].StartsWith ("--oaf")) {
-						// We are being started by the panel
-						return false;
-					} else {
-						string unknown_opt = 
-							Catalog.GetString (
-								"Tomboy: unrecognized option '{0}'\n" +
-								"Try 'tomboy --help' for more information.");
-						Console.WriteLine (unknown_opt);
-					}
-
-					return true;
+					break;
 				}
-			}
 
-			return false;
+				if (quit == true) 
+					System.Environment.Exit (1);
+			}
 		}
 
-		public bool Execute ()
+		public void Execute ()
 		{
-			bool quit = false;
-
 #if ENABLE_DBUS
-			if (!new_note && open_note_name == null && open_note_uri == null)
-				return false;
-
 			DBus.Connection connection = DBus.Bus.GetSessionBus ();
 			DBus.Service service = new DBus.Service (connection, 
 								 RemoteControlProxy.Namespace);
@@ -259,8 +283,6 @@ namespace Tomboy
 
 				if (new_uri != null)
 					remote.DisplayNote (new_uri);
-
-				quit = true;
 			}
 
 			if (open_note_name != null)
@@ -272,12 +294,8 @@ namespace Tomboy
 								      highlight_search);
 				else
 					remote.DisplayNote (open_note_uri);
-
-				quit = true;
 			}
 #endif // ENABLE_DBUS
-
-			return quit;
 		}
 	}
 }
