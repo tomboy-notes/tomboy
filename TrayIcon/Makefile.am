@@ -1,5 +1,5 @@
 
-###SUBDIRS =       libtrayicon
+SUBDIRS =       libtrayicon
 
 EXTRA_DIST = $(srcdir)/generated/*.cs $(srcdir)/libtrayicon-sources.xml $(srcdir)/Egg.metadata
 
@@ -25,7 +25,7 @@ ASSEMBLIES=	-r gtk-sharp.dll	\
 all: $(LIBRARY)
 
 $(LIBRARY):
-	mcs --unsafe --target library $(TOMBOY_LIBS) --recurse $(srcdir)/generated/*.cs -o $(LIBRARY) $(NOTEBOY_LIBS)
+	mcs --unsafe --target library --recurse $(srcdir)/generated/*.cs -o $(LIBRARY) $(TOMBOY_LIBS)
 
 generated-stamp: $(API)
 	gapi-fixup --api=$(API) --metadata=Egg.metadata && \
