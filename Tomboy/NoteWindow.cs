@@ -94,21 +94,22 @@ namespace Tomboy
 						    Gtk.AccelFlags.Visible);
 
 			// Open Find Dialog (Ctrl-F)
-			global_keys.AddAccelerator (new EventHandler (CloseWindowHandler),
+			global_keys.AddAccelerator (new EventHandler (FindActivate),
 						    (uint) Gdk.Key.f, 
 						    Gdk.ModifierType.ControlMask,
 						    Gtk.AccelFlags.Visible);
 
 			// Find Next (Ctrl-G)
-			global_keys.AddAccelerator (new EventHandler (CloseWindowHandler),
+			global_keys.AddAccelerator (new EventHandler (FindNextActivate),
 						    (uint) Gdk.Key.g, 
 						    Gdk.ModifierType.ControlMask,
 						    Gtk.AccelFlags.Visible);
 
 			// Find Previous (Ctrl-Shift-G)
-			global_keys.AddAccelerator (new EventHandler (CloseWindowHandler),
+			global_keys.AddAccelerator (new EventHandler (FindPreviousActivate),
 						    (uint) Gdk.Key.g, 
-						    Gdk.ModifierType.ControlMask,
+						    (Gdk.ModifierType.ControlMask |
+						     Gdk.ModifierType.ShiftMask),
 						    Gtk.AccelFlags.Visible);
 
 			this.Add (box);
@@ -402,7 +403,7 @@ namespace Tomboy
 			find_previous.Sensitive = false;
 
 			if (find_dialog != null)
-				find_previous.Sensitive = find_dialog.FindNextButton.Sensitive;
+				find_previous.Sensitive = find_dialog.FindPreviousButton.Sensitive;
 
 			find_previous.Activated += new EventHandler (FindPreviousActivate);
 			find_previous.AddAccelerator ("activate",

@@ -1,6 +1,6 @@
 AC_INIT(Tomboy/Tomboy.cs)
 AC_CANONICAL_SYSTEM
-AM_INIT_AUTOMAKE(tomboy, 0.1.1)
+AM_INIT_AUTOMAKE(tomboy, 0.1.2)
 AM_MAINTAINER_MODE
 AM_CONFIG_HEADER(config.h)
 
@@ -28,13 +28,9 @@ PKG_CHECK_MODULES(ATK, atk >= $ATK_MINIMUM_VERSION)
 AC_SUBST(ATK_CFLAGS)
 AC_SUBST(ATK_LIBS)
 
-# We need 2.0.6 which uses Pango squiggly underline, older 
-# versions make misspellings look like internal note links.
-GTKSPELL_MINIMUM_VERSION=2.0.6
-
-# Just check for GtkSpell here, as we call into it from C#.
+# Check for GtkSpell here, as we call into it from C#.
 # http://gtkspell.sourceforge.net/
-PKG_CHECK_MODULES(GTKSPELL, gtkspell-2.0 >= $GTKSPELL_MINIMUM_VERSION)
+PKG_CHECK_MODULES(GTKSPELL, gtkspell-2.0)
 
 PKG_CHECK_MODULES(TOMBOY, gtk-sharp gnome-sharp)
 AC_SUBST(TOMBOY_LIBS)

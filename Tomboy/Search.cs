@@ -227,28 +227,6 @@ namespace Tomboy
 			buffer.MoveMark (buffer.SelectionBound, start);
 		}
 
-		void JumpForwardBackword (ArrayList matches, bool forward)
-		{
-			foreach (Match match in matches) {
-				NoteBuffer buffer = match.Buffer;
-				Gtk.TextIter cursor = buffer.GetIterAtMark (buffer.InsertMark);
-				Gtk.TextIter start = buffer.GetIterAtMark (match.StartMark);
-				Gtk.TextIter end = buffer.GetIterAtMark (match.EndMark);
-
-				if ((forward && start.Offset >= cursor.Offset) ||
-				    (!forward && end.Offset < cursor.Offset)) {
-					JumpToMatch (match);
-					return;
-				}
-			}
-
-			// Wrap to first match
-			if (forward)
-				JumpToMatch ((Match) matches [0]);
-			else
-				JumpToMatch ((Match) matches [matches.Count - 1]);
-		}
-
 		ArrayList FindMatches (NoteBuffer buffer, string [] words, bool match_case)
 		{
 			ArrayList matches = new ArrayList ();
@@ -338,7 +316,21 @@ namespace Tomboy
 			if (current_matches == null || current_matches.Count == 0)
 				return;
 
-			JumpForwardBackword (current_matches, true /* go forward */);
+			for (int i = 0; i < current_matches.Count; i++) {
+				Match match = (Match) current_matches [i];
+
+				NoteBuffer buffer = match.Buffer;
+				Gtk.TextIter cursor = buffer.GetIterAtMark (buffer.InsertMark);
+				Gtk.TextIter start = buffer.GetIterAtMark (match.StartMark);
+
+				if (start.Offset >= cursor.Offset) {
+					JumpToMatch (match);
+					return;
+				}
+			}
+
+			// Else wrap to first match
+			JumpToMatch ((Match) current_matches [0]);
 		}
 
 		void OnFindPreviousClicked (object sender, EventArgs args)
@@ -346,7 +338,21 @@ namespace Tomboy
 			if (current_matches == null || current_matches.Count == 0)
 				return;
 
-			JumpForwardBackword (current_matches, false /* go backward */);
+			for (int i = current_matches.Count; i > 0; i--) {
+				Match match = (Match) current_matches [i - 1];
+
+				NoteBuffer buffer = match.Buffer;
+				Gtk.TextIter cursor = buffer.GetIterAtMark (buffer.InsertMark);
+				Gtk.TextIter end = buffer.GetIterAtMark (match.EndMark);
+
+				if (end.Offset < cursor.Offset) {
+					JumpToMatch (match);
+					return;
+				}
+			}
+
+			// Wrap to first match
+			JumpToMatch ((Match) current_matches [current_matches.Count - 1]);
 		}
 
 		void OnCloseClicked (object sender, EventArgs args)

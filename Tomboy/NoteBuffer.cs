@@ -25,8 +25,9 @@ namespace Tomboy
 
 			// Font stylings
 
+			// This is just an empty tag we can use to get default
+			// attributes.
 			tag = new Gtk.TextTag ("normal");
-			tag.Weight = Pango.Weight.Bold;
 			Add (tag);
 
 			tag = new Gtk.TextTag ("bold");
@@ -96,13 +97,6 @@ namespace Tomboy
 
 			tag = new Gtk.TextTag ("underline:double");
 			tag.Underline = Pango.Underline.Double;
-			Add (tag);
-
-			// The squiggly line used for spelling errors.
-			// NOTE: PANGO_UNDERLINE_ERROR is not yet mapped into
-			//       Gtk#, so we fudge the value.
-			tag = new Gtk.TextTag ("underline:error");
-			tag.Underline = (Pango.Underline) 4;
 			Add (tag);
 
 			// Links

@@ -110,6 +110,20 @@ namespace Tomboy
 			gtkspell_new_attach (note.Window.Editor.Handle, 
 					     null, 
 					     IntPtr.Zero);
+
+			// NOTE: Older versions of GtkSpell before 2.0.6 use red
+			// foreground color and a single underline.  This
+			// conflicts with internal note links.  So fix it up to
+			// use the "normal" foreground and the "error"
+			// underline.
+			Gtk.TextTag misspell = buffer.TagTable.Lookup ("gtkspell-misspelled");
+			if (misspell != null) {
+				Gtk.TextTag normal = buffer.TagTable.Lookup ("normal");
+				misspell.ForegroundGdk = normal.ForegroundGdk;
+				// Force the value to 4 since error underlining
+				// isn't mapped in Gtk# yet.
+				misspell.Underline = (Pango.Underline) 4;
+			}
 		}
 
 		void TagApplied (object sender, Gtk.TagAppliedArgs args)
