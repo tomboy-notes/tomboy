@@ -104,7 +104,9 @@ namespace Tomboy
 	{
 		bool new_note;
 		string new_note_name;
+		string open_note_uri;
 		string open_note_name;
+		string highlight_search;
 
 		public static bool Execute (string [] args)
 		{
@@ -161,7 +163,25 @@ namespace Tomboy
 						return true;
 					}
 
-					open_note_name = args [++idx];
+					++idx;
+					
+					// If the argument looks like a Uri, treat it like a Uri.
+					if (args [idx].StartsWith ("note://tomboy/"))
+						open_note_uri = args [idx];
+					else
+						open_note_name = args [idx];
+
+					break;
+
+				case "--highlight-search":
+					// Get required search string to highlight
+					if (idx + 1 >= args.Length || args [idx + 1][0] == '-') {
+						PrintUsage ();
+						return true;
+					}
+
+					++idx;
+					highlight_search = args [idx];
 					break;
 
 				case "--help":
@@ -177,7 +197,7 @@ namespace Tomboy
 
 		public bool Execute ()
 		{
-			if (!new_note && open_note_name == null)
+			if (!new_note && open_note_name == null && open_note_uri == null)
 				return false;
 
 			DBus.Connection connection = DBus.Bus.GetSessionBus ();
@@ -207,14 +227,18 @@ namespace Tomboy
 				quit = true;
 			}
 
-			if (open_note_name != null) {
-				string uri = remote.FindNote (open_note_name);
+			if (open_note_name != null)
+				open_note_uri = remote.FindNote (open_note_name);
 
-				if (uri != null)
-					remote.DisplayNote (uri);
+			if (open_note_uri != null) {
+				if (highlight_search != null)
+					remote.DisplayNoteWithSearch (open_note_uri, highlight_search);
+				else
+					remote.DisplayNote (open_note_uri);
 
 				quit = true;
 			}
+
 
 			return quit;
 		}
