@@ -42,7 +42,7 @@ all: $(TARGET)
 
 install-data-local: $(TARGET)
 	$(mkinstalldirs) $(DESTDIR)$(pkglibdir)
-	$(INSTALL_DATA) $(TARGET) $(DESTDIR)$(pkglibdir)/$(TARGET)
+	$(INSTALL_PROGRAM) $(TARGET) $(DESTDIR)$(pkglibdir)/$(TARGET)
 
 uninstall-local:
 	rm -f $(DESTDIR)$(pkglibdir)/$(TARGET)

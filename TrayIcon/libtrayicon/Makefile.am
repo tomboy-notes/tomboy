@@ -1,3 +1,4 @@
+
 TRAY_ICON_CFLAGS = $(GDK20_CFLAGS) $(ATK_CFLAGS)
 TRAY_ICON_LIBS = $(GDK20_LIBS) $(ATK_LIBS)
 
@@ -10,7 +11,8 @@ INCLUDES = \
   -DGDK_DISABLE_DEPRECATED \
   -DG_DISABLE_DEPRECATED
 
-lib_LTLIBRARIES = libtrayicon.la
+tomboylibdir = $(DESTDIR)$(pkglibdir)
+tomboylib_LTLIBRARIES = libtrayicon.la
 
 #libtrayicon_la_LIBADD = \
 #	$(TRAY_ICON_LIBS) \
@@ -21,10 +23,16 @@ libtrayicon_la_SOURCES = \
 #  eggstatusicon.c	\
 #  eggtraymanager.c
 
+libtrayicon_la_LDFLAGS = -export-dynamic -module -avoid-version
+
 #noinst_HEADERS = \
 #  eggtrayicon.h	 
 #  eggstatusicon.h\
 #  eggtraymanager.h
+
+install-data-hook:
+	rm $(tomboylibdir)/libtrayicon.a
+	rm $(tomboylibdir)/libtrayicon.la
 
 maintainer-clean-local:
 	rm -f Makefile.in
