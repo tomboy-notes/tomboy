@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tomboy 0.1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-10-24 11:31+0200\n"
-"PO-Revision-Date: 2004-10-24 17:13-0400\n"
+"POT-Creation-Date: 2004-10-31 20:45+0100\n"
+"PO-Revision-Date: 2004-10-31 17:13-0400\n"
 "Last-Translator: Adam Weinberger <adamw@gnome.org>\n"
 "Language-Team: Canadian English <adamw@FreeBSD.org>\n"
 "MIME-Version: 1.0\n"
@@ -17,46 +17,204 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: Tomboy/Applet.cs:99
-msgid "Tomboy"
-msgstr "Tomboy"
-
-#: Tomboy/Applet.cs:125 Tomboy/GNOME_TomboyApplet.xml.h:2
-msgid "_Preferences..."
-msgstr "_Preferences..."
-
-#: Tomboy/Applet.cs:130
-msgid "_About Tomboy"
-msgstr "_About Tomboy"
-
-#: Tomboy/Applet.cs:137
-msgid "_Quit"
-msgstr "_Quit"
-
-#: tomboy.desktop.in.h:1
-msgid "Quick and handy note-taker"
-msgstr "Quick and handy note-taker"
-
-#: tomboy.desktop.in.h:2 Tomboy/GNOME_TomboyApplet.server.in.in.h:4
-#: Tomboy/Tray.cs:35
-msgid "Tomboy Notes"
-msgstr "Tomboy Notes"
-
-#: Tomboy/GNOME_TomboyApplet.server.in.in.h:1
+#: data/GNOME_TomboyApplet.server.in.in.h:1
 msgid "Accessories"
 msgstr "Accessories"
 
-#: Tomboy/GNOME_TomboyApplet.server.in.in.h:2
+#: data/GNOME_TomboyApplet.server.in.in.h:2
 msgid "Simple and easy to use note-taking"
 msgstr "Simple and easy to use note-taker"
 
-#: Tomboy/GNOME_TomboyApplet.server.in.in.h:3
+#: data/GNOME_TomboyApplet.server.in.in.h:3
 msgid "Tomboy Applet Factory"
 msgstr "Tomboy Applet Factory"
 
-#: Tomboy/GNOME_TomboyApplet.xml.h:1
+#: data/GNOME_TomboyApplet.server.in.in.h:4 data/tomboy.desktop.in.h:2
+#: Tomboy/Applet.cs:92 Tomboy/Tray.cs:35
+msgid "Tomboy Notes"
+msgstr "Tomboy Notes"
+
+#: data/GNOME_TomboyApplet.xml.h:1
 msgid "_About Tomboy..."
 msgstr "_About Tomboy..."
+
+#: data/GNOME_TomboyApplet.xml.h:2 Tomboy/Applet.cs:128
+msgid "_Preferences..."
+msgstr "_Preferences..."
+
+#: data/tomboy.desktop.in.h:1
+msgid "Quick and handy note-taker"
+msgstr "Quick and handy note-taker"
+
+#: data/tomboy.schemas.in.h:1
+msgid "Create a new Note"
+msgstr "Create a new Note"
+
+#: data/tomboy.schemas.in.h:2
+msgid "Custom Font Face"
+msgstr "Custom Font Face"
+
+#: data/tomboy.schemas.in.h:3
+msgid "Enable WikiWord highlighting"
+msgstr "Enable WikiWord highlighting"
+
+#: data/tomboy.schemas.in.h:4
+msgid "Enable custom font"
+msgstr "Enable custom font"
+
+#: data/tomboy.schemas.in.h:5
+msgid "Enable global keybindings"
+msgstr "Enable global keybindings"
+
+#: data/tomboy.schemas.in.h:6
+msgid "Enable spellchecking"
+msgstr "Enable spellchecking"
+
+#: data/tomboy.schemas.in.h:7
+msgid ""
+"Enable this option to highlight words ThatLookLikeThis. Clicking the word "
+"will create a note with that name."
+msgstr ""
+"Enable this option to highlight words ThatLookLikeThis. Clicking the word "
+"will create a note with that name."
+
+#: data/tomboy.schemas.in.h:8
+msgid ""
+"If enable_custom_font is true, the font name set here will be used as the "
+"font when displaying notes."
+msgstr ""
+"If enable_custom_font is true, the font name set here will be used as the "
+"font when displaying notes."
+
+#: data/tomboy.schemas.in.h:9
+msgid ""
+"If true, misspellings will be underlined in red, and correct spelling "
+"suggestions shown in the right-click menu."
+msgstr ""
+"If true, misspellings will be underlined in red, and correct spelling "
+"suggestions will be shown in the right-click menu."
+
+#: data/tomboy.schemas.in.h:10
+msgid ""
+"If true, the desktop-global keybindings set in /apps/tomboy/"
+"global_keybindings will be enabled, allowing for useful Tomboy actions to be "
+"available from any application."
+msgstr ""
+"If true, the desktop-global keybindings set in /apps/tomboy/"
+"global_keybindings will be enabled, allowing useful Tomboy actions to be "
+"available from any application."
+
+#: data/tomboy.schemas.in.h:11
+msgid ""
+"If true, the font name set in custom_font_face will be used as the font when "
+"displaying notes. Otherwise the desktop default font will be used."
+msgstr ""
+"If true, the font name set in custom_font_face will be used as the font when "
+"displaying notes. Otherwise the desktop default font will be used."
+
+#: data/tomboy.schemas.in.h:12
+msgid "Open Recent Changes"
+msgstr "Open Recent Changes"
+
+#: data/tomboy.schemas.in.h:13
+msgid "Open Search Dialog"
+msgstr "Open Search Dialogue"
+
+#: data/tomboy.schemas.in.h:14
+msgid "Open Start Here"
+msgstr "Open Start Here"
+
+#: data/tomboy.schemas.in.h:15
+msgid "Show applet menu"
+msgstr "Show applet menu"
+
+#: data/tomboy.schemas.in.h:16
+msgid ""
+"The global keybinding for creating and displaying a new Note. The format "
+"looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The "
+"parser is fairly liberal and allows lower or upper case, and also "
+"abbreviations such as \"&lt;Ctl&gt;\" and \"&lt;Ctrl&gt;\". If you set the "
+"option to the special string \"disabled\", then there will be no keybinding "
+"for this action."
+msgstr ""
+"The global keybinding for creating and displaying a new Note. The format "
+"looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The "
+"parser is fairly liberal and allows lower or upper case, and also "
+"abbreviations such as \"&lt;Ctl&gt;\" and \"&lt;Ctrl&gt;\". If you set the "
+"option to the special string \"disabled\", then there will be no keybinding "
+"for this action."
+
+#: data/tomboy.schemas.in.h:17
+msgid ""
+"The global keybinding for opening the \"Start Here\" note. The format looks "
+"like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
+"fairly liberal and allows lower or upper case, and also abbreviations such "
+"as \"&lt;Ctl&gt;\" and \"&lt;Ctrl&gt;\". If you set the option to the "
+"special string \"disabled\", then there will be no keybinding for this "
+"action."
+msgstr ""
+"The global keybinding for opening the \"Start Here\" note. The format looks "
+"like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
+"fairly liberal and allows lower or upper case, and also abbreviations such "
+"as \"&lt;Ctl&gt;\" and \"&lt;Ctrl&gt;\". If you set the option to the "
+"special string \"disabled\", then there will be no keybinding for this "
+"action."
+
+#: data/tomboy.schemas.in.h:18
+msgid ""
+"The global keybinding for opening the Note Search dialog. The format looks "
+"like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
+"fairly liberal and allows lower or upper case, and also abbreviations such "
+"as \"&lt;Ctl&gt;\" and \"&lt;Ctrl&gt;\". If you set the option to the "
+"special string \"disabled\", then there will be no keybinding for this "
+"action."
+msgstr ""
+"The global keybinding for opening the Note Search dialogue. The format looks "
+"like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
+"fairly liberal and allows lower or upper case, and also abbreviations such "
+"as \"&lt;Ctl&gt;\" and \"&lt;Ctrl&gt;\". If you set the option to the "
+"special string \"disabled\", then there will be no keybinding for this "
+"action."
+
+#: data/tomboy.schemas.in.h:19
+msgid ""
+"The global keybinding for opening the Recent Changes dialog. The format "
+"looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The "
+"parser is fairly liberal and allows lower or upper case, and also "
+"abbreviations such as \"&lt;Ctl&gt;\" and \"&lt;Ctrl&gt;\". If you set the "
+"option to the special string \"disabled\", then there will be no keybinding "
+"for this action."
+msgstr ""
+"The global keybinding for opening the Recent Changes dialogue. The format "
+"looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The "
+"parser is fairly liberal and allows lower or upper case, and also "
+"abbreviations such as \"&lt;Ctl&gt;\" and \"&lt;Ctrl&gt;\". If you set the "
+"option to the special string \"disabled\", then there will be no keybinding "
+"for this action."
+
+#: data/tomboy.schemas.in.h:20
+msgid ""
+"The global keybinding for showing the Tomboy applet's menu. The format looks "
+"like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
+"fairly liberal and allows lower or upper case, and also abbreviations such "
+"as \"&lt;Ctl&gt;\" and \"&lt;Ctrl&gt;\". If you set the option to the "
+"special string \"disabled\", then there will be no keybinding for this "
+"action."
+msgstr ""
+"The global keybinding for showing the Tomboy applet's menu. The format looks "
+"like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
+"fairly liberal and allows lower or upper case, and also abbreviations such "
+"as \"&lt;Ctl&gt;\" and \"&lt;Ctrl&gt;\". If you set the option to the "
+"special string \"disabled\", then there will be no keybinding for this "
+"action."
+
+#: Tomboy/Applet.cs:133
+msgid "_About Tomboy"
+msgstr "_About Tomboy"
+
+#: Tomboy/Applet.cs:140
+msgid "_Quit"
+msgstr "_Quit"
 
 #. Open the Start Here note
 #: Tomboy/Note.cs:380 Tomboy/NoteManager.cs:67 Tomboy/NoteManager.cs:72
@@ -145,7 +303,7 @@ msgstr "_Text"
 msgid "_Search..."
 msgstr "_Search..."
 
-#: Tomboy/NoteWindow.cs:459 Tomboy/Search.cs:166
+#: Tomboy/NoteWindow.cs:459 Tomboy/Search.cs:168
 msgid "Find _Next"
 msgstr "Find _Next"
 
@@ -310,208 +468,46 @@ msgstr "MMMM d, h:mm tt"
 msgid "MMMM d yyyy, h:mm tt"
 msgstr "MMMM d yyyy, h:mm tt"
 
-#: tomboy.schemas.in.h:1
-msgid "Create a new Note"
-msgstr "Create a new Note"
-
-#: tomboy.schemas.in.h:2
-msgid "Custom Font Face"
-msgstr "Custom Font Face"
-
-#: tomboy.schemas.in.h:3
-msgid "Enable WikiWord highlighting"
-msgstr "Enable WikiWord highlighting"
-
-#: tomboy.schemas.in.h:4
-msgid "Enable custom font"
-msgstr "Enable custom font"
-
-#: tomboy.schemas.in.h:5
-msgid "Enable global keybindings"
-msgstr "Enable global keybindings"
-
-#: tomboy.schemas.in.h:6
-msgid "Enable spellchecking"
-msgstr "Enable spellchecking"
-
-#: tomboy.schemas.in.h:7
-msgid ""
-"Enable this option to highlight words ThatLookLikeThis. Clicking the word "
-"will create a note with that name."
-msgstr ""
-"Enable this option to highlight words ThatLookLikeThis. Clicking the word "
-"will create a note with that name."
-
-#: tomboy.schemas.in.h:8
-msgid ""
-"If enable_custom_font is true, the font name set here will be used as the "
-"font when displaying notes."
-msgstr ""
-"If enable_custom_font is true, the font name set here will be used as the "
-"font when displaying notes."
-
-#: tomboy.schemas.in.h:9
-msgid ""
-"If true, misspellings will be underlined in red, and correct spelling "
-"suggestions shown in the right-click menu."
-msgstr ""
-"If true, misspellings will be underlined in red, and correct spelling "
-"suggestions will be shown in the right-click menu."
-
-#: tomboy.schemas.in.h:10
-msgid ""
-"If true, the desktop-global keybindings set in /apps/tomboy/"
-"global_keybindings will be enabled, allowing for useful Tomboy actions to be "
-"available from any application."
-msgstr ""
-"If true, the desktop-global keybindings set in /apps/tomboy/"
-"global_keybindings will be enabled, allowing useful Tomboy actions to be "
-"available from any application."
-
-#: tomboy.schemas.in.h:11
-msgid ""
-"If true, the font name set in custom_font_face will be used as the font when "
-"displaying notes. Otherwise the desktop default font will be used."
-msgstr ""
-"If true, the font name set in custom_font_face will be used as the font when "
-"displaying notes. Otherwise the desktop default font will be used."
-
-#: tomboy.schemas.in.h:12
-msgid "Open Recent Changes"
-msgstr "Open Recent Changes"
-
-#: tomboy.schemas.in.h:13
-msgid "Open Search Dialog"
-msgstr "Open Search Dialogue"
-
-#: tomboy.schemas.in.h:14
-msgid "Open Start Here"
-msgstr "Open Start Here"
-
-#: tomboy.schemas.in.h:15
-msgid "Show applet menu"
-msgstr "Show applet menu"
-
-#: tomboy.schemas.in.h:16
-msgid ""
-"The global keybinding for creating and displaying a new Note. The format "
-"looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The "
-"parser is fairly liberal and allows lower or upper case, and also "
-"abbreviations such as \"&lt;Ctl&gt;\" and \"&lt;Ctrl&gt;\". If you set the "
-"option to the special string \"disabled\", then there will be no keybinding "
-"for this action."
-msgstr ""
-"The global keybinding for creating and displaying a new Note. The format "
-"looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The "
-"parser is fairly liberal and allows lower or upper case, and also "
-"abbreviations such as \"&lt;Ctl&gt;\" and \"&lt;Ctrl&gt;\". If you set the "
-"option to the special string \"disabled\", then there will be no keybinding "
-"for this action."
-
-#: tomboy.schemas.in.h:17
-msgid ""
-"The global keybinding for opening the \"Start Here\" note. The format looks "
-"like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
-"fairly liberal and allows lower or upper case, and also abbreviations such "
-"as \"&lt;Ctl&gt;\" and \"&lt;Ctrl&gt;\". If you set the option to the "
-"special string \"disabled\", then there will be no keybinding for this "
-"action."
-msgstr ""
-"The global keybinding for opening the \"Start Here\" note. The format looks "
-"like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
-"fairly liberal and allows lower or upper case, and also abbreviations such "
-"as \"&lt;Ctl&gt;\" and \"&lt;Ctrl&gt;\". If you set the option to the "
-"special string \"disabled\", then there will be no keybinding for this "
-"action."
-
-#: tomboy.schemas.in.h:18
-msgid ""
-"The global keybinding for opening the Note Search dialog. The format looks "
-"like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
-"fairly liberal and allows lower or upper case, and also abbreviations such "
-"as \"&lt;Ctl&gt;\" and \"&lt;Ctrl&gt;\". If you set the option to the "
-"special string \"disabled\", then there will be no keybinding for this "
-"action."
-msgstr ""
-"The global keybinding for opening the Note Search dialogue. The format looks "
-"like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
-"fairly liberal and allows lower or upper case, and also abbreviations such "
-"as \"&lt;Ctl&gt;\" and \"&lt;Ctrl&gt;\". If you set the option to the "
-"special string \"disabled\", then there will be no keybinding for this "
-"action."
-
-#: tomboy.schemas.in.h:19
-msgid ""
-"The global keybinding for opening the Recent Changes dialog. The format "
-"looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The "
-"parser is fairly liberal and allows lower or upper case, and also "
-"abbreviations such as \"&lt;Ctl&gt;\" and \"&lt;Ctrl&gt;\". If you set the "
-"option to the special string \"disabled\", then there will be no keybinding "
-"for this action."
-msgstr ""
-"The global keybinding for opening the Recent Changes dialogue. The format "
-"looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The "
-"parser is fairly liberal and allows lower or upper case, and also "
-"abbreviations such as \"&lt;Ctl&gt;\" and \"&lt;Ctrl&gt;\". If you set the "
-"option to the special string \"disabled\", then there will be no keybinding "
-"for this action."
-
-#: tomboy.schemas.in.h:20
-msgid ""
-"The global keybinding for showing the Tomboy applet's menu. The format looks "
-"like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
-"fairly liberal and allows lower or upper case, and also abbreviations such "
-"as \"&lt;Ctl&gt;\" and \"&lt;Ctrl&gt;\". If you set the option to the "
-"special string \"disabled\", then there will be no keybinding for this "
-"action."
-msgstr ""
-"The global keybinding for showing the Tomboy applet's menu. The format looks "
-"like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
-"fairly liberal and allows lower or upper case, and also abbreviations such "
-"as \"&lt;Ctl&gt;\" and \"&lt;Ctrl&gt;\". If you set the option to the "
-"special string \"disabled\", then there will be no keybinding for this "
-"action."
-
-#: Tomboy/Search.cs:79 Tomboy/Search.cs:469
+#: Tomboy/Search.cs:81 Tomboy/Search.cs:471
 msgid "Search All Notes"
 msgstr "Search All Notes"
 
-#: Tomboy/Search.cs:80 Tomboy/Search.cs:473
+#: Tomboy/Search.cs:82 Tomboy/Search.cs:475
 msgid "Search Note"
 msgstr "Search Note"
 
-#: Tomboy/Search.cs:92
+#: Tomboy/Search.cs:94
 msgid "Find:"
 msgstr "Find:"
 
-#: Tomboy/Search.cs:103
+#: Tomboy/Search.cs:105
 msgid "Search _All Notes"
 msgstr "Search _All Notes"
 
-#: Tomboy/Search.cs:109
+#: Tomboy/Search.cs:111
 msgid "_Case Sensitive"
 msgstr "_Case Sensitive"
 
-#: Tomboy/Search.cs:154
+#: Tomboy/Search.cs:156
 msgid "_Previous"
 msgstr "_Previous"
 
-#: Tomboy/Search.cs:238
+#: Tomboy/Search.cs:240
 msgid "Search Results"
 msgstr "Search Results"
 
-#: Tomboy/Search.cs:663
+#: Tomboy/Search.cs:678
 #, csharp-format
 msgid "({0} matches)"
 msgstr "({0} matches)"
 
-#: Tomboy/Search.cs:666
+#: Tomboy/Search.cs:681
 #, csharp-format
 msgid "({0} match)"
 msgstr "({0} match)"
 
 #. title
-#: Tomboy/Search.cs:682
+#: Tomboy/Search.cs:697
 msgid "No notes found"
 msgstr "No notes found"
 
@@ -528,27 +524,36 @@ msgstr ""
 #: Tomboy/Tomboy.cs:134
 msgid ""
 "Usage:\n"
-"  --new-note\t\t\tCreate and display a new note\n"
-"  --new-note [title]\t\tCreate and display a new note, with a title\n"
-"  --open-note [title/url]\tDisplay the existing note matching title\n"
-"  --start-here\t\t\tDisplay the Start Here note\n"
-"  --highlight-search [text]\tSearch and highlight text in the opened note\n"
-"  --version\t\tPrint version information\n"
+"  --new-note\t\t\tCreate and display a new note.\n"
+"  --new-note [title]\t\tCreate and display a new note, with a title.\n"
+"  --open-note [title/url]\tDisplay the existing note matching title.\n"
+"  --start-here\t\t\tDisplay the 'Start Here' note.\n"
+"  --highlight-search [text]\tSearch and highlight text in the opened note.\n"
+"  --version\t\t\tPrint version information.\n"
 "  --help\t\t\tPrint this usage message.\n"
 msgstr ""
 "Usage:\n"
-"  --new-note\t\t\tCreate and display a new note\n"
-"  --new-note [title]\t\tCreate and display a new note, with a title\n"
-"  --open-note [title/url]\tDisplay the existing note matching title\n"
-"  --start-here\t\t\tDisplay the Start Here note\n"
-"  --highlight-search [text]\tSearch and highlight text in the opened note\n"
-"  --version\t\tPrint version information\n"
+"  --new-note\t\t\tCreate and display a new note.\n"
+"  --new-note [title]\t\tCreate and display a new note, with a title.\n"
+"  --open-note [title/url]\tDisplay the existing note matching title.\n"
+"  --start-here\t\t\tDisplay the 'Start Here' note.\n"
+"  --highlight-search [text]\tSearch and highlight text in the opened note.\n"
+"  --version\t\t\tPrint version information.\n"
 "  --help\t\t\tPrint this usage message.\n"
 
 #: Tomboy/Tomboy.cs:153
 #, csharp-format
 msgid "Version {0}"
 msgstr "Version {0}"
+
+#: Tomboy/Tomboy.cs:221
+#, csharp-format
+msgid ""
+"Tomboy: unrecognized option '{0}'\n"
+"Try 'tomboy --help' for more information."
+msgstr ""
+"Tomboy: unrecognized option '{0}'\n"
+"Try 'tomboy --help' for more information."
 
 #: Tomboy/Tray.cs:72
 msgid "Create _New Note"
