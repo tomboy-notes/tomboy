@@ -11,8 +11,13 @@ SUBDIRS = images
 desktop_in_files = tomboy.desktop.in
 desktop_files    = $(desktop_in_files:.desktop.in=.desktop)
 
-#applicationsdir   = $(datadir)/applications
-#applications_DATA = $(desktop_files)
+#desktopdir   = $(datadir)/applications
+#desktop_DATA = $(desktop_files)
+
+
+pkgconfigdir = $(libdir)/pkgconfig
+pkgconfig_in_files = tomboy-plugins.pc.in
+pkgconfig_DATA = $(pkgconfig_in_files:.pc.in=.pc)
 
 
 schemasdir	 = $(GCONF_SCHEMA_FILE_DIR)
@@ -66,9 +71,8 @@ noinst_DATA = 			\
 
 EXTRA_DIST = 					\
 	$(desktop_in_files)     		\
-	$(desktop_files)        		\
+	$(pkgconfig_in_files)			\
 	$(schemas_in_files)     		\
-	$(schemas_DATA)				\
 	$(man_MANS)				\
 	$(noinst_DATA)				\
 	GNOME_TomboyApplet.server.in.in		\
@@ -76,7 +80,8 @@ EXTRA_DIST = 					\
 	$(dbusservice_in_files)
 
 DISTCLEANFILES = 				\
-	$(desktop_files)        		\
+	$(desktop_DATA)        			\
+	$(pkgconfig_DATA)			\
 	$(schemas_DATA)				\
 	$(server_in_files) 			\
 	$(server_DATA)				\
