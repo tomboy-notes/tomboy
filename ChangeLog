@@ -1,3 +1,16 @@
+2004-12-14  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Plugins/ExportToHTML.cs: Remove the toolbar item we add
+	on Dispose ().
+	* Tomboy/Plugins/PrintNotes.cs: Ditto.
+
+	* Tomboy/Watchers.cs: Add Dispose() to all plugins.  Support file
+	urls matching ~/foo.
+
+	* Tomboy/PluginManager.cs: Make NotePlugin implement IDisposable,
+	so that unloading can happen explicitly on plugin delete.  Call
+	dispose when a Deleted FileSystemWatcher event for a plugin occurs.
+
 2004-12-13  Alex Graveley  <alex@beatniksoftware.com>
 
 	* Tomboy/Watchers.cs: Match filename URLs starting with '~/'.
