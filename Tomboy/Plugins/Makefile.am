@@ -51,4 +51,6 @@ EXTRA_DIST =            	\
 
 CLEANFILES =			\
 	$(EXPORT_TARGET) 	\
-	$(PRINT_TARGET) 
+	$(EXPORT_TARGET).mdb	\
+	$(PRINT_TARGET)		\
+	$(PRINT_TARGET).mdb

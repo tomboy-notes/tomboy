@@ -80,7 +80,7 @@ EXTRA_DIST = 					\
 	$(dbusservice_in_files)
 
 DISTCLEANFILES = 				\
-	$(desktop_DATA)        			\
+	$(desktop_files)       			\
 	$(pkgconfig_DATA)			\
 	$(schemas_DATA)				\
 	$(server_in_files) 			\
