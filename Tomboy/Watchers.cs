@@ -1,6 +1,7 @@
 
 using System;
 using System.Collections;
+using System.IO;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using Mono.Posix;
@@ -403,7 +404,7 @@ namespace Tomboy
 		Gtk.TextTag url_tag;
 
 		const string URL_REGEX = 
-			@"((\b((news|http|https|ftp|file|irc)://|mailto:|(www|ftp)\.|\S*@\S*\.)|(^|\s)/\S+/)\S*\b/?)";
+			@"((\b((news|http|https|ftp|file|irc)://|mailto:|(www|ftp)\.|\S*@\S*\.)|(^|\s)~?/\S+/)\S*\b/?)";
 
 		static Regex regex;
 
@@ -468,6 +469,10 @@ namespace Tomboy
 			else if (url.StartsWith ("/") && 
 				 url.LastIndexOf ("/") > 1)
 				url = "file://" + url;
+			else if (url.StartsWith ("~/"))
+				url = "file://" + 
+					Path.Combine (Environment.GetEnvironmentVariable ("HOME"),
+						      url.Substring (2));
 			else if (url.IndexOf ("@") > 1 &&
 				 url.IndexOf (".") > 3 &&
 				 !url.StartsWith ("mailto:"))
