@@ -22,12 +22,5 @@ libtomboy_la_SOURCES =		\
 libtomboy_la_LDFLAGS = -export-dynamic -module -avoid-version
 libtomboy_la_LIBADD = $(LIBTOMBOY_LIBS)
 
-install-data-hook:
-	rm $(DESTDIR)/$(tomboylibdir)/libtomboy.a
-	rm $(DESTDIR)/$(tomboylibdir)/libtomboy.la
-
-uninstall-local:
-	rm $(DESTDIR)/$(tomboylibdir)/libtomboy.so
-
 maintainer-clean-local:
 	rm -f Makefile.in
