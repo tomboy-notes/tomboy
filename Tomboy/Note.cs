@@ -345,19 +345,23 @@ namespace Tomboy
 			}
 		}
 
-		public bool IsSpecial {
+		public bool IsSpecial 
+		{
 			get { return title == Catalog.GetString ("Start Here"); }
 		}
 
-		public bool IsNew {
+		public bool IsNew 
+		{
 			get { return is_new; }
 		}
 
-		public bool IsLoaded {
+		public bool IsLoaded 
+		{
 			get { return buffer != null; }
 		}
 
-		public bool IsOpened {
+		public bool IsOpened 
+		{
 			get { return window != null && window.IsMapped; }
 		}
 

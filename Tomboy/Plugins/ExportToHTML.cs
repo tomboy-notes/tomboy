@@ -5,12 +5,12 @@ using Mono.Posix;
 
 public class ExportToHTMLPlugin : NotePlugin
 {
-	public override void Initialize ()
+	protected override void Initialize ()
 	{
-		Note.Opened += OnNoteOpened;
+		// Do nothing.
 	}
 
-	void OnNoteOpened (object sender, EventArgs args) {
+	protected override void OnNoteOpened () {
 		Window.Toolbar.AppendItem (Catalog.GetString ("Export"), 
 					   Catalog.GetString ("Export this note to HTML"), 
 					   null, 
