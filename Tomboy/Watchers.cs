@@ -114,27 +114,48 @@ namespace Tomboy
 			}
 		}
 
+		string GetUniqueUntitled ()
+		{
+			int new_num = Manager.Notes.Count;
+			string temp_title;
+
+			while (true) {
+				temp_title = String.Format (Catalog.GetString ("(Untitled {0})"), 
+							    ++new_num);
+				if (Manager.Find (temp_title) == null)
+					return temp_title;
+			}
+		}
+
 		void UpdateTitle ()
 		{
 			// Replace the existing save timeout...
 			if (rename_timeout_id != 0)
 				GLib.Source.Remove (rename_timeout_id);
 
-			// Wait .5 seconds before renaming...
+			// Wait .5 seconds before renaming, to cluster buffer
+			// changes somewhat...
 			rename_timeout_id = 
 				GLib.Timeout.Add (500, 
 						  new GLib.TimeoutHandler (UpdateTitleTimeout));
 
+			// Make sure the title line is big and red...
 			Buffer.ApplyTag ("note-title", TitleStart, TitleEnd);
+
+			// NOTE: Use "(Untitled #)" for empty first lines...
+			string title = TitleStart.GetText (TitleEnd).Trim ();
+			if (title == string.Empty)
+				title = GetUniqueUntitled ();
 
 			// Only set window title here, to give feedback that we
 			// are indeed changing the title.
-			Window.Title = TitleStart.GetText (TitleEnd).Trim ();
+			Window.Title = title;
 		}
 
 		bool UpdateTitleTimeout ()
 		{
-			string title = TitleStart.GetText (TitleEnd).Trim ();
+			string title = Window.Title;
+
 			Note existing = Manager.Find (title);
 
 			if (existing != null && existing != this.Note) {
@@ -462,9 +483,6 @@ namespace Tomboy
 			return Note.Text.ToLower ().IndexOf (encoded_text) > -1;
 		}
 
-		// This can be called whether Note is showing or not.  If
-		// showing, manually apply the link tags to Buffer.  Otherwise
-		// just replace the xml Note.Text and queue a save.
 		void OnNoteAdded (object sender, Note added)
 		{
 			UpdateTitleCache ();
@@ -477,9 +495,6 @@ namespace Tomboy
 			}
 		}
 
-		// This can be called whether Note is showing or not.  If
-		// showing, manually apply the link tags to Buffer.  Otherwise
-		// just replace the xml Note.Text and queue a save.
 		void OnNoteDeleted (object sender, Note deleted)
 		{
 			UpdateTitleCache ();
@@ -499,9 +514,6 @@ namespace Tomboy
 			}
 		}
 
-		// This can be called whether Note is showing or not.  If
-		// showing, manually change the Buffer content.  Otherwise
-		// just replace the xml Note.Text and queue a save.
 		void OnNoteRenamed (Note renamed, string old_title)
 		{
 			UpdateTitleCache ();
@@ -534,7 +546,9 @@ namespace Tomboy
 						iter = Buffer.GetIterAtOffset (iter_offset);
 						end = Buffer.GetIterAtOffset (end_offset);
 
-						Buffer.Insert (iter, renamed.Title);
+						Buffer.InsertWithTags (iter, 
+								       renamed.Title, 
+								       link_tag);
 
 						iter = Buffer.GetIterAtOffset (iter_offset);
 						end = Buffer.GetIterAtOffset (end_offset);
