@@ -277,12 +277,12 @@ namespace Tomboy
 			}
 		}
 
-		[DllImport("libtrayicon")]
+		[DllImport("libtomboy")]
 		static extern bool egg_accelerator_parse_virtual (string keystring,
 								  out uint keysym,
 								  out uint virtual_mods);
 
-		[DllImport("libtrayicon")]
+		[DllImport("libtomboy")]
 		static extern void egg_keymap_resolve_virtual_modifiers (IntPtr keymap,
 									 uint virtual_mods,
 									 out Gdk.ModifierType real_mods);
