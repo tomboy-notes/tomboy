@@ -30,6 +30,7 @@ libtrayicon_la_LDFLAGS = -export-dynamic -module -avoid-version
 #  eggstatusicon.h\
 #  eggtraymanager.h
 
+### FIXME: This breaks distcheck.
 install-data-hook:
 	rm $(tomboylibdir)/libtrayicon.a
 	rm $(tomboylibdir)/libtrayicon.la
