@@ -35,9 +35,11 @@ void
 tomboy_window_move_to_current_workspace (GtkWindow *window)
 {
 	GdkWindow *gdkwin = GTK_WIDGET (window)->window;
-	GdkWindow *rootwin = gdk_screen_get_root_window (gdk_drawable_get_screen (gdkwin));
+	GdkWindow *rootwin = 
+		gdk_screen_get_root_window (gdk_drawable_get_screen (gdkwin));
 
-	GdkAtom current_desktop = gdk_atom_intern ("_NET_CURRENT_DESKTOP", FALSE);
+	GdkAtom current_desktop = 
+		gdk_atom_intern ("_NET_CURRENT_DESKTOP", FALSE);
 	GdkAtom wm_desktop = gdk_atom_intern ("_NET_WM_DESKTOP", FALSE);
 	GdkAtom out_type;
 	gint out_format, out_length;
@@ -67,8 +69,9 @@ tomboy_window_move_to_current_workspace (GtkWindow *window)
 	xev.xclient.display = GDK_WINDOW_XDISPLAY (gdkwin);
 	xev.xclient.window = GDK_WINDOW_XWINDOW (gdkwin);
 	xev.xclient.message_type = 
-		gdk_x11_atom_to_xatom_for_display(gdk_drawable_get_display (gdkwin),
-						  wm_desktop);
+		gdk_x11_atom_to_xatom_for_display(
+			gdk_drawable_get_display (gdkwin),
+			wm_desktop);
 	xev.xclient.format = 32;
 	xev.xclient.data.l[0] = workspace;
 	xev.xclient.data.l[1] = 0;
@@ -81,17 +84,12 @@ tomboy_window_move_to_current_workspace (GtkWindow *window)
 		    &xev);
 }
 
-void
-tomboy_window_present_hardcore (GtkWindow *window)
+static void
+tomboy_window_override_user_time (GtkWindow *window)
 {
-	guint32 ev_time;
+#ifdef HAVE_GDK_X11_WINDOW_SET_USER_TIME
+	guint32 ev_time = gtk_get_current_event_time();
 
-	if (!GTK_WIDGET_REALIZED (window))
-		gtk_widget_realize (GTK_WIDGET (window));
-	else if (GTK_WIDGET_VISIBLE (window))
-		tomboy_window_move_to_current_workspace (window);
-
-	ev_time = gtk_get_current_event_time();
 	if (ev_time == 0) {
 		/* 
 		 * FIXME: Global keypresses use an event filter on the root
@@ -99,11 +97,34 @@ tomboy_window_present_hardcore (GtkWindow *window)
 		 */
 		ev_time = tomboy_keybinder_get_current_event_time ();
 	}
+	if (ev_time == 0) {
+		gint ev_mask = gtk_widget_get_events (GTK_WIDGET(window));
+		if (!(ev_mask & GDK_PROPERTY_CHANGE_MASK)) {
+			gtk_widget_add_events (GTK_WIDGET (window),
+					       GDK_PROPERTY_CHANGE_MASK);
+		}
 
-#ifdef HAVE_GDK_X11_WINDOW_SET_USER_TIME
+		/* 
+		 * NOTE: Last resort for D-BUS or other non-interactive
+		 *       openings.  Causes roundtrip to server.  Lame. 
+		 */
+		ev_time = gdk_x11_get_server_time (GTK_WIDGET(window)->window);
+	}
+
 	TRACE (g_print("Setting _NET_WM_USER_TIME to: %d\n", ev_time));
 	gdk_x11_window_set_user_time (GTK_WIDGET(window)->window, ev_time);
 #endif
+}
+
+void
+tomboy_window_present_hardcore (GtkWindow *window)
+{
+	if (!GTK_WIDGET_REALIZED (window))
+		gtk_widget_realize (GTK_WIDGET (window));
+	else if (GTK_WIDGET_VISIBLE (window))
+		tomboy_window_move_to_current_workspace (window);
+
+	tomboy_window_override_user_time (window);
 
 	gtk_window_present (window);
 }
