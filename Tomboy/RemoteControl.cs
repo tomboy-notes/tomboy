@@ -1,6 +1,7 @@
 
 using DBus;
 using System;
+using System.Collections;
 
 namespace Tomboy
 {
@@ -24,6 +25,24 @@ namespace Tomboy
 			note.Window.Present ();
 			return true;
 		}
+
+
+		public override bool DisplayNoteWithSearch (string uri, string search)
+		{
+			Note note;
+
+			note = note_manager.FindByUri (uri);
+			if (note == null)
+				return false;
+
+			ArrayList matches = NoteFindDialog.FindMatches (note.Buffer, new string [] {search}, false);
+
+			NoteFindDialog.HighlightMatches (matches, true);
+			
+			note.Window.Present ();
+			return true;
+		}
+
 
 		public override string FindNote (string linked_title)
 		{

@@ -1,4 +1,3 @@
-
 using System;
 using System.Collections;
 using System.Text;
@@ -285,7 +284,7 @@ namespace Tomboy
 			}
 		}
 
-		ArrayList FindMatches (NoteBuffer buffer, string [] words, bool match_case)
+		static public ArrayList FindMatches (NoteBuffer buffer, string [] words, bool match_case)
 		{
 			ArrayList matches = new ArrayList ();
 
@@ -336,7 +335,7 @@ namespace Tomboy
 				return matches;
 		}
 
-		void HighlightMatches (ArrayList matches, bool highlight)
+		static public void HighlightMatches (ArrayList matches, bool highlight)
 		{
 			if (matches == null)
 				return;
