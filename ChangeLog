@@ -1,3 +1,11 @@
+2004-10-04  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Tomboy.cs: Switch from a System.Diagnostics.Conditional
+	attribute on RegisterRemoteControl to a #if ENABLE_DBUS.
+	With ConditionalAttribute the compiler still parses the method
+	body, which can't find the DBus types if they aren't installed.
+	Fixes 154496, reported by Adam Lopresto (adam@pubcrawler.org).
+
 2004-10-03  Alex Graveley  <alex@beatniksoftware.com>
 
 	* Tomboy/NoteManager.cs: Properly Url encode filenames on creation
