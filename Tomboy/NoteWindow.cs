@@ -94,6 +94,7 @@ namespace Tomboy
 
 		Gtk.AccelGroup accel_group;
 		Gtk.Toolbar toolbar;
+		Gtk.Widget link_button;
 		Gtk.Button text_button;
 		NoteTextMenu text_menu;
 		Gtk.TextView editor;
@@ -136,6 +137,9 @@ namespace Tomboy
 			editor = new NoteEditor (note.Buffer);
 			editor.PopulatePopup += OnPopulatePopup;
 			editor.Show ();
+
+			// Sensitize the Link toolbar button on text selection
+			note.Buffer.MarkSet += OnSelectionMarkSet;
 
 			// FIXME: I think it would be really nice to let the
 			//        window get bigger up till it grows more than
@@ -274,6 +278,17 @@ namespace Tomboy
 			get { return toolbar; }
 		}
 
+		// 
+		// Sensitize the Link toolbar button on text selection
+		//
+
+		void OnSelectionMarkSet (object sender, Gtk.MarkSetArgs args)
+		{
+			if (args.Mark == note.Buffer.InsertMark || 
+			    args.Mark == note.Buffer.SelectionBound)
+				link_button.Sensitive = (note.Buffer.Selection != null);
+		}
+
 		//
 		// Right-click menu
 		//
@@ -365,38 +380,36 @@ namespace Tomboy
 		Gtk.Toolbar MakeToolbar ()
 		{
 			Gtk.Toolbar toolbar = new Gtk.Toolbar ();
-			toolbar.IconSize = Gtk.IconSize.LargeToolbar;
-			toolbar.ToolbarStyle = Gtk.ToolbarStyle.BothHoriz;
 			toolbar.Tooltips = true;
 
-			Gtk.Widget link = 
-				toolbar.AppendItem (Catalog.GetString ("Link"), 
-						    Catalog.GetString ("Link selected text to a " +
-								       "new note"), 
-						    null, 
-						    new Gtk.Image (Gtk.Stock.JumpTo, 
-								   Gtk.IconSize.LargeToolbar),
-						    new Gtk.SignalFunc (LinkButtonClicked));
-			link.AddAccelerator ("activate",
-					     accel_group,
-					     (uint) Gdk.Key.l, 
-					     Gdk.ModifierType.ControlMask,
-					     Gtk.AccelFlags.Visible);
-
 			Gtk.Widget find = 
-				toolbar.AppendItem (Catalog.GetString ("Search"), 
-						    Catalog.GetString ("Search your notes"),
-						    null, 
-						    new Gtk.Image (Gtk.Stock.Find, 
-								   Gtk.IconSize.LargeToolbar),
-						    new Gtk.SignalFunc (FindButtonClicked));
+				toolbar.AppendItem (
+					Catalog.GetString ("Search"), 
+					Catalog.GetString ("Search your notes"),
+					null, 
+					new Gtk.Image (Gtk.Stock.Find, toolbar.IconSize),
+					new Gtk.SignalFunc (FindButtonClicked));
 			find.AddAccelerator ("activate",
 					     accel_group,
 					     (uint) Gdk.Key.f, 
 					     Gdk.ModifierType.ControlMask,
 					     Gtk.AccelFlags.Visible);
 
-			text_button = new TextToolButton ();
+			link_button = 
+				toolbar.AppendItem (
+					Catalog.GetString ("Link"), 
+					Catalog.GetString ("Link selected text to a new note"), 
+					null, 
+					new Gtk.Image (Gtk.Stock.JumpTo, toolbar.IconSize),
+					new Gtk.SignalFunc (LinkButtonClicked));
+			link_button.Sensitive = (note.Buffer.Selection != null);
+			link_button.AddAccelerator ("activate",
+						    accel_group,
+						    (uint) Gdk.Key.l, 
+						    Gdk.ModifierType.ControlMask,
+						    Gtk.AccelFlags.Visible);
+
+			text_button = new TextToolButton (toolbar);
 			text_button.ButtonPressEvent += TextButtonPress;
 			text_button.Clicked += TextButtonClicked;
 			text_button.Show ();
@@ -413,14 +426,14 @@ namespace Tomboy
 			toolbar.AppendSpace ();
 
 			Gtk.Widget delete = 
-				toolbar.AppendItem (Catalog.GetString ("Delete"), 
-						    Catalog.GetString ("Delete this note"), 
-						    null, 
-						    new Gtk.Image (Gtk.Stock.Delete, 
-								   Gtk.IconSize.LargeToolbar),
-						    new Gtk.SignalFunc (DeleteButtonClicked));
+				toolbar.AppendItem (
+					Catalog.GetString ("Delete"), 
+					Catalog.GetString ("Delete this note"), 
+					null, 
+					new Gtk.Image (Gtk.Stock.Delete, toolbar.IconSize),
+					new Gtk.SignalFunc (DeleteButtonClicked));
 
-			// Don't allow deleting the "Start" or "Recent Changes" notes...
+			// Don't allow deleting the "Start Here" note...
 			if (note.IsSpecial)
 				delete.Sensitive = false;
 
@@ -429,33 +442,73 @@ namespace Tomboy
 
 		class TextToolButton : Gtk.Button
 		{
-			public TextToolButton ()
+			Gtk.Image image;
+			Gtk.Label label_horiz;
+			Gtk.Label label_vert;
+			Gtk.Arrow arrow;
+			Gtk.VBox box_vert;
+
+			public TextToolButton (Gtk.Toolbar toolbar)
 			{
 				this.CanFocus = false;
 				this.Relief = Gtk.ReliefStyle.None;
 
-				Gtk.Image image = new Gtk.Image (Gtk.Stock.SelectFont, 
-								 Gtk.IconSize.LargeToolbar);
-				Gtk.Label label = new Gtk.Label (Catalog.GetString ("_Text"));
-				Gtk.Arrow arrow = new Gtk.Arrow (Gtk.ArrowType.Down, 
-								 Gtk.ShadowType.In);
+				image = new Gtk.Image (Gtk.Stock.SelectFont, toolbar.IconSize);
+				label_horiz = new Gtk.Label (Catalog.GetString ("_Text"));
+				label_vert = new Gtk.Label (Catalog.GetString ("_Text"));
+				arrow = new Gtk.Arrow (Gtk.ArrowType.Down, Gtk.ShadowType.In);
 
-				Gtk.HBox box = new Gtk.HBox (false, 4);
-				box.Add (image);
-				box.Add (label);
-				box.Add (arrow);
+				box_vert = new Gtk.VBox (false, 0);
+				box_vert.PackStart (image, true, true, 0);
+				box_vert.PackStart (label_vert, false, true, 0);
 
-				Gtk.Alignment align = new Gtk.Alignment (0.5f, 0.5f, 0.0f, 0.0f);
-				align.Add (box);
-				align.ShowAll ();
+				Gtk.HBox box_horiz = new Gtk.HBox (false, 0);
+				box_horiz.PackStart (box_vert, true, true, 0);
+				box_horiz.PackStart (label_horiz, true, true, 2);
+				box_horiz.PackStart (arrow, false, true, 0);
 
-				this.Add (align);
+				this.Add (box_horiz);
+				this.ShowAll ();
+				ShowForToolbarStyle (toolbar.ToolbarStyle);
+
+				toolbar.StyleChanged += OnToolbarStyleChanged;
 			}
 
 			protected override bool OnButtonPressEvent (Gdk.EventButton ev)
 			{
 				base.OnButtonPressEvent (ev);
 				return false;
+			}
+
+			void ShowForToolbarStyle (Gtk.ToolbarStyle style)
+			{
+				switch (style) {
+				case Gtk.ToolbarStyle.Icons:
+					label_horiz.Hide ();
+					label_vert.Hide ();
+					image.Show ();
+					break;
+				case Gtk.ToolbarStyle.Text:
+					label_vert.Hide ();
+					image.Hide ();
+					label_horiz.Show ();
+					break;
+				case Gtk.ToolbarStyle.Both:
+					label_horiz.Hide ();
+					image.Show ();
+					label_vert.Show ();
+					break;
+				case Gtk.ToolbarStyle.BothHoriz:
+					label_vert.Hide ();
+					image.Show ();
+					label_horiz.Show ();
+					break;
+				}				
+			}
+
+			void OnToolbarStyleChanged (object sender, Gtk.StyleChangedArgs args)
+			{
+				ShowForToolbarStyle (args.Style);
 			}
 		}
 
