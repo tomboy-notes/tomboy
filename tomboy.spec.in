@@ -20,6 +20,7 @@ Requires:       gtk2-devel >= 2.2.3
 Requires:       atk-devel >= 1.2.4
 Requires:       gtkspell
 Requires:       gtk-sharp
+Requires:       libpanel-applet-2.so.0
 %{?_with_dbus:Requires:  dbus-sharp}
 
 %description
@@ -78,10 +79,12 @@ gconftool-2 --makefile-uninstall-rule \
 %{_bindir}/%{name}
 %dir %{_libdir}/%{name}
 %{_libdir}/%{name}/*
+%dir %{_libdir}/%{name}/Plugins
+%{_libdir}/%{name}/Plugins/*
 %{_libdir}/bonobo/servers/GNOME_TomboyApplet.server
 %{?_with_dbus:%{_libdir}/dbus-1.0/services/com.beatniksoftware.Tomboy.service}
 %{_mandir}/man1/%{name}.1.gz
-%{_datadir}/applications/tomboy.desktop
+###%{_datadir}/applications/tomboy.desktop
 %{_datadir}/gnome-2.0/ui/GNOME_TomboyApplet.xml
 %{_datadir}/pixmaps/tintin.png
 %{_sysconfdir}/gconf/schemas/tomboy.schemas
