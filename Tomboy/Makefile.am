@@ -87,7 +87,7 @@ $(TARGET).config: $(srcdir)/$(TARGET).config.in
 	sed -e "s|\@pkglibdir\@|$(pkglibdir)|" \
 	    < $^ > $@
 
-Defines.cs: $(srcdir)/Defines.cs.in
+$(srcdir)/Defines.cs: $(srcdir)/Defines.cs.in
 	sed -e "s|\@version\@|$(VERSION)|"     \
 	    -e "s|\@datadir\@|$(datadir)|"     \
 	    -e "s|\@pkglibdir\@|$(pkglibdir)|" \
