@@ -1,3 +1,13 @@
+2004-11-15  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Applet.cs: Pass Defines.DATADIR so the panel can find
+	GNOME_TomboyApplet.xml even if we're installed into an odd path.
+
+	* libtomboy/Makefile.am (libtomboy_la_LIBADD): Remove
+	install/uninstall hooks for libtomboy.
+
+	* configure.in: Use AM_DISABLE_STATIC to avoid creating libtomboy.a.
+
 2004-11-02  Alex Graveley  <alex@beatniksoftware.com>
 
 	* data/Makefile.am: Don't --shutdown the gconf daemon, as

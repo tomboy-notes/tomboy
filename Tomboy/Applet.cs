@@ -56,9 +56,9 @@ namespace Tomboy
 			//SetupMenuFromResource (null, "GNOME_TomboyApplet.xml", menu_verbs);
 
 			// Have to resort to this for now
-			SetupMenuFromFile (null,
+			SetupMenuFromFile (Defines.DATADIR,
 					   "GNOME_TomboyApplet.xml",
-					   null,
+					   "Tomboy",
 					   menu_verbs);
 		}
 
