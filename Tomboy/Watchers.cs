@@ -7,39 +7,6 @@ using Mono.Posix;
 
 namespace Tomboy
 {
-	public abstract class NotePlugin
-	{
-		Note note;
-
-		public void Initialize (Note note)
-		{
-			this.note = note;
-			Initialize ();
-		}
-
-		public abstract void Initialize ();
-
-		public Note Note
-		{
-			get { return note; }
-		}
-
-		public NoteBuffer Buffer
-		{
-			get { return note.Buffer; }
-		}
-
-		public NoteWindow Window
-		{
-			get { return note.Window; }
-		}
-
-		public NoteManager Manager
-		{
-			get { return note.Manager; }
-		}
-	}
-
 	public class NoteRenameWatcher : NotePlugin
 	{
 		bool editing_title;

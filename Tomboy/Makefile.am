@@ -34,6 +34,7 @@ CSFILES = 					\
 	$(srcdir)/NoteManager.cs 		\
 	$(srcdir)/NoteWindow.cs 		\
 	$(srcdir)/NoteBuffer.cs 		\
+	$(srcdir)/PluginManager.cs		\
 	$(srcdir)/Preferences.cs		\
 	$(srcdir)/RecentChanges.cs		\
 	$(srcdir)/Search.cs 			\
@@ -85,8 +86,9 @@ $(TARGET).config: $(srcdir)/$(TARGET).config.in
 	    < $^ > $@
 
 Defines.cs: $(srcdir)/Defines.cs.in
-	sed -e "s|\@version\@|$(VERSION)|" \
-	    -e "s|\@datadir\@|$(datadir)|" \
+	sed -e "s|\@version\@|$(VERSION)|"     \
+	    -e "s|\@datadir\@|$(datadir)|"     \
+	    -e "s|\@pkglibdir\@|$(pkglibdir)|" \
 	    < $^ > $@
 
 

@@ -28,7 +28,6 @@ namespace Tomboy
 		NoteWindow window;
 		NoteBuffer buffer;
 
-		ArrayList loaded_plugins;
 		InterruptableTimeout save_timeout;
 
 		Note ()
@@ -46,7 +45,6 @@ namespace Tomboy
 			this.manager = manager;
 			this.is_new = true;
 			this.change_date = DateTime.Now;
-			LoadPlugins ();
 		}
 
 		// Internal constructor, used when loading from an exising filepath.
@@ -57,60 +55,6 @@ namespace Tomboy
 			this.filepath = filepath;
 			this.is_new = false;
 			this.change_date = File.GetLastWriteTime (filepath);
-			LoadPlugins ();
-		}
-
-		void LoadPlugins ()
-		{
-			// NOTE: Just load the list of watches now.  
-			// In the future this should be dynamically loaded.
-
-			NotePlugin plugin;
-			loaded_plugins = new ArrayList ();
-
-			// Watch for note renames
-			plugin = new NoteRenameWatcher ();
-			plugin.Initialize (this);
-			loaded_plugins.Add (plugin);
-
-			// Create related-to line on link
-			/*
-			plugin = new NoteRelatedToWatcher ();
-			plugin.Initialize (this);
-			loaded_plugins.Add (plugin);
-			*/
-
-			// Start spell-checking
-			plugin = new NoteSpellChecker ();
-			plugin.Initialize (this);
-			loaded_plugins.Add (plugin);
-
-			// Markup any URLs
-			plugin = new NoteUrlWatcher ();
-			plugin.Initialize (this);
-			loaded_plugins.Add (plugin);
-
-			// Markup any inter-note links
-			plugin = new NoteLinkWatcher ();
-			plugin.Initialize (this);
-			loaded_plugins.Add (plugin);
-
-			// Markup WikiWord links
-			plugin = new NoteWikiWatcher ();
-			plugin.Initialize (this);
-			loaded_plugins.Add (plugin);
-
-			// Handle link clicking and hovering
-			plugin = new MouseHandWatcher ();
-			plugin.Initialize (this);
-			loaded_plugins.Add (plugin);
-
-			// Handle Indenting and bullets
-			/*
-			plugin = new IndentWatcher ();
-			plugin.Initialize (this);
-			loaded_plugins.Add (plugin);
-			*/
 		}
 
 		public void Delete ()
