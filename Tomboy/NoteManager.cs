@@ -2,6 +2,7 @@
 using System;
 using System.IO;
 using System.Collections;
+using Mono.Posix;
 
 namespace Tomboy
 {
@@ -51,11 +52,13 @@ namespace Tomboy
 		{
 			string label_text = 
 				String.Format ("<span size=\"large\"><b>" +
-					       "Note title already taken" +
+					       Catalog.GetString ("Note title already taken") +
 					       "</b></span>\n\n" +
-					       "A note with the title <b>{0}</b> already exists. " +
-					       "Please choose another name for this note before " +
-					       "continuing.",
+					       Catalog.GetString ("A note with the title " +
+								  "<b>{0}</b> already exists. " +
+								  "Please choose another name " +
+								  "for this note before " +
+								  "continuing."),
 					       title);
 
 			Gtk.Label label = new Gtk.Label (label_text);
@@ -66,7 +69,7 @@ namespace Tomboy
 			Gtk.Button button = new Gtk.Button (Gtk.Stock.Ok);
 			button.Show ();
 
-			Gtk.Dialog dialog = new Gtk.Dialog ("Note title already taken",
+			Gtk.Dialog dialog = new Gtk.Dialog (Catalog.GetString ("Note title already taken"),
 							    note.Window,
 							    Gtk.DialogFlags.DestroyWithParent);
 			dialog.AddActionWidget (button, Gtk.ResponseType.Ok);
@@ -100,9 +103,12 @@ namespace Tomboy
 			if (start_note != null) {
 				start_note.Text = 
 					"<note-content>" +
-					"Start Here\n\n<bold>Welcome to Tomboy!</bold>\n\n" +
-					"Use this page as a Start Page for organizing your " +
-					"notes and keeping unorganized ideas around." +
+					Catalog.GetString ("Start Here") + "\n\n" +
+					"<bold>" +
+					Catalog.GetString ("Welcome to Tomboy!") +
+					"</bold>\n\n" +
+					Catalog.GetString ("Use this page as a Start Page for organizing your " +
+							   "notes and keeping unorganized ideas around.") +
 					"</note-content>";
 				start_note.Save ();
 				start_note.Window.Show ();
@@ -145,6 +151,23 @@ namespace Tomboy
 			return Path.Combine (notes_dir, filename);
 		}
 
+		public Note Create ()
+		{
+			int new_num = notes.Count;
+			string temp_title;
+
+			while (true) {
+				temp_title = String.Format (Catalog.GetString ("New Note {0}"), 
+							    new_num);
+				if (Find (temp_title) != null)
+					new_num++;
+				else
+					break;
+			}
+
+			return Create (temp_title);
+		}
+
 		public Note Create (string linked_title) 
 		{
 			string filename = ConvertTitleToFileName (linked_title);
@@ -152,7 +175,8 @@ namespace Tomboy
 			Note new_note = new Note (linked_title, filename, this);
 			new_note.Text = 
 				"<note-content>" + 
-				linked_title + "\n\n" + "Describe your new note here." +
+				linked_title + "\n\n" + 
+				Catalog.GetString ("Describe your new note here.") +
 				"</note-content>";
 			new_note.Renamed += new NoteRenameHandler (OnNoteRename);
 

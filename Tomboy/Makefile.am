@@ -9,6 +9,7 @@ CSFLAGS = -target:exe
 
 CSFILES = 				\
 	$(srcdir)/Tomboy.cs 		\
+	$(srcdir)/Defines.cs 		\
 	$(srcdir)/Note.cs 		\
 	$(srcdir)/NoteManager.cs 	\
 	$(srcdir)/NoteWindow.cs 	\
@@ -20,11 +21,12 @@ CSFILES = 				\
 	$(srcdir)/Utils.cs		\
 	$(srcdir)/Watchers.cs
 
-#	$(srcdir)/ActiveVerb.cs 		
+#	$(srcdir)/ActiveVerb.cs 
 #	$(srcdir)/GoogleSearchService.cs 
 
 ASSEMBLIES = 					\
 	$(TOMBOY_LIBS)				\
+	-r:Mono.Posix				\
 	-r:System.Web				\
 	-r:System.Web.Services			\
 	-r:$(top_builddir)/TrayIcon/TrayIcon.dll
@@ -50,8 +52,21 @@ uninstall-local:
 bin_SCRIPTS = $(WRAPPER)
 
 $(WRAPPER): $(srcdir)/$(WRAPPER).in
-	sed -e "s|\@prefix\@|$(prefix)|g" -e "s|\@pkglibdir\@|$(pkglibdir)|g" -e "s|\@target\@|$(TARGET)|g" < $^ > $@
+	sed -e "s|\@prefix\@|$(prefix)|g" 	\
+	    -e "s|\@pkglibdir\@|$(pkglibdir)|g" \
+	    -e "s|\@bindir\@|$(bindir)|g"	\
+	    -e "s|\@target\@|$(TARGET)|g" 	\
+	    -e "s|\@wrapper\@|$(WRAPPER)|g"	\
+	    < $^ > $@
 	chmod +x $(WRAPPER)
+
+Defines.cs: $(srcdir)/Defines.cs.in
+	sed -e "s|\@version\@|$(VERSION)|" \
+	    -e "s|\@datadir\@|$(datadir)|" \
+	    < $^ > $@
+
+pixmapdir = $(datadir)/pixmaps
+pixmap_DATA = tintin.png
 
 EXTRA_DIST =            			\
 	$(CSFILES)      			\
@@ -63,4 +78,5 @@ EXTRA_DIST =            			\
 
 CLEANFILES =            \
 	$(TARGET)       \
-	$(WRAPPER)
+	$(WRAPPER)	\
+	Defines.cs

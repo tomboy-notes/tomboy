@@ -5,40 +5,72 @@ AM_MAINTAINER_MODE
 AM_CONFIG_HEADER(config.h)
 
 AC_PROG_INSTALL
+AC_PROG_CC
+AC_ISC_POSIX
+AC_HEADER_STDC
+AC_PROG_INTLTOOL([0.25])
 AM_PROG_LIBTOOL
 
+#
+# Find gconftool-2
+#
+AC_PATH_PROG(GCONFTOOL, gconftool-2)
+AM_GCONF_SOURCE_2
+
+#
+# Setup GETTEXT
+#
+ALL_LINGUAS=
+GETTEXT_PACKAGE=tomboy
+AC_SUBST(GETTEXT_PACKAGE)
+AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, "$GETTEXT_PACKAGE", [Gettext package])
+AM_GLIB_GNU_GETTEXT
+
+#
+# Find pkg-config
+#
 AC_PATH_PROG(PKG_CONFIG, pkg-config, no)
 if test "x$PKG_CONFIG" = "xno"; then
 	AC_MSG_ERROR([You need to install pkg-config])
 fi
 
-if test "x$MCSTEST" = "xno"; then
-	AC_MSG_ERROR([You need to install mcs (from mono)])
+#
+# Find mcs
+#
+AC_PATH_PROG(MCS, mcs)
+if test "x$MCS" = "x" ; then
+	AC_MSG_ERROR([Can't find "mcs" in your PATH])
 fi
 
+#
 # Gdk and Atk are needed for libtrayicon
+#
 GDK20_MINIMUM_VERSION=2.2.3
 ATK_MINIMUM_VERSION=1.2.4
 
-PKG_CHECK_MODULES(GDK20, gdk-2.0 >= $GDK20_MINIMUM_VERSION)
-AC_SUBST(GDK20_CFLAGS)
-AC_SUBST(GDK20_LIBS)
+PKG_CHECK_MODULES(LIBTRAYICON, 
+		  gdk-2.0 >= $GDK20_MINIMUM_VERSION
+		  atk >= $ATK_MINIMUM_VERSION)
+AC_SUBST(LIBTRAYICON_CFLAGS)
+AC_SUBST(LIBTRAYICON_LIBS)
 
-PKG_CHECK_MODULES(ATK, atk >= $ATK_MINIMUM_VERSION)
-AC_SUBST(ATK_CFLAGS)
-AC_SUBST(ATK_LIBS)
-
+#
 # Check for GtkSpell here, as we call into it from C#.
 # http://gtkspell.sourceforge.net/
+#
 PKG_CHECK_MODULES(GTKSPELL, gtkspell-2.0)
 
-PKG_CHECK_MODULES(TOMBOY, gtk-sharp gnome-sharp)
+#
+# Tomboy.exe needs Gtk# Gnome# GConf#
+#
+PKG_CHECK_MODULES(TOMBOY, gtk-sharp gnome-sharp gconf-sharp)
 AC_SUBST(TOMBOY_LIBS)
 
 AC_OUTPUT([
 Makefile
+tomboy.spec
 Tomboy/Makefile
 TrayIcon/Makefile
 TrayIcon/libtrayicon/Makefile
-tomboy.spec
+po/Makefile.in
 ])

@@ -1,5 +1,6 @@
 
 using System;
+using Mono.Posix;
 
 namespace Tomboy
 {
@@ -130,13 +131,15 @@ namespace Tomboy
 
 		void DeleteButtonClicked () 
 		{
+			string label = Catalog.GetString ("Really delete this note?");
+
 			Gtk.MessageDialog dialog = 
 				new Gtk.MessageDialog (this,
 						       (Gtk.DialogFlags.Modal | 
 							Gtk.DialogFlags.DestroyWithParent),
 						       Gtk.MessageType.Question,
 						       Gtk.ButtonsType.YesNo,
-						       "Really delete this note?");
+						       label);
 
 			int result = dialog.Run ();
 			if (result == -8 ) {
@@ -178,24 +181,11 @@ namespace Tomboy
 			lame_unicode = (Gtk.Widget) args.Menu.Children [args.Menu.Children.Length - 1];
 			args.Menu.Remove (lame_unicode);
 
-			/*
-			Gtk.ImageMenuItem undo = 
-				new Gtk.ImageMenuItem (Gtk.Stock.Undo, accel_group);
-			undo.Sensitive = note.Buffer.Undoer.CanUndo;
-			undo.Activated += new EventHandler (UndoClicked);
-			undo.Show ();
-
-			Gtk.ImageMenuItem redo = 
-				new Gtk.ImageMenuItem (Gtk.Stock.Redo, accel_group);
-			redo.Sensitive = note.Buffer.Undoer.CanRedo;
-			redo.Activated += new EventHandler (RedoClicked);
-			redo.Show ();
-			*/
-
 			Gtk.MenuItem spacer1 = new Gtk.SeparatorMenuItem ();
 			spacer1.Show ();
 
-			Gtk.ImageMenuItem link = new Gtk.ImageMenuItem ("_Link to Note");
+			Gtk.ImageMenuItem link = 
+				new Gtk.ImageMenuItem (Catalog.GetString ("_Link to Note"));
 			link.Image = new Gtk.Image (Gtk.Stock.JumpTo, Gtk.IconSize.Menu);
 			link.Sensitive = (note.Buffer.Selection != null);
 			link.Activated += new EventHandler (LinkToNoteActivate);
@@ -206,20 +196,16 @@ namespace Tomboy
 					     Gtk.AccelFlags.Visible);
 			link.Show ();
 
-			/*
-			Gtk.ImageMenuItem link_item = new Gtk.ImageMenuItem ("Lin_k To");
-			link_item.Submenu = MakeLinkMenu ();
-			link_item.Show ();
-			*/
-
-			Gtk.ImageMenuItem text_item = new Gtk.ImageMenuItem ("Te_xt");
+			Gtk.ImageMenuItem text_item = 
+				new Gtk.ImageMenuItem (Catalog.GetString ("Te_xt"));
 			text_item.Image = new Gtk.Image (Gtk.Stock.SelectFont, Gtk.IconSize.Menu);
 			text_item.Submenu = new NoteTextMenu (accel_group, 
 							      note.Buffer, 
 							      note.Buffer.Undoer /* don't show Undo/Redo */);
 			text_item.Show ();
 
-			Gtk.ImageMenuItem find_item = new Gtk.ImageMenuItem ("_Search");
+			Gtk.ImageMenuItem find_item = 
+				new Gtk.ImageMenuItem (Catalog.GetString ("_Search"));
 			find_item.Image = new Gtk.Image (Gtk.Stock.Find, Gtk.IconSize.Menu);
 			find_item.Submenu = MakeFindMenu ();
 			find_item.Show ();
@@ -228,14 +214,12 @@ namespace Tomboy
 			spacer2.Show ();
 
 			args.Menu.Prepend (spacer1);
-			//args.Menu.Prepend (redo);
-			//args.Menu.Prepend (undo);
-			//args.Menu.Prepend (spacer2);
 			args.Menu.Prepend (text_item);
 			args.Menu.Prepend (find_item);
 			args.Menu.Prepend (link);
 
-			Gtk.ImageMenuItem close_window = new Gtk.ImageMenuItem ("_Close Window");
+			Gtk.ImageMenuItem close_window = 
+				new Gtk.ImageMenuItem (Catalog.GetString ("_Close Window"));
 			close_window.Image = new Gtk.Image (Gtk.Stock.Close, Gtk.IconSize.Menu);
 			close_window.Activated += new EventHandler (CloseWindowHandler);
 			close_window.AddAccelerator ("activate",
@@ -273,8 +257,9 @@ namespace Tomboy
 			toolbar.Tooltips = true;
 
 			Gtk.Widget link = 
-				toolbar.AppendItem ("Link", 
-						    "Link selected text to a new note", 
+				toolbar.AppendItem (Catalog.GetString ("Link"), 
+						    Catalog.GetString ("Link selected text to a " +
+								       "new note"), 
 						    null, 
 						    new Gtk.Image (Gtk.Stock.JumpTo, 
 								   Gtk.IconSize.LargeToolbar),
@@ -286,8 +271,8 @@ namespace Tomboy
 					     Gtk.AccelFlags.Visible);
 
 			Gtk.Widget find = 
-				toolbar.AppendItem ("Search", 
-						    "Search your notes",
+				toolbar.AppendItem (Catalog.GetString ("Search"), 
+						    Catalog.GetString ("Search your notes"),
 						    null, 
 						    new Gtk.Image (Gtk.Stock.Find, 
 								   Gtk.IconSize.LargeToolbar),
@@ -309,13 +294,15 @@ namespace Tomboy
 			ev.Add (text_button);
 			ev.Show ();
 
-			toolbar.AppendWidget (ev, "Set properties of text", null);
+			toolbar.AppendWidget (ev, 
+					      Catalog.GetString ("Set properties of text"), 
+					      null);
 
 			toolbar.AppendSpace ();
 
 			Gtk.Widget delete = 
-				toolbar.AppendItem ("Delete", 
-						    "Delete this note", 
+				toolbar.AppendItem (Catalog.GetString ("Delete"), 
+						    Catalog.GetString ("Delete this note"), 
 						    null, 
 						    new Gtk.Image (Gtk.Stock.Delete, 
 								   Gtk.IconSize.LargeToolbar),
@@ -337,7 +324,7 @@ namespace Tomboy
 
 				Gtk.Image image = new Gtk.Image (Gtk.Stock.SelectFont, 
 								 Gtk.IconSize.LargeToolbar);
-				Gtk.Label label = new Gtk.Label ("_Text");
+				Gtk.Label label = new Gtk.Label (Catalog.GetString ("_Text"));
 				Gtk.Arrow arrow = new Gtk.Arrow (Gtk.ArrowType.Down, 
 								 Gtk.ShadowType.In);
 
@@ -371,7 +358,8 @@ namespace Tomboy
 			Gtk.Menu menu = new Gtk.Menu ();
 			menu.AccelGroup = accel_group;
 
-			Gtk.ImageMenuItem find = new Gtk.ImageMenuItem ("_Search...");
+			Gtk.ImageMenuItem find = 
+				new Gtk.ImageMenuItem (Catalog.GetString ("_Search..."));
 			find.Image = new Gtk.Image (Gtk.Stock.Find, Gtk.IconSize.Menu);
 			find.Activated += new EventHandler (FindActivate);
 			find.AddAccelerator ("activate",
@@ -381,7 +369,8 @@ namespace Tomboy
 					     Gtk.AccelFlags.Visible);
 			find.Show ();
 
-			Gtk.ImageMenuItem find_next = new Gtk.ImageMenuItem ("Find _Next");
+			Gtk.ImageMenuItem find_next = 
+				new Gtk.ImageMenuItem (Catalog.GetString ("Find _Next"));
 			find_next.Image = new Gtk.Image (Gtk.Stock.GoForward, Gtk.IconSize.Menu);
 			find_next.Sensitive = Find.FindNextButton.Sensitive;
 
@@ -393,7 +382,8 @@ namespace Tomboy
 						  Gtk.AccelFlags.Visible);
 			find_next.Show ();
 
-			Gtk.ImageMenuItem find_previous = new Gtk.ImageMenuItem ("Find _Previous");
+			Gtk.ImageMenuItem find_previous = 
+				new Gtk.ImageMenuItem (Catalog.GetString ("Find _Previous"));
 			find_previous.Image = new Gtk.Image (Gtk.Stock.GoBack, Gtk.IconSize.Menu);
 			find_previous.Sensitive = Find.FindPreviousButton.Sensitive;
 
@@ -445,37 +435,6 @@ namespace Tomboy
 		void FindActivate (object sender, EventArgs args)
 		{
 			FindButtonClicked ();
-		}
-
-		// 
-		// Link context menu
-		//
-		// TODO: Allow linking to urls and files.  File linking should
-		// open a file open dialog, urls a entry + description?  Maybe
-		// just insert a double bracket like: [[description http:// ]]
-		//
-
-		Gtk.Menu MakeLinkMenu ()
-		{
-			Gtk.Menu menu = new Gtk.Menu ();
-			menu.AccelGroup = accel_group;
-			
-			Gtk.ImageMenuItem note = new Gtk.ImageMenuItem ("Note");
-			note.Image = new Gtk.Image (GuiUtils.GetMiniIcon ("stock_notes.png"));
-			note.Activated += new EventHandler (LinkToNoteActivate);
-			note.Show ();
-
-			Gtk.ImageMenuItem internet = new Gtk.ImageMenuItem ("Internet");
-			internet.Show ();
-
-			Gtk.ImageMenuItem file = new Gtk.ImageMenuItem ("File...");
-			file.Show ();
-
-			menu.Append (note);
-			menu.Append (internet);
-			menu.Append (file);
-
-			return menu;
 		}
 
 		//
@@ -605,7 +564,7 @@ namespace Tomboy
 				undo_manager.UndoChanged += new EventHandler (UndoChanged);
 			}
 
-			bold = new Gtk.CheckMenuItem ("<b>_Bold</b>");
+			bold = new Gtk.CheckMenuItem (Catalog.GetString ("<b>_Bold</b>"));
 			MarkupLabel (bold);
 			bold.Data ["Tag"] = "bold";
 			bold.Activated += new EventHandler (FontStyleClicked);
@@ -615,7 +574,7 @@ namespace Tomboy
 					     Gdk.ModifierType.ControlMask,
 					     Gtk.AccelFlags.Visible);
 
-			italic = new Gtk.CheckMenuItem ("<i>_Italic</i>");
+			italic = new Gtk.CheckMenuItem (Catalog.GetString ("<i>_Italic</i>"));
 			MarkupLabel (italic);
 			italic.Data ["Tag"] = "italic";
 			italic.Activated += new EventHandler (FontStyleClicked);
@@ -625,7 +584,7 @@ namespace Tomboy
 					       Gdk.ModifierType.ControlMask,
 					       Gtk.AccelFlags.Visible);
 
-			strikeout = new Gtk.CheckMenuItem ("<s>_Strikeout</s>");
+			strikeout = new Gtk.CheckMenuItem (Catalog.GetString ("<s>_Strikeout</s>"));
 			MarkupLabel (strikeout);
 			strikeout.Data ["Tag"] = "strikethrough";
 			strikeout.Activated += new EventHandler (FontStyleClicked);
@@ -635,7 +594,9 @@ namespace Tomboy
 						  Gdk.ModifierType.ControlMask,
 						  Gtk.AccelFlags.Visible);
 
-			highlight = new Gtk.CheckMenuItem ("<span background='yellow'>_Highlight</span>");
+			highlight = new Gtk.CheckMenuItem ("<span background='yellow'>" +
+							   Catalog.GetString ("_Highlight") +
+							   "</span>");
 			MarkupLabel (highlight);
 			highlight.Data ["Tag"] = "highlight";
 			highlight.Activated += new EventHandler (FontStyleClicked);
@@ -647,42 +608,40 @@ namespace Tomboy
 
 			Gtk.SeparatorMenuItem spacer1 = new Gtk.SeparatorMenuItem ();
 
-			Gtk.MenuItem font_size = new Gtk.MenuItem ("Font Size");
+			Gtk.MenuItem font_size = new Gtk.MenuItem (Catalog.GetString ("Font Size"));
 			font_size.Sensitive = false;
 
-			normal = new Gtk.RadioMenuItem ("_Normal");
+			normal = new Gtk.RadioMenuItem (Catalog.GetString ("_Normal"));
 			MarkupLabel (normal);
 			normal.Active = true;
 			normal.Toggled += new EventHandler (FontSizeClicked);
 
 			huge = new Gtk.RadioMenuItem (normal.Group, 
-						      "<span size=\"x-large\">H_uge</span>");
+						      "<span size=\"x-large\">" +
+						      Catalog.GetString ("H_uge") +
+						      "</span>");
 			MarkupLabel (huge);
 			huge.Data ["Tag"] = "size:huge";
 			huge.Toggled += new EventHandler (FontSizeClicked);
 
 			large = new Gtk.RadioMenuItem (huge.Group, 
-						       "<span size=\"large\">_Large</span>");
+						       "<span size=\"large\">" +
+						       Catalog.GetString ("_Large") +
+						       "</span>");
 			MarkupLabel (large);
 			large.Data ["Tag"] = "size:large";
 			large.Toggled += new EventHandler (FontSizeClicked);
 
 			small = new Gtk.RadioMenuItem (large.Group, 
-						       "<span size=\"small\">S_mall</span>");
+						       "<span size=\"small\">" +
+						       Catalog.GetString ("S_mall") +
+						       "</span>");
 			MarkupLabel (small);
 			small.Data ["Tag"] = "size:small";
 			small.Toggled += new EventHandler (FontSizeClicked);
 
 			RefreshState ();
 
-			// FIXME: Do colors at some point
-			//Gtk.ImageMenuItem color = new Gtk.ImageMenuItem (Gtk.Stock.ColorPicker, accel_group);
-			//menu.Append (color);
-
-			// FIXME: Do global font face at some point?
-			//Gtk.ImageMenuItem fontface = new Gtk.ImageMenuItem ("_Choose Font");
-			//fontface.Image = new Gtk.Image (Gtk.Stock.SelectFont, Gtk.IconSize.Menu);
-			
 			Append (bold);
 			Append (italic);
 			Append (strikeout);
