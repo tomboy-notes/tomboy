@@ -1,5 +1,12 @@
 2004-10-05  Alex Graveley  <alex@beatniksoftware.com>
 
+	* Tomboy/NoteWindow.cs: Get the target list and add our extra
+	targets to it, this way we don't overwrite the targets GtkTextView
+	installs.  Install text/uri-list (nautilus drags) and
+	_NETSCAPE_URL (moz drags).
+
+2004-10-05  Alex Graveley  <alex@beatniksoftware.com>
+
 	* Tomboy/Tomboy.cs: Add TomboyRemoteExecute, a simple command line
 	frontend to a running tomboy.  Allows opening an existing note,
 	and create new notes.
