@@ -656,7 +656,7 @@ namespace Tomboy
 			}
 		}
 
-		[DllImport("libglib-2.0.so.0")]
+		[DllImport("libglib-2.0-0.dll")]
                 static extern IntPtr g_markup_escape_text (string text, int len);
 
 		// NOTE: Workaround a mapping bug in GLib.Markup.EscapeText,

@@ -193,12 +193,12 @@ namespace Tomboy
 	{
 		IntPtr obj_ptr = IntPtr.Zero;
 
-		[DllImport ("libgtkspell.so.0")]
+		[DllImport ("libgtkspell")]
 		static extern IntPtr gtkspell_new_attach (IntPtr text_view, 
 							  string locale, 
 							  IntPtr error);
 
-		[DllImport ("libgtkspell.so.0")]
+		[DllImport ("libgtkspell")]
 		static extern void gtkspell_detach (IntPtr obj);
 
 		public override void Initialize ()
