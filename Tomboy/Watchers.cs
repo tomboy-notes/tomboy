@@ -43,7 +43,6 @@ namespace Tomboy
 
 	public class NoteRenameWatcher : NotePlugin
 	{
-		Gtk.TextMark first_line_end;
 		uint rename_timeout_id;
 
 		public override void Initialize ()
@@ -51,22 +50,29 @@ namespace Tomboy
 			Note.Opened += OnNoteOpened;
 		}
 
+		Gtk.TextIter TitleEnd 
+		{
+			get {
+				Gtk.TextIter line_end = Buffer.StartIter;
+				line_end.ForwardToLineEnd ();
+				return line_end;
+			}
+		}
+
+		Gtk.TextIter TitleStart 
+		{
+			get { return Buffer.StartIter; }
+		}
+
 		void OnNoteOpened (object sender, EventArgs args)
 		{
 			Buffer.InsertText += OnInsertText;
 			Buffer.DeleteRange += OnDeleteRange;
+			Buffer.TagApplied += OnTagApplied;
 
-			Gtk.TextIter line_end = Buffer.StartIter;
-			line_end.ForwardLine ();
-
-			Console.WriteLine ("Applying <note-title> to '{0}'",
-					   Buffer.StartIter.GetText (line_end));
-
-			Buffer.ApplyTag ("note-title", Buffer.StartIter, line_end);
-
-			first_line_end = Buffer.CreateMark (null, 
-							    line_end, 
-							    false /* keep to the right */);
+			// Clean up title line
+			Buffer.RemoveAllTags (TitleStart, TitleEnd);
+			Buffer.ApplyTag ("note-title", TitleStart, TitleEnd);
 		}
 
 		void OnDeleteRange (object sender, Gtk.DeleteRangeArgs args)
@@ -79,10 +85,33 @@ namespace Tomboy
 
 		void OnInsertText (object sender, Gtk.InsertTextArgs args)
 		{
-			if (args.Pos.Line != 0)
+			Gtk.TextIter start = args.Pos;
+			start.BackwardChars (args.Length);
+
+			if (start.Line != 0)
 				return;
 
+			Gtk.TextIter end = args.Pos;
+			end.ForwardToLineEnd ();
+
+			// FIXME: RemoveTag isn't working if you insert a
+			//        newline at the start of the buffer.
+
+			// Don't allow note-title to extend past first line
+			Buffer.RemoveTag ("note-title", start, end);
+
 			UpdateTitle ();
+		}
+
+		void OnTagApplied (object sender, Gtk.TagAppliedArgs args)
+		{
+			if (args.StartChar.Line != 0)
+				return;
+
+			// Don't allow tags on first line
+			if (args.Tag.Name != "note-title") {
+				Buffer.RemoveTag (args.Tag, TitleStart, TitleEnd);
+			}
 		}
 
 		void UpdateTitle ()
@@ -96,19 +125,16 @@ namespace Tomboy
 				GLib.Timeout.Add (500, 
 						  new GLib.TimeoutHandler (UpdateTitleTimeout));
 
-			Gtk.TextIter line_end = Buffer.GetIterAtMark (first_line_end);
-			Buffer.ApplyTag ("note-title", Buffer.StartIter, line_end);
+			Buffer.ApplyTag ("note-title", TitleStart, TitleEnd);
 
 			// Only set window title here, to give feedback that we
 			// are indeed changing the title.
-			Window.Title = Buffer.StartIter.GetText (line_end).Trim ();
+			Window.Title = TitleStart.GetText (TitleEnd).Trim ();
 		}
 
 		bool UpdateTitleTimeout ()
 		{
-			Gtk.TextIter line_end = Buffer.GetIterAtMark (first_line_end);
-			string title = Buffer.StartIter.GetText (line_end).Trim ();
-
+			string title = TitleStart.GetText (TitleEnd).Trim ();
 			Note existing = Manager.Find (title);
 
 			if (existing != null && existing != this.Note) {
@@ -574,10 +600,6 @@ namespace Tomboy
 			Gtk.TextIter start = args.Start;
 			Gtk.TextIter end = args.End;
 
-			// Avoid title line
-			if (start.Line == 0)
-				return;
-
 			string block = GetBlockAroundCursor (ref start, ref end);
 
 			UnhighlightInBlock (block, start, end);
@@ -590,10 +612,6 @@ namespace Tomboy
 			start.BackwardChars (args.Length);
 
 			Gtk.TextIter end = args.Pos;
-
-			// Avoid title line
-			if (start.Line == 0)
-				return;
 
 			string block = GetBlockAroundCursor (ref start, ref end);
 
