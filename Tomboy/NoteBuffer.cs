@@ -8,6 +8,16 @@ namespace Tomboy
 {
 	public class NoteTagTable : Gtk.TextTagTable
 	{
+		static NoteTagTable instance;
+
+		public static NoteTagTable Instance {
+			get {
+				if (instance == null) 
+					instance = new NoteTagTable ();
+				return instance;
+			}
+		}
+
 		public NoteTagTable () 
 			: base ()
 		{
@@ -17,8 +27,9 @@ namespace Tomboy
 		public NoteTagTable (IntPtr ptr)
 			: base (ptr)
 		{
+			Console.WriteLine ("NoteTagTable Native ptr instantiation");
 		}
-
+		
 		void InitCommonTags () 
 		{
 			Gtk.TextTag tag;
@@ -81,6 +92,7 @@ namespace Tomboy
 
 			// Font coloring
 
+			/*
 			tag = new Gtk.TextTag ("color:red");
 			tag.Foreground = "red";
 			Add (tag);
@@ -92,6 +104,7 @@ namespace Tomboy
 			tag = new Gtk.TextTag ("color:green");
 			tag.Foreground = "green";
 			Add (tag);
+			*/
 
 			// Lists
 
@@ -103,6 +116,7 @@ namespace Tomboy
 
 			// Underlining
 
+			/*
 			tag = new Gtk.TextTag ("underline:single");
 			tag.Underline = Pango.Underline.Single;
 			Add (tag);
@@ -110,6 +124,7 @@ namespace Tomboy
 			tag = new Gtk.TextTag ("underline:double");
 			tag.Underline = Pango.Underline.Double;
 			Add (tag);
+			*/
 
 			// Links
 
@@ -134,7 +149,8 @@ namespace Tomboy
 			// FIXME: tag.Data["avoid-save"] isn't being returned,
 			// so we have to match explicitly on name for now.
 
-			return (tag.Name == "find-match" || 
+			return (tag.Name == null ||
+				tag.Name == "find-match" || 
 				tag.Name == "gtkspell-misspelled" ||
 				tag.Name == "note-title" ||
 				tag.Data ["avoid-save"] != null);
@@ -142,10 +158,11 @@ namespace Tomboy
 
 		public static bool TagIsGrowable (Gtk.TextTag tag)
 		{
-			if (tag.Name.StartsWith ("link:") || 
-			    tag.Name == "find-match" || 
-			    tag.Name == "gtkspell-misspelled" ||
-			    tag.Name == "note-title")
+			if (tag.Name != null &&
+			    (tag.Name.StartsWith ("link:") || 
+			     tag.Name == "find-match" || 
+			     tag.Name == "gtkspell-misspelled" ||
+			     tag.Name == "note-title"))
 				return false;
 
 			if (tag.Data ["growable"] != null)
@@ -156,10 +173,11 @@ namespace Tomboy
 
 		public static bool TagIsUndoable (Gtk.TextTag tag)
 		{
-			if (tag.Name.StartsWith ("link:") || 
-			    tag.Name == "find-match" ||
-			    tag.Name == "gtkspell-misspelled" ||
-			    tag.Name == "note-title")
+			if (tag.Name != null &&
+			    (tag.Name.StartsWith ("link:") || 
+			     tag.Name == "find-match" ||
+			     tag.Name == "gtkspell-misspelled" ||
+			     tag.Name == "note-title"))
 				return false;
 			if (tag.Data ["undoable"] != null)
 				return (bool) tag.Data ["undoable"];

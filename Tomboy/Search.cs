@@ -27,7 +27,6 @@ namespace Tomboy
 		ArrayList current_matches;
 
 		uint changed_timeout_id = 0;
-		Gtk.Window last_opened_window;
 
 		static string [] previous_searches;
 		static NoteFindDialog instance;
@@ -304,10 +303,6 @@ namespace Tomboy
 					continue;
 
 				while (true) {
-					Console.WriteLine ("Looking for {0} at offset {1}", 
-							   word, 
-							   idx);
-
 					idx = note_text.IndexOf (word, idx);
 
 					if (idx == -1) {
@@ -434,7 +429,6 @@ namespace Tomboy
 			if (current_matches != null)
 				HighlightMatches (current_matches, false);
 
-			last_opened_window = null;
 			this.TransientFor = null;
 
 			Hide ();
@@ -502,20 +496,6 @@ namespace Tomboy
 
 			Note note = (Note) store.GetValue (iter, 3 /* note */);
 			ArrayList matches = (ArrayList) store.GetValue (iter, 4 /* matches */);
-
-			// If the note window was not already open, hide it
-			// when we select another row...
-			if (!note.Window.IsMapped) {
-				// Hide the window we opened last...
-				if (last_opened_window != null &&
-				    last_opened_window != note.Window) {
-					last_opened_window.Hide ();
-					this.TransientFor = null;
-				}
-
-				last_opened_window = note.Window;
-				this.TransientFor = last_opened_window;
-			}
 
 			current_note = note;
 			note.Window.Present ();

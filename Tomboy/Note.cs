@@ -1,5 +1,6 @@
 
 using System;
+using System.Collections;
 using System.IO;
 using System.Xml;
 using Mono.Posix;
@@ -27,12 +28,7 @@ namespace Tomboy
 		NoteManager manager;
 		NoteWindow window;
 		NoteBuffer buffer;
-
-		NoteLinkWatcher note_link_watcher;
-		NoteUrlWatcher note_url_watcher;
-		NoteWikiWatcher note_wiki_watcher;
-		NoteSpellChecker note_spell_check;
-		NoteRenameWatcher note_rename_watcher; 
+		ArrayList loaded_plugins;
 
 		// Create a new note stored in a file...
 		public Note (string title, string filepath, NoteManager manager) 
@@ -42,6 +38,7 @@ namespace Tomboy
 			this.manager = manager;
 			this.is_new = true;
 			this.change_date = DateTime.Now;
+			LoadPlugins ();
 		}
 
 		Note (string filepath, NoteManager manager)
@@ -50,6 +47,46 @@ namespace Tomboy
 			this.filepath = filepath;
 			this.is_new = false;
 			this.change_date = File.GetLastWriteTime (filepath);
+			LoadPlugins ();
+		}
+
+		void LoadPlugins ()
+		{
+			// NOTE: Just load the list of watches now.  
+			// In the future this should be dynamically loaded.
+
+			NotePlugin plugin;
+			loaded_plugins = new ArrayList ();
+
+			// Watch for note renames
+			plugin = new NoteRenameWatcher ();
+			plugin.Initialize (this);
+			loaded_plugins.Add (plugin);
+
+			// Start spell-checking
+			plugin = new NoteSpellChecker ();
+			plugin.Initialize (this);
+			loaded_plugins.Add (plugin);
+
+			// Markup any URLs
+			plugin = new NoteUrlWatcher ();
+			plugin.Initialize (this);
+			loaded_plugins.Add (plugin);
+
+			// Markup any inter-note links
+			plugin = new NoteLinkWatcher ();
+			plugin.Initialize (this);
+			loaded_plugins.Add (plugin);
+
+			// Markup WikiWord links
+			plugin = new NoteWikiWatcher ();
+			plugin.Initialize (this);
+			loaded_plugins.Add (plugin);
+
+			// Handle link clicking and hovering
+			plugin = new MouseHandWatcher ();
+			plugin.Initialize (this);
+			loaded_plugins.Add (plugin);
 		}
 
 		public void Delete ()
@@ -64,7 +101,7 @@ namespace Tomboy
 		}
 
 		// Load from an existing Note...
-		public static Note Load (string read_file, NoteManager manager) 
+		public static Note Load (string read_file, NoteManager manager)
 		{
 			Note note = new Note (read_file, manager);
 			NoteArchiver.Read (read_file, note);
@@ -80,6 +117,11 @@ namespace Tomboy
 
 			NoteArchiver.Write (filepath, this);
 		}
+
+		//
+		// Buffer change signals.  These queue saves and invalidate the serialized text
+		// depending on the change...
+		//
 
 		void BufferChanged (object sender, EventArgs args)
 		{
@@ -112,6 +154,11 @@ namespace Tomboy
 			QueueSave (false);
 		}
 
+		//
+		// Window events.  Queue a save when the window location/size has changed, and set
+		// our window to null on delete, and fire the Opened event on window realize...
+		//
+
 		[GLib.ConnectBefore]
 		void WindowConfigureEvent (object sender, Gtk.ConfigureEventArgs args)
 		{
@@ -139,6 +186,14 @@ namespace Tomboy
 			window = null;
 		}
 
+		void WindowRealized (object sender, EventArgs args)
+		{
+			if (Opened != null)
+				Opened (this, args);
+		}
+
+		// Set a 4 second timeout to execute the save.  Possibly invalid the text, which
+		// causes a re-serialize when the timeout is called...
 		void QueueSave (bool invalidate_text)
 		{
 			// Replace the existing save timeout...
@@ -171,8 +226,6 @@ namespace Tomboy
 			return save_needed;
 		}
 
-		// This is not a particularly good Uri scheme for notes, but
-		// it mirrors the one used by the Beagle backend.
 		public string Uri
 		{
 			get { 
@@ -204,8 +257,6 @@ namespace Tomboy
 			}
 		}
 
-		public event NoteRenameHandler Renamed;
-
 		public string Text 
 		{
 			get {
@@ -217,6 +268,7 @@ namespace Tomboy
 			}
 			set {
 				text = value;
+				QueueSave (false);
 
 				if (buffer != null) {
 					buffer.Clear ();
@@ -246,6 +298,11 @@ namespace Tomboy
 				if (buffer == null) {
 					Console.WriteLine ("Creating Buffer for '{0}'...", title);
 
+					// FIXME: Sharing the same tagtable between buffers means
+					// that formatting is duplicated, however GtkSpell choke on
+					// a shared TagTable because it blindly tries to create a
+					// new "gtkspell-misspelling" tag, which fails if it already
+					// exists.
 					buffer = new NoteBuffer (new NoteTagTable ());
 
 					// Don't create Undo actions during load
@@ -264,15 +321,6 @@ namespace Tomboy
 					else
 						cursor = buffer.GetIterAtLine (2); // avoid title line
 					buffer.PlaceCursor (cursor);
-
-					// Markup any WikiWords
-					note_wiki_watcher = new NoteWikiWatcher (this);
-
-					// Markup any inter-note links
-					note_link_watcher = new NoteLinkWatcher (this);
-
-					// Markup any URLs
-					note_url_watcher = new NoteUrlWatcher (this);
 
 					// New events should create Undo actions
 					buffer.Undoer.ThawUndo ();
@@ -294,23 +342,7 @@ namespace Tomboy
 					window = new NoteWindow (this);
 					window.DeleteEvent += WindowDeleted;
 					window.ConfigureEvent += WindowConfigureEvent;
-
-					// Start spell-checking
-					note_spell_check = new NoteSpellChecker (this);
-
-					// Watch for note renames
-					note_rename_watcher = new NoteRenameWatcher (this);
-
-#if BROKEN
-					// Watch for spacers
-					new SpacingWatcher (this);
-
-					// Markup any Lists
-					new NoteListWatcher (this);
-#endif
-
-					// Show mouse hand on link hover
-					new MouseHandWatcher (this);
+					window.Realized += WindowRealized;
 					
 					if (width != 0 && height != 0)
 						window.SetDefaultSize (width, height);
@@ -333,9 +365,16 @@ namespace Tomboy
 			get { return is_new; }
 		}
 
+		public bool IsLoaded {
+			get { return buffer != null; }
+		}
+
 		public bool IsOpened {
 			get { return window != null && window.IsMapped; }
 		}
+
+		public event EventHandler Opened;
+		public event NoteRenameHandler Renamed;
 	}
 
 	public class NoteArchiver
@@ -357,22 +396,23 @@ namespace Tomboy
 						break;
 					case "text":
 						// <text> is just a wrapper around <note-content>
-						note.Text = xml.ReadInnerXml ();
+						// NOTE: Use .text here to avoid triggering a save.
+						note.text = xml.ReadInnerXml ();
 						break;
 					case "cursor-position":
-						note.cursor_pos = Int32.Parse (xml.ReadString ());
+						note.cursor_pos = int.Parse (xml.ReadString ());
 						break;
 					case "width":
-						note.width = Int32.Parse (xml.ReadString ());
+						note.width = int.Parse (xml.ReadString ());
 						break;
 					case "height":
-						note.height = Int32.Parse (xml.ReadString ());
+						note.height = int.Parse (xml.ReadString ());
 						break;
 					case "x":
-						note.x = Int32.Parse (xml.ReadString ());
+						note.x = int.Parse (xml.ReadString ());
 						break;
 					case "y":
-						note.y = Int32.Parse (xml.ReadString ());
+						note.y = int.Parse (xml.ReadString ());
 						break;
 					}
 					break;
@@ -398,6 +438,7 @@ namespace Tomboy
 
 			xml.WriteStartElement (null, "text", null);
 			// Insert <note-content> blob...
+			// NOTE: Use .Text here to force a reget of text from the buffer, if needed.
 			xml.WriteRaw (note.Text);
 			xml.WriteEndElement ();
 

@@ -50,6 +50,14 @@ CSFILES += 				\
 	$(srcdir)/RemoteControl.cs	\
 	$(srcdir)/RemoteControlProxy.cs
 ASSEMBLIES += $(DBUS_LIBS)
+
+com.beatniksoftware.Tomboy.service: $(srcdir)/com.beatniksoftware.Tomboy.service.in
+	sed -e "s|\@bindir\@|$(bindir)|g"	\
+	    -e "s|\@wrapper\@|$(WRAPPER)|g"	\
+	    < $^ > $@
+
+dbusservicedir = $(libdir)/dbus-1.0/services
+dbusservice_DATA = com.beatniksoftware.Tomboy.service
 endif
 
 $(TARGET): $(CSFILES) $(LOCAL_ASSEMBLIES) 

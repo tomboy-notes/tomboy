@@ -16,7 +16,6 @@ namespace Tomboy
 
 		Gtk.TreeView tree;
 		Gtk.ListStore store;
-		Gtk.Window last_opened_window;
 
 		static Gdk.Pixbuf recent_icon;
 		static Gdk.Pixbuf stock_notes;
@@ -63,7 +62,8 @@ namespace Tomboy
 			UpdateResults ();
 
 			// Update on changes to notes
-			manager.NotesChanged += OnNotesChanged;
+			manager.NoteDeleted += OnNotesChanged;
+			manager.NoteAdded += OnNotesChanged;
 			manager.NoteRenamed += OnNoteRenamed;
 			
 			matches_window = new Gtk.ScrolledWindow ();
@@ -192,7 +192,7 @@ namespace Tomboy
 			}
 		}
 
-		void OnNotesChanged (object sender, Note added, Note deleted)
+		void OnNotesChanged (object sender, Note changed)
 		{
 			UpdateResults ();
 		}
@@ -283,18 +283,6 @@ namespace Tomboy
 				return;
 
 			Note note = (Note) store.GetValue (iter, 3 /* note */);
-
-			// If the note window was not already open, hide it
-			// when we select another row...
-			if (!note.Window.IsMapped) {
-				// Hide the window we opened last...
-				if (last_opened_window != null &&
-				    last_opened_window != note.Window) {
-					last_opened_window.Hide ();
-				}
-
-				last_opened_window = note.Window;
-			}
 
 			note.Window.Present ();
 		}

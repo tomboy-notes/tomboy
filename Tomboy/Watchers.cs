@@ -2,36 +2,68 @@
 using System;
 using System.Collections;
 using System.Runtime.InteropServices;
+using System.Text.RegularExpressions;
 using Mono.Posix;
 
 namespace Tomboy
 {
-	public class NoteRenameWatcher
+	public abstract class NotePlugin
 	{
 		Note note;
-		Gtk.Window window;
-		NoteBuffer buffer;
+
+		public void Initialize (Note note)
+		{
+			this.note = note;
+			Initialize ();
+		}
+
+		public abstract void Initialize ();
+
+		public Note Note
+		{
+			get { return note; }
+		}
+
+		public NoteBuffer Buffer
+		{
+			get { return note.Buffer; }
+		}
+
+		public NoteWindow Window
+		{
+			get { return note.Window; }
+		}
+
+		public NoteManager Manager
+		{
+			get { return note.Manager; }
+		}
+	}
+
+	public class NoteRenameWatcher : NotePlugin
+	{
 		Gtk.TextMark first_line_end;
 		uint rename_timeout_id;
 
-		public NoteRenameWatcher (Note note)
+		public override void Initialize ()
 		{
-			this.note = note;
-			this.window = note.Window;
-			this.buffer = note.Buffer;
-			
-			buffer.InsertText += OnInsertText;
-			buffer.DeleteRange += OnDeleteRange;
+			Note.Opened += OnNoteOpened;
+		}
 
-			Gtk.TextIter line_end = buffer.StartIter;
+		void OnNoteOpened (object sender, EventArgs args)
+		{
+			Buffer.InsertText += OnInsertText;
+			Buffer.DeleteRange += OnDeleteRange;
+
+			Gtk.TextIter line_end = Buffer.StartIter;
 			line_end.ForwardLine ();
 
 			Console.WriteLine ("Applying <note-title> to '{0}'",
-					   buffer.StartIter.GetText (line_end));
+					   Buffer.StartIter.GetText (line_end));
 
-			buffer.ApplyTag ("note-title", buffer.StartIter, line_end);
+			Buffer.ApplyTag ("note-title", Buffer.StartIter, line_end);
 
-			first_line_end = buffer.CreateMark (null, 
+			first_line_end = Buffer.CreateMark (null, 
 							    line_end, 
 							    false /* keep to the right */);
 		}
@@ -63,43 +95,70 @@ namespace Tomboy
 				GLib.Timeout.Add (500, 
 						  new GLib.TimeoutHandler (UpdateTitleTimeout));
 
-			Gtk.TextIter line_end = buffer.GetIterAtMark (first_line_end);
-			string title = buffer.StartIter.GetText (line_end);
-
-			buffer.ApplyTag ("note-title", buffer.StartIter, line_end);
+			Gtk.TextIter line_end = Buffer.GetIterAtMark (first_line_end);
+			Buffer.ApplyTag ("note-title", Buffer.StartIter, line_end);
 
 			// Only set window title here, to give feedback that we
 			// are indeed changing the title.
-			window.Title = title.Trim ();
+			Window.Title = Buffer.StartIter.GetText (line_end).Trim ();
 		}
 
 		bool UpdateTitleTimeout ()
 		{
-			Gtk.TextIter line_end = buffer.GetIterAtMark (first_line_end);
-			string title = buffer.StartIter.GetText (line_end);
+			Gtk.TextIter line_end = Buffer.GetIterAtMark (first_line_end);
+			string title = Buffer.StartIter.GetText (line_end).Trim ();
 
-			note.Title = title.Trim ();
+			Note existing = Manager.Find (title);
+
+			if (existing != null && existing != this.Note) {
+				ShowNameClashError (Note, title);
+			} else {
+				Note.Title = title;
+			}
 
 			return false;
 		}
+
+		void ShowNameClashError (Note note, string title)
+		{
+			string message = 
+				String.Format (Catalog.GetString ("A note with the title " +
+								  "<b>{0}</b> already exists. " +
+								  "Please choose another name " +
+								  "for this note before " +
+								  "continuing."),
+					       title);
+
+			HIGMessageDialog dialog = 
+				new HIGMessageDialog (Window,
+						      Gtk.DialogFlags.DestroyWithParent,
+						      Gtk.MessageType.Warning,
+						      Gtk.ButtonsType.Ok,
+						      Catalog.GetString ("Note title taken"),
+						      message);
+
+			dialog.Run ();
+			dialog.Destroy ();
+		}
 	}
 
-	public class NoteSpellChecker
+	public class NoteSpellChecker : NotePlugin
 	{
-		Gtk.TextBuffer buffer;
-
 		[DllImport ("libgtkspell.so.0")]
 		static extern void gtkspell_new_attach (IntPtr text_view, 
 							string locale, 
 							IntPtr error);
 
-		public NoteSpellChecker (Note note)
+		public override void Initialize ()
 		{
-			this.buffer = note.Buffer;
+			Note.Opened += OnNoteOpened;
+		}
 
-			buffer.TagApplied += TagApplied;
+		public void OnNoteOpened (object sender, EventArgs args)
+		{
+			Buffer.TagApplied += TagApplied;
 
-			gtkspell_new_attach (note.Window.Editor.Handle, 
+			gtkspell_new_attach (Window.Editor.Handle, 
 					     null, 
 					     IntPtr.Zero);
 
@@ -114,10 +173,10 @@ namespace Tomboy
 			// conflicts with internal note links.  So fix it up to
 			// use the "normal" foreground and the "error"
 			// underline.
-			Gtk.TextTag misspell = buffer.TagTable.Lookup ("gtkspell-misspelled");
+			Gtk.TextTag misspell = Buffer.TagTable.Lookup ("gtkspell-misspelled");
 
 			if (misspell != null) {
-				Gtk.TextTag normal = buffer.TagTable.Lookup ("normal");
+				Gtk.TextTag normal = Buffer.TagTable.Lookup ("normal");
 				misspell.ForegroundGdk = normal.ForegroundGdk;
 				// Force the value to 4 since error underlining
 				// isn't mapped in Gtk# yet.
@@ -130,33 +189,48 @@ namespace Tomboy
 			if (args.Tag.Name == "gtkspell-misspelled") {
 				// Remove misspelled tag for links 
 				foreach (Gtk.TextTag tag in args.StartChar.Tags) {
-					if (tag.Name.StartsWith ("link:")) {
-						buffer.RemoveTag ("gtkspell-misspelled", 
+					if (tag.Name != null && tag.Name.StartsWith ("link:")) {
+						Buffer.RemoveTag ("gtkspell-misspelled", 
 								  args.StartChar, 
 								  args.EndChar);
 						break;
 					}
 				}
-			} else if (args.Tag.Name.StartsWith ("link:")) {
-				buffer.RemoveTag ("gtkspell-misspelled", 
+			} else if (args.Tag.Name != null && 
+				   args.Tag.Name.StartsWith ("link:")) {
+				Buffer.RemoveTag ("gtkspell-misspelled", 
 						  args.StartChar, 
 						  args.EndChar);
 			}
 		}
 	}
 
-	public class NoteUrlWatcher
+	public class NoteUrlWatcher : NotePlugin
 	{
-		Note note;
-		NoteBuffer buffer;
 		Gtk.TextTag url_tag;
 
-		public NoteUrlWatcher (Note note)
-		{
-			this.note = note;
-			this.buffer = note.Buffer;
+		// FIXME: Bugs because of word boundries.
+		// 	- Requires a character after www. or http:// to be typed to hightlight
+		//	- doesn't match /unix/path (only /third/unix/path)
+		const string URL_REGEX = 
+			@"\b(((news|http|https|ftp|irc)://|(mailto:)|((www|ftp)\.)|/\S+/|\S*@\S*\.)(\S*[^\.,!\?;:])?)\b";
 
-			url_tag = buffer.TagTable.Lookup ("link:url");
+		static Regex regex;
+
+		static NoteUrlWatcher ()
+		{
+			regex = new Regex (URL_REGEX, 
+					   RegexOptions.IgnoreCase | RegexOptions.Compiled);
+		}
+
+		public override void Initialize ()
+		{
+			Note.Opened += OnNoteOpened;
+		}
+
+		public void OnNoteOpened (object sender, EventArgs args)
+		{
+			url_tag = Buffer.TagTable.Lookup ("link:url");
 			if (url_tag == null) {
 				Console.WriteLine ("Tag 'link:url' not registered for buffer");
 				return;
@@ -164,8 +238,8 @@ namespace Tomboy
 
 			url_tag.TextEvent += OnTextEvent;
 
-			buffer.InsertText += OnInsertText;
-			buffer.DeleteRange += OnDeleteRange;
+			Buffer.InsertText += OnInsertText;
+			Buffer.DeleteRange += OnDeleteRange;			
 		}
 
 		void OnTextEvent (object sender, Gtk.TextEventArgs args)
@@ -216,7 +290,7 @@ namespace Tomboy
 
 				/* Close note on middle-click */
 				if (button_ev.Button == 2) {
-					note.Window.Hide ();
+					Window.Hide ();
 
 					// Kill the middle button paste...
 					args.RetVal = true;
@@ -234,7 +308,7 @@ namespace Tomboy
 			string message = String.Format ("{0}: {1}", url, error);
 
 			HIGMessageDialog dialog = 
-				new HIGMessageDialog (note.Window,
+				new HIGMessageDialog (Window,
 						      Gtk.DialogFlags.DestroyWithParent,
 						      Gtk.MessageType.Info,
 						      Gtk.ButtonsType.Ok,
@@ -244,105 +318,71 @@ namespace Tomboy
 			dialog.Destroy ();
 		}
 
-		bool CheckIsUrl (string word)
+		void ApplyUrlToBlock (Gtk.TextIter start, Gtk.TextIter end)
 		{
-			if (word.StartsWith ("http://") ||
-			    word.StartsWith ("https://") ||
-			    word.StartsWith ("ftp://") ||
-			    word.StartsWith ("file://") ||
-			    word.StartsWith ("mailto://") ||
-			    word.StartsWith ("www.") ||
-			    (word.StartsWith ("/") && word.LastIndexOf ("/") > 1) ||
-			    (word.IndexOf ("@") > 1 && word.IndexOf (".") > 3))
-				return true;
-			else
-				return false;
-		}
+			start.LineOffset = 0;
+			end.ForwardToLineEnd ();
 
-		Gtk.TextIter ApplyUrlAtIter (Gtk.TextIter iter)
-		{
-			const string ending_punctuation = ".,!?;:";
-			Gtk.TextIter start, end, tag_end;
+			Buffer.RemoveTag (url_tag, start, end);
 
-			string word = buffer.GetCurrentBlock (iter, out start, out end);
-			if (word != null) {
-				tag_end = end;
-				tag_end.BackwardChar ();
+			for (Match match = regex.Match (start.GetText (end)); 
+			     match.Success; 
+			     match = match.NextMatch ()) {
+				Group group = match.Groups [1];
 
-				// avoid trailing punctuation
-				if (ending_punctuation.IndexOf (tag_end.Char [0]) == -1) 
-					tag_end = end;
+				Console.WriteLine("Highlighting url: '{0}' at offset {1}",
+						  group,
+						  group.Index);
 
-				if (CheckIsUrl (word))
-					buffer.ApplyTag (url_tag, start, tag_end);
-				else
-					buffer.RemoveTag (url_tag, start, tag_end);
+				Gtk.TextIter start_cpy = start;
+				start_cpy.ForwardChars (group.Index);
+
+				end = start_cpy;
+				end.ForwardChars (group.Length);
+
+				Buffer.ApplyTag (url_tag, start_cpy, end);
 			}
-
-			return end;
 		}
 
 		void OnDeleteRange (object sender, Gtk.DeleteRangeArgs args)
 		{
-			ApplyUrlAtIter (args.Start);
+			ApplyUrlToBlock (args.Start, args.End);
 		}
 
 		void OnInsertText (object sender, Gtk.InsertTextArgs args)
 		{
-			if (args.Length == 1) {
-				ApplyUrlAtIter (args.Pos);
-			} else {
-				Gtk.TextIter insert_start = args.Pos;
-				insert_start.BackwardChars (args.Length);
+			Gtk.TextIter start = args.Pos;
+			start.BackwardChars (args.Length);
 
-				while (insert_start.Offset < args.Pos.Offset) {
-					insert_start = ApplyUrlAtIter (insert_start);
-
-					while (true) {
-						insert_start.ForwardChar ();
-						if (insert_start.IsEnd ||
-						    !Char.IsWhiteSpace (insert_start.Char [0]))
-							break;
-					}
-				}
-			}
+			ApplyUrlToBlock (start, args.Pos);
 		}
 	}
 
-	public class NoteLinkWatcher
+	public class NoteLinkWatcher : NotePlugin
 	{
-		Note note;
-		NoteManager manager;
-		NoteBuffer buffer;
-
-		Gtk.TextTag link_tag;
-		Gtk.TextTag broken_link_tag;
-
-		ArrayList note_titles = new ArrayList ();
+		ArrayList note_titles;
 		int longest_title;
 
-		public NoteLinkWatcher (Note note)
+		public override void Initialize () 
 		{
-			this.note = note;
-			this.buffer = note.Buffer;
-			this.manager = note.Manager;
+			Note.Opened += OnNoteOpened;
 
-			buffer.InsertText += OnInsertText;
-			buffer.DeleteRange += OnDeleteRange;
+			Manager.NoteDeleted += OnNoteDeleted;
+			Manager.NoteAdded += OnNoteAdded;
+			Manager.NoteRenamed += OnNoteRenamed;
 
-			link_tag = buffer.TagTable.Lookup ("link:internal");
-			broken_link_tag = buffer.TagTable.Lookup ("link:broken");
+			note_titles = new ArrayList ();
+		}
 
-			manager.NotesChanged += OnNotesChanged;
-			manager.NoteRenamed += OnNoteRenamed;
+		void OnNoteOpened (object sender, EventArgs args)
+		{
+			Buffer.InsertText += OnInsertText;
+			Buffer.DeleteRange += OnDeleteRange;
 
 			UpdateTitleCache ();
 
-			// Avoid highlighting title
-			Gtk.TextIter content_start = buffer.StartIter;
-			content_start.ForwardLine ();
-
-			HighlightInBlock (buffer.Text.ToLower (), buffer.StartIter);
+			// Do we need this?  Causes unnecessary write on open.
+			//HighlightInBlock (Buffer.Text.ToLower (), Buffer.StartIter);
 		}
 
 		// Updating this on NoteChanged allows us to fetch a smaller
@@ -352,7 +392,7 @@ namespace Tomboy
 			longest_title = 0;
 			note_titles.Clear ();
 
-			foreach (Note note in manager.Notes) {
+			foreach (Note note in Manager.Notes) {
 				if (note.Title.Length > longest_title)
 					longest_title = note.Title.Length;
 
@@ -365,10 +405,10 @@ namespace Tomboy
 					Gtk.TextTag replace_with_tag,
 					string      match)
 		{
-			Gtk.TextIter iter = buffer.StartIter;
+			Gtk.TextIter iter = Buffer.StartIter;
 
 			while (iter.ForwardToTagToggle (find_tag) &&
-			       !iter.Equal (buffer.EndIter)) {
+			       !iter.Equal (Buffer.EndIter)) {
 				if (!iter.BeginsTag (find_tag))
 					continue;
 
@@ -379,23 +419,49 @@ namespace Tomboy
 				string tag_content = iter.GetText (end).ToLower ();
 
 				if (tag_content == match) {
-					buffer.RemoveTag (find_tag, iter, end);
-					buffer.ApplyTag (replace_with_tag, iter, end);
+					Buffer.RemoveTag (find_tag, iter, end);
+					Buffer.ApplyTag (replace_with_tag, iter, end);
 				}
 
 				iter = end;
 			}
 		}
 
-		void OnNotesChanged (object sender, Note added, Note deleted)
+		bool ContainsText (string text)
+		{
+			// FIXME: XML Encode text, as Note.Text is encoded.
+			return Note.Text.ToLower ().IndexOf (text.ToLower ()) > -1;
+		}
+
+		// This can be called whether Note is showing or not.  If
+		// showing, manually apply the link tags to Buffer.  Otherwise
+		// just replace the xml Note.Text and queue a save.
+		void OnNoteAdded (object sender, Note added)
 		{
 			UpdateTitleCache ();
 
-			if (added != null) {
-				HighlightInBlock (buffer.Text.ToLower (), buffer.StartIter);
-			}
+			if (added == this.Note)
+				return;
 
-			if (deleted != null && deleted.Buffer != buffer) {
+			if (ContainsText (added.Title)) {
+				HighlightInBlock (Buffer.Text.ToLower (), Buffer.StartIter);
+			}
+		}
+
+		// This can be called whether Note is showing or not.  If
+		// showing, manually apply the link tags to Buffer.  Otherwise
+		// just replace the xml Note.Text and queue a save.
+		void OnNoteDeleted (object sender, Note deleted)
+		{
+			UpdateTitleCache ();
+
+			if (deleted == this.Note)
+				return;
+
+			if (ContainsText (deleted.Title)) {
+				Gtk.TextTag link_tag = Buffer.TagTable.Lookup ("link:internal");
+				Gtk.TextTag broken_link_tag = Buffer.TagTable.Lookup ("link:broken");
+
 				// Switch any link:internal tags which point to
 				// the deleted note to link:broken
 				ReplaceTagOnMatch (link_tag,
@@ -404,51 +470,62 @@ namespace Tomboy
 			}
 		}
 
-		void OnNoteRenamed (Note note, string old_title)
+		// This can be called whether Note is showing or not.  If
+		// showing, manually change the Buffer content.  Otherwise
+		// just replace the xml Note.Text and queue a save.
+		void OnNoteRenamed (Note renamed, string old_title)
 		{
-			Gtk.TextIter iter = buffer.StartIter;
-			string old_title_lower = old_title.ToLower ();
-
-			Console.WriteLine ("OnNoteRenamed called!");
-
 			UpdateTitleCache ();
 
-			while (iter.ForwardToTagToggle (link_tag) &&
-			       !iter.Equal (buffer.EndIter)) {
-				if (!iter.BeginsTag (link_tag))
-					continue;
+			if (ContainsText (old_title)) {
+				Gtk.TextTag link_tag = Buffer.TagTable.Lookup ("link:internal");
+				
+				Gtk.TextIter iter = Buffer.StartIter;
+				string old_title_lower = old_title.ToLower ();
 
-				Gtk.TextIter end = iter;
-				if (!end.ForwardToTagToggle (link_tag))
-					break;
+				while (iter.ForwardToTagToggle (link_tag) &&
+				       !iter.Equal (Buffer.EndIter)) {
+					if (!iter.BeginsTag (link_tag))
+						continue;
 
-				string tag_content = iter.GetText (end).ToLower ();
+					Gtk.TextIter end = iter;
+					if (!end.ForwardToTagToggle (link_tag))
+						break;
 
-				if (tag_content == old_title_lower) {
-					Console.WriteLine ("Replacing with '{0}'", note.Title);
+					string tag_content = iter.GetText (end).ToLower ();
 
-					int iter_offset = iter.Offset;
-					int end_offset = end.Offset;
+					if (tag_content == old_title_lower) {
+						Console.WriteLine ("Replacing with '{0}'", renamed.Title);
 
-					buffer.Delete (iter, end);
+						int iter_offset = iter.Offset;
+						int end_offset = end.Offset;
 
-					iter = buffer.GetIterAtOffset (iter_offset);
-					end = buffer.GetIterAtOffset (end_offset);
+						Buffer.Delete (iter, end);
 
-					buffer.Insert (iter, note.Title);
+						iter = Buffer.GetIterAtOffset (iter_offset);
+						end = Buffer.GetIterAtOffset (end_offset);
 
-					iter = buffer.GetIterAtOffset (iter_offset);
-					end = buffer.GetIterAtOffset (end_offset);
+						Buffer.Insert (iter, renamed.Title);
+
+						iter = Buffer.GetIterAtOffset (iter_offset);
+						end = Buffer.GetIterAtOffset (end_offset);
+					}
+
+					iter = end;
 				}
-
-				iter = end;
-			}			
+			}
 		}
 
 		void HighlightInBlock (string lower_text, Gtk.TextIter cursor) 
 		{
+			Gtk.TextTag link_tag = Buffer.TagTable.Lookup ("link:internal");
+			Gtk.TextTag broken_link_tag = Buffer.TagTable.Lookup ("link:broken");
+
 			foreach (string title in note_titles) {
 				int last_idx = 0;
+
+				if (title == Note.Title)
+					continue;
 
 				while (true) {
 					int idx = lower_text.IndexOf (title, last_idx);
@@ -463,7 +540,10 @@ namespace Tomboy
 
 					Console.WriteLine ("Matching Note title '{0}'...", title);
 
-					buffer.ApplyTag (link_tag,
+					Buffer.RemoveTag (broken_link_tag,
+							  title_start,
+							  title_end);
+					Buffer.ApplyTag (link_tag,
 							 title_start,
 							 title_end);
 
@@ -474,28 +554,14 @@ namespace Tomboy
 
 		void UnhighlightInBlock (string text, Gtk.TextIter cursor, Gtk.TextIter end) 
 		{
-			Gtk.TextIter iter = cursor;
-
-			while (iter.ForwardToTagToggle (link_tag) &&
-			       iter.InRange (cursor, end)) {
-				if (!iter.BeginsTag (link_tag))
-					continue;
-
-				Gtk.TextIter tag_end = iter;
-				if (!tag_end.ForwardToTagToggle (link_tag))
-					break;
-
-				buffer.RemoveTag (link_tag, iter, tag_end);
-			}
+			Gtk.TextTag link_tag = Buffer.TagTable.Lookup ("link:internal");
+			Buffer.RemoveTag (link_tag, cursor, end);
 		}
 
 		string GetBlockAroundCursor (ref Gtk.TextIter start, ref Gtk.TextIter end) 
 		{
-			if (!start.BackwardChars (longest_title))
-				start = buffer.StartIter;
-
-			if (!end.ForwardChars (longest_title))
-				end = buffer.EndIter;
+			start.LineOffset = 0;
+			end.ForwardToLineEnd ();
 
 			return start.GetText (end).ToLower ();
 		}
@@ -518,6 +584,8 @@ namespace Tomboy
 		void OnInsertText (object sender, Gtk.InsertTextArgs args)
 		{
 			Gtk.TextIter start = args.Pos;
+			start.BackwardChars (args.Length);
+
 			Gtk.TextIter end = args.Pos;
 
 			// Avoid title line
@@ -531,121 +599,80 @@ namespace Tomboy
 		}
 	}
 
-	public class NoteWikiWatcher
+	public class NoteWikiWatcher : NotePlugin
 	{
-		Note note;
-		NoteBuffer buffer;
-		Gtk.TextTag link_tag;
 		Gtk.TextTag broken_link_tag;
 
-		public NoteWikiWatcher (Note note)
+		const string WIKIWORD_REGEX = @"\b(([A-Z]+[a-z0-9]+){2}([A-Za-z0-9])*)\b";
+
+		static Regex regex; 
+
+		static NoteWikiWatcher ()
 		{
-			this.note = note;
-			this.buffer = note.Buffer;
+			regex = new Regex (WIKIWORD_REGEX, RegexOptions.Compiled);
+		}
 
-			link_tag = buffer.TagTable.Lookup ("link:internal");
-			broken_link_tag = buffer.TagTable.Lookup ("link:broken");
+		public override void Initialize ()
+		{
+			Note.Opened += OnNoteOpened;
+		}
 
-			if (link_tag == null || broken_link_tag == null) {
-				Console.WriteLine ("ERROR: Link tags not registered for buffer.");
+		void OnNoteOpened (object sender, EventArgs args)
+		{
+			broken_link_tag = Buffer.TagTable.Lookup ("link:broken");
+			if (broken_link_tag == null) {
+				Console.WriteLine ("ERROR: Broken link tags not registered for buffer.");
 				return;
 			}
 
-			buffer.InsertText += OnInsertText;
-			buffer.DeleteRange += OnDeleteRange;
+			Buffer.InsertText += OnInsertText;
+			Buffer.DeleteRange += OnDeleteRange;
 		}
 
-		bool WordIsCamelCase (string word)
+		void ApplyWikiwordToBlock (Gtk.TextIter start, Gtk.TextIter end)
 		{
-			if (word == string.Empty || !Char.IsUpper (word [0]))
-				return false;
+			start.LineOffset = 0;
+			end.ForwardToLineEnd ();
 
-			// Avoid patronymic name prefixes
-			if (word.StartsWith ("Mc") || word.StartsWith ("Mac"))
-				return false;
+			Buffer.RemoveTag (broken_link_tag, start, end);
 
-			int upper_cnt = 1;
-			for (int i = 1; i < word.Length; i++) {
-				if (!Char.IsLetterOrDigit (word [i]))
-					return false;
+			for (Match match = regex.Match (start.GetText (end)); 
+			     match.Success; 
+			     match = match.NextMatch ()) {
+				Group group = match.Groups [1];
 
-				if (Char.IsUpper (word [i]))
-					upper_cnt++;
-			}
+				Console.WriteLine("Highlighting wikiword: '{0}' at offset {1}",
+						  group,
+						  group.Index);
 
-			// Avoid all-caps, and regular capitalized words
-			if (upper_cnt == word.Length || upper_cnt < 2)
-				return false;
+				Gtk.TextIter start_cpy = start;
+				start_cpy.ForwardChars (group.Index);
 
-			return true;
-		}
+				end = start_cpy;
+				end.ForwardChars (group.Length);
 
-		Gtk.TextIter CheckCurrentWord (Gtk.TextIter iter)
-		{
-			Gtk.TextIter start, end, tag_end;
-
-			string word = buffer.GetCurrentBlock (iter, out start, out end);
-			if (word != null) {
-				tag_end = end;
-
-				// avoid trailing punctuation
-				do {
-					tag_end.BackwardChar ();
-				} while (Char.IsPunctuation (tag_end.Char [0]));
-
-				if (!Char.IsPunctuation (tag_end.Char [0]))
-					tag_end.ForwardChar ();
-
-				word = start.GetText (tag_end);
-
-				if (WordIsCamelCase (word)) {
-					if (note.Manager.Find (word) != null)
-						buffer.ApplyTag (link_tag, start, tag_end);
-					else
-						buffer.ApplyTag (broken_link_tag, start, tag_end);
-				} else {
-					buffer.RemoveTag (broken_link_tag, start, end);
+				if (Manager.Find (group.ToString ()) == null) {
+					Buffer.ApplyTag (broken_link_tag, start_cpy, end);
 				}
 			}
-
-			return end;
 		}
 
 		void OnDeleteRange (object sender, Gtk.DeleteRangeArgs args)
 		{
-			CheckCurrentWord (args.Start);
+			ApplyWikiwordToBlock (args.Start, args.End);
 		}
 
 		void OnInsertText (object sender, Gtk.InsertTextArgs args)
 		{
-			if (args.Length == 1) {
-				CheckCurrentWord (args.Pos);
-			} else {
-				Gtk.TextIter insert_start = args.Pos;
-				insert_start.BackwardChars (args.Length);
+			Gtk.TextIter start = args.Pos;
+			start.BackwardChars (args.Length);
 
-				while (insert_start.Offset < args.Pos.Offset) {
-					insert_start = CheckCurrentWord (insert_start);
-
-					while (true) {
-						insert_start.ForwardChar ();
-						if (insert_start.IsEnd ||
-						    !Char.IsWhiteSpace (insert_start.Char [0]))
-							break;
-					}
-				}
-			}
+			ApplyWikiwordToBlock (start, args.Pos);
 		}
-
-		// TODO: Handle topic/toc creation using =, ==, ===, ====
-		//       horizontal spacer with ----
 	}
 
-	public class MouseHandWatcher
+	public class MouseHandWatcher : NotePlugin
 	{
-		Note note;
-		NoteBuffer buffer;
-		Gtk.TextView editor;
 		Gtk.TextTag link_tag;
 		Gtk.TextTag broken_link_tag;
 
@@ -660,18 +687,20 @@ namespace Tomboy
 			hand_cursor = new Gdk.Cursor (Gdk.CursorType.Hand2);
 		}
 
-		public MouseHandWatcher (Note note)
+		public override void Initialize ()
 		{
-			this.note = note;
-			buffer = note.Buffer;
+			Note.Opened += OnNoteOpened;
+		}
 
-			link_tag = buffer.TagTable.Lookup ("link:internal");
+		public void OnNoteOpened (object sender, EventArgs args)
+		{
+			link_tag = Buffer.TagTable.Lookup ("link:internal");
 			link_tag.TextEvent += OnLinkTextEvent;
 
-			broken_link_tag = buffer.TagTable.Lookup ("link:broken");
+			broken_link_tag = Buffer.TagTable.Lookup ("link:broken");
 			broken_link_tag.TextEvent += OnLinkTextEvent;
 
-			editor = note.Window.Editor;
+			Gtk.TextView editor = Window.Editor;
 			editor.MotionNotifyEvent += OnEditorMotion;
 			editor.KeyPressEvent += OnEditorKeyPress;
 			editor.KeyReleaseEvent += OnEditorKeyRelease;
@@ -680,14 +709,14 @@ namespace Tomboy
 		bool OpenOrCreateLink (Gtk.TextIter start, Gtk.TextIter end)
 		{
 			string link_name = start.GetText (end);
-			Note link = note.Manager.Find (link_name);
+			Note link = Manager.Find (link_name);
 
 			if (link == null) {
 				Console.WriteLine ("Creating note '{0}'...", link_name);
-				link = note.Manager.Create (link_name);
+				link = Manager.Create (link_name);
 			}
 
-			if (link != null && link != note) {
+			if (link != null && link != this.Note) {
 				Console.WriteLine ("Opening note '{0}' on click...", link_name);
 				link.Window.Present ();
 				return true;
@@ -721,7 +750,7 @@ namespace Tomboy
 				return;
 
 			if (button_ev.Button == 2) {
-				note.Window.Hide ();
+				Window.Hide ();
 
 				// Kill the middle button paste...
 				args.RetVal = true;
@@ -742,7 +771,7 @@ namespace Tomboy
 				if (!hovering_on_link)
 					break;
 
-				Gdk.Window win = editor.GetWindow (Gtk.TextWindowType.Text);
+				Gdk.Window win = Window.Editor.GetWindow (Gtk.TextWindowType.Text);
 				win.Cursor = normal_cursor;
 				break;
 
@@ -756,7 +785,7 @@ namespace Tomboy
 				if ((int) (args.Event.State & Gdk.ModifierType.ControlMask) == 0)
 					break;
 				
-				Gtk.TextIter iter = buffer.GetIterAtMark (buffer.InsertMark);
+				Gtk.TextIter iter = Buffer.GetIterAtMark (Buffer.InsertMark);
 
 				foreach (Gtk.TextTag tag in iter.Tags) {
 					if (tag == link_tag || tag == broken_link_tag) {
@@ -777,16 +806,17 @@ namespace Tomboy
 		[GLib.ConnectBefore]
 		void OnEditorKeyRelease (object sender, Gtk.KeyReleaseEventArgs args) 
 		{
-			if (hovering_on_link) {
-				switch (args.Event.Key) {
-				case Gdk.Key.Shift_L:
-				case Gdk.Key.Shift_R:
-				case Gdk.Key.Control_L:
-				case Gdk.Key.Control_R:
-					Gdk.Window win = editor.GetWindow (Gtk.TextWindowType.Text);
-					win.Cursor = hand_cursor;
+			switch (args.Event.Key) {
+			case Gdk.Key.Shift_L:
+			case Gdk.Key.Shift_R:
+			case Gdk.Key.Control_L:
+			case Gdk.Key.Control_R:
+				if (!hovering_on_link)
 					break;
-				}
+
+				Gdk.Window win = Window.Editor.GetWindow (Gtk.TextWindowType.Text);
+				win.Cursor = hand_cursor;
+				break;
 			}
 		}
 
@@ -796,9 +826,9 @@ namespace Tomboy
 			int pointer_x, pointer_y;
 			Gdk.ModifierType pointer_mask;
 
-			editor.GdkWindow.GetPointer (out pointer_x, 
-						     out pointer_y, 
-						     out pointer_mask);
+			Window.Editor.GdkWindow.GetPointer (out pointer_x, 
+							    out pointer_y, 
+							    out pointer_mask);
 
 			bool hovering = false;
 			
@@ -807,16 +837,17 @@ namespace Tomboy
 			// start with "link:"...
 
 			int buffer_x, buffer_y;
-			editor.WindowToBufferCoords (Gtk.TextWindowType.Widget,
-						     pointer_x, 
-						     pointer_y,
-						     out buffer_x, 
-						     out buffer_y);
+			Window.Editor.WindowToBufferCoords (Gtk.TextWindowType.Widget,
+							    pointer_x, 
+							    pointer_y,
+							    out buffer_x, 
+							    out buffer_y);
 			
-			Gtk.TextIter iter = editor.GetIterAtLocation (buffer_x, buffer_y);
+			Gtk.TextIter iter = Window.Editor.GetIterAtLocation (buffer_x, buffer_y);
 
 			foreach (Gtk.TextTag tag in iter.Tags) {
-				if (tag.Name.StartsWith ("link:")) {
+				if (tag.Name != null && 
+				    tag.Name.StartsWith ("link:")) {
 					hovering = true;
 					break;
 				}
@@ -829,11 +860,94 @@ namespace Tomboy
 			if (hovering != hovering_on_link) {
 				hovering_on_link = hovering;
 
-				Gdk.Window win = editor.GetWindow (Gtk.TextWindowType.Text);
+				Gdk.Window win = Window.Editor.GetWindow (Gtk.TextWindowType.Text);
 				if (hovering && !avoid_hand)
 					win.Cursor = hand_cursor;
 				else 
 					win.Cursor = normal_cursor;
+			}
+		}
+	}
+
+	public class IndentWatcher : NotePlugin
+	{
+		public override void Initialize ()
+		{
+			Note.Opened += OnNoteOpened;
+		}
+
+		public void OnNoteOpened (object sender, EventArgs args)
+		{
+			Gtk.TextView editor = Window.Editor;
+			editor.KeyPressEvent += OnEditorKeyPress;
+		}
+
+		[GLib.ConnectBefore]
+		void OnEditorKeyPress (object sender, Gtk.KeyPressEventArgs args) 
+		{
+			switch (args.Event.Key) {
+			case Gdk.Key.Tab:
+			case Gdk.Key.KP_Tab:
+				Console.WriteLine ("Got Tab!");
+
+				Gtk.TextIter insert = Buffer.GetIterAtMark (Buffer.InsertMark);
+				if (!insert.StartsLine ())
+					break;
+
+				Console.WriteLine ("Going to indent!");
+
+				Gtk.TextIter para_end = insert;
+				para_end.ForwardToLineEnd ();
+
+				bool indent_exists = false;
+
+				foreach (Gtk.TextTag tag in insert.Tags) {
+					if (tag.Data ["has_indent"] != null) {
+						Console.WriteLine ("Has Indent Already! Updating!");
+						tag.LeftMargin = tag.LeftMargin + 40;
+						indent_exists = true;
+						break;
+					}
+				}
+
+				if (!indent_exists) {
+					Gtk.TextTag indent_tag = new Gtk.TextTag (null);
+					indent_tag.LeftMargin = 40;
+					indent_tag.Data ["has_indent"] = true;
+
+					Buffer.TagTable.Add (indent_tag);
+					Buffer.ApplyTag (indent_tag, insert, para_end);
+				}
+
+				args.RetVal = true;
+				break;
+
+			case Gdk.Key.BackSpace:
+				Console.WriteLine ("Got Backspace!");
+
+				Gtk.TextIter insert2 = Buffer.GetIterAtMark (Buffer.InsertMark);
+				if (!insert2.StartsLine ())
+					break;
+
+				Console.WriteLine ("Going to unindent!");
+
+				Gtk.TextIter para_end2 = insert2;
+				para_end2.ForwardToLineEnd ();
+
+				foreach (Gtk.TextTag tag in insert2.Tags) {
+					if (tag.Data ["has_indent"] != null) {
+						Console.WriteLine ("Has Indent Already! Updating!");
+						tag.LeftMargin = tag.LeftMargin - 40;
+						if (tag.LeftMargin == 0) {
+							Console.WriteLine ("Killing empty indent!");
+							Buffer.RemoveTag (tag, insert2, para_end2);
+						}
+
+						args.RetVal = true;
+						break;
+					}
+				}
+				break;
 			}
 		}
 	}

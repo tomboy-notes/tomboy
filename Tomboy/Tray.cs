@@ -30,7 +30,7 @@ namespace Tomboy
 			ev.ButtonPressEvent += ButtonPress;
 			ev.Add (new Gtk.Image (tintin));
 
-			string tip_text = "Tomboy Notes";
+			string tip_text = Catalog.GetString ("Tomboy Notes");
 
 			string shortcut = 
 				GConfKeybindingToAccel.GetShortcut (
@@ -77,7 +77,11 @@ namespace Tomboy
 				TomboyGConfXKeybinder.NEW_NOTE_BINDING);
 
 			// FIXME: Pull this from GConf
-			int list_size = 5; // Number of recent entries to list
+			int min_size = 5;
+			int max_size = 18;
+			int list_size = 0;
+
+			DateTime two_days_ago = DateTime.Now.AddDays (-2);
 
 			// List the i most recently changed notes, and any
 			// currently opened notes...
@@ -85,12 +89,16 @@ namespace Tomboy
 				if (note.IsSpecial)
 					continue;
 
-				if (note.IsOpened || list_size > 0) {
+				if (note.IsOpened || 
+				    note.ChangeDate > two_days_ago ||
+				    list_size < min_size) {
 					item = MakeNoteMenuItem (note);
 					menu.Append (item);
 				}
 
-				list_size--;
+				list_size++;
+				if (list_size == max_size)
+					break;
 			}
 
 			uint keyval;
