@@ -100,7 +100,8 @@ EXTRA_DIST =            			\
 	$(srcdir)/stock_notes.png		\
 	$(srcdir)/gnome-stock-searchtool.png
 
-CLEANFILES =            \
-	$(TARGET)       \
-	$(WRAPPER)	\
-	Defines.cs
+CLEANFILES =            			\
+	$(TARGET)       			\
+	$(WRAPPER)				\
+	Defines.cs				\
+	com.beatniksoftware.Tomboy.service

@@ -1,6 +1,6 @@
 AC_INIT(Tomboy/Tomboy.cs)
 AC_CANONICAL_SYSTEM
-AM_INIT_AUTOMAKE(tomboy, 0.1.2)
+AM_INIT_AUTOMAKE(tomboy, 0.2.0)
 AM_MAINTAINER_MODE
 AM_CONFIG_HEADER(config.h)
 
@@ -78,7 +78,6 @@ AC_SUBST(TOMBOY_LIBS)
 #
 # Properly handle libraries that aren't in our standard GAC path.
 #
-
 DBUS_PREFIX=`$PKG_CONFIG --variable=prefix dbus-sharp`
 
 EXTRA_GAC_PREFIX="$DBUS_PREFIX"
