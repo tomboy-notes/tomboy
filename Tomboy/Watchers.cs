@@ -199,7 +199,7 @@ namespace Tomboy
 							  IntPtr error);
 
 		[DllImport ("libgtkspell.so.0")]
-		static extern void gtkspell_detach (IntPtr gtk_spell);
+		static extern void gtkspell_detach (IntPtr obj);
 
 		public override void Initialize ()
 		{
@@ -686,8 +686,25 @@ namespace Tomboy
 				return;
 			}
 
-			Buffer.InsertText += OnInsertText;
-			Buffer.DeleteRange += OnDeleteRange;
+			if ((bool) Preferences.Get (Preferences.ENABLE_WIKIWORDS)) {
+				Buffer.InsertText += OnInsertText;
+				Buffer.DeleteRange += OnDeleteRange;
+			}
+			Preferences.SettingChanged += OnEnableWikiwordsChanged;
+		}
+
+		void OnEnableWikiwordsChanged (object sender, GConf.NotifyEventArgs args)
+		{
+			if (args.Key != Preferences.ENABLE_WIKIWORDS)
+				return;
+
+			if ((bool) args.Value) {
+				Buffer.InsertText += OnInsertText;
+				Buffer.DeleteRange += OnDeleteRange;
+			} else {
+				Buffer.InsertText -= OnInsertText;
+				Buffer.DeleteRange -= OnDeleteRange;
+			}
 		}
 
 		static string [] PatronymicPrefixes = 
