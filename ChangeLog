@@ -1,3 +1,15 @@
+2004-09-20  Alex Graveley  <alex@beatniksoftware.com>
+
+	* tomboy.spec.in: Initial spec file from Ricardo Veguilla
+	<veguilla@hpcf.upr.edu>.
+
+	* Tomboy/NoteManager.cs (NoteManager.CreateStartNote): Fix typo.
+
+	* Tomboy/Note.cs: Pass a StreamReader for the note's file to the
+	XmlTextReader constructor.  Hopefully it won't complain about
+	invalid URLs in some versions of mono.  Reported by O'Grady
+	Stephen <sogrady@redmonk.com>.
+
 2004-09-19  Alex Graveley  <alex@beatniksoftware.com>
 
 	* configure.in: Require gtkspell version 2.0.6.

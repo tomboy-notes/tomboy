@@ -293,7 +293,8 @@ namespace Tomboy
 	{
 		public static void Read (string read_file, Note note) 
 		{
-			XmlTextReader xml = new XmlTextReader (read_file);
+			StreamReader reader = new StreamReader (read_file, System.Text.Encoding.UTF8);
+			XmlTextReader xml = new XmlTextReader (reader);
 			xml.Namespaces = false;
 
 			while (xml.Read ()) {

@@ -101,7 +101,7 @@ namespace Tomboy
 				start_note.Text = 
 					"<note-content>" +
 					"Start Here\n\n<bold>Welcome to Tomboy!</bold>\n\n" +
-					"Use this page as a Start Page for organizanizing your " +
+					"Use this page as a Start Page for organizing your " +
 					"notes and keeping unorganized ideas around." +
 					"</note-content>";
 				start_note.Save ();
