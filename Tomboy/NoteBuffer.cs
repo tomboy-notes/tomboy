@@ -279,6 +279,10 @@ namespace Tomboy
 			Gtk.TextIter insert_start = args.Pos;
 			insert_start.BackwardChars (args.Text.Length);
 
+			foreach (Gtk.TextTag tag in insert_start.Tags) {
+				RemoveTag (tag, insert_start, args.Pos);
+			}
+
 			foreach (Gtk.TextTag tag in active_tags) {
 				ApplyTag (tag, insert_start, args.Pos);
 			}

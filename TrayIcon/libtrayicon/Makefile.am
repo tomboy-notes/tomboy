@@ -24,5 +24,8 @@ install-data-hook:
 	rm $(DESTDIR)/$(tomboylibdir)/libtrayicon.a
 	rm $(DESTDIR)/$(tomboylibdir)/libtrayicon.la
 
+uninstall-local:
+	rm $(DESTDIR)/$(tomboylibdir)/libtrayicon.so
+
 maintainer-clean-local:
 	rm -f Makefile.in

@@ -1,0 +1,59 @@
+version 2.0.8 (08-Oct-2004):
+	* Fix how the GtkTextTag is created to work with shared tag tables.
+	* Additional translation (see po/ChangeLog).
+
+version 2.0.7 (22-Aug-2004):
+	* Activating the menu through a keybinding now properly checks the
+	  word currently under the cursor.
+	* Prevent the trampling on an application's textdomain (Stu Tomlinson).
+	* Additional translations (see po/ChangeLog).
+
+version 2.0.6 (26-Jun-2004):
+	* Use new PANGO_UNDERLINE_ERROR style when available to highlight
+	  misspelled words with squiggly red underline.
+	* Internationalize with GNU Gettext. All five strings now translatable.
+	  Thanks to Adriano Del Vigna de Almeida <katmandu@fs.inf.br>
+	* New po/ChangeLog to track translation additions/updates.
+
+version 2.0.5 (26-Jan-2004):
+	* Don't check numeric words.  Combined with word breaking changes 
+	  recently committed to Pango, this will handle all letter-number
+	  combinations nicely.
+	* "Add to Dictionary" now actually adds to personal dictionary.
+	* New "Ignore All" menuitem to add a word to the current session.
+	* Updates of autogen.sh and conifgure.ac to use newer 
+	  autoconf/automake/libtool.
+	* Change behavior on a right click so that cutting/copying with
+	  the mouse works again.
+	* Add deferred checking: make the misspelled word highlighting 
+	  work like other apps and delay checking the current word until 
+	  the cursor exits it.
+
+version 2.0.4 (01-Jan-2003):
+	* gtkspell.spec.in: Typo fix.
+	* Conditionally use Aspell if it's available, otherwise
+	  fall back to Pspell (Ramon Medina).
+	* docs/ directory and beginning documentation added.
+
+version 2.0.3 (13-Nov-2002):
+	* gtkspell.c: Hack around Pango wordbreaking bug (also logged
+	with their developers at:
+	http://bugzilla.gnome.org/show_bug.cgi?id=97545 ).
+	* gtkspell.spec.in: RPM .spec file template.
+	  From Alex <hansolo@rochester.rr.com>.
+	* configure.ac: Generate gtkspell.spec from gtkspell.spec.in.
+	* README: Add Ari and Alex to a "Thanks" section.
+	* configure.ac: Check for libpspell earlier and die if we don't
+	  find it.  Prerequire autoconf 2.52.  
+	* gtkspell/Makefile.am, examples/Makefile.am: Set CFLAGS instead
+	  of foo_CFLAGS (why does the old way not work anymore?).
+	* autogen.sh: Don't automatically run configure.
+
+version 2.0.2 (Aug-13-2002):
+	* minor bugfix
+
+version 2.0.1 (Aug-08-2002):
+
+version 2.0.0 (Mar-29-2002):
+	* Initial release.
+
