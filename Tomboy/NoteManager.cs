@@ -2,7 +2,6 @@
 using System;
 using System.IO;
 using System.Collections;
-using System.Web;
 using Mono.Posix;
 
 namespace Tomboy
@@ -129,7 +128,7 @@ namespace Tomboy
 			Note new_note = new Note (linked_title, filename, this);
 			new_note.Text = 
 				String.Format ("<note-content>{0}{1}</note-content>",
-					       HttpUtility.HtmlEncode (header),
+					       XmlEncoder.Encode (header),
 					       Catalog.GetString ("Describe your new note here."));
 			new_note.Renamed += OnNoteRename;
 

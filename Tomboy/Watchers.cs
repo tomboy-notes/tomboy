@@ -3,7 +3,6 @@ using System;
 using System.Collections;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
-using System.Web;
 using Mono.Posix;
 
 namespace Tomboy
@@ -477,10 +476,10 @@ namespace Tomboy
 		bool ContainsText (string text)
 		{
 			/* Encode any entities */
-			string encoded_text = text.ToLower ();
-			encoded_text = HttpUtility.HtmlEncode (encoded_text);
+			string match = XmlEncoder.Encode (text.ToLower ());
+			string body = Note.Text.ToLower ();
 
-			return Note.Text.ToLower ().IndexOf (encoded_text) > -1;
+			return body.IndexOf (match) > -1;
 		}
 
 		void OnNoteAdded (object sender, Note added)
