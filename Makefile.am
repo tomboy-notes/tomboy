@@ -1,10 +1,6 @@
 
 SUBDIRS = TrayIcon Tomboy po 
 
-if OLD_GTKSPELL
-SUBDIRS += gtkspell
-endif
-
 desktop_in_files = tomboy.desktop.in
 desktop_files    = $(desktop_in_files:.desktop.in=.desktop)
 @INTLTOOL_DESKTOP_RULE@

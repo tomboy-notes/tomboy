@@ -10,7 +10,8 @@ namespace Tomboy
 	{
 		static NoteTagTable instance;
 
-		public static NoteTagTable Instance {
+		public static NoteTagTable Instance 
+		{
 			get {
 				if (instance == null) 
 					instance = new NoteTagTable ();
