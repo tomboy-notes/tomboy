@@ -1,3 +1,21 @@
+2004-11-30  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Trie.cs: Fix compile error for newer mono versions.
+
+2004-11-30  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Note.cs: Disable the NoteRelatedToWatcher for now.
+
+	* Tomboy/Watchers.cs: NoteLinkWatcher: Add nested TrieController
+	class that handles updating the trie of note titles on
+	load/create/delete/rename. Create a static TrieController in
+	Initialize if it doesn't exist yet.
+	Don't check ContainsText in OnNoteAdded as this breaks certain
+	note creation linkage.
+
+	* Tomboy/NoteManager.cs: Add NotesLoaded event, so the note linker
+	can know when to generate the trie of note titles.
+
 2004-11-29  Alex Graveley  <alex@beatniksoftware.com>
 
 	* Tomboy/Makefile.am (CSFILES): Add Trie.cs.

@@ -135,7 +135,7 @@ namespace Tomboy
 						Trace ("Got match for '{0}' == '{1}', moving to next ('{2}')",
 						       CaseConvert (haystack [idx]), 
 						       iter.Value,
-						       (iter.Next == null) ? null : iter.Next.Value);
+						       (iter.Next == null) ? '\0' : iter.Next.Value);
 
 						iter = iter.Next;
 						idx++;
@@ -143,7 +143,7 @@ namespace Tomboy
 						Trace ("Got fail  for '{0}' != '{1}', moving to fail ('{2}')",
 						       CaseConvert (haystack [idx]), 
 						       iter.Value,
-						       (iter.Fail == null) ? null : iter.Fail.Value);
+						       (iter.Fail == null) ? '\0' : iter.Fail.Value);
 
 						iter = iter.Fail;
 					}
