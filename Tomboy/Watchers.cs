@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
+using System.Web;
 using Mono.Posix;
 
 namespace Tomboy
@@ -429,8 +430,11 @@ namespace Tomboy
 
 		bool ContainsText (string text)
 		{
-			// FIXME: XML Encode text, as Note.Text is encoded.
-			return Note.Text.ToLower ().IndexOf (text.ToLower ()) > -1;
+			/* Encode any entities */
+			string encoded_text = text.ToLower ();
+			encoded_text = HttpUtility.HtmlEncode (encoded_text);
+
+			return Note.Text.ToLower ().IndexOf (encoded_text) > -1;
 		}
 
 		// This can be called whether Note is showing or not.  If

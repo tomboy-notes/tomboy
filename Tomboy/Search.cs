@@ -284,7 +284,7 @@ namespace Tomboy
 			}
 		}
 
-		static public ArrayList FindMatches (NoteBuffer buffer, string [] words, bool match_case)
+		ArrayList FindMatches (NoteBuffer buffer, string [] words, bool match_case)
 		{
 			ArrayList matches = new ArrayList ();
 
@@ -335,7 +335,7 @@ namespace Tomboy
 				return matches;
 		}
 
-		static public void HighlightMatches (ArrayList matches, bool highlight)
+		void HighlightMatches (ArrayList matches, bool highlight)
 		{
 			if (matches == null)
 				return;
@@ -685,7 +685,12 @@ namespace Tomboy
 		public string SearchText
 		{
 			get { return find_combo.Entry.Text; }
-			set { find_combo.Entry.Text = value; }
+			set { 
+				if (value == null)
+					find_combo.Entry.Text = "";
+				else
+					find_combo.Entry.Text = value; 
+			}
 		}
 	}
 }

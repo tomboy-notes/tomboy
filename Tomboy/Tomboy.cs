@@ -131,10 +131,11 @@ namespace Tomboy
 			usage += 
 				Catalog.GetString (
 					"Usage:\n" +
-					"  --new-note\t\tCreate and display a new note\n" +
-					"  --new-note [title]\tCreate and display a new note, with a title\n" +
-					"  --open-note [title]\tDisplay the existing note matching title\n" +
-					"  --help\t\tPrint this usage message.\n");
+					"  --new-note\t\t\tCreate and display a new note\n" +
+					"  --new-note [title]\t\tCreate and display a new note, with a title\n" +
+					"  --open-note [title/url]\tDisplay the existing note matching title\n" +
+					"  --highlight-search [text]\tSearch and highlight text in the opened note\n" +
+					"  --help\t\t\tPrint this usage message.\n");
 #else
 			usage += "Tomboy remote control disabled.";
 #endif
@@ -232,13 +233,13 @@ namespace Tomboy
 
 			if (open_note_uri != null) {
 				if (highlight_search != null)
-					remote.DisplayNoteWithSearch (open_note_uri, highlight_search);
+					remote.DisplayNoteWithSearch (open_note_uri, 
+								      highlight_search);
 				else
 					remote.DisplayNote (open_note_uri);
 
 				quit = true;
 			}
-
 
 			return quit;
 		}
