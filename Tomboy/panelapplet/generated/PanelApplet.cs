@@ -37,7 +37,7 @@ namespace PanelApplet {
 		static void changebackground_cb (IntPtr applet, int type, ref Gdk.Color color, IntPtr pixmap)
 		{
 			PanelApplet obj = GLib.Object.GetObject (applet, false) as PanelApplet;
-			obj.OnChangeBackground ((PanelApplet.BackgroundType)type, color, (Gdk.Pixmap) GLib.Object.GetObject(pixmap));
+			obj.OnChangeBackground ((BackgroundType)type, color, (Gdk.Pixmap) GLib.Object.GetObject(pixmap));
 		}
 
 		private static void OverrideChangeBackground (GLib.GType gtype)
@@ -47,8 +47,8 @@ namespace PanelApplet {
 			OverrideVirtualMethod (gtype, "change_background", ChangeBackgroundCallback);
 		}
 
-		[GLib.DefaultSignalHandler(Type=typeof(PanelApplet.PanelApplet), ConnectionMethod="OverrideChangeBackground")]
-		protected virtual void OnChangeBackground (PanelApplet.BackgroundType type, Gdk.Color color, Gdk.Pixmap pixmap)
+		[GLib.DefaultSignalHandler(Type=typeof(PanelApplet), ConnectionMethod="OverrideChangeBackground")]
+		protected virtual void OnChangeBackground (BackgroundType type, Gdk.Color color, Gdk.Pixmap pixmap)
 		{
 			GLib.Value ret = GLib.Value.Empty;
 			GLib.ValueArray inst_and_params = new GLib.ValueArray (4);
@@ -65,7 +65,7 @@ namespace PanelApplet {
 		}
 
 		[GLib.Signal("change_background")]
-		public event PanelApplet.ChangeBackgroundHandler ChangeBackground {
+		public event ChangeBackgroundHandler ChangeBackground {
 			add {
 				if (value.Method.GetCustomAttributes(typeof(GLib.ConnectBeforeAttribute), false).Length > 0) {
 					if (BeforeHandlers["change_background"] == null)
@@ -119,7 +119,7 @@ namespace PanelApplet {
 			OverrideVirtualMethod (gtype, "move_focus_out_of_applet", MoveFocusOutOfAppletCallback);
 		}
 
-		[GLib.DefaultSignalHandler(Type=typeof(PanelApplet.PanelApplet), ConnectionMethod="OverrideMoveFocusOutOfApplet")]
+		[GLib.DefaultSignalHandler(Type=typeof(PanelApplet), ConnectionMethod="OverrideMoveFocusOutOfApplet")]
 		protected virtual void OnMoveFocusOutOfApplet (Gtk.DirectionType direction)
 		{
 			GLib.Value ret = GLib.Value.Empty;
@@ -133,7 +133,7 @@ namespace PanelApplet {
 		}
 
 		[GLib.Signal("move_focus_out_of_applet")]
-		public event PanelApplet.MoveFocusOutOfAppletHandler MoveFocusOutOfApplet {
+		public event MoveFocusOutOfAppletHandler MoveFocusOutOfApplet {
 			add {
 				if (value.Method.GetCustomAttributes(typeof(GLib.ConnectBeforeAttribute), false).Length > 0) {
 					if (BeforeHandlers["move_focus_out_of_applet"] == null)
@@ -187,7 +187,7 @@ namespace PanelApplet {
 			OverrideVirtualMethod (gtype, "change_size", ChangeSizeCallback);
 		}
 
-		[GLib.DefaultSignalHandler(Type=typeof(PanelApplet.PanelApplet), ConnectionMethod="OverrideChangeSize")]
+		[GLib.DefaultSignalHandler(Type=typeof(PanelApplet), ConnectionMethod="OverrideChangeSize")]
 		protected virtual void OnChangeSize (uint size)
 		{
 			GLib.Value ret = GLib.Value.Empty;
@@ -201,7 +201,7 @@ namespace PanelApplet {
 		}
 
 		[GLib.Signal("change_size")]
-		public event PanelApplet.ChangeSizeHandler ChangeSize {
+		public event ChangeSizeHandler ChangeSize {
 			add {
 				if (value.Method.GetCustomAttributes(typeof(GLib.ConnectBeforeAttribute), false).Length > 0) {
 					if (BeforeHandlers["change_size"] == null)
@@ -303,9 +303,9 @@ namespace PanelApplet {
 		[DllImport("panel-applet-2")]
 		static extern int panel_applet_get_background(IntPtr raw, ref Gdk.Color color, IntPtr pixmap);
 
-		public PanelApplet.BackgroundType GetBackground(Gdk.Color color, Gdk.Pixmap pixmap) {
+		public BackgroundType GetBackground(Gdk.Color color, Gdk.Pixmap pixmap) {
 			int raw_ret = panel_applet_get_background(Handle, ref color, pixmap.Handle);
-			PanelApplet.BackgroundType ret = (PanelApplet.BackgroundType)raw_ret;
+			BackgroundType ret = (BackgroundType)raw_ret;
 			return ret;
 		}
 
@@ -373,10 +373,10 @@ namespace PanelApplet {
 		[DllImport("panel-applet-2")]
 		static extern void panel_applet_set_flags(IntPtr raw, int flags);
 
-		public PanelApplet.Flags AppletFlags { 
+		public Flags AppletFlags { 
 			get {
 				int raw_ret = panel_applet_get_flags(Handle);
-				PanelApplet.Flags ret = (PanelApplet.Flags)raw_ret;
+				Flags ret = (Flags)raw_ret;
 				return ret;
 			}
 			set {

@@ -8,9 +8,9 @@ namespace PanelApplet {
 	public delegate void ChangeBackgroundHandler(object o, ChangeBackgroundArgs args);
 
 	public class ChangeBackgroundArgs : GLib.SignalArgs {
-		public PanelApplet.BackgroundType Type{
+		public BackgroundType Type{
 			get {
-				return (PanelApplet.BackgroundType) Args[0];
+				return (BackgroundType) Args[0];
 			}
 		}
 
