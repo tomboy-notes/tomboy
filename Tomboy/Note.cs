@@ -285,7 +285,7 @@ namespace Tomboy
 
 					// Watch for note renames
 					note_rename_watcher = new NoteRenameWatcher (this);
-					
+
 					if (width != 0 && height != 0) {
 						window.SetDefaultSize (width, height);
 						window.Move (x, y);

@@ -231,7 +231,6 @@ namespace Tomboy
 			}
 
 			note.Window.Present ();
-			this.Present ();
 		}
 	}
 }
