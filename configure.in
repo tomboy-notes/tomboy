@@ -16,12 +16,24 @@ if test "x$MCSTEST" = "xno"; then
 	AC_MSG_ERROR([You need to install mcs (from mono)])
 fi
 
-PKG_CHECK_MODULES(TOMBOY, gtk-sharp gnome-sharp)
+# Gdk and Atk are needed for libtrayicon
+GDK20_MINIMUM_VERSION=2.2.3
+ATK_MINIMUM_VERSION=1.2.4
 
+PKG_CHECK_MODULES(GDK20, gdk-2.0 >= $GDK20_MINIMUM_VERSION)
+AC_SUBST(GDK20_CFLAGS)
+AC_SUBST(GDK20_LIBS)
+                                                                                
+PKG_CHECK_MODULES(ATK, atk >= $ATK_MINIMUM_VERSION)
+AC_SUBST(ATK_CFLAGS)
+AC_SUBST(ATK_LIBS)
+
+PKG_CHECK_MODULES(TOMBOY, gtk-sharp gnome-sharp)
 AC_SUBST(TOMBOY_LIBS)
 
 AC_OUTPUT([
 Makefile
 Tomboy/Makefile
 TrayIcon/Makefile
+TrayIcon/libtrayicon/Makefile
 ])
