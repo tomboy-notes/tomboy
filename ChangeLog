@@ -1,3 +1,17 @@
+2004-11-24  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Watchers.cs: Add NoteRelatedToWatcher, which monitors
+	link creation in other notes, and updates a "related notes" line
+	(under the title-line) if a link to the current note is created.
+
+	* Tomboy/NoteBuffer.cs: Add "related-to" tag, used in the Related
+	line to indent and give the text a small size.
+
+	* Tomboy/NoteWindow.cs: Always remove any sizing tags when a
+	sizing menu item is applied. Add an unshown sizing menuitem to the Text
+	menu, which gets set when text size is indeterminable (i.e. when
+	on the title line).
+
 2004-11-15  Alex Graveley  <alex@beatniksoftware.com>
 
 	* Tomboy/Applet.cs: Pass Defines.DATADIR so the panel can find

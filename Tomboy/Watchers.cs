@@ -189,6 +189,140 @@ namespace Tomboy
 		}
 	}
 
+	public class NoteRelatedToWatcher : NotePlugin
+	{
+		ArrayList linked_from;
+		ArrayList linked_to;
+
+		public override void Initialize ()
+		{
+			linked_from = new ArrayList ();
+			linked_to = new ArrayList ();
+
+			Note.Opened += OnNoteOpened;
+			LinkCreated += OnLinkCreated;
+		}
+
+		public void OnNoteOpened (object sender, EventArgs args)
+		{
+			Buffer.TagApplied += OnTagApplied;
+		}
+
+		void OnTagApplied (object sender, Gtk.TagAppliedArgs args)
+		{
+			if (args.Tag.Name != "link:internal") 
+				return;
+
+			string link_text = args.StartChar.GetText (args.EndChar);
+
+			// Ignore self-references
+			if (link_text.ToLower () == Note.Title.ToLower ())
+				return;
+
+			linked_to.Add (link_text);
+
+			Console.WriteLine ("Link Tag applied to '{0}', for '{1}'",
+					   Note.Title,
+					   link_text);
+
+			LinkCreated (Note, link_text);
+		}
+
+		void OnTagRemoved (object sender, Gtk.TagAppliedArgs args)
+		{
+			if (args.Tag.Name != "link:internal")
+				return;
+
+			Console.WriteLine ("Tag 'link:internal' removed!!!");
+		}
+
+		void OnLinkCreated (Note note, string link_text)
+		{
+			if (link_text.ToLower () != Note.Title.ToLower ())
+				return;
+
+			Console.WriteLine ("Received Link text from '{0}' = '{1}'",
+					   note.Title,
+					   link_text);
+
+			// Don't show links we already link to in the body
+			if (linked_to.Contains (link_text))
+				return;
+
+			if (linked_from.Contains (note.Title))
+				return;
+
+			linked_from.Add (note.Title);
+
+			Gtk.TextTag tag = Buffer.TagTable.Lookup ("related-to");
+			Gtk.TextIter iter = Buffer.StartIter;
+
+			if (iter.ForwardToTagToggle (tag)) 
+				RemoveRelatedLine ();
+
+			InsertRelatedLine ();
+		}
+
+		void InsertRelatedLine ()
+		{
+			Gtk.TextIter line, line_end;
+
+			line = Buffer.StartIter;
+			line.ForwardLines (1);
+
+			Buffer.Insert (line, Catalog.GetString ("Related to: "));
+
+			line = Buffer.StartIter;
+			line.ForwardLines (1);
+			line_end = line;
+			line_end.ForwardToLineEnd ();
+
+			Buffer.ApplyTag ("italic", line, line_end);
+
+			line = Buffer.StartIter;
+			line.ForwardLines (1);
+			line_end = line;
+			line_end.ForwardToLineEnd ();
+
+			string link_text = string.Empty;
+			foreach (string link in linked_from) {
+				if (link_text == string.Empty)
+					link_text = link;
+				else {
+					link_text += ", ";
+					link_text += link;
+				}
+			}
+			link_text += "\n";
+
+			Buffer.Insert (line_end, link_text);
+
+			line = Buffer.StartIter;
+			line.ForwardLines (1);
+			line_end = line;
+			line_end.ForwardToLineEnd ();
+
+			Buffer.ApplyTag ("related-to", line, line_end);
+		}
+
+		void RemoveRelatedLine ()
+		{
+			Gtk.TextTag tag = Buffer.TagTable.Lookup ("related-to");
+
+			Gtk.TextIter line = Buffer.StartIter;
+			line.ForwardToTagToggle (tag);
+
+			Gtk.TextIter line_end = line;
+			line_end.ForwardToTagToggle (tag);
+			
+			Buffer.Delete (line, line_end);
+		}
+
+		delegate void LinkCreatedHandler (Note note, string linked_text);
+
+		static event LinkCreatedHandler LinkCreated;
+	}
+
 	public class NoteSpellChecker : NotePlugin
 	{
 		IntPtr obj_ptr = IntPtr.Zero;
