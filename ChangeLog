@@ -1,3 +1,16 @@
+2004-10-20  Alex Graveley  <alex@beatniksoftware.com>
+
+	* configure.in: Add Catalan translation from Jordi Mas
+	<jmas@softcatala.org>.  Add Icelandic translation from Gunnar
+	Steinn Magnússon <gsm@gunnarsteinn.com>.  If gtkspell version
+	>= 2.0.8, define FIXED_GTKSPELL.
+
+	* Tomboy/Note.cs: Use shared TagTable when creating Buffer if
+	FIXED_GTKSPELL is defined.
+
+	Remove included gtkspell.  Included this out of frustration, but
+	its not really the right thing to do.
+
 2004-10-20  David Lodge <dave@cirt.net>
                                                                                 
         * configure.in: Added en_GB to ALL_LINGUAS.

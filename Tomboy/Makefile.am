@@ -36,10 +36,13 @@ RESOURCES = 							\
 	-resource:$(srcdir)/stock_notes.png,stock_notes.png	\
 	-resource:$(srcdir)/gnome-stock-searchtool.png,gnome-stock-searchtool.png
 
-### Not needed while we're including GtkSpell 2.0.8
-#if OLD_GTKSPELL
-#CSFLAGS += -define:OLD_GTKSPELL
-#endif
+if OLD_GTKSPELL
+CSFLAGS += -define:OLD_GTKSPELL
+endif
+
+if FIXED_GTKSPELL
+CSFLAGS += -define:FIXED_GTKSPELL
+endif
 
 if ENABLE_DBUS
 CSFLAGS += -define:ENABLE_DBUS

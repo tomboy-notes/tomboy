@@ -310,12 +310,20 @@ namespace Tomboy
 				if (buffer == null) {
 					Console.WriteLine ("Creating Buffer for '{0}'...", title);
 
-					// FIXME: Sharing the same tagtable between buffers means
-					// that formatting is duplicated, however GtkSpell choke on
-					// a shared TagTable because it blindly tries to create a
-					// new "gtkspell-misspelling" tag, which fails if it already
-					// exists.
+#if FIXED_GTKSPELL
+					// NOTE: Sharing the same TagTable means
+					// that formatting is duplicated between
+					// buffers.
+					buffer = new NoteBuffer (NoteTagTable.Instance);
+#else
+					// NOTE: GtkSpell prior to 2.0.8 chokes
+					// on shared TagTables because it
+					// blindly tries to create a new
+					// "gtkspell-misspelling" tag, which
+					// fails if one already exists in the
+					// table.
 					buffer = new NoteBuffer (new NoteTagTable ());
+#endif
 
 					// Don't create Undo actions during load
 					buffer.Undoer.FreezeUndo ();
