@@ -38,11 +38,6 @@ namespace Tomboy
 
 			// Font stylings
 
-			// This is just an empty tag we can use to get default
-			// attributes.
-			tag = new Gtk.TextTag ("normal");
-			Add (tag);
-
 			tag = new Gtk.TextTag ("centered");
 			tag.Justification = Gtk.Justification.Center;
 			Add (tag);
@@ -98,22 +93,6 @@ namespace Tomboy
 			tag.Scale = Pango.Scale.Small;
 			Add (tag);
 
-			// Font coloring
-
-			/*
-			tag = new Gtk.TextTag ("color:red");
-			tag.Foreground = "red";
-			Add (tag);
-
-			tag = new Gtk.TextTag ("color:blue");
-			tag.Foreground = "blue";
-			Add (tag);
-
-			tag = new Gtk.TextTag ("color:green");
-			tag.Foreground = "green";
-			Add (tag);
-			*/
-
 			// Lists
 
 			tag = new Gtk.TextTag ("list:bullet");
@@ -121,18 +100,6 @@ namespace Tomboy
 
 			tag = new Gtk.TextTag ("list:numbered");
 			Add (tag);
-
-			// Underlining
-
-			/*
-			tag = new Gtk.TextTag ("underline:single");
-			tag.Underline = Pango.Underline.Single;
-			Add (tag);
-
-			tag = new Gtk.TextTag ("underline:double");
-			tag.Underline = Pango.Underline.Double;
-			Add (tag);
-			*/
 
 			// Links
 
