@@ -13,7 +13,8 @@ namespace Tomboy
 			LeftMargin = 8;
 			RightMargin = 8;
 			CanDefault = true;
-			DragDataReceived += OnDragDataReceived;
+
+			// Make sure the cursor position is visible
 			ScrollMarkOnscreen (buffer.InsertMark);
 
 			// Set Font from GConf preference
@@ -60,30 +61,44 @@ namespace Tomboy
 		//
 		// DND Drop handling
 		//
-		void OnDragDataReceived (object sender, Gtk.DragDataReceivedArgs args)
+		protected override void OnDragDataReceived (Gdk.DragContext context, 
+							    int x,
+							    int y,
+							    Gtk.SelectionData selection_data,
+							    uint info,
+							    uint time)
 		{
-			// FIXME: Need to access SelectionData's target, which
-			// is unmapped in Gtk# currently, and only insert urls
-			// when the target is text/uri-list, or _NETSCAPE_URL.
+			bool has_url = false;
 
-			UriList uri_list = new UriList (args.SelectionData);
-			if (uri_list.Count == 0)
-				return;
+			foreach (Gdk.Atom target in context.Targets) {
+				if (target.Name == "text/uri-list" ||
+				    target.Name == "_NETSCAPE_URL") {
+					has_url = true;
+					break;
+				}
+			}
 
-			Gtk.TextIter cursor = Buffer.GetIterAtMark (Buffer.InsertMark);
-			bool more_than_one = false;
+			if (has_url) {
+				UriList uri_list = new UriList (selection_data);
+				Gtk.TextIter cursor = Buffer.GetIterAtMark (Buffer.InsertMark);
+				bool more_than_one = false;
 
-			foreach (Uri uri in uri_list) {
-				Console.WriteLine ("Got Dropped URI: {0}", uri);
-				if (more_than_one)
-					Buffer.Insert (cursor, "\n");
+				foreach (Uri uri in uri_list) {
+					Console.WriteLine ("Got Dropped URI: {0}", uri);
+					if (more_than_one)
+						Buffer.Insert (cursor, "\n");
 
-				if (uri.IsFile) 
-					Buffer.Insert (cursor, uri.LocalPath);
-				else
-					Buffer.Insert (cursor, uri.ToString ());
+					if (uri.IsFile) 
+						Buffer.Insert (cursor, uri.LocalPath);
+					else
+						Buffer.Insert (cursor, uri.ToString ());
 
-				more_than_one = true;
+					more_than_one = true;
+				}
+
+				Gtk.Drag.Finish (context, more_than_one, false, time);
+			} else {
+				base.OnDragDataReceived (context, x, y, selection_data, info, time);
 			}
 		}
 	}
