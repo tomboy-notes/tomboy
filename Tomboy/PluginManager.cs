@@ -171,6 +171,8 @@ namespace Tomboy
 					note_plugins.Add (plugin);
 				}
 			}
+
+			asm_plugins.Clear ();
 		}
 
 		void OnPluginDeleted (object sender, FileSystemEventArgs args)
@@ -187,6 +189,10 @@ namespace Tomboy
 				}
 			}
 
+			foreach (Type type in kill_list) {
+				plugin_types.Remove (type);
+			}
+
 			foreach (Note note in plugin_hash.Keys) {
 				ArrayList note_plugins = (ArrayList) plugin_hash [note];
 
@@ -200,6 +206,8 @@ namespace Tomboy
 					}
 				}
 			}
+
+			kill_list.Clear ();
 		}
 
 		void CreatePluginsDir ()
