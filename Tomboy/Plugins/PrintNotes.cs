@@ -91,6 +91,9 @@ public class PrintPlugin : NotePlugin
 			if (iter.Char.Equals("\n")) {
 				cur_y -= line_space;
 				cur_x = 50;
+			} else if (iter.Char.Equals("\t")) {
+				double tab_width = 8 * font.GetWidthUtf8 (" ");
+				cur_x += tab_width - ((cur_x - 50) % tab_width);
 			} else {
 				Print.Show (context, iter.Char);
 				cur_x += font.GetWidthUtf8 (iter.Char);
