@@ -1,4 +1,6 @@
 
+SUBDIRS = Plugins
+
 CSC = mcs -g
 
 TARGET = Tomboy.exe
