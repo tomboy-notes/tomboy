@@ -27,8 +27,8 @@ namespace Tomboy
 		// 
 		// Construct a window to display a note
 		// 
-		// Currently a toolbar with Link, Font, Delete buttons and a
-		// Gtk.TextView as the body.
+		// Currently a toolbar with Link, Search, Text, Delete buttons
+		// and a Gtk.TextView as the body.
 		// 
 
 		public NoteWindow (Note note) : 
@@ -53,10 +53,29 @@ namespace Tomboy
 			editor.LeftMargin = 8;
 			editor.RightMargin = 8;
 			editor.CanDefault = true;
-			editor.PopulatePopup += PopulatePopup;
+			editor.PopulatePopup += OnPopulatePopup;
+			editor.DragDataReceived += OnDragDataReceived;
 			editor.ModifyFont (Pango.FontDescription.FromString ("Serif 11"));
 			editor.ScrollMarkOnscreen (note.Buffer.InsertMark);
 			editor.Show ();
+
+			Gtk.TargetEntry [] targets = 
+				new Gtk.TargetEntry [] {
+					new Gtk.TargetEntry ("STRING", 
+							     0,
+							     0),
+					new Gtk.TargetEntry ("text/plain", 
+							     0,
+							     0),
+					new Gtk.TargetEntry ("text/uri-list", 
+							     0,
+							     1),
+				};
+
+			Gtk.Drag.DestSet (editor, 
+					  Gtk.DestDefaults.Highlight,
+					  targets,
+					  Gdk.DragAction.Copy);
 
 			// FIXME: I think it would be really nice to let the
 			//        window get bigger up till it grows more than
@@ -182,7 +201,7 @@ namespace Tomboy
 		// the editor's context menu.
 		//
  
-		void PopulatePopup (object sender, Gtk.PopulatePopupArgs args)
+		void OnPopulatePopup (object sender, Gtk.PopulatePopupArgs args)
 		{
 			args.Menu.AccelGroup = accel_group;
 
@@ -253,6 +272,34 @@ namespace Tomboy
 		void RedoClicked (object sender, EventArgs args)
 		{
 			text_menu.RedoClicked (sender, args);
+		}
+
+		//
+		// DND Drop handling
+		//
+
+		void OnDragDataReceived (object sender, Gtk.DragDataReceivedArgs args)
+		{
+			UriList uri_list = new UriList (args.SelectionData);
+			if (uri_list == null)
+				return;
+
+			NoteBuffer buffer = note.Buffer;
+			Gtk.TextIter cursor = buffer.GetIterAtMark (buffer.InsertMark);
+			bool more_than_one = false;
+
+			foreach (Uri uri in uri_list) {
+				Console.WriteLine ("Got Dropped URI: {0}", uri);
+				if (more_than_one)
+					buffer.Insert (cursor, "\n");
+
+				if (uri.IsFile) 
+					buffer.Insert (cursor, uri.LocalPath);
+				else
+					buffer.Insert (cursor, uri.ToString ());
+
+				more_than_one = true;
+			}
 		}
 
 		//

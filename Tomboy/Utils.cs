@@ -1,5 +1,7 @@
 
 using System;
+using System.Collections;
+using System.Text;
 
 namespace Tomboy
 {
@@ -225,6 +227,82 @@ namespace Tomboy
 						       0,
 						       Gtk.AccelFlags.Visible);
 			}
+		}
+	}
+
+	public class UriList : ArrayList 
+	{
+		public UriList (Note [] notes) 
+		{
+			foreach (Note note in notes) {
+				try {
+					Uri uri = new Uri (note.Uri);
+					Add (uri);
+				} catch {
+				}
+			}
+		}
+
+		private void LoadFromString (string data) 
+		{
+			string [] items = data.Split ('\n');
+
+			foreach (string i in items) {
+				if (i.StartsWith ("#"))
+					continue;
+
+				string s = i;
+				if (s.EndsWith ("\r"))
+					s = s.Substring (0, s.Length - 1);
+
+				Console.WriteLine ("uri = {0}", s);
+				try {
+					Uri uri = new Uri (s);
+					Add (uri);
+				} catch {
+				}
+			}
+		}
+
+		public UriList (string data) 
+		{
+			LoadFromString (data);
+		}
+
+		public UriList (Gtk.SelectionData selection) 
+		{
+			// FIXME this should check the atom etc.
+			LoadFromString (Encoding.UTF8.GetString (selection.Data));
+		}
+
+		public override string ToString () 
+		{
+			StringBuilder list = new StringBuilder ();
+
+			foreach (Uri uri in this) {
+				list.Append (uri.ToString () + "\r\n");
+			}
+
+			return list.ToString ();
+		}
+
+		public string [] GetLocalPaths () 
+		{
+			int count = 0;
+			foreach (Uri uri in this) {
+				if (uri.IsFile)
+					count++;
+			}
+
+			string [] paths = new string [count];
+
+			count = 0;
+			foreach (Uri uri in this) {
+				if (uri.IsFile)
+					paths [count++] = uri.LocalPath;
+			}
+
+			return paths;
 		}
 	}
 }
