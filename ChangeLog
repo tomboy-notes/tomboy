@@ -1,3 +1,20 @@
+2004-10-19  Alex Graveley  <alex@beatniksoftware.com>
+
+	Add stripped down gtkspell 2.0.8 to the source tree, that will be
+	installed in $pkglibdir.
+
+	* Tomboy/NoteBuffer.cs: Remove all tags from the inserted text
+	before applying the active tags... fixes bug where toggling bold
+	inside a bold region would still insert bold.
+
+	* Makefile.am (SUBDIRS): Build gtkspell conditionally.
+
+	* tomboy.spec.in: Add tomboy manpage.
+
+	* configure.in: Add Polish translation from Marek Habersack
+	<grendel@caudium.net>.  Call AC_CONFIG_SUBDIRS on gtkspell
+	directory if GtkSpell installed is older than 2.0.8 (likely).
+
 2004-10-17  Alex Graveley  <alex@beatniksoftware.com>
 
 	* configure.in: Add Hungarian translation from Török Gábor

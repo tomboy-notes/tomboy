@@ -13,6 +13,7 @@ CSFILES = 				\
 	$(srcdir)/NoteManager.cs 	\
 	$(srcdir)/NoteWindow.cs 	\
 	$(srcdir)/NoteBuffer.cs 	\
+	$(srcdir)/Preferences.cs	\
 	$(srcdir)/RecentChanges.cs	\
 	$(srcdir)/Search.cs 		\
 	$(srcdir)/Tray.cs 		\
@@ -27,8 +28,6 @@ CSFILES = 				\
 ASSEMBLIES = 					\
 	$(TOMBOY_LIBS)				\
 	-r:Mono.Posix				\
-	-r:System.Web				\
-	-r:System.Web.Services			\
 	-r:$(top_builddir)/TrayIcon/TrayIcon.dll
 
 RESOURCES = 							\
@@ -37,9 +36,10 @@ RESOURCES = 							\
 	-resource:$(srcdir)/stock_notes.png,stock_notes.png	\
 	-resource:$(srcdir)/gnome-stock-searchtool.png,gnome-stock-searchtool.png
 
-if OLD_GTKSPELL
-CSFLAGS += -define:OLD_GTKSPELL
-endif
+### Not needed while we're including GtkSpell 2.0.8
+#if OLD_GTKSPELL
+#CSFLAGS += -define:OLD_GTKSPELL
+#endif
 
 if ENABLE_DBUS
 CSFLAGS += -define:ENABLE_DBUS
