@@ -71,17 +71,14 @@ gconftool-2 --makefile-uninstall-rule \
 
 %files -f %{name}.lang
 %defattr(-,root,root,-)
-%doc ChangeLog
-%doc README
-%doc COPYING
-%doc AUTHORS
-%doc NEWS
-%{_bindir}/%{name}
+%doc AUTHORS ChangeLog COPYING NEWS README
 %dir %{_libdir}/%{name}
-%{_libdir}/%{name}/*
 %dir %{_libdir}/%{name}/Plugins
+%{_bindir}/%{name}
+%{_libdir}/%{name}/*
 %{_libdir}/%{name}/Plugins/*
 %{_libdir}/bonobo/servers/GNOME_TomboyApplet.server
+%{_libdir}/pkgconfig/*.pc
 %{?_with_dbus:%{_libdir}/dbus-1.0/services/com.beatniksoftware.Tomboy.service}
 %{_mandir}/man1/%{name}.1.gz
 ###%{_datadir}/applications/tomboy.desktop
