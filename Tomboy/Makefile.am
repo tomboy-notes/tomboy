@@ -29,10 +29,9 @@ CSFILES = 				\
 #	$(srcdir)/ActiveVerb.cs 
 #	$(srcdir)/GoogleSearchService.cs 
 
-ASSEMBLIES = 					\
-	$(TOMBOY_LIBS)				\
-	-r:Mono.Posix				\
-	-r:$(top_builddir)/TrayIcon/TrayIcon.dll
+ASSEMBLIES = 			\
+	$(TOMBOY_LIBS)		\
+	-r:Mono.Posix
 
 RESOURCES = 									\
 	-resource:$(srcdir)/Start_Here.note,Start_Here.note			\

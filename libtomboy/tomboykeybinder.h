@@ -17,6 +17,8 @@ void tomboy_keybinder_bind   (const char           *keystring,
 void tomboy_keybinder_unbind (const char           *keystring,
 			      TomboyBindkeyHandler  handler);
 
+gboolean tomboy_keybinder_is_modifier (guint keycode);
+
 G_END_DECLS
 
 #endif /* __TOMBOY_KEY_BINDER_H__ */
