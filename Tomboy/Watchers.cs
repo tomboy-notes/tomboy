@@ -832,9 +832,8 @@ namespace Tomboy
 	{
 		Gtk.TextTag broken_link_tag;
 
-		// FIXME: This should use \p{Lu} and \p{Ll} for matching 
-		//        Unicode upper and lower case characters.
-		const string WIKIWORD_REGEX = @"\b(([A-Z]+[a-z0-9]+){2}([A-Za-z0-9])*)\b";
+		// NOTE: \p{Lu} is Unicode uppercase and \p{Ll} is lowercase.
+		const string WIKIWORD_REGEX = @"\b((\p{Lu}+[\p{Ll}0-9]+){2}([\p{Lu}\p{Ll}0-9])*)\b";
 
 		static Regex regex; 
 
