@@ -64,7 +64,8 @@ namespace Tomboy
 					   menu_verbs);
 
 			// FIXME: Connecting to this crashes in the C# bindings.
-			//ChangeBackground += OnChangeBackgroundEvent;
+			// Manually tweaked generated bindings to not crash.
+			ChangeBackground += OnChangeBackgroundEvent;
 		}
 
 		void ShowPreferencesVerb ()
@@ -87,20 +88,15 @@ namespace Tomboy
 			// This is needed to support transparent panel
 			// backgrounds correctly.
 
-			Console.WriteLine ("OnChangeBackgroundEvent Called!");
-
 			switch (args.Type) {
+			case BackgroundType.ColorBackground:
+				tray.ModifyBg (Gtk.StateType.Normal, args.Color);
+				break;
 			case BackgroundType.NoBackground:
 			case BackgroundType.PixmapBackground:
 				Gtk.RcStyle rc_style = new Gtk.RcStyle ();
-
-				tray.Image.ModifyStyle (rc_style);
+				tray.ModifyStyle (rc_style);
 				ModifyStyle (rc_style);
-				break;
-
-			case BackgroundType.ColorBackground:
-				tray.Image.ModifyBg (Gtk.StateType.Normal, args.Color);
-				ModifyBg (Gtk.StateType.Normal, args.Color);
 				break;
 			}
 		}

@@ -18,10 +18,11 @@ namespace PanelAppletSharp {
 				throw new Exception("Unexpected signal key " + key);
 
 			voidObjectBackgroundTypeColorObjectSignal inst = (voidObjectBackgroundTypeColorObjectSignal) _Instances[key];
-			GLib.SignalArgs args = (GLib.SignalArgs) Activator.CreateInstance (inst._argstype);
+			GLib.SignalArgs args = (GLib.SignalArgs) Activator.CreateInstance (typeof(PanelApplet.ChangeBackgroundArgs));
 			args.Args = new object[3];
 			args.Args[0] = (PanelApplet.BackgroundType)arg1;
-			args.Args[1] = arg2;
+			if ((PanelApplet.BackgroundType)arg1 == PanelApplet.BackgroundType.ColorBackground)
+				args.Args[1] = (object) arg2;
 			if (arg3 == IntPtr.Zero)
 				args.Args[2] = null;
 			else {
