@@ -298,54 +298,14 @@ namespace Tomboy
 			get {
 				Gtk.TextIter select_start, select_end;
 			
-				if (GetSelectionBounds (out select_start, out select_end))
-					return GetText (select_start, select_end, false);
-				else
-					return null;	
-			}
-		}
+				if (GetSelectionBounds (out select_start, out select_end)) {
+					string text = GetText (select_start, select_end, false);
+					if (text.Length > 0)
+						return text;
+				}
 
-		// Retrieve the contiguous block of text surrounds cursor.  This
-		// only breaks for whitespace.
-		public string GetCurrentBlock (Gtk.TextIter     iter, 
-					       out Gtk.TextIter start, 
-					       out Gtk.TextIter end)
-		{
-			Gtk.TextIter temp;
-			start = end = iter;
-
-			temp = start;
-			while (true) {
-				if (!temp.BackwardChar() || 
-				    Char.IsWhiteSpace (temp.Char [0]))
-					break;
-				start = temp;
-			}
-
-			temp = end;
-			while (true) {
-				if (temp.IsEnd ||
-				    Char.IsWhiteSpace (temp.Char [0]) || 
-				    !temp.ForwardChar())
-					break;
-				end = temp;
-			}
-
-			if (start.Equal (end))
 				return null;
-
-			string word_block = start.GetText (end);
-			//Console.WriteLine ("Got word '{0}' at point", start.GetText (end));
-
-			return word_block;
-		}
-
-		public string GetCurrentBlock (out Gtk.TextIter start, 
-					       out Gtk.TextIter end)
-		{
-			Gtk.TextIter cursor = GetIterAtMark (InsertMark);
-
-			return GetCurrentBlock (cursor, out start, out end);
+			}
 		}
 	}
 
