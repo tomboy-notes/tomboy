@@ -1,5 +1,5 @@
 
-SUBDIRS = TrayIcon Tomboy
+SUBDIRS = TrayIcon Tomboy po
 
 desktop_in_files = tomboy.desktop.in
 desktop_files    = $(desktop_in_files:.desktop.in=.desktop)
@@ -37,9 +37,10 @@ EXTRA_DIST = 			\
 	$(INTLTOOL)		\
 	tomboy.spec
 
-DISTCLEANFILES = 		\
-	intltool-extract        \
-	intltool-merge          \
-	intltool-update         \
-	$(desktop_files)        \
+DISTCLEANFILES = 			\
+	intltool-extract        	\
+	intltool-merge          	\
+	intltool-update         	\
+	po/.intltool-merge-cache	\
+	$(desktop_files)        	\
 	$(schemas_DATA)
