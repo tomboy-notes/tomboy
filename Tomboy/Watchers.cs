@@ -445,20 +445,23 @@ namespace Tomboy
 			}			
 		}
 
-		void OpenOrCreateLink (Gtk.TextIter start, Gtk.TextIter end, bool create)
+		bool OpenOrCreateLink (Gtk.TextIter start, Gtk.TextIter end, bool create)
 		{
-			string note_name = start.GetText (end);
-			Note note = manager.Find (note_name);
+			string link_name = start.GetText (end);
+			Note link = manager.Find (link_name);
 
-			if (note == null && create) {
-				Console.WriteLine ("Creating note '{0}'...", note_name);
-				note = manager.Create (note_name);
+			if (link == null && create) {
+				Console.WriteLine ("Creating note '{0}'...", link_name);
+				link = manager.Create (link_name);
 			}
 
-			if (note != null) {
-				Console.WriteLine ("Opening note '{0}' on click...", note_name);
-				note.Window.Present ();
+			if (link != null && link != note) {
+				Console.WriteLine ("Opening note '{0}' on click...", link_name);
+				link.Window.Present ();
+				return true;
 			}
+
+			return false;
 		}
 
 		void OnLinkTextEvent (object sender, Gtk.TextEventArgs args)
@@ -467,7 +470,7 @@ namespace Tomboy
 				return;
 
 			Gdk.EventButton button_ev = new Gdk.EventButton (args.Event.Handle);
-			if (button_ev.Button != 1)
+			if (button_ev.Button != 1 && button_ev.Button != 2)
 				return;
 
 			Gtk.TextIter start = args.Iter, end = args.Iter;
@@ -475,7 +478,11 @@ namespace Tomboy
 			start.BackwardToTagToggle (link_tag);
 			end.ForwardToTagToggle (link_tag);
 
-			OpenOrCreateLink (start, end, false);
+			if (!OpenOrCreateLink (start, end, false))
+				return;
+
+			if (button_ev.Button == 2)
+				note.Window.Hide ();
 		}
 
 		void OnBrokenTextEvent (object sender, Gtk.TextEventArgs args)
@@ -484,7 +491,7 @@ namespace Tomboy
 				return;
 
 			Gdk.EventButton button_ev = new Gdk.EventButton (args.Event.Handle);
-			if (button_ev.Button != 1)
+			if (button_ev.Button != 1 && button_ev.Button != 2)
 				return;
 
 			Gtk.TextIter start = args.Iter, end = args.Iter;
@@ -492,10 +499,14 @@ namespace Tomboy
 			start.BackwardToTagToggle (broken_link_tag);
 			end.ForwardToTagToggle (broken_link_tag);
 
-			OpenOrCreateLink (start, end, true);
+			if (!OpenOrCreateLink (start, end, true))
+				return;
 
 			buffer.RemoveTag (broken_link_tag, start, end);
 			buffer.ApplyTag (link_tag, start, end);
+
+			if (button_ev.Button == 2)
+				note.Window.Hide ();
 		}
 
 		void HighlightInBlock (string lower_text, Gtk.TextIter cursor) 
