@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Text;
-using System.Web;
 using Mono.Posix;
 
 namespace Tomboy 
@@ -299,7 +298,7 @@ namespace Tomboy
 				if (word == String.Empty)
 					continue;
 
-				while (true) {
+				while (true) {					
 					idx = note_text.IndexOf (word, idx);
 
 					if (idx == -1) {
@@ -333,17 +332,20 @@ namespace Tomboy
 				return matches;
 		}
 
-		bool CheckNoteHasMatch (Note note, string [] encoded_words)
+		bool CheckNoteHasMatch (Note note, string [] encoded_words, bool match_case)
 		{
-			string note_text = note.Text.ToLower ();
+			string note_text = note.Text;
+			if (!match_case)
+				note_text = note.Text.ToLower ();
 
 			foreach (string word in encoded_words) {
-				if (note_text.IndexOf (word) > -1) {
-					return true;
-				}
+				if (note_text.IndexOf (word) > -1)
+					continue;
+				else
+					return false;
 			}
 
-			return false;
+			return true;
 		}
 
 		void HighlightMatches (ArrayList matches, bool highlight)
@@ -514,7 +516,7 @@ namespace Tomboy
 			HighlightMatches (matches, true /* highlight */);
 			current_matches = matches;
 
-			// We now definately have a current_note so all
+			// We now definately have a current_note so allow
 			// switching in and out of Search All...
 			search_all_notes.Sensitive = true;
 
@@ -588,8 +590,7 @@ namespace Tomboy
 			string [] words = text.Split (' ', '\t', '\n');
 
 			// Used for matching in the raw note XML
-			string [] encoded_words = 
-				HttpUtility.HtmlEncode (text).Split (' ', '\t', '\n');
+			string [] encoded_words = XmlEncoder.Encode (text).Split (' ', '\t', '\n');
 
 			if (search_all_notes.Active) {
 				bool found_one = false;
@@ -601,7 +602,9 @@ namespace Tomboy
 					// Check the note's raw XML for at least
 					// one match, to avoid deserializing
 					// Buffers unnecessarily.
-					if (!CheckNoteHasMatch (note, encoded_words))
+					if (!CheckNoteHasMatch (note, 
+								encoded_words, 
+								case_sensitive.Active))
 						continue;
 
 					ArrayList note_matches = 
@@ -653,7 +656,7 @@ namespace Tomboy
 
 		void AppendResultTreeView (Gtk.ListStore store, Note note, ArrayList matches)
 		{
-			string title = HttpUtility.HtmlEncode (note.Title);
+			string title = GLib.Markup.EscapeText (note.Title);
 			string match_cnt;
 
 			if (matches.Count > 1)

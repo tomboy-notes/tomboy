@@ -3,6 +3,9 @@ using System;
 using System.Collections;
 using System.Text;
 
+using System.IO;
+using System.Xml;
+
 namespace Tomboy
 {
 	public class GuiUtils 
@@ -303,6 +306,29 @@ namespace Tomboy
 			}
 
 			return paths;
+		}
+	}
+
+	public class XmlEncoder 
+	{
+		static StringBuilder builder;
+		static StringWriter writer;
+		static XmlTextWriter xml;
+
+		static XmlEncoder ()
+		{
+			builder = new StringBuilder ();
+			writer = new StringWriter (builder);
+			xml = new XmlTextWriter (writer);
+		}
+
+		public static string Encode (string source)
+		{
+			xml.WriteString (source);
+
+			string val = builder.ToString ();
+			builder.Length = 0;
+			return val;
 		}
 	}
 }
