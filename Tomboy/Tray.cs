@@ -232,6 +232,7 @@ namespace Tomboy
 			        "Chinese Simplified (zh_CN) - Funda Wang <fundawang@linux.net.cn>\n" +
 			        "Czech (cs) - Miloslav Trmac <mitr@volny.cz>\n" +
 				"Dutch; Flemish (nl) - Paul Bolle <pebolle@tiscali.nl>\n" +
+			        "Danish (da) - Martin Willemoes Hansen <mwh@sysrq.dk>\n" +
 				"French (fr) - Beno\xeet Dejean <tazforever@dlfp.org>\n" +
 				"German (de) - Philipp Meier <meier@fnogol.de>\n" +
 				"Hungarian (hu) - T\xf6r\xf6k G\u00e1bor <gabo@linuxportal.hu>\n" +
