@@ -283,21 +283,26 @@ namespace Tomboy
 
 			foreach (string word in words) {
 				int idx = 0;
+				bool this_word_found = false;
+
+				if (word == String.Empty)
+					continue;
 
 				while (true) {
 					Console.WriteLine ("Looking for {0} at offset {1}", 
 							   word, 
 							   idx);
 
-					if (match_case)
-						idx = note_text.IndexOf (word, idx);
-					else {
-						string lower_word = word.ToLower ();
-						idx = note_text.IndexOf (lower_word, idx);
+					idx = note_text.IndexOf (word, idx);
+
+					if (idx == -1) {
+						if (this_word_found)
+							break;
+						else
+							return null;
 					}
 
-					if (idx == -1)
-						break;
+					this_word_found = true;
 
 					Gtk.TextIter start = buffer.GetIterAtOffset (idx);
 					Gtk.TextIter end = start;
@@ -551,6 +556,9 @@ namespace Tomboy
 			string text = find_combo.Entry.Text;
 			if (text == null || text == String.Empty)
 				return;
+
+			if (!case_sensitive.Active)
+				text = text.ToLower ();
 
 			string [] words = text.Split (' ', '\t', '\n');
 
