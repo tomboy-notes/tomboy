@@ -15,7 +15,7 @@ namespace Tomboy
 
 		public NoteManager () : 
 			this (Path.Combine (Environment.GetEnvironmentVariable ("HOME"), 
-					    "tomboy")) 
+					    ".tomboy")) 
 		{
 		}
 

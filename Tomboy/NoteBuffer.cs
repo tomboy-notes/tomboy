@@ -114,7 +114,7 @@ namespace Tomboy
 
 			tag = new Gtk.TextTag ("link:internal");
 			tag.Underline = Pango.Underline.Single;
-			tag.Foreground = "red";
+			tag.Foreground = "darkgreen";
 			Add (tag);
 
 			tag = new Gtk.TextTag ("link:url");
