@@ -742,12 +742,11 @@ namespace Tomboy
 			string title = MarkupEscapeText (note.Title);
 			string match_cnt;
 
-			if (matches.Count > 1)
-				match_cnt = String.Format (Catalog.GetString ("({0} matches)"), 
-							   matches.Count);
-			else
-				match_cnt = String.Format (Catalog.GetString ("({0} match)"), 
-							   matches.Count);
+			match_cnt = 
+			   String.Format (Catalog.GetPluralString ("({0} match)",
+								   "({0} matches)",
+								   matches.Count),
+					  matches.Count);
 
 			Gtk.TreeIter iter = store.Append ();
 			store.SetValue (iter, 0 /* icon */, stock_notes);

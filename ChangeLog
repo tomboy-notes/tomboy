@@ -1,9 +1,15 @@
-2005-03-09  Alex Graveley  <agraveley@beatniksoftware.com>
+2005-03-09  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Search.cs: Use Catalog.GetPluralString to get the
+	correctly translated plural/singluar string of "{0} match(es)".
+	Thanks to mwh@sysrq.dk for suggesting this.
+
+2005-03-09  Alex Graveley  <alex@beatniksoftware.com>
 
 	* Tomboy/Tomboy.cs: Add 2005 to copyright notice.
 	* Tomboy/Tray.cs: Ditto.
 
-2005-03-09  Alex Graveley  <agraveley@beatniksoftware.com>
+2005-03-09  Alex Graveley  <alex@beatniksoftware.com>
 
 	* Tomboy/Tomboy.cs: Start in TrayIcon mode by default, remove
 	--tray-icon option, and accept --panel-applet to register for
@@ -16,14 +22,14 @@
 	* data/tomboy.desktop.in: Don't pass --tray-icon, since this is
 	the default now.
 
-2005-03-09  Alex Graveley  <agraveley@beatniksoftware.com>
+2005-03-09  Alex Graveley  <alex@beatniksoftware.com>
 
 	* data/tomboy-plugins.pc.in: Actually add this file.
 
 	* Tomboy/Makefile.am (CLEANFILES): Clean up .mdb files.
 	* Tomboy/Plugins/Makefile.am (CLEANFILES): Ditto.
 
-2005-03-09  Alex Graveley  <agraveley@beatniksoftware.com>
+2005-03-09  Alex Graveley  <alex@beatniksoftware.com>
 
 	* data/tomboy-plugins.pc.in: Add a .pc file for plugin authors.
 
@@ -32,7 +38,7 @@
 
 	* tomboy.spec.in: Add tomboy-plugins.pc.in.
 
-2005-03-08  Alex Graveley  <agraveley@beatniksoftware.com>
+2005-03-08  Alex Graveley  <alex@beatniksoftware.com>
 
 	* configure.in: Require D-BUS# 0.23.2 or later to enable the
 	remote control interface.
