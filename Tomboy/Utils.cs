@@ -47,6 +47,11 @@ namespace Tomboy
 				    (ev == null) ? Gtk.Global.CurrentEventTime : ev.Time);
 		}
 
+		public static Gdk.Pixbuf GetIcon (string resource_name) 
+		{
+			return new Gdk.Pixbuf (null, resource_name);
+		}
+
 		public static Gdk.Pixbuf GetMiniIcon (string resource_name) 
 		{
 			Gdk.Pixbuf noicon = new Gdk.Pixbuf (null, resource_name);
