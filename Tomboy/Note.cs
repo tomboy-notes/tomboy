@@ -63,6 +63,11 @@ namespace Tomboy
 			plugin.Initialize (this);
 			loaded_plugins.Add (plugin);
 
+			// Create related-to line on link
+			plugin = new NoteRelatedToWatcher ();
+			plugin.Initialize (this);
+			loaded_plugins.Add (plugin);
+
 			// Start spell-checking
 			plugin = new NoteSpellChecker ();
 			plugin.Initialize (this);

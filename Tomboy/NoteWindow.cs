@@ -256,7 +256,7 @@ namespace Tomboy
 			text_item.Image = new Gtk.Image (Gtk.Stock.SelectFont, Gtk.IconSize.Menu);
 			text_item.Submenu = new NoteTextMenu (accel_group, 
 							      note.Buffer, 
-							      note.Buffer.Undoer /* don't show Undo/Redo */);
+							      note.Buffer.Undoer);
 			text_item.Show ();
 
 			Gtk.ImageMenuItem find_item = 
@@ -600,6 +600,10 @@ namespace Tomboy
 		Gtk.RadioMenuItem small;
 		Gtk.CheckMenuItem highlight;
 
+		// Active when the text size is indeterminable, such as when in
+		// the note's title line.
+		Gtk.RadioMenuItem hidden_no_size;
+
 		// FIXME: Tags applied to a word should hold over the space
 		// between the next word, as thats where you'll start typeing.
 		// Tags are only active -after- a character with that tag.  This
@@ -740,6 +744,9 @@ namespace Tomboy
 			Append (large);
 			Append (huge);
 			ShowAll ();
+
+			hidden_no_size = new Gtk.RadioMenuItem (small.Group, string.Empty);
+			hidden_no_size.Hide ();
 		}
 
 		void MarkupLabel (Gtk.MenuItem item)
@@ -747,6 +754,26 @@ namespace Tomboy
 			Gtk.Label label = (Gtk.Label) item.Child;
 			label.UseMarkup = true;
 			label.UseUnderline = true;
+		}
+
+		void RefreshSizingState ()
+		{
+			Gtk.TextIter cursor = buffer.GetIterAtMark (buffer.InsertMark);
+			Gtk.TextIter selection = buffer.GetIterAtMark (buffer.SelectionBound);
+
+			// When on title line, activate the hidden menu item
+			if (cursor.Line == 0 || selection.Line == 0) {
+				hidden_no_size.Active = true;
+				return;
+			}
+
+			bool has_size = false;
+			
+			has_size |= huge.Active = buffer.IsActiveTag ("size:huge");
+			has_size |= large.Active = buffer.IsActiveTag ("size:large");
+			has_size |= small.Active = buffer.IsActiveTag ("size:small");
+
+			normal.Active = !has_size;
 		}
 
 		public void RefreshState ()
@@ -760,11 +787,7 @@ namespace Tomboy
 			strikeout.Active = buffer.IsActiveTag ("strikethrough");
 			highlight.Active = buffer.IsActiveTag ("highlight");
 
-			has_size |= huge.Active = buffer.IsActiveTag ("size:huge");
-			has_size |= large.Active = buffer.IsActiveTag ("size:large");
-			has_size |= small.Active = buffer.IsActiveTag ("size:small");
-
-			normal.Active = !has_size;
+			RefreshSizingState ();
 
 			if (undo_manager != null) {
 				undo.Sensitive = undo_manager.CanUndo;
@@ -773,7 +796,8 @@ namespace Tomboy
 
 			event_freeze = false;
 		}
-		
+
+
 		// 
 		// Font-style menu item activate
 		//
@@ -806,17 +830,16 @@ namespace Tomboy
 				return;
 
 			Gtk.RadioMenuItem item = (Gtk.RadioMenuItem) sender;
-			string tag = (string) item.Data ["Tag"];
+			if (!item.Active)
+				return;
 
-			if (tag != null) {
-				// FIXME: if we want to set the font size from
-				// an accelerator, we can't rely on the state of
-				// item.Active
-				if (item.Active)
-					buffer.SetActiveTag (tag);
-				else
-					buffer.RemoveActiveTag (tag);
-			}
+			buffer.RemoveActiveTag ("size:huge");
+			buffer.RemoveActiveTag ("size:large");
+			buffer.RemoveActiveTag ("size:small");
+
+			string tag = (string) item.Data ["Tag"];
+			if (tag != null)
+				buffer.SetActiveTag (tag);
 		}
 
 		internal void UndoClicked (object sender, EventArgs args)

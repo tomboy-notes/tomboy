@@ -74,6 +74,12 @@ namespace Tomboy
 			tag.Scale = Pango.Scale.XX_Large;
 			Add (tag);
 
+			tag = new Gtk.TextTag ("related-to");
+			tag.Scale = Pango.Scale.Small;
+			tag.LeftMargin = 40;
+			tag.Editable = false;
+			Add (tag);
+
 			// Font sizes
 
 			tag = new Gtk.TextTag ("size:huge");
@@ -371,7 +377,7 @@ namespace Tomboy
 					       out Gtk.TextIter end)
 		{
 			Gtk.TextIter cursor = GetIterAtMark (InsertMark);
-						
+
 			return GetCurrentBlock (cursor, out start, out end);
 		}
 	}
