@@ -258,6 +258,7 @@ namespace Tomboy
 				"German (de) - Philipp Meier <meier@fnogol.de>\n" +
 				"Hungarian (hu) - Török Gábor <gabo@linuxportal.hu>\n" +
 				"Icelandic (is) - Gunnar Steinn Magnússon <gsm@gunnarsteinn.com>\n" +
+				"Japanese (ja) - Takeshi AIHANA <aihana@gnome.gr.jp>\n" +
 				"Polish (pl) - Marek Habersack <grendel@caudium.net>\n" +
 				"Spanish (es) - Antonio Ognio <gnrfan@gnrfan.org>\n" +
 				"Swedish (sv) - Christian Rose <menthos@menthos.com>\n";
