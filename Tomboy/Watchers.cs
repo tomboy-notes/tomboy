@@ -17,6 +17,11 @@ namespace Tomboy
 			// Do nothing.
 		}
 
+		public override void Dispose ()
+		{
+			// Do nothing.
+		}
+
 		Gtk.TextIter TitleEnd 
 		{
 			get {
@@ -186,6 +191,11 @@ namespace Tomboy
 			LinkCreated += OnLinkCreated;
 		}
 
+		public override void Dispose ()
+		{
+			// Do nothing.
+		}
+
 		protected override void OnNoteOpened ()
 		{
 			Buffer.TagApplied += OnTagApplied;
@@ -323,6 +333,11 @@ namespace Tomboy
 			// Do nothing.
 		}
 
+		public override void Dispose ()
+		{
+			// Do nothing.
+		}
+
 		protected override void OnNoteOpened ()
 		{
 			Buffer.TagApplied += TagApplied;
@@ -404,7 +419,7 @@ namespace Tomboy
 		Gtk.TextTag url_tag;
 
 		const string URL_REGEX = 
-			@"((\b((news|http|https|ftp|file|irc)://|mailto:|(www|ftp)\.|\S*@\S*\.)|(^|\s)~?/\S+/)\S*\b/?)";
+			@"((\b((news|http|https|ftp|file|irc)://|mailto:|(www|ftp)\.|\S*@\S*\.)|(^|\s)/\S+/|(^|\s)~/\S+)\S*\b/?)";
 
 		static Regex regex;
 
@@ -415,6 +430,11 @@ namespace Tomboy
 		}
 
 		protected override void Initialize ()
+		{
+			// Do nothing.
+		}
+
+		public override void Dispose ()
 		{
 			// Do nothing.
 		}
@@ -430,7 +450,7 @@ namespace Tomboy
 			url_tag.TextEvent += OnTextEvent;
 
 			Buffer.InsertText += OnInsertText;
-			Buffer.DeleteRange += OnDeleteRange;			
+			Buffer.DeleteRange += OnDeleteRange;
 		}
 
 		void OnTextEvent (object sender, Gtk.TextEventArgs args)
@@ -449,12 +469,17 @@ namespace Tomboy
 						      Gdk.ModifierType.ControlMask)) != 0)
 				return;
 
-			Gtk.TextIter start = args.Iter, end = args.Iter;
-
+			Gtk.TextIter start = args.Iter;
 			start.BackwardToTagToggle (tag);
+
+			Gtk.TextIter end = args.Iter;
 			end.ForwardToTagToggle (tag);
 
 			string url = start.GetText (end);
+
+			// FIXME: Needed because the file match is greedy and
+			// eats a leading space.
+			url = url.Trim ();
 
 			// Simple url massaging.  Add to 'http://' to the front
 			// of www.foo.com, 'mailto:' to alex@foo.com, 'file://'
@@ -483,7 +508,7 @@ namespace Tomboy
 			try {
 				Gnome.Url.Show (url);
 
-				/* Close note on middle-click */
+				// Close note on middle-click
 				if (button_ev.Button == 2) {
 					Window.Hide ();
 
@@ -612,6 +637,11 @@ namespace Tomboy
 			Manager.NoteDeleted += OnNoteDeleted;
 			Manager.NoteAdded += OnNoteAdded;
 			Manager.NoteRenamed += OnNoteRenamed;
+		}
+
+		public override void Dispose ()
+		{
+			// Do nothing.
 		}
 
 		protected override void OnNoteOpened ()
@@ -842,6 +872,11 @@ namespace Tomboy
 			// Do nothing.
 		}
 
+		public override void Dispose ()
+		{
+			// Do nothing.
+		}
+
 		protected override void OnNoteOpened ()
 		{
 			broken_link_tag = Buffer.TagTable.Lookup ("link:broken");
@@ -947,6 +982,11 @@ namespace Tomboy
 		}
 
 		protected override void Initialize ()
+		{
+			// Do nothing.
+		}
+
+		public override void Dispose ()
 		{
 			// Do nothing.
 		}
@@ -1133,6 +1173,11 @@ namespace Tomboy
 	public class IndentWatcher : NotePlugin
 	{
 		protected override void Initialize ()
+		{
+			// Do nothing.
+		}
+
+		public override void Dispose ()
 		{
 			// Do nothing.
 		}
