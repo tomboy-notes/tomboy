@@ -193,9 +193,12 @@ namespace Tomboy
 			if (new_note) {
 				string new_uri;
 
-				if (new_note_name != null)
-					new_uri = remote.CreateNamedNote (new_note_name);
-				else
+				if (new_note_name != null) {
+					new_uri = remote.FindNote (new_note_name);
+
+					if (new_uri == null || new_uri == string.Empty)
+						new_uri = remote.CreateNamedNote (new_note_name);
+				} else
 					new_uri = remote.CreateNote ();
 
 				if (new_uri != null)
