@@ -14,6 +14,13 @@ namespace Tomboy
 		[DBus.Method]
 		public abstract bool DisplayNote (string uri);
 
+	        // Displays the note with the specified Uri,
+	        // highlighting all occurences of the text 'search'.
+		// Returns true on success, false if there is no note
+		// corresponding to that Uri.
+		[DBus.Method]
+		public abstract bool DisplayNoteWithSearch (string uri, string search);
+
 		// Finds a note with the specified title and returns
 		// its Uri.  If no note with that title exists,
 		// the empty string is returned.
