@@ -30,10 +30,10 @@ namespace Tomboy
 						     Gnome.Modules.UI, 
 						     args);
 
-			if (cmd_line.UseTrayIcon) {
-				StartTrayIcon ();
-			} else {
+			if (cmd_line.UsePanelApplet) {
 				RegisterPanelAppletFactory (); 
+			} else {
+				StartTrayIcon ();
 			}
 
 			Console.WriteLine ("All done.  Ciao!");
@@ -104,7 +104,7 @@ namespace Tomboy
 	public class TomboyCommandLine
 	{
 		bool new_note;
-		bool tray_icon;
+		bool panel_applet;
 		string new_note_name;
 		string open_note_uri;
 		string open_note_name;
@@ -115,9 +115,9 @@ namespace Tomboy
 			Parse (args);
 		}
 
-		public bool UseTrayIcon
+		public bool UsePanelApplet
 		{
-			get { return tray_icon; }
+			get { return panel_applet; }
 		}
 
 		public bool NeedsExecute
@@ -148,7 +148,6 @@ namespace Tomboy
 					"  --open-note [title/url]\tDisplay the existing note matching title.\n" +
 					"  --start-here\t\t\tDisplay the 'Start Here' note.\n" +
 					"  --highlight-search [text]\tSearch and highlight text in the opened note.\n" +
-					"  --tray-icon\t\t\tRun Tomboy in the system tray.\n" +
 					"  --version\t\t\tPrint version information.\n" +
 					"  --help\t\t\tPrint this usage message.\n");
 			Console.WriteLine (usage);
@@ -156,7 +155,6 @@ namespace Tomboy
 			string usage = 
 				Catalog.GetString (
 					"Usage:\n" +
-					"  --tray-icon\t\t\tRun Tomboy in the system tray.\n" +
 					"  --version\t\t\tPrint version information.\n" +
 					"  --help\t\t\tPrint this usage message.\n" +
 					"\n" +
@@ -232,8 +230,8 @@ namespace Tomboy
 					break;
 #endif // ENABLE_DBUS
 
-				case "--tray-icon":
-					tray_icon = true;
+				case "--panel-applet":
+					panel_applet = true;
 					break;
 
 				case "--version":
