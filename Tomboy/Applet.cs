@@ -18,7 +18,6 @@ namespace Tomboy
 		public TomboyApplet (IntPtr raw)
 			: base (raw)
 		{
-			ChangeBackground += OnChangeBackgroundEvent;
 		}
 
 		public override string IID 
@@ -61,6 +60,9 @@ namespace Tomboy
 					   "GNOME_TomboyApplet.xml",
 					   "Tomboy",
 					   menu_verbs);
+
+			// FIXME: Connecting to this crashes in the C# bindings.
+			//ChangeBackground += OnChangeBackgroundEvent;
 		}
 
 		void ShowPreferencesVerb ()
@@ -77,6 +79,8 @@ namespace Tomboy
 		{
 			// This is needed to support transparent panel
 			// backgrounds correctly.
+
+			Console.WriteLine ("OnChangeBackgroundEvent Called!");
 
 			switch (args.Type) {
 			case BackgroundType.NoBackground:
