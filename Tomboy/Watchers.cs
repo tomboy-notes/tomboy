@@ -567,64 +567,69 @@ namespace Tomboy
 
 	public class NoteLinkWatcher : NotePlugin
 	{
-		TrieTree title_trie;
+		class TrieController
+		{
+			TrieTree title_trie;
+			NoteManager manager;
+
+			public TrieController (NoteManager manager)
+			{
+				this.manager = manager;
+				manager.NoteDeleted += OnNoteDeleted;
+				manager.NoteAdded += OnNoteAdded;
+				manager.NoteRenamed += OnNoteRenamed;
+
+				Update ();
+			}
+
+			void OnNoteAdded (object sender, Note added)
+			{
+				Update ();
+			}
+
+			void OnNoteDeleted (object sender, Note deleted)
+			{
+				Update ();
+			}
+
+			void OnNoteRenamed (Note renamed, string old_title)
+			{
+				Update ();
+			}
+
+			public void Update ()
+			{
+				Console.WriteLine ("UPDATING TITLE CACHE!!");
+
+				ArrayList titles = new ArrayList (manager.Notes.Count);
+				foreach (Note note in manager.Notes) {
+					titles.Add (note.Title);
+				}
+
+				title_trie = new TrieTree (titles, false /* !case_sensitive */);
+			}
+
+			public TrieTree TitleTrie 
+			{
+				get { return title_trie; }
+			}
+		}
+
+		static TrieController trie_controller;
 
 		public override void Initialize () 
 		{
-			Note.Opened += OnNoteOpened;
-
 			Manager.NoteDeleted += OnNoteDeleted;
 			Manager.NoteAdded += OnNoteAdded;
 			Manager.NoteRenamed += OnNoteRenamed;
+
+			Note.Opened += OnNoteOpened;
 		}
 
 		void OnNoteOpened (object sender, EventArgs args)
 		{
 			Buffer.InsertText += OnInsertText;
 			Buffer.DeleteRange += OnDeleteRange;
-
-			UpdateTitleCache ();
-
-			// Do we need this?  Causes unnecessary write on open.
-			//HighlightInBlock (Buffer.Text.ToLower (), Buffer.StartIter);
-		}
-
-		// Updating this on NoteChanged allows us to fetch a smaller
-		// block to look for links when typing, and avoid lowercasing...
-		void UpdateTitleCache ()
-		{
-			ArrayList titles = new ArrayList (Manager.Notes.Count);
-			foreach (Note note in Manager.Notes) {
-				titles.Add (note.Title);
-			}
-
-			title_trie = new TrieTree (titles, false);
-		}
-
-		void ReplaceTagOnMatch (Gtk.TextTag find_tag,
-					Gtk.TextTag replace_with_tag,
-					string      match)
-		{
-			Gtk.TextIter iter = Buffer.StartIter;
-
-			while (iter.ForwardToTagToggle (find_tag) &&
-			       !iter.Equal (Buffer.EndIter)) {
-				if (!iter.BeginsTag (find_tag))
-					continue;
-
-				Gtk.TextIter end = iter;
-				if (!end.ForwardToTagToggle (find_tag))
-					break;
-
-				string tag_content = iter.GetText (end).ToLower ();
-
-				if (tag_content == match) {
-					Buffer.RemoveTag (find_tag, iter, end);
-					Buffer.ApplyTag (replace_with_tag, iter, end);
-				}
-
-				iter = end;
-			}
 		}
 
 		bool ContainsText (string text)
@@ -638,103 +643,114 @@ namespace Tomboy
 
 		void OnNoteAdded (object sender, Note added)
 		{
-			UpdateTitleCache ();
-
 			if (added == this.Note)
 				return;
 
-			if (ContainsText (added.Title)) {
-				HighlightInBlock (Buffer.Text.ToLower (), Buffer.StartIter);
+			if (!ContainsText (added.Title))
+				return;
+
+			Gtk.TextTag url_tag = Buffer.TagTable.Lookup ("link:url");
+			Gtk.TextTag link_tag = Buffer.TagTable.Lookup ("link:internal");
+			Gtk.TextTag broken_link_tag = Buffer.TagTable.Lookup ("link:broken");
+
+			string new_title_lower = added.Title.ToLower ();
+
+			string buffer_text = Buffer.StartIter.GetText (Buffer.EndIter);
+			buffer_text = buffer_text.ToLower ();
+
+			int idx = 0;
+
+			while (true) {
+				idx = buffer_text.IndexOf (new_title_lower, idx);
+				if (idx < 0)
+					break;
+
+				Gtk.TextIter start = Buffer.GetIterAtOffset (idx);
+				Gtk.TextIter end = Buffer.GetIterAtOffset (idx + added.Title.Length);
+
+				if (!start.HasTag (url_tag)) {
+					Buffer.RemoveTag (broken_link_tag, start, end);
+					Buffer.ApplyTag (link_tag, start, end);
+				}
+
+				idx += new_title_lower.Length;
 			}
 		}
 
 		void OnNoteDeleted (object sender, Note deleted)
 		{
-			UpdateTitleCache ();
-
 			if (deleted == this.Note)
 				return;
 
-			if (ContainsText (deleted.Title)) {
-				Gtk.TextTag link_tag = Buffer.TagTable.Lookup ("link:internal");
-				Gtk.TextTag broken_link_tag = Buffer.TagTable.Lookup ("link:broken");
+			if (!ContainsText (deleted.Title))
+				return;
 
-				// Switch any link:internal tags which point to
-				// the deleted note to link:broken
-				ReplaceTagOnMatch (link_tag,
-						   broken_link_tag,
-						   deleted.Title.ToLower ());
+			Gtk.TextTag link_tag = Buffer.TagTable.Lookup ("link:internal");
+			Gtk.TextTag broken_link_tag = Buffer.TagTable.Lookup ("link:broken");
+
+			string old_title_lower = deleted.Title.ToLower ();
+
+			TextTagEnumerator enumerator = new TextTagEnumerator (Buffer, link_tag);
+			foreach (TextRange range in enumerator) {
+				if (range.Text.ToLower () != old_title_lower)
+					continue;
+
+				Buffer.RemoveTag (link_tag, range.Start, range.End);
+				Buffer.ApplyTag (broken_link_tag, range.Start, range.End);
 			}
 		}
 
 		void OnNoteRenamed (Note renamed, string old_title)
 		{
-			UpdateTitleCache ();
+			if (!ContainsText (old_title))
+				return;
 
-			if (ContainsText (old_title)) {
-				Gtk.TextTag link_tag = Buffer.TagTable.Lookup ("link:internal");
-				
-				Gtk.TextIter iter = Buffer.StartIter;
-				string old_title_lower = old_title.ToLower ();
+			Gtk.TextTag link_tag = Buffer.TagTable.Lookup ("link:internal");
 
-				while (iter.ForwardToTagToggle (link_tag) &&
-				       !iter.Equal (Buffer.EndIter)) {
-					if (!iter.BeginsTag (link_tag))
-						continue;
+			string old_title_lower = old_title.ToLower ();
 
-					Gtk.TextIter end = iter;
-					if (!end.ForwardToTagToggle (link_tag))
-						break;
+			TextTagEnumerator enumerator = new TextTagEnumerator (Buffer, link_tag);
+			foreach (TextRange range in enumerator) {
+				if (range.Text.ToLower () != old_title_lower)
+					continue;
 
-					string tag_content = iter.GetText (end).ToLower ();
+				Console.WriteLine ("Replacing with '{0}'", renamed.Title);
 
-					if (tag_content == old_title_lower) {
-						Console.WriteLine ("Replacing with '{0}'", renamed.Title);
-
-						int iter_offset = iter.Offset;
-						int end_offset = end.Offset;
-
-						Buffer.Delete (iter, end);
-
-						iter = Buffer.GetIterAtOffset (iter_offset);
-						end = Buffer.GetIterAtOffset (end_offset);
-
-						Buffer.InsertWithTags (iter, 
-								       renamed.Title, 
-								       link_tag);
-
-						iter = Buffer.GetIterAtOffset (iter_offset);
-						end = Buffer.GetIterAtOffset (end_offset);
-					}
-
-					iter = end;
-				}
+				Buffer.Delete (range.Start, range.End);
+				Buffer.InsertWithTags (range.Start, renamed.Title, link_tag);
 			}
 		}
 
 		class Highlighter
 		{
 			Note note;
-			Gtk.TextIter cursor;
+			Gtk.TextIter start;
+			Gtk.TextIter end;
+
 			Gtk.TextTag link_tag;
 			Gtk.TextTag broken_link_tag;
 
-			public Highlighter (Note note, Gtk.TextIter cursor)
+			public Highlighter (Note         note, 
+					    Gtk.TextIter start, 
+					    Gtk.TextIter end)
 			{
 				this.note = note;
-				this.cursor = cursor;
-				this.link_tag = cursor.Buffer.TagTable.Lookup ("link:internal");
-				this.broken_link_tag = cursor.Buffer.TagTable.Lookup ("link:broken");
+				this.start = start;
+				this.end = end;
+
+				this.link_tag = note.Buffer.TagTable.Lookup ("link:internal");
+				this.broken_link_tag = note.Buffer.TagTable.Lookup ("link:broken");
 			}
 
-			public void Highlight (string haystack, TrieTree trie)
+			public void Highlight (TrieTree trie)
 			{
-				trie.FindMatches (haystack, new MatchHandler (TitleFound));
+				trie.FindMatches (start.GetText (end), 
+						  new MatchHandler (TitleFound));
 			}
 
-			void TitleFound (string haystack, int start, int end)
+			void TitleFound (string haystack, int start_idx, int end_idx)
 			{
-				string title = haystack.Substring (start, end - start);
+				string title = haystack.Substring (start_idx, end_idx - start_idx);
 				if (title == note.Title)
 					return;
 
@@ -742,11 +758,11 @@ namespace Tomboy
 				if (link == null)
 					return;
 				
-				Gtk.TextIter title_start = cursor;
-				title_start.ForwardChars (start);
+				Gtk.TextIter title_start = start;
+				title_start.ForwardChars (start_idx);
 
-				Gtk.TextIter title_end = cursor;
-				title_end.ForwardChars (end);
+				Gtk.TextIter title_end = start;
+				title_end.ForwardChars (end_idx);
 
 				Console.WriteLine ("Matching Note title '{0}'...", title);
 
@@ -759,24 +775,32 @@ namespace Tomboy
 			}
 		}
 
-		void HighlightInBlock (string lower_text, Gtk.TextIter cursor) 
+		TrieTree TitleTrie
 		{
-			Highlighter high = new Highlighter (Note, cursor);
-			high.Highlight (lower_text, title_trie);
+			get {
+				if (trie_controller == null)
+					trie_controller = new TrieController (Manager);
+
+				return trie_controller.TitleTrie;
+			}
+		}		
+
+		void HighlightInBlock (Gtk.TextIter start, Gtk.TextIter end) 
+		{
+			Highlighter high = new Highlighter (Note, start, end);
+			high.Highlight (TitleTrie);
 		}
 
-		void UnhighlightInBlock (string text, Gtk.TextIter cursor, Gtk.TextIter end) 
+		void UnhighlightInBlock (Gtk.TextIter start, Gtk.TextIter end) 
 		{
 			Gtk.TextTag link_tag = Buffer.TagTable.Lookup ("link:internal");
-			Buffer.RemoveTag (link_tag, cursor, end);
+			Buffer.RemoveTag (link_tag, start, end);
 		}
 
-		string GetBlockAroundCursor (ref Gtk.TextIter start, ref Gtk.TextIter end) 
+		void GetBlockExtents (ref Gtk.TextIter start, ref Gtk.TextIter end) 
 		{
 			start.LineOffset = 0;
 			end.ForwardToLineEnd ();
-
-			return start.GetText (end).ToLower ();
 		}
 
 		void OnDeleteRange (object sender, Gtk.DeleteRangeArgs args)
@@ -784,10 +808,10 @@ namespace Tomboy
 			Gtk.TextIter start = args.Start;
 			Gtk.TextIter end = args.End;
 
-			string block = GetBlockAroundCursor (ref start, ref end);
+			GetBlockExtents (ref start, ref end);
 
-			UnhighlightInBlock (block, start, end);
-			HighlightInBlock (block, start);
+			UnhighlightInBlock (start, end);
+			HighlightInBlock (start, end);
 		}
 
 		void OnInsertText (object sender, Gtk.InsertTextArgs args)
@@ -797,10 +821,10 @@ namespace Tomboy
 
 			Gtk.TextIter end = args.Pos;
 
-			string block = GetBlockAroundCursor (ref start, ref end);
+			GetBlockExtents (ref start, ref end);
 
-			UnhighlightInBlock (block, start, end);
-			HighlightInBlock (block, start);
+			UnhighlightInBlock (start, end);
+			HighlightInBlock (start, end);
 		}
 	}
 
