@@ -110,25 +110,26 @@ namespace Tomboy
 
 		public static bool Execute (string [] args)
 		{
-#if ENABLE_DBUS
 			TomboyRemoteExecute obj = new TomboyRemoteExecute ();
 			return obj.Parse (args) || obj.Execute ();
-#else
-			if (args.Length != 0)
-				PrintUsage ();
-			return args.Length != 0;
-#endif
 		}
 
-		public static void PrintUsage () 
+		public static void PrintAbout () 
 		{
-                        string usage = 
+                        string about = 
 				Catalog.GetString (
 					"Tomboy: A simple, easy to use desktop note-taking application.\n" +
 					"Copyright (C) 2004 Alex Graveley <alex@beatniksoftware.com>\n\n");
 
+			Console.Write (about);
+		}
+
+		public static void PrintUsage () 
+		{
+			PrintAbout ();
+
 #if ENABLE_DBUS
-			usage += 
+			string usage = 
 				Catalog.GetString (
 					"Usage:\n" +
 					"  --new-note\t\t\tCreate and display a new note\n" +
@@ -136,19 +137,28 @@ namespace Tomboy
 					"  --open-note [title/url]\tDisplay the existing note matching title\n" +
 					"  --start-here\t\t\tDisplay the Start Here note\n" +
 					"  --highlight-search [text]\tSearch and highlight text in the opened note\n" +
+					"  --version\t\tPrint version information\n" +
 					"  --help\t\t\tPrint this usage message.\n");
+			Console.WriteLine (usage);
 #else
-			usage += "Tomboy remote control disabled.";
+			string usage = "Tomboy remote control disabled.";
+			Console.WriteLine (usage);
 #endif
-
-                        Console.WriteLine (usage);
                 }
 
-#if ENABLE_DBUS
+		public static void PrintVersion()
+		{
+			PrintAbout ();
+
+			Console.WriteLine (Catalog.GetString ("Version {0}"),
+					   Defines.VERSION);
+		}
+
 		public bool Parse (string [] args)
 		{
 			for (int idx = 0; idx < args.Length; idx++) {
 				switch (args [idx]) {
+#if ENABLE_DBUS
 				case "--new-note":
 					// Get optional name for new note...
 					if (idx + 1 < args.Length && args [idx + 1][0] != '-') {
@@ -190,6 +200,11 @@ namespace Tomboy
 					++idx;
 					highlight_search = args [idx];
 					break;
+#endif // ENABLE_DBUS
+
+				case "--version":
+					PrintVersion();
+					return true;
 
 				case "--help":
 				case "--usage":
@@ -204,6 +219,9 @@ namespace Tomboy
 
 		public bool Execute ()
 		{
+			bool quit = false;
+
+#if ENABLE_DBUS
 			if (!new_note && open_note_name == null && open_note_uri == null)
 				return false;
 
@@ -214,8 +232,6 @@ namespace Tomboy
 			RemoteControlProxy remote = (RemoteControlProxy) 
 				service.GetObject (typeof (RemoteControlProxy),
 						   RemoteControlProxy.Path);
-
-			bool quit = false;
 
 			if (new_note) {
 				string new_uri;
@@ -246,9 +262,9 @@ namespace Tomboy
 
 				quit = true;
 			}
+#endif // ENABLE_DBUS
 
 			return quit;
 		}
-#endif
 	}
 }
