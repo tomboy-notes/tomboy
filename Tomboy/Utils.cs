@@ -348,4 +348,115 @@ namespace Tomboy
 			return val;
 		}
 	}
+
+	public class TextRange
+	{
+		Gtk.TextBuffer buffer;
+		Gtk.TextMark start_mark;
+		Gtk.TextMark end_mark;
+
+		public TextRange (Gtk.TextIter start, 
+				  Gtk.TextIter end)
+		{
+			if (start.Buffer != end.Buffer)
+				throw new Exception ("Start buffer and end buffer do not match");
+
+			buffer = start.Buffer;
+			start_mark = buffer.CreateMark (null, start, true);
+			end_mark = buffer.CreateMark (null, end, false);
+		}
+
+		public string Text
+		{
+			get { return Start.GetText (End); }
+		}
+
+		public Gtk.TextIter Start
+		{
+			get { return buffer.GetIterAtMark (start_mark); }
+			set { buffer.MoveMark (start_mark, value); }
+		}
+
+		public Gtk.TextIter End
+		{
+			get { return buffer.GetIterAtMark (end_mark); }
+			set { buffer.MoveMark (end_mark, value); }
+		}
+
+		public void Destroy ()
+		{
+			buffer.DeleteMark (start_mark);
+			buffer.DeleteMark (end_mark);
+		}
+	}
+
+	public class TextTagEnumerator : IEnumerator, IEnumerable
+	{
+		Gtk.TextBuffer buffer;
+		Gtk.TextTag tag;
+		Gtk.TextMark mark;
+		TextRange range;
+
+		public TextTagEnumerator (Gtk.TextBuffer buffer, string tag_name)
+			: this (buffer, buffer.TagTable.Lookup (tag_name))
+		{
+		}
+
+		public TextTagEnumerator (Gtk.TextBuffer buffer, Gtk.TextTag tag)
+		{
+			this.buffer = buffer;
+			this.tag = tag;
+
+			this.mark = buffer.CreateMark (null, buffer.StartIter, true);
+			this.range = new TextRange (buffer.StartIter, buffer.StartIter);
+		}
+
+		public object Current
+		{ 
+			get { return range; }
+		}
+
+		public bool MoveNext ()
+		{
+			Gtk.TextIter iter = buffer.GetIterAtMark (mark);
+
+			if (iter.Equal (buffer.EndIter)) {
+				range.Destroy ();
+				buffer.DeleteMark (mark);
+				return false;
+			}
+
+			if (!iter.ForwardToTagToggle (tag) ||
+			    !iter.BeginsTag (tag)) {
+				range.Destroy ();
+				buffer.DeleteMark (mark);
+				return false;
+			}
+
+			range.Start = iter;
+
+			if (!iter.ForwardToTagToggle (tag) ||
+			    !iter.EndsTag (tag)) {
+				range.Destroy ();
+				buffer.DeleteMark (mark);
+				return false;
+			}
+
+			range.End = iter;
+
+			buffer.MoveMark (mark, iter);
+
+			return true;
+		}
+
+		public void Reset ()
+		{
+			buffer.MoveMark (mark, buffer.StartIter);
+		}
+
+		public IEnumerator GetEnumerator ()
+		{
+			return this;
+		}
+	}
 }
