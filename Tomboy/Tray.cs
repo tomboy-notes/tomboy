@@ -214,11 +214,11 @@ namespace Tomboy
 				"Dutch; Flemish (nl) - Paul Bolle <pebolle@tiscali.nl>\n" +
 				"French (fr) - Beno\xeet Dejean <tazforever@dlfp.org>\n" +
 				"German (de) - Philipp Meier <meier@fnogol.de>\n" +
-				"Hungarian (hu) - T\xf6r\xf6k G\xe1bor <gabo@linuxportal.hu>\n" +
+				"Hungarian (hu) - T\xf6r\xf6k G\u00e1bor <gabo@linuxportal.hu>\n" +
 				"Icelandic (is) - Gunnar Steinn Magn\xfasson <gsm@gunnarsteinn.com>\n" +
 				"Japanese (ja) - Takeshi AIHANA <aihana@gnome.gr.jp>\n" +
 				"Polish (pl) - Marek Habersack <grendel@caudium.net>\n" +
-				"Portugese, Brazilian (pt_BR) - F\xe1bio Mendes <niels_bohr@uol.com.br>\n" +
+				"Portugese, Brazilian (pt_BR) - F\u00e1bio Mendes <niels_bohr@uol.com.br>\n" +
 				"Spanish (es) - Antonio Ognio <gnrfan@gnrfan.org>\n" +
 				"Swedish (sv) - Christian Rose <menthos@menthos.com>\n";
 
@@ -233,6 +233,7 @@ namespace Tomboy
 					documenters, 
 					translators,
 					tintin_large);
+			about.Icon = tintin_large;
 			about.Show ();
 		}
 
