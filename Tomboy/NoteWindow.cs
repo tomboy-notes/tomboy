@@ -36,7 +36,6 @@ namespace Tomboy
 			this.note = note;
 			this.Icon = stock_notes;
 			this.SetDefaultSize (450, 360);
-			this.ConfigureEvent += new Gtk.ConfigureEventHandler (ConfigureEventCb);
 
 			accel_group = new Gtk.AccelGroup ();
 			AddAccelGroup (accel_group);
@@ -534,22 +533,6 @@ namespace Tomboy
 		{
 			text_menu.RefreshState ();
 			GuiUtils.PopupMenu (text_menu, null);
-		}
-
-		//
-		// Window Configure event handler
-		//
-		// Save the note, so that subsequent opens are *spatial*.
-		// FIXME: These events aren't being emited.  Need to subscribe
-		// window to ConfigureEvent?
-		//
-
-		void ConfigureEventCb (object sender, Gtk.ConfigureEventArgs args) 
-		{
-			Console.WriteLine ("Got Configure Event!");
-
-			// Save window movement/size to Note
-			note.Save ();
 		}
 	}
 
