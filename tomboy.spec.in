@@ -72,13 +72,13 @@ gconftool-2 --makefile-uninstall-rule \
 %doc NEWS
 %{_bindir}/%{name}
 %dir %{_libdir}/%{name}
-%{_libdir}/%{name}/TrayIcon.dll
-%{_libdir}/%{name}/libtrayicon.so
-%{_libdir}/%{name}/Tomboy.exe
+%{_libdir}/%{name}/*
+%{_libdir}/bonobo/servers/GNOME_TomboyApplet.server
 %{_libdir}/dbus-1.0/services/com.beatniksoftware.Tomboy.service
 %{_mandir}/man1/%{name}.1.gz
-%{_datadir}/pixmaps/tintin.png
 %{_datadir}/applications/tomboy.desktop
+%{_datadir}/gnome-2.0/ui/GNOME_TomboyApplet.xml
+%{_datadir}/pixmaps/tintin.png
 %{_sysconfdir}/gconf/schemas/tomboy.schemas
 
 %changelog
