@@ -59,23 +59,10 @@ namespace Tomboy
 			editor.ScrollMarkOnscreen (note.Buffer.InsertMark);
 			editor.Show ();
 
-			Gtk.TargetEntry [] targets = 
-				new Gtk.TargetEntry [] {
-					new Gtk.TargetEntry ("STRING", 
-							     0,
-							     0),
-					new Gtk.TargetEntry ("text/plain", 
-							     0,
-							     0),
-					new Gtk.TargetEntry ("text/uri-list", 
-							     0,
-							     1),
-				};
-
-			Gtk.Drag.DestSet (editor, 
-					  Gtk.DestDefaults.Highlight,
-					  targets,
-					  Gdk.DragAction.Copy);
+			// Set extra editor drag targets supported
+			Gtk.TargetList list = Gtk.Drag.DestGetTargetList (editor);
+			list.Add (Gdk.Atom.Intern ("text/uri-list", false), 0, 1);
+			list.Add (Gdk.Atom.Intern ("_NETSCAPE_URL", false), 0, 1);
 
 			// FIXME: I think it would be really nice to let the
 			//        window get bigger up till it grows more than
