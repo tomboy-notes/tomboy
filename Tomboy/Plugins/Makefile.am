@@ -41,7 +41,8 @@ plugins_DATA = 			\
 	$(PRINT_TARGET)
 
 ### Not ready yet...
-###	$(EXPORT_TARGET)
+noinst_DATA = 			\
+	$(EXPORT_TARGET)
 
 
 EXTRA_DIST =            	\
