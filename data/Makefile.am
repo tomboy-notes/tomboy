@@ -29,7 +29,7 @@ dbusservicedir       = $(libdir)/dbus-1.0/services
 dbusservice_in_files = com.beatniksoftware.Tomboy.service.in
 dbusservice_DATA     = $(dbusservice_in_files:.service.in=.service)
 
-$(dbusservice_DATA): $(dbusservice_in_files)
+$(dbusservice_DATA): $(dbusservice_in_files) Makefile
 	sed -e "s|\@bindir\@|$(bindir)|g"	\
 	    -e "s|\@wrapper\@|tomboy|g"		\
 	    < $^ > $@
@@ -40,7 +40,7 @@ serverdir       = $(libdir)/bonobo/servers
 server_in_files = GNOME_TomboyApplet.server.in
 server_DATA     = $(server_in_files:.server.in=.server)
 
-$(server_in_files): $(server_in_files:.server.in=.server.in.in)
+$(server_in_files): $(server_in_files:.server.in=.server.in.in) Makefile
 	sed -e "s|\@bindir\@|$(bindir)|g"	\
 	    -e "s|\@wrapper\@|tomboy|g"		\
 	    < $^ > $@
