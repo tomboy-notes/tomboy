@@ -95,7 +95,8 @@ EXTRA_DIST =            		\
 	$(TARGET).config.in		\
 	$(srcdir)/Defines.cs.in	
 
-CLEANFILES =		\
-	$(TARGET) 	\
-	$(WRAPPER)	\
+CLEANFILES =			\
+	$(TARGET) 		\
+	$(TARGET).config	\
+	$(WRAPPER)		\
 	Defines.cs
