@@ -1,3 +1,3 @@
-EXTRA_DIST = tomboy.spec.in
+EXTRA_DIST = tomboy.spec
 SUBDIRS = TrayIcon Tomboy
 
