@@ -13,6 +13,7 @@ namespace Tomboy
 		string notes_dir;
 		string backup_dir;
 		ArrayList notes;
+		PluginManager plugin_mgr;
 
 		public NoteManager () : 
 			this (Path.Combine (Environment.GetEnvironmentVariable ("HOME"), 
@@ -45,6 +46,15 @@ namespace Tomboy
 				// First run. Create storage directory and "Start Here" note
 				Directory.CreateDirectory (notes_dir);
 				CreateStartNote ();
+			}
+
+			// This will create & populate the Plugins dir if it don't exist
+			string plugins_dir = Path.Combine (notes_dir, "Plugins");
+			plugin_mgr = new PluginManager (plugins_dir);
+
+			// Load all the plugins for our notes
+			foreach (Note note in notes) {
+				plugin_mgr.LoadPluginsForNote (note);
 			}
 
 			Tomboy.ExitingEvent += OnExitingEvent;
@@ -168,6 +178,9 @@ namespace Tomboy
 
 			notes.Add (new_note);
 
+			// Load all the plugins for the new note
+			plugin_mgr.LoadPluginsForNote (new_note);
+
 			if (NoteAdded != null)
 				NoteAdded (this, new_note);
 
@@ -215,6 +228,13 @@ namespace Tomboy
 				//        Note.Saved or Note.Buffer.Changed
 				notes.Sort (new CompareDates ());
 				return notes; 
+			}
+		}
+
+		public PluginManager PluginManager
+		{
+			get {
+				return plugin_mgr;
 			}
 		}
 

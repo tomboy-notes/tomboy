@@ -441,7 +441,7 @@ namespace Tomboy
 			this.buffer = buffer;
 			this.tag = tag;
 
-			this.mark = buffer.CreateMark (null, buffer.StartIter, true);
+			this.mark = buffer.CreateMark (null, buffer.StartIter, false);
 			this.range = new TextRange (buffer.StartIter, buffer.StartIter);
 		}
 
@@ -450,6 +450,8 @@ namespace Tomboy
 			get { return range; }
 		}
 
+		// FIXME: Mutability bugs.  multiple Links on the same line
+		// aren't getting renamed.
 		public bool MoveNext ()
 		{
 			Gtk.TextIter iter = buffer.GetIterAtMark (mark);
@@ -460,20 +462,28 @@ namespace Tomboy
 				return false;
 			}
 
-			if (!iter.ForwardToTagToggle (tag) ||
-			    !iter.BeginsTag (tag)) {
+			if (!iter.ForwardToTagToggle (tag)) {
 				range.Destroy ();
 				buffer.DeleteMark (mark);
 				return false;
 			}
 
+			if (!iter.BeginsTag (tag)) {
+				buffer.MoveMark (mark, iter);
+				return MoveNext ();
+			}
+
 			range.Start = iter;
 
-			if (!iter.ForwardToTagToggle (tag) ||
-			    !iter.EndsTag (tag)) {
+			if (!iter.ForwardToTagToggle (tag)) {
 				range.Destroy ();
 				buffer.DeleteMark (mark);
 				return false;
+			}
+
+			if (!iter.EndsTag (tag)) {
+				buffer.MoveMark (mark, iter);
+				return MoveNext ();
 			}
 
 			range.End = iter;

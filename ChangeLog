@@ -1,3 +1,26 @@
+2004-12-10  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/PluginManager.cs: Create.  Handles loading plugins from
+	~/.tomboy/Plugins, and connecting them to Notes.  Creates the
+	Plugins dir if it doesn't exist, and creates an Uninstalled
+	Plugins symlink to the system plugins.
+
+	* Tomboy/NoteWindow.cs: Split out NoteWindow.editor related
+	functions into NoteEditor class.
+
+	* Tomboy/NoteManager.cs: Create a PluginManager and use it to load
+	plugins for notes on init and on Create.
+
+	* Tomboy/Makefile.am: Add PluginManager.cs.
+
+	* Tomboy/Defines.cs.in: Add PKGLIBDIR and SYS_PLUGINS_DIR.
+
+	* Tomboy/Applet.cs: Handle showing plugins directory from
+	right-click menus.
+
+	* data/GNOME_TomboyApplet.xml: Add "Manage Plugins..." right-click
+	menu entry.
+
 2004-12-08  Alex Graveley  <alex@beatniksoftware.com>
 
 	* Tomboy/Search.cs: Listen to buffer content changes and update

@@ -4,6 +4,90 @@ using Mono.Posix;
 
 namespace Tomboy
 {
+	public class NoteEditor : Gtk.TextView
+	{
+		public NoteEditor (Gtk.TextBuffer buffer)
+			: base (buffer)
+		{
+			WrapMode = Gtk.WrapMode.Word;
+			LeftMargin = 8;
+			RightMargin = 8;
+			CanDefault = true;
+			DragDataReceived += OnDragDataReceived;
+			ScrollMarkOnscreen (buffer.InsertMark);
+
+			// Set Font from GConf preference
+			if ((bool) Preferences.Get (Preferences.ENABLE_CUSTOM_FONT)) {
+				string font_string = (string) Preferences.Get (Preferences.CUSTOM_FONT_FACE);
+				ModifyFont (Pango.FontDescription.FromString (font_string));
+			}
+			Preferences.SettingChanged += OnFontSettingChanged;
+
+			// Set extra editor drag targets supported (in addition
+			// to the default TextView's various text formats)...
+			Gtk.TargetList list = Gtk.Drag.DestGetTargetList (this);
+			list.Add (Gdk.Atom.Intern ("text/uri-list", false), 0, 1);
+			list.Add (Gdk.Atom.Intern ("_NETSCAPE_URL", false), 0, 1);
+		}
+
+		//
+		// Update the font based on the changed Preference dialog setting.
+		//
+		void OnFontSettingChanged (object sender, GConf.NotifyEventArgs args)
+		{
+			switch (args.Key) {
+			case Preferences.ENABLE_CUSTOM_FONT:
+				Console.WriteLine ("Switching note font {0}...", 
+						   (bool) args.Value ? "ON" : "OFF");
+
+				if ((bool) args.Value) {
+					string font_string = (string) Preferences.Get (Preferences.CUSTOM_FONT_FACE);
+					ModifyFont (Pango.FontDescription.FromString (font_string));
+				} else
+					ModifyFont (new Pango.FontDescription ());
+
+				break;
+
+			case Preferences.CUSTOM_FONT_FACE:
+				Console.WriteLine ("Switching note font to '{0}'...", 
+						   (string) args.Value);
+
+				ModifyFont (Pango.FontDescription.FromString ((string) args.Value));
+				break;
+			}
+		}
+
+		//
+		// DND Drop handling
+		//
+		void OnDragDataReceived (object sender, Gtk.DragDataReceivedArgs args)
+		{
+			// FIXME: Need to access SelectionData's target, which
+			// is unmapped in Gtk# currently, and only insert urls
+			// when the target is text/uri-list, or _NETSCAPE_URL.
+
+			UriList uri_list = new UriList (args.SelectionData);
+			if (uri_list.Count == 0)
+				return;
+
+			Gtk.TextIter cursor = Buffer.GetIterAtMark (Buffer.InsertMark);
+			bool more_than_one = false;
+
+			foreach (Uri uri in uri_list) {
+				Console.WriteLine ("Got Dropped URI: {0}", uri);
+				if (more_than_one)
+					Buffer.Insert (cursor, "\n");
+
+				if (uri.IsFile) 
+					Buffer.Insert (cursor, uri.LocalPath);
+				else
+					Buffer.Insert (cursor, uri.ToString ());
+
+				more_than_one = true;
+			}
+		}
+	}
+
 	public class NoteWindow : Gtk.Window 
 	{
 		Note note;
@@ -48,27 +132,10 @@ namespace Tomboy
 			text_menu.AttachToWidget (text_button, null);
 			text_menu.Deactivated += ReleaseTextButton;
 
-			editor = new Gtk.TextView (note.Buffer);
-			editor.WrapMode = Gtk.WrapMode.Word;
-			editor.LeftMargin = 8;
-			editor.RightMargin = 8;
-			editor.CanDefault = true;
+			// The main editor widget
+			editor = new NoteEditor (note.Buffer);
 			editor.PopulatePopup += OnPopulatePopup;
-			editor.DragDataReceived += OnDragDataReceived;
-			editor.ScrollMarkOnscreen (note.Buffer.InsertMark);
 			editor.Show ();
-
-			// Set Font from GConf preference
-			if ((bool) Preferences.Get (Preferences.ENABLE_CUSTOM_FONT)) {
-				string font_string = (string) Preferences.Get (Preferences.CUSTOM_FONT_FACE);
-				editor.ModifyFont (Pango.FontDescription.FromString (font_string));
-			}
-			Preferences.SettingChanged += OnFontSettingChanged;
-
-			// Set extra editor drag targets supported
-			Gtk.TargetList list = Gtk.Drag.DestGetTargetList (editor);
-			list.Add (Gdk.Atom.Intern ("text/uri-list", false), 0, 1);
-			list.Add (Gdk.Atom.Intern ("_NETSCAPE_URL", false), 0, 1);
 
 			// FIXME: I think it would be really nice to let the
 			//        window get bigger up till it grows more than
@@ -124,30 +191,6 @@ namespace Tomboy
 						    Gtk.AccelFlags.Visible);
 
 			this.Add (box);
-		}
-
-		void OnFontSettingChanged (object sender, GConf.NotifyEventArgs args)
-		{
-			switch (args.Key) {
-			case Preferences.ENABLE_CUSTOM_FONT:
-				Console.WriteLine ("Switching note font {0}...", 
-						   (bool) args.Value ? "ON" : "OFF");
-
-				if ((bool) args.Value) {
-					string font_string = (string) Preferences.Get (Preferences.CUSTOM_FONT_FACE);
-					editor.ModifyFont (Pango.FontDescription.FromString (font_string));
-				} else
-					editor.ModifyFont (new Pango.FontDescription ());
-
-				break;
-
-			case Preferences.CUSTOM_FONT_FACE:
-				Console.WriteLine ("Switching note font to '{0}'...", 
-						   (string) args.Value);
-
-				editor.ModifyFont (Pango.FontDescription.FromString ((string) args.Value));
-				break;
-			}
 		}
 
 		protected override bool OnDeleteEvent (Gdk.Event evnt)
@@ -298,38 +341,6 @@ namespace Tomboy
 		void RedoClicked (object sender, EventArgs args)
 		{
 			text_menu.RedoClicked (sender, args);
-		}
-
-		//
-		// DND Drop handling
-		//
-
-		void OnDragDataReceived (object sender, Gtk.DragDataReceivedArgs args)
-		{
-			// FIXME: Need to access SelectionData's target, which
-			// is unmapped in Gtk# currently, and only insert urls
-			// when the target is text/uri-list, or _NETSCAPE_URL.
-
-			UriList uri_list = new UriList (args.SelectionData);
-			if (uri_list.Count == 0)
-				return;
-
-			NoteBuffer buffer = note.Buffer;
-			Gtk.TextIter cursor = buffer.GetIterAtMark (buffer.InsertMark);
-			bool more_than_one = false;
-
-			foreach (Uri uri in uri_list) {
-				Console.WriteLine ("Got Dropped URI: {0}", uri);
-				if (more_than_one)
-					buffer.Insert (cursor, "\n");
-
-				if (uri.IsFile) 
-					buffer.Insert (cursor, uri.LocalPath);
-				else
-					buffer.Insert (cursor, uri.ToString ());
-
-				more_than_one = true;
-			}
 		}
 
 		//

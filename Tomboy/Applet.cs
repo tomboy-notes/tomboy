@@ -48,6 +48,8 @@ namespace Tomboy
 			menu_verbs = new BonoboUIVerb [] {
 				new BonoboUIVerb ("Props", 
 						  new ContextMenuItemCallback (ShowPreferencesVerb)),
+				new BonoboUIVerb ("Plugins", 
+						  new ContextMenuItemCallback (ShowPluginsVerb)),
 				new BonoboUIVerb ("About", 
 						  new ContextMenuItemCallback (ShowAboutVerb))
 			};
@@ -68,6 +70,11 @@ namespace Tomboy
 		void ShowPreferencesVerb ()
 		{
 			tray.ShowPreferences ();
+		}
+
+		void ShowPluginsVerb ()
+		{
+			manager.PluginManager.ShowPluginsDirectory ();
 		}
 
 		void ShowAboutVerb ()
@@ -156,6 +163,11 @@ namespace Tomboy
 			item.Activated += ShowPreferences;
 			menu.Append (item);
 
+			item = new Gtk.ImageMenuItem (Catalog.GetString ("_Manage Plugins..."));
+			item.Image = new Gtk.Image (Gtk.Stock.Execute, Gtk.IconSize.Menu);
+			item.Activated += ShowPlugins;
+			menu.Append (item);
+
 			item = new Gtk.ImageMenuItem (Catalog.GetString ("_About Tomboy"));
 			item.Image = new Gtk.Image (Gnome.Stock.About, Gtk.IconSize.Menu);
 			item.Activated += ShowAbout;
@@ -175,6 +187,11 @@ namespace Tomboy
 		void ShowPreferences (object sender, EventArgs args)
 		{
 			tray.ShowPreferences ();
+		}
+
+		void ShowPlugins (object sender, EventArgs args)
+		{
+			manager.PluginManager.ShowPluginsDirectory ();
 		}
 
 		void ShowAbout (object sender, EventArgs args)
