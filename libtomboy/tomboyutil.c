@@ -6,6 +6,7 @@
 #include <X11/Xlib.h>
 #include <X11/Xatom.h>
 
+#include "config.h"
 #include "tomboyutil.h"
 
 /* Uncomment the next line to print a debug trace. */
@@ -99,9 +100,10 @@ tomboy_window_present_hardcore (GtkWindow *window)
 		ev_time = tomboy_keybinder_get_current_event_time ();
 	}
 
+#ifdef HAVE_GDK_X11_WINDOW_SET_USER_TIME
 	TRACE (g_print("Setting _NET_WM_USER_TIME to: %d\n", ev_time));
-
 	gdk_x11_window_set_user_time (GTK_WIDGET(window)->window, ev_time);
+#endif
 
 	gtk_window_present (window);
 }

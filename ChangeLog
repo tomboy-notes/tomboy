@@ -1,3 +1,15 @@
+2005-03-30  Alex Graveley  <alex@beatniksoftware.com>
+
+	* libtomboy/tomboyutil.c (tomboy_window_present_hardcore): Only
+	call gdk_x11_window_set_user_time() if
+	HAVE_GDK_X11_WINDOW_SET_USER_TIME is defined.
+
+	* Tomboy/Tomboy.exe.config.in: Add libgtk-win32-2.0-0.dll <dllmap>
+
+	* configure.in (HAVE_GDK_X11_WINDOW_SET_USER_TIME): Set this if
+	the Gtk version installed is 2.6+ and therefore has this
+	function.  Remove extraneous check for pkg-config.
+
 2005-03-29  Alex Graveley  <alex@beatniksoftware.com>
 
 	* Tomboy/NoteBuffer.cs: Fix Selection getter to not return empty

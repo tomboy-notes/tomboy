@@ -29,14 +29,6 @@ AC_PATH_PROG(GCONFTOOL, gconftool-2)
 AM_GCONF_SOURCE_2
 
 #
-# Find pkg-config
-#
-AC_PATH_PROG(PKG_CONFIG, pkg-config, no)
-if test "x$PKG_CONFIG" = "xno"; then
-	AC_MSG_ERROR([You need to install pkg-config])
-fi
-
-#
 # Find mcs
 #
 AC_PATH_PROG(MCS, mcs)
@@ -48,13 +40,25 @@ fi
 # Gdk and Atk are needed for libtrayicon
 #
 GDK20_MINIMUM_VERSION=2.2.3
+GTK20_MINIMUM_VERSION=2.2.3
 ATK_MINIMUM_VERSION=1.2.4
 
 PKG_CHECK_MODULES(LIBTOMBOY, 
 		  gdk-2.0 >= $GDK20_MINIMUM_VERSION
+		  gtk+-2.0 >= $GTK20_MINIMUM_VERSION
 		  atk >= $ATK_MINIMUM_VERSION)
 AC_SUBST(LIBTOMBOY_CFLAGS)
 AC_SUBST(LIBTOMBOY_LIBS)
+
+#
+# Need Gtk 2.6+ for gdk_x11_window_set_user_time() to get around 
+# anti-focus avoidance for keybindings.
+#
+PKG_CHECK_MODULES(GTK, gtk+-2.0 >= 2.6.0, GTK_2_6="yes", GTK_2_6="no")
+if test "x$GTK_2_6" = "xyes"; then
+   AC_DEFINE(HAVE_GDK_X11_WINDOW_SET_USER_TIME, 1, 
+             [Whether GTK+ method gdk_x11_window_set_user_time() is present.])
+fi
 
 #
 # Need libpanelapplet to create the applet
