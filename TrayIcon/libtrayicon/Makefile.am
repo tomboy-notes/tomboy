@@ -11,7 +11,7 @@ INCLUDES = \
   -DGDK_DISABLE_DEPRECATED \
   -DG_DISABLE_DEPRECATED
 
-tomboylibdir = $(DESTDIR)$(pkglibdir)
+tomboylibdir = $(pkglibdir)
 tomboylib_LTLIBRARIES = libtrayicon.la
 
 #libtrayicon_la_LIBADD = \
@@ -30,10 +30,9 @@ libtrayicon_la_LDFLAGS = -export-dynamic -module -avoid-version
 #  eggstatusicon.h\
 #  eggtraymanager.h
 
-### FIXME: This breaks distcheck.
 install-data-hook:
-	rm $(tomboylibdir)/libtrayicon.a
-	rm $(tomboylibdir)/libtrayicon.la
+	rm $(DESTDIR)/$(tomboylibdir)/libtrayicon.a
+	rm $(DESTDIR)/$(tomboylibdir)/libtrayicon.la
 
 maintainer-clean-local:
 	rm -f Makefile.in
