@@ -7,7 +7,7 @@ using Mono.Posix;
 
 namespace Tomboy
 {
-	public delegate void NotesChangedHandler (object sender, Note added, Note deleted);
+	public delegate void NotesChangedHandler (object sender, Note changed);
 
 	public class NoteManager 
 	{
@@ -49,42 +49,8 @@ namespace Tomboy
 			}
 		}
 
-		void ShowNameClashError (Note note, string title)
-		{
-			string message = 
-				String.Format (Catalog.GetString ("A note with the title " +
-								  "<b>{0}</b> already exists. " +
-								  "Please choose another name " +
-								  "for this note before " +
-								  "continuing."),
-					       title);
-
-			HIGMessageDialog dialog = 
-				new HIGMessageDialog (note.Window,
-						      Gtk.DialogFlags.DestroyWithParent,
-						      Gtk.MessageType.Warning,
-						      Gtk.ButtonsType.Ok,
-						      Catalog.GetString ("Note title taken"),
-						      message);
-
-			dialog.Run ();
-			dialog.Destroy ();
-		}
-
 		void OnNoteRename (Note note, string old_title)
 		{
-			string new_file = ConvertTitleToFileName (note.Title);
-			if (File.Exists (new_file)) {
-				ShowNameClashError (note, note.Title);
-				return;
-			}
-
-			if (File.Exists (note.FilePath)) {
-				// Move the existing file
-				File.Move (note.FilePath, new_file);
-				note.FilePath = new_file;
-			}
-
 			if (NoteRenamed != null)
 				NoteRenamed (note, old_title);
 		}
@@ -130,22 +96,14 @@ namespace Tomboy
 
 			Console.WriteLine ("Deleting note '{0}'.", note.Title);
 
-			if (NotesChanged != null)
-				NotesChanged (this, null, note);
+			if (NoteDeleted != null)
+				NoteDeleted (this, note);
 		}
 
-		string ConvertTitleToFileName (string title)
+		string MakeNewFileName ()
 		{
-			//
-			// Url encode titles after replacing " " with "_"
-			//
-
-			string filename;
-			filename = title.Replace (" ", "_");
-			filename = HttpUtility.UrlEncode (filename);
-			filename += ".note";
-
-			return Path.Combine (notes_dir, filename);
+			Guid guid = Guid.NewGuid ();
+			return Path.Combine (notes_dir, guid.ToString () + ".note");
 		}
 
 		public Note Create ()
@@ -155,10 +113,8 @@ namespace Tomboy
 
 			while (true) {
 				temp_title = String.Format (Catalog.GetString ("New Note {0}"), 
-							    new_num);
-				if (Find (temp_title) != null)
-					new_num++;
-				else
+							    ++new_num);
+				if (Find (temp_title) == null)
 					break;
 			}
 
@@ -167,7 +123,7 @@ namespace Tomboy
 
 		public Note Create (string linked_title) 
 		{
-			string filename = ConvertTitleToFileName (linked_title);
+			string filename = MakeNewFileName ();
 
 			Note new_note = new Note (linked_title, filename, this);
 			new_note.Text = 
@@ -179,8 +135,8 @@ namespace Tomboy
 
 			notes.Add (new_note);
 
-			if (NotesChanged != null)
-				NotesChanged (this, new_note, null);
+			if (NoteAdded != null)
+				NoteAdded (this, new_note);
 
 			return new_note;
 		}
@@ -229,7 +185,8 @@ namespace Tomboy
 			}
 		}
 
-		public event NotesChangedHandler NotesChanged;
+		public event NotesChangedHandler NoteDeleted;
+		public event NotesChangedHandler NoteAdded;
 		public event NoteRenameHandler NoteRenamed;
 	}
 }

@@ -1,3 +1,28 @@
+2004-10-08  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Watchers.cs: Move all watchers to NotePlugin interface,
+	which simplifies code and avoid creating windows/buffers
+	prematurely; eventually this will be the interface to allow 3rd
+	party plugins.  Move wiki/url watchers to using regex matching,
+	which simplifies the code.
+
+	* Tomboy/Tray.cs: Show notes edited in the last two days in menu
+	(up to 18).
+
+	* Tomboy/RecentChanges.cs: Remove open-one-at-a-time behavior.
+	* Tomboy/Search.cs: Ditto.
+
+	* Tomboy/NoteManager.cs: Split NoteChanged into NoteAdded and
+	NoteDeleted signals.  Make new note filenames be guids, to avoid
+	renaming files on note rename, and to give permalink urls.
+
+	* Tomboy/Note.cs: Load plugins as creation.
+	Send Opened signal on window realize.  Add IsLoaded property to
+	tell if buffer has been deserialized.
+
+	* Tomboy/Makefile.am (com.beatniksoftware.Tomboy.service): Install
+	com.beatniksoftware.Tomboy.service to $libdir/dbus-1.0/services.
+
 2004-10-07  Alex Graveley  <alex@beatniksoftware.com>
 
 	* Tomboy/Tomboy.cs: Make --new-note "NoteTitle" open an existing
