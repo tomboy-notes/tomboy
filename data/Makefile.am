@@ -32,7 +32,7 @@ dbusservice_DATA     = $(dbusservice_in_files:.service.in=.service)
 $(dbusservice_DATA): $(dbusservice_in_files) Makefile
 	sed -e "s|\@bindir\@|$(bindir)|g"	\
 	    -e "s|\@wrapper\@|tomboy|g"		\
-	    < $^ > $@
+	    < $< > $@
 endif
 
 
@@ -43,7 +43,7 @@ server_DATA     = $(server_in_files:.server.in=.server)
 $(server_in_files): $(server_in_files:.server.in=.server.in.in) Makefile
 	sed -e "s|\@bindir\@|$(bindir)|g"	\
 	    -e "s|\@wrapper\@|tomboy|g"		\
-	    < $^ > $@
+	    < $< > $@
 
 @INTLTOOL_SERVER_RULE@
 
