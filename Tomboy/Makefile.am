@@ -38,6 +38,7 @@ CSFILES = 					\
 	$(srcdir)/RecentChanges.cs		\
 	$(srcdir)/Search.cs 			\
 	$(srcdir)/Tray.cs 			\
+	$(srcdir)/Trie.cs			\
 	$(srcdir)/Undo.cs 			\
 	$(srcdir)/Utils.cs			\
 	$(srcdir)/Watchers.cs			\

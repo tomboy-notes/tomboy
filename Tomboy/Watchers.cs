@@ -567,8 +567,7 @@ namespace Tomboy
 
 	public class NoteLinkWatcher : NotePlugin
 	{
-		ArrayList note_titles;
-		int longest_title;
+		TrieTree title_trie;
 
 		public override void Initialize () 
 		{
@@ -577,8 +576,6 @@ namespace Tomboy
 			Manager.NoteDeleted += OnNoteDeleted;
 			Manager.NoteAdded += OnNoteAdded;
 			Manager.NoteRenamed += OnNoteRenamed;
-
-			note_titles = new ArrayList ();
 		}
 
 		void OnNoteOpened (object sender, EventArgs args)
@@ -596,16 +593,12 @@ namespace Tomboy
 		// block to look for links when typing, and avoid lowercasing...
 		void UpdateTitleCache ()
 		{
-			longest_title = 0;
-			note_titles.Clear ();
-
+			ArrayList titles = new ArrayList (Manager.Notes.Count);
 			foreach (Note note in Manager.Notes) {
-				if (note.Title.Length > longest_title)
-					longest_title = note.Title.Length;
-
-				if (note.Title.Length > 0)
-					note_titles.Add (note.Title.ToLower ());
+				titles.Add (note.Title);
 			}
+
+			title_trie = new TrieTree (titles, false);
 		}
 
 		void ReplaceTagOnMatch (Gtk.TextTag find_tag,
@@ -719,40 +712,57 @@ namespace Tomboy
 			}
 		}
 
+		class Highlighter
+		{
+			Note note;
+			Gtk.TextIter cursor;
+			Gtk.TextTag link_tag;
+			Gtk.TextTag broken_link_tag;
+
+			public Highlighter (Note note, Gtk.TextIter cursor)
+			{
+				this.note = note;
+				this.cursor = cursor;
+				this.link_tag = cursor.Buffer.TagTable.Lookup ("link:internal");
+				this.broken_link_tag = cursor.Buffer.TagTable.Lookup ("link:broken");
+			}
+
+			public void Highlight (string haystack, TrieTree trie)
+			{
+				trie.FindMatches (haystack, new MatchHandler (TitleFound));
+			}
+
+			void TitleFound (string haystack, int start, int end)
+			{
+				string title = haystack.Substring (start, end - start);
+				if (title == note.Title)
+					return;
+
+				Note link = note.Manager.Find (title);
+				if (link == null)
+					return;
+				
+				Gtk.TextIter title_start = cursor;
+				title_start.ForwardChars (start);
+
+				Gtk.TextIter title_end = cursor;
+				title_end.ForwardChars (end);
+
+				Console.WriteLine ("Matching Note title '{0}'...", title);
+
+				note.Buffer.RemoveTag (broken_link_tag,
+						       title_start,
+						       title_end);
+				note.Buffer.ApplyTag (link_tag,
+						      title_start,
+						      title_end);
+			}
+		}
+
 		void HighlightInBlock (string lower_text, Gtk.TextIter cursor) 
 		{
-			Gtk.TextTag link_tag = Buffer.TagTable.Lookup ("link:internal");
-			Gtk.TextTag broken_link_tag = Buffer.TagTable.Lookup ("link:broken");
-
-			foreach (string title in note_titles) {
-				int last_idx = 0;
-
-				if (title == Note.Title)
-					continue;
-
-				while (true) {
-					int idx = lower_text.IndexOf (title, last_idx);
-					if (idx < 0)
-						break;
-
-					Gtk.TextIter title_start = cursor;
-					title_start.ForwardChars (idx);
-
-					Gtk.TextIter title_end = title_start;
-					title_end.ForwardChars (title.Length);
-
-					Console.WriteLine ("Matching Note title '{0}'...", title);
-
-					Buffer.RemoveTag (broken_link_tag,
-							  title_start,
-							  title_end);
-					Buffer.ApplyTag (link_tag,
-							 title_start,
-							 title_end);
-
-					last_idx = idx + title.Length;
-				}
-			}
+			Highlighter high = new Highlighter (Note, cursor);
+			high.Highlight (lower_text, title_trie);
 		}
 
 		void UnhighlightInBlock (string text, Gtk.TextIter cursor, Gtk.TextIter end) 
