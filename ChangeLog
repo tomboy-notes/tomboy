@@ -1,5 +1,12 @@
 2004-12-10  Alex Graveley  <alex@beatniksoftware.com>
 
+	* Tomboy/Makefile.am: Compile the current directory first, before
+	Plugins, since they depend on Tomboy.exe.
+
+	* Tomboy/Tomboy.cs: Fix compile error for non DBUS systems.
+
+2004-12-10  Alex Graveley  <alex@beatniksoftware.com>
+
 	* Tomboy/PluginManager.cs: Create.  Handles loading plugins from
 	~/.tomboy/Plugins, and connecting them to Notes.  Creates the
 	Plugins dir if it doesn't exist, and creates an Uninstalled

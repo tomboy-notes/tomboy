@@ -1,5 +1,5 @@
 
-SUBDIRS = Plugins
+SUBDIRS = . Plugins
 
 CSC = mcs -g
 
