@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Text;
+using System.Web;
 using Mono.Posix;
 
 namespace Tomboy 
@@ -634,6 +635,7 @@ namespace Tomboy
 
 		void AppendResultTreeView (Gtk.ListStore store, Note note, ArrayList matches)
 		{
+			string title = HttpUtility.HtmlEncode (note.Title);
 			string match_cnt;
 
 			if (matches.Count > 1)
@@ -645,7 +647,7 @@ namespace Tomboy
 
 			Gtk.TreeIter iter = store.Append ();
 			store.SetValue (iter, 0 /* icon */, stock_notes);
-			store.SetValue (iter, 1 /* title */, note.Title);
+			store.SetValue (iter, 1 /* title */, title);
 			store.SetValue (iter, 2 /* match count */, match_cnt);
 			store.SetValue (iter, 3 /* note */, note);
 			store.SetValue (iter, 4 /* matches */, matches);
@@ -685,11 +687,9 @@ namespace Tomboy
 		public string SearchText
 		{
 			get { return find_combo.Entry.Text; }
-			set { 
-				if (value == null)
-					find_combo.Entry.Text = "";
-				else
-					find_combo.Entry.Text = value; 
+			set {
+				if (value != null)
+					find_combo.Entry.Text = value;
 			}
 		}
 	}
