@@ -1,0 +1,10 @@
+#!/bin/sh
+
+if [ -e ./@target@ ] && [ -e ./Makefile.am ] ; then
+    echo "*** Running uninstalled @target@ ***"
+    THIS_EXE="./@target@"
+else
+    THIS_EXE="@pkglibdir@/@target@"
+fi
+ 
+mono --debug $MONO_EXTRA_ARGS $THIS_EXE "$@"
