@@ -13,11 +13,13 @@ namespace Tomboy
 		Gtk.Tooltips tips;
 
 		static Gdk.Pixbuf tintin;
+		static Gdk.Pixbuf tintin_large;
 		static Gdk.Pixbuf stock_notes;
 
 		static TomboyTray ()
 		{
 			tintin = GuiUtils.GetMiniIcon ("tintin.png");
+			tintin_large = GuiUtils.GetIcon ("tintin.png");
 			stock_notes = GuiUtils.GetMiniIcon ("stock_notes.png");
 		}
 
@@ -84,6 +86,7 @@ namespace Tomboy
 			menu.Append (item);
 
 			item = new Gtk.ImageMenuItem (Gnome.Stock.About, accel_group);
+			item.Activated += ShowAbout;
 			menu.Append (item);
 
 			item = new Gtk.ImageMenuItem (Catalog.GetString ("_Quit"));
@@ -230,6 +233,24 @@ namespace Tomboy
 			PreferencesDialog prefs = new PreferencesDialog ();
 			prefs.Run ();
 			prefs.Destroy ();
+		}
+
+		void ShowAbout (object sender, EventArgs args)
+		{
+			string [] authors = new string [] {
+				"Alex Graveley <alex@beatniksoftware.com>"
+			};
+
+			string [] documenters = new string [] {
+				"Alex Graveley <alex@beatniksoftware.com>"
+			};
+
+			Gnome.About about = new Gnome.About ("Tomboy", Defines.VERSION,
+			"Copyright © 2004 Alex Graveley",
+			"Tomboy is a desktop note-taking application for Linux and Unix.",
+			authors, documenters, null,
+			tintin_large);
+			about.Show ();
 		}
 
 		// FIXME: If receiving a drag, pop up last window used, or a new
