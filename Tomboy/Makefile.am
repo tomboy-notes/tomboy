@@ -66,6 +66,7 @@ $(TARGET): $(CSFILES) $(srcdir)/Defines.cs
 tomboylibdir = $(pkglibdir)
 tomboylib_DATA = $(TARGET)
 
+
 bin_SCRIPTS = $(WRAPPER)
 
 $(WRAPPER): $(srcdir)/$(WRAPPER).in
@@ -78,20 +79,17 @@ $(WRAPPER): $(srcdir)/$(WRAPPER).in
 	    < $^ > $@
 	chmod +x $(WRAPPER)
 
+
 Defines.cs: $(srcdir)/Defines.cs.in
 	sed -e "s|\@version\@|$(VERSION)|" \
 	    -e "s|\@datadir\@|$(datadir)|" \
 	    < $^ > $@
 
 
-EXTRA_DIST =            				\
-	$(CSFILES)      				\
-	$(WRAPPER).in					\
-	$(srcdir)/Defines.cs.in				\
-	$(srcdir)/Start_Here.note			\
-	$(srcdir)/tintin.png				\
-	$(srcdir)/stock_notes.png			\
-	$(srcdir)/gnome-stock-searchtool.png
+EXTRA_DIST =            		\
+	$(CSFILES)      		\
+	$(WRAPPER).in			\
+	$(srcdir)/Defines.cs.in
 
 CLEANFILES =		\
 	$(TARGET) 	\

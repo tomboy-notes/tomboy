@@ -1,4 +1,7 @@
 
+SUBDIRS = images
+
+
 @INTLTOOL_DESKTOP_RULE@
 
 desktop_in_files = tomboy.desktop.in
@@ -23,7 +26,7 @@ endif
 
 
 if ENABLE_DBUS
-com.beatniksoftware.Tomboy.service: com.beatniksoftware.Tomboy.service.in
+com.beatniksoftware.Tomboy.service: $(srcdir)/com.beatniksoftware.Tomboy.service.in
 	sed -e "s|\@bindir\@|$(bindir)|g"	\
 	    -e "s|\@wrapper\@|tomboy|g"		\
 	    < $^ > $@
