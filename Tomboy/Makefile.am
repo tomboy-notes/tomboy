@@ -5,13 +5,10 @@ CSC = mcs -g
 TARGET = Tomboy.exe
 WRAPPER = tomboy
 
-DEFINES = -define:DEBUG
-
-CSFLAGS = -target:exe
+CSFLAGS = -target:exe -define:DEBUG
 
 CSFILES = 				\
 	$(srcdir)/Tomboy.cs 		\
-	$(srcdir)/Defines.cs 		\
 	$(srcdir)/Note.cs 		\
 	$(srcdir)/NoteManager.cs 	\
 	$(srcdir)/NoteWindow.cs 	\
@@ -41,11 +38,11 @@ RESOURCES = 							\
 	-resource:$(srcdir)/gnome-stock-searchtool.png,gnome-stock-searchtool.png
 
 if OLD_GTKSPELL
-DEFINES += -define:OLD_GTKSPELL
+CSFLAGS += -define:OLD_GTKSPELL
 endif
 
 if ENABLE_DBUS
-DEFINES += -define:ENABLE_DBUS
+CSFLAGS += -define:ENABLE_DBUS
 CSFILES += 				\
 	$(srcdir)/RemoteControl.cs	\
 	$(srcdir)/RemoteControlProxy.cs
@@ -60,8 +57,8 @@ dbusservicedir = $(libdir)/dbus-1.0/services
 dbusservice_DATA = com.beatniksoftware.Tomboy.service
 endif
 
-$(TARGET): $(CSFILES) $(LOCAL_ASSEMBLIES) 
-	$(CSC) -o $@ $(CSFLAGS) $(CSFILES) $(ASSEMBLIES) $(RESOURCES) $(DEFINES)
+$(TARGET): $(CSFILES) $(srcdir)/Defines.cs
+	$(CSC) -o $@ $(CSFLAGS) $^ $(ASSEMBLIES) $(RESOURCES)
 
 all: $(TARGET)
 
@@ -95,10 +92,12 @@ pixmap_DATA = tintin.png
 EXTRA_DIST =            			\
 	$(CSFILES)      			\
 	$(WRAPPER).in				\
+	$(srcdir)/Defines.cs.in			\
 	$(srcdir)/Start_Here.note		\
 	$(srcdir)/tintin.png			\
 	$(srcdir)/stock_notes.png		\
-	$(srcdir)/gnome-stock-searchtool.png
+	$(srcdir)/gnome-stock-searchtool.png	\
+	$(srcdir)/com.beatniksoftware.Tomboy.service.in
 
 CLEANFILES =            			\
 	$(TARGET)       			\
