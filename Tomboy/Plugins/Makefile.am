@@ -9,7 +9,7 @@ ASSEMBLIES = 					\
 	$(TOMBOY_LIBS) 				\
 	-r:Mono.Posix				\
 	$(DBUS_LIBS)				\
-	-r:$(top_srcdir)/Tomboy/Tomboy.exe
+	-r:$(top_builddir)/Tomboy/Tomboy.exe
 
 
 #
@@ -20,7 +20,7 @@ PRINT_TARGET = PrintNotes.dll
 PRINT_CSFILES = $(srcdir)/PrintNotes.cs
 PRINT_RESOURCES =
 
-$(PRINT_TARGET): $(PRINT_CSFILES) $(top_srcdir)/Tomboy/Tomboy.exe
+$(PRINT_TARGET): $(PRINT_CSFILES) $(top_builddir)/Tomboy/Tomboy.exe
 	$(CSC) -o $@ $(CSFLAGS) $(ASSEMBLIES) $(PRINT_CSFILES) $(PRINT_RESOURCES)
 
 
@@ -32,7 +32,7 @@ EXPORT_TARGET = ExportToHTML.dll
 EXPORT_CSFILES = $(srcdir)/ExportToHTML.cs
 EXPORT_RESOURCES =
 
-$(EXPORT_TARGET): $(EXPORT_CSFILES) $(top_srcdir)/Tomboy/Tomboy.exe
+$(EXPORT_TARGET): $(EXPORT_CSFILES) $(top_builddir)/Tomboy/Tomboy.exe
 	$(CSC) -o $@ $(CSFLAGS) $(ASSEMBLIES) $(EXPORT_CSFILES) $(EXPORT_RESOURCES)
 
 
