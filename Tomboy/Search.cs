@@ -7,7 +7,6 @@ namespace Tomboy
 	public class NoteFindDialog : Gtk.Window
 	{
 		NoteManager manager;
-		NoteBuffer owning_buffer;
 
 		Gtk.AccelGroup accel_group;
 		Gtk.Combo find_combo;
@@ -22,11 +21,14 @@ namespace Tomboy
 
 		Gtk.ListStore store;
 
+		Note current_note;
 		ArrayList current_matches;
+
 		uint changed_timeout_id = 0;
 		Gtk.Window last_opened_window;
 
 		static string [] previous_searches;
+		static NoteFindDialog instance;
 		static Gdk.Pixbuf search_image;
 		static Gdk.Pixbuf stock_notes;
 
@@ -36,21 +38,48 @@ namespace Tomboy
 			stock_notes = GuiUtils.GetMiniIcon ("stock_notes.png");
 		}
 
-		public NoteFindDialog (NoteManager manager, NoteBuffer buffer, string search_string)
-			: this (manager, false)
+		public static NoteFindDialog GetInstance (Note note, string search_string)
 		{
-			owning_buffer = buffer;
+			if (instance == null)
+				instance = new NoteFindDialog (false);
 
-			if (search_string != null) {
-				find_combo.Entry.Text = search_string;
-				UpdateResults ();
+			if (instance.current_note != note) {
+				instance.current_note = note;
+				instance.manager = note.Manager;
+				instance.search_all_notes.Sensitive = true; // allow switching
+
+				if (search_string != null)
+					instance.find_combo.Entry.Text = search_string;
+
+				instance.UpdateResults ();
 			}
+
+			return instance;
 		}
 
-		public NoteFindDialog (NoteManager manager, bool search_all)
-			: base (search_all ? "Search Notes" : "Search in Note")
+		public static NoteFindDialog GetInstance (NoteManager manager)
 		{
-			this.manager = manager;
+			if (instance == null)
+				instance = new NoteFindDialog (true);
+
+			if (instance.current_note != null || 
+			    instance.manager != manager) {
+				instance.current_note = null;
+				instance.manager = manager;
+				instance.search_all_notes.Active = true; // search all
+				instance.search_all_notes.Sensitive = false; // force it
+
+				instance.UpdateResults ();
+			}
+
+			return instance;
+		}
+
+		// Creates singleton instance, and initializes default values
+		// based on search_all.
+		NoteFindDialog (bool search_all)
+			: base (search_all ? "Search All Notes" : "Search Note")
+		{
 			this.Icon = search_image;
 
 			// For Escape (Close), Ctrl-G (Find next), and
@@ -194,7 +223,7 @@ namespace Tomboy
 
 			renderer = new Gtk.CellRendererText ();
 			title.PackStart (renderer, true);
-			title.AddAttribute (renderer, "text", 1 /* title */);
+			title.AddAttribute (renderer, "markup", 1 /* title */);
 
 			renderer = new Gtk.CellRendererText ();
 			renderer.Data ["xalign"] = 1.0;
@@ -225,6 +254,11 @@ namespace Tomboy
 			// Move cursor to end of match, and select match text
 			buffer.PlaceCursor (end);
 			buffer.MoveMark (buffer.SelectionBound, start);
+
+			if (current_note != null) {
+				Gtk.TextView editor = current_note.Window.Editor;
+				editor.ScrollMarkOnscreen (buffer.InsertMark);
+			}
 		}
 
 		ArrayList FindMatches (NoteBuffer buffer, string [] words, bool match_case)
@@ -299,14 +333,24 @@ namespace Tomboy
 			}
 		}
 
-		void CleanupMatches (ArrayList matches) 
+		void CleanupMatches () 
 		{
-			HighlightMatches (matches, false /* unhighlight */);
+			if (current_matches != null) {
+				HighlightMatches (current_matches, false /* unhighlight */);
 
-			foreach (Match match in matches) {
-				match.Buffer.DeleteMark (match.StartMark);
-				match.Buffer.DeleteMark (match.EndMark);
+				foreach (Match match in current_matches) {
+					match.Buffer.DeleteMark (match.StartMark);
+					match.Buffer.DeleteMark (match.EndMark);
+				}
+
+				current_matches = null;
 			}
+
+			find_next_button.Sensitive = false;
+			find_prev_button.Sensitive = false;
+
+			store.Clear ();
+			tree.Sensitive = false;
 		}
 
 		// Signal handlers...
@@ -360,8 +404,6 @@ namespace Tomboy
 			if (current_matches != null)
 				HighlightMatches (current_matches, false);
 
-			// CleanupMatches?
-
 			last_opened_window = null;
 			this.TransientFor = null;
 
@@ -390,9 +432,11 @@ namespace Tomboy
 			if (search_all_notes.Active) {
 				matches_window.Show ();
 				Resizable = true;
+				Title = "Search All Notes";
 			} else {
 				matches_window.Hide ();
 				Resizable = false;
+				Title = "Search Note";
 			}
 
 			UpdateResults ();
@@ -405,6 +449,7 @@ namespace Tomboy
 				return;
 
 			Note note = (Note) store.GetValue (iter, 3 /* note */);
+			ArrayList matches = (ArrayList) store.GetValue (iter, 4 /* matches */);
 
 			// If the note window was not already open, hide it
 			// when we select another row...
@@ -419,17 +464,22 @@ namespace Tomboy
 				last_opened_window = note.Window;
 				this.TransientFor = last_opened_window;
 			}
-			note.Window.Present ();
-			this.Present ();
 
-			find_next_button.Sensitive = true;
-			find_prev_button.Sensitive = true;
+			current_note = note;
+			note.Window.Present ();
 
 			if (current_matches != null)
 				HighlightMatches (current_matches, false /* unhighlight */);
 
-			current_matches = (ArrayList) store.GetValue (iter, 4 /* matches */);
-			HighlightMatches (current_matches, true);
+			HighlightMatches (matches, true /* highlight */);
+			current_matches = matches;
+
+			// We now definately have a current_note so all
+			// switching in and out of Search All...
+			search_all_notes.Sensitive = true;
+
+			find_next_button.Sensitive = true;
+			find_prev_button.Sensitive = true;
 		}
 
 		void OnEntryChanged (object sender, EventArgs args)
@@ -438,27 +488,59 @@ namespace Tomboy
 				GLib.Source.Remove (changed_timeout_id);
 
 			changed_timeout_id = 
-				GLib.Timeout.Add (500, new GLib.TimeoutHandler (UpdateResults));
+				GLib.Timeout.Add (500, 
+						  new GLib.TimeoutHandler (EntryChangedTimeout));
 		}
 
 		// Called in after .25 seconds of typing inactivity.  Redo the
 		// search, and update the results...
-		bool UpdateResults ()
+		bool EntryChangedTimeout ()
 		{
-			if (current_matches != null) {
-				CleanupMatches (current_matches);
-				current_matches = null;
-
-				find_next_button.Sensitive = false;
-				find_prev_button.Sensitive = false;
-			}
+			CleanupMatches ();
 
 			string text = find_combo.Entry.Text;
-
 			if (text == null || text == String.Empty) {
 				changed_timeout_id = 0;
 				return false;
 			}
+
+			UpdateResults ();
+
+			// Update previous searches, by either creating the
+			// initial list, or adding a new term to the list, or
+			// shuffling an existing term to the top...
+			if (previous_searches == null) {
+				previous_searches = new string [] { text };
+			} else {
+				int existing_idx = Array.IndexOf (previous_searches, text);
+				if (existing_idx > -1) {
+					// move the current search to the front of the list
+					string first = previous_searches [0];
+					previous_searches [0] = previous_searches [existing_idx];
+					previous_searches [existing_idx] = first;
+				} else {
+					string [] new_prev; 
+					new_prev = new string [previous_searches.Length + 1];
+					new_prev [0] = text;
+					// copy starting at index 1
+					previous_searches.CopyTo (new_prev, 1);
+					previous_searches = new_prev;
+				}
+			}
+
+			find_combo.PopdownStrings = previous_searches;
+
+			changed_timeout_id = 0;
+			return false;
+		}
+
+		void UpdateResults ()
+		{
+			CleanupMatches ();
+
+			string text = find_combo.Entry.Text;
+			if (text == null || text == String.Empty)
+				return;
 
 			string [] words = text.Split (' ', '\t', '\n');
 
@@ -474,10 +556,24 @@ namespace Tomboy
 							     words, 
 							     case_sensitive.Active);
 
-					if (note_matches != null) {
-						AppendResultTreeView (store, note, note_matches);
-						found_one = true;
+					if (note_matches == null) 
+						continue;
+
+					AppendResultTreeView (store, note, note_matches);
+
+					if (current_note == note) {
+						find_next_button.Sensitive = true;
+						find_prev_button.Sensitive = true;
+
+						current_matches = note_matches;
+						HighlightMatches (current_matches, true);
+
+						// FIXME: select this entry in
+						// the treeview, and make the
+						// text bold.
 					}
+
+					found_one = true;
 				}
 
 				if (found_one) 
@@ -487,10 +583,10 @@ namespace Tomboy
 					AppendNoMatchesTreeView (store);
 				}
 			}
-			else if (owning_buffer != null) {
-				Console.WriteLine ("Looking for {0}", find_combo.Entry.Text);
+			else if (current_note != null) {
+				Console.WriteLine ("Looking for {0}", text);
 
-				current_matches = FindMatches (owning_buffer, 
+				current_matches = FindMatches (current_note.Buffer, 
 							       words, 
 							       case_sensitive.Active);
 				if (current_matches != null) {
@@ -500,20 +596,6 @@ namespace Tomboy
 					HighlightMatches (current_matches, true);
 				}
 			}
-
-			if (previous_searches == null)
-				previous_searches = new string [] { find_combo.Entry.Text };
-			else {
-				string [] new_prev = new string [previous_searches.Length + 1];
-				previous_searches.CopyTo (new_prev, 1); // copy starting at idx 1
-				previous_searches = new_prev;
-				previous_searches [0] = find_combo.Entry.Text;
-			}
-
-			find_combo.PopdownStrings = previous_searches;
-
-			changed_timeout_id = 0;
-			return false;
 		}
 
 		void AppendResultTreeView (Gtk.ListStore store, Note note, ArrayList matches)
@@ -560,18 +642,6 @@ namespace Tomboy
 		public Gtk.Button FindPreviousButton 
 		{
 			get { return find_prev_button; }
-		}
-
-		public NoteBuffer OwningBuffer 
-		{
-			get { return owning_buffer; }
-			set {
-				if (owning_buffer != value) {
-					owning_buffer = value;
-					if (find_combo.Entry.Text != null)
-						UpdateResults ();
-				}
-			}
 		}
 	}
 }

@@ -7,7 +7,6 @@ namespace Tomboy
 	public class TomboyTray 
 	{
 		NoteManager manager;
-		NoteFindDialog find_dialog;
 		Egg.TrayIcon icon;
 
 		static Gdk.Pixbuf tintin;
@@ -132,9 +131,7 @@ namespace Tomboy
 
 		void SearchNotes (object sender, EventArgs args) 
 		{
-			if (find_dialog == null)
-				find_dialog = new NoteFindDialog (manager, true);
-
+			NoteFindDialog find_dialog = NoteFindDialog.GetInstance (manager);
 			find_dialog.Present ();
 		}
 

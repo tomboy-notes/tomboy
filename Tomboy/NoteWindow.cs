@@ -14,7 +14,6 @@ namespace Tomboy
 		Gtk.TextView editor;
 		Gtk.ScrolledWindow editor_window;
 
-		NoteFindDialog find_dialog;
 		GlobalKeybinder global_keys;
 
 		static Gdk.Pixbuf stock_notes;
@@ -385,10 +384,7 @@ namespace Tomboy
 
 			Gtk.ImageMenuItem find_next = new Gtk.ImageMenuItem ("Find _Next");
 			find_next.Image = new Gtk.Image (Gtk.Stock.GoForward, Gtk.IconSize.Menu);
-			find_next.Sensitive = false;
-
-			if (find_dialog != null)
-				find_next.Sensitive = find_dialog.FindNextButton.Sensitive;
+			find_next.Sensitive = Find.FindNextButton.Sensitive;
 
 			find_next.Activated += new EventHandler (FindNextActivate);
 			find_next.AddAccelerator ("activate",
@@ -400,10 +396,7 @@ namespace Tomboy
 
 			Gtk.ImageMenuItem find_previous = new Gtk.ImageMenuItem ("Find _Previous");
 			find_previous.Image = new Gtk.Image (Gtk.Stock.GoBack, Gtk.IconSize.Menu);
-			find_previous.Sensitive = false;
-
-			if (find_dialog != null)
-				find_previous.Sensitive = find_dialog.FindPreviousButton.Sensitive;
+			find_previous.Sensitive = Find.FindPreviousButton.Sensitive;
 
 			find_previous.Activated += new EventHandler (FindPreviousActivate);
 			find_previous.AddAccelerator ("activate",
@@ -425,26 +418,25 @@ namespace Tomboy
 		// Open the find dialog, passing any currently selected text
 		//
 
+		public NoteFindDialog Find {
+			get {
+				return NoteFindDialog.GetInstance (note, note.Buffer.Selection);
+			}
+		}
+
 		void FindButtonClicked ()
 		{
-			if (find_dialog == null)
-				find_dialog = new NoteFindDialog (note.Manager, 
-								  note.Buffer, 
-								  note.Buffer.Selection);
-
-			find_dialog.Show ();
+			Find.Present ();
 		}
 
 		void FindNextActivate (object sender, EventArgs args)
 		{
-			if (find_dialog != null)
-				find_dialog.FindNextButton.Click ();
+			Find.FindNextButton.Click ();
 		}
 
 		void FindPreviousActivate (object sender, EventArgs args)
 		{
-			if (find_dialog != null)
-				find_dialog.FindPreviousButton.Click ();
+			Find.FindPreviousButton.Click ();
 		}
 
 		// 

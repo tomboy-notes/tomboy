@@ -1,5 +1,20 @@
 2004-09-21  Alex Graveley  <alex@beatniksoftware.com>
 
+	* Tomboy/Search.cs: Fixed up things a bit: Make the dialog a
+	singleton, so clicking search anywhere will bring up same search
+	dialog, and reapply the search to the current note.  Scroll to
+	the matched text.  Fix insertion into the search history list
+	(sort of, it'll still show partial entries if you type slow).
+	Search still needs some work wrt listening for change events and
+	optimizing, as well as making the currently iterated note title
+	bold in the search dialog.
+
+	* Tomboy/NoteWindow.cs: Use a property accessor to get the find
+	dialog instance everywhere, instead of keeping a local copy.
+	* Tomboy/Tray.cs: Ditto.
+
+2004-09-21  Alex Graveley  <alex@beatniksoftware.com>
+
 	* configure.in: Drop the gtkspell 2.0.6 dependency.  Bump version
 	to 0.1.2.
 	* tomboy.spec.in (Requires): Ditto.
