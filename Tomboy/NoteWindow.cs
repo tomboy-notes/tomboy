@@ -199,6 +199,18 @@ namespace Tomboy
 			return true;
 		}
 
+		protected override void OnHidden ()
+		{
+			base.OnHidden ();
+
+			// Workaround Gtk bug, where adding or changing Widgets
+			// while the Window is hidden causes it to be reshown at
+			// 0,0...
+			int x, y;
+			GetPosition (out x, out y);
+			Move (x, y);
+		}
+
 		// FIXME: Need to just emit a delete event, and do this work in
 		// the default delete handler, so that plugins can attach to
 		// delete event and have it always work.

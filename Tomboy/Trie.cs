@@ -1,7 +1,7 @@
 
 //
-//  Trie.cs: An efficient exact string set matcher.  Used to identify substrings
-//  that match Tomboy note titles as the user types.
+//  Trie.cs: An efficient exact string set matcher, using Aho-Corasick.  Used to
+//  identify substrings that match Tomboy note titles as the user types.
 //
 //  To test, compile with:
 //     mcs -g -o testtrie.exe -define:TEST Trie.cs 
@@ -14,150 +14,210 @@ namespace Tomboy
 {
 	public delegate void MatchHandler (string haystack, 
 					   int    start,
-					   int    end);
+					   object match);
 
 	public class TrieTree 
 	{
-		class TrieNode 
+		class TrieState
 		{
-			public char     Value;
-			public TrieNode Next;
-			public TrieNode Fail;
+			public TrieState Next;
+			public TrieState Fail;
+			public TrieMatch FirstMatch;
+			public int       Final;
+			public object    Id;
+		}
 
-			public TrieNode (char     value, 
-					 TrieNode next, 
-					 TrieNode fail)
-			{
-				Value = value;
-				Next = next;
-				Fail = fail;
+		class TrieMatch
+		{
+			public TrieMatch Next;
+			public TrieState State;
+			public char      Value;
+		}
+
+		TrieState root;
+		ArrayList fail_states;
+		bool      case_sensitive;
+
+		public TrieTree (bool case_sensitive)
+		{
+			this.case_sensitive = case_sensitive;
+
+			root = new TrieState ();
+			fail_states = new ArrayList (8);
+		}
+
+		TrieState InsertMatchAtState (int depth, TrieState q, char c)
+		{
+			// Create a new state with a failure at %root
+			TrieState new_q = new TrieState ();
+			new_q.Fail = root;
+
+			// Insert/Replace into fail_states at %depth
+			if (depth < fail_states.Count) {
+				new_q.Next = (TrieState) fail_states [depth];
+				fail_states [depth] = new_q;
+			} else {
+				fail_states.Insert (depth, new_q);
 			}
+
+			// New match points to the newly created state for value %c
+			TrieMatch m = new TrieMatch ();
+			m.Next = q.FirstMatch;
+			m.State = new_q;
+			m.Value = c;
+
+			// Insert the new match into existin state's match list
+			q.FirstMatch = m;
+
+			return new_q;
 		}
 
-		class StringLengthComparer : IComparer
+		// Iterate the matches at state %s looking for the first match
+		// containing %c.
+		TrieMatch FindMatchAtState (TrieState s, char c)
 		{
-			// Sort strings according to length.  Shortest first...
-			public int Compare (object one, object two)
-			{
-				string s_one = (string) one;
-				string s_two = (string) two;
+			TrieMatch m = s.FirstMatch;
 
-				return s_one.Length.CompareTo (s_two.Length);
+			while (m != null && m.Value != c)
+				m = m.Next;
+
+			return m;
+		}
+
+		/*
+		 * final = empty set
+		 * FOR p = 1 TO #pat
+		 *   q = root
+		 *   FOR j = 1 TO m[p]
+		 *     IF g(q, pat[p][j]) == null
+		 *       insert(q, pat[p][j])
+		 *     ENDIF
+		 *     q = g(q, pat[p][j])
+		 *   ENDFOR
+		 *   final = union(final, q)
+		 * ENDFOR
+		 */
+		public void AddKeyword (string needle, object pattern_id)
+		{
+			TrieState q = root;
+			int depth = 0;
+
+			// Step 1: add the pattern to the trie...
+
+			for (int idx = 0; idx < needle.Length; idx++) {
+				char c = needle [idx];
+				if (!case_sensitive)
+					c = Char.ToLower (c);
+
+				TrieMatch m = FindMatchAtState (q, c);
+				if (m == null)
+					q = InsertMatchAtState (depth, q, c);
+				else
+					q = m.State;
+
+				depth++;
 			}
-		}
 
-		TrieNode root;
-		bool case_sensitive;
+			q.Final = depth;
+			q.Id = pattern_id;
 
-		static TrieNode SuccessTerminal;
+			// Step 2: compute failure graph...
 
-		static TrieTree ()
-		{
-			SuccessTerminal = new TrieNode ('\0', null, null);
-		}
+			for (int idx = 0; idx < fail_states.Count; idx++) {
+				q = (TrieState) fail_states [idx]; 
 
-		TrieTree (bool is_case_sensitive)
-		{
-			root = new TrieNode ('\0', null, null);
-			case_sensitive = is_case_sensitive;
-		}
+				while (q != null) {
+					TrieMatch m = q.FirstMatch;
 
-		public TrieTree (ICollection keywords, bool is_case_sensitive)
-			: this (is_case_sensitive)
-		{
-			// Sort strings by length to ensure matches are greedy...
-			ArrayList sorted_keywords = new ArrayList (keywords);
-			sorted_keywords.Sort (new StringLengthComparer ());
+					while (m != null) {
+						TrieState q1 = m.State;
+						TrieState r = q.Fail;
+						TrieMatch n;
 
-			foreach (string word in sorted_keywords) {
-				AddKeyword (word);
-			}
-		}
+						while (r != null) {
+							n = FindMatchAtState (r, m.Value);
+							if (n == null) 
+								r = r.Fail;
+							else
+								break;
+						}
 
-		[System.Diagnostics.Conditional ("TEST")]
-		static void Trace (string format, params object [] args)
-		{
-			Console.WriteLine (format, args);
-		}
+						if (r != null) {
+							q1.Fail = n.State;
 
-		char CaseConvert (char c)
-		{
-			if (!case_sensitive)
-				return Char.ToLower (c);
-			else
-				return c;
-		}
+							if (q1.Fail.Final > q1.Final)
+								q1.Final = q1.Fail.Final;
+						} else {
+							n = FindMatchAtState (root, m.Value);
+							if (n == null)
+								q1.Fail = root;
+							else
+								q1.Fail = n.State;
+						}
 
-		void AddKeyword (string needle)
-		{
-			Trace ("Adding keyword '{0}'", needle);
+						m = m.Next;
+					}
 
-			int idx = 0;
-			TrieNode iter = root.Next;
-			TrieNode last_match = root;
-
-			while (iter != null && idx < needle.Length) {
-				if (CaseConvert (needle [idx]) == iter.Value) {
-					last_match = iter;
-					iter = iter.Next;
-					idx++;
-				} else {
-					iter = iter.Fail;
+					q = q.Next;
 				}
 			}
-
-			TrieNode new_next = SuccessTerminal;
-
-			for (int i = needle.Length; i != idx; i--) {
-				Trace ("Appending '{0}' node", CaseConvert (needle [i - 1]));
-
-				new_next = new TrieNode (CaseConvert (needle [i - 1]), 
-							 new_next,
-							 last_match.Next);
-			}
-
-			last_match.Next = new_next;
 		}
 
+		/*
+		 * Aho-Corasick
+		 *
+		 * q = root
+		 * FOR i = 1 TO n
+		 *   WHILE q != fail AND g(q, text[i]) == fail
+		 *     q = h(q)
+		 *   ENDWHILE
+		 *   IF q == fail
+		 *     q = root
+		 *   ELSE
+		 *     q = g(q, text[i])
+		 *   ENDIF
+		 *   IF isElement(q, final)
+		 *     RETURN TRUE
+		 *   ENDIF
+		 * ENDFOR
+		 * RETURN FALSE
+		 */
 		public void FindMatches (string       haystack,
 					 MatchHandler match_handler)
 		{
-			int outer_idx = 0;
+			TrieState q = root;
+			TrieMatch m;
+			int idx = 0, start_idx = 0, last_idx = 0;
 
-			while (outer_idx < haystack.Length) {
-				int idx = outer_idx;
-				TrieNode iter = root.Next;
+			while (idx < haystack.Length) {
+				char c = haystack [idx++];
+				if (!case_sensitive)
+					c = Char.ToLower (c);
 
-				while (iter != null && 
-				       iter != SuccessTerminal && 
-				       idx < haystack.Length) {
-					if (CaseConvert (haystack [idx]) == iter.Value) {
-						Trace ("Got match for '{0}' == '{1}', moving to next ('{2}')",
-						       CaseConvert (haystack [idx]), 
-						       iter.Value,
-						       (iter.Next == null) ? '\0' : iter.Next.Value);
+				while (q != null) {
+					m = FindMatchAtState (q, c);
+					if (m == null)
+						q = q.Fail;
+					else
+						break;
+				}
 
-						iter = iter.Next;
-						idx++;
-					} else {
-						Trace ("Got fail  for '{0}' != '{1}', moving to fail ('{2}')",
-						       CaseConvert (haystack [idx]), 
-						       iter.Value,
-						       (iter.Fail == null) ? '\0' : iter.Fail.Value);
+				if (q == root)
+					start_idx = last_idx;
 
-						iter = iter.Fail;
+				if (q == null) {
+					q = root;
+					start_idx = idx;
+				} else if (m != null) {
+					q = m.State;
+
+					// Got a match!
+					if (q.Final != 0) {
+						match_handler (haystack, start_idx, q.Id);
 					}
 				}
 
-				if (iter == SuccessTerminal) {
-					// Success!  Call match handler with substring of haystack..
-					match_handler (haystack, outer_idx, idx);
-					// Skip text we've matched..
-					outer_idx = idx;
-				} else {
-					// Failed!  Move on to next haystack character..
-					outer_idx++;
-				}
+				last_idx = idx;
 			}
 		}
 	}
@@ -167,28 +227,25 @@ namespace Tomboy
 	{
 		public static void Main (string [] args)
 		{
-			ArrayList keywords = new ArrayList ();
-			keywords.Add ("foo");
-			keywords.Add ("bar");
-			keywords.Add ("baz");
-			keywords.Add ("bazar");
-
-			string src = "bazar this is some foo, bar, and baz bazbarfoofoo bazbazarbaz end";
+			string src = "bazar this is some foo, bar, and baz bazbarfoofoo bazbazarbaz end bazar";
 			Console.WriteLine ("Searching in '{0}':", src);
 
-			TrieTree trie = new TrieTree (keywords, false);
+			TrieTree trie = new TrieTree (false);
+			trie.AddKeyword ("foo", "foo".Length);
+			trie.AddKeyword ("bar", "bar".Length);
+			trie.AddKeyword ("baz", "baz".Length);
+			trie.AddKeyword ("bazar", "bazar".Length);
 
 			Console.WriteLine ("Starting search...");
 			trie.FindMatches (src, new MatchHandler (MatchFound));
 			Console.WriteLine ("Search finished!");
 		}
 
-		static void MatchFound (string haystack, int start, int end)
+		static void MatchFound (string haystack, int start, object id)
 		{
-			Console.WriteLine ("*** Match: start={0}, end={1}, value='{2}'",
+			Console.WriteLine ("*** Match: start={0}, id={1}",
 					   start,
-					   end,
-					   haystack.Substring (start, end - start));
+					   haystack.Substring (start, (int) id));
 		}
 	}
 #endif

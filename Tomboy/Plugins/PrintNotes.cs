@@ -16,7 +16,7 @@ public class PrintPlugin : NotePlugin
 		// Do nothing.
 	}
 
-	public override void Dispose ()
+	protected override void Shutdown ()
 	{
 		if (toolbar_item != null) {
 			Window.Toolbar.Remove (toolbar_item);
