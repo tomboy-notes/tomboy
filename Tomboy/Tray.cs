@@ -1,6 +1,7 @@
 
 using System;
 using System.Collections;
+using Mono.Posix;
 
 namespace Tomboy
 {
@@ -27,9 +28,15 @@ namespace Tomboy
 			ev.ButtonPressEvent += new Gtk.ButtonPressEventHandler (ButtonPress);
 			ev.Add (new Gtk.Image (tintin));
 
-			icon = new Egg.TrayIcon ("Tomboy");
+			icon = new Egg.TrayIcon (Catalog.GetString ("Tomboy"));
 			icon.Add (ev);
 			icon.ShowAll ();
+		}
+
+		public void ShowMenu ()
+		{
+			Gtk.Menu recent_menu = MakeRecentNotesMenu (icon);
+			GuiUtils.PopupMenu (recent_menu, null);
 		}
 
 		void ButtonPress (object sender, Gtk.ButtonPressEventArgs args) 
@@ -44,9 +51,10 @@ namespace Tomboy
 			Gtk.Menu menu = new Gtk.Menu ();
 			menu.AttachToWidget (parent, null);
 
-			Gtk.ImageMenuItem item = new Gtk.ImageMenuItem ("Create _New Note");
+			Gtk.ImageMenuItem item = 
+				new Gtk.ImageMenuItem (Catalog.GetString ("Create _New Note"));
 			item.Image = new Gtk.Image (Gtk.Stock.New, Gtk.IconSize.Menu);
-			item.Activated += new EventHandler (AddNote);
+			item.Activated += new EventHandler (CreateNewNote);
 			menu.Append (item);
 
 			int i = 5; // Number of recent entries to list
@@ -62,7 +70,7 @@ namespace Tomboy
 				menu.Append (item);
 			}
 
-			Note start = manager.Find ("Start Here");
+			Note start = manager.Find (Catalog.GetString ("Start Here"));
 			if (start != null) {
 				item = MakeNoteMenuItem (start);
 				menu.Append (item);
@@ -70,19 +78,19 @@ namespace Tomboy
 
 			menu.Append (new Gtk.SeparatorMenuItem ());
 
-			item = new Gtk.ImageMenuItem ("_Recent Changes");
+			item = new Gtk.ImageMenuItem (Catalog.GetString ("_Recent Changes"));
 			item.Image = new Gtk.Image (Gtk.Stock.SortAscending, Gtk.IconSize.Menu);
 			item.Activated += new EventHandler (ViewRecentChanges);
 			menu.Append (item);
 
-			item = new Gtk.ImageMenuItem ("_Search Notes...");
+			item = new Gtk.ImageMenuItem (Catalog.GetString ("_Search Notes..."));
 			item.Image = new Gtk.Image (Gtk.Stock.Find, Gtk.IconSize.Menu);
 			item.Activated += new EventHandler (SearchNotes);
 			menu.Append (item);
 
 			menu.Append (new Gtk.SeparatorMenuItem ());
 
-			item = new Gtk.ImageMenuItem ("_Quit");
+			item = new Gtk.ImageMenuItem (Catalog.GetString ("_Quit"));
 			item.Image = new Gtk.Image (Gtk.Stock.Quit, Gtk.IconSize.Menu);
 			item.Activated += new EventHandler (Quit);
 			menu.Append (item);
@@ -95,7 +103,7 @@ namespace Tomboy
 		{
 			string display_name = note.Title;
 			if (note.IsNew)
-				display_name += " (new)";
+				display_name += Catalog.GetString (" (new)");
 
 			Gtk.ImageMenuItem item = new Gtk.ImageMenuItem (display_name);
 			item.Image = new Gtk.Image (stock_notes);
@@ -112,20 +120,9 @@ namespace Tomboy
 				note.Window.Present ();
 		}
 
-		void AddNote (object sender, EventArgs args) 
+		void CreateNewNote (object sender, EventArgs args) 
 		{
-			int new_num = manager.Notes.Count;
-			string temp_title;
-
-			while (true) {
-				temp_title = String.Format ("New Note {0}", new_num);
-				if (manager.Find (temp_title) != null)
-					new_num++;
-				else
-					break;
-			}
-					
-			Note new_note = manager.Create (temp_title);
+			Note new_note = manager.Create ();
 			new_note.Window.Show ();
 		}
 

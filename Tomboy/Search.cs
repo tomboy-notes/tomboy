@@ -1,6 +1,7 @@
 
 using System;
 using System.Collections;
+using Mono.Posix;
 
 namespace Tomboy 
 {
@@ -54,6 +55,9 @@ namespace Tomboy
 				instance.UpdateResults ();
 			}
 
+			// Always reset TransientFor
+			instance.TransientFor = note.Window;
+
 			return instance;
 		}
 
@@ -78,7 +82,9 @@ namespace Tomboy
 		// Creates singleton instance, and initializes default values
 		// based on search_all.
 		NoteFindDialog (bool search_all)
-			: base (search_all ? "Search All Notes" : "Search Note")
+			: base (search_all ? 
+					Catalog.GetString ("Search All Notes") : 
+					Catalog.GetString ("Search Note"))
 		{
 			this.Icon = search_image;
 
@@ -90,7 +96,7 @@ namespace Tomboy
 			// Allow resizing if showing the results list
 			this.Resizable = search_all;
 
-			Gtk.Label label = new Gtk.Label ("Find:");
+			Gtk.Label label = new Gtk.Label (Catalog.GetString ("Find:"));
 
 			find_combo = new Gtk.Combo ();
 			find_combo.AllowEmpty = false;
@@ -100,12 +106,14 @@ namespace Tomboy
 			if (previous_searches != null)
 				find_combo.PopdownStrings = previous_searches;
 
-			search_all_notes = new Gtk.CheckButton ("Search _All Notes");
+			search_all_notes = 
+				new Gtk.CheckButton (Catalog.GetString ("Search _All Notes"));
 			search_all_notes.Active = search_all;
 			search_all_notes.Sensitive = !search_all;
 			search_all_notes.Toggled += new EventHandler (OnAllNotesToggled);
 
-			case_sensitive = new Gtk.CheckButton ("_Case Sensitive");
+			case_sensitive = 
+				new Gtk.CheckButton (Catalog.GetString ("_Case Sensitive"));
 			case_sensitive.Toggled += new EventHandler (OnCaseSensitiveToggled);
 
 			Gtk.Table widgets = new Gtk.Table (3, 2, false);
@@ -149,7 +157,8 @@ namespace Tomboy
 						     Gtk.AccelFlags.Visible);
 
 			find_prev_button = 
-				GuiUtils.MakeImageButton (Gtk.Stock.GoBack, "_Previous");
+				GuiUtils.MakeImageButton (Gtk.Stock.GoBack, 
+							  Catalog.GetString ("_Previous"));
 			find_prev_button.Clicked += new EventHandler (OnFindPreviousClicked);
 			find_prev_button.Sensitive = false;
 			find_prev_button.AddAccelerator ("activate",
@@ -160,7 +169,8 @@ namespace Tomboy
 							 Gtk.AccelFlags.Visible);
 
 			find_next_button = 
-				GuiUtils.MakeImageButton (Gtk.Stock.GoForward, "Find _Next");
+				GuiUtils.MakeImageButton (Gtk.Stock.GoForward, 
+							  Catalog.GetString ("Find _Next"));
 			find_next_button.Clicked += new EventHandler (OnFindNextClicked);
 			find_next_button.Sensitive = false;
 			find_next_button.AddAccelerator ("activate",
@@ -213,7 +223,7 @@ namespace Tomboy
 			Gtk.CellRenderer renderer;
 
 			Gtk.TreeViewColumn title = new Gtk.TreeViewColumn ();
-			title.Title = "Search Results";
+			title.Title = Catalog.GetString ("Search Results");
 			title.Sizing = Gtk.TreeViewColumnSizing.Autosize;
 			title.Resizable = true;
 			
@@ -432,11 +442,11 @@ namespace Tomboy
 			if (search_all_notes.Active) {
 				matches_window.Show ();
 				Resizable = true;
-				Title = "Search All Notes";
+				Title = Catalog.GetString ("Search All Notes");
 			} else {
 				matches_window.Hide ();
 				Resizable = false;
-				Title = "Search Note";
+				Title = Catalog.GetString ("Search Note");
 			}
 
 			UpdateResults ();
@@ -603,9 +613,11 @@ namespace Tomboy
 			string match_cnt;
 
 			if (matches.Count > 1)
-				match_cnt = String.Format ("({0} matches)", matches.Count);
+				match_cnt = String.Format (Catalog.GetString ("({0} matches)"), 
+							   matches.Count);
 			else
-				match_cnt = String.Format ("({0} match)", matches.Count);
+				match_cnt = String.Format (Catalog.GetString ("({0} match)"), 
+							   matches.Count);
 
 			Gtk.TreeIter iter = store.Append ();
 			store.SetValue (iter, 0 /* icon */, stock_notes);
@@ -618,7 +630,9 @@ namespace Tomboy
 		void AppendNoMatchesTreeView (Gtk.ListStore store)
 		{
 			Gtk.TreeIter iter = store.Append ();
-			store.SetValue (iter, 1 /* title */, "No notes found");
+			store.SetValue (iter, 
+					1 /* title */, 
+					Catalog.GetString ("No notes found"));
 		}
 
 		int CompareDates (Gtk.TreeModel model, Gtk.TreeIter a, Gtk.TreeIter b)

@@ -2,6 +2,7 @@
 using System;
 using System.IO;
 using System.Xml;
+using Mono.Posix;
 
 namespace Tomboy
 {
@@ -72,6 +73,9 @@ namespace Tomboy
 
 		public void Save () 
 		{
+			if (!save_needed)
+				return;
+
 			Console.WriteLine ("Saving '{0}'...", title);
 
 			if (window != null) {
@@ -286,6 +290,17 @@ namespace Tomboy
 					// Watch for note renames
 					note_rename_watcher = new NoteRenameWatcher (this);
 
+#if BROKEN
+					// Watch for spacers
+					new SpacingWatcher (this);
+
+					// Markup any Lists
+					new NoteListWatcher (this);
+#endif
+
+					// Show mouse hand on link hover
+					new MouseHandWatcher (this);
+					
 					if (width != 0 && height != 0) {
 						window.SetDefaultSize (width, height);
 						window.Move (x, y);
@@ -297,7 +312,7 @@ namespace Tomboy
 
 		public bool IsSpecial {
 			get {
-				return title == "Start Here" || title == "Recent Changes";
+				return title == Catalog.GetString ("Start Here");
 			}
 		}
 
@@ -395,8 +410,6 @@ namespace Tomboy
 
 			// Backup the to a ~ file, just in case...
 			if (File.Exists (write_file)) {
-				Console.WriteLine ("Backing up " + write_file);
-
 				string backup_path = write_file + "~";
 
 				if (File.Exists (backup_path))

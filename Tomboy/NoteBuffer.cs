@@ -30,6 +30,10 @@ namespace Tomboy
 			tag = new Gtk.TextTag ("normal");
 			Add (tag);
 
+			tag = new Gtk.TextTag ("centered");
+			tag.Justification = Gtk.Justification.Center;
+			Add (tag);
+
 			tag = new Gtk.TextTag ("bold");
 			tag.Weight = Pango.Weight.Bold;
 			Add (tag);
@@ -87,6 +91,14 @@ namespace Tomboy
 
 			tag = new Gtk.TextTag ("color:green");
 			tag.Foreground = "green";
+			Add (tag);
+
+			// Lists
+
+			tag = new Gtk.TextTag ("list:bullet");
+			Add (tag);
+
+			tag = new Gtk.TextTag ("list:numbered");
 			Add (tag);
 
 			// Underlining
@@ -391,6 +403,7 @@ namespace Tomboy
 
 				// Hidden character representing an anchor
 				if (iter.Char[0] == (char) 0xFFFC) {
+					Console.WriteLine ("Got child anchor!!!");
 					if (iter.ChildAnchor != null) {
 						string serialize = (string) iter.ChildAnchor.Data ["serialize"];
 						if (serialize != null)

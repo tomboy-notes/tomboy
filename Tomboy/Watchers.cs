@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Runtime.InteropServices;
+using Mono.Posix;
 
 namespace Tomboy
 {
@@ -85,12 +86,7 @@ namespace Tomboy
 
 	public class NoteSpellChecker
 	{
-		Gtk.TextView view;
 		Gtk.TextBuffer buffer;
-
-		Gtk.TextTag url_tag;
-		Gtk.TextTag link_tag;
-		Gtk.TextTag broken_link_tag;
 
 		[DllImport ("libgtkspell.so.0")]
 		static extern void gtkspell_new_attach (IntPtr text_view, 
@@ -100,10 +96,6 @@ namespace Tomboy
 		public NoteSpellChecker (Note note)
 		{
 			this.buffer = note.Buffer;
-
-			url_tag = buffer.TagTable.Lookup ("link:url");
-			link_tag = buffer.TagTable.Lookup ("link:internal");
-			broken_link_tag = buffer.TagTable.Lookup ("link:broken");
 
 			buffer.TagApplied += new Gtk.TagAppliedHandler (TagApplied);
 
@@ -129,20 +121,16 @@ namespace Tomboy
 		void TagApplied (object sender, Gtk.TagAppliedArgs args)
 		{
 			if (args.Tag.Name == "gtkspell-misspelled") {
-				// Remove misspelled tag for urls (words tagged
-				// with "link:url")
-				if (args.StartChar.BeginsTag (url_tag) || 
-				    args.StartChar.HasTag (url_tag) ||
-				    args.StartChar.BeginsTag (link_tag) || 
-				    args.StartChar.HasTag (link_tag) ||
-				    args.StartChar.BeginsTag (broken_link_tag) || 
-				    args.StartChar.HasTag (broken_link_tag))
-					buffer.RemoveTag ("gtkspell-misspelled", 
-							  args.StartChar, 
-							  args.EndChar);
-			} else if (args.Tag.Name == "link:url" ||
-				   args.Tag.Name == "link:internal" ||
-				   args.Tag.Name == "link:broken") {
+				// Remove misspelled tag for links 
+				foreach (Gtk.TextTag tag in args.StartChar.Tags) {
+					if (tag.Name.StartsWith ("link:")) {
+						buffer.RemoveTag ("gtkspell-misspelled", 
+								  args.StartChar, 
+								  args.EndChar);
+						break;
+					}
+				}
+			} else if (args.Tag.Name.StartsWith ("link:")) {
 				buffer.RemoveTag ("gtkspell-misspelled", 
 						  args.StartChar, 
 						  args.EndChar);
@@ -221,7 +209,7 @@ namespace Tomboy
 		{
 			string label_text = 
 				String.Format ("<span size=\"large\"><b>" +
-					       "Unable to open location..." +
+					       Catalog.GetString ("Unable to open location...") +
 					       "</b></span>\n\n" +
 					       "{0}",
 					       error);
@@ -234,9 +222,10 @@ namespace Tomboy
 			Gtk.Button button = new Gtk.Button (Gtk.Stock.Ok);
 			button.Show ();
 
-			Gtk.Dialog dialog = new Gtk.Dialog ("Unable to open location",
-							    note.Window,
-							    Gtk.DialogFlags.DestroyWithParent);
+			Gtk.Dialog dialog = 
+				new Gtk.Dialog (Catalog.GetString ("Unable to open location"),
+						note.Window,
+						Gtk.DialogFlags.DestroyWithParent);
 			dialog.AddActionWidget (button, Gtk.ResponseType.Ok);
 			dialog.VBox.PackStart (label, false, false, 0);
 
@@ -470,7 +459,13 @@ namespace Tomboy
 				return;
 
 			Gdk.EventButton button_ev = new Gdk.EventButton (args.Event.Handle);
+
 			if (button_ev.Button != 1 && button_ev.Button != 2)
+				return;
+
+			/* Don't open link if Shift or Control is pressed */
+			if ((int) (button_ev.State & (Gdk.ModifierType.ShiftMask |
+						      Gdk.ModifierType.ControlMask)) != 0)
 				return;
 
 			Gtk.TextIter start = args.Iter, end = args.Iter;
@@ -632,7 +627,7 @@ namespace Tomboy
 
 		bool WordIsCamelCase (string word)
 		{
-			if (!Char.IsUpper (word [0]))
+			if (word == string.Empty || !Char.IsUpper (word [0]))
 				return false;
 
 			// Avoid patronymic name prefixes
@@ -706,4 +701,223 @@ namespace Tomboy
 		// TODO: Handle topic/toc creation using =, ==, ===, ====
 		//       horizontal spacer with ----
 	}
+
+	public class MouseHandWatcher
+	{
+		Gtk.TextView editor;
+		bool hovering_on_link;
+
+		static Gdk.Cursor normal_cursor;
+		static Gdk.Cursor hand_cursor;
+
+		static MouseHandWatcher ()
+		{
+			normal_cursor = new Gdk.Cursor (Gdk.CursorType.Xterm);
+			hand_cursor = new Gdk.Cursor (Gdk.CursorType.Hand2);
+		}
+
+		public MouseHandWatcher (Note note)
+		{
+			editor = note.Window.Editor;
+			editor.MotionNotifyEvent += OnEditorMotion;
+		}
+
+		[GLib.ConnectBefore]
+		void OnEditorMotion (object sender, Gtk.MotionNotifyEventArgs args)
+		{
+			int pointer_x, pointer_y;
+			Gdk.ModifierType pointer_mask;
+
+			editor.GdkWindow.GetPointer (out pointer_x, 
+						     out pointer_y, 
+						     out pointer_mask);
+
+			bool hovering = false;
+
+			/* Don't show hand if Shift or Control is pressed */
+			if ((int) (pointer_mask & (Gdk.ModifierType.ShiftMask |
+						   Gdk.ModifierType.ControlMask)) == 0) {
+				int buffer_x, buffer_y;
+				editor.WindowToBufferCoords (Gtk.TextWindowType.Widget,
+							     pointer_x, 
+							     pointer_y,
+							     out buffer_x, 
+							     out buffer_y);
+
+				Gtk.TextIter iter = editor.GetIterAtLocation (buffer_x, buffer_y);
+
+				foreach (Gtk.TextTag tag in iter.Tags) {
+					if (tag.Name.StartsWith ("link:")) {
+						hovering = true;
+						break;
+					}
+				}
+			}
+
+			if (hovering != hovering_on_link) {
+				hovering_on_link = hovering;
+
+				Gdk.Window win = editor.GetWindow (Gtk.TextWindowType.Text);
+				if (hovering)
+					win.Cursor = hand_cursor;
+				else 
+					win.Cursor = normal_cursor;
+			}
+		}
+	}
+
+#if BROKEN
+	public class SpacingWatcher 
+	{
+		Note note;
+		NoteBuffer buffer;
+		Gtk.TextView editor;
+
+		public SpacingWatcher (Note note)
+		{
+			this.note = note;
+			this.buffer = note.Buffer;
+			this.editor = note.Window.Editor;
+
+			buffer.InsertText += new Gtk.InsertTextHandler (OnInsertText);
+			//buffer.DeleteRange += new Gtk.DeleteRangeHandler (OnDeleteRange);
+		}
+
+		void OnDeleteRange (object sender, Gtk.DeleteRangeArgs args)
+		{
+		}
+
+		class AddHRule
+		{
+			Gtk.TextBuffer buffer;
+			Gtk.TextMark mark;
+			Gtk.TextView view;
+
+			public AddHRule (Gtk.TextIter start,
+					 Gtk.TextIter end,
+					 Gtk.TextView view)
+			{
+				buffer = view.Buffer;
+				this.view = view;
+				mark = buffer.CreateMark (null, start, true);
+
+				buffer.ApplyTag ("centered", start, end);
+
+				// add this in idle so we don't invalidate text iters
+				GLib.Idle.Add (new GLib.IdleHandler (AddHRuleIdle));
+			}
+
+			bool AddHRuleIdle ()
+			{
+				Console.WriteLine ("Got Separator Line");
+
+				Gtk.TextIter start = buffer.GetIterAtMark (mark);
+
+				Gtk.TextChildAnchor anchor;
+				anchor = buffer.CreateChildAnchor (start);
+
+				Gtk.Widget rule = new Gtk.HSeparator ();
+				rule.WidthRequest = 200;
+				rule.Show ();
+
+				view.AddChildAtAnchor (rule, anchor);
+
+				return false;
+			}
+		}
+
+		void OnInsertText (object sender, Gtk.InsertTextArgs args)
+		{
+			Gtk.TextIter line_start = args.Pos;
+			line_start.LineOffset = 0;
+
+			Gtk.TextIter line_end = args.Pos;
+			line_end.ForwardToLineEnd ();
+
+			if (line_start.GetText (line_end) == "...") {
+				new AddHRule (line_start, line_end, editor);
+			}
+		}
+	}
+
+	public class NoteListWatcher
+	{
+		Note note;
+		NoteBuffer buffer;
+		Gtk.TextView editor;
+
+		// Apply list:bullet, with the number of whitespace characters
+		// at the start of line as the indent level.  On newline, check
+		// the offset of the last line, and copy it (will need to insert
+		// the offset characters in an idle, i guess, or maybe create
+		// and apply a tag on the fly with LeftMargin attribute).  When
+		// unserializing, insert an image/marker at the beginning of
+		// text (need to worry about varing width numbers).
+		//
+		// Can we alter the selection to not select these regions?  This
+		// might be fixed by using an applied tag.
+
+		public NoteListWatcher (Note note)
+		{
+			this.note = note;
+			this.buffer = note.Buffer;
+			this.editor = note.Window.Editor;
+
+			buffer.InsertText += new Gtk.InsertTextHandler (OnInsertText);
+			buffer.DeleteRange += new Gtk.DeleteRangeHandler (OnDeleteRange);			
+		}
+
+		void OnInsertText (object sender, Gtk.InsertTextArgs args)
+		{
+			if (args.Text != "\t" && args.Text != "*")
+				return;
+
+			Gtk.TextIter line_start = args.Pos;
+			line_start.LineOffset = 0;
+
+			if (line_start.Char == string.Empty)
+				return;
+
+			int indent = 0;
+			while (line_start.Char == "\t") {
+				indent++;
+				line_start.ForwardChar ();
+				Console.WriteLine ("Got indent {0}!", indent);
+			}
+
+			if (indent == 0)
+				return;
+
+			if (!line_start.Equal (args.Pos))
+				return;
+
+			foreach (Gtk.TextTag tag in line_start.Tags) {
+				if (tag.Data ["mybutt"] != null) {
+					tag.LeftMargin += 20;
+					break;
+				}
+			}
+
+			Gtk.TextIter line_end = args.Pos;
+			line_end.ForwardToLineEnd ();
+
+			/*
+			if (line_start.Char [0] == '*')
+				new AddBullet (line_start, line_end, editor);
+			else if (line_start.Char [0] == '-')
+				new AddDash (line_start, line_end, editor);
+			else if (Char.IsDigit (line_start.Char [0]))
+				new AddNumber (line_start, line_end, editor);
+			*/
+		}
+
+		[GLib.ConnectBefore]
+		void OnDeleteRange (object sender, Gtk.DeleteRangeArgs args)
+		{
+			if (args.Start.Char == "*")
+				Console.WriteLine ("Unindenting!");
+		}
+	}
+#endif // BROKEN
+
 }

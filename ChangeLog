@@ -1,3 +1,33 @@
+2004-09-27  Alex Graveley  <alex@beatniksoftware.com>
+
+	Lots of changes...
+
+	* Add calls to Catalog.GetString everywhere we use a translatable
+	string.
+	* Add MouseHandWatcher which will change the mouse cursor to a
+	hand when hovering over links.
+	* Add global keybinding code
+	* Add gconf setting to allow opening the notes menu (<Alt>F12 by
+	default), opening Start Here (<Alt>F11 by default), creating a new
+	note, opening the Search dialog, and opening the Recent Changes
+	dialog.
+	* Fix session saving, so our wrapper script gets executed by
+	gnome-session.
+	* Add beginning of bullet list and horizonal spacer code,
+	commented out for now.
+	
+	Added Files...
+
+	* tomboy.desktop.in: .desktop file to make tomboy show up in
+	Applications/Accessories.
+	* tomboy.schemas.in: Add gconf schema with global keybindings.
+	* Tomboy/Defines.cs.in: Gets generated to Defines.cs, so we can
+	find our translation files.
+	* TrayIcon/libtrayicon/eggaccelerators.[ch]: Handles parsing of
+	global gconf keybinding strings.
+	* TrayIcon/libtrayicon/tomboykeybinder.[ch]: Listens for global
+	keybindings on the X root window.
+
 2004-09-24  Alex Graveley  <alex@beatniksoftware.com>
 
 	* www/index.html: Add copyright notice for Tintin.

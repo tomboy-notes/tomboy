@@ -1,5 +1,6 @@
 
 using System;
+using Mono.Posix;
 
 namespace Tomboy
 {
@@ -27,7 +28,7 @@ namespace Tomboy
 		}
 
 		public NoteRecentChanges (NoteManager manager)
-			: base ("Recent Changes")
+			: base (Catalog.GetString ("Recent Changes"))
 		{
 			this.manager = manager;
 			this.Icon = recent_icon;
@@ -40,10 +41,11 @@ namespace Tomboy
 			Gtk.Image image = new Gtk.Image (Gtk.Stock.SortAscending, 
 							 Gtk.IconSize.Dialog);
 
-			Gtk.Label label = new Gtk.Label ("<b>Recent Changes</b> lists " +
-							 "your notes in the order they were " +
-							 "last changed.  Double click to open " +
-							 "a note.");
+			Gtk.Label label = 
+				new Gtk.Label (Catalog.GetString ("<b>Recent Changes</b> lists " +
+								  "your notes in the order they " +
+								  "were last changed.  Double " +
+								  "click to open a note."));
 			label.UseMarkup = true;
 			label.Wrap = true;
 
@@ -143,7 +145,7 @@ namespace Tomboy
 			tree.AppendColumn (title);
 
 			Gtk.TreeViewColumn change = new Gtk.TreeViewColumn ();
-			change.Title = "Last Changed";
+			change.Title = Catalog.GetString ("Last Changed");
 			change.Sizing = Gtk.TreeViewColumnSizing.Autosize;
 			change.Resizable = true;
 
@@ -165,17 +167,19 @@ namespace Tomboy
 
 			if (date.Year == now.Year) {
 				if (date.DayOfYear == now.DayOfYear)
-					return String.Format ("Today, {0}", short_time);
+					return String.Format (Catalog.GetString ("Today, {0}"), 
+							      short_time);
 				else if (date.DayOfYear == now.DayOfYear - 1)
-					return String.Format ("Yesterday, {0}", short_time);
+					return String.Format (Catalog.GetString ("Yesterday, {0}"),
+							      short_time);
 				else if (date.DayOfYear > now.DayOfYear - 6)
-					return String.Format ("{0} days ago, {1}", 
+					return String.Format (Catalog.GetString ("{0} days ago, {1}"), 
 							      now.DayOfYear - date.DayOfYear,
 							      short_time);
 				else
-					return date.ToString ("MMMM d, h:mm tt");
+					return date.ToString (Catalog.GetString ("MMMM d, h:mm tt"));
 			} else
-				return date.ToString ("MMMM d yyyy, h:mm tt");
+				return date.ToString (Catalog.GetString ("MMMM d yyyy, h:mm tt"));
 		}
 
 		void AppendResultTreeView (Gtk.ListStore store, Note note)
@@ -223,11 +227,9 @@ namespace Tomboy
 				if (last_opened_window != null &&
 				    last_opened_window != note.Window) {
 					last_opened_window.Hide ();
-					this.TransientFor = null;
 				}
 
 				last_opened_window = note.Window;
-				this.TransientFor = last_opened_window;
 			}
 
 			note.Window.Present ();
