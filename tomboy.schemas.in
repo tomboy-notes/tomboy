@@ -2,6 +2,83 @@
 <gconfschemafile>
   <schemalist>
     <schema>
+      <key>/schemas/apps/tomboy/enable_spellchecking</key>
+      <applyto>/apps/tomboy/enable_spellchecking</applyto>
+      <owner>tomboy</owner>
+      <type>bool</type>
+      <default>true</default>
+      <locale name="C">
+         <short>Enable spellchecking</short>
+         <long>
+	   If true, misspellings will be underlined in red, and correct spelling
+	   suggestions shown in the right-click menu.
+         </long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/tomboy/enable_wikiwords</key>
+      <applyto>/apps/tomboy/enable_wikiwords</applyto>
+      <owner>tomboy</owner>
+      <type>bool</type>
+      <default>true</default>
+      <locale name="C">
+         <short>Enable WikiWord highlighting</short>
+         <long>
+	   Enable this option to highlight words ThatLookLikeThis.  Clicking the
+	   word will create a note with that name.
+         </long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/tomboy/enable_custom_font</key>
+      <applyto>/apps/tomboy/enable_custom_font</applyto>
+      <owner>tomboy</owner>
+      <type>bool</type>
+      <default>true</default>
+      <locale name="C">
+         <short>Enable custom font</short>
+         <long>
+	   If true, the font name set in custom_font_face will be used as
+	   the font when displaying notes.  Otherwise the desktop default font
+	   will be used.
+         </long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/tomboy/custom_font_face</key>
+      <applyto>/apps/tomboy/custom_font_face</applyto>
+      <owner>tomboy</owner>
+      <type>string</type>
+      <default>Serif 11</default>
+      <locale name="C">
+         <short>Custom Font Face</short>
+         <long>
+	   If enable_custom_font is true, the font name set here will be used as
+	   the font when displaying notes.
+         </long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/tomboy/enable_keybindings</key>
+      <applyto>/apps/tomboy/enable_keybindings</applyto>
+      <owner>tomboy</owner>
+      <type>bool</type>
+      <default>true</default>
+      <locale name="C">
+         <short>Enable global keybindings</short>
+         <long>
+	   If true, the desktop-global keybindings set in
+	   /apps/tomboy/global_keybindings will be enabled, allowing for useful Tomboy
+	   actions to be available from any application.
+         </long>
+      </locale>
+    </schema>
+
+    <schema>
       <key>/schemas/apps/tomboy/global_keybindings/show_note_menu</key>
       <applyto>/apps/tomboy/global_keybindings/show_note_menu</applyto>
       <owner>tomboy</owner>

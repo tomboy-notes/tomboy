@@ -85,9 +85,12 @@ namespace Tomboy
 			item.Activated += ShowPreferences;
 			menu.Append (item);
 
-			item = new Gtk.ImageMenuItem (Gnome.Stock.About, accel_group);
+			item = new Gtk.ImageMenuItem (Catalog.GetString ("_About Tomboy"));
+			item.Image = new Gtk.Image (Gnome.Stock.About, Gtk.IconSize.Menu);
 			item.Activated += ShowAbout;
 			menu.Append (item);
+
+			menu.Append (new Gtk.SeparatorMenuItem ());
 
 			item = new Gtk.ImageMenuItem (Catalog.GetString ("_Quit"));
 			item.Image = new Gtk.Image (Gtk.Stock.Quit, Gtk.IconSize.Menu);
@@ -245,11 +248,31 @@ namespace Tomboy
 				"Alex Graveley <alex@beatniksoftware.com>"
 			};
 
-			Gnome.About about = new Gnome.About ("Tomboy", Defines.VERSION,
-			"Copyright © 2004 Alex Graveley",
-			"Tomboy is a desktop note-taking application for Linux and Unix.",
-			authors, documenters, null,
-			tintin_large);
+			string translators = 
+				"Albanian (sq) - Laurent Dhima  <laurenti@alblinux.net>\n" +
+				"British English (en_GB) - David Lodge <dave@cirt.net>\n" +
+				"Canadian English (en_CA) - Adam Weinberger <adamw@gnome.org>\n" +
+				"Catalan (ca) - Jordi Mas <jmas@softcatala.org>\n" +
+				"Dutch; Flemish (nl) - Paul Bolle <pebolle@tiscali.nl>\n" +
+				"French (fr) - Benoît Dejean <tazforever@dlfp.org>\n" +
+				"German (de) - Philipp Meier <meier@fnogol.de>\n" +
+				"Hungarian (hu) - Török Gábor <gabo@linuxportal.hu>\n" +
+				"Icelandic (is) - Gunnar Steinn Magnússon <gsm@gunnarsteinn.com>\n" +
+				"Polish (pl) - Marek Habersack <grendel@caudium.net>\n" +
+				"Spanish (es) - Antonio Ognio <gnrfan@gnrfan.org>\n" +
+				"Swedish (sv) - Christian Rose <menthos@menthos.com>\n";
+
+			Gnome.About about = 
+				new Gnome.About (
+					"Tomboy", 
+					Defines.VERSION,
+					Catalog.GetString ("Copyright © 2004 Alex Graveley"),
+					Catalog.GetString ("A simple and easy to use desktop " +
+							   "note-taking application."),
+					authors, 
+					documenters, 
+					translators,
+					tintin_large);
 			about.Show ();
 		}
 
