@@ -1,0 +1,237 @@
+
+using System;
+
+namespace Tomboy
+{
+	public class NoteRecentChanges : Gtk.Window
+	{
+		NoteManager manager;
+
+		Gtk.AccelGroup accel_group;
+		Gtk.Button close_button;
+		Gtk.ScrolledWindow matches_window;
+		Gtk.VBox content_vbox;
+
+		Gtk.TreeView tree;
+		Gtk.ListStore store;
+		Gtk.Window last_opened_window;
+
+		static Gdk.Pixbuf recent_icon;
+		static Gdk.Pixbuf stock_notes;
+
+		static NoteRecentChanges ()
+		{
+			// FIXME: Get a better recent notes window icon
+			recent_icon = new Gdk.Pixbuf (null, "stock_notes.png");
+			stock_notes = GuiUtils.GetMiniIcon ("stock_notes.png");
+		}
+
+		public NoteRecentChanges (NoteManager manager)
+			: base ("Recent Changes")
+		{
+			this.manager = manager;
+			this.Icon = recent_icon;
+			this.DefaultWidth = 200;
+
+			// For Escape (Close)
+			accel_group = new Gtk.AccelGroup ();
+			AddAccelGroup (accel_group);
+
+			Gtk.Image image = new Gtk.Image (Gtk.Stock.SortAscending, 
+							 Gtk.IconSize.Dialog);
+
+			Gtk.Label label = new Gtk.Label ("<b>Recent Changes</b> lists " +
+							 "your notes in the order they were " +
+							 "last changed.  Double click to open " +
+							 "a note.");
+			label.UseMarkup = true;
+			label.Wrap = true;
+
+			Gtk.HBox hbox = new Gtk.HBox (false, 2);
+			hbox.BorderWidth = 8;
+			hbox.PackStart (image, false, false, 4);
+			hbox.PackStart (label);
+			hbox.ShowAll ();
+
+			MakeRecentTree ();
+			tree.Show ();
+			
+			foreach (Note note in manager.Notes) {
+				AppendResultTreeView (store, note);
+			}
+
+			matches_window = new Gtk.ScrolledWindow ();
+			matches_window.ShadowType = Gtk.ShadowType.In;
+
+			// Reign in the window size if there are notes with long
+			// names, or a lot of notes...
+
+			Gtk.Requisition tree_req = tree.SizeRequest ();
+			if (tree_req.Height > 420)
+				matches_window.HeightRequest = 420;
+			else
+				matches_window.VscrollbarPolicy = Gtk.PolicyType.Never;
+
+			if (tree_req.Width > 480)
+				matches_window.WidthRequest = 480;
+			else
+				matches_window.HscrollbarPolicy = Gtk.PolicyType.Never;
+
+			matches_window.Child = tree;
+			matches_window.Show ();
+
+			close_button = new Gtk.Button (Gtk.Stock.Close);
+			close_button.Clicked += new EventHandler (CloseClicked);
+			close_button.AddAccelerator ("activate",
+						     accel_group,
+						     (uint) Gdk.Key.Escape, 
+						     0,
+						     Gtk.AccelFlags.Visible);
+			close_button.Show ();
+
+			Gtk.HButtonBox button_box = new Gtk.HButtonBox ();
+			button_box.Layout = Gtk.ButtonBoxStyle.End;
+			button_box.Spacing = 8;
+			button_box.PackStart (close_button);
+			button_box.Show ();
+
+			content_vbox = new Gtk.VBox (false, 8);
+			content_vbox.BorderWidth = 6;
+			content_vbox.PackStart (hbox, false, false, 0);
+			content_vbox.PackStart (matches_window);
+			content_vbox.PackStart (button_box, false, false, 0);
+			content_vbox.Show ();
+
+			this.Add (content_vbox);
+		}
+
+		void MakeRecentTree ()
+		{
+			Type [] types = new Type [] {
+				typeof (Gdk.Pixbuf), // icon
+				typeof (string),     // title
+				typeof (string),     // change date
+				typeof (Note),       // note
+			};
+
+			store = new Gtk.ListStore (types);
+			store.SetSortFunc (2 /* change date */,
+					   new Gtk.TreeIterCompareFunc (CompareDates),
+					   IntPtr.Zero, 
+					   null);
+
+			tree = new Gtk.TreeView (store);
+			tree.HeadersVisible = true;
+			tree.RulesHint = true;
+
+			Gtk.CellRenderer renderer;
+
+			Gtk.TreeViewColumn title = new Gtk.TreeViewColumn ();
+			title.Title = "Note";
+			title.Sizing = Gtk.TreeViewColumnSizing.Autosize;
+			title.Resizable = true;
+			
+			renderer = new Gtk.CellRendererPixbuf ();
+			title.PackStart (renderer, false);
+			title.AddAttribute (renderer, "pixbuf", 0 /* icon */);
+
+			renderer = new Gtk.CellRendererText ();
+			title.PackStart (renderer, true);
+			title.AddAttribute (renderer, "text", 1 /* title */);
+
+			title.SortColumnId = 1; /* title */
+			tree.AppendColumn (title);
+
+			Gtk.TreeViewColumn change = new Gtk.TreeViewColumn ();
+			change.Title = "Last Changed";
+			change.Sizing = Gtk.TreeViewColumnSizing.Autosize;
+			change.Resizable = true;
+
+			renderer = new Gtk.CellRendererText ();
+			renderer.Data ["xalign"] = 1.0;
+			change.PackStart (renderer, false);
+			change.AddAttribute (renderer, "text", 2 /* change date */);
+
+			change.SortColumnId = 2; /* change date */
+			tree.AppendColumn (change);
+
+			tree.RowActivated += new Gtk.RowActivatedHandler (OnRowActivated);
+		}
+
+		string PrettyPrintDate (DateTime date)
+		{
+			DateTime now = DateTime.Now;
+			string short_time = date.ToShortTimeString ();
+
+			if (date.Year == now.Year) {
+				if (date.DayOfYear == now.DayOfYear)
+					return String.Format ("Today, {0}", short_time);
+				else if (date.DayOfYear == now.DayOfYear - 1)
+					return String.Format ("Yesterday, {0}", short_time);
+				else if (date.DayOfYear > now.DayOfYear - 6)
+					return String.Format ("{0} days ago, {1}", 
+							      now.DayOfYear - date.DayOfYear,
+							      short_time);
+				else
+					return date.ToString ("MMMM d, h:mm tt");
+			} else
+				return date.ToString ("MMMM d yyyy, h:mm tt");
+		}
+
+		void AppendResultTreeView (Gtk.ListStore store, Note note)
+		{
+			string nice_date = PrettyPrintDate (note.SaveDate);
+
+			Gtk.TreeIter iter = store.Append ();
+			store.SetValue (iter, 0 /* icon */, stock_notes);
+			store.SetValue (iter, 1 /* title */, note.Title);
+			store.SetValue (iter, 2 /* change date */, nice_date);
+			store.SetValue (iter, 3 /* note */, note);
+		}
+
+		void CloseClicked (object sender, EventArgs args)
+		{
+			Hide ();
+			Destroy ();
+		}
+
+		int CompareDates (Gtk.TreeModel model, Gtk.TreeIter a, Gtk.TreeIter b)
+		{
+			Console.WriteLine ("CompareDates Called!");
+
+			Note note_a = (Note) model.GetValue (a, 3 /* note */);
+			Note note_b = (Note) model.GetValue (b, 3 /* note */);
+
+			if (note_a == null || note_b == null)
+				return -1;
+			else
+				return DateTime.Compare (note_a.SaveDate, note_b.SaveDate);
+		}
+
+		void OnRowActivated (object sender, Gtk.RowActivatedArgs args)
+		{
+			Gtk.TreeIter iter;
+			if (!store.GetIter (out iter, args.Path)) 
+				return;
+
+			Note note = (Note) store.GetValue (iter, 3 /* note */);
+
+			// If the note window was not already open, hide it
+			// when we select another row...
+			if (!note.Window.IsMapped) {
+				// Hide the window we opened last...
+				if (last_opened_window != null &&
+				    last_opened_window != note.Window) {
+					last_opened_window.Hide ();
+					this.TransientFor = null;
+				}
+
+				last_opened_window = note.Window;
+				this.TransientFor = last_opened_window;
+			}
+
+			note.Window.Present ();
+			this.Present ();
+		}
+	}
+}
