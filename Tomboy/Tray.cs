@@ -260,6 +260,7 @@ namespace Tomboy
 				"Icelandic (is) - Gunnar Steinn Magnússon <gsm@gunnarsteinn.com>\n" +
 				"Japanese (ja) - Takeshi AIHANA <aihana@gnome.gr.jp>\n" +
 				"Polish (pl) - Marek Habersack <grendel@caudium.net>\n" +
+				"Portugese, Brazilian (pt_BR) - Fábio Mendes <niels_bohr@uol.com.br>\n" +
 				"Spanish (es) - Antonio Ognio <gnrfan@gnrfan.org>\n" +
 				"Swedish (sv) - Christian Rose <menthos@menthos.com>\n";
 
