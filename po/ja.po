@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tomboy HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-10-22 10:47+0900\n"
-"PO-Revision-Date: 2004-10-22 10:45+0900\n"
+"POT-Creation-Date: 2004-10-22 11:16+0900\n"
+"PO-Revision-Date: 2004-10-22 11:10+0900\n"
 "Last-Translator: Takeshi AIHANA <aihana@gnome.gr.jp>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
 "MIME-Version: 1.0\n"
@@ -20,13 +20,13 @@ msgstr ""
 msgid "Quick and handy note-taker"
 msgstr "素早く手軽にメモを取ります"
 
-#: tomboy.desktop.in.h:2 Tomboy/Tray.cs:33
+#: tomboy.desktop.in.h:2 Tomboy/Tray.cs:35
 msgid "Tomboy Notes"
 msgstr "Tomboy メモ"
 
 #. Open the Start Here note
 #: Tomboy/Note.cs:380 Tomboy/NoteManager.cs:65 Tomboy/NoteManager.cs:70
-#: Tomboy/Tomboy.cs:180 Tomboy/Tray.cs:146 Tomboy/XKeybinder.cs:256
+#: Tomboy/Tomboy.cs:180 Tomboy/Tray.cs:152 Tomboy/XKeybinder.cs:256
 msgid "Start Here"
 msgstr "ここから開始"
 
@@ -156,50 +156,52 @@ msgid "S_mall"
 msgstr "小さい(_M)"
 
 #: Tomboy/Preferences.cs:116
-#, fuzzy
 msgid "Tomboy Preferences"
-msgstr "設定(_P)..."
+msgstr "Tomboy の設定(_P)..."
 
 #: Tomboy/Preferences.cs:130
 msgid "Editing"
-msgstr ""
+msgstr "編集"
 
 #: Tomboy/Preferences.cs:133
 msgid "Hotkeys"
-msgstr ""
+msgstr "ホットキー"
 
 #. Spellchecking...
 #: Tomboy/Preferences.cs:173
 msgid "_Spellcheck While Typing"
-msgstr ""
+msgstr "入力時にスペルチェックを行う(_S)"
 
 #: Tomboy/Preferences.cs:180
 msgid ""
 "Misspellings will be underlined in red, and correct spelling suggestions "
 "shown in the right-click menu."
 msgstr ""
+"スペル違いは赤色の下線がつき、右クリック・メニューに妥当なスペルを提示しま"
+"す。"
 
 #. WikiWords...
 #: Tomboy/Preferences.cs:189
-#, fuzzy
 msgid "Highlight _WikiWords"
-msgstr "強調(_H)"
+msgstr "WikiWord (予約語) を強調表示する(_W)"
 
 #: Tomboy/Preferences.cs:196
 msgid ""
 "Enable this option to highlight words <b>ThatLookLikeThis</b>. Clicking the "
 "word will create a note with that name."
 msgstr ""
+"このオプションを有効にすると、<b>こんな感じ</b>で単語を強調表示します。単語を"
+"クリックすると、単語の名前をタイトルにした新しいメモを生成します。"
 
 #. Custom font...
 #: Tomboy/Preferences.cs:205
 msgid "Use Custom _Font"
-msgstr ""
+msgstr "カスタム・フォントを使う(_F)"
 
 #. Hotkeys...
 #: Tomboy/Preferences.cs:275
 msgid "Listen for _Hotkeys"
-msgstr ""
+msgstr "ホットキーを監視する(_H)"
 
 #: Tomboy/Preferences.cs:283
 msgid ""
@@ -207,34 +209,33 @@ msgid ""
 "keypress. Example Hotkeys: <b>&lt;Control&gt;&lt;Shift&gt;F11</b>, <b>&lt;"
 "Alt&gt;N</b>"
 msgstr ""
+"ホットキーを使うと、どこからでも素早くメモにアクセスすることができるようにな"
+"ります。ホットキーの例: <b>&lt;Control&gt;&lt;Shift&gt;F11</b>、<b>&lt;"
+"Alt&gt;N</b>"
 
 #. Show notes menu keybinding...
 #: Tomboy/Preferences.cs:303
-#, fuzzy
 msgid "Show notes _menu"
-msgstr "アプレット・メニューの表示"
+msgstr "メニューの表示(_M)"
 
 #. Open Start Here keybinding...
 #: Tomboy/Preferences.cs:319
-#, fuzzy
 msgid "Open \"_Start Here\""
-msgstr "\"ここから開始\" を開く"
+msgstr "\"ここから開始\" を開く(_S)"
 
 #. Create new note keybinding...
 #: Tomboy/Preferences.cs:335
-#, fuzzy
 msgid "Create _new note"
 msgstr "新しいメモの生成(_N)"
 
 #. Search dialog keybinding...
 #: Tomboy/Preferences.cs:351
-#, fuzzy
 msgid "S_earch notes"
-msgstr "メモの検索"
+msgstr "メモの検索(_E)"
 
 #: Tomboy/Preferences.cs:413
 msgid "Choose Note Font"
-msgstr ""
+msgstr "フォントの選択"
 
 #: Tomboy/RecentChanges.cs:31
 msgid "Recent Changes"
@@ -280,22 +281,83 @@ msgid "Create a new Note"
 msgstr "新しいメモの生成"
 
 #: tomboy.schemas.in.h:2
+msgid "Custom Font Face"
+msgstr "カスタム・フォント"
+
+#: tomboy.schemas.in.h:3
+msgid "Enable WikiWord highlighting"
+msgstr "WikiWord (予約語) を強調表示する"
+
+#: tomboy.schemas.in.h:4
+msgid "Enable custom font"
+msgstr "カスタム・フォントを使う"
+
+#: tomboy.schemas.in.h:5
+msgid "Enable global keybindings"
+msgstr "グローバルなホットキーを有効にする"
+
+#: tomboy.schemas.in.h:6
+msgid "Enable spellchecking"
+msgstr "スペルチェックを有効にする"
+
+#: tomboy.schemas.in.h:7
+msgid ""
+"Enable this option to highlight words ThatLookLikeThis. Clicking the word "
+"will create a note with that name."
+msgstr ""
+"このオプションを有効にすると、<b>こんな感じ</b>で単語を強調表示します。単語を"
+"クリックすると、単語の名前をタイトルにした新しいメモを生成します。"
+
+#: tomboy.schemas.in.h:8
+msgid ""
+"If enable_custom_font is true, the font name set here will be used as the "
+"font when displaying notes."
+msgstr ""
+"enable_custom_font が TRUE の場合、メモを表示するときに、ここにセットしたフォ"
+"ント名を使用します。"
+
+#: tomboy.schemas.in.h:9
+msgid ""
+"If true, misspellings will be underlined in red, and correct spelling "
+"suggestions shown in the right-click menu."
+msgstr ""
+"TRUE の場合、スペル違いは赤色の下線がつき、右クリック・メニューに妥当なスペル"
+"を提示します。"
+
+#: tomboy.schemas.in.h:10
+msgid ""
+"If true, the desktop-global keybindings set in /apps/tomboy/"
+"global_keybindings will be enabled, allowing for useful Tomboy actions to be "
+"available from any application."
+msgstr ""
+"TRUE の場合、/apps/tomboy/global_keybindings の desktop-global キーバインドが"
+"有効になり、別のアプリケーションから Tomboy の操作が可能になります。"
+
+#: tomboy.schemas.in.h:11
+msgid ""
+"If true, the font name set in custom_font_face will be used as the font when "
+"displaying notes. Otherwise the desktop default font will be used."
+msgstr ""
+"TRUE の場合、メモを表示するときに custom_font_face にセットしたフォント名を使"
+"用します。それ以外は、デスクトップのデフォルト・フォントを使用します。"
+
+#: tomboy.schemas.in.h:12
 msgid "Open Recent Changes"
 msgstr "\"現在の変更\" を開く"
 
-#: tomboy.schemas.in.h:3
+#: tomboy.schemas.in.h:13
 msgid "Open Search Dialog"
 msgstr "\"検索ダイアログ\" を開く"
 
-#: tomboy.schemas.in.h:4
+#: tomboy.schemas.in.h:14
 msgid "Open Start Here"
 msgstr "\"ここから開始\" を開く"
 
-#: tomboy.schemas.in.h:5
+#: tomboy.schemas.in.h:15
 msgid "Show applet menu"
 msgstr "アプレット・メニューの表示"
 
-#: tomboy.schemas.in.h:6
+#: tomboy.schemas.in.h:16
 msgid ""
 "The global keybinding for creating and displaying a new Note. The format "
 "looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The "
@@ -304,14 +366,14 @@ msgid ""
 "option to the special string \"disabled\", then there will be no keybinding "
 "for this action."
 msgstr ""
-"新しいメモを生成して表示するためのグローバルなキーボード・ショートカットで"
-"す。書式は \"&lt;Control&gt;a\" または \"&lt;Shift&gt;&lt;Alt&gt;F1\" です。"
-"パーサはかなり自由度が高く、大文字/小文字を利用できます。さらに、\"&lt;"
-"Ctl&gt;\" や \"&lt;Ctrl&gt;\" のような省略形も可能です。オプションとして特殊"
-"な文字列 \"disabled\" を指定すると、このアクションに対するキーの割り当ては行"
-"われません。"
+"新しいメモを生成して表示するためのグローバルなホットキー (キーボード・ショー"
+"トカット) です。書式は \"&lt;Control&gt;a\" または \"&lt;Shift&gt;&lt;Alt&gt;"
+"F1\" です。パーサはかなり自由度が高く、大文字/小文字を利用できます。さらに、"
+"\"&lt;Ctl&gt;\" や \"&lt;Ctrl&gt;\" のような省略形も可能です。オプションとし"
+"て特殊な文字列 \"disabled\" を指定すると、このアクションに対するキーの割り当"
+"ては行われません。"
 
-#: tomboy.schemas.in.h:7
+#: tomboy.schemas.in.h:17
 msgid ""
 "The global keybinding for opening the \"Start Here\" note. The format looks "
 "like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
@@ -320,14 +382,14 @@ msgid ""
 "special string \"disabled\", then there will be no keybinding for this "
 "action."
 msgstr ""
-"\"ここから開始\" メモを開くためのグローバルなキーボード・ショートカットです。"
-"書式は \"&lt;Control&gt;a\" または \"&lt;Shift&gt;&lt;Alt&gt;F1\" です。パー"
-"サはかなり自由度が高く、大文字/小文字を利用できます。さらに \"&lt;Ctl&gt;\" "
-"や \"&lt;Ctrl&gt;\" のような省略形も可能です。オプションとして特殊な文字列 "
-"\"disabled\" を指定すると、このアクションに対するキーの割り当ては行われませ"
-"ん。"
+"\"ここから開始\" メモを開くためのグローバルなホットキー (キーボード・ショート"
+"カット) です。書式は \"&lt;Control&gt;a\" または \"&lt;Shift&gt;&lt;Alt&gt;F1"
+"\" です。パーサはかなり自由度が高く、大文字/小文字を利用できます。さらに "
+"\"&lt;Ctl&gt;\" や \"&lt;Ctrl&gt;\" のような省略形も可能です。オプションとし"
+"て特殊な文字列 \"disabled\" を指定すると、このアクションに対するキーの割り当"
+"ては行われません。"
 
-#: tomboy.schemas.in.h:8
+#: tomboy.schemas.in.h:18
 msgid ""
 "The global keybinding for opening the Note Search dialog. The format looks "
 "like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
@@ -336,14 +398,14 @@ msgid ""
 "special string \"disabled\", then there will be no keybinding for this "
 "action."
 msgstr ""
-"\"メモの検索\" ダイアログを開くためのグローバルなキーボード・ショートカットで"
-"す。書式は \"&lt;Control&gt;a\" または \"&lt;Shift&gt;&lt;Alt&gt;F1\" です。"
-"パーサはかなり自由度が高く、大文字/小文字を利用できます。さらに \"&lt;Ctl&gt;"
-"\" や \"&lt;Ctrl&gt;\" のような省略形も可能です。オプションとして特殊な文字"
-"列 \"disabled\" を指定すると、このアクションに対するキーの割り当ては行われま"
-"せん。"
+"\"メモの検索\" ダイアログを開くためのグローバルなホットキー (キーボード・"
+"ショートカット) です。書式は \"&lt;Control&gt;a\" または \"&lt;Shift&gt;&lt;"
+"Alt&gt;F1\" です。パーサはかなり自由度が高く、大文字/小文字を利用できます。さ"
+"らに \"&lt;Ctl&gt;\" や \"&lt;Ctrl&gt;\" のような省略形も可能です。オプション"
+"として特殊な文字列 \"disabled\" を指定すると、このアクションに対するキーの割"
+"り当ては行われません。"
 
-#: tomboy.schemas.in.h:9
+#: tomboy.schemas.in.h:19
 msgid ""
 "The global keybinding for opening the Recent Changes dialog. The format "
 "looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The "
@@ -352,14 +414,14 @@ msgid ""
 "option to the special string \"disabled\", then there will be no keybinding "
 "for this action."
 msgstr ""
-"\"最近の変更\" ダイアログを開くためのグローバルなキーボード・ショートカットで"
-"す。書式は \"&lt;Control&gt;a\" または \"&lt;Shift&gt;&lt;Alt&gt;F1\" です。"
-"パーサはかなり自由度が高く、大文字/小文字を利用できます。さらに \"&lt;Ctl&gt;"
-"\" や \"&lt;Ctrl&gt;\" のような省略形も可能です。オプションとして特殊な文字"
-"列 \"disabled\" を指定すると、このアクションに対するキーの割り当ては行われま"
-"せん"
+"\"最近の変更\" ダイアログを開くためのグローバルなホットキー (キーボード・"
+"ショートカット) です。書式は \"&lt;Control&gt;a\" または \"&lt;Shift&gt;&lt;"
+"Alt&gt;F1\" です。パーサはかなり自由度が高く、大文字/小文字を利用できます。さ"
+"らに \"&lt;Ctl&gt;\" や \"&lt;Ctrl&gt;\" のような省略形も可能です。オプション"
+"として特殊な文字列 \"disabled\" を指定すると、このアクションに対するキーの割"
+"り当ては行われません"
 
-#: tomboy.schemas.in.h:10
+#: tomboy.schemas.in.h:20
 msgid ""
 "The global keybinding for showing the Tomboy applet's menu. The format looks "
 "like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
@@ -368,12 +430,12 @@ msgid ""
 "special string \"disabled\", then there will be no keybinding for this "
 "action."
 msgstr ""
-"\"Tomboy アプレット\" メニューを表示するためのグローバルなキーボード・ショー"
-"トカットです。書式は \"&lt;Control&gt;a\" または \"&lt;Shift&gt;&lt;Alt&gt;F1"
-"\" です。パーサはかなり自由度が高く、大文字/小文字を利用できます。さらに "
-"\"&lt;Ctl&gt;\" や \"&lt;Ctrl&gt;\" のような省略形も可能です。オプションとし"
-"て特殊な文字列 \"disabled\" を指定すると、このアクションに対するキーの割り当"
-"ては行われません"
+"\"Tomboy アプレット\" メニューを表示するためのグローバルなホットキー (キー"
+"ボード・ショートカット) です。書式は \"&lt;Control&gt;a\" または \"&lt;"
+"Shift&gt;&lt;Alt&gt;F1\" です。パーサはかなり自由度が高く、大文字/小文字を利"
+"用できます。さらに \"&lt;Ctl&gt;\" や \"&lt;Ctrl&gt;\" のような省略形も可能で"
+"す。オプションとして特殊な文字列 \"disabled\" を指定すると、このアクションに"
+"対するキーの割り当ては行われません"
 
 #: Tomboy/Search.cs:79 Tomboy/Search.cs:469
 msgid "Search All Notes"
@@ -446,33 +508,46 @@ msgstr ""
 "  --highlight-search [text]\t開いたメモから text を検索して強調表示する\n"
 "  --help\t\t\tこのメッセージを表示する\n"
 
-#: Tomboy/Tray.cs:47
+#: Tomboy/Tray.cs:49
 msgid "Tomboy"
 msgstr "Tomboy"
 
-#: Tomboy/Tray.cs:81
+#: Tomboy/Tray.cs:83
 msgid "_Preferences..."
 msgstr "設定(_P)..."
 
-#: Tomboy/Tray.cs:89
+#: Tomboy/Tray.cs:88
+msgid "_About Tomboy"
+msgstr "Tomboy について(_A)"
+
+#: Tomboy/Tray.cs:95
 msgid "_Quit"
 msgstr "終了(_Q)"
 
-#: Tomboy/Tray.cs:108
+#: Tomboy/Tray.cs:114
 msgid "Create _New Note"
 msgstr "新しいメモの生成(_N)"
 
-#: Tomboy/Tray.cs:159
+#: Tomboy/Tray.cs:165
 msgid "_Recent Changes"
 msgstr "最近の変更(_R)"
 
-#: Tomboy/Tray.cs:169
+#: Tomboy/Tray.cs:175
 msgid "_Search Notes..."
 msgstr "メモの検索(_S)..."
 
-#: Tomboy/Tray.cs:187
+#: Tomboy/Tray.cs:193
 msgid " (new)"
 msgstr " (新規)"
+
+#: Tomboy/Tray.cs:269
+#, fuzzy
+msgid "Copyright � 2004 Alex Graveley"
+msgstr "Copyright (C) 2004 Alex Graveley"
+
+#: Tomboy/Tray.cs:270
+msgid "A simple and easy to use desktop note-taking application."
+msgstr "シンプルで使いやすいデスクトップ・メモのアプリケーションです。"
 
 #: Tomboy/Watchers.cs:122
 #, csharp-format
