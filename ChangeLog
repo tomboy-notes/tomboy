@@ -1,3 +1,25 @@
+2005-01-18  Alex Graveley  <alex@beatniksoftware.com>
+
+	* data/Makefile.am: Don't install the tomboy.desktop file for
+	KDE...
+
+	### Non-RedHat Gnome desktops don't honor the OnlyShowIn setting in .desktop
+	### files.  tomboy.desktop should only appear in KDE, where it executes the
+	### tray-icon version.  Gnome is our target audience, and since we don't want
+	### them to have an extra menu item, we leave this out for now.
+
+	* Tomboy/Plugins/Makefile.am: Don't install ExportToHTML.cs, since
+	it doesn't do anything yet.
+
+	* Tomboy/Watchers.cs: Stop listening to NoteManager events on
+	shutdown, so we don't keep our deleted note alive if a linked-to
+	note is deleted or renamed.
+
+	* Tomboy/PluginManager.cs: Execute konqueror for opening Plugins
+	directory if one of the common KDE environment variables are set.
+
+	* configure.in: Bump version to 0.2.99, in preparation for release.
+
 2005-01-17  Alex Graveley  <alex@beatniksoftware.com>
 
 	* Tomboy/Note.cs: Emit the Opened event when the window is

@@ -1,14 +1,18 @@
 
 SUBDIRS = images
 
+### Non-RedHat Gnome desktops don't honor the OnlyShowIn setting in .desktop
+### files.  tomboy.desktop should only appear in KDE, where it executes the
+### tray-icon version.  Gnome is our target audience, and since we don't want
+### them to have an extra menu item, we leave this out for now.
 
-@INTLTOOL_DESKTOP_RULE@
-
-desktop_in_files = tomboy.desktop.in
-desktop_files    = $(desktop_in_files:.desktop.in=.desktop)
-
-applicationsdir   = $(datadir)/applications
-applications_DATA = $(desktop_files)
+#@INTLTOOL_DESKTOP_RULE@
+#
+#desktop_in_files = tomboy.desktop.in
+#desktop_files    = $(desktop_in_files:.desktop.in=.desktop)
+#
+#applicationsdir   = $(datadir)/applications
+#applications_DATA = $(desktop_files)
 
 
 schemasdir	 = $(GCONF_SCHEMA_FILE_DIR)

@@ -97,13 +97,22 @@ namespace Tomboy
 		public void ShowPluginsDirectory ()
 		{
 			// Run file manager for ~/.tomboy/Plugins
-			// FIXME: Decide between nautilus and konqueror somehow
+			// FIXME: There has to be a better way to check this...
 
-			Console.WriteLine ("Starting Nautilus...");
+			if (Environment.GetEnvironmentVariable ("GNOME_DESKTOP_SESSION_ID") == null &&
+			    (Environment.GetEnvironmentVariable ("KDE_FULL_SESSION") != null ||
+			     Environment.GetEnvironmentVariable ("KDEHOME") != null ||
+			     Environment.GetEnvironmentVariable ("KDEDIR") != null)) {
+				Console.WriteLine ("Starting Konqueror...");
 
-			string args = string.Format ("--no-desktop --no-default-window {0}",
-						     plugins_dir);
-			Process.Start ("nautilus", args);
+				Process.Start ("konqueror", plugins_dir);
+			} else {
+				Console.WriteLine ("Starting Nautilus...");
+
+				string args = string.Format ("--no-desktop --no-default-window {0}",
+							     plugins_dir);
+				Process.Start ("nautilus", args);
+			}
 		}
 
 		public void LoadPluginsForNote (Note note)
