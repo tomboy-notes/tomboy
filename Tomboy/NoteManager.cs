@@ -133,6 +133,14 @@ namespace Tomboy
 				"</note-content>";
 			new_note.Renamed += OnNoteRename;
 
+			// Select the inital "Describe..." text so typing will
+			// immediately overwrite...
+			NoteBuffer buffer = new_note.Buffer;
+			Gtk.TextIter iter = buffer.GetIterAtOffset (linked_title.Length + 
+								    "\n\n".Length);
+			buffer.MoveMark (buffer.SelectionBound, iter);
+			buffer.MoveMark (buffer.InsertMark, buffer.EndIter);
+
 			notes.Add (new_note);
 
 			if (NoteAdded != null)
