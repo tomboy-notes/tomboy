@@ -38,8 +38,11 @@ $(EXPORT_TARGET): $(EXPORT_CSFILES) $(top_srcdir)/Tomboy/Tomboy.exe
 
 pluginsdir = $(pkglibdir)/Plugins
 plugins_DATA = 			\
-	$(EXPORT_TARGET)	\
 	$(PRINT_TARGET)
+
+### Not ready yet...
+###	$(EXPORT_TARGET)
+
 
 EXTRA_DIST =            	\
 	$(EXPORT_CSFILES)	\

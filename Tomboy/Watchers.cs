@@ -641,7 +641,9 @@ namespace Tomboy
 
 		protected override void Shutdown ()
 		{
-			// Do nothing.
+			Manager.NoteDeleted -= OnNoteDeleted;
+			Manager.NoteAdded -= OnNoteAdded;
+			Manager.NoteRenamed -= OnNoteRenamed;
 		}
 
 		protected override void OnNoteOpened ()
