@@ -1,3 +1,10 @@
+2004-10-30  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Search.cs: Make MarkupEscapeText which calls
+	g_markup_escape_text, since GLib.Markup.EscapeText passes an
+	incorrect length which crashes when searching for Japanese (>1
+	byte) characters.
+
 2004-10-28  Alex Graveley  <alex@beatniksoftware.com>
 
 	* Tomboy/tomboy.in: Simplify, and use 'exec' to start mono.

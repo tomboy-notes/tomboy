@@ -1,5 +1,7 @@
+
 using System;
 using System.Collections;
+using System.Runtime.InteropServices;
 using System.Text;
 using Mono.Posix;
 
@@ -654,9 +656,22 @@ namespace Tomboy
 			}
 		}
 
+		[DllImport("libglib-2.0.so.0")]
+                static extern IntPtr g_markup_escape_text (string text, int len);
+
+		// NOTE: Workaround a mapping bug in GLib.Markup.EscapeText,
+		// where the length passed to g_markup_escape_text is passed the
+		// character count, not the byte count of the string.
+		static string MarkupEscapeText (string source)
+		{
+			int len = System.Text.Encoding.UTF8.GetByteCount (source);
+			IntPtr markup = g_markup_escape_text (source, len);
+			return GLib.Marshaller.PtrToStringGFree (markup);
+		}
+
 		void AppendResultTreeView (Gtk.ListStore store, Note note, ArrayList matches)
 		{
-			string title = GLib.Markup.EscapeText (note.Title);
+			string title = MarkupEscapeText (note.Title);
 			string match_cnt;
 
 			if (matches.Count > 1)
