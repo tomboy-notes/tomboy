@@ -1,5 +1,10 @@
 2004-12-02  Alex Graveley  <alex@beatniksoftware.com>
 
+	* Tomboy/Watchers.cs: In NoteLinkWatcher, don't create inter-note
+	links if we are inside a URL.  Fixes bug #156127.
+
+2004-12-02  Alex Graveley  <alex@beatniksoftware.com>
+
 	* Tomboy/Watchers.cs: Kill debug spew if a 'gtkspell-misspelled'
 	tag isn't set on the Buffer (either you've disabled spellchecking
 	or you don't have gtkspell installed).
