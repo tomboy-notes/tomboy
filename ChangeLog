@@ -1,3 +1,9 @@
+2005-03-25  Joe Shaw  <joeshaw@novell.com>
+
+	* Tomboy/Tomboy.cs: Make the DBus.Connection static for the
+	class, to prevent it from being garbage collected and
+	breaking the remote control.
+
 2005-03-10  Alex Graveley  <alex@beatniksoftware.com>
 
 	* libtomboy/tomboykeybinder.c: Wrap XGrabKey in

@@ -10,6 +10,10 @@ namespace Tomboy
 		static Gnome.Program program;
 		static Syscall.sighandler_t sig_handler;
 
+#if ENABLE_DBUS
+		static DBus.Connection dbus_connection;
+#endif
+
 		public static void Main (string [] args) 
 		{
 			RegisterSignalHandlers ();
@@ -57,9 +61,9 @@ namespace Tomboy
 		{
 #if ENABLE_DBUS
 			try {
-				DBus.Connection connection = DBus.Bus.GetSessionBus ();
+				dbus_connection = DBus.Bus.GetSessionBus ();
 				DBus.Service service = 
-					new DBus.Service (connection, 
+					new DBus.Service (dbus_connection, 
 							  RemoteControlProxy.Namespace);
 
 				RemoteControl remote_control = new RemoteControl (manager);
