@@ -40,7 +40,7 @@ namespace Tomboy
 			stock_notes = GuiUtils.GetMiniIcon ("stock_notes.png");
 		}
 
-		public static NoteFindDialog GetInstance (Note note, string search_string)
+		public static NoteFindDialog GetInstance (Note note)
 		{
 			if (instance == null)
 				instance = new NoteFindDialog (false);
@@ -49,9 +49,6 @@ namespace Tomboy
 				instance.current_note = note;
 				instance.manager = note.Manager;
 				instance.search_all_notes.Sensitive = true; // allow switching
-
-				if (search_string != null)
-					instance.find_combo.Entry.Text = search_string;
 
 				instance.UpdateResults ();
 			}
@@ -704,6 +701,12 @@ namespace Tomboy
 		public Gtk.Button FindPreviousButton 
 		{
 			get { return find_prev_button; }
+		}
+
+		public string SearchText
+		{
+			get { return find_combo.Entry.Text; }
+			set { find_combo.Entry.Text = value; }
 		}
 	}
 }

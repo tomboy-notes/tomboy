@@ -217,7 +217,7 @@ namespace Tomboy
 			spacer1.Show ();
 
 			Gtk.ImageMenuItem link = 
-				new Gtk.ImageMenuItem (Catalog.GetString ("_Link to Note"));
+				new Gtk.ImageMenuItem (Catalog.GetString ("_Link to New Note"));
 			link.Image = new Gtk.Image (Gtk.Stock.JumpTo, Gtk.IconSize.Menu);
 			link.Sensitive = (note.Buffer.Selection != null);
 			link.Activated += LinkToNoteActivate;
@@ -280,6 +280,10 @@ namespace Tomboy
 
 		void OnDragDataReceived (object sender, Gtk.DragDataReceivedArgs args)
 		{
+			// FIXME: Need to access SelectionData's target, which
+			// is unmapped in Gtk# currently, and only insert urls
+			// when the target is text/uri-list, or _NETSCAPE_URL.
+
 			UriList uri_list = new UriList (args.SelectionData);
 			if (uri_list.Count == 0)
 				return;
@@ -468,12 +472,13 @@ namespace Tomboy
 
 		public NoteFindDialog Find {
 			get {
-				return NoteFindDialog.GetInstance (note, note.Buffer.Selection);
+				return NoteFindDialog.GetInstance (note);
 			}
 		}
 
 		void FindButtonClicked ()
 		{
+			Find.SearchText = note.Buffer.Selection;
 			Find.Present ();
 		}
 
