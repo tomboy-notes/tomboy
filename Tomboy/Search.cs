@@ -52,9 +52,6 @@ namespace Tomboy
 				instance.UpdateResults ();
 			}
 
-			// Always reset TransientFor
-			instance.TransientFor = note.Window;
-
 			return instance;
 		}
 
@@ -285,7 +282,7 @@ namespace Tomboy
 			}
 		}
 
-		ArrayList FindMatches (NoteBuffer buffer, string [] words, bool match_case)
+		ArrayList FindMatchesInBuffer (NoteBuffer buffer, string [] words, bool match_case)
 		{
 			ArrayList matches = new ArrayList ();
 
@@ -334,6 +331,19 @@ namespace Tomboy
 				return null;
 			else
 				return matches;
+		}
+
+		bool CheckNoteHasMatch (Note note, string [] encoded_words)
+		{
+			string note_text = note.Text.ToLower ();
+
+			foreach (string word in encoded_words) {
+				if (note_text.IndexOf (word) > -1) {
+					return true;
+				}
+			}
+
+			return false;
 		}
 
 		void HighlightMatches (ArrayList matches, bool highlight)
@@ -428,8 +438,6 @@ namespace Tomboy
 		{
 			if (current_matches != null)
 				HighlightMatches (current_matches, false);
-
-			this.TransientFor = null;
 
 			Hide ();
 		}
@@ -579,6 +587,10 @@ namespace Tomboy
 
 			string [] words = text.Split (' ', '\t', '\n');
 
+			// Used for matching in the raw note XML
+			string [] encoded_words = 
+				HttpUtility.HtmlEncode (text).Split (' ', '\t', '\n');
+
 			if (search_all_notes.Active) {
 				bool found_one = false;
 				store.Clear ();
@@ -586,10 +598,16 @@ namespace Tomboy
 				// Append in reverse chrono order (the order
 				// returned in manager.Notes)
 				foreach (Note note in manager.Notes) {
+					// Check the note's raw XML for at least
+					// one match, to avoid deserializing
+					// Buffers unnecessarily.
+					if (!CheckNoteHasMatch (note, encoded_words))
+						continue;
+
 					ArrayList note_matches = 
-						FindMatches (note.Buffer, 
-							     words, 
-							     case_sensitive.Active);
+						FindMatchesInBuffer (note.Buffer, 
+								     words, 
+								     case_sensitive.Active);
 
 					if (note_matches == null) 
 						continue;
@@ -621,9 +639,9 @@ namespace Tomboy
 			else if (current_note != null) {
 				Console.WriteLine ("Looking for {0}", text);
 
-				current_matches = FindMatches (current_note.Buffer, 
-							       words, 
-							       case_sensitive.Active);
+				current_matches = FindMatchesInBuffer (current_note.Buffer, 
+								       words, 
+								       case_sensitive.Active);
 				if (current_matches != null) {
 					find_next_button.Sensitive = true;
 					find_prev_button.Sensitive = true;
