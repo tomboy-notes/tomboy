@@ -125,8 +125,21 @@ namespace Tomboy
 
 		void DeleteButtonClicked () 
 		{
-			// This will destroy our window...
-			note.Manager.Delete (note);
+			Gtk.MessageDialog dialog = 
+				new Gtk.MessageDialog (this,
+						       (Gtk.DialogFlags.Modal | 
+							Gtk.DialogFlags.DestroyWithParent),
+						       Gtk.MessageType.Question,
+						       Gtk.ButtonsType.YesNo,
+						       "Really delete this note?");
+
+			int result = dialog.Run ();
+			if (result == -8 ) {
+				// This will destroy our window...
+				note.Manager.Delete (note);
+			}
+
+			dialog.Destroy();
 		}
 
 		//
