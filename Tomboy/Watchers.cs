@@ -664,6 +664,8 @@ namespace Tomboy
 	{
 		Gtk.TextTag broken_link_tag;
 
+		// FIXME: This should use \p{Lu} and \p{Ll} for matching 
+		//        Unicode upper and lower case characters.
 		const string WIKIWORD_REGEX = @"\b(([A-Z]+[a-z0-9]+){2}([A-Za-z0-9])*)\b";
 
 		static Regex regex; 
@@ -838,7 +840,8 @@ namespace Tomboy
 
 			Gtk.TextIter start = args.Iter, end = args.Iter;
 
-			start.BackwardToTagToggle (tag);
+			if (!start.BeginsTag (tag))
+				start.BackwardToTagToggle (tag);
 			end.ForwardToTagToggle (tag);
 
 			if (!OpenOrCreateLink (start, end))
@@ -886,7 +889,8 @@ namespace Tomboy
 					if (tag == link_tag || tag == broken_link_tag) {
 						Gtk.TextIter start = iter, end = iter;
 
-						start.BackwardToTagToggle (tag);
+						if (!start.BeginsTag (tag))
+							start.BackwardToTagToggle (tag);
 						end.ForwardToTagToggle (tag);
 
 						OpenOrCreateLink (start, end);
