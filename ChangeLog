@@ -1,3 +1,9 @@
+2005-03-10  Alex Graveley  <alex@beatniksoftware.com>
+
+	* libtomboy/tomboykeybinder.c: Wrap XGrabKey in
+	gdk_error_trap_push/pop pair to avoid crashing when global
+	keybinding fails.
+
 2005-03-09  Alex Graveley  <alex@beatniksoftware.com>
 
 	* Tomboy/Search.cs: Use Catalog.GetPluralString to get the
