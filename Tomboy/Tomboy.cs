@@ -226,9 +226,8 @@ namespace Tomboy
 					string unknown_opt = 
 						Catalog.GetString ("Tomboy: unsupported option '{0}'\n" +
 								   "Try 'tomboy --help' for more information.\n" +
-								   "D-BUS remote control disabled.",
-								   args [idx]);
-					Console.WriteLine (unknown_opt);
+								   "D-BUS remote control disabled.");
+					Console.WriteLine (unknown_opt, args [idx]);
 					quit = true;
 					break;
 #endif // ENABLE_DBUS
