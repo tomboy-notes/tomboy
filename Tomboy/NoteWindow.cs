@@ -133,6 +133,7 @@ namespace Tomboy
 		Gtk.ScrolledWindow editor_window;
 
 		GlobalKeybinder global_keys;
+		InterruptableTimeout mark_set_timeout;
 
 		static Gdk.Pixbuf stock_notes;
 
@@ -171,6 +172,8 @@ namespace Tomboy
 			editor.Show ();
 
 			// Sensitize the Link toolbar button on text selection
+			mark_set_timeout = new InterruptableTimeout();
+			mark_set_timeout.Timeout += UpdateLinkButtonSensitivity;
 			note.Buffer.MarkSet += OnSelectionMarkSet;
 
 			// FIXME: I think it would be really nice to let the
@@ -315,6 +318,12 @@ namespace Tomboy
 		//
 
 		void OnSelectionMarkSet (object sender, Gtk.MarkSetArgs args)
+		{
+			// FIXME: Process in a timeout due to GTK+ bug #172050.
+			mark_set_timeout.Reset (0);
+		}
+
+		void UpdateLinkButtonSensitivity (object sender, EventArgs args)
 		{
 			link_button.Sensitive = (note.Buffer.Selection != null);
 		}
