@@ -67,11 +67,12 @@ uninstall-local:
 bin_SCRIPTS = $(WRAPPER)
 
 $(WRAPPER): $(srcdir)/$(WRAPPER).in
-	sed -e "s|\@prefix\@|$(prefix)|g" 	\
-	    -e "s|\@pkglibdir\@|$(pkglibdir)|g" \
-	    -e "s|\@bindir\@|$(bindir)|g"	\
-	    -e "s|\@target\@|$(TARGET)|g" 	\
-	    -e "s|\@wrapper\@|$(WRAPPER)|g"	\
+	sed -e "s|\@prefix\@|$(prefix)|g" 		\
+	    -e "s|\@pkglibdir\@|$(pkglibdir)|g" 	\
+	    -e "s|\@bindir\@|$(bindir)|g"		\
+	    -e "s|\@target\@|$(TARGET)|g" 		\
+	    -e "s|\@wrapper\@|$(WRAPPER)|g"		\
+	    -e "s|\@extragac\@|$(EXTRA_GAC_PREFIX)|g"	\
 	    < $^ > $@
 	chmod +x $(WRAPPER)
 
