@@ -55,6 +55,11 @@ AC_SUBST(LIBTRAYICON_CFLAGS)
 AC_SUBST(LIBTRAYICON_LIBS)
 
 #
+# Need libpanelapplet to create the applet
+#
+PKG_CHECK_MODULES(LIBPANELAPPLET, libpanelapplet-2.0)
+
+#
 # Check for GtkSpell here, as we call into it from C#.
 # http://gtkspell.sourceforge.net/
 #

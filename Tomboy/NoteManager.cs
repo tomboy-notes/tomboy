@@ -46,6 +46,8 @@ namespace Tomboy
 				Directory.CreateDirectory (notes_dir);
 				CreateStartNote ();
 			}
+
+			Tomboy.ExitingEvent += OnExitingEvent;
 		}
 
 		void OnNoteRename (Note note, string old_title)
@@ -72,6 +74,15 @@ namespace Tomboy
 			if (start_note != null) {
 				start_note.Save ();
 				start_note.Window.Show ();
+			}
+		}
+
+		void OnExitingEvent (object sender, EventArgs args)
+		{
+			Console.WriteLine ("Saving unsaved notes...");
+
+			foreach (Note note in notes) {
+				note.Save ();
 			}
 		}
 

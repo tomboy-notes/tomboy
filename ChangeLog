@@ -1,3 +1,27 @@
+2004-10-23  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Makefile.am (CSFILES): Add Applet.cs, compile with
+	-unsafe (used by panelapplet), and include all the panel applet
+	sources from developmental Gtk#.  Add
+	GNOME_TomboyApplet.server.in.in, the applet registration file, and
+	GNOME_TomboyApplet.xml the applet menu definition.
+
+	* Tomboy/NoteManager.cs: Listen to Tomboy.ExitingEvent, and save
+	unsaved notes on emmission.
+
+	* Tomboy/Tomboy.cs: Register TomboyApplet with the applet
+	factory.  Make RegisterRemoteControl public so the applet can
+	register the manager it creates.  Add an ExitingEvent, which is
+	fired on SIGQUIT/SIGTERM, or by calling Exit.
+
+	* Tomboy/Applet.cs: Add.  Create TomboyApplet gnome panel applet
+	which contains a TomboyTray, and registers right-click menu XML.
+	Create TomboyTrayIcon which wraps TomboyTray as a notification try
+	icon, and provides a right-click menu.
+
+	* Tomboy/Tray.cs: Make TomboyTray a generic widget with button
+	press handler to show the notes menu.
+
 2004-10-22  Alex Graveley  <alex@beatniksoftware.com>
 
 	* Tomboy/Tomboy.cs: Support --version command line arg.

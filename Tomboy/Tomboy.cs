@@ -10,36 +10,31 @@ namespace Tomboy
 		static Gnome.Program program;
 		static Syscall.sighandler_t sig_handler;
 
-		static TomboyTray tray;
-		static NoteManager manager;
-		static TomboyGConfXKeybinder keybinder;
-
 		public static void Main (string [] args) 
 		{
+			RegisterSignalHandlers ();
+
 			// Initialize GETTEXT
 			Catalog.Init ("tomboy", Defines.GNOME_LOCALE_DIR);
-
-			// Execute any args at an existing tomboy instance
-			if (TomboyRemoteExecute.Execute (args))
-				return;
 
 			program = new Gnome.Program ("Tomboy", 
 						     Defines.VERSION, 
 						     Gnome.Modules.UI, 
 						     args);
 
-			manager = new NoteManager ();
-			tray = new TomboyTray (manager);
-			keybinder = new TomboyGConfXKeybinder (manager, tray);
+			// This will block if there is no existing instance running
+			PanelApplet.AppletFactory.Register (typeof (TomboyApplet));
 
-			RegisterSignalHandlers ();
-			RegisterSessionRestart (args);
-			RegisterRemoteControl (manager);
+			// Execute any args at an existing tomboy instance
+			if (TomboyRemoteExecute.Execute (args))
+				return;
 
-			program.Run ();
+			//RegisterSessionRestart (args);
+
+			Console.WriteLine ("All done.  Ciao!");
 		}
 
-		static void RegisterRemoteControl (NoteManager manager)
+		public static void RegisterRemoteControl (NoteManager manager)
 		{
 #if ENABLE_DBUS
 			try {
@@ -89,14 +84,19 @@ namespace Tomboy
 
 		static void OnExitSignal (int signal)
 		{
-			Console.WriteLine ("Saving unsaved notes...");
-
-			foreach (Note note in manager.Notes) {
-				note.Save ();
-			}
+			if (ExitingEvent != null)
+				ExitingEvent (null, new EventArgs ());
 
 			program.Quit ();
 			//System.Environment.Exit (0);
+		}
+
+		public static event EventHandler ExitingEvent;
+
+		public static void Exit (int exitcode)
+		{
+			OnExitSignal (-1);
+			System.Environment.Exit (exitcode);
 		}
 	}
 
