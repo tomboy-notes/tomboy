@@ -100,7 +100,8 @@ namespace Tomboy
 			find_combo = new Gtk.Combo ();
 			find_combo.AllowEmpty = false;
 			find_combo.CaseSensitive = false;
-			find_combo.Entry.ActivatesDefault = true;
+			find_combo.DisableActivate ();
+			find_combo.Entry.Activated += OnEntryActivated;
 			find_combo.Entry.Changed += OnEntryChanged;
 			if (previous_searches != null)
 				find_combo.PopdownStrings = previous_searches;
@@ -148,7 +149,7 @@ namespace Tomboy
 			if (search_all)
 				matches_window.Show ();
 
-			// Buttons at bottom: close, previous, find next
+			// Buttons at bottom: Close, Previous, Find Next
 
 			close_button = new Gtk.Button (Gtk.Stock.Close);
 			close_button.Clicked += OnCloseClicked;
@@ -180,6 +181,10 @@ namespace Tomboy
 							 (uint) Gdk.Key.g, 
 							 Gdk.ModifierType.ControlMask,
 							 Gtk.AccelFlags.Visible);
+
+			// Set up Find Next as the default widget
+			find_next_button.CanDefault = true;
+			Default = find_next_button;
 
 			Gtk.HButtonBox button_box = new Gtk.HButtonBox ();
 			button_box.Layout = Gtk.ButtonBoxStyle.End;
@@ -406,6 +411,8 @@ namespace Tomboy
 			if (current_matches == null || current_matches.Count == 0)
 				return;
 
+			Console.WriteLine ("Entering OnFindNextClicked...");
+
 			for (int i = 0; i < current_matches.Count; i++) {
 				Match match = (Match) current_matches [i];
 
@@ -421,6 +428,8 @@ namespace Tomboy
 
 			// Else wrap to first match
 			JumpToMatch ((Match) current_matches [0]);
+
+			Console.WriteLine ("Leaving OnFindNextClicked...");
 		}
 
 		void OnFindPreviousClicked (object sender, EventArgs args)
@@ -467,6 +476,7 @@ namespace Tomboy
 
 		void OnCaseSensitiveToggled (object sender, EventArgs args)
 		{
+			find_combo.CaseSensitive = case_sensitive.Active;
 			UpdateResults ();
 		}
 
@@ -533,6 +543,25 @@ namespace Tomboy
 			find_prev_button.Sensitive = true;
 		}
 
+		void OnEntryActivated (object sender, EventArgs args)
+		{
+			if (entry_changed_timeout != null)
+				entry_changed_timeout.Cancel ();
+
+			// Update results
+			EntryChangedTimeout (null, null);
+
+			if (search_all_notes.Active) {
+				// Highlight the result list
+				tree.GrabFocus ();
+			} else {
+				// Jump to the first match. Activate so the
+				// button visually clicks.
+				if (find_next_button.Sensitive)
+					ActivateDefault ();
+			}
+		}
+
 		void OnEntryChanged (object sender, EventArgs args)
 		{
 			if (entry_changed_timeout == null) {
@@ -543,12 +572,11 @@ namespace Tomboy
 			entry_changed_timeout.Reset (500);
 		}
 
-		// Called in after .5 seconds of typing inactivity.  Redo the
-		// search, and update the results...
+		// Called in after .5 seconds of typing inactivity, or on
+		// explicit activate.  Redo the search, and update the
+		// results...
 		void EntryChangedTimeout (object sender, EventArgs args)
 		{
-			CleanupMatches ();
-
 			string text = find_combo.Entry.Text;
 			if (text == null || text == String.Empty)
 				return;
