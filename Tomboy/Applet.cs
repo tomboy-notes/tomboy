@@ -50,7 +50,7 @@ namespace Tomboy
 						  new ContextMenuItemCallback (ShowAboutVerb))
 			};
 
-			// This silently fails for some unknown reason
+			// FIXME: This silently fails for some unknown reason
 			//SetupMenuFromResource (null, "GNOME_TomboyApplet.xml", menu_verbs);
 
 			// Have to resort to this for now
