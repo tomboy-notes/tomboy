@@ -210,11 +210,8 @@ namespace Tomboy
 	{
 		Gtk.TextTag url_tag;
 
-		// FIXME: Bugs because of word boundries.
-		// 	- Requires a character after www. or http:// to be typed to hightlight
-		//	- doesn't match /unix/path (only /third/unix/path)
 		const string URL_REGEX = 
-			@"\b(((news|http|https|ftp|irc)://|(mailto:)|((www|ftp)\.)|/\S+/|\S*@\S*\.)(\S*[^\.,!\?;:])?)\b";
+			@"((\b((news|http|https|ftp|file|irc)://|mailto:|(www|ftp)\.|\S*@\S*\.)|/\S+/)\S*\b/?)";
 
 		static Regex regex;
 
@@ -331,9 +328,11 @@ namespace Tomboy
 			     match = match.NextMatch ()) {
 				Group group = match.Groups [1];
 
+				/*
 				Console.WriteLine("Highlighting url: '{0}' at offset {1}",
 						  group,
 						  group.Index);
+				*/
 
 				Gtk.TextIter start_cpy = start;
 				start_cpy.ForwardChars (group.Index);
