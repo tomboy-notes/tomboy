@@ -1,5 +1,16 @@
 2004-10-11  Alex Graveley  <alex@beatniksoftware.com>
 
+	* Tomboy/Note.cs: Don't save window dimensions if window is
+	maximized.
+
+	* Tomboy/NoteWindow.cs: Unmaximize before closing to ensure we
+	don't reopen pseudo-maximized.
+
+	* Tomboy/NoteBuffer.cs: Keep a reference to the TagTable passed
+	in, otherwise it gets collected and gtk# creates a new one.
+
+2004-10-11  Alex Graveley  <alex@beatniksoftware.com>
+
 	* Tomboy/Watchers.cs: Fix bugs in Url matching regex to recognise
 	unix paths again.
 

@@ -28,6 +28,7 @@ namespace Tomboy
 			: base (ptr)
 		{
 			Console.WriteLine ("NoteTagTable Native ptr instantiation");
+			Console.WriteLine ((new System.Diagnostics.StackTrace ()).ToString ());
 		}
 		
 		void InitCommonTags () 
@@ -192,6 +193,7 @@ namespace Tomboy
 	public class NoteBuffer : Gtk.TextBuffer 
 	{
 		UndoManager undo_manager;
+		Gtk.TextTagTable tag_table;
 
 		// list of Gtk.TextTags to apply on insert
 		ArrayList active_tags;
@@ -199,6 +201,7 @@ namespace Tomboy
 		public NoteBuffer (Gtk.TextTagTable tags) 
 			: base (tags)
 		{
+			tag_table = tags;
 			active_tags = new ArrayList ();
 			undo_manager = new UndoManager (this);
 
