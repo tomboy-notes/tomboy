@@ -83,8 +83,8 @@ namespace Tomboy
 
 			// Close window (Ctrl-W)
 			global_keys.AddAccelerator (new EventHandler (CloseWindowHandler),
-						    (uint) Gdk.Key.w, 
-						    Gdk.ModifierType.ControlMask,
+						    (uint) Gdk.Key.Escape, 
+						    0,
 						    Gtk.AccelFlags.Visible);
 
 			// Open Find Dialog (Ctrl-F)
@@ -235,8 +235,8 @@ namespace Tomboy
 			close_window.Activated += new EventHandler (CloseWindowHandler);
 			close_window.AddAccelerator ("activate",
 						     accel_group,
-						     (uint) Gdk.Key.w, 
-						     Gdk.ModifierType.ControlMask,
+						     (uint) Gdk.Key.Escape, 
+						     0,
 						     Gtk.AccelFlags.Visible);
 			close_window.Show ();
 
