@@ -37,7 +37,17 @@ namespace PanelApplet {
 		static void changebackground_cb (IntPtr applet, int type, ref Gdk.Color color, IntPtr pixmap)
 		{
 			PanelApplet obj = GLib.Object.GetObject (applet, false) as PanelApplet;
-			obj.OnChangeBackground ((BackgroundType)type, color, (Gdk.Pixmap) GLib.Object.GetObject(pixmap));
+			switch ((BackgroundType)type) {
+			case BackgroundType.ColorBackground:
+			   obj.OnChangeBackground ((BackgroundType)type, color, null);
+			   break;
+			case BackgroundType.PixmapBackground:
+			   obj.OnChangeBackground ((BackgroundType)type, Gdk.Color.Zero, (Gdk.Pixmap) GLib.Object.GetObject(pixmap));
+			   break;
+			default:
+			   obj.OnChangeBackground ((BackgroundType)type, Gdk.Color.Zero, null);
+			   break;
+			}
 		}
 
 		private static void OverrideChangeBackground (GLib.GType gtype)
