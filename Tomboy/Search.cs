@@ -102,7 +102,7 @@ namespace Tomboy
 			find_combo.AllowEmpty = false;
 			find_combo.CaseSensitive = false;
 			find_combo.Entry.ActivatesDefault = true;
-			find_combo.Entry.Changed += new EventHandler (OnEntryChanged);
+			find_combo.Entry.Changed += OnEntryChanged;
 			if (previous_searches != null)
 				find_combo.PopdownStrings = previous_searches;
 
@@ -110,11 +110,11 @@ namespace Tomboy
 				new Gtk.CheckButton (Catalog.GetString ("Search _All Notes"));
 			search_all_notes.Active = search_all;
 			search_all_notes.Sensitive = !search_all;
-			search_all_notes.Toggled += new EventHandler (OnAllNotesToggled);
+			search_all_notes.Toggled += OnAllNotesToggled;
 
 			case_sensitive = 
 				new Gtk.CheckButton (Catalog.GetString ("_Case Sensitive"));
-			case_sensitive.Toggled += new EventHandler (OnCaseSensitiveToggled);
+			case_sensitive.Toggled += OnCaseSensitiveToggled;
 
 			Gtk.Table widgets = new Gtk.Table (3, 2, false);
 			widgets.Attach (label, 0, 1, 0, 1, 0, 0, 0, 0);
@@ -149,7 +149,7 @@ namespace Tomboy
 			// Buttons at bottom: close, previous, find next
 
 			close_button = new Gtk.Button (Gtk.Stock.Close);
-			close_button.Clicked += new EventHandler (OnCloseClicked);
+			close_button.Clicked += OnCloseClicked;
 			close_button.AddAccelerator ("activate",
 						     accel_group,
 						     (uint) Gdk.Key.Escape, 
@@ -159,7 +159,7 @@ namespace Tomboy
 			find_prev_button = 
 				GuiUtils.MakeImageButton (Gtk.Stock.GoBack, 
 							  Catalog.GetString ("_Previous"));
-			find_prev_button.Clicked += new EventHandler (OnFindPreviousClicked);
+			find_prev_button.Clicked += OnFindPreviousClicked;
 			find_prev_button.Sensitive = false;
 			find_prev_button.AddAccelerator ("activate",
 							 accel_group,
@@ -171,7 +171,7 @@ namespace Tomboy
 			find_next_button = 
 				GuiUtils.MakeImageButton (Gtk.Stock.GoForward, 
 							  Catalog.GetString ("Find _Next"));
-			find_next_button.Clicked += new EventHandler (OnFindNextClicked);
+			find_next_button.Clicked += OnFindNextClicked;
 			find_next_button.Sensitive = false;
 			find_next_button.AddAccelerator ("activate",
 							 accel_group,
@@ -196,8 +196,8 @@ namespace Tomboy
 			content_vbox.Show ();
 
 			this.Add (content_vbox);
-			this.DeleteEvent += new Gtk.DeleteEventHandler (HideOnDelete);
-			this.Shown += new EventHandler (HighlightOnShown);
+			this.DeleteEvent += HideOnDelete;
+			this.Shown += HighlightOnShown;
 		}
 
 		void MakeResultTreeView () 
@@ -243,7 +243,7 @@ namespace Tomboy
 			title.SortColumnId = 3; /* note */
 			tree.AppendColumn (title);
 
-			tree.RowActivated += new Gtk.RowActivatedHandler (OnRowActivated);
+			tree.RowActivated += OnRowActivated;
 		}
 
 		class Match 
@@ -653,7 +653,7 @@ namespace Tomboy
 			if (note_a == null || note_b == null)
 				return -1;
 			else
-				return DateTime.Compare (note_a.SaveDate, note_b.SaveDate);
+				return DateTime.Compare (note_a.ChangeDate, note_b.ChangeDate);
 		}
 
 		public Gtk.Button FindNextButton 

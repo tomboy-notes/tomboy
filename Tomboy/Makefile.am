@@ -5,6 +5,8 @@ CSC = mcs -g
 TARGET = Tomboy.exe
 WRAPPER = tomboy
 
+DEFINES = -define:DEBUG
+
 CSFLAGS = -target:exe
 
 CSFILES = 				\
@@ -37,8 +39,20 @@ RESOURCES = 							\
 	-resource:$(srcdir)/stock_notes.png,stock_notes.png	\
 	-resource:$(srcdir)/gnome-stock-searchtool.png,gnome-stock-searchtool.png
 
+if OLD_GTKSPELL
+DEFINES += -define:OLD_GTKSPELL
+endif
+
+if ENABLE_DBUS
+DEFINES += -define:ENABLE_DBUS
+CSFILES += 				\
+	$(srcdir)/RemoteControl.cs	\
+	$(srcdir)/RemoteControlProxy.cs
+ASSEMBLIES += $(DBUS_LIBS)
+endif
+
 $(TARGET): $(CSFILES) $(LOCAL_ASSEMBLIES) 
-	$(CSC) -o $@ $(CSFLAGS) $(CSFILES) $(ASSEMBLIES) $(RESOURCES)
+	$(CSC) -o $@ $(CSFLAGS) $(CSFILES) $(ASSEMBLIES) $(RESOURCES) $(DEFINES)
 
 all: $(TARGET)
 

@@ -10,7 +10,7 @@ namespace Tomboy
 		static Gnome.Program program;
 		static Syscall.sighandler_t sig_handler;
 
-		static TomboyTray instance;
+		static TomboyTray tray;
 		static NoteManager manager;
 		static TomboyGConfXKeybinder keybinder;
 
@@ -25,13 +25,33 @@ namespace Tomboy
 			Catalog.Init ("tomboy", Defines.GNOME_LOCALE_DIR);
 
 			manager = new NoteManager ();
-			instance = new TomboyTray (manager);
-			keybinder = new TomboyGConfXKeybinder (manager, instance);
+			tray = new TomboyTray (manager);
+			keybinder = new TomboyGConfXKeybinder (manager, tray);
 
 			RegisterSignalHandlers ();
 			RegisterSessionRestart (args);
+			RegisterRemoteControl (manager);
 
 			program.Run ();
+		}
+
+		[System.Diagnostics.Conditional ("ENABLE_DBUS")] 
+		static void RegisterRemoteControl (NoteManager manager)
+		{
+			const string service_ns = "com.beatniksoftware.Tomboy";
+
+			try {
+				DBus.Connection connection = DBus.Bus.GetSessionBus ();
+				DBus.Service service = new DBus.Service (connection, service_ns);
+
+				RemoteControl remote_control = new RemoteControl (manager);
+				service.RegisterObject (remote_control, RemoteControlProxy.Path);
+
+				Console.WriteLine ("Tomboy remote control active.");
+			} catch (Exception e) {
+				Console.WriteLine ("Tomboy remote control disabled: {0}",
+						   e.Message);
+			}
 		}
 
 		static void RegisterSessionRestart (string [] args)
@@ -71,7 +91,7 @@ namespace Tomboy
 			}
 
 			program.Quit ();
-			System.Environment.Exit (0);
+			//System.Environment.Exit (0);
 		}
 	}
 }

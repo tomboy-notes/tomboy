@@ -57,11 +57,14 @@ namespace Tomboy
 
 			MakeRecentTree ();
 			tree.Show ();
-			
-			foreach (Note note in manager.Notes) {
-				AppendResultTreeView (store, note);
-			}
 
+			// List all the current notes
+			UpdateResults ();
+
+			// Update on changes to notes
+			manager.NotesChanged += OnNotesChanged;
+			manager.NoteRenamed += OnNoteRenamed;
+			
 			matches_window = new Gtk.ScrolledWindow ();
 			matches_window.ShadowType = Gtk.ShadowType.In;
 
@@ -83,7 +86,7 @@ namespace Tomboy
 			matches_window.Show ();
 
 			close_button = new Gtk.Button (Gtk.Stock.Close);
-			close_button.Clicked += new EventHandler (CloseClicked);
+			close_button.Clicked += CloseClicked;
 			close_button.AddAccelerator ("activate",
 						     accel_group,
 						     (uint) Gdk.Key.Escape, 
@@ -116,6 +119,19 @@ namespace Tomboy
 				typeof (Note),       // note
 			};
 
+			Gtk.TargetEntry [] targets = 
+				new Gtk.TargetEntry [] {
+					new Gtk.TargetEntry ("STRING", 
+							     Gtk.TargetFlags.App,
+							     0),
+					new Gtk.TargetEntry ("text/plain", 
+							     Gtk.TargetFlags.App,
+							     0),
+					new Gtk.TargetEntry ("text/uri-list", 
+							     Gtk.TargetFlags.App,
+							     1),
+				};
+
 			store = new Gtk.ListStore (types);
 			store.SetSortFunc (2 /* change date */,
 					   new Gtk.TreeIterCompareFunc (CompareDates),
@@ -125,6 +141,17 @@ namespace Tomboy
 			tree = new Gtk.TreeView (store);
 			tree.HeadersVisible = true;
 			tree.RulesHint = true;
+			tree.RowActivated += OnRowActivated;
+
+			/*
+			tree.DragBegin += OnDragBegin;
+			tree.DragDataGet += OnDragDataGet;
+			*/
+
+			Gtk.Drag.SourceSet (tree,
+					    Gdk.ModifierType.Button1Mask,
+					    targets,
+					    Gdk.DragAction.Link);
 
 			Gtk.CellRenderer renderer;
 
@@ -140,8 +167,8 @@ namespace Tomboy
 			renderer = new Gtk.CellRendererText ();
 			title.PackStart (renderer, true);
 			title.AddAttribute (renderer, "text", 1 /* title */);
-
 			title.SortColumnId = 1; /* title */
+
 			tree.AppendColumn (title);
 
 			Gtk.TreeViewColumn change = new Gtk.TreeViewColumn ();
@@ -153,12 +180,46 @@ namespace Tomboy
 			renderer.Data ["xalign"] = 1.0;
 			change.PackStart (renderer, false);
 			change.AddAttribute (renderer, "text", 2 /* change date */);
-
 			change.SortColumnId = 2; /* change date */
-			tree.AppendColumn (change);
 
-			tree.RowActivated += new Gtk.RowActivatedHandler (OnRowActivated);
+			tree.AppendColumn (change);
 		}
+
+		void UpdateResults ()
+		{
+			store.Clear ();
+
+			// FIXME: Restore the currently highlighted note
+
+			foreach (Note note in manager.Notes) {
+				AppendResultTreeView (store, note);
+			}
+		}
+
+		void OnNotesChanged (object sender, Note added, Note deleted)
+		{
+			UpdateResults ();
+		}
+
+		void OnNoteRenamed (Note note, string old_title)
+		{
+			UpdateResults ();
+		}
+
+		/*
+		void OnDragBegin (object sender, Gtk.DragBeginArgs args)
+		{
+			Console.WriteLine ("OnDragBegin called");
+			//Gtk.Image note_img = new Gtk.Image (stock_notes);
+			//Gtk.Drag.SetIconWidget (args.Context, note_img, 0, 0);
+			Gtk.Drag.SetIconPixbuf (args.Context, recent_icon, 0, 0);
+		}
+
+		void OnDragDataGet (object sender, Gtk.DragDataGetArgs args)
+		{
+			Console.WriteLine ("OnDragDataGet called");
+		}
+		*/
 
 		string PrettyPrintDate (DateTime date)
 		{
@@ -184,7 +245,7 @@ namespace Tomboy
 
 		void AppendResultTreeView (Gtk.ListStore store, Note note)
 		{
-			string nice_date = PrettyPrintDate (note.SaveDate);
+			string nice_date = PrettyPrintDate (note.ChangeDate);
 
 			Gtk.TreeIter iter = store.Append ();
 			store.SetValue (iter, 0 /* icon */, stock_notes);
@@ -209,7 +270,7 @@ namespace Tomboy
 			if (note_a == null || note_b == null)
 				return -1;
 			else
-				return DateTime.Compare (note_a.SaveDate, note_b.SaveDate);
+				return DateTime.Compare (note_a.ChangeDate, note_b.ChangeDate);
 		}
 
 		void OnRowActivated (object sender, Gtk.RowActivatedArgs args)

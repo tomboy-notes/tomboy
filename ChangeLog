@@ -1,3 +1,53 @@
+2004-10-01  Alex Graveley  <alex@beatniksoftware.com>
+
+	Thanks to hurricane Jeanne last week, here is a massive commit...
+
+	Thanks to Jon Trowbridge <trow@ximian.com> for the dbus-based
+	remote control interface.
+
+	* configure.in: add optional check for dbus, and set ENABLE_DBUS
+	if found.  Check for old version (<2.0.5) of GtkSpell, and set
+	OLD_GTKSPELL if found.
+
+	* Tomboy/Makefile.am: include RemoteControl.cs and
+	RemoteControlProxy.cs if ENABLE_DBUS is set.
+
+	* Tomboy/Note.cs: make SaveDate into ChangeDate, which we update
+	whenever the buffer changes.  Fixes ordering in the panel applet
+	for notes where the save timeout hasn't been called yet.  Add Uri,
+	used by remote control. Add IsOpened, used by the tray menu.  Fix
+	newly created notes to remember window position.
+
+	* Tomboy/NoteManager.cs: Use a HIGMessageDialog for showing name
+	clash errors.  Add FindByUri, used by the remote control.
+
+	* Tomboy/NoteWindow.cs: Use a HIGMessageDialog for the delete
+	dialog.
+
+	* Tomboy/RecentChanges.cs: Update results on note
+	rename/add/delete.
+
+	* Tomboy/Tomboy.cs: Register the remote control with dbus.
+
+	* Tomboy/Tray.cs: Add tooltip to notification icon which says
+	"Tomboy Notes" and lists the global shortcut key for showing the
+	menu.  Create menu accelerators which map to their global
+	shortcuts stored in gconf ("Alt-F11" next to Start Here, by
+	default).
+
+	* Tomboy/Utils.cs: Add HIGMessageDialog, which implements the HIG
+	recommended message dialog.
+
+	* Tomboy/Watchers.cs: Middle clicking a link/url closes the
+	opening note.  Shift or control clicking a link/url places the
+	cursor instead of opening.  Control-Enter with cursor on a
+	link/url opens it. Use a HIGMessageDialog for location open error
+	dialog.  Fix wikiword identification to ignore words with internal
+	punctuation, and disregard any trailing punctuation.
+
+	* TrayIcon/libtrayicon/tomboykeybinder.c: Regrab keys if the
+	default keymap changes.
+
 2004-10-01  Adam Lopresto <adam@pubcrawler.org>
 
 	* Tomboy/Search.cs: Make searches implicitly AND words instead of

@@ -37,7 +37,7 @@ namespace Tomboy
 				foreach (string file_path in files) {
 					Note note = Note.Load (file_path, this);
 					if (note != null) {
-						note.Renamed += new NoteRenameHandler (OnNoteRename);
+						note.Renamed += OnNoteRename;
 						notes.Add (note);
 					}
 				}
@@ -50,30 +50,21 @@ namespace Tomboy
 
 		void ShowNameClashError (Note note, string title)
 		{
-			string label_text = 
-				String.Format ("<span size=\"large\"><b>" +
-					       Catalog.GetString ("Note title already taken") +
-					       "</b></span>\n\n" +
-					       Catalog.GetString ("A note with the title " +
+			string message = 
+				String.Format (Catalog.GetString ("A note with the title " +
 								  "<b>{0}</b> already exists. " +
 								  "Please choose another name " +
 								  "for this note before " +
 								  "continuing."),
 					       title);
 
-			Gtk.Label label = new Gtk.Label (label_text);
-			label.UseMarkup = true;
-			label.Wrap = true;
-			label.Show ();
-
-			Gtk.Button button = new Gtk.Button (Gtk.Stock.Ok);
-			button.Show ();
-
-			Gtk.Dialog dialog = new Gtk.Dialog (Catalog.GetString ("Note title already taken"),
-							    note.Window,
-							    Gtk.DialogFlags.DestroyWithParent);
-			dialog.AddActionWidget (button, Gtk.ResponseType.Ok);
-			dialog.VBox.PackStart (label, false, false, 0);
+			HIGMessageDialog dialog = 
+				new HIGMessageDialog (note.Window,
+						      Gtk.DialogFlags.DestroyWithParent,
+						      Gtk.MessageType.Warning,
+						      Gtk.ButtonsType.Ok,
+						      Catalog.GetString ("Note title taken"),
+						      message);
 
 			dialog.Run ();
 			dialog.Destroy ();
@@ -99,7 +90,7 @@ namespace Tomboy
 
 		void CreateStartNote () 
 		{
-			Note start_note = Create ("Start Here");
+			Note start_note = Create (Catalog.GetString ("Start Here"));
 			if (start_note != null) {
 				start_note.Text = 
 					"<note-content>" +
@@ -178,7 +169,7 @@ namespace Tomboy
 				linked_title + "\n\n" + 
 				Catalog.GetString ("Describe your new note here.") +
 				"</note-content>";
-			new_note.Renamed += new NoteRenameHandler (OnNoteRename);
+			new_note.Renamed += OnNoteRename;
 
 			notes.Add (new_note);
 
@@ -197,6 +188,15 @@ namespace Tomboy
 			return null;
 		}
 
+		public Note FindByUri (string uri)
+		{
+			foreach (Note note in notes) {
+				if (note.Uri == uri)
+					return note;
+			}
+			return null;
+		}
+
 		class CompareDates : IComparer
 		{
 			public int Compare (object a, object b)
@@ -208,7 +208,8 @@ namespace Tomboy
 				if (note_a == null || note_b == null)
 					return -1;
 				else
-					return DateTime.Compare (note_b.SaveDate, note_a.SaveDate);
+					return DateTime.Compare (note_b.ChangeDate, 
+								 note_a.ChangeDate);
 			}
 		}
 

@@ -46,14 +46,14 @@ namespace Tomboy
 
 			text_menu = new NoteTextMenu (accel_group, note.Buffer, note.Buffer.Undoer);
 			text_menu.AttachToWidget (text_button, null);
-			text_menu.Deactivated += new EventHandler (ReleaseButton);
+			text_menu.Deactivated += ReleaseTextButton;
 
 			editor = new Gtk.TextView (note.Buffer);
 			editor.WrapMode = Gtk.WrapMode.Word;
 			editor.LeftMargin = 8;
 			editor.RightMargin = 8;
 			editor.CanDefault = true;
-			editor.PopulatePopup += new Gtk.PopulatePopupHandler (PopulatePopup);
+			editor.PopulatePopup += PopulatePopup;
 			editor.ModifyFont (Pango.FontDescription.FromString ("Serif 11"));
 			editor.ScrollMarkOnscreen (note.Buffer.InsertMark);
 			editor.Show ();
@@ -76,7 +76,7 @@ namespace Tomboy
 
 			// NOTE: Since some of our keybindings are only
 			// available in the context menu, and the context menu
-			// is created on demand, so register them with the
+			// is created on demand, register them with the
 			// global keybinder
 			global_keys = new GlobalKeybinder (accel_group);
 
@@ -131,18 +131,31 @@ namespace Tomboy
 
 		void DeleteButtonClicked () 
 		{
-			string label = Catalog.GetString ("Really delete this note?");
+			HIGMessageDialog dialog = 
+				new HIGMessageDialog (
+					note.Window,
+					Gtk.DialogFlags.DestroyWithParent,
+					Gtk.MessageType.Question,
+					Gtk.ButtonsType.None,
+					Catalog.GetString ("Really delete this note?"),
+					Catalog.GetString ("If you delete a note it is " +
+							   "permanently lost."));
 
-			Gtk.MessageDialog dialog = 
-				new Gtk.MessageDialog (this,
-						       (Gtk.DialogFlags.Modal | 
-							Gtk.DialogFlags.DestroyWithParent),
-						       Gtk.MessageType.Question,
-						       Gtk.ButtonsType.YesNo,
-						       label);
+			Gtk.Button button;
+
+			button = new Gtk.Button (Gtk.Stock.Cancel);
+			button.CanDefault = true;
+			button.Show ();
+			dialog.AddActionWidget (button, Gtk.ResponseType.Cancel);
+			dialog.DefaultResponse = Gtk.ResponseType.Cancel;
+
+			button = new Gtk.Button (Gtk.Stock.Delete);
+			button.CanDefault = true;
+			button.Show ();
+			dialog.AddActionWidget (button, 666);
 
 			int result = dialog.Run ();
-			if (result == -8 ) {
+			if (result == 666 ) {
 				// This will destroy our window...
 				note.Manager.Delete (note);
 			}
@@ -188,7 +201,7 @@ namespace Tomboy
 				new Gtk.ImageMenuItem (Catalog.GetString ("_Link to Note"));
 			link.Image = new Gtk.Image (Gtk.Stock.JumpTo, Gtk.IconSize.Menu);
 			link.Sensitive = (note.Buffer.Selection != null);
-			link.Activated += new EventHandler (LinkToNoteActivate);
+			link.Activated += LinkToNoteActivate;
 			link.AddAccelerator ("activate",
 					     accel_group,
 					     (uint) Gdk.Key.l, 
@@ -221,7 +234,7 @@ namespace Tomboy
 			Gtk.ImageMenuItem close_window = 
 				new Gtk.ImageMenuItem (Catalog.GetString ("_Close Window"));
 			close_window.Image = new Gtk.Image (Gtk.Stock.Close, Gtk.IconSize.Menu);
-			close_window.Activated += new EventHandler (CloseWindowHandler);
+			close_window.Activated += CloseWindowHandler;
 			close_window.AddAccelerator ("activate",
 						     accel_group,
 						     (uint) Gdk.Key.w, 
@@ -284,9 +297,8 @@ namespace Tomboy
 					     Gtk.AccelFlags.Visible);
 
 			text_button = new TextToolButton ();
-			text_button.ButtonPressEvent += 
-				new Gtk.ButtonPressEventHandler (TextButtonPress);
-			text_button.Clicked += new EventHandler (TextButtonClicked);
+			text_button.ButtonPressEvent += TextButtonPress;
+			text_button.Clicked += TextButtonClicked;
 			text_button.Show ();
 
 			// Give it a window to receive events events
@@ -361,7 +373,7 @@ namespace Tomboy
 			Gtk.ImageMenuItem find = 
 				new Gtk.ImageMenuItem (Catalog.GetString ("_Search..."));
 			find.Image = new Gtk.Image (Gtk.Stock.Find, Gtk.IconSize.Menu);
-			find.Activated += new EventHandler (FindActivate);
+			find.Activated += FindActivate;
 			find.AddAccelerator ("activate",
 					     accel_group,
 					     (uint) Gdk.Key.f, 
@@ -374,7 +386,7 @@ namespace Tomboy
 			find_next.Image = new Gtk.Image (Gtk.Stock.GoForward, Gtk.IconSize.Menu);
 			find_next.Sensitive = Find.FindNextButton.Sensitive;
 
-			find_next.Activated += new EventHandler (FindNextActivate);
+			find_next.Activated += FindNextActivate;
 			find_next.AddAccelerator ("activate",
 						  accel_group,
 						  (uint) Gdk.Key.g, 
@@ -387,7 +399,7 @@ namespace Tomboy
 			find_previous.Image = new Gtk.Image (Gtk.Stock.GoBack, Gtk.IconSize.Menu);
 			find_previous.Sensitive = Find.FindPreviousButton.Sensitive;
 
-			find_previous.Activated += new EventHandler (FindPreviousActivate);
+			find_previous.Activated += FindPreviousActivate;
 			find_previous.AddAccelerator ("activate",
 						      accel_group,
 						      (uint) Gdk.Key.g, 
@@ -483,7 +495,7 @@ namespace Tomboy
 		// closes
 		//
 
-		void ReleaseButton (object sender, EventArgs args) 
+		void ReleaseTextButton (object sender, EventArgs args) 
 		{
 			text_button.Release ();
 		}
@@ -536,7 +548,7 @@ namespace Tomboy
 
 			if (undo_manager != null) {
 				undo = new Gtk.ImageMenuItem (Gtk.Stock.Undo, accel_group);
-				undo.Activated += new EventHandler (UndoClicked);
+				undo.Activated += UndoClicked;
 				undo.AddAccelerator ("activate",
 						     accel_group,
 						     (uint) Gdk.Key.z, 
@@ -546,7 +558,7 @@ namespace Tomboy
 				Append (undo);
 
 				redo = new Gtk.ImageMenuItem (Gtk.Stock.Redo, accel_group);
-				redo.Activated += new EventHandler (RedoClicked);
+				redo.Activated += RedoClicked;
 				redo.AddAccelerator ("activate",
 						     accel_group,
 						     (uint) Gdk.Key.z, 
@@ -561,13 +573,13 @@ namespace Tomboy
 
 				// Listen to events so we can sensitize and
 				// enable keybinding
-				undo_manager.UndoChanged += new EventHandler (UndoChanged);
+				undo_manager.UndoChanged += UndoChanged;
 			}
 
 			bold = new Gtk.CheckMenuItem (Catalog.GetString ("<b>_Bold</b>"));
 			MarkupLabel (bold);
 			bold.Data ["Tag"] = "bold";
-			bold.Activated += new EventHandler (FontStyleClicked);
+			bold.Activated += FontStyleClicked;
 			bold.AddAccelerator ("activate",
 					     accel_group,
 					     (uint) Gdk.Key.b, 
@@ -577,7 +589,7 @@ namespace Tomboy
 			italic = new Gtk.CheckMenuItem (Catalog.GetString ("<i>_Italic</i>"));
 			MarkupLabel (italic);
 			italic.Data ["Tag"] = "italic";
-			italic.Activated += new EventHandler (FontStyleClicked);
+			italic.Activated += FontStyleClicked;
 			italic.AddAccelerator ("activate",
 					       accel_group,
 					       (uint) Gdk.Key.i, 
@@ -587,7 +599,7 @@ namespace Tomboy
 			strikeout = new Gtk.CheckMenuItem (Catalog.GetString ("<s>_Strikeout</s>"));
 			MarkupLabel (strikeout);
 			strikeout.Data ["Tag"] = "strikethrough";
-			strikeout.Activated += new EventHandler (FontStyleClicked);
+			strikeout.Activated += FontStyleClicked;
 			strikeout.AddAccelerator ("activate",
 						  accel_group,
 						  (uint) Gdk.Key.s, 
@@ -599,7 +611,7 @@ namespace Tomboy
 							   "</span>");
 			MarkupLabel (highlight);
 			highlight.Data ["Tag"] = "highlight";
-			highlight.Activated += new EventHandler (FontStyleClicked);
+			highlight.Activated += FontStyleClicked;
 			highlight.AddAccelerator ("activate",
 						  accel_group,
 						  (uint) Gdk.Key.h, 
@@ -614,7 +626,7 @@ namespace Tomboy
 			normal = new Gtk.RadioMenuItem (Catalog.GetString ("_Normal"));
 			MarkupLabel (normal);
 			normal.Active = true;
-			normal.Toggled += new EventHandler (FontSizeClicked);
+			normal.Toggled += FontSizeClicked;
 
 			huge = new Gtk.RadioMenuItem (normal.Group, 
 						      "<span size=\"x-large\">" +
@@ -622,7 +634,7 @@ namespace Tomboy
 						      "</span>");
 			MarkupLabel (huge);
 			huge.Data ["Tag"] = "size:huge";
-			huge.Toggled += new EventHandler (FontSizeClicked);
+			huge.Toggled += FontSizeClicked;
 
 			large = new Gtk.RadioMenuItem (huge.Group, 
 						       "<span size=\"large\">" +
@@ -630,7 +642,7 @@ namespace Tomboy
 						       "</span>");
 			MarkupLabel (large);
 			large.Data ["Tag"] = "size:large";
-			large.Toggled += new EventHandler (FontSizeClicked);
+			large.Toggled += FontSizeClicked;
 
 			small = new Gtk.RadioMenuItem (large.Group, 
 						       "<span size=\"small\">" +
@@ -638,7 +650,7 @@ namespace Tomboy
 						       "</span>");
 			MarkupLabel (small);
 			small.Data ["Tag"] = "size:small";
-			small.Toggled += new EventHandler (FontSizeClicked);
+			small.Toggled += FontSizeClicked;
 
 			RefreshState ();
 
