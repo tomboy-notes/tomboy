@@ -89,9 +89,12 @@ Defines.cs: $(srcdir)/Defines.cs.in
 pixmapdir = $(datadir)/pixmaps
 pixmap_DATA = tintin.png
 
+man_MANS = tomboy.1
+
 EXTRA_DIST =            			\
 	$(CSFILES)      			\
 	$(WRAPPER).in				\
+	$(man_MANS)				\
 	$(srcdir)/Defines.cs.in			\
 	$(srcdir)/Start_Here.note		\
 	$(srcdir)/tintin.png			\
