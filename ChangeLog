@@ -1,5 +1,12 @@
 2004-10-13  Alex Graveley  <alex@beatniksoftware.com>
 
+	* Tomboy/Watchers.cs: In NoteRenameWatcher, show a unique name
+	like "(Untitled 42)" if someone deletes the title.  In
+	NoteLineWatcher, use InsertWithTags to fix a bug where a longer
+	renamed title won't be fully marked up.
+
+2004-10-13  Alex Graveley  <alex@beatniksoftware.com>
+
 	* Tomboy/Watchers.cs: Cleanup NoteRenameWatcher to not allow other
 	tags on the title line, handle title line breaks and insertions
 	correctly, wait 1 second before updating the the Note title
