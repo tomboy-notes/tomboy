@@ -731,6 +731,9 @@ namespace Tomboy
 			small.Data ["Tag"] = "size:small";
 			small.Toggled += FontSizeClicked;
 
+			hidden_no_size = new Gtk.RadioMenuItem (small.Group, string.Empty);
+			hidden_no_size.Hide ();
+
 			RefreshState ();
 
 			Append (bold);
@@ -744,9 +747,6 @@ namespace Tomboy
 			Append (large);
 			Append (huge);
 			ShowAll ();
-
-			hidden_no_size = new Gtk.RadioMenuItem (small.Group, string.Empty);
-			hidden_no_size.Hide ();
 		}
 
 		void MarkupLabel (Gtk.MenuItem item)
