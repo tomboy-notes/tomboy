@@ -23,8 +23,14 @@ namespace Tomboy
 				OnNoteOpened ();
 		}
 
+		public void Dispose ()
+		{
+			this.note.Opened -= OnNoteOpenedEvent;
+			Shutdown ();
+		}
+
 		protected abstract void Initialize ();
-		public abstract void Dispose ();
+		protected abstract void Shutdown ();
 		protected abstract void OnNoteOpened ();
 
 		public Note Note
@@ -47,19 +53,9 @@ namespace Tomboy
 			get { return note.Manager; }
 		}
 
-		void OnNoteOpenedTimeout (object sender, EventArgs args)
-		{
-			OnNoteOpened ();
-		}
-
 		void OnNoteOpenedEvent (object sender, EventArgs args)
 		{
-			// Call OnNoteOpened in a timeout so we don't confuse
-			// Gtk by rendering inside Window.Realize
-
-			InterruptableTimeout timeout = new InterruptableTimeout ();
-			timeout.Timeout += OnNoteOpenedTimeout;
-			timeout.Reset (0);
+			OnNoteOpened ();
 		}
 	}
 
@@ -88,7 +84,6 @@ namespace Tomboy
 		public PluginManager (string plugins_dir)
 		{
 			this.plugins_dir = plugins_dir;
-			CreatePluginsDir ();
 
 			dir_watcher = new FileSystemWatcher (plugins_dir, "*.dll");
 			dir_watcher.Created += OnPluginCreated;
@@ -111,7 +106,6 @@ namespace Tomboy
 			Process.Start ("nautilus", args);
 		}
 
-
 		public void LoadPluginsForNote (Note note)
 		{
 			ArrayList note_plugins = new ArrayList ();
@@ -131,11 +125,24 @@ namespace Tomboy
 			note.Manager.NoteDeleted += OnNoteDeleted;
 		}
 
+		public static void CreatePluginsDir (string plugins_dir)
+		{
+			// Plugins dir
+			if (!Directory.Exists (plugins_dir))
+				Directory.CreateDirectory (plugins_dir);
+
+			// Plugins/Uninstalled Plugins dir
+			string uninstalled_dir = Path.Combine (plugins_dir, "Uninstalled Plugins");
+			if (!File.Exists (uninstalled_dir)) {
+				// FIXME: Handle the error.
+				Syscall.symlink (Defines.SYS_PLUGINS_DIR, uninstalled_dir);
+			}
+		}
+
 		void OnNoteDeleted (object sender, Note deleted)
 		{
 			// Clean out the plugins for this deleted note.
 			ArrayList note_plugins = (ArrayList) plugin_hash [deleted];
-			plugin_hash [deleted] = null;
 
 			if (note_plugins != null) {
 				foreach (NotePlugin plugin in note_plugins)
@@ -143,6 +150,8 @@ namespace Tomboy
 
 				note_plugins.Clear ();
 			}
+
+			plugin_hash.Remove (deleted);
 		}
 
 		void OnPluginCreated (object sender, FileSystemEventArgs args)
@@ -208,36 +217,6 @@ namespace Tomboy
 			}
 
 			kill_list.Clear ();
-		}
-
-		void CreatePluginsDir ()
-		{
-			// Plugins dir
-			if (!Directory.Exists (plugins_dir))
-				Directory.CreateDirectory (plugins_dir);
-
-			// Plugins/.directory
-			string plugins_dot_directory = Path.Combine (plugins_dir, ".directory");
-			if (!File.Exists (plugins_dot_directory)) {
-				// copy from resource file
-			}
-
-			// Plugins/Uninstalled Plugins dir
-			string uninstalled_dir = Path.Combine (plugins_dir, "Uninstalled Plugins");
-			if (!File.Exists (uninstalled_dir)) {
-				// FIXME: Handle the error.
-				int retval = Syscall.symlink (Defines.SYS_PLUGINS_DIR, 
-							      uninstalled_dir);
- 
-				if (retval == 0) {
-					// Plugins/Uninstalled Plugins/.directory
-					string uninstalled_dot_directory = 
-						Path.Combine (uninstalled_dir, ".directory");
-					if (!File.Exists (uninstalled_dot_directory)) {
-						// copy from resource file
-					}
-				}
-			}
 		}
 
 		ArrayList FindPluginTypes ()

@@ -155,15 +155,10 @@ namespace Tomboy
 			QueueSave (false);
 		}
 
-		void WindowDeleted (object sender, Gtk.DeleteEventArgs args) 
+		[GLib.ConnectBefore]
+		void WindowDestroyed (object sender, EventArgs args) 
 		{
 			window = null;
-		}
-
-		void WindowRealized (object sender, EventArgs args)
-		{
-			if (Opened != null)
-				Opened (this, args);
 		}
 
 		// Set a 4 second timeout to execute the save.  Possibly invalid the text, which
@@ -328,9 +323,8 @@ namespace Tomboy
 			get {
 				if (window == null) {
 					window = new NoteWindow (this);
-					window.DeleteEvent += WindowDeleted;
+					window.Destroyed += WindowDestroyed;
 					window.ConfigureEvent += WindowConfigureEvent;
-					window.Realized += WindowRealized;
 					
 					if (width != 0 && height != 0)
 						window.SetDefaultSize (width, height);
@@ -340,6 +334,11 @@ namespace Tomboy
 						window.SetPosition (Gtk.WindowPosition.Center);
 					else
 						window.Move (x, y);
+
+					// This is here because emiting
+					// OnRealized causes segfaults.
+					if (Opened != null)
+						Opened (this, new EventArgs ());
 				}
 				return window; 
 			}
@@ -362,7 +361,7 @@ namespace Tomboy
 
 		public bool IsOpened 
 		{
-			get { return window != null && window.IsMapped; }
+			get { return window != null; }
 		}
 
 		public event EventHandler Opened;

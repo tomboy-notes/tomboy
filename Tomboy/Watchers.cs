@@ -17,7 +17,7 @@ namespace Tomboy
 			// Do nothing.
 		}
 
-		public override void Dispose ()
+		protected override void Shutdown ()
 		{
 			// Do nothing.
 		}
@@ -53,7 +53,7 @@ namespace Tomboy
 			Buffer.ApplyTag ("note-title", TitleStart, TitleEnd);
 		}
 
-		// This only gets called on an explicit move, not by
+		// This only gets called on an explicit move, not when typing
 		void OnMarkSet (object sender, Gtk.MarkSetArgs args)
 		{
 			Update ();
@@ -191,7 +191,7 @@ namespace Tomboy
 			LinkCreated += OnLinkCreated;
 		}
 
-		public override void Dispose ()
+		protected override void Shutdown ()
 		{
 			// Do nothing.
 		}
@@ -333,7 +333,7 @@ namespace Tomboy
 			// Do nothing.
 		}
 
-		public override void Dispose ()
+		protected override void Shutdown ()
 		{
 			// Do nothing.
 		}
@@ -393,9 +393,11 @@ namespace Tomboy
 		void TagApplied (object sender, Gtk.TagAppliedArgs args)
 		{
 			if (args.Tag.Name == "gtkspell-misspelled") {
-				// Remove misspelled tag for links 
+				// Remove misspelled tag for links & title
 				foreach (Gtk.TextTag tag in args.StartChar.Tags) {
-					if (tag.Name != null && tag.Name.StartsWith ("link:")) {
+					if (tag.Name != null && 
+					    (tag.Name.StartsWith ("link:") || 
+					     tag.Name == "note-title")) {
 						Buffer.RemoveTag ("gtkspell-misspelled", 
 								  args.StartChar, 
 								  args.EndChar);
@@ -403,7 +405,8 @@ namespace Tomboy
 					}
 				}
 			} else if (args.Tag.Name != null && 
-				   args.Tag.Name.StartsWith ("link:")) {
+				   (args.Tag.Name.StartsWith ("link:") ||
+				    args.Tag.Name == "note-title")) {
 				Gtk.TextTag misspell = Buffer.TagTable.Lookup ("gtkspell-misspelled");
 				if (misspell != null) {
 					Buffer.RemoveTag ("gtkspell-misspelled", 
@@ -434,7 +437,7 @@ namespace Tomboy
 			// Do nothing.
 		}
 
-		public override void Dispose ()
+		protected override void Shutdown ()
 		{
 			// Do nothing.
 		}
@@ -614,14 +617,11 @@ namespace Tomboy
 
 			public void Update ()
 			{
-				Console.WriteLine ("UPDATING TITLE CACHE!!");
+				title_trie = new TrieTree (false /* !case_sensitive */);
 
-				ArrayList titles = new ArrayList (manager.Notes.Count);
 				foreach (Note note in manager.Notes) {
-					titles.Add (note.Title);
+					title_trie.AddKeyword (note.Title, note);
 				}
-
-				title_trie = new TrieTree (titles, false /* !case_sensitive */);
 			}
 
 			public TrieTree TitleTrie 
@@ -639,7 +639,7 @@ namespace Tomboy
 			Manager.NoteRenamed += OnNoteRenamed;
 		}
 
-		public override void Dispose ()
+		protected override void Shutdown ()
 		{
 			// Do nothing.
 		}
@@ -769,16 +769,13 @@ namespace Tomboy
 						  new MatchHandler (TitleFound));
 			}
 
-			void TitleFound (string haystack, int start_idx, int end_idx)
+			void TitleFound (string haystack, int start_idx, object value)
 			{
-				string title = haystack.Substring (start_idx, end_idx - start_idx);
-				if (title == note.Title)
+				Note match_note = (Note) value;
+
+				if (match_note == note)
 					return;
 
-				Note link = note.Manager.Find (title);
-				if (link == null)
-					return;
-				
 				Gtk.TextIter title_start = start;
 				title_start.ForwardChars (start_idx);
 
@@ -786,10 +783,10 @@ namespace Tomboy
 				if (title_start.HasTag (url_tag))
 					return;
 
-				Gtk.TextIter title_end = start;
-				title_end.ForwardChars (end_idx);
+				Gtk.TextIter title_end = title_start;
+				title_end.ForwardChars (match_note.Title.Length);
 
-				Console.WriteLine ("Matching Note title '{0}'...", title);
+				Console.WriteLine ("Matching Note title '{0}'...", match_note.Title);
 
 				note.Buffer.RemoveTag (broken_link_tag,
 						       title_start,
@@ -808,7 +805,7 @@ namespace Tomboy
 
 				return trie_controller.TitleTrie;
 			}
-		}		
+		}
 
 		void HighlightInBlock (Gtk.TextIter start, Gtk.TextIter end) 
 		{
@@ -824,6 +821,9 @@ namespace Tomboy
 
 		void GetBlockExtents (ref Gtk.TextIter start, ref Gtk.TextIter end) 
 		{
+			// FIXME: Should only be processing the largest title
+			// size, so we don't slow down for large paragraphs 
+
 			start.LineOffset = 0;
 			end.ForwardToLineEnd ();
 		}
@@ -872,7 +872,7 @@ namespace Tomboy
 			// Do nothing.
 		}
 
-		public override void Dispose ()
+		protected override void Shutdown ()
 		{
 			// Do nothing.
 		}
@@ -986,7 +986,7 @@ namespace Tomboy
 			// Do nothing.
 		}
 
-		public override void Dispose ()
+		protected override void Shutdown ()
 		{
 			// Do nothing.
 		}
@@ -1177,7 +1177,7 @@ namespace Tomboy
 			// Do nothing.
 		}
 
-		public override void Dispose ()
+		protected override void Shutdown ()
 		{
 			// Do nothing.
 		}

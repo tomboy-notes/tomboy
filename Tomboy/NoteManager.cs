@@ -38,8 +38,11 @@ namespace Tomboy
 				Directory.CreateDirectory (notes_dir);
 			}
 
-			// Create & populate the Plugins dir if it don't exist
+			// Create & populate the Plugins dir if it doesn't exist
 			string plugins_dir = Path.Combine (notes_dir, "Plugins");
+			if (!Directory.Exists (plugins_dir))
+				PluginManager.CreatePluginsDir (plugins_dir);
+
 			plugin_mgr = new PluginManager (plugins_dir);
 
 			if (first_run) {
