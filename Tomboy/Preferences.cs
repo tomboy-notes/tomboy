@@ -41,10 +41,12 @@ namespace Tomboy
 		{
 			switch (key) {
 			case ENABLE_SPELLCHECKING:
-			case ENABLE_WIKIWORDS:
 			case ENABLE_CUSTOM_FONT:
 			case ENABLE_KEYBINDINGS:
 				return true;
+
+			case ENABLE_WIKIWORDS:
+				return false;
 
 			case CUSTOM_FONT_FACE:
 				return "Serif 11";
