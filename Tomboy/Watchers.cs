@@ -258,7 +258,7 @@ namespace Tomboy
 		Gtk.TextTag url_tag;
 
 		const string URL_REGEX = 
-			@"((\b((news|http|https|ftp|file|irc)://|mailto:|(www|ftp)\.|\S*@\S*\.)|/\S+/)\S*\b/?)";
+			@"((\b((news|http|https|ftp|file|irc)://|mailto:|(www|ftp)\.|\S*@\S*\.)|(^|\s)/\S+/)\S*\b/?)";
 
 		static Regex regex;
 
