@@ -73,25 +73,25 @@ tomboylib_DATA = $(TARGET) $(TARGET).config
 
 bin_SCRIPTS = $(WRAPPER)
 
-$(WRAPPER): $(srcdir)/$(WRAPPER).in
+$(WRAPPER): $(srcdir)/$(WRAPPER).in Makefile
 	sed -e "s|\@prefix\@|$(prefix)|g" 		\
 	    -e "s|\@pkglibdir\@|$(pkglibdir)|g" 	\
 	    -e "s|\@bindir\@|$(bindir)|g"		\
 	    -e "s|\@target\@|$(TARGET)|g" 		\
 	    -e "s|\@wrapper\@|$(WRAPPER)|g"		\
 	    -e "s|\@extragac\@|$(EXTRA_GAC_PREFIX)|g"	\
-	    < $^ > $@
+	    < $< > $@
 	chmod +x $(WRAPPER)
 
-$(TARGET).config: $(srcdir)/$(TARGET).config.in
+$(TARGET).config: $(srcdir)/$(TARGET).config.in Makefile
 	sed -e "s|\@pkglibdir\@|$(pkglibdir)|" \
-	    < $^ > $@
+	    < $< > $@
 
-$(srcdir)/Defines.cs: $(srcdir)/Defines.cs.in
+$(srcdir)/Defines.cs: $(srcdir)/Defines.cs.in Makefile
 	sed -e "s|\@version\@|$(VERSION)|"     \
 	    -e "s|\@datadir\@|$(datadir)|"     \
 	    -e "s|\@pkglibdir\@|$(pkglibdir)|" \
-	    < $^ > $@
+	    < $< > $@
 
 
 EXTRA_DIST =            		\
