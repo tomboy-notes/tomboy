@@ -730,6 +730,7 @@ namespace Tomboy
 			Gtk.TextIter start;
 			Gtk.TextIter end;
 
+			Gtk.TextTag url_tag;
 			Gtk.TextTag link_tag;
 			Gtk.TextTag broken_link_tag;
 
@@ -741,6 +742,7 @@ namespace Tomboy
 				this.start = start;
 				this.end = end;
 
+				this.url_tag = note.Buffer.TagTable.Lookup ("link:url");
 				this.link_tag = note.Buffer.TagTable.Lookup ("link:internal");
 				this.broken_link_tag = note.Buffer.TagTable.Lookup ("link:broken");
 			}
@@ -763,6 +765,10 @@ namespace Tomboy
 				
 				Gtk.TextIter title_start = start;
 				title_start.ForwardChars (start_idx);
+
+				// Don't create links inside URLs
+				if (title_start.HasTag (url_tag))
+					return;
 
 				Gtk.TextIter title_end = start;
 				title_end.ForwardChars (end_idx);
