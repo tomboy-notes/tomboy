@@ -64,7 +64,7 @@ $(TARGET): $(CSFILES) $(srcdir)/Defines.cs
 	$(CSC) -o $@ $(CSFLAGS) $^ $(ASSEMBLIES) $(RESOURCES)
 
 tomboylibdir = $(pkglibdir)
-tomboylib_DATA = $(TARGET)
+tomboylib_DATA = $(TARGET) $(TARGET).config
 
 
 bin_SCRIPTS = $(WRAPPER)
@@ -79,6 +79,9 @@ $(WRAPPER): $(srcdir)/$(WRAPPER).in
 	    < $^ > $@
 	chmod +x $(WRAPPER)
 
+$(TARGET).config: $(srcdir)/$(TARGET).config.in
+	sed -e "s|\@pkglibdir\@|$(pkglibdir)|" \
+	    < $^ > $@
 
 Defines.cs: $(srcdir)/Defines.cs.in
 	sed -e "s|\@version\@|$(VERSION)|" \
@@ -89,7 +92,8 @@ Defines.cs: $(srcdir)/Defines.cs.in
 EXTRA_DIST =            		\
 	$(CSFILES)      		\
 	$(WRAPPER).in			\
-	$(srcdir)/Defines.cs.in
+	$(TARGET).config.in		\
+	$(srcdir)/Defines.cs.in	
 
 CLEANFILES =		\
 	$(TARGET) 	\
