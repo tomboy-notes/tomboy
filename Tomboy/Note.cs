@@ -87,6 +87,13 @@ namespace Tomboy
 			plugin = new MouseHandWatcher ();
 			plugin.Initialize (this);
 			loaded_plugins.Add (plugin);
+
+			// Handle Indenting and bullets
+			/*
+			plugin = new IndentWatcher ();
+			plugin.Initialize (this);
+			loaded_plugins.Add (plugin);
+			*/
 		}
 
 		public void Delete ()
@@ -163,6 +170,11 @@ namespace Tomboy
 		void WindowConfigureEvent (object sender, Gtk.ConfigureEventArgs args)
 		{
 			int cur_x, cur_y, cur_width, cur_height;
+
+			// Ignore events when maximized.  We don't want notes
+			// popping up maximized the next run.
+			if ((window.GdkWindow.State & Gdk.WindowState.Maximized) > 0)
+				return;
 
 			window.GetPosition (out cur_x, out cur_y);
 			window.GetSize (out cur_width, out cur_height);

@@ -122,12 +122,17 @@ namespace Tomboy
 
 		protected override bool OnDeleteEvent (Gdk.Event evnt)
 		{
-			Hide ();
+			CloseWindowHandler (null, null);
 			return true;
 		}
 
 		void CloseWindowHandler (object sender, EventArgs args)
 		{
+			// Unmaximize before hiding to avoid reopening
+			// pseudo-maximized
+			if ((GdkWindow.State & Gdk.WindowState.Maximized) > 0)
+				Unmaximize ();
+
 			Hide ();
 		}
 

@@ -881,14 +881,38 @@ namespace Tomboy
 
 		public void OnNoteOpened (object sender, EventArgs args)
 		{
-			Gtk.TextView editor = Window.Editor;
-			editor.KeyPressEvent += OnEditorKeyPress;
+			Window.Editor.KeyPressEvent += OnEditorKeyPress;
+			Buffer.InsertText += OnInsertText;
 		}
 
 		[GLib.ConnectBefore]
 		void OnEditorKeyPress (object sender, Gtk.KeyPressEventArgs args) 
 		{
 			switch (args.Event.Key) {
+				/*
+			case Gdk.Key.asterisk:
+				Console.WriteLine ("Got Asterisk!");
+
+				{
+				Gtk.TextIter insert = Buffer.GetIterAtMark (Buffer.InsertMark);
+				if (!insert.StartsLine ())
+					break;
+
+				Gtk.TextIter para_end = insert;
+				para_end.ForwardToLineEnd ();
+
+				Console.WriteLine ("Setting hanging indent!");
+
+				Gtk.TextTag indent_tag = new Gtk.TextTag (null);
+				indent_tag.Indent = -10;
+				indent_tag.Data ["has_indent"] = true;
+
+				Buffer.TagTable.Add (indent_tag);
+				Buffer.ApplyTag (indent_tag, insert, para_end);
+				}
+				break;
+				*/
+				
 			case Gdk.Key.Tab:
 			case Gdk.Key.KP_Tab:
 				Console.WriteLine ("Got Tab!");
@@ -905,7 +929,7 @@ namespace Tomboy
 				bool indent_exists = false;
 
 				foreach (Gtk.TextTag tag in insert.Tags) {
-					if (tag.Data ["has_indent"] != null) {
+					if (tag.Data ["has_margin"] != null) {
 						Console.WriteLine ("Has Indent Already! Updating!");
 						tag.LeftMargin = tag.LeftMargin + 40;
 						indent_exists = true;
@@ -916,7 +940,7 @@ namespace Tomboy
 				if (!indent_exists) {
 					Gtk.TextTag indent_tag = new Gtk.TextTag (null);
 					indent_tag.LeftMargin = 40;
-					indent_tag.Data ["has_indent"] = true;
+					indent_tag.Data ["has_margin"] = true;
 
 					Buffer.TagTable.Add (indent_tag);
 					Buffer.ApplyTag (indent_tag, insert, para_end);
@@ -938,7 +962,7 @@ namespace Tomboy
 				para_end2.ForwardToLineEnd ();
 
 				foreach (Gtk.TextTag tag in insert2.Tags) {
-					if (tag.Data ["has_indent"] != null) {
+					if (tag.Data ["has_margin"] != null) {
 						Console.WriteLine ("Has Indent Already! Updating!");
 						tag.LeftMargin = tag.LeftMargin - 40;
 						if (tag.LeftMargin == 0) {
@@ -952,6 +976,24 @@ namespace Tomboy
 				}
 				break;
 			}
+		}
+
+		void OnInsertText (object sender, Gtk.InsertTextArgs args)
+		{
+			Console.WriteLine ("Trying hanging indent! line-offset:{0}", args.Pos.LineOffset);
+
+			if (args.Text != "*" || args.Pos.LineOffset != 1)
+				return;
+
+			Gtk.TextIter para_start = args.Pos;
+			para_start.BackwardChar ();
+
+			Gtk.TextTag indent_tag = new Gtk.TextTag (null);
+			indent_tag.Indent = -10;
+			indent_tag.Data ["has_indent"] = true;
+
+			Buffer.TagTable.Add (indent_tag);
+			Buffer.ApplyTag (indent_tag, para_start, args.Pos);
 		}
 	}
 
