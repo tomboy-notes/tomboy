@@ -1,3 +1,22 @@
+2004-09-21  Alex Graveley  <alex@beatniksoftware.com>
+
+	* configure.in: Drop the gtkspell 2.0.6 dependency.  Bump version
+	to 0.1.2.
+	* tomboy.spec.in (Requires): Ditto.
+
+	* Tomboy/NoteWindow.cs: Bind find-next and find-previous to the
+	right callback, instead of CloseWindowHandler.  Doh.
+
+	* Tomboy/Watchers.cs: Override gtkspell's tag to use the squiggly
+	with a black foreground text color.  This makes us not depend on
+	the newest gtkspell versions.  Gtk 2.2 versions of pango will just
+	show misspellings as black text with a regular underline.
+
+	* Tomboy/Search.cs (OnFindPreviousClicked): Fix bug where previous
+	was only jumping between first and last match.
+
+	* www/index.html: Point to 0.1.2 tarball.
+
 2004-09-20  Alex Graveley  <alex@beatniksoftware.com>
 
 	* Tomboy/NoteWindow.cs: Allow escape and Ctrl-w to close a note
