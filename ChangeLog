@@ -1,3 +1,10 @@
+2005-03-29  Alex Graveley  <agraveley@beatniksoftware.com>
+
+	* Tomboy/NoteWindow.cs: Work around bug in regex match of multiple
+	URLs across newlines.  Use a single Insert so that drops are
+	undoable. P/Invoke call gtk_drag_dest_get_target_list() ourselves,
+	to avoid methodref incompatibility in Gtk# builds.
+
 2005-03-28  Alex Graveley  <alex@beatniksoftware.com>
 
 	* Tomboy/NoteWindow.cs: Fix URI dropping by overriding

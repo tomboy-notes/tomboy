@@ -1,5 +1,7 @@
 
 using System;
+using System.Runtime.InteropServices;
+using System.Text;
 using Mono.Posix;
 
 namespace Tomboy
@@ -26,10 +28,20 @@ namespace Tomboy
 
 			// Set extra editor drag targets supported (in addition
 			// to the default TextView's various text formats)...
-			Gtk.TargetList list = Gtk.Drag.DestGetTargetList (this);
+			//// Gtk.TargetList list = Gtk.Drag.DestGetTargetList (this);
+
+			IntPtr list_ptr = gtk_drag_dest_get_target_list (this.Handle);
+			Gtk.TargetList list = new Gtk.TargetList (list_ptr);
+
 			list.Add (Gdk.Atom.Intern ("text/uri-list", false), 0, 1);
 			list.Add (Gdk.Atom.Intern ("_NETSCAPE_URL", false), 0, 1);
 		}
+
+		// FIXME: Gtk# broke compatibility at some point with the
+		// methodref for DestGetTargetList.  We invoke it manually so
+		// our binary will work for everyone.
+		[DllImport("libgtk-win32-2.0-0.dll")]
+		static extern IntPtr gtk_drag_dest_get_target_list (IntPtr raw);
 
 		//
 		// Update the font based on the changed Preference dialog setting.
@@ -80,23 +92,28 @@ namespace Tomboy
 
 			if (has_url) {
 				UriList uri_list = new UriList (selection_data);
-				Gtk.TextIter cursor = Buffer.GetIterAtMark (Buffer.InsertMark);
-				bool more_than_one = false;
+				StringBuilder insert = new StringBuilder ();
 
 				foreach (Uri uri in uri_list) {
 					Console.WriteLine ("Got Dropped URI: {0}", uri);
-					if (more_than_one)
-						Buffer.Insert (cursor, "\n");
+
+					// FIXME: The space here is a hack
+					// around a bug in the URL Regex which
+					// matches across newlines.
+					if (insert.Length > 0)
+						insert.Append (" \n");
 
 					if (uri.IsFile) 
-						Buffer.Insert (cursor, uri.LocalPath);
+						insert.Append (uri.LocalPath);
 					else
-						Buffer.Insert (cursor, uri.ToString ());
-
-					more_than_one = true;
+						insert.Append (uri.ToString ());
 				}
 
-				Gtk.Drag.Finish (context, more_than_one, false, time);
+				if (insert.Length > 0)
+					Buffer.Insert (Buffer.GetIterAtMark (Buffer.InsertMark),
+						       insert.ToString ());
+
+				Gtk.Drag.Finish (context, insert.Length > 0, false, time);
 			} else {
 				base.OnDragDataReceived (context, x, y, selection_data, info, time);
 			}
