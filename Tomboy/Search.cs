@@ -51,6 +51,9 @@ namespace Tomboy
 				instance.search_all_notes.Sensitive = true; // allow switching
 
 				instance.UpdateResults ();
+
+				// FIXME: Unconnect from previous note's change events
+				instance.AddNoteChangeListener ();
 			}
 
 			return instance;
@@ -69,6 +72,8 @@ namespace Tomboy
 				instance.search_all_notes.Sensitive = false; // force it
 
 				instance.UpdateResults ();
+
+				// FIXME: Unconnect from previous manager's change events
 				instance.AddManagerChangeListeners ();
 			}
 
@@ -582,17 +587,33 @@ namespace Tomboy
 		void AddManagerChangeListeners ()
 		{
 			// Update on changes to notes
-			manager.NoteDeleted += OnNotesChanged;
-			manager.NoteAdded += OnNotesChanged;
+			manager.NoteDeleted += OnNoteAddOrDelete;
+			manager.NoteAdded += OnNoteAddOrDelete;
 			manager.NoteRenamed += OnNoteRenamed;
 		}
 
-		void OnNotesChanged (object sender, Note changed)
+		void OnNoteAddOrDelete (object sender, Note changed)
 		{
 			UpdateResults ();
 		}
 
 		void OnNoteRenamed (Note note, string old_title)
+		{
+			UpdateResults ();
+		}
+
+		void AddNoteChangeListener ()
+		{
+			current_note.Buffer.InsertText += OnInsertText;
+			current_note.Buffer.DeleteRange += OnDeleteRange;
+		}
+
+		void OnInsertText (object sender, Gtk.InsertTextArgs args)
+		{
+			UpdateResults ();
+		}
+
+		void OnDeleteRange (object sender, Gtk.DeleteRangeArgs args)
 		{
 			UpdateResults ();
 		}
