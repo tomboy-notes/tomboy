@@ -12,7 +12,7 @@ namespace Tomboy
 	{
 		string filepath;
 
-		DateTime save_date;
+		DateTime change_date;
 		uint save_timeout_id;
 		bool save_needed;
 		bool is_new;
@@ -41,7 +41,7 @@ namespace Tomboy
 			this.filepath = filepath;
 			this.manager = manager;
 			this.is_new = true;
-			this.save_date = DateTime.Now;
+			this.change_date = DateTime.Now;
 		}
 
 		Note (string filepath, NoteManager manager)
@@ -49,7 +49,7 @@ namespace Tomboy
 			this.manager = manager;
 			this.filepath = filepath;
 			this.is_new = false;
-			this.save_date = File.GetLastWriteTime (filepath);
+			this.change_date = File.GetLastWriteTime (filepath);
 		}
 
 		public void Delete ()
@@ -78,13 +78,7 @@ namespace Tomboy
 
 			Console.WriteLine ("Saving '{0}'...", title);
 
-			if (window != null) {
-				window.GetPosition (out x, out y);
-				window.GetSize (out width, out height);
-			}
-
 			NoteArchiver.Write (filepath, this);
-			save_date = DateTime.Now;
 		}
 
 		void BufferChanged (object sender, EventArgs args)
@@ -126,11 +120,18 @@ namespace Tomboy
 			window.GetPosition (out cur_x, out cur_y);
 			window.GetSize (out cur_width, out cur_height);
 
-			if (x != cur_x || 
-			    y != cur_y ||
-			    width != cur_width || 
-			    height != cur_height)
-				QueueSave (false);
+			if (x == cur_x && 
+			    y == cur_y &&
+			    width == cur_width && 
+			    height == cur_height)
+				return;
+
+			x = cur_x;
+			y = cur_y;
+			width = cur_width;
+			height = cur_height;
+			
+			QueueSave (false);
 		}
 
 		void WindowDeleted (object sender, Gtk.DeleteEventArgs args) 
@@ -150,8 +151,10 @@ namespace Tomboy
 			save_needed = true;
 
 			// Force a re-get of text on save
-			if (invalidate_text)
+			if (invalidate_text) {
+				change_date = DateTime.Now;
 				text = null;
+			}
 		}
 
 		// Save timeout to avoid constanly resaving.
@@ -166,6 +169,16 @@ namespace Tomboy
 			}
 
 			return save_needed;
+		}
+
+		// This is not a particularly good Uri scheme for notes, but
+		// it mirrors the one used by the Beagle backend.
+		public string Uri
+		{
+			get { 
+				return "note://tomboy/" + 
+					Path.GetFileNameWithoutExtension (filepath); 
+			}
 		}
 
 		public string FilePath 
@@ -216,9 +229,9 @@ namespace Tomboy
 			}
 		}
 
-		public DateTime SaveDate 
+		public DateTime ChangeDate 
 		{
-			get { return save_date;	}
+			get { return change_date; }
 		}
 
 		public NoteManager Manager
@@ -265,10 +278,10 @@ namespace Tomboy
 					buffer.Undoer.ThawUndo ();
 
 					// Listen for further changed signals
-					buffer.Changed += new EventHandler (BufferChanged);
-					buffer.TagApplied += new Gtk.TagAppliedHandler (BufferTagApplied);
-					buffer.TagRemoved += new Gtk.TagRemovedHandler (BufferTagRemoved);
-					buffer.MarkSet += new Gtk.MarkSetHandler (BufferInsertMarkSet);
+					buffer.Changed += BufferChanged;
+					buffer.TagApplied += BufferTagApplied;
+					buffer.TagRemoved += BufferTagRemoved;
+					buffer.MarkSet += BufferInsertMarkSet;
 				}
 				return buffer;
 			}
@@ -279,10 +292,8 @@ namespace Tomboy
 			get {
 				if (window == null) {
 					window = new NoteWindow (this);
-					window.DeleteEvent += 
-						new Gtk.DeleteEventHandler (WindowDeleted);
-					window.ConfigureEvent +=
-						new Gtk.ConfigureEventHandler (WindowConfigureEvent);
+					window.DeleteEvent += WindowDeleted;
+					window.ConfigureEvent += WindowConfigureEvent;
 
 					// Start spell-checking
 					note_spell_check = new NoteSpellChecker (this);
@@ -301,23 +312,29 @@ namespace Tomboy
 					// Show mouse hand on link hover
 					new MouseHandWatcher (this);
 					
-					if (width != 0 && height != 0) {
+					if (width != 0 && height != 0)
 						window.SetDefaultSize (width, height);
+
+					// Center new notes on screen
+					if (x == 0 && y == 0)
+						window.SetPosition (Gtk.WindowPosition.Center);
+					else
 						window.Move (x, y);
-					}
 				}
 				return window; 
 			}
 		}
 
 		public bool IsSpecial {
-			get {
-				return title == Catalog.GetString ("Start Here");
-			}
+			get { return title == Catalog.GetString ("Start Here"); }
 		}
 
 		public bool IsNew {
 			get { return is_new; }
+		}
+
+		public bool IsOpened {
+			get { return window != null && window.IsMapped; }
 		}
 	}
 

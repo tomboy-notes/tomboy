@@ -224,10 +224,10 @@ namespace Tomboy
 			undo_stack = new Stack ();
 			redo_stack = new Stack ();
 			
-			buffer.InsertTextWithTags += new Gtk.InsertTextHandler (TextInserted);
-			buffer.DeleteRange += new Gtk.DeleteRangeHandler (RangeDeleted);
-			buffer.TagApplied += new Gtk.TagAppliedHandler (TagApplied);
-			buffer.TagRemoved += new Gtk.TagRemovedHandler (TagRemoved);
+			buffer.InsertTextWithTags += TextInserted;
+			buffer.DeleteRange += RangeDeleted;
+			buffer.TagApplied += TagApplied;
+			buffer.TagRemoved += TagRemoved;
 		}
 
 		void TextInserted (object sender, Gtk.InsertTextArgs args)

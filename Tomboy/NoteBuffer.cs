@@ -184,8 +184,8 @@ namespace Tomboy
 			active_tags = new ArrayList ();
 			undo_manager = new UndoManager (this);
 
-			InsertText += new Gtk.InsertTextHandler (TextInsertedEvent);
-			MarkSet += new Gtk.MarkSetHandler (MarkSetEvent);
+			InsertText += TextInsertedEvent;
+			MarkSet += MarkSetEvent;
 		}
 
 		// Signal that text has been inserted, and any active tags have

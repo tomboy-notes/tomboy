@@ -1,6 +1,5 @@
 
 
-#include <gtk/gtkmain.h>
 #include <gdk/gdk.h>
 #include <gdk/gdkwindow.h>
 #include <gdk/gdkx.h>
@@ -9,7 +8,16 @@
 #include "eggaccelerators.h"
 #include "tomboykeybinder.h"
 
-GSList *bindings = NULL;
+static GSList *bindings = NULL;
+
+/* Uncomment the next line to print a debug trace. */
+/* #define DEBUG */
+
+#ifdef DEBUG
+#  define TRACE(x) x
+#else
+#  define TRACE(x) do {} while (FALSE);
+#endif
 
 typedef struct _Binding {
 	TomboyBindkeyHandler  handler;
@@ -19,158 +27,170 @@ typedef struct _Binding {
 	uint                  modifiers;
 } Binding;
 
+static gboolean 
+do_grab_key (Binding *binding)
+{
+	GdkKeymap *keymap = gdk_keymap_get_default ();
+	GdkWindow *rootwin = gdk_get_default_root_window ();
+
+	EggVirtualModifierType virtual_mods = 0;
+	guint keysym = 0;
+
+	if (keymap == NULL || rootwin == NULL)
+		return FALSE;
+
+	if (!egg_accelerator_parse_virtual (binding->keystring, 
+					    &keysym, 
+					    &virtual_mods))
+		return FALSE;
+
+	TRACE (g_print ("Got accel %d, %d\n", keysym, virtual_mods));
+
+	binding->keycode = XKeysymToKeycode (GDK_WINDOW_XDISPLAY (rootwin), 
+					     keysym);
+	if (binding->keycode == 0)
+		return FALSE;
+
+	TRACE (g_print ("Got keycode %d\n", binding->keycode));
+
+	egg_keymap_resolve_virtual_modifiers (keymap,
+					      virtual_mods,
+					      &binding->modifiers);
+
+	TRACE (g_print ("Got modmask %d\n", binding->modifiers));
+
+	XGrabKey (GDK_WINDOW_XDISPLAY (rootwin),
+		  binding->keycode,
+                  binding->modifiers,
+                  GDK_WINDOW_XWINDOW (rootwin),
+                  True,
+                  GrabModeAsync, 
+		  GrabModeAsync);
+
+	return TRUE;
+}
+
+static gboolean 
+do_ungrab_key (Binding *binding)
+{
+	GdkWindow *rootwin = gdk_get_default_root_window ();
+
+	TRACE (g_print ("Removing grab for '%s'\n", binding->keystring));
+
+	XUngrabKey (GDK_WINDOW_XDISPLAY (rootwin),
+		    binding->keycode,
+		    binding->modifiers,
+		    GDK_WINDOW_XWINDOW (rootwin));
+
+	return TRUE;
+}
+
 static GdkFilterReturn
 filter_func (GdkXEvent *gdk_xevent, GdkEvent *event, gpointer data)
 {
-	GdkFilterReturn return_val;
+	GdkFilterReturn return_val = GDK_FILTER_CONTINUE;
+	XEvent *xevent = (XEvent *) gdk_xevent;
 	GSList *iter;
-	XEvent *xevent;
 
-	xevent = (XEvent *) gdk_xevent;
-	return_val = GDK_FILTER_CONTINUE;
-
-	g_print ("Got Event! %d, %d\n", xevent->type, event->type);
+	TRACE (g_print ("Got Event! %d, %d\n", xevent->type, event->type));
 
 	switch (xevent->type) {
 	case KeyPress:
-		g_print ("Got KeyPress! keycode: %d, modifiers: %d\n", 
-			 xevent->xkey.keycode, 
-			 xevent->xkey.state);
+		TRACE (g_print ("Got KeyPress! keycode: %d, modifiers: %d\n", 
+				xevent->xkey.keycode, 
+				xevent->xkey.state));
 
 		for (iter = bindings; iter != NULL; iter = iter->next) {
 			Binding *binding = (Binding *) iter->data;
 
 			if (binding->keycode == xevent->xkey.keycode &&
 			    binding->modifiers == xevent->xkey.state) {
-				g_print ("Calling handler...\n");
+
+				TRACE (g_print ("Calling handler for '%s'...\n", 
+						binding->keystring));
+
 				(binding->handler) (binding->keystring, 
 						    binding->user_data);
 			}
 		}
 		break;
 	case KeyRelease:
-		g_print ("Got KeyRelease! \n");
+		TRACE (g_print ("Got KeyRelease! \n"));
 		break;
 	}
 
 	return return_val;
 }
 
-void
-devirtualize_modifiers (uint                    meta_mask,
-			uint                    hyper_mask,
-			uint                    super_mask,
-			EggVirtualModifierType  modifiers,
-			unsigned int           *mask)
+void 
+keymap_changed (GdkKeymap *map)
 {
-	*mask = 0;
-  
-	if (modifiers & EGG_VIRTUAL_SHIFT_MASK)
-		*mask |= ShiftMask;
-	if (modifiers & EGG_VIRTUAL_CONTROL_MASK)
-		*mask |= ControlMask;
-	if (modifiers & EGG_VIRTUAL_ALT_MASK)
-		*mask |= Mod1Mask;
-	if (modifiers & EGG_VIRTUAL_META_MASK)
-		*mask |= meta_mask;
-	if (modifiers & EGG_VIRTUAL_HYPER_MASK)
-		*mask |= hyper_mask;
-	if (modifiers & EGG_VIRTUAL_SUPER_MASK)
-		*mask |= super_mask;
-	if (modifiers & EGG_VIRTUAL_MOD2_MASK)
-		*mask |= Mod2Mask;
-	if (modifiers & EGG_VIRTUAL_MOD3_MASK)
-		*mask |= Mod3Mask;
-	if (modifiers & EGG_VIRTUAL_MOD4_MASK)
-		*mask |= Mod4Mask;
-	if (modifiers & EGG_VIRTUAL_MOD5_MASK)
-		*mask |= Mod5Mask;  
+	GSList *iter;
+
+	TRACE (g_print ("Keymap changed! Regrabbing keys..."));
+
+	for (iter = bindings; iter != NULL; iter = iter->next) {
+		Binding *binding = (Binding *) iter->data;
+
+		do_ungrab_key (binding);
+		do_grab_key (binding);
+	}
 }
 
-void tomboy_keybinder_init (void)
+void 
+tomboy_keybinder_init (void)
 {
+	GdkKeymap *keymap = gdk_keymap_get_default ();
 	GdkWindow *rootwin = gdk_get_default_root_window ();
 
 	gdk_window_add_filter (rootwin, 
 			       filter_func, 
 			       NULL);
+
+	g_signal_connect (keymap, 
+			  "keys_changed",
+			  G_CALLBACK (keymap_changed),
+			  NULL);
 }
 
-void tomboy_keybinder_bind (const char           *keystring,
-			    TomboyBindkeyHandler  handler,
-			    gpointer              user_data)
+void 
+tomboy_keybinder_bind (const char           *keystring,
+		       TomboyBindkeyHandler  handler,
+		       gpointer              user_data)
 {
 	Binding *binding;
-	GdkKeymap *keymap;
-	GdkWindow *rootwin;
-
-	EggVirtualModifierType virtual_mods = 0;
-	GdkModifierType real_mods = 0;
-	guint keysym = 0;
-	guint keycode = 0;
-
-	if (!egg_accelerator_parse_virtual (keystring, 
-					    &keysym, 
-					    &virtual_mods))
-		return;
-
-	g_print ("Got accel %d, %d\n", keysym, virtual_mods);
-
-	rootwin = gdk_get_default_root_window ();
-
-	keycode = XKeysymToKeycode (GDK_WINDOW_XDISPLAY (rootwin), keysym);
-
-	g_print ("Got keycode %d\n", keycode);
-
-	keymap = gdk_keymap_get_default ();
-	if (!keymap)
-		return;
-
-	egg_keymap_resolve_virtual_modifiers (keymap,
-					      virtual_mods,
-					      &real_mods);
-
-	g_print ("Got modmask %d\n", real_mods);
-
-	XGrabKey (GDK_WINDOW_XDISPLAY (rootwin),
-		  keycode,
-                  real_mods,
-                  GDK_WINDOW_XWINDOW (rootwin),
-                  True,
-                  GrabModeAsync, 
-		  GrabModeAsync);
+	gboolean success;
 
 	binding = g_new0 (Binding, 1);
 	binding->keystring = g_strdup (keystring);
 	binding->handler = handler;
 	binding->user_data = user_data;
-	binding->keycode = keycode;
-	binding->modifiers = real_mods;
 
-	bindings = g_slist_prepend (bindings, binding);
+	/* Sets the binding's keycode and modifiers */
+	success = do_grab_key (binding);
+
+	if (success) {
+		bindings = g_slist_prepend (bindings, binding);
+	} else {
+		g_free (binding->keystring);
+		g_free (binding);
+	}
 }
 
-void tomboy_keybinder_unbind (const char           *keystring, 
-			      TomboyBindkeyHandler  handler)
+void
+tomboy_keybinder_unbind (const char           *keystring, 
+			 TomboyBindkeyHandler  handler)
 {
 	GSList *iter;
 
 	for (iter = bindings; iter != NULL; iter = iter->next) {
 		Binding *binding = (Binding *) iter->data;
-		GdkWindow *rootwin;
-		
+
 		if (strcmp (keystring, binding->keystring) != 0 ||
 		    handler != binding->handler) 
 			continue;
 
-		g_print ("Removing grab for '%s'\n", binding->keystring);
-
-		rootwin = gdk_get_default_root_window ();
-
-		XUngrabKey (GDK_WINDOW_XDISPLAY (rootwin),
-			    binding->keycode,
-			    binding->modifiers,
-			    GDK_WINDOW_XWINDOW (rootwin));
+		do_ungrab_key (binding);
 
 		bindings = g_slist_remove (bindings, binding);
 

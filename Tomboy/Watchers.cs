@@ -20,8 +20,8 @@ namespace Tomboy
 			this.window = note.Window;
 			this.buffer = note.Buffer;
 			
-			buffer.InsertText += new Gtk.InsertTextHandler (OnInsertText);
-			buffer.DeleteRange += new Gtk.DeleteRangeHandler (OnDeleteRange);
+			buffer.InsertText += OnInsertText;
+			buffer.DeleteRange += OnDeleteRange;
 
 			Gtk.TextIter line_end = buffer.StartIter;
 			line_end.ForwardLine ();
@@ -97,18 +97,25 @@ namespace Tomboy
 		{
 			this.buffer = note.Buffer;
 
-			buffer.TagApplied += new Gtk.TagAppliedHandler (TagApplied);
+			buffer.TagApplied += TagApplied;
 
 			gtkspell_new_attach (note.Window.Editor.Handle, 
 					     null, 
 					     IntPtr.Zero);
 
+			FixupOldGtkSpell ();
+		}
+
+		[System.Diagnostics.Conditional ("OLD_GTKSPELL")] 
+		void FixupOldGtkSpell ()
+		{
 			// NOTE: Older versions of GtkSpell before 2.0.6 use red
 			// foreground color and a single underline.  This
 			// conflicts with internal note links.  So fix it up to
 			// use the "normal" foreground and the "error"
 			// underline.
 			Gtk.TextTag misspell = buffer.TagTable.Lookup ("gtkspell-misspelled");
+
 			if (misspell != null) {
 				Gtk.TextTag normal = buffer.TagTable.Lookup ("normal");
 				misspell.ForegroundGdk = normal.ForegroundGdk;
@@ -155,25 +162,32 @@ namespace Tomboy
 				return;
 			}
 
-			url_tag.TextEvent += new Gtk.TextEventHandler (OnTextEvent);
+			url_tag.TextEvent += OnTextEvent;
 
-			buffer.InsertText += new Gtk.InsertTextHandler (OnInsertText);
-			buffer.DeleteRange += new Gtk.DeleteRangeHandler (OnDeleteRange);
+			buffer.InsertText += OnInsertText;
+			buffer.DeleteRange += OnDeleteRange;
 		}
 
 		void OnTextEvent (object sender, Gtk.TextEventArgs args)
 		{
+			Gtk.TextTag tag = (Gtk.TextTag) sender;
+
 			if (args.Event.Type != Gdk.EventType.ButtonPress)
 				return;
 
 			Gdk.EventButton button_ev = new Gdk.EventButton (args.Event.Handle);
-			if (button_ev.Button != 1)
+			if (button_ev.Button != 1 && button_ev.Button != 2)
+				return;
+
+			/* Don't open link if Shift or Control is pressed */
+			if ((int) (button_ev.State & (Gdk.ModifierType.ShiftMask |
+						      Gdk.ModifierType.ControlMask)) != 0)
 				return;
 
 			Gtk.TextIter start = args.Iter, end = args.Iter;
 
-			start.BackwardToTagToggle (url_tag);
-			end.ForwardToTagToggle (url_tag);
+			start.BackwardToTagToggle (tag);
+			end.ForwardToTagToggle (tag);
 
 			string url = start.GetText (end);
 
@@ -199,36 +213,33 @@ namespace Tomboy
 
 			try {
 				Gnome.Url.Show (url);
+
+				/* Close note on middle-click */
+				if (button_ev.Button == 2) {
+					note.Window.Hide ();
+
+					// Kill the middle button paste...
+					args.RetVal = true;
+				}
 			} catch (GLib.GException e) {
 				ShowOpeningLocationError (url, e.Message);
+
+				// Kill the middle button paste...
 				args.RetVal = true;
 			}
 		}
 
 		void ShowOpeningLocationError (string url, string error)
 		{
-			string label_text = 
-				String.Format ("<span size=\"large\"><b>" +
-					       Catalog.GetString ("Unable to open location...") +
-					       "</b></span>\n\n" +
-					       "{0}",
-					       error);
+			string message = String.Format ("{0}: {1}", url, error);
 
-			Gtk.Label label = new Gtk.Label (label_text);
-			label.UseMarkup = true;
-			label.Wrap = true;
-			label.Show ();
-
-			Gtk.Button button = new Gtk.Button (Gtk.Stock.Ok);
-			button.Show ();
-
-			Gtk.Dialog dialog = 
-				new Gtk.Dialog (Catalog.GetString ("Unable to open location"),
-						note.Window,
-						Gtk.DialogFlags.DestroyWithParent);
-			dialog.AddActionWidget (button, Gtk.ResponseType.Ok);
-			dialog.VBox.PackStart (label, false, false, 0);
-
+			HIGMessageDialog dialog = 
+				new HIGMessageDialog (note.Window,
+						      Gtk.DialogFlags.DestroyWithParent,
+						      Gtk.MessageType.Info,
+						      Gtk.ButtonsType.Ok,
+						      Catalog.GetString ("Cannot open location"),
+						      message);
 			dialog.Run ();
 			dialog.Destroy ();
 		}
@@ -316,22 +327,14 @@ namespace Tomboy
 			this.buffer = note.Buffer;
 			this.manager = note.Manager;
 
+			buffer.InsertText += OnInsertText;
+			buffer.DeleteRange += OnDeleteRange;
+
 			link_tag = buffer.TagTable.Lookup ("link:internal");
 			broken_link_tag = buffer.TagTable.Lookup ("link:broken");
 
-			if (link_tag == null || broken_link_tag == null) {
-				Console.WriteLine ("ERROR: Link tags not registered for buffer.");
-				return;
-			}
-
-			link_tag.TextEvent += new Gtk.TextEventHandler (OnLinkTextEvent);
-			broken_link_tag.TextEvent += new Gtk.TextEventHandler (OnBrokenTextEvent);
-
-			buffer.InsertText += new Gtk.InsertTextHandler (OnInsertText);
-			buffer.DeleteRange += new Gtk.DeleteRangeHandler (OnDeleteRange);
-
-			manager.NotesChanged += new NotesChangedHandler (OnNotesChanged);
-			manager.NoteRenamed += new NoteRenameHandler (OnNoteRenamed);
+			manager.NotesChanged += OnNotesChanged;
+			manager.NoteRenamed += OnNoteRenamed;
 
 			UpdateTitleCache ();
 
@@ -358,6 +361,32 @@ namespace Tomboy
 			}
 		}
 
+		void ReplaceTagOnMatch (Gtk.TextTag find_tag,
+					Gtk.TextTag replace_with_tag,
+					string      match)
+		{
+			Gtk.TextIter iter = buffer.StartIter;
+
+			while (iter.ForwardToTagToggle (find_tag) &&
+			       !iter.Equal (buffer.EndIter)) {
+				if (!iter.BeginsTag (find_tag))
+					continue;
+
+				Gtk.TextIter end = iter;
+				if (!end.ForwardToTagToggle (find_tag))
+					break;
+
+				string tag_content = iter.GetText (end).ToLower ();
+
+				if (tag_content == match) {
+					buffer.RemoveTag (find_tag, iter, end);
+					buffer.ApplyTag (replace_with_tag, iter, end);
+				}
+
+				iter = end;
+			}
+		}
+
 		void OnNotesChanged (object sender, Note added, Note deleted)
 		{
 			UpdateTitleCache ();
@@ -367,27 +396,11 @@ namespace Tomboy
 			}
 
 			if (deleted != null && deleted.Buffer != buffer) {
-				string deleted_title = deleted.Title.ToLower ();
-				Gtk.TextIter iter = buffer.StartIter;
-
-				while (iter.ForwardToTagToggle (link_tag) &&
-				       !iter.Equal (buffer.EndIter)) {
-					if (!iter.BeginsTag (link_tag))
-						continue;
-
-					Gtk.TextIter end = iter;
-					if (!end.ForwardToTagToggle (link_tag))
-						break;
-
-					string tag_content = iter.GetText (end).ToLower ();
-
-					if (tag_content == deleted_title) {
-						buffer.RemoveTag (link_tag, iter, end);
-						buffer.ApplyTag (broken_link_tag, iter, end);
-					}
-
-					iter = end;
-				}
+				// Switch any link:internal tags which point to
+				// the deleted note to link:broken
+				ReplaceTagOnMatch (link_tag,
+						   broken_link_tag,
+						   deleted.Title.ToLower ());
 			}
 		}
 
@@ -411,8 +424,6 @@ namespace Tomboy
 
 				string tag_content = iter.GetText (end).ToLower ();
 
-				Console.WriteLine ("Got tag content '{0}'", tag_content);
-
 				if (tag_content == old_title_lower) {
 					Console.WriteLine ("Replacing with '{0}'", note.Title);
 
@@ -432,76 +443,6 @@ namespace Tomboy
 
 				iter = end;
 			}			
-		}
-
-		bool OpenOrCreateLink (Gtk.TextIter start, Gtk.TextIter end, bool create)
-		{
-			string link_name = start.GetText (end);
-			Note link = manager.Find (link_name);
-
-			if (link == null && create) {
-				Console.WriteLine ("Creating note '{0}'...", link_name);
-				link = manager.Create (link_name);
-			}
-
-			if (link != null && link != note) {
-				Console.WriteLine ("Opening note '{0}' on click...", link_name);
-				link.Window.Present ();
-				return true;
-			}
-
-			return false;
-		}
-
-		void OnLinkTextEvent (object sender, Gtk.TextEventArgs args)
-		{
-			if (args.Event.Type != Gdk.EventType.ButtonPress)
-				return;
-
-			Gdk.EventButton button_ev = new Gdk.EventButton (args.Event.Handle);
-
-			if (button_ev.Button != 1 && button_ev.Button != 2)
-				return;
-
-			/* Don't open link if Shift or Control is pressed */
-			if ((int) (button_ev.State & (Gdk.ModifierType.ShiftMask |
-						      Gdk.ModifierType.ControlMask)) != 0)
-				return;
-
-			Gtk.TextIter start = args.Iter, end = args.Iter;
-
-			start.BackwardToTagToggle (link_tag);
-			end.ForwardToTagToggle (link_tag);
-
-			if (!OpenOrCreateLink (start, end, false))
-				return;
-
-			if (button_ev.Button == 2)
-				note.Window.Hide ();
-		}
-
-		void OnBrokenTextEvent (object sender, Gtk.TextEventArgs args)
-		{
-			if (args.Event.Type != Gdk.EventType.ButtonPress)
-				return;
-
-			Gdk.EventButton button_ev = new Gdk.EventButton (args.Event.Handle);
-			if (button_ev.Button != 1 && button_ev.Button != 2)
-				return;
-
-			Gtk.TextIter start = args.Iter, end = args.Iter;
-
-			start.BackwardToTagToggle (broken_link_tag);
-			end.ForwardToTagToggle (broken_link_tag);
-
-			if (!OpenOrCreateLink (start, end, true))
-				return;
-
-			buffer.RemoveTag (broken_link_tag, start, end);
-			buffer.ApplyTag (link_tag, start, end);
-
-			if (button_ev.Button == 2)
-				note.Window.Hide ();
 		}
 
 		void HighlightInBlock (string lower_text, Gtk.TextIter cursor) 
@@ -544,18 +485,7 @@ namespace Tomboy
 				if (!tag_end.ForwardToTagToggle (link_tag))
 					break;
 
-				string lower_text = iter.GetText (tag_end).ToLower ();
-				bool match = false;
-
-				foreach (string title in note_titles) {
-					if (title == lower_text) {
-						match = true;
-						break;
-					}
-				}
-
-				if (!match) 
-					buffer.RemoveTag (link_tag, iter, tag_end);
+				buffer.RemoveTag (link_tag, iter, tag_end);
 			}
 		}
 
@@ -581,8 +511,8 @@ namespace Tomboy
 
 			string block = GetBlockAroundCursor (ref start, ref end);
 
-			HighlightInBlock (block, start);
 			UnhighlightInBlock (block, start, end);
+			HighlightInBlock (block, start);
 		}
 
 		void OnInsertText (object sender, Gtk.InsertTextArgs args)
@@ -596,8 +526,8 @@ namespace Tomboy
 
 			string block = GetBlockAroundCursor (ref start, ref end);
 
-			HighlightInBlock (block, start);
 			UnhighlightInBlock (block, start, end);
+			HighlightInBlock (block, start);
 		}
 	}
 
@@ -621,8 +551,8 @@ namespace Tomboy
 				return;
 			}
 
-			buffer.InsertText += new Gtk.InsertTextHandler (OnInsertText);
-			buffer.DeleteRange += new Gtk.DeleteRangeHandler (OnDeleteRange);
+			buffer.InsertText += OnInsertText;
+			buffer.DeleteRange += OnDeleteRange;
 		}
 
 		bool WordIsCamelCase (string word)
@@ -635,9 +565,13 @@ namespace Tomboy
 				return false;
 
 			int upper_cnt = 1;
-			for (int i = 1; i < word.Length; i++)
+			for (int i = 1; i < word.Length; i++) {
+				if (!Char.IsLetterOrDigit (word [i]))
+					return false;
+
 				if (Char.IsUpper (word [i]))
 					upper_cnt++;
+			}
 
 			// Avoid all-caps, and regular capitalized words
 			if (upper_cnt == word.Length || upper_cnt < 2)
@@ -653,17 +587,22 @@ namespace Tomboy
 			string word = buffer.GetCurrentBlock (iter, out start, out end);
 			if (word != null) {
 				tag_end = end;
-				tag_end.BackwardChar ();
 
 				// avoid trailing punctuation
-				if (Char.IsPunctuation (tag_end.Char [0]))
-					tag_end = end;
+				do {
+					tag_end.BackwardChar ();
+				} while (Char.IsPunctuation (tag_end.Char [0]));
+
+				if (!Char.IsPunctuation (tag_end.Char [0]))
+					tag_end.ForwardChar ();
+
+				word = start.GetText (tag_end);
 
 				if (WordIsCamelCase (word)) {
 					if (note.Manager.Find (word) != null)
-						buffer.ApplyTag (link_tag, start, end);
+						buffer.ApplyTag (link_tag, start, tag_end);
 					else
-						buffer.ApplyTag (broken_link_tag, start, end);
+						buffer.ApplyTag (broken_link_tag, start, tag_end);
 				} else {
 					buffer.RemoveTag (broken_link_tag, start, end);
 				}
@@ -704,7 +643,12 @@ namespace Tomboy
 
 	public class MouseHandWatcher
 	{
+		Note note;
+		NoteBuffer buffer;
 		Gtk.TextView editor;
+		Gtk.TextTag link_tag;
+		Gtk.TextTag broken_link_tag;
+
 		bool hovering_on_link;
 
 		static Gdk.Cursor normal_cursor;
@@ -718,8 +662,132 @@ namespace Tomboy
 
 		public MouseHandWatcher (Note note)
 		{
+			this.note = note;
+			buffer = note.Buffer;
+
+			link_tag = buffer.TagTable.Lookup ("link:internal");
+			link_tag.TextEvent += OnLinkTextEvent;
+
+			broken_link_tag = buffer.TagTable.Lookup ("link:broken");
+			broken_link_tag.TextEvent += OnLinkTextEvent;
+
 			editor = note.Window.Editor;
 			editor.MotionNotifyEvent += OnEditorMotion;
+			editor.KeyPressEvent += OnEditorKeyPress;
+			editor.KeyReleaseEvent += OnEditorKeyRelease;
+		}
+
+		bool OpenOrCreateLink (Gtk.TextIter start, Gtk.TextIter end)
+		{
+			string link_name = start.GetText (end);
+			Note link = note.Manager.Find (link_name);
+
+			if (link == null) {
+				Console.WriteLine ("Creating note '{0}'...", link_name);
+				link = note.Manager.Create (link_name);
+			}
+
+			if (link != null && link != note) {
+				Console.WriteLine ("Opening note '{0}' on click...", link_name);
+				link.Window.Present ();
+				return true;
+			}
+
+			return false;
+		}
+
+		void OnLinkTextEvent (object sender, Gtk.TextEventArgs args)
+		{
+			Gtk.TextTag tag = (Gtk.TextTag) sender;
+
+			if (args.Event.Type != Gdk.EventType.ButtonPress)
+				return;
+
+			Gdk.EventButton button_ev = new Gdk.EventButton (args.Event.Handle);
+			if (button_ev.Button != 1 && button_ev.Button != 2)
+				return;
+
+			/* Don't open link if Shift or Control is pressed */
+			if ((int) (button_ev.State & (Gdk.ModifierType.ShiftMask |
+						      Gdk.ModifierType.ControlMask)) != 0)
+				return;
+
+			Gtk.TextIter start = args.Iter, end = args.Iter;
+
+			start.BackwardToTagToggle (tag);
+			end.ForwardToTagToggle (tag);
+
+			if (!OpenOrCreateLink (start, end))
+				return;
+
+			if (button_ev.Button == 2) {
+				note.Window.Hide ();
+
+				// Kill the middle button paste...
+				args.RetVal = true;
+			}
+		}
+
+		[GLib.ConnectBefore]
+		void OnEditorKeyPress (object sender, Gtk.KeyPressEventArgs args) 
+		{
+			switch (args.Event.Key) {
+			case Gdk.Key.Shift_L:
+			case Gdk.Key.Shift_R:
+			case Gdk.Key.Control_L:
+			case Gdk.Key.Control_R:
+				// Control or Shift when hovering over a link
+				// swiches to a bar cursor...
+
+				if (!hovering_on_link)
+					break;
+
+				Gdk.Window win = editor.GetWindow (Gtk.TextWindowType.Text);
+				win.Cursor = normal_cursor;
+				break;
+
+			case Gdk.Key.Return:
+			case Gdk.Key.KP_Enter:
+				// Control-Enter opens the link at point...
+
+				// FIXME: just fire a Widget.Event for this
+				// args.Event, and let the handlers deal
+
+				if ((int) (args.Event.State & Gdk.ModifierType.ControlMask) == 0)
+					break;
+				
+				Gtk.TextIter iter = buffer.GetIterAtMark (buffer.InsertMark);
+
+				foreach (Gtk.TextTag tag in iter.Tags) {
+					if (tag == link_tag || tag == broken_link_tag) {
+						Gtk.TextIter start = iter, end = iter;
+
+						start.BackwardToTagToggle (tag);
+						end.ForwardToTagToggle (tag);
+
+						OpenOrCreateLink (start, end);
+						args.RetVal = true;
+						break;
+					}
+				}
+				break;
+			}
+		}
+
+		[GLib.ConnectBefore]
+		void OnEditorKeyRelease (object sender, Gtk.KeyReleaseEventArgs args) 
+		{
+			if (hovering_on_link) {
+				switch (args.Event.Key) {
+				case Gdk.Key.Shift_L:
+				case Gdk.Key.Shift_R:
+				case Gdk.Key.Control_L:
+				case Gdk.Key.Control_R:
+					Gdk.Window win = editor.GetWindow (Gtk.TextWindowType.Text);
+					win.Cursor = hand_cursor;
+					break;
+				}
+			}
 		}
 
 		[GLib.ConnectBefore]
@@ -733,32 +801,36 @@ namespace Tomboy
 						     out pointer_mask);
 
 			bool hovering = false;
+			
+			// Figure out if we're on a link by getting the text
+			// iter at the mouse point, and checking for tags that
+			// start with "link:"...
 
-			/* Don't show hand if Shift or Control is pressed */
-			if ((int) (pointer_mask & (Gdk.ModifierType.ShiftMask |
-						   Gdk.ModifierType.ControlMask)) == 0) {
-				int buffer_x, buffer_y;
-				editor.WindowToBufferCoords (Gtk.TextWindowType.Widget,
-							     pointer_x, 
-							     pointer_y,
-							     out buffer_x, 
-							     out buffer_y);
+			int buffer_x, buffer_y;
+			editor.WindowToBufferCoords (Gtk.TextWindowType.Widget,
+						     pointer_x, 
+						     pointer_y,
+						     out buffer_x, 
+						     out buffer_y);
+			
+			Gtk.TextIter iter = editor.GetIterAtLocation (buffer_x, buffer_y);
 
-				Gtk.TextIter iter = editor.GetIterAtLocation (buffer_x, buffer_y);
-
-				foreach (Gtk.TextTag tag in iter.Tags) {
-					if (tag.Name.StartsWith ("link:")) {
-						hovering = true;
-						break;
-					}
+			foreach (Gtk.TextTag tag in iter.Tags) {
+				if (tag.Name.StartsWith ("link:")) {
+					hovering = true;
+					break;
 				}
 			}
+
+			// Don't show hand if Shift or Control is pressed 
+			bool avoid_hand = (pointer_mask & (Gdk.ModifierType.ShiftMask |
+							   Gdk.ModifierType.ControlMask)) != 0;
 
 			if (hovering != hovering_on_link) {
 				hovering_on_link = hovering;
 
 				Gdk.Window win = editor.GetWindow (Gtk.TextWindowType.Text);
-				if (hovering)
+				if (hovering && !avoid_hand)
 					win.Cursor = hand_cursor;
 				else 
 					win.Cursor = normal_cursor;
@@ -779,8 +851,8 @@ namespace Tomboy
 			this.buffer = note.Buffer;
 			this.editor = note.Window.Editor;
 
-			buffer.InsertText += new Gtk.InsertTextHandler (OnInsertText);
-			//buffer.DeleteRange += new Gtk.DeleteRangeHandler (OnDeleteRange);
+			buffer.InsertText += OnInsertText;
+			//buffer.DeleteRange += OnDeleteRange;
 		}
 
 		void OnDeleteRange (object sender, Gtk.DeleteRangeArgs args)
@@ -863,8 +935,8 @@ namespace Tomboy
 			this.buffer = note.Buffer;
 			this.editor = note.Window.Editor;
 
-			buffer.InsertText += new Gtk.InsertTextHandler (OnInsertText);
-			buffer.DeleteRange += new Gtk.DeleteRangeHandler (OnDeleteRange);			
+			buffer.InsertText += OnInsertText;
+			buffer.DeleteRange += OnDeleteRange;
 		}
 
 		void OnInsertText (object sender, Gtk.InsertTextArgs args)
