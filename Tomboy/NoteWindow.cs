@@ -55,9 +55,15 @@ namespace Tomboy
 			editor.CanDefault = true;
 			editor.PopulatePopup += OnPopulatePopup;
 			editor.DragDataReceived += OnDragDataReceived;
-			editor.ModifyFont (Pango.FontDescription.FromString ("Serif 11"));
 			editor.ScrollMarkOnscreen (note.Buffer.InsertMark);
 			editor.Show ();
+
+			// Set Font from GConf preference
+			if ((bool) Preferences.Get (Preferences.ENABLE_CUSTOM_FONT)) {
+				string font_string = (string) Preferences.Get (Preferences.CUSTOM_FONT_FACE);
+				editor.ModifyFont (Pango.FontDescription.FromString (font_string));
+			}
+			Preferences.SettingChanged += OnFontSettingChanged;
 
 			// Set extra editor drag targets supported
 			Gtk.TargetList list = Gtk.Drag.DestGetTargetList (editor);
@@ -118,6 +124,30 @@ namespace Tomboy
 						    Gtk.AccelFlags.Visible);
 
 			this.Add (box);
+		}
+
+		void OnFontSettingChanged (object sender, GConf.NotifyEventArgs args)
+		{
+			switch (args.Key) {
+			case Preferences.ENABLE_CUSTOM_FONT:
+				Console.WriteLine ("Switching note font {0}...", 
+						   (bool) args.Value ? "ON" : "OFF");
+
+				if ((bool) args.Value) {
+					string font_string = (string) Preferences.Get (Preferences.CUSTOM_FONT_FACE);
+					editor.ModifyFont (Pango.FontDescription.FromString (font_string));
+				} else
+					editor.ModifyFont (new Pango.FontDescription ());
+
+				break;
+
+			case Preferences.CUSTOM_FONT_FACE:
+				Console.WriteLine ("Switching note font to '{0}'...", 
+						   (string) args.Value);
+
+				editor.ModifyFont (Pango.FontDescription.FromString ((string) args.Value));
+				break;
+			}
 		}
 
 		protected override bool OnDeleteEvent (Gdk.Event evnt)

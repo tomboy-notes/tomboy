@@ -191,10 +191,15 @@ namespace Tomboy
 
 	public class NoteSpellChecker : NotePlugin
 	{
+		IntPtr obj_ptr = IntPtr.Zero;
+
 		[DllImport ("libgtkspell.so.0")]
-		static extern void gtkspell_new_attach (IntPtr text_view, 
-							string locale, 
-							IntPtr error);
+		static extern IntPtr gtkspell_new_attach (IntPtr text_view, 
+							  string locale, 
+							  IntPtr error);
+
+		[DllImport ("libgtkspell.so.0")]
+		static extern void gtkspell_detach (IntPtr gtk_spell);
 
 		public override void Initialize ()
 		{
@@ -204,12 +209,14 @@ namespace Tomboy
 		public void OnNoteOpened (object sender, EventArgs args)
 		{
 			Buffer.TagApplied += TagApplied;
+			Preferences.SettingChanged += OnEnableSpellcheckChanged;
 
-			gtkspell_new_attach (Window.Editor.Handle, 
-					     null, 
-					     IntPtr.Zero);
-
-			FixupOldGtkSpell ();
+			if ((bool) Preferences.Get (Preferences.ENABLE_SPELLCHECKING)) {
+				obj_ptr = gtkspell_new_attach (Window.Editor.Handle, 
+							       null, 
+							       IntPtr.Zero);
+				FixupOldGtkSpell ();
+			}
 		}
 
 		[System.Diagnostics.Conditional ("OLD_GTKSPELL")] 
@@ -228,6 +235,26 @@ namespace Tomboy
 				// Force the value to 4 since error underlining
 				// isn't mapped in Gtk# yet.
 				misspell.Underline = (Pango.Underline) 4;
+			}
+		}
+
+		void OnEnableSpellcheckChanged (object sender, GConf.NotifyEventArgs args)
+		{
+			if (args.Key != Preferences.ENABLE_SPELLCHECKING)
+				return;
+
+			if ((bool) args.Value) {
+				if (obj_ptr == IntPtr.Zero) {
+					obj_ptr = gtkspell_new_attach (Window.Editor.Handle, 
+								       null, 
+								       IntPtr.Zero);
+					FixupOldGtkSpell ();
+				}
+			} else {
+				if (obj_ptr != IntPtr.Zero) {
+					gtkspell_detach (obj_ptr);
+					obj_ptr = IntPtr.Zero;
+				}
 			}
 		}
 
@@ -663,6 +690,20 @@ namespace Tomboy
 			Buffer.DeleteRange += OnDeleteRange;
 		}
 
+		static string [] PatronymicPrefixes = 
+			new string [] { "Mc", "Mac", "Le", "La", "De", "Van" };
+
+		bool IsPatronymicName (string word)
+		{
+			foreach (string prefix in PatronymicPrefixes) {
+				if (word.StartsWith (prefix) &&
+				    char.IsUpper (word [prefix.Length]))
+					return true;
+			}
+
+			return false;
+		}
+
 		void ApplyWikiwordToBlock (Gtk.TextIter start, Gtk.TextIter end)
 		{
 			start.LineOffset = 0;
@@ -674,6 +715,9 @@ namespace Tomboy
 			     match.Success; 
 			     match = match.NextMatch ()) {
 				Group group = match.Groups [1];
+
+				if (IsPatronymicName (group.ToString ()))
+					continue;
 
 				Console.WriteLine("Highlighting wikiword: '{0}' at offset {1}",
 						  group,
@@ -1025,6 +1069,42 @@ namespace Tomboy
 
 			Buffer.TagTable.Add (indent_tag);
 			Buffer.ApplyTag (indent_tag, para_start, args.Pos);
+		}
+
+		// 
+		// <list>
+		// <anonymous list-prefix="124">Content content content</anonymous>
+		// <anonymous indent="40">
+		//   <anonymous list-prefix="123">
+		//     Content content content
+		//   </anonymous>
+		// </anonymous>
+		// </list>
+
+		string GetListPrefix (Gtk.TextIter iter)
+		{
+			Gtk.TextTag number_list = Buffer.TagTable.Lookup ("number-list");
+			Gtk.TextTag bullet_list = Buffer.TagTable.Lookup ("bullet-list");
+
+			if (iter.HasTag (bullet_list))
+				return "* ";
+
+			int add = 0;
+
+			while (iter.HasTag (number_list)) {
+				foreach (Gtk.TextTag tag in iter.Tags) {
+					if (tag.Data ["list-prefix"] != null) {
+						int last_num = (int) tag.Data ["list-prefix"];
+						last_num += add;
+						return last_num.ToString () + ". ";
+					}
+				}
+
+				iter.BackwardLine ();
+				add++;
+			}
+
+			return null;
 		}
 	}
 

@@ -194,15 +194,6 @@ namespace Tomboy
 
 	public class TomboyGConfXKeybinder : GConfXKeybinder
 	{
-		const string TOMBOY = "/apps/tomboy/";
-		const string BINDINGS = TOMBOY + "global_keybindings/";
-
-		public const string MENU_BINDING = BINDINGS + "show_note_menu";
-		public const string START_BINDING = BINDINGS + "open_start_here";
-		public const string NEW_NOTE_BINDING = BINDINGS + "create_new_note";
-		public const string SEARCH_BINDING = BINDINGS + "open_search";
-		public const string RECENT_BINDING = BINDINGS + "open_recent_changes";
-
 		NoteManager manager;
 		TomboyTray  tray;
 
@@ -212,21 +203,47 @@ namespace Tomboy
 			this.manager = manager;
 			this.tray = tray;
 
-			Bind (MENU_BINDING, 
-			      "<Alt>F12", 
-			      new EventHandler (KeyShowMenu));
-			Bind (START_BINDING, 
-			      "<Alt>F11", 
-			      new EventHandler (KeyOpenStartHere));
-			Bind (NEW_NOTE_BINDING, 
-			      "disabled", 
-			      new EventHandler (KeyCreateNewNote));
-			Bind (SEARCH_BINDING, 
-			      "disabled", 
-			      new EventHandler (KeyOpenSearch));
-			Bind (RECENT_BINDING, 
-			      "disabled", 
-			      new EventHandler (KeyOpenRecentChanges));
+			EnableDisable ((bool) Preferences.Get (Preferences.ENABLE_KEYBINDINGS));
+
+			Preferences.SettingChanged += EnableKeybindingsChanged;
+		}
+
+		void EnableKeybindingsChanged (object sender, GConf.NotifyEventArgs args)
+		{
+			if (args.Key == Preferences.ENABLE_KEYBINDINGS) {
+				bool enabled = (bool) args.Value;
+				EnableDisable (enabled);
+			}
+		}
+
+		void EnableDisable (bool enable)
+		{
+			Console.WriteLine ("EnableDisable Called: enabling... {0}", enable);
+			if (enable) {
+				BindPreference (Preferences.KEYBINDING_SHOW_NOTE_MENU,
+						new EventHandler (KeyShowMenu));
+
+				BindPreference (Preferences.KEYBINDING_OPEN_START_HERE,
+						new EventHandler (KeyOpenStartHere));
+
+				BindPreference (Preferences.KEYBINDING_CREATE_NEW_NOTE,
+						new EventHandler (KeyCreateNewNote));
+
+				BindPreference (Preferences.KEYBINDING_OPEN_SEARCH,
+						new EventHandler (KeyOpenSearch));
+
+				BindPreference (Preferences.KEYBINDING_OPEN_RECENT_CHANGES,
+						new EventHandler (KeyOpenRecentChanges));
+			} else {
+				UnbindAll ();
+			}
+		}
+
+		void BindPreference (string gconf_path, EventHandler handler)
+		{
+			Bind (gconf_path,  
+			      (string) Preferences.GetDefault (gconf_path),
+			      handler);
 		}
 
 		void KeyShowMenu (object sender, EventArgs args)
