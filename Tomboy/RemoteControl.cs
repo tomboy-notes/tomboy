@@ -36,6 +36,7 @@ namespace Tomboy
 
 			NoteFindDialog find = NoteFindDialog.GetInstance (note);
 			find.SearchText = search;
+			find.FindNextButton.Click ();
 
 			note.Window.Present ();
 			return true;

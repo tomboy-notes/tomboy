@@ -134,6 +134,7 @@ namespace Tomboy
 					"  --new-note\t\t\tCreate and display a new note\n" +
 					"  --new-note [title]\t\tCreate and display a new note, with a title\n" +
 					"  --open-note [title/url]\tDisplay the existing note matching title\n" +
+					"  --start-here\t\t\tDisplay the Start Here note\n" +
 					"  --highlight-search [text]\tSearch and highlight text in the opened note\n" +
 					"  --help\t\t\tPrint this usage message.\n");
 #else
@@ -172,6 +173,11 @@ namespace Tomboy
 					else
 						open_note_name = args [idx];
 
+					break;
+
+				case "--start-here":
+					// Open the Start Here note
+					open_note_name = Catalog.GetString ("Start Here");
 					break;
 
 				case "--highlight-search":

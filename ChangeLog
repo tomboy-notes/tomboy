@@ -1,3 +1,19 @@
+2004-10-12  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Tomboy.cs: Add a --start-here argument that opens the
+	(possibly translated) "Start Here" note.
+
+	* Tomboy/Search.cs: Highlight matches in all notes, not just
+	current one.
+
+	* Tomboy/RemoteControl.cs: Call find.FindNextButton.Click () in
+	DisplayNoteWithSearch to scroll the note to the first match.
+
+	* Tomboy/NoteWindow.cs: Don't link to the current word if none is
+	selected. This makes problems when people make a note from a common
+	word, then rename the note later, as all notes with that common
+	word will have their content changed to the renamed title.
+
 2004-10-11  Alex Graveley  <alex@beatniksoftware.com>
 
 	* Tomboy/Note.cs: Don't save window dimensions if window is
