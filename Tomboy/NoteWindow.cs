@@ -156,6 +156,9 @@ namespace Tomboy
 			return true;
 		}
 
+		// FIXME: Need to just emit a delete event, and do this work in
+		// the default delete handler, so that plugins can attach to
+		// delete event and have it always work.
 		void CloseWindowHandler (object sender, EventArgs args)
 		{
 			// Unmaximize before hiding to avoid reopening

@@ -14,7 +14,6 @@ namespace Tomboy
 		string filepath;
 
 		DateTime change_date;
-		uint save_timeout_id;
 		bool save_needed;
 		bool is_new;
 
@@ -28,10 +27,19 @@ namespace Tomboy
 		NoteManager manager;
 		NoteWindow window;
 		NoteBuffer buffer;
+
 		ArrayList loaded_plugins;
+		InterruptableTimeout save_timeout;
+
+		Note ()
+		{
+			save_timeout = new InterruptableTimeout ();
+			save_timeout.Timeout += SaveTimeout;
+		}
 
 		// Create a new note stored in a file...
 		public Note (string title, string filepath, NoteManager manager) 
+			: this ()
 		{
 			this.title = title;
 			this.filepath = filepath;
@@ -41,7 +49,9 @@ namespace Tomboy
 			LoadPlugins ();
 		}
 
+		// Internal constructor, used when loading from an exising filepath.
 		Note (string filepath, NoteManager manager)
+			: this ()
 		{
 			this.manager = manager;
 			this.filepath = filepath;
@@ -105,8 +115,7 @@ namespace Tomboy
 
 		public void Delete ()
 		{
-			if (save_timeout_id != 0)
-				GLib.Source.Remove (save_timeout_id);
+			save_timeout.Cancel ();
 
 			if (window != null) {
 				window.Hide ();
@@ -124,6 +133,8 @@ namespace Tomboy
 
 		public void Save () 
 		{
+			// Do nothing if we don't need to save.  Avoids unneccessary saves
+			// e.g on forced quit when we call save for every note.
 			if (!save_needed)
 				return;
 
@@ -215,13 +226,9 @@ namespace Tomboy
 		// causes a re-serialize when the timeout is called...
 		void QueueSave (bool invalidate_text)
 		{
-			// Replace the existing save timeout...
-			if (save_timeout_id != 0)
-				GLib.Source.Remove (save_timeout_id);
-
-			// Wait 4 seconds before saving...
-			save_timeout_id = GLib.Timeout.Add (4000, 
-							    new GLib.TimeoutHandler (SaveTimeout));
+			// Replace the existing save timeout.  Wait 4 seconds
+			// before saving...
+			save_timeout.Reset (4000);
 			save_needed = true;
 
 			// Force a re-get of text on save
@@ -231,18 +238,17 @@ namespace Tomboy
 			}
 		}
 
-		// Save timeout to avoid constanly resaving.
-		bool SaveTimeout ()
+		// Save timeout to avoid constanly resaving.  Called every 4 seconds.
+		void SaveTimeout (object sender, EventArgs args)
 		{
 			try {
 				Save ();
-				save_timeout_id = 0;
 				save_needed = false;
 			} catch (Exception e) {
+				// FIXME: Present a nice dialog here that interprets the
+				// error message correctly.
 				Console.WriteLine ("Error while saving: {0}", e);
 			}
-
-			return save_needed;
 		}
 
 		public string Uri
@@ -276,7 +282,7 @@ namespace Tomboy
 			}
 		}
 
-		public string Text 
+		public string XmlContent 
 		{
 			get {
 				if (text == null && buffer != null) {
@@ -297,6 +303,18 @@ namespace Tomboy
 
 				text = value;
 				QueueSave (false);
+			}
+		}
+
+		public string TextContent
+		{
+			get {
+				if (buffer != null)
+					return buffer.GetSlice (buffer.StartIter, 
+								buffer.EndIter, 
+								false /* hidden_chars */);
+				else 
+					return XmlDecoder.Decode (XmlContent);
 			}
 		}
 
@@ -464,8 +482,9 @@ namespace Tomboy
 
 			xml.WriteStartElement (null, "text", null);
 			// Insert <note-content> blob...
-			// NOTE: Use .Text here to force a reget of text from the buffer, if needed.
-			xml.WriteRaw (note.Text);
+			// NOTE: Use .XmlContent here to force a reget of text
+			//       from the buffer, if needed.
+			xml.WriteRaw (note.XmlContent);
 			xml.WriteEndElement ();
 
 			xml.WriteStartElement (null, "cursor-position", null);
