@@ -3,35 +3,21 @@
 if [ -e ./@target@ ] && [ -e ./Makefile.am ] ; then
     echo "*** Running uninstalled @target@ ***"
 
-    if [ -n $LD_LIBRARY_PATH ]; then
-        export LD_LIBRARY_PATH="../TrayIcon/libtrayicon/.libs:$LD_LIBRARY_PATH"
-    else
-        export LD_LIBRARY_PATH="../TrayIcon/libtrayicon/.libs"
-    fi
-
-    THIS_PATH="../TrayIcon:."
-    THIS_EXE="./@target@"
-
+    export MONO_PATH="../TrayIcon:.:$MONO_PATH"
+    export LD_LIBRARY_PATH="../TrayIcon/libtrayicon/.libs:$LD_LIBRARY_PATH"
     export TOMBOY_WRAPPER_PATH="$PWD/@wrapper@"
+
+    THIS_EXE="./@target@"
 else
-    if [ -n $LD_LIBRARY_PATH ]; then
-        export LD_LIBRARY_PATH="@pkglibdir@:$LD_LIBRARY_PATH"
-    else
-        export LD_LIBRARY_PATH="@pkglibdir@"
-    fi
-
-    THIS_PATH="@pkglibdir@"
-    THIS_EXE="@pkglibdir@/@target@"
-
+    export MONO_PATH="@pkglibdir@:$MONO_PATH"
+    export LD_LIBRARY_PATH="@pkglibdir@:$LD_LIBRARY_PATH"
     export TOMBOY_WRAPPER_PATH="@bindir@/@wrapper@"
+
+    THIS_EXE="@pkglibdir@/@target@"
 fi
 
 if [ -n "@extragac@" ]; then
-    if [ -n "$MONO_GAC_PREFIX" ]; then
-	export MONO_GAC_PREFIX="@extragac@:$MONO_GAC_PREFIX"
-    else
-	export MONO_GAC_PREFIX="@extragac@"
-    fi
+    export MONO_GAC_PREFIX="@extragac@:$MONO_GAC_PREFIX"
 fi
 
-MONO_PATH="$THIS_PATH:$MONO_PATH" mono --debug $MONO_EXTRA_ARGS $THIS_EXE "$@"
+exec mono --debug $MONO_EXTRA_ARGS $THIS_EXE "$@"
