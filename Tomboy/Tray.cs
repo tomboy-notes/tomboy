@@ -212,13 +212,13 @@ namespace Tomboy
 				"Canadian English (en_CA) - Adam Weinberger <adamw@gnome.org>\n" +
 				"Catalan (ca) - Jordi Mas <jmas@softcatala.org>\n" +
 				"Dutch; Flemish (nl) - Paul Bolle <pebolle@tiscali.nl>\n" +
-				"French (fr) - Benoît Dejean <tazforever@dlfp.org>\n" +
+				"French (fr) - Beno\xeet Dejean <tazforever@dlfp.org>\n" +
 				"German (de) - Philipp Meier <meier@fnogol.de>\n" +
-				"Hungarian (hu) - Török Gábor <gabo@linuxportal.hu>\n" +
-				"Icelandic (is) - Gunnar Steinn Magnússon <gsm@gunnarsteinn.com>\n" +
+				"Hungarian (hu) - T\xf6r\xf6k G\xe1bor <gabo@linuxportal.hu>\n" +
+				"Icelandic (is) - Gunnar Steinn Magn\xfasson <gsm@gunnarsteinn.com>\n" +
 				"Japanese (ja) - Takeshi AIHANA <aihana@gnome.gr.jp>\n" +
 				"Polish (pl) - Marek Habersack <grendel@caudium.net>\n" +
-				"Portugese, Brazilian (pt_BR) - Fábio Mendes <niels_bohr@uol.com.br>\n" +
+				"Portugese, Brazilian (pt_BR) - F\xe1bio Mendes <niels_bohr@uol.com.br>\n" +
 				"Spanish (es) - Antonio Ognio <gnrfan@gnrfan.org>\n" +
 				"Swedish (sv) - Christian Rose <menthos@menthos.com>\n";
 
@@ -226,7 +226,7 @@ namespace Tomboy
 				new Gnome.About (
 					"Tomboy", 
 					Defines.VERSION,
-					Catalog.GetString ("Copyright © 2004 Alex Graveley"),
+					Catalog.GetString ("Copyright \xa9 2004 Alex Graveley"),
 					Catalog.GetString ("A simple and easy to use desktop " +
 							   "note-taking application."),
 					authors, 
