@@ -124,20 +124,19 @@ namespace Tomboy
 		public Note Create (string linked_title) 
 		{
 			string filename = MakeNewFileName ();
+			string header = linked_title + "\n\n";
 
 			Note new_note = new Note (linked_title, filename, this);
 			new_note.Text = 
-				"<note-content>" + 
-				linked_title + "\n\n" + 
-				Catalog.GetString ("Describe your new note here.") +
-				"</note-content>";
+				String.Format ("<note-content>{0}{1}</note-content>",
+					       HttpUtility.HtmlEncode (header),
+					       Catalog.GetString ("Describe your new note here."));
 			new_note.Renamed += OnNoteRename;
 
 			// Select the inital "Describe..." text so typing will
 			// immediately overwrite...
 			NoteBuffer buffer = new_note.Buffer;
-			Gtk.TextIter iter = buffer.GetIterAtOffset (linked_title.Length + 
-								    "\n\n".Length);
+			Gtk.TextIter iter = buffer.GetIterAtOffset (header.Length);
 			buffer.MoveMark (buffer.SelectionBound, iter);
 			buffer.MoveMark (buffer.InsertMark, buffer.EndIter);
 

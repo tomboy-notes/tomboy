@@ -26,8 +26,7 @@ namespace Tomboy
 			return true;
 		}
 
-
-		public override bool DisplayNoteWithSearch (string uri, string [] searches)
+		public override bool DisplayNoteWithSearch (string uri, string search)
 		{
 			Note note;
 
@@ -35,14 +34,12 @@ namespace Tomboy
 			if (note == null)
 				return false;
 
-			ArrayList matches = NoteFindDialog.FindMatches (note.Buffer, searches, false);
+			NoteFindDialog find = NoteFindDialog.GetInstance (note);
+			find.SearchText = search;
 
-			NoteFindDialog.HighlightMatches (matches, true);
-			
 			note.Window.Present ();
 			return true;
 		}
-
 
 		public override string FindNote (string linked_title)
 		{
