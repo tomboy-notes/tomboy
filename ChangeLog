@@ -1,5 +1,14 @@
 2004-12-02  Alex Graveley  <alex@beatniksoftware.com>
 
+	* Tomboy/Watchers.cs: Kill debug spew if a 'gtkspell-misspelled'
+	tag isn't set on the Buffer (either you've disabled spellchecking
+	or you don't have gtkspell installed).
+
+	* Tomboy/NoteWindow.cs: Fix crasher on window creation for buffers
+	that restore the cursor to the first line.
+
+2004-12-02  Alex Graveley  <alex@beatniksoftware.com>
+
 	* Tomboy/Watchers.cs: Use Unicode lowercase & uppercase character
 	classes instead of [A-Z] and [a-z] in the WikiWatcher regexp.
 

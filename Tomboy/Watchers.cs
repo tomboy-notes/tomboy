@@ -406,9 +406,12 @@ namespace Tomboy
 				}
 			} else if (args.Tag.Name != null && 
 				   args.Tag.Name.StartsWith ("link:")) {
-				Buffer.RemoveTag ("gtkspell-misspelled", 
-						  args.StartChar, 
-						  args.EndChar);
+				Gtk.TextTag misspell = Buffer.TagTable.Lookup ("gtkspell-misspelled");
+				if (misspell != null) {
+					Buffer.RemoveTag ("gtkspell-misspelled", 
+							  args.StartChar, 
+							  args.EndChar);
+				}
 			}
 		}
 	}
