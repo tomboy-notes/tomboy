@@ -155,12 +155,21 @@ namespace Tomboy
 			if (note.IsNew)
 				display_name += Catalog.GetString (" (new)");
 
+			display_name = FormatForLabel (display_name);
+
 			Gtk.ImageMenuItem item = new Gtk.ImageMenuItem (display_name);
 			item.Image = new Gtk.Image (stock_notes);
 			item.Data ["Note"] = note;
 			item.Activated += ShowNote;
 
 			return item;
+		}
+
+		string FormatForLabel (string name)
+		{
+			// Replace underscores ("_") with double-underscores ("__")
+			// so Note menuitems are not created with mnemonics.
+			return name.Replace ("_", "__");
 		}
 
 		void ShowNote (object sender, EventArgs args) 
@@ -314,7 +323,7 @@ namespace Tomboy
 			cursor.ForwardLines (2); // skip title & leading newline
 
 			Gtk.TextIter end = cursor;
-			end.ForwardLines (1); // end of date
+			end.ForwardToLineEnd (); // end of date
 
 			buffer.ApplyTag ("size:small", cursor, end);
 
