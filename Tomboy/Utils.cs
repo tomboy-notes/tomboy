@@ -145,16 +145,16 @@ namespace Tomboy
 
 			switch (type) {
 			case Gtk.MessageType.Error:
-				image = new Gtk.Image ("gtk-dialog-error", Gtk.IconSize.Dialog);
+				image = new Gtk.Image (Gtk.Stock.DialogError, Gtk.IconSize.Dialog);
 				break;
 			case Gtk.MessageType.Question:
-				image = new Gtk.Image ("gtk-dialog-question", Gtk.IconSize.Dialog);
+				image = new Gtk.Image (Gtk.Stock.DialogQuestion, Gtk.IconSize.Dialog);
 				break;
 			case Gtk.MessageType.Info:
-				image = new Gtk.Image ("gtk-dialog-info", Gtk.IconSize.Dialog);
+				image = new Gtk.Image (Gtk.Stock.DialogInfo, Gtk.IconSize.Dialog);
 				break;
 			case Gtk.MessageType.Warning:
-				image = new Gtk.Image ("gtk-dialog-warning", Gtk.IconSize.Dialog);
+				image = new Gtk.Image (Gtk.Stock.DialogWarning, Gtk.IconSize.Dialog);
 				break;
 			}
 
@@ -262,6 +262,10 @@ namespace Tomboy
 				string s = i;
 				if (s.EndsWith ("\r"))
 					s = s.Substring (0, s.Length - 1);
+
+				// Handle evo's broken file urls
+				if (s.StartsWith ("file:////"))
+					s = s.Replace ("file:////", "file:///");
 
 				Console.WriteLine ("uri = {0}", s);
 				try {

@@ -17,6 +17,10 @@ namespace Tomboy
 			// Initialize GETTEXT
 			Catalog.Init ("tomboy", Defines.GNOME_LOCALE_DIR);
 
+			// Execute any args at an existing tomboy instance
+			if (TomboyRemoteExecute.Execute (args))
+				return;
+
 			program = new Gnome.Program ("Tomboy", 
 						     Defines.VERSION, 
 						     Gnome.Modules.UI, 
@@ -25,10 +29,7 @@ namespace Tomboy
 			// This will block if there is no existing instance running
 			PanelApplet.AppletFactory.Register (typeof (TomboyApplet));
 
-			// Execute any args at an existing tomboy instance
-			if (TomboyRemoteExecute.Execute (args))
-				return;
-
+			// Not needed if running panel applet
 			//RegisterSessionRestart (args);
 
 			Console.WriteLine ("All done.  Ciao!");
@@ -87,8 +88,7 @@ namespace Tomboy
 			if (ExitingEvent != null)
 				ExitingEvent (null, new EventArgs ());
 
-			program.Quit ();
-			//System.Environment.Exit (0);
+			System.Environment.Exit (0);
 		}
 
 		public static event EventHandler ExitingEvent;
@@ -132,12 +132,12 @@ namespace Tomboy
 			string usage = 
 				Catalog.GetString (
 					"Usage:\n" +
-					"  --new-note\t\t\tCreate and display a new note\n" +
-					"  --new-note [title]\t\tCreate and display a new note, with a title\n" +
-					"  --open-note [title/url]\tDisplay the existing note matching title\n" +
-					"  --start-here\t\t\tDisplay the Start Here note\n" +
-					"  --highlight-search [text]\tSearch and highlight text in the opened note\n" +
-					"  --version\t\tPrint version information\n" +
+					"  --new-note\t\t\tCreate and display a new note.\n" +
+					"  --new-note [title]\t\tCreate and display a new note, with a title.\n" +
+					"  --open-note [title/url]\tDisplay the existing note matching title.\n" +
+					"  --start-here\t\t\tDisplay the 'Start Here' note.\n" +
+					"  --highlight-search [text]\tSearch and highlight text in the opened note.\n" +
+					"  --version\t\t\tPrint version information.\n" +
 					"  --help\t\t\tPrint this usage message.\n");
 			Console.WriteLine (usage);
 #else
@@ -208,8 +208,21 @@ namespace Tomboy
 
 				case "--help":
 				case "--usage":
-				default:
 					PrintUsage ();
+					return true;
+
+				default:
+					if (args [idx].StartsWith ("--oaf")) {
+						// We are being started by the panel
+						return false;
+					} else {
+						string unknown_opt = 
+							Catalog.GetString (
+								"Tomboy: unrecognized option '{0}'\n" +
+								"Try 'tomboy --help' for more information.");
+						Console.WriteLine (unknown_opt);
+					}
+
 					return true;
 				}
 			}
