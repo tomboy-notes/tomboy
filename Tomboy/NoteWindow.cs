@@ -83,6 +83,12 @@ namespace Tomboy
 
 			// Close window (Ctrl-W)
 			global_keys.AddAccelerator (new EventHandler (CloseWindowHandler),
+						    (uint) Gdk.Key.w, 
+						    Gdk.ModifierType.ControlMask,
+						    Gtk.AccelFlags.Visible);
+
+			// Close window (Escape)
+			global_keys.AddAccelerator (new EventHandler (CloseWindowHandler),
 						    (uint) Gdk.Key.Escape, 
 						    0,
 						    Gtk.AccelFlags.Visible);
@@ -235,8 +241,8 @@ namespace Tomboy
 			close_window.Activated += new EventHandler (CloseWindowHandler);
 			close_window.AddAccelerator ("activate",
 						     accel_group,
-						     (uint) Gdk.Key.Escape, 
-						     0,
+						     (uint) Gdk.Key.w, 
+						     Gdk.ModifierType.ControlMask,
 						     Gtk.AccelFlags.Visible);
 			close_window.Show ();
 
