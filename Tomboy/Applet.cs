@@ -62,10 +62,6 @@ namespace Tomboy
 					   "GNOME_TomboyApplet.xml",
 					   "Tomboy",
 					   menu_verbs);
-
-			// FIXME: Connecting to this crashes in the C# bindings.
-			// Manually tweaked generated bindings to not crash.
-			ChangeBackground += OnChangeBackgroundEvent;
 		}
 
 		void ShowPreferencesVerb ()
@@ -83,21 +79,33 @@ namespace Tomboy
 			tray.ShowAbout ();
 		}
 
-		void OnChangeBackgroundEvent (object sender, ChangeBackgroundArgs args)
-		{
-			// This is needed to support transparent panel
-			// backgrounds correctly.
+		// NOTE: This is needed to support transparent/pixmap panel
+		//       backgrounds correctly, since Gtk# doesn't map
+		//       GtkStyle::bg_pixmaps[].
+		[DllImport ("libtomboy")]
+		private static extern IntPtr tomboy_widget_set_bg_pixmap (IntPtr widget, IntPtr pixmap);
 
-			switch (args.Type) {
-			case BackgroundType.ColorBackground:
-				tray.ModifyBg (Gtk.StateType.Normal, args.Color);
-				break;
-			case BackgroundType.NoBackground:
-			case BackgroundType.PixmapBackground:
+		// FIXME: Overriding to this crashes in the C# bindings.
+		//        Manually tweaked generated bindings to not crash.
+		protected override void OnChangeBackground (BackgroundType type, 
+							    Gdk.Color      color, 
+							    Gdk.Pixmap     pixmap)
+		{
+			if (tray != null) {
 				Gtk.RcStyle rc_style = new Gtk.RcStyle ();
+				tray.Style = null;
 				tray.ModifyStyle (rc_style);
-				ModifyStyle (rc_style);
-				break;
+
+				switch (type) {
+				case BackgroundType.ColorBackground:
+					tray.ModifyBg (Gtk.StateType.Normal, color);
+					break;
+				case BackgroundType.NoBackground:
+					break;
+				case BackgroundType.PixmapBackground:
+					tomboy_widget_set_bg_pixmap (tray.Handle, pixmap.Handle);
+					break;
+				}
 			}
 		}
 	}

@@ -14,6 +14,8 @@ tomboylib_LTLIBRARIES = libtomboy.la
 libtomboy_la_SOURCES =		\
 	tomboykeybinder.h	\
 	tomboykeybinder.c	\
+	tomboyutil.h		\
+	tomboyutil.c		\
 	eggaccelerators.h	\
 	eggaccelerators.c	\
 	eggtrayicon.h		\
