@@ -59,6 +59,8 @@ do_grab_key (Binding *binding)
 
 	TRACE (g_print ("Got modmask %d\n", binding->modifiers));
 
+	gdk_error_trap_push ();
+
 	XGrabKey (GDK_WINDOW_XDISPLAY (rootwin),
 		  binding->keycode,
                   binding->modifiers,
@@ -66,6 +68,13 @@ do_grab_key (Binding *binding)
                   True,
                   GrabModeAsync, 
 		  GrabModeAsync);
+
+	gdk_flush ();
+
+	if (gdk_error_trap_pop ()) {
+	   g_warning ("Binding '%s' failed!\n", binding->keystring);
+	   return FALSE;
+	}
 
 	return TRUE;
 }
