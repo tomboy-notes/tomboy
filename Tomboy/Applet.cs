@@ -1,0 +1,169 @@
+
+using System;
+using Mono.Posix;
+using PanelApplet;
+
+namespace Tomboy
+{
+	public class TomboyApplet : PanelApplet
+	{
+		NoteManager manager;
+		TomboyTray tray;
+		TomboyGConfXKeybinder keybinder;
+
+		public TomboyApplet (IntPtr raw)
+			: base (raw)
+		{
+		}
+
+		public override string IID 
+		{
+			get { return "OAFIID:TomboyApplet"; }
+		}
+
+		public override string FactoryIID 
+		{
+			get { return "OAFIID:TomboyApplet_Factory"; }
+		}
+
+		public override void Creation ()
+		{
+			Console.WriteLine ("Applet Created!!");
+
+			manager = new NoteManager ();
+			tray = new TomboyTray (manager);
+			keybinder = new TomboyGConfXKeybinder (manager, tray);
+
+			// Register the manager to handle remote requests.
+			Tomboy.RegisterRemoteControl (manager);
+
+			Add (tray);
+			ShowAll ();
+
+			BonoboUIVerb [] menu_verbs = 
+				new BonoboUIVerb [] {
+					new BonoboUIVerb ("Props", 
+							  new ContextMenuItemCallback (ShowPreferencesVerb)),
+					new BonoboUIVerb ("About", 
+							  new ContextMenuItemCallback (ShowAboutVerb)),
+				};
+
+			SetupMenuFromResource ("GNOME_TomboyApplet.xml", menu_verbs);
+		}
+
+		void SetupMenuFromResource (string resource, PanelApplet.BonoboUIVerb [] verbs)
+		{
+			System.Reflection.Assembly assembly;
+			assembly = System.Reflection.Assembly.GetCallingAssembly ();
+
+			System.IO.Stream stream = assembly.GetManifestResourceStream (resource);
+			if (stream == null)
+                                throw new ArgumentException ("resource must be a valid resource " +
+							     "name of 'assembly'.");
+			
+			System.IO.StreamReader reader = new System.IO.StreamReader (stream);
+			string xml_ui = reader.ReadToEnd ();
+
+			SetupMenu (xml_ui, verbs);
+		}
+
+		void ShowPreferencesVerb ()
+		{
+			tray.ShowPreferences ();
+		}
+
+		void ShowAboutVerb ()
+		{
+			tray.ShowAbout ();
+		}
+	}
+
+	public class TomboyTrayIcon 
+	{
+		NoteManager manager;
+		TomboyTray tray;
+		TomboyGConfXKeybinder keybinder;
+
+		Egg.TrayIcon icon;
+
+		public TomboyTrayIcon ()
+			: this (new NoteManager ())
+		{
+		}
+
+		public TomboyTrayIcon (NoteManager manager)
+		{
+			this.manager = manager;
+
+			// Register the manager to handle remote requests.
+			Tomboy.RegisterRemoteControl (manager);
+
+			tray = new TomboyTray (manager);
+			tray.ButtonPressEvent += ButtonPress;
+
+			keybinder = new TomboyGConfXKeybinder (manager, tray);
+			
+			icon = new Egg.TrayIcon (Catalog.GetString ("Tomboy"));
+			icon.Add (tray);
+			icon.ShowAll ();
+		}
+
+		void ButtonPress (object sender, Gtk.ButtonPressEventArgs args) 
+		{
+			Gtk.Widget parent = (Gtk.Widget) sender;
+
+			if (args.Event.Button == 3) {
+				Gtk.Menu menu = MakeRightClickMenu (parent);
+				GuiUtils.PopupMenu (menu, args.Event);
+				args.RetVal = true;
+			}
+		}
+
+		Gtk.Menu MakeRightClickMenu (Gtk.Widget parent)
+		{
+			Gtk.Menu menu = new Gtk.Menu ();
+			menu.AttachToWidget (parent, null);
+
+			Gtk.AccelGroup accel_group = new Gtk.AccelGroup ();
+			menu.AccelGroup = accel_group;
+
+			Gtk.ImageMenuItem item;
+
+			item = new Gtk.ImageMenuItem (Catalog.GetString ("_Preferences..."));
+			item.Image = new Gtk.Image (Gtk.Stock.Properties, Gtk.IconSize.Menu);
+			item.Activated += ShowPreferences;
+			menu.Append (item);
+
+			item = new Gtk.ImageMenuItem (Catalog.GetString ("_About Tomboy"));
+			item.Image = new Gtk.Image (Gnome.Stock.About, Gtk.IconSize.Menu);
+			item.Activated += ShowAbout;
+			menu.Append (item);
+
+			menu.Append (new Gtk.SeparatorMenuItem ());
+
+			item = new Gtk.ImageMenuItem (Catalog.GetString ("_Quit"));
+			item.Image = new Gtk.Image (Gtk.Stock.Quit, Gtk.IconSize.Menu);
+			item.Activated += Quit;
+			menu.Append (item);
+
+			menu.ShowAll ();
+			return menu;
+		}
+
+		void ShowPreferences (object sender, EventArgs args)
+		{
+			tray.ShowPreferences ();
+		}
+
+		void ShowAbout (object sender, EventArgs args)
+		{
+			tray.ShowAbout ();
+		}
+
+		void Quit (object sender, EventArgs args)
+		{
+			Console.WriteLine ("Quitting Tomboy.  Ciao!");
+			Tomboy.Exit (0);
+		}
+	}
+}

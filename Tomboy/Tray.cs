@@ -6,10 +6,9 @@ using System.Runtime.InteropServices;
 
 namespace Tomboy
 {
-	public class TomboyTray 
+	public class TomboyTray : Gtk.EventBox
 	{
 		NoteManager manager;
-		Egg.TrayIcon icon;
 		Gtk.Tooltips tips;
 
 		static Gdk.Pixbuf tintin;
@@ -24,13 +23,14 @@ namespace Tomboy
 		}
 
 		public TomboyTray (NoteManager manager) 
+			: base ()
 		{
 			this.manager = manager;
 
-			Gtk.EventBox ev = new Gtk.EventBox ();
-			ev.CanFocus = true;
-			ev.ButtonPressEvent += ButtonPress;
-			ev.Add (new Gtk.Image (tintin));
+			this.CanFocus = true;
+			this.ButtonPressEvent += ButtonPress;
+			this.Add (new Gtk.Image (tintin));
+			this.ShowAll ();
 
 			string tip_text = Catalog.GetString ("Tomboy Notes");
 
@@ -43,62 +43,19 @@ namespace Tomboy
 			}
 
 			tips = new Gtk.Tooltips ();
-			tips.SetTip (ev, tip_text, null);
+			tips.SetTip (this, tip_text, null);
 			tips.Enable ();
-
-			icon = new Egg.TrayIcon (Catalog.GetString ("Tomboy"));
-			icon.Add (ev);
-			icon.ShowAll ();
-		}
-
-		public void ShowMenu ()
-		{
-			Gtk.Menu recent_menu = MakeRecentNotesMenu (icon);
-			GuiUtils.PopupMenu (recent_menu, null);
 		}
 
 		void ButtonPress (object sender, Gtk.ButtonPressEventArgs args) 
 		{
 			Gtk.Widget parent = (Gtk.Widget) sender;
 
-			if (args.Event.Button == 3) {
-				Gtk.Menu menu = MakeRightClickMenu (parent);
-				GuiUtils.PopupMenu (menu, args.Event);
-			} else {
+			if (args.Event.Button == 1) {
 				Gtk.Menu recent_menu = MakeRecentNotesMenu (parent);
 				GuiUtils.PopupMenu (recent_menu, args.Event);
+				args.RetVal = true;
 			}
-		}
-
-		Gtk.Menu MakeRightClickMenu (Gtk.Widget parent)
-		{
-			Gtk.Menu menu = new Gtk.Menu ();
-			menu.AttachToWidget (parent, null);
-
-			Gtk.AccelGroup accel_group = new Gtk.AccelGroup ();
-			menu.AccelGroup = accel_group;
-
-			Gtk.ImageMenuItem item;
-
-			item = new Gtk.ImageMenuItem (Catalog.GetString ("_Preferences..."));
-			item.Image = new Gtk.Image (Gtk.Stock.Properties, Gtk.IconSize.Menu);
-			item.Activated += ShowPreferences;
-			menu.Append (item);
-
-			item = new Gtk.ImageMenuItem (Catalog.GetString ("_About Tomboy"));
-			item.Image = new Gtk.Image (Gnome.Stock.About, Gtk.IconSize.Menu);
-			item.Activated += ShowAbout;
-			menu.Append (item);
-
-			menu.Append (new Gtk.SeparatorMenuItem ());
-
-			item = new Gtk.ImageMenuItem (Catalog.GetString ("_Quit"));
-			item.Image = new Gtk.Image (Gtk.Stock.Quit, Gtk.IconSize.Menu);
-			item.Activated += Quit;
-			menu.Append (item);
-
-			menu.ShowAll ();
-			return menu;
 		}
 
 		Gtk.Menu MakeRecentNotesMenu (Gtk.Widget parent) 
@@ -225,20 +182,20 @@ namespace Tomboy
 			recent.Show ();
 		}
 
-		void Quit (object sender, EventArgs args)
+		public void ShowMenu ()
 		{
-			Console.WriteLine ("Quitting Tomboy.  Ciao!");
-			Environment.Exit (0);
+			Gtk.Menu recent_menu = MakeRecentNotesMenu (this);
+			GuiUtils.PopupMenu (recent_menu, null);
 		}
 
-		void ShowPreferences (object sender, EventArgs args)
+		public void ShowPreferences ()
 		{
 			PreferencesDialog prefs = new PreferencesDialog ();
 			prefs.Run ();
 			prefs.Destroy ();
 		}
 
-		void ShowAbout (object sender, EventArgs args)
+		public void ShowAbout ()
 		{
 			string [] authors = new string [] {
 				"Alex Graveley <alex@beatniksoftware.com>"
@@ -291,7 +248,6 @@ namespace Tomboy
 	// visually through the menuitem, and have the new value be stored in
 	// GConf.
 	//
-
 	public class GConfKeybindingToAccel
 	{
 		static Gtk.AccelGroup accel_group;
