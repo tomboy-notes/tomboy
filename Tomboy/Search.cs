@@ -613,13 +613,13 @@ namespace Tomboy
 						continue;
 
 					AppendResultTreeView (store, note, note_matches);
+					HighlightMatches (note_matches, true);
 
 					if (current_note == note) {
 						find_next_button.Sensitive = true;
 						find_prev_button.Sensitive = true;
 
 						current_matches = note_matches;
-						HighlightMatches (current_matches, true);
 
 						// FIXME: select this entry in
 						// the treeview, and make the
