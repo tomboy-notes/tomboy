@@ -279,17 +279,17 @@ namespace Tomboy
 				return text;
 			}
 			set {
-				text = value;
-				QueueSave (false);
-
 				if (buffer != null) {
 					buffer.Clear ();
 					buffer.Undoer.FreezeUndo ();
 					NoteBufferArchiver.Deserialize (buffer, 
 									buffer.StartIter, 
-									text);
+									value);
 					buffer.Undoer.ThawUndo ();
 				}
+
+				text = value;
+				QueueSave (false);
 			}
 		}
 

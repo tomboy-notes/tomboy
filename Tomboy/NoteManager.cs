@@ -56,17 +56,20 @@ namespace Tomboy
 
 		void CreateStartNote () 
 		{
-			Note start_note = Create (Catalog.GetString ("Start Here"));
+			string content = 
+				string.Format ("<note-content>" +
+					       "{0}\n\n" +
+					       "<bold>{1}</bold>\n\n" +
+					       "{2}" +
+					       "</note-content>",
+					       Catalog.GetString ("Start Here"),
+					       Catalog.GetString ("Welcome to Tomboy!"),
+					       Catalog.GetString ("Use this page as a Start Page for organizing your " +
+								  "notes and keeping unorganized ideas around."));
+
+			Note start_note = Create (Catalog.GetString ("Start Here"), content);
+
 			if (start_note != null) {
-				start_note.Text = 
-					"<note-content>" +
-					Catalog.GetString ("Start Here") + "\n\n" +
-					"<bold>" +
-					Catalog.GetString ("Welcome to Tomboy!") +
-					"</bold>\n\n" +
-					Catalog.GetString ("Use this page as a Start Page for organizing your " +
-							   "notes and keeping unorganized ideas around.") +
-					"</note-content>";
 				start_note.Save ();
 				start_note.Window.Show ();
 			}
@@ -105,6 +108,7 @@ namespace Tomboy
 			return Path.Combine (notes_dir, guid.ToString () + ".note");
 		}
 
+		// Create a new note with a generated title
 		public Note Create ()
 		{
 			int new_num = notes.Count;
@@ -120,17 +124,17 @@ namespace Tomboy
 			return Create (temp_title);
 		}
 
+		// Create a new note with the specified title, and a simple
+		// "Describe..." body which will be selected for easy overwrite.
 		public Note Create (string linked_title) 
 		{
-			string filename = MakeNewFileName ();
 			string header = linked_title + "\n\n";
-
-			Note new_note = new Note (linked_title, filename, this);
-			new_note.Text = 
+			string content = 
 				String.Format ("<note-content>{0}{1}</note-content>",
 					       XmlEncoder.Encode (header),
 					       Catalog.GetString ("Describe your new note here."));
-			new_note.Renamed += OnNoteRename;
+
+			Note new_note = Create (linked_title, content);
 
 			// Select the inital "Describe..." text so typing will
 			// immediately overwrite...
@@ -138,6 +142,18 @@ namespace Tomboy
 			Gtk.TextIter iter = buffer.GetIterAtOffset (header.Length);
 			buffer.MoveMark (buffer.SelectionBound, iter);
 			buffer.MoveMark (buffer.InsertMark, buffer.EndIter);
+
+			return new_note;
+		}
+
+		// Create a new note with the specified Xml content
+		public Note Create (string title, string xml_content)
+		{
+			string filename = MakeNewFileName ();
+
+			Note new_note = new Note (title, filename, this);
+			new_note.Text = xml_content;
+			new_note.Renamed += OnNoteRename;
 
 			notes.Add (new_note);
 
