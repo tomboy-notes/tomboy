@@ -15,10 +15,12 @@ BuildRequires:  gtk2-devel >= 2.2.3
 BuildRequires:  atk-devel >= 1.2.4
 BuildRequires:  gtkspell-devel
 BuildRequires:  gtk-sharp
+%{?_with_dbus:BuildRequires:  dbus-sharp}
 Requires:       gtk2-devel >= 2.2.3 
 Requires:       atk-devel >= 1.2.4
 Requires:       gtkspell
 Requires:       gtk-sharp
+%{?_with_dbus:Requires:  dbus-sharp}
 
 %description
 Tomboy is a desktop note-taking application for Linux and Unix. Simple and easy
@@ -29,12 +31,15 @@ organizing ideas is as simple as typing a name.  Branching an idea off is easy
 as pressing the Link button. And links between your ideas won't break, even when
 renaming and reorganizing them.
 
+Available rpmbuild rebuild options :
+--with : dbus
+
 %prep
 %setup -q
 
 
 %build
-%configure
+%configure %{!?_with_dbus: --enable-dbus=no}
 %{__make} %{?_smp_mflags}
 
 
@@ -74,7 +79,7 @@ gconftool-2 --makefile-uninstall-rule \
 %dir %{_libdir}/%{name}
 %{_libdir}/%{name}/*
 %{_libdir}/bonobo/servers/GNOME_TomboyApplet.server
-%{_libdir}/dbus-1.0/services/com.beatniksoftware.Tomboy.service
+%{?_with_dbus:%{_libdir}/dbus-1.0/services/com.beatniksoftware.Tomboy.service}
 %{_mandir}/man1/%{name}.1.gz
 %{_datadir}/applications/tomboy.desktop
 %{_datadir}/gnome-2.0/ui/GNOME_TomboyApplet.xml

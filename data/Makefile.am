@@ -26,13 +26,14 @@ endif
 
 
 if ENABLE_DBUS
-com.beatniksoftware.Tomboy.service: $(srcdir)/com.beatniksoftware.Tomboy.service.in
+dbusservicedir       = $(libdir)/dbus-1.0/services
+dbusservice_in_files = com.beatniksoftware.Tomboy.service.in
+dbusservice_DATA     = $(dbusservice_in_files:.service.in=.service)
+
+$(dbusservice_DATA): $(dbusservice_in_files)
 	sed -e "s|\@bindir\@|$(bindir)|g"	\
 	    -e "s|\@wrapper\@|tomboy|g"		\
 	    < $^ > $@
-
-dbusservicedir = $(libdir)/dbus-1.0/services
-dbusservice_DATA = com.beatniksoftware.Tomboy.service
 endif
 
 
@@ -66,11 +67,12 @@ EXTRA_DIST = 					\
 	$(man_MANS)				\
 	$(noinst_DATA)				\
 	GNOME_TomboyApplet.server.in.in		\
-	GNOME_TomboyApplet.xml
+	GNOME_TomboyApplet.xml			\
+	$(dbusservice_in_files)
 
 DISTCLEANFILES = 				\
 	$(desktop_files)        		\
 	$(schemas_DATA)				\
 	$(server_in_files) 			\
 	$(server_DATA)				\
-	com.beatniksoftware.Tomboy.service
+	$(dbusservice_DATA)

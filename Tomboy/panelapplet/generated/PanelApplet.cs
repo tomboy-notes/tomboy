@@ -373,7 +373,7 @@ namespace PanelApplet {
 		[DllImport("panel-applet-2")]
 		static extern void panel_applet_set_flags(IntPtr raw, int flags);
 
-		public PanelApplet.Flags Flags { 
+		public PanelApplet.Flags AppletFlags { 
 			get {
 				int raw_ret = panel_applet_get_flags(Handle);
 				PanelApplet.Flags ret = (PanelApplet.Flags)raw_ret;
