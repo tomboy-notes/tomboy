@@ -114,6 +114,26 @@ namespace Tomboy
 			QueueSave (false);
 		}
 
+		[GLib.ConnectBefore]
+		void WindowConfigureEvent (object sender, Gtk.ConfigureEventArgs args)
+		{
+			int cur_x, cur_y, cur_width, cur_height;
+
+			window.GetPosition (out cur_x, out cur_y);
+			window.GetSize (out cur_width, out cur_height);
+
+			if (x != cur_x || 
+			    y != cur_y ||
+			    width != cur_width || 
+			    height != cur_height)
+				QueueSave (false);
+		}
+
+		void WindowDeleted (object sender, Gtk.DeleteEventArgs args) 
+		{
+			window = null;
+		}
+
 		void QueueSave (bool invalidate_text)
 		{
 			// Replace the existing save timeout...
@@ -257,6 +277,8 @@ namespace Tomboy
 					window = new NoteWindow (this);
 					window.DeleteEvent += 
 						new Gtk.DeleteEventHandler (WindowDeleted);
+					window.ConfigureEvent +=
+						new Gtk.ConfigureEventHandler (WindowConfigureEvent);
 
 					// Start spell-checking
 					note_spell_check = new NoteSpellChecker (this);
@@ -281,11 +303,6 @@ namespace Tomboy
 
 		public bool IsNew {
 			get { return is_new; }
-		}
-
-		void WindowDeleted (object sender, Gtk.DeleteEventArgs args) 
-		{
-			window = null;
 		}
 	}
 
