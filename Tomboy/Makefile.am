@@ -103,5 +103,6 @@ EXTRA_DIST =            		\
 CLEANFILES =			\
 	$(TARGET) 		\
 	$(TARGET).config	\
+	$(TARGET).mdb 		\
 	$(WRAPPER)		\
 	Defines.cs
