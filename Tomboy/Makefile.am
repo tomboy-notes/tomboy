@@ -1,80 +1,70 @@
 
-
 CSC = mcs -g
 
 TARGET = Tomboy.exe
 WRAPPER = tomboy
 
-CSFLAGS = -target:exe -define:DEBUG -unsafe
-
-CSFILES = 				\
-	$(srcdir)/Tomboy.cs 		\
-	$(srcdir)/Applet.cs 		\
-	$(srcdir)/Note.cs 		\
-	$(srcdir)/NoteManager.cs 	\
-	$(srcdir)/NoteWindow.cs 	\
-	$(srcdir)/NoteBuffer.cs 	\
-	$(srcdir)/Preferences.cs	\
-	$(srcdir)/RecentChanges.cs	\
-	$(srcdir)/Search.cs 		\
-	$(srcdir)/Tray.cs 		\
-	$(srcdir)/Undo.cs 		\
-	$(srcdir)/Utils.cs		\
-	$(srcdir)/Watchers.cs		\
-	$(srcdir)/XKeybinder.cs		\
-	\
-	$(srcdir)/panelapplet/*.cs	\
-	$(srcdir)/panelapplet/generated/*.cs
-
-#	$(srcdir)/ActiveVerb.cs 
-#	$(srcdir)/GoogleSearchService.cs 
-
-ASSEMBLIES = 			\
-	$(TOMBOY_LIBS)		\
-	-r:Mono.Posix
-
-RESOURCES = 									\
-	-resource:$(srcdir)/Start_Here.note,Start_Here.note			\
-	-resource:$(srcdir)/tintin.png,tintin.png				\
-	-resource:$(srcdir)/stock_notes.png,stock_notes.png			\
-	-resource:$(srcdir)/GNOME_TomboyApplet.xml,GNOME_TomboyApplet.xml	\
-	-resource:$(srcdir)/gnome-stock-searchtool.png,gnome-stock-searchtool.png
+if ENABLE_DBUS
+DBUS_CSFLAGS = -define:ENABLE_DBUS
+DBUS_CSFILES = 				\
+	$(srcdir)/RemoteControl.cs	\
+	$(srcdir)/RemoteControlProxy.cs
+endif
 
 if OLD_GTKSPELL
-CSFLAGS += -define:OLD_GTKSPELL
+OLD_GTKSPELL_CSFLAGS = -define:OLD_GTKSPELL
 endif
 
 if FIXED_GTKSPELL
-CSFLAGS += -define:FIXED_GTKSPELL
+FIXED_GTKSPELL_CSFLAGS = -define:FIXED_GTKSPELL
 endif
 
-if ENABLE_DBUS
-CSFLAGS += -define:ENABLE_DBUS
-CSFILES += 				\
-	$(srcdir)/RemoteControl.cs	\
-	$(srcdir)/RemoteControlProxy.cs
-ASSEMBLIES += $(DBUS_LIBS)
+CSFLAGS = 				\
+	-target:exe 			\
+	-define:DEBUG 			\
+	-unsafe 			\
+	$(DBUS_CSFLAGS) 		\
+	$(FIXED_GTKSPELL_CSFLAGS) 	\
+	$(OLD_GTKSPELL_CSFLAGS)
 
-com.beatniksoftware.Tomboy.service: $(srcdir)/com.beatniksoftware.Tomboy.service.in
-	sed -e "s|\@bindir\@|$(bindir)|g"	\
-	    -e "s|\@wrapper\@|$(WRAPPER)|g"	\
-	    < $^ > $@
+CSFILES = 					\
+	$(srcdir)/Tomboy.cs 			\
+	$(srcdir)/Applet.cs 			\
+	$(srcdir)/Note.cs 			\
+	$(srcdir)/NoteManager.cs 		\
+	$(srcdir)/NoteWindow.cs 		\
+	$(srcdir)/NoteBuffer.cs 		\
+	$(srcdir)/Preferences.cs		\
+	$(srcdir)/RecentChanges.cs		\
+	$(srcdir)/Search.cs 			\
+	$(srcdir)/Tray.cs 			\
+	$(srcdir)/Undo.cs 			\
+	$(srcdir)/Utils.cs			\
+	$(srcdir)/Watchers.cs			\
+	$(srcdir)/XKeybinder.cs			\
+	\
+	$(srcdir)/panelapplet/*.cs		\
+	$(srcdir)/panelapplet/generated/*.cs	\
+	\
+	$(DBUS_CSFILES)	
 
-dbusservicedir = $(libdir)/dbus-1.0/services
-dbusservice_DATA = com.beatniksoftware.Tomboy.service
-endif
+ASSEMBLIES = 		\
+	$(TOMBOY_LIBS) 	\
+	-r:Mono.Posix	\
+	$(DBUS_LIBS)
+
+RESOURCES = 										\
+	-resource:$(top_srcdir)/data/GNOME_TomboyApplet.xml,GNOME_TomboyApplet.xml	\
+	-resource:$(top_srcdir)/data/Start_Here.note,Start_Here.note			\
+	-resource:$(top_srcdir)/data/images/tintin.png,tintin.png			\
+	-resource:$(top_srcdir)/data/images/stock_notes.png,stock_notes.png		\
+	-resource:$(top_srcdir)/data/images/gnome-stock-searchtool.png,gnome-stock-searchtool.png
 
 $(TARGET): $(CSFILES) $(srcdir)/Defines.cs
 	$(CSC) -o $@ $(CSFLAGS) $^ $(ASSEMBLIES) $(RESOURCES)
 
-all: $(TARGET)
-
-install-data-local: $(TARGET)
-	$(mkinstalldirs) $(DESTDIR)$(pkglibdir)
-	$(INSTALL_PROGRAM) $(TARGET) $(DESTDIR)$(pkglibdir)/$(TARGET)
-
-uninstall-local:
-	rm -f $(DESTDIR)$(pkglibdir)/$(TARGET)
+tomboylibdir = $(pkglibdir)
+tomboylib_DATA = $(TARGET)
 
 bin_SCRIPTS = $(WRAPPER)
 
@@ -93,43 +83,17 @@ Defines.cs: $(srcdir)/Defines.cs.in
 	    -e "s|\@datadir\@|$(datadir)|" \
 	    < $^ > $@
 
-pixmapdir = $(datadir)/pixmaps
-pixmap_DATA = tintin.png
-
-man_MANS = tomboy.1
-
-uidir = $(datadir)/gnome-2.0/ui
-ui_DATA = GNOME_TomboyApplet.xml
-
-serverdir       = $(libdir)/bonobo/servers
-server_in_files = GNOME_TomboyApplet.server.in
-server_DATA     = $(server_in_files:.server.in=.server)
-
-$(server_in_files): $(server_in_files:.server.in=.server.in.in)
-	sed -e "s|\@pkglibdir\@|$(pkglibdir)|g" 	\
-	    -e "s|\@bindir\@|$(bindir)|g"		\
-	    -e "s|\@wrapper\@|$(WRAPPER)|g"		\
-	    < $^ > $@
-
-@INTLTOOL_SERVER_RULE@
 
 EXTRA_DIST =            				\
 	$(CSFILES)      				\
 	$(WRAPPER).in					\
-	$(man_MANS)					\
 	$(srcdir)/Defines.cs.in				\
 	$(srcdir)/Start_Here.note			\
 	$(srcdir)/tintin.png				\
 	$(srcdir)/stock_notes.png			\
-	$(srcdir)/gnome-stock-searchtool.png		\
-	$(srcdir)/com.beatniksoftware.Tomboy.service.in \
-	$(srcdir)/GNOME_TomboyApplet.server.in.in	\
-	$(srcdir)/GNOME_TomboyApplet.xml
+	$(srcdir)/gnome-stock-searchtool.png
 
-CLEANFILES =            			\
-	$(TARGET)       			\
-	$(WRAPPER)				\
-	Defines.cs				\
-	com.beatniksoftware.Tomboy.service	\
-	$(server_in_files) 			\
-	$(server_DATA)
+CLEANFILES =		\
+	$(TARGET) 	\
+	$(WRAPPER)	\
+	Defines.cs
