@@ -1,6 +1,8 @@
 
 using System;
+using System.Runtime.InteropServices;
 using Mono.Posix;
+
 using PanelApplet;
 
 namespace Tomboy
@@ -71,13 +73,14 @@ namespace Tomboy
 		}
 	}
 
-	public class TomboyTrayIcon 
+	public class TomboyTrayIcon : Gtk.Plug
 	{
 		NoteManager manager;
 		TomboyTray tray;
 		TomboyGConfXKeybinder keybinder;
 
-		Egg.TrayIcon icon;
+		[DllImport ("libtomboy")]
+		private static extern IntPtr egg_tray_icon_new (string name);
 
 		public TomboyTrayIcon ()
 			: this (new NoteManager ())
@@ -86,6 +89,7 @@ namespace Tomboy
 
 		public TomboyTrayIcon (NoteManager manager)
 		{
+			this.Raw = egg_tray_icon_new (Catalog.GetString ("Tomboy Notes"));
 			this.manager = manager;
 
 			// Register the manager to handle remote requests.
@@ -95,10 +99,9 @@ namespace Tomboy
 			tray.ButtonPressEvent += ButtonPress;
 
 			keybinder = new TomboyGConfXKeybinder (manager, tray);
-			
-			icon = new Egg.TrayIcon (Catalog.GetString ("Tomboy"));
-			icon.Add (tray);
-			icon.ShowAll ();
+
+			Add (tray);
+			ShowAll ();
 		}
 
 		void ButtonPress (object sender, Gtk.ButtonPressEventArgs args) 

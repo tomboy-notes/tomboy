@@ -199,3 +199,32 @@ tomboy_keybinder_unbind (const char           *keystring,
 		break;
 	}
 }
+
+/* 
+ * From eggcellrenderkeys.c.
+ */
+gboolean
+tomboy_keybinder_is_modifier (guint keycode)
+{
+	gint i;
+	gint map_size;
+	XModifierKeymap *mod_keymap;
+	gboolean retval = FALSE;
+
+	mod_keymap = XGetModifierMapping (gdk_display);
+
+	map_size = 8 * mod_keymap->max_keypermod;
+
+	i = 0;
+	while (i < map_size) {
+		if (keycode == mod_keymap->modifiermap[i]) {
+			retval = TRUE;
+			break;
+		}
+		++i;
+	}
+
+	XFreeModifiermap (mod_keymap);
+
+	return retval;
+}
