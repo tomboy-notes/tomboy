@@ -1,6 +1,7 @@
 
 using System;
 using Mono.Posix;
+using System.Text;
 
 namespace Tomboy
 {
@@ -142,16 +143,11 @@ namespace Tomboy
 			tree.HeadersVisible = true;
 			tree.RulesHint = true;
 			tree.RowActivated += OnRowActivated;
-
-			/*
-			tree.DragBegin += OnDragBegin;
 			tree.DragDataGet += OnDragDataGet;
-			*/
 
-			Gtk.Drag.SourceSet (tree,
-					    Gdk.ModifierType.Button1Mask,
-					    targets,
-					    Gdk.DragAction.Link);
+			tree.EnableModelDragSource (Gdk.ModifierType.Button1Mask,
+						    targets,
+						    Gdk.DragAction.Copy);
 
 			Gtk.CellRenderer renderer;
 
@@ -206,20 +202,27 @@ namespace Tomboy
 			UpdateResults ();
 		}
 
-		/*
-		void OnDragBegin (object sender, Gtk.DragBeginArgs args)
-		{
-			Console.WriteLine ("OnDragBegin called");
-			//Gtk.Image note_img = new Gtk.Image (stock_notes);
-			//Gtk.Drag.SetIconWidget (args.Context, note_img, 0, 0);
-			Gtk.Drag.SetIconPixbuf (args.Context, recent_icon, 0, 0);
-		}
-
 		void OnDragDataGet (object sender, Gtk.DragDataGetArgs args)
 		{
-			Console.WriteLine ("OnDragDataGet called");
+			Gtk.TreeModel model;
+			Gtk.TreeIter iter;
+
+			if (!tree.Selection.GetSelected (out model, out iter))
+				return;
+
+			Note note = (Note) model.GetValue (iter, 3 /* note */);
+			if (note == null)
+				return;
+
+			// FIXME: Gtk.SelectionData has no way to get the
+			//        requested target.
+
+			args.SelectionData.Set (Gdk.Atom.Intern ("text/uri-list", false),
+						8,
+						Encoding.UTF8.GetBytes (note.Uri));
+
+			args.SelectionData.Text = note.Title;
 		}
-		*/
 
 		string PrettyPrintDate (DateTime date)
 		{

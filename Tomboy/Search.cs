@@ -1,6 +1,7 @@
 
 using System;
 using System.Collections;
+using System.Text;
 using Mono.Posix;
 
 namespace Tomboy 
@@ -210,6 +211,19 @@ namespace Tomboy
 				typeof (ArrayList),  // matches
 			};
 
+			Gtk.TargetEntry [] targets = 
+				new Gtk.TargetEntry [] {
+					new Gtk.TargetEntry ("STRING", 
+							     Gtk.TargetFlags.App,
+							     0),
+					new Gtk.TargetEntry ("text/plain", 
+							     Gtk.TargetFlags.App,
+							     0),
+					new Gtk.TargetEntry ("text/uri-list", 
+							     Gtk.TargetFlags.App,
+							     1),
+				};
+
 			store = new Gtk.ListStore (types);
 			store.SetSortFunc (3 /* note */,
 					   new Gtk.TreeIterCompareFunc (CompareDates),
@@ -219,6 +233,12 @@ namespace Tomboy
 			tree = new Gtk.TreeView (store);
 			tree.HeadersVisible = true;
 			tree.RulesHint = true;
+			tree.RowActivated += OnRowActivated;
+			tree.DragDataGet += OnDragDataGet;
+
+			tree.EnableModelDragSource (Gdk.ModifierType.Button1Mask,
+						    targets,
+						    Gdk.DragAction.Copy);
 
 			Gtk.CellRenderer renderer;
 
@@ -242,8 +262,6 @@ namespace Tomboy
 
 			title.SortColumnId = 3; /* note */
 			tree.AppendColumn (title);
-
-			tree.RowActivated += OnRowActivated;
 		}
 
 		class Match 
@@ -455,6 +473,28 @@ namespace Tomboy
 			}
 
 			UpdateResults ();
+		}
+
+		void OnDragDataGet (object sender, Gtk.DragDataGetArgs args)
+		{
+			Gtk.TreeModel model;
+			Gtk.TreeIter iter;
+
+			if (!tree.Selection.GetSelected (out model, out iter))
+				return;
+
+			Note note = (Note) model.GetValue (iter, 3 /* note */);
+			if (note == null)
+				return;
+
+			// FIXME: Gtk.SelectionData has no way to get the
+			//        requested target.
+
+			args.SelectionData.Set (Gdk.Atom.Intern ("text/uri-list", false),
+						8,
+						Encoding.UTF8.GetBytes (note.Uri));
+
+			args.SelectionData.Text = note.Title;
 		}
 
 		void OnRowActivated (object sender, Gtk.RowActivatedArgs args)
