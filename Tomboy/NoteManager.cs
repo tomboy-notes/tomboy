@@ -32,7 +32,20 @@ namespace Tomboy
 			backup_dir = backup_directory;
 			notes = new ArrayList ();
 
-			if (Directory.Exists (notes_dir)) {
+			bool first_run = !Directory.Exists (notes_dir);
+			if (first_run) {
+				// First run. Create storage directory.
+				Directory.CreateDirectory (notes_dir);
+			}
+
+			// Create & populate the Plugins dir if it don't exist
+			string plugins_dir = Path.Combine (notes_dir, "Plugins");
+			plugin_mgr = new PluginManager (plugins_dir);
+
+			if (first_run) {
+				// First run. Create "Start Here" note
+				CreateStartNote ();
+			} else {
 				string [] files = Directory.GetFiles (notes_dir, "*.note");
 
 				foreach (string file_path in files) {
@@ -42,19 +55,11 @@ namespace Tomboy
 						notes.Add (note);
 					}
 				}
-			} else {
-				// First run. Create storage directory and "Start Here" note
-				Directory.CreateDirectory (notes_dir);
-				CreateStartNote ();
-			}
 
-			// This will create & populate the Plugins dir if it don't exist
-			string plugins_dir = Path.Combine (notes_dir, "Plugins");
-			plugin_mgr = new PluginManager (plugins_dir);
-
-			// Load all the plugins for our notes
-			foreach (Note note in notes) {
-				plugin_mgr.LoadPluginsForNote (note);
+				// Load all the plugins for our notes
+				foreach (Note note in notes) {
+					plugin_mgr.LoadPluginsForNote (note);
+				}
 			}
 
 			Tomboy.ExitingEvent += OnExitingEvent;

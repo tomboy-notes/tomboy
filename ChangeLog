@@ -1,3 +1,10 @@
+2005-01-12  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/NoteManager.cs: Fix bootstrapping by checking if the
+	.tomboy directory exists before creating the PluginManager, which
+	might create the directory, causing Start Here to not be created
+	the first time Tomboy is run.
+
 2005-01-08  Alex Graveley  <alex@beatniksoftware.com>
 
 	* Tomboy/Tray.cs: Escape underscores in note titles so tray
