@@ -32,11 +32,13 @@ namespace Tomboy
 
 			string tip_text = Catalog.GetString ("Tomboy Notes");
 
-			string shortcut = 
-				GConfKeybindingToAccel.GetShortcut (
-					TomboyGConfXKeybinder.MENU_BINDING);
-			if (shortcut != null)
-				tip_text += String.Format (" ({0})", shortcut);
+			if ((bool) Preferences.Get (Preferences.ENABLE_KEYBINDINGS)) {
+				string shortcut = 
+					GConfKeybindingToAccel.GetShortcut (
+						Preferences.KEYBINDING_SHOW_NOTE_MENU);
+				if (shortcut != null)
+					tip_text += String.Format (" ({0})", shortcut);
+			}
 
 			tips = new Gtk.Tooltips ();
 			tips.SetTip (ev, tip_text, null);
@@ -56,14 +58,50 @@ namespace Tomboy
 		void ButtonPress (object sender, Gtk.ButtonPressEventArgs args) 
 		{
 			Gtk.Widget parent = (Gtk.Widget) sender;
-			Gtk.Menu recent_menu = MakeRecentNotesMenu (parent);
-			GuiUtils.PopupMenu (recent_menu, args.Event);
+
+			if (args.Event.Button == 3) {
+				Gtk.Menu menu = MakeRightClickMenu (parent);
+				GuiUtils.PopupMenu (menu, args.Event);
+			} else {
+				Gtk.Menu recent_menu = MakeRecentNotesMenu (parent);
+				GuiUtils.PopupMenu (recent_menu, args.Event);
+			}
+		}
+
+		Gtk.Menu MakeRightClickMenu (Gtk.Widget parent)
+		{
+			Gtk.Menu menu = new Gtk.Menu ();
+			menu.AttachToWidget (parent, null);
+
+			Gtk.AccelGroup accel_group = new Gtk.AccelGroup ();
+			menu.AccelGroup = accel_group;
+
+			Gtk.ImageMenuItem item;
+
+			item = new Gtk.ImageMenuItem (Catalog.GetString ("_Preferences..."));
+			item.Image = new Gtk.Image (Gtk.Stock.Properties, Gtk.IconSize.Menu);
+			item.Activated += ShowPreferences;
+			menu.Append (item);
+
+			item = new Gtk.ImageMenuItem (Gnome.Stock.About, accel_group);
+			menu.Append (item);
+
+			item = new Gtk.ImageMenuItem (Catalog.GetString ("_Quit"));
+			item.Image = new Gtk.Image (Gtk.Stock.Quit, Gtk.IconSize.Menu);
+			item.Activated += Quit;
+			menu.Append (item);
+
+			menu.ShowAll ();
+			return menu;
 		}
 
 		Gtk.Menu MakeRecentNotesMenu (Gtk.Widget parent) 
 		{
 			Gtk.Menu menu = new Gtk.Menu ();
 			menu.AttachToWidget (parent, null);
+
+			bool enable_keybindings = (bool) 
+				Preferences.Get (Preferences.ENABLE_KEYBINDINGS);
 
 			Gtk.ImageMenuItem item;
 
@@ -72,9 +110,10 @@ namespace Tomboy
 			item.Activated += CreateNewNote;
 			menu.Append (item);
 
-			GConfKeybindingToAccel.AddAccelerator (
-				item, 
-				TomboyGConfXKeybinder.NEW_NOTE_BINDING);
+			if (enable_keybindings)
+				GConfKeybindingToAccel.AddAccelerator (
+					item, 
+					Preferences.KEYBINDING_CREATE_NEW_NOTE);
 
 			// FIXME: Pull this from GConf
 			int min_size = 5;
@@ -109,9 +148,10 @@ namespace Tomboy
 				item = MakeNoteMenuItem (start);
 				menu.Append (item);
 
-				GConfKeybindingToAccel.AddAccelerator (
-					item, 
-					TomboyGConfXKeybinder.START_BINDING);
+				if (enable_keybindings)
+					GConfKeybindingToAccel.AddAccelerator (
+						item, 
+						Preferences.KEYBINDING_OPEN_START_HERE);
 			}
 
 			menu.Append (new Gtk.SeparatorMenuItem ());
@@ -121,25 +161,20 @@ namespace Tomboy
 			item.Activated += ViewRecentChanges;
 			menu.Append (item);
 
-			GConfKeybindingToAccel.AddAccelerator (
-				item, 
-				TomboyGConfXKeybinder.RECENT_BINDING);
+			if (enable_keybindings)
+				GConfKeybindingToAccel.AddAccelerator (
+					item, 
+					Preferences.KEYBINDING_OPEN_RECENT_CHANGES);
 
 			item = new Gtk.ImageMenuItem (Catalog.GetString ("_Search Notes..."));
 			item.Image = new Gtk.Image (Gtk.Stock.Find, Gtk.IconSize.Menu);
 			item.Activated += SearchNotes;
 			menu.Append (item);
 
-			GConfKeybindingToAccel.AddAccelerator (
-				item, 
-				TomboyGConfXKeybinder.SEARCH_BINDING);
-
-			menu.Append (new Gtk.SeparatorMenuItem ());
-
-			item = new Gtk.ImageMenuItem (Catalog.GetString ("_Quit"));
-			item.Image = new Gtk.Image (Gtk.Stock.Quit, Gtk.IconSize.Menu);
-			item.Activated += Quit;
-			menu.Append (item);
+			if (enable_keybindings)
+				GConfKeybindingToAccel.AddAccelerator (
+					item, 
+					Preferences.KEYBINDING_OPEN_SEARCH);
 
 			menu.ShowAll ();
 			return menu;
@@ -190,6 +225,13 @@ namespace Tomboy
 			Environment.Exit (0);
 		}
 
+		void ShowPreferences (object sender, EventArgs args)
+		{
+			PreferencesDialog prefs = new PreferencesDialog ();
+			prefs.Run ();
+			prefs.Destroy ();
+		}
+
 		// FIXME: If receiving a drag, pop up last window used, or a new
 		//        window, or the recent list?  I think recent list
 	}
@@ -206,19 +248,17 @@ namespace Tomboy
 
 	public class GConfKeybindingToAccel
 	{
-		static GConf.Client client;
 		static Gtk.AccelGroup accel_group;
 
 		static GConfKeybindingToAccel ()
 		{
-			client = new GConf.Client ();
 			accel_group = new Gtk.AccelGroup ();
 		}
 
 		public static string GetShortcut (string gconf_path)
 		{
 			try {
-				string binding = (string) client.Get (gconf_path);
+				string binding = (string) Preferences.Get (gconf_path);
 				if (binding == null || 
 				    binding == String.Empty || 
 				    binding == "disabled")
@@ -251,7 +291,7 @@ namespace Tomboy
 			mods = 0;
 
 			try {
-				string binding = (string) client.Get (gconf_path);
+				string binding = (string) Preferences.Get (gconf_path);
 				if (binding == null || 
 				    binding == String.Empty || 
 				    binding == "disabled")

@@ -1,55 +1,129 @@
 
 using System;
 using Mono.Posix;
+using GConf.PropertyEditors;
 
 namespace Tomboy
 {
+	public class Preferences
+	{
+		public const string ENABLE_SPELLCHECKING = "/apps/tomboy/enable_spellchecking";
+		public const string ENABLE_WIKIWORDS = "/apps/tomboy/enable_wikiwords";
+		public const string ENABLE_CUSTOM_FONT = "/apps/tomboy/enable_custom_font";
+		public const string ENABLE_KEYBINDINGS = "/apps/tomboy/enable_keybindings";
+
+		public const string CUSTOM_FONT_FACE = "/apps/tomboy/custom_font_face";
+
+		public const string KEYBINDING_SHOW_NOTE_MENU = "/apps/tomboy/global_keybindings/show_note_menu";
+		public const string KEYBINDING_OPEN_START_HERE = "/apps/tomboy/global_keybindings/open_start_here";
+		public const string KEYBINDING_CREATE_NEW_NOTE = "/apps/tomboy/global_keybindings/create_new_note";
+		public const string KEYBINDING_OPEN_SEARCH = "/apps/tomboy/global_keybindings/open_search";
+		public const string KEYBINDING_OPEN_RECENT_CHANGES = "/apps/tomboy/global_keybindings/open_recent_changes";
+
+		static GConf.Client client;
+		static GConf.NotifyEventHandler changed_handler;
+
+		public static GConf.Client Client 
+		{
+			get {
+				if (client == null) {
+					client = new GConf.Client ();
+
+					changed_handler = new GConf.NotifyEventHandler (OnSettingChanged);
+					client.AddNotify ("/apps/tomboy", changed_handler);
+				}
+				return client;
+			}
+		}
+
+		// NOTE: Keep synced with tomboy.schemas.in
+		public static object GetDefault (string key)
+		{
+			switch (key) {
+			case ENABLE_SPELLCHECKING:
+			case ENABLE_WIKIWORDS:
+			case ENABLE_CUSTOM_FONT:
+			case ENABLE_KEYBINDINGS:
+				return true;
+
+			case CUSTOM_FONT_FACE:
+				return "Serif 11";
+
+			case KEYBINDING_SHOW_NOTE_MENU:
+				return "<Alt>F12";
+				
+			case KEYBINDING_OPEN_START_HERE:
+				return "<Alt>F11";
+
+			case KEYBINDING_CREATE_NEW_NOTE:
+			case KEYBINDING_OPEN_SEARCH:
+			case KEYBINDING_OPEN_RECENT_CHANGES:
+				return "disabled";
+			}
+
+			return null;
+		}
+
+		public static object Get (string key)
+		{
+			try {
+				return Client.Get (key);
+			} catch (GConf.NoSuchKeyException) {
+				object default_val = GetDefault (key);
+
+				if (default_val != null)
+					Client.Set (key, default_val);
+
+				return default_val;
+			}
+		}
+
+		public static void Set (string key, object value)
+		{
+			Client.Set (key, value);
+		}
+
+		public static event GConf.NotifyEventHandler SettingChanged;
+
+		static void OnSettingChanged (object sender, GConf.NotifyEventArgs args)
+		{
+			if (SettingChanged != null) {
+				SettingChanged (sender, args);
+			}
+		}
+	}
+
 	public class PreferencesDialog : Gtk.Dialog
 	{
 		Gtk.Button font_button;
 		Gtk.Label font_face;
 		Gtk.Label font_size;
 
-		Gtk.Entry show_menu_entry;
-		Gtk.Entry open_start_here_entry;
-		Gtk.Entry create_new_note_entry;
-		Gtk.Entry open_search_entry;
+		static Gdk.Pixbuf tintin;
 
-		GConf.Client client;
+		static PreferencesDialog ()
+		{
+			tintin = new Gdk.Pixbuf (null, "tintin.png");
+		}
 
 		public PreferencesDialog ()
 			: base ()
 		{
+			Icon = tintin;
 			HasSeparator = false;
 			BorderWidth = 5;
 			Resizable = false;
 			Title = Catalog.GetString ("Tomboy Preferences");
 
-			VBox.Spacing = 12;
+			VBox.Spacing = 5;
 			ActionArea.Layout = Gtk.ButtonBoxStyle.End;
 
-			// Tintin icon and "Tomboy Preferences" label
-
-			/*
-			Gtk.HBox hbox = new Gtk.HBox (false, 12);
-			hbox.BorderWidth = 5;
-			hbox.Show ();
-			VBox.PackStart (hbox, false, false, 0);
-
-			Gtk.Image image = new Gtk.Image (new Gdk.Pixbuf (null, "tintin.png"));
-			image.Show ();
-			hbox.PackStart (image, false, false, 0);
-
-			label = MakeLabel (String.Format ("<span weight='bold' size='xx-large'>{0}" +
-							  "</span>",
-							  Catalog.GetString ("Tomboy Preferences")));
-			hbox.PackStart (label, false, false, 0);
-			*/
 
 			// Notebook Tabs (Editing, Hotkeys)...
 
 			Gtk.Notebook notebook = new Gtk.Notebook ();
 			notebook.TabPos = Gtk.PositionType.Top;
+			notebook.BorderWidth = 5;
 			notebook.Show ();
 
 			notebook.AppendPage (MakeEditingPane (), 
@@ -59,6 +133,7 @@ namespace Tomboy
 					     new Gtk.Label (Catalog.GetString ("Hotkeys")));
 
 			VBox.PackStart (notebook, true, true, 0);
+
 
 			// Ok button...
 			
@@ -79,25 +154,28 @@ namespace Tomboy
 			DefaultResponse = Gtk.ResponseType.Ok;
 		}
 
+		// Page 1
+		// List of editing options
 		public Gtk.Widget MakeEditingPane ()
 		{
 			Gtk.Label label;
 			Gtk.CheckButton check;
 			Gtk.Alignment align;
-			GConf.PropertyEditors.PropertyEditor peditor;
-
-			// Page 1
-			// List of editing options
+			PropertyEditorBool peditor, font_peditor;
 			
 			Gtk.VBox options_list = new Gtk.VBox (false, 12);
 			options_list.BorderWidth = 12;
 			options_list.Show ();
 
+
 			// Spellchecking...
 
-			check = MakeCheckButton (Catalog.GetString ("Spellcheck While Typing"));
-			check.Toggled += OnSpellcheckToggled;
+			check = MakeCheckButton (Catalog.GetString ("_Spellcheck While Typing"));
 			options_list.PackStart (check, false, false, 0);
+
+			peditor = new PropertyEditorToggleButton (Preferences.ENABLE_SPELLCHECKING,
+								  check);
+			SetupPropertyEditor (peditor);
 
 			label = MakeTipLabel (Catalog.GetString ("Misspellings will be underlined " +
 								 "in red, and correct spelling " +
@@ -105,32 +183,53 @@ namespace Tomboy
 								 "menu."));
 			options_list.PackStart (label, false, false, 0);
 
+
 			// WikiWords...
 
-			check = MakeCheckButton (Catalog.GetString ("Highlight WikiWords"));
-			check.Toggled += OnHighlightWikiWordsToggled;
+			check = MakeCheckButton (Catalog.GetString ("Highlight _WikiWords"));
 			options_list.PackStart (check, false, false, 0);
 
+			peditor = new PropertyEditorToggleButton (Preferences.ENABLE_WIKIWORDS, 
+								  check);
+			SetupPropertyEditor (peditor);
+
 			label = MakeTipLabel (Catalog.GetString ("Enable this option to highlight " +
-								 "words <b>ThatLookLikeThis</b>.  " +
+								 "words <b>ThatLookLikeThis</b>. " +
 								 "Clicking the word will create a " +
 								 "note with that name."));
 			options_list.PackStart (label, false, false, 0);
 
+
 			// Custom font...
 
-			check = MakeCheckButton (Catalog.GetString ("Use Custom Font"));
-			check.Toggled += OnUseCustomFontToggled;
+			check = MakeCheckButton (Catalog.GetString ("Use Custom _Font"));
 			options_list.PackStart (check, false, false, 0);
+
+			font_peditor = 
+				new PropertyEditorToggleButton (Preferences.ENABLE_CUSTOM_FONT, 
+								check);
+			SetupPropertyEditor (font_peditor);
 
 			align = new Gtk.Alignment (0.5f, 0.5f, 0.4f, 1.0f);
 			align.Show ();
 			options_list.PackStart (align, true, true, 0);
 
+			font_button = MakeFontButton ();
+			font_button.Sensitive = check.Active;
+			align.Add (font_button);
+			
+			font_peditor.AddGuard (font_button);
+
+
+			return options_list;
+		}
+
+		Gtk.Button MakeFontButton ()
+		{
 			Gtk.HBox font_box = new Gtk.HBox (false, 0);
 			font_box.Show ();
 			
-			font_face = new Gtk.Label ("<span font_desc='Serif 11'>Serif</span>");
+			font_face = new Gtk.Label (null);
 			font_face.UseMarkup = true;
 			font_face.Show ();
 			font_box.PackStart (font_face, true, true, 0);
@@ -139,47 +238,56 @@ namespace Tomboy
 			sep.Show ();
 			font_box.PackStart (sep, false, false, 0);
 
-			font_size = new Gtk.Label ("11");
+			font_size = new Gtk.Label (null);
 			font_size.Xpad = 4;
 			font_size.Show ();
 			font_box.PackStart (font_size, false, false, 0);
 			
-			font_button = new Gtk.Button ();
-			font_button.Clicked += OnFontButtonClicked;
-			font_button.Add (font_box);
-			font_button.Show ();
-			align.Add (font_button);
+			Gtk.Button button = new Gtk.Button ();
+			button.Clicked += OnFontButtonClicked;
+			button.Add (font_box);
+			button.Show ();
 
-			return options_list;
+			string font_desc = (string) Preferences.Get (Preferences.CUSTOM_FONT_FACE);
+			UpdateFontButton (font_desc);
+
+			return button;
 		}
 
+		// Page 2
+		// List of Hotkey options
 		public Gtk.Widget MakeHotkeysPane ()
 		{
 			Gtk.Label label;
 			Gtk.CheckButton check;
 			Gtk.Alignment align;
-
-			// Page 2
-			// List of Hotkey options
+			Gtk.Entry entry;
+			PropertyEditorBool keybind_peditor;
+			PropertyEditor peditor;
 			
 			Gtk.VBox hotkeys_list = new Gtk.VBox (false, 12);
 			hotkeys_list.BorderWidth = 12;
 			hotkeys_list.Show ();
 
+
 			// Hotkeys...
 
-			check = MakeCheckButton (Catalog.GetString ("Listen for Hotkeys"));
-			check.Toggled += OnListenForHotkeysToggled;
+			check = MakeCheckButton (Catalog.GetString ("Listen for _Hotkeys"));
 			hotkeys_list.PackStart (check, false, false, 0);
 
-			label = MakeTipLabel (Catalog.GetString ("Hotkeys allow you to access " +
-								 "your notes from any application. " +
+			keybind_peditor = 
+				new PropertyEditorToggleButton (Preferences.ENABLE_KEYBINDINGS, 
+								check);
+			SetupPropertyEditor (keybind_peditor);
+
+			label = MakeTipLabel (Catalog.GetString ("Hotkeys allow you to quickly access " +
+								 "your notes from anywhere with a keypress. " +
 								 "Example Hotkeys: " +
 								 "<b>&lt;Control&gt;&lt;Shift&gt;F11</b>, " +
 								 "<b>&lt;Alt&gt;N</b>"));
 			hotkeys_list.PackStart (label, false, false, 0);
 
-			align = new Gtk.Alignment (0.5f, 0.5f, 0.4f, 1.0f);
+			align = new Gtk.Alignment (0.5f, 0.5f, 0.0f, 1.0f);
 			align.Show ();
 			hotkeys_list.PackStart (align, false, false, 0);
 
@@ -189,52 +297,82 @@ namespace Tomboy
 			table.Show ();
 			align.Add (table);
 
-			label = MakeLabel (Catalog.GetString ("<b>Show notes menu</b>"));
+
+			// Show notes menu keybinding...
+
+			label = MakeLabel (Catalog.GetString ("Show notes _menu"));
 			table.Attach (label, 0, 1, 0, 1);
 
-			show_menu_entry = new Gtk.Entry ();
-			show_menu_entry.Changed += OnShowNotesMenuHotkeyChaged;
-			show_menu_entry.Show ();
-			table.Attach (show_menu_entry, 1, 2, 0, 1);
+			entry = new Gtk.Entry ();
+			entry.Show ();
+			table.Attach (entry, 1, 2, 0, 1);
 
-			label = MakeLabel (Catalog.GetString ("<b>Open \"Start Here\"</b>"));
+			peditor = new PropertyEditorEntry (Preferences.KEYBINDING_SHOW_NOTE_MENU, 
+							   entry);
+			SetupPropertyEditor (peditor);
+
+			keybind_peditor.AddGuard (entry);
+
+
+			// Open Start Here keybinding...
+
+			label = MakeLabel (Catalog.GetString ("Open \"_Start Here\""));
 			table.Attach (label, 0, 1, 1, 2);
 
-			open_start_here_entry = new Gtk.Entry ();
-			open_start_here_entry.Changed += OnOpenStartHereHotkeyChaged;
-			open_start_here_entry.Show ();
-			table.Attach (open_start_here_entry, 1, 2, 1, 2);
+			entry = new Gtk.Entry ();
+			entry.Show ();
+			table.Attach (entry, 1, 2, 1, 2);
 
-			label = MakeLabel (Catalog.GetString ("<b>Create new note</b>"));
+			peditor = new PropertyEditorEntry (Preferences.KEYBINDING_OPEN_START_HERE, 
+							   entry);
+			SetupPropertyEditor (peditor);
+
+			keybind_peditor.AddGuard (entry);
+
+
+			// Create new note keybinding...
+
+			label = MakeLabel (Catalog.GetString ("Create _new note"));
 			table.Attach (label, 0, 1, 2, 3);
 
-			create_new_note_entry = new Gtk.Entry ();
-			create_new_note_entry.Changed += OnCreateNewNoteHotkeyChaged;
-			create_new_note_entry.Show ();
-			table.Attach (create_new_note_entry, 1, 2, 2, 3);
+			entry = new Gtk.Entry ();
+			entry.Show ();
+			table.Attach (entry, 1, 2, 2, 3);
 
-			label = MakeLabel (Catalog.GetString ("<b>Search notes</b>"));
+			peditor = new PropertyEditorEntry (Preferences.KEYBINDING_CREATE_NEW_NOTE, 
+							   entry);
+			SetupPropertyEditor (peditor);
+
+			keybind_peditor.AddGuard (entry);
+
+
+			// Search dialog keybinding...
+
+			label = MakeLabel (Catalog.GetString ("S_earch notes"));
 			table.Attach (label, 0, 1, 3, 4);
 
-			open_search_entry = new Gtk.Entry ();
-			open_search_entry.Changed += OnSearchNotesHotkeyChaged;
-			open_search_entry.Show ();
-			table.Attach (open_search_entry, 1, 2, 3, 4);
+			entry = new Gtk.Entry ();
+			entry.Show ();
+			table.Attach (entry, 1, 2, 3, 4);
+
+			peditor = new PropertyEditorEntry (Preferences.KEYBINDING_OPEN_SEARCH, 
+							   entry);
+			SetupPropertyEditor (peditor);
+
+			keybind_peditor.AddGuard (entry);
+
 
 			return hotkeys_list;
 		}
 
-		// Utilities...
-
-		GConf.Client Client 
+		void SetupPropertyEditor (PropertyEditor peditor)
 		{
-			get {
-				if (client == null)
-					client = new GConf.Client ();
-
-				return client;
-			}
+			// Ensure the key exists
+			Preferences.Get (peditor.Key);
+			peditor.Setup ();
 		}
+
+		// Utilities...
 
 		Gtk.Label MakeLabel (string label_text)
 		{
@@ -249,10 +387,6 @@ namespace Tomboy
 
 		Gtk.CheckButton MakeCheckButton (string label_text)
 		{
-			label_text = String.Format ("<span weight='bold'>{0}" +
-						    "</span>",
-						    label_text);
-
 			Gtk.Label label = MakeLabel (label_text);
 
 			Gtk.CheckButton check = new Gtk.CheckButton ();
@@ -264,106 +398,48 @@ namespace Tomboy
 
 		Gtk.Label MakeTipLabel (string label_text)
 		{
-			Gtk.Label label =  MakeLabel (String.Format ("<i>{0}</i>", label_text));
+			Gtk.Label label =  MakeLabel (String.Format ("<small><i>{0}</i></small>", 
+								     label_text));
 			label.LineWrap = true;
 			label.Xpad = 20;
 			return label;
 		}
 
-		// Change handlers
-
-		void OnSpellcheckToggled (object sender, EventArgs args)
-		{
-			Gtk.CheckButton check = (Gtk.CheckButton) sender;
-
-			Client.Set ("/apps/tomboy/enable_spellchecking",
-				    check.Active);
-		}
-
-		void OnHighlightWikiWordsToggled (object sender, EventArgs args)
-		{
-			Gtk.CheckButton check = (Gtk.CheckButton) sender;
-
-			Client.Set ("/apps/tomboy/enable_wikiwords",
-				    check.Active);
-		}
-
-		void OnUseCustomFontToggled (object sender, EventArgs args)
-		{
-			Gtk.CheckButton check = (Gtk.CheckButton) sender;
-
-			Client.Set ("/apps/tomboy/enable_custom_font",
-				    check.Active);
-
-			font_button.Sensitive = check.Active;
-		}
+		// Font Change handler
 
 		void OnFontButtonClicked (object sender, EventArgs args)
 		{
 			Gtk.FontSelectionDialog font_dialog = 
 				new Gtk.FontSelectionDialog (Catalog.GetString ("Choose Note Font"));
 
-			string font_name;
-
-			try {
-				font_name = (string) Client.Get ("/apps/tomboy/custom_font_face");
-			} catch (Exception e) {
-				font_name = "Serif 11";
-			}
-
+			string font_name = (string) Preferences.Get (Preferences.CUSTOM_FONT_FACE);
 			font_dialog.SetFontName (font_name);
 
 			if ((int) Gtk.ResponseType.Ok == font_dialog.Run ()) {
-				if (font_name != font_dialog.FontName) {
-					Client.Set ("/apps/tomboy/custom_font_face",
-						    font_dialog.FontName);
+				if (font_dialog.FontName != font_name) {
+					Preferences.Set (Preferences.CUSTOM_FONT_FACE, 
+							 font_dialog.FontName);
 
-					font_face.Markup = 
-						String.Format ("<span font_desc='{0}'>{0}</span>",
-							       font_dialog.FontName);
+					UpdateFontButton (font_dialog.FontName);
 				}
 			}
 
 			font_dialog.Destroy ();
 		}
 
-		void OnListenForHotkeysToggled (object sender, EventArgs args)
+		void UpdateFontButton (string font_desc)
 		{
-			Gtk.CheckButton check = (Gtk.CheckButton) sender;
+			Pango.FontDescription desc = Pango.FontDescription.FromString (font_desc);
 
-			Client.Set ("/apps/tomboy/enable_keybindings",
-				    check.Active);
+			// Set the size label
+			font_size.Text = (desc.Size / Pango.Scale.PangoScale).ToString ();
 
-			show_menu_entry.Sensitive = check.Active;
-			open_start_here_entry.Sensitive = check.Active;
-			create_new_note_entry.Sensitive = check.Active;
-			open_search_entry.Sensitive = check.Active;
-		}
+			desc.UnsetFields (Pango.FontMask.Size);
 
-		// Want to listen for unfocus/exit instead of change for these guys...
-
-		void OnShowNotesMenuHotkeyChaged (object sender, EventArgs args)
-		{
-			Client.Set ("/apps/tomboy/global_keybindings/show_note_menu",
-				    show_menu_entry.Text);
-		}
-
-		void OnOpenStartHereHotkeyChaged (object sender, EventArgs args)
-		{
-			Client.Set ("/apps/tomboy/global_keybindings/open_start_here",
-				    open_start_here_entry.Text);
-		}
-
-		void OnCreateNewNoteHotkeyChaged (object sender, EventArgs args)
-		{
-			Client.Set ("/apps/tomboy/global_keybindings/create_new_note",
-				    create_new_note_entry.Text);
-		}
-
-		void OnSearchNotesHotkeyChaged (object sender, EventArgs args)
-		{
-			Client.Set ("/apps/tomboy/global_keybindings/open_search",
-				    open_search_entry.Text);
+			// Set the font name label
+			font_face.Markup = String.Format ("<span font_desc='{0}'>{1}</span>",
+							  font_desc,
+							  desc.ToString ());
 		}
 	}
 }

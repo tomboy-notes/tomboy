@@ -1,3 +1,24 @@
+2004-10-21  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/XKeybinder.cs: In TomboyGConfXKeybinder, Use Preferences
+	for getting Gconf paths and default values.  Unbind everything
+	when the Hotkey setting is deactivated, and listen for changes to
+	it.
+
+	* Tomboy/Watchers.cs: In NoteSpellChecker, listen for
+	spellchecking gconf setting, and gtkspell_detach when it is
+	deactivated.  Add back patronymic name avoidance for WikiWords.
+
+	* Tomboy/Tray.cs: Use the Preferences helper class.  Add
+	right-click menu to access preferences dialog, and quit.
+
+	* Tomboy/Preferences.cs: Make Preferences, a Gconf settings access
+	helper.  PreferencesDialog uses GConf PropertyEditors now, and is
+	almost finished.
+
+	* Tomboy/NoteWindow.cs: Listen for changes to custom_font gconf
+	settings, and update the editing font.
+
 2004-10-20  Alex Graveley  <alex@beatniksoftware.com>
 
 	* configure.in: Only set FIXED_GTKSPELL if GtkSpell version is
