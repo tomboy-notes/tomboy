@@ -21,7 +21,8 @@ CSFILES = 				\
 	$(srcdir)/Tray.cs 		\
 	$(srcdir)/Undo.cs 		\
 	$(srcdir)/Utils.cs		\
-	$(srcdir)/Watchers.cs
+	$(srcdir)/Watchers.cs		\
+	$(srcdir)/XKeybinder.cs
 
 #	$(srcdir)/ActiveVerb.cs 
 #	$(srcdir)/GoogleSearchService.cs 
