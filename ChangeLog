@@ -1,3 +1,16 @@
+2004-12-13  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Watchers.cs: Convert everything to the new NotePlugin
+	interface.
+	* Tomboy/Plugins/ExportToHTML.cs: Ditto.
+	* Tomboy/Plugins/PrintNotes.cs: Ditto.
+
+	* Tomboy/PluginManager.cs: Add an abstract OnNoteOpened method,
+	that plugins fill out to cause some action on note load, do this
+	instead of connecting to Note.OnNoteLoad in each NotePlugin so we
+	can dynamically add plugins and have it work for already opened
+	notes.
+
 2004-12-10  Alex Graveley  <alex@beatniksoftware.com>
 
 	* Tomboy/Makefile.am: Compile the current directory first, before

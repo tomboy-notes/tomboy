@@ -5,12 +5,12 @@ using Mono.Posix;
 
 public class PrintPlugin : NotePlugin
 {
-	public override void Initialize ()
+	protected override void Initialize ()
 	{
-		Note.Opened += OnNoteOpened;
+		// Do nothing.
 	}
 
-	void OnNoteOpened (object sender, EventArgs args) {
+	protected override void OnNoteOpened () {
 		Window.Toolbar.AppendItem (Catalog.GetString ("Print"), 
 					   Catalog.GetString ("Print this note"), 
 					   null, 

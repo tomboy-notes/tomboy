@@ -15,10 +15,16 @@ namespace Tomboy
 		public void Initialize (Note note)
 		{
 			this.note = note;
+			this.note.Opened += OnNoteOpenedEvent;
+
 			Initialize ();
+
+			if (note.IsOpened)
+				OnNoteOpened ();
 		}
 
-		public abstract void Initialize ();
+		protected abstract void Initialize ();
+		protected abstract void OnNoteOpened ();
 
 		public Note Note
 		{
@@ -38,6 +44,21 @@ namespace Tomboy
 		public NoteManager Manager
 		{
 			get { return note.Manager; }
+		}
+
+		void OnNoteOpenedTimeout (object sender, EventArgs args)
+		{
+			OnNoteOpened ();
+		}
+
+		void OnNoteOpenedEvent (object sender, EventArgs args)
+		{
+			// Call OnNoteOpened in a timeout so we don't confuse
+			// Gtk by rendering inside Window.Realize
+
+			InterruptableTimeout timeout = new InterruptableTimeout ();
+			timeout.Timeout += OnNoteOpenedTimeout;
+			timeout.Reset (0);
 		}
 	}
 

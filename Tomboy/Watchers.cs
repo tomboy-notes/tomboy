@@ -11,9 +11,9 @@ namespace Tomboy
 	{
 		bool editing_title;
 
-		public override void Initialize ()
+		protected override void Initialize ()
 		{
-			Note.Opened += OnNoteOpened;
+			// Do nothing.
 		}
 
 		Gtk.TextIter TitleEnd 
@@ -30,7 +30,7 @@ namespace Tomboy
 			get { return Buffer.StartIter; }
 		}
 
-		void OnNoteOpened (object sender, EventArgs args)
+		protected override void OnNoteOpened ()
 		{
 			Buffer.MarkSet += OnMarkSet;
 			Buffer.InsertText += OnInsertText;
@@ -177,16 +177,15 @@ namespace Tomboy
 		ArrayList linked_from;
 		ArrayList linked_to;
 
-		public override void Initialize ()
+		protected override void Initialize ()
 		{
 			linked_from = new ArrayList ();
 			linked_to = new ArrayList ();
 
-			Note.Opened += OnNoteOpened;
 			LinkCreated += OnLinkCreated;
 		}
 
-		public void OnNoteOpened (object sender, EventArgs args)
+		protected override void OnNoteOpened ()
 		{
 			Buffer.TagApplied += OnTagApplied;
 		}
@@ -318,12 +317,12 @@ namespace Tomboy
 		[DllImport ("libgtkspell")]
 		static extern void gtkspell_detach (IntPtr obj);
 
-		public override void Initialize ()
+		protected override void Initialize ()
 		{
-			Note.Opened += OnNoteOpened;
+			// Do nothing.
 		}
 
-		public void OnNoteOpened (object sender, EventArgs args)
+		protected override void OnNoteOpened ()
 		{
 			Buffer.TagApplied += TagApplied;
 			Preferences.SettingChanged += OnEnableSpellcheckChanged;
@@ -414,12 +413,12 @@ namespace Tomboy
 					   RegexOptions.IgnoreCase | RegexOptions.Compiled);
 		}
 
-		public override void Initialize ()
+		protected override void Initialize ()
 		{
-			Note.Opened += OnNoteOpened;
+			// Do nothing.
 		}
 
-		public void OnNoteOpened (object sender, EventArgs args)
+		protected override void OnNoteOpened ()
 		{
 			url_tag = Buffer.TagTable.Lookup ("link:url");
 			if (url_tag == null) {
@@ -603,16 +602,14 @@ namespace Tomboy
 
 		static TrieController trie_controller;
 
-		public override void Initialize () 
+		protected override void Initialize () 
 		{
 			Manager.NoteDeleted += OnNoteDeleted;
 			Manager.NoteAdded += OnNoteAdded;
 			Manager.NoteRenamed += OnNoteRenamed;
-
-			Note.Opened += OnNoteOpened;
 		}
 
-		void OnNoteOpened (object sender, EventArgs args)
+		protected override void OnNoteOpened ()
 		{
 			Buffer.InsertText += OnInsertText;
 			Buffer.DeleteRange += OnDeleteRange;
@@ -835,12 +832,12 @@ namespace Tomboy
 			regex = new Regex (WIKIWORD_REGEX, RegexOptions.Compiled);
 		}
 
-		public override void Initialize ()
+		protected override void Initialize ()
 		{
-			Note.Opened += OnNoteOpened;
+			// Do nothing.
 		}
 
-		void OnNoteOpened (object sender, EventArgs args)
+		protected override void OnNoteOpened ()
 		{
 			broken_link_tag = Buffer.TagTable.Lookup ("link:broken");
 			if (broken_link_tag == null) {
@@ -944,12 +941,12 @@ namespace Tomboy
 			hand_cursor = new Gdk.Cursor (Gdk.CursorType.Hand2);
 		}
 
-		public override void Initialize ()
+		protected override void Initialize ()
 		{
-			Note.Opened += OnNoteOpened;
+			// Do nothing.
 		}
 
-		public void OnNoteOpened (object sender, EventArgs args)
+		protected override void OnNoteOpened ()
 		{
 			link_tag = Buffer.TagTable.Lookup ("link:internal");
 			link_tag.TextEvent += OnLinkTextEvent;
@@ -1130,12 +1127,12 @@ namespace Tomboy
 
 	public class IndentWatcher : NotePlugin
 	{
-		public override void Initialize ()
+		protected override void Initialize ()
 		{
-			Note.Opened += OnNoteOpened;
+			// Do nothing.
 		}
 
-		public void OnNoteOpened (object sender, EventArgs args)
+		protected override void OnNoteOpened ()
 		{
 			Window.Editor.KeyPressEvent += OnEditorKeyPress;
 			Buffer.InsertText += OnInsertText;
