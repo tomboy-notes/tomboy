@@ -75,6 +75,16 @@ AC_SUBST(DBUS_LIBS)
 PKG_CHECK_MODULES(TOMBOY, gtk-sharp gnome-sharp gconf-sharp)
 AC_SUBST(TOMBOY_LIBS)
 
+#
+# Properly handle libraries that aren't in our standard GAC path.
+#
+
+DBUS_PREFIX=`$PKG_CONFIG --variable=prefix dbus-sharp`
+
+EXTRA_GAC_PREFIX="$DBUS_PREFIX"
+AC_SUBST(EXTRA_GAC_PREFIX)
+
+
 AC_OUTPUT([
 Makefile
 tomboy.spec
