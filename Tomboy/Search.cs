@@ -7,7 +7,7 @@ using Mono.Posix;
 
 namespace Tomboy 
 {
-	public class NoteFindDialog : Gtk.Window
+	public class NoteFindDialog : ForcedPresentWindow
 	{
 		NoteManager manager;
 

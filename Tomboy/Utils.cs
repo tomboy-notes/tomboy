@@ -1,6 +1,7 @@
 
 using System;
 using System.Collections;
+using System.Runtime.InteropServices;
 using System.Text;
 
 using System.IO;
@@ -535,5 +536,21 @@ namespace Tomboy
 		}
 
 		public event EventHandler Timeout;
+	}
+
+	public class ForcedPresentWindow : Gtk.Window
+	{
+		public ForcedPresentWindow (string name)
+			: base (name)
+		{
+		}
+
+		[DllImport("libtomboy")]
+		static extern void tomboy_window_present_hardcore (IntPtr win);
+
+		public new void Present ()
+		{
+			tomboy_window_present_hardcore (this.Handle);
+		}
 	}
 }

@@ -88,7 +88,7 @@ namespace Tomboy
 		}
 	}
 
-	public class NoteWindow : Gtk.Window 
+	public class NoteWindow : ForcedPresentWindow 
 	{
 		Note note;
 

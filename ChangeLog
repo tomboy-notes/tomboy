@@ -1,3 +1,28 @@
+2005-03-25  Alex Graveley  <alex@beatniksoftware.com>
+
+	* libtomboy/tomboyutil.c (tomboy_window_present_hardcore): Work
+	around recent behavioral changes in Gnome 2.10, so that note
+	windows when shown are always moved to the current desktop if
+	already shown, and that they are not shown underneath other
+	windows.
+	(tomboy_window_move_to_current_workspace): Do the work of moving a
+	window to the current desktop as set in _NET_CURRENT_DESKTOP.
+
+	* libtomboy/tomboykeybinder.c
+	(tomboy_keybinder_get_last_event_time): Return the current root
+	window keypress time, used by tomboy_window_present_hardcore() to
+	get around anti-focus stealing.
+
+	* Tomboy/Utils.cs: Add ForcedPresentWindow, a Gtk.Window that
+	replaces Gtk.Window.Present and calls
+	tomboy_window_present_hardcore.
+
+	* Tomboy/Search.cs: Subclass NoteFindDialog from
+	ForcedPresentWindow.
+	
+	* Tomboy/NoteWindow.cs: Subclass NoteWindow from
+	ForcedPresentWindow.
+
 2005-03-25  Joe Shaw  <joeshaw@novell.com>
 
 	* Tomboy/Tomboy.cs: Make the DBus.Connection static for the
