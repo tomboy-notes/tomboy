@@ -434,6 +434,49 @@ public void SetupMenu (string xml, BonoboUIVerb[] items)
 	panel_applet_setup_menu (Handle, xml, nulled_items, IntPtr.Zero);
 }
 
+public void SetupMenuFromResource (System.Reflection.Assembly assembly, 
+				   string                     resource, 
+				   BonoboUIVerb []            items)
+{
+	if (assembly == null)
+		assembly = System.Reflection.Assembly.GetCallingAssembly ();
+
+	System.IO.Stream stream = assembly.GetManifestResourceStream (resource);
+	if (stream == null)
+		throw new ArgumentException ("resource must be a valid resource " +
+					     "name of 'assembly'.");
+
+	System.IO.StreamReader reader = new System.IO.StreamReader (stream);
+	string xml_ui = reader.ReadToEnd ();
+
+	SetupMenu (xml_ui, items);
+}
+
+[DllImport ("panel-applet-2")]
+static extern void panel_applet_setup_menu_from_file (IntPtr          handle,
+						      string          opt_datadir,
+						      string          filename,
+						      string          opt_appname,
+						      BonoboUIVerb [] verbs,
+						      IntPtr          user_data);
+
+public void SetupMenuFromFile (string          opt_datadir,
+			       string          filename,
+			       string          opt_appname,
+			       BonoboUIVerb [] items)
+{
+	BonoboUIVerb[] nulled_items = new BonoboUIVerb[items.Length + 1];
+	Array.Copy (items, nulled_items, items.Length);
+	nulled_items[items.Length] = new BonoboUIVerb (null, null);
+
+	panel_applet_setup_menu_from_file (Handle, 
+					   opt_datadir, 
+					   filename, 
+					   opt_appname, 
+					   nulled_items, 
+					   IntPtr.Zero);
+}
+
 public abstract void Creation ();
 
 public abstract string IID {

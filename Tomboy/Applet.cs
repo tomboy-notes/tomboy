@@ -11,6 +11,8 @@ namespace Tomboy
 		TomboyTray tray;
 		TomboyGConfXKeybinder keybinder;
 
+		BonoboUIVerb [] menu_verbs;
+
 		public TomboyApplet (IntPtr raw)
 			: base (raw)
 		{
@@ -28,7 +30,7 @@ namespace Tomboy
 
 		public override void Creation ()
 		{
-			Console.WriteLine ("Applet Created!!");
+			Console.WriteLine ("Applet Created...");
 
 			manager = new NoteManager ();
 			tray = new TomboyTray (manager);
@@ -40,31 +42,22 @@ namespace Tomboy
 			Add (tray);
 			ShowAll ();
 
-			BonoboUIVerb [] menu_verbs = 
-				new BonoboUIVerb [] {
-					new BonoboUIVerb ("Props", 
-							  new ContextMenuItemCallback (ShowPreferencesVerb)),
-					new BonoboUIVerb ("About", 
-							  new ContextMenuItemCallback (ShowAboutVerb)),
-				};
+			// Keep around so our callbacks don't get reaped.
+			menu_verbs = new BonoboUIVerb [] {
+				new BonoboUIVerb ("Props", 
+						  new ContextMenuItemCallback (ShowPreferencesVerb)),
+				new BonoboUIVerb ("About", 
+						  new ContextMenuItemCallback (ShowAboutVerb))
+			};
 
-			SetupMenuFromResource ("GNOME_TomboyApplet.xml", menu_verbs);
-		}
+			// This silently fails for some unknown reason
+			//SetupMenuFromResource (null, "GNOME_TomboyApplet.xml", menu_verbs);
 
-		void SetupMenuFromResource (string resource, PanelApplet.BonoboUIVerb [] verbs)
-		{
-			System.Reflection.Assembly assembly;
-			assembly = System.Reflection.Assembly.GetCallingAssembly ();
-
-			System.IO.Stream stream = assembly.GetManifestResourceStream (resource);
-			if (stream == null)
-                                throw new ArgumentException ("resource must be a valid resource " +
-							     "name of 'assembly'.");
-			
-			System.IO.StreamReader reader = new System.IO.StreamReader (stream);
-			string xml_ui = reader.ReadToEnd ();
-
-			SetupMenu (xml_ui, verbs);
+			// Have to resort to this for now
+			SetupMenuFromFile (null,
+					   "GNOME_TomboyApplet.xml",
+					   null,
+					   menu_verbs);
 		}
 
 		void ShowPreferencesVerb ()

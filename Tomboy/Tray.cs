@@ -45,6 +45,7 @@ namespace Tomboy
 			tips = new Gtk.Tooltips ();
 			tips.SetTip (this, tip_text, null);
 			tips.Enable ();
+			tips.Sink ();
 		}
 
 		void ButtonPress (object sender, Gtk.ButtonPressEventArgs args) 
