@@ -358,6 +358,14 @@ namespace Tomboy
 
 			return word_block;
 		}
+
+		public string GetCurrentBlock (out Gtk.TextIter start, 
+					       out Gtk.TextIter end)
+		{
+			Gtk.TextIter cursor = GetIterAtMark (InsertMark);
+						
+			return GetCurrentBlock (cursor, out start, out end);
+		}
 	}
 
 	public class NoteBufferArchiver

@@ -206,7 +206,11 @@ namespace Tomboy
 			Gtk.ImageMenuItem link = 
 				new Gtk.ImageMenuItem (Catalog.GetString ("_Link to New Note"));
 			link.Image = new Gtk.Image (Gtk.Stock.JumpTo, Gtk.IconSize.Menu);
-			link.Sensitive = (note.Buffer.Selection != null);
+			
+			Gtk.TextIter start = new Gtk.TextIter ();
+			Gtk.TextIter end = new Gtk.TextIter ();
+
+			link.Sensitive = (note.Buffer.Selection != null || (note.Buffer.GetCurrentBlock (out start, out end)) != null);
 			link.Activated += LinkToNoteActivate;
 			link.AddAccelerator ("activate",
 					     accel_group,
@@ -498,6 +502,13 @@ namespace Tomboy
 		void LinkButtonClicked () 
 		{
 			string select = note.Buffer.Selection;
+
+			if (select == null) {
+				Gtk.TextIter start = new Gtk.TextIter ();
+				Gtk.TextIter end = new Gtk.TextIter ();
+				select = note.Buffer.GetCurrentBlock (out start,
+								      out end);
+			}
 
 			if (select != null) {
 				Note match = note.Manager.Find (select);
