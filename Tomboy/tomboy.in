@@ -3,13 +3,11 @@
 if [ -e ./@target@ ] && [ -e ./Makefile.am ] ; then
     echo "*** Running uninstalled @target@ ***"
 
-    export MONO_PATH="../TrayIcon:.:$MONO_PATH"
-    export LD_LIBRARY_PATH="../TrayIcon/libtrayicon/.libs:$LD_LIBRARY_PATH"
+    export LD_LIBRARY_PATH="../libtomboy/.libs:$LD_LIBRARY_PATH"
     export TOMBOY_WRAPPER_PATH="$PWD/@wrapper@"
 
     THIS_EXE="./@target@"
 else
-    export MONO_PATH="@pkglibdir@:$MONO_PATH"
     export LD_LIBRARY_PATH="@pkglibdir@:$LD_LIBRARY_PATH"
     export TOMBOY_WRAPPER_PATH="@bindir@/@wrapper@"
 
