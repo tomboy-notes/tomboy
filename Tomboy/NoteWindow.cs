@@ -425,7 +425,7 @@ namespace Tomboy
 
 			toolbar.AppendSpace ();
 
-			Gtk.Widget delete = 
+		        Gtk.Widget delete = 
 				toolbar.AppendItem (
 					Catalog.GetString ("Delete"), 
 					Catalog.GetString ("Delete this note"), 
@@ -788,7 +788,7 @@ namespace Tomboy
 
 			huge = new Gtk.RadioMenuItem (normal.Group, 
 						      "<span size=\"x-large\">" +
-						      Catalog.GetString ("H_uge") +
+						      Catalog.GetString ("Hu_ge") +
 						      "</span>");
 			MarkupLabel (huge);
 			huge.Data ["Tag"] = "size:huge";
