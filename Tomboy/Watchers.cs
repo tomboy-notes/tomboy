@@ -351,22 +351,35 @@ namespace Tomboy
 			}
 		}
 
-		[System.Diagnostics.Conditional ("OLD_GTKSPELL")] 
-		void FixupOldGtkSpell ()
+		// To unset GtkSpell's tag Foreground correctly we need to call
+		// SetProperty, which is a protected member.
+		class OldGtkSpellFixup : Gtk.TextTag
 		{
-			// NOTE: Older versions of GtkSpell before 2.0.6 use red
-			// foreground color and a single underline.  This
-			// conflicts with internal note links.  So fix it up to
-			// use the "normal" foreground and the "error"
-			// underline.
-			Gtk.TextTag misspell = Buffer.TagTable.Lookup ("gtkspell-misspelled");
+			public OldGtkSpellFixup (IntPtr raw)
+				: base (raw)
+			{
+			}
 
-			if (misspell != null) {
-				Gtk.TextTag normal = Buffer.TagTable.Lookup ("normal");
-				misspell.ForegroundGdk = normal.ForegroundGdk;
+			public void Fixup ()
+			{
+				SetProperty ("foreground_gdk", new GLib.Value (Gdk.Color.Zero));
+
 				// Force the value to 4 since error underlining
 				// isn't mapped in Gtk# yet.
-				misspell.Underline = (Pango.Underline) 4;
+				Underline = (Pango.Underline) 4;
+			}
+		}
+
+		// NOTE: Older versions of GtkSpell before 2.0.6 use red
+		// foreground color and a single underline.  This conflicts with
+		// internal note links.  So fix it up to unset foreground and
+		// use the "error" underline.
+		void FixupOldGtkSpell ()
+		{
+			Gtk.TextTag misspell = Buffer.TagTable.Lookup ("gtkspell-misspelled");
+			if (misspell != null) {
+				OldGtkSpellFixup hack = new OldGtkSpellFixup (misspell.Handle);
+				hack.Fixup ();
 			}
 		}
 
