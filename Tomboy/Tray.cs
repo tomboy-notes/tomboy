@@ -10,6 +10,7 @@ namespace Tomboy
 	{
 		NoteManager manager;
 		Gtk.Tooltips tips;
+		Gtk.Image image;
 
 		static Gdk.Pixbuf tintin;
 		static Gdk.Pixbuf tintin_large;
@@ -26,10 +27,11 @@ namespace Tomboy
 			: base ()
 		{
 			this.manager = manager;
+			this.image = new Gtk.Image (tintin);
 
 			this.CanFocus = true;
 			this.ButtonPressEvent += ButtonPress;
-			this.Add (new Gtk.Image (tintin));
+			this.Add (image);
 			this.ShowAll ();
 
 			string tip_text = Catalog.GetString ("Tomboy Notes");
@@ -181,6 +183,11 @@ namespace Tomboy
 		{
 			Gtk.Window recent = new NoteRecentChanges (manager);
 			recent.Show ();
+		}
+
+		public Gtk.Image Image
+		{
+			get { return image; }
 		}
 
 		public void ShowMenu ()

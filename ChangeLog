@@ -1,5 +1,14 @@
 2004-11-24  Alex Graveley  <alex@beatniksoftware.com>
 
+	* Tomboy/Applet.cs: Support transparent panels correctly by
+	listening to ChangeBackground events correctly (or at least, how
+	the trashapplet does).
+
+	* Tomboy/Tray.cs: export the icon Gtk.Image, so it's sytle can be reset
+	by the panel applet's ChangeBackground handler.
+
+2004-11-24  Alex Graveley  <alex@beatniksoftware.com>
+
 	* Tomboy/Watchers.cs: Add NoteRelatedToWatcher, which monitors
 	link creation in other notes, and updates a "related notes" line
 	(under the title-line) if a link to the current note is created.

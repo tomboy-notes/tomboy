@@ -18,6 +18,7 @@ namespace Tomboy
 		public TomboyApplet (IntPtr raw)
 			: base (raw)
 		{
+			ChangeBackground += OnChangeBackgroundEvent;
 		}
 
 		public override string IID 
@@ -70,6 +71,27 @@ namespace Tomboy
 		void ShowAboutVerb ()
 		{
 			tray.ShowAbout ();
+		}
+
+		void OnChangeBackgroundEvent (object sender, ChangeBackgroundArgs args)
+		{
+			// This is needed to support transparent panel
+			// backgrounds correctly.
+
+			switch (args.Type) {
+			case BackgroundType.NoBackground:
+			case BackgroundType.PixmapBackground:
+				Gtk.RcStyle rc_style = new Gtk.RcStyle ();
+
+				tray.Image.ModifyStyle (rc_style);
+				ModifyStyle (rc_style);
+				break;
+
+			case BackgroundType.ColorBackground:
+				tray.Image.ModifyBg (Gtk.StateType.Normal, args.Color);
+				ModifyBg (Gtk.StateType.Normal, args.Color);
+				break;
+			}
 		}
 	}
 
