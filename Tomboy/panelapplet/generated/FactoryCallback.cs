@@ -5,6 +5,6 @@ namespace PanelApplet {
 
 	using System;
 
-	public delegate bool FactoryCallback(PanelApplet.PanelApplet applet, string iid);
+	public delegate bool FactoryCallback(PanelApplet applet, string iid);
 
 }

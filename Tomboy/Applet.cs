@@ -7,7 +7,7 @@ using PanelApplet;
 
 namespace Tomboy
 {
-	public class TomboyApplet : PanelApplet
+	public class TomboyApplet : PanelApplet.PanelApplet
 	{
 		NoteManager manager;
 		TomboyTray tray;

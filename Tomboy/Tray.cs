@@ -109,9 +109,6 @@ namespace Tomboy
 					break;
 			}
 
-			uint keyval;
-			Gdk.ModifierType mods;
-
 			Note start = manager.Find (Catalog.GetString ("Start Here"));
 			if (start != null) {
 				item = MakeNoteMenuItem (start);

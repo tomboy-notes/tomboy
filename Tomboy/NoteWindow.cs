@@ -806,8 +806,6 @@ namespace Tomboy
 		{
 			event_freeze = true;
 
-			bool has_size = false;
-
 			bold.Active = buffer.IsActiveTag ("bold");
 			italic.Active = buffer.IsActiveTag ("italic");
 			strikeout.Active = buffer.IsActiveTag ("strikethrough");

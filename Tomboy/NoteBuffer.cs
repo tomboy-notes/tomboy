@@ -465,7 +465,7 @@ namespace Tomboy
 
 			// Empty any trailing tags left in tag_stack..
 			while (tag_stack.Count > 0) {
-				Gtk.TextTag trailinging_tag = (Gtk.TextTag) tag_stack.Pop ();
+				tag_stack.Pop ();
 				xml.WriteEndElement ();
 			}
 
