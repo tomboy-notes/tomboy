@@ -316,12 +316,11 @@ namespace Tomboy
 					// buffers.
 					buffer = new NoteBuffer (NoteTagTable.Instance);
 #else
-					// NOTE: GtkSpell prior to 2.0.8 chokes
-					// on shared TagTables because it
-					// blindly tries to create a new
-					// "gtkspell-misspelling" tag, which
-					// fails if one already exists in the
-					// table.
+					// NOTE: GtkSpell chokes on shared
+					// TagTables because it blindly tries to
+					// create a new "gtkspell-misspelling"
+					// tag, which fails if one already
+					// exists in the table.
 					buffer = new NoteBuffer (new NoteTagTable ());
 #endif
 
