@@ -196,7 +196,8 @@ namespace Tomboy
 			string [] files = Directory.GetFiles (plugins_dir, "*.dll");
 
 			foreach (string file in files) {
-				Console.Write ("Trying Plugin DLL: {0}/{1} ...", plugins_dir, file);
+				Console.Write ("Trying Plugin DLL: {0} ... ", 
+					       Path.GetFileName (file));
 
 				try {
 					ArrayList asm_plugins = FindPluginTypesInFile (file);
