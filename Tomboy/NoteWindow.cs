@@ -65,7 +65,7 @@ namespace Tomboy
 			editor_window = new Gtk.ScrolledWindow ();
 			editor_window.HscrollbarPolicy = Gtk.PolicyType.Automatic;
 			editor_window.VscrollbarPolicy = Gtk.PolicyType.Automatic;
-			editor_window.Child = editor;
+			editor_window.Add (editor);
 			editor_window.Show ();
 
 			FocusChild = editor;

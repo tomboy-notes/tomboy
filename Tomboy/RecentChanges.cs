@@ -77,7 +77,7 @@ namespace Tomboy
 			else
 				matches_window.HscrollbarPolicy = Gtk.PolicyType.Never;
 
-			matches_window.Child = tree;
+			matches_window.Add (tree);
 			matches_window.Show ();
 
 			close_button = new Gtk.Button (Gtk.Stock.Close);

@@ -105,7 +105,7 @@ namespace Tomboy
 			matches_window = new Gtk.ScrolledWindow ();
 			matches_window.ShadowType = Gtk.ShadowType.In;
 			matches_window.HeightRequest = 160;
-			matches_window.Child = tree;
+			matches_window.Add (tree);
 			if (search_all)
 				matches_window.Show ();
 

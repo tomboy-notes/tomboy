@@ -28,6 +28,10 @@ PKG_CHECK_MODULES(ATK, atk >= $ATK_MINIMUM_VERSION)
 AC_SUBST(ATK_CFLAGS)
 AC_SUBST(ATK_LIBS)
 
+# Just check for GtkSpell here, as we call into it from C#.
+# http://gtkspell.sourceforge.net/
+PKG_CHECK_MODULES(GTKSPELL, gtkspell-2.0)
+
 PKG_CHECK_MODULES(TOMBOY, gtk-sharp gnome-sharp)
 AC_SUBST(TOMBOY_LIBS)
 
