@@ -1,3 +1,11 @@
+2005-04-02  Alex Graveley  <agraveley@beatniksoftware.com>
+
+	* libtomboy/tomboyutil.c (tomboy_window_override_user_time): Split
+	out _NET_WM_USER_TIME setting code to here.  Call
+	gdk_x11_get_server_time() to generate an X event time if we have
+	no active events to use.  Fixes bug where notes opened via D-BUS
+	would be presented underneath other windows. 
+
 2005-04-01  Steve Murphy  <murf@e-tools.com>
 
         * configure.in: Added "rw" to ALL_LINGUAS.
