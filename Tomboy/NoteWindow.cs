@@ -284,9 +284,7 @@ namespace Tomboy
 
 		void OnSelectionMarkSet (object sender, Gtk.MarkSetArgs args)
 		{
-			if (args.Mark == note.Buffer.InsertMark || 
-			    args.Mark == note.Buffer.SelectionBound)
-				link_button.Sensitive = (note.Buffer.Selection != null);
+			link_button.Sensitive = (note.Buffer.Selection != null);
 		}
 
 		//
