@@ -244,7 +244,7 @@ namespace Tomboy
 				"Polish (pl) - Marek Habersack <grendel@caudium.net>\n" +
 				"Portugese, Brazilian (pt_BR) - F\u00e1bio Mendes <niels_bohr@uol.com.br>\n" +
 			        "Punjabi (pa) - Amanpreet Singh Alam <amanpreetalam@yahoo.com>\n" +
-				"Spanish (es) - Antonio Ognio <gnrfan@gnrfan.org>\n" +
+				"Spanish (es) - Jorge Gonz\xe1lez Gonz\xe1lez <jorge.gonzalez.gonzalez@hispalinux.es>\n" +
 				"Swedish (sv) - Christian Rose <menthos@menthos.com>\n";
 
 			Gnome.About about = 
