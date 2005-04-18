@@ -223,29 +223,7 @@ namespace Tomboy
 				"Alex Graveley <alex@beatniksoftware.com>"
 			};
 
-			string translators = 
-				"Albanian (sq) - Laurent Dhima  <laurenti@alblinux.net>\n" +
-				"British English (en_GB) - David Lodge <dave@cirt.net>\n" +
-			        "Bulgarian (bg) - Rostislav Raykov <zbrox@i-space.org>\n" +
-				"Canadian English (en_CA) - Adam Weinberger <adamw@gnome.org>\n" +
-				"Catalan (ca) - Jordi Mas <jmas@softcatala.org>\n" +
-			        "Chinese Simplified (zh_CN) - Funda Wang <fundawang@linux.net.cn>\n" +
-			        "Czech (cs) - Miloslav Trmac <mitr@volny.cz>\n" +
-				"Dutch; Flemish (nl) - Paul Bolle <pebolle@tiscali.nl>\n" +
-			        "Danish (da) - Martin Willemoes Hansen <mwh@sysrq.dk>\n" +
-				"French (fr) - Beno\xeet Dejean <tazforever@dlfp.org>\n" +
-				"German (de) - Philipp Meier <meier@fnogol.de>\n" +
-				"Hungarian (hu) - T\xf6r\xf6k G\u00e1bor <gabo@linuxportal.hu>\n" +
-			        "Italian (it) - Amos Brocco <amos.brocco@mriyasoftware.com>\n" +
-				"Icelandic (is) - Gunnar Steinn Magn\xfasson <gsm@gunnarsteinn.com>\n" +
-				"Japanese (ja) - Takeshi AIHANA <aihana@gnome.gr.jp>\n" +
-			        "Korean (ko) - Young-Ho Cha\n" +
-			        "Norwegian (nb, no) - Sigurd Gartmann <sigurd-translate@brogar.org>\n" +
-				"Polish (pl) - Marek Habersack <grendel@caudium.net>\n" +
-				"Portugese, Brazilian (pt_BR) - F\u00e1bio Mendes <niels_bohr@uol.com.br>\n" +
-			        "Punjabi (pa) - Amanpreet Singh Alam <amanpreetalam@yahoo.com>\n" +
-				"Spanish (es) - Jorge Gonz\xe1lez Gonz\xe1lez <jorge.gonzalez.gonzalez@hispalinux.es>\n" +
-				"Swedish (sv) - Christian Rose <menthos@menthos.com>\n";
+			string translators = Catalog.GetString ("translator-credits");
 
 			Gnome.About about = 
 				new Gnome.About (
