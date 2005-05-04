@@ -163,7 +163,7 @@ namespace Tomboy
 
 		// Set a 4 second timeout to execute the save.  Possibly invalid the text, which
 		// causes a re-serialize when the timeout is called...
-		void QueueSave (bool invalidate_text)
+		public void QueueSave (bool invalidate_text)
 		{
 			// Replace the existing save timeout.  Wait 4 seconds
 			// before saving...
@@ -422,6 +422,14 @@ namespace Tomboy
 
 			xml.WriteStartDocument ();
 			xml.WriteStartElement (null, "note", "http://beatniksoftware.com/tomboy");
+			xml.WriteAttributeString("xmlns", 
+						 "link", 
+						 null, 
+						 "http://beatniksoftware.com/tomboy/link");
+			xml.WriteAttributeString("xmlns", 
+						 "size", 
+						 null, 
+						 "http://beatniksoftware.com/tomboy/size");
 
 			xml.WriteStartElement (null, "title", null);
 			xml.WriteString (note.title);

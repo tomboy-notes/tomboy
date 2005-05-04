@@ -9,6 +9,8 @@ namespace Tomboy
 {
 	public class TomboyApplet : PanelApplet.PanelApplet
 	{
+		static TomboyApplet instance;
+		
 		NoteManager manager;
 		TomboyTray tray;
 		TomboyGConfXKeybinder keybinder;
@@ -62,24 +64,24 @@ namespace Tomboy
 					   "GNOME_TomboyApplet.xml",
 					   "Tomboy",
 					   menu_verbs);
+
+			// Store a reference to avoid segfaults
+			instance = this;
 		}
 
 		void ShowPreferencesVerb ()
 		{
-			if (tray != null)
-				tray.ShowPreferences ();
+			tray.ShowPreferences ();
 		}
 
 		void ShowPluginsVerb ()
 		{
-			if (manager != null)
-				manager.PluginManager.ShowPluginsDirectory ();
+			manager.PluginManager.ShowPluginsDirectory ();
 		}
 
 		void ShowAboutVerb ()
 		{
-			if (tray != null)
-				tray.ShowAbout ();
+			tray.ShowAbout ();
 		}
 
 		// NOTE: This is needed to support transparent/pixmap panel
