@@ -1,3 +1,25 @@
+2005-05-04  Alex Graveley  <alex@beatniksoftware.com>
+
+	Patches orginally from Antonis Stampoulis <enplo00@gmail.com> and
+	Dmitry Kostenko <bis0n@mail.ru>...
+
+	* Tomboy/NoteBuffer.cs: Add xml:space="preserve" when saving
+	notes.
+
+	* Tomboy/Plugins/ExportToHTML.xsl: Initial XSLT commit.  Generates
+	simple HTML for a note and it's linked notes.
+
+	* Tomboy/Plugins/ExportToHTML.cs: Load the ExportToHTML.xsl XSLT
+	template and process the note being exported with it.  Show a save
+	dialog for the destination of the export, and allow including
+	linked notes in the generated HTML.
+
+	* data/tomboy.schemas.in: Add last-use HTML Export preferences to
+	the schema.
+
+	* Tomboy/Preferences.cs: Add default values for HTML export
+	location and include linked preferences.
+
 2005-04-18  Martin Willemoes Hansen  <mwh@sysrq.dk>
 
 	* Tomboy/Tray.cs: Use standard way to get 

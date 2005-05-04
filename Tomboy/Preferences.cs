@@ -20,6 +20,9 @@ namespace Tomboy
 		public const string KEYBINDING_OPEN_SEARCH = "/apps/tomboy/global_keybindings/open_search";
 		public const string KEYBINDING_OPEN_RECENT_CHANGES = "/apps/tomboy/global_keybindings/open_recent_changes";
 
+		public const string EXPORTHTML_LAST_DIRECTORY = "/apps/tomboy/export_html/last_directory";
+		public const string EXPORTHTML_EXPORT_LINKED = "/apps/tomboy/export_html/export_linked";
+
 		static GConf.Client client;
 		static GConf.NotifyEventHandler changed_handler;
 
@@ -61,6 +64,12 @@ namespace Tomboy
 			case KEYBINDING_OPEN_SEARCH:
 			case KEYBINDING_OPEN_RECENT_CHANGES:
 				return "disabled";
+
+			case EXPORTHTML_EXPORT_LINKED:
+				return true;
+
+			case EXPORTHTML_LAST_DIRECTORY:
+				return "";
 			}
 
 			return null;

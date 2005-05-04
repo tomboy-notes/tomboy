@@ -1,0 +1,131 @@
+<?xml version='1.0'?>
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+		xmlns:tomboy="http://beatniksoftware.com/tomboy"
+		xmlns:size="http://beatniksoftware.com/tomboy/size"
+		xmlns:link="http://beatniksoftware.com/tomboy/link"
+                version='1.0'>
+
+<xsl:output method="html" />
+<xsl:preserve-space elements="*" />
+
+<xsl:param name="font" />
+<xsl:param name="export-linked" />
+<xsl:param name="root-note" />
+
+<xsl:template match="/">
+	<html>
+	<head>
+	<title><xsl:value-of select="/tomboy:note/tomboy:title" /></title>
+	<style type="text/css">
+	body { <xsl:value-of select="$font" /> }
+	h1 { font-size: xx-large;
+     	font-weight: bold;
+     	color: red;
+     	text-decoration: underline; }
+	div.note { overflow: auto;
+		   position: relative;
+		   border: 1px solid black;
+		   display: block;
+		   padding: 5pt;
+		   margin: 5pt; }
+	</style>
+	</head>
+	<body>
+
+	<xsl:apply-templates select="tomboy:note"/>
+
+	</body>
+	</html>
+</xsl:template>
+
+<xsl:template match="tomboy:note">
+	<xsl:apply-templates select="tomboy:text"/>
+</xsl:template>
+
+<xsl:template match="tomboy:text">
+	<div class="note" 
+	     id="{/tomboy:note/tomboy:title}" 
+	     style="width:{/tomboy:note/tomboy:width};">
+		<a name="#{/tomboy:note/tomboy:title}" />
+		<xsl:apply-templates select="node()" />
+	</div>
+
+	<xsl:if test="/tomboy:note/tomboy:title = $root-note">
+		<xsl:if test="$export-linked">
+			<xsl:apply-templates 
+				select="document(/tomboy:note/tomboy:text/*[1]/link:internal)/node()" />
+		</xsl:if>
+	</xsl:if>
+</xsl:template>
+
+<xsl:template match="tomboy:note/tomboy:text/*[1]/text()[1]">
+	<h1><xsl:value-of select="substring-before(., '&#xA;')"/></h1>
+	<xsl:call-template name="replace">
+		<xsl:with-param name="text" select="substring-after(., '&#xA;')"/>
+	</xsl:call-template>
+</xsl:template>
+
+<xsl:template match="tomboy:bold">
+	<b><xsl:apply-templates select="node()"/></b>
+</xsl:template>
+
+<xsl:template match="tomboy:italic">
+	<i><xsl:apply-templates select="node()"/></i>
+</xsl:template>
+
+<xsl:template match="tomboy:strikethrough">
+	<strike><xsl:apply-templates select="node()"/></strike>
+</xsl:template>
+
+<xsl:template match="tomboy:highlight">
+	<span style="background:yellow"><xsl:apply-templates select="node()"/></span>
+</xsl:template>
+
+<xsl:template match="size:small">
+	<span style="font-size:small"><xsl:apply-templates select="node()"/></span>
+</xsl:template>
+
+<xsl:template match="size:large">
+	<span style="font-size:large"><xsl:apply-templates select="node()"/></span>
+</xsl:template>
+
+<xsl:template match="size:huge">
+	<span style="font-size:xx-large"><xsl:apply-templates select="node()"/></span>
+</xsl:template>
+
+<xsl:template match="link:broken">
+	<span style="color:silver"><u><xsl:value-of select="node()"/></u></span>
+</xsl:template>
+
+<xsl:template match="link:internal">
+	<a style="color:red" href="#{node()}"><xsl:value-of select="node()"/></a>
+</xsl:template>
+
+<xsl:template match="link:url">
+	<a href="{node()}"><xsl:value-of select="node()"/></a>
+</xsl:template>
+
+<xsl:template match="text()">
+	<xsl:call-template name="replace">
+		<xsl:with-param name="text" select="."/>
+	</xsl:call-template>
+</xsl:template>
+
+<xsl:template name="replace">
+	<xsl:param name="text" select="''"/>
+	<xsl:choose>
+		<xsl:when test="contains($text,'&#xA;')">
+			<xsl:value-of select="substring-before($text, '&#xA;')"/><br/>
+			<xsl:call-template name="replace">
+				<xsl:with-param name="text" 
+						select="substring-after($text, '&#xA;')"/>
+			</xsl:call-template>
+		</xsl:when>
+		<xsl:otherwise>
+			<xsl:value-of select="$text"/>
+		</xsl:otherwise>
+	</xsl:choose>
+</xsl:template>
+
+</xsl:stylesheet>
+

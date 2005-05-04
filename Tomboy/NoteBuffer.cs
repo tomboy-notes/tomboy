@@ -345,6 +345,7 @@ namespace Tomboy
 
 			xml.WriteStartElement (null, "note-content", null);
 			xml.WriteAttributeString ("version", "0.1");
+			xml.WriteAttributeString ("xml", "space", null, "preserve");
 
 			// Insert any active tags at start into tag_stack...
 			foreach (Gtk.TextTag start_tag in start.Tags) {
