@@ -30,19 +30,16 @@ $(PRINT_TARGET): $(PRINT_CSFILES) $(top_builddir)/Tomboy/Tomboy.exe
 
 EXPORT_TARGET = ExportToHTML.dll
 EXPORT_CSFILES = $(srcdir)/ExportToHTML.cs
-EXPORT_RESOURCES =
+EXPORT_RESOURCES = -resource:$(srcdir)/ExportToHTML.xsl
 
-$(EXPORT_TARGET): $(EXPORT_CSFILES) $(top_builddir)/Tomboy/Tomboy.exe
+$(EXPORT_TARGET): $(EXPORT_CSFILES) $(top_builddir)/Tomboy/Tomboy.exe $(srcdir)/ExportToHTML.xsl
 	$(CSC) -o $@ $(CSFLAGS) $(ASSEMBLIES) $(EXPORT_CSFILES) $(EXPORT_RESOURCES)
 
 
 pluginsdir = $(pkglibdir)/Plugins
 plugins_DATA = 			\
+	$(EXPORT_TARGET)	\
 	$(PRINT_TARGET)
-
-### Not ready yet...
-noinst_DATA = 			\
-	$(EXPORT_TARGET)
 
 
 EXTRA_DIST =            	\
