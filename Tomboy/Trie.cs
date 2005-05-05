@@ -186,7 +186,7 @@ namespace Tomboy
 					 MatchHandler match_handler)
 		{
 			TrieState q = root;
-			TrieMatch m;
+			TrieMatch m = null;
 			int idx = 0, start_idx = 0, last_idx = 0;
 
 			while (idx < haystack.Length) {
