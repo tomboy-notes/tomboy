@@ -12,6 +12,8 @@
 <xsl:param name="export-linked" />
 <xsl:param name="root-note" />
 
+<xsl:param name="newline" select="'&#xA;'" />
+
 <xsl:template match="/">
 	<html>
 	<head>
@@ -19,9 +21,9 @@
 	<style type="text/css">
 	body { <xsl:value-of select="$font" /> }
 	h1 { font-size: xx-large;
-     	font-weight: bold;
-     	color: red;
-     	text-decoration: underline; }
+     	     font-weight: bold;
+     	     color: red;
+     	     text-decoration: underline; }
 	div.note { overflow: auto;
 		   position: relative;
 		   border: 1px solid black;
@@ -59,10 +61,7 @@
 </xsl:template>
 
 <xsl:template match="tomboy:note/tomboy:text/*[1]/text()[1]">
-	<h1><xsl:value-of select="substring-before(., '&#xA;')"/></h1>
-	<xsl:call-template name="replace">
-		<xsl:with-param name="text" select="substring-after(., '&#xA;')"/>
-	</xsl:call-template>
+	<h1><xsl:value-of select="substring-before(., $newline)"/></h1>
 </xsl:template>
 
 <xsl:template match="tomboy:bold">
@@ -112,13 +111,13 @@
 </xsl:template>
 
 <xsl:template name="replace">
-	<xsl:param name="text" select="''"/>
+	<xsl:param name="text"/>
 	<xsl:choose>
-		<xsl:when test="contains($text,'&#xA;')">
-			<xsl:value-of select="substring-before($text, '&#xA;')"/><br/>
+		<xsl:when test="contains($text, $newline)">
+			<xsl:value-of select="substring-before($text, $newline)"/><br/>
 			<xsl:call-template name="replace">
 				<xsl:with-param name="text" 
-						select="substring-after($text, '&#xA;')"/>
+						select="substring-after($text, $newline)"/>
 			</xsl:call-template>
 		</xsl:when>
 		<xsl:otherwise>
