@@ -62,6 +62,9 @@
 
 <xsl:template match="tomboy:note/tomboy:text/*[1]/text()[1]">
 	<h1><xsl:value-of select="substring-before(., $newline)"/></h1>
+	<xsl:call-template name="replace">
+		<xsl:with-param name="text" select="substring-after(., $newline)"/>
+	</xsl:call-template>
 </xsl:template>
 
 <xsl:template match="tomboy:bold">
