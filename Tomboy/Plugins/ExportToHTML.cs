@@ -4,6 +4,7 @@ using System.IO;
 using System.Collections;
 using System.Reflection;
 using System.Xml;
+using System.Xml.XPath;
 using System.Xml.Xsl;
 using Mono.Posix;
 
@@ -97,10 +98,11 @@ public class ExportToHTMLPlugin : NotePlugin
 			       bool export_linked) 
 	{
 		FixupOldNote (note);
-		
-		XmlDocument doc = new XmlDocument ();
-		doc.PreserveWhitespace = true;
-		doc.Load (note.FilePath);
+
+		// NOTE: Don't use the XmlDocument version, which strips
+		// whitespace between elements for some reason.  Also,
+		// XPathDocument is faster.
+		XPathDocument doc = new XPathDocument (note.FilePath);
 
 		XsltArgumentList args = new XsltArgumentList ();
 		args.AddParam ("export-linked", "", export_linked);
