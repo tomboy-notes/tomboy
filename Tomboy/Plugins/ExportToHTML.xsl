@@ -54,8 +54,7 @@
 
 	<xsl:if test="/tomboy:note/tomboy:title = $root-note">
 		<xsl:if test="$export-linked">
-			<xsl:apply-templates 
-				select="document(/tomboy:note/tomboy:text/*[1]/link:internal)/node()" />
+			<xsl:apply-templates select="document(.//link:internal)/node()" />
 		</xsl:if>
 	</xsl:if>
 </xsl:template>
