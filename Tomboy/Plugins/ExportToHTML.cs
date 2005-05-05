@@ -20,16 +20,21 @@ public class ExportToHTMLPlugin : NotePlugin
 	static ExportToHTMLPlugin ()
 	{
 		Assembly asm = Assembly.GetExecutingAssembly ();
-		string stylesheet_file = Path.Combine (asm.Location, stylesheet_name);
+		string asm_dir = System.IO.Path.GetDirectoryName (asm.Location);
+		string stylesheet_file = Path.Combine (asm_dir, stylesheet_name);
+
 		xsl = new XslTransform ();
 
 		if (File.Exists (stylesheet_file)) {
+			Console.WriteLine ("ExportToHTMLPlugin: Using user-custom {0} file.",
+					   stylesheet_name);
 			xsl.Load (stylesheet_file);
 		} else {
 			Stream resource = asm.GetManifestResourceStream (stylesheet_name);
 			if (resource != null) {
 				XmlTextReader reader = new XmlTextReader (resource);
 				xsl.Load (reader, null, null);
+				resource.Close ();
 			} else {
 				Console.WriteLine ("Unable to find HTML export template '{0}'.",
 						   stylesheet_name);
