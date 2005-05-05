@@ -436,6 +436,7 @@ namespace Tomboy
 			xml.WriteEndElement ();
 
 			xml.WriteStartElement (null, "text", null);
+			xml.WriteAttributeString ("xml", "space", null, "preserve");
 			// Insert <note-content> blob...
 			// NOTE: Use .XmlContent here to force a reget of text
 			//       from the buffer, if needed.

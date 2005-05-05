@@ -1,4 +1,20 @@
-2005-05-04  Alex Graveley  <agraveley@beatniksoftware.com>
+2005-05-04  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Plugins/ExportToHTML.cs: Rewrite all linked notes to
+	fixup whitespace and namespaces instead of just the root note, and
+	try to reset the write time to what it was previously (though I
+	think this has no effect on Linux).
+
+	* Tomboy/NoteBuffer.cs: Handle XmlNodeType.SignificantWhitespace.
+	Don't write the xml:space tag here, since it is inherited from the
+	<text> tag.
+
+	* Tomboy/Note.cs: Add xml:space="preserve" to the <text> tag,
+	instead of the <note-content> tag.  This allows fixup of notes by
+	just writing the "wrapper" without worrying whether the note's
+	buffer has been initialized.
+	
+2005-05-04  Alex Graveley  <alex@beatniksoftware.com>
 
 	* Tomboy/Note.cs: Add namespace entries for the link: 
 	namespace.

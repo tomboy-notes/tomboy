@@ -345,7 +345,6 @@ namespace Tomboy
 
 			xml.WriteStartElement (null, "note-content", null);
 			xml.WriteAttributeString ("version", "0.1");
-			xml.WriteAttributeString ("xml", "space", null, "preserve");
 
 			// Insert any active tags at start into tag_stack...
 			foreach (Gtk.TextTag start_tag in start.Tags) {
@@ -464,12 +463,11 @@ namespace Tomboy
 						Gtk.TextIter   start, 
 						XmlTextReader  xml)
 		{
-			bool finished = false;
 			int offset = start.Offset;
 			Stack stack = new Stack ();
 			TagStart tag_start;
 
-			while (!finished && xml.Read ()) {
+			while (xml.Read ()) {
 				switch (xml.NodeType) {
 				case XmlNodeType.Element:
 					if (xml.Name == "note-content")
@@ -483,16 +481,15 @@ namespace Tomboy
 					break;
 				case XmlNodeType.Text:
 				case XmlNodeType.Whitespace:
+				case XmlNodeType.SignificantWhitespace:
 					Gtk.TextIter insert_at = buffer.GetIterAtOffset (offset);
 					buffer.Insert (insert_at, xml.Value);
 
 					offset += xml.Value.Length;
 					break;
 				case XmlNodeType.EndElement:
-					if (xml.Name == "note-content") {
-						//finished = true;
+					if (xml.Name == "note-content")
 						break;
-					}
 
 					tag_start = (TagStart) stack.Pop ();
 
@@ -501,6 +498,11 @@ namespace Tomboy
 					apply_end = buffer.GetIterAtOffset (offset);
 
 					buffer.ApplyTag (tag_start.TagName, apply_start, apply_end);
+					break;
+				default:
+					Console.WriteLine ("Unhandled element {0}. Value: '{1}'",
+							   xml.NodeType,
+							   xml.Value);
 					break;
 				}
 			}
