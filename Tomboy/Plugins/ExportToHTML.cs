@@ -96,26 +96,11 @@ public class ExportToHTMLPlugin : NotePlugin
 			       Note note,
 			       bool export_linked) 
 	{
-		// FIXME: Make save() take an output stream.
-		note.QueueSave (false);
-		note.Save ();
+		FixupOldNote (note);
 		
 		XmlDocument doc = new XmlDocument ();
 		doc.PreserveWhitespace = true;
 		doc.Load (note.FilePath);
-		
-		/* Is this needed?? */
-		/*
-		XmlNodeList list = doc.GetElementsByTagName ("note-content", 
-							     "http://beatniksoftware.com/tomboy");
-		if (list.Count != 0) {
-			string innerxml = list.Item (0).InnerXml;
-			// pretty kludge-y, I admit.
-			list.Item(0).InnerXml = Regex.Replace (innerxml, 
-							       @">(\W+)<", 
-							       @"><whitespace>$1</whitespace><");
-		}
-		*/
 
 		XsltArgumentList args = new XsltArgumentList ();
 		args.AddParam ("export-linked", "", export_linked);
@@ -132,6 +117,26 @@ public class ExportToHTMLPlugin : NotePlugin
 
 		NoteNameResolver resolver = new NoteNameResolver (note.Manager);
 		xsl.Transform (doc, args, writer, resolver);
+	}
+
+	public static void FixupOldNote (Note note)
+	{
+		DateTime old_write_time = File.GetLastWriteTime (note.FilePath);
+
+		// NOTE: Old notes have broken namespaces and whitespace, so
+		// force a rewrite of the file to fix this up.
+		// FIXME: Add version to notes and only call
+		// note.QueueSave if the version is old.  
+		note.QueueSave (false);
+		note.Save ();
+
+		try {
+			File.SetLastWriteTime (note.FilePath, old_write_time);
+		} catch (Exception e) {
+			Console.WriteLine ("Error resetting write time on note '{0}': {1}",
+					   note.FilePath,
+					   e);
+		}
 	}
 }
 
@@ -153,6 +158,8 @@ class NoteNameResolver : XmlResolver
 	{		
 		Note note = manager.FindByUri (absoluteUri.ToString());
 		if (note != null) {
+			ExportToHTMLPlugin.FixupOldNote (note);
+
 			FileStream stream = File.OpenRead (note.FilePath);
 			Console.WriteLine ("GetEntity: Returning Stream");
 			return stream;
