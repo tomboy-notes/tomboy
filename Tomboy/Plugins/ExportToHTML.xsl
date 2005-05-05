@@ -100,7 +100,9 @@
 </xsl:template>
 
 <xsl:template match="link:internal">
-	<a style="color:red" href="#{node()}"><xsl:value-of select="node()"/></a>
+	<a style="color:red" href="#{document(node())/tomboy:note/tomboy:title}">
+		<xsl:value-of select="node()"/>
+	</a>
 </xsl:template>
 
 <xsl:template match="link:url">
