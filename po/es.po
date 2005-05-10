@@ -1,4 +1,4 @@
-# translation of tomboy.HEAD.es.po to
+# traducción al español de tomboy
 # Spanish translation for tomboy
 # Copyright (C) 2004 Adam Weinberger and the GNOME Foundation
 # This file is distributed under the same licence as the Tomboy package.
@@ -8,10 +8,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: tomboy.HEAD.es\n"
+"Project-Id-Version: tomboy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-04-18 19:53+0000\n"
-"PO-Revision-Date: 2005-04-19 00:22+0200\n"
+"POT-Creation-Date: 2005-05-05 04:04+0000\n"
+"PO-Revision-Date: 2005-05-07 19:10+0200\n"
 "Last-Translator: Jorge Gonzalez <jorge.gonzalez.gonzalez@hispalinux.es>\n"
 "Language-Team:  <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -33,7 +33,7 @@ msgid "Tomboy Applet Factory"
 msgstr "Factoría de miniaplicaciones Tomboy"
 
 #: ../data/GNOME_TomboyApplet.server.in.in.h:4 ../data/tomboy.desktop.in.h:3
-#: ../Tomboy/Applet.cs:132 ../Tomboy/Tray.cs:38
+#: ../Tomboy/Applet.cs:134 ../Tomboy/Tray.cs:38
 msgid "Tomboy Notes"
 msgstr "Tomboy"
 
@@ -41,11 +41,11 @@ msgstr "Tomboy"
 msgid "_About Tomboy..."
 msgstr "_Sobre Tomboy..."
 
-#: ../data/GNOME_TomboyApplet.xml.h:2 ../Tomboy/Applet.cs:173
+#: ../data/GNOME_TomboyApplet.xml.h:2 ../Tomboy/Applet.cs:175
 msgid "_Install Plugins..."
 msgstr "_Instalar complementos..."
 
-#: ../data/GNOME_TomboyApplet.xml.h:3 ../Tomboy/Applet.cs:168
+#: ../data/GNOME_TomboyApplet.xml.h:3 ../Tomboy/Applet.cs:170
 msgid "_Preferences..."
 msgstr "_Preferencias..."
 
@@ -90,6 +90,14 @@ msgstr ""
 "palabra se creará una nota con ese nombre."
 
 #: ../data/tomboy.schemas.in.h:8
+msgid "HTML Export Last Directory"
+msgstr "Exportar al último directorio usado en formato HTML"
+
+#: ../data/tomboy.schemas.in.h:9
+msgid "HTML Export Linked Notes"
+msgstr "Exportar las notas enlazadas a HTML"
+
+#: ../data/tomboy.schemas.in.h:10
 msgid ""
 "If enable_custom_font is true, the font name set here will be used as the "
 "font when displaying notes."
@@ -97,7 +105,7 @@ msgstr ""
 "Si la tipografía personalizada está activada, la tipografía aquí "
 "seleccionada se usará al mostrar las notas."
 
-#: ../data/tomboy.schemas.in.h:9
+#: ../data/tomboy.schemas.in.h:11
 msgid ""
 "If true, misspellings will be underlined in red, and correct spelling "
 "suggestions shown in the right-click menu."
@@ -105,7 +113,7 @@ msgstr ""
 "Si está activada, las faltas de ortografía se subrayarán en rojo, y pulsando "
 "con el botón derecho del ratón se mostrarán sugerencias."
 
-#: ../data/tomboy.schemas.in.h:10
+#: ../data/tomboy.schemas.in.h:12
 msgid ""
 "If true, the desktop-global keybindings set in /apps/tomboy/"
 "global_keybindings will be enabled, allowing for useful Tomboy actions to be "
@@ -115,7 +123,7 @@ msgstr ""
 "fijadas en /apps/tomboy/global_keybindings también se activará, permitiendo "
 "al resto de aplicaciones usar las opciones útiles de Tomboy."
 
-#: ../data/tomboy.schemas.in.h:11
+#: ../data/tomboy.schemas.in.h:13
 msgid ""
 "If true, the font name set in custom_font_face will be used as the font when "
 "displaying notes. Otherwise the desktop default font will be used."
@@ -124,23 +132,23 @@ msgstr ""
 "predeterminado para mostrar las notas. De otra manera se usará la fuente "
 "tipográfica predeterminada del escritorio."
 
-#: ../data/tomboy.schemas.in.h:12
+#: ../data/tomboy.schemas.in.h:14
 msgid "Open Recent Changes"
 msgstr "Abrir cambios recientes"
 
-#: ../data/tomboy.schemas.in.h:13
+#: ../data/tomboy.schemas.in.h:15
 msgid "Open Search Dialog"
 msgstr "Abrir el cuadro de diálogo de buscar"
 
-#: ../data/tomboy.schemas.in.h:14
+#: ../data/tomboy.schemas.in.h:16
 msgid "Open Start Here"
 msgstr "Abrir comenzar aquí"
 
-#: ../data/tomboy.schemas.in.h:15
+#: ../data/tomboy.schemas.in.h:17
 msgid "Show applet menu"
 msgstr "Mostrar el menú de miniaplicaciones"
 
-#: ../data/tomboy.schemas.in.h:16
+#: ../data/tomboy.schemas.in.h:18
 msgid ""
 "The global keybinding for creating and displaying a new Note. The format "
 "looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The "
@@ -156,7 +164,7 @@ msgstr ""
 "de cadena especial «desactivada» no habrá combinación de teclas para esta "
 "acción."
 
-#: ../data/tomboy.schemas.in.h:17
+#: ../data/tomboy.schemas.in.h:19
 msgid ""
 "The global keybinding for opening the \"Start Here\" note. The format looks "
 "like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
@@ -171,7 +179,7 @@ msgstr ""
 "tales como «&lt;Ctl&gt;» y «&lt;Ctrl&gt;». Si activa la opción de cadena "
 "especial «desactivada» no habrá combinación de teclas para esta acción."
 
-#: ../data/tomboy.schemas.in.h:18
+#: ../data/tomboy.schemas.in.h:20
 msgid ""
 "The global keybinding for opening the Note Search dialog. The format looks "
 "like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
@@ -187,7 +195,7 @@ msgstr ""
 "activa la opción de cadena especial «desactivada» no habrá combinación de "
 "teclas para esta acción."
 
-#: ../data/tomboy.schemas.in.h:19
+#: ../data/tomboy.schemas.in.h:21
 msgid ""
 "The global keybinding for opening the Recent Changes dialog. The format "
 "looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The "
@@ -203,7 +211,7 @@ msgstr ""
 "activa la opción de cadena especial «desactivada» no habrá combinación de "
 "teclas para esta acción."
 
-#: ../data/tomboy.schemas.in.h:20
+#: ../data/tomboy.schemas.in.h:22
 msgid ""
 "The global keybinding for showing the Tomboy applet's menu. The format looks "
 "like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
@@ -219,11 +227,23 @@ msgstr ""
 "activa la opción de cadena especial «desactivada» no habrá combinación de "
 "teclas para esta acción."
 
-#: ../Tomboy/Applet.cs:178
+#: ../data/tomboy.schemas.in.h:23
+msgid "The last directory a note was exported to using the Export To HTML plugin."
+msgstr "El último directorio donde se exportó una nota usando el complemento Exportar a HTML"
+
+#: ../data/tomboy.schemas.in.h:24
+msgid ""
+"The last setting for the 'Export linked notes' checkbox in the Export to "
+"HTML plugin."
+msgstr ""
+"Las última casilla de preferencias para «Exportar las notas enlazadas a HTML» en el complemento "
+"Exportar a HTML."
+
+#: ../Tomboy/Applet.cs:180
 msgid "_About Tomboy"
 msgstr "_Acerca de Tomboy"
 
-#: ../Tomboy/Applet.cs:185
+#: ../Tomboy/Applet.cs:187
 msgid "_Quit"
 msgstr "_Salir"
 
@@ -359,24 +379,24 @@ msgstr "_Grande"
 msgid "S_mall"
 msgstr "_Pequeña"
 
-#: ../Tomboy/Preferences.cs:118
+#: ../Tomboy/Preferences.cs:127
 msgid "Tomboy Preferences"
 msgstr "Preferencias de Tomboy"
 
-#: ../Tomboy/Preferences.cs:132
+#: ../Tomboy/Preferences.cs:141
 msgid "Editing"
 msgstr "Editando"
 
-#: ../Tomboy/Preferences.cs:135
+#: ../Tomboy/Preferences.cs:144
 msgid "Hotkeys"
 msgstr "Teclas rápidas"
 
 #. Spellchecking...
-#: ../Tomboy/Preferences.cs:175
+#: ../Tomboy/Preferences.cs:184
 msgid "_Spellcheck While Typing"
 msgstr "_Corrector ortográfico al escribir"
 
-#: ../Tomboy/Preferences.cs:182
+#: ../Tomboy/Preferences.cs:191
 msgid ""
 "Misspellings will be underlined in red, and correct spelling suggestions "
 "shown in the right-click menu."
@@ -385,11 +405,11 @@ msgstr ""
 "derecho del ratón se mostrarán sugerencias."
 
 #. WikiWords...
-#: ../Tomboy/Preferences.cs:191
+#: ../Tomboy/Preferences.cs:200
 msgid "Highlight _WikiWords"
 msgstr "Resaltar _wikipalabras"
 
-#: ../Tomboy/Preferences.cs:198
+#: ../Tomboy/Preferences.cs:207
 msgid ""
 "Enable this option to highlight words <b>ThatLookLikeThis</b>. Clicking the "
 "word will create a note with that name."
@@ -398,16 +418,16 @@ msgstr ""
 "el ratón en la palabra se creará otra nota con ese nombre."
 
 #. Custom font...
-#: ../Tomboy/Preferences.cs:207
+#: ../Tomboy/Preferences.cs:216
 msgid "Use Custom _Font"
 msgstr "Usar _fuente personalizada"
 
 #. Hotkeys...
-#: ../Tomboy/Preferences.cs:277
+#: ../Tomboy/Preferences.cs:286
 msgid "Listen for _Hotkeys"
 msgstr "Teclas _rápidas"
 
-#: ../Tomboy/Preferences.cs:285
+#: ../Tomboy/Preferences.cs:294
 msgid ""
 "Hotkeys allow you to quickly access your notes from anywhere with a "
 "keypress. Example Hotkeys: <b>&lt;Control&gt;&lt;Shift&gt;F11</b>, <b>&lt;"
@@ -418,26 +438,26 @@ msgstr ""
 "<b>&lt;Alt&gt;N</b>"
 
 #. Show notes menu keybinding...
-#: ../Tomboy/Preferences.cs:305
+#: ../Tomboy/Preferences.cs:314
 msgid "Show notes _menu"
 msgstr "Menú de _mostrado de notas"
 
 #. Open Start Here keybinding...
-#: ../Tomboy/Preferences.cs:321
+#: ../Tomboy/Preferences.cs:330
 msgid "Open \"_Start Here\""
 msgstr "Abrir \"_Comenzar aquí\""
 
 #. Create new note keybinding...
-#: ../Tomboy/Preferences.cs:337
+#: ../Tomboy/Preferences.cs:346
 msgid "Create _new note"
 msgstr "Crear una nota _nueva"
 
 #. Search dialog keybinding...
-#: ../Tomboy/Preferences.cs:353
+#: ../Tomboy/Preferences.cs:362
 msgid "S_earch notes"
 msgstr "_Buscar notas"
 
-#: ../Tomboy/Preferences.cs:415
+#: ../Tomboy/Preferences.cs:424
 msgid "Choose Note Font"
 msgstr "Elegir la fuente tipográfica de las notas"
 
@@ -651,11 +671,19 @@ msgstr "Imprimir"
 msgid "Print this note"
 msgstr "Imprimir esta nota"
 
-#: ../Tomboy/Plugins/ExportToHTML.cs:25
+#: ../Tomboy/Plugins/ExportToHTML.cs:55
 msgid "Export"
 msgstr "Exportar"
 
-#: ../Tomboy/Plugins/ExportToHTML.cs:26
+#: ../Tomboy/Plugins/ExportToHTML.cs:56
 msgid "Export this note to HTML"
 msgstr "Exportar esta nota a HTML"
+
+#: ../Tomboy/Plugins/ExportToHTML.cs:186
+msgid "Destination for HTML Export"
+msgstr "Destino para la exportación a HTML"
+
+#: ../Tomboy/Plugins/ExportToHTML.cs:191
+msgid "Export linked notes"
+msgstr "Exportar las notas enlazadas"
 
