@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tomboy HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-03-15 19:40+0900\n"
-"PO-Revision-Date: 2005-03-15 19:40+0900\n"
+"POT-Creation-Date: 2005-05-11 23:13+0900\n"
+"PO-Revision-Date: 2005-05-11 22:34+0900\n"
 "Last-Translator: Takeshi AIHANA <aihana@gnome.gr.jp>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
 "MIME-Version: 1.0\n"
@@ -29,7 +29,7 @@ msgid "Tomboy Applet Factory"
 msgstr "Tomboy アプレットのファクトリ"
 
 #: ../data/GNOME_TomboyApplet.server.in.in.h:4 ../data/tomboy.desktop.in.h:3
-#: ../Tomboy/Applet.cs:129 ../Tomboy/Tray.cs:38
+#: ../Tomboy/Applet.cs:134 ../Tomboy/Tray.cs:38
 msgid "Tomboy Notes"
 msgstr "Tomboy メモ"
 
@@ -37,11 +37,11 @@ msgstr "Tomboy メモ"
 msgid "_About Tomboy..."
 msgstr "Tomboy について(_A)..."
 
-#: ../data/GNOME_TomboyApplet.xml.h:2 ../Tomboy/Applet.cs:170
+#: ../data/GNOME_TomboyApplet.xml.h:2 ../Tomboy/Applet.cs:175
 msgid "_Install Plugins..."
 msgstr "プラグインのインストール(_I)..."
 
-#: ../data/GNOME_TomboyApplet.xml.h:3 ../Tomboy/Applet.cs:165
+#: ../data/GNOME_TomboyApplet.xml.h:3 ../Tomboy/Applet.cs:170
 msgid "_Preferences..."
 msgstr "設定(_P)..."
 
@@ -86,6 +86,14 @@ msgstr ""
 "クリックすると、単語の名前をタイトルにした新しいメモを生成します。"
 
 #: ../data/tomboy.schemas.in.h:8
+msgid "HTML Export Last Directory"
+msgstr "最後にHTMLをエキスポートしたフォルダ"
+
+#: ../data/tomboy.schemas.in.h:9
+msgid "HTML Export Linked Notes"
+msgstr "最後にHTMLへエキスポートしたメモ"
+
+#: ../data/tomboy.schemas.in.h:10
 msgid ""
 "If enable_custom_font is true, the font name set here will be used as the "
 "font when displaying notes."
@@ -93,7 +101,7 @@ msgstr ""
 "enable_custom_font が TRUE の場合、メモを表示するときに、ここにセットしたフォ"
 "ント名を使用します。"
 
-#: ../data/tomboy.schemas.in.h:9
+#: ../data/tomboy.schemas.in.h:11
 msgid ""
 "If true, misspellings will be underlined in red, and correct spelling "
 "suggestions shown in the right-click menu."
@@ -101,7 +109,7 @@ msgstr ""
 "TRUE の場合、スペル違いは赤色の下線がつき、右クリック・メニューに妥当なスペル"
 "を提示します。"
 
-#: ../data/tomboy.schemas.in.h:10
+#: ../data/tomboy.schemas.in.h:12
 msgid ""
 "If true, the desktop-global keybindings set in /apps/tomboy/"
 "global_keybindings will be enabled, allowing for useful Tomboy actions to be "
@@ -110,7 +118,7 @@ msgstr ""
 "TRUE の場合、/apps/tomboy/global_keybindings の desktop-global キーバインドが"
 "有効になり、別のアプリケーションから Tomboy の操作が可能になります。"
 
-#: ../data/tomboy.schemas.in.h:11
+#: ../data/tomboy.schemas.in.h:13
 msgid ""
 "If true, the font name set in custom_font_face will be used as the font when "
 "displaying notes. Otherwise the desktop default font will be used."
@@ -118,23 +126,23 @@ msgstr ""
 "TRUE の場合、メモを表示するときに custom_font_face にセットしたフォント名を使"
 "用します。それ以外は、デスクトップのデフォルト・フォントを使用します。"
 
-#: ../data/tomboy.schemas.in.h:12
+#: ../data/tomboy.schemas.in.h:14
 msgid "Open Recent Changes"
 msgstr "\"現在の変更\" を開く"
 
-#: ../data/tomboy.schemas.in.h:13
+#: ../data/tomboy.schemas.in.h:15
 msgid "Open Search Dialog"
 msgstr "\"検索ダイアログ\" を開く"
 
-#: ../data/tomboy.schemas.in.h:14
+#: ../data/tomboy.schemas.in.h:16
 msgid "Open Start Here"
 msgstr "\"ここから開始\" を開く"
 
-#: ../data/tomboy.schemas.in.h:15
+#: ../data/tomboy.schemas.in.h:17
 msgid "Show applet menu"
 msgstr "アプレット・メニューの表示"
 
-#: ../data/tomboy.schemas.in.h:16
+#: ../data/tomboy.schemas.in.h:18
 msgid ""
 "The global keybinding for creating and displaying a new Note. The format "
 "looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The "
@@ -150,7 +158,7 @@ msgstr ""
 "て特殊な文字列 \"disabled\" を指定すると、このアクションに対するキーの割り当"
 "ては行われません。"
 
-#: ../data/tomboy.schemas.in.h:17
+#: ../data/tomboy.schemas.in.h:19
 msgid ""
 "The global keybinding for opening the \"Start Here\" note. The format looks "
 "like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
@@ -166,7 +174,7 @@ msgstr ""
 "て特殊な文字列 \"disabled\" を指定すると、このアクションに対するキーの割り当"
 "ては行われません。"
 
-#: ../data/tomboy.schemas.in.h:18
+#: ../data/tomboy.schemas.in.h:20
 msgid ""
 "The global keybinding for opening the Note Search dialog. The format looks "
 "like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
@@ -182,7 +190,7 @@ msgstr ""
 "として特殊な文字列 \"disabled\" を指定すると、このアクションに対するキーの割"
 "り当ては行われません。"
 
-#: ../data/tomboy.schemas.in.h:19
+#: ../data/tomboy.schemas.in.h:21
 msgid ""
 "The global keybinding for opening the Recent Changes dialog. The format "
 "looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The "
@@ -198,7 +206,7 @@ msgstr ""
 "として特殊な文字列 \"disabled\" を指定すると、このアクションに対するキーの割"
 "り当ては行われません"
 
-#: ../data/tomboy.schemas.in.h:20
+#: ../data/tomboy.schemas.in.h:22
 msgid ""
 "The global keybinding for showing the Tomboy applet's menu. The format looks "
 "like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
@@ -214,18 +222,33 @@ msgstr ""
 "す。オプションとして特殊な文字列 \"disabled\" を指定すると、このアクションに"
 "対するキーの割り当ては行われません"
 
-#: ../Tomboy/Applet.cs:175
+#: ../data/tomboy.schemas.in.h:23
+msgid ""
+"The last directory a note was exported to using the Export To HTML plugin."
+msgstr ""
+"\"HTMLのエキスポート\" プラグインを使って、最後にエキスポートしたメモの HTML "
+"を格納したフォルダです。"
+
+#: ../data/tomboy.schemas.in.h:24
+msgid ""
+"The last setting for the 'Export linked notes' checkbox in the Export to "
+"HTML plugin."
+msgstr ""
+"\"HTML へエキスポート\" プラグインの \"メモのエキスポート\" で最後に設定した"
+"チェックボックスの状態です。"
+
+#: ../Tomboy/Applet.cs:180
 msgid "_About Tomboy"
 msgstr "Tomboy について(_A)"
 
-#: ../Tomboy/Applet.cs:182
+#: ../Tomboy/Applet.cs:187
 msgid "_Quit"
 msgstr "終了(_Q)"
 
 #. Open the Start Here note
 #: ../Tomboy/Note.cs:349 ../Tomboy/NoteManager.cs:85
-#: ../Tomboy/NoteManager.cs:90 ../Tomboy/Tomboy.cs:206 ../Tomboy/Tray.cs:112
-#: ../Tomboy/Tray.cs:296 ../Tomboy/XKeybinder.cs:256
+#: ../Tomboy/NoteManager.cs:90 ../Tomboy/Tomboy.cs:210 ../Tomboy/Tray.cs:112
+#: ../Tomboy/Tray.cs:274 ../Tomboy/XKeybinder.cs:256
 msgid "Start Here"
 msgstr "ここから開始"
 
@@ -250,128 +273,128 @@ msgstr "新しいメモ {0}"
 msgid "Describe your new note here."
 msgstr "新しいメモをここに記述して下さい。"
 
-#: ../Tomboy/NoteWindow.cs:243
+#: ../Tomboy/NoteWindow.cs:278
 msgid "Really delete this note?"
 msgstr "本当にこのメモを削除してもよろしいですか？"
 
-#: ../Tomboy/NoteWindow.cs:244
+#: ../Tomboy/NoteWindow.cs:279
 msgid "If you delete a note it is permanently lost."
 msgstr "メモを削除すると、メモの内容が完全に無くなります。"
 
-#: ../Tomboy/NoteWindow.cs:313
+#: ../Tomboy/NoteWindow.cs:354
 msgid "_Link to New Note"
 msgstr "新しいメモへのリンク(_L)"
 
-#: ../Tomboy/NoteWindow.cs:326
+#: ../Tomboy/NoteWindow.cs:367
 msgid "Te_xt"
 msgstr "文字の種類(_X)"
 
-#: ../Tomboy/NoteWindow.cs:334
+#: ../Tomboy/NoteWindow.cs:375
 msgid "_Search"
 msgstr "検索(_S)"
 
-#: ../Tomboy/NoteWindow.cs:348
+#: ../Tomboy/NoteWindow.cs:389
 msgid "_Close Window"
 msgstr "閉じる(_C)"
 
-#: ../Tomboy/NoteWindow.cs:385
+#: ../Tomboy/NoteWindow.cs:426
 msgid "Search"
 msgstr "検索"
 
-#: ../Tomboy/NoteWindow.cs:386
+#: ../Tomboy/NoteWindow.cs:427
 msgid "Search your notes"
 msgstr "メモを検索します"
 
-#: ../Tomboy/NoteWindow.cs:398
+#: ../Tomboy/NoteWindow.cs:439
 msgid "Link"
 msgstr "リンク"
 
-#: ../Tomboy/NoteWindow.cs:399
+#: ../Tomboy/NoteWindow.cs:440
 msgid "Link selected text to a new note"
 msgstr "指定した部分を新しいメモへリンクします"
 
-#: ../Tomboy/NoteWindow.cs:421
+#: ../Tomboy/NoteWindow.cs:462
 msgid "Set properties of text"
 msgstr "文字のプロパティを変更します"
 
-#: ../Tomboy/NoteWindow.cs:428
+#: ../Tomboy/NoteWindow.cs:469
 msgid "Delete"
 msgstr "削除"
 
-#: ../Tomboy/NoteWindow.cs:429
+#: ../Tomboy/NoteWindow.cs:470
 msgid "Delete this note"
 msgstr "このメモを削除します"
 
-#: ../Tomboy/NoteWindow.cs:455 ../Tomboy/NoteWindow.cs:456
+#: ../Tomboy/NoteWindow.cs:496 ../Tomboy/NoteWindow.cs:497
 msgid "_Text"
 msgstr "文字の種類(_T)"
 
-#: ../Tomboy/NoteWindow.cs:525
+#: ../Tomboy/NoteWindow.cs:566
 msgid "_Search..."
 msgstr "検索(_S)..."
 
-#: ../Tomboy/NoteWindow.cs:536 ../Tomboy/Search.cs:176
+#: ../Tomboy/NoteWindow.cs:577 ../Tomboy/Search.cs:176
 msgid "Find _Next"
 msgstr "次の検索(_N)"
 
-#: ../Tomboy/NoteWindow.cs:549
+#: ../Tomboy/NoteWindow.cs:590
 msgid "Find _Previous"
 msgstr "前の検索(_P)"
 
-#: ../Tomboy/NoteWindow.cs:735
+#: ../Tomboy/NoteWindow.cs:776
 msgid "<b>_Bold</b>"
 msgstr "<b>太字(_B)</b>"
 
-#: ../Tomboy/NoteWindow.cs:745
+#: ../Tomboy/NoteWindow.cs:786
 msgid "<i>_Italic</i>"
 msgstr "<i>イタリック(_I)</i>"
 
-#: ../Tomboy/NoteWindow.cs:755
+#: ../Tomboy/NoteWindow.cs:796
 msgid "<s>_Strikeout</s>"
 msgstr "<s>取り消し(_S)</s>"
 
-#: ../Tomboy/NoteWindow.cs:766
+#: ../Tomboy/NoteWindow.cs:807
 msgid "_Highlight"
 msgstr "強調(_H)"
 
-#: ../Tomboy/NoteWindow.cs:779
+#: ../Tomboy/NoteWindow.cs:820
 msgid "Font Size"
 msgstr "フォント"
 
-#: ../Tomboy/NoteWindow.cs:782
+#: ../Tomboy/NoteWindow.cs:823
 msgid "_Normal"
 msgstr "標準(_N)"
 
-#: ../Tomboy/NoteWindow.cs:789
+#: ../Tomboy/NoteWindow.cs:830
 msgid "Hu_ge"
 msgstr "巨大(_G)"
 
-#: ../Tomboy/NoteWindow.cs:797
+#: ../Tomboy/NoteWindow.cs:838
 msgid "_Large"
 msgstr "大きい(_L)"
 
-#: ../Tomboy/NoteWindow.cs:805
+#: ../Tomboy/NoteWindow.cs:846
 msgid "S_mall"
 msgstr "小さい(_M)"
 
-#: ../Tomboy/Preferences.cs:118
+#: ../Tomboy/Preferences.cs:127
 msgid "Tomboy Preferences"
 msgstr "Tomboy の設定(_P)..."
 
-#: ../Tomboy/Preferences.cs:132
+#: ../Tomboy/Preferences.cs:141
 msgid "Editing"
 msgstr "編集"
 
-#: ../Tomboy/Preferences.cs:135
+#: ../Tomboy/Preferences.cs:144
 msgid "Hotkeys"
 msgstr "ホットキー"
 
 #. Spellchecking...
-#: ../Tomboy/Preferences.cs:175
+#: ../Tomboy/Preferences.cs:184
 msgid "_Spellcheck While Typing"
 msgstr "入力時にスペルチェックを行う(_S)"
 
-#: ../Tomboy/Preferences.cs:182
+#: ../Tomboy/Preferences.cs:191
 msgid ""
 "Misspellings will be underlined in red, and correct spelling suggestions "
 "shown in the right-click menu."
@@ -380,11 +403,11 @@ msgstr ""
 "す。"
 
 #. WikiWords...
-#: ../Tomboy/Preferences.cs:191
+#: ../Tomboy/Preferences.cs:200
 msgid "Highlight _WikiWords"
 msgstr "WikiWord (予約語) を強調表示する(_W)"
 
-#: ../Tomboy/Preferences.cs:198
+#: ../Tomboy/Preferences.cs:207
 msgid ""
 "Enable this option to highlight words <b>ThatLookLikeThis</b>. Clicking the "
 "word will create a note with that name."
@@ -393,16 +416,16 @@ msgstr ""
 "クリックすると、単語の名前をタイトルにした新しいメモを生成します。"
 
 #. Custom font...
-#: ../Tomboy/Preferences.cs:207
+#: ../Tomboy/Preferences.cs:216
 msgid "Use Custom _Font"
 msgstr "カスタム・フォントを使う(_F)"
 
 #. Hotkeys...
-#: ../Tomboy/Preferences.cs:277
+#: ../Tomboy/Preferences.cs:286
 msgid "Listen for _Hotkeys"
 msgstr "ホットキーを監視する(_H)"
 
-#: ../Tomboy/Preferences.cs:285
+#: ../Tomboy/Preferences.cs:294
 msgid ""
 "Hotkeys allow you to quickly access your notes from anywhere with a "
 "keypress. Example Hotkeys: <b>&lt;Control&gt;&lt;Shift&gt;F11</b>, <b>&lt;"
@@ -413,26 +436,26 @@ msgstr ""
 "Alt&gt;N</b>"
 
 #. Show notes menu keybinding...
-#: ../Tomboy/Preferences.cs:305
+#: ../Tomboy/Preferences.cs:314
 msgid "Show notes _menu"
 msgstr "メニューの表示(_M)"
 
 #. Open Start Here keybinding...
-#: ../Tomboy/Preferences.cs:321
+#: ../Tomboy/Preferences.cs:330
 msgid "Open \"_Start Here\""
 msgstr "\"ここから開始\" を開く(_S)"
 
 #. Create new note keybinding...
-#: ../Tomboy/Preferences.cs:337
+#: ../Tomboy/Preferences.cs:346
 msgid "Create _new note"
 msgstr "新しいメモの生成(_N)"
 
 #. Search dialog keybinding...
-#: ../Tomboy/Preferences.cs:353
+#: ../Tomboy/Preferences.cs:362
 msgid "S_earch notes"
 msgstr "メモの検索(_E)"
 
-#: ../Tomboy/Preferences.cs:415
+#: ../Tomboy/Preferences.cs:424
 msgid "Choose Note Font"
 msgstr "フォントの選択"
 
@@ -515,7 +538,7 @@ msgstr[1] "({0} 個見つかりました)"
 msgid "No notes found"
 msgstr "メモが見つかりません"
 
-#: ../Tomboy/Tomboy.cs:134
+#: ../Tomboy/Tomboy.cs:138
 msgid ""
 "Tomboy: A simple, easy to use desktop note-taking application.\n"
 "Copyright (C) 2004, 2005 Alex Graveley <alex@beatniksoftware.com>\n"
@@ -525,7 +548,7 @@ msgstr ""
 "Copyright (C) 2004, 2005 Alex Graveley <alex@beatniksoftware.com>\n"
 "\n"
 
-#: ../Tomboy/Tomboy.cs:145
+#: ../Tomboy/Tomboy.cs:149
 msgid ""
 "Usage:\n"
 "  --new-note\t\t\tCreate and display a new note.\n"
@@ -545,7 +568,7 @@ msgstr ""
 "  --version\t\t\tバージョン情報を表示する\n"
 "  --help\t\t\tこのメッセージを表示する\n"
 
-#: ../Tomboy/Tomboy.cs:157
+#: ../Tomboy/Tomboy.cs:161
 msgid ""
 "Usage:\n"
 "  --version\t\t\tPrint version information.\n"
@@ -559,12 +582,12 @@ msgstr ""
 "\n"
 "D-BUS リモート・コントロールは無効です"
 
-#: ../Tomboy/Tomboy.cs:168
+#: ../Tomboy/Tomboy.cs:172
 #, csharp-format
 msgid "Version {0}"
 msgstr "バージョン {0}"
 
-#: ../Tomboy/Tomboy.cs:225
+#: ../Tomboy/Tomboy.cs:229
 #, csharp-format
 msgid ""
 "Tomboy: unsupported option '{0}'\n"
@@ -591,16 +614,22 @@ msgstr "メモの検索(_S)..."
 msgid " (new)"
 msgstr " (新規)"
 
-#: ../Tomboy/Tray.cs:254
+#: ../Tomboy/Tray.cs:226
+msgid "translator-credits"
+msgstr ""
+"相花 毅 <aihana@gnome.gr.jp>\n"
+"日本GNOMEユーザー会 http://www.gnome.gr.jp"
+
+#: ../Tomboy/Tray.cs:232
 msgid "Copyright © 2004, 2005 Alex Graveley"
 msgstr "Copyright © 2004, 2005 Alex Graveley"
 
-#: ../Tomboy/Tray.cs:255
+#: ../Tomboy/Tray.cs:233
 msgid "A simple and easy to use desktop note-taking application."
 msgstr "シンプルで使いやすいデスクトップ・メモのアプリケーションです。"
 
 #. initial newline
-#: ../Tomboy/Tray.cs:304
+#: ../Tomboy/Tray.cs:282
 msgid "dddd, MMMM d, h:mm tt"
 msgstr "dddd, MMMM d, h:mm tt"
 
@@ -638,10 +667,18 @@ msgstr "印刷"
 msgid "Print this note"
 msgstr "このメモを印刷します"
 
-#: ../Tomboy/Plugins/ExportToHTML.cs:25
+#: ../Tomboy/Plugins/ExportToHTML.cs:61
 msgid "Export"
 msgstr "エキスポート"
 
-#: ../Tomboy/Plugins/ExportToHTML.cs:26
+#: ../Tomboy/Plugins/ExportToHTML.cs:62
 msgid "Export this note to HTML"
 msgstr "このメモを HTML 形式で保存します"
+
+#: ../Tomboy/Plugins/ExportToHTML.cs:193
+msgid "Destination for HTML Export"
+msgstr "HTML のエキスポート先"
+
+#: ../Tomboy/Plugins/ExportToHTML.cs:198
+msgid "Export linked notes"
+msgstr "メモのエキスポート"
