@@ -1,3 +1,18 @@
+2005-05-14  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Utils.cs: Create ToolMenuButton, used by the Text and
+	Plugins toolbar menus.
+
+	* Tomboy/PluginManager.cs: Add AddPluginMenuItem, called by
+	plugins to add menu items to the Plugins menu.
+
+	* Tomboy/NoteWindow.cs: Add PluginMenu, populated by loaded
+	plugins, containing an "Open Plugins Folder" menu item.
+
+	* Tomboy/Plugins/PrintNotes.cs: Add the menuitem to the Plugins
+	menu using NotePlugin.AddPluginMenuItem().
+	* Tomboy/Plugins/ExportToHTML.cs: Ditto.
+
 2005-05-05  Alex Graveley  <alex@beatniksoftware.com>
 
 	* Tomboy/Plugins/ExportToHTML.xsl: Allow link:internal nodes we

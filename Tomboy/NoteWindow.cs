@@ -129,6 +129,8 @@ namespace Tomboy
 		Gtk.Widget link_button;
 		Gtk.Button text_button;
 		NoteTextMenu text_menu;
+		Gtk.Button plugin_button;
+		Gtk.Menu plugin_menu;
 		Gtk.TextView editor;
 		Gtk.ScrolledWindow editor_window;
 
@@ -165,6 +167,10 @@ namespace Tomboy
 			text_menu = new NoteTextMenu (accel_group, note.Buffer, note.Buffer.Undoer);
 			text_menu.AttachToWidget (text_button, null);
 			text_menu.Deactivated += ReleaseTextButton;
+
+			plugin_menu = MakePluginMenu ();
+			plugin_menu.AttachToWidget (plugin_button, null);
+			plugin_menu.Deactivated += ReleasePluginButton;
 
 			// The main editor widget
 			editor = new NoteEditor (note.Buffer);
@@ -313,6 +319,14 @@ namespace Tomboy
 			get { return toolbar; }
 		}
 
+		public Gtk.Menu PluginMenu {
+			get { return plugin_menu; }
+		}
+
+		public Gtk.Menu TextMenu {
+			get { return text_menu; }
+		}
+
 		// 
 		// Sensitize the Link toolbar button on text selection
 		//
@@ -448,7 +462,9 @@ namespace Tomboy
 						    Gdk.ModifierType.ControlMask,
 						    Gtk.AccelFlags.Visible);
 
-			text_button = new TextToolButton (toolbar);
+			text_button = new ToolMenuButton (toolbar,
+							  Gtk.Stock.SelectFont,
+							  Catalog.GetString ("_Text"));
 			text_button.ButtonPressEvent += TextButtonPress;
 			text_button.Clicked += TextButtonClicked;
 			text_button.Show ();
@@ -460,6 +476,22 @@ namespace Tomboy
 
 			toolbar.AppendWidget (ev, 
 					      Catalog.GetString ("Set properties of text"), 
+					      null);
+
+			plugin_button = new ToolMenuButton (toolbar, 
+							    Gtk.Stock.Execute,
+							    "");
+			plugin_button.ButtonPressEvent += PluginButtonPress;
+			plugin_button.Clicked += PluginButtonClicked;
+			plugin_button.Show ();
+
+			// Give it a window to receive events events
+			ev = new Gtk.EventBox ();
+			ev.Add (plugin_button);
+			ev.Show ();
+
+			toolbar.AppendWidget (ev, 
+					      Catalog.GetString ("Run plugin actions"), 
 					      null);
 
 			toolbar.AppendSpace ();
@@ -479,83 +511,44 @@ namespace Tomboy
 			return toolbar;
 		}
 
-		class TextToolButton : Gtk.Button
+		//
+		// Plugin toolbar menu
+		//
+		// Prefixed with Open Plugins Folder action, the rest being
+		// populated by individual plugins using
+		// NotePlugin.AddPluginMenuItem().
+		//
+
+		Gtk.Menu MakePluginMenu ()
 		{
-			Gtk.Image image;
-			Gtk.Label label_horiz;
-			Gtk.Label label_vert;
-			Gtk.Arrow arrow;
-			Gtk.VBox box_vert;
+			Gtk.Menu menu = new Gtk.Menu ();
 
-			public TextToolButton (Gtk.Toolbar toolbar)
-			{
-				this.CanFocus = false;
-				this.Relief = Gtk.ReliefStyle.None;
+			Gtk.ImageMenuItem open;
+			open = new Gtk.ImageMenuItem (Catalog.GetString ("Open Plugins Folder"));
+			open.Image = new Gtk.Image (Gtk.Stock.Open, Gtk.IconSize.Menu);
+			open.Activated += OnOpenPluginsFolderActivate;
+			open.Show ();
+			menu.Add (open);
 
-				image = new Gtk.Image (Gtk.Stock.SelectFont, toolbar.IconSize);
-				label_horiz = new Gtk.Label (Catalog.GetString ("_Text"));
-				label_vert = new Gtk.Label (Catalog.GetString ("_Text"));
-				arrow = new Gtk.Arrow (Gtk.ArrowType.Down, Gtk.ShadowType.In);
+			Gtk.SeparatorMenuItem sep = new Gtk.SeparatorMenuItem ();
+			sep.Show ();
+			menu.Add (sep);
 
-				box_vert = new Gtk.VBox (false, 0);
-				box_vert.PackStart (image, true, true, 0);
-				box_vert.PackStart (label_vert, false, true, 0);
-
-				Gtk.HBox box_horiz = new Gtk.HBox (false, 0);
-				box_horiz.PackStart (box_vert, true, true, 0);
-				box_horiz.PackStart (label_horiz, true, true, 2);
-				box_horiz.PackStart (arrow, false, true, 0);
-
-				this.Add (box_horiz);
-				this.ShowAll ();
-				ShowForToolbarStyle (toolbar.ToolbarStyle);
-
-				toolbar.StyleChanged += OnToolbarStyleChanged;
-			}
-
-			protected override bool OnButtonPressEvent (Gdk.EventButton ev)
-			{
-				base.OnButtonPressEvent (ev);
-				return false;
-			}
-
-			void ShowForToolbarStyle (Gtk.ToolbarStyle style)
-			{
-				switch (style) {
-				case Gtk.ToolbarStyle.Icons:
-					label_horiz.Hide ();
-					label_vert.Hide ();
-					image.Show ();
-					break;
-				case Gtk.ToolbarStyle.Text:
-					label_vert.Hide ();
-					image.Hide ();
-					label_horiz.Show ();
-					break;
-				case Gtk.ToolbarStyle.Both:
-					label_horiz.Hide ();
-					image.Show ();
-					label_vert.Show ();
-					break;
-				case Gtk.ToolbarStyle.BothHoriz:
-					label_vert.Hide ();
-					image.Show ();
-					label_horiz.Show ();
-					break;
-				}				
-			}
-
-			void OnToolbarStyleChanged (object sender, Gtk.StyleChangedArgs args)
-			{
-				ShowForToolbarStyle (args.Style);
-			}
+			return menu;
 		}
 
+		void OnOpenPluginsFolderActivate (object sender, EventArgs args)
+		{
+			note.Manager.PluginManager.ShowPluginsDirectory ();
+		}
+
+		//
 		// Find context menu
 		//
 		// Find, Find Next, Find Previous menu items.  Next nd previous
 		// are only sensitized when there are search results for this
 		// buffer to iterate.
+		//
 
 		Gtk.Menu MakeFindMenu ()
 		{
@@ -697,6 +690,21 @@ namespace Tomboy
 		{
 			text_menu.RefreshState ();
 			GuiUtils.PopupMenu (text_menu, null);
+		}
+
+		void ReleasePluginButton (object sender, EventArgs args) 
+		{
+			plugin_button.Release ();
+		}
+
+		void PluginButtonPress (object sender, Gtk.ButtonPressEventArgs args) 
+		{
+			GuiUtils.PopupMenu (plugin_menu, args.Event);
+		}
+
+		void PluginButtonClicked (object sender, EventArgs args) 
+		{
+			GuiUtils.PopupMenu (plugin_menu, null);
 		}
 	}
 
