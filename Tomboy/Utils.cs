@@ -553,4 +553,107 @@ namespace Tomboy
 			tomboy_window_present_hardcore (this.Handle);
 		}
 	}
+
+	class ToolMenuButtonBox : Gtk.EventBox
+	{
+		public ToolMenuButtonBox (Gtk.Toolbar toolbar, 
+					  string stock_image,
+					  string label)
+			: base ()
+		{
+			Add (new ToolMenuButton (toolbar, stock_image, label));
+			ShowAll ();
+		}
+
+		public ToolMenuButtonBox (Gtk.Toolbar toolbar, 
+					  Gtk.Image image,
+					  string label)
+			: base ()
+		{
+			Add (new ToolMenuButton (toolbar, image, label));
+			ShowAll ();
+		}
+	}
+
+	class ToolMenuButton : Gtk.Button
+	{
+		Gtk.Image image;
+		Gtk.Label label_horiz;
+		Gtk.Label label_vert;
+		Gtk.Arrow arrow;
+		Gtk.VBox box_vert;
+
+		public ToolMenuButton (Gtk.Toolbar toolbar, 
+				       string stock_image,
+				       string label)
+			: this (toolbar, new Gtk.Image (stock_image, toolbar.IconSize), label)
+		{
+		}
+
+		public ToolMenuButton (Gtk.Toolbar toolbar, 
+				       Gtk.Image image,
+				       string label)
+		{
+			this.CanFocus = false;
+			this.Relief = Gtk.ReliefStyle.None;
+
+			this.image = image;
+			label_horiz = new Gtk.Label (label);
+			label_vert = new Gtk.Label (label);
+			arrow = new Gtk.Arrow (Gtk.ArrowType.Down, Gtk.ShadowType.In);
+
+			box_vert = new Gtk.VBox (false, 0);
+			box_vert.PackStart (image, true, true, 0);
+			box_vert.PackStart (label_vert, false, true, 0);
+
+			Gtk.HBox box_horiz = new Gtk.HBox (false, 0);
+			box_horiz.PackStart (box_vert, true, true, 0);
+			if (label != null && label != string.Empty)
+				box_horiz.PackStart (label_horiz, true, true, 2);
+			box_horiz.PackStart (arrow, false, true, 0);
+
+			this.Add (box_horiz);
+			this.ShowAll ();
+			ShowForToolbarStyle (toolbar.ToolbarStyle);
+
+			toolbar.StyleChanged += OnToolbarStyleChanged;
+		}
+
+		protected override bool OnButtonPressEvent (Gdk.EventButton ev)
+		{
+			base.OnButtonPressEvent (ev);
+			return false;
+		}
+
+		void ShowForToolbarStyle (Gtk.ToolbarStyle style)
+		{
+			switch (style) {
+			case Gtk.ToolbarStyle.Icons:
+				label_horiz.Hide ();
+				label_vert.Hide ();
+				image.Show ();
+				break;
+			case Gtk.ToolbarStyle.Text:
+				label_vert.Hide ();
+				image.Hide ();
+				label_horiz.Show ();
+				break;
+			case Gtk.ToolbarStyle.Both:
+				label_horiz.Hide ();
+				image.Show ();
+				label_vert.Show ();
+				break;
+			case Gtk.ToolbarStyle.BothHoriz:
+				label_vert.Hide ();
+				image.Show ();
+				label_horiz.Show ();
+				break;
+			}				
+		}
+
+		void OnToolbarStyleChanged (object sender, Gtk.StyleChangedArgs args)
+		{
+			ShowForToolbarStyle (args.Style);
+		}
+	}
 }

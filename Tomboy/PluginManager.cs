@@ -11,6 +11,7 @@ namespace Tomboy
 	public abstract class NotePlugin : IDisposable
 	{
 		Note note;
+		ArrayList menu_items;
 
 		public void Initialize (Note note)
 		{
@@ -26,6 +27,13 @@ namespace Tomboy
 		public void Dispose ()
 		{
 			this.note.Opened -= OnNoteOpenedEvent;
+
+			if (menu_items != null) {
+				foreach (Gtk.Widget item in menu_items) {
+					item.Destroy ();
+				}
+			}
+
 			Shutdown ();
 		}
 
@@ -56,6 +64,25 @@ namespace Tomboy
 		void OnNoteOpenedEvent (object sender, EventArgs args)
 		{
 			OnNoteOpened ();
+
+			if (menu_items != null) {
+				foreach (Gtk.Widget item in menu_items) {
+					if (item.Parent == null || 
+					    item.Parent != Window.PluginMenu)
+						Window.PluginMenu.Add (item);
+				}
+			}
+		}
+
+		public void AddPluginMenuItem (Gtk.MenuItem item)
+		{
+			if (menu_items == null)
+				menu_items = new ArrayList ();
+
+			menu_items.Add (item);
+
+			if (note.IsOpened)
+				Window.PluginMenu.Add (item);
 		}
 	}
 

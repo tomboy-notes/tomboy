@@ -9,29 +9,24 @@ using Tomboy;
 
 public class PrintPlugin : NotePlugin
 {
-	Gtk.Widget toolbar_item;
-
 	protected override void Initialize ()
 	{
-		// Do nothing.
+		Gtk.ImageMenuItem item = 
+			new Gtk.ImageMenuItem (Catalog.GetString ("Print"));
+		item.Image = new Gtk.Image (Gtk.Stock.Print, Gtk.IconSize.Menu);
+		item.Activated += PrintButtonClicked;
+		item.Show ();
+		AddPluginMenuItem (item);
 	}
 
 	protected override void Shutdown ()
 	{
-		if (toolbar_item != null) {
-			Window.Toolbar.Remove (toolbar_item);
-			toolbar_item = null;
-		}
+		// Do nothing.
 	}
 
-	protected override void OnNoteOpened () {
-		toolbar_item = 
-			Window.Toolbar.AppendItem (Catalog.GetString ("Print"), 
-						   Catalog.GetString ("Print this note"), 
-						   null, 
-						   new Gtk.Image (Gtk.Stock.Print, 
-								  Gtk.IconSize.LargeToolbar),
-						   new Gtk.SignalFunc (PrintButtonClicked));
+	protected override void OnNoteOpened () 
+	{
+		// Do nothing.
 	}
 
 	//
@@ -83,7 +78,10 @@ public class PrintPlugin : NotePlugin
 				else if (tags[i].Scale == Pango.Scale.XX_Large)
 					size = huge_size;
 
-				font = Font.FindClosestFromWeightSlant (base_font, weight, italic, size);
+				font = Font.FindClosestFromWeightSlant (base_font, 
+									weight, 
+									italic, 
+									size);
 				line_space = (font.Descender + font.Ascender) * 1.2;
 				Print.Setfont (context, font);
 			}
@@ -115,7 +113,7 @@ public class PrintPlugin : NotePlugin
 	// Handle Print Button Click
 	//
 
-	void PrintButtonClicked () 
+	void PrintButtonClicked (object sender, EventArgs args)
 	{
 		PrintJob job = new PrintJob (PrintConfig.Default ());
 		PrintDialog dialog = new PrintDialog (job, Note.Title, 0);

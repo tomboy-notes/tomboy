@@ -13,8 +13,6 @@ using Tomboy;
 public class ExportToHTMLPlugin : NotePlugin
 {
 	const string stylesheet_name = "ExportToHTML.xsl";
-	Gtk.Widget toolbar_item;
-
 	static XslTransform xsl;
 
 	static ExportToHTMLPlugin ()
@@ -44,29 +42,25 @@ public class ExportToHTMLPlugin : NotePlugin
 
 	protected override void Initialize ()
 	{
-		// Do nothing.
+		Gtk.ImageMenuItem item = 
+			new Gtk.ImageMenuItem (Catalog.GetString ("Export to HTML"));
+		item.Image = new Gtk.Image (Gtk.Stock.Save, Gtk.IconSize.Menu);
+		item.Activated += ExportButtonClicked;
+		item.Show ();
+		AddPluginMenuItem (item);
 	}
 
 	protected override void Shutdown ()
 	{
-		if (toolbar_item != null) {
-			Window.Toolbar.Remove (toolbar_item);
-			toolbar_item = null;
-		}
+		// Do nothing.
 	}
 
 	protected override void OnNoteOpened () 
 	{
-		toolbar_item = 
-			Window.Toolbar.AppendItem (Catalog.GetString ("Export"), 
-						   Catalog.GetString ("Export this note to HTML"), 
-						   null, 
-						   new Gtk.Image (Gtk.Stock.Save, 
-								  Gtk.IconSize.LargeToolbar),
-						   new Gtk.SignalFunc (ExportButtonClicked));
+		// Do nothing.
 	}
 
-	void ExportButtonClicked () 
+	void ExportButtonClicked (object sender, EventArgs args)
 	{
 		ExportToHTMLDialog dialog = new ExportToHTMLDialog (Note.Title + ".html");
 		int response = dialog.Run();
