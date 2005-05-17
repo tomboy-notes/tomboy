@@ -1,3 +1,14 @@
+2005-05-16  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/NoteWindow.cs: Use ToolMenuButton, and remove all the
+	cruft that went along with the old non-generic implementation.
+	Only show the "Plugins" menu label when toolbar style is 'text
+	under icon'.
+
+	* Tomboy/Utils.cs: In GetMenuPosition, offset X by the
+	AttachWidget's allocation.  Cleanup ToolMenuButton, which is now a
+	nice generic button used for the Text and Plugins menus.
+
 2005-05-16  Iñaki Larrañaga  <dooteo@euskalgnu.org>
 
 	* configure.in: Added "eu" (Basque) to ALL_LINGUAS.

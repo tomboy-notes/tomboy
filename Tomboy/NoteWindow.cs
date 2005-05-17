@@ -127,9 +127,7 @@ namespace Tomboy
 		Gtk.AccelGroup accel_group;
 		Gtk.Toolbar toolbar;
 		Gtk.Widget link_button;
-		Gtk.Button text_button;
 		NoteTextMenu text_menu;
-		Gtk.Button plugin_button;
 		Gtk.Menu plugin_menu;
 		Gtk.TextView editor;
 		Gtk.ScrolledWindow editor_window;
@@ -161,16 +159,11 @@ namespace Tomboy
 			accel_group = new Gtk.AccelGroup ();
 			AddAccelGroup (accel_group);
 
+			text_menu = new NoteTextMenu (accel_group, note.Buffer, note.Buffer.Undoer);
+			plugin_menu = MakePluginMenu ();
+
 			toolbar = MakeToolbar ();
 			toolbar.Show ();
-
-			text_menu = new NoteTextMenu (accel_group, note.Buffer, note.Buffer.Undoer);
-			text_menu.AttachToWidget (text_button, null);
-			text_menu.Deactivated += ReleaseTextButton;
-
-			plugin_menu = MakePluginMenu ();
-			plugin_menu.AttachToWidget (plugin_button, null);
-			plugin_menu.Deactivated += ReleasePluginButton;
 
 			// The main editor widget
 			editor = new NoteEditor (note.Buffer);
@@ -358,7 +351,8 @@ namespace Tomboy
 			// Remove the lame-o gigantic Insert Unicode Control
 			// Characters menu item.
 			Gtk.Widget lame_unicode;
-			lame_unicode = (Gtk.Widget) args.Menu.Children [args.Menu.Children.Length - 1];
+			lame_unicode = (Gtk.Widget) 
+				args.Menu.Children [args.Menu.Children.Length - 1];
 			args.Menu.Remove (lame_unicode);
 
 			Gtk.MenuItem spacer1 = new Gtk.SeparatorMenuItem ();
@@ -413,16 +407,6 @@ namespace Tomboy
 			args.Menu.Append (close_window);
 		}
 
-		void UndoClicked (object sender, EventArgs args)
-		{
-			text_menu.UndoClicked (sender, args);
-		}
-
-		void RedoClicked (object sender, EventArgs args)
-		{
-			text_menu.RedoClicked (sender, args);
-		}
-
 		//
 		// Toolbar
 		//
@@ -462,36 +446,25 @@ namespace Tomboy
 						    Gdk.ModifierType.ControlMask,
 						    Gtk.AccelFlags.Visible);
 
-			text_button = new ToolMenuButton (toolbar,
-							  Gtk.Stock.SelectFont,
-							  Catalog.GetString ("_Text"));
-			text_button.ButtonPressEvent += TextButtonPress;
-			text_button.Clicked += TextButtonClicked;
+			ToolMenuButton text_button = 
+				new ToolMenuButton (toolbar,
+						    Gtk.Stock.SelectFont,
+						    Catalog.GetString ("_Text"),
+						    text_menu);
+			text_button.IsImportant = true;
 			text_button.Show ();
-
-			// Give it a window to receive events events
-			Gtk.EventBox ev = new Gtk.EventBox ();
-			ev.Add (text_button);
-			ev.Show ();
-
-			toolbar.AppendWidget (ev, 
+			toolbar.AppendWidget (text_button, 
 					      Catalog.GetString ("Set properties of text"), 
 					      null);
 
-			plugin_button = new ToolMenuButton (toolbar, 
-							    Gtk.Stock.Execute,
-							    "");
-			plugin_button.ButtonPressEvent += PluginButtonPress;
-			plugin_button.Clicked += PluginButtonClicked;
+			ToolMenuButton plugin_button = 
+				new ToolMenuButton (toolbar, 
+						    Gtk.Stock.Execute,
+						    Catalog.GetString ("_Plugins"),
+						    plugin_menu);
 			plugin_button.Show ();
-
-			// Give it a window to receive events events
-			ev = new Gtk.EventBox ();
-			ev.Add (plugin_button);
-			ev.Show ();
-
-			toolbar.AppendWidget (ev, 
-					      Catalog.GetString ("Run plugin actions"), 
+			toolbar.AppendWidget (plugin_button, 
+					      Catalog.GetString ("Run Plugin actions"), 
 					      null);
 
 			toolbar.AppendSpace ();
@@ -663,49 +636,6 @@ namespace Tomboy
 		{
 			LinkButtonClicked ();
 		}
-
-		//
-		// Popup the Text menu.
-		//
-		// Called when clicking the Font toolbar button.
-		//
-
-		void TextButtonPress (object sender, Gtk.ButtonPressEventArgs args) 
-		{
-			text_menu.RefreshState ();
-			GuiUtils.PopupMenu (text_menu, args.Event);
-		}
-
-		//
-		// Call Release on text_button to reset its state when the menu
-		// closes
-		//
-
-		void ReleaseTextButton (object sender, EventArgs args) 
-		{
-			text_button.Release ();
-		}
-
-		void TextButtonClicked (object sender, EventArgs args) 
-		{
-			text_menu.RefreshState ();
-			GuiUtils.PopupMenu (text_menu, null);
-		}
-
-		void ReleasePluginButton (object sender, EventArgs args) 
-		{
-			plugin_button.Release ();
-		}
-
-		void PluginButtonPress (object sender, Gtk.ButtonPressEventArgs args) 
-		{
-			GuiUtils.PopupMenu (plugin_menu, args.Event);
-		}
-
-		void PluginButtonClicked (object sender, EventArgs args) 
-		{
-			GuiUtils.PopupMenu (plugin_menu, null);
-		}
 	}
 
 	public class NoteTextMenu : Gtk.Menu
@@ -875,6 +805,12 @@ namespace Tomboy
 			ShowAll ();
 		}
 
+		protected override void OnShown ()
+		{
+			RefreshState ();
+			base.OnShown ();
+		}
+
 		void MarkupLabel (Gtk.MenuItem item)
 		{
 			Gtk.Label label = (Gtk.Label) item.Child;
@@ -920,7 +856,6 @@ namespace Tomboy
 
 			event_freeze = false;
 		}
-
 
 		// 
 		// Font-style menu item activate
