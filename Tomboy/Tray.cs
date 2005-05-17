@@ -200,9 +200,12 @@ namespace Tomboy
 			get { return image; }
 		}
 
-		public void ShowMenu ()
+		public void ShowMenu (bool select_first_item)
 		{
 			Gtk.Menu recent_menu = MakeRecentNotesMenu (this);
+			if (select_first_item)
+				recent_menu.SelectFirst (false);
+
 			GuiUtils.PopupMenu (recent_menu, null);
 		}
 

@@ -248,7 +248,10 @@ namespace Tomboy
 
 		void KeyShowMenu (object sender, EventArgs args)
 		{
-			tray.ShowMenu ();
+			// Show the notes menu, highlighting the first item.
+			// This matches the behavior of GTK for
+			// accelerator-shown menus.
+			tray.ShowMenu (true);
 		}
 
 		void KeyOpenStartHere (object sender, EventArgs args)
