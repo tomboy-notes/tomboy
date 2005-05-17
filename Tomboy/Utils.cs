@@ -11,15 +11,15 @@ namespace Tomboy
 {
 	public class GuiUtils 
 	{
-		public static void GetMenuPosition (Gtk.Menu menu, 
-						    out int  x, 
-						    out int  y, 
-						    out bool push_in)
+		static void GetMenuPosition (Gtk.Menu menu, 
+					     out int  x, 
+					     out int  y, 
+					     out bool push_in)
 		{
-			Gtk.Requisition menu_req = menu.SizeRequest ();
-
 			menu.AttachWidget.GdkWindow.GetOrigin (out x, out y);
+			x += menu.AttachWidget.Allocation.X;
 
+			Gtk.Requisition menu_req = menu.SizeRequest ();
 			if (y + menu_req.Height >= menu.AttachWidget.Screen.Height)
 				y -= menu_req.Height;
 			else
@@ -554,48 +554,45 @@ namespace Tomboy
 		}
 	}
 
-	class ToolMenuButtonBox : Gtk.EventBox
-	{
-		public ToolMenuButtonBox (Gtk.Toolbar toolbar, 
-					  string stock_image,
-					  string label)
-			: base ()
-		{
-			Add (new ToolMenuButton (toolbar, stock_image, label));
-			ShowAll ();
-		}
-
-		public ToolMenuButtonBox (Gtk.Toolbar toolbar, 
-					  Gtk.Image image,
-					  string label)
-			: base ()
-		{
-			Add (new ToolMenuButton (toolbar, image, label));
-			ShowAll ();
-		}
-	}
-
 	class ToolMenuButton : Gtk.Button
 	{
+		bool is_important;
+		Gtk.Menu menu;
 		Gtk.Image image;
 		Gtk.Label label_horiz;
 		Gtk.Label label_vert;
 		Gtk.Arrow arrow;
 		Gtk.VBox box_vert;
+		Gtk.HBox box_horiz;
 
 		public ToolMenuButton (Gtk.Toolbar toolbar, 
-				       string stock_image,
-				       string label)
-			: this (toolbar, new Gtk.Image (stock_image, toolbar.IconSize), label)
+				       string stock_image, 
+				       string label, 
+				       Gtk.Menu menu)
+			: this (toolbar, 
+				new Gtk.Image (stock_image, toolbar.IconSize), 
+				label,
+				menu)
 		{
 		}
 
 		public ToolMenuButton (Gtk.Toolbar toolbar, 
-				       Gtk.Image image,
-				       string label)
+				       Gtk.Image image, 
+				       string label, 
+				       Gtk.Menu menu)
 		{
-			this.CanFocus = false;
+			this.CanFocus = true;
 			this.Relief = Gtk.ReliefStyle.None;
+
+			// FIXME: Not implemented in Gtk#1
+			//this.Relief = toolbar.ReliefStyle;
+			//this.FocusOnClick = false;
+
+			this.is_important = false;
+
+			this.menu = menu;
+			this.menu.AttachToWidget (this, null);
+			this.menu.Deactivated += ReleaseButton;
 
 			this.image = image;
 			label_horiz = new Gtk.Label (label);
@@ -606,11 +603,9 @@ namespace Tomboy
 			box_vert.PackStart (image, true, true, 0);
 			box_vert.PackStart (label_vert, false, true, 0);
 
-			Gtk.HBox box_horiz = new Gtk.HBox (false, 0);
+			box_horiz = new Gtk.HBox (false, 0);
 			box_horiz.PackStart (box_vert, true, true, 0);
-			if (label != null && label != string.Empty)
-				box_horiz.PackStart (label_horiz, true, true, 2);
-			box_horiz.PackStart (arrow, false, true, 0);
+			box_horiz.PackEnd (arrow, false, true, 0);
 
 			this.Add (box_horiz);
 			this.ShowAll ();
@@ -619,10 +614,36 @@ namespace Tomboy
 			toolbar.StyleChanged += OnToolbarStyleChanged;
 		}
 
-		protected override bool OnButtonPressEvent (Gdk.EventButton ev)
+		protected override bool OnButtonPressEvent (Gdk.EventButton ev) 
 		{
-			base.OnButtonPressEvent (ev);
-			return false;
+			GuiUtils.PopupMenu (menu, ev);
+			return true;
+		}
+
+		protected override void OnActivated () 
+		{
+			GuiUtils.PopupMenu (menu, null);
+		}
+
+		void ReleaseButton (object sender, EventArgs args) 
+		{
+			// Call Release the state when the menu closes
+			Release ();
+		}
+
+		public bool IsImportant
+		{
+			get {
+				return is_important;
+			}
+			set {
+				if (value && !is_important) {
+					box_horiz.PackStart (label_horiz, true, true, 2);
+				} else if (!value && is_important) {
+					box_horiz.Remove (label_horiz);
+				}
+				is_important = value;
+			}
 		}
 
 		void ShowForToolbarStyle (Gtk.ToolbarStyle style)
@@ -648,7 +669,7 @@ namespace Tomboy
 				image.Show ();
 				label_horiz.Show ();
 				break;
-			}				
+			}
 		}
 
 		void OnToolbarStyleChanged (object sender, Gtk.StyleChangedArgs args)
