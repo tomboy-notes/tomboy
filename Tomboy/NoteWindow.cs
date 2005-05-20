@@ -21,7 +21,8 @@ namespace Tomboy
 
 			// Set Font from GConf preference
 			if ((bool) Preferences.Get (Preferences.ENABLE_CUSTOM_FONT)) {
-				string font_string = (string) Preferences.Get (Preferences.CUSTOM_FONT_FACE);
+				string font_string = (string) 
+					Preferences.Get (Preferences.CUSTOM_FONT_FACE);
 				ModifyFont (Pango.FontDescription.FromString (font_string));
 			}
 			Preferences.SettingChanged += OnFontSettingChanged;
@@ -54,7 +55,8 @@ namespace Tomboy
 						   (bool) args.Value ? "ON" : "OFF");
 
 				if ((bool) args.Value) {
-					string font_string = (string) Preferences.Get (Preferences.CUSTOM_FONT_FACE);
+					string font_string = (string) 
+						Preferences.Get (Preferences.CUSTOM_FONT_FACE);
 					ModifyFont (Pango.FontDescription.FromString (font_string));
 				} else
 					ModifyFont (new Pango.FontDescription ());
