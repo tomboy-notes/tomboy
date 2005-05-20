@@ -1,3 +1,14 @@
+2005-05-19  Alex Graveley  <alex@beatniksoftware.com>
+
+	* libtomboy/gtksourceprintjob.c: New file.
+	* libtomboy/gedit-print.c: Ditto.
+
+	* libtomboy/Makefile.am (libtomboy_la_SOURCES): Add
+	gedit-print.[ch] and gtksourceprintjob.[ch].
+
+	* Tomboy/Plugins/PrintNotes.cs: Use the new gedit_print() C call
+	added to libtomboy, and remove all the existing printing code.
+
 2005-05-17  Alex Graveley  <alex@beatniksoftware.com>
 
 	* Tomboy/XKeybinder.cs: Pass 'true' to ShowMenu when handling
