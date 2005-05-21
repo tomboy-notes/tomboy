@@ -560,18 +560,15 @@ namespace Tomboy
 				OpenUrl (url);
 
 				// Close note on middle-click
-				if (button_ev != null && button_ev.Button == 2) {
+				if (button_ev.Button == 2) {
 					Window.Hide ();
-
-					// Kill the middle button paste...
-					args.RetVal = true;
 				}
 			} catch (GLib.GException e) {
 				ShowOpeningLocationError (url, e.Message);
-
-				// Kill the middle button paste...
-				args.RetVal = true;
 			}
+
+			// Kill the middle button paste...
+			args.RetVal = true;
 		}
 
 		void ApplyUrlToBlock (Gtk.TextIter start, Gtk.TextIter end)
@@ -630,7 +627,8 @@ namespace Tomboy
 			// Move click_mark to click location
 			Buffer.MoveMark (click_mark, click_iter);
 
-			args.RetVal = false; // Continue event processing
+			// Continue event processing
+			args.RetVal = false;
 		}
 
 		void OnPopulatePopup (object sender, Gtk.PopulatePopupArgs args)
