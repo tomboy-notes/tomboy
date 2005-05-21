@@ -420,7 +420,8 @@ namespace Tomboy
 			} else if (args.Tag.Name != null && 
 				   (args.Tag.Name.StartsWith ("link:") ||
 				    args.Tag.Name == "note-title")) {
-				Gtk.TextTag misspell = Buffer.TagTable.Lookup ("gtkspell-misspelled");
+				Gtk.TextTag misspell = 
+					Buffer.TagTable.Lookup ("gtkspell-misspelled");
 				if (misspell != null) {
 					Buffer.RemoveTag ("gtkspell-misspelled", 
 							  args.StartChar, 
@@ -433,6 +434,7 @@ namespace Tomboy
 	public class NoteUrlWatcher : NotePlugin
 	{
 		Gtk.TextTag url_tag;
+		Gtk.TextMark click_mark;
 
 		const string URL_REGEX = 
 			@"((\b((news|http|https|ftp|file|irc)://|mailto:|(www|ftp)\.|\S*@\S*\.)|(^|\s)/\S+/|(^|\s)~/\S+)\S*\b/?)";
@@ -465,31 +467,23 @@ namespace Tomboy
 
 			url_tag.TextEvent += OnTextEvent;
 
+			click_mark = Buffer.CreateMark (null, Buffer.StartIter, true);
+
 			Buffer.InsertText += OnInsertText;
 			Buffer.DeleteRange += OnDeleteRange;
+
+			Window.Editor.ButtonPressEvent += OnButtonPress;
+			Window.Editor.PopulatePopup += OnPopulatePopup;
+			Window.Editor.PopupMenu += OnPopupMenu;
 		}
 
-		void OnTextEvent (object sender, Gtk.TextEventArgs args)
+		string GetUrlAtIter (Gtk.TextIter iter)
 		{
-			Gtk.TextTag tag = (Gtk.TextTag) sender;
+			Gtk.TextIter start = iter;
+			start.BackwardToTagToggle (url_tag);
 
-			if (args.Event.Type != Gdk.EventType.ButtonPress)
-				return;
-
-			Gdk.EventButton button_ev = new Gdk.EventButton (args.Event.Handle);
-			if (button_ev.Button != 1 && button_ev.Button != 2)
-				return;
-
-			/* Don't open link if Shift or Control is pressed */
-			if ((int) (button_ev.State & (Gdk.ModifierType.ShiftMask |
-						      Gdk.ModifierType.ControlMask)) != 0)
-				return;
-
-			Gtk.TextIter start = args.Iter;
-			start.BackwardToTagToggle (tag);
-
-			Gtk.TextIter end = args.Iter;
-			end.ForwardToTagToggle (tag);
+			Gtk.TextIter end = iter;
+			end.ForwardToTagToggle (url_tag);
 
 			string url = start.GetText (end);
 
@@ -519,23 +513,14 @@ namespace Tomboy
 				 !url.StartsWith ("mailto:"))
 				url = "mailto:" + url;
 
-			Console.WriteLine ("Opening url '{0}' on click...", url);
+			return url;
+		}
 
-			try {
+		void OpenUrl (string url) 
+		{
+			if (url != string.Empty) {
+				Console.WriteLine ("Opening url '{0}'...", url);
 				Gnome.Url.Show (url);
-
-				// Close note on middle-click
-				if (button_ev.Button == 2) {
-					Window.Hide ();
-
-					// Kill the middle button paste...
-					args.RetVal = true;
-				}
-			} catch (GLib.GException e) {
-				ShowOpeningLocationError (url, e.Message);
-
-				// Kill the middle button paste...
-				args.RetVal = true;
 			}
 		}
 
@@ -552,6 +537,41 @@ namespace Tomboy
 						      message);
 			dialog.Run ();
 			dialog.Destroy ();
+		}
+
+		void OnTextEvent (object sender, Gtk.TextEventArgs args)
+		{
+			Gtk.TextTag tag = (Gtk.TextTag) sender;
+
+			if (args.Event.Type != Gdk.EventType.ButtonPress)
+				return;
+
+			Gdk.EventButton button_ev = new Gdk.EventButton (args.Event.Handle);
+			if (button_ev.Button != 1 && button_ev.Button != 2)
+				return;
+
+			/* Don't open link if Shift or Control is pressed */
+			if ((int) (button_ev.State & (Gdk.ModifierType.ShiftMask |
+						      Gdk.ModifierType.ControlMask)) != 0)
+				return;
+
+			string url = GetUrlAtIter (args.Iter);
+			try {
+				OpenUrl (url);
+
+				// Close note on middle-click
+				if (button_ev != null && button_ev.Button == 2) {
+					Window.Hide ();
+
+					// Kill the middle button paste...
+					args.RetVal = true;
+				}
+			} catch (GLib.GException e) {
+				ShowOpeningLocationError (url, e.Message);
+
+				// Kill the middle button paste...
+				args.RetVal = true;
+			}
 		}
 
 		void ApplyUrlToBlock (Gtk.TextIter start, Gtk.TextIter end)
@@ -593,6 +613,75 @@ namespace Tomboy
 			start.BackwardChars (args.Length);
 
 			ApplyUrlToBlock (start, args.Pos);
+		}
+
+		[GLib.ConnectBefore]
+		void OnButtonPress (object sender, Gtk.ButtonPressEventArgs args)
+		{
+			int x, y;
+
+			Window.Editor.WindowToBufferCoords (Gtk.TextWindowType.Text,
+							    (int) args.Event.X,
+							    (int) args.Event.Y,
+							    out x,
+							    out y);
+			Gtk.TextIter click_iter = Window.Editor.GetIterAtLocation (x, y);
+
+			// Move click_mark to click location
+			Buffer.MoveMark (click_mark, click_iter);
+
+			args.RetVal = false; // Continue event processing
+		}
+
+		void OnPopulatePopup (object sender, Gtk.PopulatePopupArgs args)
+		{
+			Gtk.TextIter click_iter = Buffer.GetIterAtMark (click_mark);
+			if (click_iter.HasTag (url_tag) || click_iter.EndsTag (url_tag)) {
+				Gtk.MenuItem item;
+
+				item = new Gtk.SeparatorMenuItem ();
+				item.Show ();
+				args.Menu.Prepend (item);
+
+				item = new Gtk.MenuItem (Catalog.GetString ("_Copy Link Address"));
+				item.Activated += CopyLinkActivate;
+				item.Show ();
+				args.Menu.Prepend (item);
+
+				item = new Gtk.MenuItem (Catalog.GetString ("_Open Link"));
+				item.Activated += OpenLinkActivate;
+				item.Show ();
+				args.Menu.Prepend (item);
+			}
+		}
+
+		// Called via Alt-F10.  Reset click_mark to cursor location.
+		[GLib.ConnectBefore]
+		void OnPopupMenu (object sender, Gtk.PopupMenuArgs args)
+		{
+			Gtk.TextIter click_iter = Buffer.GetIterAtMark (Buffer.InsertMark);
+			Buffer.MoveMark (click_mark, click_iter);
+			args.RetVal = false; // Continue event processing
+		}
+
+		void OpenLinkActivate (object sender, EventArgs args)
+		{
+			Gtk.TextIter click_iter = Buffer.GetIterAtMark (click_mark);
+			string url = GetUrlAtIter (click_iter);
+			try {
+				OpenUrl (url);
+			} catch (GLib.GException e) {
+				ShowOpeningLocationError (url, e.Message);
+			}
+		}
+
+		void CopyLinkActivate (object sender, EventArgs args)
+		{
+			Gtk.TextIter click_iter = Buffer.GetIterAtMark (click_mark);
+			string url = GetUrlAtIter (click_iter);
+
+			Gtk.Clipboard clip = Window.Editor.GetClipboard (Gdk.Selection.Clipboard);
+			clip.SetText (url);
 		}
 	}
 
@@ -698,7 +787,8 @@ namespace Tomboy
 					break;
 
 				Gtk.TextIter start = Buffer.GetIterAtOffset (idx);
-				Gtk.TextIter end = Buffer.GetIterAtOffset (idx + added.Title.Length);
+				Gtk.TextIter end = 
+					Buffer.GetIterAtOffset (idx + added.Title.Length);
 
 				if (!start.HasTag (url_tag)) {
 					Buffer.RemoveTag (broken_link_tag, start, end);
@@ -743,7 +833,9 @@ namespace Tomboy
 
 			TextTagEnumerator enumerator = new TextTagEnumerator (Buffer, link_tag);
 			foreach (TextRange range in enumerator) {
-				Console.WriteLine ("RENAME: Checking '{0}' in note '{1}'", range.Text, Note.Title);
+				Console.WriteLine ("RENAME: Checking '{0}' in note '{1}'", 
+						   range.Text, 
+						   Note.Title);
 
 				if (range.Text.ToLower () != old_title_lower)
 					continue;
@@ -801,7 +893,8 @@ namespace Tomboy
 				Gtk.TextIter title_end = title_start;
 				title_end.ForwardChars (match_note.Title.Length);
 
-				Console.WriteLine ("Matching Note title '{0}'...", match_note.Title);
+				Console.WriteLine ("Matching Note title '{0}'...", 
+						   match_note.Title);
 
 				note.Buffer.RemoveTag (broken_link_tag,
 						       title_start,
@@ -896,7 +989,7 @@ namespace Tomboy
 		{
 			broken_link_tag = Buffer.TagTable.Lookup ("link:broken");
 			if (broken_link_tag == null) {
-				Console.WriteLine ("ERROR: Broken link tags not registered for buffer.");
+				Console.WriteLine ("ERROR: Broken link tags not registered.");
 				return;
 			}
 
@@ -1184,325 +1277,4 @@ namespace Tomboy
 			}
 		}
 	}
-
-	public class IndentWatcher : NotePlugin
-	{
-		protected override void Initialize ()
-		{
-			// Do nothing.
-		}
-
-		protected override void Shutdown ()
-		{
-			// Do nothing.
-		}
-
-		protected override void OnNoteOpened ()
-		{
-			Window.Editor.KeyPressEvent += OnEditorKeyPress;
-			Buffer.InsertText += OnInsertText;
-		}
-
-		[GLib.ConnectBefore]
-		void OnEditorKeyPress (object sender, Gtk.KeyPressEventArgs args) 
-		{
-			switch (args.Event.Key) {
-				/*
-			case Gdk.Key.asterisk:
-				Console.WriteLine ("Got Asterisk!");
-
-				{
-				Gtk.TextIter insert = Buffer.GetIterAtMark (Buffer.InsertMark);
-				if (!insert.StartsLine ())
-					break;
-
-				Gtk.TextIter para_end = insert;
-				para_end.ForwardToLineEnd ();
-
-				Console.WriteLine ("Setting hanging indent!");
-
-				Gtk.TextTag indent_tag = new Gtk.TextTag (null);
-				indent_tag.Indent = -10;
-				indent_tag.Data ["has_indent"] = true;
-
-				Buffer.TagTable.Add (indent_tag);
-				Buffer.ApplyTag (indent_tag, insert, para_end);
-				}
-				break;
-				*/
-				
-			case Gdk.Key.Tab:
-			case Gdk.Key.KP_Tab:
-				Console.WriteLine ("Got Tab!");
-
-				Gtk.TextIter insert = Buffer.GetIterAtMark (Buffer.InsertMark);
-				if (!insert.StartsLine ())
-					break;
-
-				Console.WriteLine ("Going to indent!");
-
-				Gtk.TextIter para_end = insert;
-				para_end.ForwardToLineEnd ();
-
-				bool indent_exists = false;
-
-				foreach (Gtk.TextTag tag in insert.Tags) {
-					if (tag.Data ["has_margin"] != null) {
-						Console.WriteLine ("Has Indent Already! Updating!");
-						tag.LeftMargin = tag.LeftMargin + 40;
-						indent_exists = true;
-						break;
-					}
-				}
-
-				if (!indent_exists) {
-					Gtk.TextTag indent_tag = new Gtk.TextTag (null);
-					indent_tag.LeftMargin = 40;
-					indent_tag.Data ["has_margin"] = true;
-
-					Buffer.TagTable.Add (indent_tag);
-					Buffer.ApplyTag (indent_tag, insert, para_end);
-				}
-
-				args.RetVal = true;
-				break;
-
-			case Gdk.Key.BackSpace:
-				Console.WriteLine ("Got Backspace!");
-
-				Gtk.TextIter insert2 = Buffer.GetIterAtMark (Buffer.InsertMark);
-				if (!insert2.StartsLine ())
-					break;
-
-				Console.WriteLine ("Going to unindent!");
-
-				Gtk.TextIter para_end2 = insert2;
-				para_end2.ForwardToLineEnd ();
-
-				foreach (Gtk.TextTag tag in insert2.Tags) {
-					if (tag.Data ["has_margin"] != null) {
-						Console.WriteLine ("Has Indent Already! Updating!");
-						tag.LeftMargin = tag.LeftMargin - 40;
-						if (tag.LeftMargin == 0) {
-							Console.WriteLine ("Killing empty indent!");
-							Buffer.RemoveTag (tag, insert2, para_end2);
-						}
-
-						args.RetVal = true;
-						break;
-					}
-				}
-				break;
-			}
-		}
-
-		void OnInsertText (object sender, Gtk.InsertTextArgs args)
-		{
-			Console.WriteLine ("Trying hanging indent! line-offset:{0}", args.Pos.LineOffset);
-
-			if (args.Text != "*" || args.Pos.LineOffset != 1)
-				return;
-
-			Gtk.TextIter para_start = args.Pos;
-			para_start.BackwardChar ();
-
-			Gtk.TextTag indent_tag = new Gtk.TextTag (null);
-			indent_tag.Indent = -10;
-			indent_tag.Data ["has_indent"] = true;
-
-			Buffer.TagTable.Add (indent_tag);
-			Buffer.ApplyTag (indent_tag, para_start, args.Pos);
-		}
-
-		// 
-		// <list>
-		// <anonymous list-prefix="124">Content content content</anonymous>
-		// <anonymous indent="40">
-		//   <anonymous list-prefix="123">
-		//     Content content content
-		//   </anonymous>
-		// </anonymous>
-		// </list>
-
-		string GetListPrefix (Gtk.TextIter iter)
-		{
-			Gtk.TextTag number_list = Buffer.TagTable.Lookup ("number-list");
-			Gtk.TextTag bullet_list = Buffer.TagTable.Lookup ("bullet-list");
-
-			if (iter.HasTag (bullet_list))
-				return "* ";
-
-			int add = 0;
-
-			while (iter.HasTag (number_list)) {
-				foreach (Gtk.TextTag tag in iter.Tags) {
-					if (tag.Data ["list-prefix"] != null) {
-						int last_num = (int) tag.Data ["list-prefix"];
-						last_num += add;
-						return last_num.ToString () + ". ";
-					}
-				}
-
-				iter.BackwardLine ();
-				add++;
-			}
-
-			return null;
-		}
-	}
-
-#if BROKEN
-	public class SpacingWatcher 
-	{
-		Note note;
-		NoteBuffer buffer;
-		Gtk.TextView editor;
-
-		public SpacingWatcher (Note note)
-		{
-			this.note = note;
-			this.buffer = note.Buffer;
-			this.editor = note.Window.Editor;
-
-			buffer.InsertText += OnInsertText;
-			//buffer.DeleteRange += OnDeleteRange;
-		}
-
-		void OnDeleteRange (object sender, Gtk.DeleteRangeArgs args)
-		{
-		}
-
-		class AddHRule
-		{
-			Gtk.TextBuffer buffer;
-			Gtk.TextMark mark;
-			Gtk.TextView view;
-
-			public AddHRule (Gtk.TextIter start,
-					 Gtk.TextIter end,
-					 Gtk.TextView view)
-			{
-				buffer = view.Buffer;
-				this.view = view;
-				mark = buffer.CreateMark (null, start, true);
-
-				buffer.ApplyTag ("centered", start, end);
-
-				// add this in idle so we don't invalidate text iters
-				GLib.Idle.Add (new GLib.IdleHandler (AddHRuleIdle));
-			}
-
-			bool AddHRuleIdle ()
-			{
-				Console.WriteLine ("Got Separator Line");
-
-				Gtk.TextIter start = buffer.GetIterAtMark (mark);
-
-				Gtk.TextChildAnchor anchor;
-				anchor = buffer.CreateChildAnchor (start);
-
-				Gtk.Widget rule = new Gtk.HSeparator ();
-				rule.WidthRequest = 200;
-				rule.Show ();
-
-				view.AddChildAtAnchor (rule, anchor);
-
-				return false;
-			}
-		}
-
-		void OnInsertText (object sender, Gtk.InsertTextArgs args)
-		{
-			Gtk.TextIter line_start = args.Pos;
-			line_start.LineOffset = 0;
-
-			Gtk.TextIter line_end = args.Pos;
-			line_end.ForwardToLineEnd ();
-
-			if (line_start.GetText (line_end) == "...") {
-				new AddHRule (line_start, line_end, editor);
-			}
-		}
-	}
-
-	public class NoteListWatcher
-	{
-		Note note;
-		NoteBuffer buffer;
-		Gtk.TextView editor;
-
-		// Apply list:bullet, with the number of whitespace characters
-		// at the start of line as the indent level.  On newline, check
-		// the offset of the last line, and copy it (will need to insert
-		// the offset characters in an idle, i guess, or maybe create
-		// and apply a tag on the fly with LeftMargin attribute).  When
-		// unserializing, insert an image/marker at the beginning of
-		// text (need to worry about varing width numbers).
-		//
-		// Can we alter the selection to not select these regions?  This
-		// might be fixed by using an applied tag.
-
-		public NoteListWatcher (Note note)
-		{
-			this.note = note;
-			this.buffer = note.Buffer;
-			this.editor = note.Window.Editor;
-
-			buffer.InsertText += OnInsertText;
-			buffer.DeleteRange += OnDeleteRange;
-		}
-
-		void OnInsertText (object sender, Gtk.InsertTextArgs args)
-		{
-			if (args.Text != "\t" && args.Text != "*")
-				return;
-
-			Gtk.TextIter line_start = args.Pos;
-			line_start.LineOffset = 0;
-
-			if (line_start.Char == string.Empty)
-				return;
-
-			int indent = 0;
-			while (line_start.Char == "\t") {
-				indent++;
-				line_start.ForwardChar ();
-				Console.WriteLine ("Got indent {0}!", indent);
-			}
-
-			if (indent == 0)
-				return;
-
-			if (!line_start.Equal (args.Pos))
-				return;
-
-			foreach (Gtk.TextTag tag in line_start.Tags) {
-				if (tag.Data ["mybutt"] != null) {
-					tag.LeftMargin += 20;
-					break;
-				}
-			}
-
-			Gtk.TextIter line_end = args.Pos;
-			line_end.ForwardToLineEnd ();
-
-			/*
-			if (line_start.Char [0] == '*')
-				new AddBullet (line_start, line_end, editor);
-			else if (line_start.Char [0] == '-')
-				new AddDash (line_start, line_end, editor);
-			else if (Char.IsDigit (line_start.Char [0]))
-				new AddNumber (line_start, line_end, editor);
-			*/
-		}
-
-		[GLib.ConnectBefore]
-		void OnDeleteRange (object sender, Gtk.DeleteRangeArgs args)
-		{
-			if (args.Start.Char == "*")
-				Console.WriteLine ("Unindenting!");
-		}
-	}
-#endif // BROKEN
-
 }
