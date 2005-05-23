@@ -1,3 +1,14 @@
+2005-05-22  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/NoteWindow.cs: Add Ctrl-Q to "Close All Notes" on the
+	current desktop, by calling CloseWindowHandler for any open note
+	windows on the same workspace, as returned by
+	tomboy_window_get_workspace().  Also, rename the "Close Window"
+	menuitem to just "Close" to match Nautilus.
+
+	* libtomboy/tomboyutil.c (tomboy_window_get_workspace): Add this
+	method, which returns a GtkWindow's_NET_WM_DESKTOP as an integer.
+
 2005-05-21  Alex Graveley  <alex@beatniksoftware.com>
 
 	* Tomboy/Watchers.cs: Clear out unused IndentWatcher and

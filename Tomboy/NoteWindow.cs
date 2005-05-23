@@ -211,6 +211,12 @@ namespace Tomboy
 						    0,
 						    Gtk.AccelFlags.Visible);
 
+			// Close all windows on current Desktop (Ctrl-Q)
+			global_keys.AddAccelerator (new EventHandler (CloseAllWindowsHandler),
+						    (uint) Gdk.Key.q, 
+						    Gdk.ModifierType.ControlMask,
+						    Gtk.AccelFlags.Visible);
+
 			// Open Find Dialog (Ctrl-F)
 			global_keys.AddAccelerator (new EventHandler (FindActivate),
 						    (uint) Gdk.Key.f, 
@@ -262,6 +268,25 @@ namespace Tomboy
 				Unmaximize ();
 
 			Hide ();
+		}
+
+		[DllImport("libtomboy")]
+		static extern int tomboy_window_get_workspace (IntPtr win_raw);
+
+		void CloseAllWindowsHandler (object sender, EventArgs args)
+		{
+			int workspace = tomboy_window_get_workspace (note.Window.Handle);
+			if (workspace < 0) {
+				CloseWindowHandler (null, null);
+				return;
+			}
+				
+			foreach (Note iter in note.Manager.Notes) {
+				if (iter.IsOpened &&
+				    tomboy_window_get_workspace (iter.Window.Handle) == workspace) {
+					iter.Window.CloseWindowHandler (null, null);
+				}
+			}
 		}
 
 		//
@@ -395,8 +420,18 @@ namespace Tomboy
 			args.Menu.Prepend (find_item);
 			args.Menu.Prepend (link);
 
+			Gtk.MenuItem close_all = 
+				new Gtk.MenuItem (Catalog.GetString ("Clos_e All Notes"));
+			close_all.Activated += CloseAllWindowsHandler;
+			close_all.AddAccelerator ("activate",
+						  accel_group,
+						  (uint) Gdk.Key.q, 
+						  Gdk.ModifierType.ControlMask,
+						  Gtk.AccelFlags.Visible);
+			close_all.Show ();
+
 			Gtk.ImageMenuItem close_window = 
-				new Gtk.ImageMenuItem (Catalog.GetString ("_Close Window"));
+				new Gtk.ImageMenuItem (Catalog.GetString ("_Close"));
 			close_window.Image = new Gtk.Image (Gtk.Stock.Close, Gtk.IconSize.Menu);
 			close_window.Activated += CloseWindowHandler;
 			close_window.AddAccelerator ("activate",
@@ -406,6 +441,7 @@ namespace Tomboy
 						     Gtk.AccelFlags.Visible);
 			close_window.Show ();
 
+			args.Menu.Append (close_all);
 			args.Menu.Append (close_window);
 		}
 
@@ -903,7 +939,7 @@ namespace Tomboy
 				buffer.SetActiveTag (tag);
 		}
 
-		internal void UndoClicked (object sender, EventArgs args)
+		void UndoClicked (object sender, EventArgs args)
 		{
 			if (undo_manager.CanUndo) {
 				Console.WriteLine ("Running undo...");
@@ -911,7 +947,7 @@ namespace Tomboy
 			}
 		}
 
-		internal void RedoClicked (object sender, EventArgs args)
+		void RedoClicked (object sender, EventArgs args)
 		{
 			if (undo_manager.CanRedo) {
 				Console.WriteLine ("Running redo...");
