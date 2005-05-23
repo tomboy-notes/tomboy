@@ -535,7 +535,7 @@ namespace Tomboy
 			Gtk.Menu menu = new Gtk.Menu ();
 
 			Gtk.ImageMenuItem open;
-			open = new Gtk.ImageMenuItem (Catalog.GetString ("Open Plugins Folder"));
+			open = new Gtk.ImageMenuItem (Catalog.GetString ("_Open Plugins Folder"));
 			open.Image = new Gtk.Image (Gtk.Stock.Open, Gtk.IconSize.Menu);
 			open.Activated += OnOpenPluginsFolderActivate;
 			open.Show ();
