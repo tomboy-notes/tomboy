@@ -31,6 +31,33 @@ tomboy_widget_set_bg_pixmap (GtkWidget *applet, GdkPixmap *pixmap)
 	g_object_unref (style);
 }
 
+gint
+tomboy_window_get_workspace (GtkWindow *window)
+{
+	GdkWindow *gdkwin = GTK_WIDGET (window)->window;
+	GdkAtom wm_desktop = gdk_atom_intern ("_NET_WM_DESKTOP", FALSE);
+	GdkAtom out_type;
+	gint out_format, out_length;
+	gulong *out_val;
+	int workspace;
+
+	if (!gdk_property_get (gdkwin,
+			       wm_desktop,
+			       _GDK_MAKE_ATOM (XA_CARDINAL),
+			       0, G_MAXLONG,
+			       FALSE,
+			       &out_type,
+			       &out_format,
+			       &out_length,
+			       (guchar **) &out_val))
+		return -1;
+
+	workspace = *out_val;
+	g_free (out_val);
+
+	return workspace;
+}
+
 void
 tomboy_window_move_to_current_workspace (GtkWindow *window)
 {
