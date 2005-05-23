@@ -172,7 +172,7 @@ namespace Tomboy
 			item.Activated += ShowPreferences;
 			menu.Append (item);
 
-			item = new Gtk.ImageMenuItem (Catalog.GetString ("_Install Plugins..."));
+			item = new Gtk.ImageMenuItem (Catalog.GetString ("_Open Plugins Folder"));
 			item.Image = new Gtk.Image (Gtk.Stock.Execute, Gtk.IconSize.Menu);
 			item.Activated += ShowPlugins;
 			menu.Append (item);
