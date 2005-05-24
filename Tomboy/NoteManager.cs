@@ -38,10 +38,9 @@ namespace Tomboy
 				Directory.CreateDirectory (notes_dir);
 			}
 
-			// Create & populate the Plugins dir if it doesn't exist
+			// Create & populate the Plugins dir
 			string plugins_dir = Path.Combine (notes_dir, "Plugins");
-			if (!Directory.Exists (plugins_dir))
-				PluginManager.CreatePluginsDir (plugins_dir);
+			PluginManager.CreatePluginsDir (plugins_dir);
 
 			plugin_mgr = new PluginManager (plugins_dir);
 
@@ -84,8 +83,10 @@ namespace Tomboy
 					       "</note-content>",
 					       Catalog.GetString ("Start Here"),
 					       Catalog.GetString ("Welcome to Tomboy!"),
-					       Catalog.GetString ("Use this page as a Start Page for organizing your " +
-								  "notes and keeping unorganized ideas around."));
+					       Catalog.GetString ("Use this page as a Start Page " +
+								  "for organizing your notes and " +
+								  "keeping unorganized ideas " +
+								  "around."));
 
 			Note start_note = Create (Catalog.GetString ("Start Here"), content);
 
