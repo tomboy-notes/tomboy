@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tomboy.HEAD.hu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-05-14 12:07+0000\n"
-"PO-Revision-Date: 2005-05-14 20:56+0200\n"
+"POT-Creation-Date: 2005-05-23 12:11+0000\n"
+"PO-Revision-Date: 2005-05-24 21:49+0200\n"
 "Last-Translator: Gabor Kelemen <kelemeng@gnome.hu>\n"
 "Language-Team: Hungarian <gnome@gnome.hu>\n"
 "MIME-Version: 1.0\n"
@@ -40,8 +40,9 @@ msgid "_About Tomboy..."
 msgstr "A Tomboy _névjegye..."
 
 #: ../data/GNOME_TomboyApplet.xml.h:2 ../Tomboy/Applet.cs:175
-msgid "_Install Plugins..."
-msgstr "_Bővítmények telepítése..."
+#: ../Tomboy/NoteWindow.cs:538
+msgid "_Open Plugins Folder"
+msgstr "_Bővítmények mappájának megnyitása"
 
 #: ../data/GNOME_TomboyApplet.xml.h:3 ../Tomboy/Applet.cs:170
 msgid "_Preferences..."
@@ -228,13 +229,47 @@ msgstr ""
 
 #: ../data/tomboy.schemas.in.h:23
 msgid "The last directory a note was exported to using the Export To HTML plugin."
-msgstr "A HTML-be exportálás bővítménnyel jegyzet exportálására legutóbb használt könyvtár."
+msgstr ""
+"A HTML-be exportálás bővítménnyel jegyzet exportálására legutóbb használt "
+"könyvtár."
 
 #: ../data/tomboy.schemas.in.h:24
 msgid ""
 "The last setting for the 'Export linked notes' checkbox in the Export to "
 "HTML plugin."
-msgstr "A \"Hivatkozott jegyzetek exportálása\" jelölőnégyzet utolsó állapota a HTML-be exportálás bővítményen."
+msgstr ""
+"A \"Hivatkozott jegyzetek exportálása\" jelölőnégyzet utolsó állapota a HTML-"
+"be exportálás bővítményen."
+
+#: ../libtomboy/gedit-print.c:144 ../Tomboy/Plugins/PrintNotes.cs:16
+msgid "Print"
+msgstr "Nyomtatás"
+
+#: ../libtomboy/gedit-print.c:243
+msgid "Preparing pages..."
+msgstr "Oldalak előkészítése..."
+
+#: ../libtomboy/gedit-print.c:270
+#, c-format
+msgid "Rendering page %d of %d..."
+msgstr "A(z) %d. oldal megjelenítése %d oldalból..."
+
+#: ../libtomboy/gedit-print.c:272
+#, c-format
+msgid "Printing page %d of %d..."
+msgstr "A(z) %d. oldal nyomtatása %d oldalból..."
+
+#: ../libtomboy/gedit-print.c:294
+msgid "Print preview"
+msgstr "Nyomtatási kép"
+
+#: ../libtomboy/gedit-print.c:446
+msgid "Page %N of %Q"
+msgstr "%N. / %Q oldal"
+
+#: ../libtomboy/gedit-print.c:448
+msgid "%A %D, %I:%M %p"
+msgstr "%A %D, %l.%M %p"
 
 #: ../Tomboy/Applet.cs:180
 msgid "_About Tomboy"
@@ -247,7 +282,7 @@ msgstr "_Kilépés"
 #. Open the Start Here note
 #: ../Tomboy/Note.cs:349 ../Tomboy/NoteManager.cs:85
 #: ../Tomboy/NoteManager.cs:90 ../Tomboy/Tomboy.cs:210 ../Tomboy/Tray.cs:112
-#: ../Tomboy/Tray.cs:274 ../Tomboy/XKeybinder.cs:256
+#: ../Tomboy/Tray.cs:277 ../Tomboy/XKeybinder.cs:259
 msgid "Start Here"
 msgstr "Kezdje itt!"
 
@@ -270,115 +305,119 @@ msgstr "Új jegyzet {0}"
 msgid "Describe your new note here."
 msgstr "Ide írhatja a jegyzet tartalmát."
 
-#: ../Tomboy/NoteWindow.cs:284
+#: ../Tomboy/NoteWindow.cs:304
 msgid "Really delete this note?"
 msgstr "Biztosan törli ezt a jegyzetet?"
 
-#: ../Tomboy/NoteWindow.cs:285
+#: ../Tomboy/NoteWindow.cs:305
 msgid "If you delete a note it is permanently lost."
 msgstr "Ha töröl egy jegyzetet, akkor az véglegesen elveszik."
 
-#: ../Tomboy/NoteWindow.cs:368
+#: ../Tomboy/NoteWindow.cs:389
 msgid "_Link to New Note"
 msgstr "_Hivatkozás egy új jegyzetre"
 
-#: ../Tomboy/NoteWindow.cs:381
+#: ../Tomboy/NoteWindow.cs:402
 msgid "Te_xt"
 msgstr "_Szöveg"
 
-#: ../Tomboy/NoteWindow.cs:389
+#: ../Tomboy/NoteWindow.cs:410
 msgid "_Search"
 msgstr "_Keresés"
 
-#: ../Tomboy/NoteWindow.cs:403
-msgid "_Close Window"
-msgstr "Ablak _bezárása"
+#: ../Tomboy/NoteWindow.cs:424
+msgid "Clos_e All Notes"
+msgstr "Minden _jegyzet bezárása"
 
-#: ../Tomboy/NoteWindow.cs:440
+#: ../Tomboy/NoteWindow.cs:434
+msgid "_Close"
+msgstr "_Bezárás"
+
+#: ../Tomboy/NoteWindow.cs:462
 msgid "Search"
 msgstr "Keresés"
 
-#: ../Tomboy/NoteWindow.cs:441
+#: ../Tomboy/NoteWindow.cs:463
 msgid "Search your notes"
 msgstr "Keresés a jegyzetei között"
 
-#: ../Tomboy/NoteWindow.cs:453
+#: ../Tomboy/NoteWindow.cs:475
 msgid "Link"
 msgstr "Hivatkozás"
 
-#: ../Tomboy/NoteWindow.cs:454
+#: ../Tomboy/NoteWindow.cs:476
 msgid "Link selected text to a new note"
 msgstr "A kijelölt szöveg hivatkozzon egy új jegyzetre"
 
-#: ../Tomboy/NoteWindow.cs:467
+#: ../Tomboy/NoteWindow.cs:490
 msgid "_Text"
 msgstr "_Szöveg"
 
-#: ../Tomboy/NoteWindow.cs:478
+#: ../Tomboy/NoteWindow.cs:495
 msgid "Set properties of text"
 msgstr "Szöveg beállításai"
 
-#: ../Tomboy/NoteWindow.cs:494
-msgid "Run plugin actions"
+#: ../Tomboy/NoteWindow.cs:501
+msgid "_Plugins"
+msgstr "_Bővítmények"
+
+#: ../Tomboy/NoteWindow.cs:505
+msgid "Run Plugin actions"
 msgstr "Bővítményműveletek futtatása"
 
-#: ../Tomboy/NoteWindow.cs:501
+#: ../Tomboy/NoteWindow.cs:512
 msgid "Delete"
 msgstr "Törlés"
 
-#: ../Tomboy/NoteWindow.cs:502
+#: ../Tomboy/NoteWindow.cs:513
 msgid "Delete this note"
 msgstr "Jegyzet törlése"
 
-#: ../Tomboy/NoteWindow.cs:527
-msgid "Open Plugins Folder"
-msgstr "Bővítmények mappájának megnyitása"
-
-#: ../Tomboy/NoteWindow.cs:559
+#: ../Tomboy/NoteWindow.cs:570
 msgid "_Search..."
 msgstr "Kere_sés..."
 
-#: ../Tomboy/NoteWindow.cs:570 ../Tomboy/Search.cs:176
+#: ../Tomboy/NoteWindow.cs:581 ../Tomboy/Search.cs:176
 msgid "Find _Next"
 msgstr "_Következő találat"
 
-#: ../Tomboy/NoteWindow.cs:583
+#: ../Tomboy/NoteWindow.cs:594
 msgid "Find _Previous"
 msgstr "_Előző találat"
 
-#: ../Tomboy/NoteWindow.cs:784
+#: ../Tomboy/NoteWindow.cs:752
 msgid "<b>_Bold</b>"
 msgstr "<b>_Félkövér</b>"
 
-#: ../Tomboy/NoteWindow.cs:794
+#: ../Tomboy/NoteWindow.cs:762
 msgid "<i>_Italic</i>"
 msgstr "<i>_Dőlt</i>"
 
-#: ../Tomboy/NoteWindow.cs:804
+#: ../Tomboy/NoteWindow.cs:772
 msgid "<s>_Strikeout</s>"
 msgstr "<s>Á_thúzott</s>"
 
-#: ../Tomboy/NoteWindow.cs:815
+#: ../Tomboy/NoteWindow.cs:783
 msgid "_Highlight"
 msgstr "_Kiemelés"
 
-#: ../Tomboy/NoteWindow.cs:828
+#: ../Tomboy/NoteWindow.cs:796
 msgid "Font Size"
 msgstr "Betűméret"
 
-#: ../Tomboy/NoteWindow.cs:831
+#: ../Tomboy/NoteWindow.cs:799
 msgid "_Normal"
 msgstr "_Normál"
 
-#: ../Tomboy/NoteWindow.cs:838
+#: ../Tomboy/NoteWindow.cs:806
 msgid "Hu_ge"
 msgstr "Ó_riási"
 
-#: ../Tomboy/NoteWindow.cs:846
+#: ../Tomboy/NoteWindow.cs:814
 msgid "_Large"
 msgstr "_Nagy"
 
-#: ../Tomboy/NoteWindow.cs:854
+#: ../Tomboy/NoteWindow.cs:822
 msgid "S_mall"
 msgstr "Ki_csi"
 
@@ -566,11 +605,11 @@ msgid ""
 msgstr ""
 "Használat:\n"
 "  --new-note\t\t\tÚj jegyzet létrehozása és megnyitása\n"
-"  --new-note [title]\t\tÚj jegyzet létrehozása és megnyitása, a megadott "
+"  --new-note [név]\t\tÚj jegyzet létrehozása és megnyitása, a megadott "
 "néven\n"
-"  --open-note [title/url]\tAdott nevű jegyzet megjelenítése\n"
+"  --open-note [név/url]\tAdott nevű jegyzet megjelenítése\n"
 "  --start-here\t\t\tA \"Kezdje itt!\" jegyzet megjelenítése\n"
-"  --highlight-search [text]\tAz adott szöveg keresése és kiemelése a "
+"  --highlight-search [szöveg]\tAz adott szöveg keresése és kiemelése a "
 "jegyzetben\n"
 "  --version\t\t\tVerzióinformáció megjelenítése\n"
 "  --help\t\t\tEzen súgóüzenet megjelenítése.\n"
@@ -621,22 +660,22 @@ msgstr "Jegyzet kere_sése..."
 msgid " (new)"
 msgstr " (új)"
 
-#: ../Tomboy/Tray.cs:226
+#: ../Tomboy/Tray.cs:229
 msgid "translator-credits"
 msgstr ""
 "Kelemen Gábor <kelemeng@gnome.hu>\n"
 "Török Gábor <gabo@linuxportal.hu>"
 
-#: ../Tomboy/Tray.cs:232
+#: ../Tomboy/Tray.cs:235
 msgid "Copyright © 2004, 2005 Alex Graveley"
 msgstr "Copyright © 2004, 2005 Alex Graveley"
 
-#: ../Tomboy/Tray.cs:233
+#: ../Tomboy/Tray.cs:236
 msgid "A simple and easy to use desktop note-taking application."
 msgstr "Egyszerű és könnyen használható asztali jegyzetkezelő alkalmazás."
 
 #. initial newline
-#: ../Tomboy/Tray.cs:282
+#: ../Tomboy/Tray.cs:285
 msgid "dddd, MMMM d, h:mm tt"
 msgstr "dddd, MMMM d, h:mm tt"
 
@@ -662,13 +701,17 @@ msgstr "A jegyzet neve átvéve"
 msgid "Related to: "
 msgstr "Kapcsolatos ezzel: "
 
-#: ../Tomboy/Watchers.cs:551
+#: ../Tomboy/Watchers.cs:536
 msgid "Cannot open location"
 msgstr "Nem lehet megnyitni a helyet"
 
-#: ../Tomboy/Plugins/PrintNotes.cs:15
-msgid "Print"
-msgstr "Nyomtatás"
+#: ../Tomboy/Watchers.cs:644
+msgid "_Copy Link Address"
+msgstr "Hivatkozás cí_mének másolása"
+
+#: ../Tomboy/Watchers.cs:649
+msgid "_Open Link"
+msgstr "_Hivatkozás megnyitása"
 
 #: ../Tomboy/Plugins/ExportToHTML.cs:46
 msgid "Export to HTML"
