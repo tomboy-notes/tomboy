@@ -276,13 +276,14 @@ namespace Tomboy
 		void CloseAllWindowsHandler (object sender, EventArgs args)
 		{
 			int workspace = tomboy_window_get_workspace (note.Window.Handle);
-			if (workspace < 0) {
-				CloseWindowHandler (null, null);
-				return;
-			}
-				
+
 			foreach (Note iter in note.Manager.Notes) {
-				if (iter.IsOpened &&
+				if (!iter.IsOpened)
+					continue;
+
+				// Close windows on the same workspace, or all
+				// open windows if no workspace.
+				if (workspace < 0 ||
 				    tomboy_window_get_workspace (iter.Window.Handle) == workspace) {
 					iter.Window.CloseWindowHandler (null, null);
 				}

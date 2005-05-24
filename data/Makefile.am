@@ -8,8 +8,12 @@ SUBDIRS = images
 
 @INTLTOOL_DESKTOP_RULE@
 
-desktop_in_files = tomboy.desktop.in
+desktop_in_files = tomboy.desktop.in DefaultPlugins.desktop.in
 desktop_files    = $(desktop_in_files:.desktop.in=.desktop)
+
+DefaultPlugins.desktop.in: DefaultPlugins.desktop.in.in Makefile
+	sed -e "s|\@pkglibdir\@|$(pkglibdir)|g" 	\
+	    < $< > $@
 
 #desktopdir   = $(datadir)/applications
 #desktop_DATA = $(desktop_files)

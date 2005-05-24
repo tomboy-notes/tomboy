@@ -92,6 +92,7 @@ namespace Tomboy
 		ArrayList plugin_types;
 		Hashtable plugin_hash;
 		FileSystemWatcher dir_watcher;
+		FileSystemWatcher sys_dir_watcher;
 
 		// Plugins in the tomboy.exe assembly, always loaded.
 		static Type [] stock_plugins = 
@@ -116,6 +117,11 @@ namespace Tomboy
 			dir_watcher.Created += OnPluginCreated;
 			dir_watcher.Deleted += OnPluginDeleted;
 			dir_watcher.EnableRaisingEvents = true;
+
+			sys_dir_watcher = new FileSystemWatcher (Defines.SYS_PLUGINS_DIR, "*.dll");
+			sys_dir_watcher.Created += OnPluginCreated;
+			sys_dir_watcher.Deleted += OnPluginDeleted;
+			sys_dir_watcher.EnableRaisingEvents = true;
 
 			plugin_types = FindPluginTypes ();
 			plugin_hash = new Hashtable ();
@@ -161,17 +167,76 @@ namespace Tomboy
 			note.Manager.NoteDeleted += OnNoteDeleted;
 		}
 
+		static void CleanupOldPlugins (string plugins_dir)
+		{
+			// NOTE: These might be symlinks to the system-installed
+			// versions, so use unlink() just in case.
+
+			// Remove old version 0.3.[12] "Uninstalled Plugins" symlink
+			string uninstalled_dir = Path.Combine (plugins_dir, "Uninstalled Plugins");
+			if (Directory.Exists (uninstalled_dir)) {
+				Console.WriteLine ("Removing old \"Uninstalled Plugins\" " +
+						   "directory...");
+				try {
+					Syscall.unlink (uninstalled_dir);
+				} catch (Exception e) {
+					Console.WriteLine ("Error removing: {0}", e);
+				}
+			}
+
+			// Remove old version 0.3.[12] "ExportToHTML.dll" file
+			string export_to_html_dll = Path.Combine (plugins_dir, "ExportToHTML.dll");
+			if (File.Exists (export_to_html_dll)) {
+				Console.WriteLine ("Removing old \"ExportToHTML.dll\" plugin...");
+				try {
+					Syscall.unlink (export_to_html_dll);
+				} catch (Exception e) {
+					Console.WriteLine ("Error removing: {0}", e);
+				}
+			}
+
+			// Remove old version 0.3.[12] "PrintNotes.dll" file
+			string print_notes_dll = Path.Combine (plugins_dir, "PrintNotes.dll");
+			if (File.Exists (print_notes_dll)) {
+				Console.WriteLine ("Removing old \"PrintNotes.dll\" plugin...");
+				try {
+					Syscall.unlink (print_notes_dll);
+				} catch (Exception e) {
+					Console.WriteLine ("Error removing: {0}", e);
+				}
+			}
+		}
+
 		public static void CreatePluginsDir (string plugins_dir)
 		{
-			// Plugins dir
+			// Create Plugins dir
 			if (!Directory.Exists (plugins_dir))
 				Directory.CreateDirectory (plugins_dir);
 
-			// Plugins/Uninstalled Plugins dir
-			string uninstalled_dir = Path.Combine (plugins_dir, "Uninstalled Plugins");
-			if (!File.Exists (uninstalled_dir)) {
-				// FIXME: Handle the error.
-				Syscall.symlink (Defines.SYS_PLUGINS_DIR, uninstalled_dir);
+			// Clean up old plugin remnants
+			CleanupOldPlugins (plugins_dir);
+
+			// Copy Plugins/DefaultPlugins.desktop file from resource
+			string default_desktop = "DefaultPlugins.desktop";
+			string default_path = Path.Combine (plugins_dir, default_desktop);
+			if (!File.Exists (default_path)) {
+				Assembly asm = Assembly.GetExecutingAssembly();
+				Stream stream = asm.GetManifestResourceStream (default_desktop);
+				if (stream != null) {
+					Console.WriteLine ("Writing '{0}'...", default_path);
+					try {
+						StreamWriter file = File.CreateText (default_path);
+						StreamReader reader;
+						try {
+							reader = new StreamReader (stream);
+							file.Write (reader.ReadToEnd ());
+						} finally {
+							file.Close ();
+						}
+					} finally {
+						stream.Close ();
+					}
+				}
 			}
 		}
 
@@ -181,8 +246,9 @@ namespace Tomboy
 			ArrayList note_plugins = (ArrayList) plugin_hash [deleted];
 
 			if (note_plugins != null) {
-				foreach (NotePlugin plugin in note_plugins)
+				foreach (NotePlugin plugin in note_plugins) {
 					plugin.Dispose ();
+				}
 
 				note_plugins.Clear ();
 			}
@@ -264,23 +330,41 @@ namespace Tomboy
 				all_plugin_types.Add (type);
 			}
 
-			string [] files = Directory.GetFiles (plugins_dir, "*.dll");
+			// Load system default plugins
+			ArrayList sys_plugin_types;
+			sys_plugin_types = FindPluginTypesInDirectory (Defines.SYS_PLUGINS_DIR);
+			foreach (Type type in sys_plugin_types) {
+				all_plugin_types.Add (type);
+			}
+
+			// Load user's plugins
+			ArrayList user_plugin_types = FindPluginTypesInDirectory (plugins_dir);
+			foreach (Type type in user_plugin_types) {
+				all_plugin_types.Add (type);
+			}
+
+			return all_plugin_types;
+		}
+
+		static ArrayList FindPluginTypesInDirectory (string dirpath)
+		{
+			string [] files = Directory.GetFiles (dirpath, "*.dll");
+			ArrayList dir_plugin_types = new ArrayList ();
 
 			foreach (string file in files) {
-				Console.Write ("Trying Plugin: {0} ... ", 
-					       Path.GetFileName (file));
+				Console.Write ("Trying Plugin: {0} ... ", Path.GetFileName (file));
 
 				try {
 					ArrayList asm_plugins = FindPluginTypesInFile (file);
 					foreach (Type type in asm_plugins) {
-						all_plugin_types.Add (type);
+						dir_plugin_types.Add (type);
 					}
                                 } catch (Exception e) {
                                         Console.WriteLine ("Failed.\n{0}", e);
                                 }
 			}
 
-			return all_plugin_types;
+			return dir_plugin_types;
 		}
 
 		static ArrayList FindPluginTypesInFile (string filepath)
