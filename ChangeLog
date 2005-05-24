@@ -1,3 +1,34 @@
+2005-05-24  Alex Graveley  <alex@beatniksoftware.com>
+
+	* data/DefaultPlugins.desktop.in.in (Icon): Use
+	"gnome-fs-directory" instead of "gnome-run" so people know it's a
+	directory they're opening.
+
+2005-05-23  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/NoteWindow.cs: Handle the case of no workspace number by
+	closing all open windows.
+
+	* Tomboy/Makefile.am (RESOURCES): Add DefaultPlugins.desktop as a
+	Tomboy.exe resource.
+
+	* Tomboy/NoteManager.cs: Always try to create the plugins dir.
+
+	* Tomboy/PluginManager.cs: Load and monitor user and system
+	plugins dirs for changes.  Cleanup any lingering "Uninstalled
+	Plugins" and PrintToNote.dll or ExportToHTML.dll by unlinking
+	them.  Copy the "DefaultPlugins.desktop" resource to the Plugins
+	directory if it doesn't exist.  Watch the system plugins directory
+	for changes as well as the user's Plugins directory.
+
+	* data/Makefile.am: Generate DefaultPlugins.desktop from
+	DefaultPlugins.desktop.in.in.
+
+	* data/DefaultPlugins.desktop.in.in: New file.  This URL launcher
+	opens the "default" (system-wide) plugins directory, and uses the
+	gnome-run icon.  Allows for an internationalized symlink
+	equivalent.
+
 2005-05-22  Alex Graveley  <alex@beatniksoftware.com>
 
 	* data/GNOME_TomboyApplet.xml: Rename "Install Plugins" menu item
