@@ -250,23 +250,31 @@ namespace Tomboy
 		// Apply active_tags to inserted text
 		void TextInsertedEvent (object sender, Gtk.InsertTextArgs args)
 		{
-			Gtk.TextIter insert_start = args.Pos;
-			insert_start.BackwardChars (args.Text.Length);
+			// Only apply active tags when typing, not on paste.
+			if (args.Text.Length == 1) {
+				Gtk.TextIter insert_start = args.Pos;
+				insert_start.BackwardChars (args.Text.Length);
 
-			foreach (Gtk.TextTag tag in insert_start.Tags) {
-				RemoveTag (tag, insert_start, args.Pos);
-			}
+				Undoer.FreezeUndo ();
+				foreach (Gtk.TextTag tag in insert_start.Tags) {
+					RemoveTag (tag, insert_start, args.Pos);
+				}
 
-			foreach (Gtk.TextTag tag in active_tags) {
-				ApplyTag (tag, insert_start, args.Pos);
+				foreach (Gtk.TextTag tag in active_tags) {
+					ApplyTag (tag, insert_start, args.Pos);
+				}
+				Undoer.ThawUndo ();
 			}
 
 			if (InsertTextWithTags != null)
 				InsertTextWithTags (sender, args);
 		}
 
-		// Clear active tags, and add any tags present in the cursor
-		// position
+		// Clear active tags, and add any tags which should be applied:
+		// - Avoid the having tags grow frontwords by not adding tags
+		//   which start on the next character.
+		// - Add tags ending on the prior character, to avoid needing to
+		//   constantly toggle tags.
 		void MarkSetEvent (object sender, Gtk.MarkSetArgs args)
 		{
 			if (args.Mark != InsertMark)
@@ -275,16 +283,20 @@ namespace Tomboy
 			active_tags.Clear ();
 
 			Gtk.TextIter iter = GetIterAtMark (args.Mark);
-			Gtk.TextTag [] tags;
 
-			if (iter.IsEnd)
-				tags = iter.GetToggledTags (false);
-			else
-				tags = iter.Tags;
-
-			foreach (Gtk.TextTag tag in tags) {
-				if (NoteTagTable.TagIsGrowable (tag))
+			// Add any growable tags not starting on the next character...
+			foreach (Gtk.TextTag tag in iter.Tags) {
+				if (!iter.BeginsTag (tag) &&
+				    NoteTagTable.TagIsGrowable (tag)) {
 					active_tags.Add (tag);
+				}
+			}
+
+			// Add any growable tags ending on the prior character...
+			foreach (Gtk.TextTag tag in iter.GetToggledTags (false)) {
+				if (NoteTagTable.TagIsGrowable (tag)) {
+					active_tags.Add (tag);
+				}
 			}
 		}
 
