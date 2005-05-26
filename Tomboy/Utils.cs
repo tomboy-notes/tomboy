@@ -398,12 +398,22 @@ namespace Tomboy
 
 			buffer = start.Buffer;
 			start_mark = buffer.CreateMark (null, start, true);
-			end_mark = buffer.CreateMark (null, end, false);
+			end_mark = buffer.CreateMark (null, end, true);
+		}
+
+		public Gtk.TextBuffer Buffer
+		{
+			get { return buffer; }
 		}
 
 		public string Text
 		{
 			get { return Start.GetText (End); }
+		}
+
+		public int Length
+		{
+			get { return Text.Length; }
 		}
 
 		public Gtk.TextIter Start
@@ -416,6 +426,11 @@ namespace Tomboy
 		{
 			get { return buffer.GetIterAtMark (end_mark); }
 			set { buffer.MoveMark (end_mark, value); }
+		}
+
+		public void Erase ()
+		{
+			buffer.Delete (Start, End);
 		}
 
 		public void Destroy ()

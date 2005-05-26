@@ -1,7 +1,7 @@
 
 SUBDIRS = . Plugins
 
-CSC = mcs -g
+CSC = mcs
 
 TARGET = Tomboy.exe
 WRAPPER = tomboy
@@ -22,9 +22,10 @@ FIXED_GTKSPELL_CSFLAGS = -define:FIXED_GTKSPELL
 endif
 
 CSFLAGS = 				\
-	-target:exe 			\
+	-debug				\
 	-define:DEBUG 			\
 	-unsafe 			\
+	-target:exe 			\
 	$(DBUS_CSFLAGS) 		\
 	$(FIXED_GTKSPELL_CSFLAGS) 	\
 	$(OLD_GTKSPELL_CSFLAGS)
@@ -66,7 +67,7 @@ RESOURCES = 										\
 	-resource:$(top_srcdir)/data/images/gnome-stock-searchtool.png,gnome-stock-searchtool.png
 
 $(TARGET): $(CSFILES) $(srcdir)/Defines.cs
-	$(CSC) -o $@ $(CSFLAGS) $^ $(ASSEMBLIES) $(RESOURCES)
+	$(CSC) -out:$@ $(CSFLAGS) $^ $(ASSEMBLIES) $(RESOURCES)
 
 tomboylibdir = $(pkglibdir)
 tomboylib_DATA = $(TARGET) $(TARGET).config

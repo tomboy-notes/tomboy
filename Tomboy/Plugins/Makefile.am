@@ -1,9 +1,10 @@
 
-CSC = mcs -g
+CSC = mcs
 
 CSFLAGS = 		\
-	-target:library	\
-	-define:DEBUG 
+	-debug 		\
+	-define:DEBUG 	\
+	-target:library
 
 ASSEMBLIES = 					\
 	$(TOMBOY_LIBS) 				\
@@ -21,7 +22,7 @@ PRINT_CSFILES = $(srcdir)/PrintNotes.cs
 PRINT_RESOURCES =
 
 $(PRINT_TARGET): $(PRINT_CSFILES) $(top_builddir)/Tomboy/Tomboy.exe
-	$(CSC) -o $@ $(CSFLAGS) $(ASSEMBLIES) $(PRINT_CSFILES) $(PRINT_RESOURCES)
+	$(CSC) -out:$@ $(CSFLAGS) $(ASSEMBLIES) $(PRINT_CSFILES) $(PRINT_RESOURCES)
 
 
 #
@@ -33,7 +34,7 @@ EXPORT_CSFILES = $(srcdir)/ExportToHTML.cs
 EXPORT_RESOURCES = -resource:$(srcdir)/ExportToHTML.xsl
 
 $(EXPORT_TARGET): $(EXPORT_CSFILES) $(top_builddir)/Tomboy/Tomboy.exe $(srcdir)/ExportToHTML.xsl
-	$(CSC) -o $@ $(CSFLAGS) $(ASSEMBLIES) $(EXPORT_CSFILES) $(EXPORT_RESOURCES)
+	$(CSC) -out:$@ $(CSFLAGS) $(ASSEMBLIES) $(EXPORT_CSFILES) $(EXPORT_RESOURCES)
 
 
 pluginsdir = $(pkglibdir)/Plugins
