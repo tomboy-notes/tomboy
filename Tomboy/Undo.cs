@@ -4,483 +4,481 @@ using System.Collections;
 
 namespace Tomboy 
 {
-	public class UndoManager 
+	interface EditAction 
 	{
+		void Undo (Gtk.TextBuffer buffer);
+		void Redo (Gtk.TextBuffer buffer);
+		void Merge (EditAction action);
+		bool CanMerge (EditAction action);
+		void Destroy ();
+	}
+
+	class ChopBuffer : Gtk.TextBuffer
+	{
+		public ChopBuffer (Gtk.TextTagTable table)
+			: base (table)
+		{
+		}
+
+		public TextRange AddChop (Gtk.TextIter start_iter, Gtk.TextIter end_iter)
+		{
+			int start, end;
+
+			start = EndIter.Offset;
+			InsertRange (EndIter, start_iter, end_iter);
+			end = EndIter.Offset;
+
+			return new TextRange (GetIterAtOffset (start), GetIterAtOffset (end));
+		}
+	}
+
+	class InsertAction : EditAction
+	{
+		int index;
+		bool is_paste;
+		TextRange chop;
+
+		public InsertAction (Gtk.TextIter start, 
+				     string text, 
+				     int length, 
+				     ChopBuffer chop_buf)
+		{
+			this.index = start.Offset - length;
+			// GTKBUG: No way to tell a 1-char paste.
+			this.is_paste = length > 1;
+
+			Gtk.TextIter index_iter = start.Buffer.GetIterAtOffset (index);
+			this.chop = chop_buf.AddChop (index_iter, start);
+		}
+
+		public void Undo (Gtk.TextBuffer buffer)
+		{
+			buffer.Delete (buffer.GetIterAtOffset (index),
+				       buffer.GetIterAtOffset (index + chop.Length));
+			buffer.MoveMark (buffer.InsertMark, buffer.GetIterAtOffset (index));
+			buffer.MoveMark (buffer.SelectionBound, buffer.GetIterAtOffset (index));
+		}
+
+		public void Redo (Gtk.TextBuffer buffer)
+		{
+			buffer.InsertRange (buffer.GetIterAtOffset (index), chop.Start, chop.End);
+
+			buffer.MoveMark (buffer.SelectionBound, buffer.GetIterAtOffset (index));
+			buffer.MoveMark (buffer.InsertMark, 
+					 buffer.GetIterAtOffset (index + chop.Length));
+		}
+
+		public void Merge (EditAction action)
+		{
+			InsertAction insert = (InsertAction) action;
+
+			chop.End = insert.chop.End;
+
+			insert.chop.Destroy ();
+		}
+
+		public bool CanMerge (EditAction action)
+		{
+			InsertAction insert = action as InsertAction;
+			if (insert == null)
+				return false;
+
+			// Don't group text pastes
+			if (is_paste || insert.is_paste)
+				return false;
+
+			// Must meet eachother
+			if (insert.index != index + chop.Length)
+				return false;
+
+			// Don't group more than one line (inclusive)
+			if (chop.Text[0] == '\n')
+				return false;
+
+			// Don't group more than one word (exclusive)
+			if (insert.chop.Text[0] == ' ' || insert.chop.Text[0] == '\t')
+				return false;
+
+			return true;
+		}
+
+		public void Destroy ()
+		{
+			chop.Erase ();
+			chop.Destroy ();
+		}
+	}
+
+	class EraseAction : EditAction
+	{
+		int start;
+		int end;
+		bool is_forward;
+		bool is_cut;
+		TextRange chop;
+
+		public EraseAction (Gtk.TextIter start_iter, 
+				    Gtk.TextIter end_iter,
+				    ChopBuffer chop_buf)
+		{
+			this.start = start_iter.Offset;
+			this.end = end_iter.Offset;
+			this.is_cut = end - start > 1;
+			
+			Gtk.TextIter insert = 
+				start_iter.Buffer.GetIterAtMark (start_iter.Buffer.InsertMark);
+			this.is_forward = insert.Offset <= start;
+
+			this.chop = chop_buf.AddChop (start_iter, end_iter);
+		}
+
+		public void Undo (Gtk.TextBuffer buffer)
+		{
+			buffer.InsertRange (buffer.GetIterAtOffset (start), chop.Start, chop.End);
+					
+			buffer.MoveMark (buffer.InsertMark, 
+					 buffer.GetIterAtOffset (is_forward ? start : end));
+			buffer.MoveMark (buffer.SelectionBound, 
+					 buffer.GetIterAtOffset (is_forward ? end : start));
+		}
+
+		public void Redo (Gtk.TextBuffer buffer)
+		{
+			buffer.Delete (buffer.GetIterAtOffset (start),
+				       buffer.GetIterAtOffset (end));
+			buffer.MoveMark (buffer.InsertMark, buffer.GetIterAtOffset (start));
+			buffer.MoveMark (buffer.SelectionBound, buffer.GetIterAtOffset (start));
+		}
+
+		public void Merge (EditAction action)
+		{
+			EraseAction erase = (EraseAction) action;
+			if (start == erase.start) {
+				end += erase.end - erase.start;
+				chop.End = erase.chop.End;
+
+				// Delete the marks, leave the text
+				erase.chop.Destroy ();
+			} else {
+				start = erase.start;
+
+				chop.Buffer.InsertRange (chop.Start, 
+							 erase.chop.Start, 
+							 erase.chop.End);
+
+				// Delete the marks and text
+				erase.Destroy ();
+			}
+		}
+
+		public bool CanMerge (EditAction action)
+		{
+			EraseAction erase = action as EraseAction;
+			if (erase == null)
+				return false;
+
+			// Don't group separate text cuts
+			if (is_cut || erase.is_cut)
+				return false;
+
+			// Must meet eachother
+			if (start != (is_forward ? erase.start : erase.end))
+				return false;
+
+			// Don't group deletes with backspaces
+			if (is_forward != erase.is_forward)
+				return false;
+
+			// Don't group more than one line (inclusive)
+			if (chop.Text[0] == '\n')
+				return false;
+
+			// Don't group more than one word (exclusive)
+			if (erase.chop.Text[0] == ' ' || erase.chop.Text[0] == '\t')
+				return false;
+
+			return true;
+		}
+
+		public void Destroy ()
+		{
+			chop.Erase ();
+			chop.Destroy ();
+		}
+	}
+
+	class TagApplyAction : EditAction
+	{
+		Gtk.TextTag tag;
+		int         start;
+		int         end;
+		
+		public TagApplyAction (Gtk.TextTag tag, Gtk.TextIter start, Gtk.TextIter end)
+		{
+			this.tag = tag;
+			this.start = start.Offset;
+			this.end = end.Offset;
+		}
+
+		public void Undo (Gtk.TextBuffer buffer)
+		{
+			Gtk.TextIter start_iter, end_iter;
+			start_iter = buffer.GetIterAtOffset (start);
+			end_iter = buffer.GetIterAtOffset (end);
+				
+			buffer.MoveMark (buffer.SelectionBound, start_iter);
+			buffer.RemoveTag (tag, start_iter, end_iter);
+			buffer.MoveMark (buffer.InsertMark, end_iter);
+		}
+
+		public void Redo (Gtk.TextBuffer buffer)
+		{
+			Gtk.TextIter start_iter, end_iter;
+			start_iter = buffer.GetIterAtOffset (start);
+			end_iter = buffer.GetIterAtOffset (end);
+				
+			buffer.MoveMark (buffer.SelectionBound, start_iter);
+			buffer.ApplyTag (tag, start_iter, end_iter);
+			buffer.MoveMark (buffer.InsertMark, end_iter);
+		}
+
+		public void Merge (EditAction action)
+		{
+			throw new Exception ("TagApplyActions cannot be merged");
+		}
+
+		public bool CanMerge (EditAction action)
+		{
+			return false;
+		}
+
+		public void Destroy ()
+		{
+		}
+	}
+
+	class TagRemoveAction : EditAction
+	{
+		Gtk.TextTag tag;
+		int         start;
+		int         end;
+
+		public TagRemoveAction (Gtk.TextTag tag, Gtk.TextIter start, Gtk.TextIter end)
+		{
+			this.tag = tag;
+			this.start = start.Offset;
+			this.end = end.Offset;
+		}
+
+		public void Undo (Gtk.TextBuffer buffer)
+		{
+			Gtk.TextIter start_iter, end_iter;
+			start_iter = buffer.GetIterAtOffset (start);
+			end_iter = buffer.GetIterAtOffset (end);
+
+			buffer.MoveMark (buffer.SelectionBound, start_iter);
+			buffer.ApplyTag (tag, start_iter, end_iter);
+			buffer.MoveMark (buffer.InsertMark, end_iter);
+		}
+
+		public void Redo (Gtk.TextBuffer buffer)
+		{
+			Gtk.TextIter start_iter, end_iter;
+			start_iter = buffer.GetIterAtOffset (start);
+			end_iter = buffer.GetIterAtOffset (end);
+
+			buffer.MoveMark (buffer.SelectionBound, start_iter);
+			buffer.RemoveTag (tag, start_iter, end_iter);
+			buffer.MoveMark (buffer.InsertMark, end_iter);
+		}
+
+		public void Merge (EditAction action)
+		{
+			throw new Exception ("TagRemoveActions cannot be merged");
+		}
+
+		public bool CanMerge (EditAction action)
+		{
+			return false;
+		}
+
+		public void Destroy ()
+		{
+		}
+	}
+
+	public class UndoManager
+	{
+		uint frozen_cnt;
+		bool try_merge;
 		NoteBuffer buffer;
+		ChopBuffer chop_buffer;
 
 		Stack undo_stack;
 		Stack redo_stack;
 
-		int frozen_count;
-
-		abstract class Action 
-		{
-			public bool CanMerge;
-			public UndoManager Manager;
-			public NoteBuffer Buffer;
-
-			public Action (UndoManager manager, NoteBuffer buffer)
-			{
-				this.Manager = manager;
-				this.Buffer = buffer;
-			}
-
-			public abstract void Undo ();
-			public abstract void Redo ();
-			public abstract bool Merge (Action action);
-		}
-
-		class InsertAction : Action
-		{
-			public int    Position;
-			public string Text;
-			public string MarkupText;
-
-			public InsertAction (UndoManager manager, NoteBuffer buffer)
-				: base (manager, buffer)
-			{
-			}
-
-			public override void Undo ()
-			{
-				Manager.DeleteText (Position, Position + Text.Length);
-				Manager.PlaceCursor (Position);
-			}
-
-			public override void Redo ()
-			{
-				Manager.PlaceCursor (Position);
-				Manager.InsertText (Position, Text);
-				//Gtk.TextIter pos = Buffer.GetIterAtOffset (Position);
-				//NoteBufferArchiver.Deserialize (Buffer, pos, MarkupText);
-			}
-
-			public override bool Merge (Action action)
-			{
-				InsertAction next = (InsertAction) action;
-
-				if (next.Position != Position + Text.Length ||
-				    (!next.Text.StartsWith (" ") && 
-				     !next.Text.StartsWith ("\t") &&
-				     (Text.EndsWith (" ") || Text.EndsWith ("\t")))) {
-					CanMerge = false;
-					return false;
-				}
-
-				Text += next.Text;
-				return true;
-			}
-		}
-
-		class DeleteAction : Action
-		{
-			public int    Start;
-			public int    End;
-			public bool   IsForward;
-			public string Text;
-			public string MarkupText;
-
-			public DeleteAction (UndoManager manager, NoteBuffer buffer)
-				: base (manager, buffer)
-			{
-			}
-
-			public override void Undo ()
-			{
-				Manager.InsertText (Start, Text);
-				//Gtk.TextIter pos = Buffer.GetIterAtOffset (Start);
-				//NoteBufferArchiver.Deserialize (Buffer, pos, MarkupText);
-
-				if (IsForward) 
-					Manager.PlaceCursor (Start);
-				else
-					Manager.PlaceCursor (End);
-			}
-
-			public override void Redo ()
-			{
-				Manager.DeleteText (Start, End);
-				Manager.PlaceCursor (Start);
-			}
-
-			public override bool Merge (Action action)
-			{
-				DeleteAction next = (DeleteAction) action;
-
-				if (IsForward != next.IsForward ||
-				    (Start != next.Start && Start != next.End)) {
-					CanMerge = false;
-					return false;
-				}
-
-				if (Start == next.Start) {
-					if (!next.Text.StartsWith (" ") && 
-					    !next.Text.StartsWith ("\t") &&
-					    (Text.EndsWith (" ") || Text.EndsWith ("\t"))) {
-						CanMerge = false;
-						return false;
-					}
-
-					Text += next.Text;
-					End += next.End - next.Start;
-				} else {
-					if (!next.Text.StartsWith (" ") &&
-					    !next.Text.StartsWith ("\t") &&
-					    (Text.StartsWith (" ") || Text.StartsWith ("\t"))) {
-						CanMerge = false;
-						return false;
-					}
-
-					Text = next.Text + Text;
-					Start = next.Start;
-				}
-
-				return true;
-			}
-		}
-
-		class ApplyTag : Action
-		{
-			public Gtk.TextTag Tag;
-			public int         Start;
-			public int         End;
-
-			public ApplyTag (UndoManager manager, NoteBuffer buffer)
-				: base (manager, buffer)
-			{
-			}
-
-			public override void Undo ()
-			{
-				Gtk.TextIter start, end;
-				start = Buffer.GetIterAtOffset (Start);
-				end = Buffer.GetIterAtOffset (End);
-				
-				Buffer.MoveMark (Buffer.SelectionBound, start);
-				Buffer.RemoveTag (Tag, start, end);
-				Manager.PlaceCursor (End);
-			}
-
-			public override void Redo ()
-			{
-				Gtk.TextIter start, end;
-				start = Buffer.GetIterAtOffset (Start);
-				end = Buffer.GetIterAtOffset (End);
-				
-				Buffer.MoveMark (Buffer.SelectionBound, start);
-				Buffer.ApplyTag (Tag, start, end);
-				Manager.PlaceCursor (End);
-			}
-
-			public override bool Merge (Action action)
-			{
-				return false;
-			}
-		}
-
-		class RemoveTag : Action
-		{
-			public Gtk.TextTag Tag;
-			public int         Start;
-			public int         End;
-
-			public RemoveTag (UndoManager manager, NoteBuffer buffer)
-				: base (manager, buffer)
-			{
-			}
-
-			public override void Undo ()
-			{
-				Gtk.TextIter start, end;
-				start = Buffer.GetIterAtOffset (Start);
-				end = Buffer.GetIterAtOffset (End);
-				
-				Buffer.MoveMark (Buffer.SelectionBound, start);
-				Buffer.ApplyTag (Tag, start, end);
-				Manager.PlaceCursor (End);
-			}
-
-			public override void Redo ()
-			{
-				Gtk.TextIter start, end;
-				start = Buffer.GetIterAtOffset (Start);
-				end = Buffer.GetIterAtOffset (End);
-				
-				Buffer.MoveMark (Buffer.SelectionBound, start);
-				Buffer.RemoveTag (Tag, start, end);
-				Manager.PlaceCursor (End);
-			}
-
-			public override bool Merge (Action action)
-			{
-				return false;
-			}
-		}
-
 		public UndoManager (NoteBuffer buffer)
 		{
-			this.buffer = buffer;
-
+			frozen_cnt = 0;
+			try_merge = false;
 			undo_stack = new Stack ();
 			redo_stack = new Stack ();
-			
-			buffer.InsertTextWithTags += TextInserted;
-			buffer.DeleteRange += RangeDeleted;
-			buffer.TagApplied += TagApplied;
-			buffer.TagRemoved += TagRemoved;
+
+			this.buffer = buffer;
+			chop_buffer = new ChopBuffer (buffer.TagTable);
+
+			buffer.InsertTextWithTags += OnInsertText;
+			buffer.DeleteRange += OnDeleteRange; // Before handler
+			buffer.TagApplied += OnTagApplied;
+			buffer.TagRemoved += OnTagRemoved;
 		}
 
-		void TextInserted (object sender, Gtk.InsertTextArgs args)
+		public bool CanUndo
 		{
-			if (frozen_count > 0)
-				return;
-
-			InsertAction action = new InsertAction (this, buffer);
-
-			action.Position = args.Pos.Offset - args.Text.Length;
-			action.Text = args.Text;
-
-			//Gtk.TextIter start = buffer.GetIterAtOffset (action.Position);
-			//action.MarkupText = NoteBufferArchiver.Serialize (buffer, start, args.Pos);
-
-			//Console.WriteLine ("TextInserted '{0}' at {1}", action.MarkupText, args.Pos.Offset);
-
-			// If a paste or a newline, don't merge
-			action.CanMerge = !(args.Text.Length > 1 || args.Text == "\n");
-			
-			AddAction (action);
-		}
-
-		[GLib.ConnectBefore]
-		void RangeDeleted (object sender, Gtk.DeleteRangeArgs args)
-		{
-			if (frozen_count > 0)
-				return;
-
-			DeleteAction action = new DeleteAction (this, buffer);
-
-			action.Start = args.Start.Offset;
-			action.End = args.End.Offset;
-			action.Text = buffer.GetSlice (args.Start, args.End, true);
-
-			//action.MarkupText = NoteBufferArchiver.Serialize (buffer, args.Start, args.End);
-
-			Console.WriteLine ("RangeDeleted '{0}' at start:{1}, end:{2}", 
-					   action.Text, action.Start, action.End);
-
-			Gtk.TextIter cursor = buffer.GetIterAtMark (buffer.InsertMark);
-
-			// Figure out if the user used the Delete or the Backspace key
-			action.IsForward = (cursor.Offset < action.Start);
-
-			Console.WriteLine ("RangeDeleted cursor-at:{0}, is-forward:{1}", 
-					   cursor.Offset, action.IsForward);
-			
-			// If a selection delete or a newline, don't merge
-			action.CanMerge = !((action.End - action.Start) > 1 || action.Text == "\n");
-
-			AddAction (action);
-		}
-
-		void TagApplied (object sender, Gtk.TagAppliedArgs args)
-		{
-			if (frozen_count > 0)
-				return;
-
-			if (!NoteTagTable.TagIsUndoable (args.Tag))
-				return;
-
-			// Only care about explicit tag applies, not those
-			// inserted along with text.
-			if (args.EndChar.Offset - args.StartChar.Offset == 1)
-				return;
-
-			ApplyTag apply = new ApplyTag (this, buffer);
-			apply.Tag = args.Tag;
-			apply.Start = args.StartChar.Offset;
-			apply.End = args.EndChar.Offset;
-			apply.CanMerge = false;
-
-			AddAction (apply);
-		}
-
-		void TagRemoved (object sender, Gtk.TagRemovedArgs args)
-		{
-			if (frozen_count > 0)
-				return;
-
-			if (!NoteTagTable.TagIsUndoable (args.Tag))
-				return;
-
-			// FIXME: Gtk# bug. StartChar and EndChar are note
-			//        mapped, so grab them from the Args iter.
-			Gtk.TextIter start, end;
-			start = (Gtk.TextIter) args.Args[1];
-			end = (Gtk.TextIter) args.Args[2];
-
-			RemoveTag remove = new RemoveTag (this, buffer);
-			remove.Tag = args.Tag;
-			remove.Start = start.Offset;
-			remove.End = end.Offset;
-			remove.CanMerge = false;
-
-			AddAction (remove);
-		}
-
-		void AddAction (Action action)
-		{
-			if (redo_stack.Count > 0)
-				redo_stack.Clear ();
-
-			if (!MergeAction (action)) {
-				undo_stack.Push (action);
-				if (undo_stack.Count == 1 && UndoChanged != null)
-					UndoChanged (this, null);
-			}
-		}
-
-		bool MergeAction (Action action)
-		{
-			if (undo_stack.Count == 0)
-				return false;
-
-			Action last_action = (Action) undo_stack.Peek ();
-
-			if (!last_action.CanMerge)
-				return false;
-
-			if (!action.CanMerge || action.GetType() != last_action.GetType()) {
-				last_action.CanMerge = false;
-				return false;
-			}
-
-			return last_action.Merge (action);
-		}
-
-		public bool CanUndo 
-		{
-			get { return undo_stack.Count != 0; }
+			get { return undo_stack.Count > 0; }
 		}
 
 		public bool CanRedo 
 		{
-			get { return redo_stack.Count != 0; }
+			get { return redo_stack.Count > 0; }
 		}
 
 		public event EventHandler UndoChanged;
 
 		public void Undo ()
 		{
-			Action action = (Action) undo_stack.Pop ();
-			if (action == null) {
-				Console.WriteLine ("Nothing to Undo!");
-				return;
-			}
-
-			FreezeUndo ();
-
-			// Perform the undo
-			action.Undo ();
-
-			ThawUndoInternal ();
-
-			redo_stack.Push (action);
-
-			if (redo_stack.Count == 1 || undo_stack.Count == 0) {
-				if (UndoChanged != null)
-					UndoChanged (this, null);
-			}
+			UndoRedo (undo_stack, redo_stack, true /*undo*/);
 		}
 
 		public void Redo ()
 		{
-			Action action = (Action) redo_stack.Pop ();
-			if (action == null) {
-				Console.WriteLine ("Nothing to Redo!");
-				return;
-			}
-
-			FreezeUndo ();
-
-			// Perform the undo
-			action.Redo ();
-
-			ThawUndoInternal ();
-
-			undo_stack.Push (action);
-
-			if (redo_stack.Count == 0 || undo_stack.Count == 1) {
-				if (UndoChanged != null)
-					UndoChanged (this, null);
-			}
+			UndoRedo (redo_stack, undo_stack, false /*redo*/);
 		}
 
 		public void FreezeUndo ()
 		{
-			++frozen_count;
-		}
-
-		void ThawUndoInternal ()
-		{
-			--frozen_count;
+			++frozen_cnt;
 		}
 
 		public void ThawUndo ()
 		{
-			ThawUndoInternal ();
+			--frozen_cnt;
+		}
 
-			if (frozen_count == 0) {
-				bool fire_changed = false;
+		void UndoRedo (Stack pop_from, Stack push_to, bool is_undo)
+		{
+			if (pop_from.Count > 0) {
+				EditAction action = (EditAction) pop_from.Pop ();
+				
+				FreezeUndo ();
+				if (is_undo)
+					action.Undo (buffer);
+				else 
+					action.Redo (buffer);
+				ThawUndo ();
 
-				if (undo_stack.Count != 0 || redo_stack.Count != 0)
-					fire_changed = true;
+				push_to.Push (action);
 
-				redo_stack.Clear ();
-				undo_stack.Clear ();
+				// Lock merges until a new undoable event comes in...
+				try_merge = false;
 
-				if (fire_changed && UndoChanged != null)
-					UndoChanged (this, null);
+				if (pop_from.Count == 0 || push_to.Count == 1)
+					if (UndoChanged != null)
+						UndoChanged (this, new EventArgs ());
 			}
 		}
 
-		//
-		// Some utility functions...
-		//
-
-		void PlaceCursor (int position) 
+		void ClearActionStack (Stack stack)
 		{
-			Console.WriteLine ("PlaceCursor position:{0}", position);
-
-			Gtk.TextIter iter = buffer.GetIterAtOffset (position);
-			buffer.MoveMark (buffer.InsertMark, iter);
+			foreach (EditAction action in stack) {
+				action.Destroy ();
+			}
+			stack.Clear ();
 		}
 
-		void InsertText (int position, string text)
+		public void ClearUndoHistory ()
 		{
-			Gtk.TextIter iter;
+			ClearActionStack (undo_stack);
+			ClearActionStack (redo_stack);
 
-			Console.WriteLine ("InsertText position:{0}, text:'{1}'", position, text);
-
-			iter = buffer.GetIterAtOffset (position);
-			buffer.MoveMark (buffer.SelectionBound, iter);
-
-			iter = buffer.GetIterAtOffset (position);
-			buffer.Insert (iter, text);
+			if (UndoChanged != null) 
+				UndoChanged (this, new EventArgs ());
 		}
 
-		void DeleteText (int start, int end)
+		void AddUndoAction (EditAction action)
 		{
-			Console.WriteLine ("DeleteText start:{0}, end:{1}", start, end);
+			if (try_merge && undo_stack.Count > 0) {
+				EditAction top = (EditAction) undo_stack.Peek ();
 
-			Gtk.TextIter start_iter = buffer.GetIterAtOffset (start);
-			Gtk.TextIter end_iter;
+				if (top.CanMerge (action)) {
+					// Merging object should handle freeing
+					// action's resources, if needed.
+					top.Merge (action);
+					return;
+				}
+			}
 
-			if (end < 0)
-				end_iter = buffer.EndIter;
-			else
-				end_iter = buffer.GetIterAtOffset (end);
-			
-			buffer.Delete (start_iter, end_iter);
+			undo_stack.Push (action);
+
+			// Clear the redo stack
+			ClearActionStack (redo_stack);
+
+			// Try to merge new incoming actions...
+			try_merge = true;
+
+			// Have undoable actions now
+			if (undo_stack.Count == 1) {
+				if (UndoChanged != null)
+					UndoChanged (this, new EventArgs ());
+			}
+		}
+
+		// Action-creating event handlers...
+
+		void OnInsertText (object sender, Gtk.InsertTextArgs args)
+		{
+			if (frozen_cnt == 0) {
+				AddUndoAction (new InsertAction (args.Pos, 
+								 args.Text, 
+								 args.Length,
+								 chop_buffer));
+			}
+		}
+
+		[GLib.ConnectBefore]
+		void OnDeleteRange (object sender, Gtk.DeleteRangeArgs args)
+		{
+			if (frozen_cnt == 0) {
+				AddUndoAction (new EraseAction (args.Start, 
+								args.End,
+								chop_buffer));
+			}
+		}
+
+		void OnTagApplied (object sender, Gtk.TagAppliedArgs args)
+		{
+			if (frozen_cnt == 0) {
+				if (NoteTagTable.TagIsUndoable (args.Tag)) {
+					AddUndoAction (new TagApplyAction (args.Tag,
+									   args.StartChar,
+									   args.EndChar));
+				}
+			}
+		}
+
+		void OnTagRemoved (object sender, Gtk.TagRemovedArgs args)
+		{
+			if (frozen_cnt == 0) {
+				if (NoteTagTable.TagIsUndoable (args.Tag)) {
+					// FIXME: Gtk# bug. StartChar and EndChar are not
+					//        mapped, so grab them from the Args iter.
+					Gtk.TextIter start, end;
+					start = (Gtk.TextIter) args.Args[1];
+					end = (Gtk.TextIter) args.Args[2];
+
+					AddUndoAction (new TagRemoveAction (args.Tag, start, end));
+				}
+			}
 		}
 	}
 }
