@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tomboy VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-05-19 20:10+0000\n"
-"PO-Revision-Date: 2005-05-22 13:30+0200\n"
+"POT-Creation-Date: 2005-05-29 04:11+0000\n"
+"PO-Revision-Date: 2005-05-29 14:12+0200\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -17,6 +17,14 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
 "10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: ../data/DefaultPlugins.desktop.in.in.h:1
+msgid "Default Plugins"
+msgstr "Implicitní zásuvné moduly"
+
+#: ../data/DefaultPlugins.desktop.in.in.h:2
+msgid "Directory containing system-installed Plugins"
+msgstr "Adresář obsahující zásuvné moduly nainstalované v systému"
 
 #: ../data/GNOME_TomboyApplet.server.in.in.h:1
 msgid "Accessories"
@@ -40,8 +48,9 @@ msgid "_About Tomboy..."
 msgstr "_O Tomboy..."
 
 #: ../data/GNOME_TomboyApplet.xml.h:2 ../Tomboy/Applet.cs:175
-msgid "_Install Plugins..."
-msgstr "_Instalovat zásuvné moduly..."
+#: ../Tomboy/NoteWindow.cs:539
+msgid "_Open Plugins Folder"
+msgstr "_Otevřít adresář zásuvných modulů"
 
 #: ../data/GNOME_TomboyApplet.xml.h:3 ../Tomboy/Applet.cs:170
 msgid "_Preferences..."
@@ -236,6 +245,36 @@ msgstr ""
 "Poslední nastavení zaškrtávacího pole 'Exportovat související poznámky' v "
 "zásuvném modulu Exportovat do HTML."
 
+#: ../libtomboy/gedit-print.c:144 ../Tomboy/Plugins/PrintNotes.cs:16
+msgid "Print"
+msgstr "Vytisknout"
+
+#: ../libtomboy/gedit-print.c:243
+msgid "Preparing pages..."
+msgstr "Připravuji stránky..."
+
+#: ../libtomboy/gedit-print.c:270
+#, c-format
+msgid "Rendering page %d of %d..."
+msgstr "Vykresluji stránku %d z %d..."
+
+#: ../libtomboy/gedit-print.c:272
+#, c-format
+msgid "Printing page %d of %d..."
+msgstr "Tisknu stránku %d z %d..."
+
+#: ../libtomboy/gedit-print.c:294
+msgid "Print preview"
+msgstr "Náhled tisku"
+
+#: ../libtomboy/gedit-print.c:446
+msgid "Page %N of %Q"
+msgstr "Stránka %N z %Q"
+
+#: ../libtomboy/gedit-print.c:448
+msgid "%A %D, %I:%M %p"
+msgstr "%A %x, %H:%M"
+
 #: ../Tomboy/Applet.cs:180
 msgid "_About Tomboy"
 msgstr "O _Tomboy"
@@ -245,17 +284,17 @@ msgid "_Quit"
 msgstr "U_končit"
 
 #. Open the Start Here note
-#: ../Tomboy/Note.cs:349 ../Tomboy/NoteManager.cs:85
-#: ../Tomboy/NoteManager.cs:90 ../Tomboy/Tomboy.cs:210 ../Tomboy/Tray.cs:112
+#: ../Tomboy/Note.cs:349 ../Tomboy/NoteManager.cs:84
+#: ../Tomboy/NoteManager.cs:91 ../Tomboy/Tomboy.cs:210 ../Tomboy/Tray.cs:112
 #: ../Tomboy/Tray.cs:277 ../Tomboy/XKeybinder.cs:259
 msgid "Start Here"
 msgstr "Začněte zde"
 
-#: ../Tomboy/NoteManager.cs:86
+#: ../Tomboy/NoteManager.cs:85
 msgid "Welcome to Tomboy!"
 msgstr "Vítá vás Tomboy!"
 
-#: ../Tomboy/NoteManager.cs:87
+#: ../Tomboy/NoteManager.cs:86
 msgid ""
 "Use this page as a Start Page for organizing your notes and keeping "
 "unorganized ideas around."
@@ -263,128 +302,128 @@ msgstr ""
 "Tuto stránku používejte jako počáteční stránku pro organizování vašich "
 "poznámek a ukládání neorganizovaných nápadů."
 
-#: ../Tomboy/NoteManager.cs:147
+#: ../Tomboy/NoteManager.cs:148
 #, csharp-format
 msgid "New Note {0}"
 msgstr "Nová poznámka {0}"
 
-#: ../Tomboy/NoteManager.cs:164
+#: ../Tomboy/NoteManager.cs:165
 msgid "Describe your new note here."
 msgstr "Zde popište vaši novou poznámku."
 
-#: ../Tomboy/NoteWindow.cs:277
+#: ../Tomboy/NoteWindow.cs:305
 msgid "Really delete this note?"
 msgstr "Opravdu odstranit tuto poznámku?"
 
-#: ../Tomboy/NoteWindow.cs:278
+#: ../Tomboy/NoteWindow.cs:306
 msgid "If you delete a note it is permanently lost."
 msgstr "Pokud odstraníte poznámku, je navždy ztracena."
 
-#: ../Tomboy/NoteWindow.cs:362
+#: ../Tomboy/NoteWindow.cs:390
 msgid "_Link to New Note"
 msgstr "_Odkaz na novou poznámku"
 
-#: ../Tomboy/NoteWindow.cs:375
+#: ../Tomboy/NoteWindow.cs:403
 msgid "Te_xt"
 msgstr "_Text"
 
-#: ../Tomboy/NoteWindow.cs:383
+#: ../Tomboy/NoteWindow.cs:411
 msgid "_Search"
 msgstr "_Hledat"
 
-#: ../Tomboy/NoteWindow.cs:397
-msgid "_Close Window"
-msgstr "_Zavřít okno"
+#: ../Tomboy/NoteWindow.cs:425
+msgid "Clos_e All Notes"
+msgstr "Z_avřít všechny poznámky"
 
-#: ../Tomboy/NoteWindow.cs:424
+#: ../Tomboy/NoteWindow.cs:435
+msgid "_Close"
+msgstr "_Zavřít"
+
+#: ../Tomboy/NoteWindow.cs:463
 msgid "Search"
 msgstr "Hledat"
 
-#: ../Tomboy/NoteWindow.cs:425
+#: ../Tomboy/NoteWindow.cs:464
 msgid "Search your notes"
 msgstr "Hledat ve vašich poznámkách"
 
-#: ../Tomboy/NoteWindow.cs:437
+#: ../Tomboy/NoteWindow.cs:476
 msgid "Link"
 msgstr "Odkaz"
 
-#: ../Tomboy/NoteWindow.cs:438
+#: ../Tomboy/NoteWindow.cs:477
 msgid "Link selected text to a new note"
 msgstr "Propojit vybraný text s novou poznámkou"
 
-#: ../Tomboy/NoteWindow.cs:452
+#: ../Tomboy/NoteWindow.cs:491
 msgid "_Text"
 msgstr "_Text"
 
-#: ../Tomboy/NoteWindow.cs:457
+#: ../Tomboy/NoteWindow.cs:496
 msgid "Set properties of text"
 msgstr "Nastavit vlastnosti textu"
 
-#: ../Tomboy/NoteWindow.cs:463
+#: ../Tomboy/NoteWindow.cs:502
 msgid "_Plugins"
 msgstr "Zásuvné _moduly"
 
-#: ../Tomboy/NoteWindow.cs:467
+#: ../Tomboy/NoteWindow.cs:506
 msgid "Run Plugin actions"
 msgstr "Spustit akce zásuvných modulů"
 
-#: ../Tomboy/NoteWindow.cs:474
+#: ../Tomboy/NoteWindow.cs:513
 msgid "Delete"
 msgstr "Odstranit"
 
-#: ../Tomboy/NoteWindow.cs:475
+#: ../Tomboy/NoteWindow.cs:514
 msgid "Delete this note"
 msgstr "Odstranit tuto poznámku"
 
-#: ../Tomboy/NoteWindow.cs:500
-msgid "Open Plugins Folder"
-msgstr "Otevřít adresář zásuvných modulů"
-
-#: ../Tomboy/NoteWindow.cs:532
+#: ../Tomboy/NoteWindow.cs:571
 msgid "_Search..."
 msgstr "_Hledat..."
 
-#: ../Tomboy/NoteWindow.cs:543 ../Tomboy/Search.cs:176
+#: ../Tomboy/NoteWindow.cs:582 ../Tomboy/Search.cs:176
 msgid "Find _Next"
 msgstr "Hledat _následující"
 
-#: ../Tomboy/NoteWindow.cs:556
+#: ../Tomboy/NoteWindow.cs:595
 msgid "Find _Previous"
 msgstr "Hledat _předchozí"
 
-#: ../Tomboy/NoteWindow.cs:714
+#: ../Tomboy/NoteWindow.cs:753
 msgid "<b>_Bold</b>"
 msgstr "<b>_Tučné</b>"
 
-#: ../Tomboy/NoteWindow.cs:724
+#: ../Tomboy/NoteWindow.cs:763
 msgid "<i>_Italic</i>"
 msgstr "<b>_Kurzíva</b>"
 
-#: ../Tomboy/NoteWindow.cs:734
+#: ../Tomboy/NoteWindow.cs:773
 msgid "<s>_Strikeout</s>"
 msgstr "<s>_Přeškrtunté</s>"
 
-#: ../Tomboy/NoteWindow.cs:745
+#: ../Tomboy/NoteWindow.cs:784
 msgid "_Highlight"
 msgstr "_Zvýraznění"
 
-#: ../Tomboy/NoteWindow.cs:758
+#: ../Tomboy/NoteWindow.cs:797
 msgid "Font Size"
 msgstr "Velikost písma"
 
-#: ../Tomboy/NoteWindow.cs:761
+#: ../Tomboy/NoteWindow.cs:800
 msgid "_Normal"
 msgstr "_Normální"
 
-#: ../Tomboy/NoteWindow.cs:768
+#: ../Tomboy/NoteWindow.cs:807
 msgid "Hu_ge"
 msgstr "_Obrovské"
 
-#: ../Tomboy/NoteWindow.cs:776
+#: ../Tomboy/NoteWindow.cs:815
 msgid "_Large"
 msgstr "_Velké"
 
-#: ../Tomboy/NoteWindow.cs:784
+#: ../Tomboy/NoteWindow.cs:823
 msgid "S_mall"
 msgstr "_Malé"
 
@@ -667,13 +706,17 @@ msgstr "Název poznámky používán"
 msgid "Related to: "
 msgstr "Souvisí s: "
 
-#: ../Tomboy/Watchers.cs:551
+#: ../Tomboy/Watchers.cs:536
 msgid "Cannot open location"
 msgstr "Nemohu otevřít umístění"
 
-#: ../Tomboy/Plugins/PrintNotes.cs:15
-msgid "Print"
-msgstr "Vytisknout"
+#: ../Tomboy/Watchers.cs:644
+msgid "_Copy Link Address"
+msgstr "_Kopírovat adresu odkazu"
+
+#: ../Tomboy/Watchers.cs:649
+msgid "_Open Link"
+msgstr "_Otevřít odkaz"
 
 #: ../Tomboy/Plugins/ExportToHTML.cs:46
 msgid "Export to HTML"
@@ -686,6 +729,9 @@ msgstr "Cíl exportu do HTML"
 #: ../Tomboy/Plugins/ExportToHTML.cs:192
 msgid "Export linked notes"
 msgstr "Exportovat související poznámky"
+
+#~ msgid "_Install Plugins..."
+#~ msgstr "_Instalovat zásuvné moduly..."
 
 #~ msgid "Print this note"
 #~ msgstr "Vytisknout tuto poznámku"
