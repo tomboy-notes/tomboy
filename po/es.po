@@ -8,10 +8,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: tomboy\n"
+"Project-Id-Version: tomboy.HEAD.es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-05-16 13:15+0000\n"
-"PO-Revision-Date: 2005-05-16 18:58+0200\n"
+"POT-Creation-Date: 2005-05-26 12:18+0000\n"
+"PO-Revision-Date: 2005-05-26 20:28+0200\n"
 "Last-Translator: Jorge Gonzalez <jorge.gonzalez.gonzalez@hispalinux.es>\n"
 "Language-Team:  <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -19,6 +19,14 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 "X-Generator: KBabel 1.9.1\n"
+
+#: ../data/DefaultPlugins.desktop.in.in.h:1
+msgid "Default Plugins"
+msgstr "Complementos predeterminados"
+
+#: ../data/DefaultPlugins.desktop.in.in.h:2
+msgid "Directory containing system-installed Plugins"
+msgstr "Directorio que contiene los complementos del sistema instalados"
 
 #: ../data/GNOME_TomboyApplet.server.in.in.h:1
 msgid "Accessories"
@@ -42,8 +50,9 @@ msgid "_About Tomboy..."
 msgstr "_Sobre Tomboy..."
 
 #: ../data/GNOME_TomboyApplet.xml.h:2 ../Tomboy/Applet.cs:175
-msgid "_Install Plugins..."
-msgstr "_Instalar complementos..."
+#: ../Tomboy/NoteWindow.cs:539
+msgid "_Open Plugins Folder"
+msgstr "_Abrir la carpeta de los complementos"
 
 #: ../data/GNOME_TomboyApplet.xml.h:3 ../Tomboy/Applet.cs:170
 msgid "_Preferences..."
@@ -241,6 +250,36 @@ msgstr ""
 "Las última casilla de preferencias para «Exportar las notas enlazadas a "
 "HTML» en el complemento Exportar a HTML."
 
+#: ../libtomboy/gedit-print.c:144 ../Tomboy/Plugins/PrintNotes.cs:16
+msgid "Print"
+msgstr "Imprimir"
+
+#: ../libtomboy/gedit-print.c:243
+msgid "Preparing pages..."
+msgstr "Preparando las páginas..."
+
+#: ../libtomboy/gedit-print.c:270
+#, c-format
+msgid "Rendering page %d of %d..."
+msgstr "Renderizando página %d de %d..."
+
+#: ../libtomboy/gedit-print.c:272
+#, c-format
+msgid "Printing page %d of %d..."
+msgstr "Imprimiendo página %d de %d..."
+
+#: ../libtomboy/gedit-print.c:294
+msgid "Print preview"
+msgstr "Vista preliminar de impresión"
+
+#: ../libtomboy/gedit-print.c:446
+msgid "Page %N of %Q"
+msgstr "Página %N de %Q"
+
+#: ../libtomboy/gedit-print.c:448
+msgid "%A %D, %I:%M %p"
+msgstr "%A %D, %I:%M %p"
+
 #: ../Tomboy/Applet.cs:180
 msgid "_About Tomboy"
 msgstr "_Acerca de Tomboy"
@@ -250,17 +289,17 @@ msgid "_Quit"
 msgstr "_Salir"
 
 #. Open the Start Here note
-#: ../Tomboy/Note.cs:349 ../Tomboy/NoteManager.cs:85
-#: ../Tomboy/NoteManager.cs:90 ../Tomboy/Tomboy.cs:210 ../Tomboy/Tray.cs:112
-#: ../Tomboy/Tray.cs:274 ../Tomboy/XKeybinder.cs:256
+#: ../Tomboy/Note.cs:349 ../Tomboy/NoteManager.cs:84
+#: ../Tomboy/NoteManager.cs:91 ../Tomboy/Tomboy.cs:210 ../Tomboy/Tray.cs:112
+#: ../Tomboy/Tray.cs:277 ../Tomboy/XKeybinder.cs:259
 msgid "Start Here"
 msgstr "Comenzar aquí"
 
-#: ../Tomboy/NoteManager.cs:86
+#: ../Tomboy/NoteManager.cs:85
 msgid "Welcome to Tomboy!"
 msgstr "Bienvenido a Tomboy"
 
-#: ../Tomboy/NoteManager.cs:87
+#: ../Tomboy/NoteManager.cs:86
 msgid ""
 "Use this page as a Start Page for organizing your notes and keeping "
 "unorganized ideas around."
@@ -268,124 +307,128 @@ msgstr ""
 "Use esta nota como página de inicio para organizar sus notas y tener sus "
 "ideas a mano."
 
-#: ../Tomboy/NoteManager.cs:147
+#: ../Tomboy/NoteManager.cs:148
 #, csharp-format
 msgid "New Note {0}"
 msgstr "Nueva nota {0}"
 
-#: ../Tomboy/NoteManager.cs:164
+#: ../Tomboy/NoteManager.cs:165
 msgid "Describe your new note here."
 msgstr "Describa aquí su nueva nota."
 
-#: ../Tomboy/NoteWindow.cs:284
+#: ../Tomboy/NoteWindow.cs:305
 msgid "Really delete this note?"
 msgstr "¿Desea borrar esta nota?"
 
-#: ../Tomboy/NoteWindow.cs:285
+#: ../Tomboy/NoteWindow.cs:306
 msgid "If you delete a note it is permanently lost."
 msgstr "Si borra esta nota se perderá permanentemente."
 
-#: ../Tomboy/NoteWindow.cs:368
+#: ../Tomboy/NoteWindow.cs:390
 msgid "_Link to New Note"
 msgstr "_Enlace a una nueva nota"
 
-#: ../Tomboy/NoteWindow.cs:381
+#: ../Tomboy/NoteWindow.cs:403
 msgid "Te_xt"
 msgstr "_Texto"
 
-#: ../Tomboy/NoteWindow.cs:389
+#: ../Tomboy/NoteWindow.cs:411
 msgid "_Search"
 msgstr "_Buscar"
 
-#: ../Tomboy/NoteWindow.cs:403
-msgid "_Close Window"
-msgstr "_Cerrar ventana"
+#: ../Tomboy/NoteWindow.cs:425
+msgid "Clos_e All Notes"
+msgstr "C_errar todas las notas"
 
-#: ../Tomboy/NoteWindow.cs:440
+#: ../Tomboy/NoteWindow.cs:435
+msgid "_Close"
+msgstr "_Cerrar"
+
+#: ../Tomboy/NoteWindow.cs:463
 msgid "Search"
 msgstr "Buscar"
 
-#: ../Tomboy/NoteWindow.cs:441
+#: ../Tomboy/NoteWindow.cs:464
 msgid "Search your notes"
 msgstr "Buscar en sus notas"
 
-#: ../Tomboy/NoteWindow.cs:453
+#: ../Tomboy/NoteWindow.cs:476
 msgid "Link"
 msgstr "Enlace"
 
-#: ../Tomboy/NoteWindow.cs:454
+#: ../Tomboy/NoteWindow.cs:477
 msgid "Link selected text to a new note"
 msgstr "Enlazar el texto seleccionado a una nueva nota"
 
-#: ../Tomboy/NoteWindow.cs:467
+#: ../Tomboy/NoteWindow.cs:491
 msgid "_Text"
 msgstr "_Texto"
 
-#: ../Tomboy/NoteWindow.cs:478
+#: ../Tomboy/NoteWindow.cs:496
 msgid "Set properties of text"
 msgstr "Establecer las propiedades del texto"
 
-#: ../Tomboy/NoteWindow.cs:494
-msgid "Run plugin actions"
+#: ../Tomboy/NoteWindow.cs:502
+msgid "_Plugins"
+msgstr "_Complementos"
+
+#: ../Tomboy/NoteWindow.cs:506
+msgid "Run Plugin actions"
 msgstr "Ejecutar las acciones del complemento"
 
-#: ../Tomboy/NoteWindow.cs:501
+#: ../Tomboy/NoteWindow.cs:513
 msgid "Delete"
 msgstr "Borrar"
 
-#: ../Tomboy/NoteWindow.cs:502
+#: ../Tomboy/NoteWindow.cs:514
 msgid "Delete this note"
 msgstr "Borrar esta nota"
 
-#: ../Tomboy/NoteWindow.cs:527
-msgid "Open Plugins Folder"
-msgstr "Abrir la carpeta de los complementos"
-
-#: ../Tomboy/NoteWindow.cs:559
+#: ../Tomboy/NoteWindow.cs:571
 msgid "_Search..."
 msgstr "_Buscar..."
 
-#: ../Tomboy/NoteWindow.cs:570 ../Tomboy/Search.cs:176
+#: ../Tomboy/NoteWindow.cs:582 ../Tomboy/Search.cs:176
 msgid "Find _Next"
 msgstr "Buscar _siguiente"
 
-#: ../Tomboy/NoteWindow.cs:583
+#: ../Tomboy/NoteWindow.cs:595
 msgid "Find _Previous"
 msgstr "Buscar _anterior"
 
-#: ../Tomboy/NoteWindow.cs:784
+#: ../Tomboy/NoteWindow.cs:753
 msgid "<b>_Bold</b>"
 msgstr "<b>_Negrita</b>"
 
-#: ../Tomboy/NoteWindow.cs:794
+#: ../Tomboy/NoteWindow.cs:763
 msgid "<i>_Italic</i>"
 msgstr "<i>_Cursiva</i>"
 
-#: ../Tomboy/NoteWindow.cs:804
+#: ../Tomboy/NoteWindow.cs:773
 msgid "<s>_Strikeout</s>"
 msgstr "<s>_Tachado</s>"
 
-#: ../Tomboy/NoteWindow.cs:815
+#: ../Tomboy/NoteWindow.cs:784
 msgid "_Highlight"
 msgstr "_Resaltado"
 
-#: ../Tomboy/NoteWindow.cs:828
+#: ../Tomboy/NoteWindow.cs:797
 msgid "Font Size"
 msgstr "Tamaño de la fuente"
 
-#: ../Tomboy/NoteWindow.cs:831
+#: ../Tomboy/NoteWindow.cs:800
 msgid "_Normal"
 msgstr "_Normal"
 
-#: ../Tomboy/NoteWindow.cs:838
+#: ../Tomboy/NoteWindow.cs:807
 msgid "Hu_ge"
 msgstr "_Enorme"
 
-#: ../Tomboy/NoteWindow.cs:846
+#: ../Tomboy/NoteWindow.cs:815
 msgid "_Large"
 msgstr "_Grande"
 
-#: ../Tomboy/NoteWindow.cs:854
+#: ../Tomboy/NoteWindow.cs:823
 msgid "S_mall"
 msgstr "_Pequeña"
 
@@ -630,20 +673,20 @@ msgstr "_Buscar en notas..."
 msgid " (new)"
 msgstr " (nueva)"
 
-#: ../Tomboy/Tray.cs:226
+#: ../Tomboy/Tray.cs:229
 msgid "translator-credits"
 msgstr "Jorge González <jorge.gonzalez.gonzalez@hispalinux.es>"
 
-#: ../Tomboy/Tray.cs:232
+#: ../Tomboy/Tray.cs:235
 msgid "Copyright © 2004, 2005 Alex Graveley"
 msgstr "Copyright © 2004 Alex Graveley"
 
-#: ../Tomboy/Tray.cs:233
+#: ../Tomboy/Tray.cs:236
 msgid "A simple and easy to use desktop note-taking application."
 msgstr "Una aplicación simple y fácil de usar para tomar notas en el escritorio."
 
 #. initial newline
-#: ../Tomboy/Tray.cs:282
+#: ../Tomboy/Tray.cs:285
 msgid "dddd, MMMM d, h:mm tt"
 msgstr "dddd, MMMM d, h:mm tt"
 
@@ -669,13 +712,17 @@ msgstr "El título de la nota ya existe"
 msgid "Related to: "
 msgstr "Relacionado con: "
 
-#: ../Tomboy/Watchers.cs:551
+#: ../Tomboy/Watchers.cs:536
 msgid "Cannot open location"
 msgstr "No se puede abrir la dirección"
 
-#: ../Tomboy/Plugins/PrintNotes.cs:15
-msgid "Print"
-msgstr "Imprimir"
+#: ../Tomboy/Watchers.cs:644
+msgid "_Copy Link Address"
+msgstr "_Copiar la dirección del enlace"
+
+#: ../Tomboy/Watchers.cs:649
+msgid "_Open Link"
+msgstr "_Abrir enlace"
 
 #: ../Tomboy/Plugins/ExportToHTML.cs:46
 msgid "Export to HTML"
