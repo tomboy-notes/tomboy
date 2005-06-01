@@ -750,7 +750,9 @@ namespace Tomboy
 				undo_manager.UndoChanged += UndoChanged;
 			}
 
-			bold = new Gtk.CheckMenuItem (Catalog.GetString ("<b>_Bold</b>"));
+			bold = new Gtk.CheckMenuItem ("<b>" + 
+						      Catalog.GetString ("_Bold") + 
+						      "</b>");
 			MarkupLabel (bold);
 			bold.Data ["Tag"] = "bold";
 			bold.Activated += FontStyleClicked;
@@ -760,7 +762,9 @@ namespace Tomboy
 					     Gdk.ModifierType.ControlMask,
 					     Gtk.AccelFlags.Visible);
 
-			italic = new Gtk.CheckMenuItem (Catalog.GetString ("<i>_Italic</i>"));
+			italic = new Gtk.CheckMenuItem ("<i>" + 
+							Catalog.GetString ("_Italic") + 
+							"</i>");
 			MarkupLabel (italic);
 			italic.Data ["Tag"] = "italic";
 			italic.Activated += FontStyleClicked;
@@ -770,7 +774,9 @@ namespace Tomboy
 					       Gdk.ModifierType.ControlMask,
 					       Gtk.AccelFlags.Visible);
 
-			strikeout = new Gtk.CheckMenuItem (Catalog.GetString ("<s>_Strikeout</s>"));
+			strikeout = new Gtk.CheckMenuItem ("<s>" + 
+							   Catalog.GetString ("_Strikeout") + 
+							   "</s>");
 			MarkupLabel (strikeout);
 			strikeout.Data ["Tag"] = "strikethrough";
 			strikeout.Activated += FontStyleClicked;
