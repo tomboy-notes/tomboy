@@ -5,7 +5,7 @@
 		xmlns:link="http://beatniksoftware.com/tomboy/link"
                 version='1.0'>
 
-<xsl:output method="html" />
+<xsl:output method="html" indent="no" />
 <xsl:preserve-space elements="*" />
 
 <xsl:param name="font" />
@@ -29,7 +29,12 @@
 		   border: 1px solid black;
 		   display: block;
 		   padding: 5pt;
-		   margin: 5pt; }
+		   margin: 5pt; 
+		   white-space: -moz-pre-wrap; /* Mozilla */
+ 	      	   white-space: -pre-wrap;     /* Opera 4 - 6 */
+ 	      	   white-space: -o-pre-wrap;   /* Opera 7 */
+ 	      	   white-space: pre-wrap;      /* CSS3 */
+ 	      	   word-wrap: break-word;      /* IE 5.5+ */ }
 	</style>
 	</head>
 	<body>
@@ -46,7 +51,7 @@
 
 <xsl:template match="tomboy:text">
 	<div class="note" 
-	     id="{/tomboy:note/tomboy:title}" 
+	     id="{/tomboy:note/tomboy:title}"
 	     style="width:{/tomboy:note/tomboy:width};">
 		<a name="#{/tomboy:note/tomboy:title}" />
 		<xsl:apply-templates select="node()" />
@@ -61,9 +66,7 @@
 
 <xsl:template match="tomboy:note/tomboy:text/*[1]/text()[1]">
 	<h1><xsl:value-of select="substring-before(., $newline)"/></h1>
-	<xsl:call-template name="replace">
-		<xsl:with-param name="text" select="substring-after(., $newline)"/>
-	</xsl:call-template>
+	<xsl:value-of select="substring-after(., $newline)"/>
 </xsl:template>
 
 <xsl:template match="tomboy:bold">
@@ -106,28 +109,6 @@
 
 <xsl:template match="link:url">
 	<a href="{node()}"><xsl:value-of select="node()"/></a>
-</xsl:template>
-
-<xsl:template match="text()">
-	<xsl:call-template name="replace">
-		<xsl:with-param name="text" select="."/>
-	</xsl:call-template>
-</xsl:template>
-
-<xsl:template name="replace">
-	<xsl:param name="text"/>
-	<xsl:choose>
-		<xsl:when test="contains($text, $newline)">
-			<xsl:value-of select="substring-before($text, $newline)"/><br/>
-			<xsl:call-template name="replace">
-				<xsl:with-param name="text" 
-						select="substring-after($text, $newline)"/>
-			</xsl:call-template>
-		</xsl:when>
-		<xsl:otherwise>
-			<xsl:value-of select="$text"/>
-		</xsl:otherwise>
-	</xsl:choose>
 </xsl:template>
 
 </xsl:stylesheet>
