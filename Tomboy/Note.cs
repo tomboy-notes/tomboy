@@ -297,12 +297,15 @@ namespace Tomboy
 									text);
 					buffer.Modified = false;
 
-					// Move cursor to last-saved position
+					
 					Gtk.TextIter cursor;
-					if (cursor_pos != 0)
+					if (cursor_pos != 0) {
+						// Move cursor to last-saved position
 						cursor = buffer.GetIterAtOffset (cursor_pos);
-					else
-						cursor = buffer.GetIterAtLine (2); // avoid title line
+					} else {
+						// Avoid title line
+						cursor = buffer.GetIterAtLine (2);
+					}
 					buffer.PlaceCursor (cursor);
 
 					// New events should create Undo actions
@@ -372,7 +375,8 @@ namespace Tomboy
 	{
 		public static void Read (string read_file, Note note) 
 		{
-			StreamReader reader = new StreamReader (read_file, System.Text.Encoding.UTF8);
+			StreamReader reader = new StreamReader (read_file, 
+								System.Text.Encoding.UTF8);
 			XmlTextReader xml = new XmlTextReader (reader);
 			xml.Namespaces = false;
 
