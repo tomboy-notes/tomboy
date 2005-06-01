@@ -440,11 +440,13 @@ namespace Tomboy
 			@"((\b((news|http|https|ftp|file|irc)://|mailto:|(www|ftp)\.|\S*@\S*\.)|(^|\s)/\S+/|(^|\s)~/\S+)\S*\b/?)";
 
 		static Regex regex;
+		static bool text_event_connected;
 
 		static NoteUrlWatcher ()
 		{
 			regex = new Regex (URL_REGEX, 
 					   RegexOptions.IgnoreCase | RegexOptions.Compiled);
+			text_event_connected = false;
 		}
 
 		protected override void Initialize ()
@@ -465,7 +467,21 @@ namespace Tomboy
 				return;
 			}
 
+#if FIXED_GTKSPELL
+			// NOTE: This hack helps avoid multiple URL opens for
+			// cases where the GtkSpell version is fixed to allow
+			// TagTable sharing.  This is because if the TagTable is
+			// shared, we will connect to the same Tag's event
+			// source each time a note is opened, and get called
+			// multiple times for each button press.  Fixes bug
+			// #305813.
+			if (!text_event_connected) {
+				url_tag.TextEvent += OnTextEvent;
+				text_event_connected = true;
+			}
+#else
 			url_tag.TextEvent += OnTextEvent;
+#endif
 
 			click_mark = Buffer.CreateMark (null, Buffer.StartIter, true);
 
@@ -1080,11 +1096,13 @@ namespace Tomboy
 
 		static Gdk.Cursor normal_cursor;
 		static Gdk.Cursor hand_cursor;
+		static bool text_event_connected;
 
 		static MouseHandWatcher ()
 		{
 			normal_cursor = new Gdk.Cursor (Gdk.CursorType.Xterm);
 			hand_cursor = new Gdk.Cursor (Gdk.CursorType.Hand2);
+			text_event_connected = false;
 		}
 
 		protected override void Initialize ()
@@ -1100,10 +1118,24 @@ namespace Tomboy
 		protected override void OnNoteOpened ()
 		{
 			link_tag = Buffer.TagTable.Lookup ("link:internal");
-			link_tag.TextEvent += OnLinkTextEvent;
-
 			broken_link_tag = Buffer.TagTable.Lookup ("link:broken");
+
+#if FIXED_GTKSPELL
+			// NOTE: This avoid multiple link opens for cases where
+			// the GtkSpell version is fixed to allow TagTable
+			// sharing.  This is because if the TagTable is shared,
+			// we will connect to the same Tag's event source each
+			// time a note is opened, and get called multiple times
+			// for each button press.  Fixes bug #305813.
+			if (!text_event_connected) {
+				link_tag.TextEvent += OnLinkTextEvent;
+				broken_link_tag.TextEvent += OnLinkTextEvent;
+				text_event_connected = true;
+			}
+#else
+			link_tag.TextEvent += OnLinkTextEvent;
 			broken_link_tag.TextEvent += OnLinkTextEvent;
+#endif
 
 			Gtk.TextView editor = Window.Editor;
 			editor.MotionNotifyEvent += OnEditorMotion;
