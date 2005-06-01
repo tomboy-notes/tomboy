@@ -93,14 +93,6 @@ namespace Tomboy
 			tag.Scale = Pango.Scale.Small;
 			Add (tag);
 
-			// Lists
-
-			tag = new Gtk.TextTag ("list:bullet");
-			Add (tag);
-
-			tag = new Gtk.TextTag ("list:numbered");
-			Add (tag);
-
 			// Links
 
 			tag = new Gtk.TextTag ("link:broken");
