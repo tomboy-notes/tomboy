@@ -569,7 +569,7 @@ namespace Tomboy
 		}
 	}
 
-	class ToolMenuButton : Gtk.Button
+	class ToolMenuButton : Gtk.ToggleButton
 	{
 		bool is_important;
 		Gtk.Menu menu;
@@ -632,17 +632,35 @@ namespace Tomboy
 		protected override bool OnButtonPressEvent (Gdk.EventButton ev) 
 		{
 			GuiUtils.PopupMenu (menu, ev);
+			Active = true;
 			return true;
 		}
 
 		protected override void OnActivated () 
 		{
+			menu.SelectFirst (true);
 			GuiUtils.PopupMenu (menu, null);
+			Active = true;
+		}
+
+		protected override bool OnMnemonicActivated (bool group_cycling)
+		{
+			// ToggleButton always grabs focus away from the editor,
+			// so reimplement Widget's version, which only grabs the
+			// focus if we are group cycling.
+			if (!group_cycling) {
+				Activate ();
+			} else if (CanFocus) {
+				GrabFocus ();
+			}
+
+			return true;
 		}
 
 		void ReleaseButton (object sender, EventArgs args) 
 		{
-			// Call Release the state when the menu closes
+			// Release the state when the menu closes
+			Active = false;
 			Release ();
 		}
 
