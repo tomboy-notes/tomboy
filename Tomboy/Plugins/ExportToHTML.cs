@@ -96,8 +96,6 @@ public class ExportToHTMLPlugin : NotePlugin
 			       Note note,
 			       bool export_linked) 
 	{
-		FixupOldNote (note);
-
 		// NOTE: Don't use the XmlDocument version, which strips
 		// whitespace between elements for some reason.  Also,
 		// XPathDocument is faster.
@@ -119,26 +117,6 @@ public class ExportToHTMLPlugin : NotePlugin
 		NoteNameResolver resolver = new NoteNameResolver (note.Manager);
 		xsl.Transform (doc, args, writer, resolver);
 	}
-
-	public static void FixupOldNote (Note note)
-	{
-		DateTime old_write_time = File.GetLastWriteTime (note.FilePath);
-
-		// NOTE: Old notes have broken namespaces and whitespace, so
-		// force a rewrite of the file to fix this up.
-		// FIXME: Add version to notes and only call
-		// note.QueueSave if the version is old.  
-		note.QueueSave (false);
-		note.Save ();
-
-		try {
-			File.SetLastWriteTime (note.FilePath, old_write_time);
-		} catch (Exception e) {
-			Console.WriteLine ("Error resetting write time on note '{0}': {1}",
-					   note.FilePath,
-					   e);
-		}
-	}
 }
 
 class NoteNameResolver : XmlResolver
@@ -159,8 +137,6 @@ class NoteNameResolver : XmlResolver
 	{		
 		Note note = manager.FindByUri (absoluteUri.ToString());
 		if (note != null) {
-			ExportToHTMLPlugin.FixupOldNote (note);
-
 			FileStream stream = File.OpenRead (note.FilePath);
 			Console.WriteLine ("GetEntity: Returning Stream");
 			return stream;
