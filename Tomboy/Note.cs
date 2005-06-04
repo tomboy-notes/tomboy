@@ -13,7 +13,6 @@ namespace Tomboy
 	{
 		string filepath;
 
-		DateTime change_date;
 		bool save_needed;
 		bool is_new;
 
@@ -23,6 +22,9 @@ namespace Tomboy
 		internal int width, height;
 		internal int x, y;
 		internal int cursor_pos;
+		internal DateTime create_date;
+		internal DateTime change_date;
+		internal string version;
 
 		NoteManager manager;
 		NoteWindow window;
@@ -44,7 +46,8 @@ namespace Tomboy
 			this.filepath = filepath;
 			this.manager = manager;
 			this.is_new = true;
-			this.change_date = DateTime.Now;
+			this.create_date = DateTime.Now;
+			this.change_date = create_date;
 		}
 
 		// Internal constructor, used when loading from an exising filepath.
@@ -54,6 +57,7 @@ namespace Tomboy
 			this.manager = manager;
 			this.filepath = filepath;
 			this.is_new = false;
+			this.create_date = DateTime.MinValue;
 			this.change_date = File.GetLastWriteTime (filepath);
 		}
 
@@ -72,6 +76,14 @@ namespace Tomboy
 		{
 			Note note = new Note (read_file, manager);
 			NoteArchiver.Read (read_file, note);
+
+			if (note.version != NoteArchiver.CURRENT_VERSION) {
+				// Note has old format, so rewrite it.  No need
+				// to reread, since we are not adding anything.
+				Console.WriteLine ("Updating note XML to newest format...");
+				NoteArchiver.Write (read_file, note);
+			}
+
 			return note;
 		}
 
@@ -257,6 +269,11 @@ namespace Tomboy
 			}
 		}
 
+		public DateTime CreateDate 
+		{
+			get { return create_date; }
+		}
+
 		public DateTime ChangeDate 
 		{
 			get { return change_date; }
@@ -373,6 +390,8 @@ namespace Tomboy
 
 	public class NoteArchiver
 	{
+		public const string CURRENT_VERSION = "0.2";
+
 		public static void Read (string read_file, Note note) 
 		{
 			StreamReader reader = new StreamReader (read_file, 
@@ -385,6 +404,7 @@ namespace Tomboy
 				case XmlNodeType.Element:
 					switch (xml.Name) {
 					case "note":
+						note.version = xml.GetAttribute ("version");
 						break;
 					case "title":
 						note.title = xml.ReadString ();
@@ -393,6 +413,14 @@ namespace Tomboy
 						// <text> is just a wrapper around <note-content>
 						// NOTE: Use .text here to avoid triggering a save.
 						note.text = xml.ReadInnerXml ();
+						break;
+					case "last-change-date":
+						note.change_date = 
+							XmlConvert.ToDateTime (xml.ReadString ());
+						break;
+					case "create-date":
+						note.create_date = 
+							XmlConvert.ToDateTime (xml.ReadString ());
 						break;
 					case "cursor-position":
 						note.cursor_pos = int.Parse (xml.ReadString ());
@@ -426,6 +454,10 @@ namespace Tomboy
 
 			xml.WriteStartDocument ();
 			xml.WriteStartElement (null, "note", "http://beatniksoftware.com/tomboy");
+			xml.WriteAttributeString(null, 
+						 "version", 
+						 null, 
+						 CURRENT_VERSION);
 			xml.WriteAttributeString("xmlns", 
 						 "link", 
 						 null, 
@@ -446,6 +478,16 @@ namespace Tomboy
 			//       from the buffer, if needed.
 			xml.WriteRaw (note.XmlContent);
 			xml.WriteEndElement ();
+
+			xml.WriteStartElement (null, "last-change-date", null);
+			xml.WriteString (XmlConvert.ToString (note.change_date));
+			xml.WriteEndElement ();
+
+			if (note.create_date != DateTime.MinValue) {
+				xml.WriteStartElement (null, "create-date", null);
+				xml.WriteString (XmlConvert.ToString (note.create_date));
+				xml.WriteEndElement ();
+			}
 
 			xml.WriteStartElement (null, "cursor-position", null);
 			xml.WriteString (note.cursor_pos.ToString ());
@@ -483,6 +525,9 @@ namespace Tomboy
 
 			// Move the temp file to write_file
 			File.Move (tmp_file, write_file);
+
+			// This is always the latest after a write
+			note.version = CURRENT_VERSION;
 		}
 	}
 }
