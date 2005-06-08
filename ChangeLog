@@ -1,3 +1,11 @@
+2005-06-08  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/panelapplet/AppletFactory.cs: Subclass from GLib.Object.
+	Needed to work around what I can only guess is a mono 1.0.x and
+	1.1.x incompatibility, whereby calling protected
+	GLib.Object.LookupGType externally is no longer allowed.
+	Hopefully fixes bug #306815.
+
 2005-06-05  Alex Graveley  <alex@beatniksoftware.com>
 
 	* libtomboy/tomboykeybinder.c: Lookup and bind to combinations of
