@@ -1,5 +1,11 @@
 2005-06-08  Alex Graveley  <alex@beatniksoftware.com>
 
+	* Tomboy/Plugins/ExportToHTML.cs: Fix another protected static
+	access, which recently in mono 1.1.7.2 been fixed to throw an
+	error.
+
+2005-06-08  Alex Graveley  <alex@beatniksoftware.com>
+
 	* Tomboy/panelapplet/AppletFactory.cs: Subclass from GLib.Object.
 	Needed to work around what I can only guess is a mono 1.0.x and
 	1.1.x incompatibility, whereby calling protected

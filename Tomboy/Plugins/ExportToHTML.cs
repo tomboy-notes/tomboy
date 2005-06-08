@@ -82,8 +82,9 @@ public class ExportToHTMLPlugin : NotePlugin
 
 			writer = new StreamWriter (output_path);
 			WriteHTMLForNote (writer, Note, dialog.ExportLinked);
-			
-			Gnome.Url.Show ("file://" + Uri.EscapeString(output_path));
+
+			Uri output_uri = new Uri (output_path);
+			Gnome.Url.Show (output_uri.AbsoluteUri);
 		} catch (Exception e) {
 			System.Console.WriteLine ("Could not export: {0}", e);
 		} finally {
