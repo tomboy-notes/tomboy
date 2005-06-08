@@ -4,9 +4,9 @@ using System.Runtime.InteropServices;
 
 namespace PanelApplet
 {
-	public class AppletFactory
+	public class AppletFactory : GLib.Object
 	{
-		private AppletFactory () { }
+		private AppletFactory () : base (IntPtr.Zero) { }
 
 		private static string _IID;
 		private static string _factoryIID;
