@@ -1356,7 +1356,13 @@ create_layout_for_para (GtkSourcePrintJob *job,
 		 * first one.
 		 * See also Comment #23 by Owen on bug #143874.
 		 */
-		pango_layout_set_ellipsize (layout, PANGO_ELLIPSIZE_END);
+
+		/* orph says to comment this out and commit it.
+		   PANGO_ELLIPSIZE_END is not available in pango
+		   1.4.1, at least, and he says this code is never
+		   used. */
+		/*pango_layout_set_ellipsize (layout, PANGO_ELLIPSIZE_END);*/
+
 		break;
 	}
 
