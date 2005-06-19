@@ -374,12 +374,12 @@ namespace Tomboy
 					Gtk.TextIter start = buffer.GetIterAtMark (match.StartMark);
 					Gtk.TextIter end = buffer.GetIterAtMark (match.EndMark);
 
-					if (highlight)
+					match.Highlighting = highlight && Visible;
+
+					if (match.Highlighting)
 						buffer.ApplyTag ("find-match", start, end);
 					else
 						buffer.RemoveTag ("find-match", start, end);
-
-					match.Highlighting = highlight;
 				}
 			}
 		}
