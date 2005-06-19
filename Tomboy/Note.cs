@@ -36,6 +36,8 @@ namespace Tomboy
 		{
 			save_timeout = new InterruptableTimeout ();
 			save_timeout.Timeout += SaveTimeout;
+			x = -1;
+			y = -1;
 		}
 
 		// Create a new note stored in a file...
@@ -349,10 +351,7 @@ namespace Tomboy
 					if (width != 0 && height != 0)
 						window.SetDefaultSize (width, height);
 
-					// Center new notes on screen
-					if (x == 0 && y == 0)
-						window.SetPosition (Gtk.WindowPosition.Center);
-					else
+					if (x != -1 && y != -1)
 						window.Move (x, y);
 
 					// This is here because emiting
