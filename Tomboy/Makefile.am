@@ -61,7 +61,7 @@ ASSEMBLIES = 		\
 RESOURCES = 										\
 	-resource:$(top_srcdir)/data/GNOME_TomboyApplet.xml,GNOME_TomboyApplet.xml	\
 	-resource:$(top_srcdir)/data/Start_Here.note,Start_Here.note			\
-	-resource:$(top_srcdir)/data/DefaultPlugins.desktop,DefaultPlugins.desktop	\
+	-resource:$(top_builddir)/data/DefaultPlugins.desktop,DefaultPlugins.desktop	\
 	-resource:$(top_srcdir)/data/images/tintin.png,tintin.png			\
 	-resource:$(top_srcdir)/data/images/stock_notes.png,stock_notes.png		\
 	-resource:$(top_srcdir)/data/images/gnome-stock-searchtool.png,gnome-stock-searchtool.png
