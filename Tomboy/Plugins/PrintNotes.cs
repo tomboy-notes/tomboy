@@ -3,7 +3,6 @@ using System;
 using System.Runtime.InteropServices;
 using Mono.Posix;
 
-using Gnome;
 using Gtk;
 
 using Tomboy;

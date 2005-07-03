@@ -113,16 +113,28 @@ namespace Tomboy
 		{
 			this.plugins_dir = plugins_dir;
 
-			dir_watcher = new FileSystemWatcher (plugins_dir, "*.dll");
-			dir_watcher.Created += OnPluginCreated;
-			dir_watcher.Deleted += OnPluginDeleted;
-			dir_watcher.EnableRaisingEvents = true;
-
-			sys_dir_watcher = new FileSystemWatcher (Defines.SYS_PLUGINS_DIR, "*.dll");
-			sys_dir_watcher.Created += OnPluginCreated;
-			sys_dir_watcher.Deleted += OnPluginDeleted;
-			sys_dir_watcher.EnableRaisingEvents = true;
-
+			try {
+				dir_watcher = new FileSystemWatcher (plugins_dir, "*.dll");
+				dir_watcher.Created += OnPluginCreated;
+				dir_watcher.Deleted += OnPluginDeleted;
+				dir_watcher.EnableRaisingEvents = true;
+			} catch (ArgumentException e) { 
+				Console.WriteLine ("Error creating a FileSystemWatcher on {0} : {1}",
+									plugins_dir, e);
+				dir_watcher = null;
+			}
+			
+			try {
+				sys_dir_watcher = new FileSystemWatcher (Defines.SYS_PLUGINS_DIR, "*.dll");
+				sys_dir_watcher.Created += OnPluginCreated;
+				sys_dir_watcher.Deleted += OnPluginDeleted;
+				sys_dir_watcher.EnableRaisingEvents = true;
+			} catch (ArgumentException e) {
+				Console.WriteLine ("Error creating a FileSystemWatcher on {0} : {1}", 
+									Defines.SYS_PLUGINS_DIR, e);
+				sys_dir_watcher = null;
+			}
+			
 			plugin_types = FindPluginTypes ();
 			plugin_hash = new Hashtable ();
 		}
@@ -348,20 +360,29 @@ namespace Tomboy
 
 		static ArrayList FindPluginTypesInDirectory (string dirpath)
 		{
-			string [] files = Directory.GetFiles (dirpath, "*.dll");
 			ArrayList dir_plugin_types = new ArrayList ();
+			string [] files;
+			
+			try {
+				files = Directory.GetFiles (dirpath, "*.dll");
+			} catch (Exception e) {
+				Console.WriteLine ("Error getting plugin types from {0}: {1}", 
+						   dirpath, 
+						   e);
+				return dir_plugin_types;
+			}
 
 			foreach (string file in files) {
 				Console.Write ("Trying Plugin: {0} ... ", Path.GetFileName (file));
-
+				
 				try {
 					ArrayList asm_plugins = FindPluginTypesInFile (file);
 					foreach (Type type in asm_plugins) {
 						dir_plugin_types.Add (type);
 					}
-                                } catch (Exception e) {
-                                        Console.WriteLine ("Failed.\n{0}", e);
-                                }
+				} catch (Exception e) {
+					Console.WriteLine ("Failed.\n{0}", e);
+				}
 			}
 
 			return dir_plugin_types;
