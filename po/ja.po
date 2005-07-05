@@ -7,14 +7,22 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tomboy HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-05-11 23:13+0900\n"
-"PO-Revision-Date: 2005-05-11 22:34+0900\n"
+"POT-Creation-Date: 2005-07-05 15:05+0900\n"
+"PO-Revision-Date: 2005-07-05 15:04+0900\n"
 "Last-Translator: Takeshi AIHANA <aihana@gnome.gr.jp>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+#: ../data/DefaultPlugins.desktop.in.in.h:1
+msgid "Default Plugins"
+msgstr "デフォルトのプラグイン"
+
+#: ../data/DefaultPlugins.desktop.in.in.h:2
+msgid "Directory containing system-installed Plugins"
+msgstr "システム規模でインストールしたプラグインを格納するディレクトリです"
 
 #: ../data/GNOME_TomboyApplet.server.in.in.h:1
 msgid "Accessories"
@@ -38,8 +46,9 @@ msgid "_About Tomboy..."
 msgstr "Tomboy について(_A)..."
 
 #: ../data/GNOME_TomboyApplet.xml.h:2 ../Tomboy/Applet.cs:175
-msgid "_Install Plugins..."
-msgstr "プラグインのインストール(_I)..."
+#: ../Tomboy/NoteWindow.cs:539
+msgid "_Open Plugins Folder"
+msgstr "プラグイン・フォルダを開く(_O)"
 
 #: ../data/GNOME_TomboyApplet.xml.h:3 ../Tomboy/Applet.cs:170
 msgid "_Preferences..."
@@ -237,6 +246,36 @@ msgstr ""
 "\"HTML へエキスポート\" プラグインの \"メモのエキスポート\" で最後に設定した"
 "チェックボックスの状態です。"
 
+#: ../libtomboy/gedit-print.c:144 ../Tomboy/Plugins/PrintNotes.cs:15
+msgid "Print"
+msgstr "印刷"
+
+#: ../libtomboy/gedit-print.c:243
+msgid "Preparing pages..."
+msgstr "ページの設定..."
+
+#: ../libtomboy/gedit-print.c:270
+#, c-format
+msgid "Rendering page %d of %d..."
+msgstr "%d / %d ページの整形中..."
+
+#: ../libtomboy/gedit-print.c:272
+#, c-format
+msgid "Printing page %d of %d..."
+msgstr "%d / %d ページの印刷中..."
+
+#: ../libtomboy/gedit-print.c:294
+msgid "Print preview"
+msgstr "印刷プレビュー"
+
+#: ../libtomboy/gedit-print.c:446
+msgid "Page %N of %Q"
+msgstr "%N / %Q ページ"
+
+#: ../libtomboy/gedit-print.c:448
+msgid "%A %D, %I:%M %p"
+msgstr "%F (%a) %p %I:%M"
+
 #: ../Tomboy/Applet.cs:180
 msgid "_About Tomboy"
 msgstr "Tomboy について(_A)"
@@ -246,17 +285,17 @@ msgid "_Quit"
 msgstr "終了(_Q)"
 
 #. Open the Start Here note
-#: ../Tomboy/Note.cs:349 ../Tomboy/NoteManager.cs:85
-#: ../Tomboy/NoteManager.cs:90 ../Tomboy/Tomboy.cs:210 ../Tomboy/Tray.cs:112
-#: ../Tomboy/Tray.cs:274 ../Tomboy/XKeybinder.cs:256
+#: ../Tomboy/Note.cs:368 ../Tomboy/NoteManager.cs:84
+#: ../Tomboy/NoteManager.cs:91 ../Tomboy/Tomboy.cs:210 ../Tomboy/Tray.cs:112
+#: ../Tomboy/Tray.cs:277 ../Tomboy/XKeybinder.cs:259
 msgid "Start Here"
 msgstr "ここから開始"
 
-#: ../Tomboy/NoteManager.cs:86
+#: ../Tomboy/NoteManager.cs:85
 msgid "Welcome to Tomboy!"
 msgstr "Tomboy へようこそ！"
 
-#: ../Tomboy/NoteManager.cs:87
+#: ../Tomboy/NoteManager.cs:86
 msgid ""
 "Use this page as a Start Page for organizing your notes and keeping "
 "unorganized ideas around."
@@ -264,116 +303,128 @@ msgstr ""
 "他のメモを体系づけたり、体系化されていないアイディアを手元に置いておくための "
 "\"最初のメモ\" として、このメモを利用して下さい。"
 
-#: ../Tomboy/NoteManager.cs:147
+#: ../Tomboy/NoteManager.cs:148
 #, csharp-format
 msgid "New Note {0}"
 msgstr "新しいメモ {0}"
 
-#: ../Tomboy/NoteManager.cs:164
+#: ../Tomboy/NoteManager.cs:165
 msgid "Describe your new note here."
 msgstr "新しいメモをここに記述して下さい。"
 
-#: ../Tomboy/NoteWindow.cs:278
+#: ../Tomboy/NoteWindow.cs:305
 msgid "Really delete this note?"
 msgstr "本当にこのメモを削除してもよろしいですか？"
 
-#: ../Tomboy/NoteWindow.cs:279
+#: ../Tomboy/NoteWindow.cs:306
 msgid "If you delete a note it is permanently lost."
 msgstr "メモを削除すると、メモの内容が完全に無くなります。"
 
-#: ../Tomboy/NoteWindow.cs:354
+#: ../Tomboy/NoteWindow.cs:390
 msgid "_Link to New Note"
 msgstr "新しいメモへのリンク(_L)"
 
-#: ../Tomboy/NoteWindow.cs:367
+#: ../Tomboy/NoteWindow.cs:403
 msgid "Te_xt"
 msgstr "文字の種類(_X)"
 
-#: ../Tomboy/NoteWindow.cs:375
+#: ../Tomboy/NoteWindow.cs:411
 msgid "_Search"
 msgstr "検索(_S)"
 
-#: ../Tomboy/NoteWindow.cs:389
-msgid "_Close Window"
+#: ../Tomboy/NoteWindow.cs:425
+msgid "Clos_e All Notes"
+msgstr "全てのメモを閉じる(_E)"
+
+#: ../Tomboy/NoteWindow.cs:435
+msgid "_Close"
 msgstr "閉じる(_C)"
 
-#: ../Tomboy/NoteWindow.cs:426
+#: ../Tomboy/NoteWindow.cs:463
 msgid "Search"
 msgstr "検索"
 
-#: ../Tomboy/NoteWindow.cs:427
+#: ../Tomboy/NoteWindow.cs:464
 msgid "Search your notes"
 msgstr "メモを検索します"
 
-#: ../Tomboy/NoteWindow.cs:439
+#: ../Tomboy/NoteWindow.cs:476
 msgid "Link"
 msgstr "リンク"
 
-#: ../Tomboy/NoteWindow.cs:440
+#: ../Tomboy/NoteWindow.cs:477
 msgid "Link selected text to a new note"
 msgstr "指定した部分を新しいメモへリンクします"
 
-#: ../Tomboy/NoteWindow.cs:462
-msgid "Set properties of text"
-msgstr "文字のプロパティを変更します"
-
-#: ../Tomboy/NoteWindow.cs:469
-msgid "Delete"
-msgstr "削除"
-
-#: ../Tomboy/NoteWindow.cs:470
-msgid "Delete this note"
-msgstr "このメモを削除します"
-
-#: ../Tomboy/NoteWindow.cs:496 ../Tomboy/NoteWindow.cs:497
+#: ../Tomboy/NoteWindow.cs:491
 msgid "_Text"
 msgstr "文字の種類(_T)"
 
-#: ../Tomboy/NoteWindow.cs:566
+#: ../Tomboy/NoteWindow.cs:496
+msgid "Set properties of text"
+msgstr "文字のプロパティを変更します"
+
+#: ../Tomboy/NoteWindow.cs:502
+msgid "_Plugins"
+msgstr "プラグイン(_P)"
+
+#: ../Tomboy/NoteWindow.cs:506
+msgid "Run Plugin actions"
+msgstr "プラグイン操作を実行します"
+
+#: ../Tomboy/NoteWindow.cs:513
+msgid "Delete"
+msgstr "削除"
+
+#: ../Tomboy/NoteWindow.cs:514
+msgid "Delete this note"
+msgstr "このメモを削除します"
+
+#: ../Tomboy/NoteWindow.cs:571
 msgid "_Search..."
 msgstr "検索(_S)..."
 
-#: ../Tomboy/NoteWindow.cs:577 ../Tomboy/Search.cs:176
+#: ../Tomboy/NoteWindow.cs:582 ../Tomboy/Search.cs:176
 msgid "Find _Next"
 msgstr "次の検索(_N)"
 
-#: ../Tomboy/NoteWindow.cs:590
+#: ../Tomboy/NoteWindow.cs:595
 msgid "Find _Previous"
 msgstr "前の検索(_P)"
 
-#: ../Tomboy/NoteWindow.cs:776
-msgid "<b>_Bold</b>"
-msgstr "<b>太字(_B)</b>"
+#: ../Tomboy/NoteWindow.cs:754
+msgid "_Bold"
+msgstr "太字(_B)"
 
-#: ../Tomboy/NoteWindow.cs:786
-msgid "<i>_Italic</i>"
-msgstr "<i>イタリック(_I)</i>"
+#: ../Tomboy/NoteWindow.cs:766
+msgid "_Italic"
+msgstr "イタリック(_I)"
 
-#: ../Tomboy/NoteWindow.cs:796
-msgid "<s>_Strikeout</s>"
-msgstr "<s>取り消し(_S)</s>"
+#: ../Tomboy/NoteWindow.cs:778
+msgid "_Strikeout"
+msgstr "打ち消し線(_S)"
 
-#: ../Tomboy/NoteWindow.cs:807
+#: ../Tomboy/NoteWindow.cs:790
 msgid "_Highlight"
 msgstr "強調(_H)"
 
-#: ../Tomboy/NoteWindow.cs:820
+#: ../Tomboy/NoteWindow.cs:803
 msgid "Font Size"
 msgstr "フォント"
 
-#: ../Tomboy/NoteWindow.cs:823
+#: ../Tomboy/NoteWindow.cs:806
 msgid "_Normal"
 msgstr "標準(_N)"
 
-#: ../Tomboy/NoteWindow.cs:830
+#: ../Tomboy/NoteWindow.cs:813
 msgid "Hu_ge"
 msgstr "巨大(_G)"
 
-#: ../Tomboy/NoteWindow.cs:838
+#: ../Tomboy/NoteWindow.cs:821
 msgid "_Large"
 msgstr "大きい(_L)"
 
-#: ../Tomboy/NoteWindow.cs:846
+#: ../Tomboy/NoteWindow.cs:829
 msgid "S_mall"
 msgstr "小さい(_M)"
 
@@ -614,22 +665,22 @@ msgstr "メモの検索(_S)..."
 msgid " (new)"
 msgstr " (新規)"
 
-#: ../Tomboy/Tray.cs:226
+#: ../Tomboy/Tray.cs:229
 msgid "translator-credits"
 msgstr ""
 "相花 毅 <aihana@gnome.gr.jp>\n"
 "日本GNOMEユーザー会 http://www.gnome.gr.jp"
 
-#: ../Tomboy/Tray.cs:232
+#: ../Tomboy/Tray.cs:235
 msgid "Copyright © 2004, 2005 Alex Graveley"
 msgstr "Copyright © 2004, 2005 Alex Graveley"
 
-#: ../Tomboy/Tray.cs:233
+#: ../Tomboy/Tray.cs:236
 msgid "A simple and easy to use desktop note-taking application."
 msgstr "シンプルで使いやすいデスクトップ・メモのアプリケーションです。"
 
 #. initial newline
-#: ../Tomboy/Tray.cs:282
+#: ../Tomboy/Tray.cs:285
 msgid "dddd, MMMM d, h:mm tt"
 msgstr "dddd, MMMM d, h:mm tt"
 
@@ -655,30 +706,26 @@ msgstr "メモのタイトル"
 msgid "Related to: "
 msgstr "関連するメモ: "
 
-#: ../Tomboy/Watchers.cs:551
+#: ../Tomboy/Watchers.cs:552
 msgid "Cannot open location"
 msgstr "指定した場所を開けません"
 
-#: ../Tomboy/Plugins/PrintNotes.cs:29
-msgid "Print"
-msgstr "印刷"
+#: ../Tomboy/Watchers.cs:660
+msgid "_Copy Link Address"
+msgstr "リンク先のアドレスのコピー(_C)"
 
-#: ../Tomboy/Plugins/PrintNotes.cs:30
-msgid "Print this note"
-msgstr "このメモを印刷します"
+#: ../Tomboy/Watchers.cs:665
+msgid "_Open Link"
+msgstr "リンクを開く(_O)"
 
-#: ../Tomboy/Plugins/ExportToHTML.cs:61
-msgid "Export"
-msgstr "エキスポート"
+#: ../Tomboy/Plugins/ExportToHTML.cs:46
+msgid "Export to HTML"
+msgstr "HTML へエキスポート"
 
-#: ../Tomboy/Plugins/ExportToHTML.cs:62
-msgid "Export this note to HTML"
-msgstr "このメモを HTML 形式で保存します"
-
-#: ../Tomboy/Plugins/ExportToHTML.cs:193
+#: ../Tomboy/Plugins/ExportToHTML.cs:164
 msgid "Destination for HTML Export"
 msgstr "HTML のエキスポート先"
 
-#: ../Tomboy/Plugins/ExportToHTML.cs:198
+#: ../Tomboy/Plugins/ExportToHTML.cs:169
 msgid "Export linked notes"
 msgstr "メモのエキスポート"
