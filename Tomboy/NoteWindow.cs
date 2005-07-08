@@ -12,8 +12,8 @@ namespace Tomboy
 			: base (buffer)
 		{
 			WrapMode = Gtk.WrapMode.Word;
-			LeftMargin = 8;
-			RightMargin = 8;
+			LeftMargin = DefaultMargin;
+			RightMargin = DefaultMargin;
 			CanDefault = true;
 
 			// Make sure the cursor position is visible
@@ -43,6 +43,11 @@ namespace Tomboy
 		// our binary will work for everyone.
 		[DllImport("libgtk-win32-2.0-0.dll")]
 		static extern IntPtr gtk_drag_dest_get_target_list (IntPtr raw);
+
+		public static int DefaultMargin
+		{
+			get { return 8; }
+		}
 
 		//
 		// Update the font based on the changed Preference dialog setting.
@@ -111,9 +116,12 @@ namespace Tomboy
 						insert.Append (uri.ToString ());
 				}
 
-				if (insert.Length > 0)
-					Buffer.Insert (Buffer.GetIterAtMark (Buffer.InsertMark),
-						       insert.ToString ());
+				if (insert.Length > 0) {
+					Buffer.InsertWithTags (
+						Buffer.GetIterAtMark (Buffer.InsertMark),
+						insert.ToString (),
+						Buffer.TagTable.Lookup ("link:url"));
+				}
 
 				Gtk.Drag.Finish (context, insert.Length > 0, false, time);
 			} else {

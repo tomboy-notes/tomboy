@@ -60,7 +60,7 @@ namespace Tomboy
 
 			tag = new Gtk.TextTag ("find-match");
 			tag.Background = "green";
-			tag.Data ["avoid-save"] = true;
+			tag.Data ["serialize"] = false;
 			Add (tag);
 
 			tag = new Gtk.TextTag ("note-title");
@@ -111,16 +111,17 @@ namespace Tomboy
 			Add (tag);
 		}
 
-		public static bool TagIsIgnored (Gtk.TextTag tag)
+		public static bool TagIsSerializable (Gtk.TextTag tag)
 		{
-			// FIXME: tag.Data["avoid-save"] isn't being returned,
-			// so we have to match explicitly on name for now.
+			if (tag.Name == null ||
+			    tag.Name == "find-match" || 
+			    tag.Name == "gtkspell-misspelled")
+				return false;
 
-			return (tag.Name == null ||
-				tag.Name == "find-match" || 
-				tag.Name == "gtkspell-misspelled" ||
-				tag.Name == "note-title" ||
-				tag.Data ["avoid-save"] != null);
+			if (tag.Data ["serialize"] != null)
+				return (bool) tag.Data ["serialize"];
+
+			return true;
 		}
 
 		public static bool TagIsGrowable (Gtk.TextTag tag)
@@ -146,8 +147,10 @@ namespace Tomboy
 			     tag.Name == "gtkspell-misspelled" ||
 			     tag.Name == "note-title"))
 				return false;
+
 			if (tag.Data ["undoable"] != null)
 				return (bool) tag.Data ["undoable"];
+
 			return true;
 		}
 	}
@@ -286,7 +289,8 @@ namespace Tomboy
 
 			// Add any growable tags ending on the prior character...
 			foreach (Gtk.TextTag tag in iter.GetToggledTags (false)) {
-				if (NoteTagTable.TagIsGrowable (tag)) {
+				if (!iter.EndsTag (tag) &&
+				    NoteTagTable.TagIsGrowable (tag)) {
 					active_tags.Add (tag);
 				}
 			}
@@ -352,10 +356,8 @@ namespace Tomboy
 
 			// Insert any active tags at start into tag_stack...
 			foreach (Gtk.TextTag start_tag in start.Tags) {
-				if (NoteTagTable.TagIsIgnored (start_tag))
-					continue;
-
-				if (!start.TogglesTag (start_tag)) {
+				if (!start.TogglesTag (start_tag) &&
+				    NoteTagTable.TagIsSerializable (start_tag)) {
 					tag_stack.Push (start_tag);
 					xml.WriteStartElement (null, start_tag.Name, null);
 				}
@@ -363,10 +365,8 @@ namespace Tomboy
 
 			while (!iter.Equal (end) && iter.Char != null) {
 				foreach (Gtk.TextTag tag in iter.Tags) {
-					if (NoteTagTable.TagIsIgnored (tag))
-						continue;
-
-					if (iter.BeginsTag (tag)) {
+					if (iter.BeginsTag (tag) &&
+					    NoteTagTable.TagIsSerializable (tag)) {
 						tag_stack.Push (tag);
 						xml.WriteStartElement (null, tag.Name, null);
 					}
@@ -376,7 +376,8 @@ namespace Tomboy
 				if (iter.Char[0] == (char) 0xFFFC) {
 					Console.WriteLine ("Got child anchor!!!");
 					if (iter.ChildAnchor != null) {
-						string serialize = (string) iter.ChildAnchor.Data ["serialize"];
+						string serialize = 
+						    (string) iter.ChildAnchor.Data ["serialize"];
 						if (serialize != null)
 							xml.WriteRaw (serialize);
 					}
@@ -384,10 +385,8 @@ namespace Tomboy
 					xml.WriteString (iter.Char);
 
 				foreach (Gtk.TextTag tag in iter.Tags) {
-					if (NoteTagTable.TagIsIgnored (tag))
-						continue;
-
-					if (TagEndsHere (tag, iter, next_iter)) {
+					if (TagEndsHere (tag, iter, next_iter) &&
+					    NoteTagTable.TagIsSerializable (tag)) {
 						// Unwind until the ended tag.
 						// Put any intermediate tags
 						// into a replay queue...

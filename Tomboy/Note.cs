@@ -29,6 +29,7 @@ namespace Tomboy
 		NoteManager manager;
 		NoteWindow window;
 		NoteBuffer buffer;
+		NoteTagTable tag_table;
 
 		InterruptableTimeout save_timeout;
 
@@ -113,18 +114,16 @@ namespace Tomboy
 
 		void BufferTagApplied (object sender, Gtk.TagAppliedArgs args)
 		{
-			if (NoteTagTable.TagIsIgnored (args.Tag))
-				return;
-
-			QueueSave (true);
+			if (NoteTagTable.TagIsSerializable (args.Tag)) {
+				QueueSave (true);
+			}
 		}
 
 		void BufferTagRemoved (object sender, Gtk.TagRemovedArgs args)
 		{
-			if (NoteTagTable.TagIsIgnored (args.Tag))
-				return;
-
-			QueueSave (true);
+			if (NoteTagTable.TagIsSerializable (args.Tag)) {
+				QueueSave (true);
+			}
 		}
 
 		void BufferInsertMarkSet (object sender, Gtk.MarkSetArgs args)
@@ -175,8 +174,9 @@ namespace Tomboy
 			window = null;
 		}
 
-		// Set a 4 second timeout to execute the save.  Possibly invalid the text, which
-		// causes a re-serialize when the timeout is called...
+		// Set a 4 second timeout to execute the save.  Possibly
+		// invalidate the text, which causes a re-serialize when the
+		// timeout is called...
 		public void QueueSave (bool invalidate_text)
 		{
 			// Replace the existing save timeout.  Wait 4 seconds
@@ -287,25 +287,35 @@ namespace Tomboy
 			set { manager = value; }
 		}
 
-		public NoteBuffer Buffer
+		public NoteTagTable TagTable
 		{
 			get {
-				if (buffer == null) {
-					Console.WriteLine ("Creating Buffer for '{0}'...", title);
-
+				if (tag_table == null) {
 #if FIXED_GTKSPELL
 					// NOTE: Sharing the same TagTable means
 					// that formatting is duplicated between
 					// buffers.
-					buffer = new NoteBuffer (NoteTagTable.Instance);
+					tag_table = NoteTagTable.Instance;
 #else
 					// NOTE: GtkSpell chokes on shared
 					// TagTables because it blindly tries to
 					// create a new "gtkspell-misspelling"
 					// tag, which fails if one already
 					// exists in the table.
-					buffer = new NoteBuffer (new NoteTagTable ());
+					tag_table = new NoteTagTable ();
 #endif
+				}
+				return tag_table;
+			}
+		}
+
+		public NoteBuffer Buffer
+		{
+			get {
+				if (buffer == null) {
+					Console.WriteLine ("Creating Buffer for '{0}'...", title);
+
+					buffer = new NoteBuffer (TagTable);
 
 					// Don't create Undo actions during load
 					buffer.Undoer.FreezeUndo ();
