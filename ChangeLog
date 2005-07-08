@@ -1,3 +1,14 @@
+2005-07-08  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/NoteWindow.cs: Add DefaultMargin (always 8) accessor.
+	Call InsertWithTags with "link:url" so URLs with spaces are
+	inserted as-is.
+
+	* Tomboy/Note.cs: Store the TagTable used by the buffer and add an
+	accessor.
+
+	* Tomboy/NoteBuffer.cs: Rename TagIsIgnored to TagIsSerializable.
+
 2005-07-02  Alex Graveley  <alex@beatniksoftware.com>
 
 	* Tomboy/PluginManager.cs: Fix bug 308867, a startup crash on
