@@ -287,7 +287,7 @@ namespace Tomboy
 				}
 			}
 
-			// Add any growable tags ending on the prior character...
+			// Add any growable tags not ending on the prior character...
 			foreach (Gtk.TextTag tag in iter.GetToggledTags (false)) {
 				if (!iter.EndsTag (tag) &&
 				    NoteTagTable.TagIsGrowable (tag)) {
