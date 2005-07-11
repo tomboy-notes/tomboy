@@ -279,7 +279,8 @@ namespace Tomboy
 				Console.WriteLine ("uri = {0}", s);
 				try {
 					Uri uri = new Uri (s);
-					Add (uri);
+					if (uri != null)
+						Add (uri);
 				} catch {
 				}
 			}
