@@ -179,7 +179,8 @@ namespace Tomboy
 		void CreateNewNote (object sender, EventArgs args) 
 		{
 			Note new_note = manager.Create ();
-			new_note.Window.Show ();
+			if (new_note != null)
+				new_note.Window.Show ();
 		}
 
 		void SearchNotes (object sender, EventArgs args) 

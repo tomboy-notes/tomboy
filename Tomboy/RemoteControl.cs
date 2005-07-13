@@ -43,16 +43,14 @@ namespace Tomboy
 
 		public override string FindNote (string linked_title)
 		{
-			Note note;
-			note = note_manager.Find (linked_title);
+			Note note = note_manager.Find (linked_title);
 			return (note == null) ? "" : note.Uri;
 		}
 
 		public override string CreateNote ()
 		{
-			Note note;
-			note = note_manager.Create ();
-			return note.Uri;
+			Note note = note_manager.Create ();
+			return (note == null) ? "" : note.Uri;
 		}
 
 		public override string CreateNamedNote (string linked_title)
@@ -64,7 +62,7 @@ namespace Tomboy
 				return "";
 
 			note = note_manager.Create (linked_title);
-			return note.Uri;
+			return (note == null) ? "" : note.Uri;
 		}
 
 		public override bool DeleteNote (string uri)

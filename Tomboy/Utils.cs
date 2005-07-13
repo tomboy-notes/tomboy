@@ -154,16 +154,20 @@ namespace Tomboy
 
 			switch (type) {
 			case Gtk.MessageType.Error:
-				image = new Gtk.Image (Gtk.Stock.DialogError, Gtk.IconSize.Dialog);
+				image = new Gtk.Image (Gtk.Stock.DialogError, 
+						       Gtk.IconSize.Dialog);
 				break;
 			case Gtk.MessageType.Question:
-				image = new Gtk.Image (Gtk.Stock.DialogQuestion, Gtk.IconSize.Dialog);
+				image = new Gtk.Image (Gtk.Stock.DialogQuestion, 
+						       Gtk.IconSize.Dialog);
 				break;
 			case Gtk.MessageType.Info:
-				image = new Gtk.Image (Gtk.Stock.DialogInfo, Gtk.IconSize.Dialog);
+				image = new Gtk.Image (Gtk.Stock.DialogInfo, 
+						       Gtk.IconSize.Dialog);
 				break;
 			case Gtk.MessageType.Warning:
-				image = new Gtk.Image (Gtk.Stock.DialogWarning, Gtk.IconSize.Dialog);
+				image = new Gtk.Image (Gtk.Stock.DialogWarning, 
+						       Gtk.IconSize.Dialog);
 				break;
 			}
 

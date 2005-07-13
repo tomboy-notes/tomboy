@@ -156,22 +156,24 @@ namespace Tomboy
 
 		// Create a new note with the specified title, and a simple
 		// "Describe..." body which will be selected for easy overwrite.
-		public Note Create (string linked_title) 
+		public Note Create (string title) 
 		{
-			string header = linked_title + "\n\n";
+			string header = title + "\n\n";
 			string content = 
 				String.Format ("<note-content>{0}{1}</note-content>",
 					       XmlEncoder.Encode (header),
 					       Catalog.GetString ("Describe your new note here."));
 
-			Note new_note = Create (linked_title, content);
+			Note new_note = Create (title, content);
 
-			// Select the inital "Describe..." text so typing will
-			// immediately overwrite...
-			NoteBuffer buffer = new_note.Buffer;
-			Gtk.TextIter iter = buffer.GetIterAtOffset (header.Length);
-			buffer.MoveMark (buffer.SelectionBound, iter);
-			buffer.MoveMark (buffer.InsertMark, buffer.EndIter);
+			if (new_note != null) {
+			    // Select the inital "Describe..." text so typing will
+			    // immediately overwrite...
+			    NoteBuffer buffer = new_note.Buffer;
+			    Gtk.TextIter iter = buffer.GetIterAtOffset (header.Length);
+			    buffer.MoveMark (buffer.SelectionBound, iter);
+			    buffer.MoveMark (buffer.InsertMark, buffer.EndIter);
+			}
 
 			return new_note;
 		}
@@ -179,9 +181,13 @@ namespace Tomboy
 		// Create a new note with the specified Xml content
 		public Note Create (string title, string xml_content)
 		{
+			string trim_title = title.Trim();
+			if (trim_title == string.Empty)
+				return null;
+
 			string filename = MakeNewFileName ();
 
-			Note new_note = new Note (title, filename, this);
+			Note new_note = new Note (trim_title, filename, this);
 			new_note.XmlContent = xml_content;
 			new_note.Renamed += OnNoteRename;
 
