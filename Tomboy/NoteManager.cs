@@ -181,6 +181,9 @@ namespace Tomboy
 		// Create a new note with the specified Xml content
 		public Note Create (string title, string xml_content)
 		{
+			if (title == null)
+				return null;
+
 			string trim_title = title.Trim();
 			if (trim_title == string.Empty)
 				return null;
