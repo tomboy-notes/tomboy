@@ -114,6 +114,7 @@ namespace Tomboy
 		public static bool TagIsSerializable (Gtk.TextTag tag)
 		{
 			if (tag.Name == null ||
+			    tag.Name == "note-title" ||
 			    tag.Name == "find-match" || 
 			    tag.Name == "gtkspell-misspelled")
 				return false;
