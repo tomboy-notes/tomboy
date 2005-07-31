@@ -22,6 +22,11 @@ namespace Tomboy
 			// Do nothing.
 		}
 
+		Gtk.TextTag TitleTag
+		{
+			get { return Buffer.TagTable.Lookup ("note-title"); }
+		}		
+
 		Gtk.TextIter TitleEnd 
 		{
 			get {
@@ -50,7 +55,7 @@ namespace Tomboy
 
 			// Clean up title line
 			Buffer.RemoveAllTags (TitleStart, TitleEnd);
-			Buffer.ApplyTag ("note-title", TitleStart, TitleEnd);
+			Buffer.ApplyTag (TitleTag, TitleStart, TitleEnd);
 		}
 
 		// This only gets called on an explicit move, not when typing
@@ -68,7 +73,7 @@ namespace Tomboy
 			end.ForwardToLineEnd ();
 
 			// Avoid lingering note-title after a multi-line insert...
-			Buffer.RemoveTag ("note-title", TitleEnd, end);
+			Buffer.RemoveTag (TitleTag, TitleEnd, end);
 		}
 
 		void OnDeleteRange (object sender, Gtk.DeleteRangeArgs args)
@@ -100,7 +105,7 @@ namespace Tomboy
 
 			// Make sure the title line is big and red...
 			Buffer.RemoveAllTags (TitleStart, TitleEnd);
-			Buffer.ApplyTag ("note-title", TitleStart, TitleEnd);
+			Buffer.ApplyTag (TitleTag, TitleStart, TitleEnd);
 
 			// NOTE: Use "(Untitled #)" for empty first lines...
 			string title = TitleStart.GetText (TitleEnd).Trim ();

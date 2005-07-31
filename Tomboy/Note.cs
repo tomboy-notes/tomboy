@@ -33,6 +33,12 @@ namespace Tomboy
 
 		InterruptableTimeout save_timeout;
 
+		[System.Diagnostics.Conditional ("DEBUG_SAVE")]
+		static void DebugSave (string format, params object[] args)
+		{
+			Console.WriteLine (format, args);
+		}
+
 		Note ()
 		{
 			save_timeout = new InterruptableTimeout ();
@@ -109,12 +115,14 @@ namespace Tomboy
 
 		void BufferChanged (object sender, EventArgs args)
 		{
+			DebugSave ("BufferChanged queueing save");
 			QueueSave (true);
 		}
 
 		void BufferTagApplied (object sender, Gtk.TagAppliedArgs args)
 		{
 			if (NoteTagTable.TagIsSerializable (args.Tag)) {
+				DebugSave ("BufferTagApplied queueing save: {0}", args.Tag.Name);
 				QueueSave (true);
 			}
 		}
@@ -122,6 +130,7 @@ namespace Tomboy
 		void BufferTagRemoved (object sender, Gtk.TagRemovedArgs args)
 		{
 			if (NoteTagTable.TagIsSerializable (args.Tag)) {
+				DebugSave ("BufferTagRemoved queueing save: {0}", args.Tag.Name);
 				QueueSave (true);
 			}
 		}
@@ -133,6 +142,7 @@ namespace Tomboy
 
 			cursor_pos = args.Location.Offset;
 
+			DebugSave ("BufferInsertSetMark queueing save");
 			QueueSave (false);
 		}
 
@@ -165,6 +175,7 @@ namespace Tomboy
 			width = cur_width;
 			height = cur_height;
 			
+			DebugSave ("WindowConfigureEvent queueing save");
 			QueueSave (false);
 		}
 
@@ -179,6 +190,8 @@ namespace Tomboy
 		// timeout is called...
 		public void QueueSave (bool invalidate_text)
 		{
+			DebugSave ("Got QueueSave with invalidate = {0}", invalidate_text);
+
 			// Replace the existing save timeout.  Wait 4 seconds
 			// before saving...
 			save_timeout.Reset (4000);
@@ -239,7 +252,7 @@ namespace Tomboy
 		{
 			get {
 				if (text == null && buffer != null) {
-					Console.WriteLine ("Re-serializing buffer...");
+					DebugSave ("Re-serializing to XML...");
 					text = NoteBufferArchiver.Serialize (buffer); 
 				}
 				return text;
@@ -255,6 +268,8 @@ namespace Tomboy
 				}
 
 				text = value;
+
+				DebugSave ("Set of XmlContent queueing save");
 				QueueSave (false);
 			}
 		}
@@ -364,7 +379,7 @@ namespace Tomboy
 					if (x != -1 && y != -1)
 						window.Move (x, y);
 
-					// This is here because emiting
+					// This is here because emiting inside
 					// OnRealized causes segfaults.
 					if (Opened != null)
 						Opened (this, new EventArgs ());
@@ -522,18 +537,23 @@ namespace Tomboy
 			xml.WriteEndDocument ();
 			xml.Close ();
 
-			// Backup the to a ~ file, just in case...
 			if (File.Exists (write_file)) {
 				string backup_path = write_file + "~";
-
 				if (File.Exists (backup_path))
 					File.Delete (backup_path);
 
+				// Backup the to a ~ file, just in case
 				File.Move (write_file, backup_path);
-			}
 
-			// Move the temp file to write_file
-			File.Move (tmp_file, write_file);
+				// Move the temp file to write_file
+				File.Move (tmp_file, write_file);
+
+				// Delete the ~ file
+				File.Delete (backup_path);
+			} else {
+				// Move the temp file to write_file
+				File.Move (tmp_file, write_file);
+			}
 
 			// This is always the latest after a write
 			note.version = CURRENT_VERSION;
