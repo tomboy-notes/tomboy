@@ -66,7 +66,7 @@ RESOURCES = 										\
 	-resource:$(top_srcdir)/data/images/stock_notes.png,stock_notes.png		\
 	-resource:$(top_srcdir)/data/images/gnome-stock-searchtool.png,gnome-stock-searchtool.png
 
-$(TARGET): $(CSFILES) $(srcdir)/Defines.cs
+$(TARGET): $(CSFILES) Defines.cs
 	$(CSC) -out:$@ $(CSFLAGS) $^ $(ASSEMBLIES) $(RESOURCES)
 
 tomboylibdir = $(pkglibdir)
@@ -89,7 +89,7 @@ $(TARGET).config: $(srcdir)/$(TARGET).config.in Makefile
 	sed -e "s|\@pkglibdir\@|$(pkglibdir)|" \
 	    < $< > $@
 
-$(srcdir)/Defines.cs: $(srcdir)/Defines.cs.in Makefile
+Defines.cs: $(srcdir)/Defines.cs.in Makefile
 	sed -e "s|\@version\@|$(VERSION)|"     \
 	    -e "s|\@datadir\@|$(datadir)|"     \
 	    -e "s|\@pkglibdir\@|$(pkglibdir)|" \
