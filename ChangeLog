@@ -1,3 +1,23 @@
+2005-08-10  Alex Graveley  <alex@beatniksoftware.com>
+
+	* configure.in: Bump version to 0.3.3.
+	* NEWS: Update for 0.3.3.
+	* www/index.html: Point to 0.3.3 tarball.
+
+	* data/Makefile.am: Make distcheck happy regarding
+	DefaultPlugins.desktop*.
+
+	* Tomboy/Plugins/Makefile.am (EXTRA_DIST): Add ExportToHTML.xsl.
+
+	* Tomboy/Watchers.cs: Remove unused NoteRelatedToWatcher.  In
+	NoteLinkWatcher, use the NoteManager's trie controller.  In
+	NoteSpellChecker, only attempt to fixup GtkSpell's misspelling tag
+	for really old versions (<2.0.6), to avoid a crash when deleting
+	notes.
+
+	* Tomboy/NoteManager.cs: Move TrieController here, and create one
+	as a member of NoteManager.
+
 2005-08-04  MAxim Dziumanenko <mvd@mylinux.ua>
 
 	* configure.in: Add "uk" (Ukrainian) to ALL_LINGUAS.

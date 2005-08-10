@@ -70,10 +70,12 @@ ui_DATA = GNOME_TomboyApplet.xml
 
 noinst_DATA = 			\
 	Start_Here.note		\
+	DefaultPlugins.desktop	\
 	$(desktop_files)
 
 
 EXTRA_DIST = 					\
+	DefaultPlugins.desktop.in.in		\
 	$(desktop_in_files)     		\
 	$(pkgconfig_in_files)			\
 	$(schemas_in_files)     		\
@@ -84,6 +86,7 @@ EXTRA_DIST = 					\
 	$(dbusservice_in_files)
 
 DISTCLEANFILES = 				\
+	DefaultPlugins.desktop.in		\
 	$(desktop_files)       			\
 	$(pkgconfig_DATA)			\
 	$(schemas_DATA)				\

@@ -25,7 +25,7 @@ namespace Tomboy
 		Gtk.TextTag TitleTag
 		{
 			get { return Buffer.TagTable.Lookup ("note-title"); }
-		}		
+		}
 
 		Gtk.TextIter TitleEnd 
 		{
@@ -183,144 +183,6 @@ namespace Tomboy
 		}
 	}
 
-	public class NoteRelatedToWatcher : NotePlugin
-	{
-		ArrayList linked_from;
-		ArrayList linked_to;
-
-		protected override void Initialize ()
-		{
-			linked_from = new ArrayList ();
-			linked_to = new ArrayList ();
-
-			LinkCreated += OnLinkCreated;
-		}
-
-		protected override void Shutdown ()
-		{
-			// Do nothing.
-		}
-
-		protected override void OnNoteOpened ()
-		{
-			Buffer.TagApplied += OnTagApplied;
-		}
-
-		void OnTagApplied (object sender, Gtk.TagAppliedArgs args)
-		{
-			if (args.Tag.Name != "link:internal") 
-				return;
-
-			string link_text = args.StartChar.GetText (args.EndChar);
-
-			// Ignore self-references
-			if (link_text.ToLower () == Note.Title.ToLower ())
-				return;
-
-			linked_to.Add (link_text);
-
-			Console.WriteLine ("Link Tag applied to '{0}', for '{1}'",
-					   Note.Title,
-					   link_text);
-
-			LinkCreated (Note, link_text);
-		}
-
-		void OnTagRemoved (object sender, Gtk.TagAppliedArgs args)
-		{
-			if (args.Tag.Name != "link:internal")
-				return;
-
-			Console.WriteLine ("Tag 'link:internal' removed!!!");
-		}
-
-		void OnLinkCreated (Note note, string link_text)
-		{
-			if (link_text.ToLower () != Note.Title.ToLower ())
-				return;
-
-			Console.WriteLine ("Received Link text from '{0}' = '{1}'",
-					   note.Title,
-					   link_text);
-
-			// Don't show links we already link to in the body
-			if (linked_to.Contains (link_text))
-				return;
-
-			if (linked_from.Contains (note.Title))
-				return;
-
-			linked_from.Add (note.Title);
-
-			Gtk.TextTag tag = Buffer.TagTable.Lookup ("related-to");
-			Gtk.TextIter iter = Buffer.StartIter;
-
-			if (iter.ForwardToTagToggle (tag)) 
-				RemoveRelatedLine ();
-
-			InsertRelatedLine ();
-		}
-
-		void InsertRelatedLine ()
-		{
-			Gtk.TextIter line, line_end;
-
-			line = Buffer.StartIter;
-			line.ForwardLines (1);
-
-			Buffer.Insert (line, Catalog.GetString ("Related to: "));
-
-			line = Buffer.StartIter;
-			line.ForwardLines (1);
-			line_end = line;
-			line_end.ForwardToLineEnd ();
-
-			Buffer.ApplyTag ("italic", line, line_end);
-
-			line = Buffer.StartIter;
-			line.ForwardLines (1);
-			line_end = line;
-			line_end.ForwardToLineEnd ();
-
-			string link_text = string.Empty;
-			foreach (string link in linked_from) {
-				if (link_text == string.Empty)
-					link_text = link;
-				else {
-					link_text += ", ";
-					link_text += link;
-				}
-			}
-			link_text += "\n";
-
-			Buffer.Insert (line_end, link_text);
-
-			line = Buffer.StartIter;
-			line.ForwardLines (1);
-			line_end = line;
-			line_end.ForwardToLineEnd ();
-
-			Buffer.ApplyTag ("related-to", line, line_end);
-		}
-
-		void RemoveRelatedLine ()
-		{
-			Gtk.TextTag tag = Buffer.TagTable.Lookup ("related-to");
-
-			Gtk.TextIter line = Buffer.StartIter;
-			line.ForwardToTagToggle (tag);
-
-			Gtk.TextIter line_end = line;
-			line_end.ForwardToTagToggle (tag);
-			
-			Buffer.Delete (line, line_end);
-		}
-
-		delegate void LinkCreatedHandler (Note note, string linked_text);
-
-		static event LinkCreatedHandler LinkCreated;
-	}
-
 	public class NoteSpellChecker : NotePlugin
 	{
 		IntPtr obj_ptr = IntPtr.Zero;
@@ -349,10 +211,7 @@ namespace Tomboy
 			Preferences.SettingChanged += OnEnableSpellcheckChanged;
 
 			if ((bool) Preferences.Get (Preferences.ENABLE_SPELLCHECKING)) {
-				obj_ptr = gtkspell_new_attach (Window.Editor.Handle, 
-							       null, 
-							       IntPtr.Zero);
-				FixupOldGtkSpell ();
+				Attach ();
 			}
 		}
 
@@ -381,10 +240,30 @@ namespace Tomboy
 		// use the "error" underline.
 		void FixupOldGtkSpell ()
 		{
+#if OLD_GTKSPELL
 			Gtk.TextTag misspell = Buffer.TagTable.Lookup ("gtkspell-misspelled");
 			if (misspell != null) {
 				OldGtkSpellFixup hack = new OldGtkSpellFixup (misspell.Handle);
 				hack.Fixup ();
+			}
+#endif
+		}
+
+		void Attach ()
+		{
+			if (obj_ptr == IntPtr.Zero) {
+				obj_ptr = gtkspell_new_attach (Window.Editor.Handle, 
+							       null, 
+							       IntPtr.Zero);
+				FixupOldGtkSpell ();
+			}
+		}
+
+		void Detach ()
+		{
+			if (obj_ptr != IntPtr.Zero) {
+				gtkspell_detach (obj_ptr);
+				obj_ptr = IntPtr.Zero;
 			}
 		}
 
@@ -394,17 +273,9 @@ namespace Tomboy
 				return;
 
 			if ((bool) args.Value) {
-				if (obj_ptr == IntPtr.Zero) {
-					obj_ptr = gtkspell_new_attach (Window.Editor.Handle, 
-								       null, 
-								       IntPtr.Zero);
-					FixupOldGtkSpell ();
-				}
+				Attach ();
 			} else {
-				if (obj_ptr != IntPtr.Zero) {
-					gtkspell_detach (obj_ptr);
-					obj_ptr = IntPtr.Zero;
-				}
+				Detach ();
 			}
 		}
 
@@ -706,53 +577,6 @@ namespace Tomboy
 
 	public class NoteLinkWatcher : NotePlugin
 	{
-		class TrieController
-		{
-			TrieTree title_trie;
-			NoteManager manager;
-
-			public TrieController (NoteManager manager)
-			{
-				this.manager = manager;
-				manager.NoteDeleted += OnNoteDeleted;
-				manager.NoteAdded += OnNoteAdded;
-				manager.NoteRenamed += OnNoteRenamed;
-
-				Update ();
-			}
-
-			void OnNoteAdded (object sender, Note added)
-			{
-				Update ();
-			}
-
-			void OnNoteDeleted (object sender, Note deleted)
-			{
-				Update ();
-			}
-
-			void OnNoteRenamed (Note renamed, string old_title)
-			{
-				Update ();
-			}
-
-			public void Update ()
-			{
-				title_trie = new TrieTree (false /* !case_sensitive */);
-
-				foreach (Note note in manager.Notes) {
-					title_trie.AddKeyword (note.Title, note);
-				}
-			}
-
-			public TrieTree TitleTrie 
-			{
-				get { return title_trie; }
-			}
-		}
-
-		static TrieController trie_controller;
-
 		protected override void Initialize () 
 		{
 			Manager.NoteDeleted += OnNoteDeleted;
@@ -789,33 +613,8 @@ namespace Tomboy
 			if (!ContainsText (added.Title))
 				return;
 
-			Gtk.TextTag url_tag = Buffer.TagTable.Lookup ("link:url");
-			Gtk.TextTag link_tag = Buffer.TagTable.Lookup ("link:internal");
-			Gtk.TextTag broken_link_tag = Buffer.TagTable.Lookup ("link:broken");
-
-			string new_title_lower = added.Title.ToLower ();
-
-			string buffer_text = Buffer.StartIter.GetText (Buffer.EndIter);
-			buffer_text = buffer_text.ToLower ();
-
-			int idx = 0;
-
-			while (true) {
-				idx = buffer_text.IndexOf (new_title_lower, idx);
-				if (idx < 0)
-					break;
-
-				Gtk.TextIter start = Buffer.GetIterAtOffset (idx);
-				Gtk.TextIter end = 
-					Buffer.GetIterAtOffset (idx + added.Title.Length);
-
-				if (!start.HasTag (url_tag)) {
-					Buffer.RemoveTag (broken_link_tag, start, end);
-					Buffer.ApplyTag (link_tag, start, end);
-				}
-
-				idx += new_title_lower.Length;
-			}
+			// Highlight previously unlinked text
+			Highlighter.HighlightNote (Note, Buffer.StartIter, Buffer.EndIter, added);
 		}
 
 		void OnNoteDeleted (object sender, Note deleted)
@@ -831,6 +630,7 @@ namespace Tomboy
 
 			string old_title_lower = deleted.Title.ToLower ();
 
+			// Turn all link:internal to link:broken for the deleted note.
 			TextTagEnumerator enumerator = new TextTagEnumerator (Buffer, link_tag);
 			foreach (TextRange range in enumerator) {
 				if (range.Text.ToLower () != old_title_lower)
@@ -843,23 +643,32 @@ namespace Tomboy
 
 		void OnNoteRenamed (Note renamed, string old_title)
 		{
+			if (renamed == this.Note)
+				return;
+
+			// Highlight previously unlinked text
+			if (ContainsText (renamed.Title)) {
+				Highlighter.HighlightNote (Note, 
+							   Buffer.StartIter, 
+							   Buffer.EndIter, 
+							   renamed);
+			}
+
 			if (!ContainsText (old_title))
 				return;
 
 			Gtk.TextTag link_tag = Buffer.TagTable.Lookup ("link:internal");
-
 			string old_title_lower = old_title.ToLower ();
 
+			// Replace existing links with the new title.
 			TextTagEnumerator enumerator = new TextTagEnumerator (Buffer, link_tag);
 			foreach (TextRange range in enumerator) {
-				Console.WriteLine ("RENAME: Checking '{0}' in note '{1}'", 
-						   range.Text, 
-						   Note.Title);
-
 				if (range.Text.ToLower () != old_title_lower)
 					continue;
 
-				Console.WriteLine ("Replacing with '{0}'", renamed.Title);
+				Console.WriteLine ("Replacing '{0}' with '{0}'", 
+						   range.Text, 
+						   renamed.Title);
 
 				Buffer.Delete (range.Start, range.End);
 				Buffer.InsertWithTags (range.Start, renamed.Title, link_tag);
@@ -876,9 +685,9 @@ namespace Tomboy
 			Gtk.TextTag link_tag;
 			Gtk.TextTag broken_link_tag;
 
-			public Highlighter (Note         note, 
-					    Gtk.TextIter start, 
-					    Gtk.TextIter end)
+			Highlighter (Note         note, 
+				     Gtk.TextIter start, 
+				     Gtk.TextIter end)
 			{
 				this.note = note;
 				this.start = start;
@@ -889,10 +698,35 @@ namespace Tomboy
 				this.broken_link_tag = note.Buffer.TagTable.Lookup ("link:broken");
 			}
 
-			public void Highlight (TrieTree trie)
+			public static void HighlightTrie (Note         note, 
+							  Gtk.TextIter start, 
+							  Gtk.TextIter end,
+							  TrieTree     trie)
 			{
+				Highlighter high = new Highlighter (note, start, end);
 				trie.FindMatches (start.GetText (end), 
-						  new MatchHandler (TitleFound));
+						  new MatchHandler (high.TitleFound));
+			}
+
+			public static void HighlightNote (Note         note, 
+							  Gtk.TextIter start, 
+							  Gtk.TextIter end,
+							  Note         find_note)
+			{
+				Highlighter high = new Highlighter (note, start, end);
+
+				string buffer_text = start.GetText (end).ToLower();
+				string find_title_lower = find_note.Title.ToLower ();
+				int idx = 0;
+
+				while (true) {
+					idx = buffer_text.IndexOf (find_title_lower, idx);
+					if (idx < 0)
+						break;
+
+					high.TitleFound (buffer_text, idx, find_note);
+					idx += find_title_lower.Length;
+				}
 			}
 
 			void TitleFound (string haystack, int start_idx, object value)
@@ -915,29 +749,15 @@ namespace Tomboy
 				Console.WriteLine ("Matching Note title '{0}'...", 
 						   match_note.Title);
 
-				note.Buffer.RemoveTag (broken_link_tag,
-						       title_start,
-						       title_end);
-				note.Buffer.ApplyTag (link_tag,
-						      title_start,
-						      title_end);
-			}
-		}
-
-		TrieTree TitleTrie
-		{
-			get {
-				if (trie_controller == null)
-					trie_controller = new TrieController (Manager);
-
-				return trie_controller.TitleTrie;
+				note.Buffer.RemoveTag (broken_link_tag, title_start, title_end);
+				note.Buffer.ApplyTag (link_tag, title_start, title_end);
 			}
 		}
 
 		void HighlightInBlock (Gtk.TextIter start, Gtk.TextIter end) 
 		{
-			Highlighter high = new Highlighter (Note, start, end);
-			high.Highlight (TitleTrie);
+			GetBlockExtents (ref start, ref end);
+			Highlighter.HighlightTrie (Note, start, end, Manager.TitleTrie);
 		}
 
 		void UnhighlightInBlock (Gtk.TextIter start, Gtk.TextIter end) 
@@ -960,8 +780,6 @@ namespace Tomboy
 			Gtk.TextIter start = args.Start;
 			Gtk.TextIter end = args.End;
 
-			GetBlockExtents (ref start, ref end);
-
 			UnhighlightInBlock (start, end);
 			HighlightInBlock (start, end);
 		}
@@ -972,8 +790,6 @@ namespace Tomboy
 			start.BackwardChars (args.Length);
 
 			Gtk.TextIter end = args.Pos;
-
-			GetBlockExtents (ref start, ref end);
 
 			UnhighlightInBlock (start, end);
 			HighlightInBlock (start, end);
