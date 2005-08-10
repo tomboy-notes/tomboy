@@ -44,6 +44,7 @@ plugins_DATA = 			\
 
 
 EXTRA_DIST =            	\
+	ExportToHTML.xsl	\
 	$(EXPORT_CSFILES)	\
 	$(PRINT_CSFILES)
 

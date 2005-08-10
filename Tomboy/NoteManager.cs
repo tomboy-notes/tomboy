@@ -14,6 +14,7 @@ namespace Tomboy
 		string backup_dir;
 		ArrayList notes;
 		PluginManager plugin_mgr;
+		TrieController trie_controller;
 
 		public NoteManager () : 
 			this (Path.Combine (Environment.GetEnvironmentVariable ("HOME"), 
@@ -43,9 +44,10 @@ namespace Tomboy
 			PluginManager.CreatePluginsDir (plugins_dir);
 
 			plugin_mgr = new PluginManager (plugins_dir);
+			trie_controller = new TrieController (this);
 
 			if (first_run) {
-				// First run. Create "Start Here" note
+				// First run. Create "Start Here" note.
 				CreateStartNote ();
 			} else {
 				string [] files = Directory.GetFiles (notes_dir, "*.note");
@@ -58,7 +60,10 @@ namespace Tomboy
 					}
 				}
 
-				// Load all the plugins for our notes
+				// Update the trie so plugins can access it, if they want.
+				trie_controller.Update ();
+
+				// Load all the plugins for our notes.
 				foreach (Note note in notes) {
 					plugin_mgr.LoadPluginsForNote (note);
 				}
@@ -256,8 +261,60 @@ namespace Tomboy
 			}
 		}
 
+		public TrieTree TitleTrie
+		{
+			get {
+				return trie_controller.TitleTrie;
+			}
+		}
+
 		public event NotesChangedHandler NoteDeleted;
 		public event NotesChangedHandler NoteAdded;
 		public event NoteRenameHandler NoteRenamed;
+	}
+
+	class TrieController
+	{
+		TrieTree title_trie;
+		NoteManager manager;
+
+		public TrieController (NoteManager manager)
+		{
+			this.manager = manager;
+			manager.NoteDeleted += OnNoteDeleted;
+			manager.NoteAdded += OnNoteAdded;
+			manager.NoteRenamed += OnNoteRenamed;
+
+			Update ();
+		}
+
+		void OnNoteAdded (object sender, Note added)
+		{
+			Update ();
+		}
+
+		void OnNoteDeleted (object sender, Note deleted)
+		{
+			Update ();
+		}
+
+		void OnNoteRenamed (Note renamed, string old_title)
+		{
+			Update ();
+		}
+
+		public void Update ()
+		{
+			title_trie = new TrieTree (false /* !case_sensitive */);
+
+			foreach (Note note in manager.Notes) {
+				title_trie.AddKeyword (note.Title, note);
+			}
+		}
+
+		public TrieTree TitleTrie 
+		{
+			get { return title_trie; }
+		}
 	}
 }
