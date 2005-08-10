@@ -9,6 +9,9 @@
 
 	* Tomboy/Plugins/Makefile.am (EXTRA_DIST): Add ExportToHTML.xsl.
 
+	* Tomboy/Makefile.am: Don't specify path to Defines.cs, since this
+	may be generated in a different location from srcdir.
+
 	* Tomboy/Watchers.cs: Remove unused NoteRelatedToWatcher.  In
 	NoteLinkWatcher, use the NoteManager's trie controller.  In
 	NoteSpellChecker, only attempt to fixup GtkSpell's misspelling tag
@@ -17,6 +20,10 @@
 
 	* Tomboy/NoteManager.cs: Move TrieController here, and create one
 	as a member of NoteManager.
+
+	* Tomboy/panelapplet/generated/PanelAppletSharp.cs: Aggregate
+	generated signal callback class files into a single file.  This
+	fixes distcheck, which dies on long tar path names.
 
 2005-08-04  MAxim Dziumanenko <mvd@mylinux.ua>
 
