@@ -49,7 +49,7 @@ $(dbusservice_DATA): $(dbusservice_in_files) Makefile
 endif
 
 
-serverdir       = $(libdir)/bonobo/servers
+serverdir       = $(PANELAPPLET_SERVER_DIR)
 server_in_files = GNOME_TomboyApplet.server.in
 server_DATA     = $(server_in_files:.server.in=.server)
 

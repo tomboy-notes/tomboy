@@ -37,19 +37,36 @@ $(EXPORT_TARGET): $(EXPORT_CSFILES) $(top_builddir)/Tomboy/Tomboy.exe $(srcdir)/
 	$(CSC) -out:$@ $(CSFLAGS) $(ASSEMBLIES) $(EXPORT_CSFILES) $(EXPORT_RESOURCES)
 
 
+#
+# Note of the Day plugin
+#
+
+NOTD_TARGET = NoteOfTheDay.dll
+NOTD_CSFILES = $(srcdir)/NoteOfTheDay.cs
+NOTD_RESOURCES =
+
+$(NOTD_TARGET): $(NOTD_CSFILES) $(top_builddir)/Tomboy/Tomboy.exe
+	$(CSC) -out:$@ $(CSFLAGS) $(ASSEMBLIES) $(NOTD_CSFILES) $(NOTD_RESOURCES)
+
+
 pluginsdir = $(pkglibdir)/Plugins
 plugins_DATA = 			\
 	$(EXPORT_TARGET)	\
 	$(PRINT_TARGET)
 
+noinst_DATA = $(NOTD_TARGET)
+
 
 EXTRA_DIST =            	\
 	ExportToHTML.xsl	\
 	$(EXPORT_CSFILES)	\
-	$(PRINT_CSFILES)
+	$(PRINT_CSFILES)	\
+	$(NOTD_CSFILES)
 
 CLEANFILES =			\
 	$(EXPORT_TARGET) 	\
 	$(EXPORT_TARGET).mdb	\
 	$(PRINT_TARGET)		\
-	$(PRINT_TARGET).mdb
+	$(PRINT_TARGET).mdb	\
+	$(NOTD_TARGET)		\
+	$(NOTD_TARGET).mdb
