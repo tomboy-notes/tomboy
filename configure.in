@@ -67,6 +67,14 @@ fi
 #
 PKG_CHECK_MODULES(LIBPANELAPPLET, libpanelapplet-2.0)
 
+PANELAPPLET_SERVER_DIR=`$PKG_CONFIG --variable=libdir libpanelapplet-2.0`
+if test "x$PANELAPPLET_SERVER_DIR" = "x"; then
+   PANELAPPLET_SERVER_DIR="$libdir/bonobo/servers"
+else
+   PANELAPPLET_SERVER_DIR="$PANELAPPLET_SERVER_DIR/bonobo/servers"
+fi
+AC_SUBST(PANELAPPLET_SERVER_DIR)
+
 #
 # Check for GtkSpell here, as we call into it from C#.
 # http://gtkspell.sourceforge.net/

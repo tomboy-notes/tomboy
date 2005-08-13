@@ -148,7 +148,7 @@ namespace Tomboy
 
 			// Ok button...
 			
-			Gtk.Button button = new Gtk.Button (Gtk.Stock.Ok);
+			Gtk.Button button = new Gtk.Button (Gtk.Stock.Close);
 			button.CanDefault = true;
 			button.Show ();
 
@@ -161,8 +161,8 @@ namespace Tomboy
 					       0,
 					       0);
 
-			AddActionWidget (button, Gtk.ResponseType.Ok);
-			DefaultResponse = Gtk.ResponseType.Ok;
+			AddActionWidget (button, Gtk.ResponseType.Close);
+			DefaultResponse = Gtk.ResponseType.Close;
 		}
 
 		// Page 1
