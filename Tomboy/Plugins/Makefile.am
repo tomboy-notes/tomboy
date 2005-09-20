@@ -66,26 +66,26 @@ endif
 pluginsdir = $(pkglibdir)/Plugins
 plugins_DATA = 			\
 	$(EXPORT_TARGET)	\
+	$(GALAGO_TARGET)	\
 	$(PRINT_TARGET)
 
 noinst_DATA = 			\
-	$(NOTD_TARGET) 		\
-	$(GALAGO_TARGET)
+	$(NOTD_TARGET)
 
 
 EXTRA_DIST =            	\
 	ExportToHTML.xsl	\
 	$(EXPORT_CSFILES)	\
+	$(GALAGO_CSFILES)	\
 	$(PRINT_CSFILES)	\
-	$(NOTD_CSFILES)		\
-	$(GALAGO_CSFILES)
+	$(NOTD_CSFILES)
 
 CLEANFILES =			\
 	$(EXPORT_TARGET) 	\
 	$(EXPORT_TARGET).mdb	\
+	$(GALAGO_TARGET)	\
+	$(GALAGO_TARGET).mdb	\
 	$(PRINT_TARGET)		\
 	$(PRINT_TARGET).mdb	\
 	$(NOTD_TARGET)		\
-	$(NOTD_TARGET).mdb	\
-	$(GALAGO_TARGET)	\
-	$(GALAGO_TARGET).mdb
+	$(NOTD_TARGET).mdb
