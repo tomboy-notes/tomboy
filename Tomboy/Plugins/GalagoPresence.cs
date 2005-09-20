@@ -288,14 +288,14 @@ class GalagoPresencePlugin : NotePlugin
 
 	protected override void Shutdown ()
 	{
-		////galago.PeopleChanged -= OnPeopleChanged;
-		////galago.PresenceChanged -= OnPresenceChanged;
+		galago.PeopleChanged -= OnPeopleChanged;
+		galago.PresenceChanged -= OnPresenceChanged;
 	}
 
 	protected override void OnNoteOpened () 
 	{
-		////galago.PeopleChanged += OnPeopleChanged;
-		////galago.PresenceChanged += OnPresenceChanged;
+		galago.PeopleChanged += OnPeopleChanged;
+		galago.PresenceChanged += OnPresenceChanged;
 
 		Buffer.InsertText += OnInsertText;
 		Buffer.DeleteRange += OnDeleteRange;
@@ -347,56 +347,18 @@ class GalagoPresencePlugin : NotePlugin
 		HighlightInBlock (Buffer.StartIter, Buffer.EndIter);
 	}
 
-	////void OnPresenceChanged (object sender, EventArgs args)
-	bool OnPresenceChanged ()
+	void OnPresenceChanged (object sender, EventArgs args)
 	{
 		// Highlight people in note
-		//UnhighlightInBlock (Buffer.StartIter, Buffer.EndIter);
-		//HighlightInBlock (Buffer.StartIter, Buffer.EndIter);
-
-		TextTagEnumerator enumerator = new TextTagEnumerator (Buffer, person_tag);
-		foreach (TextRange range in enumerator) {
-			Console.WriteLine ("Enumerating contact '{0}' {1}-{2}...",
-					   range.Text,
-					   range.Start.Offset,
-					   range.End.Offset);
-
-			PersonLink plink = (PersonLink) galago.Trie.Lookup (range.Text);
-			if (plink != null) {
-				Gdk.Pixbuf icon = plink.GetPresenceIcon();
-				if (range.Start.Pixbuf == icon)
-					continue;
-				
-				if (range.Start.Pixbuf != null &&
-				    range.Start.Pixbuf.Data ["person-link"] == plink) {
-					Console.WriteLine ("Deleting old presence pixbuf!");
-
-					Gtk.TextIter next_char = range.Start;
-					next_char.ForwardChar ();
-
-					Buffer.Delete (range.Start, next_char);
-				}
-
-				if (icon != null) {
-					icon.Data ["person-link"] = plink;
-
-					Console.WriteLine ("Inserting presence pixbuf!");
-
-					Buffer.InsertPixbuf (range.Start, icon);
-				}
-			}
-		}
-
-		return true;
+		UnhighlightInBlock (Buffer.StartIter, Buffer.EndIter);
+		HighlightInBlock (Buffer.StartIter, Buffer.EndIter);
 	}
 
 	void HighlightInBlock (Gtk.TextIter start, Gtk.TextIter end) 
 	{
-		int start_offset = start.Offset;
-
 		foreach (TrieHit hit in galago.Trie.FindMatches (start.GetText (end))) {
 			Gtk.TextIter match_start = 
-				Buffer.GetIterAtOffset(start_offset + hit.Start);
+				Buffer.GetIterAtOffset(start.Offset + hit.Start);
 			
 			// Don't create links inside note or URL links
 			if (match_start.HasTag (url_tag) ||
@@ -412,29 +374,11 @@ class GalagoPresencePlugin : NotePlugin
 					   hit.End);
 			Buffer.ApplyTag (person_tag, match_start, match_end);
 		}
-
-		//OnPresenceChanged (null, null);
-		GLib.Timeout.Add (0, new GLib.TimeoutHandler (OnPresenceChanged));
 	}
 
 	void UnhighlightInBlock (Gtk.TextIter start, Gtk.TextIter end) 
 	{
 		Buffer.RemoveTag (person_tag, start, end);
-
-		while (start.Offset < end.Offset) {
-		    if (start.Pixbuf != null &&
-			start.Pixbuf.Data["person-link"] != null) {
-			    int start_offset = start.Offset;
-			    int end_offset = end.Offset;
-
-			    Buffer.Delete(start, Buffer.GetIterAtOffset(start.Offset + 1));
-
-			    start = Buffer.GetIterAtOffset(start_offset);
-			    end = Buffer.GetIterAtOffset(end_offset);
-		    } else {
-			    start.ForwardChar();
-		    }
-		}
 	}
 
 	void GetBlockExtents (ref Gtk.TextIter start, ref Gtk.TextIter end) 
