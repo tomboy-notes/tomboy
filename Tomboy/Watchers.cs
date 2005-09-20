@@ -11,20 +11,16 @@ namespace Tomboy
 	public class NoteRenameWatcher : NotePlugin
 	{
 		bool editing_title;
+		Gtk.TextTag title_tag;
 
 		protected override void Initialize ()
 		{
-			// Do nothing.
+			title_tag = Note.TagTable.Lookup ("note-title");
 		}
 
 		protected override void Shutdown ()
 		{
 			// Do nothing.
-		}
-
-		Gtk.TextTag TitleTag
-		{
-			get { return Buffer.TagTable.Lookup ("note-title"); }
 		}
 
 		Gtk.TextIter TitleEnd 
@@ -55,7 +51,7 @@ namespace Tomboy
 
 			// Clean up title line
 			Buffer.RemoveAllTags (TitleStart, TitleEnd);
-			Buffer.ApplyTag (TitleTag, TitleStart, TitleEnd);
+			Buffer.ApplyTag (title_tag, TitleStart, TitleEnd);
 		}
 
 		// This only gets called on an explicit move, not when typing
@@ -73,7 +69,7 @@ namespace Tomboy
 			end.ForwardToLineEnd ();
 
 			// Avoid lingering note-title after a multi-line insert...
-			Buffer.RemoveTag (TitleTag, TitleEnd, end);
+			Buffer.RemoveTag (title_tag, TitleEnd, end);
 		}
 
 		void OnDeleteRange (object sender, Gtk.DeleteRangeArgs args)
@@ -105,7 +101,7 @@ namespace Tomboy
 
 			// Make sure the title line is big and red...
 			Buffer.RemoveAllTags (TitleStart, TitleEnd);
-			Buffer.ApplyTag (TitleTag, TitleStart, TitleEnd);
+			Buffer.ApplyTag (title_tag, TitleStart, TitleEnd);
 
 			// NOTE: Use "(Untitled #)" for empty first lines...
 			string title = TitleStart.GetText (TitleEnd).Trim ();
@@ -178,6 +174,8 @@ namespace Tomboy
 						      Catalog.GetString ("Note title taken"),
 						      message);
 
+			// FIXME: Should select text from TitleStart to TitleEnd
+
 			dialog.Run ();
 			dialog.Destroy ();
 		}
@@ -241,7 +239,7 @@ namespace Tomboy
 		void FixupOldGtkSpell ()
 		{
 #if OLD_GTKSPELL
-			Gtk.TextTag misspell = Buffer.TagTable.Lookup ("gtkspell-misspelled");
+			Gtk.TextTag misspell = Note.TagTable.Lookup ("gtkspell-misspelled");
 			if (misspell != null) {
 				OldGtkSpellFixup hack = new OldGtkSpellFixup (misspell.Handle);
 				hack.Fixup ();
@@ -327,7 +325,7 @@ namespace Tomboy
 
 		protected override void Initialize ()
 		{
-			// Do nothing.
+			url_tag = Note.TagTable.Lookup ("link:url");
 		}
 
 		protected override void Shutdown ()
@@ -337,12 +335,6 @@ namespace Tomboy
 
 		protected override void OnNoteOpened ()
 		{
-			url_tag = Buffer.TagTable.Lookup ("link:url");
-			if (url_tag == null) {
-				Console.WriteLine ("Tag 'link:url' not registered for buffer");
-				return;
-			}
-
 #if FIXED_GTKSPELL
 			// NOTE: This hack helps avoid multiple URL opens for
 			// cases where the GtkSpell version is fixed to allow
@@ -577,11 +569,19 @@ namespace Tomboy
 
 	public class NoteLinkWatcher : NotePlugin
 	{
+		Gtk.TextTag url_tag;
+		Gtk.TextTag link_tag;
+		Gtk.TextTag broken_link_tag;
+
 		protected override void Initialize () 
 		{
 			Manager.NoteDeleted += OnNoteDeleted;
 			Manager.NoteAdded += OnNoteAdded;
 			Manager.NoteRenamed += OnNoteRenamed;
+
+			url_tag = Note.TagTable.Lookup ("link:url");
+			link_tag = Note.TagTable.Lookup ("link:internal");
+			broken_link_tag = Note.TagTable.Lookup ("link:broken");
 		}
 
 		protected override void Shutdown ()
@@ -614,7 +614,7 @@ namespace Tomboy
 				return;
 
 			// Highlight previously unlinked text
-			Highlighter.HighlightNote (Note, Buffer.StartIter, Buffer.EndIter, added);
+			HighlightInBlock (Buffer.StartIter, Buffer.EndIter);
 		}
 
 		void OnNoteDeleted (object sender, Note deleted)
@@ -624,9 +624,6 @@ namespace Tomboy
 
 			if (!ContainsText (deleted.Title))
 				return;
-
-			Gtk.TextTag link_tag = Buffer.TagTable.Lookup ("link:internal");
-			Gtk.TextTag broken_link_tag = Buffer.TagTable.Lookup ("link:broken");
 
 			string old_title_lower = deleted.Title.ToLower ();
 
@@ -647,17 +644,12 @@ namespace Tomboy
 				return;
 
 			// Highlight previously unlinked text
-			if (ContainsText (renamed.Title)) {
-				Highlighter.HighlightNote (Note, 
-							   Buffer.StartIter, 
-							   Buffer.EndIter, 
-							   renamed);
-			}
+			if (ContainsText (renamed.Title))
+				HighlightNoteInBlock (renamed, Buffer.StartIter, Buffer.EndIter);
 
 			if (!ContainsText (old_title))
 				return;
 
-			Gtk.TextTag link_tag = Buffer.TagTable.Lookup ("link:internal");
 			string old_title_lower = old_title.ToLower ();
 
 			// Replace existing links with the new title.
@@ -675,94 +667,62 @@ namespace Tomboy
 			}
 		}
 
-		class Highlighter
+		void DoHighlight (TrieHit hit, Gtk.TextIter start, Gtk.TextIter end)
 		{
-			Note note;
-			Gtk.TextIter start;
-			Gtk.TextIter end;
+			Note hit_note = (Note) hit.Value;
+			if (hit_note == this.Note)
+				return;
 
-			Gtk.TextTag url_tag;
-			Gtk.TextTag link_tag;
-			Gtk.TextTag broken_link_tag;
+			Gtk.TextIter title_start = start;
+			title_start.ForwardChars (hit.Start);
 
-			Highlighter (Note         note, 
-				     Gtk.TextIter start, 
-				     Gtk.TextIter end)
-			{
-				this.note = note;
-				this.start = start;
-				this.end = end;
+			// Don't create links inside URLs
+			if (title_start.HasTag (url_tag))
+				return;
 
-				this.url_tag = note.Buffer.TagTable.Lookup ("link:url");
-				this.link_tag = note.Buffer.TagTable.Lookup ("link:internal");
-				this.broken_link_tag = note.Buffer.TagTable.Lookup ("link:broken");
-			}
+			Gtk.TextIter title_end = start;
+			title_end.ForwardChars (hit.End);
+			
+			Console.WriteLine ("Matching Note title '{0}' at {1}-{2}...", 
+					   hit.Key,
+					   hit.Start,
+					   hit.End);
 
-			public static void HighlightTrie (Note         note, 
-							  Gtk.TextIter start, 
-							  Gtk.TextIter end,
-							  TrieTree     trie)
-			{
-				Highlighter high = new Highlighter (note, start, end);
-				trie.FindMatches (start.GetText (end), 
-						  new MatchHandler (high.TitleFound));
-			}
+			Buffer.RemoveTag (broken_link_tag, title_start, title_end);
+			Buffer.ApplyTag (link_tag, title_start, title_end);
+		}
 
-			public static void HighlightNote (Note         note, 
-							  Gtk.TextIter start, 
-							  Gtk.TextIter end,
-							  Note         find_note)
-			{
-				Highlighter high = new Highlighter (note, start, end);
+		void HighlightNoteInBlock (Note find_note, Gtk.TextIter start, Gtk.TextIter end) 
+		{
+			string buffer_text = start.GetText (end).ToLower();
+			string find_title_lower = find_note.Title.ToLower ();
+			int idx = 0;
 
-				string buffer_text = start.GetText (end).ToLower();
-				string find_title_lower = find_note.Title.ToLower ();
-				int idx = 0;
+			while (true) {
+				idx = buffer_text.IndexOf (find_title_lower, idx);
+				if (idx < 0)
+					break;
 
-				while (true) {
-					idx = buffer_text.IndexOf (find_title_lower, idx);
-					if (idx < 0)
-						break;
+				TrieHit hit = new TrieHit (idx, 
+							   idx + find_title_lower.Length,
+							   find_title_lower,
+							   find_note);
+				DoHighlight (hit, start, end);
 
-					high.TitleFound (buffer_text, idx, find_note);
-					idx += find_title_lower.Length;
-				}
-			}
-
-			void TitleFound (string haystack, int start_idx, object value)
-			{
-				Note match_note = (Note) value;
-
-				if (match_note == note)
-					return;
-
-				Gtk.TextIter title_start = start;
-				title_start.ForwardChars (start_idx);
-
-				// Don't create links inside URLs
-				if (title_start.HasTag (url_tag))
-					return;
-
-				Gtk.TextIter title_end = title_start;
-				title_end.ForwardChars (match_note.Title.Length);
-
-				Console.WriteLine ("Matching Note title '{0}'...", 
-						   match_note.Title);
-
-				note.Buffer.RemoveTag (broken_link_tag, title_start, title_end);
-				note.Buffer.ApplyTag (link_tag, title_start, title_end);
+				idx += find_title_lower.Length;
 			}
 		}
 
 		void HighlightInBlock (Gtk.TextIter start, Gtk.TextIter end) 
 		{
-			GetBlockExtents (ref start, ref end);
-			Highlighter.HighlightTrie (Note, start, end, Manager.TitleTrie);
+			ArrayList hits = Manager.TitleTrie.FindMatches (start.GetText (end));
+			foreach (TrieHit hit in hits) {
+				DoHighlight (hit, start, end);
+			}
 		}
 
 		void UnhighlightInBlock (Gtk.TextIter start, Gtk.TextIter end) 
 		{
-			Gtk.TextTag link_tag = Buffer.TagTable.Lookup ("link:internal");
 			Buffer.RemoveTag (link_tag, start, end);
 		}
 
@@ -780,6 +740,8 @@ namespace Tomboy
 			Gtk.TextIter start = args.Start;
 			Gtk.TextIter end = args.End;
 
+			GetBlockExtents (ref start, ref end);
+
 			UnhighlightInBlock (start, end);
 			HighlightInBlock (start, end);
 		}
@@ -790,6 +752,8 @@ namespace Tomboy
 			start.BackwardChars (args.Length);
 
 			Gtk.TextIter end = args.Pos;
+
+			GetBlockExtents (ref start, ref end);
 
 			UnhighlightInBlock (start, end);
 			HighlightInBlock (start, end);
@@ -812,7 +776,7 @@ namespace Tomboy
 
 		protected override void Initialize ()
 		{
-			// Do nothing.
+			broken_link_tag = Note.TagTable.Lookup ("link:broken");
 		}
 
 		protected override void Shutdown ()
@@ -822,12 +786,6 @@ namespace Tomboy
 
 		protected override void OnNoteOpened ()
 		{
-			broken_link_tag = Buffer.TagTable.Lookup ("link:broken");
-			if (broken_link_tag == null) {
-				Console.WriteLine ("ERROR: Broken link tags not registered.");
-				return;
-			}
-
 			if ((bool) Preferences.Get (Preferences.ENABLE_WIKIWORDS)) {
 				Buffer.InsertText += OnInsertText;
 				Buffer.DeleteRange += OnDeleteRange;
@@ -928,7 +886,8 @@ namespace Tomboy
 
 		protected override void Initialize ()
 		{
-			// Do nothing.
+			link_tag = Note.TagTable.Lookup ("link:internal");
+			broken_link_tag = Note.TagTable.Lookup ("link:broken");
 		}
 
 		protected override void Shutdown ()
@@ -938,9 +897,6 @@ namespace Tomboy
 
 		protected override void OnNoteOpened ()
 		{
-			link_tag = Buffer.TagTable.Lookup ("link:internal");
-			broken_link_tag = Buffer.TagTable.Lookup ("link:broken");
-
 #if FIXED_GTKSPELL
 			// NOTE: This avoid multiple link opens for cases where
 			// the GtkSpell version is fixed to allow TagTable

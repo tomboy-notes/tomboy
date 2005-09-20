@@ -12,9 +12,21 @@ using System.Collections;
 
 namespace Tomboy
 {
-	public delegate void MatchHandler (string haystack, 
-					   int    start,
-					   object match);
+	public class TrieHit
+	{
+		public int    Start;
+		public int    End;
+		public string Key;
+		public object Value;
+
+		public TrieHit (int start, int end, string key, object value)
+		{
+			Start = start;
+			End = end;
+			Key = key;
+			Value = value;
+		}
+	}
 
 	public class TrieTree 
 	{
@@ -132,7 +144,7 @@ namespace Tomboy
 					while (m != null) {
 						TrieState q1 = m.State;
 						TrieState r = q.Fail;
-						TrieMatch n;
+						TrieMatch n = null;
 
 						while (r != null) {
 							n = FindMatchAtState (r, m.Value);
@@ -142,7 +154,7 @@ namespace Tomboy
 								break;
 						}
 
-						if (r != null) {
+						if (r != null && n != null) {
 							q1.Fail = n.State;
 
 							if (q1.Fail.Final > q1.Final)
@@ -182,9 +194,9 @@ namespace Tomboy
 		 * ENDFOR
 		 * RETURN FALSE
 		 */
-		public void FindMatches (string       haystack,
-					 MatchHandler match_handler)
+		public ArrayList FindMatches (string haystack)
 		{
+			ArrayList matches = new ArrayList (0);
 			TrieState q = root;
 			TrieMatch m = null;
 			int idx = 0, start_idx = 0, last_idx = 0;
@@ -213,12 +225,27 @@ namespace Tomboy
 
 					// Got a match!
 					if (q.Final != 0) {
-						match_handler (haystack, start_idx, q.Id);
+						string key = haystack.Substring (start_idx, 
+										 idx - start_idx);
+						TrieHit hit = 
+							new TrieHit (start_idx, idx, key, q.Id);
+						matches.Add (hit);
 					}
 				}
 
 				last_idx = idx;
 			}
+
+			return matches;
+		}
+
+		public object Lookup (string key)
+		{
+			foreach (TrieHit hit in FindMatches (key)) {
+				if (hit.Key.Length == key.Length)
+					return hit.Value;
+			}
+			return null;
 		}
 	}
 
@@ -231,21 +258,19 @@ namespace Tomboy
 			Console.WriteLine ("Searching in '{0}':", src);
 
 			TrieTree trie = new TrieTree (false);
-			trie.AddKeyword ("foo", "foo".Length);
-			trie.AddKeyword ("bar", "bar".Length);
-			trie.AddKeyword ("baz", "baz".Length);
-			trie.AddKeyword ("bazar", "bazar".Length);
+			trie.AddKeyword ("foo", "foo");
+			trie.AddKeyword ("bar", "bar");
+			trie.AddKeyword ("baz", "baz");
+			trie.AddKeyword ("bazar", "bazar");
 
 			Console.WriteLine ("Starting search...");
-			trie.FindMatches (src, new MatchHandler (MatchFound));
+			foreach (TrieHit hit in trie.FindMatches (src)) {
+				Console.WriteLine ("*** Match: '{0}' at {1}-{2}",
+						   hit.Key,
+						   hit.Start,
+						   hit.End);
+			}
 			Console.WriteLine ("Search finished!");
-		}
-
-		static void MatchFound (string haystack, int start, object id)
-		{
-			Console.WriteLine ("*** Match: start={0}, id={1}",
-					   start,
-					   haystack.Substring (start, (int) id));
 		}
 	}
 #endif
