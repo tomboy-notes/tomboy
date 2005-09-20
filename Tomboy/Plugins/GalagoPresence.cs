@@ -1,0 +1,472 @@
+
+using System;
+using System.Collections;
+using System.Runtime.InteropServices;
+using System.Diagnostics;
+using Mono.Posix;
+
+using Gtk;
+using Galago;
+
+using Tomboy;
+
+class GaimRemote : Process
+{
+	public static void SendMessage (Account account)
+	{
+		GaimRemote p = new GaimRemote();
+		p.StartInfo.FileName = "gaim-remote";
+		p.StartInfo.Arguments = 
+			"uri " + 
+			account.Service.Id + ":goim?screenname=" + account.UserName;
+		p.StartInfo.UseShellExecute = false;
+
+		try {			
+			p.Start ();
+		} catch (Exception e) {
+			Console.WriteLine ("Error launching gaim-remote: " + e);
+		}
+	}
+}
+
+class GalagoManager
+{
+	TrieTree trie;
+	bool initial_update;
+
+	public GalagoManager ()
+	{
+		Galago.Core.Init ("tomboy", false);
+
+		///// 
+		///// Connecting these cause crashes with the current bindings...
+		/////
+		//Galago.Core.OnPersonAdded += OnPersonAdded;
+		//Galago.Core.OnPersonRemoved += OnPersonRemoved;
+		// This is just property change
+		//Galago.Core.OnUpdated += OnUpdated;
+
+		UpdateTrie (true);
+	}
+
+	public TrieTree Trie 
+	{
+		get { return trie; }
+	}
+
+	public event EventHandler PeopleChanged;
+	public event EventHandler PresenceChanged;
+
+	void OnUpdated (object sender, EventArgs args)
+	{
+		Console.WriteLine ("Got Presence Updated!");
+		if (PresenceChanged != null)
+			PresenceChanged (this, args);
+	}
+
+	void OnPersonAdded (object sender, Galago.AddedArgs args)
+	{
+		Console.WriteLine ("Person Added!");
+
+		UpdateTrie (false);
+		if (PeopleChanged != null)
+			PeopleChanged (this, args);
+	}
+
+	void OnPersonRemoved (object sender, Galago.RemovedArgs args)
+	{
+		Console.WriteLine ("Person Removed!");
+
+		UpdateTrie (false);
+		if (PeopleChanged != null)
+			PeopleChanged (this, args);
+	}
+
+	void UpdateTrie (bool refresh_query)
+	{
+		trie = new TrieTree (false /* !case_sensitive */);
+
+		Console.WriteLine ("Loading up the person trie...");
+
+		foreach (Person person in Galago.Core.GetPeople (false, refresh_query)) {
+			PersonLink plink;
+			string fname, mname, lname;
+			person.GetProperty ("first-name", out fname);
+			person.GetProperty ("middle-name", out mname);
+			person.GetProperty ("last-name", out lname);
+
+			if (person.DisplayName != null) {
+				plink = new PersonLink (LinkType.PersonDisplayName, person);
+				trie.AddKeyword (person.DisplayName, plink);
+			}
+
+			// Joe
+			if (fname != null) {
+				plink = new PersonLink (LinkType.FirstName, person);
+				trie.AddKeyword (plink.LinkText, plink);
+			}
+
+			// Joe Smith & Smith Joe
+			if (fname != null && lname != null) {
+				plink = new PersonLink (LinkType.FirstLastName, person);
+				trie.AddKeyword (plink.LinkText, plink);
+
+				plink = new PersonLink (LinkType.LastFirstName, person);
+				trie.AddKeyword (plink.LinkText, plink);
+			}
+
+			// Joe Michael Smith
+			if (fname != null && mname != null && lname != null) {
+				plink = new PersonLink (LinkType.FirstMiddleLastName, person);
+				trie.AddKeyword (plink.LinkText, plink);
+			}
+
+			foreach (Account account in person.GetAccounts(true)) {
+				if (account.DisplayName != null) {
+					plink = new PersonLink (LinkType.AccountDisplayName, 
+								account);
+					trie.AddKeyword (plink.LinkText, plink);
+				}
+
+				if (account.UserName != null &&
+				    account.UserName != account.DisplayName) {
+					plink = new PersonLink (LinkType.AccountUserName, account);
+					trie.AddKeyword (plink.LinkText, plink);
+				}
+			}
+		}
+
+		Console.WriteLine ("Done.");
+	}
+}
+
+enum LinkType
+{
+	PersonDisplayName,
+	AccountUserName,
+	AccountDisplayName,
+	FirstName,
+	FirstLastName,
+	LastFirstName,
+	FirstMiddleLastName
+}
+
+class PersonLink
+{
+	LinkType link_type;
+	Person   person;
+	Account  account;
+
+	public PersonLink (LinkType type, Person person)
+	{
+		this.link_type = type;
+		this.person = person;
+		this.account = null;
+
+		Console.WriteLine ("Added person {0}: {1}", link_type, LinkText);
+	}
+
+	public PersonLink (LinkType type, Account account)
+	{
+		this.link_type = type;
+		this.person = account.Person;
+		this.account = account;		
+
+		Console.WriteLine ("Added account {0}: {1}", link_type, LinkText);
+	}
+
+	public string LinkText
+	{
+		get {
+			string fname, mname, lname;
+			person.GetProperty ("first-name", out fname);
+			person.GetProperty ("middle-name", out mname);
+			person.GetProperty ("last-name", out lname);
+
+			switch (link_type) {
+			case LinkType.PersonDisplayName:
+				return person.DisplayName;
+			case LinkType.AccountUserName:
+				return account.UserName;
+			case LinkType.AccountDisplayName:
+				return account.DisplayName;
+			case LinkType.FirstName:
+				return fname;
+			case LinkType.FirstLastName:
+				return fname + " " + lname;
+			case LinkType.LastFirstName:
+				return lname + " " + fname;
+			case LinkType.FirstMiddleLastName:
+				return fname + " " + mname + " " + lname;
+			}
+			return null;
+		}
+	}
+
+	Account GetBestAccount ()
+	{
+		if (account != null)
+			return account;
+
+		if (person != null) {
+			// BINDING BUG: Returns a Person instead of Account
+			Person foo = person.PriorityAccount;
+			Account best = new Account (foo.Handle);
+			
+			Console.WriteLine ("Using priority account '{0}' for {1}", 
+					   best.UserName, 
+					   LinkText);
+
+			return best;
+		}
+		return null;
+	}
+
+	public void SendMessage ()
+	{
+		Account best = GetBestAccount ();
+		if (best != null) {
+			GaimRemote.SendMessage (best);
+		}
+	}
+
+	[DllImport("libgalago-gtk")]
+	static extern IntPtr galago_gdk_pixbuf_new_from_presence (IntPtr presence,
+								  int width,
+								  int height,
+								  int precedence);
+
+	public Gdk.Pixbuf GetPresenceIcon ()
+	{
+		Account best = GetBestAccount ();
+		if (best != null &&
+		    best.Presence != null) {
+			IntPtr icon = galago_gdk_pixbuf_new_from_presence (best.Presence.Handle,
+									   16, 16,
+									   4);
+			if (icon != IntPtr.Zero)
+				return new Gdk.Pixbuf (icon);
+		}
+		return null;
+	}
+}
+
+class GalagoPresencePlugin : NotePlugin 
+{
+	static GalagoManager galago;
+	Gtk.TextTag person_tag;
+	Gtk.TextTag link_tag;
+	Gtk.TextTag url_tag;
+
+	static GalagoPresencePlugin ()
+	{
+		galago = new GalagoManager ();
+	}
+
+	public GalagoPresencePlugin ()
+	{
+		// Do nothing.
+	}
+
+    	protected override void Initialize ()
+	{
+		person_tag = Note.TagTable.Lookup ("link:person");
+		if (person_tag == null) {
+			person_tag = new Gtk.TextTag ("link:person");
+			person_tag.Underline = Pango.Underline.Single;
+			person_tag.Foreground = "blue";
+			person_tag.Data ["serialize"] = false;
+			person_tag.TextEvent += OnTextEvent;
+
+			Console.WriteLine ("Adding link:person tag...");
+			Note.TagTable.Add (person_tag);
+		}
+
+		link_tag = Note.TagTable.Lookup ("link:internal");
+		url_tag = Note.TagTable.Lookup ("link:url");
+	}
+
+	protected override void Shutdown ()
+	{
+		////galago.PeopleChanged -= OnPeopleChanged;
+		////galago.PresenceChanged -= OnPresenceChanged;
+	}
+
+	protected override void OnNoteOpened () 
+	{
+		////galago.PeopleChanged += OnPeopleChanged;
+		////galago.PresenceChanged += OnPresenceChanged;
+
+		Buffer.InsertText += OnInsertText;
+		Buffer.DeleteRange += OnDeleteRange;
+
+		// Highlight existing people in note
+		HighlightInBlock (Buffer.StartIter, Buffer.EndIter);
+	}
+
+	void OnTextEvent (object sender, Gtk.TextEventArgs args)
+	{
+		Gtk.TextTag tag = (Gtk.TextTag) sender;
+
+		if (args.Event.Type != Gdk.EventType.ButtonPress)
+			return;
+
+		Gdk.EventButton button_ev = new Gdk.EventButton (args.Event.Handle);
+		if (button_ev.Button != 1 && button_ev.Button != 2)
+			return;
+
+		/* Don't open link if Shift or Control is pressed */
+		if ((int) (button_ev.State & (Gdk.ModifierType.ShiftMask |
+					      Gdk.ModifierType.ControlMask)) != 0)
+			return;
+
+		Gtk.TextIter start = args.Iter;
+		start.BackwardToTagToggle (person_tag);
+
+		Gtk.TextIter end = args.Iter;
+		end.ForwardToTagToggle (person_tag);
+
+		PersonLink plink = (PersonLink) galago.Trie.Lookup (start.GetText (end));
+		if (plink != null) {
+			plink.SendMessage ();
+
+			// Close note on middle-click
+			if (button_ev.Button == 2) {
+				Window.Hide ();
+			}
+		}
+
+		// Kill the middle button paste...
+		args.RetVal = true;
+	}
+
+	void OnPeopleChanged (object sender, EventArgs args)
+	{
+		// Highlight people in note
+		UnhighlightInBlock (Buffer.StartIter, Buffer.EndIter);
+		HighlightInBlock (Buffer.StartIter, Buffer.EndIter);
+	}
+
+	////void OnPresenceChanged (object sender, EventArgs args)
+	bool OnPresenceChanged ()
+	{
+		// Highlight people in note
+		//UnhighlightInBlock (Buffer.StartIter, Buffer.EndIter);
+		//HighlightInBlock (Buffer.StartIter, Buffer.EndIter);
+
+		TextTagEnumerator enumerator = new TextTagEnumerator (Buffer, person_tag);
+		foreach (TextRange range in enumerator) {
+			Console.WriteLine ("Enumerating contact '{0}' {1}-{2}...",
+					   range.Text,
+					   range.Start.Offset,
+					   range.End.Offset);
+
+			PersonLink plink = (PersonLink) galago.Trie.Lookup (range.Text);
+			if (plink != null) {
+				Gdk.Pixbuf icon = plink.GetPresenceIcon();
+				if (range.Start.Pixbuf == icon)
+					continue;
+				
+				if (range.Start.Pixbuf != null &&
+				    range.Start.Pixbuf.Data ["person-link"] == plink) {
+					Console.WriteLine ("Deleting old presence pixbuf!");
+
+					Gtk.TextIter next_char = range.Start;
+					next_char.ForwardChar ();
+
+					Buffer.Delete (range.Start, next_char);
+				}
+
+				if (icon != null) {
+					icon.Data ["person-link"] = plink;
+
+					Console.WriteLine ("Inserting presence pixbuf!");
+
+					Buffer.InsertPixbuf (range.Start, icon);
+				}
+			}
+		}
+
+		return true;
+	}
+
+	void HighlightInBlock (Gtk.TextIter start, Gtk.TextIter end) 
+	{
+		int start_offset = start.Offset;
+
+		foreach (TrieHit hit in galago.Trie.FindMatches (start.GetText (end))) {
+			Gtk.TextIter match_start = 
+				Buffer.GetIterAtOffset(start_offset + hit.Start);
+			
+			// Don't create links inside note or URL links
+			if (match_start.HasTag (url_tag) ||
+			    match_start.HasTag (link_tag))
+				continue;
+			
+			Gtk.TextIter match_end = match_start;
+			match_end.ForwardChars (hit.End - hit.Start);
+
+			Console.WriteLine ("Matching Person '{0}' at {1}-{2}...", 
+					   hit.Key, 
+					   hit.Start, 
+					   hit.End);
+			Buffer.ApplyTag (person_tag, match_start, match_end);
+		}
+
+		//OnPresenceChanged (null, null);
+		GLib.Timeout.Add (0, new GLib.TimeoutHandler (OnPresenceChanged));
+	}
+
+	void UnhighlightInBlock (Gtk.TextIter start, Gtk.TextIter end) 
+	{
+		Buffer.RemoveTag (person_tag, start, end);
+
+		while (start.Offset < end.Offset) {
+		    if (start.Pixbuf != null &&
+			start.Pixbuf.Data["person-link"] != null) {
+			    int start_offset = start.Offset;
+			    int end_offset = end.Offset;
+
+			    Buffer.Delete(start, Buffer.GetIterAtOffset(start.Offset + 1));
+
+			    start = Buffer.GetIterAtOffset(start_offset);
+			    end = Buffer.GetIterAtOffset(end_offset);
+		    } else {
+			    start.ForwardChar();
+		    }
+		}
+	}
+
+	void GetBlockExtents (ref Gtk.TextIter start, ref Gtk.TextIter end) 
+	{
+		// FIXME: Should only be processing the largest match string
+		// size, so we don't slow down for large paragraphs 
+		
+		start.LineOffset = 0;
+		end.ForwardToLineEnd ();
+	}
+
+	void OnDeleteRange (object sender, Gtk.DeleteRangeArgs args)
+	{
+		Gtk.TextIter start = args.Start;
+		Gtk.TextIter end = args.End;
+
+		GetBlockExtents (ref start, ref end);
+		
+		UnhighlightInBlock (start, end);
+		HighlightInBlock (start, end);
+	}
+
+	void OnInsertText (object sender, Gtk.InsertTextArgs args)
+	{
+		Gtk.TextIter start = args.Pos;
+		start.BackwardChars (args.Length);
+
+		Gtk.TextIter end = args.Pos;
+
+		GetBlockExtents (ref start, ref end);
+
+		UnhighlightInBlock (start, end);
+		HighlightInBlock (start, end);
+	}
+}	

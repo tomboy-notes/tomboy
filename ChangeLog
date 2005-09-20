@@ -1,3 +1,20 @@
+2005-09-20  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Plugins/GalagoPresence.cs: Initial commit, very broken.
+
+	* libtomboy/gtksourceprintjob.c: Fix missed conversion from
+	GTK_IS_SOURCE_VIEW -> GTK_IS_TEXT_VIEW.
+
+	* Tomboy/Plugins/Makefile.am: Build GalagoPresence.dll and add it
+	to noinst_DATA.
+
+	* Tomboy/Watchers.cs: Store and use tags at initialization
+	throughout, instead of looking up tags on-demand.  Update link
+	Watcher to new Trie API.
+
+	* Tomboy/Trie.cs (AddKeyword): Assign 'n' to null to avoid
+	confusing mcs-1.1.9.  Change API to return a set of TrieHits.
+
 2005-09-06  Ilkka Tuohela  <hile@iki.fi>
 
 	* configure.fi: Added "fi" to ALL_LINGUAS.
@@ -5,6 +22,11 @@
 2005-08-30  Dan Damian  <dand@gnome.ro>
 
 	* configure.in: Added "ro" to ALL_LINGUAS.
+
+2005-08-15  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Watchers.cs: Undo last change causing lingering
+	link:internal tag to hang around after partial delete.
 
 2005-08-13  Alex Graveley  <alex@beatniksoftware.com>
 
