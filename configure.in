@@ -90,7 +90,7 @@ AM_CONDITIONAL(FIXED_GTKSPELL, test "$FIXED_GTKSPELL" = "yes")
 #
 PKG_CHECK_MODULES(DBUS, dbus-sharp >= 0.23.2, ENABLE_DBUS="yes", ENABLE_DBUS="no")
 AC_ARG_ENABLE(dbus, 
-	      [  --enable-dbus=[no/yes]    compile with dbus support [default: yes]],
+	      [  --enable-dbus[[=no/yes]]    compile with dbus support [[default: yes]]],
 	      ENABLE_DBUS="$enableval")
 AM_CONDITIONAL(ENABLE_DBUS, test "$ENABLE_DBUS" = "yes")
 AC_SUBST(DBUS_LIBS)
@@ -106,7 +106,7 @@ AC_SUBST(TOMBOY_LIBS)
 #
 PKG_CHECK_MODULES(GALAGO, galago-sharp, ENABLE_GALAGO="yes", ENABLE_GALAGO="no")
 AC_ARG_ENABLE(galago, 
-	      [  --enable-galago=[no/yes]  compile galago plugin [default: yes]],
+	      [  --enable-galago[[=no/yes]]  compile galago plugin [[default: yes]]],
 	      ENABLE_GALAGO="$enableval")
 AM_CONDITIONAL(ENABLE_GALAGO, test "$ENABLE_GALAGO" = "yes")
 AC_SUBST(GALAGO_LIBS)
