@@ -2082,7 +2082,7 @@ gtk_source_print_job_setup_from_view (GtkSourcePrintJob *job,
 	PangoContext *pango_context;
 	
 	g_return_if_fail (GTK_IS_SOURCE_PRINT_JOB (job));
-	g_return_if_fail (GTK_IS_SOURCE_VIEW (view));
+	g_return_if_fail (GTK_IS_TEXT_VIEW (view));
 	g_return_if_fail (!job->priv->printing);
 
 	buffer = gtk_text_view_get_buffer (view);
