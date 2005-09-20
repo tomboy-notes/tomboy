@@ -53,12 +53,14 @@ $(NOTD_TARGET): $(NOTD_CSFILES) $(top_builddir)/Tomboy/Tomboy.exe
 # Galago plugin
 #
 
+if ENABLE_GALAGO
 GALAGO_TARGET = GalagoPresence.dll
 GALAGO_CSFILES = $(srcdir)/GalagoPresence.cs
-GALAGO_RESOURCES = -pkg:galago-sharp
+GALAGO_RESOURCES = $(GALAGO_LIBS)
 
 $(GALAGO_TARGET): $(GALAGO_CSFILES) $(top_builddir)/Tomboy/Tomboy.exe
 	$(CSC) -out:$@ $(CSFLAGS) $(ASSEMBLIES) $(GALAGO_CSFILES) $(GALAGO_RESOURCES)
+endif
 
 
 pluginsdir = $(pkglibdir)/Plugins
@@ -75,7 +77,8 @@ EXTRA_DIST =            	\
 	ExportToHTML.xsl	\
 	$(EXPORT_CSFILES)	\
 	$(PRINT_CSFILES)	\
-	$(NOTD_CSFILES)
+	$(NOTD_CSFILES)		\
+	$(GALAGO_CSFILES)
 
 CLEANFILES =			\
 	$(EXPORT_TARGET) 	\
@@ -83,4 +86,6 @@ CLEANFILES =			\
 	$(PRINT_TARGET)		\
 	$(PRINT_TARGET).mdb	\
 	$(NOTD_TARGET)		\
-	$(NOTD_TARGET).mdb
+	$(NOTD_TARGET).mdb	\
+	$(GALAGO_TARGET)	\
+	$(GALAGO_TARGET).mdb
