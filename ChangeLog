@@ -1,3 +1,41 @@
+2005-09-27  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Plugins/Makefile.am: Build Evolution.dll.
+
+	* Tomboy/Plugins/GalagoPresence.cs: Update to using a custom
+	NoteTag to handle opening Galago person links.
+
+	* Tomboy/Plugins/Evolution.cs: New Evolution email linking plugin.
+	Handles dropped emails, inserting the message subject as a link
+	which when clicked opens the mail in Evolution.  Parsing the mime
+	message is done using Gmime#.
+
+	* Tomboy/Watchers.cs: In NoteSpellChecker, use
+	NoteTagTable.TagIsSpellCheckable().
+
+	In NoteUrlWatcher, connect to link:url's new NoteTag.Activated
+	signal to handle opening links, and remove an unnedded URL
+	massaging step.  
+
+	In NoteLinkWatcher, connect to link:internal's and link:broken's
+	new NoteTag.Activated signal to handle opening links.
+
+	In MouseHandWatcher, remove link:internal click handling, and
+	handle mouse-hand hovering and key press events generically for
+	any "activatable" tags.
+
+	* Tomboy/PluginManager.cs: Use IsSubclassOf() for determining
+	plugin types, instead of explicitly comparing the base type.
+
+	* Tomboy/NoteBuffer.cs: Remove NoteTagTable.  Add support for
+	NoteTag's Read/Write serialization in NoteBufferArchiver.
+
+	* Tomboy/NoteTag.cs: New file, move NoteTagTable here, add new
+	NoteTag and DynamicNoteTag classes.
+
+	* configure.in: Add check for Gmime#, used by the new Evolution
+	plugin.
+
 2005-09-20  Alex Graveley  <alex@beatniksoftware.com>
 
 	* Tomboy/Plugins/Makefile.am: Install GalagoPresence.dll if it is
