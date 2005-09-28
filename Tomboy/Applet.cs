@@ -48,12 +48,12 @@ namespace Tomboy
 
 			// Keep around so our callbacks don't get reaped.
 			menu_verbs = new BonoboUIVerb [] {
-				new BonoboUIVerb ("Props", 
-						  new ContextMenuItemCallback (ShowPreferencesVerb)),
-				new BonoboUIVerb ("Plugins", 
-						  new ContextMenuItemCallback (ShowPluginsVerb)),
-				new BonoboUIVerb ("About", 
-						  new ContextMenuItemCallback (ShowAboutVerb))
+				new BonoboUIVerb (
+					"Props", new ContextMenuItemCallback (ShowPreferencesVerb)),
+				new BonoboUIVerb (
+					"Plugins", new ContextMenuItemCallback (ShowPluginsVerb)),
+				new BonoboUIVerb (
+					"About", new ContextMenuItemCallback (ShowAboutVerb))
 			};
 
 			// FIXME: This silently fails for some unknown reason
@@ -88,7 +88,8 @@ namespace Tomboy
 		//       backgrounds correctly, since Gtk# doesn't map
 		//       GtkStyle::bg_pixmaps[].
 		[DllImport ("libtomboy")]
-		private static extern IntPtr tomboy_widget_set_bg_pixmap (IntPtr widget, IntPtr pixmap);
+		private static extern IntPtr tomboy_widget_set_bg_pixmap (IntPtr widget, 
+									  IntPtr pixmap);
 
 		// FIXME: Overriding to this crashes in the C# bindings.
 		//        Manually tweaked generated bindings to not crash.
