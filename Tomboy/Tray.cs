@@ -57,10 +57,67 @@ namespace Tomboy
 		{
 			Gtk.Widget parent = (Gtk.Widget) sender;
 
-			if (args.Event.Button == 1) {
+			switch (args.Event.Button) {
+			case 1:
 				Gtk.Menu recent_menu = MakeRecentNotesMenu (parent);
 				GuiUtils.PopupMenu (recent_menu, args.Event);
 				args.RetVal = true;
+				break;
+			case 2:
+				Gtk.Clipboard clip = GetClipboard (Gdk.Selection.Primary);
+				clip.RequestText (
+					new Gtk.ClipboardTextReceivedFunc (
+						OnClipboardTextReceived));
+				args.RetVal = true;
+				break;
+			}
+		}
+
+		void PrependTimestampedText (Note note, DateTime timestamp, string text)
+		{
+			NoteBuffer buffer = note.Buffer;
+			StringBuilder insert_text = new StringBuilder ();
+
+			insert_text.Append ("\n"); // initial newline
+			string date_format = Catalog.GetString ("dddd, MMMM d, h:mm tt");
+			insert_text.Append (timestamp.ToString (date_format));
+			insert_text.Append ("\n"); // begin content
+			insert_text.Append (text);
+			insert_text.Append ("\n"); // trailing newline
+
+			buffer.Undoer.FreezeUndo ();
+
+			// Insert the date and list of links...
+			Gtk.TextIter cursor = buffer.StartIter;
+			cursor.ForwardLines (1); // skip title
+
+			buffer.Insert (cursor, insert_text.ToString ());
+
+			// Make the date string a small font...
+			cursor = buffer.StartIter;
+			cursor.ForwardLines (2); // skip title & leading newline
+
+			Gtk.TextIter end = cursor;
+			end.ForwardToLineEnd (); // end of date
+
+			buffer.ApplyTag ("datetime", cursor, end);
+
+			// Select the text we've inserted (avoid trailing newline)...
+			end = cursor;
+			end.ForwardChars (insert_text.Length - 1);
+
+			buffer.MoveMark (buffer.SelectionBound, cursor);
+			buffer.MoveMark (buffer.InsertMark, end);
+
+			buffer.Undoer.ThawUndo ();
+		}
+
+		void OnClipboardTextReceived (Gtk.Clipboard clip, string text)
+		{
+			Note link_note = manager.Find (Catalog.GetString ("Start Here"));
+			if (link_note != null) {
+				link_note.Window.Present ();
+				PrependTimestampedText (link_note, DateTime.Now, text);
 			}
 		}
 
@@ -275,53 +332,28 @@ namespace Tomboy
 			if (uri_list.Count == 0)
 				return;
 
-			Note link_note = manager.Find (Catalog.GetString ("Start Here"));
-			link_note.Window.Present ();
-
-			NoteBuffer buffer = link_note.Buffer;
 			StringBuilder insert_text = new StringBuilder ();
-
-			insert_text.Append ("\n"); // initial newline
-
-			string date_format = Catalog.GetString ("dddd, MMMM d, h:mm tt");
-			insert_text.Append (DateTime.Now.ToString (date_format));
+			bool more_than_one = false;
 
 			foreach (Uri uri in uri_list) {
-				insert_text.Append ("\n");
+				if (more_than_one)
+					insert_text.Append ("\n");
 
 				if (uri.IsFile) 
 					insert_text.Append (uri.LocalPath);
 				else
 					insert_text.Append (uri.ToString ());
+
+				more_than_one = true;
 			}
 
-			insert_text.Append ("\n"); // trailing newline
-
-			buffer.Undoer.FreezeUndo ();
-
-			// Insert the date and list of links...
-			Gtk.TextIter cursor = buffer.StartIter;
-			cursor.ForwardLines (1); // skip title
-
-			buffer.Insert (cursor, insert_text.ToString ());
-
-			// Make the date string a small font...
-			cursor = buffer.StartIter;
-			cursor.ForwardLines (2); // skip title & leading newline
-
-			Gtk.TextIter end = cursor;
-			end.ForwardToLineEnd (); // end of date
-
-			buffer.ApplyTag ("size:small", cursor, end);
-
-			// Select the text we've inserted (avoid trailing newline)...
-			end = cursor;
-			end.ForwardChars (insert_text.Length - 1);
-
-			buffer.MoveMark (buffer.SelectionBound, cursor);
-			buffer.MoveMark (buffer.InsertMark, end);
-
-			buffer.Undoer.ThawUndo ();
+			Note link_note = manager.Find (Catalog.GetString ("Start Here"));
+			if (link_note != null) {
+				link_note.Window.Present ();
+				PrependTimestampedText (link_note, 
+							DateTime.Now, 
+							insert_text.ToString ());
+			}
 		}
 	}
 

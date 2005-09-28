@@ -1,3 +1,15 @@
+2005-09-28  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Tray.cs: Implement feature request from Mig... handle
+	middle button click by prepending the Primary clipboard text to
+	"Start Here" along with a date/time stamp.  Factor out this
+	insertion to PrependTimestampedText, and se it for URL drops as
+	well.
+
+	* Tomboy/NoteTag.cs: Add "datetime" tag, used for visually
+	formatting the date string inserted with URL drops and middle
+	button paste to the tray icon.
+
 2005-09-27  Alex Graveley  <alex@beatniksoftware.com>
 
 	* Tomboy/Plugins/Makefile.am: Build Evolution.dll.

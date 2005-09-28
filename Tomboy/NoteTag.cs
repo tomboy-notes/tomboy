@@ -327,6 +327,13 @@ namespace Tomboy
 			tag.Editable = false;
 			Add (tag);
 
+			// Used when inserting dropped URLs/text to Start Here
+			tag = new NoteTag ("datetime");
+			tag.Scale = Pango.Scale.Small;
+			tag.Style = Pango.Style.Italic;
+			tag.Foreground = "grey";
+			Add (tag);
+
 			// Font sizes
 
 			tag = new NoteTag ("size:huge");
