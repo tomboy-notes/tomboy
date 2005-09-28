@@ -10,25 +10,6 @@ using Galago;
 
 using Tomboy;
 
-class GaimRemote : Process
-{
-	public static void SendMessage (Account account)
-	{
-		GaimRemote p = new GaimRemote();
-		p.StartInfo.FileName = "gaim-remote";
-		p.StartInfo.Arguments = 
-			"uri " + 
-			account.Service.Id + ":goim?screenname=" + account.UserName;
-		p.StartInfo.UseShellExecute = false;
-
-		try {			
-			p.Start ();
-		} catch (Exception e) {
-			Console.WriteLine ("Error launching gaim-remote: " + e);
-		}
-	}
-}
-
 class GalagoManager
 {
 	TrieTree trie;
@@ -39,7 +20,7 @@ class GalagoManager
 		Galago.Core.Init ("tomboy", false);
 
 		///// 
-		///// Connecting these cause crashes with the current bindings...
+		///// Connecting these cause crashes with the current 0.3.2 bindings...
 		/////
 		//Galago.Core.OnPersonAdded += OnPersonAdded;
 		//Galago.Core.OnPersonRemoved += OnPersonRemoved;
@@ -225,9 +206,17 @@ class PersonLink
 	public void SendMessage ()
 	{
 		Account best = GetBestAccount ();
-		if (best != null) {
-			GaimRemote.SendMessage (best);
-		}
+		if (best == null)
+			throw new Exception ("No accounts associated with this person");
+
+		Process p = new Process ();
+		p.StartInfo.FileName = "gaim-remote";
+		p.StartInfo.Arguments = 
+			"uri " + 
+			best.Service.Id + ":goim?screenname=" + best.UserName;
+		p.StartInfo.UseShellExecute = false;
+
+		p.Start ();
 	}
 
 	[DllImport("libgalago-gtk")]
@@ -248,6 +237,59 @@ class PersonLink
 				return new Gdk.Pixbuf (icon);
 		}
 		return null;
+	}
+}
+
+class PersonTag : NoteTag
+{
+	GalagoManager galago;
+
+	public PersonTag (string tag_name, GalagoManager galago)
+		: base (tag_name)
+	{
+		this.galago = galago;
+	}
+
+	public override void Initialize (string element_name)
+	{
+		base.Initialize (element_name);
+
+		Underline = Pango.Underline.Single;
+		Foreground = "blue";
+		CanSerialize = false;
+		CanActivate = true;
+	}
+	
+	protected override bool OnActivate (NoteEditor editor,
+					    Gtk.TextIter start, 
+					    Gtk.TextIter end)
+	{
+		string persona = start.GetText (end);
+		PersonLink plink = (PersonLink) galago.Trie.Lookup (persona);
+
+		try {
+			plink.SendMessage ();
+		} catch (Exception e) {
+			string title = Catalog.GetString ("Cannot contact '{0}'");
+			title = String.Format (title, persona);
+
+			string message = Catalog.GetString ("Error running gaim-remote: {0}");
+			message = String.Format (message, e.Message);
+
+			Console.WriteLine (message);
+
+ 			HIGMessageDialog dialog = 
+ 				new HIGMessageDialog (editor.Toplevel as Gtk.Window,
+ 						      Gtk.DialogFlags.DestroyWithParent,
+ 						      Gtk.MessageType.Info,
+ 						      Gtk.ButtonsType.Ok,
+ 						      title,
+ 						      message);
+ 			dialog.Run ();
+ 			dialog.Destroy ();
+		}
+
+		return true;
 	}
 }
 
@@ -272,11 +314,7 @@ class GalagoPresencePlugin : NotePlugin
 	{
 		person_tag = Note.TagTable.Lookup ("link:person");
 		if (person_tag == null) {
-			person_tag = new Gtk.TextTag ("link:person");
-			person_tag.Underline = Pango.Underline.Single;
-			person_tag.Foreground = "blue";
-			person_tag.Data ["serialize"] = false;
-			person_tag.TextEvent += OnTextEvent;
+			person_tag = new PersonTag ("link:person", galago);
 
 			Console.WriteLine ("Adding link:person tag...");
 			Note.TagTable.Add (person_tag);
@@ -302,42 +340,6 @@ class GalagoPresencePlugin : NotePlugin
 
 		// Highlight existing people in note
 		HighlightInBlock (Buffer.StartIter, Buffer.EndIter);
-	}
-
-	void OnTextEvent (object sender, Gtk.TextEventArgs args)
-	{
-		Gtk.TextTag tag = (Gtk.TextTag) sender;
-
-		if (args.Event.Type != Gdk.EventType.ButtonPress)
-			return;
-
-		Gdk.EventButton button_ev = new Gdk.EventButton (args.Event.Handle);
-		if (button_ev.Button != 1 && button_ev.Button != 2)
-			return;
-
-		/* Don't open link if Shift or Control is pressed */
-		if ((int) (button_ev.State & (Gdk.ModifierType.ShiftMask |
-					      Gdk.ModifierType.ControlMask)) != 0)
-			return;
-
-		Gtk.TextIter start = args.Iter;
-		start.BackwardToTagToggle (person_tag);
-
-		Gtk.TextIter end = args.Iter;
-		end.ForwardToTagToggle (person_tag);
-
-		PersonLink plink = (PersonLink) galago.Trie.Lookup (start.GetText (end));
-		if (plink != null) {
-			plink.SendMessage ();
-
-			// Close note on middle-click
-			if (button_ev.Button == 2) {
-				Window.Hide ();
-			}
-		}
-
-		// Kill the middle button paste...
-		args.RetVal = true;
 	}
 
 	void OnPeopleChanged (object sender, EventArgs args)

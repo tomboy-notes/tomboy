@@ -102,6 +102,16 @@ PKG_CHECK_MODULES(TOMBOY, gtk-sharp gnome-sharp gconf-sharp)
 AC_SUBST(TOMBOY_LIBS)
 
 #
+# Evolution.dll needs Gmime#
+#
+PKG_CHECK_MODULES(EVOLUTION, gmime-sharp, ENABLE_EVOLUTION="yes", ENABLE_EVOLUTION="no")
+AC_ARG_ENABLE(evolution, 
+	      [  --enable-evolution[[=no/yes]]  compile evolution plugin [[default: yes]]],
+	      ENABLE_EVOLUTION="$enableval")
+AM_CONDITIONAL(ENABLE_EVOLUTION, test "$ENABLE_EVOLUTION" = "yes")
+AC_SUBST(EVOLUTION_LIBS)
+
+#
 # GalagoPresence.dll needs Galago#
 #
 PKG_CHECK_MODULES(GALAGO, galago-sharp, ENABLE_GALAGO="yes", ENABLE_GALAGO="no")

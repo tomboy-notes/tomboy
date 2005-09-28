@@ -401,7 +401,7 @@ namespace Tomboy
 			bool found_one = false;
 
 			foreach (Type type in types) {
-				if (type.BaseType == typeof (NotePlugin)) {
+				if (type.IsSubclassOf (typeof (NotePlugin))) {
 					Console.Write ("{0}. ", type.FullName);
 					asm_plugins.Add (type);
 					found_one = true;

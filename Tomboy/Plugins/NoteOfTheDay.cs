@@ -8,7 +8,8 @@ using Gtk;
 
 using Tomboy;
 
-class NoteOfTheDay {
+class NoteOfTheDay 
+{
 	static string title_prefix = Catalog.GetString ("NotD: ");
 
 	public static string GetTitle (DateTime day)
