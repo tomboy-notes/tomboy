@@ -64,6 +64,9 @@ namespace Tomboy
 				args.RetVal = true;
 				break;
 			case 2:
+				// Give some visual feedback
+				Gtk.Drag.Highlight (this);
+
 				Gtk.Clipboard clip = GetClipboard (Gdk.Selection.Primary);
 				clip.RequestText (
 					new Gtk.ClipboardTextReceivedFunc (
@@ -119,6 +122,8 @@ namespace Tomboy
 				link_note.Window.Present ();
 				PrependTimestampedText (link_note, DateTime.Now, text);
 			}
+
+			Gtk.Drag.Unhighlight (this);
 		}
 
 		Gtk.Menu MakeRecentNotesMenu (Gtk.Widget parent) 
