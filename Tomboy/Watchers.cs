@@ -279,35 +279,31 @@ namespace Tomboy
 
 		void TagApplied (object sender, Gtk.TagAppliedArgs args)
 		{
+			bool remove = false;
+
 			if (args.Tag.Name == "gtkspell-misspelled") {
 				// Remove misspelled tag for links & title
 				foreach (Gtk.TextTag tag in args.StartChar.Tags) {
-					if (tag.Name != null && 
-					    (tag.Name.StartsWith ("link:") || 
-					     tag.Name == "note-title")) {
-						Buffer.RemoveTag ("gtkspell-misspelled", 
-								  args.StartChar, 
-								  args.EndChar);
+					if (!NoteTagTable.TagIsSpellCheckable (tag)) {
+						remove = true;
 						break;
 					}
 				}
-			} else if (args.Tag.Name != null && 
-				   (args.Tag.Name.StartsWith ("link:") ||
-				    args.Tag.Name == "note-title")) {
-				Gtk.TextTag misspell = 
-					Buffer.TagTable.Lookup ("gtkspell-misspelled");
-				if (misspell != null) {
-					Buffer.RemoveTag ("gtkspell-misspelled", 
-							  args.StartChar, 
-							  args.EndChar);
-				}
+			} else if (!NoteTagTable.TagIsSpellCheckable (args.Tag)) {
+				remove = true;
+			}
+
+			if (remove) {
+				Buffer.RemoveTag ("gtkspell-misspelled", 
+						  args.StartChar, 
+						  args.EndChar);
 			}
 		}
 	}
 
 	public class NoteUrlWatcher : NotePlugin
 	{
-		Gtk.TextTag url_tag;
+		NoteTag url_tag;
 		Gtk.TextMark click_mark;
 
 		const string URL_REGEX = 
@@ -325,7 +321,7 @@ namespace Tomboy
 
 		protected override void Initialize ()
 		{
-			url_tag = Note.TagTable.Lookup ("link:url");
+			url_tag = (NoteTag) Note.TagTable.Lookup ("link:url");
 		}
 
 		protected override void Shutdown ()
@@ -344,11 +340,11 @@ namespace Tomboy
 			// multiple times for each button press.  Fixes bug
 			// #305813.
 			if (!text_event_connected) {
-				url_tag.TextEvent += OnTextEvent;
+				url_tag.Activated += OnUrlTagActivated;
 				text_event_connected = true;
 			}
 #else
-			url_tag.TextEvent += OnTextEvent;
+			url_tag.Activated += OnUrlTagActivated;
 #endif
 
 			click_mark = Buffer.CreateMark (null, Buffer.StartIter, true);
@@ -361,14 +357,8 @@ namespace Tomboy
 			Window.Editor.PopupMenu += OnPopupMenu;
 		}
 
-		string GetUrlAtIter (Gtk.TextIter iter)
+		string GetUrl (Gtk.TextIter start, Gtk.TextIter end)
 		{
-			Gtk.TextIter start = iter;
-			start.BackwardToTagToggle (url_tag);
-
-			Gtk.TextIter end = iter;
-			end.ForwardToTagToggle (url_tag);
-
 			string url = start.GetText (end);
 
 			// FIXME: Needed because the file match is greedy and
@@ -380,11 +370,6 @@ namespace Tomboy
 			// to /home/alex/foo.
 			if (url.StartsWith ("www."))
 				url = "http://" + url;
-			else if (url.StartsWith ("http://") ||
-				 url.StartsWith ("https://") ||
-				 url.StartsWith ("ftp://") ||
-				 url.StartsWith ("file://"))
-				url = url;
 			else if (url.StartsWith ("/") && 
 				 url.LastIndexOf ("/") > 1)
 				url = "file://" + url;
@@ -423,36 +408,20 @@ namespace Tomboy
 			dialog.Destroy ();
 		}
 
-		void OnTextEvent (object sender, Gtk.TextEventArgs args)
+		bool OnUrlTagActivated (NoteTag      sender,
+					NoteEditor   editor,
+					Gtk.TextIter start, 
+					Gtk.TextIter end)
 		{
-			Gtk.TextTag tag = (Gtk.TextTag) sender;
-
-			if (args.Event.Type != Gdk.EventType.ButtonPress)
-				return;
-
-			Gdk.EventButton button_ev = new Gdk.EventButton (args.Event.Handle);
-			if (button_ev.Button != 1 && button_ev.Button != 2)
-				return;
-
-			/* Don't open link if Shift or Control is pressed */
-			if ((int) (button_ev.State & (Gdk.ModifierType.ShiftMask |
-						      Gdk.ModifierType.ControlMask)) != 0)
-				return;
-
-			string url = GetUrlAtIter (args.Iter);
+			string url = GetUrl (start, end);
 			try {
 				OpenUrl (url);
-
-				// Close note on middle-click
-				if (button_ev.Button == 2) {
-					Window.Hide ();
-				}
 			} catch (GLib.GException e) {
 				ShowOpeningLocationError (url, e.Message);
 			}
 
 			// Kill the middle button paste...
-			args.RetVal = true;
+			return true;
 		}
 
 		void ApplyUrlToBlock (Gtk.TextIter start, Gtk.TextIter end)
@@ -549,18 +518,21 @@ namespace Tomboy
 		void OpenLinkActivate (object sender, EventArgs args)
 		{
 			Gtk.TextIter click_iter = Buffer.GetIterAtMark (click_mark);
-			string url = GetUrlAtIter (click_iter);
-			try {
-				OpenUrl (url);
-			} catch (GLib.GException e) {
-				ShowOpeningLocationError (url, e.Message);
-			}
+
+			Gtk.TextIter start, end;
+			url_tag.GetExtents (click_iter, out start, out end);
+
+			OnUrlTagActivated (url_tag, (NoteEditor) Window.Editor, start, end);
 		}
 
 		void CopyLinkActivate (object sender, EventArgs args)
 		{
 			Gtk.TextIter click_iter = Buffer.GetIterAtMark (click_mark);
-			string url = GetUrlAtIter (click_iter);
+
+			Gtk.TextIter start, end;
+			url_tag.GetExtents (click_iter, out start, out end);
+
+			string url = GetUrl (start, end);
 
 			Gtk.Clipboard clip = Window.Editor.GetClipboard (Gdk.Selection.Clipboard);
 			clip.SetText (url);
@@ -569,9 +541,11 @@ namespace Tomboy
 
 	public class NoteLinkWatcher : NotePlugin
 	{
-		Gtk.TextTag url_tag;
-		Gtk.TextTag link_tag;
-		Gtk.TextTag broken_link_tag;
+		NoteTag url_tag;
+		NoteTag link_tag;
+		NoteTag broken_link_tag;
+
+		static bool text_event_connected;
 
 		protected override void Initialize () 
 		{
@@ -579,9 +553,9 @@ namespace Tomboy
 			Manager.NoteAdded += OnNoteAdded;
 			Manager.NoteRenamed += OnNoteRenamed;
 
-			url_tag = Note.TagTable.Lookup ("link:url");
-			link_tag = Note.TagTable.Lookup ("link:internal");
-			broken_link_tag = Note.TagTable.Lookup ("link:broken");
+			url_tag = (NoteTag) Note.TagTable.Lookup ("link:url");
+			link_tag = (NoteTag) Note.TagTable.Lookup ("link:internal");
+			broken_link_tag = (NoteTag) Note.TagTable.Lookup ("link:broken");
 		}
 
 		protected override void Shutdown ()
@@ -593,6 +567,23 @@ namespace Tomboy
 
 		protected override void OnNoteOpened ()
 		{
+#if FIXED_GTKSPELL
+			// NOTE: This avoid multiple link opens for cases where
+			// the GtkSpell version is fixed to allow TagTable
+			// sharing.  This is because if the TagTable is shared,
+			// we will connect to the same Tag's event source each
+			// time a note is opened, and get called multiple times
+			// for each button press.  Fixes bug #305813.
+			if (!text_event_connected) {
+				link_tag.Activated += OnLinkTagActivated;
+				broken_link_tag.Activated += OnLinkTagActivated;
+				text_event_connected = true;
+			}
+#else
+			link_tag.Activated += OnLinkTagActivated;
+			broken_link_tag.Activated += OnLinkTagActivated;
+#endif
+
 			Buffer.InsertText += OnInsertText;
 			Buffer.DeleteRange += OnDeleteRange;
 		}
@@ -758,6 +749,33 @@ namespace Tomboy
 			UnhighlightInBlock (start, end);
 			HighlightInBlock (start, end);
 		}
+
+		bool OpenOrCreateLink (Gtk.TextIter start, Gtk.TextIter end)
+		{
+			string link_name = start.GetText (end);
+			Note link = Manager.Find (link_name);
+
+			if (link == null) {
+				Console.WriteLine ("Creating note '{0}'...", link_name);
+				link = Manager.Create (link_name);
+			}
+
+			if (link != null && link != this.Note) {
+				Console.WriteLine ("Opening note '{0}' on click...", link_name);
+				link.Window.Present ();
+				return true;
+			}
+
+			return false;
+		}
+
+		bool OnLinkTagActivated (NoteTag      sender,
+					 NoteEditor   editor,
+					 Gtk.TextIter start, 
+					 Gtk.TextIter end)
+		{
+			return OpenOrCreateLink (start, end);
+		}
 	}
 
 	public class NoteWikiWatcher : NotePlugin
@@ -868,26 +886,20 @@ namespace Tomboy
 
 	public class MouseHandWatcher : NotePlugin
 	{
-		Gtk.TextTag link_tag;
-		Gtk.TextTag broken_link_tag;
-
 		bool hovering_on_link;
 
 		static Gdk.Cursor normal_cursor;
 		static Gdk.Cursor hand_cursor;
-		static bool text_event_connected;
 
 		static MouseHandWatcher ()
 		{
 			normal_cursor = new Gdk.Cursor (Gdk.CursorType.Xterm);
 			hand_cursor = new Gdk.Cursor (Gdk.CursorType.Hand2);
-			text_event_connected = false;
 		}
 
 		protected override void Initialize ()
 		{
-			link_tag = Note.TagTable.Lookup ("link:internal");
-			broken_link_tag = Note.TagTable.Lookup ("link:broken");
+			// Do nothing.
 		}
 
 		protected override void Shutdown ()
@@ -897,79 +909,10 @@ namespace Tomboy
 
 		protected override void OnNoteOpened ()
 		{
-#if FIXED_GTKSPELL
-			// NOTE: This avoid multiple link opens for cases where
-			// the GtkSpell version is fixed to allow TagTable
-			// sharing.  This is because if the TagTable is shared,
-			// we will connect to the same Tag's event source each
-			// time a note is opened, and get called multiple times
-			// for each button press.  Fixes bug #305813.
-			if (!text_event_connected) {
-				link_tag.TextEvent += OnLinkTextEvent;
-				broken_link_tag.TextEvent += OnLinkTextEvent;
-				text_event_connected = true;
-			}
-#else
-			link_tag.TextEvent += OnLinkTextEvent;
-			broken_link_tag.TextEvent += OnLinkTextEvent;
-#endif
-
 			Gtk.TextView editor = Window.Editor;
 			editor.MotionNotifyEvent += OnEditorMotion;
 			editor.KeyPressEvent += OnEditorKeyPress;
 			editor.KeyReleaseEvent += OnEditorKeyRelease;
-		}
-
-		bool OpenOrCreateLink (Gtk.TextIter start, Gtk.TextIter end)
-		{
-			string link_name = start.GetText (end);
-			Note link = Manager.Find (link_name);
-
-			if (link == null) {
-				Console.WriteLine ("Creating note '{0}'...", link_name);
-				link = Manager.Create (link_name);
-			}
-
-			if (link != null && link != this.Note) {
-				Console.WriteLine ("Opening note '{0}' on click...", link_name);
-				link.Window.Present ();
-				return true;
-			}
-
-			return false;
-		}
-
-		void OnLinkTextEvent (object sender, Gtk.TextEventArgs args)
-		{
-			Gtk.TextTag tag = (Gtk.TextTag) sender;
-
-			if (args.Event.Type != Gdk.EventType.ButtonPress)
-				return;
-
-			Gdk.EventButton button_ev = new Gdk.EventButton (args.Event.Handle);
-			if (button_ev.Button != 1 && button_ev.Button != 2)
-				return;
-
-			/* Don't open link if Shift or Control is pressed */
-			if ((int) (button_ev.State & (Gdk.ModifierType.ShiftMask |
-						      Gdk.ModifierType.ControlMask)) != 0)
-				return;
-
-			Gtk.TextIter start = args.Iter, end = args.Iter;
-
-			if (!start.BeginsTag (tag))
-				start.BackwardToTagToggle (tag);
-			end.ForwardToTagToggle (tag);
-
-			if (!OpenOrCreateLink (start, end))
-				return;
-
-			if (button_ev.Button == 2) {
-				Window.Hide ();
-
-				// Kill the middle button paste...
-				args.RetVal = true;
-			}
 		}
 
 		[GLib.ConnectBefore]
@@ -992,27 +935,15 @@ namespace Tomboy
 
 			case Gdk.Key.Return:
 			case Gdk.Key.KP_Enter:
-				// Control-Enter opens the link at point...
-
-				// FIXME: just fire a Widget.Event for this
-				// args.Event, and let the handlers deal
-
-				if ((int) (args.Event.State & Gdk.ModifierType.ControlMask) == 0)
-					break;
-				
 				Gtk.TextIter iter = Buffer.GetIterAtMark (Buffer.InsertMark);
 
 				foreach (Gtk.TextTag tag in iter.Tags) {
-					if (tag == link_tag || tag == broken_link_tag) {
-						Gtk.TextIter start = iter, end = iter;
-
-						if (!start.BeginsTag (tag))
-							start.BackwardToTagToggle (tag);
-						end.ForwardToTagToggle (tag);
-
-						OpenOrCreateLink (start, end);
-						args.RetVal = true;
-						break;
+					if (NoteTagTable.TagIsActivatable (tag)) {
+						args.RetVal = tag.ProcessEvent (Window.Editor,
+										args.Event,
+										iter);
+						if ((bool) args.RetVal)
+							break;
 					}
 				}
 				break;
@@ -1062,8 +993,7 @@ namespace Tomboy
 			Gtk.TextIter iter = Window.Editor.GetIterAtLocation (buffer_x, buffer_y);
 
 			foreach (Gtk.TextTag tag in iter.Tags) {
-				if (tag.Name != null && 
-				    tag.Name.StartsWith ("link:")) {
+				if (NoteTagTable.TagIsActivatable (tag)) {
 					hovering = true;
 					break;
 				}

@@ -6,156 +6,6 @@ using System.Xml;
 
 namespace Tomboy
 {
-	public class NoteTagTable : Gtk.TextTagTable
-	{
-		static NoteTagTable instance;
-
-		public static NoteTagTable Instance 
-		{
-			get {
-				if (instance == null) 
-					instance = new NoteTagTable ();
-				return instance;
-			}
-		}
-
-		public NoteTagTable () 
-			: base ()
-		{
-			InitCommonTags ();
-		}
-
-		public NoteTagTable (IntPtr ptr)
-			: base (ptr)
-		{
-			Console.WriteLine ("NoteTagTable Native ptr instantiation");
-			Console.WriteLine ((new System.Diagnostics.StackTrace ()).ToString ());
-		}
-		
-		void InitCommonTags () 
-		{
-			Gtk.TextTag tag;
-
-			// Font stylings
-
-			tag = new Gtk.TextTag ("centered");
-			tag.Justification = Gtk.Justification.Center;
-			Add (tag);
-
-			tag = new Gtk.TextTag ("bold");
-			tag.Weight = Pango.Weight.Bold;
-			Add (tag);
-
-			tag = new Gtk.TextTag ("italic");
-			tag.Style = Pango.Style.Italic;
-			Add (tag);
-
-			tag = new Gtk.TextTag ("strikethrough");
-			tag.Strikethrough = true;
-			Add (tag);
-
-			tag = new Gtk.TextTag ("highlight");
- 			tag.Background = "yellow";
-			Add (tag);
-
-			tag = new Gtk.TextTag ("find-match");
-			tag.Background = "green";
-			tag.Data ["serialize"] = false;
-			Add (tag);
-
-			tag = new Gtk.TextTag ("note-title");
-			tag.Underline = Pango.Underline.Single;
-			tag.Foreground = "red";
-			tag.Scale = Pango.Scale.XX_Large;
-			Add (tag);
-
-			tag = new Gtk.TextTag ("related-to");
-			tag.Scale = Pango.Scale.Small;
-			tag.LeftMargin = 40;
-			tag.Editable = false;
-			Add (tag);
-
-			// Font sizes
-
-			tag = new Gtk.TextTag ("size:huge");
-			tag.Scale = Pango.Scale.XX_Large;
-			Add (tag);
-
-			tag = new Gtk.TextTag ("size:large");
-			tag.Scale = Pango.Scale.X_Large;
-			Add (tag);
-
-			tag = new Gtk.TextTag ("size:normal");
-			tag.Scale = Pango.Scale.Medium;
-			Add (tag);
-
-			tag = new Gtk.TextTag ("size:small");
-			tag.Scale = Pango.Scale.Small;
-			Add (tag);
-
-			// Links
-
-			tag = new Gtk.TextTag ("link:broken");
-			tag.Underline = Pango.Underline.Single;
-			tag.Foreground = "darkgrey";
-			Add (tag);
-
-			tag = new Gtk.TextTag ("link:internal");
-			tag.Underline = Pango.Underline.Single;
-			tag.Foreground = "red";
-			Add (tag);
-
-			tag = new Gtk.TextTag ("link:url");
-			tag.Underline = Pango.Underline.Single;
-			tag.Foreground = "blue";
-			Add (tag);
-		}
-
-		public static bool TagIsSerializable (Gtk.TextTag tag)
-		{
-			if (tag.Name == null ||
-			    tag.Name == "note-title" ||
-			    tag.Name == "find-match" || 
-			    tag.Name == "gtkspell-misspelled")
-				return false;
-
-			if (tag.Data ["serialize"] != null)
-				return (bool) tag.Data ["serialize"];
-
-			return true;
-		}
-
-		public static bool TagIsGrowable (Gtk.TextTag tag)
-		{
-			if (tag.Name != null &&
-			    (tag.Name.StartsWith ("link:") || 
-			     tag.Name == "find-match" || 
-			     tag.Name == "gtkspell-misspelled" ||
-			     tag.Name == "note-title"))
-				return false;
-
-			if (tag.Data ["growable"] != null)
-				return (bool) tag.Data ["growable"];
-
-			return true;
-		}
-
-		public static bool TagIsUndoable (Gtk.TextTag tag)
-		{
-			if (tag.Name != null &&
-			    (tag.Name.StartsWith ("link:") || 
-			     tag.Name == "find-match" ||
-			     tag.Name == "gtkspell-misspelled" ||
-			     tag.Name == "note-title"))
-				return false;
-
-			if (tag.Data ["undoable"] != null)
-				return (bool) tag.Data ["undoable"];
-
-			return true;
-		}
-	}
-
 	// Provides the concept of active tags, which are applied on text
 	// insert.  Exposes the UndoManager for this buffer.  And adds a
 	// InsertTextWithTags event which is fired after inserted text has all
@@ -338,6 +188,24 @@ namespace Tomboy
 			return stream.ToString ();
 		}
 
+		static void WriteTag (Gtk.TextTag tag, XmlTextWriter xml, bool start)
+		{
+			NoteTag note_tag = tag as NoteTag;
+			if (note_tag != null) {
+				note_tag.Write (xml, start);
+			} else if (NoteTagTable.TagIsSerializable (tag)) {
+				if (start)
+					xml.WriteStartElement (null, tag.Name, null);
+				else 
+					xml.WriteEndElement ();
+			}
+		}
+
+		static bool TagEndsHere (Gtk.TextTag tag, Gtk.TextIter iter, Gtk.TextIter next_iter)
+		{
+			return (iter.HasTag (tag) && !next_iter.HasTag (tag)) || next_iter.IsEnd;
+		}
+
 		// This is taken almost directly from GAIM.  There must be a
 		// better way to do this...
 		public static void Serialize (Gtk.TextBuffer buffer, 
@@ -357,19 +225,17 @@ namespace Tomboy
 
 			// Insert any active tags at start into tag_stack...
 			foreach (Gtk.TextTag start_tag in start.Tags) {
-				if (!start.TogglesTag (start_tag) &&
-				    NoteTagTable.TagIsSerializable (start_tag)) {
+				if (!start.TogglesTag (start_tag)) {
 					tag_stack.Push (start_tag);
-					xml.WriteStartElement (null, start_tag.Name, null);
+					WriteTag (start_tag, xml, true);
 				}
 			}
 
 			while (!iter.Equal (end) && iter.Char != null) {
 				foreach (Gtk.TextTag tag in iter.Tags) {
-					if (iter.BeginsTag (tag) &&
-					    NoteTagTable.TagIsSerializable (tag)) {
+					if (iter.BeginsTag (tag)) {
 						tag_stack.Push (tag);
-						xml.WriteStartElement (null, tag.Name, null);
+						WriteTag (tag, xml, true);
 					}
 				}
 
@@ -386,8 +252,7 @@ namespace Tomboy
 					xml.WriteString (iter.Char);
 
 				foreach (Gtk.TextTag tag in iter.Tags) {
-					if (TagEndsHere (tag, iter, next_iter) &&
-					    NoteTagTable.TagIsSerializable (tag)) {
+					if (TagEndsHere (tag, iter, next_iter)) {
 						// Unwind until the ended tag.
 						// Put any intermediate tags
 						// into a replay queue...
@@ -402,7 +267,7 @@ namespace Tomboy
 									  next_iter))
 								replay_stack.Push (existing_tag);
 
-							xml.WriteEndElement ();
+							WriteTag (existing_tag, xml, false);
 						}
 
 						//xml.WriteEndElement ();
@@ -416,9 +281,7 @@ namespace Tomboy
 								(Gtk.TextTag) replay_stack.Pop ();
 							tag_stack.Push (replay_tag);
 
-							xml.WriteStartElement (null, 
-									       replay_tag.Name, 
-									       null);
+							WriteTag (replay_tag, xml, true);
 						}
 					}
 				}
@@ -429,22 +292,17 @@ namespace Tomboy
 
 			// Empty any trailing tags left in tag_stack..
 			while (tag_stack.Count > 0) {
-				tag_stack.Pop ();
-				xml.WriteEndElement ();
+				Gtk.TextTag tail_tag = (Gtk.TextTag) tag_stack.Pop ();
+				WriteTag (tail_tag, xml, false);
 			}
 
 			xml.WriteEndElement (); // </note-content>
 		}
 
-		static bool TagEndsHere (Gtk.TextTag tag, Gtk.TextIter iter, Gtk.TextIter next_iter)
-		{
-			return (iter.HasTag (tag) && !next_iter.HasTag (tag)) || next_iter.IsEnd;
-		}
-
 		class TagStart 
 		{
-			public int    Start;
-			public string TagName;
+			public int         Start;
+			public Gtk.TextTag Tag;
 		}
 
 		public static void Deserialize (Gtk.TextBuffer buffer, string content)
@@ -471,6 +329,8 @@ namespace Tomboy
 			Stack stack = new Stack ();
 			TagStart tag_start;
 
+			NoteTagTable note_table = buffer.TagTable as NoteTagTable;
+
 			while (xml.Read ()) {
 				switch (xml.NodeType) {
 				case XmlNodeType.Element:
@@ -479,7 +339,18 @@ namespace Tomboy
 
 					tag_start = new TagStart ();
 					tag_start.Start = offset;
-					tag_start.TagName = xml.Name;
+
+					if (note_table != null && 
+					    note_table.IsDynamicTagRegistered (xml.Name)) {
+						tag_start.Tag = 
+							note_table.CreateDynamicTag (xml.Name);
+					} else {
+						tag_start.Tag = buffer.TagTable.Lookup (xml.Name);
+					}
+
+					if (tag_start.Tag is NoteTag) {
+						((NoteTag) tag_start.Tag).Read (xml, true);
+					}
 
 					stack.Push (tag_start);
 					break;
@@ -501,7 +372,11 @@ namespace Tomboy
 					apply_start = buffer.GetIterAtOffset (tag_start.Start);
 					apply_end = buffer.GetIterAtOffset (offset);
 
-					buffer.ApplyTag (tag_start.TagName, apply_start, apply_end);
+					if (tag_start.Tag is NoteTag) {
+						((NoteTag) tag_start.Tag).Read (xml, false);
+					}
+
+					buffer.ApplyTag (tag_start.Tag, apply_start, apply_end);
 					break;
 				default:
 					Console.WriteLine ("Unhandled element {0}. Value: '{1}'",

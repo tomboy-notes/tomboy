@@ -26,6 +26,20 @@ $(PRINT_TARGET): $(PRINT_CSFILES) $(top_builddir)/Tomboy/Tomboy.exe
 
 
 #
+# Evolution plugin
+#
+
+if ENABLE_EVOLUTION
+EVO_TARGET = Evolution.dll
+EVO_CSFILES = $(srcdir)/Evolution.cs
+EVO_RESOURCES = $(EVOLUTION_LIBS)
+
+$(EVO_TARGET): $(EVO_CSFILES) $(top_builddir)/Tomboy/Tomboy.exe
+	$(CSC) -out:$@ $(CSFLAGS) $(ASSEMBLIES) $(EVO_CSFILES) $(EVO_RESOURCES)
+endif
+
+
+#
 # Export to HTML plugin
 #
 
@@ -65,6 +79,7 @@ endif
 
 pluginsdir = $(pkglibdir)/Plugins
 plugins_DATA = 			\
+	$(EVO_TARGET)		\
 	$(EXPORT_TARGET)	\
 	$(GALAGO_TARGET)	\
 	$(PRINT_TARGET)
@@ -74,6 +89,7 @@ noinst_DATA = 			\
 
 
 EXTRA_DIST =            	\
+	$(EVO_TARGET)		\
 	ExportToHTML.xsl	\
 	$(EXPORT_CSFILES)	\
 	$(GALAGO_CSFILES)	\
@@ -81,6 +97,8 @@ EXTRA_DIST =            	\
 	$(NOTD_CSFILES)
 
 CLEANFILES =			\
+	$(EVO_TARGET)		\
+	$(EVO_TARGET).mdb	\
 	$(EXPORT_TARGET) 	\
 	$(EXPORT_TARGET).mdb	\
 	$(GALAGO_TARGET)	\
