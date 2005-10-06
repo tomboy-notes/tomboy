@@ -159,7 +159,7 @@ namespace Tomboy
 				if (note.IsSpecial)
 					continue;
 
-				if (note.IsOpened || 
+				if ((note.IsOpened && note.Window.IsMapped) || 
 				    note.ChangeDate > two_days_ago ||
 				    list_size < min_size) {
 					item = MakeNoteMenuItem (note);
