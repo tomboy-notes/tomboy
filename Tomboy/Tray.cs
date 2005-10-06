@@ -164,11 +164,10 @@ namespace Tomboy
 				    list_size < min_size) {
 					item = MakeNoteMenuItem (note);
 					menu.Append (item);
-				}
 
-				list_size++;
-				if (list_size == max_size)
-					break;
+					if (++list_size == max_size)
+					    break;
+				}
 			}
 
 			Note start = manager.Find (Catalog.GetString ("Start Here"));
