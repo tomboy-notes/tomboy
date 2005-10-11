@@ -1,21 +1,29 @@
 # Lithuanian translation of Tomboy.
 # Copyright (C) 2005 Alex Graveley <alex@beatniksoftware.com>
 # This file is distributed under the same license as the Tomboy package.
-# Žygimantas Beručka <uid0@akl.lt>, 2005.
+# Žygimantas Beručka <zygis@gnome.org>, 2005.
 # 
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Tomboy HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-03-16 23:48+0200\n"
-"PO-Revision-Date: 2005-03-18 10:09+0200\n"
-"Last-Translator: Žygimantas Beručka <uid0@akl.lt>\n"
+"POT-Creation-Date: 2005-10-11 10:31+0300\n"
+"PO-Revision-Date: 2005-10-11 10:31+0300\n"
+"Last-Translator: Žygimantas Beručka <zygis@gnome.org>\n"
 "Language-Team: Lithuanian <komp_lt@konferencijos.lt>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: ../data/DefaultPlugins.desktop.in.in.h:1
+msgid "Default Plugins"
+msgstr "Numatytieji įskiepiai"
+
+#: ../data/DefaultPlugins.desktop.in.in.h:2
+msgid "Directory containing system-installed Plugins"
+msgstr "Aplankas, kuriame yra sisteminio mąsto įskiepio"
 
 #: ../data/GNOME_TomboyApplet.server.in.in.h:1
 msgid "Accessories"
@@ -30,7 +38,7 @@ msgid "Tomboy Applet Factory"
 msgstr "Tomboy įtaiso gamykla"
 
 #: ../data/GNOME_TomboyApplet.server.in.in.h:4 ../data/tomboy.desktop.in.h:3
-#: ../Tomboy/Applet.cs:129 ../Tomboy/Tray.cs:38
+#: ../Tomboy/Applet.cs:135 ../Tomboy/Tray.cs:38
 msgid "Tomboy Notes"
 msgstr "Tomboy užrašai"
 
@@ -38,11 +46,12 @@ msgstr "Tomboy užrašai"
 msgid "_About Tomboy..."
 msgstr "_Apie Tomboy..."
 
-#: ../data/GNOME_TomboyApplet.xml.h:2 ../Tomboy/Applet.cs:170
-msgid "_Install Plugins..."
-msgstr "Į_diegti įskiepius..."
+#: ../data/GNOME_TomboyApplet.xml.h:2 ../Tomboy/Applet.cs:176
+#: ../Tomboy/NoteWindow.cs:547
+msgid "_Open Plugins Folder"
+msgstr "_Atverti įskiepių aplanką"
 
-#: ../data/GNOME_TomboyApplet.xml.h:3 ../Tomboy/Applet.cs:165
+#: ../data/GNOME_TomboyApplet.xml.h:3 ../Tomboy/Applet.cs:171
 msgid "_Preferences..."
 msgstr "_Nustatymai..."
 
@@ -87,6 +96,14 @@ msgstr ""
 "Paspaudus šį žodį bus sukurtas naujas raštelis su tokiu pavadinimu."
 
 #: ../data/tomboy.schemas.in.h:8
+msgid "HTML Export Last Directory"
+msgstr "Paskutinis eksportavimo į HTML aplankas"
+
+#: ../data/tomboy.schemas.in.h:9
+msgid "HTML Export Linked Notes"
+msgstr "Eksportuoti į HTML susietus raštelius"
+
+#: ../data/tomboy.schemas.in.h:10
 msgid ""
 "If enable_custom_font is true, the font name set here will be used as the "
 "font when displaying notes."
@@ -94,15 +111,15 @@ msgstr ""
 "Jeigu enable_custom_font reikšmė yra teigiama, rašteliuose bus naudojamas "
 "čia nurodytas šriftas."
 
-#: ../data/tomboy.schemas.in.h:9
+#: ../data/tomboy.schemas.in.h:11
 msgid ""
 "If true, misspellings will be underlined in red, and correct spelling "
 "suggestions shown in the right-click menu."
 msgstr ""
-"Jei teigiama, rašybos klaidos bus pabrauktos raudonai, ir paspaudus "
-"dešinįjį pelės mygtuką bus rodomi teisingos rašybos pasiūlymai."
+"Jei teigiama, rašybos klaidos bus pabrauktos raudonai, ir paspaudus dešinįjį "
+"pelės mygtuką bus rodomi teisingos rašybos pasiūlymai."
 
-#: ../data/tomboy.schemas.in.h:10
+#: ../data/tomboy.schemas.in.h:12
 msgid ""
 "If true, the desktop-global keybindings set in /apps/tomboy/"
 "global_keybindings will be enabled, allowing for useful Tomboy actions to be "
@@ -111,7 +128,7 @@ msgstr ""
 "Jei teigiama, bus įjungti visoje aplinkoje veikiantys klavišų susiejimai, "
 "nurodyti /apps/tomboy/global_keybindings rakte."
 
-#: ../data/tomboy.schemas.in.h:11
+#: ../data/tomboy.schemas.in.h:13
 msgid ""
 "If true, the font name set in custom_font_face will be used as the font when "
 "displaying notes. Otherwise the desktop default font will be used."
@@ -119,23 +136,23 @@ msgstr ""
 "Jei teigiama, rašteliuose bus naudojamas šriftas nurodytas custom_font_face "
 "rakte. Kitu atveju bus naudojamas numatytasis aplinkos šriftas."
 
-#: ../data/tomboy.schemas.in.h:12
+#: ../data/tomboy.schemas.in.h:14
 msgid "Open Recent Changes"
 msgstr "Atverti paskutiniuosius pakeitimus"
 
-#: ../data/tomboy.schemas.in.h:13
+#: ../data/tomboy.schemas.in.h:15
 msgid "Open Search Dialog"
 msgstr "Atverti paieškos dialogą"
 
-#: ../data/tomboy.schemas.in.h:14
+#: ../data/tomboy.schemas.in.h:16
 msgid "Open Start Here"
 msgstr "Atverti „pradėti čia“"
 
-#: ../data/tomboy.schemas.in.h:15
+#: ../data/tomboy.schemas.in.h:17
 msgid "Show applet menu"
 msgstr "Rodyti įtaiso meniu"
 
-#: ../data/tomboy.schemas.in.h:16
+#: ../data/tomboy.schemas.in.h:18
 msgid ""
 "The global keybinding for creating and displaying a new Note. The format "
 "looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The "
@@ -151,7 +168,7 @@ msgstr ""
 "parametrą į specialų užrašą „disabled“, šiam veiksmui nebus priskirtas joks "
 "klavišų susiejimas."
 
-#: ../data/tomboy.schemas.in.h:17
+#: ../data/tomboy.schemas.in.h:19
 msgid ""
 "The global keybinding for opening the \"Start Here\" note. The format looks "
 "like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
@@ -167,7 +184,7 @@ msgstr ""
 "parametrą į specialų užrašą „disabled“, šiam veiksmui nebus priskirtas joks "
 "klavišų susiejimas."
 
-#: ../data/tomboy.schemas.in.h:18
+#: ../data/tomboy.schemas.in.h:20
 msgid ""
 "The global keybinding for opening the Note Search dialog. The format looks "
 "like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
@@ -183,7 +200,7 @@ msgstr ""
 "parametrą į specialų užrašą „disabled“, šiam veiksmui nebus priskirtas joks "
 "klavišų susiejimas."
 
-#: ../data/tomboy.schemas.in.h:19
+#: ../data/tomboy.schemas.in.h:21
 msgid ""
 "The global keybinding for opening the Recent Changes dialog. The format "
 "looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The "
@@ -192,14 +209,14 @@ msgid ""
 "option to the special string \"disabled\", then there will be no keybinding "
 "for this action."
 msgstr ""
-"Globalus susiejimas atverti paskutinių pakeitimų langui. Formatas atrodo kaip "
-"„&lt;Control&gt;a“ arba „&lt;Shift&gt;&lt;Alt&gt;F1“. Apdoroklis yra "
+"Globalus susiejimas atverti paskutinių pakeitimų langui. Formatas atrodo "
+"kaip „&lt;Control&gt;a“ arba „&lt;Shift&gt;&lt;Alt&gt;F1“. Apdoroklis yra "
 "pakankamai liberalus ir leidžia didžiąsias ir mažąsias raides, taip pat "
 "tokius sutrumpinimus kaip „&lt;Ctl&gt;“ and „&lt;Ctrl&gt;“. Jeigu nurodysite "
 "parametrą į specialų užrašą „disabled“, šiam veiksmui nebus priskirtas joks "
 "klavišų susiejimas."
 
-#: ../data/tomboy.schemas.in.h:20
+#: ../data/tomboy.schemas.in.h:22
 msgid ""
 "The global keybinding for showing the Tomboy applet's menu. The format looks "
 "like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
@@ -208,172 +225,228 @@ msgid ""
 "special string \"disabled\", then there will be no keybinding for this "
 "action."
 msgstr ""
-"Globalus susiejimas Tomboy įtaiso meniu parodymui. Formatas atrodo kaip "
-"„&lt;Control&gt;a“ arba „&lt;Shift&gt;&lt;Alt&gt;F1“. Apdoroklis yra "
-"pakankamai liberalus ir leidžia didžiąsias ir mažąsias raides, taip pat "
-"tokius sutrumpinimus kaip „&lt;Ctl&gt;“ and „&lt;Ctrl&gt;“. Jeigu nurodysite "
+"Globalus susiejimas Tomboy įtaiso meniu parodymui. Formatas atrodo kaip „&lt;"
+"Control&gt;a“ arba „&lt;Shift&gt;&lt;Alt&gt;F1“. Apdoroklis yra pakankamai "
+"liberalus ir leidžia didžiąsias ir mažąsias raides, taip pat tokius "
+"sutrumpinimus kaip „&lt;Ctl&gt;“ and „&lt;Ctrl&gt;“. Jeigu nurodysite "
 "parametrą į specialų užrašą „disabled“, šiam veiksmui nebus priskirtas joks "
 "klavišų susiejimas."
 
-#: ../Tomboy/Applet.cs:175
+#: ../data/tomboy.schemas.in.h:23
+msgid ""
+"The last directory a note was exported to using the Export To HTML plugin."
+msgstr ""
+"Paskutinis aplankas, į kurį buvo eksportuotas raštelis naudojant "
+"„Eksportuoti į HTML“ įskiepį."
+
+#: ../data/tomboy.schemas.in.h:24
+msgid ""
+"The last setting for the 'Export linked notes' checkbox in the Export to "
+"HTML plugin."
+msgstr ""
+"Paskutinis „Eksportuoti susietus raštelius“ žymimosios akutės pažymėjimas "
+"„Eksportuoti į HTML“ įskiepyje."
+
+#: ../libtomboy/gedit-print.c:144 ../Tomboy/Plugins/PrintNotes.cs:15
+msgid "Print"
+msgstr "Spausdinti"
+
+#: ../libtomboy/gedit-print.c:243
+msgid "Preparing pages..."
+msgstr "Ruošiami puslapiai..."
+
+#: ../libtomboy/gedit-print.c:270
+#, c-format
+msgid "Rendering page %d of %d..."
+msgstr "Atvaizduojamas puslapis %d iš %d..."
+
+#: ../libtomboy/gedit-print.c:272
+#, c-format
+msgid "Printing page %d of %d..."
+msgstr "Spausdinamas puslapis %d iš %d..."
+
+#: ../libtomboy/gedit-print.c:294
+msgid "Print preview"
+msgstr "Spaudinio peržiūra"
+
+#: ../libtomboy/gedit-print.c:446
+msgid "Page %N of %Q"
+msgstr "Puslapis %N iš %Q"
+
+#: ../libtomboy/gedit-print.c:448
+msgid "%A %D, %I:%M %p"
+msgstr "%A %D, %H:%M"
+
+#: ../Tomboy/Applet.cs:181
 msgid "_About Tomboy"
 msgstr "_Apie Tomboy"
 
-#: ../Tomboy/Applet.cs:182
+#: ../Tomboy/Applet.cs:188
 msgid "_Quit"
 msgstr "Iš_eiti"
 
 #. Open the Start Here note
-#: ../Tomboy/Note.cs:349 ../Tomboy/NoteManager.cs:85
-#: ../Tomboy/NoteManager.cs:90 ../Tomboy/Tomboy.cs:206 ../Tomboy/Tray.cs:112
-#: ../Tomboy/Tray.cs:296 ../Tomboy/XKeybinder.cs:256
+#: ../Tomboy/Note.cs:393 ../Tomboy/NoteManager.cs:89
+#: ../Tomboy/NoteManager.cs:96 ../Tomboy/Tomboy.cs:210 ../Tomboy/Tray.cs:120
+#: ../Tomboy/Tray.cs:173 ../Tomboy/Tray.cs:354 ../Tomboy/XKeybinder.cs:259
 msgid "Start Here"
-msgstr "Pradėti čia"
+msgstr "Pradėkite čia"
 
-#: ../Tomboy/NoteManager.cs:86
+#: ../Tomboy/NoteManager.cs:90
 msgid "Welcome to Tomboy!"
 msgstr "Sveiki atvykę į Tomboy!"
 
-#: ../Tomboy/NoteManager.cs:87
+#: ../Tomboy/NoteManager.cs:91
 msgid ""
 "Use this page as a Start Page for organizing your notes and keeping "
 "unorganized ideas around."
 msgstr ""
-"Šį puslapį naudokite kaip Pradinį puslapį Jūsų raštelių organizavimui "
-"ir nesuorganizuotų idėjų laikymui aplink."
+"Naudokite šį puslapį kaip Pradinį puslapį raštelių organizavimui bei "
+"nesuorganizuotų idėjų laikymui šalia."
 
-
-#: ../Tomboy/NoteManager.cs:147
+#: ../Tomboy/NoteManager.cs:153
 #, csharp-format
 msgid "New Note {0}"
 msgstr "Naujas raštelis {0}"
 
-#: ../Tomboy/NoteManager.cs:164
+#: ../Tomboy/NoteManager.cs:170
 msgid "Describe your new note here."
 msgstr "Čia aprašykite naują Jūsų raštelį"
 
-#: ../Tomboy/NoteWindow.cs:243
+#: ../Tomboy/NoteWindow.cs:313
 msgid "Really delete this note?"
 msgstr "Tikrai ištrinti šį raštelį?"
 
-#: ../Tomboy/NoteWindow.cs:244
+#: ../Tomboy/NoteWindow.cs:314
 msgid "If you delete a note it is permanently lost."
 msgstr "Jeigu ištrinsite raštelį jis bus prarastas visam laikui."
 
-#: ../Tomboy/NoteWindow.cs:313
+#: ../Tomboy/NoteWindow.cs:398
 msgid "_Link to New Note"
 msgstr "Padaryti nuorodą į naują _raštelį"
 
-#: ../Tomboy/NoteWindow.cs:326
+#: ../Tomboy/NoteWindow.cs:411
 msgid "Te_xt"
 msgstr "Te_kstas"
 
-#: ../Tomboy/NoteWindow.cs:334
+#: ../Tomboy/NoteWindow.cs:419
 msgid "_Search"
 msgstr "_Ieškoti"
 
-#: ../Tomboy/NoteWindow.cs:348
-msgid "_Close Window"
-msgstr "_Uždaryti langą"
+#: ../Tomboy/NoteWindow.cs:433
+msgid "Clos_e All Notes"
+msgstr "Už_verti visus raštelius"
 
-#: ../Tomboy/NoteWindow.cs:385
+#: ../Tomboy/NoteWindow.cs:443
+msgid "_Close"
+msgstr "_Užverti"
+
+#: ../Tomboy/NoteWindow.cs:471
 msgid "Search"
 msgstr "Ieškoti"
 
-#: ../Tomboy/NoteWindow.cs:386
+#: ../Tomboy/NoteWindow.cs:472
 msgid "Search your notes"
 msgstr "Ieškoti raštelių"
 
-#: ../Tomboy/NoteWindow.cs:398
+#: ../Tomboy/NoteWindow.cs:484
 msgid "Link"
 msgstr "Susieti"
 
-#: ../Tomboy/NoteWindow.cs:399
+#: ../Tomboy/NoteWindow.cs:485
 msgid "Link selected text to a new note"
 msgstr "Susieti pažymėtą tekstą su nauju rašteliu"
 
-#: ../Tomboy/NoteWindow.cs:421
-msgid "Set properties of text"
-msgstr "Nurodyti teksto savybes"
-
-#: ../Tomboy/NoteWindow.cs:428
-msgid "Delete"
-msgstr "Ištrinti"
-
-#: ../Tomboy/NoteWindow.cs:429
-msgid "Delete this note"
-msgstr "Ištrinti šį raštelį"
-
-#: ../Tomboy/NoteWindow.cs:455 ../Tomboy/NoteWindow.cs:456
+#: ../Tomboy/NoteWindow.cs:499
 msgid "_Text"
 msgstr "_Tekstas"
 
-#: ../Tomboy/NoteWindow.cs:525
+#: ../Tomboy/NoteWindow.cs:504
+msgid "Set properties of text"
+msgstr "Nurodyti teksto savybes"
+
+#: ../Tomboy/NoteWindow.cs:510
+msgid "_Plugins"
+msgstr "Įskie_piai"
+
+#: ../Tomboy/NoteWindow.cs:514
+msgid "Run Plugin actions"
+msgstr "Vykdyti įskiepių veiksmus"
+
+#: ../Tomboy/NoteWindow.cs:521
+msgid "Delete"
+msgstr "Ištrinti"
+
+#: ../Tomboy/NoteWindow.cs:522
+msgid "Delete this note"
+msgstr "Ištrinti šį raštelį"
+
+#: ../Tomboy/NoteWindow.cs:579
 msgid "_Search..."
 msgstr "_Ieškoti..."
 
-#: ../Tomboy/NoteWindow.cs:536 ../Tomboy/Search.cs:176
+#: ../Tomboy/NoteWindow.cs:590 ../Tomboy/Search.cs:176
 msgid "Find _Next"
 msgstr "Rasti _sekantį"
 
-#: ../Tomboy/NoteWindow.cs:549
+#: ../Tomboy/NoteWindow.cs:603
 msgid "Find _Previous"
 msgstr "Rasti _ankstesnį"
 
-#: ../Tomboy/NoteWindow.cs:735
-msgid "<b>_Bold</b>"
-msgstr "<b>_Pusjuodis</b>"
+#: ../Tomboy/NoteWindow.cs:762
+msgid "_Bold"
+msgstr "P_usjuodis"
 
-#: ../Tomboy/NoteWindow.cs:745
-msgid "<i>_Italic</i>"
-msgstr "<i>_Kursyvas</i>"
+#: ../Tomboy/NoteWindow.cs:774
+msgid "_Italic"
+msgstr "_Kursyvas"
 
-#: ../Tomboy/NoteWindow.cs:755
-msgid "<s>_Strikeout</s>"
-msgstr "<s>_Perbrauktas</s>"
+#: ../Tomboy/NoteWindow.cs:786
+msgid "_Strikeout"
+msgstr "_Perbrauktas"
 
-#: ../Tomboy/NoteWindow.cs:766
+#: ../Tomboy/NoteWindow.cs:798
 msgid "_Highlight"
 msgstr "Pa_ryškintas"
 
-#: ../Tomboy/NoteWindow.cs:779
+#: ../Tomboy/NoteWindow.cs:811
 msgid "Font Size"
 msgstr "Šrifto dydis"
 
-#: ../Tomboy/NoteWindow.cs:782
+#: ../Tomboy/NoteWindow.cs:814
 msgid "_Normal"
 msgstr "_Normalus"
 
-#: ../Tomboy/NoteWindow.cs:789
+#: ../Tomboy/NoteWindow.cs:821
 msgid "Hu_ge"
-msgstr "Milžiniškas"
+msgstr "Milžiniš_kas"
 
-#: ../Tomboy/NoteWindow.cs:797
+#: ../Tomboy/NoteWindow.cs:829
 msgid "_Large"
 msgstr "_Didelis"
 
-#: ../Tomboy/NoteWindow.cs:805
+#: ../Tomboy/NoteWindow.cs:837
 msgid "S_mall"
 msgstr "_Mažas"
 
-#: ../Tomboy/Preferences.cs:118
+#: ../Tomboy/Preferences.cs:127
 msgid "Tomboy Preferences"
 msgstr "Tomboy nustatymai"
 
-#: ../Tomboy/Preferences.cs:132
+#: ../Tomboy/Preferences.cs:141
 msgid "Editing"
 msgstr "Redagavimas"
 
-#: ../Tomboy/Preferences.cs:135
+#: ../Tomboy/Preferences.cs:144
 msgid "Hotkeys"
 msgstr "Karštieji klavišai"
 
 #. Spellchecking...
-#: ../Tomboy/Preferences.cs:175
+#: ../Tomboy/Preferences.cs:184
 msgid "_Spellcheck While Typing"
 msgstr "Į_vedant tekstą tikrinti rašybą"
 
-#: ../Tomboy/Preferences.cs:182
+#: ../Tomboy/Preferences.cs:191
 msgid ""
 "Misspellings will be underlined in red, and correct spelling suggestions "
 "shown in the right-click menu."
@@ -382,59 +455,59 @@ msgstr ""
 "pelės mygtuką bus rodomi teisingos rašybos pasiūlymai."
 
 #. WikiWords...
-#: ../Tomboy/Preferences.cs:191
+#: ../Tomboy/Preferences.cs:200
 msgid "Highlight _WikiWords"
 msgstr "Paryškinti _WikiŽodžius"
 
-#: ../Tomboy/Preferences.cs:198
+#: ../Tomboy/Preferences.cs:207
 msgid ""
 "Enable this option to highlight words <b>ThatLookLikeThis</b>. Clicking the "
 "word will create a note with that name."
 msgstr ""
-"Įjunkite šį nustatymą norėdami paryškinti žodžius <b>AtrodančiusŠtaiTaip</b>. "
-"Paspaudus tokį žodį bus sukurtas raštelis su tokiu pavadinimu."
+"Įjunkite šį nustatymą norėdami paryškinti žodžius <b>AtrodančiusŠtaiTaip</"
+"b>. Paspaudus tokį žodį bus sukurtas raštelis su tokiu pavadinimu."
 
 #. Custom font...
-#: ../Tomboy/Preferences.cs:207
+#: ../Tomboy/Preferences.cs:216
 msgid "Use Custom _Font"
 msgstr "Naudoti kitą šri_ftą"
 
 #. Hotkeys...
-#: ../Tomboy/Preferences.cs:277
+#: ../Tomboy/Preferences.cs:286
 msgid "Listen for _Hotkeys"
 msgstr "Klausytis _karštųjų klavišų"
 
-#: ../Tomboy/Preferences.cs:285
+#: ../Tomboy/Preferences.cs:294
 msgid ""
 "Hotkeys allow you to quickly access your notes from anywhere with a "
 "keypress. Example Hotkeys: <b>&lt;Control&gt;&lt;Shift&gt;F11</b>, <b>&lt;"
 "Alt&gt;N</b>"
 msgstr ""
 "Karštieji klavišai leidžia Jums pasiekti raštelius iš bet kur klavišų "
-"paspaudimu. Pavyzdiniai karštieji klavišai: "
-"<b>&lt;Control&gt;&lt;Shift&gt;F11</b>, <b>&lt;Alt&gt;N</b>"
+"paspaudimu. Pavyzdiniai karštieji klavišai: <b>&lt;Control&gt;&lt;Shift&gt;"
+"F11</b>, <b>&lt;Alt&gt;N</b>"
 
 #. Show notes menu keybinding...
-#: ../Tomboy/Preferences.cs:305
+#: ../Tomboy/Preferences.cs:314
 msgid "Show notes _menu"
 msgstr "Rodyti raštelių _meniu"
 
 #. Open Start Here keybinding...
-#: ../Tomboy/Preferences.cs:321
+#: ../Tomboy/Preferences.cs:330
 msgid "Open \"_Start Here\""
 msgstr "Atverti „Pradėti čia“"
 
 #. Create new note keybinding...
-#: ../Tomboy/Preferences.cs:337
+#: ../Tomboy/Preferences.cs:346
 msgid "Create _new note"
 msgstr "Sukurti _naują raštelį"
 
 #. Search dialog keybinding...
-#: ../Tomboy/Preferences.cs:353
+#: ../Tomboy/Preferences.cs:362
 msgid "S_earch notes"
 msgstr "I_eškoti raštelių"
 
-#: ../Tomboy/Preferences.cs:415
+#: ../Tomboy/Preferences.cs:424
 msgid "Choose Note Font"
 msgstr "Pasirinkite raštelio šriftą"
 
@@ -447,8 +520,8 @@ msgid ""
 "<b>Recent Changes</b> lists your notes in the order they were last changed.  "
 "Double click to open a note."
 msgstr ""
-"<b>Paskutinieji pakeitimai</b> rodo raštelius surikiuotus pagal pakeitimo datą. "
-"Norėdami atverti raštelį du kartus spragtelkite."
+"<b>Paskutinieji pakeitimai</b> rodo raštelius surikiuotus pagal pakeitimo "
+"datą. Norėdami atverti raštelį du kartus spragtelkite."
 
 #: ../Tomboy/RecentChanges.cs:171
 msgid "Last Changed"
@@ -518,7 +591,7 @@ msgstr[2] "({0} atitkmenų)"
 msgid "No notes found"
 msgstr "Raštelių nerasta"
 
-#: ../Tomboy/Tomboy.cs:134
+#: ../Tomboy/Tomboy.cs:138
 msgid ""
 "Tomboy: A simple, easy to use desktop note-taking application.\n"
 "Copyright (C) 2004, 2005 Alex Graveley <alex@beatniksoftware.com>\n"
@@ -528,7 +601,7 @@ msgstr ""
 "Autorinės teisės (C) 2004, 2005 Alex Graveley <alex@beatniksoftware.com>\n"
 "\n"
 
-#: ../Tomboy/Tomboy.cs:145
+#: ../Tomboy/Tomboy.cs:149
 msgid ""
 "Usage:\n"
 "  --new-note\t\t\tCreate and display a new note.\n"
@@ -541,15 +614,17 @@ msgid ""
 msgstr ""
 "Naudojimas:\n"
 "  --new-note\t\t\tSukurti ir parodyti naują raštelį.\n"
-"  --new-note [pavadinimas]\t\tSukurti ir parodyti naują raštelį su pavadinimu.\n"
+"  --new-note [pavadinimas]\t\tSukurti ir parodyti naują raštelį su "
+"pavadinimu.\n"
 "  --open-note [pavadinimas/url]\tParodyti egzistuojantį raštelį atitinkamu "
 "pavadinimu.\n"
 "  --start-here\t\t\tParodyti „Pradėti čia“ raštelį.\n"
-"  --highlight-search [tekstas]\tAtvertame raštelyje surasti ir paryškinti tekstą.\n"
+"  --highlight-search [tekstas]\tAtvertame raštelyje surasti ir paryškinti "
+"tekstą.\n"
 "  --version\t\t\tParodyti versijos informaciją.\n"
 "  --help\t\t\tParodyti šią naudojimosi žinutę.\n"
 
-#: ../Tomboy/Tomboy.cs:157
+#: ../Tomboy/Tomboy.cs:161
 msgid ""
 "Usage:\n"
 "  --version\t\t\tPrint version information.\n"
@@ -563,12 +638,12 @@ msgstr ""
 "\n"
 "D-BUS nuotolinis valdymas atjungtas."
 
-#: ../Tomboy/Tomboy.cs:168
+#: ../Tomboy/Tomboy.cs:172
 #, csharp-format
 msgid "Version {0}"
 msgstr "Versija {0}"
 
-#: ../Tomboy/Tomboy.cs:225
+#: ../Tomboy/Tomboy.cs:229
 #, csharp-format
 msgid ""
 "Tomboy: unsupported option '{0}'\n"
@@ -579,41 +654,45 @@ msgstr ""
 "Norėdami gauti daugiau informacijos bandykite „tomboy --help“.\n"
 "D-BUS nuotolinis valdymas atjungtas."
 
-#: ../Tomboy/Tray.cs:77
-msgid "Create _New Note"
-msgstr "Sukurti _naują raštelį"
-
-#: ../Tomboy/Tray.cs:125
-msgid "_Recent Changes"
-msgstr "_Paskutinieji pakeitimai"
-
-#: ../Tomboy/Tray.cs:135
-msgid "_Search Notes..."
-msgstr "_Ieškoti raštelių..."
-
-#: ../Tomboy/Tray.cs:153
-msgid " (new)"
-msgstr " (naujas)"
-
-#: ../Tomboy/Tray.cs:254
-msgid "Copyright © 2004, 2005 Alex Graveley"
-msgstr "Autorinės teisės © 2004, 2005 Alex Graveley"
-
-#: ../Tomboy/Tray.cs:255
-msgid "A simple and easy to use desktop note-taking application."
-msgstr "Paprasta ir lengva naudoti aplinkos užrašinė."
-
 #. initial newline
-#: ../Tomboy/Tray.cs:304
+#: ../Tomboy/Tray.cs:85
 msgid "dddd, MMMM d, h:mm tt"
 msgstr "dddd, MMMM d, h:mm tt"
 
-#: ../Tomboy/Watchers.cs:133
+#: ../Tomboy/Tray.cs:139
+msgid "Create _New Note"
+msgstr "Sukurti _naują raštelį"
+
+#: ../Tomboy/Tray.cs:186
+msgid "_Recent Changes"
+msgstr "_Paskutinieji pakeitimai"
+
+#: ../Tomboy/Tray.cs:196
+msgid "_Search Notes..."
+msgstr "_Ieškoti raštelių..."
+
+#: ../Tomboy/Tray.cs:214
+msgid " (new)"
+msgstr " (naujas)"
+
+#: ../Tomboy/Tray.cs:291
+msgid "translator-credits"
+msgstr "Žygimantas Beručka <zygis@gnome.org>"
+
+#: ../Tomboy/Tray.cs:297
+msgid "Copyright © 2004, 2005 Alex Graveley"
+msgstr "Autorinės teisės © 2004, 2005 Alex Graveley"
+
+#: ../Tomboy/Tray.cs:298
+msgid "A simple and easy to use desktop note-taking application."
+msgstr "Paprasta ir lengva naudoti aplinkos užrašinė."
+
+#: ../Tomboy/Watchers.cs:134
 #, csharp-format
 msgid "(Untitled {0})"
 msgstr "(Nepavadinta {0})"
 
-#: ../Tomboy/Watchers.cs:161
+#: ../Tomboy/Watchers.cs:162
 #, csharp-format
 msgid ""
 "A note with the title <b>{0}</b> already exists. Please choose another name "
@@ -622,30 +701,65 @@ msgstr ""
 "Raštelis pavadinimu <b>{0}</b> jau egzistuoja. Norėdami tęsti Jūs turite "
 "pasirinkti kitą šio raštelio pavadinimą."
 
-#: ../Tomboy/Watchers.cs:173
+#: ../Tomboy/Watchers.cs:174
 msgid "Note title taken"
 msgstr "Raštelio pavadinimas paimtas"
 
-#: ../Tomboy/Watchers.cs:266
-msgid "Related to: "
-msgstr "Susijęs su:"
-
-#: ../Tomboy/Watchers.cs:551
+#: ../Tomboy/Watchers.cs:405
 msgid "Cannot open location"
 msgstr "Nepavyko atverti vietos"
 
-#: ../Tomboy/Plugins/PrintNotes.cs:29
-msgid "Print"
-msgstr "Spausdinti"
+#: ../Tomboy/Watchers.cs:497
+msgid "_Copy Link Address"
+msgstr "_Kopijuoti nuorodos adresą"
 
-#: ../Tomboy/Plugins/PrintNotes.cs:30
-msgid "Print this note"
-msgstr "Spausdinti šį raštelį"
+#: ../Tomboy/Watchers.cs:502
+msgid "_Open Link"
+msgstr "_Atverti nuorodą"
 
-#: ../Tomboy/Plugins/ExportToHTML.cs:25
-msgid "Export"
-msgstr "Eksportuoti"
+#: ../Tomboy/Plugins/Evolution.cs:256
+msgid "Cannot open email"
+msgstr "Nepavyko atverti el.pašto"
 
-#: ../Tomboy/Plugins/ExportToHTML.cs:26
-msgid "Export this note to HTML"
-msgstr "Eksportuoti šį raštelį į HTML"
+#: ../Tomboy/Plugins/ExportToHTML.cs:46
+msgid "Export to HTML"
+msgstr "Eksportuoti į HTML"
+
+#: ../Tomboy/Plugins/ExportToHTML.cs:164
+msgid "Destination for HTML Export"
+msgstr "HTML eksportavimo paskirties vieta"
+
+#: ../Tomboy/Plugins/ExportToHTML.cs:169
+msgid "Export linked notes"
+msgstr "Eksportuoti susietus raštelius"
+
+#: ../Tomboy/Plugins/GalagoPresence.cs:273
+#, csharp-format
+msgid "Cannot contact '{0}'"
+msgstr "Nepavyko susisiekti su „{0}“"
+
+#: ../Tomboy/Plugins/GalagoPresence.cs:276
+#, csharp-format
+msgid "Error running gaim-remote: {0}"
+msgstr "Klaida paleidžiant gaim-remote: {0}"
+
+#: ../Tomboy/Plugins/NoteOfTheDay.cs:13
+msgid "NotD: "
+msgstr "DR: "
+
+#. Format: "NotD: Friday, July 01 2005"
+#: ../Tomboy/Plugins/NoteOfTheDay.cs:18
+msgid "dddd, MMMM d yyyy"
+msgstr "dddd, yyyy MMMM d"
+
+#: ../Tomboy/Plugins/NoteOfTheDay.cs:33
+msgid "Tasks"
+msgstr "Užduotys"
+
+#: ../Tomboy/Plugins/NoteOfTheDay.cs:34
+msgid "Appointments"
+msgstr "Paskyrimai"
+
+#: ../Tomboy/Plugins/NoteOfTheDay.cs:169
+msgid "Create Note of the Day"
+msgstr "Sukurti dienos raštelį"
