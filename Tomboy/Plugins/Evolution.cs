@@ -225,6 +225,8 @@ public class EmailLink : DynamicNoteTag
 		Underline = Pango.Underline.Single;
 		Foreground = "blue";
 		CanActivate = true;
+
+		Image = new Gdk.Pixbuf (null, "stock_mail.png");
 	}
 
 	public string EmailUri

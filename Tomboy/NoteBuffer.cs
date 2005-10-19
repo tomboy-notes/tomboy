@@ -27,6 +27,8 @@ namespace Tomboy
 
 			InsertText += TextInsertedEvent;
 			MarkSet += MarkSetEvent;
+
+			tags.TagChanged += OnTagChanged;
 		}
 
 		// Signal that text has been inserted, and any active tags have
@@ -144,6 +146,47 @@ namespace Tomboy
 				    NoteTagTable.TagIsGrowable (tag)) {
 					active_tags.Add (tag);
 				}
+			}
+		}
+
+		void ImageSwap (NoteTag tag, 
+				Gtk.TextIter start, 
+				Gtk.TextIter end) 
+		{
+			if (tag.Image != null &&
+			    tag.Image != start.Pixbuf) {
+				Console.WriteLine ("ImageSwap: tag='{0}' {1}:'{3}'-{2}:'{4}'", 
+						   tag.ElementName,
+						   start.Offset,
+						   end.Offset,
+						   start.Char,
+						   end.Char);
+
+				start.Buffer.InsertPixbuf (start, tag.Image);
+			}
+		}
+
+		void OnTagChanged (object sender, Gtk.TagChangedArgs args)
+		{
+			NoteTag note_tag = args.Tag as NoteTag;
+			if (note_tag != null) {
+				TextTagEnumerator enumerator = 
+					new TextTagEnumerator (this, note_tag);
+				foreach (TextRange range in enumerator) {
+					ImageSwap (note_tag, range.Start, range.End);
+				}
+			}
+		}
+
+		protected override void OnTagApplied (Gtk.TextTag tag, 
+						      Gtk.TextIter start,
+						      Gtk.TextIter end)
+		{
+			base.OnTagApplied (tag, start, end);
+
+			NoteTag note_tag = tag as NoteTag;
+			if (note_tag != null) {
+				ImageSwap (note_tag, start, end);
 			}
 		}
 
@@ -350,6 +393,9 @@ namespace Tomboy
 
 					if (tag_start.Tag is NoteTag) {
 						((NoteTag) tag_start.Tag).Read (xml, true);
+						if (((NoteTag) tag_start.Tag).Image != null) {
+							offset++;
+						}
 					}
 
 					stack.Push (tag_start);

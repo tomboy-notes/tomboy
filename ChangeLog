@@ -1,3 +1,23 @@
+2005-10-19  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Plugins/GalagoPresence.cs: Split trie creation into two
+	phases, which makes the code a little cleaner.
+
+	* Tomboy/Plugins/Makefile.am (EVO_RESOURCES): Add
+	data/images/stock_mail.png.
+
+	* Tomboy/Plugins/Evolution.cs: Set the link:evo-mail tag's Image
+	attribute to the resource "stock_mail.png".
+
+	* Tomboy/NoteTag.cs: Add Image attribute, which fires the tag's
+	Changed signal when set.  In NoteTagTable, fire a TagChanged even
+	whenever a tag's Changed signal is emitted.
+
+	* Tomboy/NoteBuffer.cs: Add rudimentary tag image support, by
+	inserting a NoteTag's image on TagChanged or TagApplied.  Be sure
+	to adjust the offsets when deserializing notes to account for the
+	new image anchor 'character'.
+
 2005-10-06  Alex Graveley  <alex@beatniksoftware.com>
 
 	* Tomboy/Tray.cs: Correctly show any opened notes in Tomboy

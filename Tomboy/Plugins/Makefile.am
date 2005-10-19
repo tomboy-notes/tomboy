@@ -32,9 +32,11 @@ $(PRINT_TARGET): $(PRINT_CSFILES) $(top_builddir)/Tomboy/Tomboy.exe
 if ENABLE_EVOLUTION
 EVO_TARGET = Evolution.dll
 EVO_CSFILES = $(srcdir)/Evolution.cs
-EVO_RESOURCES = $(EVOLUTION_LIBS)
+EVO_RESOURCES = 		\
+	$(EVOLUTION_LIBS)	\
+	-resource:$(top_srcdir)/data/images/stock_mail.png,stock_mail.png
 
-$(EVO_TARGET): $(EVO_CSFILES) $(top_builddir)/Tomboy/Tomboy.exe
+$(EVO_TARGET): $(EVO_CSFILES) $(top_builddir)/Tomboy/Tomboy.exe 
 	$(CSC) -out:$@ $(CSFLAGS) $(ASSEMBLIES) $(EVO_CSFILES) $(EVO_RESOURCES)
 endif
 
