@@ -91,7 +91,7 @@ noinst_DATA = 			\
 
 
 EXTRA_DIST =            	\
-	$(EVO_TARGET)		\
+	$(EVO_CSFILES)		\
 	ExportToHTML.xsl	\
 	$(EXPORT_CSFILES)	\
 	$(GALAGO_CSFILES)	\
