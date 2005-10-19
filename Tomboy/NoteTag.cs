@@ -14,6 +14,7 @@ namespace Tomboy
 	public class NoteTag : Gtk.TextTag
 	{
 		string element_name;
+		Gdk.Pixbuf image;
 
 		public NoteTag (string tag_name)
 			: base(tag_name)
@@ -27,9 +28,10 @@ namespace Tomboy
 			Initialize (tag_name);
 		}
 
-		protected NoteTag ()
+		internal NoteTag ()
 			: base (null)
 		{
+			// Constructor used (only) by DynamicNoteTag
 			// Initialize() is called by NoteTagTable.Create().
 		}
 
@@ -185,6 +187,23 @@ namespace Tomboy
 		}
 
 		public event TagActivatedHandler Activated;
+
+		public Gdk.Pixbuf Image
+		{
+			get { return image; }
+			set {
+				image = value;
+
+				if (Changed != null) {
+					Gtk.TagChangedArgs args = new Gtk.TagChangedArgs ();
+					args.Args [0] = false; // SizeChanged
+					args.Args [1] = this;  // Tag
+					Changed (this, args);
+				}
+			}
+		}
+
+		public event Gtk.TagChangedHandler Changed;
 	}
 
 	public class DynamicNoteTag : NoteTag
@@ -453,11 +472,30 @@ namespace Tomboy
 		protected override void OnTagAdded (Gtk.TextTag tag)
 		{
 			added_tags.Add (tag);
+
+			NoteTag note_tag = tag as NoteTag;
+			if (note_tag != null) {
+				note_tag.Changed += OnTagChanged;
+			}
 		}
 
 		protected override void OnTagRemoved (Gtk.TextTag tag)
 		{
 			added_tags.Remove (tag);
+
+			NoteTag note_tag = tag as NoteTag;
+			if (note_tag != null) {
+				note_tag.Changed -= OnTagChanged;
+			}
 		}
+
+		void OnTagChanged (object sender, Gtk.TagChangedArgs args)
+		{
+			if (TagChanged != null) {
+				TagChanged (this, args);
+			}
+		}
+
+		public override event Gtk.TagChangedHandler TagChanged;
 	}
 }

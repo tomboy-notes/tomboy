@@ -66,55 +66,54 @@ class GalagoManager
 	void UpdateTrie (bool refresh_query)
 	{
 		trie = new TrieTree (false /* !case_sensitive */);
+		ArrayList people = new ArrayList ();
 
-		Console.WriteLine ("Loading up the person trie...");
+		Console.WriteLine ("Loading up the person trie, Part 1...");
 
 		foreach (Person person in Galago.Core.GetPeople (false, refresh_query)) {
-			PersonLink plink;
 			string fname, mname, lname;
 			person.GetProperty ("first-name", out fname);
 			person.GetProperty ("middle-name", out mname);
 			person.GetProperty ("last-name", out lname);
 
 			if (person.DisplayName != null) {
-				plink = new PersonLink (LinkType.PersonDisplayName, person);
-				trie.AddKeyword (person.DisplayName, plink);
+				people.Add (new PersonLink (LinkType.PersonDisplayName, person));
 			}
 
 			// Joe
 			if (fname != null) {
-				plink = new PersonLink (LinkType.FirstName, person);
-				trie.AddKeyword (plink.LinkText, plink);
+				people.Add (new PersonLink (LinkType.FirstName, person));
 			}
 
 			// Joe Smith & Smith Joe
 			if (fname != null && lname != null) {
-				plink = new PersonLink (LinkType.FirstLastName, person);
-				trie.AddKeyword (plink.LinkText, plink);
-
-				plink = new PersonLink (LinkType.LastFirstName, person);
-				trie.AddKeyword (plink.LinkText, plink);
+				people.Add (new PersonLink (LinkType.FirstLastName, person));
+				people.Add (new PersonLink (LinkType.LastFirstName, person));
 			}
 
 			// Joe Michael Smith
 			if (fname != null && mname != null && lname != null) {
-				plink = new PersonLink (LinkType.FirstMiddleLastName, person);
-				trie.AddKeyword (plink.LinkText, plink);
+				people.Add (new PersonLink (LinkType.FirstMiddleLastName, person));
 			}
 
 			foreach (Account account in person.GetAccounts(true)) {
 				if (account.DisplayName != null) {
-					plink = new PersonLink (LinkType.AccountDisplayName, 
-								account);
-					trie.AddKeyword (plink.LinkText, plink);
+					people.Add (new PersonLink (LinkType.AccountDisplayName, 
+								    account));
 				}
 
 				if (account.UserName != null &&
 				    account.UserName != account.DisplayName) {
-					plink = new PersonLink (LinkType.AccountUserName, account);
-					trie.AddKeyword (plink.LinkText, plink);
+					people.Add (new PersonLink (LinkType.AccountUserName, 
+								    account));
 				}
 			}
+		}
+
+		Console.WriteLine ("Loading up the person trie, Part 2...");
+
+		foreach (PersonLink plink in people) {
+			trie.AddKeyword (plink.LinkText, plink);
 		}
 
 		Console.WriteLine ("Done.");
