@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tomboy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-09-21 20:02+0300\n"
-"PO-Revision-Date: 2005-09-21 20:02+0300\n"
+"POT-Creation-Date: 2005-10-30 17:51+0200\n"
+"PO-Revision-Date: 2005-10-30 18:01+0200\n"
 "Last-Translator: Ilkka Tuohela <hile@iki.fi>\n"
 "Language-Team: Finnish <gnome-fi-laatu@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -38,7 +38,7 @@ msgid "Tomboy Applet Factory"
 msgstr "Tomboy-sovelman tehdas"
 
 #: ../data/GNOME_TomboyApplet.server.in.in.h:4 ../data/tomboy.desktop.in.h:3
-#: ../Tomboy/Applet.cs:134 ../Tomboy/Tray.cs:38
+#: ../Tomboy/Applet.cs:135 ../Tomboy/Tray.cs:38
 msgid "Tomboy Notes"
 msgstr "Tomboy muistilaput"
 
@@ -46,12 +46,12 @@ msgstr "Tomboy muistilaput"
 msgid "_About Tomboy..."
 msgstr "_Tietoja Tomboystä..."
 
-#: ../data/GNOME_TomboyApplet.xml.h:2 ../Tomboy/Applet.cs:175
+#: ../data/GNOME_TomboyApplet.xml.h:2 ../Tomboy/Applet.cs:176
 #: ../Tomboy/NoteWindow.cs:547
 msgid "_Open Plugins Folder"
 msgstr "_Avaa liitännäisten kansio"
 
-#: ../data/GNOME_TomboyApplet.xml.h:3 ../Tomboy/Applet.cs:170
+#: ../data/GNOME_TomboyApplet.xml.h:3 ../Tomboy/Applet.cs:171
 msgid "_Preferences..."
 msgstr "_Asetukset..."
 
@@ -279,18 +279,18 @@ msgstr "Sivu %N/%Q"
 msgid "%A %D, %I:%M %p"
 msgstr "%A %D, %I:%M %p"
 
-#: ../Tomboy/Applet.cs:180
+#: ../Tomboy/Applet.cs:181
 msgid "_About Tomboy"
 msgstr "_Tietoja Tomboysta"
 
-#: ../Tomboy/Applet.cs:187
+#: ../Tomboy/Applet.cs:188
 msgid "_Quit"
 msgstr "_Lopeta"
 
 #. Open the Start Here note
 #: ../Tomboy/Note.cs:393 ../Tomboy/NoteManager.cs:89
-#: ../Tomboy/NoteManager.cs:96 ../Tomboy/Tomboy.cs:210 ../Tomboy/Tray.cs:112
-#: ../Tomboy/Tray.cs:278 ../Tomboy/XKeybinder.cs:259
+#: ../Tomboy/NoteManager.cs:96 ../Tomboy/Tomboy.cs:210 ../Tomboy/Tray.cs:120
+#: ../Tomboy/Tray.cs:173 ../Tomboy/Tray.cs:354 ../Tomboy/XKeybinder.cs:259
 msgid "Start Here"
 msgstr "Aloita tästä"
 
@@ -653,41 +653,41 @@ msgstr ""
 "Katso lisätietoja komennolla \"tomboy --help\".\n"
 "D-BUS-etähallinta poissa käytöstä."
 
-#: ../Tomboy/Tray.cs:77
+#. initial newline
+#: ../Tomboy/Tray.cs:85
+msgid "dddd, MMMM d, h:mm tt"
+msgstr "dddd, MMMM d, hh:mm tt"
+
+#: ../Tomboy/Tray.cs:139
 msgid "Create _New Note"
 msgstr "Luo _uusi muistilappu"
 
-#: ../Tomboy/Tray.cs:125
+#: ../Tomboy/Tray.cs:186
 msgid "_Recent Changes"
 msgstr "_Viimeaikaiset muutoset"
 
-#: ../Tomboy/Tray.cs:135
+#: ../Tomboy/Tray.cs:196
 msgid "_Search Notes..."
 msgstr "_Etsi muistilapuista..."
 
-#: ../Tomboy/Tray.cs:153
+#: ../Tomboy/Tray.cs:214
 msgid " (new)"
 msgstr " (uusi)"
 
-#: ../Tomboy/Tray.cs:230
+#: ../Tomboy/Tray.cs:291
 msgid "translator-credits"
 msgstr ""
 "Ilkka Tuohela, 2005\n"
 "\n"
 "http://www.gnome.fi/"
 
-#: ../Tomboy/Tray.cs:236
+#: ../Tomboy/Tray.cs:297
 msgid "Copyright © 2004, 2005 Alex Graveley"
 msgstr "Copyright © 2004, 2005 Alex Graveley"
 
-#: ../Tomboy/Tray.cs:237
+#: ../Tomboy/Tray.cs:298
 msgid "A simple and easy to use desktop note-taking application."
 msgstr "Yksinkertainen ja helppokäyttöinen muistilappusovellus."
-
-#. initial newline
-#: ../Tomboy/Tray.cs:286
-msgid "dddd, MMMM d, h:mm tt"
-msgstr "dddd, MMMM d, hh:mm tt"
 
 #: ../Tomboy/Watchers.cs:134
 #, csharp-format
@@ -707,17 +707,21 @@ msgstr ""
 msgid "Note title taken"
 msgstr "Muistilapun nimi käytössä"
 
-#: ../Tomboy/Watchers.cs:420
+#: ../Tomboy/Watchers.cs:405
 msgid "Cannot open location"
 msgstr "Sijaintia ei voida avata"
 
-#: ../Tomboy/Watchers.cs:528
+#: ../Tomboy/Watchers.cs:497
 msgid "_Copy Link Address"
 msgstr "Kopioi linkin osoite"
 
-#: ../Tomboy/Watchers.cs:533
+#: ../Tomboy/Watchers.cs:502
 msgid "_Open Link"
 msgstr "_Avaa linkki"
+
+#: ../Tomboy/Plugins/Evolution.cs:258
+msgid "Cannot open email"
+msgstr "Sähköpostia ei voida avata"
 
 #: ../Tomboy/Plugins/ExportToHTML.cs:46
 msgid "Export to HTML"
@@ -731,24 +735,33 @@ msgstr "HTMl-viennin kohde"
 msgid "Export linked notes"
 msgstr "Vie linkitetyt muistilaput"
 
-#: ../Tomboy/Plugins/NoteOfTheDay.cs:12
+#: ../Tomboy/Plugins/GalagoPresence.cs:272
+#, csharp-format
+msgid "Cannot contact '{0}'"
+msgstr "Ei voida ottaa yhteyttä henkilöön '{0}'"
+
+#: ../Tomboy/Plugins/GalagoPresence.cs:275
+#, csharp-format
+msgid "Error running gaim-remote: {0}"
+msgstr "Virhe suorittaessa komentoa gaim-remote: {0}"
+
+#: ../Tomboy/Plugins/NoteOfTheDay.cs:13
 msgid "NotD: "
 msgstr "Tänään: "
 
 #. Format: "NotD: Friday, July 01 2005"
-#: ../Tomboy/Plugins/NoteOfTheDay.cs:17
+#: ../Tomboy/Plugins/NoteOfTheDay.cs:18
 msgid "dddd, MMMM d yyyy"
 msgstr "dddd, MMMM d, yyyy"
 
-#: ../Tomboy/Plugins/NoteOfTheDay.cs:32
+#: ../Tomboy/Plugins/NoteOfTheDay.cs:33
 msgid "Tasks"
 msgstr "Tehtävät"
 
-#: ../Tomboy/Plugins/NoteOfTheDay.cs:33
+#: ../Tomboy/Plugins/NoteOfTheDay.cs:34
 msgid "Appointments"
 msgstr "Tapaamiset"
 
-#: ../Tomboy/Plugins/NoteOfTheDay.cs:168
+#: ../Tomboy/Plugins/NoteOfTheDay.cs:169
 msgid "Create Note of the Day"
 msgstr "Luo päivän muistilappu"
-
