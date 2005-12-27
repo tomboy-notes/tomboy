@@ -462,7 +462,7 @@ namespace Tomboy
 			this.buffer = buffer;
 			this.tag = tag;
 
-			this.mark = buffer.CreateMark (null, buffer.StartIter, false);
+			this.mark = buffer.CreateMark (null, buffer.StartIter, true);
 			this.range = new TextRange (buffer.StartIter, buffer.StartIter);
 		}
 
@@ -528,6 +528,7 @@ namespace Tomboy
 	public class InterruptableTimeout
 	{
 		uint timeout_id;
+		EventArgs args;
 
 		public InterruptableTimeout ()
 		{
@@ -535,7 +536,13 @@ namespace Tomboy
 
 		public void Reset (uint timeout_millis)
 		{
+			Reset (timeout_millis, null);
+		}
+
+		public void Reset (uint timeout_millis, EventArgs args)
+		{
 			Cancel ();
+			this.args = args;
 			timeout_id = GLib.Timeout.Add (timeout_millis, 
 						       new GLib.TimeoutHandler (TimeoutExpired));
 		}
@@ -549,7 +556,7 @@ namespace Tomboy
 		bool TimeoutExpired ()
 		{
 			if (Timeout != null)
-				Timeout (this, new EventArgs ());
+				Timeout (this, args);
 
 			timeout_id = 0;
 			return false;

@@ -209,6 +209,34 @@ namespace Tomboy
 				return null;
 			}
 		}
+
+		public static void GetBlockExtents (ref Gtk.TextIter start, 
+						    ref Gtk.TextIter end, 
+						    int threshold,
+						    Gtk.TextTag avoid_tag) 
+		{
+			// Move start and end to the beginning or end of their
+			// respective paragraphs, bounded by some threshold.
+
+			start.LineOffset = Math.Max (0, start.LineOffset - threshold);
+
+			// FIXME: Sometimes I need to access this before it
+			// returns real values.
+			int bug = end.CharsInLine;
+
+			if (end.CharsInLine - end.LineOffset > threshold + 1 /* newline */)
+				end.LineOffset += threshold;
+			else
+				end.ForwardToLineEnd ();
+
+			if (avoid_tag != null) {
+				if (start.HasTag (avoid_tag))
+					start.BackwardToTagToggle (avoid_tag);
+
+				if (end.HasTag (avoid_tag))
+					end.ForwardToTagToggle (avoid_tag);
+			}
+		}
 	}
 
 	public class NoteBufferArchiver

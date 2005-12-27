@@ -49,6 +49,7 @@ namespace Tomboy
 		TrieState root;
 		ArrayList fail_states;
 		bool      case_sensitive;
+		int       max_length;
 
 		public TrieTree (bool case_sensitive)
 		{
@@ -173,6 +174,9 @@ namespace Tomboy
 					q = q.Next;
 				}
 			}
+
+			// Update max_length
+			max_length = Math.Max (max_length, needle.Length);
 		}
 
 		/*
@@ -246,6 +250,11 @@ namespace Tomboy
 					return hit.Value;
 			}
 			return null;
+		}
+
+		public int MaxLength
+		{
+			get { return max_length; }
 		}
 	}
 

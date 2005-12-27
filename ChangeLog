@@ -1,3 +1,25 @@
+2005-12-26  Alex Graveley  <alex@beatniksoftware.com>
+
+	* NEWS: Add some 0.3.4 bullets.
+
+	* Tomboy/Watchers.cs: Use NoteBuffer.GetBlockExtents in
+	NoteUrlWatcher & NoteLinkWatcher's text input handling, which
+	should speed up typing in large paragraphs.
+
+	* Tomboy/Utils.cs (TextTagEnumerator): Use left gravity for
+	current position mark.  This fixes the Gaim/Evo plugin, which
+	attempt to inline replace existing text.
+	(InterruptableTimeout): In Reset, allow an optional EventArgs
+	argument passed to timeout handlers.
+
+	* Tomboy/Trie.cs: Add MaxLength property to return the longest key
+	length.
+
+	* Tomboy/NoteBuffer.cs: Add new GetBlockExtents, which takes a
+	start/end iter and extends it to encompass the text of the current
+	paragraph, within some threshold, and avoids splitting tags in
+	half.
+
 2005-10-19  Alex Graveley  <alex@beatniksoftware.com>
 
 	* Tomboy/tomboy.in: Only pass --debug when running an uninstalled
