@@ -426,8 +426,10 @@ namespace Tomboy
 
 		void ApplyUrlToBlock (Gtk.TextIter start, Gtk.TextIter end)
 		{
-			start.LineOffset = 0;
-			end.ForwardToLineEnd ();
+			NoteBuffer.GetBlockExtents (ref start, 
+						    ref end, 
+						    256 /* max url length */,
+						    url_tag);
 
 			Buffer.RemoveTag (url_tag, start, end);
 
@@ -717,21 +719,15 @@ namespace Tomboy
 			Buffer.RemoveTag (link_tag, start, end);
 		}
 
-		void GetBlockExtents (ref Gtk.TextIter start, ref Gtk.TextIter end) 
-		{
-			// FIXME: Should only be processing the largest title
-			// size, so we don't slow down for large paragraphs 
-
-			start.LineOffset = 0;
-			end.ForwardToLineEnd ();
-		}
-
 		void OnDeleteRange (object sender, Gtk.DeleteRangeArgs args)
 		{
 			Gtk.TextIter start = args.Start;
 			Gtk.TextIter end = args.End;
 
-			GetBlockExtents (ref start, ref end);
+			NoteBuffer.GetBlockExtents (ref start, 
+						    ref end, 
+						    Manager.TitleTrie.MaxLength,
+						    link_tag);
 
 			UnhighlightInBlock (start, end);
 			HighlightInBlock (start, end);
@@ -744,7 +740,10 @@ namespace Tomboy
 
 			Gtk.TextIter end = args.Pos;
 
-			GetBlockExtents (ref start, ref end);
+			NoteBuffer.GetBlockExtents (ref start, 
+						    ref end, 
+						    Manager.TitleTrie.MaxLength,
+						    link_tag);
 
 			UnhighlightInBlock (start, end);
 			HighlightInBlock (start, end);
@@ -841,8 +840,10 @@ namespace Tomboy
 
 		void ApplyWikiwordToBlock (Gtk.TextIter start, Gtk.TextIter end)
 		{
-			start.LineOffset = 0;
-			end.ForwardToLineEnd ();
+			NoteBuffer.GetBlockExtents (ref start, 
+						    ref end, 
+						    80 /* max wiki name */,
+						    broken_link_tag);
 
 			Buffer.RemoveTag (broken_link_tag, start, end);
 
