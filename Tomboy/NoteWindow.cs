@@ -507,11 +507,11 @@ namespace Tomboy
 			ToolMenuButton plugin_button = 
 				new ToolMenuButton (toolbar, 
 						    Gtk.Stock.Execute,
-						    Catalog.GetString ("_Plugins"),
+						    Catalog.GetString ("T_ools"),
 						    plugin_menu);
 			plugin_button.Show ();
 			toolbar.AppendWidget (plugin_button, 
-					      Catalog.GetString ("Run Plugin actions"), 
+					      Catalog.GetString ("Use tools on this note"), 
 					      null);
 
 			toolbar.AppendSpace ();
