@@ -263,9 +263,12 @@ namespace Tomboy
 
 		void KeyCreateNewNote (object sender, EventArgs args)
 		{
-			Note new_note = manager.Create ();
-			if (new_note != null)
-			    new_note.Window.Show ();
+			try {
+				Note new_note = manager.Create ();
+				new_note.Window.Show ();
+			} catch (Exception e) {
+				// Fail silently.
+			}
 		}
 
 		void KeyOpenSearch (object sender, EventArgs args)

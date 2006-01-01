@@ -93,11 +93,13 @@ namespace Tomboy
 								  "keeping unorganized ideas " +
 								  "around."));
 
-			Note start_note = Create (Catalog.GetString ("Start Here"), content);
-
-			if (start_note != null) {
+			try {
+				Note start_note = Create (Catalog.GetString ("Start Here"), 
+							  content);
 				start_note.Save ();
 				start_note.Window.Show ();
+			} catch (Exception e) {
+				// Fail silently
 			}
 		}
 
@@ -159,26 +161,59 @@ namespace Tomboy
 			return Create (temp_title);
 		}
 
+		public static string SplitTitleFromContent (string title, out string body)
+		{
+			body = null;
+
+			if (title == null)
+				return null;
+
+			title = title.Trim();
+			if (title == string.Empty)
+				return null;
+
+			string[] lines = title.Split (new char[] { '\n', '\r' }, 2);
+			if (lines.Length > 0) {
+				title = lines [0];
+				title = title.Trim ();
+				title = title.TrimEnd ('.', ',', ';');
+				if (title == string.Empty)
+					return null;
+			}
+
+			if (lines.Length > 1)
+				body = lines [1];
+
+			return title;
+		}
+
 		// Create a new note with the specified title, and a simple
 		// "Describe..." body which will be selected for easy overwrite.
 		public Note Create (string title) 
 		{
+			string body = null;
+
+			title = SplitTitleFromContent (title, out body);
+			if (title == null)
+				return null;
+
+			if (body == null)
+				body = Catalog.GetString ("Describe your new note here.");
+
 			string header = title + "\n\n";
 			string content = 
 				String.Format ("<note-content>{0}{1}</note-content>",
 					       XmlEncoder.Encode (header),
-					       Catalog.GetString ("Describe your new note here."));
+					       XmlEncoder.Encode (body));
 
 			Note new_note = Create (title, content);
 
-			if (new_note != null) {
-			    // Select the inital "Describe..." text so typing will
-			    // immediately overwrite...
-			    NoteBuffer buffer = new_note.Buffer;
-			    Gtk.TextIter iter = buffer.GetIterAtOffset (header.Length);
-			    buffer.MoveMark (buffer.SelectionBound, iter);
-			    buffer.MoveMark (buffer.InsertMark, buffer.EndIter);
-			}
+			// Select the inital "Describe..." text so typing will
+			// immediately overwrite...
+			NoteBuffer buffer = new_note.Buffer;
+			Gtk.TextIter iter = buffer.GetIterAtOffset (header.Length);
+			buffer.MoveMark (buffer.SelectionBound, iter);
+			buffer.MoveMark (buffer.InsertMark, buffer.EndIter);
 
 			return new_note;
 		}
@@ -186,16 +221,15 @@ namespace Tomboy
 		// Create a new note with the specified Xml content
 		public Note Create (string title, string xml_content)
 		{
-			if (title == null)
-				return null;
+			if (title == null || title == string.Empty)
+				throw new Exception ("Invalid title");
 
-			string trim_title = title.Trim();
-			if (trim_title == string.Empty)
-				return null;
+			if (Find (title) != null)
+				throw new Exception ("A note with this title already exists");
 
 			string filename = MakeNewFileName ();
 
-			Note new_note = new Note (trim_title, filename, this);
+			Note new_note = new Note (title, filename, this);
 			new_note.XmlContent = xml_content;
 			new_note.Renamed += OnNoteRename;
 

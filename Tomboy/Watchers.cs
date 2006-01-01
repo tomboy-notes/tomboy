@@ -756,7 +756,11 @@ namespace Tomboy
 
 			if (link == null) {
 				Console.WriteLine ("Creating note '{0}'...", link_name);
-				link = Manager.Create (link_name);
+				try {
+				    link = Manager.Create (link_name);
+				} catch (Exception e) {
+				    // Fail silently.
+				}
 			}
 
 			if (link != null && link != this.Note) {

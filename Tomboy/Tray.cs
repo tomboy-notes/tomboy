@@ -239,9 +239,21 @@ namespace Tomboy
 
 		void CreateNewNote (object sender, EventArgs args) 
 		{
-			Note new_note = manager.Create ();
-			if (new_note != null)
+			try {
+				Note new_note = manager.Create ();
 				new_note.Window.Show ();
+			} catch (Exception e) {
+				HIGMessageDialog dialog = 
+					new HIGMessageDialog (
+						null,
+						0,
+						Gtk.MessageType.Error,
+						Gtk.ButtonsType.Ok,
+						Catalog.GetString ("Cannot create new note"),
+						e.Message);
+				dialog.Run ();
+				dialog.Destroy ();
+			}
 		}
 
 		void SearchNotes (object sender, EventArgs args) 
