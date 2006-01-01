@@ -180,6 +180,9 @@ public class NoteOfTheDayPlugin : NotePlugin
 	{
 		if (timeout_owner) {
 			NoteOfTheDay.CleanupOld (Manager);
+			timeout.Timeout -= CheckNewDay;
+			timeout.Cancel();
+			timeout = null;
 		}
 	}
 

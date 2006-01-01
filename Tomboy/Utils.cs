@@ -549,8 +549,11 @@ namespace Tomboy
 
 		public void Cancel ()
 		{
-			if (timeout_id != 0)
+			if (timeout_id != 0) {
 				GLib.Source.Remove (timeout_id);
+				timeout_id = 0;
+				args = null;
+			}
 		}
 
 		bool TimeoutExpired ()

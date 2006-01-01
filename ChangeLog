@@ -1,3 +1,27 @@
+2005-12-31  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/NoteManager.cs: Handle link title text better, by
+	stripping whitespace, using only the first line of selected text
+	and using other lines as the new note body.  Throw Create
+	exceptions on empty titles, or if the title is already taken.
+
+	* Tomboy/NoteWindow.cs: Handle note create exceptions with an
+	error dialog, use NoteManager.SplitTitleFromContent to split title
+	from selection for use in matching existing notes.
+
+	* Tomboy/Tray.cs: Handle note create exceptions with an error
+	dialog.
+
+	* Tomboy/RemoteControl.cs: Handle Create exceptions silently.
+	* Tomboy/Watchers.cs: Ditto.
+	* Tomboy/XKeybinder.cs: Ditto.
+
+	* Tomboy/Utils.cs: InterruptableTimeout: clear timeout_id on
+	cancel.
+
+	* Tomboy/Plugins/NoteOfTheDay.cs: Do a better job cleaning up on
+	shutdown.
+
 2005-12-29  Alex Graveley  <alex@beatniksoftware.com>
 
 	* Tomboy/NoteWindow.cs: Rename "Plugins" menu to "Tools".

@@ -665,14 +665,34 @@ namespace Tomboy
 		void LinkButtonClicked () 
 		{
 			string select = note.Buffer.Selection;
+			if (select == null)
+				return;
+			
+			string body_unused;
+			string title = NoteManager.SplitTitleFromContent (select, out body_unused);
+			if (title == null)
+				return;
 
-			if (select != null) {
-				Note match = note.Manager.Find (select);
-				if (match == null)
+			Note match = note.Manager.Find (title);
+			if (match == null) {
+				try {
 					match = note.Manager.Create (select);
-
-				match.Window.Present ();
+				} catch (Exception e) {
+					HIGMessageDialog dialog = 
+						new HIGMessageDialog (
+							this,
+							Gtk.DialogFlags.DestroyWithParent,
+							Gtk.MessageType.Error,
+							Gtk.ButtonsType.Ok,
+							Catalog.GetString ("Cannot create note"),
+							e.Message);
+					dialog.Run ();
+					dialog.Destroy ();
+					return;
+				}
 			}
+
+			match.Window.Present ();
 		}
 
 		// 
