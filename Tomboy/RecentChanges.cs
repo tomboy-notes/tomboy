@@ -28,7 +28,7 @@ namespace Tomboy
 		}
 
 		public NoteRecentChanges (NoteManager manager)
-			: base (Catalog.GetString ("Recent Changes"))
+			: base (Catalog.GetString ("Table of Contents"))
 		{
 			this.manager = manager;
 			this.Icon = recent_icon;
@@ -41,18 +41,16 @@ namespace Tomboy
 			Gtk.Image image = new Gtk.Image (Gtk.Stock.SortAscending, 
 							 Gtk.IconSize.Dialog);
 
-			Gtk.Label label = 
-				new Gtk.Label (Catalog.GetString ("<b>Recent Changes</b> lists " +
-								  "your notes in the order they " +
-								  "were last changed.  Double " +
-								  "click to open a note."));
+			Gtk.Label label = new Gtk.Label (Catalog.GetString (
+				"<b>Table of Contents</b> lists all your notes.\n" +
+				"Double click to open a note."));
 			label.UseMarkup = true;
 			label.Wrap = true;
 
 			Gtk.HBox hbox = new Gtk.HBox (false, 2);
 			hbox.BorderWidth = 8;
 			hbox.PackStart (image, false, false, 4);
-			hbox.PackStart (label);
+			hbox.PackStart (label, false, false, 0);
 			hbox.ShowAll ();
 
 			MakeRecentTree ();
