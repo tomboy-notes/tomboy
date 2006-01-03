@@ -183,7 +183,7 @@ namespace Tomboy
 
 			menu.Append (new Gtk.SeparatorMenuItem ());
 
-			item = new Gtk.ImageMenuItem (Catalog.GetString ("_Recent Changes"));
+			item = new Gtk.ImageMenuItem (Catalog.GetString ("_Table of Contents"));
 			item.Image = new Gtk.Image (Gtk.Stock.SortAscending, Gtk.IconSize.Menu);
 			item.Activated += ViewRecentChanges;
 			menu.Append (item);
