@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tomboy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-10-30 17:51+0200\n"
-"PO-Revision-Date: 2005-10-30 18:01+0200\n"
+"POT-Creation-Date: 2006-01-06 22:28+0200\n"
+"PO-Revision-Date: 2006-01-06 22:38+0200\n"
 "Last-Translator: Ilkka Tuohela <hile@iki.fi>\n"
 "Language-Team: Finnish <gnome-fi-laatu@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -40,11 +40,11 @@ msgstr "Tomboy-sovelman tehdas"
 #: ../data/GNOME_TomboyApplet.server.in.in.h:4 ../data/tomboy.desktop.in.h:3
 #: ../Tomboy/Applet.cs:135 ../Tomboy/Tray.cs:38
 msgid "Tomboy Notes"
-msgstr "Tomboy muistilaput"
+msgstr "Tomboy -muistilaput"
 
-#: ../data/GNOME_TomboyApplet.xml.h:1
-msgid "_About Tomboy..."
-msgstr "_Tietoja Tomboystä..."
+#: ../data/GNOME_TomboyApplet.xml.h:1 ../Tomboy/Applet.cs:181
+msgid "_About Tomboy"
+msgstr "_Tietoja Tomboysta"
 
 #: ../data/GNOME_TomboyApplet.xml.h:2 ../Tomboy/Applet.cs:176
 #: ../Tomboy/NoteWindow.cs:547
@@ -238,7 +238,7 @@ msgstr ""
 msgid ""
 "The last directory a note was exported to using the Export To HTML plugin."
 msgstr ""
-"Viimeisin hakemisto, johon 'Vie HTML-tiedostona'-liitännäisellä "
+"Viimeisin hakemisto, johon \"Vie HTML-tiedostona\"-liitännäisellä "
 "tallennettiin tiedosto."
 
 #: ../data/tomboy.schemas.in.h:24
@@ -279,18 +279,14 @@ msgstr "Sivu %N/%Q"
 msgid "%A %D, %I:%M %p"
 msgstr "%A %D, %I:%M %p"
 
-#: ../Tomboy/Applet.cs:181
-msgid "_About Tomboy"
-msgstr "_Tietoja Tomboysta"
-
 #: ../Tomboy/Applet.cs:188
 msgid "_Quit"
 msgstr "_Lopeta"
 
 #. Open the Start Here note
 #: ../Tomboy/Note.cs:393 ../Tomboy/NoteManager.cs:89
-#: ../Tomboy/NoteManager.cs:96 ../Tomboy/Tomboy.cs:210 ../Tomboy/Tray.cs:120
-#: ../Tomboy/Tray.cs:173 ../Tomboy/Tray.cs:354 ../Tomboy/XKeybinder.cs:259
+#: ../Tomboy/NoteManager.cs:97 ../Tomboy/Tomboy.cs:210 ../Tomboy/Tray.cs:120
+#: ../Tomboy/Tray.cs:173 ../Tomboy/Tray.cs:366 ../Tomboy/XKeybinder.cs:259
 msgid "Start Here"
 msgstr "Aloita tästä"
 
@@ -303,15 +299,15 @@ msgid ""
 "Use this page as a Start Page for organizing your notes and keeping "
 "unorganized ideas around."
 msgstr ""
-"Käytä tätä sivua aloitussivuna, josta järjestelet muistilappujasi ja jossa "
-"voit pitää järjestelemättömiä ideoita."
+"Käytä tätä sivua aloitussivuna, josta järjestelet muistilappujasi ja jolla "
+"voit pitää luokittelemattomia ajatuksia."
 
-#: ../Tomboy/NoteManager.cs:153
+#: ../Tomboy/NoteManager.cs:155
 #, csharp-format
 msgid "New Note {0}"
 msgstr "Uusi muistilappu {0}"
 
-#: ../Tomboy/NoteManager.cs:170
+#: ../Tomboy/NoteManager.cs:201
 msgid "Describe your new note here."
 msgstr "Kirjoita tähän uuden muistilapun kuvaus."
 
@@ -368,12 +364,12 @@ msgid "Set properties of text"
 msgstr "Aseta tekstin ominaisuudet"
 
 #: ../Tomboy/NoteWindow.cs:510
-msgid "_Plugins"
-msgstr "_Liitännäiset"
+msgid "T_ools"
+msgstr "_Työkalut"
 
 #: ../Tomboy/NoteWindow.cs:514
-msgid "Run Plugin actions"
-msgstr "Suorita liitännäisten tehtävät"
+msgid "Use tools on this note"
+msgstr "Käytä työkaluja tähän muistilappuun"
 
 #: ../Tomboy/NoteWindow.cs:521
 msgid "Delete"
@@ -395,39 +391,43 @@ msgstr "Etsi _seuraava"
 msgid "Find _Previous"
 msgstr "Etsi _edellinen"
 
-#: ../Tomboy/NoteWindow.cs:762
+#: ../Tomboy/NoteWindow.cs:687
+msgid "Cannot create note"
+msgstr "Muistilappua ei voi luoda"
+
+#: ../Tomboy/NoteWindow.cs:782
 msgid "_Bold"
 msgstr "_Voimakas"
 
-#: ../Tomboy/NoteWindow.cs:774
+#: ../Tomboy/NoteWindow.cs:794
 msgid "_Italic"
 msgstr "_Kursiivi"
 
-#: ../Tomboy/NoteWindow.cs:786
+#: ../Tomboy/NoteWindow.cs:806
 msgid "_Strikeout"
 msgstr "_Yliviivattu"
 
-#: ../Tomboy/NoteWindow.cs:798
+#: ../Tomboy/NoteWindow.cs:818
 msgid "_Highlight"
 msgstr "_Korostus"
 
-#: ../Tomboy/NoteWindow.cs:811
+#: ../Tomboy/NoteWindow.cs:831
 msgid "Font Size"
 msgstr "Kirjasimen koko"
 
-#: ../Tomboy/NoteWindow.cs:814
+#: ../Tomboy/NoteWindow.cs:834
 msgid "_Normal"
 msgstr "_Tavallinen"
 
-#: ../Tomboy/NoteWindow.cs:821
+#: ../Tomboy/NoteWindow.cs:841
 msgid "Hu_ge"
 msgstr "_Valtava"
 
-#: ../Tomboy/NoteWindow.cs:829
+#: ../Tomboy/NoteWindow.cs:849
 msgid "_Large"
 msgstr "_Suuri"
 
-#: ../Tomboy/NoteWindow.cs:837
+#: ../Tomboy/NoteWindow.cs:857
 msgid "S_mall"
 msgstr "_Pieni"
 
@@ -514,41 +514,41 @@ msgid "Choose Note Font"
 msgstr "Valitse muistilapun kirjasin"
 
 #: ../Tomboy/RecentChanges.cs:31
-msgid "Recent Changes"
-msgstr "Viimeisimmät muutokset"
+msgid "Table of Contents"
+msgstr "Sisällysluettelo"
 
 #: ../Tomboy/RecentChanges.cs:45
 msgid ""
-"<b>Recent Changes</b> lists your notes in the order they were last changed.  "
+"<b>Table of Contents</b> lists all your notes.\n"
 "Double click to open a note."
 msgstr ""
-"<b>Viimeisimmät muutokset</b> näyttää muistilappusi muutosjärjesteyksessä. "
+"<b>Sisällysluettelo</b> näyttää kaikki muistilappusi.\n"
 "Avaa muistilappu kaksoisnapsautuksella."
 
-#: ../Tomboy/RecentChanges.cs:171
+#: ../Tomboy/RecentChanges.cs:169
 msgid "Last Changed"
 msgstr "Viimeksi muutettu"
 
-#: ../Tomboy/RecentChanges.cs:234
+#: ../Tomboy/RecentChanges.cs:232
 #, csharp-format
 msgid "Today, {0}"
 msgstr "Tänään, {0}"
 
-#: ../Tomboy/RecentChanges.cs:237
+#: ../Tomboy/RecentChanges.cs:235
 #, csharp-format
 msgid "Yesterday, {0}"
 msgstr "Eilen, {0}"
 
-#: ../Tomboy/RecentChanges.cs:240
+#: ../Tomboy/RecentChanges.cs:238
 #, csharp-format
 msgid "{0} days ago, {1}"
 msgstr "{0} päivää sitten, {1}"
 
-#: ../Tomboy/RecentChanges.cs:244
+#: ../Tomboy/RecentChanges.cs:242
 msgid "MMMM d, h:mm tt"
 msgstr "MMMM dd, hh::mm tt"
 
-#: ../Tomboy/RecentChanges.cs:246
+#: ../Tomboy/RecentChanges.cs:244
 msgid "MMMM d yyyy, h:mm tt"
 msgstr "MMMM dd vuosi, hh:mm:tt"
 
@@ -663,8 +663,8 @@ msgid "Create _New Note"
 msgstr "Luo _uusi muistilappu"
 
 #: ../Tomboy/Tray.cs:186
-msgid "_Recent Changes"
-msgstr "_Viimeaikaiset muutoset"
+msgid "_Table of Contents"
+msgstr "_Sisällysluettelo"
 
 #: ../Tomboy/Tray.cs:196
 msgid "_Search Notes..."
@@ -674,18 +674,22 @@ msgstr "_Etsi muistilapuista..."
 msgid " (new)"
 msgstr " (uusi)"
 
-#: ../Tomboy/Tray.cs:291
+#: ../Tomboy/Tray.cs:252
+msgid "Cannot create new note"
+msgstr "Uutta muistilappua ei voi luoda"
+
+#: ../Tomboy/Tray.cs:303
 msgid "translator-credits"
 msgstr ""
 "Ilkka Tuohela, 2005\n"
 "\n"
 "http://www.gnome.fi/"
 
-#: ../Tomboy/Tray.cs:297
+#: ../Tomboy/Tray.cs:309
 msgid "Copyright © 2004, 2005 Alex Graveley"
 msgstr "Copyright © 2004, 2005 Alex Graveley"
 
-#: ../Tomboy/Tray.cs:298
+#: ../Tomboy/Tray.cs:310
 msgid "A simple and easy to use desktop note-taking application."
 msgstr "Yksinkertainen ja helppokäyttöinen muistilappusovellus."
 
@@ -709,19 +713,19 @@ msgstr "Muistilapun nimi käytössä"
 
 #: ../Tomboy/Watchers.cs:405
 msgid "Cannot open location"
-msgstr "Sijaintia ei voida avata"
+msgstr "Sijaintia ei voi avata"
 
-#: ../Tomboy/Watchers.cs:497
+#: ../Tomboy/Watchers.cs:499
 msgid "_Copy Link Address"
 msgstr "Kopioi linkin osoite"
 
-#: ../Tomboy/Watchers.cs:502
+#: ../Tomboy/Watchers.cs:504
 msgid "_Open Link"
 msgstr "_Avaa linkki"
 
 #: ../Tomboy/Plugins/Evolution.cs:258
 msgid "Cannot open email"
-msgstr "Sähköpostia ei voida avata"
+msgstr "Sähköpostia ei voi avata"
 
 #: ../Tomboy/Plugins/ExportToHTML.cs:46
 msgid "Export to HTML"
@@ -738,7 +742,7 @@ msgstr "Vie linkitetyt muistilaput"
 #: ../Tomboy/Plugins/GalagoPresence.cs:272
 #, csharp-format
 msgid "Cannot contact '{0}'"
-msgstr "Ei voida ottaa yhteyttä henkilöön '{0}'"
+msgstr "Henkilöön \"{0}\" ei voi ottaa yhteyttä"
 
 #: ../Tomboy/Plugins/GalagoPresence.cs:275
 #, csharp-format
@@ -765,3 +769,18 @@ msgstr "Tapaamiset"
 #: ../Tomboy/Plugins/NoteOfTheDay.cs:169
 msgid "Create Note of the Day"
 msgstr "Luo päivän muistilappu"
+
+#~ msgid "_About Tomboy..."
+#~ msgstr "_Tietoja Tomboystä..."
+
+#~ msgid "_Plugins"
+#~ msgstr "_Liitännäiset"
+
+#~ msgid "Run Plugin actions"
+#~ msgstr "Suorita liitännäisten tehtävät"
+
+#~ msgid "Recent Changes"
+#~ msgstr "Viimeisimmät muutokset"
+
+#~ msgid "_Recent Changes"
+#~ msgstr "_Viimeaikaiset muutoset"
