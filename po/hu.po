@@ -1,21 +1,21 @@
 # Hungarian translation of tomboy.
 # Copyright (C) 2004, 2005 Free Software Foundation, Inc.
 # This file is distributed under the same license as the tomboy package.
-# Gabor Torok <gabo@linuxportal.hu>, 2004.
-# Gabor Kelemen <kelemeng@gnome.hu>, 2004, 2005.
 #
+# Gabor Torok <gabo@linuxportal.hu>, 2004.
+# Gabor Kelemen <kelemeng@gnome.hu>, 2004, 2005, 2006.
 msgid ""
 msgstr ""
 "Project-Id-Version: tomboy.HEAD.hu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-11-21 20:40+0100\n"
-"PO-Revision-Date: 2005-11-19 19:49+0100\n"
+"POT-Creation-Date: 2006-01-06 12:06+0100\n"
+"PO-Revision-Date: 2006-01-06 19:39+0100\n"
 "Last-Translator: Gabor Kelemen <kelemeng@gnome.hu>\n"
 "Language-Team: Hungarian <gnome@gnome.hu>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.10\n"
+"X-Generator: KBabel 1.11.1\n"
 "Plural-Forms:  nplurals=1; plural=0;\n"
 
 #: ../data/DefaultPlugins.desktop.in.in.h:1
@@ -43,9 +43,9 @@ msgstr "Tomboy kisalkalmazás factory"
 msgid "Tomboy Notes"
 msgstr "Tomboy jegyzettömb"
 
-#: ../data/GNOME_TomboyApplet.xml.h:1
-msgid "_About Tomboy..."
-msgstr "A Tomboy _névjegye..."
+#: ../data/GNOME_TomboyApplet.xml.h:1 ../Tomboy/Applet.cs:181
+msgid "_About Tomboy"
+msgstr "A Tomboy _névjegye"
 
 #: ../data/GNOME_TomboyApplet.xml.h:2 ../Tomboy/Applet.cs:176
 #: ../Tomboy/NoteWindow.cs:547
@@ -236,8 +236,7 @@ msgstr ""
 "billentyű hozzárendelve ehhez a művelethez."
 
 #: ../data/tomboy.schemas.in.h:23
-msgid ""
-"The last directory a note was exported to using the Export To HTML plugin."
+msgid "The last directory a note was exported to using the Export To HTML plugin."
 msgstr ""
 "A HTML-be exportálás bővítménnyel jegyzet exportálására legutóbb használt "
 "könyvtár."
@@ -280,18 +279,14 @@ msgstr "%N. / %Q oldal"
 msgid "%A %D, %I:%M %p"
 msgstr "%A %D, %l.%M %p"
 
-#: ../Tomboy/Applet.cs:181
-msgid "_About Tomboy"
-msgstr "A Tomboy _névjegye"
-
 #: ../Tomboy/Applet.cs:188
 msgid "_Quit"
 msgstr "_Kilépés"
 
 #. Open the Start Here note
 #: ../Tomboy/Note.cs:393 ../Tomboy/NoteManager.cs:89
-#: ../Tomboy/NoteManager.cs:96 ../Tomboy/Tomboy.cs:210 ../Tomboy/Tray.cs:120
-#: ../Tomboy/Tray.cs:173 ../Tomboy/Tray.cs:354 ../Tomboy/XKeybinder.cs:259
+#: ../Tomboy/NoteManager.cs:97 ../Tomboy/Tomboy.cs:210 ../Tomboy/Tray.cs:120
+#: ../Tomboy/Tray.cs:173 ../Tomboy/Tray.cs:366 ../Tomboy/XKeybinder.cs:259
 msgid "Start Here"
 msgstr "Kezdje itt!"
 
@@ -305,12 +300,12 @@ msgid ""
 "unorganized ideas around."
 msgstr "Használja ezt az oldalt kiindulási pontként jegyzetei áttekintéséhez!"
 
-#: ../Tomboy/NoteManager.cs:153
+#: ../Tomboy/NoteManager.cs:155
 #, csharp-format
 msgid "New Note {0}"
 msgstr "Új jegyzet {0}"
 
-#: ../Tomboy/NoteManager.cs:170
+#: ../Tomboy/NoteManager.cs:201
 msgid "Describe your new note here."
 msgstr "Ide írhatja a jegyzet tartalmát."
 
@@ -367,12 +362,12 @@ msgid "Set properties of text"
 msgstr "Szöveg beállításai"
 
 #: ../Tomboy/NoteWindow.cs:510
-msgid "_Plugins"
-msgstr "_Bővítmények"
+msgid "T_ools"
+msgstr "_Eszközök"
 
 #: ../Tomboy/NoteWindow.cs:514
-msgid "Run Plugin actions"
-msgstr "Bővítményműveletek futtatása"
+msgid "Use tools on this note"
+msgstr "Eszközök használata ezen a jegyzeten"
 
 #: ../Tomboy/NoteWindow.cs:521
 msgid "Delete"
@@ -394,39 +389,43 @@ msgstr "_Következő találat"
 msgid "Find _Previous"
 msgstr "_Előző találat"
 
-#: ../Tomboy/NoteWindow.cs:762
+#: ../Tomboy/NoteWindow.cs:687
+msgid "Cannot create note"
+msgstr "Nem hozható létre jegyzet"
+
+#: ../Tomboy/NoteWindow.cs:782
 msgid "_Bold"
 msgstr "_Félkövér"
 
-#: ../Tomboy/NoteWindow.cs:774
+#: ../Tomboy/NoteWindow.cs:794
 msgid "_Italic"
 msgstr "_Dőlt"
 
-#: ../Tomboy/NoteWindow.cs:786
+#: ../Tomboy/NoteWindow.cs:806
 msgid "_Strikeout"
 msgstr "Á_thúzott"
 
-#: ../Tomboy/NoteWindow.cs:798
+#: ../Tomboy/NoteWindow.cs:818
 msgid "_Highlight"
 msgstr "_Kiemelés"
 
-#: ../Tomboy/NoteWindow.cs:811
+#: ../Tomboy/NoteWindow.cs:831
 msgid "Font Size"
 msgstr "Betűméret"
 
-#: ../Tomboy/NoteWindow.cs:814
+#: ../Tomboy/NoteWindow.cs:834
 msgid "_Normal"
 msgstr "_Normál"
 
-#: ../Tomboy/NoteWindow.cs:821
+#: ../Tomboy/NoteWindow.cs:841
 msgid "Hu_ge"
 msgstr "Ó_riási"
 
-#: ../Tomboy/NoteWindow.cs:829
+#: ../Tomboy/NoteWindow.cs:849
 msgid "_Large"
 msgstr "_Nagy"
 
-#: ../Tomboy/NoteWindow.cs:837
+#: ../Tomboy/NoteWindow.cs:857
 msgid "S_mall"
 msgstr "Ki_csi"
 
@@ -513,41 +512,41 @@ msgid "Choose Note Font"
 msgstr "Jegyzet betűkészletének kiválasztása"
 
 #: ../Tomboy/RecentChanges.cs:31
-msgid "Recent Changes"
-msgstr "Legutóbbi változások"
+msgid "Table of Contents"
+msgstr "Tartalom"
 
 #: ../Tomboy/RecentChanges.cs:45
 msgid ""
-"<b>Recent Changes</b> lists your notes in the order they were last changed.  "
+"<b>Table of Contents</b> lists all your notes.\n"
 "Double click to open a note."
 msgstr ""
-"A <b>Legutóbbi változások</b> menüpont az utolsó módosítási dátumuk alapján "
-"jeleníti meg a jegyzeteit. Egy jegyzet megnyitásához kattintson rá kétszer."
+"A <b>Tartalomjegyzék</b> menüpont megjeleníti az összes jegyzetet.\n"
+"Egy jegyzet megnyitásához kattintson rá kétszer."
 
-#: ../Tomboy/RecentChanges.cs:171
+#: ../Tomboy/RecentChanges.cs:169
 msgid "Last Changed"
 msgstr "Legutóbb módosítva"
 
-#: ../Tomboy/RecentChanges.cs:234
+#: ../Tomboy/RecentChanges.cs:232
 #, csharp-format
 msgid "Today, {0}"
 msgstr "Ma, {0}"
 
-#: ../Tomboy/RecentChanges.cs:237
+#: ../Tomboy/RecentChanges.cs:235
 #, csharp-format
 msgid "Yesterday, {0}"
 msgstr "Tegnap, {0}"
 
-#: ../Tomboy/RecentChanges.cs:240
+#: ../Tomboy/RecentChanges.cs:238
 #, csharp-format
 msgid "{0} days ago, {1}"
 msgstr "{0} napja, {1}"
 
-#: ../Tomboy/RecentChanges.cs:244
+#: ../Tomboy/RecentChanges.cs:242
 msgid "MMMM d, h:mm tt"
 msgstr "MMMM d., h:mm tt"
 
-#: ../Tomboy/RecentChanges.cs:246
+#: ../Tomboy/RecentChanges.cs:244
 msgid "MMMM d yyyy, h:mm tt"
 msgstr "yyyy. MMMM d. h:mm tt"
 
@@ -663,8 +662,8 @@ msgid "Create _New Note"
 msgstr "Ú_j jegyzet"
 
 #: ../Tomboy/Tray.cs:186
-msgid "_Recent Changes"
-msgstr "Legutóbbi _változások"
+msgid "_Table of Contents"
+msgstr "_Tartalomjegyzék"
 
 #: ../Tomboy/Tray.cs:196
 msgid "_Search Notes..."
@@ -674,17 +673,21 @@ msgstr "Jegyzet kere_sése..."
 msgid " (new)"
 msgstr " (új)"
 
-#: ../Tomboy/Tray.cs:291
+#: ../Tomboy/Tray.cs:252
+msgid "Cannot create new note"
+msgstr "Nem hozható létre új jegyzet"
+
+#: ../Tomboy/Tray.cs:303
 msgid "translator-credits"
 msgstr ""
 "Kelemen Gábor <kelemeng@gnome.hu>\n"
 "Török Gábor <gabo@linuxportal.hu>"
 
-#: ../Tomboy/Tray.cs:297
+#: ../Tomboy/Tray.cs:309
 msgid "Copyright © 2004, 2005 Alex Graveley"
 msgstr "Copyright © 2004, 2005 Alex Graveley"
 
-#: ../Tomboy/Tray.cs:298
+#: ../Tomboy/Tray.cs:310
 msgid "A simple and easy to use desktop note-taking application."
 msgstr "Egyszerű és könnyen használható asztali jegyzetkezelő alkalmazás."
 
@@ -710,11 +713,11 @@ msgstr "A jegyzet neve átvéve"
 msgid "Cannot open location"
 msgstr "Nem lehet megnyitni a helyet"
 
-#: ../Tomboy/Watchers.cs:497
+#: ../Tomboy/Watchers.cs:499
 msgid "_Copy Link Address"
 msgstr "Hivatkozás cí_mének másolása"
 
-#: ../Tomboy/Watchers.cs:502
+#: ../Tomboy/Watchers.cs:504
 msgid "_Open Link"
 msgstr "_Hivatkozás megnyitása"
 
@@ -765,3 +768,4 @@ msgstr "Találkozók"
 #: ../Tomboy/Plugins/NoteOfTheDay.cs:169
 msgid "Create Note of the Day"
 msgstr "A Nap jegyzetének létrehozása"
+
