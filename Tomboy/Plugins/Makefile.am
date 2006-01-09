@@ -78,6 +78,17 @@ $(GALAGO_TARGET): $(GALAGO_CSFILES) $(top_builddir)/Tomboy/Tomboy.exe
 	$(CSC) -out:$@ $(CSFLAGS) $(ASSEMBLIES) $(GALAGO_CSFILES) $(GALAGO_RESOURCES)
 endif
 
+#
+# Fixed width font plugin
+# 
+
+FIXEDWIDTH_TARGET = FixedWidth.dll
+FIXEDWIDTH_CSFILES = $(srcdir)/FixedWidth.cs
+FIXEDWIDTH_RESOURCES = 
+
+$(FIXEDWIDTH_TARGET): $(FIXEDWIDTH_CSFILES) $(top_builddir)/Tomboy/Tomboy.exe
+	$(CSC) -out:$@ $(CSFLAGS) $(ASSEMBLIES) $(FIXEDWIDTH_CSFILES) $(FIXEDWIDTH_RESOURCES)
+
 
 pluginsdir = $(pkglibdir)/Plugins
 plugins_DATA = 			\
@@ -87,7 +98,8 @@ plugins_DATA = 			\
 	$(PRINT_TARGET)
 
 noinst_DATA = 			\
-	$(NOTD_TARGET)
+	$(NOTD_TARGET)		\
+	$(FIXEDWIDTH_TARGET)
 
 
 EXTRA_DIST =            	\
@@ -96,7 +108,8 @@ EXTRA_DIST =            	\
 	$(EXPORT_CSFILES)	\
 	$(GALAGO_CSFILES)	\
 	$(PRINT_CSFILES)	\
-	$(NOTD_CSFILES)
+	$(NOTD_CSFILES)		\
+	$(FIXEDWIDTH_CSFILES)
 
 CLEANFILES =			\
 	$(EVO_TARGET)		\
@@ -108,4 +121,6 @@ CLEANFILES =			\
 	$(PRINT_TARGET)		\
 	$(PRINT_TARGET).mdb	\
 	$(NOTD_TARGET)		\
-	$(NOTD_TARGET).mdb
+	$(NOTD_TARGET).mdb	\
+	$(FIXEDWIDTH_TARGET)	\
+	$(FIXEDWIDTH_TARGET).mdb
