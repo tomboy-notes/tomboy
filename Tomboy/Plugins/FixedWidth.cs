@@ -10,7 +10,10 @@ using Tomboy;
 
 class FixedWidthTag : NoteTag
 {
-	public FixedWidthTag () : base ("monospace") {}
+	public FixedWidthTag () 
+		: base ("monospace") 
+	{
+	}
 
 	public override void Initialize (string element_name)
 	{
@@ -24,10 +27,10 @@ class FixedWidthMenuItem : CheckMenuItem
 	NotePlugin Plugin;
 	bool event_freeze;
 
-	public FixedWidthMenuItem (NotePlugin plugin) : base (
-				"<span font_family='monospace'>" +
-				Catalog.GetString ("_Fixed Width") +
-				"</span>")
+	public FixedWidthMenuItem (NotePlugin plugin) 
+		: base ("<span font_family='monospace'>" +
+			Catalog.GetString ("_Fixed Width") +
+			"</span>")
 	{
 		((Label) Child).UseUnderline = true;
 		((Label) Child).UseMarkup = true;
