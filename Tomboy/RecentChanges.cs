@@ -111,12 +111,13 @@ namespace Tomboy
 
 		void MakeRecentTree ()
 		{
-			Type [] types = new Type [] {
-				typeof (Gdk.Pixbuf), // icon
-				typeof (string),     // title
-				typeof (string),     // change date
-				typeof (Note),       // note
-			};
+			Type [] types = 
+				new Type [] {
+					typeof (Gdk.Pixbuf), // icon
+					typeof (string),     // title
+					typeof (string),     // change date
+					typeof (Note),       // note
+				};
 
 			Gtk.TargetEntry [] targets = 
 				new Gtk.TargetEntry [] {
@@ -136,6 +137,7 @@ namespace Tomboy
 					   new Gtk.TreeIterCompareFunc (CompareDates),
 					   IntPtr.Zero, 
 					   null);
+			store.SetSortColumnId (2 /* change date */, Gtk.SortType.Descending);
 
 			tree = new Gtk.TreeView (store);
 			tree.HeadersVisible = true;
@@ -263,8 +265,6 @@ namespace Tomboy
 
 		int CompareDates (Gtk.TreeModel model, Gtk.TreeIter a, Gtk.TreeIter b)
 		{
-			Console.WriteLine ("CompareDates Called!");
-
 			Note note_a = (Note) model.GetValue (a, 3 /* note */);
 			Note note_b = (Note) model.GetValue (b, 3 /* note */);
 
