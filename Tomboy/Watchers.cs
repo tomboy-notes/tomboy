@@ -57,12 +57,13 @@ namespace Tomboy
 		// This only gets called on an explicit move, not when typing
 		void OnMarkSet (object sender, Gtk.MarkSetArgs args)
 		{
-			Update ();
+			if (args.Mark == Buffer.InsertMark) {
+				Update ();
+			}
 		}
 
 		void OnInsertText (object sender, Gtk.InsertTextArgs args)
 		{
-			Changed ();
 			Update ();
 
 			Gtk.TextIter end = args.Pos;
@@ -74,7 +75,6 @@ namespace Tomboy
 
 		void OnDeleteRange (object sender, Gtk.DeleteRangeArgs args)
 		{
-			Changed ();
 			Update ();
 		}
 
@@ -83,11 +83,17 @@ namespace Tomboy
 			Gtk.TextIter insert = Buffer.GetIterAtMark (Buffer.InsertMark);
 			Gtk.TextIter selection = Buffer.GetIterAtMark (Buffer.SelectionBound);
 
+			// FIXME: Handle middle-click paste when insert or
+			// selection isn't on line 0, which means we won't know
+			// about the edit.
+
 			if (insert.Line == 0 || selection.Line == 0) {
 				if (!editing_title)
 					editing_title = true;
+				Changed ();
 			} else {
 				if (editing_title) {
+					Changed ();
 					UpdateNoteTitle ();
 					editing_title = false;
 				}
@@ -96,9 +102,6 @@ namespace Tomboy
 
 		void Changed ()
 		{
-			if (!editing_title)
-				return;
-
 			// Make sure the title line is big and red...
 			Buffer.RemoveAllTags (TitleStart, TitleEnd);
 			Buffer.ApplyTag (title_tag, TitleStart, TitleEnd);

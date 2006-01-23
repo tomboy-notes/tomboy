@@ -1,3 +1,11 @@
+2006-01-23  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Watchers.cs: In NoteRenameWatcher, fix jrb's bug:
+	inserting newlines in the title line doesn't update the title.
+	Only call Update in OnMarkSet if he mark is the insertion mark.
+	In Update, if setting editing_title state, call Changed. Remove
+	all other calls to Changed.
+
 2006-01-22  Alex Graveley  <alex@beatniksoftware.com>
 
 	* Tomboy/RecentChanges.cs: Call SetSortColumnId on the list store,
