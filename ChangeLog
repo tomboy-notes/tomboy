@@ -1,3 +1,13 @@
+2006-01-24  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/PluginManager.cs: Extend the NotePlugin interface with
+	AddTextMenuItem, which adds a menu item to the Text menu.
+
+	* Tomboy/Plugins/FixedWidth.cs: Use AddTextMenuItem, and drop all
+	manual menu item handling.  Set CanGrow and CanUndo on the
+	monospace tag, so it behaves as it should.  Disconnect from Text
+	menu's Shown event in OnDestroyed instead of the finalizer.
+
 2006-01-23  Alex Graveley  <alex@beatniksoftware.com>
 
 	* Tomboy/Watchers.cs: In NoteRenameWatcher, fix jrb's bug:

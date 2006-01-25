@@ -19,6 +19,8 @@ class FixedWidthTag : NoteTag
 	{
 		base.Initialize (element_name);
 		Family = "monospace";
+		CanGrow = true;
+		CanUndo = true;
 	}
 }
 
@@ -41,11 +43,6 @@ class FixedWidthMenuItem : CheckMenuItem
 		ShowAll();
 	}
 
-	~FixedWidthMenuItem ()
-	{
-		Plugin.Window.TextMenu.Shown -= MenuShown;
-	}
-
 	protected void MenuShown (object sender, EventArgs e)
 	{
 		event_freeze = true;
@@ -60,37 +57,38 @@ class FixedWidthMenuItem : CheckMenuItem
 
 		base.OnActivated();
 	}
+
+	protected override void OnDestroyed ()
+	{
+		Plugin.Window.TextMenu.Shown -= MenuShown;
+		base.OnDestroyed();
+	}
 }
 
 public class FixedWidthPlugin : NotePlugin
 {
-	Widget item;
 	TextTag tag;
 
 	protected override void Initialize ()
 	{
-		// if a tag of this name already exists, don't install
-		if (Note.TagTable.Lookup ("monospace") != null)
-			return;
-
-		tag = new FixedWidthTag ();
-		Note.TagTable.Add (tag);
+		// If a tag of this name already exists, don't install.
+		if (Note.TagTable.Lookup ("monospace") == null) {
+			tag = new FixedWidthTag ();
+			Note.TagTable.Add (tag);
+		}
 	}
 
 	protected override void Shutdown ()
 	{
-		if (item != null)
-			Window.TextMenu.Remove (item);
-
-		// remove the tag only if we installed it
+		// Remove the tag only if we installed it.
 		if (tag != null)
 			Note.TagTable.Remove (tag);
 	}
 
 	protected override void OnNoteOpened () 
 	{
-		item = new FixedWidthMenuItem (this);
-		Window.TextMenu.Add (item);
-		Window.TextMenu.ReorderChild (item, 7);
+		// Add here instead of in Initialize to avoid creating unopened
+		// notes' windows/buffers.
+		AddTextMenuItem (new FixedWidthMenuItem (this));
 	}
 }
