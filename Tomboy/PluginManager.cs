@@ -11,7 +11,8 @@ namespace Tomboy
 	public abstract class NotePlugin : IDisposable
 	{
 		Note note;
-		ArrayList menu_items;
+		ArrayList plugin_menu_items;
+		ArrayList text_menu_items;
 
 		public void Initialize (Note note)
 		{
@@ -28,8 +29,13 @@ namespace Tomboy
 		{
 			this.note.Opened -= OnNoteOpenedEvent;
 
-			if (menu_items != null) {
-				foreach (Gtk.Widget item in menu_items) {
+			if (plugin_menu_items != null) {
+				foreach (Gtk.Widget item in plugin_menu_items) {
+					item.Destroy ();
+				}
+			}
+			if (text_menu_items != null) {
+				foreach (Gtk.Widget item in text_menu_items) {
 					item.Destroy ();
 				}
 			}
@@ -65,24 +71,47 @@ namespace Tomboy
 		{
 			OnNoteOpened ();
 
-			if (menu_items != null) {
-				foreach (Gtk.Widget item in menu_items) {
+			if (plugin_menu_items != null) {
+				foreach (Gtk.Widget item in plugin_menu_items) {
 					if (item.Parent == null || 
 					    item.Parent != Window.PluginMenu)
 						Window.PluginMenu.Add (item);
+				}
+			}
+
+			if (text_menu_items != null) {
+				foreach (Gtk.Widget item in text_menu_items) {
+					if (item.Parent == null || 
+					    item.Parent != Window.TextMenu) {
+						Window.TextMenu.Add (item);
+						Window.TextMenu.ReorderChild (item, 7);
+					}
 				}
 			}
 		}
 
 		public void AddPluginMenuItem (Gtk.MenuItem item)
 		{
-			if (menu_items == null)
-				menu_items = new ArrayList ();
+			if (plugin_menu_items == null)
+				plugin_menu_items = new ArrayList ();
 
-			menu_items.Add (item);
+			plugin_menu_items.Add (item);
 
 			if (note.IsOpened)
 				Window.PluginMenu.Add (item);
+		}
+
+		public void AddTextMenuItem (Gtk.MenuItem item)
+		{
+			if (text_menu_items == null)
+				text_menu_items = new ArrayList ();
+
+			text_menu_items.Add (item);
+
+			if (note.IsOpened) {
+				Window.TextMenu.Add (item);
+				Window.TextMenu.ReorderChild (item, 7);
+			}
 		}
 	}
 
