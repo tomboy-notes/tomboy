@@ -36,12 +36,9 @@ namespace Tomboy
 		{
 			Console.WriteLine ("Applet Created...");
 
-			manager = new NoteManager ();
+			manager = Tomboy.DefaultNoteManager;
 			tray = new TomboyTray (manager);
 			keybinder = new TomboyGConfXKeybinder (manager, tray);
-
-			// Register the manager to handle remote requests.
-			Tomboy.RegisterRemoteControl (manager);
 
 			Add (tray);
 			ShowAll ();
@@ -126,7 +123,7 @@ namespace Tomboy
 		private static extern IntPtr egg_tray_icon_new (string name);
 
 		public TomboyTrayIcon ()
-			: this (new NoteManager ())
+			: this (Tomboy.DefaultNoteManager)
 		{
 		}
 
@@ -134,9 +131,6 @@ namespace Tomboy
 		{
 			this.Raw = egg_tray_icon_new (Catalog.GetString ("Tomboy Notes"));
 			this.manager = manager;
-
-			// Register the manager to handle remote requests.
-			Tomboy.RegisterRemoteControl (manager);
 
 			tray = new TomboyTray (manager);
 			tray.ButtonPressEvent += ButtonPress;
