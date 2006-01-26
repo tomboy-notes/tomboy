@@ -311,7 +311,7 @@ namespace Tomboy
 				new Gnome.About (
 					"Tomboy", 
 					Defines.VERSION,
-					Catalog.GetString ("Copyright \xa9 2004, 2005 Alex Graveley"),
+					Catalog.GetString ("Copyright \xa9 2004-2006 Alex Graveley"),
 					Catalog.GetString ("A simple and easy to use desktop " +
 							   "note-taking application."),
 					authors, 
