@@ -1,5 +1,16 @@
 2006-01-26  Alex Graveley  <alex@beatniksoftware.com>
 
+	* Tomboy/Applet.cs: Use Tomboy.DefaultNoteManager instead of
+	creating one ourselves.
+
+	* Tomboy/Tomboy.cs: Add a --note-path, to specify the directory to
+	use for loading and storing notes.  Create a NoteManager with this
+	path, and expose it through DefaultNoteManager.
+	
+	* www/index.html: Add a Reporting Bugs section.
+
+2006-01-26  Alex Graveley  <alex@beatniksoftware.com>
+
 	* configure.in: Bump version to 0.3.4.
 
 	* README: Update copyright to 2006.

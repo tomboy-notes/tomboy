@@ -9,10 +9,8 @@ namespace Tomboy
 	{
 		static Gnome.Program program;
 		static Syscall.sighandler_t sig_handler;
-
-#if ENABLE_DBUS
-		static DBus.Connection dbus_connection;
-#endif
+		static NoteManager manager;
+		static Object dbus_connection;
 
 		public static void Main (string [] args) 
 		{
@@ -34,6 +32,16 @@ namespace Tomboy
 						     Gnome.Modules.UI, 
 						     args);
 
+			// Create the default note manager instance.
+			if (cmd_line.NotePath != null) {
+				manager = new NoteManager (cmd_line.NotePath);
+			} else {
+				manager = new NoteManager ();
+			}
+
+			// Register the manager to handle remote requests.
+			RegisterRemoteControl (manager);
+
 			if (cmd_line.UsePanelApplet) {
 				RegisterPanelAppletFactory (); 
 			} else {
@@ -46,7 +54,7 @@ namespace Tomboy
 		static void StartTrayIcon ()
 		{
 			// Create the tray icon and run the main loop
-			TomboyTrayIcon tray_icon = new TomboyTrayIcon ();
+			TomboyTrayIcon tray_icon = new TomboyTrayIcon (DefaultNoteManager);
 			tray_icon.Show ();
 			program.Run ();
 		}
@@ -57,13 +65,13 @@ namespace Tomboy
 			PanelApplet.AppletFactory.Register (typeof (TomboyApplet));
 		}
 
-		public static void RegisterRemoteControl (NoteManager manager)
+		static void RegisterRemoteControl (NoteManager manager)
 		{
 #if ENABLE_DBUS
 			try {
 				dbus_connection = DBus.Bus.GetSessionBus ();
 				DBus.Service service = 
-					new DBus.Service (dbus_connection, 
+					new DBus.Service ((DBus.Connection) dbus_connection, 
 							  RemoteControlProxy.Namespace);
 
 				RemoteControl remote_control = new RemoteControl (manager);
@@ -103,6 +111,11 @@ namespace Tomboy
 			OnExitSignal (-1);
 			System.Environment.Exit (exitcode);
 		}
+
+		public static NoteManager DefaultNoteManager
+		{
+			get { return manager; }
+		}
 	}
 
 	public class TomboyCommandLine
@@ -113,6 +126,7 @@ namespace Tomboy
 		string open_note_uri;
 		string open_note_name;
 		string highlight_search;
+		string note_path;
 
 		public TomboyCommandLine (string [] args)
 		{
@@ -131,40 +145,50 @@ namespace Tomboy
 			}
 		}
 
+		public string NotePath
+		{
+			get { return note_path; }
+		}
+
 		public static void PrintAbout () 
 		{
                         string about = 
 				Catalog.GetString (
-					"Tomboy: A simple, easy to use desktop note-taking application.\n" +
-					"Copyright (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n\n");
+					"Tomboy: A simple, easy to use desktop note-taking " +
+					"application.\n" +
+					"Copyright (C) 2004-2006 Alex Graveley " +
+					"<alex@beatniksoftware.com>\n\n");
 
 			Console.Write (about);
 		}
 
 		public static void PrintUsage () 
 		{
-#if ENABLE_DBUS
-			string usage = 
-				Catalog.GetString (
-					"Usage:\n" +
-					"  --new-note\t\t\tCreate and display a new note.\n" +
-					"  --new-note [title]\t\tCreate and display a new note, with a title.\n" +
-					"  --open-note [title/url]\tDisplay the existing note matching title.\n" +
-					"  --start-here\t\t\tDisplay the 'Start Here' note.\n" +
-					"  --highlight-search [text]\tSearch and highlight text in the opened note.\n" +
-					"  --version\t\t\tPrint version information.\n" +
-					"  --help\t\t\tPrint this usage message.\n");
-			Console.WriteLine (usage);
-#else
 			string usage = 
 				Catalog.GetString (
 					"Usage:\n" +
 					"  --version\t\t\tPrint version information.\n" +
 					"  --help\t\t\tPrint this usage message.\n" +
+					"  --note-path [path]\t\tLoad/store note data in this " +
+					"directory.\n");
+
+#if ENABLE_DBUS
+			usage += 
+				Catalog.GetString (
+					"  --new-note\t\t\tCreate and display a new note.\n" +
+					"  --new-note [title]\t\tCreate and display a new note, " +
+					"with a title.\n" +
+					"  --open-note [title/url]\tDisplay the existing note " +
+					"matching title.\n" +
+					"  --start-here\t\t\tDisplay the 'Start Here' note.\n" +
+					"  --highlight-search [text]\tSearch and highlight text " +
+					"in the opened note.\n");
+#else
 					"\n" +
 					"D-BUS remote control disabled.");
-			Console.WriteLine (usage);
 #endif
+
+			Console.WriteLine (usage);
                 }
 
 		public static void PrintVersion()
@@ -226,9 +250,11 @@ namespace Tomboy
 				case "--start-here":
 				case "--highlight-search":
 					string unknown_opt = 
-						Catalog.GetString ("Tomboy: unsupported option '{0}'\n" +
-								   "Try 'tomboy --help' for more information.\n" +
-								   "D-BUS remote control disabled.");
+						Catalog.GetString (
+							"Tomboy: unsupported option '{0}'\n" +
+							"Try 'tomboy --help' for more " +
+							"information.\n" +
+							"D-BUS remote control disabled.");
 					Console.WriteLine (unknown_opt, args [idx]);
 					quit = true;
 					break;
@@ -236,6 +262,24 @@ namespace Tomboy
 
 				case "--panel-applet":
 					panel_applet = true;
+					break;
+
+				case "--note-path":
+					if (idx + 1 >= args.Length || args [idx + 1][0] == '-') {
+						PrintUsage ();
+						quit = true;
+					}
+
+					note_path = args [++idx];
+
+					if (!Directory.Exists (note_path)) {
+						Console.WriteLine (
+							"Tomboy: Invalid note path: " +
+							"\"{0}\" does not exist.",
+							note_path);
+						quit = true;
+					}
+
 					break;
 
 				case "--version":
