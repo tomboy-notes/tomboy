@@ -1,5 +1,5 @@
 // Add a 'fixed width' item to the font styles menu.
-// © 2006 Ryan Lortie <desrt@desrt.ca>, LGPL 2.1 or later.
+// (C) 2006 Ryan Lortie <desrt@desrt.ca>, LGPL 2.1 or later.
 // vim:set sw=8 noet:
 
 using Mono.Unix;
