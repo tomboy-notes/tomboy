@@ -1,3 +1,10 @@
+2006-01-25  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Tray.cs: In the handler for middle button clicks, only
+	return true if the primary clipboard has some text to paste, and
+	block waiting for it.  This is a broken workaround the fact that
+	eating middle clicks blocks the panel applet from being moved.
+
 2006-01-24  Alex Graveley  <alex@beatniksoftware.com>
 
 	* Tomboy/PluginManager.cs: Extend the NotePlugin interface with

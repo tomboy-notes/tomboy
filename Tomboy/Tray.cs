@@ -66,12 +66,8 @@ namespace Tomboy
 			case 2:
 				// Give some visual feedback
 				Gtk.Drag.Highlight (this);
-
-				Gtk.Clipboard clip = GetClipboard (Gdk.Selection.Primary);
-				clip.RequestText (
-					new Gtk.ClipboardTextReceivedFunc (
-						OnClipboardTextReceived));
-				args.RetVal = true;
+				args.RetVal = PastePrimaryClipboard ();
+				Gtk.Drag.Unhighlight (this);
 				break;
 			}
 		}
@@ -115,15 +111,24 @@ namespace Tomboy
 			buffer.Undoer.ThawUndo ();
 		}
 
-		void OnClipboardTextReceived (Gtk.Clipboard clip, string text)
+		bool PastePrimaryClipboard ()
 		{
-			Note link_note = manager.Find (Catalog.GetString ("Start Here"));
-			if (link_note != null) {
-				link_note.Window.Present ();
-				PrependTimestampedText (link_note, DateTime.Now, text);
-			}
+			Gtk.Clipboard clip = GetClipboard (Gdk.Selection.Primary);
+			string text = clip.WaitForText ();
 
-			Gtk.Drag.Unhighlight (this);
+			if (text == null || text.Trim() == string.Empty)
+				return false;
+
+			Note link_note = manager.Find (Catalog.GetString ("Start Here"));
+			if (link_note == null)
+				return false;
+
+			link_note.Window.Present ();
+			PrependTimestampedText (link_note, 
+						DateTime.Now, 
+						text);
+
+			return true;
 		}
 
 		Gtk.Menu MakeRecentNotesMenu (Gtk.Widget parent) 
