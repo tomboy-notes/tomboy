@@ -161,6 +161,10 @@ namespace Tomboy
 
 		void ShowNameClashError (string title)
 		{
+			// Select text from TitleStart to TitleEnd
+			Buffer.MoveMark (Buffer.SelectionBound, TitleStart);
+			Buffer.MoveMark (Buffer.InsertMark, TitleEnd);
+
 			string message = 
 				String.Format (Catalog.GetString ("A note with the title " +
 								  "<b>{0}</b> already exists. " +
@@ -176,8 +180,6 @@ namespace Tomboy
 						      Gtk.ButtonsType.Ok,
 						      Catalog.GetString ("Note title taken"),
 						      message);
-
-			// FIXME: Should select text from TitleStart to TitleEnd
 
 			dialog.Run ();
 			dialog.Destroy ();
