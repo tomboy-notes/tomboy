@@ -289,7 +289,8 @@ namespace Tomboy
 			if (args.Tag.Name == "gtkspell-misspelled") {
 				// Remove misspelled tag for links & title
 				foreach (Gtk.TextTag tag in args.StartChar.Tags) {
-					if (!NoteTagTable.TagIsSpellCheckable (tag)) {
+					if (tag != args.Tag && 
+					    !NoteTagTable.TagIsSpellCheckable (tag)) {
 						remove = true;
 						break;
 					}
