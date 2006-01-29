@@ -121,7 +121,13 @@
 
 <!-- Evolution.dll Plugin -->
 <xsl:template match="link:evo-mail">
-	<a href="{./@uri}"><xsl:value-of select="node()"/></a>
+	<a href="{./@uri}">
+		<img alt="Open Email Link" width="16" height="10" border="0">
+			<!-- Inline Base64 encoded stock_mail.png =) -->
+			<xsl:attribute name="src">data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAKCAYAAAC9vt6cAAAABmJLR0QA/wD/AP+gvaeTAAAACXBI WXMAAAsQAAALEAGtI711AAAAB3RJTUUH1QkeAjYaRAvZgAAAALxJREFUKM+NkjGKw1AMRN+GhRS/ 2xP4EHZr0E1UxFVuoiKdikCKfxMfwKdw+3t1gb/F4hASe50BgZjRDEII/jAAtWmaCnxSAy+oZlYj YrfMbAkB4GsJiAjcnfPpRNzvrCHnjIjQdd3De3geUFX8diMdj6tmVX3jD6+EquLXKz9p37waANC2 LRfPpJTIOdP3PXuoEVFLKdXMaills5+m6f8jbq26dcTvRXR3RIR5njcDRIRxHFe14cMHenukX9eX mbvfl0q9AAAAAElFTkSuQmCC</xsl:attribute>
+		</img>
+		<xsl:value-of select="node()"/>
+	</a>
 </xsl:template>
 
 <!-- FixedWidth.dll Plugin -->
