@@ -441,6 +441,8 @@ namespace Tomboy
 						break;
 
 					tag_start = (TagStart) stack.Pop ();
+					if (tag_start.Tag == null)
+					    break;
 
 					Gtk.TextIter apply_start, apply_end;
 					apply_start = buffer.GetIterAtOffset (tag_start.Start);
