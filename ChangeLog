@@ -1,5 +1,15 @@
 2006-01-29  Alex Graveley  <alex@beatniksoftware.com>
 
+	* Tomboy/Watchers.cs: Avoid checking the "gtkspell-misspelled" tag
+	for spellcheckability: it will always fail since it isn't created
+	by Tomboy.  Fixes spellchecking.
+
+	* Tomboy/NoteWindow.cs: Use GLib.ConnectBefore with
+	OnPopulatePopup so that the GtkSpell submenu will be the first
+	item.
+
+2006-01-29  Alex Graveley  <alex@beatniksoftware.com>
+
 	* Tomboy/Plugins/ExportToHTML.xsl: Add inline Base64 encoded
 	version of stock_mail.png when linking to emails.
 

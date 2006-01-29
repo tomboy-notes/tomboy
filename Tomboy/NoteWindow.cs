@@ -377,7 +377,7 @@ namespace Tomboy
 		// Add Undo, Redo, Link, Link To menu, Font menu to the start of
 		// the editor's context menu.
 		//
- 
+		[GLib.ConnectBefore]
 		void OnPopulatePopup (object sender, Gtk.PopulatePopupArgs args)
 		{
 			args.Menu.AccelGroup = accel_group;
