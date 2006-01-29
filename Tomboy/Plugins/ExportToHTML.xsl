@@ -85,6 +85,12 @@
 	<span style="background:yellow"><xsl:apply-templates select="node()"/></span>
 </xsl:template>
 
+<xsl:template match="tomboy:datetime">
+	<span style="font-style:italic;font-size:small;color:grey">
+		<xsl:apply-templates select="node()"/>
+	</span>
+</xsl:template>
+
 <xsl:template match="size:small">
 	<span style="font-size:small"><xsl:apply-templates select="node()"/></span>
 </xsl:template>
@@ -98,7 +104,9 @@
 </xsl:template>
 
 <xsl:template match="link:broken">
-	<span style="color:silver"><u><xsl:value-of select="node()"/></u></span>
+	<span style="color:silver;text-decoration:underline">
+		<xsl:value-of select="node()"/>
+	</span>
 </xsl:template>
 
 <xsl:template match="link:internal">
@@ -109,6 +117,16 @@
 
 <xsl:template match="link:url">
 	<a href="{node()}"><xsl:value-of select="node()"/></a>
+</xsl:template>
+
+<!-- Evolution.dll Plugin -->
+<xsl:template match="link:evo-mail">
+	<a href="{./@uri}"><xsl:value-of select="node()"/></a>
+</xsl:template>
+
+<!-- FixedWidth.dll Plugin -->
+<xsl:template match="tomboy:monospace">
+	<span style="font-family:monospace"><xsl:apply-templates select="node()"/></span>
 </xsl:template>
 
 </xsl:stylesheet>
