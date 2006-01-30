@@ -29,9 +29,10 @@ $(PRINT_TARGET): $(PRINT_CSFILES) $(top_builddir)/Tomboy/Tomboy.exe
 # Evolution plugin
 #
 
+EVO_CSFILES = $(srcdir)/Evolution.cs
+
 if ENABLE_EVOLUTION
 EVO_TARGET = Evolution.dll
-EVO_CSFILES = $(srcdir)/Evolution.cs
 EVO_RESOURCES = 		\
 	$(EVOLUTION_LIBS)	\
 	-resource:$(top_srcdir)/data/images/stock_mail.png,stock_mail.png
@@ -69,14 +70,16 @@ $(NOTD_TARGET): $(NOTD_CSFILES) $(top_builddir)/Tomboy/Tomboy.exe
 # Galago plugin
 #
 
+GALAGO_CSFILES = $(srcdir)/GalagoPresence.cs
+
 if ENABLE_GALAGO
 GALAGO_TARGET = GalagoPresence.dll
-GALAGO_CSFILES = $(srcdir)/GalagoPresence.cs
 GALAGO_RESOURCES = $(GALAGO_LIBS)
 
 $(GALAGO_TARGET): $(GALAGO_CSFILES) $(top_builddir)/Tomboy/Tomboy.exe
 	$(CSC) -out:$@ $(CSFLAGS) $(ASSEMBLIES) $(GALAGO_CSFILES) $(GALAGO_RESOURCES)
 endif
+
 
 #
 # Fixed width font plugin

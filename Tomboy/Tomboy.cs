@@ -184,8 +184,7 @@ namespace Tomboy
 					"  --highlight-search [text]\tSearch and highlight text " +
 					"in the opened note.\n");
 #else
-					"\n" +
-					"D-BUS remote control disabled.");
+			usage += Catalog.GetString ("D-BUS remote control disabled.\n");
 #endif
 
 			Console.WriteLine (usage);
