@@ -49,7 +49,7 @@ class EvoUtils
 
 		foreach (string xml in accounts) {
 			XmlDocument xmlDoc = new XmlDocument ();
-				
+
 			xmlDoc.LoadXml (xml);
 
 			XmlNode account = xmlDoc.SelectSingleNode ("//account");
@@ -72,9 +72,14 @@ class EvoUtils
 			if (source_url == null || source_url.InnerText == null)
 				continue;
 
-			Uri uri = new Uri (source_url.InnerText);
-
-			source_url_to_uid [uri] = uid;
+			try {
+			    Uri uri = new Uri (source_url.InnerText);
+			    source_url_to_uid [uri] = uid;
+			} catch (System.UriFormatException) {
+			    Console.WriteLine (
+				    "Evolution: Unable to parse account source URI \"{0}\"",
+				    source_url.InnerText);
+			}
 		}
 	}
 
