@@ -141,7 +141,7 @@ get_print_dialog (GeditPrintJobInfo *pji, GtkWindow *parent)
 	dialog = g_object_new (GNOME_TYPE_PRINT_DIALOG, "print_config", config, NULL);
 	
 	gnome_print_dialog_construct (GNOME_PRINT_DIALOG (dialog), 
-				      _("Print"),
+				      (guchar *) _("Print"),
 			              GNOME_PRINT_DIALOG_RANGE | GNOME_PRINT_DIALOG_COPIES);
 
 	lines = gtk_text_buffer_get_line_count (GTK_TEXT_BUFFER (pji->doc));
@@ -291,7 +291,7 @@ preview_finished_cb (GtkSourcePrintJob *job, GeditPrintJobInfo *pji)
 
 	gjob = gtk_source_print_job_get_print_job (job);
 
-	preview = gnome_print_job_preview_new (gjob, _("Print preview"));
+	preview = gnome_print_job_preview_new (gjob, (guchar *) _("Print preview"));
 	if (pji->parent != NULL)
 	{
 		gtk_window_set_transient_for (GTK_WINDOW (preview), pji->parent);
@@ -431,8 +431,8 @@ gedit_print_job_info_new (GtkTextView* view)
 	config = gnome_print_config_default ();
 	g_return_val_if_fail (config != NULL, NULL);
 
-	gnome_print_config_set_int (config, GNOME_PRINT_KEY_NUM_COPIES, 1);
-	gnome_print_config_set_boolean (config, GNOME_PRINT_KEY_COLLATE, FALSE);
+	gnome_print_config_set_int (config, (const guchar *) GNOME_PRINT_KEY_NUM_COPIES, 1);
+	gnome_print_config_set_boolean (config, (const guchar *) GNOME_PRINT_KEY_COLLATE, FALSE);
 
 	pjob = gtk_source_print_job_new_with_buffer (config, buffer);
 	gnome_print_config_unref (config);
