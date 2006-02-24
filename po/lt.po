@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tomboy HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-10-11 10:31+0300\n"
-"PO-Revision-Date: 2005-10-11 10:31+0300\n"
+"POT-Creation-Date: 2006-02-25 00:04+0200\n"
+"PO-Revision-Date: 2006-02-25 00:12+0200\n"
 "Last-Translator: Žygimantas Beručka <zygis@gnome.org>\n"
 "Language-Team: Lithuanian <komp_lt@konferencijos.lt>\n"
 "MIME-Version: 1.0\n"
@@ -38,20 +38,20 @@ msgid "Tomboy Applet Factory"
 msgstr "Tomboy įtaiso gamykla"
 
 #: ../data/GNOME_TomboyApplet.server.in.in.h:4 ../data/tomboy.desktop.in.h:3
-#: ../Tomboy/Applet.cs:135 ../Tomboy/Tray.cs:38
+#: ../Tomboy/Applet.cs:132 ../Tomboy/Tray.cs:38
 msgid "Tomboy Notes"
 msgstr "Tomboy užrašai"
 
-#: ../data/GNOME_TomboyApplet.xml.h:1
-msgid "_About Tomboy..."
-msgstr "_Apie Tomboy..."
+#: ../data/GNOME_TomboyApplet.xml.h:1 ../Tomboy/Applet.cs:175
+msgid "_About Tomboy"
+msgstr "_Apie Tomboy"
 
-#: ../data/GNOME_TomboyApplet.xml.h:2 ../Tomboy/Applet.cs:176
+#: ../data/GNOME_TomboyApplet.xml.h:2 ../Tomboy/Applet.cs:170
 #: ../Tomboy/NoteWindow.cs:547
 msgid "_Open Plugins Folder"
 msgstr "_Atverti įskiepių aplanką"
 
-#: ../data/GNOME_TomboyApplet.xml.h:3 ../Tomboy/Applet.cs:171
+#: ../data/GNOME_TomboyApplet.xml.h:3 ../Tomboy/Applet.cs:165
 msgid "_Preferences..."
 msgstr "_Nustatymai..."
 
@@ -277,18 +277,14 @@ msgstr "Puslapis %N iš %Q"
 msgid "%A %D, %I:%M %p"
 msgstr "%A %D, %H:%M"
 
-#: ../Tomboy/Applet.cs:181
-msgid "_About Tomboy"
-msgstr "_Apie Tomboy"
-
-#: ../Tomboy/Applet.cs:188
+#: ../Tomboy/Applet.cs:182
 msgid "_Quit"
 msgstr "Iš_eiti"
 
 #. Open the Start Here note
 #: ../Tomboy/Note.cs:393 ../Tomboy/NoteManager.cs:89
-#: ../Tomboy/NoteManager.cs:96 ../Tomboy/Tomboy.cs:210 ../Tomboy/Tray.cs:120
-#: ../Tomboy/Tray.cs:173 ../Tomboy/Tray.cs:354 ../Tomboy/XKeybinder.cs:259
+#: ../Tomboy/NoteManager.cs:97 ../Tomboy/Tomboy.cs:233 ../Tomboy/Tray.cs:122
+#: ../Tomboy/Tray.cs:178 ../Tomboy/Tray.cs:371 ../Tomboy/XKeybinder.cs:259
 msgid "Start Here"
 msgstr "Pradėkite čia"
 
@@ -304,12 +300,12 @@ msgstr ""
 "Naudokite šį puslapį kaip Pradinį puslapį raštelių organizavimui bei "
 "nesuorganizuotų idėjų laikymui šalia."
 
-#: ../Tomboy/NoteManager.cs:153
+#: ../Tomboy/NoteManager.cs:155
 #, csharp-format
 msgid "New Note {0}"
 msgstr "Naujas raštelis {0}"
 
-#: ../Tomboy/NoteManager.cs:170
+#: ../Tomboy/NoteManager.cs:201
 msgid "Describe your new note here."
 msgstr "Čia aprašykite naują Jūsų raštelį"
 
@@ -366,12 +362,12 @@ msgid "Set properties of text"
 msgstr "Nurodyti teksto savybes"
 
 #: ../Tomboy/NoteWindow.cs:510
-msgid "_Plugins"
-msgstr "Įskie_piai"
+msgid "T_ools"
+msgstr "Į_rankiai"
 
 #: ../Tomboy/NoteWindow.cs:514
-msgid "Run Plugin actions"
-msgstr "Vykdyti įskiepių veiksmus"
+msgid "Use tools on this note"
+msgstr "Naudoti įrankius šiame raštelyje"
 
 #: ../Tomboy/NoteWindow.cs:521
 msgid "Delete"
@@ -393,39 +389,43 @@ msgstr "Rasti _sekantį"
 msgid "Find _Previous"
 msgstr "Rasti _ankstesnį"
 
-#: ../Tomboy/NoteWindow.cs:762
+#: ../Tomboy/NoteWindow.cs:687
+msgid "Cannot create note"
+msgstr "Nepavyko sukurti raštelio"
+
+#: ../Tomboy/NoteWindow.cs:782
 msgid "_Bold"
 msgstr "P_usjuodis"
 
-#: ../Tomboy/NoteWindow.cs:774
+#: ../Tomboy/NoteWindow.cs:794
 msgid "_Italic"
 msgstr "_Kursyvas"
 
-#: ../Tomboy/NoteWindow.cs:786
+#: ../Tomboy/NoteWindow.cs:806
 msgid "_Strikeout"
 msgstr "_Perbrauktas"
 
-#: ../Tomboy/NoteWindow.cs:798
+#: ../Tomboy/NoteWindow.cs:818
 msgid "_Highlight"
 msgstr "Pa_ryškintas"
 
-#: ../Tomboy/NoteWindow.cs:811
+#: ../Tomboy/NoteWindow.cs:831
 msgid "Font Size"
 msgstr "Šrifto dydis"
 
-#: ../Tomboy/NoteWindow.cs:814
+#: ../Tomboy/NoteWindow.cs:834
 msgid "_Normal"
 msgstr "_Normalus"
 
-#: ../Tomboy/NoteWindow.cs:821
+#: ../Tomboy/NoteWindow.cs:841
 msgid "Hu_ge"
 msgstr "Milžiniš_kas"
 
-#: ../Tomboy/NoteWindow.cs:829
+#: ../Tomboy/NoteWindow.cs:849
 msgid "_Large"
 msgstr "_Didelis"
 
-#: ../Tomboy/NoteWindow.cs:837
+#: ../Tomboy/NoteWindow.cs:857
 msgid "S_mall"
 msgstr "_Mažas"
 
@@ -512,16 +512,16 @@ msgid "Choose Note Font"
 msgstr "Pasirinkite raštelio šriftą"
 
 #: ../Tomboy/RecentChanges.cs:31
-msgid "Recent Changes"
-msgstr "Paskutinieji pakeitimai"
+msgid "Table of Contents"
+msgstr "Turinys"
 
 #: ../Tomboy/RecentChanges.cs:45
 msgid ""
-"<b>Recent Changes</b> lists your notes in the order they were last changed.  "
+"<b>Table of Contents</b> lists all your notes.\n"
 "Double click to open a note."
 msgstr ""
-"<b>Paskutinieji pakeitimai</b> rodo raštelius surikiuotus pagal pakeitimo "
-"datą. Norėdami atverti raštelį du kartus spragtelkite."
+"<b>Turinyje</b> rodomi visus Jūsų rašteliai.\n"
+"Norėdami atverti raštelį du kartus spragtelkite."
 
 #: ../Tomboy/RecentChanges.cs:171
 msgid "Last Changed"
@@ -591,26 +591,35 @@ msgstr[2] "({0} atitkmenų)"
 msgid "No notes found"
 msgstr "Raštelių nerasta"
 
-#: ../Tomboy/Tomboy.cs:138
+#: ../Tomboy/Tomboy.cs:157
 msgid ""
 "Tomboy: A simple, easy to use desktop note-taking application.\n"
-"Copyright (C) 2004, 2005 Alex Graveley <alex@beatniksoftware.com>\n"
+"Copyright (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
 "\n"
 msgstr ""
 "Tomboy: Paprasta, lengva naudoti darbastalio užrašinė.\n"
-"Autorinės teisės (C) 2004, 2005 Alex Graveley <alex@beatniksoftware.com>\n"
+"Autorinės teisės (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
 "\n"
 
-#: ../Tomboy/Tomboy.cs:149
+#: ../Tomboy/Tomboy.cs:169
 msgid ""
 "Usage:\n"
+"  --version\t\t\tPrint version information.\n"
+"  --help\t\t\tPrint this usage message.\n"
+"  --note-path [path]\t\tLoad/store note data in this directory.\n"
+msgstr ""
+"Naudojimas:\n"
+"  --version\t\t\tParodyti versijos informaciją.\n"
+"  --help\t\t\tParodyti šią naudojimosi žinutę.\n"
+"  --note-path [kelias]\t\tĮkelti/išsaugoti raštelio duomenis šiame aplanke.\n"
+
+#: ../Tomboy/Tomboy.cs:178
+msgid ""
 "  --new-note\t\t\tCreate and display a new note.\n"
 "  --new-note [title]\t\tCreate and display a new note, with a title.\n"
 "  --open-note [title/url]\tDisplay the existing note matching title.\n"
 "  --start-here\t\t\tDisplay the 'Start Here' note.\n"
 "  --highlight-search [text]\tSearch and highlight text in the opened note.\n"
-"  --version\t\t\tPrint version information.\n"
-"  --help\t\t\tPrint this usage message.\n"
 msgstr ""
 "Naudojimas:\n"
 "  --new-note\t\t\tSukurti ir parodyti naują raštelį.\n"
@@ -618,32 +627,20 @@ msgstr ""
 "pavadinimu.\n"
 "  --open-note [pavadinimas/url]\tParodyti egzistuojantį raštelį atitinkamu "
 "pavadinimu.\n"
-"  --start-here\t\t\tParodyti „Pradėti čia“ raštelį.\n"
+"  --start-here\t\t\tParodyti raštelį„Pradėti čia“.\n"
 "  --highlight-search [tekstas]\tAtvertame raštelyje surasti ir paryškinti "
 "tekstą.\n"
-"  --version\t\t\tParodyti versijos informaciją.\n"
-"  --help\t\t\tParodyti šią naudojimosi žinutę.\n"
 
-#: ../Tomboy/Tomboy.cs:161
-msgid ""
-"Usage:\n"
-"  --version\t\t\tPrint version information.\n"
-"  --help\t\t\tPrint this usage message.\n"
-"\n"
-"D-BUS remote control disabled."
-msgstr ""
-"Naudojimas:\n"
-"  --version\t\t\tParodyti versijos informaciją.\n"
-"  --help\t\t\tParodyti šią naudojimosi žinutę.\n"
-"\n"
-"D-BUS nuotolinis valdymas atjungtas."
+#: ../Tomboy/Tomboy.cs:187
+msgid "D-BUS remote control disabled.\n"
+msgstr "D-BUS nutolęs valdymas išjungtas.\n"
 
-#: ../Tomboy/Tomboy.cs:172
+#: ../Tomboy/Tomboy.cs:195
 #, csharp-format
 msgid "Version {0}"
 msgstr "Versija {0}"
 
-#: ../Tomboy/Tomboy.cs:229
+#: ../Tomboy/Tomboy.cs:253
 #, csharp-format
 msgid ""
 "Tomboy: unsupported option '{0}'\n"
@@ -655,44 +652,48 @@ msgstr ""
 "D-BUS nuotolinis valdymas atjungtas."
 
 #. initial newline
-#: ../Tomboy/Tray.cs:85
+#: ../Tomboy/Tray.cs:81
 msgid "dddd, MMMM d, h:mm tt"
 msgstr "dddd, MMMM d, h:mm tt"
 
-#: ../Tomboy/Tray.cs:139
+#: ../Tomboy/Tray.cs:144
 msgid "Create _New Note"
 msgstr "Sukurti _naują raštelį"
 
-#: ../Tomboy/Tray.cs:186
-msgid "_Recent Changes"
-msgstr "_Paskutinieji pakeitimai"
+#: ../Tomboy/Tray.cs:191
+msgid "_Table of Contents"
+msgstr "_Turinys"
 
-#: ../Tomboy/Tray.cs:196
+#: ../Tomboy/Tray.cs:201
 msgid "_Search Notes..."
 msgstr "_Ieškoti raštelių..."
 
-#: ../Tomboy/Tray.cs:214
+#: ../Tomboy/Tray.cs:219
 msgid " (new)"
 msgstr " (naujas)"
 
-#: ../Tomboy/Tray.cs:291
+#: ../Tomboy/Tray.cs:257
+msgid "Cannot create new note"
+msgstr "Nepavyko sukurti naujo raštelio"
+
+#: ../Tomboy/Tray.cs:308
 msgid "translator-credits"
 msgstr "Žygimantas Beručka <zygis@gnome.org>"
 
-#: ../Tomboy/Tray.cs:297
-msgid "Copyright © 2004, 2005 Alex Graveley"
-msgstr "Autorinės teisės © 2004, 2005 Alex Graveley"
+#: ../Tomboy/Tray.cs:314
+msgid "Copyright © 2004-2006 Alex Graveley"
+msgstr "Autorinės teisės © 2004-2006 Alex Graveley"
 
-#: ../Tomboy/Tray.cs:298
+#: ../Tomboy/Tray.cs:315
 msgid "A simple and easy to use desktop note-taking application."
 msgstr "Paprasta ir lengva naudoti aplinkos užrašinė."
 
-#: ../Tomboy/Watchers.cs:134
+#: ../Tomboy/Watchers.cs:137
 #, csharp-format
 msgid "(Untitled {0})"
 msgstr "(Nepavadinta {0})"
 
-#: ../Tomboy/Watchers.cs:162
+#: ../Tomboy/Watchers.cs:169
 #, csharp-format
 msgid ""
 "A note with the title <b>{0}</b> already exists. Please choose another name "
@@ -701,23 +702,23 @@ msgstr ""
 "Raštelis pavadinimu <b>{0}</b> jau egzistuoja. Norėdami tęsti Jūs turite "
 "pasirinkti kitą šio raštelio pavadinimą."
 
-#: ../Tomboy/Watchers.cs:174
+#: ../Tomboy/Watchers.cs:181
 msgid "Note title taken"
 msgstr "Raštelio pavadinimas paimtas"
 
-#: ../Tomboy/Watchers.cs:405
+#: ../Tomboy/Watchers.cs:411
 msgid "Cannot open location"
 msgstr "Nepavyko atverti vietos"
 
-#: ../Tomboy/Watchers.cs:497
+#: ../Tomboy/Watchers.cs:505
 msgid "_Copy Link Address"
 msgstr "_Kopijuoti nuorodos adresą"
 
-#: ../Tomboy/Watchers.cs:502
+#: ../Tomboy/Watchers.cs:510
 msgid "_Open Link"
 msgstr "_Atverti nuorodą"
 
-#: ../Tomboy/Plugins/Evolution.cs:256
+#: ../Tomboy/Plugins/Evolution.cs:263
 msgid "Cannot open email"
 msgstr "Nepavyko atverti el.pašto"
 
@@ -733,12 +734,16 @@ msgstr "HTML eksportavimo paskirties vieta"
 msgid "Export linked notes"
 msgstr "Eksportuoti susietus raštelius"
 
-#: ../Tomboy/Plugins/GalagoPresence.cs:273
+#: ../Tomboy/Plugins/FixedWidth.cs:34
+msgid "_Fixed Width"
+msgstr "_Fiksuoto pločio"
+
+#: ../Tomboy/Plugins/GalagoPresence.cs:272
 #, csharp-format
 msgid "Cannot contact '{0}'"
 msgstr "Nepavyko susisiekti su „{0}“"
 
-#: ../Tomboy/Plugins/GalagoPresence.cs:276
+#: ../Tomboy/Plugins/GalagoPresence.cs:275
 #, csharp-format
 msgid "Error running gaim-remote: {0}"
 msgstr "Klaida paleidžiant gaim-remote: {0}"
