@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tomboy HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-10-16 03:51+0200\n"
-"PO-Revision-Date: 2004-12-04 01:39+0800\n"
+"POT-Creation-Date: 2006-05-26 12:41+0200\n"
+"PO-Revision-Date: 2006-05-26 20:28+0800\n"
 "Last-Translator: Funda Wang <fundawang@linux.net.cn>\n"
 "Language-Team: zh_CN <i18n-translation@lists.linux.net.cn>\n"
 "MIME-Version: 1.0\n"
@@ -37,20 +37,20 @@ msgid "Tomboy Applet Factory"
 msgstr "阿帖小程序工厂"
 
 #: ../data/GNOME_TomboyApplet.server.in.in.h:4 ../data/tomboy.desktop.in.h:3
-#: ../Tomboy/Applet.cs:135 ../Tomboy/Tray.cs:38
+#: ../Tomboy/Applet.cs:132 ../Tomboy/Tray.cs:38
 msgid "Tomboy Notes"
 msgstr "阿帖便笺"
 
-#: ../data/GNOME_TomboyApplet.xml.h:1
-msgid "_About Tomboy..."
-msgstr "关于阿帖(_A)..."
+#: ../data/GNOME_TomboyApplet.xml.h:1 ../Tomboy/Applet.cs:175
+msgid "_About Tomboy"
+msgstr "关于阿帖(_A)"
 
-#: ../data/GNOME_TomboyApplet.xml.h:2 ../Tomboy/Applet.cs:176
+#: ../data/GNOME_TomboyApplet.xml.h:2 ../Tomboy/Applet.cs:170
 #: ../Tomboy/NoteWindow.cs:547
 msgid "_Open Plugins Folder"
 msgstr "打开插件文件夹(_O)"
 
-#: ../data/GNOME_TomboyApplet.xml.h:3 ../Tomboy/Applet.cs:171
+#: ../data/GNOME_TomboyApplet.xml.h:3 ../Tomboy/Applet.cs:165
 msgid "_Preferences..."
 msgstr "首选项(_P)..."
 
@@ -91,7 +91,8 @@ msgid ""
 "Enable this option to highlight words ThatLookLikeThis. Clicking the word "
 "will create a note with that name."
 msgstr ""
-"启用此选项将对类似 ThatLookLikeThis 这样的单词突出显示。单击单词将创建该名称的便笺。"
+"启用此选项将对类似 ThatLookLikeThis 这样的单词突出显示。单击单词将创建该名称"
+"的便笺。"
 
 #: ../data/tomboy.schemas.in.h:8
 msgid "HTML Export Last Directory"
@@ -113,7 +114,8 @@ msgid ""
 "If true, misspellings will be underlined in red, and correct spelling "
 "suggestions shown in the right-click menu."
 msgstr ""
-"若为 true，则拼错的单词将被加红色下划线，而正确的拼写建议将显示在右键单击菜单中。"
+"若为 true，则拼错的单词将被加红色下划线，而正确的拼写建议将显示在右键单击菜单"
+"中。"
 
 #: ../data/tomboy.schemas.in.h:12
 msgid ""
@@ -235,18 +237,14 @@ msgstr "第%N页，共%Q页"
 msgid "%A %D, %I:%M %p"
 msgstr "%D%A，%H:%M"
 
-#: ../Tomboy/Applet.cs:181
-msgid "_About Tomboy"
-msgstr "关于阿帖(_A)"
-
-#: ../Tomboy/Applet.cs:188
+#: ../Tomboy/Applet.cs:182
 msgid "_Quit"
 msgstr "退出(_Q)"
 
 #. Open the Start Here note
 #: ../Tomboy/Note.cs:393 ../Tomboy/NoteManager.cs:89
-#: ../Tomboy/NoteManager.cs:96 ../Tomboy/Tomboy.cs:210 ../Tomboy/Tray.cs:120
-#: ../Tomboy/Tray.cs:173 ../Tomboy/Tray.cs:354 ../Tomboy/XKeybinder.cs:259
+#: ../Tomboy/NoteManager.cs:97 ../Tomboy/Tomboy.cs:233 ../Tomboy/Tray.cs:122
+#: ../Tomboy/Tray.cs:178 ../Tomboy/Tray.cs:371 ../Tomboy/XKeybinder.cs:259
 msgid "Start Here"
 msgstr "从这里开始"
 
@@ -260,12 +258,12 @@ msgid ""
 "unorganized ideas around."
 msgstr "使用此页作为起始页，可组织您的便笺和随时查看未组织的想法。"
 
-#: ../Tomboy/NoteManager.cs:153
+#: ../Tomboy/NoteManager.cs:155
 #, csharp-format
 msgid "New Note {0}"
 msgstr "新便笺 {0}"
 
-#: ../Tomboy/NoteManager.cs:170
+#: ../Tomboy/NoteManager.cs:201
 msgid "Describe your new note here."
 msgstr "在此描述您的信便笺。"
 
@@ -322,12 +320,12 @@ msgid "Set properties of text"
 msgstr "设置文本属性"
 
 #: ../Tomboy/NoteWindow.cs:510
-msgid "_Plugins"
-msgstr "插件(_P)"
+msgid "T_ools"
+msgstr "工具(_O)"
 
 #: ../Tomboy/NoteWindow.cs:514
-msgid "Run Plugin actions"
-msgstr "运行插件动作"
+msgid "Use tools on this note"
+msgstr "在此便笺上使用工具"
 
 #: ../Tomboy/NoteWindow.cs:521
 msgid "Delete"
@@ -349,39 +347,43 @@ msgstr "查找下一个(_N)"
 msgid "Find _Previous"
 msgstr "查找上一个(_P)"
 
-#: ../Tomboy/NoteWindow.cs:762
+#: ../Tomboy/NoteWindow.cs:687
+msgid "Cannot create note"
+msgstr "无法创建便笺"
+
+#: ../Tomboy/NoteWindow.cs:782
 msgid "_Bold"
 msgstr "粗体(_B)"
 
-#: ../Tomboy/NoteWindow.cs:774
+#: ../Tomboy/NoteWindow.cs:794
 msgid "_Italic"
 msgstr "斜体(_I)"
 
-#: ../Tomboy/NoteWindow.cs:786
+#: ../Tomboy/NoteWindow.cs:806
 msgid "_Strikeout"
 msgstr "删除线(_S)"
 
-#: ../Tomboy/NoteWindow.cs:798
+#: ../Tomboy/NoteWindow.cs:818
 msgid "_Highlight"
 msgstr "高亮显示(_H)"
 
-#: ../Tomboy/NoteWindow.cs:811
+#: ../Tomboy/NoteWindow.cs:831
 msgid "Font Size"
 msgstr "字体大小"
 
-#: ../Tomboy/NoteWindow.cs:814
+#: ../Tomboy/NoteWindow.cs:834
 msgid "_Normal"
 msgstr "普通(_N)"
 
-#: ../Tomboy/NoteWindow.cs:821
+#: ../Tomboy/NoteWindow.cs:841
 msgid "Hu_ge"
 msgstr "巨大(_G)"
 
-#: ../Tomboy/NoteWindow.cs:829
+#: ../Tomboy/NoteWindow.cs:849
 msgid "_Large"
 msgstr "大(_L)"
 
-#: ../Tomboy/NoteWindow.cs:837
+#: ../Tomboy/NoteWindow.cs:857
 msgid "S_mall"
 msgstr "小(_M)"
 
@@ -406,7 +408,7 @@ msgstr "输入时检查拼写(_S)"
 msgid ""
 "Misspellings will be underlined in red, and correct spelling suggestions "
 "shown in the right-click menu."
-msgstr ""
+msgstr "拼错的单词将以红色显示，而纠正拼写错误的建议将显示在右键菜单中。"
 
 #. WikiWords...
 #: ../Tomboy/Preferences.cs:200
@@ -461,14 +463,14 @@ msgid "Choose Note Font"
 msgstr "选择便笺字体"
 
 #: ../Tomboy/RecentChanges.cs:31
-msgid "Recent Changes"
-msgstr "最近的更改"
+msgid "Table of Contents"
+msgstr "目录"
 
 #: ../Tomboy/RecentChanges.cs:45
 msgid ""
-"<b>Recent Changes</b> lists your notes in the order they were last changed.  "
+"<b>Table of Contents</b> lists all your notes.\n"
 "Double click to open a note."
-msgstr ""
+msgstr "<b>目录</b>将列出您的全部便笺。\n双击可打开相应的便笺。"
 
 #: ../Tomboy/RecentChanges.cs:171
 msgid "Last Changed"
@@ -536,43 +538,52 @@ msgstr[0] "({0} 项匹配)"
 msgid "No notes found"
 msgstr "没有找到便笺"
 
-#: ../Tomboy/Tomboy.cs:138
+#: ../Tomboy/Tomboy.cs:157
 msgid ""
 "Tomboy: A simple, easy to use desktop note-taking application.\n"
-"Copyright (C) 2004, 2005 Alex Graveley <alex@beatniksoftware.com>\n"
+"Copyright (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
 "\n"
 msgstr ""
 "阿帖：简单易用的桌面随意帖应用程序。\n"
-"版权 (C) 2004, 2005 Alex Graveley <alex@beatniksoftware.com>\n"
+"版权 (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
 "\n"
 
-#: ../Tomboy/Tomboy.cs:149
+#: ../Tomboy/Tomboy.cs:169
 msgid ""
 "Usage:\n"
+"  --version\t\t\tPrint version information.\n"
+"  --help\t\t\tPrint this usage message.\n"
+"  --note-path [path]\t\tLoad/store note data in this directory.\n"
+msgstr ""
+"用法：\n"
+"  --version\t\t\t打印版本信息。\n"
+"  --help\t\t\t打印此用法信息。\n"
+"  --note-path [路径]\t\t装入/保存此目录中的便笺数据。\n"
+
+#: ../Tomboy/Tomboy.cs:178
+msgid ""
 "  --new-note\t\t\tCreate and display a new note.\n"
 "  --new-note [title]\t\tCreate and display a new note, with a title.\n"
 "  --open-note [title/url]\tDisplay the existing note matching title.\n"
 "  --start-here\t\t\tDisplay the 'Start Here' note.\n"
 "  --highlight-search [text]\tSearch and highlight text in the opened note.\n"
-"  --version\t\t\tPrint version information.\n"
-"  --help\t\t\tPrint this usage message.\n"
 msgstr ""
+"  --new-note\t\t\t创建并显示新便笺。\n"
+"  --new-note [标题]\t\t创建并显示带有标题的便笺。\n"
+"  --open-note [标题/url]\t显示与标题所匹配的已有便笺。\n"
+"  --start-here\t\t\t显示“从这里开始”便笺。\n"
+"  --highlight-search [文本]\t在打开的便笺中搜索突出显示的文本。\n"
 
-#: ../Tomboy/Tomboy.cs:161
-msgid ""
-"Usage:\n"
-"  --version\t\t\tPrint version information.\n"
-"  --help\t\t\tPrint this usage message.\n"
-"\n"
-"D-BUS remote control disabled."
-msgstr ""
+#: ../Tomboy/Tomboy.cs:187
+msgid "D-BUS remote control disabled.\n"
+msgstr "D-BUS 远程控制已禁用。\n"
 
-#: ../Tomboy/Tomboy.cs:172
+#: ../Tomboy/Tomboy.cs:195
 #, csharp-format
 msgid "Version {0}"
 msgstr "版本 {0}"
 
-#: ../Tomboy/Tomboy.cs:229
+#: ../Tomboy/Tomboy.cs:253
 #, csharp-format
 msgid ""
 "Tomboy: unsupported option '{0}'\n"
@@ -584,67 +595,71 @@ msgstr ""
 "D-BUS 远程控制被禁用。"
 
 #. initial newline
-#: ../Tomboy/Tray.cs:85
+#: ../Tomboy/Tray.cs:81
 msgid "dddd, MMMM d, h:mm tt"
 msgstr "M月dd日dddd h:mm tt"
 
-#: ../Tomboy/Tray.cs:139
+#: ../Tomboy/Tray.cs:144
 msgid "Create _New Note"
 msgstr "创建新便笺(_N)"
 
-#: ../Tomboy/Tray.cs:186
-msgid "_Recent Changes"
-msgstr "最近更改(_R)"
+#: ../Tomboy/Tray.cs:191
+msgid "_Table of Contents"
+msgstr "目录(_T)"
 
-#: ../Tomboy/Tray.cs:196
+#: ../Tomboy/Tray.cs:201
 msgid "_Search Notes..."
 msgstr "搜索便笺(_S)..."
 
-#: ../Tomboy/Tray.cs:214
+#: ../Tomboy/Tray.cs:219
 msgid " (new)"
 msgstr " (新)"
 
-#: ../Tomboy/Tray.cs:291
+#: ../Tomboy/Tray.cs:257
+msgid "Cannot create new note"
+msgstr "无法创建便笺"
+
+#: ../Tomboy/Tray.cs:308
 msgid "translator-credits"
-msgstr "Funda Wang <fundawang@linux.net.cn>, 2005"
+msgstr "Funda Wang <fundawang@linux.net.cn>, 2005-2006."
 
-#: ../Tomboy/Tray.cs:297
-msgid "Copyright © 2004, 2005 Alex Graveley"
-msgstr "版权 (C) 2004, 2005 Alex Graveley"
+#: ../Tomboy/Tray.cs:314
+msgid "Copyright © 2004-2006 Alex Graveley"
+msgstr "版权 (C) 2004-2006 Alex Graveley"
 
-#: ../Tomboy/Tray.cs:298
+#: ../Tomboy/Tray.cs:315
 msgid "A simple and easy to use desktop note-taking application."
 msgstr "简单易用的桌面随意帖应用程序。"
 
-#: ../Tomboy/Watchers.cs:134
+#: ../Tomboy/Watchers.cs:137
 #, csharp-format
 msgid "(Untitled {0})"
 msgstr "(无标题 {0})"
 
-#: ../Tomboy/Watchers.cs:162
+#: ../Tomboy/Watchers.cs:169
 #, csharp-format
 msgid ""
 "A note with the title <b>{0}</b> already exists. Please choose another name "
 "for this note before continuing."
-msgstr ""
+msgstr "已经存在标题为 <b>{0}</b> 的便笺。请在继续前为此便笺选择另外的名称。"
 
-#: ../Tomboy/Watchers.cs:174
+#: ../Tomboy/Watchers.cs:181
 msgid "Note title taken"
 msgstr "便笺标题已被使用"
 
-#: ../Tomboy/Watchers.cs:405
+#: ../Tomboy/Watchers.cs:411
 msgid "Cannot open location"
 msgstr "无法打开位置"
 
-#: ../Tomboy/Watchers.cs:497
+#: ../Tomboy/Watchers.cs:505
 msgid "_Copy Link Address"
 msgstr "复制链接地址(_C)"
 
-#: ../Tomboy/Watchers.cs:502
+#: ../Tomboy/Watchers.cs:510
 msgid "_Open Link"
-msgstr "打开连接(_O)"
+msgstr "打开链接(_O)"
 
-#: ../Tomboy/Plugins/Evolution.cs:256
+#: ../Tomboy/Plugins/Evolution.cs:263
 msgid "Cannot open email"
 msgstr "无法打开电子邮件"
 
@@ -660,12 +675,16 @@ msgstr "HTML 导出的目标位置"
 msgid "Export linked notes"
 msgstr "导出链接的便笺"
 
-#: ../Tomboy/Plugins/GalagoPresence.cs:273
+#: ../Tomboy/Plugins/FixedWidth.cs:34
+msgid "_Fixed Width"
+msgstr "固定宽度(_F)"
+
+#: ../Tomboy/Plugins/GalagoPresence.cs:272
 #, csharp-format
 msgid "Cannot contact '{0}'"
 msgstr "无法联系“{0}”"
 
-#: ../Tomboy/Plugins/GalagoPresence.cs:276
+#: ../Tomboy/Plugins/GalagoPresence.cs:275
 #, csharp-format
 msgid "Error running gaim-remote: {0}"
 msgstr "运行 gaim-remote 出错：{0}"
