@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tomboy HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-05-26 12:41+0200\n"
-"PO-Revision-Date: 2006-05-26 20:28+0800\n"
+"POT-Creation-Date: 2006-05-28 04:29+0200\n"
+"PO-Revision-Date: 2006-05-28 16:01+0800\n"
 "Last-Translator: Funda Wang <fundawang@linux.net.cn>\n"
 "Language-Team: zh_CN <i18n-translation@lists.linux.net.cn>\n"
 "MIME-Version: 1.0\n"
@@ -123,12 +123,13 @@ msgid ""
 "global_keybindings will be enabled, allowing for useful Tomboy actions to be "
 "available from any application."
 msgstr ""
+"若为 true，将启用 /apps/tomboy/global_keybindings 中设定的桌面全局按键组合，以便允许在任何应用程序中执行 Tomboy 操作。"
 
 #: ../data/tomboy.schemas.in.h:13
 msgid ""
 "If true, the font name set in custom_font_face will be used as the font when "
 "displaying notes. Otherwise the desktop default font will be used."
-msgstr ""
+msgstr "若为 true，则将使用 custom_font_face 中设定的字体名称显示便笺。否则将使用默认的桌面字体显示便笺。"
 
 #: ../data/tomboy.schemas.in.h:14
 msgid "Open Recent Changes"
@@ -143,10 +144,14 @@ msgid "Open Start Here"
 msgstr "打开从这里开始"
 
 #: ../data/tomboy.schemas.in.h:17
+msgid "Set to TRUE to activate"
+msgstr "设为 TRUE 可激活"
+
+#: ../data/tomboy.schemas.in.h:18
 msgid "Show applet menu"
 msgstr "显示小程序菜单"
 
-#: ../data/tomboy.schemas.in.h:18
+#: ../data/tomboy.schemas.in.h:19
 msgid ""
 "The global keybinding for creating and displaying a new Note. The format "
 "looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The "
@@ -155,8 +160,12 @@ msgid ""
 "option to the special string \"disabled\", then there will be no keybinding "
 "for this action."
 msgstr ""
+"创建并显示新便笺的全局按键组合。其格式类"
+"似于“&lt;Control&gt;a”或者“&lt;Shift&gt;&lt;Alt&gt;F1”。该分析程序的格式相当"
+"自由并允许大小写或者缩写，如“&lt;Ctl&gt;”和“&lt;Ctrl&gt;”。如果将该选项设置为"
+"特殊字符串“disabled”，那么此操作将没有按键组合。"
 
-#: ../data/tomboy.schemas.in.h:19
+#: ../data/tomboy.schemas.in.h:20
 msgid ""
 "The global keybinding for opening the \"Start Here\" note. The format looks "
 "like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
@@ -165,8 +174,12 @@ msgid ""
 "special string \"disabled\", then there will be no keybinding for this "
 "action."
 msgstr ""
+"打开“从这里开始”便笺的全局按键组合。其格式类"
+"似于“&lt;Control&gt;a”或者“&lt;Shift&gt;&lt;Alt&gt;F1”。该分析程序的格式相当"
+"自由并允许大小写或者缩写，如“&lt;Ctl&gt;”和“&lt;Ctrl&gt;”。如果将该选项设置为"
+"特殊字符串“disabled”，那么此操作将没有按键组合。"
 
-#: ../data/tomboy.schemas.in.h:20
+#: ../data/tomboy.schemas.in.h:21
 msgid ""
 "The global keybinding for opening the Note Search dialog. The format looks "
 "like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
@@ -175,8 +188,12 @@ msgid ""
 "special string \"disabled\", then there will be no keybinding for this "
 "action."
 msgstr ""
+"打开便笺搜索对话框的全局按键组合。其格式类"
+"似于“&lt;Control&gt;a”或者“&lt;Shift&gt;&lt;Alt&gt;F1”。该分析程序的格式相当"
+"自由并允许大小写或者缩写，如“&lt;Ctl&gt;”和“&lt;Ctrl&gt;”。如果将该选项设置为"
+"特殊字符串“disabled”，那么此操作将没有按键组合。"
 
-#: ../data/tomboy.schemas.in.h:21
+#: ../data/tomboy.schemas.in.h:22
 msgid ""
 "The global keybinding for opening the Recent Changes dialog. The format "
 "looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The "
@@ -185,8 +202,12 @@ msgid ""
 "option to the special string \"disabled\", then there will be no keybinding "
 "for this action."
 msgstr ""
+"打开最近更改对话框的全局按键组合。其格式类"
+"似于“&lt;Control&gt;a”或者“&lt;Shift&gt;&lt;Alt&gt;F1”。该分析程序的格式相当"
+"自由并允许大小写或者缩写，如“&lt;Ctl&gt;”和“&lt;Ctrl&gt;”。如果将该选项设置为"
+"特殊字符串“disabled”，那么此操作将没有按键组合。"
 
-#: ../data/tomboy.schemas.in.h:22
+#: ../data/tomboy.schemas.in.h:23
 msgid ""
 "The global keybinding for showing the Tomboy applet's menu. The format looks "
 "like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
@@ -195,17 +216,26 @@ msgid ""
 "special string \"disabled\", then there will be no keybinding for this "
 "action."
 msgstr ""
+"显示阿帖小程序菜单的全局按键组合。其格式类"
+"似于“&lt;Control&gt;a”或者“&lt;Shift&gt;&lt;Alt&gt;F1”。该分析程序的格式相当"
+"自由并允许大小写或者缩写，如“&lt;Ctl&gt;”和“&lt;Ctrl&gt;”。如果将该选项设置为"
+"特殊字符串“disabled”，那么此操作将没有按键组合。"
 
-#: ../data/tomboy.schemas.in.h:23
+#: ../data/tomboy.schemas.in.h:24
+msgid "The handler for \"note://\" URLs"
+msgstr "“note://”URL 的处理程序"
+
+#: ../data/tomboy.schemas.in.h:25
 msgid ""
 "The last directory a note was exported to using the Export To HTML plugin."
 msgstr ""
+"使用导出至 HTML 插件导出便笺时上次使用的目录。"
 
-#: ../data/tomboy.schemas.in.h:24
+#: ../data/tomboy.schemas.in.h:26
 msgid ""
 "The last setting for the 'Export linked notes' checkbox in the Export to "
 "HTML plugin."
-msgstr ""
+msgstr "导出到 HTML 插件中“导出链接便笺”复选框上次的选中状态。"
 
 #: ../libtomboy/gedit-print.c:144 ../Tomboy/Plugins/PrintNotes.cs:15
 msgid "Print"
@@ -419,7 +449,7 @@ msgstr "加亮 WikiWords(_W)"
 msgid ""
 "Enable this option to highlight words <b>ThatLookLikeThis</b>. Clicking the "
 "word will create a note with that name."
-msgstr ""
+msgstr "启用此选项将加亮类似 <b>LookLikeThis</b> 的单词。单击此单词将以该名称创建便笺。"
 
 #. Custom font...
 #: ../Tomboy/Preferences.cs:216
@@ -437,6 +467,8 @@ msgid ""
 "keypress. Example Hotkeys: <b>&lt;Control&gt;&lt;Shift&gt;F11</b>, <b>&lt;"
 "Alt&gt;N</b>"
 msgstr ""
+"热键允许随时随地访问您的便笺。热键示例：<b>&lt;Control&gt;&lt;Shift&gt;F11</b>，<b>&lt;"
+"Alt&gt;N</b>"
 
 #. Show notes menu keybinding...
 #: ../Tomboy/Preferences.cs:314
@@ -470,7 +502,9 @@ msgstr "目录"
 msgid ""
 "<b>Table of Contents</b> lists all your notes.\n"
 "Double click to open a note."
-msgstr "<b>目录</b>将列出您的全部便笺。\n双击可打开相应的便笺。"
+msgstr ""
+"<b>目录</b>将列出您的全部便笺。\n"
+"双击可打开相应的便笺。"
 
 #: ../Tomboy/RecentChanges.cs:171
 msgid "Last Changed"
@@ -709,4 +743,3 @@ msgstr "约会"
 #: ../Tomboy/Plugins/NoteOfTheDay.cs:169
 msgid "Create Note of the Day"
 msgstr "创建每日便笺"
-
