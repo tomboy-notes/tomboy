@@ -1,5 +1,5 @@
 
-SUBDIRS = data libtomboy Tomboy po 
+SUBDIRS = data libtomboy Tomboy test po 
 
 EXTRA_DIST = 			\
         intltool-extract.in     \
@@ -13,3 +13,8 @@ DISTCLEANFILES = 			\
 	intltool-merge          	\
 	intltool-update         	\
 	po/.intltool-merge-cache
+
+test: all
+	$(MAKE) -C test test
+
+.PHONY: test
