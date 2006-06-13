@@ -33,43 +33,51 @@ namespace Tomboy
 			backup_dir = backup_directory;
 			notes = new ArrayList ();
 
-			bool first_run = !Directory.Exists (notes_dir);
-			if (first_run) {
-				// First run. Create storage directory.
-				Directory.CreateDirectory (notes_dir);
-			}
+			bool first_run = !DirectoryExists (notes_dir);
+			CreateNotesDir ();
 
-			// Create & populate the Plugins dir
-			string plugins_dir = Path.Combine (notes_dir, "Plugins");
-			PluginManager.CreatePluginsDir (plugins_dir);
-
-			plugin_mgr = new PluginManager (plugins_dir);
+			plugin_mgr = CreatePluginManager ();
 			trie_controller = new TrieController (this);
 
 			if (first_run) {
 				// First run. Create "Start Here" note.
 				CreateStartNote ();
 			} else {
-				string [] files = Directory.GetFiles (notes_dir, "*.note");
-
-				foreach (string file_path in files) {
-					Note note = Note.Load (file_path, this);
-					if (note != null) {
-						note.Renamed += OnNoteRename;
-						notes.Add (note);
-					}
-				}
-
-				// Update the trie so plugins can access it, if they want.
-				trie_controller.Update ();
-
-				// Load all the plugins for our notes.
-				foreach (Note note in notes) {
-					plugin_mgr.LoadPluginsForNote (note);
-				}
+				LoadNotes ();
 			}
 
 			Tomboy.ExitingEvent += OnExitingEvent;
+		}
+
+		// Create & populate the Plugins dir. For overriding in test
+		// methods.
+		protected virtual PluginManager CreatePluginManager ()
+		{
+			string plugins_dir = Path.Combine (notes_dir, "Plugins");
+			PluginManager.CreatePluginsDir (plugins_dir);
+
+			return new PluginManager (plugins_dir);
+		}
+
+		// For overriding in test methods.
+		protected virtual bool DirectoryExists (string directory)
+		{
+			return Directory.Exists (directory);
+		}
+
+		// For overriding in test methods.
+		protected virtual DirectoryInfo CreateDirectory (string directory)
+		{
+			return Directory.CreateDirectory (directory);
+		}
+
+		// Create the notes directory if it doesn't exist yet.
+		void CreateNotesDir ()
+		{
+			if (!DirectoryExists (notes_dir)) {
+				// First run. Create storage directory.
+				CreateDirectory (notes_dir);
+			}
 		}
 
 		void OnNoteRename (Note note, string old_title)
@@ -78,7 +86,7 @@ namespace Tomboy
 				NoteRenamed (note, old_title);
 		}
 
-		void CreateStartNote () 
+		protected virtual void CreateStartNote () 
 		{
 			string content = 
 				string.Format ("<note-content>" +
@@ -100,6 +108,27 @@ namespace Tomboy
 				start_note.Window.Show ();
 			} catch (Exception e) {
 				// Fail silently
+			}
+		}
+
+		protected virtual void LoadNotes ()
+		{
+			string [] files = Directory.GetFiles (notes_dir, "*.note");
+
+			foreach (string file_path in files) {
+				Note note = Note.Load (file_path, this);
+				if (note != null) {
+					note.Renamed += OnNoteRename;
+					notes.Add (note);
+				}
+			}
+
+			// Update the trie so plugins can access it, if they want.
+			trie_controller.Update ();
+
+			// Load all the plugins for our notes.
+			foreach (Note note in notes) {
+				plugin_mgr.LoadPluginsForNote (note);
 			}
 		}
 

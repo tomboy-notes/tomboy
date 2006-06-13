@@ -8,7 +8,8 @@ CSFLAGS =				\
 	-target:library
 
 CSFILES =				\
-	$(srcdir)/NoteTest.cs
+	$(srcdir)/NoteTest.cs		\
+	$(srcdir)/NoteManagerTest.cs
 
 ASSEMBLIES =				\
 	$(NUNIT_LIBS)			\
