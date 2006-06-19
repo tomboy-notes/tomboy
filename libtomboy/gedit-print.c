@@ -106,8 +106,6 @@ static void gedit_print_preview_real 			(GeditPrintJobInfo *pji,
 static void
 gedit_print_job_info_destroy (GeditPrintJobInfo *pji, gboolean save_config)
 {
-	GnomePrintConfig *config = NULL;
-	
 	gedit_debug (DEBUG_PRINT, "");
 
 	g_return_if_fail (pji != NULL);
@@ -162,7 +160,6 @@ static void
 gedit_print_dialog_response (GtkWidget *dialog, int response, GeditPrintJobInfo *pji)
 {
 	GtkTextIter start, end;
-	gint line_start, line_end;
 
 	pji->range_type = gnome_print_dialog_get_range (GNOME_PRINT_DIALOG (dialog));
 	gtk_text_buffer_get_bounds (GTK_TEXT_BUFFER (pji->doc), &start, &end);
@@ -334,7 +331,6 @@ gedit_print (GtkTextView *view)
 {
 	GeditPrintJobInfo *pji;
 	GtkWidget *dialog;
-	PangoContext *pango_context;
 
 	gedit_debug (DEBUG_PRINT, "");
 

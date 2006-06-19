@@ -1,6 +1,6 @@
 
-#ifndef __TOMBOY_KEY_BINDER_H__
-#define __TOMBOY_KEY_BINDER_H__
+#ifndef __TOMBOY_UTIL_H__
+#define __TOMBOY_UTIL_H__
 
 #include <gdk/gdkpixmap.h>
 #include <gtk/gtkwidget.h>
@@ -18,5 +18,4 @@ void tomboy_window_present_hardcore (GtkWindow *window);
 
 G_END_DECLS
 
-#endif /* __TOMBOY_KEY_BINDER_H__ */
-
+#endif /* __TOMBOY_UTIL_H__ */

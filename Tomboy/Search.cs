@@ -3,7 +3,7 @@ using System;
 using System.Collections;
 using System.Runtime.InteropServices;
 using System.Text;
-using Mono.Posix;
+using Mono.Unix;
 
 namespace Tomboy 
 {
