@@ -1,4 +1,4 @@
-
+#include <string.h>
 
 #include <gdk/gdk.h>
 #include <gdk/gdkwindow.h>

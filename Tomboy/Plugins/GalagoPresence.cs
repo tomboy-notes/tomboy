@@ -3,7 +3,7 @@ using System;
 using System.Collections;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
-using Mono.Posix;
+using Mono.Unix;
 
 using Gtk;
 using Galago;
@@ -13,7 +13,6 @@ using Tomboy;
 class GalagoManager
 {
 	TrieTree trie;
-	bool initial_update;
 
 	public GalagoManager ()
 	{

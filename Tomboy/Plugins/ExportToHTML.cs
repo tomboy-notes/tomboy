@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Xml;
 using System.Xml.XPath;
 using System.Xml.Xsl;
-using Mono.Posix;
+using Mono.Unix;
 
 using Tomboy;
 

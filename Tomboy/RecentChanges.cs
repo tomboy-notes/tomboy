@@ -1,6 +1,6 @@
 
 using System;
-using Mono.Posix;
+using Mono.Unix;
 using System.Text;
 
 namespace Tomboy

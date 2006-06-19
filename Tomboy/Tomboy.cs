@@ -1,14 +1,15 @@
 
 using System;
 using System.IO;
-using Mono.Posix;
+using Mono.Unix;
+using Mono.Unix.Native;
 
 namespace Tomboy 
 {
 	public class Tomboy 
 	{
 		static Gnome.Program program;
-		static Syscall.sighandler_t sig_handler;
+		static SignalHandler sig_handler;
 		static NoteManager manager;
 		static Object dbus_connection;
 
@@ -91,8 +92,8 @@ namespace Tomboy
 
 			// Connect to SIGTERM and SIGQUIT, so we don't lose
 			// unsaved notes on exit...
-			Syscall.signal ((int) Signals.SIGTERM, sig_handler);
-			Syscall.signal ((int) Signals.SIGQUIT, sig_handler);
+			Stdlib.signal (Signum.SIGTERM, sig_handler);
+			Stdlib.signal (Signum.SIGQUIT, sig_handler);
 		}
 
 		static void OnExitSignal (int signal)

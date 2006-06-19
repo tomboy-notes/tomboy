@@ -2,7 +2,7 @@
 using System;
 using System.Collections;
 using System.Text;
-using Mono.Posix;
+using Mono.Unix;
 using System.Runtime.InteropServices;
 
 namespace Tomboy

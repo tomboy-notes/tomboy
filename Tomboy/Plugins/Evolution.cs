@@ -8,7 +8,8 @@ using System.Text;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
 
-using Mono.Posix;
+using Mono.Unix;
+using Mono.Unix.Native;
 
 using Tomboy;
 

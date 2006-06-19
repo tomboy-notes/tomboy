@@ -3,10 +3,12 @@
 #include <gdk/gdk.h>
 #include <gdk/gdkwindow.h>
 #include <gdk/gdkx.h>
+#include <gtk/gtk.h>
 #include <X11/Xlib.h>
 #include <X11/Xatom.h>
 
 #include "config.h"
+#include "tomboykeybinder.h"
 #include "tomboyutil.h"
 
 /* Uncomment the next line to print a debug trace. */

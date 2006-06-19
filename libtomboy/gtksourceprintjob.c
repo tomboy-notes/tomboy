@@ -985,8 +985,6 @@ text_style_new (GtkSourcePrintJob *job, GtkTextTag *tag)
 {
 	TextStyle *style;
 	gboolean bg_set, fg_set;
-	gdouble scale;
-	PangoFontDescription *font_desc;
 	
 	g_return_val_if_fail (tag != NULL && GTK_IS_TEXT_TAG (tag), NULL);
 
