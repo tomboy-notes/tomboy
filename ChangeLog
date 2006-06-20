@@ -22,6 +22,11 @@
 	* Tomboy/RecentChanges.cs:
 	* Tomboy/Tomboy.cs: Warning fixes.
 
+	* Tomboy/Note.cs: New method NoteArchiver.Write (TextWriter, Note).
+	* Tomboy/Plugins/ExportToHTML.cs: WriteHTMLForNote: Use NoteArchiver
+	  as source for the XSLT transformation, instead of reading the note
+	  file from disc.
+
 2006-06-19  I Felix  <ifelix25@gmail.com>
 
 	* configure.in: Added 'ta' to the ALL_LINGUAS.

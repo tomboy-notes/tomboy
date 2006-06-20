@@ -100,7 +100,12 @@ public class ExportToHTMLPlugin : NotePlugin
 		// NOTE: Don't use the XmlDocument version, which strips
 		// whitespace between elements for some reason.  Also,
 		// XPathDocument is faster.
-		XPathDocument doc = new XPathDocument (note.FilePath);
+		StringWriter s_writer = new StringWriter ();
+		NoteArchiver.Write (s_writer, note);
+		StringReader reader = new StringReader (s_writer.ToString ());
+		s_writer.Close ();
+		XPathDocument doc = new XPathDocument (reader);
+		reader.Close ();
 
 		XsltArgumentList args = new XsltArgumentList ();
 		args.AddParam ("export-linked", "", export_linked);
