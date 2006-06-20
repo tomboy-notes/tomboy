@@ -474,6 +474,42 @@ namespace Tomboy
 			string tmp_file = write_file + ".tmp";
 
 			XmlTextWriter xml = new XmlTextWriter (tmp_file, System.Text.Encoding.UTF8);
+			NoteArchiver.Write (xml, note);
+			xml.Close ();
+
+			if (File.Exists (write_file)) {
+				string backup_path = write_file + "~";
+				if (File.Exists (backup_path))
+					File.Delete (backup_path);
+
+				// Backup the to a ~ file, just in case
+				File.Move (write_file, backup_path);
+
+				// Move the temp file to write_file
+				File.Move (tmp_file, write_file);
+
+				// Delete the ~ file
+				File.Delete (backup_path);
+			} else {
+				// Move the temp file to write_file
+				File.Move (tmp_file, write_file);
+			}
+
+			// This is always the latest after a write
+			note.version = CURRENT_VERSION;
+		}
+
+		public static void Write (TextWriter writer, Note note)
+		{
+			XmlTextWriter xml = new XmlTextWriter (writer);
+			NoteArchiver.Write (xml, note);
+			xml.Close ();
+
+			note.version = CURRENT_VERSION;
+		}
+
+		static void Write (XmlTextWriter xml, Note note)
+		{
 			xml.Formatting = Formatting.Indented;
 
 			xml.WriteStartDocument ();
@@ -535,28 +571,6 @@ namespace Tomboy
 
 			xml.WriteEndElement (); // Note
 			xml.WriteEndDocument ();
-			xml.Close ();
-
-			if (File.Exists (write_file)) {
-				string backup_path = write_file + "~";
-				if (File.Exists (backup_path))
-					File.Delete (backup_path);
-
-				// Backup the to a ~ file, just in case
-				File.Move (write_file, backup_path);
-
-				// Move the temp file to write_file
-				File.Move (tmp_file, write_file);
-
-				// Delete the ~ file
-				File.Delete (backup_path);
-			} else {
-				// Move the temp file to write_file
-				File.Move (tmp_file, write_file);
-			}
-
-			// This is always the latest after a write
-			note.version = CURRENT_VERSION;
 		}
 	}
 }
