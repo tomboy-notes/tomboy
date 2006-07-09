@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tomboy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-02-06 11:55+0200\n"
-"PO-Revision-Date: 2006-02-06 11:56+0200\n"
+"POT-Creation-Date: 2006-07-09 15:03+0300\n"
+"PO-Revision-Date: 2006-07-09 15:05+0300\n"
 "Last-Translator: Vladimir Petkov <vpetkov@i-space.org>\n"
 "Language-Team: Bulgarian <dict@fsa-bg.org>\n"
 "MIME-Version: 1.0\n"
@@ -154,10 +154,14 @@ msgid "Open Start Here"
 msgstr "Отваряне на начална бележка"
 
 #: ../data/tomboy.schemas.in.h:17
+msgid "Set to TRUE to activate"
+msgstr "Задайте да е „Истина“, за да активирате"
+
+#: ../data/tomboy.schemas.in.h:18
 msgid "Show applet menu"
 msgstr "Показване на менюто за аплетите"
 
-#: ../data/tomboy.schemas.in.h:18
+#: ../data/tomboy.schemas.in.h:19
 msgid ""
 "The global keybinding for creating and displaying a new Note. The format "
 "looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The "
@@ -173,7 +177,7 @@ msgstr ""
 "зададете специалният низ „disabled“, няма да има клавишна комбинация за това "
 "действие."
 
-#: ../data/tomboy.schemas.in.h:19
+#: ../data/tomboy.schemas.in.h:20
 msgid ""
 "The global keybinding for opening the \"Start Here\" note. The format looks "
 "like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
@@ -189,7 +193,7 @@ msgstr ""
 "зададете специалният низ „disabled“, няма да има клавишна комбинация за това "
 "действие."
 
-#: ../data/tomboy.schemas.in.h:20
+#: ../data/tomboy.schemas.in.h:21
 msgid ""
 "The global keybinding for opening the Note Search dialog. The format looks "
 "like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
@@ -205,7 +209,7 @@ msgstr ""
 "зададете специалният низ „disabled“, няма да има клавишна комбинация за това "
 "действие."
 
-#: ../data/tomboy.schemas.in.h:21
+#: ../data/tomboy.schemas.in.h:22
 msgid ""
 "The global keybinding for opening the Recent Changes dialog. The format "
 "looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The "
@@ -221,7 +225,7 @@ msgstr ""
 "зададете специалният низ „disabled“, няма да има клавишна комбинация за това "
 "действие."
 
-#: ../data/tomboy.schemas.in.h:22
+#: ../data/tomboy.schemas.in.h:23
 msgid ""
 "The global keybinding for showing the Tomboy applet's menu. The format looks "
 "like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
@@ -237,14 +241,18 @@ msgstr ""
 "зададете специалният низ „disabled“, няма да има клавишна комбинация за това "
 "действие."
 
-#: ../data/tomboy.schemas.in.h:23
+#: ../data/tomboy.schemas.in.h:24
+msgid "The handler for \"note://\" URLs"
+msgstr "Програмата за обработка на адреси-УРЛ от вида „note://“"
+
+#: ../data/tomboy.schemas.in.h:25
 msgid ""
 "The last directory a note was exported to using the Export To HTML plugin."
 msgstr ""
 "Последната папка, където е била сложена бележка от приставката за изход в "
 "HTML."
 
-#: ../data/tomboy.schemas.in.h:24
+#: ../data/tomboy.schemas.in.h:26
 msgid ""
 "The last setting for the 'Export linked notes' checkbox in the Export to "
 "HTML plugin."
@@ -252,33 +260,33 @@ msgstr ""
 "Последната настройка за кутийката за отмятане „Изнасяне на свързани бележки“ "
 "в приставката за изнасяне в HTML."
 
-#: ../libtomboy/gedit-print.c:144 ../Tomboy/Plugins/PrintNotes.cs:15
+#: ../libtomboy/gedit-print.c:142 ../Tomboy/Plugins/PrintNotes.cs:15
 msgid "Print"
 msgstr "Печат"
 
-#: ../libtomboy/gedit-print.c:243
+#: ../libtomboy/gedit-print.c:240
 msgid "Preparing pages..."
 msgstr "Подготвяне на страниците..."
 
-#: ../libtomboy/gedit-print.c:270
+#: ../libtomboy/gedit-print.c:267
 #, c-format
 msgid "Rendering page %d of %d..."
 msgstr "Изобразяване на страница %d от общо %d..."
 
-#: ../libtomboy/gedit-print.c:272
+#: ../libtomboy/gedit-print.c:269
 #, c-format
 msgid "Printing page %d of %d..."
 msgstr "Печатане на страница %d от общо %d..."
 
-#: ../libtomboy/gedit-print.c:294
+#: ../libtomboy/gedit-print.c:291
 msgid "Print preview"
 msgstr "Преглед преди печат"
 
-#: ../libtomboy/gedit-print.c:446
+#: ../libtomboy/gedit-print.c:442
 msgid "Page %N of %Q"
 msgstr "Страница %N от %Q"
 
-#: ../libtomboy/gedit-print.c:448
+#: ../libtomboy/gedit-print.c:444
 msgid "%A %D, %I:%M %p"
 msgstr "%A %D, %I:%M %p"
 
@@ -287,17 +295,17 @@ msgid "_Quit"
 msgstr "_Спиране на програмата"
 
 #. Open the Start Here note
-#: ../Tomboy/Note.cs:393 ../Tomboy/NoteManager.cs:89
-#: ../Tomboy/NoteManager.cs:97 ../Tomboy/Tomboy.cs:233 ../Tomboy/Tray.cs:122
+#: ../Tomboy/Note.cs:393 ../Tomboy/NoteManager.cs:97
+#: ../Tomboy/NoteManager.cs:105 ../Tomboy/Tomboy.cs:234 ../Tomboy/Tray.cs:122
 #: ../Tomboy/Tray.cs:178 ../Tomboy/Tray.cs:371 ../Tomboy/XKeybinder.cs:259
 msgid "Start Here"
 msgstr "Начална бележка"
 
-#: ../Tomboy/NoteManager.cs:90
+#: ../Tomboy/NoteManager.cs:98
 msgid "Welcome to Tomboy!"
 msgstr "Здравейте! Това е Tomboy!"
 
-#: ../Tomboy/NoteManager.cs:91
+#: ../Tomboy/NoteManager.cs:99
 msgid ""
 "Use this page as a Start Page for organizing your notes and keeping "
 "unorganized ideas around."
@@ -305,12 +313,12 @@ msgstr ""
 "Използвайте тази страница като начална бележка за организиране на бележките "
 "ви и пазене на неорганизирани идеи."
 
-#: ../Tomboy/NoteManager.cs:155
+#: ../Tomboy/NoteManager.cs:184
 #, csharp-format
 msgid "New Note {0}"
 msgstr "Нова бележка {0}"
 
-#: ../Tomboy/NoteManager.cs:201
+#: ../Tomboy/NoteManager.cs:230
 msgid "Describe your new note here."
 msgstr "Опишете новата бележка тук."
 
@@ -596,7 +604,7 @@ msgstr[1] "({0} съвпадения)"
 msgid "No notes found"
 msgstr "Няма открити бележки"
 
-#: ../Tomboy/Tomboy.cs:157
+#: ../Tomboy/Tomboy.cs:158
 msgid ""
 "Tomboy: A simple, easy to use desktop note-taking application.\n"
 "Copyright (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
@@ -606,7 +614,7 @@ msgstr ""
 "Права за копиране (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
 "\n"
 
-#: ../Tomboy/Tomboy.cs:169
+#: ../Tomboy/Tomboy.cs:170
 msgid ""
 "Usage:\n"
 "  --version\t\t\tPrint version information.\n"
@@ -619,7 +627,7 @@ msgstr ""
 "··--note-path [path]\t\tЗареждане/съхранение на данните за бележката в тази "
 "папка.\n"
 
-#: ../Tomboy/Tomboy.cs:178
+#: ../Tomboy/Tomboy.cs:179
 msgid ""
 "  --new-note\t\t\tCreate and display a new note.\n"
 "  --new-note [title]\t\tCreate and display a new note, with a title.\n"
@@ -634,16 +642,16 @@ msgstr ""
 "  --highlight-search [text]\tТърсене и отбелязване на текст в отворената "
 "бележка.\n"
 
-#: ../Tomboy/Tomboy.cs:187
+#: ../Tomboy/Tomboy.cs:188
 msgid "D-BUS remote control disabled.\n"
 msgstr "Отдалеченият контрол на D-BUS е спрян.\n"
 
-#: ../Tomboy/Tomboy.cs:195
+#: ../Tomboy/Tomboy.cs:196
 #, csharp-format
 msgid "Version {0}"
 msgstr "Версия {0}"
 
-#: ../Tomboy/Tomboy.cs:253
+#: ../Tomboy/Tomboy.cs:254
 #, csharp-format
 msgid ""
 "Tomboy: unsupported option '{0}'\n"
@@ -727,7 +735,7 @@ msgstr "_Копиране на адреса на връзката"
 msgid "_Open Link"
 msgstr "_Отваряне на връзка"
 
-#: ../Tomboy/Plugins/Evolution.cs:263
+#: ../Tomboy/Plugins/Evolution.cs:264
 msgid "Cannot open email"
 msgstr "Неуспех при отварянето на е-пощата"
 
@@ -735,11 +743,11 @@ msgstr "Неуспех при отварянето на е-пощата"
 msgid "Export to HTML"
 msgstr "Изнасяне на тази бележка в HTML"
 
-#: ../Tomboy/Plugins/ExportToHTML.cs:164
+#: ../Tomboy/Plugins/ExportToHTML.cs:169
 msgid "Destination for HTML Export"
 msgstr "Папка-цел за HTML изхода"
 
-#: ../Tomboy/Plugins/ExportToHTML.cs:169
+#: ../Tomboy/Plugins/ExportToHTML.cs:174
 msgid "Export linked notes"
 msgstr "Изнасяне на свързани бележки"
 
@@ -747,12 +755,12 @@ msgstr "Изнасяне на свързани бележки"
 msgid "_Fixed Width"
 msgstr "_Фиксирана ширина"
 
-#: ../Tomboy/Plugins/GalagoPresence.cs:272
+#: ../Tomboy/Plugins/GalagoPresence.cs:271
 #, csharp-format
 msgid "Cannot contact '{0}'"
 msgstr "Неуспех при свързването „{0}\""
 
-#: ../Tomboy/Plugins/GalagoPresence.cs:275
+#: ../Tomboy/Plugins/GalagoPresence.cs:274
 #, csharp-format
 msgid "Error running gaim-remote: {0}"
 msgstr "Грешка при стартирането на gaim-remote: {0}"
