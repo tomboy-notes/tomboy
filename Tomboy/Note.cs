@@ -48,7 +48,7 @@ namespace Tomboy
 		}
 
 		// Create a new note stored in a file...
-		public Note (string title, string filepath, NoteManager manager) 
+		Note (string title, string filepath, NoteManager manager) 
 			: this ()
 		{
 			this.title = title;
@@ -68,6 +68,16 @@ namespace Tomboy
 			this.is_new = false;
 			this.create_date = DateTime.MinValue;
 			this.change_date = File.GetLastWriteTime (filepath);
+		}
+
+		public static Note CreateNewNote (string title, string filepath, NoteManager manager)
+		{
+			return new Note (title, filepath, manager);
+		}
+
+		public static Note CreateExistingNote (string filepath, NoteManager manager)
+		{
+			return new Note (filepath, manager);
 		}
 
 		public void Delete ()
@@ -412,11 +422,45 @@ namespace Tomboy
 		public event NoteRenameHandler Renamed;
 	}
 
+	// Singleton - allow overriding the instance for easy sensing in
+	// test classes - we're not bothering with double-check locking,
+	// since this class is only seldomly used
 	public class NoteArchiver
 	{
 		public const string CURRENT_VERSION = "0.2";
 
-		public static void Read (string read_file, Note note) 
+		static NoteArchiver instance = null;
+		static readonly object lock_ = new object();
+
+		protected NoteArchiver ()
+		{
+		}
+
+		public static NoteArchiver Instance
+		{
+			get
+			{
+				lock (lock_)
+				{
+					if (instance == null)
+						instance = new NoteArchiver ();
+					return instance;
+				}
+			}
+			set {
+				lock (lock_)
+				{
+					instance = value;
+				}
+			}
+		}
+
+		public static void Read (string read_file, Note note)
+		{
+			Instance.ReadFile (read_file, note);
+		}
+
+		public virtual void ReadFile (string read_file, Note note) 
 		{
 			StreamReader reader = new StreamReader (read_file, 
 								System.Text.Encoding.UTF8);
@@ -469,12 +513,17 @@ namespace Tomboy
 			xml.Close ();
 		}
 
-		public static void Write (string write_file, Note note) 
+		public static void Write (string write_file, Note note)
+		{
+			Instance.WriteFile (write_file, note);
+		}
+
+		public virtual void WriteFile (string write_file, Note note) 
 		{
 			string tmp_file = write_file + ".tmp";
 
 			XmlTextWriter xml = new XmlTextWriter (tmp_file, System.Text.Encoding.UTF8);
-			NoteArchiver.Write (xml, note);
+			Write (xml, note);
 			xml.Close ();
 
 			if (File.Exists (write_file)) {
@@ -501,14 +550,19 @@ namespace Tomboy
 
 		public static void Write (TextWriter writer, Note note)
 		{
+			Instance.WriteFile (writer, note);
+		}
+
+		public void WriteFile (TextWriter writer, Note note)
+		{
 			XmlTextWriter xml = new XmlTextWriter (writer);
-			NoteArchiver.Write (xml, note);
+			Write (xml, note);
 			xml.Close ();
 
 			note.version = CURRENT_VERSION;
 		}
 
-		static void Write (XmlTextWriter xml, Note note)
+		void Write (XmlTextWriter xml, Note note)
 		{
 			xml.Formatting = Formatting.Indented;
 

@@ -8,6 +8,7 @@ CSFLAGS =				\
 	-target:library
 
 CSFILES =				\
+	$(srcdir)/DummyNote.cs		\
 	$(srcdir)/LoggerTest.cs		\
 	$(srcdir)/NoteTest.cs		\
 	$(srcdir)/NoteManagerTest.cs
@@ -16,13 +17,15 @@ ASSEMBLIES =				\
 	$(NUNIT_LIBS)			\
 	-r:$(top_builddir)/Tomboy/Tomboy.exe
 
+MONO_PATH = $(top_builddir)/Tomboy:$(top_builddir)/Tomboy/Plugins
+
 RESSOURCES =
 
-$(TARGET): $(CSFILES)
-	$(CSC) -out:$@ $(CSFLAGS) $^ $(ASSEMBLIES) $(RESSOURCES)
+$(TARGET): $(CSFILES) $(top_builddir)/Tomboy/Tomboy.exe
+	$(CSC) -out:$@ $(CSFLAGS) $(CSFILES) $(ASSEMBLIES) $(RESSOURCES)
 
 test: $(TARGET)
-	MONO_PATH=$(top_builddir)/Tomboy $(NUNIT) $(TARGET) /nologo
+	MONO_PATH=$(MONO_PATH) $(NUNIT) $(TARGET) /nologo
 
 EXTRA_DIST = 				\
 	$(CSFILES)
@@ -31,3 +34,5 @@ CLEANFILES = 				\
 	$(TARGET)			\
 	$(TARGET).mdb			\
 	TestResult.xml
+
+.PHONY: test
