@@ -394,7 +394,7 @@ namespace Tomboy
 		void OpenUrl (string url) 
 		{
 			if (url != string.Empty) {
-				Console.WriteLine ("Opening url '{0}'...", url);
+				Logger.Log ("Opening url '{0}'...", url);
 				Gnome.Url.Show (url);
 			}
 		}
@@ -445,9 +445,9 @@ namespace Tomboy
 				Group group = match.Groups [1];
 
 				/*
-				Console.WriteLine("Highlighting url: '{0}' at offset {1}",
-						  group,
-						  group.Index);
+				Logger.Log ("Highlighting url: '{0}' at offset {1}",
+					    group,
+					    group.Index);
 				*/
 
 				Gtk.TextIter start_cpy = start;
@@ -657,9 +657,9 @@ namespace Tomboy
 				if (range.Text.ToLower () != old_title_lower)
 					continue;
 
-				Console.WriteLine ("Replacing '{0}' with '{0}'", 
-						   range.Text, 
-						   renamed.Title);
+				Logger.Log ("Replacing '{0}' with '{0}'", 
+					    range.Text, 
+					    renamed.Title);
 
 				Buffer.Delete (range.Start, range.End);
 				Buffer.InsertWithTags (range.Start, renamed.Title, link_tag);
@@ -682,10 +682,10 @@ namespace Tomboy
 			Gtk.TextIter title_end = start;
 			title_end.ForwardChars (hit.End);
 			
-			Console.WriteLine ("Matching Note title '{0}' at {1}-{2}...", 
-					   hit.Key,
-					   hit.Start,
-					   hit.End);
+			Logger.Log ("Matching Note title '{0}' at {1}-{2}...", 
+				    hit.Key,
+				    hit.Start,
+				    hit.End);
 
 			Buffer.RemoveTag (broken_link_tag, title_start, title_end);
 			Buffer.ApplyTag (link_tag, title_start, title_end);
@@ -761,7 +761,7 @@ namespace Tomboy
 			Note link = Manager.Find (link_name);
 
 			if (link == null) {
-				Console.WriteLine ("Creating note '{0}'...", link_name);
+				Logger.Log ("Creating note '{0}'...", link_name);
 				try {
 				    link = Manager.Create (link_name);
 				} catch (Exception e) {
@@ -770,7 +770,7 @@ namespace Tomboy
 			}
 
 			if (link != null && link != this.Note) {
-				Console.WriteLine ("Opening note '{0}' on click...", link_name);
+				Logger.Log ("Opening note '{0}' on click...", link_name);
 				link.Window.Present ();
 				return true;
 			}
@@ -865,9 +865,9 @@ namespace Tomboy
 				if (IsPatronymicName (group.ToString ()))
 					continue;
 
-				Console.WriteLine("Highlighting wikiword: '{0}' at offset {1}",
-						  group,
-						  group.Index);
+				Logger.Log ("Highlighting wikiword: '{0}' at offset {1}",
+					    group,
+					    group.Index);
 
 				Gtk.TextIter start_cpy = start;
 				start_cpy.ForwardChars (group.Index);

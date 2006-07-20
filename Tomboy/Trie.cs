@@ -264,7 +264,7 @@ namespace Tomboy
 		public static void Main (string [] args)
 		{
 			string src = "bazar this is some foo, bar, and baz bazbarfoofoo bazbazarbaz end bazar";
-			Console.WriteLine ("Searching in '{0}':", src);
+			Logger.Log ("Searching in '{0}':", src);
 
 			TrieTree trie = new TrieTree (false);
 			trie.AddKeyword ("foo", "foo");
@@ -272,14 +272,14 @@ namespace Tomboy
 			trie.AddKeyword ("baz", "baz");
 			trie.AddKeyword ("bazar", "bazar");
 
-			Console.WriteLine ("Starting search...");
+			Logger.Log ("Starting search...");
 			foreach (TrieHit hit in trie.FindMatches (src)) {
-				Console.WriteLine ("*** Match: '{0}' at {1}-{2}",
+				Logger.Log ("*** Match: '{0}' at {1}-{2}",
 						   hit.Key,
 						   hit.Start,
 						   hit.End);
 			}
-			Console.WriteLine ("Search finished!");
+			Logger.Log ("Search finished!");
 		}
 	}
 #endif

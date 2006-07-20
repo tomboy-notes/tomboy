@@ -280,7 +280,7 @@ namespace Tomboy
 				if (s.StartsWith ("file:////"))
 					s = s.Replace ("file:////", "file:///");
 
-				Console.WriteLine ("uri = {0}", s);
+				Logger.Log ("uri = {0}", s);
 				try {
 					Uri uri = new Uri (s);
 					if (uri != null)

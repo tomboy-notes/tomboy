@@ -103,8 +103,8 @@ namespace Tomboy
 							       this);
 				bindings.Add (binding);
 			} catch (Exception e) {
-				Console.WriteLine ("Error Adding global keybinding:");
-				Console.WriteLine (e);
+				Logger.Log ("Error Adding global keybinding:");
+				Logger.Log (e.ToString ());
 			}
 		}
 
@@ -114,8 +114,8 @@ namespace Tomboy
 				bindings.Clear ();
 				base.UnbindAll ();
 			} catch (Exception e) {
-				Console.WriteLine ("Error Removing global keybinding:");
-				Console.WriteLine (e);
+				Logger.Log ("Error Removing global keybinding:");
+				Logger.Log (e.ToString ());
 			}
 		}
 
@@ -139,7 +139,7 @@ namespace Tomboy
 				try {
 					key_sequence = (string) parent.client.Get (gconf_path);
 				} catch (Exception e) {
-					Console.WriteLine ("GConf key '{0}' does not exist, using default.", 
+					Logger.Log ("GConf key '{0}' does not exist, using default.", 
 							   gconf_path);
 				}
 
@@ -153,7 +153,7 @@ namespace Tomboy
 			void BindingChanged (object sender, GConf.NotifyEventArgs args)
 			{
 				if (args.Key == gconf_path) {
-					Console.WriteLine ("Binding for '{0}' changed to '{1}'!",
+					Logger.Log ("Binding for '{0}' changed to '{1}'!",
 							   gconf_path,
 							   args.Value);
 
@@ -171,7 +171,7 @@ namespace Tomboy
 				    key_sequence == "disabled")
 					return;
 
-				Console.WriteLine ("Binding key '{0}' for '{1}'",
+				Logger.Log ("Binding key '{0}' for '{1}'",
 						   key_sequence,
 						   gconf_path);
 
@@ -183,7 +183,7 @@ namespace Tomboy
 				if (key_sequence == null)
 					return;
 
-				Console.WriteLine ("Unbinding key '{0}' for '{1}'",
+				Logger.Log ("Unbinding key '{0}' for '{1}'",
 						   key_sequence,
 						   gconf_path);
 
@@ -218,7 +218,7 @@ namespace Tomboy
 
 		void EnableDisable (bool enable)
 		{
-			Console.WriteLine ("EnableDisable Called: enabling... {0}", enable);
+			Logger.Log ("EnableDisable Called: enabling... {0}", enable);
 			if (enable) {
 				BindPreference (Preferences.KEYBINDING_SHOW_NOTE_MENU,
 						new EventHandler (KeyShowMenu));

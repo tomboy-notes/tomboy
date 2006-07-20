@@ -49,7 +49,7 @@ namespace Tomboy
 				StartTrayIcon ();
 			}
 
-			Console.WriteLine ("All done.  Ciao!");
+			Logger.Log ("All done.  Ciao!");
 		}
 
 		static void StartTrayIcon ()
@@ -78,9 +78,9 @@ namespace Tomboy
 				RemoteControl remote_control = new RemoteControl (manager);
 				service.RegisterObject (remote_control, RemoteControlProxy.Path);
 
-				Console.WriteLine ("Tomboy remote control active.");
+				Logger.Log ("Tomboy remote control active.");
 			} catch (Exception e) {
-				Console.WriteLine ("Tomboy remote control disabled: {0}",
+				Logger.Log ("Tomboy remote control disabled: {0}",
 						   e.Message);
 			}
 #endif

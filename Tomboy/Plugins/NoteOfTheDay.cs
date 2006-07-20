@@ -74,7 +74,7 @@ class NoteOfTheDay
 		}
 		
 		foreach (Note note in kill_list) {
-			Console.WriteLine ("NotD: Deleting old unmodified '{0}'",
+			Logger.Log ("NotD: Deleting old unmodified '{0}'",
 					   note.Title);
 			manager.Delete (note);
 		}
@@ -120,7 +120,7 @@ public class NoteOfTheDayPlugin : NotePlugin
 			// Will call OnSettingChanged
 			Preferences.Set (GCONF_ENABLED_KEY, enabled);
 		} catch (Exception e) {
-			Console.WriteLine ("NotD: Error updating GConf enabled key value: {0}", e);
+			Logger.Log ("NotD: Error updating GConf enabled key value: {0}", e);
 			enabled_toggled (sender, args);
 		}
 	}
@@ -148,12 +148,12 @@ public class NoteOfTheDayPlugin : NotePlugin
 				// Fails if no schema
 				enabled = (bool) Preferences.Get (GCONF_ENABLED_KEY);
 			} catch (Exception e) {				
-				Console.WriteLine ("NotD: Error getting GConf enabled key");
+				Logger.Log ("NotD: Error getting GConf enabled key");
 				try {
 					// Succeeds if no schema
 					Preferences.Set (GCONF_ENABLED_KEY, enabled);
 				} catch (Exception e2) {
-					Console.WriteLine ("NotD: Error setting initial " +
+					Logger.Log ("NotD: Error setting initial " +
 							   "GConf enabled key value: {0}", e2);
 				}
 			}

@@ -1,3 +1,29 @@
+2006-07-20  Sebastian Rittau  <srittau@jroger.in-berlin.de>
+
+	* Tomboy/Logger.cs:
+	* Tomboy/Makefile.am: New Logger class to replace existing calls to
+	Console.WriteLine.
+	* test/LoggerTest.cs:
+	* test/Makefile.am: Test case.
+	* Tomboy/Applet.cs:
+	* Tomboy/Note.cs:
+	* Tomboy/NoteBuffer.cs:
+	* Tomboy/NoteManager.cs:
+	* Tomboy/NoteTag.cs:
+	* Tomboy/NoteWindow.cs:
+	* Tomboy/PluginManager.cs:
+	* Tomboy/Search.cs:
+	* Tomboy/Tomboy.cs:
+	* Tomboy/Trie.cs:
+	* Tomboy/Utils.cs:
+	* Tomboy/Watchers.cs:
+	* Tomboy/XKeybinder.cs:
+	* Tomboy/Plugins/Evolution.cs:
+	* Tomboy/Plugins/ExportToHTML.cs:
+	* Tomboy/Plugins/GalagoPresence.cs:
+	* Tomboy/Plugins/NoteOfTheDay.cs: Use Logger instead of
+	Console.WriteLine, where appropriate.
+
 2006-07-06  Kostas Papadimas <pkst@gnome.org>
 
 	* configure.in: Added Greek (el) to ALL_LINGUAS

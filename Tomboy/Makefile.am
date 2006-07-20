@@ -33,6 +33,7 @@ CSFLAGS = 				\
 CSFILES = 					\
 	$(srcdir)/Tomboy.cs 			\
 	$(srcdir)/Applet.cs 			\
+	$(srcdir)/Logger.cs			\
 	$(srcdir)/Note.cs 			\
 	$(srcdir)/NoteManager.cs 		\
 	$(srcdir)/NoteWindow.cs 		\

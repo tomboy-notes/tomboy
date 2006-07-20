@@ -148,7 +148,7 @@ namespace Tomboy
 				dir_watcher.Deleted += OnPluginDeleted;
 				dir_watcher.EnableRaisingEvents = true;
 			} catch (ArgumentException e) { 
-				Console.WriteLine ("Error creating a FileSystemWatcher on {0} : {1}",
+				Logger.Log ("Error creating a FileSystemWatcher on {0} : {1}",
 									plugins_dir, e);
 				dir_watcher = null;
 			}
@@ -159,7 +159,7 @@ namespace Tomboy
 				sys_dir_watcher.Deleted += OnPluginDeleted;
 				sys_dir_watcher.EnableRaisingEvents = true;
 			} catch (ArgumentException e) {
-				Console.WriteLine ("Error creating a FileSystemWatcher on {0} : {1}", 
+				Logger.Log ("Error creating a FileSystemWatcher on {0} : {1}", 
 									Defines.SYS_PLUGINS_DIR, e);
 				sys_dir_watcher = null;
 			}
@@ -177,11 +177,11 @@ namespace Tomboy
 			    (Environment.GetEnvironmentVariable ("KDE_FULL_SESSION") != null ||
 			     Environment.GetEnvironmentVariable ("KDEHOME") != null ||
 			     Environment.GetEnvironmentVariable ("KDEDIR") != null)) {
-				Console.WriteLine ("Starting Konqueror...");
+				Logger.Log ("Starting Konqueror...");
 
 				Process.Start ("konqueror", plugins_dir);
 			} else {
-				Console.WriteLine ("Starting Nautilus...");
+				Logger.Log ("Starting Nautilus...");
 
 				string args = string.Format ("--no-desktop --no-default-window {0}",
 							     plugins_dir);
@@ -216,34 +216,34 @@ namespace Tomboy
 			// Remove old version 0.3.[12] "Uninstalled Plugins" symlink
 			string uninstalled_dir = Path.Combine (plugins_dir, "Uninstalled Plugins");
 			if (Directory.Exists (uninstalled_dir)) {
-				Console.WriteLine ("Removing old \"Uninstalled Plugins\" " +
+				Logger.Log ("Removing old \"Uninstalled Plugins\" " +
 						   "directory...");
 				try {
 					Syscall.unlink (uninstalled_dir);
 				} catch (Exception e) {
-					Console.WriteLine ("Error removing: {0}", e);
+					Logger.Log ("Error removing: {0}", e);
 				}
 			}
 
 			// Remove old version 0.3.[12] "ExportToHTML.dll" file
 			string export_to_html_dll = Path.Combine (plugins_dir, "ExportToHTML.dll");
 			if (File.Exists (export_to_html_dll)) {
-				Console.WriteLine ("Removing old \"ExportToHTML.dll\" plugin...");
+				Logger.Log ("Removing old \"ExportToHTML.dll\" plugin...");
 				try {
 					Syscall.unlink (export_to_html_dll);
 				} catch (Exception e) {
-					Console.WriteLine ("Error removing: {0}", e);
+					Logger.Log ("Error removing: {0}", e);
 				}
 			}
 
 			// Remove old version 0.3.[12] "PrintNotes.dll" file
 			string print_notes_dll = Path.Combine (plugins_dir, "PrintNotes.dll");
 			if (File.Exists (print_notes_dll)) {
-				Console.WriteLine ("Removing old \"PrintNotes.dll\" plugin...");
+				Logger.Log ("Removing old \"PrintNotes.dll\" plugin...");
 				try {
 					Syscall.unlink (print_notes_dll);
 				} catch (Exception e) {
-					Console.WriteLine ("Error removing: {0}", e);
+					Logger.Log ("Error removing: {0}", e);
 				}
 			}
 		}
@@ -264,7 +264,7 @@ namespace Tomboy
 				Assembly asm = Assembly.GetExecutingAssembly();
 				Stream stream = asm.GetManifestResourceStream (default_desktop);
 				if (stream != null) {
-					Console.WriteLine ("Writing '{0}'...", default_path);
+					Logger.Log ("Writing '{0}'...", default_path);
 					try {
 						StreamWriter file = File.CreateText (default_path);
 						StreamReader reader;
@@ -299,7 +299,7 @@ namespace Tomboy
 
 		void OnPluginCreated (object sender, FileSystemEventArgs args)
 		{
-			Console.WriteLine ("Plugin '{0}' Created", 
+			Logger.Log ("Plugin '{0}' Created", 
 					   Path.GetFileName (args.FullPath));
 
 			ArrayList asm_plugins = FindPluginTypesInFile (args.FullPath);
@@ -329,7 +329,7 @@ namespace Tomboy
 
 		void OnPluginDeleted (object sender, FileSystemEventArgs args)
 		{
-			Console.WriteLine ("Plugin '{0}' Deleted", 
+			Logger.Log ("Plugin '{0}' Deleted", 
 					   Path.GetFileName (args.FullPath));
 
 			ArrayList kill_list = new ArrayList ();
@@ -395,7 +395,7 @@ namespace Tomboy
 			try {
 				files = Directory.GetFiles (dirpath, "*.dll");
 			} catch (Exception e) {
-				Console.WriteLine ("Error getting plugin types from {0}: {1}", 
+				Logger.Log ("Error getting plugin types from {0}: {1}", 
 						   dirpath, 
 						   e);
 				return dir_plugin_types;
@@ -410,7 +410,7 @@ namespace Tomboy
 						dir_plugin_types.Add (type);
 					}
 				} catch (Exception e) {
-					Console.WriteLine ("Failed.\n{0}", e);
+					Logger.Log ("Failed.\n{0}", e);
 				}
 			}
 
@@ -437,7 +437,7 @@ namespace Tomboy
 				}
 			}
 
-			Console.WriteLine ("{0}", found_one ? "Done." : "Skipping.");
+			Logger.Log ("{0}", found_one ? "Done." : "Skipping.");
 
 			return asm_plugins;
 		}

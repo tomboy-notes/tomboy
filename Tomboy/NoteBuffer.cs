@@ -38,7 +38,7 @@ namespace Tomboy
 
 		public void ToggleActiveTag (string tag_name)
 		{
-			Console.WriteLine ("ToggleTag called for '{0}'", tag_name);
+			Logger.Log ("ToggleTag called for '{0}'", tag_name);
 
 			Gtk.TextTag tag = TagTable.Lookup (tag_name);
 			Gtk.TextIter select_start, select_end;
@@ -58,7 +58,7 @@ namespace Tomboy
 
 		public void SetActiveTag (string tag_name) 
 		{
-			Console.WriteLine ("SetTag called for '{0}'", tag_name);
+			Logger.Log ("SetTag called for '{0}'", tag_name);
 
 			Gtk.TextTag tag = TagTable.Lookup (tag_name);
 			Gtk.TextIter select_start, select_end;
@@ -72,7 +72,7 @@ namespace Tomboy
 
 		public void RemoveActiveTag (string tag_name)
 		{
-			Console.WriteLine ("RemoveTag called for '{0}'", tag_name);
+			Logger.Log ("RemoveTag called for '{0}'", tag_name);
 
 			Gtk.TextTag tag = TagTable.Lookup (tag_name);
 			Gtk.TextIter select_start, select_end;
@@ -155,12 +155,12 @@ namespace Tomboy
 		{
 			if (tag.Image != null &&
 			    tag.Image != start.Pixbuf) {
-				Console.WriteLine ("ImageSwap: tag='{0}' {1}:'{3}'-{2}:'{4}'", 
-						   tag.ElementName,
-						   start.Offset,
-						   end.Offset,
-						   start.Char,
-						   end.Char);
+				Logger.Log ("ImageSwap: tag='{0}' {1}:'{3}'-{2}:'{4}'", 
+					    tag.ElementName,
+					    start.Offset,
+					    end.Offset,
+					    start.Char,
+					    end.Char);
 
 				start.Buffer.InsertPixbuf (start, tag.Image);
 			}
@@ -312,7 +312,7 @@ namespace Tomboy
 
 				// Hidden character representing an anchor
 				if (iter.Char[0] == (char) 0xFFFC) {
-					Console.WriteLine ("Got child anchor!!!");
+					Logger.Log ("Got child anchor!!!");
 					if (iter.ChildAnchor != null) {
 						string serialize = 
 						    (string) iter.ChildAnchor.Data ["serialize"];
@@ -455,9 +455,9 @@ namespace Tomboy
 					buffer.ApplyTag (tag_start.Tag, apply_start, apply_end);
 					break;
 				default:
-					Console.WriteLine ("Unhandled element {0}. Value: '{1}'",
-							   xml.NodeType,
-							   xml.Value);
+					Logger.Log ("Unhandled element {0}. Value: '{1}'",
+						    xml.NodeType,
+						    xml.Value);
 					break;
 				}
 			}

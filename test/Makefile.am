@@ -8,6 +8,7 @@ CSFLAGS =				\
 	-target:library
 
 CSFILES =				\
+	$(srcdir)/LoggerTest.cs		\
 	$(srcdir)/NoteTest.cs		\
 	$(srcdir)/NoteManagerTest.cs
 

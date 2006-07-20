@@ -24,7 +24,7 @@ public class ExportToHTMLPlugin : NotePlugin
 		xsl = new XslTransform ();
 
 		if (File.Exists (stylesheet_file)) {
-			Console.WriteLine ("ExportToHTMLPlugin: Using user-custom {0} file.",
+			Logger.Log ("ExportToHTMLPlugin: Using user-custom {0} file.",
 					   stylesheet_name);
 			xsl.Load (stylesheet_file);
 		} else {
@@ -34,7 +34,7 @@ public class ExportToHTMLPlugin : NotePlugin
 				xsl.Load (reader, null, null);
 				resource.Close ();
 			} else {
-				Console.WriteLine ("Unable to find HTML export template '{0}'.",
+				Logger.Log ("Unable to find HTML export template '{0}'.",
 						   stylesheet_name);
 			}
 		}
@@ -70,7 +70,7 @@ public class ExportToHTMLPlugin : NotePlugin
 		if (response != (int) Gtk.ResponseType.Ok) 
 			return;
 
-		Console.WriteLine ("Exporting Note '{0}' to '{1}'...", Note.Title, output_path);
+		Logger.Log ("Exporting Note '{0}' to '{1}'...", Note.Title, output_path);
 
 		StreamWriter writer = null;
 		try {
@@ -86,7 +86,7 @@ public class ExportToHTMLPlugin : NotePlugin
 			Uri output_uri = new Uri (output_path);
 			Gnome.Url.Show (output_uri.AbsoluteUri);
 		} catch (Exception e) {
-			System.Console.WriteLine ("Could not export: {0}", e);
+			Logger.Log ("Could not export: {0}", e);
 		} finally {
 			if (writer != null) 
 				writer.Close ();
@@ -144,7 +144,7 @@ class NoteNameResolver : XmlResolver
 		Note note = manager.FindByUri (absoluteUri.ToString());
 		if (note != null) {
 			FileStream stream = File.OpenRead (note.FilePath);
-			Console.WriteLine ("GetEntity: Returning Stream");
+			Logger.Log ("GetEntity: Returning Stream");
 			return stream;
 		}
 

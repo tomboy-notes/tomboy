@@ -411,7 +411,7 @@ namespace Tomboy
 			if (current_matches == null || current_matches.Count == 0)
 				return;
 
-			Console.WriteLine ("Entering OnFindNextClicked...");
+			Logger.Log ("Entering OnFindNextClicked...");
 
 			for (int i = 0; i < current_matches.Count; i++) {
 				Match match = (Match) current_matches [i];
@@ -429,7 +429,7 @@ namespace Tomboy
 			// Else wrap to first match
 			JumpToMatch ((Match) current_matches [0]);
 
-			Console.WriteLine ("Leaving OnFindNextClicked...");
+			Logger.Log ("Leaving OnFindNextClicked...");
 		}
 
 		void OnFindPreviousClicked (object sender, EventArgs args)
@@ -710,7 +710,7 @@ namespace Tomboy
 				}
 			}
 			else if (current_note != null) {
-				Console.WriteLine ("Looking for {0}", text);
+				Logger.Log ("Looking for {0}", text);
 
 				current_matches = FindMatchesInBuffer (current_note.Buffer, 
 								       words, 
@@ -766,7 +766,7 @@ namespace Tomboy
 
 		int CompareDates (Gtk.TreeModel model, Gtk.TreeIter a, Gtk.TreeIter b)
 		{
-			Console.WriteLine ("CompareDates Called!");
+			Logger.Log ("CompareDates Called!");
 
 			Note note_a = (Note) model.GetValue (a, 3 /* note */);
 			Note note_b = (Note) model.GetValue (b, 3 /* note */);
