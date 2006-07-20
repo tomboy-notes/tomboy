@@ -24,6 +24,10 @@
 	* Tomboy/Plugins/NoteOfTheDay.cs: Use Logger instead of
 	Console.WriteLine, where appropriate.
 
+	* Tomboy/NoteManager.cs: Split methods FirstRun and
+	CreateTrieController out of NoteManager and made them protected
+	virtual to allow overriding in test cases.
+
 2006-07-06  Kostas Papadimas <pkst@gnome.org>
 
 	* configure.in: Added Greek (el) to ALL_LINGUAS

@@ -33,11 +33,11 @@ namespace Tomboy
 			backup_dir = backup_directory;
 			notes = new ArrayList ();
 
-			bool first_run = !DirectoryExists (notes_dir);
+			bool first_run = FirstRun ();
 			CreateNotesDir ();
 
 			plugin_mgr = CreatePluginManager ();
-			trie_controller = new TrieController (this);
+			trie_controller = CreateTrieController ();
 
 			if (first_run) {
 				// First run. Create "Start Here" note.
@@ -59,6 +59,12 @@ namespace Tomboy
 			return new PluginManager (plugins_dir);
 		}
 
+		// Create the TrieController. For overriding in test methods.
+		protected virtual TrieController CreateTrieController ()
+		{
+			return new TrieController (this);
+		}
+
 		// For overriding in test methods.
 		protected virtual bool DirectoryExists (string directory)
 		{
@@ -69,6 +75,11 @@ namespace Tomboy
 		protected virtual DirectoryInfo CreateDirectory (string directory)
 		{
 			return Directory.CreateDirectory (directory);
+		}
+
+		protected virtual bool FirstRun ()
+		{
+			return !DirectoryExists (notes_dir);
 		}
 
 		// Create the notes directory if it doesn't exist yet.
@@ -336,7 +347,7 @@ namespace Tomboy
 		public event NoteRenameHandler NoteRenamed;
 	}
 
-	class TrieController
+	public class TrieController
 	{
 		TrieTree title_trie;
 		NoteManager manager;
