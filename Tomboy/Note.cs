@@ -89,7 +89,7 @@ namespace Tomboy
 			if (note.version != NoteArchiver.CURRENT_VERSION) {
 				// Note has old format, so rewrite it.  No need
 				// to reread, since we are not adding anything.
-				Console.WriteLine ("Updating note XML to newest format...");
+				Logger.Log ("Updating note XML to newest format...");
 				NoteArchiver.Write (read_file, note);
 			}
 
@@ -103,7 +103,7 @@ namespace Tomboy
 			if (!save_needed)
 				return;
 
-			Console.WriteLine ("Saving '{0}'...", title);
+			Logger.Log ("Saving '{0}'...", title);
 
 			NoteArchiver.Write (filepath, this);
 		}
@@ -213,7 +213,7 @@ namespace Tomboy
 			} catch (Exception e) {
 				// FIXME: Present a nice dialog here that interprets the
 				// error message correctly.
-				Console.WriteLine ("Error while saving: {0}", e);
+				Logger.Log ("Error while saving: {0}", e);
 			}
 		}
 
@@ -328,7 +328,7 @@ namespace Tomboy
 		{
 			get {
 				if (buffer == null) {
-					Console.WriteLine ("Creating Buffer for '{0}'...", title);
+					Logger.Log ("Creating Buffer for '{0}'...", title);
 
 					buffer = new NoteBuffer (TagTable);
 

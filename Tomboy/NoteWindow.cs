@@ -56,8 +56,8 @@ namespace Tomboy
 		{
 			switch (args.Key) {
 			case Preferences.ENABLE_CUSTOM_FONT:
-				Console.WriteLine ("Switching note font {0}...", 
-						   (bool) args.Value ? "ON" : "OFF");
+				Logger.Log ("Switching note font {0}...", 
+					    (bool) args.Value ? "ON" : "OFF");
 
 				if ((bool) args.Value) {
 					string font_string = (string) 
@@ -69,8 +69,8 @@ namespace Tomboy
 				break;
 
 			case Preferences.CUSTOM_FONT_FACE:
-				Console.WriteLine ("Switching note font to '{0}'...", 
-						   (string) args.Value);
+				Logger.Log ("Switching note font to '{0}'...", 
+					    (string) args.Value);
 
 				ModifyFont (Pango.FontDescription.FromString ((string) args.Value));
 				break;
@@ -102,7 +102,7 @@ namespace Tomboy
 				StringBuilder insert = new StringBuilder ();
 
 				foreach (Uri uri in uri_list) {
-					Console.WriteLine ("Got Dropped URI: {0}", uri);
+					Logger.Log ("Got Dropped URI: {0}", uri);
 
 					// FIXME: The space here is a hack
 					// around a bug in the URL Regex which
@@ -382,7 +382,7 @@ namespace Tomboy
 		{
 			args.Menu.AccelGroup = accel_group;
 
-			Console.WriteLine ("Populating context menu...");
+			Logger.Log ("Populating context menu...");
 
 			// Remove the lame-o gigantic Insert Unicode Control
 			// Characters menu item.
@@ -977,7 +977,7 @@ namespace Tomboy
 		void UndoClicked (object sender, EventArgs args)
 		{
 			if (undo_manager.CanUndo) {
-				Console.WriteLine ("Running undo...");
+				Logger.Log ("Running undo...");
 				undo_manager.Undo ();
 			}
 		}
@@ -985,7 +985,7 @@ namespace Tomboy
 		void RedoClicked (object sender, EventArgs args)
 		{
 			if (undo_manager.CanRedo) {
-				Console.WriteLine ("Running redo...");
+				Logger.Log ("Running redo...");
 				undo_manager.Redo ();
 			}
 		}

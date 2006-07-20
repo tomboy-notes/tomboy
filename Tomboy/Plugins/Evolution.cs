@@ -33,7 +33,7 @@ class EvoUtils
 			SetupAccountUrlToUidMap ();
 		} 
 		catch (Exception e) {
-			Console.WriteLine ("Evolution: Error reading accounts: {0}", e);
+			Logger.Log ("Evolution: Error reading accounts: {0}", e);
 		}
 	}
 
@@ -77,7 +77,7 @@ class EvoUtils
 			    Uri uri = new Uri (source_url.InnerText);
 			    source_url_to_uid [uri] = uid;
 			} catch (System.UriFormatException) {
-			    Console.WriteLine (
+			    Logger.Log (
 				    "Evolution: Unable to parse account source URI \"{0}\"",
 				    source_url.InnerText);
 			}
@@ -153,7 +153,7 @@ class EvoUtils
 
 			if (match) {
 				account_uid = (string) source_url_to_uid [source_uri];
-				Console.WriteLine ("Evolution: Matching account '{0}'...", 
+				Logger.Log ("Evolution: Matching account '{0}'...", 
 						   account_uid);
 				break;
 			}
@@ -255,7 +255,7 @@ public class EmailLink : DynamicNoteTag
 		} catch (Exception e) {
 			string message = String.Format ("Error running Evolution: {0}", 
 							e.Message);
-			Console.WriteLine (message);
+			Logger.Log (message);
  			HIGMessageDialog dialog = 
  				new HIGMessageDialog (editor.Toplevel as Gtk.Window,
  						      Gtk.DialogFlags.DestroyWithParent,
@@ -365,7 +365,7 @@ public class EvolutionPlugin : NotePlugin
 
 		UriList uri_list = new UriList (uri_string);
 		foreach (Uri uri in uri_list) {
-			Console.WriteLine ("Evolution: Dropped URI: {0}", uri.LocalPath);
+			Logger.Log ("Evolution: Dropped URI: {0}", uri.LocalPath);
 
 			int mail_fd = Syscall.open (uri.LocalPath, OpenFlags.O_RDONLY);
 			if (mail_fd == -1)
@@ -387,7 +387,7 @@ public class EvolutionPlugin : NotePlugin
 				subject_list.Add (subject);
 				message.Dispose ();
 
-				Console.WriteLine ("Evolution: Message Subject: {0}", subject);
+				Logger.Log ("Evolution: Message Subject: {0}", subject);
 			};
 
 			parser.Dispose ();
@@ -410,7 +410,7 @@ public class EvolutionPlugin : NotePlugin
 
 		xuid_list = new ArrayList ();
 
-		Console.WriteLine ("Evolution: Dropped XUid: uri = '{0}'", list [0]);
+		Logger.Log ("Evolution: Dropped XUid: uri = '{0}'", list [0]);
 
 		for (int i = 1; i < list.Length; i++) {
 			if (list [i] == string.Empty)
@@ -420,7 +420,7 @@ public class EvolutionPlugin : NotePlugin
 				EvoUtils.EmailUriFromDropUri (list [0] /* evo account uri */,
 							      list [i] /* message uid */);
 
-			Console.WriteLine ("Evolution: Translating XUid uid='{0}' to uri='{1}'", 
+			Logger.Log ("Evolution: Translating XUid uid='{0}' to uri='{1}'", 
 					   list [i],
 					   launch_uri);
 

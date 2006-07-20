@@ -134,7 +134,7 @@ namespace Tomboy
 
 		void OnExitingEvent (object sender, EventArgs args)
 		{
-			Console.WriteLine ("Saving unsaved notes...");
+			Logger.Log ("Saving unsaved notes...");
 
 			foreach (Note note in notes) {
 				note.Save ();
@@ -162,7 +162,7 @@ namespace Tomboy
 			notes.Remove (note);
 			note.Delete ();
 
-			Console.WriteLine ("Deleting note '{0}'.", note.Title);
+			Logger.Log ("Deleting note '{0}'.", note.Title);
 
 			if (NoteDeleted != null)
 				NoteDeleted (this, note);

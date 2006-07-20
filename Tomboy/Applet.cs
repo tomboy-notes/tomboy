@@ -34,7 +34,7 @@ namespace Tomboy
 
 		public override void Creation ()
 		{
-			Console.WriteLine ("Applet Created...");
+			Logger.Log ("Applet Created...");
 
 			manager = Tomboy.DefaultNoteManager;
 			tray = new TomboyTray (manager);
@@ -205,7 +205,7 @@ namespace Tomboy
 
 		void Quit (object sender, EventArgs args)
 		{
-			Console.WriteLine ("Quitting Tomboy.  Ciao!");
+			Logger.Log ("Quitting Tomboy.  Ciao!");
 			Tomboy.Exit (0);
 		}
 	}

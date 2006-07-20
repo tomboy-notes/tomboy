@@ -39,14 +39,14 @@ class GalagoManager
 
 	void OnUpdated (object sender, EventArgs args)
 	{
-		Console.WriteLine ("Got Presence Updated!");
+		Logger.Log ("Got Presence Updated!");
 		if (PresenceChanged != null)
 			PresenceChanged (this, args);
 	}
 
 	void OnPersonAdded (object sender, Galago.AddedArgs args)
 	{
-		Console.WriteLine ("Person Added!");
+		Logger.Log ("Person Added!");
 
 		UpdateTrie (false);
 		if (PeopleChanged != null)
@@ -55,7 +55,7 @@ class GalagoManager
 
 	void OnPersonRemoved (object sender, Galago.RemovedArgs args)
 	{
-		Console.WriteLine ("Person Removed!");
+		Logger.Log ("Person Removed!");
 
 		UpdateTrie (false);
 		if (PeopleChanged != null)
@@ -67,7 +67,7 @@ class GalagoManager
 		trie = new TrieTree (false /* !case_sensitive */);
 		ArrayList people = new ArrayList ();
 
-		Console.WriteLine ("Loading up the person trie, Part 1...");
+		Logger.Log ("Loading up the person trie, Part 1...");
 
 		foreach (Person person in Galago.Core.GetPeople (false, refresh_query)) {
 			string fname, mname, lname;
@@ -109,13 +109,13 @@ class GalagoManager
 			}
 		}
 
-		Console.WriteLine ("Loading up the person trie, Part 2...");
+		Logger.Log ("Loading up the person trie, Part 2...");
 
 		foreach (PersonLink plink in people) {
 			trie.AddKeyword (plink.LinkText, plink);
 		}
 
-		Console.WriteLine ("Done.");
+		Logger.Log ("Done.");
 	}
 }
 
@@ -142,7 +142,7 @@ class PersonLink
 		this.person = person;
 		this.account = null;
 
-		Console.WriteLine ("Added person {0}: {1}", link_type, LinkText);
+		Logger.Log ("Added person {0}: {1}", link_type, LinkText);
 	}
 
 	public PersonLink (LinkType type, Account account)
@@ -151,7 +151,7 @@ class PersonLink
 		this.person = account.Person;
 		this.account = account;		
 
-		Console.WriteLine ("Added account {0}: {1}", link_type, LinkText);
+		Logger.Log ("Added account {0}: {1}", link_type, LinkText);
 	}
 
 	public string LinkText
@@ -192,7 +192,7 @@ class PersonLink
 			Person foo = person.PriorityAccount;
 			Account best = new Account (foo.Handle);
 			
-			Console.WriteLine ("Using priority account '{0}' for {1}", 
+			Logger.Log ("Using priority account '{0}' for {1}", 
 					   best.UserName, 
 					   LinkText);
 
@@ -274,7 +274,7 @@ class PersonTag : NoteTag
 			string message = Catalog.GetString ("Error running gaim-remote: {0}");
 			message = String.Format (message, e.Message);
 
-			Console.WriteLine (message);
+			Logger.Log (message);
 
  			HIGMessageDialog dialog = 
  				new HIGMessageDialog (editor.Toplevel as Gtk.Window,
@@ -314,7 +314,7 @@ class GalagoPresencePlugin : NotePlugin
 		if (person_tag == null) {
 			person_tag = new PersonTag ("link:person", galago);
 
-			Console.WriteLine ("Adding link:person tag...");
+			Logger.Log ("Adding link:person tag...");
 			Note.TagTable.Add (person_tag);
 		}
 
@@ -368,7 +368,7 @@ class GalagoPresencePlugin : NotePlugin
 			Gtk.TextIter match_end = match_start;
 			match_end.ForwardChars (hit.End - hit.Start);
 
-			Console.WriteLine ("Matching Person '{0}' at {1}-{2}...", 
+			Logger.Log ("Matching Person '{0}' at {1}-{2}...", 
 					   hit.Key, 
 					   hit.Start, 
 					   hit.End);
