@@ -9,7 +9,7 @@ namespace TomboyTest
 		[Test]
 		public void Construct()
 		{
-			new Note("Note Title", "/tmp/note", null);
+			Note.CreateNewNote ("Note Title", "/tmp/note", null);
 		}
 	}
 }

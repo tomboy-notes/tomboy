@@ -24,9 +24,18 @@
 	* Tomboy/Plugins/NoteOfTheDay.cs: Use Logger instead of
 	Console.WriteLine, where appropriate.
 
+	* Tomboy/Note.cs: Made Note constructors private and instead
+	introduced factory methods CreateNewNote and CreateExistingNote.
+	NoteArchiver is now a singleton.
 	* Tomboy/NoteManager.cs: Split methods FirstRun and
 	CreateTrieController out of NoteManager and made them protected
-	virtual to allow overriding in test cases.
+	virtual to allow overriding in test cases. Use new Note factory
+	method.
+	* test/DummyNote.cs: A DummyNoteArchiver class for use in unit tests.
+	* test/NoteTest.cs: Use the new Note factory method.
+	* test/Makefile.am: Added DummyNote.cs. Made test target phony. Test
+	now depends on Tomboy.exe, so if tomboy is rebuilt, the tests are also
+	rebuilt. MONO_PATH now includes the Plugins directory.
 
 2006-07-06  Kostas Papadimas <pkst@gnome.org>
 
