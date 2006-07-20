@@ -3,6 +3,7 @@ using System;
 using System.IO;
 using System.Collections;
 using System.Reflection;
+using System.Text;
 using System.Xml;
 using System.Xml.XPath;
 using System.Xml.Xsl;
@@ -93,7 +94,7 @@ public class ExportToHTMLPlugin : NotePlugin
 		}
 	}
 
-	void WriteHTMLForNote (TextWriter writer, 
+	public void WriteHTMLForNote (TextWriter writer, 
 			       Note note,
 			       bool export_linked) 
 	{
@@ -143,12 +144,36 @@ class NoteNameResolver : XmlResolver
 	{		
 		Note note = manager.FindByUri (absoluteUri.ToString());
 		if (note != null) {
-			FileStream stream = File.OpenRead (note.FilePath);
+			StringWriter writer = new StringWriter ();
+			NoteArchiver.Write (writer, note);
+			Stream stream = WriterToStream (writer);
+			writer.Close ();
 			Logger.Log ("GetEntity: Returning Stream");
 			return stream;
 		}
 
 		return null;
+	}
+
+	// Using UTF-16 does not work - the document is not processed.
+	// Also, the byte order marker (BOM in short, locate at U+FEFF,
+        // 0xef 0xbb 0xbf in UTF-8) must be included, otherwise parsing fails
+        // as well. This way the buffer contains an exact representation of
+        // the on-disk representation of notes.
+        //
+        // See http://en.wikipedia.org/wiki/Byte_Order_Mark for more
+        // information about the BOM.
+	MemoryStream WriterToStream (TextWriter writer)
+	{
+		UTF8Encoding encoding = new UTF8Encoding ();
+		string s = writer.ToString ();
+		int bytesRequired = 3 + encoding.GetByteCount (s);
+		byte[] buffer = new byte[bytesRequired];
+		buffer[0] = 0xef;
+		buffer[1] = 0xbb;
+		buffer[2] = 0xbf;
+		encoding.GetBytes (s, 0, s.Length, buffer, 3);
+		return new MemoryStream (buffer);
 	}
 
 	public override Uri ResolveUri (Uri baseUri, string relativeUri)

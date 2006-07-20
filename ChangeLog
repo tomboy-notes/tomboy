@@ -37,6 +37,11 @@
 	now depends on Tomboy.exe, so if tomboy is rebuilt, the tests are also
 	rebuilt. MONO_PATH now includes the Plugins directory.
 
+	* Tomboy/Plugins/ExportToHTML.cs: Don't use the on-disk copy of the
+	note for exporting, but an in-memory copy.
+	* test/Plugins/ExportToHTMLTest.cs: Test case.
+	* test/Makefile.am: Added Plugins/ExportToHTMLTest.cs.
+
 2006-07-06  Kostas Papadimas <pkst@gnome.org>
 
 	* configure.in: Added Greek (el) to ALL_LINGUAS
