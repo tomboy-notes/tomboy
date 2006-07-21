@@ -141,7 +141,7 @@ class NoteNameResolver : XmlResolver
 	}
 
 	public override object GetEntity (Uri absoluteUri, string role, Type ofObjectToReturn)
-	{		
+	{
 		Note note = manager.FindByUri (absoluteUri.ToString());
 		if (note != null) {
 			StringWriter writer = new StringWriter ();
@@ -157,12 +157,12 @@ class NoteNameResolver : XmlResolver
 
 	// Using UTF-16 does not work - the document is not processed.
 	// Also, the byte order marker (BOM in short, locate at U+FEFF,
-        // 0xef 0xbb 0xbf in UTF-8) must be included, otherwise parsing fails
-        // as well. This way the buffer contains an exact representation of
-        // the on-disk representation of notes.
-        //
-        // See http://en.wikipedia.org/wiki/Byte_Order_Mark for more
-        // information about the BOM.
+	// 0xef 0xbb 0xbf in UTF-8) must be included, otherwise parsing fails
+	// as well. This way the buffer contains an exact representation of
+	// the on-disk representation of notes.
+	//
+	// See http://en.wikipedia.org/wiki/Byte_Order_Mark for more
+	// information about the BOM.
 	MemoryStream WriterToStream (TextWriter writer)
 	{
 		UTF8Encoding encoding = new UTF8Encoding ();
