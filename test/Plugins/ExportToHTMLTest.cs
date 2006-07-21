@@ -80,12 +80,14 @@ namespace TomboyTest
 		public void SetupNoteArchiver ()
 		{
 			NoteArchiver.Instance = new DummyNoteArchiver ();
+                        Logger.Mute ();
 		}
 
 		[TearDown]
 		public void TearDownNoteArchiver ()
 		{
 			NoteArchiver.Instance = null;
+                        Logger.Unmute ();
 		}
 
 		[Test]
