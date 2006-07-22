@@ -144,6 +144,7 @@ namespace Tomboy
 			tree.RulesHint = true;
 			tree.RowActivated += OnRowActivated;
 			tree.DragDataGet += OnDragDataGet;
+			tree.KeyPressEvent += OnKeyPressed;
 
 			tree.EnableModelDragSource (Gdk.ModifierType.Button1Mask,
 						    targets,
@@ -204,13 +205,7 @@ namespace Tomboy
 
 		void OnDragDataGet (object sender, Gtk.DragDataGetArgs args)
 		{
-			Gtk.TreeModel model;
-			Gtk.TreeIter iter;
-
-			if (!tree.Selection.GetSelected (out model, out iter))
-				return;
-
-			Note note = (Note) model.GetValue (iter, 3 /* note */);
+			Note note = GetSelectedNote ();
 			if (note == null)
 				return;
 
@@ -222,6 +217,17 @@ namespace Tomboy
 						Encoding.UTF8.GetBytes (note.Uri));
 
 			args.SelectionData.Text = note.Title;
+		}
+
+		Note GetSelectedNote ()
+		{
+			Gtk.TreeModel model;
+			Gtk.TreeIter iter;
+
+			if (!tree.Selection.GetSelected (out model, out iter))
+				return null;
+
+			return (Note) model.GetValue (iter, 3 /* note */);
 		}
 
 		string PrettyPrintDate (DateTime date)
@@ -284,5 +290,20 @@ namespace Tomboy
 
 			note.Window.Present ();
 		}
+
+		void OnKeyPressed (object obj, Gtk.KeyPressEventArgs args)
+		{
+			Gdk.EventKey eventKey = args.Event;
+
+			if (eventKey.Key == Gdk.Key.Delete && eventKey.State == 0 /* Gdk.ModifierType.None */) {
+				// Get the selected note and prompt for deletion
+				Note note = GetSelectedNote();
+				if (note == null)
+					return;
+
+				NoteUtils.ShowDeletionDialog (note, this);
+			}		
+		}
+
 	}
 }
