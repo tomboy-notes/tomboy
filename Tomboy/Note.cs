@@ -627,4 +627,40 @@ namespace Tomboy
 			xml.WriteEndDocument ();
 		}
 	}
+
+	public class NoteUtils
+	{
+		public static void ShowDeletionDialog (Note note, Gtk.Window parent) 
+		{
+			HIGMessageDialog dialog = 
+				new HIGMessageDialog (
+					parent,
+					Gtk.DialogFlags.DestroyWithParent,
+					Gtk.MessageType.Question,
+					Gtk.ButtonsType.None,
+					Catalog.GetString ("Really delete this note?"),
+					Catalog.GetString ("If you delete a note it is " +
+							   "permanently lost."));
+
+			Gtk.Button button;
+
+			button = new Gtk.Button (Gtk.Stock.Cancel);
+			button.CanDefault = true;
+			button.Show ();
+			dialog.AddActionWidget (button, Gtk.ResponseType.Cancel);
+			dialog.DefaultResponse = Gtk.ResponseType.Cancel;
+
+			button = new Gtk.Button (Gtk.Stock.Delete);
+			button.CanDefault = true;
+			button.Show ();
+			dialog.AddActionWidget (button, 666);
+
+			int result = dialog.Run ();
+			if (result == 666) {
+				note.Manager.Delete (note);
+			}
+
+			dialog.Destroy();
+		}
+	}
 }

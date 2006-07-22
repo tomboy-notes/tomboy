@@ -304,36 +304,8 @@ namespace Tomboy
 
 		void DeleteButtonClicked () 
 		{
-			HIGMessageDialog dialog = 
-				new HIGMessageDialog (
-					note.Window,
-					Gtk.DialogFlags.DestroyWithParent,
-					Gtk.MessageType.Question,
-					Gtk.ButtonsType.None,
-					Catalog.GetString ("Really delete this note?"),
-					Catalog.GetString ("If you delete a note it is " +
-							   "permanently lost."));
-
-			Gtk.Button button;
-
-			button = new Gtk.Button (Gtk.Stock.Cancel);
-			button.CanDefault = true;
-			button.Show ();
-			dialog.AddActionWidget (button, Gtk.ResponseType.Cancel);
-			dialog.DefaultResponse = Gtk.ResponseType.Cancel;
-
-			button = new Gtk.Button (Gtk.Stock.Delete);
-			button.CanDefault = true;
-			button.Show ();
-			dialog.AddActionWidget (button, 666);
-
-			int result = dialog.Run ();
-			if (result == 666 ) {
-				// This will destroy our window...
-				note.Manager.Delete (note);
-			}
-
-			dialog.Destroy();
+			// Prompt for note deletion
+			NoteUtils.ShowDeletionDialog (note, this);
 		}
 
 		//
