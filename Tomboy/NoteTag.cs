@@ -335,7 +335,7 @@ namespace Tomboy
 			tag = new NoteTag ("note-title");
 			tag.Underline = Pango.Underline.Single;
 			tag.Foreground = "red";
-			tag.Scale = Pango.Scale.XX_Large;
+			tag.Scale = Pango.Scale.XXLarge;
 			// FiXME: Hack around extra rewrite on open
 			tag.CanSerialize = false;
 			Add (tag);
@@ -356,14 +356,14 @@ namespace Tomboy
 			// Font sizes
 
 			tag = new NoteTag ("size:huge");
-			tag.Scale = Pango.Scale.XX_Large;
+			tag.Scale = Pango.Scale.XXLarge;
 			tag.CanUndo = true;
 			tag.CanGrow = true;
 			tag.CanSpellCheck = true;
 			Add (tag);
 
 			tag = new NoteTag ("size:large");
-			tag.Scale = Pango.Scale.X_Large;
+			tag.Scale = Pango.Scale.XLarge;
 			tag.CanUndo = true;
 			tag.CanGrow = true;
 			tag.CanSpellCheck = true;
