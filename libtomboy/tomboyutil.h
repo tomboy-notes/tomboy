@@ -8,8 +8,6 @@
 
 G_BEGIN_DECLS
 
-void tomboy_widget_set_bg_pixmap (GtkWidget *applet, GdkPixmap *pixmap);
-
 gint tomboy_window_get_workspace (GtkWindow *window);
 
 void tomboy_window_move_to_current_workspace (GtkWindow *window);

@@ -134,7 +134,7 @@ namespace Tomboy
 		Gtk.Menu MakeRecentNotesMenu (Gtk.Widget parent) 
 		{
 			Gtk.Menu menu = new Gtk.Menu ();
-			menu.AttachToWidget (parent, null);
+			menu.AttachToWidget (parent, GuiUtils.DetachMenu);
 
 			bool enable_keybindings = (bool) 
 				Preferences.Get (Preferences.ENABLE_KEYBINDINGS);

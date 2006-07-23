@@ -13,7 +13,6 @@ namespace Tomboy
 	public class NoteBuffer : Gtk.TextBuffer 
 	{
 		UndoManager undo_manager;
-		Gtk.TextTagTable tag_table;
 
 		// list of Gtk.TextTags to apply on insert
 		ArrayList active_tags;
@@ -21,7 +20,6 @@ namespace Tomboy
 		public NoteBuffer (Gtk.TextTagTable tags) 
 			: base (tags)
 		{
-			tag_table = tags;
 			active_tags = new ArrayList ();
 			undo_manager = new UndoManager (this);
 
@@ -162,7 +160,7 @@ namespace Tomboy
 					    start.Char,
 					    end.Char);
 
-				start.Buffer.InsertPixbuf (start, tag.Image);
+				start.Buffer.InsertPixbuf (ref start, tag.Image);
 			}
 		}
 
@@ -432,7 +430,7 @@ namespace Tomboy
 				case XmlNodeType.Whitespace:
 				case XmlNodeType.SignificantWhitespace:
 					Gtk.TextIter insert_at = buffer.GetIterAtOffset (offset);
-					buffer.Insert (insert_at, xml.Value);
+					buffer.Insert (ref insert_at, xml.Value);
 
 					offset += xml.Value.Length;
 					break;

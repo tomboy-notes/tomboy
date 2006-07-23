@@ -1,3 +1,47 @@
+2006-07-23  Alex Graveley  <alex@beatniksoftware.com>
+
+	Partial port of changes from tomboy-0-4 branch to build against
+	Gtk#2 and Mono 1.1.13...
+
+	- Use GuiUtils.DetachMenu when calling Gtk.Menu.AttachToWidget,
+	since this can't be null for some reason.
+
+	- Remove Tomboy/panelapplet/*.
+
+	* tomboy.spec.in: Install tomboy.desktop, don't install
+	GNOME_TomboyApplet.xml.
+
+	* data/Makefile.am: Install the tomboy.desktop file.
+	I believe the other non-RedHat desktops have caught up with
+	supporting OnlyShowIn=KDE.
+
+	* Tomboy/Watchers.cs: Drop old gtkspell compatibility code.
+
+	* Tomboy/Utils.cs: Update for Gtk.Menu.Popup API change.
+
+	* Tomboy/Tomboy.cs: Syscall.signal -> Stdlib.signal.
+
+	* Tomboy/Search.cs: Gtk.Combo -> Gtk.ComboBoxEntry.  Keep previous
+	searches in an ArrayList.  Remove GLib.Markup.EscapeText bug
+	workaround.
+	
+	* Tomboy/RecentChanges.cs: Update for chaged SetSortFunc API.
+
+	* Tomboy/NoteWindow.cs: In NoteTextMenu,
+	don't store accel_group.
+
+	* Tomboy/Makefile.am: Don't build panelapplet/*.  Don't define
+	OLD_GTKSPELL_CSFLAGS.
+
+	* libtomboy/tomboyutil.c: Remove tomboy_widget_set_bg_pixmap.
+
+	* Tomboy/Applet.cs: Switch to using Gnome.PanelApplet.  Drop
+	stored reference (hopefully not needed anymore).  BackgroundType
+	-> PanelAppletBackgroundType.  Drop tomboy_widget_set_bg_pixmap.
+	
+	* configure.in: Bump version to 0.3.9.  Drop old gtkspell checks.
+	Switch to gtk-sharp-2.0, gnome-sharp-2.0, and gconf-sharp-2.0.
+
 2006-07-22  Christopher Orr  <chris@orr.me.uk>
 
 	* Tomboy/Note.cs: Moved note deletion UI to new NoteUtils class.

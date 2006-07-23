@@ -13,10 +13,6 @@ DBUS_CSFILES = 				\
 	$(srcdir)/RemoteControlProxy.cs
 endif
 
-if OLD_GTKSPELL
-OLD_GTKSPELL_CSFLAGS = -define:OLD_GTKSPELL
-endif
-
 if FIXED_GTKSPELL
 FIXED_GTKSPELL_CSFLAGS = -define:FIXED_GTKSPELL
 endif
@@ -27,8 +23,7 @@ CSFLAGS = 				\
 	-unsafe 			\
 	-target:exe 			\
 	$(DBUS_CSFLAGS) 		\
-	$(FIXED_GTKSPELL_CSFLAGS) 	\
-	$(OLD_GTKSPELL_CSFLAGS)
+	$(FIXED_GTKSPELL_CSFLAGS)
 
 CSFILES = 					\
 	$(srcdir)/Tomboy.cs 			\
@@ -49,9 +44,6 @@ CSFILES = 					\
 	$(srcdir)/Utils.cs			\
 	$(srcdir)/Watchers.cs			\
 	$(srcdir)/XKeybinder.cs			\
-	\
-	$(srcdir)/panelapplet/*.cs		\
-	$(srcdir)/panelapplet/generated/*.cs	\
 	\
 	$(DBUS_CSFILES)	
 

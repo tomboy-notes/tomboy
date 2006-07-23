@@ -12,7 +12,7 @@ namespace Tomboy
 		NoteManager manager;
 
 		Gtk.AccelGroup accel_group;
-		Gtk.Combo find_combo;
+		Gtk.ComboBoxEntry find_combo;
 		Gtk.CheckButton search_all_notes;
 		Gtk.CheckButton case_sensitive;
 		Gtk.ScrolledWindow matches_window;
@@ -29,7 +29,7 @@ namespace Tomboy
 		Note current_note;
 		ArrayList current_matches;
 
-		static string [] previous_searches;
+		static ArrayList previous_searches;
 		static NoteFindDialog instance;
 		static Gdk.Pixbuf search_image;
 		static Gdk.Pixbuf stock_notes;
@@ -97,17 +97,18 @@ namespace Tomboy
 			// Allow resizing if showing the results list
 			this.Resizable = search_all;
 
-			find_combo = new Gtk.Combo ();
-			find_combo.AllowEmpty = false;
-			find_combo.CaseSensitive = false;
-			find_combo.DisableActivate ();
+			find_combo = Gtk.ComboBoxEntry.NewText ();
+			find_combo.Changed += OnEntryChanged;
+			find_combo.Entry.ActivatesDefault = false;
 			find_combo.Entry.Activated += OnEntryActivated;
-			find_combo.Entry.Changed += OnEntryChanged;
-			if (previous_searches != null)
-				find_combo.PopdownStrings = previous_searches;
+			if (previous_searches != null) {
+				foreach (string prev in previous_searches) {
+					find_combo.AppendText (prev);
+				}
+			}
 
 			Gtk.Label label = new Gtk.Label (Catalog.GetString ("_Find:"));
-			label.MnemonicWidget = find_combo.Entry;
+			label.MnemonicWidget = find_combo;
 
 			search_all_notes = 
 				new Gtk.CheckButton (Catalog.GetString ("Search _All Notes"));
@@ -232,9 +233,7 @@ namespace Tomboy
 
 			store = new Gtk.ListStore (types);
 			store.SetSortFunc (3 /* note */,
-					   new Gtk.TreeIterCompareFunc (CompareDates),
-					   IntPtr.Zero, 
-					   null);
+					   new Gtk.TreeIterCompareFunc (CompareDates));
 
 			tree = new Gtk.TreeView (store);
 			tree.HeadersVisible = true;
@@ -476,7 +475,6 @@ namespace Tomboy
 
 		void OnCaseSensitiveToggled (object sender, EventArgs args)
 		{
-			find_combo.CaseSensitive = case_sensitive.Active;
 			UpdateResults ();
 		}
 
@@ -577,39 +575,37 @@ namespace Tomboy
 		// results...
 		void EntryChangedTimeout (object sender, EventArgs args)
 		{
-			string text = find_combo.Entry.Text;
-			if (text == null || text == String.Empty)
+			if (SearchText == null)
 				return;
 
 			UpdateResults ();
-			AddToPreviousSearches (text);
+			AddToPreviousSearches (SearchText);
 		}
 
 		void AddToPreviousSearches (string text)
 		{
-			// Update previous searches, by either creating the
-			// initial list, or adding a new term to the list, or
-			// shuffling an existing term to the top...
-			if (previous_searches == null) {
-				previous_searches = new string [] { text };
+			// Update previous searches, by adding a new term to the
+			// list, or shuffling an existing term to the top...
+
+			if (previous_searches == null)
+				previous_searches = new ArrayList ();
+
+			bool repeat = false;
+
+			if (case_sensitive.Active) {
+				repeat = previous_searches.Contains (text);
 			} else {
-				int existing_idx = Array.IndexOf (previous_searches, text);
-				if (existing_idx > -1) {
-					// move the current search to the front of the list
-					string first = previous_searches [0];
-					previous_searches [0] = previous_searches [existing_idx];
-					previous_searches [existing_idx] = first;
-				} else {
-					string [] new_prev; 
-					new_prev = new string [previous_searches.Length + 1];
-					new_prev [0] = text;
-					// copy starting at index 1
-					previous_searches.CopyTo (new_prev, 1);
-					previous_searches = new_prev;
+				string lower = text.ToLower();
+				foreach (string prev in previous_searches) {
+					if (prev.ToLower() == lower)
+						repeat = true;
 				}
 			}
 
-			find_combo.PopdownStrings = previous_searches;
+			if (!repeat) {
+				previous_searches.Insert (0, text);
+				find_combo.PrependText (text);
+			}
 		}
 
 		void AddManagerChangeListeners ()
@@ -650,8 +646,8 @@ namespace Tomboy
 		{
 			CleanupMatches ();
 
-			string text = find_combo.Entry.Text;
-			if (text == null || text == String.Empty)
+			string text = SearchText;
+			if (text == null)
 				return;
 
 			if (!case_sensitive.Active)
@@ -724,22 +720,9 @@ namespace Tomboy
 			}
 		}
 
-		[DllImport("libglib-2.0-0.dll")]
-                static extern IntPtr g_markup_escape_text (string text, int len);
-
-		// NOTE: Workaround a mapping bug in GLib.Markup.EscapeText,
-		// where the length passed to g_markup_escape_text is passed the
-		// character count, not the byte count of the string.
-		static string MarkupEscapeText (string source)
-		{
-			int len = System.Text.Encoding.UTF8.GetByteCount (source);
-			IntPtr markup = g_markup_escape_text (source, len);
-			return GLib.Marshaller.PtrToStringGFree (markup);
-		}
-
 		void AppendResultTreeView (Gtk.ListStore store, Note note, ArrayList matches)
 		{
-			string title = MarkupEscapeText (note.Title);
+			string title = GLib.Markup.EscapeText (note.Title);
 			string match_cnt;
 
 			match_cnt = 
@@ -789,10 +772,15 @@ namespace Tomboy
 
 		public string SearchText
 		{
-			get { return find_combo.Entry.Text; }
+			get {
+				string text = find_combo.Entry.Text;
+				if (text == String.Empty)
+					return null;
+				return text;
+			}
 			set {
-				if (value != null)
-					find_combo.Entry.Text = value;
+				if (value != null && value != "")
+					find_combo.AppendText (value);
 			}
 		}
 	}

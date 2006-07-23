@@ -70,7 +70,9 @@ namespace Tomboy
 			this.change_date = File.GetLastWriteTime (filepath);
 		}
 
-		public static Note CreateNewNote (string title, string filepath, NoteManager manager)
+		public static Note CreateNewNote (string title, 
+						  string filepath, 
+						  NoteManager manager)
 		{
 			return new Note (title, filepath, manager);
 		}

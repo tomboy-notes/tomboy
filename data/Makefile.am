@@ -1,10 +1,9 @@
 
 SUBDIRS = images
 
-### Non-RedHat Gnome desktops don't honor the OnlyShowIn setting in .desktop
-### files.  tomboy.desktop should only appear in KDE, where it executes the
-### tray-icon version.  Gnome is our target audience, and since we don't want
-### them to have an extra menu item, we don't install this for now.
+### tomboy.desktop should only appear in KDE, where it executes the tray-icon
+### version.  Gnome is our target audience, and since we don't want them to have
+### an extra menu item, we don't install this for now.
 
 @INTLTOOL_DESKTOP_RULE@
 
@@ -15,8 +14,8 @@ DefaultPlugins.desktop.in: DefaultPlugins.desktop.in.in Makefile
 	sed -e "s|\@pkglibdir\@|$(pkglibdir)|g" 	\
 	    < $< > $@
 
-#desktopdir   = $(datadir)/applications
-#desktop_DATA = $(desktop_files)
+desktopdir   = $(datadir)/applications
+desktop_DATA = $(desktop_files)
 
 
 pkgconfigdir = $(libdir)/pkgconfig
@@ -64,13 +63,10 @@ $(server_in_files): $(server_in_files:.server.in=.server.in.in) Makefile
 man_MANS = tomboy.1
 
 
-uidir = $(datadir)/gnome-2.0/ui
-ui_DATA = GNOME_TomboyApplet.xml
-
-
 noinst_DATA = 			\
 	Start_Here.note		\
 	DefaultPlugins.desktop	\
+	GNOME_TomboyApplet.xml	\
 	$(desktop_files)
 
 
@@ -82,7 +78,6 @@ EXTRA_DIST = 					\
 	$(man_MANS)				\
 	$(noinst_DATA)				\
 	GNOME_TomboyApplet.server.in.in		\
-	GNOME_TomboyApplet.xml			\
 	$(dbusservice_in_files)
 
 DISTCLEANFILES = 				\
