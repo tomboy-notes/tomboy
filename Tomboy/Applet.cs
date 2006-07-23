@@ -1,16 +1,16 @@
 
 using System;
+using System.IO;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using Mono.Unix;
 
-using PanelApplet;
+using Gnome;
 
 namespace Tomboy
 {
-	public class TomboyApplet : PanelApplet.PanelApplet
+	public class TomboyApplet : Gnome.PanelApplet
 	{
-		static TomboyApplet instance;
-		
 		NoteManager manager;
 		TomboyTray tray;
 		TomboyGConfXKeybinder keybinder;
@@ -43,7 +43,7 @@ namespace Tomboy
 			Add (tray);
 			ShowAll ();
 
-			// Keep around so our callbacks don't get reaped.
+			// Keep referenced so our callbacks don't get reaped.
 			menu_verbs = new BonoboUIVerb [] {
 				new BonoboUIVerb (
 					"Props", new ContextMenuItemCallback (ShowPreferencesVerb)),
@@ -53,17 +53,23 @@ namespace Tomboy
 					"About", new ContextMenuItemCallback (ShowAboutVerb))
 			};
 
-			// FIXME: This silently fails for some unknown reason
-			//SetupMenuFromResource (null, "GNOME_TomboyApplet.xml", menu_verbs);
+			SetupMenuFromResource (null, "GNOME_TomboyApplet.xml", menu_verbs);
+		}
 
-			// Have to resort to this for now
-			SetupMenuFromFile (Defines.DATADIR,
-					   "GNOME_TomboyApplet.xml",
-					   "Tomboy",
-					   menu_verbs);
+		void SetupMenuFromResource (Assembly asm, string resource, BonoboUIVerb [] verbs)
+		{
+			if (asm == null)
+				asm = GetType ().Assembly;
 
-			// Store a reference to avoid segfaults
-			instance = this;
+			Stream stream = asm.GetManifestResourceStream (resource);
+			if (stream != null) {
+				StreamReader reader = new StreamReader (stream);
+				String xml = reader.ReadToEnd ();
+				reader.Close ();
+				stream.Close ();
+
+				SetupMenu (xml, verbs);
+			}
 		}
 
 		void ShowPreferencesVerb ()
@@ -81,34 +87,28 @@ namespace Tomboy
 			tray.ShowAbout ();
 		}
 
-		// NOTE: This is needed to support transparent/pixmap panel
-		//       backgrounds correctly, since Gtk# doesn't map
-		//       GtkStyle::bg_pixmaps[].
-		[DllImport ("libtomboy")]
-		private static extern IntPtr tomboy_widget_set_bg_pixmap (IntPtr widget, 
-									  IntPtr pixmap);
-
-		// FIXME: Overriding to this crashes in the C# bindings.
-		//        Manually tweaked generated bindings to not crash.
-		protected override void OnChangeBackground (BackgroundType type, 
-							    Gdk.Color      color, 
-							    Gdk.Pixmap     pixmap)
+		protected override void OnChangeBackground (PanelAppletBackgroundType type, 
+							    Gdk.Color                 color, 
+							    Gdk.Pixmap                pixmap)
 		{
-			if (tray != null) {
-				Gtk.RcStyle rc_style = new Gtk.RcStyle ();
-				tray.Style = null;
-				tray.ModifyStyle (rc_style);
+			if (tray == null)
+				return;
 
-				switch (type) {
-				case BackgroundType.ColorBackground:
-					tray.ModifyBg (Gtk.StateType.Normal, color);
-					break;
-				case BackgroundType.NoBackground:
-					break;
-				case BackgroundType.PixmapBackground:
-					tomboy_widget_set_bg_pixmap (tray.Handle, pixmap.Handle);
-					break;
-				}
+			Gtk.RcStyle rc_style = new Gtk.RcStyle ();
+			tray.Style = null;
+			tray.ModifyStyle (rc_style);
+
+			switch (type) {
+			case PanelAppletBackgroundType.ColorBackground:
+				tray.ModifyBg (Gtk.StateType.Normal, color);
+				break;
+			case PanelAppletBackgroundType.NoBackground:
+				break;
+			case PanelAppletBackgroundType.PixmapBackground:
+				Gtk.Style copy = tray.Style.Copy();
+				copy.SetBgPixmap (Gtk.StateType.Normal, pixmap);
+				tray.Style = copy;
+				break;
 			}
 		}
 	}
@@ -155,7 +155,7 @@ namespace Tomboy
 		Gtk.Menu MakeRightClickMenu (Gtk.Widget parent)
 		{
 			Gtk.Menu menu = new Gtk.Menu ();
-			menu.AttachToWidget (parent, null);
+			menu.AttachToWidget (parent, GuiUtils.DetachMenu);
 
 			Gtk.AccelGroup accel_group = new Gtk.AccelGroup ();
 			menu.AccelGroup = accel_group;

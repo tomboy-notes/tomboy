@@ -218,47 +218,22 @@ namespace Tomboy
 			}
 		}
 
-		// To unset GtkSpell's tag Foreground correctly we need to call
-		// SetProperty, which is a protected member.
-		class OldGtkSpellFixup : Gtk.TextTag
-		{
-			public OldGtkSpellFixup (IntPtr raw)
-				: base (raw)
-			{
-			}
-
-			public void Fixup ()
-			{
-				SetProperty ("foreground_gdk", new GLib.Value (Gdk.Color.Zero));
-
-				// Force the value to 4 since error underlining
-				// isn't mapped in Gtk# yet.
-				Underline = (Pango.Underline) 4;
-			}
-		}
-
-		// NOTE: Older versions of GtkSpell before 2.0.6 use red
-		// foreground color and a single underline.  This conflicts with
-		// internal note links.  So fix it up to unset foreground and
-		// use the "error" underline.
-		void FixupOldGtkSpell ()
-		{
-#if OLD_GTKSPELL
-			Gtk.TextTag misspell = Note.TagTable.Lookup ("gtkspell-misspelled");
-			if (misspell != null) {
-				OldGtkSpellFixup hack = new OldGtkSpellFixup (misspell.Handle);
-				hack.Fixup ();
-			}
-#endif
-		}
-
 		void Attach ()
 		{
+			// Make sure we add this tag before attaching, so
+			// gtkspell will use our version.
+			if (Note.TagTable.Lookup ("gtkspell-misspelled") == null) {
+				NoteTag tag = new NoteTag ("gtkspell-misspelled");
+				tag.CanSerialize = false;
+				tag.CanSpellCheck = true;
+				tag.Underline = Pango.Underline.Error;
+				Note.TagTable.Add (tag);
+			}
+
 			if (obj_ptr == IntPtr.Zero) {
 				obj_ptr = gtkspell_new_attach (Window.Editor.Handle, 
 							       null, 
 							       IntPtr.Zero);
-				FixupOldGtkSpell ();
 			}
 		}
 
@@ -289,7 +264,7 @@ namespace Tomboy
 			if (args.Tag.Name == "gtkspell-misspelled") {
 				// Remove misspelled tag for links & title
 				foreach (Gtk.TextTag tag in args.StartChar.Tags) {
-					if (tag != args.Tag && 
+					if (tag != args.Tag &&
 					    !NoteTagTable.TagIsSpellCheckable (tag)) {
 						remove = true;
 						break;
@@ -442,7 +417,7 @@ namespace Tomboy
 			for (Match match = regex.Match (start.GetText (end)); 
 			     match.Success; 
 			     match = match.NextMatch ()) {
-				Group group = match.Groups [1];
+				System.Text.RegularExpressions.Group group = match.Groups [1];
 
 				/*
 				Logger.Log ("Highlighting url: '{0}' at offset {1}",
@@ -860,7 +835,7 @@ namespace Tomboy
 			for (Match match = regex.Match (start.GetText (end)); 
 			     match.Success; 
 			     match = match.NextMatch ()) {
-				Group group = match.Groups [1];
+				System.Text.RegularExpressions.Group group = match.Groups [1];
 
 				if (IsPatronymicName (group.ToString ()))
 					continue;
