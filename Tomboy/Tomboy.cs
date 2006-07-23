@@ -311,6 +311,8 @@ namespace Tomboy
 			RemoteControlProxy remote = (RemoteControlProxy) 
 				service.GetObject (typeof (RemoteControlProxy),
 						   RemoteControlProxy.Path);
+			// Work around dbus binding bug. #328930
+			System.GC.SuppressFinalize (remote);
 
 			if (new_note) {
 				string new_uri;
