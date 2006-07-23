@@ -518,7 +518,7 @@ namespace Tomboy
 			string url = GetUrl (start, end);
 
 			Gtk.Clipboard clip = Window.Editor.GetClipboard (Gdk.Selection.Clipboard);
-			clip.SetText (url);
+			clip.Text = url;
 		}
 	}
 
