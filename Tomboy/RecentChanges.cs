@@ -148,7 +148,7 @@ namespace Tomboy
 			Gtk.CellRenderer renderer;
 
 			Gtk.TreeViewColumn title = new Gtk.TreeViewColumn ();
-			title.Title = "Note";
+			title.Title = Catalog.GetString ("Note");
 			title.Sizing = Gtk.TreeViewColumnSizing.Autosize;
 			title.Resizable = true;
 			
