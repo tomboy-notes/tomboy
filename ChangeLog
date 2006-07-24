@@ -1,5 +1,9 @@
 2006-07-24  Alex Graveley  <alex@beatniksoftware.com>
 
+	* Tomboy/Plugins/ExportToHTML.cs: Avoid infinite recursion by
+	keeping track of resolved note entities, and returning null if
+	already resolved.
+
 	* Tomboy/Note.cs: Make IsNew return true if note was created in
 	the last 24 hours.  Fixes bug #343078.
 
