@@ -129,10 +129,12 @@ public class ExportToHTMLPlugin : NotePlugin
 class NoteNameResolver : XmlResolver
 {
 	NoteManager manager;
+	ArrayList already_resolved;
 
 	public NoteNameResolver (NoteManager manager)
 	{
 		this.manager = manager;
+		this.already_resolved = new ArrayList ();
 	}
 
 	public override System.Net.ICredentials Credentials 
@@ -140,19 +142,24 @@ class NoteNameResolver : XmlResolver
 		set { }
 	}
 
-	public override object GetEntity (Uri absoluteUri, string role, Type ofObjectToReturn)
+	public override object GetEntity (Uri absolute_uri, string role, Type of_object_to_return)
 	{
-		Note note = manager.FindByUri (absoluteUri.ToString());
-		if (note != null) {
-			StringWriter writer = new StringWriter ();
-			NoteArchiver.Write (writer, note);
-			Stream stream = WriterToStream (writer);
-			writer.Close ();
-			Logger.Log ("GetEntity: Returning Stream");
-			return stream;
-		}
+		Note note = manager.FindByUri (absolute_uri.ToString ());
+		if (note == null)
+			return null;
 
-		return null;
+		// Avoid infinite recursion.
+		if (already_resolved.Contains (note))
+			return null;
+
+		StringWriter writer = new StringWriter ();
+		NoteArchiver.Write (writer, note);
+		Stream stream = WriterToStream (writer);
+		writer.Close ();
+
+		Logger.Log ("GetEntity: Returning Stream");
+		already_resolved.Add (note);
+		return stream;
 	}
 
 	// Using UTF-16 does not work - the document is not processed.
@@ -167,8 +174,8 @@ class NoteNameResolver : XmlResolver
 	{
 		UTF8Encoding encoding = new UTF8Encoding ();
 		string s = writer.ToString ();
-		int bytesRequired = 3 + encoding.GetByteCount (s);
-		byte[] buffer = new byte[bytesRequired];
+		int bytes_required = 3 + encoding.GetByteCount (s);
+		byte[] buffer = new byte [bytes_required];
 		buffer[0] = 0xef;
 		buffer[1] = 0xbb;
 		buffer[2] = 0xbf;

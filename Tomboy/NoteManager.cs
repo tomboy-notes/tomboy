@@ -53,7 +53,9 @@ namespace Tomboy
 		// methods.
 		protected virtual PluginManager CreatePluginManager ()
 		{
-			string tomboy_dir = Path.Combine (Environment.GetEnvironmentVariable ("HOME"), ".tomboy");
+			string tomboy_dir = 
+				Path.Combine (Environment.GetEnvironmentVariable ("HOME"), 
+					      ".tomboy");
 			string plugins_dir = Path.Combine (tomboy_dir, "Plugins");
 			PluginManager.CreatePluginsDir (plugins_dir);
 
