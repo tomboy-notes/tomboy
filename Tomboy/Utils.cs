@@ -62,15 +62,23 @@ namespace Tomboy
 				menu.AttachWidget.State = Gtk.StateType.Selected;
 		}
 
-		public static Gdk.Pixbuf GetIcon (string resource_name) 
+		public static Gdk.Pixbuf GetIcon (string resource_name, int size) 
 		{
-			return new Gdk.Pixbuf (null, resource_name);
-		}
+			try {
+				return Gtk.IconTheme.Default.LoadIcon (resource_name, size, 0);
+			} catch (GLib.GException e) {
+				Logger.Log ("Unable to load icon '{0}': {1}", 
+					    resource_name, 
+					    e.Message);
+			}
 
-		public static Gdk.Pixbuf GetMiniIcon (string resource_name) 
-		{
-			Gdk.Pixbuf noicon = new Gdk.Pixbuf (null, resource_name);
-			return noicon.ScaleSimple (24, 24, Gdk.InterpType.Nearest);
+			try {
+				Gdk.Pixbuf ret = new Gdk.Pixbuf (null, resource_name + ".png");
+				return ret.ScaleSimple (size, size, Gdk.InterpType.Nearest);
+			} catch (ArgumentException e) {
+			}
+
+			return null;
 		}
 
 		public static Gtk.Button MakeImageButton (Gtk.Image image, string label)

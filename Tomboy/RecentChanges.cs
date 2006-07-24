@@ -17,21 +17,18 @@ namespace Tomboy
 		Gtk.TreeView tree;
 		Gtk.ListStore store;
 
-		static Gdk.Pixbuf recent_icon;
-		static Gdk.Pixbuf stock_notes;
+		static Gdk.Pixbuf note_icon;
 
 		static NoteRecentChanges ()
 		{
-			// FIXME: Get a better recent notes window icon
-			recent_icon = new Gdk.Pixbuf (null, "stock_notes.png");
-			stock_notes = GuiUtils.GetMiniIcon ("stock_notes.png");
+			note_icon = GuiUtils.GetIcon ("tomboy", 22);
 		}
 
 		public NoteRecentChanges (NoteManager manager)
 			: base (Catalog.GetString ("Table of Contents"))
 		{
 			this.manager = manager;
-			this.Icon = recent_icon;
+			this.IconName = "tomboy";
 			this.DefaultWidth = 200;
 
 			// For Escape (Close)
@@ -255,7 +252,7 @@ namespace Tomboy
 			string nice_date = PrettyPrintDate (note.ChangeDate);
 
 			Gtk.TreeIter iter = store.Append ();
-			store.SetValue (iter, 0 /* icon */, stock_notes);
+			store.SetValue (iter, 0 /* icon */, note_icon);
 			store.SetValue (iter, 1 /* title */, note.Title);
 			store.SetValue (iter, 2 /* change date */, nice_date);
 			store.SetValue (iter, 3 /* note */, note);

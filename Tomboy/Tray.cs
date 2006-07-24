@@ -13,22 +13,22 @@ namespace Tomboy
 		Gtk.Tooltips tips;
 		Gtk.Image image;
 
-		static Gdk.Pixbuf tintin;
-		static Gdk.Pixbuf tintin_large;
-		static Gdk.Pixbuf stock_notes;
+		static Gdk.Pixbuf tray_icon;
+		static Gdk.Pixbuf about_icon_large;
+		static Gdk.Pixbuf note_icon;
 
 		static TomboyTray ()
 		{
-			tintin = GuiUtils.GetMiniIcon ("tintin.png");
-			tintin_large = GuiUtils.GetIcon ("tintin.png");
-			stock_notes = GuiUtils.GetMiniIcon ("stock_notes.png");
+			tray_icon = GuiUtils.GetIcon ("tomboy", 22);
+			about_icon_large = GuiUtils.GetIcon ("tomboy", 48);
+			note_icon = GuiUtils.GetIcon ("tomboy", 16);
 		}
 
 		public TomboyTray (NoteManager manager) 
 			: base ()
 		{
 			this.manager = manager;
-			this.image = new Gtk.Image (tintin);
+			this.image = new Gtk.Image (tray_icon);
 
 			this.CanFocus = true;
 			this.ButtonPressEvent += ButtonPress;
@@ -221,7 +221,7 @@ namespace Tomboy
 			display_name = FormatForLabel (display_name);
 
 			Gtk.ImageMenuItem item = new Gtk.ImageMenuItem (display_name);
-			item.Image = new Gtk.Image (stock_notes);
+			item.Image = new Gtk.Image (note_icon);
 			item.Data ["Note"] = note;
 			item.Activated += ShowNote;
 
@@ -317,8 +317,8 @@ namespace Tomboy
 					authors, 
 					documenters, 
 					translators,
-					tintin_large);
-			about.Icon = tintin_large;
+					about_icon_large);
+			about.IconName = "tomboy";
 			about.Show ();
 		}
 
