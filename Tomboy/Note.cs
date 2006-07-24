@@ -14,7 +14,6 @@ namespace Tomboy
 		string filepath;
 
 		bool save_needed;
-		bool is_new;
 
 		// Accessed by NoteArchiver...
 		internal string title;
@@ -54,7 +53,6 @@ namespace Tomboy
 			this.title = title;
 			this.filepath = filepath;
 			this.manager = manager;
-			this.is_new = true;
 			this.create_date = DateTime.Now;
 			this.change_date = create_date;
 		}
@@ -65,7 +63,6 @@ namespace Tomboy
 		{
 			this.manager = manager;
 			this.filepath = filepath;
-			this.is_new = false;
 			this.create_date = DateTime.MinValue;
 			this.change_date = File.GetLastWriteTime (filepath);
 		}
@@ -407,7 +404,10 @@ namespace Tomboy
 
 		public bool IsNew 
 		{
-			get { return is_new; }
+			get { 
+				// Note is new if created in the last 24 hours.
+				return create_date > DateTime.Now.AddHours (-24);
+			}
 		}
 
 		public bool IsLoaded 
