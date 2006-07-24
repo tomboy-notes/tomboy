@@ -441,7 +441,7 @@ gedit_print_job_info_new (GtkTextView* view)
 	gtk_source_print_job_set_footer_format (pjob,
 						_("Page %N of %Q"), 
 						NULL, 
-						_("%A %D, %I:%M %p"), 
+						_("%A %x, %X"), 
 						TRUE);
 
 	gtk_source_print_job_set_print_header (pjob, FALSE);
