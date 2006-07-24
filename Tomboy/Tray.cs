@@ -156,7 +156,7 @@ namespace Tomboy
 			int max_size = 18;
 			int list_size = 0;
 
-			DateTime two_days_ago = DateTime.Now.AddDays (-2);
+			DateTime two_days_ago = DateTime.Today.AddDays (-2);
 
 			// List the i most recently changed notes, and any
 			// currently opened notes...
