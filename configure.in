@@ -63,10 +63,8 @@ if test "x$GTK_2_6" = "xyes"; then
 fi
 
 #
-# Need libpanelapplet to create the applet
+# If libpanelapplet available, use it to find .server install location.
 #
-PKG_CHECK_MODULES(LIBPANELAPPLET, libpanelapplet-2.0)
-
 PANELAPPLET_SERVER_DIR=`$PKG_CONFIG --variable=libdir libpanelapplet-2.0`
 if test "x$PANELAPPLET_SERVER_DIR" = "x"; then
    PANELAPPLET_SERVER_DIR="$libdir/bonobo/servers"
