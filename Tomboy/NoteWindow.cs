@@ -145,13 +145,6 @@ namespace Tomboy
 		GlobalKeybinder global_keys;
 		InterruptableTimeout mark_set_timeout;
 
-		static Gdk.Pixbuf stock_notes;
-
-		static NoteWindow ()
-		{
-			stock_notes = new Gdk.Pixbuf (null, "stock_notes.png");
-		}
-
 		// 
 		// Construct a window to display a note
 		// 
@@ -163,7 +156,7 @@ namespace Tomboy
 			base (note.Title) 
 		{
 			this.note = note;
-			this.Icon = stock_notes;
+			this.IconName = "tomboy";
 			this.SetDefaultSize (450, 360);
 
 			accel_group = new Gtk.AccelGroup ();

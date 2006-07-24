@@ -110,17 +110,10 @@ namespace Tomboy
 		Gtk.Label font_face;
 		Gtk.Label font_size;
 
-		static Gdk.Pixbuf tintin;
-
-		static PreferencesDialog ()
-		{
-			tintin = new Gdk.Pixbuf (null, "tintin.png");
-		}
-
 		public PreferencesDialog ()
 			: base ()
 		{
-			Icon = tintin;
+			IconName = "tomboy";
 			HasSeparator = false;
 			BorderWidth = 5;
 			Resizable = false;

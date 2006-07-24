@@ -31,13 +31,13 @@ namespace Tomboy
 
 		static ArrayList previous_searches;
 		static NoteFindDialog instance;
-		static Gdk.Pixbuf search_image;
-		static Gdk.Pixbuf stock_notes;
+		static Gdk.Pixbuf main_icon_large;
+		static Gdk.Pixbuf note_icon;
 
 		static NoteFindDialog ()
 		{
-			search_image = new Gdk.Pixbuf (null, "gnome-stock-searchtool.png");
-			stock_notes = GuiUtils.GetMiniIcon ("stock_notes.png");
+			main_icon_large = GuiUtils.GetIcon ("gnome-searchtool", 48);
+			note_icon = GuiUtils.GetIcon ("tomboy", 22);
 		}
 
 		public static NoteFindDialog GetInstance (Note note)
@@ -87,7 +87,7 @@ namespace Tomboy
 					Catalog.GetString ("Search All Notes") : 
 					Catalog.GetString ("Search Note"))
 		{
-			this.Icon = search_image;
+			this.IconName = "stock_search";
 
 			// For Escape (Close), Ctrl-G (Find next), and
 			// Ctrl-Shift-G (Find Previous)
@@ -128,7 +128,7 @@ namespace Tomboy
 			widgets.ColumnSpacing = 4;
 			widgets.ShowAll ();
 
-			Gtk.Image image = new Gtk.Image (search_image);
+			Gtk.Image image = new Gtk.Image (main_icon_large);
 			image.Show ();
 
 			Gtk.HBox hbox = new Gtk.HBox (false, 2);
@@ -732,7 +732,7 @@ namespace Tomboy
 					  matches.Count);
 
 			Gtk.TreeIter iter = store.Append ();
-			store.SetValue (iter, 0 /* icon */, stock_notes);
+			store.SetValue (iter, 0 /* icon */, note_icon);
 			store.SetValue (iter, 1 /* title */, title);
 			store.SetValue (iter, 2 /* match count */, match_cnt);
 			store.SetValue (iter, 3 /* note */, note);
