@@ -1,5 +1,9 @@
 2006-07-24  Alex Graveley  <alex@beatniksoftware.com>
 
+	* libtomboy/gtksourceprintjob.c (create_layout_for_para): Do not
+	include error underlines.  Avoids printing out spelling error
+	indicators, fixing bug #339846.
+
 	* Tomboy/Plugins/ExportToHTML.cs: Avoid infinite recursion by
 	keeping track of resolved note entities, and returning null if
 	already resolved.
