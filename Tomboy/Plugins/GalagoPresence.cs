@@ -16,7 +16,7 @@ class GalagoManager
 
 	public GalagoManager ()
 	{
-		Galago.Core.Init ("tomboy", false);
+		Galago.Global.Init ("tomboy", Galago.InitFlags.Client);
 
 		///// 
 		///// Connecting these cause crashes with the current 0.3.2 bindings...
@@ -44,7 +44,7 @@ class GalagoManager
 			PresenceChanged (this, args);
 	}
 
-	void OnPersonAdded (object sender, Galago.AddedArgs args)
+	void OnPersonAdded (object sender, Galago.PersonAddedArgs args)
 	{
 		Logger.Log ("Person Added!");
 
@@ -53,7 +53,7 @@ class GalagoManager
 			PeopleChanged (this, args);
 	}
 
-	void OnPersonRemoved (object sender, Galago.RemovedArgs args)
+	void OnPersonRemoved (object sender, Galago.PersonRemovedArgs args)
 	{
 		Logger.Log ("Person Removed!");
 
@@ -69,30 +69,12 @@ class GalagoManager
 
 		Logger.Log ("Loading up the person trie, Part 1...");
 
-		foreach (Person person in Galago.Core.GetPeople (false, refresh_query)) {
-			string fname, mname, lname;
-			person.GetProperty ("first-name", out fname);
-			person.GetProperty ("middle-name", out mname);
-			person.GetProperty ("last-name", out lname);
+		foreach (Person person in Galago.Global.GetPeople (Galago.Origin.Remote, 
+								   refresh_query)) {
+			string name = person.DisplayName;
 
-			if (person.DisplayName != null) {
+			if (name != null) {
 				people.Add (new PersonLink (LinkType.PersonDisplayName, person));
-			}
-
-			// Joe
-			if (fname != null) {
-				people.Add (new PersonLink (LinkType.FirstName, person));
-			}
-
-			// Joe Smith & Smith Joe
-			if (fname != null && lname != null) {
-				people.Add (new PersonLink (LinkType.FirstLastName, person));
-				people.Add (new PersonLink (LinkType.LastFirstName, person));
-			}
-
-			// Joe Michael Smith
-			if (fname != null && mname != null && lname != null) {
-				people.Add (new PersonLink (LinkType.FirstMiddleLastName, person));
 			}
 
 			foreach (Account account in person.GetAccounts(true)) {
@@ -101,8 +83,8 @@ class GalagoManager
 								    account));
 				}
 
-				if (account.UserName != null &&
-				    account.UserName != account.DisplayName) {
+				if (account.Username != null &&
+				    account.Username != account.DisplayName) {
 					people.Add (new PersonLink (LinkType.AccountUserName, 
 								    account));
 				}
@@ -124,10 +106,6 @@ enum LinkType
 	PersonDisplayName,
 	AccountUserName,
 	AccountDisplayName,
-	FirstName,
-	FirstLastName,
-	LastFirstName,
-	FirstMiddleLastName
 }
 
 class PersonLink
@@ -157,26 +135,14 @@ class PersonLink
 	public string LinkText
 	{
 		get {
-			string fname, mname, lname;
-			person.GetProperty ("first-name", out fname);
-			person.GetProperty ("middle-name", out mname);
-			person.GetProperty ("last-name", out lname);
-
+			
 			switch (link_type) {
 			case LinkType.PersonDisplayName:
 				return person.DisplayName;
 			case LinkType.AccountUserName:
-				return account.UserName;
+				return account.Username;
 			case LinkType.AccountDisplayName:
 				return account.DisplayName;
-			case LinkType.FirstName:
-				return fname;
-			case LinkType.FirstLastName:
-				return fname + " " + lname;
-			case LinkType.LastFirstName:
-				return lname + " " + fname;
-			case LinkType.FirstMiddleLastName:
-				return fname + " " + mname + " " + lname;
 			}
 			return null;
 		}
@@ -188,13 +154,11 @@ class PersonLink
 			return account;
 
 		if (person != null) {
-			// BINDING BUG: Returns a Person instead of Account
-			Person foo = person.PriorityAccount;
-			Account best = new Account (foo.Handle);
+			Account best = person.PriorityAccount;
 			
 			Logger.Log ("Using priority account '{0}' for {1}", 
-					   best.UserName, 
-					   LinkText);
+				    best.Username, 
+				    LinkText);
 
 			return best;
 		}
@@ -211,7 +175,7 @@ class PersonLink
 		p.StartInfo.FileName = "gaim-remote";
 		p.StartInfo.Arguments = 
 			"uri " + 
-			best.Service.Id + ":goim?screenname=" + best.UserName;
+			best.Service.Id + ":goim?screenname=" + best.Username;
 		p.StartInfo.UseShellExecute = false;
 
 		p.Start ();
@@ -369,9 +333,9 @@ class GalagoPresencePlugin : NotePlugin
 			match_end.ForwardChars (hit.End - hit.Start);
 
 			Logger.Log ("Matching Person '{0}' at {1}-{2}...", 
-					   hit.Key, 
-					   hit.Start, 
-					   hit.End);
+				    hit.Key, 
+				    hit.Start, 
+				    hit.End);
 			Buffer.ApplyTag (person_tag, match_start, match_end);
 		}
 	}
