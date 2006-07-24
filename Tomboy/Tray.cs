@@ -306,6 +306,8 @@ namespace Tomboy
 			};
 
 			string translators = Catalog.GetString ("translator-credits");
+			if (translators == "translator-credits")
+				translators = null;
 
 			Gnome.About about = 
 				new Gnome.About (
