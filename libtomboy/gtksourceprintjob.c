@@ -1325,7 +1325,8 @@ create_layout_for_para (GtkSourcePrintJob *job,
 				add_attribute_to_list (attr, attrs, index, seg_len);
 			}
 
-			if (seg->style->underline != PANGO_UNDERLINE_NONE)
+			if (seg->style->underline != PANGO_UNDERLINE_NONE &&
+			    seg->style->underline != PANGO_UNDERLINE_ERROR)
 			{
 				attr = pango_attr_underline_new (seg->style->underline);
 				add_attribute_to_list (attr, attrs, index, seg_len);
