@@ -112,7 +112,7 @@ AC_SUBST(EVOLUTION_LIBS)
 #
 # GalagoPresence.dll needs Galago#
 #
-PKG_CHECK_MODULES(GALAGO, galago-sharp, ENABLE_GALAGO="yes", ENABLE_GALAGO="no")
+PKG_CHECK_MODULES(GALAGO, galago-sharp >= 0.5.0, ENABLE_GALAGO="yes", ENABLE_GALAGO="no")
 AC_ARG_ENABLE(galago, 
 	      [  --enable-galago[[=no/yes]]  compile galago plugin [[default: yes]]],
 	      ENABLE_GALAGO="$enableval")
