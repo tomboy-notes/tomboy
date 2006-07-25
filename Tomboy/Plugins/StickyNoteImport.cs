@@ -15,7 +15,7 @@ public class StickyNoteImporter : NotePlugin
 
 	private const string base_note_xml = 
 		"<note-content><note-title>{0}</note-title>\n\n{1}</note-content>";
-	private const string base_duplicate_note_title = "{0} ({1})";
+	private const string base_duplicate_note_title = "{0} (#{1})";
 
 	private const string debug_no_sticky_file =
 		"StickyNoteImporter: Sticky Notes XML file does not exist!";
@@ -61,7 +61,7 @@ public class StickyNoteImporter : NotePlugin
 		// TODO: Why does "stickynotes_applet" show up as
 		//	 "stickynotesapplet" with the "a" underlined???
 		ShowMessageDialog (
-			Catalog.GetString ("No Sticky Notes found."),
+			Catalog.GetString ("No Sticky Notes found"),
 			string.Format (Catalog.GetString ("No suitable Sticky Notes file was " + 
 							  "found at \"{0}\"."),
 				       xmlPath),
@@ -70,11 +70,10 @@ public class StickyNoteImporter : NotePlugin
 	
 	void ShowResultsDialog (int numNotesImported, int numNotesTotal)
 	{
-		string message = "{0}/{1} {2}";
-
 		ShowMessageDialog (
-			Catalog.GetString ("Sticky Notes import completed."),
-			string.Format ("{0} of {1} Sticky Notes were successfully imported.",
+			Catalog.GetString ("Sticky Notes import completed"),
+			string.Format (Catalog.GetString ("<b>{0}</b> of <b>{1}</b> Sticky Notes " +
+							  "were successfully imported."),
 				       numNotesImported,
 				       numNotesTotal),
 			Gtk.MessageType.Info);
@@ -124,11 +123,11 @@ public class StickyNoteImporter : NotePlugin
 		}
 
 		string preferredTitle = Catalog.GetString ("Sticky Note: ") + stickyTitle;
-		
 		string title = preferredTitle;
-		int i = 0;
+
+		int i = 2; // Append numbers to create unique title, starting with 2
 		while (Manager.Find (title) != null)
-			title = string.Format (base_duplicate_note_title, preferredTitle, ++i);
+			title = string.Format (base_duplicate_note_title, preferredTitle, i++);
 		
 		string noteXml = string.Format (base_note_xml, title, content);
 		
