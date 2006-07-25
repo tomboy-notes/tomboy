@@ -25,7 +25,7 @@ public class StickyNoteImporter : NotePlugin
 	protected override void Initialize ()
 	{
 		Gtk.ImageMenuItem item = 
-			new Gtk.ImageMenuItem (Catalog.GetString ("Import From Sticky Notes"));
+			new Gtk.ImageMenuItem (Catalog.GetString ("Import from Sticky Notes"));
 		item.Image = new Gtk.Image (Gtk.Stock.Convert, Gtk.IconSize.Menu);
 		item.Activated += ImportButtonClicked;
 		item.Show ();
@@ -63,7 +63,7 @@ public class StickyNoteImporter : NotePlugin
 		ShowMessageDialog (
 			Catalog.GetString ("No Sticky Notes found."),
 			string.Format (Catalog.GetString ("No suitable Sticky Notes file was " + 
-							  "found at \"{0}\""),
+							  "found at \"{0}\"."),
 				       xmlPath),
 			Gtk.MessageType.Error);
 	}
