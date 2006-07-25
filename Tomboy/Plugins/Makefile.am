@@ -93,12 +93,25 @@ $(FIXEDWIDTH_TARGET): $(FIXEDWIDTH_CSFILES) $(top_builddir)/Tomboy/Tomboy.exe
 	$(CSC) -out:$@ $(CSFLAGS) $(ASSEMBLIES) $(FIXEDWIDTH_CSFILES) $(FIXEDWIDTH_RESOURCES)
 
 
+#
+# Sticky note import plugin
+#
+
+STICKYIMPORT_TARGET = StickyNoteImport.dll
+STICKYIMPORT_CSFILES = $(srcdir)/StickyNoteImport.cs
+STICKYIMPORT_RESOURCES =
+
+$(STICKYIMPORT_TARGET): $(STICKYIMPORT_CSFILES) $(top_builddir)/Tomboy/Tomboy.exe
+	$(CSC) -out:$@ $(CSFLAGS) $(ASSEMBLIES) $(STICKYIMPORT_CSFILES) $(STICKYIMPORT_RESOURCES)
+
+
 pluginsdir = $(pkglibdir)/Plugins
 plugins_DATA = 			\
 	$(EVO_TARGET)		\
 	$(EXPORT_TARGET)	\
 	$(GALAGO_TARGET)	\
-	$(PRINT_TARGET)
+	$(PRINT_TARGET)		\
+	$(STICKYIMPORT_TARGET)
 
 noinst_DATA = 			\
 	$(NOTD_TARGET)		\
@@ -112,18 +125,21 @@ EXTRA_DIST =            	\
 	$(GALAGO_CSFILES)	\
 	$(PRINT_CSFILES)	\
 	$(NOTD_CSFILES)		\
-	$(FIXEDWIDTH_CSFILES)
+	$(FIXEDWIDTH_CSFILES)	\
+	$(STICKYIMPORT_CSFILES)
 
-CLEANFILES =			\
-	$(EVO_TARGET)		\
-	$(EVO_TARGET).mdb	\
-	$(EXPORT_TARGET) 	\
-	$(EXPORT_TARGET).mdb	\
-	$(GALAGO_TARGET)	\
-	$(GALAGO_TARGET).mdb	\
-	$(PRINT_TARGET)		\
-	$(PRINT_TARGET).mdb	\
-	$(NOTD_TARGET)		\
-	$(NOTD_TARGET).mdb	\
-	$(FIXEDWIDTH_TARGET)	\
-	$(FIXEDWIDTH_TARGET).mdb
+CLEANFILES =				\
+	$(EVO_TARGET)			\
+	$(EVO_TARGET).mdb		\
+	$(EXPORT_TARGET) 		\
+	$(EXPORT_TARGET).mdb		\
+	$(GALAGO_TARGET)		\
+	$(GALAGO_TARGET).mdb		\
+	$(PRINT_TARGET)			\
+	$(PRINT_TARGET).mdb		\
+	$(NOTD_TARGET)			\
+	$(NOTD_TARGET).mdb		\
+	$(FIXEDWIDTH_TARGET)		\
+	$(FIXEDWIDTH_TARGET).mdb	\
+	$(STICKYIMPORT_TARGET)		\
+	$(STICKYIMPORT_TARGET).mdb
