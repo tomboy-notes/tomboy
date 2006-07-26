@@ -45,6 +45,8 @@ CSFILES = 					\
 	$(srcdir)/Watchers.cs			\
 	$(srcdir)/XKeybinder.cs			\
 	\
+	$(srcdir)/panelapplet/*.cs		\
+	\
 	$(DBUS_CSFILES)	
 
 ASSEMBLIES = 		\

@@ -62,7 +62,8 @@ namespace Tomboy
 		static void RegisterPanelAppletFactory ()
 		{
 			// This will block if there is no existing instance running
-			Gnome.PanelAppletFactory.Register (typeof (TomboyApplet));
+			// FIXME: Use custom built panel applet bindings to work around bug in GTK#
+			_Gnome.PanelAppletFactory.Register (typeof (TomboyApplet));
 		}
 
 		static void RegisterRemoteControl (NoteManager manager)

@@ -1,3 +1,20 @@
+2006-07-26  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/panelapplet/*.cs: Add these GTK# generated bindings, with
+	the fix for PanelApplet.OnBackgroundChanged applied.
+	
+	* Tomboy/Applet.cs: GTK#2 panel applet bindings are still broken
+	for setting the background pixmap/transparency, so use the
+	custom-built variant instead.
+
+	* Tomboy/Makefile.am (CSFILES): Build panelapplet/*.cs (once again).
+
+	* Tomboy/Tomboy.cs: Use _Gnome.PanelApplet.
+
+	* data/GNOME_TomboyApplet.xml: When using PanelApplet.SetupMenu,
+	the XML doesn't work if it has the <Root> or <popups> elements.
+	Go figure.
+
 2006-07-25  Alex Graveley  <alex@beatniksoftware.com>
 
 	* Tomboy/Plugins/StickyNoteImport.cs: When uniquifying titles by

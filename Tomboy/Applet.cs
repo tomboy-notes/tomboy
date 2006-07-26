@@ -5,11 +5,13 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using Mono.Unix;
 
-using Gnome;
+// Work around bug in Gtk# panel applet bindings by using a local copy with
+// fixed OnBackgroundChanged marshalling.
+using _Gnome;
 
 namespace Tomboy
 {
-	public class TomboyApplet : Gnome.PanelApplet
+	public class TomboyApplet : PanelApplet
 	{
 		NoteManager manager;
 		TomboyTray tray;
@@ -56,7 +58,9 @@ namespace Tomboy
 			SetupMenuFromResource (null, "GNOME_TomboyApplet.xml", menu_verbs);
 		}
 
-		void SetupMenuFromResource (Assembly asm, string resource, BonoboUIVerb [] verbs)
+		new void SetupMenuFromResource (Assembly asm, 
+						string resource, 
+						BonoboUIVerb [] verbs)
 		{
 			if (asm == null)
 				asm = GetType ().Assembly;
