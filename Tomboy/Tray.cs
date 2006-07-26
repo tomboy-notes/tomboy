@@ -51,6 +51,8 @@ namespace Tomboy
 			tips.Sink ();
 
 			SetupDragAndDrop ();
+
+			InitSomeStuff ();
 		}
 
 		void ButtonPress (object sender, Gtk.ButtonPressEventArgs args) 
@@ -378,6 +380,37 @@ namespace Tomboy
 							insert_text.ToString ());
 			}
 		}
+
+		// NOTHING TO SEE HERE
+		void InitSomeStuff ()
+		{
+			manager.NoteDeleted += OnNoteDeletedUpdateIcon;
+			manager.NoteAdded += OnNoteAddedUpdateIcon;
+			manager.NoteRenamed += OnNoteRenamedUpdateIcon;
+			if (manager.Find ("Tintin") != null)
+				image.Pixbuf = GuiUtils.GetIcon ("tintin", 22);
+		}
+
+		void OnNoteDeletedUpdateIcon (object sender, Note changed)
+		{
+			if (changed.Title == "Tintin")
+				image.Pixbuf = tray_icon;
+		}
+
+		void OnNoteAddedUpdateIcon (object sender, Note changed)
+		{
+			if (changed.Title == "Tintin")
+				image.Pixbuf = GuiUtils.GetIcon ("tintin", 22);
+		}
+
+		void OnNoteRenamedUpdateIcon (Note note, string old_title)
+		{
+			if (note.Title == "Tintin")
+				image.Pixbuf = GuiUtils.GetIcon ("tintin", 22);
+			else if (old_title == "Tintin")
+				image.Pixbuf = tray_icon;
+		}
+		// GO ABOUT YOUR BUSINESS
 	}
 
 	// 

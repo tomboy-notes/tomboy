@@ -57,6 +57,7 @@ RESOURCES = 										\
 	-resource:$(top_srcdir)/data/Start_Here.note,Start_Here.note			\
 	-resource:$(top_builddir)/data/DefaultPlugins.desktop,DefaultPlugins.desktop	\
 	-resource:$(top_srcdir)/data/images/tomboy.png,tomboy.png			\
+	-resource:$(top_srcdir)/data/images/tintin.png,tintin.png			\
 	-resource:$(top_srcdir)/data/images/gnome-searchtool.png,gnome-searchtool.png
 
 $(TARGET): $(CSFILES) Defines.cs
