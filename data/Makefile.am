@@ -64,7 +64,6 @@ man_MANS = tomboy.1
 
 
 noinst_DATA = 			\
-	Start_Here.note		\
 	DefaultPlugins.desktop	\
 	GNOME_TomboyApplet.xml	\
 	$(desktop_files)
