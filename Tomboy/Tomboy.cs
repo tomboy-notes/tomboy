@@ -88,9 +88,6 @@ namespace Tomboy
 
 		static void RegisterSignalHandlers ()
 		{
-			// Force OnExitSignal to be JITed
-			OnExitSignal(-1);
-
 			// Connect to SIGTERM and SIGINT, so we don't lose
 			// unsaved notes on exit...
 			Stdlib.signal (Signum.SIGTERM, OnExitSignal);
@@ -99,9 +96,6 @@ namespace Tomboy
 
 		static void OnExitSignal (int signal)
 		{
-			if (signal < 0)
-				return;
-
 			if (ExitingEvent != null)
 				ExitingEvent (null, new EventArgs ());
 
