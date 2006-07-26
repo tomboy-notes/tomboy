@@ -88,14 +88,20 @@ namespace Tomboy
 
 		static void RegisterSignalHandlers ()
 		{
-			// Connect to SIGTERM and SIGQUIT, so we don't lose
+			// Force OnExitSignal to be JITed
+			OnExitSignal(-1);
+
+			// Connect to SIGTERM and SIGINT, so we don't lose
 			// unsaved notes on exit...
 			Stdlib.signal (Signum.SIGTERM, OnExitSignal);
-			Stdlib.signal (Signum.SIGQUIT, OnExitSignal);
+			Stdlib.signal (Signum.SIGINT, OnExitSignal);
 		}
 
 		static void OnExitSignal (int signal)
 		{
+			if (signal < 0)
+				return;
+
 			if (ExitingEvent != null)
 				ExitingEvent (null, new EventArgs ());
 
