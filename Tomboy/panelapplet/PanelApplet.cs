@@ -435,7 +435,7 @@ namespace _Gnome {
 
 		static PanelApplet ()
 		{
-			GtkSharp.GnomeSharp.ObjectManager.Initialize ();
+			_GtkSharp.GnomeSharp.ObjectManager.Initialize ();
 		}
 #endregion
 #region Customized extensions
