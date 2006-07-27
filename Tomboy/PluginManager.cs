@@ -149,18 +149,19 @@ namespace Tomboy
 				dir_watcher.EnableRaisingEvents = true;
 			} catch (ArgumentException e) { 
 				Logger.Log ("Error creating a FileSystemWatcher on {0} : {1}",
-									plugins_dir, e);
+					    plugins_dir, e.Message);
 				dir_watcher = null;
 			}
 			
 			try {
-				sys_dir_watcher = new FileSystemWatcher (Defines.SYS_PLUGINS_DIR, "*.dll");
+				sys_dir_watcher = 
+					new FileSystemWatcher (Defines.SYS_PLUGINS_DIR, "*.dll");
 				sys_dir_watcher.Created += OnPluginCreated;
 				sys_dir_watcher.Deleted += OnPluginDeleted;
 				sys_dir_watcher.EnableRaisingEvents = true;
 			} catch (ArgumentException e) {
 				Logger.Log ("Error creating a FileSystemWatcher on {0} : {1}", 
-									Defines.SYS_PLUGINS_DIR, e);
+					    Defines.SYS_PLUGINS_DIR, e.Message);
 				sys_dir_watcher = null;
 			}
 			
@@ -396,8 +397,8 @@ namespace Tomboy
 				files = Directory.GetFiles (dirpath, "*.dll");
 			} catch (Exception e) {
 				Logger.Log ("Error getting plugin types from {0}: {1}", 
-						   dirpath, 
-						   e);
+					    dirpath, 
+					    e.Message);
 				return dir_plugin_types;
 			}
 

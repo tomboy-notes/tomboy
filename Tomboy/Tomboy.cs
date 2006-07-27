@@ -14,8 +14,6 @@ namespace Tomboy
 
 		public static void Main (string [] args) 
 		{
-			RegisterSignalHandlers ();
-
 			// Initialize GETTEXT
 			Catalog.Init ("tomboy", Defines.GNOME_LOCALE_DIR);
 
@@ -32,23 +30,80 @@ namespace Tomboy
 						     Gnome.Modules.UI, 
 						     args);
 
+			RegisterSignalHandlers ();
+
 			// Create the default note manager instance.
-			if (cmd_line.NotePath != null) {
-				manager = new NoteManager (cmd_line.NotePath);
-			} else {
-				manager = new NoteManager ();
-			}
+			string note_path = GetNotePath (cmd_line.NotePath);
+			manager = new NoteManager (note_path);
 
 			// Register the manager to handle remote requests.
 			RegisterRemoteControl (manager);
 
 			if (cmd_line.UsePanelApplet) {
-				RegisterPanelAppletFactory (); 
+				RegisterPanelAppletFactory ();
 			} else {
+				RegisterSessionManagerRestart (args, note_path);
 				StartTrayIcon ();
 			}
 
 			Logger.Log ("All done.  Ciao!");
+		}
+
+		static string GetNotePath (string override_path)
+		{
+			// Default note location, as specified in --note-path or $TOMBOY_PATH
+			string note_path = 
+				(override_path != null) ? 
+		                       override_path : 
+				       Environment.GetEnvironmentVariable ("TOMBOY_PATH");
+			if (note_path == null)
+				note_path = "~/.tomboy";
+
+			// Tilde expand
+			return note_path.Replace ("~", Environment.GetEnvironmentVariable ("HOME"));
+		}
+
+		static void RegisterPanelAppletFactory ()
+		{
+			// This will block if there is no existing instance running
+			// FIXME: Use custom built panel applet bindings to work around bug in GTK#
+			_Gnome.PanelAppletFactory.Register (typeof (TomboyApplet));
+		}
+
+		static void RegisterSessionManagerRestart (string[] args, string note_path)
+		{
+			// $TOMBOY_WRAPPER_PATH gets set by the wrapper script... 	 
+			string wrapper = Environment.GetEnvironmentVariable ("TOMBOY_WRAPPER_PATH");
+			if (wrapper == null)
+				return;
+
+			// Restart if we are running when the session ends or at crash...
+			Gnome.Client client = Gnome.Global.MasterClient ();
+			client.RestartStyle = 
+				Gnome.RestartStyle.IfRunning | Gnome.RestartStyle.Immediately;
+			client.Die += OnSessionManagerDie;
+
+			// Set TOMBOY_PATH if it exists
+			if (note_path != null)
+				client.SetEnvironment ("TOMBOY_PATH", note_path);
+
+			// Get the args for session restart... 	 
+			string [] restart_args = new string [args.Length + 1]; 	 
+			restart_args [0] = wrapper;
+			args.CopyTo (restart_args, 1);
+			client.SetRestartCommand (restart_args.Length, restart_args);
+		}
+
+		static void OnSessionManagerDie (object sender, EventArgs args)
+		{
+			Gtk.Main.Quit ();
+		}
+
+		static void CancelSessionManagerRestart ()
+		{
+			Gnome.Client client = Gnome.Global.MasterClient ();
+			client.RestartStyle = Gnome.RestartStyle.IfRunning;
+			client.Flush ();
 		}
 
 		static void StartTrayIcon ()
@@ -57,13 +112,6 @@ namespace Tomboy
 			TomboyTrayIcon tray_icon = new TomboyTrayIcon (DefaultNoteManager);
 			tray_icon.Show ();
 			program.Run ();
-		}
-
-		static void RegisterPanelAppletFactory ()
-		{
-			// This will block if there is no existing instance running
-			// FIXME: Use custom built panel applet bindings to work around bug in GTK#
-			_Gnome.PanelAppletFactory.Register (typeof (TomboyApplet));
 		}
 
 		static void RegisterRemoteControl (NoteManager manager)
@@ -96,6 +144,9 @@ namespace Tomboy
 
 		static void OnExitSignal (int signal)
 		{
+			// Don't auto-restart after exit/kill.
+			CancelSessionManagerRestart ();
+
 			if (ExitingEvent != null)
 				ExitingEvent (null, new EventArgs ());
 
