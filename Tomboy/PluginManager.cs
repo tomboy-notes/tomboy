@@ -148,7 +148,7 @@ namespace Tomboy
 				dir_watcher.Deleted += OnPluginDeleted;
 				dir_watcher.EnableRaisingEvents = true;
 			} catch (ArgumentException e) { 
-				Logger.Log ("Error creating a FileSystemWatcher on {0} : {1}",
+				Logger.Log ("Error creating a FileSystemWatcher on \"{0}\": {1}",
 					    plugins_dir, e.Message);
 				dir_watcher = null;
 			}
@@ -160,7 +160,7 @@ namespace Tomboy
 				sys_dir_watcher.Deleted += OnPluginDeleted;
 				sys_dir_watcher.EnableRaisingEvents = true;
 			} catch (ArgumentException e) {
-				Logger.Log ("Error creating a FileSystemWatcher on {0} : {1}", 
+				Logger.Log ("Error creating a FileSystemWatcher on \"{0}\": {1}", 
 					    Defines.SYS_PLUGINS_DIR, e.Message);
 				sys_dir_watcher = null;
 			}
@@ -169,24 +169,35 @@ namespace Tomboy
 			plugin_hash = new Hashtable ();
 		}
 
+		// Run file manager for ~/.tomboy/Plugins
 		public void ShowPluginsDirectory ()
 		{
-			// Run file manager for ~/.tomboy/Plugins
-			// FIXME: There has to be a better way to check this...
+			string command, args;
 
+			// FIXME: There has to be a better way to check this...
 			if (Environment.GetEnvironmentVariable ("GNOME_DESKTOP_SESSION_ID") == null &&
 			    (Environment.GetEnvironmentVariable ("KDE_FULL_SESSION") != null ||
 			     Environment.GetEnvironmentVariable ("KDEHOME") != null ||
 			     Environment.GetEnvironmentVariable ("KDEDIR") != null)) {
 				Logger.Log ("Starting Konqueror...");
 
-				Process.Start ("konqueror", plugins_dir);
+				command = "konqueror";
+				args = plugins_dir;
 			} else {
 				Logger.Log ("Starting Nautilus...");
 
-				string args = string.Format ("--no-desktop --no-default-window {0}",
-							     plugins_dir);
-				Process.Start ("nautilus", args);
+				command = "nautilus";
+				args = string.Format ("--no-desktop --no-default-window {0}",
+						      plugins_dir);
+			}
+
+			try {
+				Process.Start (command, args);
+			} catch (SystemException e) {
+				Logger.Log ("Error opening file browser \"{0}\" to \"{1}\": {2}",
+					    command,
+					    plugins_dir,
+					    e.Message);
 			}
 		}
 
