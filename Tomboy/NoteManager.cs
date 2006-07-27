@@ -126,10 +126,16 @@ namespace Tomboy
 			string [] files = Directory.GetFiles (notes_dir, "*.note");
 
 			foreach (string file_path in files) {
-				Note note = Note.Load (file_path, this);
-				if (note != null) {
-					note.Renamed += OnNoteRename;
-					notes.Add (note);
+				try {
+					Note note = Note.Load (file_path, this);
+					if (note != null) {
+						note.Renamed += OnNoteRename;
+						notes.Add (note);
+					}
+				} catch (System.Xml.XmlException e) {
+					Logger.Log ("Error parsing note XML, skipping \"{0}\": {1}",
+						    file_path,
+						    e.Message);
 				}
 			}
 
