@@ -16,12 +16,6 @@ namespace Tomboy
 		PluginManager plugin_mgr;
 		TrieController trie_controller;
 
-		public NoteManager () : 
-			this (Path.Combine (Environment.GetEnvironmentVariable ("HOME"), 
-					    ".tomboy")) 
-		{
-		}
-
 		public NoteManager (string directory) : 
 			this (directory, Path.Combine (directory, "Backup")) 
 		{
@@ -29,6 +23,8 @@ namespace Tomboy
 
 		public NoteManager (string directory, string backup_directory) 
 		{
+			Logger.Log ("NoteManager created with note path \"{0}\".", directory);
+
 			notes_dir = directory;
 			backup_dir = backup_directory;
 			notes = new ArrayList ();
