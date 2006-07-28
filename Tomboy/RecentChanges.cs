@@ -10,6 +10,7 @@ namespace Tomboy
 		NoteManager manager;
 
 		Gtk.AccelGroup accel_group;
+		Gtk.Label note_count;
 		Gtk.Button close_button;
 		Gtk.ScrolledWindow matches_window;
 		Gtk.VBox content_vbox;
@@ -61,6 +62,9 @@ namespace Tomboy
 			MakeRecentTree ();
 			tree.Show ();
 
+			note_count = new Gtk.Label ();
+			note_count.Show ();
+
 			// Update on changes to notes
 			manager.NoteDeleted += OnNotesChanged;
 			manager.NoteAdded += OnNotesChanged;
@@ -99,8 +103,9 @@ namespace Tomboy
 			close_button.Show ();
 
 			Gtk.HButtonBox button_box = new Gtk.HButtonBox ();
-			button_box.Layout = Gtk.ButtonBoxStyle.End;
+			button_box.Layout = Gtk.ButtonBoxStyle.Edge;
 			button_box.Spacing = 8;
+			button_box.PackStart (note_count);
 			button_box.PackStart (close_button);
 			button_box.Show ();
 
@@ -186,6 +191,7 @@ namespace Tomboy
 			store.SetSortFunc (2 /* change date */,
 					   new Gtk.TreeIterCompareFunc (CompareDates));
 
+			int cnt = 0;
 			foreach (Note note in manager.Notes) {
 				string nice_date = PrettyPrintDate (note.ChangeDate);
 
@@ -193,6 +199,7 @@ namespace Tomboy
 						    note.Title, /* title */
 						    nice_date,  /* change date */
 						    note);      /* note */
+				cnt++;
 			}
 
 			// Set the sort column after loading data, since we
@@ -200,6 +207,11 @@ namespace Tomboy
 			store.SetSortColumnId (sort_column, sort_type);
 
 			tree.Model = store;
+
+			note_count.Text = string.Format (Catalog.GetPluralString("Total: {0} note",
+										 "Total: {0} notes",
+										 cnt),
+							 cnt);
 		}
 
 		void OnNotesChanged (object sender, Note changed)
