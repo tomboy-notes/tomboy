@@ -17,6 +17,14 @@ namespace Tomboy
 		Gtk.TreeView tree;
 		Gtk.ListStore store;
 
+		static Type [] column_types = 
+			new Type [] {
+				typeof (Gdk.Pixbuf), // icon
+				typeof (string),     // title
+				typeof (string),     // change date
+				typeof (Note),       // note
+			};
+
 		static Gdk.Pixbuf note_icon;
 
 		static NoteRecentChanges ()
@@ -53,14 +61,14 @@ namespace Tomboy
 			MakeRecentTree ();
 			tree.Show ();
 
-			// List all the current notes
-			UpdateResults ();
-
 			// Update on changes to notes
 			manager.NoteDeleted += OnNotesChanged;
 			manager.NoteAdded += OnNotesChanged;
 			manager.NoteRenamed += OnNoteRenamed;
-			
+
+			// List all the current notes
+			UpdateResults ();
+
 			matches_window = new Gtk.ScrolledWindow ();
 			matches_window.ShadowType = Gtk.ShadowType.In;
 
@@ -108,14 +116,6 @@ namespace Tomboy
 
 		void MakeRecentTree ()
 		{
-			Type [] types = 
-				new Type [] {
-					typeof (Gdk.Pixbuf), // icon
-					typeof (string),     // title
-					typeof (string),     // change date
-					typeof (Note),       // note
-				};
-
 			Gtk.TargetEntry [] targets = 
 				new Gtk.TargetEntry [] {
 					new Gtk.TargetEntry ("STRING", 
@@ -129,12 +129,7 @@ namespace Tomboy
 							     1),
 				};
 
-			store = new Gtk.ListStore (types);
-			store.SetSortFunc (2 /* change date */,
-					   new Gtk.TreeIterCompareFunc (CompareDates));
-			store.SetSortColumnId (2 /* change date */, Gtk.SortType.Descending);
-
-			tree = new Gtk.TreeView (store);
+			tree = new Gtk.TreeView ();
 			tree.HeadersVisible = true;
 			tree.RulesHint = true;
 			tree.RowActivated += OnRowActivated;
@@ -179,13 +174,32 @@ namespace Tomboy
 
 		void UpdateResults ()
 		{
-			store.Clear ();
-
 			// FIXME: Restore the currently highlighted note
 
-			foreach (Note note in manager.Notes) {
-				AppendResultTreeView (store, note);
+			int sort_column = 2; /* change date */
+			Gtk.SortType sort_type = Gtk.SortType.Descending;
+			if (store != null) {
+				store.GetSortColumnId (out sort_column, out sort_type);
 			}
+
+			store = new Gtk.ListStore (column_types);
+			store.SetSortFunc (2 /* change date */,
+					   new Gtk.TreeIterCompareFunc (CompareDates));
+
+			foreach (Note note in manager.Notes) {
+				string nice_date = PrettyPrintDate (note.ChangeDate);
+
+				store.AppendValues (note_icon,  /* icon */
+						    note.Title, /* title */
+						    nice_date,  /* change date */
+						    note);      /* note */
+			}
+
+			// Set the sort column after loading data, since we
+			// don't want to resort on every append.
+			store.SetSortColumnId (sort_column, sort_type);
+
+			tree.Model = store;
 		}
 
 		void OnNotesChanged (object sender, Note changed)
@@ -247,17 +261,6 @@ namespace Tomboy
 				return date.ToString (Catalog.GetString ("MMMM d yyyy, h:mm tt"));
 		}
 
-		void AppendResultTreeView (Gtk.ListStore store, Note note)
-		{
-			string nice_date = PrettyPrintDate (note.ChangeDate);
-
-			Gtk.TreeIter iter = store.Append ();
-			store.SetValue (iter, 0 /* icon */, note_icon);
-			store.SetValue (iter, 1 /* title */, note.Title);
-			store.SetValue (iter, 2 /* change date */, nice_date);
-			store.SetValue (iter, 3 /* note */, note);
-		}
-
 		void CloseClicked (object sender, EventArgs args)
 		{
 			Hide ();
@@ -290,7 +293,8 @@ namespace Tomboy
 		{
 			Gdk.EventKey eventKey = args.Event;
 
-			if (eventKey.Key == Gdk.Key.Delete && eventKey.State == 0 /* Gdk.ModifierType.None */) {
+			if (eventKey.Key == Gdk.Key.Delete && 
+			    eventKey.State == 0 /* Gdk.ModifierType.None */) {
 				// Get the selected note and prompt for deletion
 				Note note = GetSelectedNote();
 				if (note == null)
