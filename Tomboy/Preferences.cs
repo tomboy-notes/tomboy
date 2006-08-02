@@ -172,9 +172,9 @@ namespace Tomboy
 			options_list.Show ();
 
 
-			// Spellchecking...
+			// Spell checking...
 
-			check = MakeCheckButton (Catalog.GetString ("_Spellcheck While Typing"));
+			check = MakeCheckButton (Catalog.GetString ("_Spell check while typing"));
 			options_list.PackStart (check, false, false, 0);
 
 			peditor = new PropertyEditorToggleButton (Preferences.ENABLE_SPELLCHECKING,
@@ -206,7 +206,7 @@ namespace Tomboy
 
 			// Custom font...
 
-			check = MakeCheckButton (Catalog.GetString ("Use Custom _Font"));
+			check = MakeCheckButton (Catalog.GetString ("Use custom _font"));
 			options_list.PackStart (check, false, false, 0);
 
 			font_peditor = 
@@ -402,7 +402,7 @@ namespace Tomboy
 
 		Gtk.Label MakeTipLabel (string label_text)
 		{
-			Gtk.Label label =  MakeLabel (String.Format ("<small><i>{0}</i></small>", 
+			Gtk.Label label =  MakeLabel (String.Format ("<small>{0}</small>", 
 								     label_text));
 			label.LineWrap = true;
 			label.Xpad = 20;
