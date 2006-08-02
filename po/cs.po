@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-07-26 10:31+0200\n"
-"PO-Revision-Date: 2006-07-26 11:40+0200\n"
+"POT-Creation-Date: 2006-08-02 11:52+0200\n"
+"PO-Revision-Date: 2006-08-02 11:54+0200\n"
 "Last-Translator: Jakub Friedl <jfriedl@suse.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -42,20 +42,20 @@ msgid "Tomboy Applet Factory"
 msgstr "Generátor apletu Tomboy"
 
 #: ../data/GNOME_TomboyApplet.server.in.in.h:4 ../data/tomboy.desktop.in.h:3
-#: ../Tomboy/Applet.cs:132 ../Tomboy/Tray.cs:38
+#: ../Tomboy/Applet.cs:136 ../Tomboy/Tray.cs:38
 msgid "Tomboy Notes"
 msgstr "Poznámky Tomboy"
 
-#: ../data/GNOME_TomboyApplet.xml.h:1 ../Tomboy/Applet.cs:175
+#: ../data/GNOME_TomboyApplet.xml.h:1 ../Tomboy/Applet.cs:179
 msgid "_About Tomboy"
 msgstr "O _Tomboy"
 
-#: ../data/GNOME_TomboyApplet.xml.h:2 ../Tomboy/Applet.cs:170
+#: ../data/GNOME_TomboyApplet.xml.h:2 ../Tomboy/Applet.cs:174
 #: ../Tomboy/NoteWindow.cs:512
 msgid "_Open Plugins Folder"
 msgstr "_Otevřít adresář zásuvných modulů"
 
-#: ../data/GNOME_TomboyApplet.xml.h:3 ../Tomboy/Applet.cs:165
+#: ../data/GNOME_TomboyApplet.xml.h:3 ../Tomboy/Applet.cs:169
 msgid "_Preferences..."
 msgstr "_Nastavení..."
 
@@ -286,13 +286,13 @@ msgstr "Stránka %N z %Q"
 msgid "%A %x, %X"
 msgstr "%A %x, %X"
 
-#: ../Tomboy/Applet.cs:182
+#: ../Tomboy/Applet.cs:186
 msgid "_Quit"
 msgstr "U_končit"
 
 #. Open the Start Here note
-#: ../Tomboy/Note.cs:402 ../Tomboy/NoteManager.cs:111
-#: ../Tomboy/NoteManager.cs:119 ../Tomboy/Tomboy.cs:231 ../Tomboy/Tray.cs:124
+#: ../Tomboy/Note.cs:402 ../Tomboy/NoteManager.cs:107
+#: ../Tomboy/NoteManager.cs:115 ../Tomboy/Tomboy.cs:283 ../Tomboy/Tray.cs:124
 #: ../Tomboy/Tray.cs:180 ../Tomboy/Tray.cs:375 ../Tomboy/XKeybinder.cs:259
 msgid "Start Here"
 msgstr "Začněte zde"
@@ -305,11 +305,11 @@ msgstr "Opravdu odstranit tuto poznámku?"
 msgid "If you delete a note it is permanently lost."
 msgstr "Pokud odstraníte poznámku, je navždy ztracena."
 
-#: ../Tomboy/NoteManager.cs:112
+#: ../Tomboy/NoteManager.cs:108
 msgid "Welcome to Tomboy!"
 msgstr "Vítá vás Tomboy!"
 
-#: ../Tomboy/NoteManager.cs:113
+#: ../Tomboy/NoteManager.cs:109
 msgid ""
 "Use this page as a Start Page for organizing your notes and keeping "
 "unorganized ideas around."
@@ -317,12 +317,12 @@ msgstr ""
 "Tuto stránku používejte jako počáteční stránku pro organizování vašich "
 "poznámek a ukládání neorganizovaných nápadů."
 
-#: ../Tomboy/NoteManager.cs:198
+#: ../Tomboy/NoteManager.cs:200
 #, csharp-format
 msgid "New Note {0}"
 msgstr "Nová poznámka {0}"
 
-#: ../Tomboy/NoteManager.cs:244
+#: ../Tomboy/NoteManager.cs:246
 msgid "Describe your new note here."
 msgstr "Sem napište svou novou poznámku."
 
@@ -450,10 +450,10 @@ msgstr "Úpravy"
 msgid "Hotkeys"
 msgstr "Klávesové zkratky"
 
-#. Spellchecking...
+#. Spell checking...
 #: ../Tomboy/Preferences.cs:177
-msgid "_Spellcheck While Typing"
-msgstr "_Hledat překlepy při psaní"
+msgid "_Spell check while typing"
+msgstr "_Kontrola překlepů během psaní"
 
 #: ../Tomboy/Preferences.cs:184
 msgid ""
@@ -478,7 +478,7 @@ msgstr ""
 
 #. Custom font...
 #: ../Tomboy/Preferences.cs:209
-msgid "Use Custom _Font"
+msgid "Use custom _font"
 msgstr "Používat vlastní _písmo"
 
 #. Hotkeys...
@@ -520,11 +520,11 @@ msgstr "_Hledat v poznámkách"
 msgid "Choose Note Font"
 msgstr "Zvolte písmo poznámek"
 
-#: ../Tomboy/RecentChanges.cs:28
+#: ../Tomboy/RecentChanges.cs:37
 msgid "Table of Contents"
 msgstr "Obsah"
 
-#: ../Tomboy/RecentChanges.cs:42
+#: ../Tomboy/RecentChanges.cs:51
 msgid ""
 "<b>Table of Contents</b> lists all your notes.\n"
 "Double click to open a note."
@@ -540,26 +540,34 @@ msgstr "Poznámka"
 msgid "Last Changed"
 msgstr "Naposledy změněno"
 
-#: ../Tomboy/RecentChanges.cs:235
+#: ../Tomboy/RecentChanges.cs:211
+#, csharp-format
+msgid "Total: {0} note"
+msgid_plural "Total: {0} notes"
+msgstr[0] "Celkem: {0} poznámka"
+msgstr[1] "Celkem: {0} poznámky"
+msgstr[2] "Celkem: {0} poznámek"
+
+#: ../Tomboy/RecentChanges.cs:261
 #, csharp-format
 msgid "Today, {0}"
 msgstr "Dnes, {0}"
 
-#: ../Tomboy/RecentChanges.cs:238
+#: ../Tomboy/RecentChanges.cs:264
 #, csharp-format
 msgid "Yesterday, {0}"
 msgstr "Včera, {0}"
 
-#: ../Tomboy/RecentChanges.cs:241
+#: ../Tomboy/RecentChanges.cs:267
 #, csharp-format
 msgid "{0} days ago, {1}"
 msgstr "Před {0} dny, {1}"
 
-#: ../Tomboy/RecentChanges.cs:245
+#: ../Tomboy/RecentChanges.cs:271
 msgid "MMMM d, h:mm tt"
 msgstr "d. MMMM, h:mm tt"
 
-#: ../Tomboy/RecentChanges.cs:247
+#: ../Tomboy/RecentChanges.cs:273
 msgid "MMMM d yyyy, h:mm tt"
 msgstr "d. MMMM yyyy, h:mm tt"
 
@@ -604,7 +612,7 @@ msgstr[2] "({0} výsledků)"
 msgid "No notes found"
 msgstr "Nenalezena žádná poznámka"
 
-#: ../Tomboy/Tomboy.cs:155
+#: ../Tomboy/Tomboy.cs:207
 msgid ""
 "Tomboy: A simple, easy to use desktop note-taking application.\n"
 "Copyright (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
@@ -615,7 +623,7 @@ msgstr ""
 "Copyright © 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
 "\n"
 
-#: ../Tomboy/Tomboy.cs:167
+#: ../Tomboy/Tomboy.cs:219
 msgid ""
 "Usage:\n"
 "  --version\t\t\tPrint version information.\n"
@@ -627,7 +635,7 @@ msgstr ""
 "  --help\t\t\tVypsat tuto zprávu o použití.\n"
 "  --note-path [cesta]\t\tNačítat/ukládat data poznámek v tomto adresáři.\n"
 
-#: ../Tomboy/Tomboy.cs:176
+#: ../Tomboy/Tomboy.cs:228
 msgid ""
 "  --new-note\t\t\tCreate and display a new note.\n"
 "  --new-note [title]\t\tCreate and display a new note, with a title.\n"
@@ -641,16 +649,16 @@ msgstr ""
 "  --start-here\t\t\tZobrazit poznámku 'Začněte Zde'.\n"
 "  --highlight-search [text]\tHledat a zvýraznit text v otevřené poznámce.\n"
 
-#: ../Tomboy/Tomboy.cs:185
+#: ../Tomboy/Tomboy.cs:237
 msgid "D-BUS remote control disabled.\n"
 msgstr "Vzdálené ovládání přes D-BUS zakázáno.\n"
 
-#: ../Tomboy/Tomboy.cs:193
+#: ../Tomboy/Tomboy.cs:245
 #, csharp-format
 msgid "Version {0}"
 msgstr "Verze {0}"
 
-#: ../Tomboy/Tomboy.cs:251
+#: ../Tomboy/Tomboy.cs:303
 #, csharp-format
 msgid ""
 "Tomboy: unsupported option '{0}'\n"
