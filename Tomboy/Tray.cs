@@ -12,6 +12,7 @@ namespace Tomboy
 		NoteManager manager;
 		Gtk.Tooltips tips;
 		Gtk.Image image;
+		PreferencesDialog prefs_dlg;
 
 		static Gdk.Pixbuf tray_icon;
 		static Gdk.Pixbuf about_icon_large;
@@ -290,11 +291,19 @@ namespace Tomboy
 			GuiUtils.PopupMenu (recent_menu, null);
 		}
 
+		void OnPreferencesResponse (object sender, Gtk.ResponseArgs args)
+		{
+			((Gtk.Widget) sender).Destroy ();
+			prefs_dlg = null;
+		}
+
 		public void ShowPreferences ()
 		{
-			PreferencesDialog prefs = new PreferencesDialog ();
-			prefs.Run ();
-			prefs.Destroy ();
+			if (prefs_dlg == null) {
+				prefs_dlg = new PreferencesDialog ();
+				prefs_dlg.Response += OnPreferencesResponse;
+			}
+			prefs_dlg.Present ();
 		}
 
 		public void ShowAbout ()
