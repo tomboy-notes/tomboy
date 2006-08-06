@@ -1,3 +1,10 @@
+2006-08-06  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Tray.cs: Don't run the preferences dialog in a recursive
+	main loop, instead just show it and destroy the dialog after the
+	response signal.  Keep the current preferences instance around so
+	we can focus it instead of opening duplicate windows.
+
 2006-08-02  Alex Graveley  <alex@beatniksoftware.com>
 
 	* Tomboy/Preferences.cs: Don't italicize descriptions, use
