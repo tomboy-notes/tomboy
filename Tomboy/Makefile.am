@@ -9,6 +9,7 @@ WRAPPER = tomboy
 if ENABLE_DBUS
 DBUS_CSFLAGS = -define:ENABLE_DBUS
 DBUS_CSFILES = 				\
+	$(srcdir)/dbus-sharp/*.cs	\
 	$(srcdir)/RemoteControl.cs	\
 	$(srcdir)/RemoteControlProxy.cs
 endif
@@ -51,8 +52,7 @@ CSFILES = 					\
 
 ASSEMBLIES = 		\
 	$(TOMBOY_LIBS) 	\
-	-r:Mono.Posix	\
-	$(DBUS_LIBS)
+	-r:Mono.Posix
 
 RESOURCES = 										\
 	-resource:$(top_srcdir)/data/GNOME_TomboyApplet.xml,GNOME_TomboyApplet.xml	\

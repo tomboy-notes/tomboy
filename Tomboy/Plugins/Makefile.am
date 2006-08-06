@@ -9,7 +9,6 @@ CSFLAGS = 		\
 ASSEMBLIES = 					\
 	$(TOMBOY_LIBS) 				\
 	-r:Mono.Posix				\
-	$(DBUS_LIBS)				\
 	-r:$(top_builddir)/Tomboy/Tomboy.exe
 
 
