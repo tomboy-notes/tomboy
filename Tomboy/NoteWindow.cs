@@ -117,10 +117,11 @@ namespace Tomboy
 				}
 
 				if (insert.Length > 0) {
-					Buffer.InsertWithTags (
-						Buffer.GetIterAtMark (Buffer.InsertMark),
-						insert.ToString (),
-						Buffer.TagTable.Lookup ("link:url"));
+					Gtk.TextIter insert_iter = 
+						Buffer.GetIterAtMark (Buffer.InsertMark);
+					Buffer.InsertWithTags (ref insert_iter,
+							       insert.ToString (),
+							       Buffer.TagTable.Lookup ("link:url"));
 				}
 
 				Gtk.Drag.Finish (context, insert.Length > 0, false, time);

@@ -1,5 +1,19 @@
 2006-08-06  Alex Graveley  <alex@beatniksoftware.com>
 
+	* Tomboy/Watchers.cs: Ref TextIter arguments that mutate the
+	TextBuffer, since the old version is deprecated.
+	* Tomboy/Utils.cs: Ditto.
+	* Tomboy/Undo.cs: Ditto.
+	* Tomboy/Tray.cs: Ditto.
+	* Tomboy/NoteWindow.cs: Ditto.
+	* Tomboy/Plugins/Evolution.cs: Ditto.
+
+	* Tomboy/panelapplet/PanelApplet.cs: Inhibit unused member
+	warnings for autgen'd code.
+	* Tomboy/panelapplet/BonoboUIVerb.cs: Ditto.
+
+2006-08-06  Alex Graveley  <alex@beatniksoftware.com>
+
 	* Tomboy/Tray.cs: Don't run the preferences dialog in a recursive
 	main loop, instead just show it and destroy the dialog after the
 	response signal.  Keep the current preferences instance around so

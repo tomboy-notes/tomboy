@@ -449,7 +449,9 @@ namespace Tomboy
 
 		public void Erase ()
 		{
-			buffer.Delete (Start, End);
+			Gtk.TextIter start_iter = Start;
+			Gtk.TextIter end_iter = End;
+			buffer.Delete (ref start_iter, ref end_iter);
 		}
 
 		public void Destroy ()

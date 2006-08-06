@@ -22,13 +22,15 @@ namespace Tomboy
 
 		public TextRange AddChop (Gtk.TextIter start_iter, Gtk.TextIter end_iter)
 		{
-			int start, end;
+			int chop_start, chop_end;
+			Gtk.TextIter current_end = EndIter;
 
-			start = EndIter.Offset;
-			InsertRange (EndIter, start_iter, end_iter);
-			end = EndIter.Offset;
+			chop_start = EndIter.Offset;
+			InsertRange (ref current_end, start_iter, end_iter);
+			chop_end = EndIter.Offset;
 
-			return new TextRange (GetIterAtOffset (start), GetIterAtOffset (end));
+			return new TextRange (GetIterAtOffset (chop_start), 
+					      GetIterAtOffset (chop_end));
 		}
 	}
 
@@ -53,15 +55,17 @@ namespace Tomboy
 
 		public void Undo (Gtk.TextBuffer buffer)
 		{
-			buffer.Delete (buffer.GetIterAtOffset (index),
-				       buffer.GetIterAtOffset (index + chop.Length));
+			Gtk.TextIter start_iter = buffer.GetIterAtOffset (index);
+			Gtk.TextIter end_iter = buffer.GetIterAtOffset (index + chop.Length);
+			buffer.Delete (ref start_iter, ref end_iter);
 			buffer.MoveMark (buffer.InsertMark, buffer.GetIterAtOffset (index));
 			buffer.MoveMark (buffer.SelectionBound, buffer.GetIterAtOffset (index));
 		}
 
 		public void Redo (Gtk.TextBuffer buffer)
 		{
-			buffer.InsertRange (buffer.GetIterAtOffset (index), chop.Start, chop.End);
+			Gtk.TextIter idx_iter = buffer.GetIterAtOffset (index);
+			buffer.InsertRange (ref idx_iter, chop.Start, chop.End);
 
 			buffer.MoveMark (buffer.SelectionBound, buffer.GetIterAtOffset (index));
 			buffer.MoveMark (buffer.InsertMark, 
@@ -134,8 +138,9 @@ namespace Tomboy
 
 		public void Undo (Gtk.TextBuffer buffer)
 		{
-			buffer.InsertRange (buffer.GetIterAtOffset (start), chop.Start, chop.End);
-					
+			Gtk.TextIter start_iter = buffer.GetIterAtOffset (start);
+			buffer.InsertRange (ref start_iter, chop.Start, chop.End);
+
 			buffer.MoveMark (buffer.InsertMark, 
 					 buffer.GetIterAtOffset (is_forward ? start : end));
 			buffer.MoveMark (buffer.SelectionBound, 
@@ -144,8 +149,9 @@ namespace Tomboy
 
 		public void Redo (Gtk.TextBuffer buffer)
 		{
-			buffer.Delete (buffer.GetIterAtOffset (start),
-				       buffer.GetIterAtOffset (end));
+			Gtk.TextIter start_iter = buffer.GetIterAtOffset (start);
+			Gtk.TextIter end_iter = buffer.GetIterAtOffset (end);
+			buffer.Delete (ref start_iter, ref end_iter);
 			buffer.MoveMark (buffer.InsertMark, buffer.GetIterAtOffset (start));
 			buffer.MoveMark (buffer.SelectionBound, buffer.GetIterAtOffset (start));
 		}
@@ -162,7 +168,8 @@ namespace Tomboy
 			} else {
 				start = erase.start;
 
-				chop.Buffer.InsertRange (chop.Start, 
+				Gtk.TextIter chop_start = chop.Start;
+				chop.Buffer.InsertRange (ref chop_start, 
 							 erase.chop.Start, 
 							 erase.chop.End);
 
