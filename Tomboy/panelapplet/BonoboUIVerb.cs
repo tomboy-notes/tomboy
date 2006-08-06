@@ -1,3 +1,6 @@
+
+#pragma warning disable 169 // Unused private members
+
 using System;
 using System.Runtime.InteropServices;
 

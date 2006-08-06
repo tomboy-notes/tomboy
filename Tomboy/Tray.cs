@@ -93,7 +93,7 @@ namespace Tomboy
 			Gtk.TextIter cursor = buffer.StartIter;
 			cursor.ForwardLines (1); // skip title
 
-			buffer.Insert (cursor, insert_text.ToString ());
+			buffer.Insert (ref cursor, insert_text.ToString ());
 
 			// Make the date string a small font...
 			cursor = buffer.StartIter;

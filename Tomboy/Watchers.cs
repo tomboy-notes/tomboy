@@ -636,8 +636,11 @@ namespace Tomboy
 					    range.Text, 
 					    renamed.Title);
 
-				Buffer.Delete (range.Start, range.End);
-				Buffer.InsertWithTags (range.Start, renamed.Title, link_tag);
+				Gtk.TextIter start_iter = range.Start;
+				Gtk.TextIter end_iter = range.Start;
+				Buffer.Delete (ref start_iter, ref end_iter);
+				start_iter = range.Start;
+				Buffer.InsertWithTags (ref start_iter, renamed.Title, link_tag);
 			}
 		}
 
