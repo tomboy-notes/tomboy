@@ -1,5 +1,20 @@
 2006-08-06  Alex Graveley  <alex@beatniksoftware.com>
 
+	* configure.in: Check for dbus and dbus-glib-1, not dbus-sharp.
+
+	* Tomboy/Makefile.am (ASSEMBLIES): Don't link DBUS_LIBS.  If dbus
+	is enabled, compile dbus-sharp/*.cs.
+
+	* Tomboy/Tomboy.exe.config.in: Include dbus-1 and dbus-glib-1
+	linkage.
+
+	* Tomboy/dbus-sharp/*.cs: Include the deprecated dbus-sharp
+	bindings.
+
+	* Tomboy/Plugins/Makefile.am (ASSEMBLIES): Don't link DBUS_LIBS.
+
+2006-08-06  Alex Graveley  <alex@beatniksoftware.com>
+
 	* Tomboy/Watchers.cs: Ref TextIter arguments that mutate the
 	TextBuffer, since the old version is deprecated.
 	* Tomboy/Utils.cs: Ditto.
