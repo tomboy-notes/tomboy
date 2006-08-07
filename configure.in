@@ -2,6 +2,8 @@ AC_INIT(Tomboy/Tomboy.cs)
 AM_INIT_AUTOMAKE(tomboy, 0.3.9)
 AM_MAINTAINER_MODE
 
+GNOME_DOC_INIT
+
 AM_CONFIG_HEADER(config.h)
 
 AC_PROG_INSTALL
@@ -65,11 +67,13 @@ fi
 #
 # If libpanelapplet available, use it to find .server install location.
 #
-PANELAPPLET_SERVER_DIR=`$PKG_CONFIG --variable=libdir libpanelapplet-2.0`
-if test "x$PANELAPPLET_SERVER_DIR" = "x"; then
+if test "x$prefix" = "x$ac_default_prefix"; then
+   PANELAPPLET_LIBDIR=`$PKG_CONFIG --variable=libdir libpanelapplet-2.0`
+fi
+if test "x$PANELAPPLET_LIBDIR" = "x"; then
    PANELAPPLET_SERVER_DIR="$libdir/bonobo/servers"
 else
-   PANELAPPLET_SERVER_DIR="$PANELAPPLET_SERVER_DIR/bonobo/servers"
+   PANELAPPLET_SERVER_DIR="$PANELAPPLET_LIBDIR/bonobo/servers"
 fi
 AC_SUBST(PANELAPPLET_SERVER_DIR)
 
@@ -141,6 +145,8 @@ tomboy.spec
 data/Makefile
 data/tomboy-plugins.pc
 data/images/Makefile
+help/Makefile
+help/C/Makefile
 libtomboy/Makefile
 Tomboy/Makefile
 Tomboy/Plugins/Makefile
