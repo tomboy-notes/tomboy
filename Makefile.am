@@ -19,7 +19,10 @@ DISTCLEANFILES = 			\
 	intltool-update         	\
 	po/.intltool-merge-cache
 
-DISTCHECK_CONFIGURE_FLAGS = --disable-scrollkeeper
+DISTCHECK_CONFIGURE_FLAGS = --disable-schemas-install --disable-scrollkeeper
+
+# Ignore scrollkeeper issues for now.  @#*$& scrollkeeper (from Evince)
+distuninstallcheck_listfiles = find . -type f -print | grep -v scrollkeeper | grep -v /share/gnome/help/ | grep -v \.omf
 
 test: all
 	$(MAKE) -C test test
