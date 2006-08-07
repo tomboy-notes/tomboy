@@ -15,13 +15,13 @@ BuildRequires:  gtk2-devel >= 2.2.3
 BuildRequires:  atk-devel >= 1.2.4
 BuildRequires:  gtkspell-devel
 BuildRequires:  gtk-sharp
-%{?_with_dbus:BuildRequires:  dbus-sharp}
+%{?_with_dbus:BuildRequires:  dbus-glib}
 Requires:       gtk2-devel >= 2.2.3 
 Requires:       atk-devel >= 1.2.4
 Requires:       gtkspell
 Requires:       gtk-sharp
 Requires:       libpanel-applet-2.so.0
-%{?_with_dbus:Requires:  dbus-sharp}
+%{?_with_dbus:Requires:  dbus-glib}
 
 %description
 Tomboy is a desktop note-taking application for Linux and Unix. Simple and easy
