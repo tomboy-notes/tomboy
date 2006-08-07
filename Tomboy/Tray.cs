@@ -320,17 +320,19 @@ namespace Tomboy
 			if (translators == "translator-credits")
 				translators = null;
 
-			Gnome.About about = 
-				new Gnome.About (
-					"Tomboy", 
-					Defines.VERSION,
-					Catalog.GetString ("Copyright \xa9 2004-2006 Alex Graveley"),
-					Catalog.GetString ("A simple and easy to use desktop " +
-							   "note-taking application."),
-					authors, 
-					documenters, 
-					translators,
-					about_icon_large);
+			Gtk.AboutDialog about = new Gtk.AboutDialog ();
+			about.Name = "Tomboy";
+			about.Version = Defines.VERSION;
+			about.Logo = about_icon_large;
+			about.Copyright = 
+				Catalog.GetString ("Copyright \xa9 2004-2006 Alex Graveley");
+			about.Comments = Catalog.GetString ("A simple and easy to use desktop " +
+							    "note-taking application.");
+			about.Website = "http://www.beatniksoftware.com/tomboy";
+			about.WebsiteLabel = Catalog.GetString("Homepage");
+			about.Authors = authors;
+			about.Documenters = documenters;
+			about.TranslatorCredits = translators;
 			about.IconName = "tomboy";
 			about.Show ();
 		}
