@@ -9,15 +9,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-07-06 21:41+0000\n"
-"PO-Revision-Date: 2006-07-06 21:43+0000\n"
+"POT-Creation-Date: 2006-08-08 10:33+0000\n"
+"PO-Revision-Date: 2006-08-08 10:46+0000\n"
 "Last-Translator: Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>\n"
 "Language-Team: Basque <itzulpena@euskalgnu.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.10.2\n"
-"Plural-Forms: Plural-Forms: Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "\n"
 
 #: ../data/DefaultPlugins.desktop.in.in.h:1
@@ -41,20 +41,20 @@ msgid "Tomboy Applet Factory"
 msgstr "Tomboy applet fabrika"
 
 #: ../data/GNOME_TomboyApplet.server.in.in.h:4 ../data/tomboy.desktop.in.h:3
-#: ../Tomboy/Applet.cs:132 ../Tomboy/Tray.cs:38
+#: ../Tomboy/Applet.cs:136 ../Tomboy/Tray.cs:39
 msgid "Tomboy Notes"
 msgstr "Tomboy oharrak"
 
-#: ../data/GNOME_TomboyApplet.xml.h:1 ../Tomboy/Applet.cs:175
+#: ../data/GNOME_TomboyApplet.xml.h:1 ../Tomboy/Applet.cs:179
 msgid "_About Tomboy"
 msgstr "_Tomboy-ri buruz"
 
-#: ../data/GNOME_TomboyApplet.xml.h:2 ../Tomboy/Applet.cs:170
-#: ../Tomboy/NoteWindow.cs:547
+#: ../data/GNOME_TomboyApplet.xml.h:2 ../Tomboy/Applet.cs:174
+#: ../Tomboy/NoteWindow.cs:513
 msgid "_Open Plugins Folder"
 msgstr "_Ireki plugin-en karpeta"
 
-#: ../data/GNOME_TomboyApplet.xml.h:3 ../Tomboy/Applet.cs:165
+#: ../data/GNOME_TomboyApplet.xml.h:3 ../Tomboy/Applet.cs:169
 msgid "_Preferences..."
 msgstr "_Hobespenak..."
 
@@ -285,25 +285,34 @@ msgid "Page %N of %Q"
 msgstr "%N / %Q orrialdea"
 
 #: ../libtomboy/gedit-print.c:444
-msgid "%A %D, %I:%M %p"
-msgstr "%A %D, %I:%M %p"
+#, c-format
+msgid "%A %x, %X"
+msgstr "%A %x, %X"
 
-#: ../Tomboy/Applet.cs:182
+#: ../Tomboy/Applet.cs:186
 msgid "_Quit"
 msgstr "_Irten"
 
 #. Open the Start Here note
-#: ../Tomboy/Note.cs:393 ../Tomboy/NoteManager.cs:97
-#: ../Tomboy/NoteManager.cs:105 ../Tomboy/Tomboy.cs:234 ../Tomboy/Tray.cs:122
-#: ../Tomboy/Tray.cs:178 ../Tomboy/Tray.cs:371 ../Tomboy/XKeybinder.cs:259
+#: ../Tomboy/Note.cs:402 ../Tomboy/NoteManager.cs:107
+#: ../Tomboy/NoteManager.cs:115 ../Tomboy/Tomboy.cs:283 ../Tomboy/Tray.cs:125
+#: ../Tomboy/Tray.cs:181 ../Tomboy/Tray.cs:386 ../Tomboy/XKeybinder.cs:259
 msgid "Start Here"
 msgstr "Hasi hemen"
 
-#: ../Tomboy/NoteManager.cs:98
+#: ../Tomboy/Note.cs:643
+msgid "Really delete this note?"
+msgstr "Ziur zaude ohar hau ezabatzea nahi duzula?"
+
+#: ../Tomboy/Note.cs:644
+msgid "If you delete a note it is permanently lost."
+msgstr "Ohar bat ezabatzen baduzu betirako galduko da."
+
+#: ../Tomboy/NoteManager.cs:108
 msgid "Welcome to Tomboy!"
 msgstr "Ongi etorri Tomboy-ra"
 
-#: ../Tomboy/NoteManager.cs:99
+#: ../Tomboy/NoteManager.cs:109
 msgid ""
 "Use this page as a Start Page for organizing your notes and keeping "
 "unorganized ideas around."
@@ -311,153 +320,145 @@ msgstr ""
 "Erabili orri hau hasierako orrialde gisa, oharrak antolatzeko, eta ankazgora "
 "dauden burutazioak inguruan mantentzeko."
 
-#: ../Tomboy/NoteManager.cs:184
+#: ../Tomboy/NoteManager.cs:200
 #, csharp-format
 msgid "New Note {0}"
 msgstr "{0}. mezu berria"
 
-#: ../Tomboy/NoteManager.cs:230
+#: ../Tomboy/NoteManager.cs:246
 msgid "Describe your new note here."
 msgstr "Azaldu ohar berria hemen."
 
-#: ../Tomboy/NoteWindow.cs:313
-msgid "Really delete this note?"
-msgstr "Ziur zaude ohar hau ezabatzea nahi duzula?"
-
-#: ../Tomboy/NoteWindow.cs:314
-msgid "If you delete a note it is permanently lost."
-msgstr "Ohar bat ezabatzen baduzu betirako galduko da."
-
-#: ../Tomboy/NoteWindow.cs:398
+#: ../Tomboy/NoteWindow.cs:364
 msgid "_Link to New Note"
 msgstr "_Estekatu ohar berrira"
 
-#: ../Tomboy/NoteWindow.cs:411
+#: ../Tomboy/NoteWindow.cs:377
 msgid "Te_xt"
 msgstr "Te_stua"
 
-#: ../Tomboy/NoteWindow.cs:419
+#: ../Tomboy/NoteWindow.cs:385
 msgid "_Search"
 msgstr "_Bilatu"
 
-#: ../Tomboy/NoteWindow.cs:433
+#: ../Tomboy/NoteWindow.cs:399
 msgid "Clos_e All Notes"
 msgstr "It_xi ohar guztiak"
 
-#: ../Tomboy/NoteWindow.cs:443
+#: ../Tomboy/NoteWindow.cs:409
 msgid "_Close"
 msgstr "_Itxi"
 
-#: ../Tomboy/NoteWindow.cs:471
+#: ../Tomboy/NoteWindow.cs:437
 msgid "Search"
 msgstr "Bilatu"
 
-#: ../Tomboy/NoteWindow.cs:472
+#: ../Tomboy/NoteWindow.cs:438
 msgid "Search your notes"
 msgstr "Bilatu zure oharrak"
 
-#: ../Tomboy/NoteWindow.cs:484
+#: ../Tomboy/NoteWindow.cs:450
 msgid "Link"
 msgstr "Esteka"
 
-#: ../Tomboy/NoteWindow.cs:485
+#: ../Tomboy/NoteWindow.cs:451
 msgid "Link selected text to a new note"
 msgstr "Hautatutako testua ohar berri batera estekatzen du"
 
-#: ../Tomboy/NoteWindow.cs:499
+#: ../Tomboy/NoteWindow.cs:465
 msgid "_Text"
 msgstr "_Testua"
 
-#: ../Tomboy/NoteWindow.cs:504
+#: ../Tomboy/NoteWindow.cs:470
 msgid "Set properties of text"
 msgstr "Ezarri testuaren propietateak"
 
-#: ../Tomboy/NoteWindow.cs:510
+#: ../Tomboy/NoteWindow.cs:476
 msgid "T_ools"
 msgstr "_Tresnak"
 
-#: ../Tomboy/NoteWindow.cs:514
+#: ../Tomboy/NoteWindow.cs:480
 msgid "Use tools on this note"
 msgstr "Erabili tresnak ohar hoonetan"
 
-#: ../Tomboy/NoteWindow.cs:521
+#: ../Tomboy/NoteWindow.cs:487
 msgid "Delete"
 msgstr "Ezabatu"
 
-#: ../Tomboy/NoteWindow.cs:522
+#: ../Tomboy/NoteWindow.cs:488
 msgid "Delete this note"
 msgstr "Ezabatu ohar hau"
 
-#: ../Tomboy/NoteWindow.cs:579
+#: ../Tomboy/NoteWindow.cs:545
 msgid "_Search..."
 msgstr "_Bilatu..."
 
-#: ../Tomboy/NoteWindow.cs:590 ../Tomboy/Search.cs:176
+#: ../Tomboy/NoteWindow.cs:556 ../Tomboy/Search.cs:177
 msgid "Find _Next"
 msgstr "Bilatu _hurrengoa"
 
-#: ../Tomboy/NoteWindow.cs:603
+#: ../Tomboy/NoteWindow.cs:569
 msgid "Find _Previous"
 msgstr "Bilatu _aurrekoa"
 
-#: ../Tomboy/NoteWindow.cs:687
+#: ../Tomboy/NoteWindow.cs:653
 msgid "Cannot create note"
 msgstr "Ezin da oharra sortu"
 
-#: ../Tomboy/NoteWindow.cs:782
+#: ../Tomboy/NoteWindow.cs:746
 msgid "_Bold"
 msgstr "_Lodia"
 
-#: ../Tomboy/NoteWindow.cs:794
+#: ../Tomboy/NoteWindow.cs:758
 msgid "_Italic"
 msgstr "_Etzana"
 
-#: ../Tomboy/NoteWindow.cs:806
+#: ../Tomboy/NoteWindow.cs:770
 msgid "_Strikeout"
 msgstr "_Marratua"
 
-#: ../Tomboy/NoteWindow.cs:818
+#: ../Tomboy/NoteWindow.cs:782
 msgid "_Highlight"
 msgstr "_Nabarmendua"
 
-#: ../Tomboy/NoteWindow.cs:831
+#: ../Tomboy/NoteWindow.cs:795
 msgid "Font Size"
 msgstr "Letra-tamaina"
 
-#: ../Tomboy/NoteWindow.cs:834
+#: ../Tomboy/NoteWindow.cs:798
 msgid "_Normal"
 msgstr "_Arrunta"
 
-#: ../Tomboy/NoteWindow.cs:841
+#: ../Tomboy/NoteWindow.cs:805
 msgid "Hu_ge"
 msgstr "_Oso handia"
 
-#: ../Tomboy/NoteWindow.cs:849
+#: ../Tomboy/NoteWindow.cs:813
 msgid "_Large"
 msgstr "_Handia"
 
-#: ../Tomboy/NoteWindow.cs:857
+#: ../Tomboy/NoteWindow.cs:821
 msgid "S_mall"
 msgstr "T_xikia"
 
-#: ../Tomboy/Preferences.cs:127
+#: ../Tomboy/Preferences.cs:120
 msgid "Tomboy Preferences"
 msgstr "Tomboy-en hobespenak"
 
-#: ../Tomboy/Preferences.cs:141
+#: ../Tomboy/Preferences.cs:134
 msgid "Editing"
 msgstr "Editatzea"
 
-#: ../Tomboy/Preferences.cs:144
+#: ../Tomboy/Preferences.cs:137
 msgid "Hotkeys"
 msgstr "Laster-teklak"
 
-#. Spellchecking...
-#: ../Tomboy/Preferences.cs:184
-msgid "_Spellcheck While Typing"
+#. Spell checking...
+#: ../Tomboy/Preferences.cs:177
+msgid "_Spell check while typing"
 msgstr "Egiaztatu _ortografia idatzi bitartean"
 
-#: ../Tomboy/Preferences.cs:191
+#: ../Tomboy/Preferences.cs:184
 msgid ""
 "Misspellings will be underlined in red, and correct spelling suggestions "
 "shown in the right-click menu."
@@ -466,11 +467,11 @@ msgstr ""
 "gomendatutako zuzenak zerrendatuko dira."
 
 #. WikiWords...
-#: ../Tomboy/Preferences.cs:200
+#: ../Tomboy/Preferences.cs:193
 msgid "Highlight _WikiWords"
 msgstr "Nabarmendu _wikiwords-ak"
 
-#: ../Tomboy/Preferences.cs:207
+#: ../Tomboy/Preferences.cs:200
 msgid ""
 "Enable this option to highlight words <b>ThatLookLikeThis</b>. Clicking the "
 "word will create a note with that name."
@@ -479,16 +480,16 @@ msgstr ""
 "gainean kllik eginez ohar berri bat sortuko da izen horrekin."
 
 #. Custom font...
-#: ../Tomboy/Preferences.cs:216
-msgid "Use Custom _Font"
-msgstr "Erabili letra-tipo pertsonalizatua"
+#: ../Tomboy/Preferences.cs:209
+msgid "Use custom _font"
+msgstr "Erabili _letra-tipo pertsonalizatua"
 
 #. Hotkeys...
-#: ../Tomboy/Preferences.cs:286
+#: ../Tomboy/Preferences.cs:279
 msgid "Listen for _Hotkeys"
 msgstr "Laster-teklak entzun"
 
-#: ../Tomboy/Preferences.cs:294
+#: ../Tomboy/Preferences.cs:287
 msgid ""
 "Hotkeys allow you to quickly access your notes from anywhere with a "
 "keypress. Example Hotkeys: <b>&lt;Control&gt;&lt;Shift&gt;F11</b>, <b>&lt;"
@@ -499,34 +500,34 @@ msgstr ""
 "b>,Â·<b>&lt;Alt&gt;N</b>"
 
 #. Show notes menu keybinding...
-#: ../Tomboy/Preferences.cs:314
+#: ../Tomboy/Preferences.cs:307
 msgid "Show notes _menu"
 msgstr "Erakutsi oharren _menua"
 
 #. Open Start Here keybinding...
-#: ../Tomboy/Preferences.cs:330
+#: ../Tomboy/Preferences.cs:323
 msgid "Open \"_Start Here\""
 msgstr "Ireki \"_Hasi hemen\""
 
 #. Create new note keybinding...
-#: ../Tomboy/Preferences.cs:346
+#: ../Tomboy/Preferences.cs:339
 msgid "Create _new note"
 msgstr "Sortu _ohar berria"
 
 #. Search dialog keybinding...
-#: ../Tomboy/Preferences.cs:362
+#: ../Tomboy/Preferences.cs:355
 msgid "S_earch notes"
 msgstr "B_ilatu oharrak"
 
-#: ../Tomboy/Preferences.cs:424
+#: ../Tomboy/Preferences.cs:417
 msgid "Choose Note Font"
 msgstr "Aukeratu oharraren letra-tipoa"
 
-#: ../Tomboy/RecentChanges.cs:31
+#: ../Tomboy/RecentChanges.cs:37
 msgid "Table of Contents"
 msgstr "Gaien aurkibidea"
 
-#: ../Tomboy/RecentChanges.cs:45
+#: ../Tomboy/RecentChanges.cs:51
 msgid ""
 "<b>Table of Contents</b> lists all your notes.\n"
 "Double click to open a note."
@@ -534,62 +535,73 @@ msgstr ""
 "<b>Gaien aurkibideak</b> zure ohar guztiak zerrendatzen ditu.\n"
 "Egin klik bikoitza ohar bat irekitzeko."
 
-#: ../Tomboy/RecentChanges.cs:171
+#: ../Tomboy/RecentChanges.cs:151
+msgid "Note"
+msgstr "Oharra"
+
+#: ../Tomboy/RecentChanges.cs:167
 msgid "Last Changed"
 msgstr "Azken aldatutakoa"
 
-#: ../Tomboy/RecentChanges.cs:234
+#: ../Tomboy/RecentChanges.cs:211
+#, csharp-format
+msgid "Total: {0} note"
+msgid_plural "Total: {0} notes"
+msgstr[0] "Guztira: ohar {0}"
+msgstr[1] "Guztira: {0} ohar"
+
+#: ../Tomboy/RecentChanges.cs:261
 #, csharp-format
 msgid "Today, {0}"
 msgstr "Gaur, {0}"
 
-#: ../Tomboy/RecentChanges.cs:237
+#: ../Tomboy/RecentChanges.cs:264
 #, csharp-format
 msgid "Yesterday, {0}"
 msgstr "Atzo, {0}"
 
-#: ../Tomboy/RecentChanges.cs:240
+#: ../Tomboy/RecentChanges.cs:267
 #, csharp-format
 msgid "{0} days ago, {1}"
 msgstr "orain dela {0} egun, {1}"
 
-#: ../Tomboy/RecentChanges.cs:244
+#: ../Tomboy/RecentChanges.cs:271
 msgid "MMMM d, h:mm tt"
 msgstr "MMMM d, h:mm tt"
 
-#: ../Tomboy/RecentChanges.cs:246
+#: ../Tomboy/RecentChanges.cs:273
 msgid "MMMM d yyyy, h:mm tt"
 msgstr "yyyy MMMM d, h:mm tt"
 
-#: ../Tomboy/Search.cs:87 ../Tomboy/Search.cs:488
+#: ../Tomboy/Search.cs:87 ../Tomboy/Search.cs:486
 msgid "Search All Notes"
 msgstr "Bilatu ohar guztiak"
 
-#: ../Tomboy/Search.cs:88 ../Tomboy/Search.cs:492
+#: ../Tomboy/Search.cs:88 ../Tomboy/Search.cs:490
 msgid "Search Note"
 msgstr "Bilatu oharrak"
 
-#: ../Tomboy/Search.cs:109
+#: ../Tomboy/Search.cs:110
 msgid "_Find:"
 msgstr "_Bilatu:"
 
-#: ../Tomboy/Search.cs:113
+#: ../Tomboy/Search.cs:114
 msgid "Search _All Notes"
 msgstr "Bilatu oh_ar guztiak"
 
-#: ../Tomboy/Search.cs:119
+#: ../Tomboy/Search.cs:120
 msgid "Case _Sensitive"
 msgstr "_Maiuskulak eta minuskulak bereizi"
 
-#: ../Tomboy/Search.cs:164
+#: ../Tomboy/Search.cs:165
 msgid "_Previous"
 msgstr "_Aurrekoa"
 
-#: ../Tomboy/Search.cs:252
+#: ../Tomboy/Search.cs:251
 msgid "Search _Results"
 msgstr "Bilaketaren _emaitzak"
 
-#: ../Tomboy/Search.cs:746
+#: ../Tomboy/Search.cs:729
 #, csharp-format
 msgid "({0} match)"
 msgid_plural "({0} matches)"
@@ -597,11 +609,11 @@ msgstr[0] "({0} bat dator)"
 msgstr[1] "({0} bat dator)"
 
 #. title
-#: ../Tomboy/Search.cs:764
+#: ../Tomboy/Search.cs:747
 msgid "No notes found"
 msgstr "Ez da oharrik aurkitu"
 
-#: ../Tomboy/Tomboy.cs:158
+#: ../Tomboy/Tomboy.cs:207
 msgid ""
 "Tomboy: A simple, easy to use desktop note-taking application.\n"
 "Copyright (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
@@ -611,7 +623,7 @@ msgstr ""
 "Copyright (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
 "\n"
 
-#: ../Tomboy/Tomboy.cs:170
+#: ../Tomboy/Tomboy.cs:219
 msgid ""
 "Usage:\n"
 "  --version\t\t\tPrint version information.\n"
@@ -624,7 +636,7 @@ msgstr ""
 "  --note-path [path]\t\tOharraren datuak kargatu/gorde egiten ditu "
 "direktorioan.\n"
 
-#: ../Tomboy/Tomboy.cs:179
+#: ../Tomboy/Tomboy.cs:228
 msgid ""
 "  --new-note\t\t\tCreate and display a new note.\n"
 "  --new-note [title]\t\tCreate and display a new note, with a title.\n"
@@ -640,16 +652,16 @@ msgstr ""
 "  --highlight-search [testua]\tBilatu eta nabarmendu testua irekitako "
 "oharrean.\n"
 
-#: ../Tomboy/Tomboy.cs:188
+#: ../Tomboy/Tomboy.cs:237
 msgid "D-BUS remote control disabled.\n"
 msgstr "D-BUS urruneko kontrola desgaituta.\n"
 
-#: ../Tomboy/Tomboy.cs:196
+#: ../Tomboy/Tomboy.cs:245
 #, csharp-format
 msgid "Version {0}"
 msgstr "{0} bertsioa"
 
-#: ../Tomboy/Tomboy.cs:254
+#: ../Tomboy/Tomboy.cs:303
 #, csharp-format
 msgid ""
 "Tomboy: unsupported option '{0}'\n"
@@ -661,43 +673,47 @@ msgstr ""
 "D-BUS urruneko kontrola desgaitua."
 
 #. initial newline
-#: ../Tomboy/Tray.cs:81
+#: ../Tomboy/Tray.cs:84
 msgid "dddd, MMMM d, h:mm tt"
 msgstr "dddd, MMMM d, h:mm tt"
 
-#: ../Tomboy/Tray.cs:144
+#: ../Tomboy/Tray.cs:147
 msgid "Create _New Note"
 msgstr "_Sortu ohar berria"
 
-#: ../Tomboy/Tray.cs:191
+#: ../Tomboy/Tray.cs:194
 msgid "_Table of Contents"
 msgstr "_Gaien aurkibidea"
 
-#: ../Tomboy/Tray.cs:201
+#: ../Tomboy/Tray.cs:204
 msgid "_Search Notes..."
 msgstr "_Bilatu oharrak..."
 
-#: ../Tomboy/Tray.cs:219
+#: ../Tomboy/Tray.cs:222
 msgid " (new)"
 msgstr " (berria)"
 
-#: ../Tomboy/Tray.cs:257
+#: ../Tomboy/Tray.cs:260
 msgid "Cannot create new note"
 msgstr "Ezin da ohar berria sortu"
 
-#: ../Tomboy/Tray.cs:308
+#: ../Tomboy/Tray.cs:319
 msgid "translator-credits"
 msgstr ""
 "Mikel Olasagasti <hey_neken@mundurat.net>\n"
 "Iñaki Larrañaga  <dooteo@euskalgnu.org>"
 
-#: ../Tomboy/Tray.cs:314
+#: ../Tomboy/Tray.cs:328
 msgid "Copyright © 2004-2006 Alex Graveley"
 msgstr "Copyright © 2004-2006 Alex Graveley"
 
-#: ../Tomboy/Tray.cs:315
+#: ../Tomboy/Tray.cs:329
 msgid "A simple and easy to use desktop note-taking application."
 msgstr "Oharrak hartzeko mahaigaineko aplikazio sinple eta erraza."
+
+#: ../Tomboy/Tray.cs:332
+msgid "Homepage"
+msgstr "Orri nagusia"
 
 #: ../Tomboy/Watchers.cs:137
 #, csharp-format
@@ -717,15 +733,15 @@ msgstr ""
 msgid "Note title taken"
 msgstr "Oharraren titulua hartuta"
 
-#: ../Tomboy/Watchers.cs:411
+#: ../Tomboy/Watchers.cs:386
 msgid "Cannot open location"
 msgstr "Ezin da helbidea ireki"
 
-#: ../Tomboy/Watchers.cs:505
+#: ../Tomboy/Watchers.cs:480
 msgid "_Copy Link Address"
 msgstr "-Kopiatu estekaren helbidea"
 
-#: ../Tomboy/Watchers.cs:510
+#: ../Tomboy/Watchers.cs:485
 msgid "_Open Link"
 msgstr "_Ireki esteka"
 
@@ -733,15 +749,15 @@ msgstr "_Ireki esteka"
 msgid "Cannot open email"
 msgstr "Ezin da posta ireki"
 
-#: ../Tomboy/Plugins/ExportToHTML.cs:46
+#: ../Tomboy/Plugins/ExportToHTML.cs:47
 msgid "Export to HTML"
 msgstr "Esportatu HTMLra"
 
-#: ../Tomboy/Plugins/ExportToHTML.cs:169
+#: ../Tomboy/Plugins/ExportToHTML.cs:201
 msgid "Destination for HTML Export"
 msgstr "HTMLra esportatzeko helbidea"
 
-#: ../Tomboy/Plugins/ExportToHTML.cs:174
+#: ../Tomboy/Plugins/ExportToHTML.cs:206
 msgid "Export linked notes"
 msgstr "Esportatu estekatutako oharrak"
 
@@ -749,12 +765,12 @@ msgstr "Esportatu estekatutako oharrak"
 msgid "_Fixed Width"
 msgstr "_Zabalera finkoa"
 
-#: ../Tomboy/Plugins/GalagoPresence.cs:271
+#: ../Tomboy/Plugins/GalagoPresence.cs:235
 #, csharp-format
 msgid "Cannot contact '{0}'"
 msgstr "Ezin da '{0}' kontaktatu"
 
-#: ../Tomboy/Plugins/GalagoPresence.cs:274
+#: ../Tomboy/Plugins/GalagoPresence.cs:238
 #, csharp-format
 msgid "Error running gaim-remote: {0}"
 msgstr "Errorea gaim-remote exekutatzean: {0}"
@@ -779,4 +795,34 @@ msgstr "Hitzorduak"
 #: ../Tomboy/Plugins/NoteOfTheDay.cs:169
 msgid "Create Note of the Day"
 msgstr "Sortu eguneko oharra"
+
+#: ../Tomboy/Plugins/StickyNoteImport.cs:28
+msgid "Import from Sticky Notes"
+msgstr "Inportatu ohar itsaskorretik"
+
+#: ../Tomboy/Plugins/StickyNoteImport.cs:64
+msgid "No Sticky Notes found"
+msgstr "Ez da ohar itsaskorrrik aurkitu"
+
+#: ../Tomboy/Plugins/StickyNoteImport.cs:65
+#, csharp-format
+msgid "No suitable Sticky Notes file was found at \"{0}\"."
+msgstr "Ez da ohar itsaskorrik aurkitu \"{0}\"(e)n."
+
+#: ../Tomboy/Plugins/StickyNoteImport.cs:74
+msgid "Sticky Notes import completed"
+msgstr "Ohar itsaskorretik inportatzea burutu da"
+
+#: ../Tomboy/Plugins/StickyNoteImport.cs:75
+#, csharp-format
+msgid "<b>{0}</b> of <b>{1}</b> Sticky Notes were successfully imported."
+msgstr "Ohar itsaskorretik ongi inportatuta: <b>{0}</b> / <b>{1}</b>."
+
+#: ../Tomboy/Plugins/StickyNoteImport.cs:97
+msgid "Untitled"
+msgstr "Titulu gabea"
+
+#: ../Tomboy/Plugins/StickyNoteImport.cs:125
+msgid "Sticky Note: "
+msgstr "Ohar itsaskorra: "
 
