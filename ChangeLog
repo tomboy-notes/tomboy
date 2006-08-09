@@ -4,6 +4,14 @@
 
 2006-08-08  Alex Graveley  <alex@beatniksoftware.com>
 
+	* Tomboy/Watchers.cs (NoteLinkWatcher.OnNoteRenamed): Fix typo
+	that totally horks links when renaming the linked note.
+	(NoteLinkWatcher.DoHighlight): Only link against whole
+	words/phrases, so that e.g. notes named "sed" are not highlighted
+	inside "sedementary".
+
+2006-08-08  Alex Graveley  <alex@beatniksoftware.com>
+
 	* configure.in: Bump to version 0.3.10 following GNOME 2.16 Beta 2
 	freeze.
 
