@@ -637,7 +637,7 @@ namespace Tomboy
 					    renamed.Title);
 
 				Gtk.TextIter start_iter = range.Start;
-				Gtk.TextIter end_iter = range.Start;
+				Gtk.TextIter end_iter = range.End;
 				Buffer.Delete (ref start_iter, ref end_iter);
 				start_iter = range.Start;
 				Buffer.InsertWithTags (ref start_iter, renamed.Title, link_tag);
@@ -653,13 +653,17 @@ namespace Tomboy
 			Gtk.TextIter title_start = start;
 			title_start.ForwardChars (hit.Start);
 
+			Gtk.TextIter title_end = start;
+			title_end.ForwardChars (hit.End);
+
+			// Only link against whole words/phrases
+			if (!title_start.StartsWord () || !title_end.EndsWord())
+				return;
+
 			// Don't create links inside URLs
 			if (title_start.HasTag (url_tag))
 				return;
 
-			Gtk.TextIter title_end = start;
-			title_end.ForwardChars (hit.End);
-			
 			Logger.Log ("Matching Note title '{0}' at {1}-{2}...", 
 				    hit.Key,
 				    hit.Start,
