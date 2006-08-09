@@ -329,12 +329,13 @@ namespace Tomboy
 			about.Comments = Catalog.GetString ("A simple and easy to use desktop " +
 							    "note-taking application.");
 			about.Website = "http://www.beatniksoftware.com/tomboy";
-			about.WebsiteLabel = Catalog.GetString("Homepage");
+			about.WebsiteLabel = Catalog.GetString("Homepage & Donations");
 			about.Authors = authors;
 			about.Documenters = documenters;
 			about.TranslatorCredits = translators;
 			about.IconName = "tomboy";
-			about.Show ();
+			about.Run ();
+			about.Destroy ();
 		}
 
 		// Support dropping text/uri-lists and _NETSCAPE_URLs currently.
