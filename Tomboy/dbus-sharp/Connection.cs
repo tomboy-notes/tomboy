@@ -116,7 +116,7 @@ namespace DBus
 	// Maybe we already have a Connection object associated with
 	// this rawConnection then return it
 	IntPtr rawThis = dbus_connection_get_data (rawConnection, slot);
-	if (rawThis != IntPtr.Zero) {
+	if (rawThis != IntPtr.Zero && ((GCHandle)rawThis).Target == typeof(DBus.Connection)) {
 	  return (DBus.Connection) ((GCHandle)rawThis).Target;
 	}
       }
@@ -256,7 +256,7 @@ namespace DBus
 	      dbus_connection_ref (rawConnection);
 	      
 	      // We store a weak reference to the C# object on the C object
-	      rawThis = GCHandle.Alloc (this, GCHandleType.WeakTrackResurrection);
+	      rawThis = GCHandle.Alloc (this, GCHandleType.Normal);
 	      
 	      dbus_connection_set_data(rawConnection, Slot, (IntPtr) rawThis, IntPtr.Zero);
 

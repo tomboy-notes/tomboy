@@ -74,7 +74,7 @@ namespace Tomboy
 
 			try {
 				Gdk.Pixbuf ret = new Gdk.Pixbuf (null, resource_name + ".png");
-				return ret.ScaleSimple (size, size, Gdk.InterpType.Nearest);
+				return ret.ScaleSimple (size, size, Gdk.InterpType.Bilinear);
 			} catch (ArgumentException e) {
 			}
 

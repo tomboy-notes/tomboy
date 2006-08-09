@@ -110,7 +110,7 @@ namespace DBus
       if (slot > -1) {
 	// If we already have a Message object associated with this rawMessage then return it
 	IntPtr rawThis = dbus_message_get_data(rawMessage, slot);
-	if (rawThis != IntPtr.Zero)
+	if (rawThis != IntPtr.Zero && ((GCHandle)rawThis).Target == typeof(DBus.Message))
 	  return (DBus.Message) ((GCHandle)rawThis).Target;
       } 
       // If it doesn't exist then create a new Message around it
