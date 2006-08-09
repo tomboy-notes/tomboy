@@ -13,15 +13,13 @@ namespace Tomboy
 		Gtk.Tooltips tips;
 		Gtk.Image image;
 		PreferencesDialog prefs_dlg;
+		int icon_size_last = -1;
 
-		static Gdk.Pixbuf tray_icon;
-		static Gdk.Pixbuf about_icon_large;
 		static Gdk.Pixbuf note_icon;
 
 		static TomboyTray ()
 		{
-			tray_icon = GuiUtils.GetIcon ("tomboy", 22);
-			about_icon_large = GuiUtils.GetIcon ("tomboy", 48);
+			// Cache this since we use it a lot.
 			note_icon = GuiUtils.GetIcon ("tomboy", 16);
 		}
 
@@ -29,7 +27,7 @@ namespace Tomboy
 			: base ()
 		{
 			this.manager = manager;
-			this.image = new Gtk.Image (tray_icon);
+			this.image = new Gtk.Image ();
 
 			this.CanFocus = true;
 			this.ButtonPressEvent += ButtonPress;
@@ -323,7 +321,7 @@ namespace Tomboy
 			Gtk.AboutDialog about = new Gtk.AboutDialog ();
 			about.Name = "Tomboy";
 			about.Version = Defines.VERSION;
-			about.Logo = about_icon_large;
+			about.Logo = GuiUtils.GetIcon ("tomboy", 48);
 			about.Copyright = 
 				Catalog.GetString ("Copyright \xa9 2004-2006 Alex Graveley");
 			about.Comments = Catalog.GetString ("A simple and easy to use desktop " +
@@ -393,34 +391,54 @@ namespace Tomboy
 			}
 		}
 
+		protected override void OnSizeAllocated (Gdk.Rectangle rect)
+		{
+			base.OnSizeAllocated (rect);
+
+			int icon_size = Math.Min (rect.Height, rect.Width);
+			if (icon_size_last != icon_size) {
+				icon_size_last = icon_size;
+				image.Pixbuf = GuiUtils.GetIcon (GetIconName (), icon_size);
+			}
+		}
+
+		void ReloadIcon ()
+		{
+			icon_size_last = -1;
+			QueueResize ();
+		}
+
 		// NOTHING TO SEE HERE
 		void InitSomeStuff ()
 		{
 			manager.NoteDeleted += OnNoteDeletedUpdateIcon;
 			manager.NoteAdded += OnNoteAddedUpdateIcon;
 			manager.NoteRenamed += OnNoteRenamedUpdateIcon;
-			if (manager.Find ("Tintin") != null)
-				image.Pixbuf = GuiUtils.GetIcon ("tintin", 22);
 		}
 
 		void OnNoteDeletedUpdateIcon (object sender, Note changed)
 		{
 			if (changed.Title == "Tintin")
-				image.Pixbuf = tray_icon;
+				ReloadIcon ();
 		}
 
 		void OnNoteAddedUpdateIcon (object sender, Note changed)
 		{
 			if (changed.Title == "Tintin")
-				image.Pixbuf = GuiUtils.GetIcon ("tintin", 22);
+				ReloadIcon ();
 		}
 
 		void OnNoteRenamedUpdateIcon (Note note, string old_title)
 		{
-			if (note.Title == "Tintin")
-				image.Pixbuf = GuiUtils.GetIcon ("tintin", 22);
-			else if (old_title == "Tintin")
-				image.Pixbuf = tray_icon;
+			if (note.Title == "Tintin" || old_title == "Tintin")
+				ReloadIcon ();
+		}
+
+		string GetIconName ()
+		{
+			if (manager.Find ("Tintin") != null)
+				return "tintin";
+			return "tomboy";
 		}
 		// GO ABOUT YOUR BUSINESS
 	}
