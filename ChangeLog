@@ -1,3 +1,17 @@
+2006-08-10  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Tomboy.cs: Cleanup the main class by subclassing the new
+	Application helper.
+
+	* Tomboy/Utils.cs: Add Application, a new calls to encapsulate
+	application-level utilities such as setting up gettext,
+	registering exit signal handlers and sending an exiting event,
+	setting up session management, and setting program name by calling
+	prctl(2) (new, allows `killall tomboy` behavior).
+
+	* Tomboy/RemoteControlProxy.cs: Add GetInstance and Register
+	methods, to encapsulate DBUS calls.
+
 2006-08-09  Alex Graveley  <alex@beatniksoftware.com>
 
 	* Tomboy/Search.cs: Make the text entry grab focus on shown,

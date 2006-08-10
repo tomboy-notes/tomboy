@@ -2,21 +2,16 @@
 using System;
 using System.IO;
 using Mono.Unix;
-using Mono.Unix.Native;
 
 namespace Tomboy 
 {
-	public class Tomboy 
+	public class Tomboy : Application
 	{
-		static Gnome.Program program;
 		static NoteManager manager;
-		static Object dbus_connection;
+		static Object remote_control;
 
 		public static void Main (string [] args) 
 		{
-			// Initialize GETTEXT
-			Catalog.Init ("tomboy", Defines.GNOME_LOCALE_DIR);
-
 			TomboyCommandLine cmd_line = new TomboyCommandLine (args);
 
 			if (cmd_line.NeedsExecute) {
@@ -25,12 +20,7 @@ namespace Tomboy
 				return;
 			}
 
-			program = new Gnome.Program ("Tomboy", 
-						     Defines.VERSION, 
-						     Gnome.Modules.UI, 
-						     args);
-
-			RegisterSignalHandlers ();
+			Initialize ("tomboy", "Tomboy", "tomboy", args);
 
 			// Create the default note manager instance.
 			string note_path = GetNotePath (cmd_line.NotePath);
@@ -42,7 +32,10 @@ namespace Tomboy
 			if (cmd_line.UsePanelApplet) {
 				RegisterPanelAppletFactory ();
 			} else {
-				RegisterSessionManagerRestart (args, note_path);
+				RegisterSessionManagerRestart (
+					Environment.GetEnvironmentVariable ("TOMBOY_WRAPPER_PATH"),
+					args,
+					new string [] { "TOMBOY_PATH=" + note_path  });
 				StartTrayIcon ();
 			}
 
@@ -70,61 +63,21 @@ namespace Tomboy
 			_Gnome.PanelAppletFactory.Register (typeof (TomboyApplet));
 		}
 
-		static void RegisterSessionManagerRestart (string[] args, string note_path)
-		{
-			// $TOMBOY_WRAPPER_PATH gets set by the wrapper script... 	 
-			string wrapper = Environment.GetEnvironmentVariable ("TOMBOY_WRAPPER_PATH");
-			if (wrapper == null)
-				return;
-
-			// Restart if we are running when the session ends or at crash...
-			Gnome.Client client = Gnome.Global.MasterClient ();
-			client.RestartStyle = 
-				Gnome.RestartStyle.IfRunning | Gnome.RestartStyle.Immediately;
-			client.Die += OnSessionManagerDie;
-
-			// Set TOMBOY_PATH if it exists
-			if (note_path != null)
-				client.SetEnvironment ("TOMBOY_PATH", note_path);
-
-			// Get the args for session restart... 	 
-			string [] restart_args = new string [args.Length + 1]; 	 
-			restart_args [0] = wrapper;
-			args.CopyTo (restart_args, 1);
-			client.SetRestartCommand (restart_args.Length, restart_args);
-		}
-
-		static void OnSessionManagerDie (object sender, EventArgs args)
-		{
-			Gtk.Main.Quit ();
-		}
-
-		static void CancelSessionManagerRestart ()
-		{
-			Gnome.Client client = Gnome.Global.MasterClient ();
-			client.RestartStyle = Gnome.RestartStyle.IfRunning;
-			client.Flush ();
-		}
-
 		static void StartTrayIcon ()
 		{
 			// Create the tray icon and run the main loop
 			TomboyTrayIcon tray_icon = new TomboyTrayIcon (DefaultNoteManager);
 			tray_icon.Show ();
-			program.Run ();
+
+			StartMainLoop ();
 		}
 
 		static void RegisterRemoteControl (NoteManager manager)
 		{
 #if ENABLE_DBUS
 			try {
-				dbus_connection = DBus.Bus.GetSessionBus ();
-				DBus.Service service = 
-					new DBus.Service ((DBus.Connection) dbus_connection, 
-							  RemoteControlProxy.Namespace);
-
-				RemoteControl remote_control = new RemoteControl (manager);
-				service.RegisterObject (remote_control, RemoteControlProxy.Path);
+				remote_control = new RemoteControl (manager);
+				((RemoteControl) remote_control).Register ();
 
 				Logger.Log ("Tomboy remote control active.");
 			} catch (Exception e) {
@@ -132,34 +85,6 @@ namespace Tomboy
 						   e.Message);
 			}
 #endif
-		}
-
-		static void RegisterSignalHandlers ()
-		{
-			// Connect to SIGTERM and SIGINT, so we don't lose
-			// unsaved notes on exit...
-			Stdlib.signal (Signum.SIGTERM, OnExitSignal);
-			Stdlib.signal (Signum.SIGINT, OnExitSignal);
-		}
-
-		static void OnExitSignal (int signal)
-		{
-			// Don't auto-restart after exit/kill.
-			CancelSessionManagerRestart ();
-
-			if (ExitingEvent != null)
-				ExitingEvent (null, new EventArgs ());
-
-			if (signal >= 0)
-				System.Environment.Exit (0);
-		}
-
-		public static event EventHandler ExitingEvent;
-
-		public static void Exit (int exitcode)
-		{
-			OnExitSignal (-1);
-			System.Environment.Exit (exitcode);
 		}
 
 		public static NoteManager DefaultNoteManager
@@ -356,15 +281,7 @@ namespace Tomboy
 		public void Execute ()
 		{
 #if ENABLE_DBUS
-			DBus.Connection connection = DBus.Bus.GetSessionBus ();
-			DBus.Service service = new DBus.Service (connection, 
-								 RemoteControlProxy.Namespace);
-
-			RemoteControlProxy remote = (RemoteControlProxy) 
-				service.GetObject (typeof (RemoteControlProxy),
-						   RemoteControlProxy.Path);
-			// Work around dbus binding bug. #328930
-			System.GC.SuppressFinalize (remote);
+			RemoteControlProxy remote = RemoteControlProxy.GetInstance ();
 
 			if (new_note) {
 				string new_uri;
