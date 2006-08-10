@@ -3,9 +3,11 @@ using System;
 using System.Collections;
 using System.Runtime.InteropServices;
 using System.Text;
-
 using System.IO;
 using System.Xml;
+
+using Mono.Unix;
+using Mono.Unix.Native;
 
 namespace Tomboy
 {
@@ -739,6 +741,129 @@ namespace Tomboy
 		void OnToolbarStyleChanged (object sender, Gtk.StyleChangedArgs args)
 		{
 			ShowForToolbarStyle (args.Style);
+		}
+	}
+
+	public class Application
+	{
+		static Gnome.Program program;
+
+		public static void Initialize (string locale_dir, 
+					       string display_name, 
+					       string process_name,  
+					       string [] args)
+		{
+			SetProcessName (process_name);
+
+			// Initialize GETTEXT
+			Catalog.Init (locale_dir, Defines.GNOME_LOCALE_DIR);
+
+			Gtk.Application.Init ();
+			program = new Gnome.Program ("Tomboy", 
+						     Defines.VERSION, 
+						     Gnome.Modules.UI, 
+						     args);
+
+			RegisterSignalHandlers ();
+		}
+
+		[DllImport("libc")]
+		private static extern int prctl (int option, 
+						 byte [] arg2, 
+						 IntPtr arg3, 
+						 IntPtr arg4, 
+						 IntPtr arg5);
+
+		// From Banshee: Banshee.Base/Utilities.cs
+		public static void SetProcessName (string name)
+		{
+			if (prctl (15 /* PR_SET_NAME */, 
+				   Encoding.ASCII.GetBytes (name + "\0"),
+				   IntPtr.Zero, 
+				   IntPtr.Zero, 
+				   IntPtr.Zero) != 0)
+				throw new ApplicationException (
+					"Error setting process name: " +
+					Mono.Unix.Native.Stdlib.GetLastError ());
+		}
+
+		static void RegisterSignalHandlers ()
+		{
+			// Connect to SIGTERM and SIGINT, so we don't lose
+			// unsaved notes on exit...
+			Stdlib.signal (Signum.SIGTERM, OnExitSignal);
+			Stdlib.signal (Signum.SIGINT, OnExitSignal);
+		}
+
+		public static void RegisterSessionManagerRestart (string executable_path,
+								  string[] args, 
+								  string[] environment)
+		{
+			if (executable_path == null)
+				return;
+
+			// Restart if we are running when the session ends or at crash...
+			Gnome.Client client = Gnome.Global.MasterClient ();
+			client.RestartStyle = 
+				Gnome.RestartStyle.IfRunning | Gnome.RestartStyle.Immediately;
+			client.Die += OnSessionManagerDie;
+
+			foreach (string env in environment) {
+				string [] split = env.Split (new char [] { '=' }, 2);
+				if (split.Length == 2) {
+					client.SetEnvironment (split[0], split[1]);
+				}
+			}
+
+			// Get the args for session restart... 	 
+			string [] restart_args = new string [args.Length + 1]; 	 
+			restart_args [0] = executable_path;
+			args.CopyTo (restart_args, 1);
+			client.SetRestartCommand (restart_args.Length, restart_args);
+		}
+
+		static void OnSessionManagerDie (object sender, EventArgs args)
+		{
+			// Don't let the exit signal run, which would cancel
+			// session management.
+			QuitMainLoop ();
+		}
+
+		static void CancelSessionManagerRestart ()
+		{
+			Gnome.Client client = Gnome.Global.MasterClient ();
+			client.RestartStyle = Gnome.RestartStyle.IfRunning;
+			client.Flush ();
+		}
+
+		static void OnExitSignal (int signal)
+		{
+			// Don't auto-restart after exit/kill.
+			CancelSessionManagerRestart ();
+
+			if (ExitingEvent != null)
+				ExitingEvent (null, new EventArgs ());
+
+			if (signal >= 0)
+				System.Environment.Exit (0);
+		}
+
+		public static event EventHandler ExitingEvent;
+
+		public static void Exit (int exitcode)
+		{
+			OnExitSignal (-1);
+			System.Environment.Exit (exitcode);
+		}
+
+		public static void StartMainLoop ()
+		{
+			program.Run ();
+		}
+
+		public static void QuitMainLoop ()
+		{
+			Gtk.Main.Quit ();
 		}
 	}
 }

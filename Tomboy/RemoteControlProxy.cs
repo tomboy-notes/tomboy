@@ -8,6 +8,27 @@ namespace Tomboy
 		public const string Path = "/com/beatniksoftware/Tomboy/RemoteControl";
 		public const string Namespace = "com.beatniksoftware.Tomboy";
 
+		public static RemoteControlProxy GetInstance ()
+		{
+			DBus.Connection connection = DBus.Bus.GetSessionBus ();
+			DBus.Service service = DBus.Service.Get (connection, Namespace);
+
+			RemoteControlProxy remote = (RemoteControlProxy) 
+				service.GetObject (typeof (RemoteControlProxy), Path);
+
+			// Work around dbus binding bug. #328930
+			System.GC.SuppressFinalize (remote);
+			return remote;
+		}
+
+		public void Register ()
+		{
+			DBus.Connection connection = DBus.Bus.GetSessionBus ();
+			DBus.Service service = DBus.Service.Get (connection, Namespace);
+
+			service.RegisterObject (this, Path);
+		}
+
 		// Displays the note with the specified Uri.
 		// Returns true on success, false if there is no note
 		// corresponding to that Uri.
