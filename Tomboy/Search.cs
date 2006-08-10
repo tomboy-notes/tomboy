@@ -205,7 +205,6 @@ namespace Tomboy
 
 			this.Add (content_vbox);
 			this.DeleteEvent += HideOnDelete;
-			this.Shown += HighlightOnShown;
 		}
 
 		void MakeResultTreeView () 
@@ -467,8 +466,12 @@ namespace Tomboy
 			args.RetVal = true;
 		}
 
-		void HighlightOnShown (object sender, EventArgs args)
+		protected override void OnShown ()
 		{
+			find_combo.Entry.GrabFocus ();
+			base.OnShown ();
+
+			// Rehighlight any note text for the existing search.
 			if (current_matches != null)
 				HighlightMatches (current_matches, true);
 		}
