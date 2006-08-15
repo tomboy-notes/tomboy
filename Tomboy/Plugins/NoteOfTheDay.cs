@@ -11,6 +11,7 @@ using Tomboy;
 class NoteOfTheDay 
 {
 	static string title_prefix = Catalog.GetString ("NotD: ");
+	static string template_title = Catalog.GetString ("NotD: Template");
 
 	public static string GetTitle (DateTime day)
 	{
@@ -18,7 +19,7 @@ class NoteOfTheDay
 		return title_prefix + day.ToString (Catalog.GetString ("dddd, MMMM d yyyy"));
 	}
 
-	public static string GetContent (DateTime day)
+	public static string GetContent (DateTime day, NoteManager manager)
 	{
 		const string base_xml = 
 			"<note-content>" +
@@ -28,7 +29,13 @@ class NoteOfTheDay
 			"</note-content>";
 			
 		string title = GetTitle (day);
-		return string.Format (base_xml, 
+
+		// Attempt to load content from template
+		Note templateNote = manager.Find (template_title);
+		if (templateNote != null)
+			return templateNote.XmlContent.Replace (template_title, title);
+		else
+			return string.Format (base_xml, 
 				      title, 
 				      Catalog.GetString ("Tasks"),
 				      Catalog.GetString ("Appointments"));
@@ -37,7 +44,7 @@ class NoteOfTheDay
 	public static Note Create (NoteManager manager, DateTime day)
 	{
 		string title = GetTitle (day);
-		string xml = GetContent (day);
+		string xml = GetContent (day, manager);
 
 		Note notd = manager.Create (title, xml);
 		if (notd != null)
@@ -53,7 +60,7 @@ class NoteOfTheDay
 
 	public static bool HasChanged (Note note)
 	{
-		string original_xml = GetContent(note.CreateDate);
+		string original_xml = GetContent(note.CreateDate, note.Manager);
 		if (GetContentWithoutTitle (note.TextContent) == 
 		    GetContentWithoutTitle (XmlDecoder.Decode (original_xml))) {
 			return false;
@@ -67,6 +74,7 @@ class NoteOfTheDay
 
 		foreach (Note note in manager.Notes) {
 			if (note.Title.StartsWith (title_prefix) &&
+			    note.Title != template_title &&
 			    note.CreateDate.Day != DateTime.Now.Day &&
 			    !HasChanged (note)) {
 				kill_list.Add (note);
