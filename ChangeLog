@@ -1,3 +1,14 @@
+2006-08-16  Alex Graveley  <alex@beatniksoftware.com>
+
+	* NEWS: Update with NotD template bullet.
+
+	* configure.in: Require dbus-1 >= 0.90, which has libdbus-1.so.3.
+
+	* Tomboy/Tomboy.exe.config.in: Link libdbus-1.so.3 instead of
+	libdbus-1.so.3, which fixes a crash where older versions of
+	libdbus are linked in with newer versions of libdbus-glib.  Fixes
+	bug #350463.
+
 2006-08-15  Sandy Armstrong <sanfordarmstrong@gmail.com>
 
 	* Tomboy/Plugins/NoteOfTheDay.cs: Add support for using a note
