@@ -102,7 +102,7 @@ public class ExportToHTMLPlugin : NotePlugin
 		// whitespace between elements for some reason.  Also,
 		// XPathDocument is faster.
 		StringWriter s_writer = new StringWriter ();
-		NoteArchiver.Write (s_writer, note);
+		NoteArchiver.Write (s_writer, note.Data);
 		StringReader reader = new StringReader (s_writer.ToString ());
 		s_writer.Close ();
 		XPathDocument doc = new XPathDocument (reader);
@@ -153,7 +153,7 @@ class NoteNameResolver : XmlResolver
 			return null;
 
 		StringWriter writer = new StringWriter ();
-		NoteArchiver.Write (writer, note);
+		NoteArchiver.Write (writer, note.Data);
 		Stream stream = WriterToStream (writer);
 		writer.Close ();
 
