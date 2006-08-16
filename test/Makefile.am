@@ -16,6 +16,7 @@ CSFILES =					\
 
 ASSEMBLIES =							\
 	$(NUNIT_LIBS)						\
+	$(TOMBOY_LIBS)						\
 	-r:$(top_builddir)/Tomboy/Tomboy.exe			\
 	-r:$(top_builddir)/Tomboy/Plugins/ExportToHTML.dll
 

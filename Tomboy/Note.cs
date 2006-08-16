@@ -13,7 +13,7 @@ namespace Tomboy
 	// Contains all pure note data, like the note title and note text.
 	public class NoteData
 	{
-		string uri;
+		readonly string uri;
 		string title;
 		string text;
 		DateTime create_date;
@@ -25,8 +25,10 @@ namespace Tomboy
 
 		const int noPosition = -1;
 
-		public NoteData ()
+		public NoteData (string uri)
 		{
+			this.uri = uri;
+			this.text = "";
 			x = noPosition;
 			y = noPosition;
 		}
@@ -34,7 +36,6 @@ namespace Tomboy
 		public string Uri
 		{
 			get { return uri; }
-			set { uri = value; }
 		}
 
 		public string Title
@@ -64,6 +65,7 @@ namespace Tomboy
 		// FIXME: the next five attributes don't belong here (the data
 		// model), but belong into the view; for now they are kept here
 		// for backwards compatibility
+
 		public int CursorPosition
 		{
 			get { return cursor_pos; }
@@ -116,16 +118,133 @@ namespace Tomboy
 		}
 	}
 
+	// This class wraps a NoteData instance. Most method calls are
+	// forwarded to the wrapped instance, but there is special behaviour
+	// for the Text attribute. This class takes care that this attribute
+	// is synchronized with the contents of a NoteBuffer instance.
+	public class NoteDataBufferSynchronizer
+	{
+		readonly NoteData data;
+		NoteBuffer buffer;
+
+		public NoteDataBufferSynchronizer (NoteData data)
+		{
+			this.data = data;
+		}
+
+		public NoteData GetDataSynchronized ()
+		{
+			// Assert that Data.Text returns the current
+			// text from the text buffer.
+			SynchronizeText ();
+			return data;
+		}
+
+		public NoteData Data
+		{
+			get { return data; }
+		}
+
+		public NoteBuffer Buffer
+		{
+			get { return buffer; }
+			set
+			{
+				buffer = value;
+
+				// Don't create Undo actions during load
+				buffer.Undoer.FreezeUndo ();
+
+				// Load the stored xml text
+				if (!TextInvalid ()) {
+					NoteBufferArchiver.Deserialize (buffer, 
+									buffer.StartIter, 
+									data.Text);
+				}
+				buffer.Modified = false;
+
+				Gtk.TextIter cursor;
+				if (data.CursorPosition != 0) {
+					// Move cursor to last-saved position
+					cursor = buffer.GetIterAtOffset (data.CursorPosition);
+				} else {
+					// Avoid title line
+					cursor = buffer.GetIterAtLine (2);
+				}
+				buffer.PlaceCursor (cursor);
+
+				// New events should create Undo actions
+				buffer.Undoer.ThawUndo ();
+
+				buffer.Changed += BufferChanged;
+				buffer.TagApplied += BufferTagApplied;
+				buffer.TagRemoved += BufferTagRemoved;
+
+				InvalidateText ();
+			}
+		}
+
+		public string Text
+		{
+			set
+			{
+				data.Text = value;
+			}
+			get
+			{
+				SynchronizeText ();
+				return data.Text;
+			}
+		}
+
+		// Custom Methods
+
+		void InvalidateText ()
+		{
+			data.Text = "";
+		}
+
+		bool TextInvalid ()
+		{
+			return data.Text == "";
+		}
+
+		void SynchronizeText ()
+		{
+			if (TextInvalid () && buffer != null) {
+				data.Text = NoteBufferArchiver.Serialize (buffer); 
+			}
+		}
+
+		// Callbacks
+
+		void BufferChanged (object sender, EventArgs args)
+		{
+			InvalidateText ();
+		}
+
+		void BufferTagApplied (object sender, Gtk.TagAppliedArgs args)
+		{
+			if (NoteTagTable.TagIsSerializable (args.Tag)) {
+				InvalidateText ();
+			}
+		}
+
+		void BufferTagRemoved (object sender, Gtk.TagRemovedArgs args)
+		{
+			if (NoteTagTable.TagIsSerializable (args.Tag)) {
+				InvalidateText ();
+			}
+		}
+	}
+
 	public class Note 
 	{
-		internal NoteData data;
+		internal readonly NoteDataBufferSynchronizer data;
 
 		string filepath;
 
 		bool save_needed;
-
-		// Accessed by NoteArchiver...
-		internal string version;
 
 		NoteManager manager;
 		NoteWindow window;
@@ -142,18 +261,24 @@ namespace Tomboy
 
 		Note (NoteData data, string filepath, NoteManager manager)
 		{
-			this.data = data;
+			this.data = new NoteDataBufferSynchronizer (data);
 			this.filepath = filepath;
 			this.manager = manager;
 			save_timeout = new InterruptableTimeout ();
 			save_timeout.Timeout += SaveTimeout;
 		}
 
-		public static Note CreateNewNote (string title, 
-						  string filepath, 
+		static string UrlFromPath (string filepath)
+		{
+			return "note://tomboy/" +
+				Path.GetFileNameWithoutExtension (filepath);
+		}
+
+		public static Note CreateNewNote (string title,
+						  string filepath,
 						  NoteManager manager)
 		{
-			NoteData data = new NoteData ();
+			NoteData data = new NoteData (UrlFromPath (filepath));
 			data.Title = title;
 			data.CreateDate = DateTime.Now;
 			data.ChangeDate = data.CreateDate;
@@ -163,7 +288,7 @@ namespace Tomboy
 		public static Note CreateExistingNote (string filepath,
 						       NoteManager manager)
 		{
-			NoteData data = new NoteData ();
+			NoteData data = new NoteData (UrlFromPath (filepath));
 			data.CreateDate = DateTime.MinValue;
 			data.ChangeDate = File.GetLastWriteTime (filepath);
 			return new Note (data, filepath, manager);
@@ -185,13 +310,6 @@ namespace Tomboy
 			Note note = CreateExistingNote (read_file, manager);
 			NoteArchiver.Read (read_file, note);
 
-			if (note.version != NoteArchiver.CURRENT_VERSION) {
-				// Note has old format, so rewrite it.  No need
-				// to reread, since we are not adding anything.
-				Logger.Log ("Updating note XML to newest format...");
-				NoteArchiver.Write (read_file, note);
-			}
-
 			return note;
 		}
 
@@ -202,7 +320,7 @@ namespace Tomboy
 			if (!save_needed)
 				return;
 
-			Logger.Log ("Saving '{0}'...", data.Title);
+			Logger.Log ("Saving '{0}'...", data.Data.Title);
 
 			NoteArchiver.Write (filepath, this);
 		}
@@ -239,7 +357,7 @@ namespace Tomboy
 			if (args.Mark != buffer.InsertMark)
 				return;
 
-			data.CursorPosition = args.Location.Offset;
+			data.Data.CursorPosition = args.Location.Offset;
 
 			DebugSave ("BufferInsertSetMark queueing save");
 			QueueSave (false);
@@ -263,13 +381,13 @@ namespace Tomboy
 			window.GetPosition (out cur_x, out cur_y);
 			window.GetSize (out cur_width, out cur_height);
 
-			if (data.X == cur_x && 
-			    data.Y == cur_y &&
-			    data.Width == cur_width && 
-			    data.Height == cur_height)
+			if (data.Data.X == cur_x && 
+			    data.Data.Y == cur_y &&
+			    data.Data.Width == cur_width && 
+			    data.Data.Height == cur_height)
 				return;
 
-			data.SetPositionExtent (cur_x, cur_y, cur_width, cur_height);
+			data.Data.SetPositionExtent (cur_x, cur_y, cur_width, cur_height);
 			
 			DebugSave ("WindowConfigureEvent queueing save");
 			QueueSave (false);
@@ -284,19 +402,17 @@ namespace Tomboy
 		// Set a 4 second timeout to execute the save.  Possibly
 		// invalidate the text, which causes a re-serialize when the
 		// timeout is called...
-		public void QueueSave (bool invalidate_text)
+		public void QueueSave (bool content_changed)
 		{
-			DebugSave ("Got QueueSave with invalidate = {0}", invalidate_text);
+			DebugSave ("Got QueueSave");
 
 			// Replace the existing save timeout.  Wait 4 seconds
 			// before saving...
 			save_timeout.Reset (4000);
 			save_needed = true;
 
-			// Force a re-get of text on save
-			if (invalidate_text) {
-				data.ChangeDate = DateTime.Now;
-				data.Text = null;
+			if (content_changed) {
+				data.Data.ChangeDate = DateTime.Now;
 			}
 		}
 
@@ -315,10 +431,7 @@ namespace Tomboy
 
 		public string Uri
 		{
-			get { 
-				return "note://tomboy/" + 
-					Path.GetFileNameWithoutExtension (filepath); 
-			}
+			get { return data.Data.Uri; }
 		}
 
 		public string FilePath 
@@ -329,14 +442,14 @@ namespace Tomboy
 
 		public string Title 
 		{
-			get { return data.Title; }
+			get { return data.Data.Title; }
 			set {
-				if (data.Title != value) {
+				if (data.Data.Title != value) {
 					if (window != null)
 						window.Title = value;
 
-					string old_title = data.Title;
-					data.Title = value;
+					string old_title = data.Data.Title;
+					data.Data.Title = value;
 
 					if (Renamed != null)
 						Renamed (this, old_title);
@@ -346,28 +459,8 @@ namespace Tomboy
 
 		public string XmlContent 
 		{
-			get {
-				if (data.Text == null && buffer != null) {
-					DebugSave ("Re-serializing to XML...");
-					data.Text = NoteBufferArchiver.Serialize (buffer); 
-				}
-				return data.Text;
-			}
-			set {
-				if (buffer != null) {
-					buffer.Clear ();
-					buffer.Undoer.FreezeUndo ();
-					NoteBufferArchiver.Deserialize (buffer, 
-									buffer.StartIter, 
-									value);
-					buffer.Undoer.ThawUndo ();
-				}
-
-				data.Text = value;
-
-				DebugSave ("Set of XmlContent queueing save");
-				QueueSave (false);
-			}
+			set { data.Text = value; }
+			get { return data.Text; }
 		}
 
 		public string TextContent
@@ -382,14 +475,19 @@ namespace Tomboy
 			}
 		}
 
+		public NoteData Data
+		{
+			get { return data.GetDataSynchronized (); }
+		}
+
 		public DateTime CreateDate 
 		{
-			get { return data.CreateDate; }
+			get { return data.Data.CreateDate; }
 		}
 
 		public DateTime ChangeDate 
 		{
-			get { return data.ChangeDate; }
+			get { return data.Data.ChangeDate; }
 		}
 
 		public NoteManager Manager
@@ -424,32 +522,10 @@ namespace Tomboy
 		{
 			get {
 				if (buffer == null) {
-					Logger.Log ("Creating Buffer for '{0}'...", data.Title);
+					Logger.Log ("Creating Buffer for '{0}'...", data.Data.Title);
 
 					buffer = new NoteBuffer (TagTable);
-
-					// Don't create Undo actions during load
-					buffer.Undoer.FreezeUndo ();
-
-					// Load the stored xml text
-					NoteBufferArchiver.Deserialize (buffer, 
-									buffer.StartIter, 
-									data.Text);
-					buffer.Modified = false;
-
-					
-					Gtk.TextIter cursor;
-					if (data.CursorPosition != 0) {
-						// Move cursor to last-saved position
-						cursor = buffer.GetIterAtOffset (data.CursorPosition);
-					} else {
-						// Avoid title line
-						cursor = buffer.GetIterAtLine (2);
-					}
-					buffer.PlaceCursor (cursor);
-
-					// New events should create Undo actions
-					buffer.Undoer.ThawUndo ();
+					data.Buffer = buffer;
 
 					// Listen for further changed signals
 					buffer.Changed += BufferChanged;
@@ -469,11 +545,11 @@ namespace Tomboy
 					window.Destroyed += WindowDestroyed;
 					window.ConfigureEvent += WindowConfigureEvent;
 					
-					if (data.HasExtent ())
-						window.SetDefaultSize (data.Width, data.Height);
+					if (data.Data.HasExtent ())
+						window.SetDefaultSize (data.Data.Width, data.Data.Height);
 
-					if (data.HasPosition ())
-						window.Move (data.X, data.Y);
+					if (data.Data.HasPosition ())
+						window.Move (data.Data.X, data.Data.Y);
 
 					// This is here because emiting inside
 					// OnRealized causes segfaults.
@@ -486,14 +562,14 @@ namespace Tomboy
 
 		public bool IsSpecial 
 		{
-			get { return data.Title == Catalog.GetString ("Start Here"); }
+			get { return data.Data.Title == Catalog.GetString ("Start Here"); }
 		}
 
 		public bool IsNew 
 		{
 			get { 
 				// Note is new if created in the last 24 hours.
-				return data.CreateDate > DateTime.Now.AddHours (-24);
+				return data.Data.CreateDate > DateTime.Now.AddHours (-24);
 			}
 		}
 
@@ -551,6 +627,8 @@ namespace Tomboy
 
 		public virtual void ReadFile (string read_file, Note note) 
 		{
+			string version = "";
+
 			StreamReader reader = new StreamReader (read_file, 
 								System.Text.Encoding.UTF8);
 			XmlTextReader xml = new XmlTextReader (reader);
@@ -561,10 +639,10 @@ namespace Tomboy
 				case XmlNodeType.Element:
 					switch (xml.Name) {
 					case "note":
-						note.version = xml.GetAttribute ("version");
+						version = xml.GetAttribute ("version");
 						break;
 					case "title":
-						note.data.Title = xml.ReadString ();
+						note.data.Data.Title = xml.ReadString ();
 						break;
 					case "text":
 						// <text> is just a wrapper around <note-content>
@@ -572,27 +650,27 @@ namespace Tomboy
 						note.data.Text = xml.ReadInnerXml ();
 						break;
 					case "last-change-date":
-						note.data.ChangeDate = 
+						note.data.Data.ChangeDate = 
 							XmlConvert.ToDateTime (xml.ReadString ());
 						break;
 					case "create-date":
-						note.data.CreateDate = 
+						note.data.Data.CreateDate = 
 							XmlConvert.ToDateTime (xml.ReadString ());
 						break;
 					case "cursor-position":
-						note.data.CursorPosition = int.Parse (xml.ReadString ());
+						note.data.Data.CursorPosition = int.Parse (xml.ReadString ());
 						break;
 					case "width":
-						note.data.Width = int.Parse (xml.ReadString ());
+						note.data.Data.Width = int.Parse (xml.ReadString ());
 						break;
 					case "height":
-						note.data.Height = int.Parse (xml.ReadString ());
+						note.data.Data.Height = int.Parse (xml.ReadString ());
 						break;
 					case "x":
-						note.data.X = int.Parse (xml.ReadString ());
+						note.data.Data.X = int.Parse (xml.ReadString ());
 						break;
 					case "y":
-						note.data.Y = int.Parse (xml.ReadString ());
+						note.data.Data.Y = int.Parse (xml.ReadString ());
 						break;
 					}
 					break;
@@ -600,6 +678,13 @@ namespace Tomboy
 			}
 
 			xml.Close ();
+
+			if (version != NoteArchiver.CURRENT_VERSION) {
+				// Note has old format, so rewrite it.  No need
+				// to reread, since we are not adding anything.
+				Logger.Log ("Updating note XML to newest format...");
+				NoteArchiver.Write (read_file, note);
+			}
 		}
 
 		public static void Write (string write_file, Note note)
@@ -632,9 +717,6 @@ namespace Tomboy
 				// Move the temp file to write_file
 				File.Move (tmp_file, write_file);
 			}
-
-			// This is always the latest after a write
-			note.version = CURRENT_VERSION;
 		}
 
 		public static void Write (TextWriter writer, Note note)
@@ -647,8 +729,6 @@ namespace Tomboy
 			XmlTextWriter xml = new XmlTextWriter (writer);
 			Write (xml, note);
 			xml.Close ();
-
-			note.version = CURRENT_VERSION;
 		}
 
 		void Write (XmlTextWriter xml, Note note)
@@ -671,7 +751,7 @@ namespace Tomboy
 						 "http://beatniksoftware.com/tomboy/size");
 
 			xml.WriteStartElement (null, "title", null);
-			xml.WriteString (note.data.Title);
+			xml.WriteString (note.data.Data.Title);
 			xml.WriteEndElement ();
 
 			xml.WriteStartElement (null, "text", null);
@@ -683,33 +763,33 @@ namespace Tomboy
 			xml.WriteEndElement ();
 
 			xml.WriteStartElement (null, "last-change-date", null);
-			xml.WriteString (XmlConvert.ToString (note.data.ChangeDate));
+			xml.WriteString (XmlConvert.ToString (note.data.Data.ChangeDate));
 			xml.WriteEndElement ();
 
-			if (note.data.CreateDate != DateTime.MinValue) {
+			if (note.data.Data.CreateDate != DateTime.MinValue) {
 				xml.WriteStartElement (null, "create-date", null);
-				xml.WriteString (XmlConvert.ToString (note.data.CreateDate));
+				xml.WriteString (XmlConvert.ToString (note.data.Data.CreateDate));
 				xml.WriteEndElement ();
 			}
 
 			xml.WriteStartElement (null, "cursor-position", null);
-			xml.WriteString (note.data.CursorPosition.ToString ());
+			xml.WriteString (note.data.Data.CursorPosition.ToString ());
 			xml.WriteEndElement ();
 
 			xml.WriteStartElement (null, "width", null);
-			xml.WriteString (note.data.Width.ToString ());
+			xml.WriteString (note.data.Data.Width.ToString ());
 			xml.WriteEndElement ();
 
 			xml.WriteStartElement (null, "height", null);
-			xml.WriteString (note.data.Height.ToString ());
+			xml.WriteString (note.data.Data.Height.ToString ());
 			xml.WriteEndElement ();
 
 			xml.WriteStartElement (null, "x", null);
-			xml.WriteString (note.data.X.ToString ());
+			xml.WriteString (note.data.Data.X.ToString ());
 			xml.WriteEndElement ();
 
 			xml.WriteStartElement (null, "y", null);
-			xml.WriteString (note.data.Y.ToString ());
+			xml.WriteString (note.data.Data.Y.ToString ());
 			xml.WriteEndElement ();
 
 			xml.WriteEndElement (); // Note
