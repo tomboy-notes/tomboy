@@ -1,3 +1,13 @@
+2006-08-16  Sebastian Rittau  <srittau@jroger.in-berlin.de>
+
+	* Tomboy/Note.cs: NoteData is now identified by an immutable URI.
+	Introduced a new class NoteDataBufferSynchronizer that synchronizes
+	a NoteBuffer instance and a NoteData instance. Moved code from class
+	Note into this new class. Moved rewriting of obsolete XML files from
+	class Note to class NoteArchiver.
+	* test/Makefile.am: Also link against $(TOMBOY_LIBS).
+	* test/NoteTest.cs: Test case for NoteDataBufferSynchronizer.
+
 2006-08-16  Alex Graveley  <alex@beatniksoftware.com>
 
 	* NEWS: Update with NotD template bullet.
@@ -9,7 +19,7 @@
 	libdbus are linked in with newer versions of libdbus-glib.  Fixes
 	bug #350463.
 
-2006-08-15  Sandy Armstrong <sanfordarmstrong@gmail.com>
+2006-08-15  Sandy Armstrong  <sanfordarmstrong@gmail.com>
 
 	* Tomboy/Plugins/NoteOfTheDay.cs: Add support for using a note
 	titled "NotD: Template" as a template for each "Note of the Day".
