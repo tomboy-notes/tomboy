@@ -8,14 +8,15 @@ namespace TomboyTest
 		public bool ReadCalled = false;
 		public bool WriteCalled = false;
 		public string FileWritten = null;
-		public Note NoteWritten = null;
+		public NoteData NoteWritten = null;
 
-		public override void ReadFile (string read_file, Note note)
+		public override NoteData ReadFile (string read_file, string uri)
 		{
 			ReadCalled = true;
+			return new NoteData (uri);
 		}
 
-		public override void WriteFile (string write_file, Note note)
+		public override void WriteFile (string write_file, NoteData note)
 		{
 			WriteCalled = true;
 			FileWritten = write_file;

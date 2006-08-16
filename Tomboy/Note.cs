@@ -186,15 +186,12 @@ namespace Tomboy
 
 		public string Text
 		{
-			set
-			{
-				data.Text = value;
-			}
 			get
 			{
 				SynchronizeText ();
 				return data.Text;
 			}
+			set { data.Text = value; }
 		}
 
 		// Custom Methods
@@ -240,7 +237,7 @@ namespace Tomboy
 
 	public class Note 
 	{
-		internal readonly NoteDataBufferSynchronizer data;
+		readonly NoteDataBufferSynchronizer data;
 
 		string filepath;
 
@@ -285,10 +282,10 @@ namespace Tomboy
 			return new Note (data, filepath, manager);
 		}
 
-		public static Note CreateExistingNote (string filepath,
+		public static Note CreateExistingNote (NoteData data,
+						       string filepath,
 						       NoteManager manager)
 		{
-			NoteData data = new NoteData (UrlFromPath (filepath));
 			data.CreateDate = DateTime.MinValue;
 			data.ChangeDate = File.GetLastWriteTime (filepath);
 			return new Note (data, filepath, manager);
@@ -307,8 +304,8 @@ namespace Tomboy
 		// Load from an existing Note...
 		public static Note Load (string read_file, NoteManager manager)
 		{
-			Note note = CreateExistingNote (read_file, manager);
-			NoteArchiver.Read (read_file, note);
+			NoteData data = NoteArchiver.Read (read_file, UrlFromPath (read_file));
+			Note note = CreateExistingNote (data, read_file, manager);
 
 			return note;
 		}
@@ -322,7 +319,7 @@ namespace Tomboy
 
 			Logger.Log ("Saving '{0}'...", data.Data.Title);
 
-			NoteArchiver.Write (filepath, this);
+			NoteArchiver.Write (filepath, data.GetDataSynchronized ());
 		}
 
 		//
@@ -459,8 +456,8 @@ namespace Tomboy
 
 		public string XmlContent 
 		{
-			set { data.Text = value; }
 			get { return data.Text; }
+			set { data.Text = value; }
 		}
 
 		public string TextContent
@@ -620,13 +617,14 @@ namespace Tomboy
 			}
 		}
 
-		public static void Read (string read_file, Note note)
+		public static NoteData Read (string read_file, string uri)
 		{
-			Instance.ReadFile (read_file, note);
+			return Instance.ReadFile (read_file, uri);
 		}
 
-		public virtual void ReadFile (string read_file, Note note) 
+		public virtual NoteData ReadFile (string read_file, string uri) 
 		{
+			NoteData note = new NoteData (uri);
 			string version = "";
 
 			StreamReader reader = new StreamReader (read_file, 
@@ -642,35 +640,35 @@ namespace Tomboy
 						version = xml.GetAttribute ("version");
 						break;
 					case "title":
-						note.data.Data.Title = xml.ReadString ();
+						note.Title = xml.ReadString ();
 						break;
 					case "text":
 						// <text> is just a wrapper around <note-content>
 						// NOTE: Use .text here to avoid triggering a save.
-						note.data.Text = xml.ReadInnerXml ();
+						note.Text = xml.ReadInnerXml ();
 						break;
 					case "last-change-date":
-						note.data.Data.ChangeDate = 
+						note.ChangeDate = 
 							XmlConvert.ToDateTime (xml.ReadString ());
 						break;
 					case "create-date":
-						note.data.Data.CreateDate = 
+						note.CreateDate = 
 							XmlConvert.ToDateTime (xml.ReadString ());
 						break;
 					case "cursor-position":
-						note.data.Data.CursorPosition = int.Parse (xml.ReadString ());
+						note.CursorPosition = int.Parse (xml.ReadString ());
 						break;
 					case "width":
-						note.data.Data.Width = int.Parse (xml.ReadString ());
+						note.Width = int.Parse (xml.ReadString ());
 						break;
 					case "height":
-						note.data.Data.Height = int.Parse (xml.ReadString ());
+						note.Height = int.Parse (xml.ReadString ());
 						break;
 					case "x":
-						note.data.Data.X = int.Parse (xml.ReadString ());
+						note.X = int.Parse (xml.ReadString ());
 						break;
 					case "y":
-						note.data.Data.Y = int.Parse (xml.ReadString ());
+						note.Y = int.Parse (xml.ReadString ());
 						break;
 					}
 					break;
@@ -685,14 +683,16 @@ namespace Tomboy
 				Logger.Log ("Updating note XML to newest format...");
 				NoteArchiver.Write (read_file, note);
 			}
+
+			return note;
 		}
 
-		public static void Write (string write_file, Note note)
+		public static void Write (string write_file, NoteData note)
 		{
 			Instance.WriteFile (write_file, note);
 		}
 
-		public virtual void WriteFile (string write_file, Note note) 
+		public virtual void WriteFile (string write_file, NoteData note) 
 		{
 			string tmp_file = write_file + ".tmp";
 
@@ -719,19 +719,19 @@ namespace Tomboy
 			}
 		}
 
-		public static void Write (TextWriter writer, Note note)
+		public static void Write (TextWriter writer, NoteData note)
 		{
 			Instance.WriteFile (writer, note);
 		}
 
-		public void WriteFile (TextWriter writer, Note note)
+		public void WriteFile (TextWriter writer, NoteData note)
 		{
 			XmlTextWriter xml = new XmlTextWriter (writer);
 			Write (xml, note);
 			xml.Close ();
 		}
 
-		void Write (XmlTextWriter xml, Note note)
+		void Write (XmlTextWriter xml, NoteData note)
 		{
 			xml.Formatting = Formatting.Indented;
 
@@ -751,45 +751,43 @@ namespace Tomboy
 						 "http://beatniksoftware.com/tomboy/size");
 
 			xml.WriteStartElement (null, "title", null);
-			xml.WriteString (note.data.Data.Title);
+			xml.WriteString (note.Title);
 			xml.WriteEndElement ();
 
 			xml.WriteStartElement (null, "text", null);
 			xml.WriteAttributeString ("xml", "space", null, "preserve");
 			// Insert <note-content> blob...
-			// NOTE: Use .XmlContent here to force a reget of text
-			//       from the buffer, if needed.
-			xml.WriteRaw (note.XmlContent);
+			xml.WriteRaw (note.Text);
 			xml.WriteEndElement ();
 
 			xml.WriteStartElement (null, "last-change-date", null);
-			xml.WriteString (XmlConvert.ToString (note.data.Data.ChangeDate));
+			xml.WriteString (XmlConvert.ToString (note.ChangeDate));
 			xml.WriteEndElement ();
 
-			if (note.data.Data.CreateDate != DateTime.MinValue) {
+			if (note.CreateDate != DateTime.MinValue) {
 				xml.WriteStartElement (null, "create-date", null);
-				xml.WriteString (XmlConvert.ToString (note.data.Data.CreateDate));
+				xml.WriteString (XmlConvert.ToString (note.CreateDate));
 				xml.WriteEndElement ();
 			}
 
 			xml.WriteStartElement (null, "cursor-position", null);
-			xml.WriteString (note.data.Data.CursorPosition.ToString ());
+			xml.WriteString (note.CursorPosition.ToString ());
 			xml.WriteEndElement ();
 
 			xml.WriteStartElement (null, "width", null);
-			xml.WriteString (note.data.Data.Width.ToString ());
+			xml.WriteString (note.Width.ToString ());
 			xml.WriteEndElement ();
 
 			xml.WriteStartElement (null, "height", null);
-			xml.WriteString (note.data.Data.Height.ToString ());
+			xml.WriteString (note.Height.ToString ());
 			xml.WriteEndElement ();
 
 			xml.WriteStartElement (null, "x", null);
-			xml.WriteString (note.data.Data.X.ToString ());
+			xml.WriteString (note.X.ToString ());
 			xml.WriteEndElement ();
 
 			xml.WriteStartElement (null, "y", null);
-			xml.WriteString (note.data.Data.Y.ToString ());
+			xml.WriteString (note.Y.ToString ());
 			xml.WriteEndElement ();
 
 			xml.WriteEndElement (); // Note
