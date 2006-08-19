@@ -82,6 +82,7 @@ $(WRAPPER): $(srcdir)/$(WRAPPER).in Makefile
 
 $(TARGET).config: $(srcdir)/$(TARGET).config.in Makefile
 	sed -e "s|\@pkglibdir\@|$(pkglibdir)|" \
+	    -e "s|\@DBUS_SOVERSION\@|$(DBUS_SOVERSION)|" \
 	    < $< > $@
 
 Defines.cs: $(srcdir)/Defines.cs.in Makefile
