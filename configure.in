@@ -92,13 +92,22 @@ AM_CONDITIONAL(FIXED_GTKSPELL, test "$FIXED_GTKSPELL" = "yes")
 # Use DBus to export our remote control if available.
 #
 PKG_CHECK_MODULES(DBUS, 
-		  dbus-1 >= 0.90 
-		  dbus-glib-1 >= 0.60, 
+		  dbus-1
+		  dbus-glib-1,
 		  ENABLE_DBUS="yes", ENABLE_DBUS="no")
 AC_ARG_ENABLE(dbus, 
 	      [  --enable-dbus[[=no/yes]]    compile with dbus support [[default: yes]]],
 	      ENABLE_DBUS="$enableval")
 AM_CONDITIONAL(ENABLE_DBUS, test "$ENABLE_DBUS" = "yes")
+
+# DBus devel detect .so version for dll maps
+PKG_CHECK_MODULES(DBUS90, dbus-1 >= 0.90, dbus90=yes, dbus90=no)
+if test "x$dbus90" = "xyes"; then
+	DBUS_SOVERSION=3
+else
+	DBUS_SOVERSION=2
+fi
+AC_SUBST(DBUS_SOVERSION)
 
 #
 # Tomboy.exe needs Gtk# Gnome# GConf#
