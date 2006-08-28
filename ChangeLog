@@ -1,3 +1,15 @@
+2006-08-27  Sandy Armstrong <sanfordarmstrong@gmail.com>
+	* Tomboy/Plugins/StickyNoteImport.cs: Added support for automatic import of Sticky
+	Notes upon first run of Tomboy with this plugin installed.
+	* Tomboy/Preferences.cs: Added handling of
+	STICKYNOTEIMPORTER_FIRST_RUN GConf key.
+	* data/tomboy.schemas.in: Added STICKYNOTEIMPORTER_FIRST_RUN to GConf
+	schema.
+	* Tomboy/NoteManager.cs: When loading plugins for all notes, use copy
+	of notes ArrayList, since the real list may get modified during the
+	initialization of a plugin (like when automatically importing Sticky
+	Notes on first run of Tomboy).
+
 2006-08-22  Ani Peter <peter.ani@gmail.com>
 
 	* configure.in: Added Malayalam (ml) to the ALL_LINGUAS
@@ -17,7 +29,7 @@
 
 	* configure.in: Added Oriya (or) to the ALL_LINGUAS.
 
-2006-08-17  Sandy Armstrong <sanford.armstrong@gmail.com>
+2006-08-17  Sandy Armstrong <sanfordarmstrong@gmail.com>
 	* Tomboy/Plugins/NoteOfTheDay.cs: Reverted NotD Template patch, since
 	it broke the string freeze for GNOME 2.16.
 	* NEWS: Removed NotD template bullet.

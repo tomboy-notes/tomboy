@@ -18,9 +18,15 @@ public class StickyNoteImporter : NotePlugin
 	private const string base_duplicate_note_title = "{0} (#{1})";
 
 	private const string debug_no_sticky_file =
-		"StickyNoteImporter: Sticky Notes XML file does not exist!";
+		"StickyNoteImporter: Sticky Notes XML file does not exist or is invalid!";
 	private const string debug_create_error_base =
 		"StickyNoteImporter: Error while trying to create note \"{0}\": {1}";
+	private const string debug_first_run_detected =
+		"StickyNoteImporter: Detecting that importer has never been run...";
+	private const string debug_gconf_set_error_base =
+		"StickyNoteImporter: Error setting initial GConf first run key value: {0}";
+
+	private string sticky_xml_path;
 	
 	protected override void Initialize ()
 	{
@@ -30,6 +36,12 @@ public class StickyNoteImporter : NotePlugin
 		item.Activated += ImportButtonClicked;
 		item.Show ();
 		AddPluginMenuItem (item);
+		
+		sticky_xml_path =
+			Environment.GetFolderPath (System.Environment.SpecialFolder.Personal)
+			+ sticky_xml_rel_path;
+		
+		CheckForFirstRun ();
 	}
 	
 	protected override void Shutdown ()
@@ -41,19 +53,53 @@ public class StickyNoteImporter : NotePlugin
 	{
 		// Do nothing.
 	}
+
+	void CheckForFirstRun ()
+	{
+		bool firstRun = (bool) Preferences.Get (Preferences.STICKYNOTEIMPORTER_FIRST_RUN);
+		
+		if (firstRun) {
+			try {
+				Preferences.Set (Preferences.STICKYNOTEIMPORTER_FIRST_RUN, false);
+			} catch (Exception e) {
+				Logger.Log (debug_gconf_set_error_base, e);
+			}
+
+			Logger.Log (debug_first_run_detected);
+
+			XmlDocument xmlDoc = GetStickyXmlDoc ();		
+			if (xmlDoc != null)
+				ImportNotes (xmlDoc);
+		}
+	}
+
+	XmlDocument GetStickyXmlDoc ()
+	{
+		if (File.Exists (sticky_xml_path)) {
+			try {
+				XmlDocument xmlDoc = new XmlDocument ();
+				xmlDoc.Load (sticky_xml_path);
+				return xmlDoc;
+			} catch {
+				Logger.Log (debug_no_sticky_file);
+				return null;
+			}
+		}
+		else {
+			Logger.Log (debug_no_sticky_file);
+			return null;
+		}
+		
+	}
 	
 	void ImportButtonClicked (object sender, EventArgs args)
 	{
-		string sticky_xml_path =
-			Environment.GetFolderPath (System.Environment.SpecialFolder.Personal)
-			+ sticky_xml_rel_path;
-
-		if (File.Exists (sticky_xml_path))
-			ImportNotes (sticky_xml_path);
-		else {
-			Logger.Log (debug_no_sticky_file);
+		XmlDocument xmlDoc = GetStickyXmlDoc ();
+		
+		if (xmlDoc != null)
+			ImportNotes (xmlDoc);
+		else
 			ShowNoStickyXMLDialog (sticky_xml_path);
-		}
 	}
 	
 	void ShowNoStickyXMLDialog (string xmlPath)
@@ -79,18 +125,8 @@ public class StickyNoteImporter : NotePlugin
 			Gtk.MessageType.Info);
 	}
 	
-	void ImportNotes (string xmlPath)
+	void ImportNotes (XmlDocument xmlDoc)
 	{
-		XmlDocument xmlDoc = new XmlDocument ();
-		try {
-			xmlDoc.Load (xmlPath);
-		}
-		catch {
-			// TODO: Should this show a different message?
-			ShowNoStickyXMLDialog (xmlPath);
-			return;
-		}
-
 		XmlNodeList nodes = xmlDoc.SelectNodes (sticky_note_query);
 		
 		int numSuccessful = 0;
@@ -133,6 +169,7 @@ public class StickyNoteImporter : NotePlugin
 		
 		try {
 			Note newNote = Manager.Create (title, noteXml);
+			newNote.QueueSave (false);
 			newNote.Save ();
 			return true;
 		} catch (Exception e) {

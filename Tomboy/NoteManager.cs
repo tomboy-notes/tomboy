@@ -143,7 +143,10 @@ namespace Tomboy
 			trie_controller.Update ();
 
 			// Load all the plugins for our notes.
-			foreach (Note note in notes) {
+			// Iterating through copy of notes list, because list may be
+			// changed when loading plugins.
+			ArrayList notesCopy = new ArrayList (notes);
+			foreach (Note note in notesCopy) {
 				plugin_mgr.LoadPluginsForNote (note);
 			}
 		}
