@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tomboy HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-08-18 20:19+0400\n"
+"POT-Creation-Date: 2006-08-29 11:43+0400\n"
 "PO-Revision-Date: 2006-08-18 02:31+0400\n"
 "Last-Translator: Nickolay V. Shmyrev <nshmyrev@yandex.ru>\n"
 "Language-Team: Russian <gnome-cyr@gnome.org>\n"
@@ -137,31 +137,43 @@ msgid ""
 "If true, the font name set in custom_font_face will be used as the font when "
 "displaying notes. Otherwise the desktop default font will be used."
 msgstr ""
-"Если установлено, для отображения записок будет использоваться шрифт, "
+"Если установлено, для отображения заметок будет использоваться шрифт, "
 "заданный в custom_font_face. В противополжном случае будет использоваться "
 "системный шрифт."
 
 #: ../data/tomboy.schemas.in.h:14
+msgid ""
+"Indicates that the Sticky Note Importer plugin has not been run, so it "
+"should run automatically the next time Tomboy starts."
+msgstr ""
+"Говорит о том, что расширение импорта Липких заметок не запускалось, то есть "
+"оно должно быть выполнено при следующем запуске Tomboy."
+
+#: ../data/tomboy.schemas.in.h:15
 msgid "Open Recent Changes"
 msgstr "Открыть недавние изменения"
 
-#: ../data/tomboy.schemas.in.h:15
+#: ../data/tomboy.schemas.in.h:16
 msgid "Open Search Dialog"
 msgstr "Открыть диалог поиска"
 
-#: ../data/tomboy.schemas.in.h:16
+#: ../data/tomboy.schemas.in.h:17
 msgid "Open Start Here"
 msgstr "Открыть «Первую заметку»"
 
-#: ../data/tomboy.schemas.in.h:17
+#: ../data/tomboy.schemas.in.h:18
 msgid "Set to TRUE to activate"
 msgstr "Для активации переключите на TRUE"
 
-#: ../data/tomboy.schemas.in.h:18
+#: ../data/tomboy.schemas.in.h:19
 msgid "Show applet menu"
 msgstr "Показывать меню апплета"
 
-#: ../data/tomboy.schemas.in.h:19
+#: ../data/tomboy.schemas.in.h:20
+msgid "Sticky Note Importer First Run"
+msgstr "Импорт из апплета Липкие записки запускался"
+
+#: ../data/tomboy.schemas.in.h:21
 msgid ""
 "The global keybinding for creating and displaying a new Note. The format "
 "looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The "
@@ -170,14 +182,14 @@ msgid ""
 "option to the special string \"disabled\", then there will be no keybinding "
 "for this action."
 msgstr ""
-"Комбинация клавиш клавиатуры рабочего окружения для создания записки. "
+"Комбинация клавиш клавиатуры рабочего окружения для создания заметки. "
 "Значение должно выглядеть как «&lt;Control&gt;a» или «&lt;Shift&gt;&lt;"
 "Alt&gt;F1». Формат выражения не очень строг и позволяет использовать как "
 "заглавные, так и прописные буквы, аббревиатуры вроде «&lt;Ctl&gt;» и «&lt;"
 "Ctrl&gt;». Специальное значение «disabled», отключает комбинацию клавиш для "
 "этого действия."
 
-#: ../data/tomboy.schemas.in.h:20
+#: ../data/tomboy.schemas.in.h:22
 msgid ""
 "The global keybinding for opening the \"Start Here\" note. The format looks "
 "like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
@@ -192,7 +204,7 @@ msgstr ""
 "аббревиатуры вроде «&lt;Ctl&gt;» и «&lt;Ctrl&gt;». Специальное значение "
 "«disabled», отключает комбинацию клавиш для этого действия."
 
-#: ../data/tomboy.schemas.in.h:21
+#: ../data/tomboy.schemas.in.h:23
 msgid ""
 "The global keybinding for opening the Note Search dialog. The format looks "
 "like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
@@ -208,7 +220,7 @@ msgstr ""
 "Специальное значение «disabled», отключает комбинацию клавиш для этого "
 "действия."
 
-#: ../data/tomboy.schemas.in.h:22
+#: ../data/tomboy.schemas.in.h:24
 msgid ""
 "The global keybinding for opening the Recent Changes dialog. The format "
 "looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The "
@@ -224,7 +236,7 @@ msgstr ""
 "Специальное значение «disabled», отключает комбинацию клавиш для этого "
 "действия."
 
-#: ../data/tomboy.schemas.in.h:23
+#: ../data/tomboy.schemas.in.h:25
 msgid ""
 "The global keybinding for showing the Tomboy applet's menu. The format looks "
 "like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
@@ -240,18 +252,18 @@ msgstr ""
 "Специальное значение «disabled», отключает комбинацию клавиш для этого "
 "действия."
 
-#: ../data/tomboy.schemas.in.h:24
+#: ../data/tomboy.schemas.in.h:26
 msgid "The handler for \"note://\" URLs"
 msgstr "Обработчик ресурсов «note://»"
 
-#: ../data/tomboy.schemas.in.h:25
+#: ../data/tomboy.schemas.in.h:27
 msgid ""
 "The last directory a note was exported to using the Export To HTML plugin."
 msgstr ""
 "Последний каталог, куда заметки экспортировались с помощью расширения "
 "экспорта в HTML."
 
-#: ../data/tomboy.schemas.in.h:26
+#: ../data/tomboy.schemas.in.h:28
 msgid ""
 "The last setting for the 'Export linked notes' checkbox in the Export to "
 "HTML plugin."
@@ -321,12 +333,12 @@ msgstr ""
 "Используйте эту страницу как отправную точку для организации ваших заметок и "
 "хранения разнообразных мыслей."
 
-#: ../Tomboy/NoteManager.cs:200
+#: ../Tomboy/NoteManager.cs:203
 #, csharp-format
 msgid "New Note {0}"
 msgstr "Новая заметка {0}"
 
-#: ../Tomboy/NoteManager.cs:246
+#: ../Tomboy/NoteManager.cs:249
 msgid "Describe your new note here."
 msgstr "Опишите здесь свою заметку."
 
@@ -442,24 +454,24 @@ msgstr "_Большой"
 msgid "S_mall"
 msgstr "_Маленький"
 
-#: ../Tomboy/Preferences.cs:120
+#: ../Tomboy/Preferences.cs:125
 msgid "Tomboy Preferences"
 msgstr "Настройки Tomboy"
 
-#: ../Tomboy/Preferences.cs:134
+#: ../Tomboy/Preferences.cs:139
 msgid "Editing"
 msgstr "Правка"
 
-#: ../Tomboy/Preferences.cs:137
+#: ../Tomboy/Preferences.cs:142
 msgid "Hotkeys"
 msgstr "Горячие клавиши"
 
 #. Spell checking...
-#: ../Tomboy/Preferences.cs:177
+#: ../Tomboy/Preferences.cs:182
 msgid "_Spell check while typing"
 msgstr "_Проверять орфографию при наборе"
 
-#: ../Tomboy/Preferences.cs:184
+#: ../Tomboy/Preferences.cs:189
 msgid ""
 "Misspellings will be underlined in red, and correct spelling suggestions "
 "shown in the right-click menu."
@@ -468,11 +480,11 @@ msgstr ""
 "предложены во всплывающем меню, которое можно вызвать правой кнопкой мыши."
 
 #. WikiWords...
-#: ../Tomboy/Preferences.cs:193
+#: ../Tomboy/Preferences.cs:198
 msgid "Highlight _WikiWords"
 msgstr "_Выделять ВикиСлова"
 
-#: ../Tomboy/Preferences.cs:200
+#: ../Tomboy/Preferences.cs:205
 msgid ""
 "Enable this option to highlight words <b>ThatLookLikeThis</b>. Clicking the "
 "word will create a note with that name."
@@ -482,16 +494,16 @@ msgstr ""
 "заметку с таким именем."
 
 #. Custom font...
-#: ../Tomboy/Preferences.cs:209
+#: ../Tomboy/Preferences.cs:214
 msgid "Use custom _font"
 msgstr "Использовать другой _шрифт"
 
 #. Hotkeys...
-#: ../Tomboy/Preferences.cs:279
+#: ../Tomboy/Preferences.cs:284
 msgid "Listen for _Hotkeys"
 msgstr "Реагировать на _клавиатурные комбинации"
 
-#: ../Tomboy/Preferences.cs:287
+#: ../Tomboy/Preferences.cs:292
 msgid ""
 "Hotkeys allow you to quickly access your notes from anywhere with a "
 "keypress. Example Hotkeys: <b>&lt;Control&gt;&lt;Shift&gt;F11</b>, <b>&lt;"
@@ -502,26 +514,26 @@ msgstr ""
 "Alt&gt;N</b>"
 
 #. Show notes menu keybinding...
-#: ../Tomboy/Preferences.cs:307
+#: ../Tomboy/Preferences.cs:312
 msgid "Show notes _menu"
 msgstr "Показывать _меню заметок"
 
 #. Open Start Here keybinding...
-#: ../Tomboy/Preferences.cs:323
+#: ../Tomboy/Preferences.cs:328
 msgid "Open \"_Start Here\""
 msgstr "Открыть «_Первую заметку»"
 
 #. Create new note keybinding...
-#: ../Tomboy/Preferences.cs:339
+#: ../Tomboy/Preferences.cs:344
 msgid "Create _new note"
 msgstr "Создать _новую заметку"
 
 #. Search dialog keybinding...
-#: ../Tomboy/Preferences.cs:355
+#: ../Tomboy/Preferences.cs:360
 msgid "S_earch notes"
 msgstr "_Найти заметку"
 
-#: ../Tomboy/Preferences.cs:417
+#: ../Tomboy/Preferences.cs:422
 msgid "Choose Note Font"
 msgstr "Выбрать шрифт заметки"
 
@@ -797,32 +809,32 @@ msgstr "Встречи"
 msgid "Create Note of the Day"
 msgstr "Создать заметку дня"
 
-#: ../Tomboy/Plugins/StickyNoteImport.cs:28
+#: ../Tomboy/Plugins/StickyNoteImport.cs:34
 msgid "Import from Sticky Notes"
 msgstr "Импортировать из апплета Липкие записки"
 
-#: ../Tomboy/Plugins/StickyNoteImport.cs:64
+#: ../Tomboy/Plugins/StickyNoteImport.cs:110
 msgid "No Sticky Notes found"
 msgstr "Записок не найдено"
 
-#: ../Tomboy/Plugins/StickyNoteImport.cs:65
+#: ../Tomboy/Plugins/StickyNoteImport.cs:111
 #, csharp-format
 msgid "No suitable Sticky Notes file was found at \"{0}\"."
 msgstr "Подходящего файла апплета Липкие записки в «{0}» не найдено."
 
-#: ../Tomboy/Plugins/StickyNoteImport.cs:74
+#: ../Tomboy/Plugins/StickyNoteImport.cs:120
 msgid "Sticky Notes import completed"
 msgstr "Импорт из апплета Липкие записки завершён"
 
-#: ../Tomboy/Plugins/StickyNoteImport.cs:75
+#: ../Tomboy/Plugins/StickyNoteImport.cs:121
 #, csharp-format
 msgid "<b>{0}</b> of <b>{1}</b> Sticky Notes were successfully imported."
 msgstr "<b>{0}</b> из <b>{1}</b> данные Sticky Notes успешно импортированы."
 
-#: ../Tomboy/Plugins/StickyNoteImport.cs:97
+#: ../Tomboy/Plugins/StickyNoteImport.cs:133
 msgid "Untitled"
 msgstr "Без названия"
 
-#: ../Tomboy/Plugins/StickyNoteImport.cs:125
+#: ../Tomboy/Plugins/StickyNoteImport.cs:161
 msgid "Sticky Note: "
 msgstr "Липкая записка: "
