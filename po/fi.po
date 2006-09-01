@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tomboy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-08-16 06:14+0300\n"
-"PO-Revision-Date: 2006-08-16 06:14+0300\n"
+"POT-Creation-Date: 2006-09-01 10:18+0300\n"
+"PO-Revision-Date: 2006-09-01 10:23+0300\n"
 "Last-Translator: Ilkka Tuohela <hile@iki.fi>\n"
 "Language-Team: Finnish <gnome-fi-laatu@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -139,26 +139,38 @@ msgstr ""
 "oletuskirjasinta."
 
 #: ../data/tomboy.schemas.in.h:14
+msgid ""
+"Indicates that the Sticky Note Importer plugin has not been run, so it "
+"should run automatically the next time Tomboy starts."
+msgstr ""
+"Ilmoittaa, ettei muistilappujen tuontiliitännäistä ole suoritettu ja "
+"että se pitäisi ajaa automaattisesti, kun tomboy käynnistyy."
+
+#: ../data/tomboy.schemas.in.h:15
 msgid "Open Recent Changes"
 msgstr "Avaa viimeiset muutokset"
 
-#: ../data/tomboy.schemas.in.h:15
+#: ../data/tomboy.schemas.in.h:16
 msgid "Open Search Dialog"
 msgstr "Avaa hakuikkuna"
 
-#: ../data/tomboy.schemas.in.h:16
+#: ../data/tomboy.schemas.in.h:17
 msgid "Open Start Here"
 msgstr "Avaa Käynnistä tästä"
 
-#: ../data/tomboy.schemas.in.h:17
+#: ../data/tomboy.schemas.in.h:18
 msgid "Set to TRUE to activate"
 msgstr "Aseta arvoon TRUE jos haluat aktivoida"
 
-#: ../data/tomboy.schemas.in.h:18
+#: ../data/tomboy.schemas.in.h:19
 msgid "Show applet menu"
 msgstr "Näytä sovelman valikko"
 
-#: ../data/tomboy.schemas.in.h:19
+#: ../data/tomboy.schemas.in.h:20
+msgid "Sticky Note Importer First Run"
+msgstr "Muistilappujen tuonnin suoritustila"
+
+#: ../data/tomboy.schemas.in.h:21
 msgid ""
 "The global keybinding for creating and displaying a new Note. The format "
 "looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The "
@@ -174,7 +186,7 @@ msgstr ""
 "merkkijonon erikoisarvoon \"disabled\", ei tälle toiminnolle ole "
 "pikanäppäintä."
 
-#: ../data/tomboy.schemas.in.h:20
+#: ../data/tomboy.schemas.in.h:22
 msgid ""
 "The global keybinding for opening the \"Start Here\" note. The format looks "
 "like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
@@ -190,7 +202,7 @@ msgstr ""
 "Ctrl&gt;\". Jos asetat merkkijonon erikoisarvoon \"disabled\", ei tälle "
 "toiminnolle ole pikanäppäintä."
 
-#: ../data/tomboy.schemas.in.h:21
+#: ../data/tomboy.schemas.in.h:23
 msgid ""
 "The global keybinding for opening the Note Search dialog. The format looks "
 "like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
@@ -206,7 +218,7 @@ msgstr ""
 "\"&lt;Ctrl&gt;\". Jos asetat merkkijonon erikoisarvoon \"disabled\", ei "
 "tälle toiminnolle ole pikanäppäintä."
 
-#: ../data/tomboy.schemas.in.h:22
+#: ../data/tomboy.schemas.in.h:24
 msgid ""
 "The global keybinding for opening the Recent Changes dialog. The format "
 "looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The "
@@ -222,7 +234,7 @@ msgstr ""
 "Ctrl&gt;\". Jos asetat merkkijonon erikoisarvoon \"disabled\", ei tälle "
 "toiminnolle ole pikanäppäintä."
 
-#: ../data/tomboy.schemas.in.h:23
+#: ../data/tomboy.schemas.in.h:25
 msgid ""
 "The global keybinding for showing the Tomboy applet's menu. The format looks "
 "like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
@@ -238,18 +250,18 @@ msgstr ""
 "merkkijonon erikoisarvoon \"disabled\", ei tälle toiminnolle ole "
 "pikanäppäintä."
 
-#: ../data/tomboy.schemas.in.h:24
+#: ../data/tomboy.schemas.in.h:26
 msgid "The handler for \"note://\" URLs"
 msgstr "Käsittelijä \"note://\" -URLeille"
 
-#: ../data/tomboy.schemas.in.h:25
+#: ../data/tomboy.schemas.in.h:27
 msgid ""
 "The last directory a note was exported to using the Export To HTML plugin."
 msgstr ""
 "Viimeisin hakemisto, johon \"Vie HTML-tiedostona\"-liitännäisellä "
 "tallennettiin tiedosto."
 
-#: ../data/tomboy.schemas.in.h:26
+#: ../data/tomboy.schemas.in.h:28
 msgid ""
 "The last setting for the 'Export linked notes' checkbox in the Export to "
 "HTML plugin."
@@ -293,17 +305,17 @@ msgid "_Quit"
 msgstr "_Lopeta"
 
 #. Open the Start Here note
-#: ../Tomboy/Note.cs:489 ../Tomboy/NoteManager.cs:107
+#: ../Tomboy/Note.cs:562 ../Tomboy/NoteManager.cs:107
 #: ../Tomboy/NoteManager.cs:115 ../Tomboy/Tomboy.cs:208 ../Tomboy/Tray.cs:123
 #: ../Tomboy/Tray.cs:179 ../Tomboy/Tray.cs:385 ../Tomboy/XKeybinder.cs:259
 msgid "Start Here"
 msgstr "Aloita tästä"
 
-#: ../Tomboy/Note.cs:730
+#: ../Tomboy/Note.cs:808
 msgid "Really delete this note?"
 msgstr "Poistetaanko tämä muistilappu?"
 
-#: ../Tomboy/Note.cs:731
+#: ../Tomboy/Note.cs:809
 msgid "If you delete a note it is permanently lost."
 msgstr "Jos poistat, hukataan muistilappu pysyvästi."
 
@@ -319,12 +331,12 @@ msgstr ""
 "Käytä tätä sivua aloitussivuna, josta järjestelet muistilappujasi ja jolla "
 "voit pitää luokittelemattomia ajatuksia."
 
-#: ../Tomboy/NoteManager.cs:200
+#: ../Tomboy/NoteManager.cs:203
 #, csharp-format
 msgid "New Note {0}"
 msgstr "Uusi muistilappu {0}"
 
-#: ../Tomboy/NoteManager.cs:246
+#: ../Tomboy/NoteManager.cs:249
 msgid "Describe your new note here."
 msgstr "Kirjoita tähän uuden muistilapun kuvaus."
 
@@ -440,24 +452,24 @@ msgstr "_Suuri"
 msgid "S_mall"
 msgstr "_Pieni"
 
-#: ../Tomboy/Preferences.cs:120
+#: ../Tomboy/Preferences.cs:125
 msgid "Tomboy Preferences"
 msgstr "Tomboyn asetukset"
 
-#: ../Tomboy/Preferences.cs:134
+#: ../Tomboy/Preferences.cs:139
 msgid "Editing"
 msgstr "Muokkaus"
 
-#: ../Tomboy/Preferences.cs:137
+#: ../Tomboy/Preferences.cs:142
 msgid "Hotkeys"
 msgstr "Pikanäppäimet"
 
 #. Spell checking...
-#: ../Tomboy/Preferences.cs:177
+#: ../Tomboy/Preferences.cs:182
 msgid "_Spell check while typing"
 msgstr "_Oikolue kirjoitettaessa"
 
-#: ../Tomboy/Preferences.cs:184
+#: ../Tomboy/Preferences.cs:189
 msgid ""
 "Misspellings will be underlined in red, and correct spelling suggestions "
 "shown in the right-click menu."
@@ -466,11 +478,11 @@ msgstr ""
 "ehdotetaan ponnahdusvalikossa."
 
 #. WikiWords...
-#: ../Tomboy/Preferences.cs:193
+#: ../Tomboy/Preferences.cs:198
 msgid "Highlight _WikiWords"
 msgstr "Korosta _WikiSanat"
 
-#: ../Tomboy/Preferences.cs:200
+#: ../Tomboy/Preferences.cs:205
 msgid ""
 "Enable this option to highlight words <b>ThatLookLikeThis</b>. Clicking the "
 "word will create a note with that name."
@@ -479,16 +491,16 @@ msgstr ""
 "napsauttamalla saat luotua uuden muistilapun sanan nimellä."
 
 #. Custom font...
-#: ../Tomboy/Preferences.cs:209
+#: ../Tomboy/Preferences.cs:214
 msgid "Use custom _font"
 msgstr "Käytä omaa _kirjasinta"
 
 #. Hotkeys...
-#: ../Tomboy/Preferences.cs:279
+#: ../Tomboy/Preferences.cs:284
 msgid "Listen for _Hotkeys"
 msgstr "Käytä _pikanäppäimiä"
 
-#: ../Tomboy/Preferences.cs:287
+#: ../Tomboy/Preferences.cs:292
 msgid ""
 "Hotkeys allow you to quickly access your notes from anywhere with a "
 "keypress. Example Hotkeys: <b>&lt;Control&gt;&lt;Shift&gt;F11</b>, <b>&lt;"
@@ -499,26 +511,26 @@ msgstr ""
 "Shift&gt;F11</b> ja <b>&lt;Alt&gt;N</b>"
 
 #. Show notes menu keybinding...
-#: ../Tomboy/Preferences.cs:307
+#: ../Tomboy/Preferences.cs:312
 msgid "Show notes _menu"
 msgstr "Näytä muistilaput _valikossa"
 
 #. Open Start Here keybinding...
-#: ../Tomboy/Preferences.cs:323
+#: ../Tomboy/Preferences.cs:328
 msgid "Open \"_Start Here\""
 msgstr "Avaa \"_Aloita tästä\""
 
 #. Create new note keybinding...
-#: ../Tomboy/Preferences.cs:339
+#: ../Tomboy/Preferences.cs:344
 msgid "Create _new note"
 msgstr "Luo _uusi muistilappu"
 
 #. Search dialog keybinding...
-#: ../Tomboy/Preferences.cs:355
+#: ../Tomboy/Preferences.cs:360
 msgid "S_earch notes"
 msgstr "_Etsi muistilapuista"
 
-#: ../Tomboy/Preferences.cs:417
+#: ../Tomboy/Preferences.cs:422
 msgid "Choose Note Font"
 msgstr "Valitse muistilapun kirjasin"
 
@@ -778,56 +790,55 @@ msgstr "Virhe suorittaessa komentoa gaim-remote: {0}"
 msgid "NotD: "
 msgstr "Tänään: "
 
-#: ../Tomboy/Plugins/NoteOfTheDay.cs:14
-msgid "NotD: Template"
-msgstr "Tänään: pohja"
-
 #. Format: "NotD: Friday, July 01 2005"
-#: ../Tomboy/Plugins/NoteOfTheDay.cs:19
+#: ../Tomboy/Plugins/NoteOfTheDay.cs:18
 msgid "dddd, MMMM d yyyy"
 msgstr "dddd, MMMM d, yyyy"
 
-#: ../Tomboy/Plugins/NoteOfTheDay.cs:40
+#: ../Tomboy/Plugins/NoteOfTheDay.cs:33
 msgid "Tasks"
 msgstr "Tehtävät"
 
-#: ../Tomboy/Plugins/NoteOfTheDay.cs:41
+#: ../Tomboy/Plugins/NoteOfTheDay.cs:34
 msgid "Appointments"
 msgstr "Tapaamiset"
 
-#: ../Tomboy/Plugins/NoteOfTheDay.cs:177
+#: ../Tomboy/Plugins/NoteOfTheDay.cs:169
 msgid "Create Note of the Day"
 msgstr "Luo päivän muistilappu"
 
-#: ../Tomboy/Plugins/StickyNoteImport.cs:28
+#: ../Tomboy/Plugins/StickyNoteImport.cs:34
 msgid "Import from Sticky Notes"
 msgstr "Tuo muistilapuista"
 
-#: ../Tomboy/Plugins/StickyNoteImport.cs:64
+#: ../Tomboy/Plugins/StickyNoteImport.cs:110
 msgid "No Sticky Notes found"
 msgstr "Muistilappuja ei löytynyt"
 
-#: ../Tomboy/Plugins/StickyNoteImport.cs:65
+#: ../Tomboy/Plugins/StickyNoteImport.cs:111
 #, csharp-format
 msgid "No suitable Sticky Notes file was found at \"{0}\"."
 msgstr "Sopivaa muistilapputiedostoa ei löytynyt kohteesta \"{0}\"."
 
-#: ../Tomboy/Plugins/StickyNoteImport.cs:74
+#: ../Tomboy/Plugins/StickyNoteImport.cs:120
 msgid "Sticky Notes import completed"
 msgstr "Muistilappujen tuonti valmis"
 
-#: ../Tomboy/Plugins/StickyNoteImport.cs:75
+#: ../Tomboy/Plugins/StickyNoteImport.cs:121
 #, csharp-format
 msgid "<b>{0}</b> of <b>{1}</b> Sticky Notes were successfully imported."
 msgstr "<b>{0}</b>/<b>{1}</b> muistilappua tuotiin onnistuneesti."
 
-#: ../Tomboy/Plugins/StickyNoteImport.cs:97
+#: ../Tomboy/Plugins/StickyNoteImport.cs:133
 msgid "Untitled"
 msgstr "Nimeämätön"
 
-#: ../Tomboy/Plugins/StickyNoteImport.cs:125
+#: ../Tomboy/Plugins/StickyNoteImport.cs:161
 msgid "Sticky Note: "
 msgstr "Muistilappu: "
+
+#~ msgid "NotD: Template"
+#~ msgstr "Tänään: pohja"
 
 #~ msgid "%A %D, %I:%M %p"
 #~ msgstr "%A %D, %I:%M %p"
