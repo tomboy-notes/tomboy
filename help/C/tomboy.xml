@@ -1,104 +1,546 @@
-<?xml version="1.0"?>
-<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
 "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
-  <!ENTITY appversion "0.4">
-  <!ENTITY manrevision "1.0">
-  <!ENTITY date "August 2006">
-  <!ENTITY app "Tomboy">
+<!ENTITY date "August 2006">
+<!ENTITY app "<application>Tomboy Notes</application>">
+<!ENTITY appname "Tomboy">
+<!ENTITY extappname "Tomboy Notes">
+<!ENTITY manversion "1.0">
+<!ENTITY version "0.3.10">
 ]>
 <!-- 
-      (Do not remove this comment block.)
+  (Do not remove this comment block.)
   Maintained by the GNOME Documentation Project
-  http://developer.GNOME.org/projects/gdp
-  Template version: 2.0 beta
-  Template last modified Jan 30, 2002
-  
+  http://live.gnome.org/DocumentationProject
+  Template version: 3.0 beta
+  Template last modified August 7th, 2006
 -->
 <!-- =============Document Header ============================= -->
-<article id="index" lang="en">
 <!-- please do not change the id; for translations, change lang to -->
 <!-- appropriate code -->
-  <articleinfo> 
-	 <title>&app; Manual V&manrevision;</title>
-	 <copyright> 
-		<year>2006</year>
-		<holder>Alex Graveley</holder> </copyright>
+<article id="index" lang="en">
+  <articleinfo>
+    <title>&extappname; Manual</title>
 
-<!-- translators: uncomment this:
+    <abstract role="description">
+      <para>&appname; is a simple desktop note-taking application, with 
+      some powerful built-in features to help you organize your ideas.</para>
+    </abstract>
 
-  <copyright>
-   <year>2006</year>
-   <holder>ME-THE-TRANSLATOR (Latin translation)</holder>
-  </copyright>
+    <copyright>
+      <year>2006</year>
+      <holder>Alex Graveley</holder>
+    </copyright>
+    <copyright>
+      <year>2006</year>
+      <holder>Brent Smith</holder>
+    </copyright>
+    <copyright>
+      <year>2006</year>
+      <holder>Free Software Foundation</holder>
+    </copyright>
 
-   -->
-	 <publisher> 
-		<publishername>GNOME Documentation Project</publishername>
-	 </publisher>
+    <!-- translators: uncomment this:
+    <copyright>
+      <year>2002</year>
+      <holder>ME-THE-TRANSLATOR (Latin translation)</holder>
+    </copyright>
+-->
 
-	 <xi:include href="legal.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+    <publisher>
+      <publishername>GNOME Documentation Project</publishername>
+    </publisher>
 
-	 <authorgroup> 
-		<author role="maintainer"> 
-		  <firstname>Alex</firstname>
-		  <surname>Graveley</surname> 
-		  <affiliation> 
-			 <orgname>GNOME Documentation Project</orgname>
-			 <address> <email>alex@beatniksoftware.com</email> </address>
-		  </affiliation>
-		</author> 
+    <include href="legal.xml" xmlns="http://www.w3.org/2001/XInclude"/> 
 
+    <!-- This file  contains link to license for the documentation (GNU FDL), and 
+         other legal stuff such as "NO WARRANTY" statement. Please do not change 
+	 any of this. -->
 
-<!-- This is appropriate place for other contributors: translators,
-      maintainers,  etc. Commented out by default.
-       <othercredit role="translator">
+    <authorgroup>
+      <author role="maintainer">
+        <firstname>Alex</firstname>
+        <surname>Graveley</surname>
+        <affiliation>
+          <orgname>GNOME Documentation Project</orgname>
+          <address><email>alex@beatniksoftware.com</email></address>
+        </affiliation>
+      </author>
+      <author>
+        <firstname>Brent</firstname>
+        <surname>Smith</surname>
+        <affiliation>
+          <orgname>GNOME Documentation Project</orgname>
+          <address><email>gnome@nextreality.net</email></address>
+        </affiliation>
+      </author>
+
+      <!-- This is appropriate place for other contributors: translators,
+     maintainers,  etc. Commented out by default.
+      <othercredit role="translator">
 	<firstname>Latin</firstname> 
 	<surname>Translator 1</surname> 
 	<affiliation> 
-	  <orgname>Latin Translation Team</orgname> 
-	  <address> <email>translator@gnome.org</email> </address> 
-	</affiliation>
-	<contrib>Latin translation</contrib>
+          <orgname>Latin Translation Team</orgname> 
+  	  <address> <email>translator@gnome.org</email> </address> 
+        </affiliation>
+        <contrib>Latin translation</contrib>
       </othercredit>
 -->
-	 </authorgroup>
+    </authorgroup>
 
 <!-- According to GNU FDL, revision history is mandatory if you are -->
 <!-- modifying/reusing someone else's document.  If not, you can omit it. -->
-	 <revhistory>
+    <revhistory>
 <!-- Remember to remove the &manrevision; entity from the revision entries other
    than the current revision. -->
-		<revision> 
-		  <revnumber>tomboy V1.0</revnumber>
-		  <date>August 2006</date> 
-		  <revdescription> 
-			 <para role="author">Alex Graveley</para>
-			 <para role="publisher">GNOME Documentation Project</para>
-		  </revdescription>
-		</revision>
-	 </revhistory>
-	 <releaseinfo> This manual describes version &appversion; of &app;.
-		</releaseinfo>
-	 <legalnotice> 
-		<title>Feedback</title>
-		<para>To report a bug or make a suggestion regarding the <application>&app;</application> application or this manual, follow the directions in the <ulink url="ghelp:gnome-feedback" type="help">GNOME Feedback Page</ulink>. 
-      </para>
-<!-- Translators may also add here feedback address for translations -->
-	 </legalnotice>
-    <abstract role="description">
-      <para>User manual for the Tomboy note-taking assistant.</para>
-    </abstract>
-  </articleinfo>
-  <indexterm><primary>tomboy</primary></indexterm>
-  <indexterm><primary>notes</primary></indexterm>
+      <revision>
+        <revnumber>&appname; Manual &manversion;</revnumber>
 
-<!-- ============= Document Body ============================= -->
-<!-- ============= Introduction ============================== -->
-  <sect1 id="tomboy-intro"> 
-	 <title>Introduction</title>
-	 <para><application>&app;</application> is a simple desktop note-taking
-application, with some powerful built-in features to help you organize your
-ideas.</para>
+        <date>2006-08-07</date>
+
+        <revdescription>
+          <para role="author">Brent Smith</para>
+          <para role="publisher">GNOME Documentation Project</para>
+        </revdescription>
+      </revision>
+    </revhistory>
+
+    <releaseinfo>This manual describes version &version; of &appname;</releaseinfo>
+
+    <legalnotice>
+      <title>Feedback</title>
+
+      <para>To report a bug or make a suggestion regarding the Application
+      Name application or this manual, follow the directions in the <ulink
+      type="help" url="ghelp:gnome-feedback">GNOME Feedback
+      Page</ulink>.</para>
+
+      <!-- Translators may also add here feedback address for translations -->
+    </legalnotice>
+  </articleinfo>
+
+  <indexterm zone="index"><primary>&extappname;</primary></indexterm>
+  <indexterm zone="index"><primary>&appname;</primary></indexterm>
+  <indexterm zone="index"><primary>notes</primary></indexterm>
+
+  <!-- ============= Introduction ============================== -->
+
+  <sect1 id="tomboy-intro">
+    <title>Introduction</title>
+
+    <figure id="tomboy-panel">
+      <title>Notes Application</title>
+
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="figures/tomboy-panel.png" />
+        </imageobject>
+      </mediaobject>
+    </figure>
+
+    <para>&appname; is a desktop note-taking application for GNOME. It is simple
+    and easy to use, and allows you to organize the ideas and information you
+    deal with every day. &appname; has some very useful editing features to help
+    you customize your notes, including:</para>
+
+    <itemizedlist>
+      <listitem>
+        <para>Highlighting Search Text</para>
+      </listitem>
+
+      <listitem>
+        <para>Inline Spell Checking</para>
+      </listitem>
+
+      <listitem>
+        <para>Auto-linking Web &amp; Email Addresses</para>
+      </listitem>
+
+      <listitem>
+        <para>Undo/Redo Support</para>
+      </listitem>
+
+      <listitem>
+        <para>Font Styling &amp; Sizing</para>
+      </listitem>
+    </itemizedlist>
+
+    <para>&appname; is accessed through the GNOME panel. To startup &appname;
+    automatically when you log into GNOME, see the section <xref
+    linkend="add-to-panel" />.</para>
   </sect1>
 
+  <!--=========== Getting Started ============================== -->
+
+  <sect1 id="getting-started">
+    <title>Getting Started</title>
+
+    <sect2 id="add-to-panel">
+      <title>Adding &appname; to the Panel</title>
+
+      <para>To add &appname; to a panel, right-click on the panel, then choose
+      <menuchoice>
+          <guimenuitem>Add to Panel</guimenuitem>
+        </menuchoice>. Select &appname; Notes in the Add to the panel dialog,
+      then click <menuchoice>
+          <guibutton>Add</guibutton>
+        </menuchoice>. You should see a yellow note icon appear in the panel,
+      representing &appname;. The panel icon is illustrated in <xref
+      linkend="tomboy-panel" />.</para>
+    </sect2>
+
+    <sect2 id="creating-notes">
+      <title>Creating Notes</title>
+
+      <para>Once you have successfully added &appname; to the Panel, you can
+      create new notes using one of the following methods.</para>
+
+      <para>To create a new note using the mouse:</para>
+
+      <orderedlist>
+        <listitem>
+          <para>Click on the &appname; note icon present in the GNOME Panel. A
+          menu will appear.</para>
+        </listitem>
+
+        <listitem>
+          <para>Select the <menuchoice>
+              <guimenuitem>Create New Note</guimenuitem>
+            </menuchoice> option in the menu.</para>
+        </listitem>
+      </orderedlist>
+
+      <para>To create a new note using the keyboard:</para>
+
+      <orderedlist>
+        <listitem>
+          <para>Open the &appname; menu using the key combo <keycombo>
+              <keycap>Alt</keycap>
+
+              <keycap>F12</keycap>
+            </keycombo>.</para>
+        </listitem>
+
+        <listitem>
+          <para>Use the <keycap>N</keycap> key to select the menu option
+          <menuchoice>
+              <guimenuitem>Create New Note</guimenuitem>
+            </menuchoice>.</para>
+        </listitem>
+      </orderedlist>
+    </sect2>
+
+    <sect2 id="editing-notes">
+      <title>Editing Notes</title>
+
+      <para>After creating a new note, a new window will appear with the title
+      <literal>New Note <replaceable>N</replaceable></literal>. At the top of
+      the note is a toolbar with several buttons and text. Directly below this
+      toolbar is the content area of the note. This is illustrated in <xref
+      linkend="new-note" />.</para>
+
+      <para>The note can be editted by clicking in the content area and using
+      the keyboard to add and remove content. The first line is considered the
+      title of the note. By default this is populated with the text
+      <quote><literal>New Note <replaceable>N</replaceable></literal></quote>.
+      The title is changed by clicking in the content area on the first line
+      and using the keyboard to change the title. By default, focus is given
+      to the content area upon creation of a new note, so you can immediately
+      start editting the note without the need to click on the content area
+      with the mouse.</para>
+
+      <para>Using the toolbar available on each note is discussed in the
+      section <xref linkend="working-with-notes" />.</para>
+
+      <figure id="new-note">
+        <title>The default window for a New Note</title>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="figures/tomboy-new-note.png" />
+          </imageobject>
+        </mediaobject>
+      </figure>
+    </sect2>
+
+    <sect2>
+      <title>Table of Contents</title>
+
+      <para>To get an overview of all the notes managed by &appname;, select the
+      <menuchoice>
+          <guimenuitem>Table of Contents</guimenuitem>
+        </menuchoice> menu item from the panel menu. </para>
+    </sect2>
+  </sect1>
+
+  <!--=========== Working With Notes ============================== -->
+
+  <sect1 id="working-with-notes">
+    <title>Working With Notes</title>
+
+    <para>Notes are modified and editted through the main window for each
+    note. The toolbar at the top of each note allows you to stylize the note
+    and perform other note-related functions. We discuss the functions of each
+    item on the toolbar in the following sections.</para>
+
+    <sect2 id="search">
+      <title>Search</title>
+
+      <para>Clicking the <guibutton>Search</guibutton> button will open a new
+      dialog titled <guilabel>Search Note</guilabel>. Enter the text to search
+      for, within the current note. Occurrences of this text will be
+      highlighted in the note to allow quick identification.</para>
+
+      <para>Use the <guibutton>Find Next</guibutton> button to move focus to
+      the next occurrence of the text within the current note. Similarly, you
+      can use the <guibutton>Previous</guibutton> button to move focus to the
+      previous occurrence of the text within the current note.</para>
+
+      <para>There are also different options you can set when performing a
+      search. Both options are explained next.</para>
+
+      <variablelist>
+        <title>Search Note Options</title>
+
+        <varlistentry>
+          <term>Case Sensitive</term>
+
+          <listitem>
+            <para>Select this checkbox to make the search distinguish between
+            uppercase and lowercase characters.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>Search All Notes</term>
+
+          <listitem>
+            <para>This option expands the <guilabel>Search Note</guilabel>
+            dialog, and will display a list of notes which contain the search
+            text. The number of occurrences of the text is also displayed next
+            to the note.</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </sect2>
+
+    <sect2 id="link">
+      <title>Link</title>
+
+      <para>The <guibutton>Link</guibutton> button allows you to create a link
+      to a new note from within the current note. For example, if your note
+      contains the phrase <quote>FinalExam</quote>, you can select this text
+      with the mouse and click the <guibutton>Link</guibutton> button to
+      create a new note with the title <quote>FinalExam</quote>. A link will
+      also be created in the current note that can be clicked to open the new
+      <quote>FinalExam</quote> note.</para>
+
+      <note>
+        <para>Changing the title of a note will update links present in other
+        notes. This prevents broken links from occurring when a note is
+        renamed.</para>
+      </note>
+    </sect2>
+
+    <sect2 id="text">
+      <title>Text</title>
+
+      <para>Formatting text within your notes can be done using the
+      <guibutton>Text</guibutton> button. The <guibutton>Text</guibutton>
+      button will display a drop down menu with several options from which you
+      can choose. Each menu item is explained next.</para>
+
+      <variablelist>
+        <varlistentry>
+          <term>Undo</term>
+
+          <listitem>
+            <para>Support for <quote>Undo</quote> is available in &appname;
+            through this menu item. The Undo function allows you to revert
+            previous changes made to your note during the current session. To
+            undo your last change using the keyboard, use the standard
+            keybinding, <keycombo>
+                <keycap>Ctrl</keycap>
+
+                <keycap>Z</keycap>
+              </keycombo>.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>Redo</term>
+
+          <listitem>
+            <para>The <quote>Redo</quote> function is used to put back changes
+            that were removed using the <quote>Undo</quote> feature. To redo
+            your last change using the keyboard, use the standard keybinding,
+            <keycombo>
+                <keycap>Shift</keycap>
+
+                <keycap>Ctrl</keycap>
+
+                <keycap>Z</keycap>
+              </keycombo>.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>Bold</term>
+
+          <listitem>
+            <para>To make text within your note bold, first select the text
+            you want to modify. Then select the <menuchoice>
+                <guimenuitem>Bold</guimenuitem>
+              </menuchoice> option from the <guibutton>Text</guibutton>
+            dropdown menu. You may also use the keybinding <keycombo>
+                <keycap>Ctrl</keycap>
+
+                <keycap>B</keycap>
+              </keycombo> after selecting the text.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>Italic</term>
+
+          <listitem>
+            <para>To make text within your note italic, first select the text
+            you want to modify. Then select the <menuchoice>
+                <guimenuitem>Italic</guimenuitem>
+              </menuchoice> option from the <guibutton>Text</guibutton>
+            dropdown menu. You may also use the keybinding <keycombo>
+                <keycap>Ctrl</keycap>
+
+                <keycap>I</keycap>
+              </keycombo> after selecting the text.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>Strikeout</term>
+
+          <listitem>
+            <para>The strikeout style will put a line through the selected
+            text. To add a strikeout, select the text and then select the
+            <menuchoice>
+                <guimenuitem>Strikeout</guimenuitem>
+              </menuchoice> option from the <guibutton>Text</guibutton>
+            dropdown menu. You may also use the keybinding <keycombo>
+                <keycap>Ctrl</keycap>
+
+                <keycap>S</keycap>
+              </keycombo> after selecting the text.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>Highlight</term>
+
+          <listitem>
+            <para>The highlight style will put a yellow background around the
+            selected text. To add a highlight, select the text and then select
+            the <menuchoice>
+                <guimenuitem>Highlight</guimenuitem>
+              </menuchoice> option from the <guibutton>Text</guibutton>
+            dropdown menu. You may also use the keybinding <keycombo>
+                <keycap>Ctrl</keycap>
+
+                <keycap>H</keycap>
+              </keycombo> after selecting the text.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>Font size</term>
+
+          <listitem>
+            <para>There are actually four options in this part of the menu:
+            <simplelist type="inline">
+                <member><guilabel>Small</guilabel></member>
+
+                <member><guilabel>Normal</guilabel></member>
+
+                <member><guilabel>Large</guilabel></member>
+
+                <member><guilabel>Huge</guilabel></member>
+              </simplelist>. Each one of these options represents a font size
+            to use for the selected text in the note. To modify the font size,
+            select the text and then select one of <simplelist type="inline">
+                <member><guilabel>Small</guilabel></member>
+
+                <member><guilabel>Normal</guilabel></member>
+
+                <member><guilabel>Large</guilabel></member>
+
+                <member><guilabel>Huge</guilabel></member>
+              </simplelist> options from the <guibutton>Text</guibutton>
+            dropdown menu.</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </sect2>
+
+    <sect2 id="tools">
+      <title>Tools (gear icon)</title>
+
+      <para>The <guibutton>Tools</guibutton> button is represented by the
+      <inlinegraphic fileref="figures/tomboy-tools.png" /> icon. When you click the
+      <guiicon>Tools</guiicon> icon on the toolbar present on your note, a
+      dropdown menu with the following options will appear.</para>
+
+      <variablelist>
+        <varlistentry>
+          <term>Open Plugins Folder</term>
+
+          <listitem>
+            <para>This option will open the plugins folder for &appname; in the
+            File Browser application. For more information on plugins, see
+            <xref linkend="plugins" />.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>Export to HTML</term>
+
+          <listitem>
+            <para>You can create an <acronym>HTML</acronym> (Hypertext Markup
+            Language) document from one or more notes by selecting this
+            option. After selecting this option, you will be presented with a
+            dialog that allows you to choose where to save the
+            <acronym>HTML</acronym> file. Enter the destination filename and
+            click <guibutton>OK</guibutton> to save the file, or
+            <guibutton>Cancel</guibutton> to abort the operation.</para>
+
+            <para>To export any notes for which a link exists in the current
+            note, select the <guibutton>Export linked notes</guibutton>
+            button.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>Print</term>
+
+          <listitem>
+            <para>Select this option to print the current note. You will be
+            presented with the standard print dialog</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </sect2>
+
+    <sect2 id="delete">
+      <title>Delete</title>
+
+      <para>The <guibutton>Delete</guibutton> button will permanently delete
+      the note and its contents. Links to this note from other notes will
+      still exist, but will re-create the note upon activation.</para>
+    </sect2>
+  </sect1>
+
+  <sect1 id="plugins">
+    <title>Plugins</title>
+
+    <para></para>
+  </sect1>
 </article>
