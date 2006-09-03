@@ -4,14 +4,15 @@
 # Philipp Meier <meier@fnogol.de>, 2004.
 # Frank Arnold <frank@scirocco-5v-turbo.de>, 2004-2006.
 # Jochen Skulj <jochen@jochenskulj.de>, 2006. 
+# Hendrik Richter <hendrikr@gnome.org>, 2006.
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: tomboy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-07-30 14:51+0200\n"
-"PO-Revision-Date: 2006-07-30 14:54+0200\n"
-"Last-Translator: \n"
+"POT-Creation-Date: 2006-09-03 12:00+0200\n"
+"PO-Revision-Date: 2006-09-03 12:03+0200\n"
+"Last-Translator: Hendrik Richter <hendrikr@gnome.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -39,7 +40,7 @@ msgid "Tomboy Applet Factory"
 msgstr "Tomboy Applet Factory"
 
 #: ../data/GNOME_TomboyApplet.server.in.in.h:4 ../data/tomboy.desktop.in.h:3
-#: ../Tomboy/Applet.cs:136 ../Tomboy/Tray.cs:38
+#: ../Tomboy/Applet.cs:136 ../Tomboy/Tray.cs:37
 msgid "Tomboy Notes"
 msgstr "Tomboy Notizen"
 
@@ -48,7 +49,7 @@ msgid "_About Tomboy"
 msgstr "_Info zu Tomboy"
 
 #: ../data/GNOME_TomboyApplet.xml.h:2 ../Tomboy/Applet.cs:174
-#: ../Tomboy/NoteWindow.cs:512
+#: ../Tomboy/NoteWindow.cs:513
 msgid "_Open Plugins Folder"
 msgstr "Plugin-Ordner ö_ffnen"
 
@@ -142,26 +143,39 @@ msgstr ""
 "Benutzeroberfläche genutzt."
 
 #: ../data/tomboy.schemas.in.h:14
+msgid ""
+"Indicates that the Sticky Note Importer plugin has not been run, so it "
+"should run automatically the next time Tomboy starts."
+msgstr ""
+"Gibt an, dass der Import aus dem Klebezettel-Applet noch nicht ausgeführt "
+"wurde, sodass er automatisch beim nächsten Start von Tomboy ausgeführt "
+"wird."
+
+#: ../data/tomboy.schemas.in.h:15
 msgid "Open Recent Changes"
 msgstr "Letzte Änderungen öffnen"
 
-#: ../data/tomboy.schemas.in.h:15
+#: ../data/tomboy.schemas.in.h:16
 msgid "Open Search Dialog"
 msgstr "Suchdialog öffnen"
 
-#: ../data/tomboy.schemas.in.h:16
+#: ../data/tomboy.schemas.in.h:17
 msgid "Open Start Here"
 msgstr "»Hier starten« öffnen"
 
-#: ../data/tomboy.schemas.in.h:17
+#: ../data/tomboy.schemas.in.h:18
 msgid "Set to TRUE to activate"
 msgstr "Zum Aktivieren auf TRUE setzen"
 
-#: ../data/tomboy.schemas.in.h:18
+#: ../data/tomboy.schemas.in.h:19
 msgid "Show applet menu"
 msgstr "Applet-Menü anzeigen"
 
-#: ../data/tomboy.schemas.in.h:19
+#: ../data/tomboy.schemas.in.h:20
+msgid "Sticky Note Importer First Run"
+msgstr "Import aus dem Klebezettel-Applet beim ersten Start"
+
+#: ../data/tomboy.schemas.in.h:21
 msgid ""
 "The global keybinding for creating and displaying a new Note. The format "
 "looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The "
@@ -177,7 +191,7 @@ msgstr ""
 "Option mit der speziellen Zeichenkette »disabled« belegt wird, gibt es keine "
 "Tastenbelegung für diese Aktion."
 
-#: ../data/tomboy.schemas.in.h:20
+#: ../data/tomboy.schemas.in.h:22
 msgid ""
 "The global keybinding for opening the \"Start Here\" note. The format looks "
 "like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
@@ -193,7 +207,7 @@ msgstr ""
 "speziellen Zeichenkette »disabled« belegt wird, gibt es keine Tastenbelegung "
 "für diese Aktion."
 
-#: ../data/tomboy.schemas.in.h:21
+#: ../data/tomboy.schemas.in.h:23
 msgid ""
 "The global keybinding for opening the Note Search dialog. The format looks "
 "like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
@@ -209,7 +223,7 @@ msgstr ""
 "speziellen Zeichenkette »disabled« belegt wird, gibt es keine Tastenbelegung "
 "für diese Aktion."
 
-#: ../data/tomboy.schemas.in.h:22
+#: ../data/tomboy.schemas.in.h:24
 msgid ""
 "The global keybinding for opening the Recent Changes dialog. The format "
 "looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The "
@@ -225,7 +239,7 @@ msgstr ""
 "diese Option mit der speziellen Zeichenkette »disabled« belegt wird, gibt es "
 "keine Tastenbelegung für diese Aktion."
 
-#: ../data/tomboy.schemas.in.h:23
+#: ../data/tomboy.schemas.in.h:25
 msgid ""
 "The global keybinding for showing the Tomboy applet's menu. The format looks "
 "like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
@@ -241,18 +255,18 @@ msgstr ""
 "speziellen Zeichenkette »disabled« belegt wird, gibt es keine Tastenbelegung "
 "für diese Aktion."
 
-#: ../data/tomboy.schemas.in.h:24
+#: ../data/tomboy.schemas.in.h:26
 msgid "The handler for \"note://\" URLs"
 msgstr "Die Verarbeitungsroutine für »note://«-URLs"
 
-#: ../data/tomboy.schemas.in.h:25
+#: ../data/tomboy.schemas.in.h:27
 msgid ""
 "The last directory a note was exported to using the Export To HTML plugin."
 msgstr ""
 "Das letzte Verzeichnis, in das eine Notiz über das »In HTML exportieren«-"
 "Plugin exportiert wurde."
 
-#: ../data/tomboy.schemas.in.h:26
+#: ../data/tomboy.schemas.in.h:28
 msgid ""
 "The last setting for the 'Export linked notes' checkbox in the Export to "
 "HTML plugin."
@@ -296,17 +310,17 @@ msgid "_Quit"
 msgstr "_Beenden"
 
 #. Open the Start Here note
-#: ../Tomboy/Note.cs:402 ../Tomboy/NoteManager.cs:107
-#: ../Tomboy/NoteManager.cs:115 ../Tomboy/Tomboy.cs:283 ../Tomboy/Tray.cs:124
-#: ../Tomboy/Tray.cs:180 ../Tomboy/Tray.cs:375 ../Tomboy/XKeybinder.cs:259
+#: ../Tomboy/Note.cs:562 ../Tomboy/NoteManager.cs:107
+#: ../Tomboy/NoteManager.cs:115 ../Tomboy/Tomboy.cs:208 ../Tomboy/Tray.cs:123
+#: ../Tomboy/Tray.cs:179 ../Tomboy/Tray.cs:385 ../Tomboy/XKeybinder.cs:259
 msgid "Start Here"
 msgstr "Hier starten"
 
-#: ../Tomboy/Note.cs:643
+#: ../Tomboy/Note.cs:808
 msgid "Really delete this note?"
 msgstr "Diese Notiz wirklich löschen?"
 
-#: ../Tomboy/Note.cs:644
+#: ../Tomboy/Note.cs:809
 msgid "If you delete a note it is permanently lost."
 msgstr "Ein gelöschte Notiz ist für immer verloren."
 
@@ -322,145 +336,145 @@ msgstr ""
 "Verwenden Sie diese Seite als Startseite um Ihre Notizen zu verwalten und "
 "umherschwirrende Ideen zu sammeln."
 
-#: ../Tomboy/NoteManager.cs:200
+#: ../Tomboy/NoteManager.cs:203
 #, csharp-format
 msgid "New Note {0}"
 msgstr "Neue Notiz {0}"
 
-#: ../Tomboy/NoteManager.cs:246
+#: ../Tomboy/NoteManager.cs:249
 msgid "Describe your new note here."
 msgstr "Beschreiben Sie ihre neue Notiz hier."
 
-#: ../Tomboy/NoteWindow.cs:363
+#: ../Tomboy/NoteWindow.cs:364
 msgid "_Link to New Note"
 msgstr "_Verknüpfung zu neuer Notiz"
 
-#: ../Tomboy/NoteWindow.cs:376
+#: ../Tomboy/NoteWindow.cs:377
 msgid "Te_xt"
 msgstr "Te_xt"
 
-#: ../Tomboy/NoteWindow.cs:384
+#: ../Tomboy/NoteWindow.cs:385
 msgid "_Search"
 msgstr "_Suchen"
 
-#: ../Tomboy/NoteWindow.cs:398
+#: ../Tomboy/NoteWindow.cs:399
 msgid "Clos_e All Notes"
 msgstr "Alle Notizen schli_eßen"
 
-#: ../Tomboy/NoteWindow.cs:408
+#: ../Tomboy/NoteWindow.cs:409
 msgid "_Close"
 msgstr "S_chließen"
 
-#: ../Tomboy/NoteWindow.cs:436
+#: ../Tomboy/NoteWindow.cs:437
 msgid "Search"
 msgstr "Suchen"
 
-#: ../Tomboy/NoteWindow.cs:437
+#: ../Tomboy/NoteWindow.cs:438
 msgid "Search your notes"
 msgstr "Ihre Notizen durchsuchen"
 
-#: ../Tomboy/NoteWindow.cs:449
+#: ../Tomboy/NoteWindow.cs:450
 msgid "Link"
 msgstr "Verknüpfung"
 
-#: ../Tomboy/NoteWindow.cs:450
+#: ../Tomboy/NoteWindow.cs:451
 msgid "Link selected text to a new note"
 msgstr "Gewählten Text mit einer neuen Notiz verknüpfen"
 
-#: ../Tomboy/NoteWindow.cs:464
+#: ../Tomboy/NoteWindow.cs:465
 msgid "_Text"
 msgstr "_Text"
 
-#: ../Tomboy/NoteWindow.cs:469
+#: ../Tomboy/NoteWindow.cs:470
 msgid "Set properties of text"
 msgstr "Text-Einstellungen"
 
-#: ../Tomboy/NoteWindow.cs:475
+#: ../Tomboy/NoteWindow.cs:476
 msgid "T_ools"
 msgstr "W_erkzeuge"
 
-#: ../Tomboy/NoteWindow.cs:479
+#: ../Tomboy/NoteWindow.cs:480
 msgid "Use tools on this note"
 msgstr "Werkzeuge auf diese Notiz anwenden"
 
-#: ../Tomboy/NoteWindow.cs:486
+#: ../Tomboy/NoteWindow.cs:487
 msgid "Delete"
 msgstr "Löschen"
 
-#: ../Tomboy/NoteWindow.cs:487
+#: ../Tomboy/NoteWindow.cs:488
 msgid "Delete this note"
 msgstr "Diese Notiz löschen"
 
-#: ../Tomboy/NoteWindow.cs:544
+#: ../Tomboy/NoteWindow.cs:545
 msgid "_Search..."
 msgstr "_Suchen …"
 
-#: ../Tomboy/NoteWindow.cs:555 ../Tomboy/Search.cs:177
+#: ../Tomboy/NoteWindow.cs:556 ../Tomboy/Search.cs:177
 msgid "Find _Next"
 msgstr "_Nächster Treffer"
 
-#: ../Tomboy/NoteWindow.cs:568
+#: ../Tomboy/NoteWindow.cs:569
 msgid "Find _Previous"
 msgstr "_Vorheriger Treffer"
 
-#: ../Tomboy/NoteWindow.cs:652
+#: ../Tomboy/NoteWindow.cs:653
 msgid "Cannot create note"
 msgstr "Notiz konnte nicht angelegt werden"
 
-#: ../Tomboy/NoteWindow.cs:745
+#: ../Tomboy/NoteWindow.cs:746
 msgid "_Bold"
 msgstr "_Fett"
 
-#: ../Tomboy/NoteWindow.cs:757
+#: ../Tomboy/NoteWindow.cs:758
 msgid "_Italic"
 msgstr "_Kursiv"
 
-#: ../Tomboy/NoteWindow.cs:769
+#: ../Tomboy/NoteWindow.cs:770
 msgid "_Strikeout"
 msgstr "_Durchgestrichen"
 
-#: ../Tomboy/NoteWindow.cs:781
+#: ../Tomboy/NoteWindow.cs:782
 msgid "_Highlight"
 msgstr "_Hervorheben"
 
-#: ../Tomboy/NoteWindow.cs:794
+#: ../Tomboy/NoteWindow.cs:795
 msgid "Font Size"
 msgstr "Schriftgröße"
 
-#: ../Tomboy/NoteWindow.cs:797
+#: ../Tomboy/NoteWindow.cs:798
 msgid "_Normal"
 msgstr "_Normal"
 
-#: ../Tomboy/NoteWindow.cs:804
+#: ../Tomboy/NoteWindow.cs:805
 msgid "Hu_ge"
 msgstr "_Riesig"
 
-#: ../Tomboy/NoteWindow.cs:812
+#: ../Tomboy/NoteWindow.cs:813
 msgid "_Large"
 msgstr "_Groß"
 
-#: ../Tomboy/NoteWindow.cs:820
+#: ../Tomboy/NoteWindow.cs:821
 msgid "S_mall"
 msgstr "_Klein"
 
-#: ../Tomboy/Preferences.cs:120
+#: ../Tomboy/Preferences.cs:125
 msgid "Tomboy Preferences"
 msgstr "Tomboy Einstellungen"
 
-#: ../Tomboy/Preferences.cs:134
+#: ../Tomboy/Preferences.cs:139
 msgid "Editing"
 msgstr "Bearbeiten"
 
-#: ../Tomboy/Preferences.cs:137
+#: ../Tomboy/Preferences.cs:142
 msgid "Hotkeys"
 msgstr "Tastenkombinationen"
 
-#. Spellchecking...
-#: ../Tomboy/Preferences.cs:177
-msgid "_Spellcheck While Typing"
+#. Spell checking...
+#: ../Tomboy/Preferences.cs:182
+msgid "_Spell check while typing"
 msgstr "_Rechtschreibprüfung während der Eingabe"
 
-#: ../Tomboy/Preferences.cs:184
+#: ../Tomboy/Preferences.cs:189
 msgid ""
 "Misspellings will be underlined in red, and correct spelling suggestions "
 "shown in the right-click menu."
@@ -469,11 +483,11 @@ msgstr ""
 "Rechtsklick wird ein Vorschlag zur Korrektur angezeigt."
 
 #. WikiWords...
-#: ../Tomboy/Preferences.cs:193
+#: ../Tomboy/Preferences.cs:198
 msgid "Highlight _WikiWords"
 msgstr "_WikiWords hervorheben"
 
-#: ../Tomboy/Preferences.cs:200
+#: ../Tomboy/Preferences.cs:205
 msgid ""
 "Enable this option to highlight words <b>ThatLookLikeThis</b>. Clicking the "
 "word will create a note with that name."
@@ -483,16 +497,16 @@ msgstr ""
 "diesem Namen erstellen."
 
 #. Custom font...
-#: ../Tomboy/Preferences.cs:209
-msgid "Use Custom _Font"
+#: ../Tomboy/Preferences.cs:214
+msgid "Use custom _font"
 msgstr "Eigene _Schriftart verwenden"
 
 #. Hotkeys...
-#: ../Tomboy/Preferences.cs:279
+#: ../Tomboy/Preferences.cs:284
 msgid "Listen for _Hotkeys"
 msgstr "_Hotkeys aktivieren"
 
-#: ../Tomboy/Preferences.cs:287
+#: ../Tomboy/Preferences.cs:292
 msgid ""
 "Hotkeys allow you to quickly access your notes from anywhere with a "
 "keypress. Example Hotkeys: <b>&lt;Control&gt;&lt;Shift&gt;F11</b>, <b>&lt;"
@@ -503,26 +517,26 @@ msgstr ""
 "Control&gt;&lt;Shift&gt;F11</b>, <b>&lt;Alt&gt;N</b>"
 
 #. Show notes menu keybinding...
-#: ../Tomboy/Preferences.cs:307
+#: ../Tomboy/Preferences.cs:312
 msgid "Show notes _menu"
 msgstr "Notiz_menü anzeigen"
 
 #. Open Start Here keybinding...
-#: ../Tomboy/Preferences.cs:323
+#: ../Tomboy/Preferences.cs:328
 msgid "Open \"_Start Here\""
 msgstr "»Hier _starten« öffnen"
 
 #. Create new note keybinding...
-#: ../Tomboy/Preferences.cs:339
+#: ../Tomboy/Preferences.cs:344
 msgid "Create _new note"
 msgstr "_Neue Notiz anlegen"
 
 #. Search dialog keybinding...
-#: ../Tomboy/Preferences.cs:355
+#: ../Tomboy/Preferences.cs:360
 msgid "S_earch notes"
 msgstr "Notizen durch_suchen"
 
-#: ../Tomboy/Preferences.cs:417
+#: ../Tomboy/Preferences.cs:422
 msgid "Choose Note Font"
 msgstr "Schriftart der Notizen auswählen"
 
@@ -576,11 +590,11 @@ msgstr "d. MMMM HH:mm"
 msgid "MMMM d yyyy, h:mm tt"
 msgstr "d. MMMM yyyy HH:mm"
 
-#: ../Tomboy/Search.cs:87 ../Tomboy/Search.cs:486
+#: ../Tomboy/Search.cs:87 ../Tomboy/Search.cs:489
 msgid "Search All Notes"
 msgstr "Alle Notizen durchsuchen"
 
-#: ../Tomboy/Search.cs:88 ../Tomboy/Search.cs:490
+#: ../Tomboy/Search.cs:88 ../Tomboy/Search.cs:493
 msgid "Search Note"
 msgstr "Notiz suchen"
 
@@ -600,11 +614,11 @@ msgstr "_Groß-/Kleinschreibung berücksichtigen"
 msgid "_Previous"
 msgstr "_Vorheriger"
 
-#: ../Tomboy/Search.cs:251
+#: ../Tomboy/Search.cs:250
 msgid "Search _Results"
 msgstr "Suche_rgebnisse"
 
-#: ../Tomboy/Search.cs:729
+#: ../Tomboy/Search.cs:732
 #, csharp-format
 msgid "({0} match)"
 msgid_plural "({0} matches)"
@@ -612,11 +626,11 @@ msgstr[0] "({0} Treffer)"
 msgstr[1] "({0} Treffer)"
 
 #. title
-#: ../Tomboy/Search.cs:747
+#: ../Tomboy/Search.cs:750
 msgid "No notes found"
 msgstr "Keine Notizen gefunden"
 
-#: ../Tomboy/Tomboy.cs:207
+#: ../Tomboy/Tomboy.cs:132
 msgid ""
 "Tomboy: A simple, easy to use desktop note-taking application.\n"
 "Copyright (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
@@ -626,7 +640,7 @@ msgstr ""
 "Copyright © 2004, 2006 Alex Graveley <alex@beatniksoftware.com>\n"
 "\n"
 
-#: ../Tomboy/Tomboy.cs:219
+#: ../Tomboy/Tomboy.cs:144
 msgid ""
 "Usage:\n"
 "  --version\t\t\tPrint version information.\n"
@@ -638,7 +652,7 @@ msgstr ""
 "  --help\t\t\tAusgabe dieser Hilfe.\n"
 "  --note-path [Verzeichnis]\t\tNotizdaten-Verzeichnis festlegen\n"
 
-#: ../Tomboy/Tomboy.cs:228
+#: ../Tomboy/Tomboy.cs:153
 msgid ""
 "  --new-note\t\t\tCreate and display a new note.\n"
 "  --new-note [title]\t\tCreate and display a new note, with a title.\n"
@@ -652,16 +666,16 @@ msgstr ""
 "  --start-here\t\t\tDie »Hier starten«-Notiz anzeigen.\n"
 "  --highlight-search [Text]\tText in geöffneter Notiz suchen und markieren.\n"
 
-#: ../Tomboy/Tomboy.cs:237
+#: ../Tomboy/Tomboy.cs:162
 msgid "D-BUS remote control disabled.\n"
 msgstr "D-BUS Fernsteuerung deaktiviert.\n"
 
-#: ../Tomboy/Tomboy.cs:245
+#: ../Tomboy/Tomboy.cs:170
 #, csharp-format
 msgid "Version {0}"
 msgstr "Version {0}"
 
-#: ../Tomboy/Tomboy.cs:303
+#: ../Tomboy/Tomboy.cs:228
 #, csharp-format
 msgid ""
 "Tomboy: unsupported option '{0}'\n"
@@ -674,43 +688,47 @@ msgstr ""
 "D-BUS Fernsteuerung deaktiviert."
 
 #. initial newline
-#: ../Tomboy/Tray.cs:83
+#: ../Tomboy/Tray.cs:82
 msgid "dddd, MMMM d, h:mm tt"
 msgstr "dddd, d. MMMM HH:mm"
 
-#: ../Tomboy/Tray.cs:146
+#: ../Tomboy/Tray.cs:145
 msgid "Create _New Note"
 msgstr "_Neue Notiz anlegen"
 
-#: ../Tomboy/Tray.cs:193
+#: ../Tomboy/Tray.cs:192
 msgid "_Table of Contents"
 msgstr "_Inhaltsverzeichnis"
 
-#: ../Tomboy/Tray.cs:203
+#: ../Tomboy/Tray.cs:202
 msgid "_Search Notes..."
 msgstr "Notizen _durchsuchen …"
 
-#: ../Tomboy/Tray.cs:221
+#: ../Tomboy/Tray.cs:220
 msgid " (new)"
 msgstr " (neu)"
 
-#: ../Tomboy/Tray.cs:259
+#: ../Tomboy/Tray.cs:258
 msgid "Cannot create new note"
 msgstr "Neue Notiz konnte nicht angelegt werden"
 
-#: ../Tomboy/Tray.cs:310
+#: ../Tomboy/Tray.cs:317
 msgid "translator-credits"
 msgstr ""
 "Philipp Meier\n"
 "Frank Arnold <frank@scirocco-5v-turbo.de>"
 
-#: ../Tomboy/Tray.cs:318
+#: ../Tomboy/Tray.cs:326
 msgid "Copyright © 2004-2006 Alex Graveley"
 msgstr "Copyright © 2004, 2006 Alex Graveley"
 
-#: ../Tomboy/Tray.cs:319
+#: ../Tomboy/Tray.cs:327
 msgid "A simple and easy to use desktop note-taking application."
 msgstr "Eine einfache und leicht bedienbare Anwendung für Notizen"
+
+#: ../Tomboy/Tray.cs:330
+msgid "Homepage & Donations"
+msgstr "Homepage & Spenden"
 
 #: ../Tomboy/Watchers.cs:137
 #, csharp-format
@@ -793,35 +811,35 @@ msgstr "Termine"
 msgid "Create Note of the Day"
 msgstr "Notiz des Tages erstellen"
 
-#: ../Tomboy/Plugins/StickyNoteImport.cs:28
+#: ../Tomboy/Plugins/StickyNoteImport.cs:34
 msgid "Import from Sticky Notes"
 msgstr "Import aus dem Klebezettel-Applet"
 
-#: ../Tomboy/Plugins/StickyNoteImport.cs:64
+#: ../Tomboy/Plugins/StickyNoteImport.cs:110
 msgid "No Sticky Notes found"
 msgstr "Keine Notizen des Klebezettel-Applets gefunden"
 
-#: ../Tomboy/Plugins/StickyNoteImport.cs:65
+#: ../Tomboy/Plugins/StickyNoteImport.cs:111
 #, csharp-format
 msgid "No suitable Sticky Notes file was found at \"{0}\"."
 msgstr "Keine verwendbare Datei des Klebezettel-Applets in »{0}« gefunden."
 
-#: ../Tomboy/Plugins/StickyNoteImport.cs:74
+#: ../Tomboy/Plugins/StickyNoteImport.cs:120
 msgid "Sticky Notes import completed"
 msgstr "Import aus dem Klebezettel-Applet abgeschlossen"
 
-#: ../Tomboy/Plugins/StickyNoteImport.cs:75
+#: ../Tomboy/Plugins/StickyNoteImport.cs:121
 #, csharp-format
 msgid "<b>{0}</b> of <b>{1}</b> Sticky Notes were successfully imported."
 msgstr ""
 "<b>{0}</b> von <b>{1}</b> Notizen aus dem Klebezettel-Applet wurden "
 "erfolgreich importiert."
 
-#: ../Tomboy/Plugins/StickyNoteImport.cs:97
+#: ../Tomboy/Plugins/StickyNoteImport.cs:133
 msgid "Untitled"
 msgstr "Ohne Titel"
 
-#: ../Tomboy/Plugins/StickyNoteImport.cs:125
+#: ../Tomboy/Plugins/StickyNoteImport.cs:161
 msgid "Sticky Note: "
 msgstr "Klebezettel: "
 
