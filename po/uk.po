@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tomboy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-08-03 21:45+0300\n"
-"PO-Revision-Date: 2005-08-08 11:46+0300\n"
+"POT-Creation-Date: 2006-09-04 10:22+0300\n"
+"PO-Revision-Date: 2005-09-04 11:46+0300\n"
 "Last-Translator: Maxim Dziumanenko <mvd@mylinux.ua>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -17,7 +17,7 @@ msgstr ""
 
 #: ../data/DefaultPlugins.desktop.in.in.h:1
 msgid "Default Plugins"
-msgstr "Типові модулі"
+msgstr "Стандартні модулі"
 
 #: ../data/DefaultPlugins.desktop.in.in.h:2
 msgid "Directory containing system-installed Plugins"
@@ -29,42 +29,37 @@ msgstr "Приладдя"
 
 #: ../data/GNOME_TomboyApplet.server.in.in.h:2
 msgid "Simple and easy to use note-taking"
-msgstr "Проста та зручна для створення приміток"
+msgstr "Проста та зручна програма для створення приміток"
 
 #: ../data/GNOME_TomboyApplet.server.in.in.h:3
 msgid "Tomboy Applet Factory"
 msgstr "Фабрика аплетів Tomboy"
 
-#: ../data/GNOME_TomboyApplet.server.in.in.h:4
-#: ../data/tomboy.desktop.in.h:3
-#: ../Tomboy/Applet.cs:134
-#: ../Tomboy/Tray.cs:38
+#: ../data/GNOME_TomboyApplet.server.in.in.h:4 ../data/tomboy.desktop.in.h:3
+#: ../Tomboy/Applet.cs:136 ../Tomboy/Tray.cs:37
 msgid "Tomboy Notes"
 msgstr "Примітки Tomboy"
 
-#: ../data/GNOME_TomboyApplet.xml.h:1
-msgid "_About Tomboy..."
+#: ../data/GNOME_TomboyApplet.xml.h:1 ../Tomboy/Applet.cs:179
+msgid "_About Tomboy"
 msgstr "_Про програму Tomboy"
 
-#: ../data/GNOME_TomboyApplet.xml.h:2
-#: ../Tomboy/Applet.cs:175
-#: ../Tomboy/NoteWindow.cs:547
+#: ../data/GNOME_TomboyApplet.xml.h:2 ../Tomboy/Applet.cs:174
+#: ../Tomboy/NoteWindow.cs:513
 msgid "_Open Plugins Folder"
-msgstr "_Відкрити теку модулів"
+msgstr "_Відкрити теку з модулями"
 
-#: ../data/GNOME_TomboyApplet.xml.h:3
-#: ../Tomboy/Applet.cs:170
+#: ../data/GNOME_TomboyApplet.xml.h:3 ../Tomboy/Applet.cs:169
 msgid "_Preferences..."
 msgstr "П_араметри..."
 
 #: ../data/tomboy.desktop.in.h:1
 msgid "Note-taker"
-msgstr "Примітка"
+msgstr "Записник"
 
 #: ../data/tomboy.desktop.in.h:2
 msgid "Quick and handy note-taker"
-msgstr "Швидка та корисна програма приміток"
-
+msgstr "Швидкий та зручний записник"
 #: ../data/tomboy.schemas.in.h:1
 msgid "Create a new Note"
 msgstr "Створити нову примітку"
@@ -75,7 +70,7 @@ msgstr "Інший шрифт"
 
 #: ../data/tomboy.schemas.in.h:3
 msgid "Enable WikiWord highlighting"
-msgstr "Ввімкнути підсвічення WikiWord"
+msgstr "Ввімкнути виділення WikiWord"
 
 #: ../data/tomboy.schemas.in.h:4
 msgid "Enable custom font"
@@ -90,9 +85,12 @@ msgid "Enable spellchecking"
 msgstr "Увімкнути перевірку правопису"
 
 #: ../data/tomboy.schemas.in.h:7
-msgid "Enable this option to highlight words ThatLookLikeThis. Clicking the word will create a note with that name."
+msgid ""
+"Enable this option to highlight words ThatLookLikeThis. Clicking the word "
+"will create a note with that name."
 msgstr ""
-"Увімкніть цей параметр для підсвічення слів ЯкіВиглядаютьЯкОце. Клацання на слові створить примітку з цією назвою."
+"Увімкніть цей параметр для підсвічення слів ЯкіВиглядаютьТакимЧином. Клацання на "
+"слові створить примітку з цією назвою."
 
 #: ../data/tomboy.schemas.in.h:8
 msgid "HTML Export Last Directory"
@@ -100,407 +98,515 @@ msgstr "Останній каталог експорту в HTML"
 
 #: ../data/tomboy.schemas.in.h:9
 msgid "HTML Export Linked Notes"
-msgstr "Пов'язані примітки експорту в HTML"
+msgstr "Пов'язані примітки при експорті в HTML"
 
 #: ../data/tomboy.schemas.in.h:10
-msgid "If enable_custom_font is true, the font name set here will be used as the font when displaying notes."
-msgstr "Якщо встановлено enable_custom_font, для відображення приміток буде використовуватись шрифт з вказаною тут назвою."
+msgid ""
+"If enable_custom_font is true, the font name set here will be used as the "
+"font when displaying notes."
+msgstr ""
+"Якщо встановлено enable_custom_font, для відображення приміток буде "
+"використовуватись шрифт з вказаною тут назвою."
 
 #: ../data/tomboy.schemas.in.h:11
-msgid "If true, misspellings will be underlined in red, and correct spelling suggestions shown in the right-click menu."
+msgid ""
+"If true, misspellings will be underlined in red, and correct spelling "
+"suggestions shown in the right-click menu."
 msgstr ""
-"Якщо встановлено, неправильно написані слова будуть підкреслюватись червоним, а при клацанні правою кнопкою показуватимуться коректні варіанти заміни."
+"Якщо встановлено, неправильно написані слова будуть підкреслюватись "
+"червоним, а при клацанні правою кнопкою показуватимуться коректні варіанти "
+"заміни."
 
 #: ../data/tomboy.schemas.in.h:12
-msgid "If true, the desktop-global keybindings set in /apps/tomboy/global_keybindings will be enabled, allowing for useful Tomboy actions to be available from any application."
+msgid ""
+"If true, the desktop-global keybindings set in /apps/tomboy/"
+"global_keybindings will be enabled, allowing for useful Tomboy actions to be "
+"available from any application."
 msgstr ""
-"Якщо встановлено, діятимуть глобальні комбінації клавіш стільниці визначені у /apps/tomboy/global_keybindings, що дозволяє користуватись діями Tomboy з будь-якої програми."
+"Якщо встановлено, діятимуть глобальні комбінації клавіш стільниці визначені "
+"у /apps/tomboy/global_keybindings, що дозволяє виконувати дії з Tomboy у "
+"будь-якій програмі."
 
 #: ../data/tomboy.schemas.in.h:13
-msgid "If true, the font name set in custom_font_face will be used as the font when displaying notes. Otherwise the desktop default font will be used."
+msgid ""
+"If true, the font name set in custom_font_face will be used as the font when "
+"displaying notes. Otherwise the desktop default font will be used."
 msgstr ""
-"Якщо встановлено, для відображення приміток буде використовуватись визначена у custom_font_face назва шрифту. У іншому випадку, буде використовуватись типовий шрифт стільниці."
+"Якщо встановлено, для відображення приміток буде використовуватись визначена "
+"у custom_font_face назва шрифту. У іншому випадку, буде використовуватись "
+"системний шрифт."
 
 #: ../data/tomboy.schemas.in.h:14
+msgid ""
+"Indicates that the Sticky Note Importer plugin has not been run, so it "
+"should run automatically the next time Tomboy starts."
+msgstr ""
+"Говорить про те, що розширення імпорту Липких приміток не запускалось, тобто "
+"воно має запуститись під час наступного запуску Tomboy."
+
+#: ../data/tomboy.schemas.in.h:15
 msgid "Open Recent Changes"
 msgstr "Відкрити недавні зміни"
 
-#: ../data/tomboy.schemas.in.h:15
+#: ../data/tomboy.schemas.in.h:16
 msgid "Open Search Dialog"
 msgstr "Відкрити діалог пошуку"
 
-#: ../data/tomboy.schemas.in.h:16
-msgid "Open Start Here"
-msgstr "Відкрити \"Починати тут\""
-
 #: ../data/tomboy.schemas.in.h:17
-msgid "Show applet menu"
-msgstr "Показати меню аплета"
+msgid "Open Start Here"
+msgstr "Відкрити \"Першу примітку\""
 
 #: ../data/tomboy.schemas.in.h:18
-msgid "The global keybinding for creating and displaying a new Note. The format looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is fairly liberal and allows lower or upper case, and also abbreviations such as \"&lt;Ctl&gt;\" and \"&lt;Ctrl&gt;\". If you set the option to the special string \"disabled\", then there will be no keybinding for this action."
-msgstr ""
-"Глобальна комбінація клавіш для створення та відображення нової примітки. У вигляді: \"&lt;Control&gt;a\" чи \"&lt;Shift&gt;&lt;Alt&gt;F1\". Аналізатор досить гнучкий та допускає нижній чи верхній регістр, та "
-"такі скорочення як \"&lt;Ctl&gt;\" та \"&lt;Ctrl&gt;\". Якщо значенням параметру встановите спеціальний рядок \"disabled\", тоді для цієї дії не буде комбінації клавіш."
+msgid "Set to TRUE to activate"
+msgstr "Для активації перемикніть на TRUE"
 
 #: ../data/tomboy.schemas.in.h:19
-msgid "The global keybinding for opening the \"Start Here\" note. The format looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is fairly liberal and allows lower or upper case, and also abbreviations such as \"&lt;Ctl&gt;\" and \"&lt;Ctrl&gt;\". If you set the option to the special string \"disabled\", then there will be no keybinding for this action."
-msgstr ""
-"Глобальна комбінація клавіш для відкривання примітки \"Починати тут\". У вигляді: \"&lt;Control&gt;a\" чи \"&lt;Shift&gt;&lt;Alt&gt;F1\". Аналізатор досить гнучкий та допускає нижній чи верхній регістр, та "
-"такі скорочення як \"&lt;Ctl&gt;\" та \"&lt;Ctrl&gt;\". Якщо значенням параметру встановите спеціальний рядок \"disabled\", тоді для цієї дії не буде комбінації клавіш."
-
+msgid "Show applet menu"
+msgstr "Показати меню аплету"
 
 #: ../data/tomboy.schemas.in.h:20
-msgid "The global keybinding for opening the Note Search dialog. The format looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is fairly liberal and allows lower or upper case, and also abbreviations such as \"&lt;Ctl&gt;\" and \"&lt;Ctrl&gt;\". If you set the option to the special string \"disabled\", then there will be no keybinding for this action."
-msgstr ""
-"Глобальна комбінація клавіш для відкривання діалогу пошуку. У вигляді: \"&lt;Control&gt;a\" чи \"&lt;Shift&gt;&lt;Alt&gt;F1\". Аналізатор досить гнучкий та допускає нижній чи верхній регістр, та "
-"такі скорочення як \"&lt;Ctl&gt;\" та \"&lt;Ctrl&gt;\". Якщо значенням параметру встановите спеціальний рядок \"disabled\", тоді для цієї дії не буде комбінації клавіш."
-
+msgid "Sticky Note Importer First Run"
+msgstr "Імпорт з аплету Липкі примітки запускався"
 
 #: ../data/tomboy.schemas.in.h:21
-msgid "The global keybinding for opening the Recent Changes dialog. The format looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is fairly liberal and allows lower or upper case, and also abbreviations such as \"&lt;Ctl&gt;\" and \"&lt;Ctrl&gt;\". If you set the option to the special string \"disabled\", then there will be no keybinding for this action."
+msgid ""
+"The global keybinding for creating and displaying a new Note. The format "
+"looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The "
+"parser is fairly liberal and allows lower or upper case, and also "
+"abbreviations such as \"&lt;Ctl&gt;\" and \"&lt;Ctrl&gt;\". If you set the "
+"option to the special string \"disabled\", then there will be no keybinding "
+"for this action."
 msgstr ""
-"Глобальна комбінація клавіш для відкривання діалогу \"Останні зміни\". У вигляді: \"&lt;Control&gt;a\" чи \"&lt;Shift&gt;&lt;Alt&gt;F1\". Аналізатор досить гнучкий та допускає нижній чи верхній регістр, та "
-"такі скорочення як \"&lt;Ctl&gt;\" та \"&lt;Ctrl&gt;\". Якщо значенням параметру встановите спеціальний рядок \"disabled\", тоді для цієї дії не буде комбінації клавіш."
-
+"Глобальна комбінація клавіш для створення та відображення нової примітки. У "
+"вигляді: \"&lt;Control&gt;a\" чи \"&lt;Shift&gt;&lt;Alt&gt;F1\". Аналізатор "
+"досить гнучкий та допускає нижній чи верхній регістр, та такі скорочення як "
+"\"&lt;Ctl&gt;\" та \"&lt;Ctrl&gt;\". Якщо значенням параметру встановите "
+"спеціальний рядок \"disabled\", тоді для цієї дії не буде комбінації клавіш."
 
 #: ../data/tomboy.schemas.in.h:22
-msgid "The global keybinding for showing the Tomboy applet's menu. The format looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is fairly liberal and allows lower or upper case, and also abbreviations such as \"&lt;Ctl&gt;\" and \"&lt;Ctrl&gt;\". If you set the option to the special string \"disabled\", then there will be no keybinding for this action."
+msgid ""
+"The global keybinding for opening the \"Start Here\" note. The format looks "
+"like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
+"fairly liberal and allows lower or upper case, and also abbreviations such "
+"as \"&lt;Ctl&gt;\" and \"&lt;Ctrl&gt;\". If you set the option to the "
+"special string \"disabled\", then there will be no keybinding for this "
+"action."
 msgstr ""
-"Глобальна комбінація клавіш для відкривання меню аплету Tomboy. У вигляді: \"&lt;Control&gt;a\" чи \"&lt;Shift&gt;&lt;Alt&gt;F1\". Аналізатор досить гнучкий та допускає нижній чи верхній регістр, та "
-"такі скорочення як \"&lt;Ctl&gt;\" та \"&lt;Ctrl&gt;\". Якщо значенням параметру встановите спеціальний рядок \"disabled\", тоді для цієї дії не буде комбінації клавіш."
-
+"Глобальна комбінація клавіш для відкривання примітки \"Починати тут\". У "
+"вигляді: \"&lt;Control&gt;a\" чи \"&lt;Shift&gt;&lt;Alt&gt;F1\". Аналізатор "
+"досить гнучкий та допускає нижній чи верхній регістр, та такі скорочення як "
+"\"&lt;Ctl&gt;\" та \"&lt;Ctrl&gt;\". Якщо значенням параметру встановите "
+"спеціальний рядок \"disabled\", тоді для цієї дії не буде комбінації клавіш."
 
 #: ../data/tomboy.schemas.in.h:23
-msgid "The last directory a note was exported to using the Export To HTML plugin."
-msgstr "Останній каталог куди експортувалась примітка використовуючи модуль Експорт у HTML."
+msgid ""
+"The global keybinding for opening the Note Search dialog. The format looks "
+"like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
+"fairly liberal and allows lower or upper case, and also abbreviations such "
+"as \"&lt;Ctl&gt;\" and \"&lt;Ctrl&gt;\". If you set the option to the "
+"special string \"disabled\", then there will be no keybinding for this "
+"action."
+msgstr ""
+"Глобальна комбінація клавіш для відкривання діалогу пошуку. У вигляді: \"&lt;"
+"Control&gt;a\" чи \"&lt;Shift&gt;&lt;Alt&gt;F1\". Аналізатор досить гнучкий "
+"та допускає нижній чи верхній регістр, та такі скорочення як \"&lt;Ctl&gt;\" "
+"та \"&lt;Ctrl&gt;\". Якщо значенням параметру встановите спеціальний рядок "
+"\"disabled\", тоді для цієї дії не буде комбінації клавіш."
 
 #: ../data/tomboy.schemas.in.h:24
-msgid "The last setting for the 'Export linked notes' checkbox in the Export to HTML plugin."
-msgstr "Останнє значення поля відмітки \"Експорту пов'язаних вузлів\" у модулі Експорт у HTML."
+msgid ""
+"The global keybinding for opening the Recent Changes dialog. The format "
+"looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The "
+"parser is fairly liberal and allows lower or upper case, and also "
+"abbreviations such as \"&lt;Ctl&gt;\" and \"&lt;Ctrl&gt;\". If you set the "
+"option to the special string \"disabled\", then there will be no keybinding "
+"for this action."
+msgstr ""
+"Глобальна комбінація клавіш для відкривання діалогу \"Останні зміни\". У "
+"вигляді: \"&lt;Control&gt;a\" чи \"&lt;Shift&gt;&lt;Alt&gt;F1\". Аналізатор "
+"досить гнучкий та допускає нижній чи верхній регістр, та такі скорочення як "
+"\"&lt;Ctl&gt;\" та \"&lt;Ctrl&gt;\". Якщо значенням параметру встановите "
+"спеціальний рядок \"disabled\", тоді для цієї дії не буде комбінації клавіш."
 
-#: ../libtomboy/gedit-print.c:144
-#: ../Tomboy/Plugins/PrintNotes.cs:15
+#: ../data/tomboy.schemas.in.h:25
+msgid ""
+"The global keybinding for showing the Tomboy applet's menu. The format looks "
+"like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
+"fairly liberal and allows lower or upper case, and also abbreviations such "
+"as \"&lt;Ctl&gt;\" and \"&lt;Ctrl&gt;\". If you set the option to the "
+"special string \"disabled\", then there will be no keybinding for this "
+"action."
+msgstr ""
+"Глобальна комбінація клавіш для відкривання меню аплету Tomboy. У вигляді: "
+"\"&lt;Control&gt;a\" чи \"&lt;Shift&gt;&lt;Alt&gt;F1\". Аналізатор досить "
+"гнучкий та допускає нижній чи верхній регістр, та такі скорочення як \"&lt;"
+"Ctl&gt;\" та \"&lt;Ctrl&gt;\". Якщо значенням параметру встановите "
+"спеціальний рядок \"disabled\", тоді для цієї дії не буде комбінації клавіш."
+
+#: ../data/tomboy.schemas.in.h:26
+msgid "The handler for \"note://\" URLs"
+msgstr "Обробник ресурсів \"note://\""
+
+#: ../data/tomboy.schemas.in.h:27
+msgid ""
+"The last directory a note was exported to using the Export To HTML plugin."
+msgstr ""
+"Останній каталог куди експортувалась примітка використовуючи модуль Експорт "
+"у HTML."
+
+#: ../data/tomboy.schemas.in.h:28
+msgid ""
+"The last setting for the 'Export linked notes' checkbox in the Export to "
+"HTML plugin."
+msgstr ""
+"Останнє значення у полі \"Експорту пов'язаних вузлів\" у модулі "
+"Експорт у HTML."
+
+#: ../libtomboy/gedit-print.c:142 ../Tomboy/Plugins/PrintNotes.cs:15
 msgid "Print"
 msgstr "Друк"
 
-#: ../libtomboy/gedit-print.c:243
+#: ../libtomboy/gedit-print.c:240
 msgid "Preparing pages..."
 msgstr "Підготування сторінок..."
 
-#: ../libtomboy/gedit-print.c:270
+#: ../libtomboy/gedit-print.c:267
 #, c-format
 msgid "Rendering page %d of %d..."
 msgstr "Візуалізація сторінки %d з %d..."
 
-#: ../libtomboy/gedit-print.c:272
+#: ../libtomboy/gedit-print.c:269
 #, c-format
 msgid "Printing page %d of %d..."
 msgstr "Друк сторінки %d з %d..."
 
-#: ../libtomboy/gedit-print.c:294
+#: ../libtomboy/gedit-print.c:291
 msgid "Print preview"
 msgstr "Попередній перегляд"
 
-#: ../libtomboy/gedit-print.c:446
+#: ../libtomboy/gedit-print.c:442
 msgid "Page %N of %Q"
 msgstr "Сторінка %N з %Q"
 
-#: ../libtomboy/gedit-print.c:448
-msgid "%A %D, %I:%M %p"
-msgstr "%A %D, %H:%M"
+#: ../libtomboy/gedit-print.c:444
+#, c-format
+msgid "%A %x, %X"
+msgstr "%A %x, %X"
 
-#: ../Tomboy/Applet.cs:180
-msgid "_About Tomboy"
-msgstr "_Про програму Tomboy"
-
-#: ../Tomboy/Applet.cs:187
+#: ../Tomboy/Applet.cs:186
 msgid "_Quit"
 msgstr "Ви_йти"
 
 #. Open the Start Here note
-#: ../Tomboy/Note.cs:393
-#: ../Tomboy/NoteManager.cs:84
-#: ../Tomboy/NoteManager.cs:91
-#: ../Tomboy/Tomboy.cs:210
-#: ../Tomboy/Tray.cs:112
-#: ../Tomboy/Tray.cs:278
-#: ../Tomboy/XKeybinder.cs:259
+#: ../Tomboy/Note.cs:562 ../Tomboy/NoteManager.cs:107
+#: ../Tomboy/NoteManager.cs:115 ../Tomboy/Tomboy.cs:208 ../Tomboy/Tray.cs:123
+#: ../Tomboy/Tray.cs:179 ../Tomboy/Tray.cs:385 ../Tomboy/XKeybinder.cs:259
 msgid "Start Here"
-msgstr "Починати тут"
+msgstr "Перша примітка"
 
-#: ../Tomboy/NoteManager.cs:85
+#: ../Tomboy/Note.cs:808
+msgid "Really delete this note?"
+msgstr "Дійсно видалити примітку?"
+
+#: ../Tomboy/Note.cs:809
+msgid "If you delete a note it is permanently lost."
+msgstr "Якщо ви видалите примітку, її буде остаточно втрачено."
+
+#: ../Tomboy/NoteManager.cs:108
 msgid "Welcome to Tomboy!"
 msgstr "Ласкаво просимо у Tomboy!"
 
-#: ../Tomboy/NoteManager.cs:86
-msgid "Use this page as a Start Page for organizing your notes and keeping unorganized ideas around."
-msgstr "Використовуйте цю сторінку як початкову сторінку для впорядкування приміток та зберігання невпорядкованих ідей."
+#: ../Tomboy/NoteManager.cs:109
+msgid ""
+"Use this page as a Start Page for organizing your notes and keeping "
+"unorganized ideas around."
+msgstr ""
+"Використовуйте цю сторінку як початкову сторінку для впорядкування приміток "
+"та зберігання невпорядкованих ідей."
 
-#: ../Tomboy/NoteManager.cs:148
+#: ../Tomboy/NoteManager.cs:203
 #, csharp-format
 msgid "New Note {0}"
 msgstr "Нова примітка {0}"
 
-#: ../Tomboy/NoteManager.cs:165
+#: ../Tomboy/NoteManager.cs:249
 msgid "Describe your new note here."
 msgstr "Опишіть тут вашу примітку."
 
-#: ../Tomboy/NoteWindow.cs:313
-msgid "Really delete this note?"
-msgstr "Дійсно видалити цю примітку?"
-
-#: ../Tomboy/NoteWindow.cs:314
-msgid "If you delete a note it is permanently lost."
-msgstr "Якщо ви видалите примітку, її буде остаточно втрачено."
-
-#: ../Tomboy/NoteWindow.cs:398
+#: ../Tomboy/NoteWindow.cs:364
 msgid "_Link to New Note"
-msgstr "_Послатися на нову примітку"
+msgstr "_Пов'язати з новою приміткою"
 
-#: ../Tomboy/NoteWindow.cs:411
+#: ../Tomboy/NoteWindow.cs:377
 msgid "Te_xt"
 msgstr "Те_кст"
 
-#: ../Tomboy/NoteWindow.cs:419
+#: ../Tomboy/NoteWindow.cs:385
 msgid "_Search"
 msgstr "З_найти"
 
-#: ../Tomboy/NoteWindow.cs:433
+#: ../Tomboy/NoteWindow.cs:399
 msgid "Clos_e All Notes"
 msgstr "Закрити _усі примітки"
 
-#: ../Tomboy/NoteWindow.cs:443
+#: ../Tomboy/NoteWindow.cs:409
 msgid "_Close"
 msgstr "_Закрити"
 
-#: ../Tomboy/NoteWindow.cs:471
+#: ../Tomboy/NoteWindow.cs:437
 msgid "Search"
 msgstr "Пошук"
 
-#: ../Tomboy/NoteWindow.cs:472
+#: ../Tomboy/NoteWindow.cs:438
 msgid "Search your notes"
 msgstr "Пошук приміток"
 
-#: ../Tomboy/NoteWindow.cs:484
+#: ../Tomboy/NoteWindow.cs:450
 msgid "Link"
-msgstr "Посилання"
+msgstr "Зв'ящати"
 
-#: ../Tomboy/NoteWindow.cs:485
+#: ../Tomboy/NoteWindow.cs:451
 msgid "Link selected text to a new note"
 msgstr "Прив'язати виділений текст до нової примітки"
 
-#: ../Tomboy/NoteWindow.cs:499
+#: ../Tomboy/NoteWindow.cs:465
 msgid "_Text"
 msgstr "_Текст"
 
-#: ../Tomboy/NoteWindow.cs:504
+#: ../Tomboy/NoteWindow.cs:470
 msgid "Set properties of text"
 msgstr "Встановити властивості тексту"
 
-#: ../Tomboy/NoteWindow.cs:510
-msgid "_Plugins"
-msgstr "_Модулі"
+#: ../Tomboy/NoteWindow.cs:476
+msgid "T_ools"
+msgstr "С_ервіс"
 
-#: ../Tomboy/NoteWindow.cs:514
-msgid "Run Plugin actions"
-msgstr "Запустити дії над модулями"
+#: ../Tomboy/NoteWindow.cs:480
+msgid "Use tools on this note"
+msgstr "Застосувати інструменти до вашої примітки"
 
-#: ../Tomboy/NoteWindow.cs:521
+#: ../Tomboy/NoteWindow.cs:487
 msgid "Delete"
 msgstr "Видалити"
 
-#: ../Tomboy/NoteWindow.cs:522
+#: ../Tomboy/NoteWindow.cs:488
 msgid "Delete this note"
 msgstr "Видалити цю примітку"
 
-#: ../Tomboy/NoteWindow.cs:579
+#: ../Tomboy/NoteWindow.cs:545
 msgid "_Search..."
 msgstr "З_найти..."
 
-#: ../Tomboy/NoteWindow.cs:590
-#: ../Tomboy/Search.cs:176
+#: ../Tomboy/NoteWindow.cs:556 ../Tomboy/Search.cs:177
 msgid "Find _Next"
-msgstr "Знайти _наступний"
+msgstr "Знайти _наступну"
 
-#: ../Tomboy/NoteWindow.cs:603
+#: ../Tomboy/NoteWindow.cs:569
 msgid "Find _Previous"
-msgstr "Знайти _попередній"
+msgstr "Знайти _попередню"
 
-#: ../Tomboy/NoteWindow.cs:762
+#: ../Tomboy/NoteWindow.cs:653
+msgid "Cannot create note"
+msgstr "Не вдається створити примітку"
+
+#: ../Tomboy/NoteWindow.cs:746
 msgid "_Bold"
 msgstr "Напів_жирний"
 
-#: ../Tomboy/NoteWindow.cs:774
+#: ../Tomboy/NoteWindow.cs:758
 msgid "_Italic"
 msgstr "_Курсив"
 
-#: ../Tomboy/NoteWindow.cs:786
+#: ../Tomboy/NoteWindow.cs:770
 msgid "_Strikeout"
 msgstr "З_акреслений"
 
-#: ../Tomboy/NoteWindow.cs:798
+#: ../Tomboy/NoteWindow.cs:782
 msgid "_Highlight"
 msgstr "_Підсвічений"
 
-#: ../Tomboy/NoteWindow.cs:811
+#: ../Tomboy/NoteWindow.cs:795
 msgid "Font Size"
 msgstr "Розмір шрифту"
 
-#: ../Tomboy/NoteWindow.cs:814
+#: ../Tomboy/NoteWindow.cs:798
 msgid "_Normal"
 msgstr "_Звичайний"
 
-#: ../Tomboy/NoteWindow.cs:821
+#: ../Tomboy/NoteWindow.cs:805
 msgid "Hu_ge"
 msgstr "В_еличезний"
 
-#: ../Tomboy/NoteWindow.cs:829
+#: ../Tomboy/NoteWindow.cs:813
 msgid "_Large"
 msgstr "_Великий"
 
-#: ../Tomboy/NoteWindow.cs:837
+#: ../Tomboy/NoteWindow.cs:821
 msgid "S_mall"
 msgstr "_Маленький"
 
-#: ../Tomboy/Preferences.cs:127
+#: ../Tomboy/Preferences.cs:125
 msgid "Tomboy Preferences"
 msgstr "Параметри Tomboy"
 
-#: ../Tomboy/Preferences.cs:141
+#: ../Tomboy/Preferences.cs:139
 msgid "Editing"
-msgstr "Редагування"
+msgstr "Правка"
 
-#: ../Tomboy/Preferences.cs:144
+#: ../Tomboy/Preferences.cs:142
 msgid "Hotkeys"
 msgstr "Гарячі клавіші"
 
-#. Spellchecking...
-#: ../Tomboy/Preferences.cs:184
-msgid "_Spellcheck While Typing"
-msgstr "_Перевірка орфографії при наборі"
+#. Spell checking...
+#: ../Tomboy/Preferences.cs:182
+msgid "_Spell check while typing"
+msgstr "_Перевіряти орфографію при наборі"
 
-#: ../Tomboy/Preferences.cs:191
-msgid "Misspellings will be underlined in red, and correct spelling suggestions shown in the right-click menu."
+#: ../Tomboy/Preferences.cs:189
+msgid ""
+"Misspellings will be underlined in red, and correct spelling suggestions "
+"shown in the right-click menu."
 msgstr ""
-"Некоректні слова будуть підкреслені червоним, а при клацанні правою кнопкою будуть показані коректні варіанти заміни."
+"Некоректні слова підкреслюються червоним, а при клацанні правою кнопкою "
+"показуються коректні варіанти заміни."
 
 #. WikiWords...
-#: ../Tomboy/Preferences.cs:200
+#: ../Tomboy/Preferences.cs:198
 msgid "Highlight _WikiWords"
 msgstr "Підсвічувати _WikiWords"
 
-#: ../Tomboy/Preferences.cs:207
-msgid "Enable this option to highlight words <b>ThatLookLikeThis</b>. Clicking the word will create a note with that name."
+#: ../Tomboy/Preferences.cs:205
+msgid ""
+"Enable this option to highlight words <b>ThatLookLikeThis</b>. Clicking the "
+"word will create a note with that name."
 msgstr ""
-"Увімкнути цей параметр для підсвічення слів <b>ЯкіВиглядаютьЯкОце</b>. Клацання на слові призведе до створення примітки з цією назвою."
+"Увімкнути цей параметр для підсвічення слів <b>ЯкіВиглядаютьТакимЧином</b>. "
+"Клацання на слові призведе до створення примітки з цією назвою."
 
 #. Custom font...
-#: ../Tomboy/Preferences.cs:216
-msgid "Use Custom _Font"
+#: ../Tomboy/Preferences.cs:214
+msgid "Use custom _font"
 msgstr "Використовувати інший _шрифт"
 
 #. Hotkeys...
-#: ../Tomboy/Preferences.cs:286
+#: ../Tomboy/Preferences.cs:284
 msgid "Listen for _Hotkeys"
-msgstr "Сприймати _комбінації клавіш"
+msgstr "Реагувати на _комбінації клавіш"
 
-#: ../Tomboy/Preferences.cs:294
-msgid "Hotkeys allow you to quickly access your notes from anywhere with a keypress. Example Hotkeys: <b>&lt;Control&gt;&lt;Shift&gt;F11</b>, <b>&lt;Alt&gt;N</b>"
+#: ../Tomboy/Preferences.cs:292
+msgid ""
+"Hotkeys allow you to quickly access your notes from anywhere with a "
+"keypress. Example Hotkeys: <b>&lt;Control&gt;&lt;Shift&gt;F11</b>, <b>&lt;"
+"Alt&gt;N</b>"
 msgstr ""
-"Комбінації клавіш дозволяють швидко мати доступ до приміток з будь-якого місця. Приклади комбінацій клавіш: <b>&lt;Control&gt;&lt;Shift&gt;F11</b>, <b>&lt;Alt&gt;N</b>"
+"Комбінації клавіш дозволяють швидко дістатись до приміток з будь-якого "
+"місця. Приклади комбінацій клавіш: <b>&lt;Control&gt;&lt;Shift&gt;F11</b>, "
+"<b>&lt;Alt&gt;N</b>"
 
 #. Show notes menu keybinding...
-#: ../Tomboy/Preferences.cs:314
+#: ../Tomboy/Preferences.cs:312
 msgid "Show notes _menu"
 msgstr "Показувати _меню приміток"
 
 #. Open Start Here keybinding...
-#: ../Tomboy/Preferences.cs:330
+#: ../Tomboy/Preferences.cs:328
 msgid "Open \"_Start Here\""
-msgstr "Відкрити \"_Починати тут\""
+msgstr "Відкрити \"_Першу примітку\""
 
 #. Create new note keybinding...
-#: ../Tomboy/Preferences.cs:346
+#: ../Tomboy/Preferences.cs:344
 msgid "Create _new note"
 msgstr "Створити _нову примітку"
 
 #. Search dialog keybinding...
-#: ../Tomboy/Preferences.cs:362
+#: ../Tomboy/Preferences.cs:360
 msgid "S_earch notes"
 msgstr "З_найти примітку"
 
-#: ../Tomboy/Preferences.cs:424
+#: ../Tomboy/Preferences.cs:422
 msgid "Choose Note Font"
 msgstr "Вибрати шрифт примітки"
 
-#: ../Tomboy/RecentChanges.cs:31
-msgid "Recent Changes"
-msgstr "Недавні зміни"
+#: ../Tomboy/RecentChanges.cs:37
+msgid "Table of Contents"
+msgstr "Зміст"
 
-#: ../Tomboy/RecentChanges.cs:45
-msgid "<b>Recent Changes</b> lists your notes in the order they were last changed.  Double click to open a note."
+#: ../Tomboy/RecentChanges.cs:51
+msgid ""
+"<b>Table of Contents</b> lists all your notes.\n"
+"Double click to open a note."
 msgstr ""
-"У списку <b>Недавні зміни</b> перелічені примітки у порядку їх останньої зміни. Для відкривання примітки двічі клацніть на ній."
+"У списку <b>Зміст</b> перелічені усі ваші примітки.\n"
+"Для відкривання примітки двічі клацніть на ній."
 
-#: ../Tomboy/RecentChanges.cs:171
+#: ../Tomboy/RecentChanges.cs:151
+msgid "Note"
+msgstr "Примітка"
+
+#: ../Tomboy/RecentChanges.cs:167
 msgid "Last Changed"
-msgstr "Востаннє змінено"
+msgstr "Час останньої зміни"
 
-#: ../Tomboy/RecentChanges.cs:234
+#: ../Tomboy/RecentChanges.cs:211
+#, csharp-format
+msgid "Total: {0} note"
+msgid_plural "Total: {0} notes"
+msgstr[0] "Всього: {0} примітка"
+msgstr[1] "Всього: {0} примітки"
+msgstr[2] "Всього: {0} приміток"
+
+#: ../Tomboy/RecentChanges.cs:261
 #, csharp-format
 msgid "Today, {0}"
 msgstr "Сьогодні, {0}"
 
-#: ../Tomboy/RecentChanges.cs:237
+#: ../Tomboy/RecentChanges.cs:264
 #, csharp-format
 msgid "Yesterday, {0}"
 msgstr "Вчора, {0}"
 
-#: ../Tomboy/RecentChanges.cs:240
+#: ../Tomboy/RecentChanges.cs:267
 #, csharp-format
 msgid "{0} days ago, {1}"
 msgstr "{0} днів тому, {1}"
 
-#: ../Tomboy/RecentChanges.cs:244
+#: ../Tomboy/RecentChanges.cs:271
 msgid "MMMM d, h:mm tt"
 msgstr "d MMMM, h:mm tt"
 
-#: ../Tomboy/RecentChanges.cs:246
+#: ../Tomboy/RecentChanges.cs:273
 msgid "MMMM d yyyy, h:mm tt"
 msgstr "d MMMM yyyy, h:mm tt"
 
-#: ../Tomboy/Search.cs:87
-#: ../Tomboy/Search.cs:488
+#: ../Tomboy/Search.cs:87 ../Tomboy/Search.cs:489
 msgid "Search All Notes"
 msgstr "Пошук в усіх примітках"
 
-#: ../Tomboy/Search.cs:88
-#: ../Tomboy/Search.cs:492
+#: ../Tomboy/Search.cs:88 ../Tomboy/Search.cs:493
 msgid "Search Note"
-msgstr "Пошук у примітці"
+msgstr "Знайти примітку"
 
-#: ../Tomboy/Search.cs:109
+#: ../Tomboy/Search.cs:110
 msgid "_Find:"
 msgstr "З_найти:"
 
-#: ../Tomboy/Search.cs:113
+#: ../Tomboy/Search.cs:114
 msgid "Search _All Notes"
 msgstr "Шукати в _усіх примітках"
 
-#: ../Tomboy/Search.cs:119
+#: ../Tomboy/Search.cs:120
 msgid "Case _Sensitive"
 msgstr "Збігається _регістр"
 
-#: ../Tomboy/Search.cs:164
+#: ../Tomboy/Search.cs:165
 msgid "_Previous"
-msgstr "_Попередній"
+msgstr "_Попередня"
 
-#: ../Tomboy/Search.cs:252
+#: ../Tomboy/Search.cs:250
 msgid "Search _Results"
 msgstr "_Результати пошуку"
 
-#: ../Tomboy/Search.cs:746
+#: ../Tomboy/Search.cs:732
 #, csharp-format
 msgid "({0} match)"
 msgid_plural "({0} matches)"
@@ -509,143 +615,214 @@ msgstr[1] "({0} відповідності)"
 msgstr[2] "({0} відповідностей)"
 
 #. title
-#: ../Tomboy/Search.cs:764
+#: ../Tomboy/Search.cs:750
 msgid "No notes found"
 msgstr "Не знайдено приміток"
 
-#: ../Tomboy/Tomboy.cs:138
+#: ../Tomboy/Tomboy.cs:132
 msgid ""
 "Tomboy: A simple, easy to use desktop note-taking application.\n"
-"Copyright (C) 2004, 2005 Alex Graveley <alex@beatniksoftware.com>\n"
+"Copyright (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
 "\n"
 msgstr ""
 "Tomboy: Проста програма створення приміток.\n"
-"Авторські права (C) 2004, 2005 Alex Graveley <alex@beatniksoftware.com>\n"
+"Авторські права (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
 "\n"
 
-#: ../Tomboy/Tomboy.cs:149
+#: ../Tomboy/Tomboy.cs:144
 msgid ""
 "Usage:\n"
+"  --version\t\t\tPrint version information.\n"
+"  --help\t\t\tPrint this usage message.\n"
+"  --note-path [path]\t\tLoad/store note data in this directory.\n"
+msgstr ""
+"Використання:\n"
+"  --version\t\t\tВивести інформацію про версію.\n"
+"  --help\t\t\tВивести це повідомлення про використання.\n"
+"  --note-path [path]\t\tЗавантажити/зберегти дані приміток у цей каталог.\n"
+
+#: ../Tomboy/Tomboy.cs:153
+msgid ""
 "  --new-note\t\t\tCreate and display a new note.\n"
 "  --new-note [title]\t\tCreate and display a new note, with a title.\n"
 "  --open-note [title/url]\tDisplay the existing note matching title.\n"
 "  --start-here\t\t\tDisplay the 'Start Here' note.\n"
 "  --highlight-search [text]\tSearch and highlight text in the opened note.\n"
-"  --version\t\t\tPrint version information.\n"
-"  --help\t\t\tPrint this usage message.\n"
 msgstr ""
-"Використання:\n"
 "  --new-note\t\t\tСтворити та відобразити нову примітку.\n"
-"  --new-note [заголовок]\t\tСтворити та відобразити нову примітку з заголовком.\n"
-"  --open-note [заголовок/url]\tВідобразити існуючу примітку з відповідним заголовком.\n"
-"  --start-here\t\t\tВідкрити примітку 'Починати тут'.\n"
-"  --highlight-search [текст]\tЗнайти підсвічений текст у відкритій примітці.\n"
-"  --version\t\t\tВивести інформацію про версію.\n"
-"  --help\t\t\tВивести це повідомлення використання.\n"
+"  --new-note [заголовок]\t\tСтворити та відобразити примітку із заголовком.\n"
+"  --open-note [заголовок/url]\tПоказати існуючу примітку з відповідною назвою.\n"
+"  --start-here\t\t\tПоказати першу примітку.\n"
+"  --highlight-search [текст]\tЗнайти та підсвітити текст у відкритій примітці.\n"
 
-#: ../Tomboy/Tomboy.cs:161
-msgid ""
-"Usage:\n"
-"  --version\t\t\tPrint version information.\n"
-"  --help\t\t\tPrint this usage message.\n"
-"\n"
-"D-BUS remote control disabled."
-msgstr ""
-"Використання:\n"
-"  --version\t\t\tВивести інформацію про версію.\n"
-"  --help\t\t\tВивести це повідомлення про використання.\n"
-"\n"
-"Дистанційне керування через D-BUS вимкнено."
+#: ../Tomboy/Tomboy.cs:162
+msgid "D-BUS remote control disabled.\n"
+msgstr "Дистанційне керування D-BUS вимкнено.\n"
 
-#: ../Tomboy/Tomboy.cs:172
+#: ../Tomboy/Tomboy.cs:170
 #, csharp-format
 msgid "Version {0}"
 msgstr "Версія {0}"
 
-#: ../Tomboy/Tomboy.cs:229
+#: ../Tomboy/Tomboy.cs:228
 #, csharp-format
 msgid ""
 "Tomboy: unsupported option '{0}'\n"
 "Try 'tomboy --help' for more information.\n"
 "D-BUS remote control disabled."
 msgstr ""
-"Tomboy: непідтримуваний параметр '{0}'\n"
+"Tomboy: невідомий параметр '{0}'\n"
 "Спробуйте 'tomboy --help' для докладнішої інформації.\n"
 "Дистанційне керування через D-BUS вимкнено."
 
-#: ../Tomboy/Tray.cs:77
-msgid "Create _New Note"
-msgstr "Створити _нову примітку"
-
-#: ../Tomboy/Tray.cs:125
-msgid "_Recent Changes"
-msgstr "_Недавні зміни"
-
-#: ../Tomboy/Tray.cs:135
-msgid "_Search Notes..."
-msgstr "З_найти примітки..."
-
-#: ../Tomboy/Tray.cs:153
-msgid " (new)"
-msgstr " (нова)"
-
-#: ../Tomboy/Tray.cs:230
-msgid "translator-credits"
-msgstr "Максим Дзюманенко <mvd@mylinux.com.ua>"
-
-#: ../Tomboy/Tray.cs:236
-msgid "Copyright © 2004, 2005 Alex Graveley"
-msgstr "Авторські права © 2004, 2005 Alex Graveley"
-
-#: ../Tomboy/Tray.cs:237
-msgid "A simple and easy to use desktop note-taking application."
-msgstr "Проста програма створення приміток."
-
 #. initial newline
-#: ../Tomboy/Tray.cs:286
+#: ../Tomboy/Tray.cs:82
 msgid "dddd, MMMM d, h:mm tt"
 msgstr "dddd, d MMMM, h:mm tt"
 
-#: ../Tomboy/Watchers.cs:138
+#: ../Tomboy/Tray.cs:145
+msgid "Create _New Note"
+msgstr "Створити _нову примітку"
+
+#: ../Tomboy/Tray.cs:192
+msgid "_Table of Contents"
+msgstr "_Зміст"
+
+#: ../Tomboy/Tray.cs:202
+msgid "_Search Notes..."
+msgstr "З_найти примітки..."
+
+#: ../Tomboy/Tray.cs:220
+msgid " (new)"
+msgstr " (нова)"
+
+#: ../Tomboy/Tray.cs:258
+msgid "Cannot create new note"
+msgstr "Не вдається створити нову примітку"
+
+#: ../Tomboy/Tray.cs:317
+msgid "translator-credits"
+msgstr "Максим Дзюманенко <dziumanenko@gmail.com>"
+
+#: ../Tomboy/Tray.cs:326
+msgid "Copyright © 2004-2006 Alex Graveley"
+msgstr "Авторські права © 2004-2006 Alex Graveley"
+
+#: ../Tomboy/Tray.cs:327
+msgid "A simple and easy to use desktop note-taking application."
+msgstr "Проста програма створення приміток."
+
+#: ../Tomboy/Tray.cs:330
+msgid "Homepage & Donations"
+msgstr "Домашня сторінка та пожертвування"
+
+#: ../Tomboy/Watchers.cs:137
 #, csharp-format
 msgid "(Untitled {0})"
 msgstr "(Без заголовка {0})"
 
-#: ../Tomboy/Watchers.cs:166
+#: ../Tomboy/Watchers.cs:169
 #, csharp-format
-msgid "A note with the title <b>{0}</b> already exists. Please choose another name for this note before continuing."
+msgid ""
+"A note with the title <b>{0}</b> already exists. Please choose another name "
+"for this note before continuing."
 msgstr ""
-"Примітка із заголовком <b>{0}</b> вже існує. Перш ніж продовжити виберіть для неї іншу назву."
+"Примітка із заголовком <b>{0}</b> вже існує. Перш ніж продовжити, виберіть "
+"для неї іншу назву."
 
-#: ../Tomboy/Watchers.cs:178
+#: ../Tomboy/Watchers.cs:181
 msgid "Note title taken"
 msgstr "Взято заголовок примітки"
 
-#: ../Tomboy/Watchers.cs:271
-msgid "Related to: "
-msgstr "Відносно до:"
-
-#: ../Tomboy/Watchers.cs:557
+#: ../Tomboy/Watchers.cs:386
 msgid "Cannot open location"
 msgstr "Не вдається відкрити адресу"
 
-#: ../Tomboy/Watchers.cs:665
+#: ../Tomboy/Watchers.cs:480
 msgid "_Copy Link Address"
 msgstr "_Копіювати адресу посилання"
 
-#: ../Tomboy/Watchers.cs:670
+#: ../Tomboy/Watchers.cs:485
 msgid "_Open Link"
 msgstr "_Відкрити посилання"
 
-#: ../Tomboy/Plugins/ExportToHTML.cs:46
+#: ../Tomboy/Plugins/Evolution.cs:264
+msgid "Cannot open email"
+msgstr "Не вдається відкрити адресу електронної пошти"
+
+#: ../Tomboy/Plugins/ExportToHTML.cs:47
 msgid "Export to HTML"
 msgstr "Експортувати в HTML"
 
-#: ../Tomboy/Plugins/ExportToHTML.cs:164
+#: ../Tomboy/Plugins/ExportToHTML.cs:201
 msgid "Destination for HTML Export"
 msgstr "Призначено для експорту в HTML"
 
-#: ../Tomboy/Plugins/ExportToHTML.cs:169
+#: ../Tomboy/Plugins/ExportToHTML.cs:206
 msgid "Export linked notes"
 msgstr "Експорт пов'язаних приміток"
 
+#: ../Tomboy/Plugins/FixedWidth.cs:34
+msgid "_Fixed Width"
+msgstr "_Фіксована ширина"
+
+#: ../Tomboy/Plugins/GalagoPresence.cs:235
+#, csharp-format
+msgid "Cannot contact '{0}'"
+msgstr "Не вдається зв'язатись з '{0}'"
+
+#: ../Tomboy/Plugins/GalagoPresence.cs:238
+#, csharp-format
+msgid "Error running gaim-remote: {0}"
+msgstr "Помилка запуску gaim-remote: {0}"
+
+#: ../Tomboy/Plugins/NoteOfTheDay.cs:13
+msgid "NotD: "
+msgstr "Головна: "
+
+#. Format: "NotD: Friday, July 01 2005"
+#: ../Tomboy/Plugins/NoteOfTheDay.cs:18
+msgid "dddd, MMMM d yyyy"
+msgstr "dddd, MMMM d yyyy"
+
+#: ../Tomboy/Plugins/NoteOfTheDay.cs:33
+msgid "Tasks"
+msgstr "Задачі"
+
+#: ../Tomboy/Plugins/NoteOfTheDay.cs:34
+msgid "Appointments"
+msgstr "Зустрічі"
+
+#: ../Tomboy/Plugins/NoteOfTheDay.cs:169
+msgid "Create Note of the Day"
+msgstr "Створити примітку для"
+
+#: ../Tomboy/Plugins/StickyNoteImport.cs:34
+msgid "Import from Sticky Notes"
+msgstr "Імпортувати з аплету Липкі примітки"
+
+#: ../Tomboy/Plugins/StickyNoteImport.cs:110
+msgid "No Sticky Notes found"
+msgstr "Не знайдено приміток"
+
+#: ../Tomboy/Plugins/StickyNoteImport.cs:111
+#, csharp-format
+msgid "No suitable Sticky Notes file was found at \"{0}\"."
+msgstr "Не знайдено відповідний файл аплету Липкі примітки у \"{0}\"."
+
+#: ../Tomboy/Plugins/StickyNoteImport.cs:120
+msgid "Sticky Notes import completed"
+msgstr "Імпорт з аплету Липкі примітки завершений"
+
+#: ../Tomboy/Plugins/StickyNoteImport.cs:121
+#, csharp-format
+msgid "<b>{0}</b> of <b>{1}</b> Sticky Notes were successfully imported."
+msgstr "<b>{0}</b> з <b>{1}</b> дані Sticky Notes успішно імпортовано."
+
+#: ../Tomboy/Plugins/StickyNoteImport.cs:133
+msgid "Untitled"
+msgstr "Без назви"
+
+#: ../Tomboy/Plugins/StickyNoteImport.cs:161
+msgid "Sticky Note: "
+msgstr "Липка примітка: "
