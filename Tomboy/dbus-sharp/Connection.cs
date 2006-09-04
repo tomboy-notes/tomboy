@@ -89,7 +89,7 @@ namespace DBus
     {
       if (disposing && RawConnection != IntPtr.Zero) 
 	{
-	  dbus_connection_disconnect(rawConnection);
+	  dbus_connection_close(rawConnection);
 
 	  RawConnection = IntPtr.Zero; // free the native object
 	}
@@ -314,7 +314,7 @@ namespace DBus
 							   int    slot);
     
     [DllImport ("dbus-1")]
-    private extern static void dbus_connection_disconnect (IntPtr ptr);
+    private extern static void dbus_connection_close (IntPtr ptr);
 
     [DllImport ("dbus-1")]
     private extern static IntPtr dbus_bus_get_unique_name (IntPtr ptr);
