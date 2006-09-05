@@ -127,7 +127,9 @@ namespace Tomboy
 		static Type [] stock_plugins = 
 			new Type [] {
 				typeof (NoteRenameWatcher),
+#if ENABLE_GTKSPELL
 				typeof (NoteSpellChecker),
+#endif // ENABLE_GTKSPELL
 				typeof (NoteUrlWatcher),
 				typeof (NoteLinkWatcher),
 				typeof (NoteWikiWatcher),

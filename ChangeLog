@@ -1,3 +1,16 @@
+2006-09-02  Alex Graveley  <alex@beatniksoftware.com>
+
+	* configure.in: Set $ENABLE_GTKSPELL if gtkspell-2.0 is installed.
+	This makes gtkspell optional as required for GNOME release.
+
+	* Tomboy/Makefile.am: Pass -define:ENABLE_DBUS if it's enabled.
+
+	If gtkspell isn't enabled...
+	* Tomboy/Watchers.cs: Conditionally include NoteSpellChecker.
+	* Tomboy/Preferences.cs: Don't show spell check enable checkbox,
+	and don't pack the font button to fill the extra space.
+	* Tomboy/PluginManager.cs: Don't create NoteSpellChecker objects.
+
 2006-09-04  Alex Graveley  <alex@beatniksoftware.com>
 
 	* Tomboy/dbus-sharp/Connection.cs: Use dbus_connection_close
