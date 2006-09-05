@@ -177,6 +177,7 @@ namespace Tomboy
 			options_list.Show ();
 
 
+#if ENABLE_GTKSPELL
 			// Spell checking...
 
 			check = MakeCheckButton (Catalog.GetString ("_Spell check while typing"));
@@ -191,6 +192,7 @@ namespace Tomboy
 								 "suggestions shown in the right-click " +
 								 "menu."));
 			options_list.PackStart (label, false, false, 0);
+#endif // ENABLE_GTKSPELL
 
 
 			// WikiWords...
@@ -221,7 +223,7 @@ namespace Tomboy
 
 			align = new Gtk.Alignment (0.5f, 0.5f, 0.4f, 1.0f);
 			align.Show ();
-			options_list.PackStart (align, true, true, 0);
+			options_list.PackStart (align, false, false, 0);
 
 			font_button = MakeFontButton ();
 			font_button.Sensitive = check.Active;
