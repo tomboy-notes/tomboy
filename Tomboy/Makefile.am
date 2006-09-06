@@ -14,10 +14,6 @@ DBUS_CSFILES = 				\
 	$(srcdir)/RemoteControlProxy.cs
 endif
 
-if ENABLE_GTKSPELL
-ENABLE_GTKSPELL_CSFLAGS = -define:ENABLE_GTKSPELL
-endif
-
 if FIXED_GTKSPELL
 FIXED_GTKSPELL_CSFLAGS = -define:FIXED_GTKSPELL
 endif
@@ -28,7 +24,6 @@ CSFLAGS = 				\
 	-unsafe 			\
 	-target:exe 			\
 	$(DBUS_CSFLAGS) 		\
-	$(ENABLE_GTKSPELL_CSFLAGS)	\
 	$(FIXED_GTKSPELL_CSFLAGS)
 
 CSFILES = 					\

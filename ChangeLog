@@ -1,5 +1,37 @@
 2006-09-06  Alex Graveley  <alex@beatniksoftware.com>
 
+	* configure.in: Remove hard gtkspell dependency, as it is now
+	detected at runtime.  Bump version to 0.4.2.
+
+	* Tomboy/Defines.cs.in: Add GNOME_HELP_DIR, used for opening the
+	help manual.
+
+	* Tomboy/Note.cs: In NoteDataBufferSynchronizer, when setting the
+	xml text, flush the buffer contents and reload it.
+
+	* data/GNOME_TomboyApplet.xml: Add Help menu item, move Open
+	Plugins Folder first, followed by a separator to match the context
+	menu layout of other applets.
+
+	* Tomboy/NoteWindow.cs: Bind F1 to opening help.
+
+	* Tomboy/Applet.cs: Add Help menu item to applet and tray icon
+	context menus.
+
+	* Tomboy/Utils.cs: Add ShowHelp utility which opens the
+	Tomboy manual.
+
+	* Tomboy/PluginManager.cs: Catch exceptions thrown during plugin
+	creation, such as the one NoteSpellChecker may throw.
+
+	* Tomboy/Preferences.cs: Show spell check option if
+	NoteSpellChecker.GtkSpellAvailable.
+
+	* Tomboy/Watchers.cs: In NoteSpellChecker, detect gtkspell
+	availability at runtime.
+
+2006-09-06  Alex Graveley  <alex@beatniksoftware.com>
+
 	* Tomboy/Watchers.cs: In NoteLinkWatcher, highlight links at
 	sentence boundaries as well as word boundaries.  This fixes
 	linking to notes with titles ending or beginning in punctuation.
