@@ -177,22 +177,25 @@ namespace Tomboy
 			options_list.Show ();
 
 
-#if ENABLE_GTKSPELL
 			// Spell checking...
 
-			check = MakeCheckButton (Catalog.GetString ("_Spell check while typing"));
-			options_list.PackStart (check, false, false, 0);
+			if (NoteSpellChecker.GtkSpellAvailable) {
+				check = MakeCheckButton (
+					Catalog.GetString ("_Spell check while typing"));
+				options_list.PackStart (check, false, false, 0);
+				
+				peditor = new PropertyEditorToggleButton (
+					Preferences.ENABLE_SPELLCHECKING,
+					check);
+				SetupPropertyEditor (peditor);
 
-			peditor = new PropertyEditorToggleButton (Preferences.ENABLE_SPELLCHECKING,
-								  check);
-			SetupPropertyEditor (peditor);
-
-			label = MakeTipLabel (Catalog.GetString ("Misspellings will be underlined " +
-								 "in red, and correct spelling " +
-								 "suggestions shown in the right-click " +
-								 "menu."));
-			options_list.PackStart (label, false, false, 0);
-#endif // ENABLE_GTKSPELL
+				label = MakeTipLabel (
+					Catalog.GetString ("Misspellings will be underlined " +
+							   "in red, and correct spelling " +
+							   "suggestions shown in the context " +
+							   "menu."));
+				options_list.PackStart (label, false, false, 0);
+			}
 
 
 			// WikiWords...

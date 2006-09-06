@@ -1,5 +1,5 @@
 AC_INIT(Tomboy/Tomboy.cs)
-AM_INIT_AUTOMAKE(tomboy, 0.4.0)
+AM_INIT_AUTOMAKE(tomboy, 0.4.2)
 AM_MAINTAINER_MODE
 
 GNOME_COMMON_INIT
@@ -81,11 +81,9 @@ fi
 AC_SUBST(PANELAPPLET_SERVER_DIR)
 
 #
-# Check for GtkSpell here, as we call into it from C#.
+# Check for recent GtkSpell here.  Prior versions require bug workarounds.
 # http://gtkspell.sourceforge.net/
 #
-PKG_CHECK_MODULES(GTKSPELL, gtkspell-2.0, ENABLE_GTKSPELL="yes", ENABLE_GTKSPELL="no")
-AM_CONDITIONAL(ENABLE_GTKSPELL, test "$ENABLE_GTKSPELL" = "yes")
 PKG_CHECK_MODULES(GTKSPELL, gtkspell-2.0 >= 2.0.9, FIXED_GTKSPELL="yes", FIXED_GTKSPELL="no")
 AM_CONDITIONAL(FIXED_GTKSPELL, test "$FIXED_GTKSPELL" = "yes")
 

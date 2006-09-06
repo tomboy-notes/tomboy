@@ -186,10 +186,12 @@ namespace Tomboy
 		}
 	}
 
-#if ENABLE_GTKSPELL
 	public class NoteSpellChecker : NotePlugin
 	{
 		IntPtr obj_ptr = IntPtr.Zero;
+
+		static bool gtkspell_available_tested;
+		static bool gtkspell_available_result;
 
 		[DllImport ("libgtkspell")]
 		static extern IntPtr gtkspell_new_attach (IntPtr text_view, 
@@ -198,6 +200,39 @@ namespace Tomboy
 
 		[DllImport ("libgtkspell")]
 		static extern void gtkspell_detach (IntPtr obj);
+
+		static bool DetectGtkSpellAvailable()
+		{
+			try {
+				Gtk.TextView test_view = new Gtk.TextView ();
+				IntPtr test_ptr = gtkspell_new_attach (test_view.Handle, 
+								       null, 
+								       IntPtr.Zero);
+				if (test_ptr != IntPtr.Zero)
+					gtkspell_detach (test_ptr);
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
+
+		public static bool GtkSpellAvailable 
+		{
+			get {
+				if (!gtkspell_available_tested) {
+					gtkspell_available_result = DetectGtkSpellAvailable ();
+					gtkspell_available_tested = true;
+				}
+				return gtkspell_available_result;
+			}
+		}
+
+		public NoteSpellChecker ()
+		{
+			if (!GtkSpellAvailable) {
+				throw new Exception();
+			}
+		}
 
 		protected override void Initialize ()
 		{
@@ -282,7 +317,6 @@ namespace Tomboy
 			}
 		}
 	}
-#endif // ENABLE_GTKSPELL
 
 	public class NoteUrlWatcher : NotePlugin
 	{

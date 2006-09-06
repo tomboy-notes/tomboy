@@ -51,9 +51,11 @@ namespace Tomboy
 			// Keep referenced so our callbacks don't get reaped.
 			menu_verbs = new BonoboUIVerb [] {
 				new BonoboUIVerb (
+					"Plugins", new ContextMenuItemCallback (ShowPluginsVerb)),
+				new BonoboUIVerb (
 					"Props", new ContextMenuItemCallback (ShowPreferencesVerb)),
 				new BonoboUIVerb (
-					"Plugins", new ContextMenuItemCallback (ShowPluginsVerb)),
+					"Help", new ContextMenuItemCallback (ShowHelpVerb)),
 				new BonoboUIVerb (
 					"About", new ContextMenuItemCallback (ShowAboutVerb))
 			};
@@ -87,6 +89,11 @@ namespace Tomboy
 		void ShowPluginsVerb ()
 		{
 			manager.PluginManager.ShowPluginsDirectory ();
+		}
+
+		void ShowHelpVerb ()
+		{
+			GuiUtils.ShowHelp("tomboy.xml", null, Screen, null);
 		}
 
 		void ShowAboutVerb ()
@@ -177,18 +184,25 @@ namespace Tomboy
 
 			Gtk.ImageMenuItem item;
 
-			item = new Gtk.ImageMenuItem (Catalog.GetString ("_Preferences..."));
-			item.Image = new Gtk.Image (Gtk.Stock.Properties, Gtk.IconSize.Menu);
-			item.Activated += ShowPreferences;
-			menu.Append (item);
-
 			item = new Gtk.ImageMenuItem (Catalog.GetString ("_Open Plugins Folder"));
 			item.Image = new Gtk.Image (Gtk.Stock.Execute, Gtk.IconSize.Menu);
 			item.Activated += ShowPlugins;
 			menu.Append (item);
 
+			menu.Append (new Gtk.SeparatorMenuItem ());
+
+			item = new Gtk.ImageMenuItem (Catalog.GetString ("_Preferences"));
+			item.Image = new Gtk.Image (Gtk.Stock.Preferences, Gtk.IconSize.Menu);
+			item.Activated += ShowPreferences;
+			menu.Append (item);
+
+			item = new Gtk.ImageMenuItem (Catalog.GetString ("_Help"));
+			item.Image = new Gtk.Image (Gtk.Stock.Help, Gtk.IconSize.Menu);
+			item.Activated += ShowHelpContents;
+			menu.Append (item);
+
 			item = new Gtk.ImageMenuItem (Catalog.GetString ("_About Tomboy"));
-			item.Image = new Gtk.Image (Gnome.Stock.About, Gtk.IconSize.Menu);
+			item.Image = new Gtk.Image (Gtk.Stock.About, Gtk.IconSize.Menu);
 			item.Activated += ShowAbout;
 			menu.Append (item);
 
@@ -211,6 +225,11 @@ namespace Tomboy
 		void ShowPlugins (object sender, EventArgs args)
 		{
 			manager.PluginManager.ShowPluginsDirectory ();
+		}
+
+		void ShowHelpContents (object sender, EventArgs args)
+		{
+			GuiUtils.ShowHelp("tomboy.xml", null, Screen, null);
 		}
 
 		void ShowAbout (object sender, EventArgs args)

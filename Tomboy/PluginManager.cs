@@ -127,9 +127,7 @@ namespace Tomboy
 		static Type [] stock_plugins = 
 			new Type [] {
 				typeof (NoteRenameWatcher),
-#if ENABLE_GTKSPELL
 				typeof (NoteSpellChecker),
-#endif // ENABLE_GTKSPELL
 				typeof (NoteUrlWatcher),
 				typeof (NoteLinkWatcher),
 				typeof (NoteWikiWatcher),
@@ -208,10 +206,15 @@ namespace Tomboy
 			ArrayList note_plugins = new ArrayList ();
 
 			foreach (Type type in plugin_types) {
-				NotePlugin plugin = (NotePlugin) Activator.CreateInstance (type);
-				if (plugin != null) {
-					plugin.Initialize (note);
-					note_plugins.Add (plugin);
+				try {
+					NotePlugin plugin = (NotePlugin) 
+						Activator.CreateInstance (type);
+					if (plugin != null) {
+						plugin.Initialize (note);
+						note_plugins.Add (plugin);
+					}
+				} catch (Exception e) {
+					// Do nothing
 				}
 			}
 

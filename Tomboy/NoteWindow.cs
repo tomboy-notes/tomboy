@@ -238,6 +238,12 @@ namespace Tomboy
 						     Gdk.ModifierType.ShiftMask),
 						    Gtk.AccelFlags.Visible);
 
+			// Open Help (F1)
+			global_keys.AddAccelerator (new EventHandler (OpenHelpActivate),
+						    (uint) Gdk.Key.F1, 
+						    0,
+						    0);
+
 			this.Add (box);
 		}
 
@@ -668,6 +674,11 @@ namespace Tomboy
 		void LinkToNoteActivate (object sender, EventArgs args)
 		{
 			LinkButtonClicked ();
+		}
+
+		void OpenHelpActivate (object sender, EventArgs args)
+		{
+			GuiUtils.ShowHelp("tomboy.xml", "editing-notes", Screen, this);
 		}
 	}
 

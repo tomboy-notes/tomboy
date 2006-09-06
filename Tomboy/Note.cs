@@ -148,37 +148,13 @@ namespace Tomboy
 		public NoteBuffer Buffer
 		{
 			get { return buffer; }
-			set
-			{
+			set {
 				buffer = value;
-
-				// Don't create Undo actions during load
-				buffer.Undoer.FreezeUndo ();
-
-				// Load the stored xml text
-				if (!TextInvalid ()) {
-					NoteBufferArchiver.Deserialize (buffer, 
-									buffer.StartIter, 
-									data.Text);
-				}
-				buffer.Modified = false;
-
-				Gtk.TextIter cursor;
-				if (data.CursorPosition != 0) {
-					// Move cursor to last-saved position
-					cursor = buffer.GetIterAtOffset (data.CursorPosition);
-				} else {
-					// Avoid title line
-					cursor = buffer.GetIterAtLine (2);
-				}
-				buffer.PlaceCursor (cursor);
-
-				// New events should create Undo actions
-				buffer.Undoer.ThawUndo ();
-
 				buffer.Changed += BufferChanged;
 				buffer.TagApplied += BufferTagApplied;
 				buffer.TagRemoved += BufferTagRemoved;
+
+				SynchronizeBuffer ();
 
 				InvalidateText ();
 			}
@@ -186,12 +162,14 @@ namespace Tomboy
 
 		public string Text
 		{
-			get
-			{
+			get {
 				SynchronizeText ();
 				return data.Text;
 			}
-			set { data.Text = value; }
+			set { 
+				data.Text = value;
+				SynchronizeBuffer ();
+			}
 		}
 
 		// Custom Methods
@@ -210,6 +188,35 @@ namespace Tomboy
 		{
 			if (TextInvalid () && buffer != null) {
 				data.Text = NoteBufferArchiver.Serialize (buffer); 
+			}
+		}
+
+		void SynchronizeBuffer ()
+		{
+			if (!TextInvalid () && buffer != null) {
+				// Don't create Undo actions during load
+				buffer.Undoer.FreezeUndo ();
+
+				buffer.Clear ();
+
+				// Load the stored xml text
+				NoteBufferArchiver.Deserialize (buffer, 
+								buffer.StartIter, 
+								data.Text);
+				buffer.Modified = false;
+
+				Gtk.TextIter cursor;
+				if (data.CursorPosition != 0) {
+					// Move cursor to last-saved position
+					cursor = buffer.GetIterAtOffset (data.CursorPosition);
+				} else {
+					// Avoid title line
+					cursor = buffer.GetIterAtLine (2);
+				}
+				buffer.PlaceCursor (cursor);
+
+				// New events should create Undo actions
+				buffer.Undoer.ThawUndo ();
 			}
 		}
 
@@ -519,7 +526,8 @@ namespace Tomboy
 		{
 			get {
 				if (buffer == null) {
-					Logger.Log ("Creating Buffer for '{0}'...", data.Data.Title);
+					Logger.Log ("Creating Buffer for '{0}'...", 
+						    data.Data.Title);
 
 					buffer = new NoteBuffer (TagTable);
 					data.Buffer = buffer;
@@ -543,7 +551,8 @@ namespace Tomboy
 					window.ConfigureEvent += WindowConfigureEvent;
 					
 					if (data.Data.HasExtent ())
-						window.SetDefaultSize (data.Data.Width, data.Data.Height);
+						window.SetDefaultSize (data.Data.Width, 
+								       data.Data.Height);
 
 					if (data.Data.HasPosition ())
 						window.Move (data.Data.X, data.Data.Y);

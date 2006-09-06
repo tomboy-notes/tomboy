@@ -105,6 +105,36 @@ namespace Tomboy
 			Gtk.Image image = new Gtk.Image (stock_id, Gtk.IconSize.Button);
 			return MakeImageButton (image, label);
 		}
+
+		public static void ShowHelp (string filename, 
+					     string link_id, 
+					     Gdk.Screen screen, 
+					     Gtk.Window parent)
+		{
+			try {
+				Gnome.Help.DisplayDesktopOnScreen (
+					Gnome.Program.Get (),
+					Defines.GNOME_HELP_DIR,
+					filename, 
+					link_id, 
+					screen);
+			} catch (GLib.GException e) {
+				string message = 
+					Catalog.GetString ("The \"Tomboy Notes Manual\" could " +
+							   "not be found.  Please verify " +
+							   "that your installation has been " +
+							   "completed successfully.");
+				HIGMessageDialog dialog = 
+					new HIGMessageDialog (parent,
+							      Gtk.DialogFlags.DestroyWithParent,
+							      Gtk.MessageType.Error,
+							      Gtk.ButtonsType.Ok,
+							      Catalog.GetString ("Help not found"),
+							      message);
+				dialog.Run ();
+				dialog.Destroy ();
+			}
+		}
 	}
 
 	public class GlobalKeybinder 
