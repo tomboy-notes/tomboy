@@ -42,7 +42,10 @@ namespace Tomboy
 			tray = new TomboyTray (manager);
 			keybinder = new TomboyGConfXKeybinder (manager, tray);
 
+			Flags |= PanelAppletFlags.ExpandMinor;
+
 			Add (tray);
+			OnChangeSize (Size);
 			ShowAll ();
 
 			// Keep referenced so our callbacks don't get reaped.
@@ -114,6 +117,14 @@ namespace Tomboy
 				tray.Style = copy;
 				break;
 			}
+		}
+
+		protected override void OnChangeSize (uint size)
+		{
+			if (tray == null)
+				return;
+
+			tray.SetSizeRequest ((int) size, (int) size);
 		}
 	}
 
