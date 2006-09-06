@@ -659,7 +659,8 @@ namespace Tomboy
 			title_end.ForwardChars (hit.End);
 
 			// Only link against whole words/phrases
-			if (!title_start.StartsWord () || !title_end.EndsWord())
+			if ((!title_start.StartsWord () && !title_start.StartsSentence ()) || 
+			    (!title_end.EndsWord() && !title_end.EndsSentence()))
 				return;
 
 			// Don't create links inside URLs

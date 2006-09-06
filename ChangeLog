@@ -1,3 +1,13 @@
+2006-09-06  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Watchers.cs: In NoteLinkWatcher, highlight links at
+	sentence boundaries as well as word boundaries.  This fixes
+	linking to notes with titles ending or beginning in punctuation.
+
+	* Tomboy/Applet.cs: Fix bug #354416 by setting the
+	PanelAppletFlags.ExpandMinor flag to get sizing updates, and
+	overriding OnChangeSize to set the icon's size request.
+
 2006-09-05  Sandy Armstrong  <sanfordarmstrong@gmail.com>
 
 	* Tomboy/Plugins/NoteOfTheDay.cs: Add support for using a note
