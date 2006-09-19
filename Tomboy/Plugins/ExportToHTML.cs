@@ -66,14 +66,16 @@ public class ExportToHTMLPlugin : NotePlugin
 		ExportToHTMLDialog dialog = new ExportToHTMLDialog (Note.Title + ".html");
 		int response = dialog.Run();
 		string output_path = dialog.Filename;
-		dialog.Destroy ();
 
-		if (response != (int) Gtk.ResponseType.Ok) 
+		if (response != (int) Gtk.ResponseType.Ok) {
+			dialog.Destroy ();
 			return;
+		}
 
 		Logger.Log ("Exporting Note '{0}' to '{1}'...", Note.Title, output_path);
 
 		StreamWriter writer = null;
+		string error_message = null;
 		try {
 			try {
 				// FIXME: Warn about file existing.  Allow overwrite.
@@ -83,15 +85,64 @@ public class ExportToHTMLPlugin : NotePlugin
 
 			writer = new StreamWriter (output_path);
 			WriteHTMLForNote (writer, Note, dialog.ExportLinked);
+			
+			// Save the dialog preferences now that the note has successfully been exported
+			dialog.SavePreferences ();
+			dialog.Destroy ();
+			dialog = null;
+			
+			try	{
+				Uri output_uri = new Uri (output_path);
+				Gnome.Url.Show (output_uri.AbsoluteUri);
+			} catch (Exception ex) {
+				Logger.Log ("Could not open the exported note in a web browser: {0}", ex);
 
-			Uri output_uri = new Uri (output_path);
-			Gnome.Url.Show (output_uri.AbsoluteUri);
+				// Let the user know the note was saved successfully
+				// even though showing the note in a web browser failed.
+				HIGMessageDialog msg_dialog =
+					new HIGMessageDialog (
+						Window,
+						Gtk.DialogFlags.DestroyWithParent,
+						Gtk.MessageType.Info,
+						Gtk.ButtonsType.Ok,
+						Catalog.GetString ("Note exported successfully"),
+						String.Format (
+							Catalog.GetString ("Your note was exported as \"{0}\"."),
+							output_path));
+				msg_dialog.Run ();
+				msg_dialog.Destroy ();
+			}
+		} catch (UnauthorizedAccessException uae) {
+			error_message = Catalog.GetString ("Access denied.");
+		} catch (DirectoryNotFoundException dnfe) {
+			error_message = Catalog.GetString ("Folder does not exist.");
 		} catch (Exception e) {
 			Logger.Log ("Could not export: {0}", e);
+			
+			error_message = e.Message;
 		} finally {
 			if (writer != null) 
 				writer.Close ();
 		}
+
+		if (error_message != null)
+		{
+			Logger.Log ("Could not export: {0}", error_message);
+
+			HIGMessageDialog msg_dialog = 
+				new HIGMessageDialog (
+					dialog,
+					Gtk.DialogFlags.DestroyWithParent,
+					Gtk.MessageType.Error,
+					Gtk.ButtonsType.Ok,
+					String.Format (Catalog.GetString ("Could not save the file \"{0}\""), output_path),
+					error_message);
+			msg_dialog.Run ();
+			msg_dialog.Destroy ();
+		}
+
+		if (dialog != null)
+			dialog.Destroy ();
 	}
 
 	public void WriteHTMLForNote (TextWriter writer, 
@@ -200,8 +251,6 @@ class ExportToHTMLDialog : Gtk.FileSelection
 	public ExportToHTMLDialog (string default_file) : 
 		base (Catalog.GetString ("Destination for HTML Export")) 
 	{
-		Response += OnResponseCb;
-
 		HideFileopButtons ();
 		export_linked = new Gtk.CheckButton (Catalog.GetString ("Export linked notes"));
 		VBox.Add (export_linked);
@@ -215,13 +264,15 @@ class ExportToHTMLDialog : Gtk.FileSelection
 		get { return export_linked.Active; }
 		set { export_linked.Active = value; }
 	}
-
-	protected void OnResponseCb (object sender, Gtk.ResponseArgs args) 
+	
+	public void SavePreferences () 
 	{
-		if (args.ResponseId == Gtk.ResponseType.Ok) 
-			SavePreferences ();
-	}
+		string dir = System.IO.Path.GetDirectoryName (Filename);
+		Preferences.Set (Preferences.EXPORTHTML_LAST_DIRECTORY, dir);
 
+		Preferences.Set (Preferences.EXPORTHTML_EXPORT_LINKED, ExportLinked);
+	}
+	
 	protected void LoadPreferences (string default_file) 
 	{
 		string last_dir = (string) Preferences.Get (Preferences.EXPORTHTML_LAST_DIRECTORY);
@@ -232,13 +283,4 @@ class ExportToHTMLDialog : Gtk.FileSelection
 
 		ExportLinked = (bool) Preferences.Get (Preferences.EXPORTHTML_EXPORT_LINKED);
 	}
-
-	protected void SavePreferences () 
-	{
-		string dir = System.IO.Path.GetDirectoryName (Filename);
-		Preferences.Set (Preferences.EXPORTHTML_LAST_DIRECTORY, dir);
-
-		Preferences.Set (Preferences.EXPORTHTML_EXPORT_LINKED, ExportLinked);
-	}
 }
-
