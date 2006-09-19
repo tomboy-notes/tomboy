@@ -1,3 +1,12 @@
+2006-09-19  Boyd Timothy  <btimothy@gmail.com>
+
+	* Tomboy/Plugins/ExportToHTML.cs: Fix bug #351664 by adding
+	try/catch around the code that attempts to load the exported note
+	into a web browser.  If opening a web browser fails, a dialog will
+	alert the user that the note was exported successfully.  Also, the
+	export preferences are not saved unless the note is exported
+	successfully.
+
 2006-09-19  Alex Graveley  <alex@beatniksoftware.com>
 
 	* Tomboy/Logger.cs: Patch from Jeff Rose to output timestamped log
@@ -1255,7 +1264,7 @@
 	AttachWidget's allocation.  Cleanup ToolMenuButton, which is now a
 	nice generic button used for the Text and Plugins menus.
 
-2005-05-16  Iñaki Larrañaga  <dooteo@euskalgnu.org>
+2005-05-16  Iï¿½aki Larraï¿½aga  <dooteo@euskalgnu.org>
 
 	* configure.in: Added "eu" (Basque) to ALL_LINGUAS.
 
