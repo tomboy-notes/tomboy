@@ -76,6 +76,7 @@ public class ExportToHTMLPlugin : NotePlugin
 
 		StreamWriter writer = null;
 		string error_message = null;
+
 		try {
 			try {
 				// FIXME: Warn about file existing.  Allow overwrite.
@@ -86,16 +87,22 @@ public class ExportToHTMLPlugin : NotePlugin
 			writer = new StreamWriter (output_path);
 			WriteHTMLForNote (writer, Note, dialog.ExportLinked);
 			
-			// Save the dialog preferences now that the note has successfully been exported
+			// Save the dialog preferences now that the note has
+			// successfully been exported
 			dialog.SavePreferences ();
 			dialog.Destroy ();
 			dialog = null;
 			
-			try	{
+			try {
 				Uri output_uri = new Uri (output_path);
 				Gnome.Url.Show (output_uri.AbsoluteUri);
 			} catch (Exception ex) {
-				Logger.Log ("Could not open the exported note in a web browser: {0}", ex);
+				Logger.Log ("Could not open exported note in a web browser: {0}", 
+					    ex);
+
+				string detail = String.Format (
+					Catalog.GetString ("Your note was exported to \"{0}\"."),
+					output_path);
 
 				// Let the user know the note was saved successfully
 				// even though showing the note in a web browser failed.
@@ -106,9 +113,7 @@ public class ExportToHTMLPlugin : NotePlugin
 						Gtk.MessageType.Info,
 						Gtk.ButtonsType.Ok,
 						Catalog.GetString ("Note exported successfully"),
-						String.Format (
-							Catalog.GetString ("Your note was exported as \"{0}\"."),
-							output_path));
+						detail);
 				msg_dialog.Run ();
 				msg_dialog.Destroy ();
 			}
@@ -129,13 +134,17 @@ public class ExportToHTMLPlugin : NotePlugin
 		{
 			Logger.Log ("Could not export: {0}", error_message);
 
+			string msg = String.Format (
+				Catalog.GetString ("Could not save the file \"{0}\""), 
+				output_path);
+
 			HIGMessageDialog msg_dialog = 
 				new HIGMessageDialog (
 					dialog,
 					Gtk.DialogFlags.DestroyWithParent,
 					Gtk.MessageType.Error,
 					Gtk.ButtonsType.Ok,
-					String.Format (Catalog.GetString ("Could not save the file \"{0}\""), output_path),
+					msg,
 					error_message);
 			msg_dialog.Run ();
 			msg_dialog.Destroy ();
