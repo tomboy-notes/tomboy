@@ -253,16 +253,24 @@ class NoteNameResolver : XmlResolver
 	}
 }
 
-class ExportToHTMLDialog : Gtk.FileSelection
+class ExportToHTMLDialog : Gtk.FileChooserDialog
 {
 	Gtk.CheckButton export_linked;
 
 	public ExportToHTMLDialog (string default_file) : 
-		base (Catalog.GetString ("Destination for HTML Export")) 
+		base (Catalog.GetString ("Destination for HTML Export"),
+			  null, Gtk.FileChooserAction.Save, new object[] {})
 	{
-		HideFileopButtons ();
+		AddButton (Gtk.Stock.Cancel, Gtk.ResponseType.Cancel);
+		AddButton (Gtk.Stock.Save, Gtk.ResponseType.Ok);
+		
+		DefaultResponse = Gtk.ResponseType.Ok;
+		
 		export_linked = new Gtk.CheckButton (Catalog.GetString ("Export linked notes"));
-		VBox.Add (export_linked);
+		ExtraWidget = export_linked;
+		
+		DoOverwriteConfirmation = true;
+		LocalOnly = true;
 
 		ShowAll ();
 		LoadPreferences (default_file);
@@ -287,8 +295,8 @@ class ExportToHTMLDialog : Gtk.FileSelection
 		string last_dir = (string) Preferences.Get (Preferences.EXPORTHTML_LAST_DIRECTORY);
 		if (last_dir == "")
 			last_dir = Environment.GetEnvironmentVariable ("HOME");
-		last_dir = System.IO.Path.Combine (last_dir, default_file);
-		Filename = last_dir;
+		SetCurrentFolder (last_dir);
+		CurrentName = default_file;
 
 		ExportLinked = (bool) Preferences.Get (Preferences.EXPORTHTML_EXPORT_LINKED);
 	}
