@@ -1,3 +1,9 @@
+2006-10-15  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Logger.cs: Store the log in ~/.tomboy.log.  Storing in
+	~/.tomboy/log chokes if the directory isn't created yet, so just
+	avoid this putting the log in the home directory.
+
 2006-09-20  Boyd Timothy  <btimothy@gmail.com>
 
 	* Tomboy/Plugins/ExportToHTML.cs: Fixed bug #336507 by changing
