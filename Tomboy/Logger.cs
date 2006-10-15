@@ -33,9 +33,9 @@ namespace Tomboy
 
 		public FileLogger()
 		{
-			log = File.CreateText (Path.Combine (Path.Combine (
+			log = File.CreateText (Path.Combine (
 				Environment.GetEnvironmentVariable ("HOME"), 
-				".tomboy"), "log"));
+				".tomboy.log"));
 			log.Flush();
 
 			console = new ConsoleLogger();
