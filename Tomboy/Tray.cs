@@ -98,9 +98,10 @@ namespace Tomboy
 		{
 			if (!pinned && pin_img != null) {
 				if (ev.X > pin_img.Allocation.X && 
-				    ev.X < pin_img.Allocation.X + pin_img.Allocation.Width) {
+				    ev.X < pin_img.Allocation.X + pin_img.Allocation.Width &&
+				    pin_img.Pixbuf != pinup_active) {
 					pin_img.Pixbuf = pinup_active;
-				} else if (pin_img.Pixbuf == pinup_active) {
+				} else if (pin_img.Pixbuf != pinup) {
 					pin_img.Pixbuf = pinup;
 				}
 			}
