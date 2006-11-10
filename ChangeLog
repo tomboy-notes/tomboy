@@ -1,3 +1,30 @@
+2006-11-09  Alex Graveley  <alex@beatniksoftware.com>
+
+	* data/tomboy.schemas.in: Add menu_note_count and
+	menu_pinned_notes schemas.
+
+	* Tomboy/Tray.cs: Add a NoteMenuItem widget that subclasses
+	Gtk.ImageMenuItem and packs in a pin icon, which allows clicking
+	to pin the note to the tomboy menu.  The pinup icon is replaced
+	with pinup-active when the mouse hovers over the pin.  Show all
+	pinned notes in the Tomboy menu, and respect the menu_note_count
+	GConf key as the minimum number of notes to show.
+
+	* Tomboy/Preferences.cs: Add menu_note_count and menu_pinned_notes
+	GConf key default values.
+
+	* Tomboy/Note.cs: In Note, add IsPinned getter which checks if the
+	note's URI is in the menu_pinned_notes GConf, and setter which
+	adds the URI.
+
+	* data/images/Makefile.am (noinst_DATA): Add pinup.png,
+	pinup-active.png, and pindown.png.
+	* Tomboy/Makefile.am (RESOURCES): Include these pin images in the
+	assembly.
+
+	* Tomboy/Logger.cs: In FileLogger handle IOException when creating
+	~/.tomboy.log.
+
 2006-10-15  Alex Graveley  <alex@beatniksoftware.com>
 
 	* Tomboy/Logger.cs: Store the log in ~/.tomboy.log.  Storing in

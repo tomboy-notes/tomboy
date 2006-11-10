@@ -589,6 +589,37 @@ namespace Tomboy
 			get { return window != null; }
 		}
 
+		public bool IsPinned
+		{
+			get {
+				string pinned_uris = (string)
+					Preferences.Get (Preferences.MENU_PINNED_NOTES);
+				return pinned_uris.IndexOf (Uri) > -1;
+			}
+			set {
+				string new_pinned = "";
+				string old_pinned = (string)
+					Preferences.Get (Preferences.MENU_PINNED_NOTES);
+				bool pinned = old_pinned.IndexOf (Uri) > -1;
+
+				if (value == pinned) 
+					return;
+
+				if (value) {
+					new_pinned = Uri + " " + old_pinned;
+				} else {
+					string [] pinned_split = old_pinned.Split (' ', '\t', '\n');
+					foreach (string pin in pinned_split) {
+						if (pin != "" && pin != Uri) {
+							new_pinned += pin + " ";
+						}
+					}
+				}
+
+				Preferences.Set (Preferences.MENU_PINNED_NOTES, new_pinned);
+			}
+		}
+
 		public event EventHandler Opened;
 		public event NoteRenameHandler Renamed;
 	}

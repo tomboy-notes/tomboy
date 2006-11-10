@@ -59,7 +59,11 @@ RESOURCES = 										\
 	-resource:$(top_builddir)/data/DefaultPlugins.desktop,DefaultPlugins.desktop	\
 	-resource:$(top_srcdir)/data/images/tomboy.png,tomboy.png			\
 	-resource:$(top_srcdir)/data/images/tintin.png,tintin.png			\
-	-resource:$(top_srcdir)/data/images/gnome-searchtool.png,gnome-searchtool.png
+	-resource:$(top_srcdir)/data/images/gnome-searchtool.png,gnome-searchtool.png	\
+	-resource:$(top_srcdir)/data/images/pinup.png,pinup.png				\
+	-resource:$(top_srcdir)/data/images/pinup-active.png,pinup-active.png		\
+	-resource:$(top_srcdir)/data/images/pindown.png,pindown.png
+
 
 $(TARGET): $(CSFILES) Defines.cs
 	$(CSC) -out:$@ $(CSFLAGS) $^ $(ASSEMBLIES) $(RESOURCES)

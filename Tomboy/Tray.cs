@@ -7,6 +7,115 @@ using System.Runtime.InteropServices;
 
 namespace Tomboy
 {
+	public class NoteMenuItem : Gtk.ImageMenuItem
+	{
+		Note note;
+		Gtk.Image pin_img;
+		bool pinned;
+		bool inhibit_activate;
+
+		static Gdk.Pixbuf note_icon;
+		static Gdk.Pixbuf pinup;
+		static Gdk.Pixbuf pinup_active;
+		static Gdk.Pixbuf pindown;
+
+		static NoteMenuItem ()
+		{
+			// Cache this since we use it a lot.
+			note_icon = GuiUtils.GetIcon ("tomboy", 16);
+			pinup = GuiUtils.GetIcon ("pinup", 16);
+			pinup_active = GuiUtils.GetIcon ("pinup-active", 16);
+			pindown = GuiUtils.GetIcon ("pindown", 16);
+		}
+
+		public NoteMenuItem (Note note, bool show_pin)
+			: base (GetDisplayName(note))
+		{
+			this.note = note;
+			Image = new Gtk.Image (note_icon);
+
+			if (show_pin) {
+				Gtk.HBox box = new Gtk.HBox (false, 0);
+				Gtk.Widget child = Child;
+				Remove (child);
+				box.PackStart (child, true, true, 0);
+				Add (box);
+				box.Show();
+
+				pinned = note.IsPinned;
+				pin_img = new Gtk.Image(pinned ? pindown : pinup);
+				pin_img.Show();
+				box.PackStart (pin_img, false, false, 0);
+			}
+		}
+
+		static string FormatForLabel (string name)
+		{
+			// Replace underscores ("_") with double-underscores ("__")
+			// so Note menuitems are not created with mnemonics.
+			return name.Replace ("_", "__");
+		}
+
+		static string GetDisplayName (Note note)
+		{
+			string display_name = note.Title;
+			if (note.IsNew)
+				display_name += Catalog.GetString (" (new)");
+			return FormatForLabel (display_name);
+		}
+
+		protected override void OnActivated () 
+		{
+			if (!inhibit_activate) {
+				if (note != null)
+					note.Window.Present ();
+			}
+		}
+
+		protected override bool OnButtonPressEvent (Gdk.EventButton ev)
+		{
+			if (pin_img != null &&
+			    ev.X > pin_img.Allocation.X && 
+			    ev.X < pin_img.Allocation.X + pin_img.Allocation.Width) {
+				pinned = note.IsPinned = !pinned;
+				pin_img.Pixbuf = pinned ? pindown : pinup;
+				inhibit_activate = true;
+				return true;
+			}
+			return base.OnButtonPressEvent (ev);
+		}
+
+		protected override bool OnButtonReleaseEvent (Gdk.EventButton ev)
+		{
+			if (inhibit_activate) {
+				inhibit_activate = false;
+				return true;
+			}
+			return base.OnButtonReleaseEvent (ev);
+		}
+
+		protected override bool OnMotionNotifyEvent (Gdk.EventMotion ev)
+		{
+			if (!pinned && pin_img != null) {
+				if (ev.X > pin_img.Allocation.X && 
+				    ev.X < pin_img.Allocation.X + pin_img.Allocation.Width) {
+					pin_img.Pixbuf = pinup_active;
+				} else if (pin_img.Pixbuf == pinup_active) {
+					pin_img.Pixbuf = pinup;
+				}
+			}
+			return base.OnMotionNotifyEvent (ev);
+		}
+
+		protected override bool OnLeaveNotifyEvent (Gdk.EventCrossing ev)
+		{
+			if (!pinned && pin_img != null) {
+				pin_img.Pixbuf = pinup;
+			}
+			return base.OnLeaveNotifyEvent (ev);			
+		}
+	}
+
 	public class TomboyTray : Gtk.EventBox
 	{
 		NoteManager manager;
@@ -14,14 +123,6 @@ namespace Tomboy
 		Gtk.Image image;
 		PreferencesDialog prefs_dlg;
 		int icon_size_last = -1;
-
-		static Gdk.Pixbuf note_icon;
-
-		static TomboyTray ()
-		{
-			// Cache this since we use it a lot.
-			note_icon = GuiUtils.GetIcon ("tomboy", 16);
-		}
 
 		public TomboyTray (NoteManager manager) 
 			: base ()
@@ -152,33 +253,39 @@ namespace Tomboy
 					item, 
 					Preferences.KEYBINDING_CREATE_NEW_NOTE);
 
-			// FIXME: Pull this from GConf
-			int min_size = 5;
+			int min_size = (int) Preferences.Get (Preferences.MENU_NOTE_COUNT);
 			int max_size = 18;
 			int list_size = 0;
 
-			DateTime two_days_ago = DateTime.Today.AddDays (-2);
+			DateTime days_ago = DateTime.Today.AddDays (-3);
 
-			// List the i most recently changed notes, and any
-			// currently opened notes...
+			// List the i most recently changed notes, any currently
+			// opened notes, and any pinned notes...
 			foreach (Note note in manager.Notes) {
 				if (note.IsSpecial)
 					continue;
 
-				if ((note.IsOpened && note.Window.IsMapped) || 
-				    note.ChangeDate > two_days_ago ||
+				bool show = false;
+				
+				if ((note.IsOpened && note.Window.IsMapped) ||
+				    note.ChangeDate > days_ago ||
 				    list_size < min_size) {
-					item = MakeNoteMenuItem (note);
-					menu.Append (item);
+					if (list_size <= max_size)
+						show = true;
+				} else if (note.IsPinned) {
+					show = true;
+				}
 
-					if (++list_size == max_size)
-					    break;
+				if (show) {
+					item = new NoteMenuItem (note, true);
+					menu.Append (item);
+					list_size++;
 				}
 			}
 
 			Note start = manager.Find (Catalog.GetString ("Start Here"));
 			if (start != null) {
-				item = MakeNoteMenuItem (start);
+				item = new NoteMenuItem (start, false);
 				menu.Append (item);
 
 				if (enable_keybindings)
@@ -211,36 +318,6 @@ namespace Tomboy
 
 			menu.ShowAll ();
 			return menu;
-		}
-
-		Gtk.ImageMenuItem MakeNoteMenuItem (Note note)
-		{
-			string display_name = note.Title;
-			if (note.IsNew)
-				display_name += Catalog.GetString (" (new)");
-
-			display_name = FormatForLabel (display_name);
-
-			Gtk.ImageMenuItem item = new Gtk.ImageMenuItem (display_name);
-			item.Image = new Gtk.Image (note_icon);
-			item.Data ["Note"] = note;
-			item.Activated += ShowNote;
-
-			return item;
-		}
-
-		string FormatForLabel (string name)
-		{
-			// Replace underscores ("_") with double-underscores ("__")
-			// so Note menuitems are not created with mnemonics.
-			return name.Replace ("_", "__");
-		}
-
-		void ShowNote (object sender, EventArgs args) 
-		{
-			Note note = (Note) ((Gtk.Widget) sender).Data ["Note"];
-			if (note != null)
-				note.Window.Present ();
 		}
 
 		void CreateNewNote (object sender, EventArgs args) 
