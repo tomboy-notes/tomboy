@@ -79,6 +79,36 @@
     </schema>
 
     <schema>
+      <key>/schemas/apps/tomboy/menu_note_count</key>
+      <applyto>/apps/tomboy/menu_note_count</applyto>
+      <owner>tomboy</owner>
+      <type>int</type>
+      <default>10</default>
+      <locale name="C">
+         <short>Minimum number of notes to show in menu</short>
+         <long>
+           Integer determining the minimum number of notes to show in the Tomboy
+           note menu.
+         </long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/tomboy/menu_pinned_notes</key>
+      <applyto>/apps/tomboy/menu_pinned_notes</applyto>
+      <owner>tomboy</owner>
+      <type>string</type>
+      <default></default>
+      <locale name="C">
+         <short>List of pinned notes.</short>
+         <long>
+	   Whitespace-separated list of note URIs for notes that should always
+	   appear in the Tomboy note menu.
+         </long>
+      </locale>
+    </schema>
+
+    <schema>
       <key>/schemas/apps/tomboy/global_keybindings/show_note_menu</key>
       <applyto>/apps/tomboy/global_keybindings/show_note_menu</applyto>
       <owner>tomboy</owner>

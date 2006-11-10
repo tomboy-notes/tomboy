@@ -13,6 +13,8 @@ namespace Tomboy
 		public const string ENABLE_KEYBINDINGS = "/apps/tomboy/enable_keybindings";
 
 		public const string CUSTOM_FONT_FACE = "/apps/tomboy/custom_font_face";
+		public const string MENU_NOTE_COUNT = "/apps/tomboy/menu_note_count";
+		public const string MENU_PINNED_NOTES = "/apps/tomboy/menu_pinned_notes";
 
 		public const string KEYBINDING_SHOW_NOTE_MENU = "/apps/tomboy/global_keybindings/show_note_menu";
 		public const string KEYBINDING_OPEN_START_HERE = "/apps/tomboy/global_keybindings/open_start_here";
@@ -55,6 +57,12 @@ namespace Tomboy
 
 			case CUSTOM_FONT_FACE:
 				return "Serif 11";
+
+			case MENU_NOTE_COUNT:
+				return 10;
+
+			case MENU_PINNED_NOTES:
+				return "";
 
 			case KEYBINDING_SHOW_NOTE_MENU:
 				return "<Alt>F12";

@@ -31,31 +31,38 @@ namespace Tomboy
 		StreamWriter log;
 		ConsoleLogger console;
 
-		public FileLogger()
+		public FileLogger ()
 		{
-			log = File.CreateText (Path.Combine (
-				Environment.GetEnvironmentVariable ("HOME"), 
-				".tomboy.log"));
-			log.Flush();
+			try {
+				log = File.CreateText (Path.Combine (
+					Environment.GetEnvironmentVariable ("HOME"), 
+					".tomboy.log"));
+				log.Flush ();
+			} catch (IOException e) {
+				// FIXME: Use temp file
+			}
 
-			console = new ConsoleLogger();
+			console = new ConsoleLogger ();
 		}
 
-		~FileLogger()
+		~FileLogger ()
 		{
-			log.Flush();
+			if (log != null)
+				log.Flush ();
 		}
 
 		public void Log (Level lvl, string msg, params object[] args)
 		{
 			console.Log (lvl, msg, args);
 
-			msg = string.Format ("{0} [{1}]: {2}", 
-					     DateTime.Now.ToString(), 
-					     Enum.GetName (typeof (Level), lvl), 
-					     msg);
-			log.WriteLine (msg, args);
-			log.Flush();
+			if (log != null) {
+				msg = string.Format ("{0} [{1}]: {2}", 
+						     DateTime.Now.ToString(), 
+						     Enum.GetName (typeof (Level), lvl), 
+						     msg);
+				log.WriteLine (msg, args);
+				log.Flush();
+			}
 		}
 	}
 
@@ -66,7 +73,7 @@ namespace Tomboy
 	{
 		private static Level log_level = Level.DEBUG;
 
-		static ILogger log_dev = new FileLogger();
+		static ILogger log_dev = new FileLogger ();
 
 		static bool muted = false;
 
