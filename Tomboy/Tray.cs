@@ -75,7 +75,7 @@ namespace Tomboy
 		protected override bool OnButtonPressEvent (Gdk.EventButton ev)
 		{
 			if (pin_img != null &&
-			    ev.X > pin_img.Allocation.X && 
+			    ev.X >= pin_img.Allocation.X && 
 			    ev.X < pin_img.Allocation.X + pin_img.Allocation.Width) {
 				pinned = note.IsPinned = !pinned;
 				pin_img.Pixbuf = pinned ? pindown : pinup;
@@ -97,10 +97,10 @@ namespace Tomboy
 		protected override bool OnMotionNotifyEvent (Gdk.EventMotion ev)
 		{
 			if (!pinned && pin_img != null) {
-				if (ev.X > pin_img.Allocation.X && 
-				    ev.X < pin_img.Allocation.X + pin_img.Allocation.Width &&
-				    pin_img.Pixbuf != pinup_active) {
-					pin_img.Pixbuf = pinup_active;
+				if (ev.X >= pin_img.Allocation.X && 
+				    ev.X < pin_img.Allocation.X + pin_img.Allocation.Width) {
+					if (pin_img.Pixbuf != pinup_active)
+						pin_img.Pixbuf = pinup_active;
 				} else if (pin_img.Pixbuf != pinup) {
 					pin_img.Pixbuf = pinup;
 				}
