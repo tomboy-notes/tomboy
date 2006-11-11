@@ -1,3 +1,11 @@
+2006-11-11  Miguel de Icaza  <miguel@novell.com>
+
+	* Tomboy/NoteTag.cs: Do not store boolean flags on the hashtable
+	as those are quite large (boxing, bools, hashtable) instead use a
+	bitfield.
+
+	344k reduction on my system.
+
 2006-11-09  Alex Graveley  <alex@beatniksoftware.com>
 
 	* data/tomboy.schemas.in: Add menu_note_count and

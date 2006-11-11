@@ -16,6 +16,17 @@ namespace Tomboy
 		string element_name;
 		Gdk.Pixbuf image;
 
+		[Flags]
+		enum TagFlags {
+			CanSerialize = 1,
+			CanUndo = 2,
+			CanGrow = 4,
+			CanSpellCheck = 8,
+			CanActivate = 16
+		};
+		
+		TagFlags flags;
+		
 		public NoteTag (string tag_name)
 			: base(tag_name)
 		{
@@ -46,11 +57,7 @@ namespace Tomboy
 		{
 			this.element_name = element_name;
 
-			CanSerialize = true;
-			CanUndo = false;
-			CanGrow = false;
-			CanSpellCheck = false;
-			CanActivate = false;
+			flags = TagFlags.CanSerialize;
 		}
 
 		public string ElementName
@@ -60,32 +67,57 @@ namespace Tomboy
 
 		public bool CanSerialize 
 		{
-			get { return (bool) Data ["serialize"]; }
-			set { Data ["serialize"] = value; }
+			get { return (flags & TagFlags.CanSerialize) != 0; }
+			set {
+				if (value)
+					flags |= TagFlags.CanSerialize;
+				else 
+					flags &= ~TagFlags.CanSerialize;
+			}
 		}
 
 		public bool CanUndo 
 		{
-			get { return (bool) Data ["undoable"]; }
-			set { Data ["undoable"] = value; }
+			get { return (flags & TagFlags.CanUndo) != 0; }
+			set {
+				if (value)
+					flags |= TagFlags.CanUndo;
+				else 
+					flags &= ~TagFlags.CanUndo;
+			}
 		}
 
 		public bool CanGrow
 		{
-			get { return (bool) Data ["growable"]; }
-			set { Data ["growable"] = value; }
+			get { return (flags & TagFlags.CanGrow) != 0; }
+			set {
+				if (value)
+					flags |= TagFlags.CanGrow;
+				else 
+					flags &= ~TagFlags.CanGrow;
+			}
 		}
 
 		public bool CanSpellCheck
 		{
-			get { return (bool) Data ["spellcheck"]; }
-			set { Data ["spellcheck"] = value; }
+			get { return (flags & TagFlags.CanSpellCheck) != 0; }
+			set {
+				if (value)
+					flags |= TagFlags.CanSpellCheck;
+				else 
+					flags &= ~TagFlags.CanSpellCheck;
+			}
 		}
 
 		public bool CanActivate
 		{
-			get { return (bool) Data ["activatable"]; }
-			set { Data ["activatable"] = value; }
+			get { return (flags & TagFlags.CanActivate) != 0; }
+			set {
+				if (value)
+					flags |= TagFlags.CanActivate;
+				else 
+					flags &= ~TagFlags.CanActivate;
+			}
 		}
 
 		public void GetExtents (Gtk.TextIter iter, 
@@ -406,41 +438,36 @@ namespace Tomboy
 
 		public static bool TagIsSerializable (Gtk.TextTag tag)
 		{
-			if (tag.Data ["serialize"] != null)
-				return (bool) tag.Data ["serialize"];
-
+			if (tag is NoteTag)
+				return ((NoteTag) tag).CanSerialize;
 			return false;
 		}
 
 		public static bool TagIsGrowable (Gtk.TextTag tag)
 		{
-			if (tag.Data ["growable"] != null)
-				return (bool) tag.Data ["growable"];
-
+			if (tag is NoteTag)
+				return ((NoteTag) tag).CanGrow;
 			return false;
 		}
 
 		public static bool TagIsUndoable (Gtk.TextTag tag)
 		{
-			if (tag.Data ["undoable"] != null)
-				return (bool) tag.Data ["undoable"];
-
+			if (tag is NoteTag)
+				return ((NoteTag) tag).CanUndo;
 			return false;
 		}
 
 		public static bool TagIsSpellCheckable (Gtk.TextTag tag)
 		{
-			if (tag.Data ["spellcheck"] != null)
-				return (bool) tag.Data ["spellcheck"];
-
+			if (tag is NoteTag)
+				return ((NoteTag) tag).CanSpellCheck;
 			return false;
-		}		
+		}
 
 		public static bool TagIsActivatable (Gtk.TextTag tag)
 		{
-			if (tag.Data ["activatable"] != null)
-				return (bool) tag.Data ["activatable"];
-
+			if (tag is NoteTag)
+				return ((NoteTag) tag).CanActivate;
 			return false;
 		}
 
