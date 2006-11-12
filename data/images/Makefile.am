@@ -40,6 +40,7 @@ uninstall-hook:
 
 noinst_DATA = 			\
 	gnome-searchtool.png	\
+	stock_bug.png		\
 	stock_mail.png		\
 	tintin.png		\
 	pinup.png		\
