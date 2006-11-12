@@ -104,20 +104,34 @@ $(STICKYIMPORT_TARGET): $(STICKYIMPORT_CSFILES) $(top_builddir)/Tomboy/Tomboy.ex
 	$(CSC) -out:$@ $(CSFLAGS) $(ASSEMBLIES) $(STICKYIMPORT_CSFILES) $(STICKYIMPORT_RESOURCES)
 
 
+#
+# Bugzilla plugin
+#
+
+BUGZILLA_TARGET = Bugzilla.dll
+BUGZILLA_CSFILES = $(srcdir)/Bugzilla.cs
+BUGZILLA_RESOURCES = -resource:$(top_srcdir)/data/images/stock_bug.png,stock_bug.png
+
+$(BUGZILLA_TARGET): $(BUGZILLA_CSFILES) $(top_builddir)/Tomboy/Tomboy.exe
+	$(CSC) -out:$@ $(CSFLAGS) $(ASSEMBLIES) $(BUGZILLA_CSFILES) $(BUGZILLA_RESOURCES)
+
+
 pluginsdir = $(pkglibdir)/Plugins
 plugins_DATA = 			\
 	$(EVO_TARGET)		\
 	$(EXPORT_TARGET)	\
+	$(FIXEDWIDTH_TARGET)	\
 	$(GALAGO_TARGET)	\
+	$(NOTD_TARGET)		\
 	$(PRINT_TARGET)		\
 	$(STICKYIMPORT_TARGET)
 
 noinst_DATA = 			\
-	$(NOTD_TARGET)		\
-	$(FIXEDWIDTH_TARGET)
+	$(BUGZILLA_TARGET)
 
 
 EXTRA_DIST =            	\
+	$(BUGZILLA_CSFILES)	\
 	$(EVO_CSFILES)		\
 	ExportToHTML.xsl	\
 	$(EXPORT_CSFILES)	\
@@ -128,6 +142,8 @@ EXTRA_DIST =            	\
 	$(STICKYIMPORT_CSFILES)
 
 CLEANFILES =				\
+	$(BUGZILLA_TARGET)		\
+	$(BUGZILLA_TARGET).mdb		\
 	$(EVO_TARGET)			\
 	$(EVO_TARGET).mdb		\
 	$(EXPORT_TARGET) 		\
