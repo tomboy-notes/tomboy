@@ -22,7 +22,8 @@ namespace Tomboy
 			CanUndo = 2,
 			CanGrow = 4,
 			CanSpellCheck = 8,
-			CanActivate = 16
+			CanActivate = 16,
+			CanSplit = 32
 		};
 		
 		TagFlags flags;
@@ -57,7 +58,7 @@ namespace Tomboy
 		{
 			this.element_name = element_name;
 
-			flags = TagFlags.CanSerialize;
+			flags = TagFlags.CanSerialize | TagFlags.CanSplit;
 		}
 
 		public string ElementName
@@ -117,6 +118,17 @@ namespace Tomboy
 					flags |= TagFlags.CanActivate;
 				else 
 					flags &= ~TagFlags.CanActivate;
+			}
+		}
+
+		public bool CanSplit
+		{
+			get { return (flags & TagFlags.CanSplit) != 0; }
+			set {
+				if (value)
+					flags |= TagFlags.CanSplit;
+				else
+					flags &= ~TagFlags.CanSplit;
 			}
 		}
 

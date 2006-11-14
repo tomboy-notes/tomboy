@@ -22,8 +22,6 @@ public class BugzillaWatcher
 
 		Buffer.TagApplied  += OnTagApplied;
 		Buffer.TagRemoved  += OnTagRemoved;
-		Buffer.DeleteRange += OnDeleteRange;
-		Buffer.InsertText  += OnInsertText;
 	}
 
 	void OnTagApplied (object sender, Gtk.TagAppliedArgs args)
@@ -35,59 +33,80 @@ public class BugzillaWatcher
 	{
 		// XXX: remove image.
 	}
+}
+
+public class InsertBugAction : SplitterAction
+{
+	BugzillaLink Tag;
+	int Offset;
+	string Id;
+
+	public InsertBugAction (Gtk.TextIter start,
+	                        string id,
+	                        Gtk.TextBuffer buffer,
+				BugzillaLink tag)
+	{
+		Tag = tag;
+		Id = id;
+
+		Offset = start.Offset;
+	}
+
+	public override void Undo (Gtk.TextBuffer buffer)
+	{
+		Gtk.TextIter start_iter = buffer.GetIterAtOffset (Offset);
+		Gtk.TextIter end_iter = buffer.GetIterAtOffset (Offset + chop.Length);
+		buffer.Delete (ref start_iter, ref end_iter);
+		buffer.MoveMark (buffer.InsertMark, buffer.GetIterAtOffset (Offset));
+		buffer.MoveMark (buffer.SelectionBound, buffer.GetIterAtOffset (Offset));
+
+		ApplySplitTags (buffer);
+	}
+
+	public override void Redo (Gtk.TextBuffer buffer)
+	{
+		RemoveSplitTags (buffer);
+
+		Gtk.TextIter cursor = buffer.GetIterAtOffset (Offset);
+
+		Gtk.TextTag[] tags = {Tag};
+		buffer.InsertWithTags (ref cursor, Id, tags);
+
+		buffer.MoveMark (buffer.SelectionBound, buffer.GetIterAtOffset (Offset));
+		buffer.MoveMark (buffer.InsertMark,
+		                 buffer.GetIterAtOffset (Offset + chop.Length));
+
+	}
+
+	public override void Merge (EditAction action)
+	{
+		SplitterAction splitter = action as SplitterAction;
+		this.splitTags = splitter.SplitTags;
+		this.chop = splitter.Chop;
+	}
 
 	/*
-	 * This cycles backward through the buffer, to find the start
-	 * of a BugzillaLink tag which occurs before or at the position
-	 * of start.  If it finds one, it then tries to find the end of
-	 * that tag at or after the starting position.
-	 *
-	 * start is an in/out parameter, end is an out parameter
+	 * The internal listeners will create an InsertAction when the text
+	 * is inserted.  Since it's ugly to have the bug insertion appear
+	 * to the user as two items in the undo stack, have this item eat
+	 * the other one.
 	 */
-	protected Gtk.TextTag FindEnclosingTag (ref Gtk.TextIter start, out Gtk.TextIter end) {
-		int Offset = start.Offset;
-		end = start;
-
-		Gtk.TextTag tag = null;
-		do {
-			foreach (Gtk.TextTag i in start.GetToggledTags (true)) {
-				if (i is BugzillaLink) {
-					tag = i;
-					break;
-				}
-			}
-		} while (tag == null && start.BackwardToTagToggle (null));
-
-		if (tag != null) {
-			end = Buffer.GetIterAtOffset (Offset);
-			if (end.EndsTag (tag) || end.ForwardToTagToggle (tag)) {
-				return tag;
-			}
+	public override bool CanMerge (EditAction action)
+	{
+		InsertAction insert = action as InsertAction;
+		if (insert == null) {
+			return false;
 		}
 
-		return null;
+		if (String.Compare(Id, insert.Chop.Text) == 0) {
+			return true;
+		}
+
+		return false;
 	}
 
-	void OnInsertText (object sender, Gtk.InsertTextArgs args)
+	public override void Destroy ()
 	{
-		Gtk.TextIter start = args.Pos;
-		Gtk.TextIter end;
-
-		Gtk.TextTag tag = FindEnclosingTag (ref start, out end);
-		if (tag != null && !args.Pos.BeginsTag(tag)) {
-			Buffer.RemoveTag (tag, start, end);
-		}
-	}
-
-	void OnDeleteRange (object sender, Gtk.DeleteRangeArgs args)
-	{
-		Gtk.TextIter start = args.Start;
-		Gtk.TextIter end = args.End;
-
-		Gtk.TextTag tag = FindEnclosingTag (ref start, out end);
-		if (tag != null && !args.End.BeginsTag(tag) && !args.Start.EndsTag(tag)) {
-			Buffer.RemoveTag (tag, start, end);
-		}
 	}
 }
 
@@ -109,6 +128,7 @@ public class BugzillaLink : DynamicNoteTag
 		CanActivate = true;
 		CanGrow = true;
 		CanSpellCheck = false;
+		CanSplit = false;
 	}
 
 	public string BugUrl
@@ -190,7 +210,7 @@ public class BugzillaPlugin : NotePlugin
 	{
 		Window.Editor.DragDataReceived += OnDragDataReceived;
 
-		new BugzillaWatcher(Buffer);
+		new BugzillaWatcher (Buffer);
 	}
 
 	[DllImport("libgobject-2.0.so.0")]
@@ -215,7 +235,7 @@ public class BugzillaPlugin : NotePlugin
 		if (uriString.IndexOf ("show_bug.cgi?id=") != -1) {
 			if (InsertBug (uriString)) {
 				Gtk.Drag.Finish (args.Context, true, false, args.Time);
-				g_signal_stop_emission_by_name(Window.Editor.Handle, 
+				g_signal_stop_emission_by_name(Window.Editor.Handle,
 							       "drag_data_received");
 			}
 		}
@@ -233,17 +253,16 @@ public class BugzillaPlugin : NotePlugin
 			}
 			last_bug = id;
 
-			BugzillaLink link_tag = (BugzillaLink) 
+			BugzillaLink link_tag = (BugzillaLink)
 				Note.TagTable.CreateDynamicTag ("link:bugzilla");
 			link_tag.BugUrl = uri;
 
 			Gtk.TextIter cursor = Buffer.GetIterAtMark (Buffer.InsertMark);
-			int start_offset = cursor.Offset;
-			Buffer.Insert (ref cursor, bug);
 
-			Gtk.TextIter start = Buffer.GetIterAtOffset (start_offset);
-			Gtk.TextIter end = Buffer.GetIterAtMark (Buffer.InsertMark);
-			Buffer.ApplyTag (link_tag, start, end);
+			Buffer.Undoer.AddUndoAction (new InsertBugAction (cursor, bug, Buffer, link_tag));
+
+			Gtk.TextTag[] tags = {link_tag};
+			Buffer.InsertWithTags (ref cursor, bug, tags);
 			return true;
 		} catch {
 			return false;

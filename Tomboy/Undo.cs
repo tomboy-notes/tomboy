@@ -4,7 +4,7 @@ using System.Collections;
 
 namespace Tomboy 
 {
-	interface EditAction 
+	public interface EditAction 
 	{
 		void Undo (Gtk.TextBuffer buffer);
 		void Redo (Gtk.TextBuffer buffer);
@@ -13,7 +13,7 @@ namespace Tomboy
 		void Destroy ();
 	}
 
-	class ChopBuffer : Gtk.TextBuffer
+	public class ChopBuffer : Gtk.TextBuffer
 	{
 		public ChopBuffer (Gtk.TextTagTable table)
 			: base (table)
@@ -34,11 +34,98 @@ namespace Tomboy
 		}
 	}
 
-	class InsertAction : EditAction
+	public abstract class SplitterAction : EditAction
+	{
+		struct TagData {
+			public int start;
+			public int end;
+			public Gtk.TextTag tag;
+		};
+		protected ArrayList splitTags;
+		protected TextRange chop;
+
+		protected SplitterAction ()
+		{
+			this.splitTags = new ArrayList();
+		}
+
+		public TextRange Chop
+		{
+			get { return chop; }
+		}
+
+		public ArrayList SplitTags
+		{
+			get { return splitTags; }
+		}
+
+		public void Split (Gtk.TextIter iter,
+		                   Gtk.TextBuffer buffer)
+		{
+			foreach (Gtk.TextTag tag in iter.Tags) {
+				NoteTag noteTag = tag as NoteTag;
+				if (noteTag != null && !noteTag.CanSplit) {
+					Gtk.TextIter start = iter;
+					Gtk.TextIter end = iter;
+
+					// We only care about enclosing tags
+					if (start.TogglesTag (tag) || end.TogglesTag (tag))
+						continue;
+
+					start.BackwardToTagToggle (tag);
+					end.ForwardToTagToggle (tag);
+					AddSplitTag (start, end, tag);
+					buffer.RemoveTag(tag, start, end);
+				}
+			}
+		}
+
+		public void AddSplitTag (Gtk.TextIter start,
+		                         Gtk.TextIter end,
+		                         Gtk.TextTag tag)
+		{
+			TagData data = new TagData();
+			data.start = start.Offset;
+			data.end = end.Offset;
+			data.tag = tag;
+			splitTags.Add(data);
+
+			/*
+			 * The text chop will contain these tags, which means that when
+			 * the text is inserted again during redo, it will have the tag.
+			 */
+			chop.RemoveTag(tag);
+		}
+
+		protected void ApplySplitTags (Gtk.TextBuffer buffer)
+		{
+			foreach (TagData tag in splitTags) {
+				Gtk.TextIter start = buffer.GetIterAtOffset (tag.start);
+				Gtk.TextIter end = buffer.GetIterAtOffset (tag.end);
+				buffer.ApplyTag(tag.tag, start, end);
+			}
+		}
+
+		protected void RemoveSplitTags (Gtk.TextBuffer buffer)
+		{
+			foreach (TagData tag in splitTags) {
+				Gtk.TextIter start = buffer.GetIterAtOffset (tag.start);
+				Gtk.TextIter end = buffer.GetIterAtOffset (tag.end);
+				buffer.RemoveTag(tag.tag, start, end);
+			}
+		}
+
+		public abstract void Undo (Gtk.TextBuffer buffer);
+		public abstract void Redo (Gtk.TextBuffer buffer);
+		public abstract void Merge (EditAction action);
+		public abstract bool CanMerge (EditAction action);
+		public abstract void Destroy ();
+	}
+
+	public class InsertAction : SplitterAction
 	{
 		int index;
 		bool is_paste;
-		TextRange chop;
 
 		public InsertAction (Gtk.TextIter start, 
 				     string text, 
@@ -53,17 +140,21 @@ namespace Tomboy
 			this.chop = chop_buf.AddChop (index_iter, start);
 		}
 
-		public void Undo (Gtk.TextBuffer buffer)
+		public override void Undo (Gtk.TextBuffer buffer)
 		{
 			Gtk.TextIter start_iter = buffer.GetIterAtOffset (index);
 			Gtk.TextIter end_iter = buffer.GetIterAtOffset (index + chop.Length);
 			buffer.Delete (ref start_iter, ref end_iter);
 			buffer.MoveMark (buffer.InsertMark, buffer.GetIterAtOffset (index));
 			buffer.MoveMark (buffer.SelectionBound, buffer.GetIterAtOffset (index));
+
+			ApplySplitTags (buffer);
 		}
 
-		public void Redo (Gtk.TextBuffer buffer)
+		public override void Redo (Gtk.TextBuffer buffer)
 		{
+			RemoveSplitTags (buffer);
+
 			Gtk.TextIter idx_iter = buffer.GetIterAtOffset (index);
 			buffer.InsertRange (ref idx_iter, chop.Start, chop.End);
 
@@ -72,7 +163,7 @@ namespace Tomboy
 					 buffer.GetIterAtOffset (index + chop.Length));
 		}
 
-		public void Merge (EditAction action)
+		public override void Merge (EditAction action)
 		{
 			InsertAction insert = (InsertAction) action;
 
@@ -81,7 +172,7 @@ namespace Tomboy
 			insert.chop.Destroy ();
 		}
 
-		public bool CanMerge (EditAction action)
+		public override bool CanMerge (EditAction action)
 		{
 			InsertAction insert = action as InsertAction;
 			if (insert == null)
@@ -106,20 +197,19 @@ namespace Tomboy
 			return true;
 		}
 
-		public void Destroy ()
+		public override void Destroy ()
 		{
 			chop.Erase ();
 			chop.Destroy ();
 		}
 	}
 
-	class EraseAction : EditAction
+	public class EraseAction : SplitterAction
 	{
 		int start;
 		int end;
 		bool is_forward;
 		bool is_cut;
-		TextRange chop;
 
 		public EraseAction (Gtk.TextIter start_iter, 
 				    Gtk.TextIter end_iter,
@@ -136,19 +226,24 @@ namespace Tomboy
 			this.chop = chop_buf.AddChop (start_iter, end_iter);
 		}
 
-		public void Undo (Gtk.TextBuffer buffer)
+		public override void Undo (Gtk.TextBuffer buffer)
 		{
 			Gtk.TextIter start_iter = buffer.GetIterAtOffset (start);
+			Gtk.TextIter end_iter;
 			buffer.InsertRange (ref start_iter, chop.Start, chop.End);
 
 			buffer.MoveMark (buffer.InsertMark, 
 					 buffer.GetIterAtOffset (is_forward ? start : end));
 			buffer.MoveMark (buffer.SelectionBound, 
 					 buffer.GetIterAtOffset (is_forward ? end : start));
+
+			ApplySplitTags (buffer);
 		}
 
-		public void Redo (Gtk.TextBuffer buffer)
+		public override void Redo (Gtk.TextBuffer buffer)
 		{
+			RemoveSplitTags (buffer);
+
 			Gtk.TextIter start_iter = buffer.GetIterAtOffset (start);
 			Gtk.TextIter end_iter = buffer.GetIterAtOffset (end);
 			buffer.Delete (ref start_iter, ref end_iter);
@@ -156,7 +251,7 @@ namespace Tomboy
 			buffer.MoveMark (buffer.SelectionBound, buffer.GetIterAtOffset (start));
 		}
 
-		public void Merge (EditAction action)
+		public override void Merge (EditAction action)
 		{
 			EraseAction erase = (EraseAction) action;
 			if (start == erase.start) {
@@ -178,7 +273,7 @@ namespace Tomboy
 			}
 		}
 
-		public bool CanMerge (EditAction action)
+		public override bool CanMerge (EditAction action)
 		{
 			EraseAction erase = action as EraseAction;
 			if (erase == null)
@@ -207,7 +302,7 @@ namespace Tomboy
 			return true;
 		}
 
-		public void Destroy ()
+		public override void Destroy ()
 		{
 			chop.Erase ();
 			chop.Destroy ();
@@ -412,7 +507,7 @@ namespace Tomboy
 				UndoChanged (this, new EventArgs ());
 		}
 
-		void AddUndoAction (EditAction action)
+		public void AddUndoAction (EditAction action)
 		{
 			if (try_merge && undo_stack.Count > 0) {
 				EditAction top = (EditAction) undo_stack.Peek ();
@@ -442,13 +537,25 @@ namespace Tomboy
 
 		// Action-creating event handlers...
 
+		[GLib.ConnectBefore]
 		void OnInsertText (object sender, Gtk.InsertTextArgs args)
 		{
 			if (frozen_cnt == 0) {
-				AddUndoAction (new InsertAction (args.Pos, 
-								 args.Text, 
-								 args.Length,
-								 chop_buffer));
+				InsertAction action = new InsertAction (args.Pos,
+				                                        args.Text,
+				                                        args.Length,
+				                                        chop_buffer);
+
+				/*
+				 * If this insert occurs in the middle of any
+				 * non-splittable tags, remove them first and
+				 * add them to the InsertAction.
+				 */
+				frozen_cnt++;
+				action.Split(args.Pos, buffer);
+				frozen_cnt--;
+
+				AddUndoAction (action);
 			}
 		}
 
@@ -456,9 +563,20 @@ namespace Tomboy
 		void OnDeleteRange (object sender, Gtk.DeleteRangeArgs args)
 		{
 			if (frozen_cnt == 0) {
-				AddUndoAction (new EraseAction (args.Start, 
-								args.End,
-								chop_buffer));
+				EraseAction action = new EraseAction (args.Start,
+				                                      args.End,
+				                                      chop_buffer);
+				/*
+				 * Delete works a lot like insert here, except
+				 * there are two positions in the buffer that
+				 * may need to have their tags removed.
+				 */
+				frozen_cnt++;
+				action.Split (args.Start, buffer);
+				action.Split (args.End, buffer);
+				frozen_cnt--;
+
+				AddUndoAction (action);
 			}
 		}
 
