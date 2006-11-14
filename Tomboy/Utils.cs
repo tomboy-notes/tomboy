@@ -491,6 +491,11 @@ namespace Tomboy
 			buffer.DeleteMark (start_mark);
 			buffer.DeleteMark (end_mark);
 		}
+
+		public void RemoveTag (Gtk.TextTag tag)
+		{
+			buffer.RemoveTag (tag, Start, End);
+		}
 	}
 
 	public class TextTagEnumerator : IEnumerator, IEnumerable

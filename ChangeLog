@@ -1,3 +1,19 @@
+2006-11-12  David Trowbridge  <trowbrds@gmail.com>
+
+	* Tomboy/NoteTag.cs: Add a new "CanSplit" field.  This field is used
+	to notate tags which only make sense so long as the text within them
+	is unchanged; examples of this are bugzilla bug numbers or contacts.
+
+	* Tomboy/Undo.cs: Add an abstract SplitterAction class which deals
+	with the mechanics of inserting/deleting text in the middle of tags
+	which are marked as un-splittable.  Change InsertAction and
+	EraseAction to inherit from SplitterAction.
+
+	* Tomboy/Utils.cs: Add TextRange.RemoveTag.
+
+	* Tomboy/Plugins/Bugzilla.cs: Add an Undo action for inserting a bug
+	and stick it on the undo stack when the drop occurs.
+
 2006-11-12  Alex Graveley  <alex@beatniksoftware.com>
 
 	* data/images/Makefile.am (noinst_DATA): Add stock_bug.png to
