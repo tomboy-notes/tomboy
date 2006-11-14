@@ -123,6 +123,7 @@ namespace Tomboy
 		Gtk.Tooltips tips;
 		Gtk.Image image;
 		PreferencesDialog prefs_dlg;
+		Gtk.Window recent_dlg;
 		int icon_size_last = -1;
 
 		public TomboyTray (NoteManager manager) 
@@ -297,7 +298,7 @@ namespace Tomboy
 
 			menu.Append (new Gtk.SeparatorMenuItem ());
 
-			item = new Gtk.ImageMenuItem (Catalog.GetString ("_Table of Contents"));
+			item = new Gtk.ImageMenuItem (Catalog.GetString ("_All Notes"));
 			item.Image = new Gtk.Image (Gtk.Stock.SortAscending, Gtk.IconSize.Menu);
 			item.Activated += ViewRecentChanges;
 			menu.Append (item);
@@ -306,16 +307,6 @@ namespace Tomboy
 				GConfKeybindingToAccel.AddAccelerator (
 					item, 
 					Preferences.KEYBINDING_OPEN_RECENT_CHANGES);
-
-			item = new Gtk.ImageMenuItem (Catalog.GetString ("_Search Notes..."));
-			item.Image = new Gtk.Image (Gtk.Stock.Find, Gtk.IconSize.Menu);
-			item.Activated += SearchNotes;
-			menu.Append (item);
-
-			if (enable_keybindings)
-				GConfKeybindingToAccel.AddAccelerator (
-					item, 
-					Preferences.KEYBINDING_OPEN_SEARCH);
 
 			menu.ShowAll ();
 			return menu;
@@ -339,17 +330,21 @@ namespace Tomboy
 				dialog.Destroy ();
 			}
 		}
-
-		void SearchNotes (object sender, EventArgs args) 
+		
+		void OnRecentChangesHidden (object sender, EventArgs args)
 		{
-			NoteFindDialog find_dialog = NoteFindDialog.GetInstance (manager);
-			find_dialog.Present ();
+			recent_dlg = null;
 		}
 
 		void ViewRecentChanges (object sender, EventArgs args)
 		{
-			Gtk.Window recent = new NoteRecentChanges (manager);
-			recent.Show ();
+			if (recent_dlg == null) {
+				recent_dlg = new NoteRecentChanges (manager);
+				recent_dlg.Hidden += OnRecentChangesHidden;
+				recent_dlg.Show ();
+			}
+			
+			recent_dlg.Present ();
 		}
 
 		// Used by TomboyApplet to modify the icon background.

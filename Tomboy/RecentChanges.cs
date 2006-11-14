@@ -1,7 +1,8 @@
 
 using System;
-using Mono.Unix;
+using System.Collections;
 using System.Text;
+using Mono.Unix;
 
 namespace Tomboy
 {
@@ -10,14 +11,31 @@ namespace Tomboy
 		NoteManager manager;
 
 		Gtk.AccelGroup accel_group;
+		Gtk.ComboBoxEntry find_combo;
+		Gtk.Button clear_search_button;
+		Gtk.CheckButton case_sensitive;
 		Gtk.Label note_count;
 		Gtk.Button close_button;
 		Gtk.ScrolledWindow matches_window;
 		Gtk.VBox content_vbox;
+		Gtk.TreeViewColumn matches_column;
+		
+		int search_hit_max;
+		int search_hit_min;
 
 		Gtk.TreeView tree;
 		Gtk.ListStore store;
-
+		
+		Gtk.TreeModelFilter store_filter;
+		Gtk.TreeModelSort store_sort;
+		
+		/// <summary>
+		/// Stores search results as ArrayLists hashed by note uri.
+		/// </summary>
+		Hashtable current_matches;
+		
+		InterruptableTimeout entry_changed_timeout;
+		
 		static Type [] column_types = 
 			new Type [] {
 				typeof (Gdk.Pixbuf), // icon
@@ -27,6 +45,7 @@ namespace Tomboy
 			};
 
 		static Gdk.Pixbuf note_icon;
+		static ArrayList previous_searches;
 
 		static NoteRecentChanges ()
 		{
@@ -34,11 +53,14 @@ namespace Tomboy
 		}
 
 		public NoteRecentChanges (NoteManager manager)
-			: base (Catalog.GetString ("Table of Contents"))
+			: base (Catalog.GetString ("All Notes"))
 		{
 			this.manager = manager;
 			this.IconName = "tomboy";
 			this.DefaultWidth = 200;
+			this.current_matches = new Hashtable ();
+			this.search_hit_max = 0;
+			this.search_hit_min = 0;
 
 			// For Escape (Close)
 			accel_group = new Gtk.AccelGroup ();
@@ -47,16 +69,41 @@ namespace Tomboy
 			Gtk.Image image = new Gtk.Image (Gtk.Stock.SortAscending, 
 							 Gtk.IconSize.Dialog);
 
-			Gtk.Label label = new Gtk.Label (Catalog.GetString (
-				"<b>Table of Contents</b> lists all your notes.\n" +
-				"Double click to open a note."));
-			label.UseMarkup = true;
-			label.Wrap = true;
+			Gtk.Label label = new Gtk.Label (Catalog.GetString ("_Filter:"));
+			label.Xalign = 1;
+			
+			find_combo = Gtk.ComboBoxEntry.NewText ();
+			label.MnemonicWidget = find_combo;
+			find_combo.Changed += OnEntryChanged;
+			find_combo.Entry.ActivatesDefault = false;
+			find_combo.Entry.Activated += OnEntryActivated;
+			if (previous_searches != null) {
+				foreach (string prev in previous_searches) {
+					find_combo.AppendText (prev);
+				}
+			}
+			
+			clear_search_button = new Gtk.Button (new Gtk.Image (Gtk.Stock.Clear, Gtk.IconSize.Menu));
+			clear_search_button.Sensitive = false;
+			clear_search_button.Clicked += ClearSearchClicked;
+			clear_search_button.Show ();
+			
+			case_sensitive = 
+				new Gtk.CheckButton (Catalog.GetString ("Case _Sensitive"));
+			case_sensitive.Toggled += OnCaseSensitiveToggled;
+
+			Gtk.Table table = new Gtk.Table (2, 3, false);
+			table.Attach (label, 0, 1, 0, 1, Gtk.AttachOptions.Shrink, 0, 0, 0);
+			table.Attach (find_combo, 1, 2, 0, 1);
+			table.Attach (case_sensitive, 1, 2, 1, 2);
+			table.Attach (clear_search_button, 2, 3, 0, 1, Gtk.AttachOptions.Shrink, 0, 0, 0);
+			table.ColumnSpacing = 4;
+			table.ShowAll ();
 
 			Gtk.HBox hbox = new Gtk.HBox (false, 2);
 			hbox.BorderWidth = 8;
 			hbox.PackStart (image, false, false, 4);
-			hbox.PackStart (label, false, false, 0);
+			hbox.PackStart (table, true, true, 0);
 			hbox.ShowAll ();
 
 			MakeRecentTree ();
@@ -117,6 +164,7 @@ namespace Tomboy
 			content_vbox.Show ();
 
 			this.Add (content_vbox);
+			this.DeleteEvent += OnDelete;
 		}
 
 		void MakeRecentTree ()
@@ -160,6 +208,9 @@ namespace Tomboy
 			title.PackStart (renderer, true);
 			title.AddAttribute (renderer, "text", 1 /* title */);
 			title.SortColumnId = 1; /* title */
+			title.SortIndicator = false;
+			title.Reorderable = false;
+			title.SortOrder = Gtk.SortType.Ascending;
 
 			tree.AppendColumn (title);
 
@@ -173,6 +224,9 @@ namespace Tomboy
 			change.PackStart (renderer, false);
 			change.AddAttribute (renderer, "text", 2 /* change date */);
 			change.SortColumnId = 2; /* change date */
+			change.SortIndicator = false;
+			change.Reorderable = false;
+			change.SortOrder = Gtk.SortType.Descending;
 
 			tree.AppendColumn (change);
 		}
@@ -188,8 +242,14 @@ namespace Tomboy
 			}
 
 			store = new Gtk.ListStore (column_types);
-			store.SetSortFunc (2 /* change date */,
-					   new Gtk.TreeIterCompareFunc (CompareDates));
+			
+			store_filter = new Gtk.TreeModelFilter (store, null);
+			store_filter.VisibleFunc = FilterNotes;
+			store_sort = new Gtk.TreeModelSort (store_filter);
+			store_sort.SetSortFunc (1 /* title */,
+				new Gtk.TreeIterCompareFunc (CompareTitles));
+			store_sort.SetSortFunc (2 /* change date */,
+				new Gtk.TreeIterCompareFunc (CompareDates));
 
 			int cnt = 0;
 			foreach (Note note in manager.Notes) {
@@ -204,14 +264,257 @@ namespace Tomboy
 
 			// Set the sort column after loading data, since we
 			// don't want to resort on every append.
-			store.SetSortColumnId (sort_column, sort_type);
+			store_sort.SetSortColumnId (sort_column, sort_type);
 
-			tree.Model = store;
-
+			tree.Model = store_sort;
+			
 			note_count.Text = string.Format (Catalog.GetPluralString("Total: {0} note",
 										 "Total: {0} notes",
 										 cnt),
 							 cnt);
+
+			PerformSearch ();
+		}
+		
+		void PerformSearch ()
+		{
+			string text = SearchText;
+			if (text == null) {
+				RemoveMatchesColumn ();
+				current_matches.Clear ();
+				store_filter.Refilter ();
+				UpdateNoteCount (store.IterNChildren (), -1);
+				if (tree.IsRealized)
+					tree.ScrollToPoint (0, 0);
+				return;
+			}
+			
+			if (!case_sensitive.Active)
+				text = text.ToLower ();
+			
+			string [] words = text.Split (' ', '\t', '\n');
+			
+			// Used for matching in the raw note XML
+			string [] encoded_words = XmlEncoder.Encode (text).Split (' ', '\t', '\n');
+			
+			bool found_one = false;
+			search_hit_max = 0;
+			search_hit_min = Int32.MaxValue;
+			current_matches.Clear ();
+			
+			foreach (Note note in manager.Notes) {
+				// Check the note's raw XML for at least
+				// one match, to avoid deserializing
+				// Buffers unnecessarily.
+				if (!CheckNoteHasMatch (note, encoded_words, case_sensitive.Active))
+					continue;
+				
+				ArrayList note_matches =
+					FindMatchesInBuffer (note.Buffer, words, case_sensitive.Active);
+				
+				if (note_matches == null)
+					continue;
+				
+				int match_count = note_matches.Count;
+				
+				// Update the max and min hits
+				if (match_count > search_hit_max)
+					search_hit_max = match_count;
+				if (match_count < search_hit_min)
+					search_hit_min = match_count;
+
+				current_matches [note.Uri] = note_matches;
+				found_one = true;
+			}
+			
+			if (found_one)
+				UpdateNoteCount (store.IterNChildren (), current_matches.Count);
+			else
+				UpdateNoteCount (store.IterNChildren (), 0);
+
+			AddMatchesColumn ();
+			store_filter.Refilter ();
+			tree.ScrollToPoint (0, 0);
+		}
+		
+		void AddMatchesColumn ()
+		{
+			if (matches_column == null) {
+				Gtk.CellRenderer renderer;
+				
+				matches_column = new Gtk.TreeViewColumn ();
+				matches_column.Title = Catalog.GetString ("Matches");
+				matches_column.Sizing = Gtk.TreeViewColumnSizing.Autosize;
+				matches_column.Resizable = false;
+				
+				renderer = new Gtk.CellRendererText ();
+				renderer.Width = 75;
+				matches_column.PackStart (renderer, false);
+				matches_column.SetCellDataFunc (renderer, new Gtk.TreeCellDataFunc (MatchesColumnDataFunc));
+				matches_column.SortColumnId = 4;
+				matches_column.SortIndicator = false;
+				matches_column.Reorderable = false;
+				matches_column.SortOrder = Gtk.SortType.Descending;
+				store_sort.SetSortFunc (4 /* matches */,
+					new Gtk.TreeIterCompareFunc (CompareSearchHits));
+			}
+			
+			if (tree.Columns.Length < 3)
+				tree.AppendColumn (matches_column);
+
+			store_sort.SetSortColumnId (4, Gtk.SortType.Descending);
+		}
+		
+		void RemoveMatchesColumn ()
+		{
+			if (matches_column == null)
+				return;
+
+			tree.RemoveColumn (matches_column);
+			matches_column = null;
+			
+			store_sort.SetSortColumnId (2, Gtk.SortType.Descending);
+		}
+		
+		void MatchesColumnDataFunc (Gtk.TreeViewColumn column, Gtk.CellRenderer cell,
+									  Gtk.TreeModel model, Gtk.TreeIter iter)
+		{
+			Gtk.CellRendererText crt = cell as Gtk.CellRendererText;
+			if (crt == null)
+				return;
+			
+			string match_cnt = "";
+			
+			Note note = (Note) model.GetValue (iter, 3 /* note */);
+			if (note != null) {
+				ArrayList matches = current_matches [note.Uri] as ArrayList;
+				if (matches != null && matches.Count > 0) {
+					match_cnt =
+						string.Format (Catalog.GetPluralString ("{0} match",
+										"{0} matches",
+										matches.Count),
+										matches.Count);
+				}
+			}
+			
+			crt.Text = match_cnt;
+		}
+		
+		void UpdateNoteCount (int total, int matches)
+		{
+			string cnt =
+				string.Format (
+					Catalog.GetPluralString("Total: {0} note",
+										 "Total: {0} notes",
+										 total), total);
+			if (matches >= 0) {
+				cnt += ", " +
+					string.Format (Catalog.GetPluralString ("{0} match",
+									"{0} matches",
+									matches),
+									matches);
+			}
+			note_count.Text = cnt;
+		}
+		
+		bool CheckNoteHasMatch (Note note, string [] encoded_words, bool match_case)
+		{
+			string note_text = note.XmlContent;
+			if (!match_case)
+				note_text = note_text.ToLower ();
+			
+			foreach (string word in encoded_words) {
+				if (note_text.IndexOf (word) > -1)
+					continue;
+				else
+					return false;
+			}
+			
+			return true;
+		}
+		
+		ArrayList FindMatchesInBuffer (NoteBuffer buffer, string [] words, bool match_case)
+		{
+			ArrayList matches = new ArrayList ();
+			
+			string note_text = buffer.GetText (buffer.StartIter, buffer.EndIter, false /* hidden_chars */);
+			if (!match_case)
+				note_text = note_text.ToLower ();
+			
+			foreach (string word in words) {
+				int idx = 0;
+				bool this_word_found = false;
+				
+				if (word == String.Empty)
+					continue;
+				
+				while (true) {
+					idx = note_text.IndexOf (word, idx);
+					
+					if (idx == -1) {
+						if (this_word_found)
+							break;
+						else
+							return null;
+					}
+					
+					this_word_found = true;
+					
+					Gtk.TextIter start = buffer.GetIterAtOffset (idx);
+					Gtk.TextIter end = start;
+					end.ForwardChars (word.Length);
+					
+					Match match = new Match ();
+					match.Buffer = buffer;
+					match.StartMark = buffer.CreateMark (null, start, false);
+					match.EndMark = buffer.CreateMark (null, end, true);
+					match.Highlighting = false;
+					
+					matches.Add (match);
+					
+					idx += word.Length;
+				}
+			}
+			
+			if (matches.Count == 0)
+				return null;
+			else
+				return matches;
+		}
+		
+		class Match 
+		{
+			public NoteBuffer   Buffer;
+			public Gtk.TextMark StartMark;
+			public Gtk.TextMark EndMark;
+			public bool         Highlighting;
+		}
+
+		/// <summary>
+		/// Filter out notes based on the current search string
+		/// </summary>
+		bool FilterNotes (Gtk.TreeModel model, Gtk.TreeIter iter)
+		{
+			if (SearchText == null)
+				return true;
+			
+			if (current_matches.Count == 0)
+				return false;
+
+			Note note = (Note) model.GetValue (iter, 3 /* note */);
+			if (note == null)
+				return false;
+
+			ArrayList matches = current_matches [note.Uri] as ArrayList;
+			if (matches == null)
+				return false;
+			else
+				return true;
+		}
+
+		void OnCaseSensitiveToggled (object sender, EventArgs args)
+		{
+			PerformSearch ();
 		}
 
 		void OnNotesChanged (object sender, Note changed)
@@ -278,7 +581,30 @@ namespace Tomboy
 			Hide ();
 			Destroy ();
 		}
-
+		
+		void OnDelete (object sender, Gtk.DeleteEventArgs args)
+		{
+			CloseClicked (sender, EventArgs.Empty);
+			args.RetVal = true;
+		}
+		
+		protected override void OnShown ()
+		{
+			find_combo.Entry.GrabFocus ();
+			base.OnShown ();
+		}
+		
+		int CompareTitles (Gtk.TreeModel model, Gtk.TreeIter a, Gtk.TreeIter b)
+		{
+			string title_a = model.GetValue (a, 1 /* title */) as string;
+			string title_b = model.GetValue (b, 1 /* title */) as string;
+			
+			if (title_a == null || title_b == null)
+				return -1;
+			
+			return title_a.CompareTo (title_b);
+		}
+		
 		int CompareDates (Gtk.TreeModel model, Gtk.TreeIter a, Gtk.TreeIter b)
 		{
 			Note note_a = (Note) model.GetValue (a, 3 /* note */);
@@ -289,16 +615,65 @@ namespace Tomboy
 			else
 				return DateTime.Compare (note_a.ChangeDate, note_b.ChangeDate);
 		}
+		
+		int CompareSearchHits (Gtk.TreeModel model, Gtk.TreeIter a, Gtk.TreeIter b)
+		{
+			Note note_a = model.GetValue (a, 3 /* note */) as Note;
+			Note note_b = model.GetValue (b, 3 /* note */) as Note;
+			
+			if (note_a == null || note_b == null) {
+				return -1;
+			}
+			
+			ArrayList matches_a = current_matches [note_a.Uri] as ArrayList;
+			ArrayList matches_b = current_matches [note_b.Uri] as ArrayList;
+			
+			if (matches_a == null || matches_b == null) {
+				if (matches_a != null)
+					return 1;
+
+				return -1;
+			}
+			
+			int result = matches_a.Count - matches_b.Count;
+			if (result == 0) {
+				// Do a secondary sort by note title in alphabetical order
+				result = CompareTitles (model, a, b);
+				
+				// Make sure to always sort alphabetically
+				if (result != 0) {
+					int sort_col_id;
+					Gtk.SortType sort_type;
+					if (store_sort.GetSortColumnId (out sort_col_id, out sort_type)) {
+						if (sort_type == Gtk.SortType.Descending)
+							result = result * -1;	// reverse sign
+					}
+				}
+				
+				return result;
+			}
+			
+			return result;
+		}
 
 		void OnRowActivated (object sender, Gtk.RowActivatedArgs args)
 		{
 			Gtk.TreeIter iter;
-			if (!store.GetIter (out iter, args.Path)) 
+			if (!store_sort.GetIter (out iter, args.Path)) 
 				return;
 
-			Note note = (Note) store.GetValue (iter, 3 /* note */);
+			Note note = (Note) store_sort.GetValue (iter, 3 /* note */);
 
 			note.Window.Present ();
+			
+			// Tell the new window to highlight the matches and
+			// prepopulate the Firefox-style search
+			if (SearchText != null) {
+				NoteFindBar find = note.Window.Find;
+				find.ShowAll ();
+				find.Visible = true;
+				find.SearchText = SearchText;
+			}
 		}
 
 		void OnKeyPressed (object obj, Gtk.KeyPressEventArgs args)
@@ -315,6 +690,88 @@ namespace Tomboy
 				NoteUtils.ShowDeletionDialog (note, this);
 			}		
 		}
+		
+		void OnEntryActivated (object sender, EventArgs args)
+		{
+			if (entry_changed_timeout != null)
+				entry_changed_timeout.Cancel ();
+			
+			EntryChangedTimeout (null, null);
+		}
 
+		void OnEntryChanged (object sender, EventArgs args)
+		{
+			if (entry_changed_timeout == null) {
+				entry_changed_timeout = new InterruptableTimeout ();
+				entry_changed_timeout.Timeout += EntryChangedTimeout;
+			}
+			
+			if (SearchText == null) {
+				clear_search_button.Sensitive = false;
+				PerformSearch ();
+			} else {
+				entry_changed_timeout.Reset (500);
+				clear_search_button.Sensitive = true;
+			}
+		}
+		
+		// Called in after .5 seconds of typing inactivity, or on
+		// explicit activate.  Redo the search, and update the
+		// results...
+		void EntryChangedTimeout (object sender, EventArgs args)
+		{
+			if (SearchText == null)
+				return;
+
+			PerformSearch ();
+			AddToPreviousSearches (SearchText);
+		}
+
+		void AddToPreviousSearches (string text)
+		{
+			// Update previous searches, by adding a new term to the
+			// list, or shuffling an existing term to the top...
+
+			if (previous_searches == null)
+				previous_searches = new ArrayList ();
+
+			bool repeat = false;
+
+			if (case_sensitive.Active) {
+				repeat = previous_searches.Contains (text);
+			} else {
+				string lower = text.ToLower();
+				foreach (string prev in previous_searches) {
+					if (prev.ToLower() == lower)
+						repeat = true;
+				}
+			}
+
+			if (!repeat) {
+				previous_searches.Insert (0, text);
+				find_combo.PrependText (text);
+			}
+		}
+		
+		void ClearSearchClicked (object sender, EventArgs args)
+		{
+			find_combo.Entry.Text = "";
+			find_combo.Entry.GrabFocus ();
+		}
+		
+		public string SearchText
+		{
+			get {
+				string text = find_combo.Entry.Text;
+				if (text.Trim () == String.Empty)
+					return null;
+				
+				return text.Trim ();
+			}
+			set {
+				if (value != null && value != "")
+					find_combo.AppendText (value);
+			}
+		}
 	}
 }

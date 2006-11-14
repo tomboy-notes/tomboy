@@ -33,11 +33,14 @@ namespace Tomboy
 			if (note == null)
 				return false;
 
-			NoteFindDialog find = NoteFindDialog.GetInstance (note);
-			find.SearchText = search;
-			find.FindNextButton.Click ();
-
 			note.Window.Present ();
+
+			// Pop open the find-bar
+			NoteFindBar find = note.Window.Find;
+			find.ShowAll ();
+			find.Visible = true;
+			find.SearchText = search;
+
 			return true;
 		}
 

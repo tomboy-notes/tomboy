@@ -1,5 +1,6 @@
 
 using System;
+using System.Collections;
 using System.Runtime.InteropServices;
 using System.Text;
 using Mono.Unix;
@@ -142,6 +143,7 @@ namespace Tomboy
 		Gtk.Menu plugin_menu;
 		Gtk.TextView editor;
 		Gtk.ScrolledWindow editor_window;
+		NoteFindBar find_bar;
 
 		GlobalKeybinder global_keys;
 		InterruptableTimeout mark_set_timeout;
@@ -189,10 +191,15 @@ namespace Tomboy
 			editor_window.Show ();
 
 			FocusChild = editor;
+			
+			find_bar = new NoteFindBar (note);
+			find_bar.Visible = false;
+			find_bar.NoShowAll = true;
 
 			Gtk.VBox box = new Gtk.VBox (false, 2);
 			box.PackStart (toolbar, false, false, 0);
 			box.PackStart (editor_window, true, true, 0);
+			box.PackStart (find_bar, false, false, 0);
 			box.Show ();
 
 			// NOTE: Since some of our keybindings are only
@@ -206,12 +213,9 @@ namespace Tomboy
 						    (uint) Gdk.Key.w, 
 						    Gdk.ModifierType.ControlMask,
 						    Gtk.AccelFlags.Visible);
-
-			// Close window (Escape)
-			global_keys.AddAccelerator (new EventHandler (CloseWindowHandler),
-						    (uint) Gdk.Key.Escape, 
-						    0,
-						    Gtk.AccelFlags.Visible);
+			
+			// Escape has been moved to be handled by a KeyPress Handler so that
+			// Escape can be used to close the FindBar.
 
 			// Close all windows on current Desktop (Ctrl-Q)
 			global_keys.AddAccelerator (new EventHandler (CloseAllWindowsHandler),
@@ -243,7 +247,10 @@ namespace Tomboy
 						    (uint) Gdk.Key.F1, 
 						    0,
 						    0);
-
+			
+			// Have Esc key close the note window
+			KeyPressEvent += KeyPressed;
+						    
 			this.Add (box);
 		}
 
@@ -263,6 +270,21 @@ namespace Tomboy
 			int x, y;
 			GetPosition (out x, out y);
 			Move (x, y);
+		}
+
+		void KeyPressed (object sender, Gtk.KeyPressEventArgs args)
+		{
+			args.RetVal = true;
+			
+			switch (args.Event.Key)
+			{
+			case Gdk.Key.Escape:
+				CloseWindowHandler (null, null);
+				break;
+			default:
+				args.RetVal = false;
+				break;
+			}
 		}
 
 		// FIXME: Need to just emit a delete event, and do this work in
@@ -440,8 +462,8 @@ namespace Tomboy
 
 			Gtk.Widget find = 
 				toolbar.AppendItem (
-					Catalog.GetString ("Search"), 
-					Catalog.GetString ("Search your notes"),
+					Catalog.GetString ("Find"), 
+					Catalog.GetString ("Find in this note"),
 					null, 
 					new Gtk.Image (Gtk.Stock.Find, toolbar.IconSize),
 					new Gtk.SignalFunc (FindButtonClicked));
@@ -596,16 +618,17 @@ namespace Tomboy
 		// Open the find dialog, passing any currently selected text
 		//
 
-		public NoteFindDialog Find {
+		public NoteFindBar Find {
 			get {
-				return NoteFindDialog.GetInstance (note);
+				return find_bar;
 			}
 		}
 
 		void FindButtonClicked ()
 		{
+			Find.ShowAll ();
+			Find.Visible = true;
 			Find.SearchText = note.Buffer.Selection;
-			Find.Present ();
 		}
 
 		void FindNextActivate (object sender, EventArgs args)
@@ -679,6 +702,421 @@ namespace Tomboy
 		void OpenHelpActivate (object sender, EventArgs args)
 		{
 			GuiUtils.ShowHelp("tomboy.xml", "editing-notes", Screen, this);
+		}
+	}
+	
+	public class NoteFindBar : Gtk.HBox
+	{
+		private Note note;
+
+		Gtk.Entry entry;
+		Gtk.Button next_button;
+		Gtk.Button prev_button;
+		Gtk.CheckButton case_sensitive;
+		
+		ArrayList current_matches;
+		string prev_search_text;
+		
+		InterruptableTimeout entry_changed_timeout;
+
+		bool shift_key_pressed;
+		
+		public NoteFindBar (Note note) : base (false, 0)
+		{
+			this.note = note;
+			
+			note.Buffer.InsertText += OnInsertText;
+			note.Buffer.DeleteRange += OnDeleteRange;
+			
+			BorderWidth = 2;
+			
+			Gtk.Button button = new Gtk.Button ();
+			button.Image = new Gtk.Image (Gtk.Stock.Close, Gtk.IconSize.Menu);
+			button.Relief = Gtk.ReliefStyle.None;
+			button.Clicked += HideFindBar;
+			button.Show ();
+			PackStart (button, false, false, 4);
+
+			Gtk.Label label = new Gtk.Label (Catalog.GetString ("_Find:"));
+			label.Show ();
+			PackStart (label, false, false, 0);
+			
+			entry = new Gtk.Entry ();
+			label.MnemonicWidget = entry;
+			entry.Changed += OnFindEntryChanged;
+			entry.Activated += OnFindEntryActivated;
+			entry.Show ();
+			PackStart (entry, false, false, 0);
+			
+			prev_button = new Gtk.Button (Catalog.GetString ("_Previous"));
+			prev_button.Image = new Gtk.Image (Gtk.Stock.GoBack, Gtk.IconSize.Menu);
+			prev_button.Relief = Gtk.ReliefStyle.None;
+			prev_button.Sensitive = false;
+			prev_button.Clicked += OnPrevClicked;
+			prev_button.Show ();
+			PackStart (prev_button, false, false, 0);
+			
+			next_button = new Gtk.Button (Catalog.GetString ("Find _Next"));
+			next_button.Image = new Gtk.Image (Gtk.Stock.GoForward, Gtk.IconSize.Menu);
+			next_button.Relief = Gtk.ReliefStyle.None;
+			next_button.Sensitive = false;
+			next_button.Clicked += OnNextClicked;
+			next_button.Show ();
+			PackStart (next_button, false, false, 0);
+			
+			case_sensitive = new Gtk.CheckButton (Catalog.GetString ("Case _sensitive"));
+			case_sensitive.Toggled += OnCaseSensitiveToggled;
+			case_sensitive.Show ();
+			PackStart (case_sensitive, true, true, 0);
+			
+			// Bind ESC to close the FindBar if it's open and has focus or the window otherwise
+			// Also bind Return and Shift+Return to advance the search if the search entry has focus
+			shift_key_pressed = false;
+			entry.KeyPressEvent += KeyPressed;
+			entry.KeyReleaseEvent += KeyReleased;
+		}
+		
+		protected override void OnShown ()
+		{
+			entry.GrabFocus ();
+
+			// Highlight words from a previous existing search
+			HighlightMatches (true);
+
+			base.OnShown ();
+		}
+		
+		protected override void OnHidden ()
+		{
+			HighlightMatches (false);
+
+			base.OnShown ();
+		}
+		
+		void HideFindBar (object sender, EventArgs args)
+		{
+			Hide ();
+		}
+		
+		void OnPrevClicked (object sender, EventArgs args)
+		{
+			if (current_matches == null || current_matches.Count == 0)
+				return;
+			
+			for (int i = current_matches.Count; i > 0; i--) {
+				Match match = current_matches [i - 1] as Match;
+				
+				NoteBuffer buffer = match.Buffer;
+				Gtk.TextIter cursor = buffer.GetIterAtMark (buffer.InsertMark);
+				Gtk.TextIter end = buffer.GetIterAtMark (match.EndMark);
+				
+				if (end.Offset < cursor.Offset) {
+					JumpToMatch (match);
+					return;
+				}
+			}
+			
+			// Wrap to first match
+			JumpToMatch (current_matches [current_matches.Count - 1] as Match);
+		}
+		
+		void OnNextClicked (object sender, EventArgs args)
+		{
+			if (current_matches == null || current_matches.Count == 0)
+				return;
+				
+			for (int i = 0; i < current_matches.Count; i++) {
+				Match match = current_matches [i] as Match;
+				
+				NoteBuffer buffer = match.Buffer;
+				Gtk.TextIter cursor = buffer.GetIterAtMark (buffer.InsertMark);
+				Gtk.TextIter start = buffer.GetIterAtMark (match.StartMark);
+				
+				if (start.Offset >= cursor.Offset) {
+					JumpToMatch (match);
+					return;
+				}
+			}
+			
+			// Else wrap to first match
+			JumpToMatch (current_matches [0] as Match);
+		}
+		
+		void JumpToMatch (Match match)
+		{
+			NoteBuffer buffer = match.Buffer;
+
+			Gtk.TextIter start = buffer.GetIterAtMark (match.StartMark);
+			Gtk.TextIter end = buffer.GetIterAtMark (match.EndMark);
+
+			// Move cursor to end of match, and select match text
+			buffer.PlaceCursor (end);
+			buffer.MoveMark (buffer.SelectionBound, start);
+
+			Gtk.TextView editor = note.Window.Editor;
+			editor.ScrollMarkOnscreen (buffer.InsertMark);
+		}
+
+		void OnCaseSensitiveToggled (object sender, EventArgs args)
+		{
+			PerformSearch ();
+		}
+		
+		void OnFindEntryActivated (object sender, EventArgs args)
+		{
+			if (entry_changed_timeout != null)
+				entry_changed_timeout.Cancel ();
+			
+			if (prev_search_text != null 
+				&& SearchText != null 
+				&& prev_search_text.CompareTo (SearchText) == 0)
+				next_button.Click ();
+			else
+				PerformSearch ();
+		}
+		
+		void OnFindEntryChanged (object sender, EventArgs args)
+		{
+			if (entry_changed_timeout == null) {
+				entry_changed_timeout = new InterruptableTimeout ();
+				entry_changed_timeout.Timeout += EntryChangedTimeout;
+			}
+			
+			if (SearchText == null) {
+				PerformSearch ();
+			} else {
+				entry_changed_timeout.Reset (500);
+			}
+		}
+		
+		// Called after .5 seconds of typing inactivity, or on explicit
+		// activate.  Redo the serach and update the results...
+		void EntryChangedTimeout (object sender, EventArgs args)
+		{
+			if (SearchText == null)
+				return;
+			
+			PerformSearch ();
+		}
+		
+		void PerformSearch ()
+		{
+			CleanupMatches ();
+
+			string text = SearchText;
+			if (text == null)
+				return;
+
+			if (!case_sensitive.Active)
+				text = text.ToLower ();
+
+			string [] words = text.Split (' ', '\t', '\n');
+
+			// Used for matching in the raw note XML
+			string [] encoded_words = XmlEncoder.Encode (text).Split (' ', '\t', '\n');
+
+			current_matches = 
+				FindMatchesInBuffer (note.Buffer, 
+						     words, 
+						     case_sensitive.Active);
+			
+			prev_search_text = SearchText;
+
+			if (current_matches != null)
+				HighlightMatches (true);
+
+			UpdateSensitivity ();
+		}
+		
+		void UpdateSensitivity ()
+		{
+			if (SearchText == null) {
+				next_button.Sensitive = false;
+				prev_button.Sensitive = false;
+			}
+			
+			if (current_matches != null && current_matches.Count > 0) {
+				next_button.Sensitive = true;
+				prev_button.Sensitive = true;
+			} else {
+				next_button.Sensitive = false;
+				prev_button.Sensitive = false;
+			}
+		}
+		
+		void OnInsertText (object sender, Gtk.InsertTextArgs args)
+		{
+			PerformSearch ();
+		}
+		
+		void OnDeleteRange (object sender, Gtk.DeleteRangeArgs args)
+		{
+			PerformSearch ();
+		}
+		
+		//
+		// KeyPress and KeyRelease handlers
+		//
+		
+		void KeyPressed (object sender, Gtk.KeyPressEventArgs args)
+		{
+			args.RetVal = true;
+			
+			switch (args.Event.Key)
+			{
+			case Gdk.Key.Escape:
+				Hide ();
+				break;
+			case Gdk.Key.Shift_L:
+			case Gdk.Key.Shift_R:
+				shift_key_pressed = true;
+				args.RetVal = false;
+				break;
+			case Gdk.Key.Return:
+				if (shift_key_pressed)
+					prev_button.Click ();
+				break;
+			default:
+				args.RetVal = false;
+				break;
+			}
+		}
+		
+		void KeyReleased (object sender, Gtk.KeyReleaseEventArgs args)
+		{
+			args.RetVal = false;
+			
+			switch (args.Event.Key)
+			{
+			case Gdk.Key.Shift_L:
+			case Gdk.Key.Shift_R:
+				shift_key_pressed = false;
+				break;
+			}
+		}
+
+		public Gtk.Button FindNextButton
+		{
+			get { return next_button; }
+		}
+		
+		public Gtk.Button FindPreviousButton
+		{
+			get { return prev_button; }
+		}
+		
+		public string SearchText
+		{
+			get {
+				string text = entry.Text;
+				if (text.Trim () == String.Empty)
+					return null;
+
+				return text.Trim ();
+			}
+			set {
+				if (value != null && value != string.Empty)
+					entry.Text = value;
+				
+				entry.GrabFocus ();
+			}
+		}
+		
+		void HighlightMatches (bool highlight)
+		{
+			if (current_matches == null || current_matches.Count == 0)
+				return;
+			
+			foreach (Match match in current_matches) {
+				NoteBuffer buffer = match.Buffer;
+				
+				if (match.Highlighting != highlight) {
+					Gtk.TextIter start = buffer.GetIterAtMark (match.StartMark);
+					Gtk.TextIter end = buffer.GetIterAtMark (match.EndMark);
+					
+					match.Highlighting = highlight;
+					
+					if (match.Highlighting)
+						buffer.ApplyTag ("find-match", start, end);
+					else
+						buffer.RemoveTag ("find-match", start, end);
+				}
+			}
+		}
+		
+		void CleanupMatches ()
+		{
+			if (current_matches != null) {
+				HighlightMatches (false /* unhighlight */);
+				
+				foreach (Match match in current_matches) {
+					match.Buffer.DeleteMark (match.StartMark);
+					match.Buffer.DeleteMark (match.EndMark);
+				}
+				
+				current_matches = null;
+			}
+			
+			UpdateSensitivity ();
+		}
+
+		ArrayList FindMatchesInBuffer (NoteBuffer buffer, string [] words, bool match_case)
+		{
+			ArrayList matches = new ArrayList ();
+
+			string note_text = buffer.GetText (buffer.StartIter, 
+							   buffer.EndIter, 
+							   false /* hidden_chars */);
+			if (!match_case)
+				note_text = note_text.ToLower ();
+
+			foreach (string word in words) {
+				int idx = 0;
+				bool this_word_found = false;
+
+				if (word == String.Empty)
+					continue;
+
+				while (true) {					
+					idx = note_text.IndexOf (word, idx);
+
+					if (idx == -1) {
+						if (this_word_found)
+							break;
+						else
+							return null;
+					}
+
+					this_word_found = true;
+
+					Gtk.TextIter start = buffer.GetIterAtOffset (idx);
+					Gtk.TextIter end = start;
+					end.ForwardChars (word.Length);
+
+					Match match = new Match ();
+					match.Buffer = buffer;
+					match.StartMark = buffer.CreateMark (null, start, false);
+					match.EndMark = buffer.CreateMark (null, end, true);
+					match.Highlighting = false;
+
+					matches.Add (match);
+
+					idx += word.Length;
+				}
+			}
+
+			if (matches.Count == 0)
+				return null;
+			else
+				return matches;
+		}
+
+		class Match 
+		{
+			public NoteBuffer   Buffer;
+			public Gtk.TextMark StartMark;
+			public Gtk.TextMark EndMark;
+			public bool         Highlighting;
 		}
 	}
 
