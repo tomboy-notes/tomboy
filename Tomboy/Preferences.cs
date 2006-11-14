@@ -368,16 +368,16 @@ namespace Tomboy
 			keybind_peditor.AddGuard (entry);
 
 
-			// Search dialog keybinding...
+			// Open All Notes window keybinding...
 
-			label = MakeLabel (Catalog.GetString ("S_earch notes"));
+			label = MakeLabel (Catalog.GetString ("Open \"_All Notes\" window"));
 			table.Attach (label, 0, 1, 3, 4);
 
 			entry = new Gtk.Entry ();
 			entry.Show ();
 			table.Attach (entry, 1, 2, 3, 4);
 
-			peditor = new PropertyEditorEntry (Preferences.KEYBINDING_OPEN_SEARCH, 
+			peditor = new PropertyEditorEntry (Preferences.KEYBINDING_OPEN_RECENT_CHANGES, 
 							   entry);
 			SetupPropertyEditor (peditor);
 

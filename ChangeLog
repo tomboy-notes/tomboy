@@ -1,5 +1,27 @@
 2006-11-14  Boyd Timothy  <btimothy@gmail.com>
 
+	* Implemented the new search interface bug #348023 (Improved
+	Search Interface).
+
+	* Tomboy/NoteWindow: Added a find bar for searching within an
+	individual note.
+	
+	* Tomboy/Preferences.cs: Modified the option in the preferences
+	dialog to open the "All Notes" (RecentChanges) instead of the
+	old search dialog.
+	
+	* Tomboy/RecentChanges.cs: Modified the code to provide the
+	Table of Contents and Search interface in one dialog.
+	
+	* Tomboy/RemoteControl.cs: Removed a call to NoteFindDialog (the
+	old search dialog) and added a call to open the find bar in the
+	note window for the DisplayNoteWithSearch() method.
+	
+	* Tomboy/Tray.cs: Removed the "Table of Contents" and "Search
+	Notes" menu items and replaced it with one "All Notes" menu item.
+
+2006-11-14  Boyd Timothy  <btimothy@gmail.com>
+
 	* tomboy.spec: Updated the BuildRequires and Requires lines to use
 	gtk-sharp2 instead of just gtk-sharp.
 
