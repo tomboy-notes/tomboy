@@ -1,3 +1,17 @@
+2006-11-15  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Tray.cs: "All Notes" -> "Table of Contents".
+
+	* Tomboy/RecentChanges.cs: Make into a singleton.  Figure out if
+	we want to keep it around or desroy it on hide.
+
+	* Tomboy/NoteWindow.cs: Add "ToC" button to toolbar, which open
+	the new searchable Table of Contents.  Add Ctrl-O keybinding.
+	Use Find instead of Search in context menu.  Add Open Table of
+	Contents context menu item.
+
+	* Tomboy/Makefile.am (CSFILES): Don't build Search.cs.
+
 2006-11-14  Boyd Timothy  <btimothy@gmail.com>
 
 	* Implemented the new search interface bug #348023 (Improved

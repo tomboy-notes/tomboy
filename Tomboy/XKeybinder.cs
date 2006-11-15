@@ -273,13 +273,17 @@ namespace Tomboy
 
 		void KeyOpenSearch (object sender, EventArgs args)
 		{
+			/* Find dialog is deprecated in favor of searcable ToC */
+			/*
 			NoteFindDialog find_dialog = NoteFindDialog.GetInstance (manager);
 			find_dialog.Present ();
+			*/
+			KeyOpenRecentChanges (sender, args);
 		}
 
 		void KeyOpenRecentChanges (object sender, EventArgs args)
 		{
-			Gtk.Window recent = new NoteRecentChanges (manager);
+			Gtk.Window recent = NoteRecentChanges.GetInstance (manager);
 			recent.Show ();
 		}
 	}
