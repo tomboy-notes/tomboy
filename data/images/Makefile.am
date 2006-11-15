@@ -6,7 +6,9 @@ hicolordir = $(datadir)/icons/hicolor
 
 tango_icons = 				\
 	tomboy-16.png			\
+	tomboy-note-16.png		\
 	tomboy-22.png			\
+	tomboy-note-22.png		\
 	tomboy.png			\
 	tomboy.svg
 
