@@ -50,7 +50,7 @@ namespace Tomboy
 
 		static NoteRecentChanges ()
 		{
-			note_icon = GuiUtils.GetIcon ("tomboy", 22);
+			note_icon = GuiUtils.GetIcon ("tomboy-note", 22);
 		}
 
 		public static NoteRecentChanges GetInstance (NoteManager manager)

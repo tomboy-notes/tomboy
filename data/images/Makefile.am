@@ -15,8 +15,10 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/tomboy.svg $(DESTDIR)$(hicolordir)/scalable/apps/tomboy.svg
 	@-$(mkinstalldirs) $(DESTDIR)$(hicolordir)/16x16/apps
 	$(INSTALL_DATA) $(srcdir)/tomboy-16.png $(DESTDIR)$(hicolordir)/16x16/apps/tomboy.png
+	$(INSTALL_DATA) $(srcdir)/tomboy-note-16.png $(DESTDIR)$(hicolordir)/16x16/apps/tomboy-note.png
 	@-$(mkinstalldirs) $(DESTDIR)$(hicolordir)/22x22/apps
 	$(INSTALL_DATA) $(srcdir)/tomboy-22.png $(DESTDIR)$(hicolordir)/22x22/apps/tomboy.png
+	$(INSTALL_DATA) $(srcdir)/tomboy-note-22.png $(DESTDIR)$(hicolordir)/22x22/apps/tomboy-note.png
 	@-$(mkinstalldirs) $(DESTDIR)$(hicolordir)/48x48/apps
 	$(INSTALL_DATA) $(srcdir)/tomboy.png $(DESTDIR)$(hicolordir)/48x48/apps/tomboy.png
 
@@ -34,7 +36,9 @@ install-data-hook:
 uninstall-hook:
 	rm -f $(DESTDIR)$(hicolordir)/scalable/apps/tomboy.svg
 	rm -f $(DESTDIR)$(hicolordir)/16x16/apps/tomboy.png
+	rm -f $(DESTDIR)$(hicolordir)/16x16/apps/tomboy-note.png
 	rm -f $(DESTDIR)$(hicolordir)/22x22/apps/tomboy.png
+	rm -f $(DESTDIR)$(hicolordir)/22x22/apps/tomboy-note.png
 	rm -f $(DESTDIR)$(hicolordir)/48x48/apps/tomboy.png
 
 

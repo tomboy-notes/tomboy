@@ -22,7 +22,7 @@ namespace Tomboy
 		static NoteMenuItem ()
 		{
 			// Cache this since we use it a lot.
-			note_icon = GuiUtils.GetIcon ("tomboy", 16);
+			note_icon = GuiUtils.GetIcon ("tomboy-note", 16);
 			pinup = GuiUtils.GetIcon ("pinup", 16);
 			pinup_active = GuiUtils.GetIcon ("pinup-active", 16);
 			pindown = GuiUtils.GetIcon ("pindown", 16);
