@@ -1,5 +1,17 @@
 2006-11-15  Boyd Timothy  <btimothy@gmail.com>
 
+	* Tomboy/Note.cs: Changed CreateExistingNote() to use the
+	create date passed inside the NoteData (which was read from
+	an existing note file) instead of using DateTime.MinValue.
+	Fixes bug #375380.
+	
+	* Tomboy/Plugins/NoteOfTheDay.cs: Added a try/catch around
+	the code that calls NoteManager.Create() to prevent failures
+	from crashing Tomboy altogether.  Worst case scenario now is
+	that the NoteOfTheDay Plugin doesn't create new notes.
+
+2006-11-15  Boyd Timothy  <btimothy@gmail.com>
+
 	* Tomboy/Preferences.cs: "Open 'All Notes' window" -> "Open
 	'Table of Contents'".  Also added mnemonic widgets to the
 	keybinding labels.

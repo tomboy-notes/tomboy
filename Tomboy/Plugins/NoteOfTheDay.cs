@@ -46,7 +46,18 @@ class NoteOfTheDay
 		string title = GetTitle (day);
 		string xml = GetContent (day, manager);
 
-		Note notd = manager.Create (title, xml);
+		Note notd = null;
+		try {
+			notd = manager.Create (title, xml);
+		} catch (Exception e) {
+			// Prevent blowup if note creation fails
+			Logger.Error (
+				"NoteOfTheDay could not create \"{0}\": {1}",
+				title,
+				e.Message);
+			notd = null;
+		}
+
 		if (notd != null)
 			notd.Save ();
 
