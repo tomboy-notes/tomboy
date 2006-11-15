@@ -38,7 +38,6 @@ CSFILES = 					\
 	$(srcdir)/PluginManager.cs		\
 	$(srcdir)/Preferences.cs		\
 	$(srcdir)/RecentChanges.cs		\
-	$(srcdir)/Search.cs 			\
 	$(srcdir)/Tray.cs 			\
 	$(srcdir)/Trie.cs			\
 	$(srcdir)/Undo.cs 			\
@@ -49,6 +48,10 @@ CSFILES = 					\
 	$(srcdir)/panelapplet/*.cs		\
 	\
 	$(DBUS_CSFILES)	
+
+### Obsolete CSFILES
+#	$(srcdir)/Search.cs
+
 
 ASSEMBLIES = 		\
 	$(TOMBOY_LIBS) 	\

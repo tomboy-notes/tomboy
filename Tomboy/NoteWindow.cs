@@ -391,7 +391,6 @@ namespace Tomboy
 			Gtk.ImageMenuItem link = 
 				new Gtk.ImageMenuItem (Catalog.GetString ("_Link to New Note"));
 			link.Image = new Gtk.Image (Gtk.Stock.JumpTo, Gtk.IconSize.Menu);
-
 			link.Sensitive = (note.Buffer.Selection != null);
 			link.Activated += LinkToNoteActivate;
 			link.AddAccelerator ("activate",
@@ -400,6 +399,17 @@ namespace Tomboy
 					     Gdk.ModifierType.ControlMask,
 					     Gtk.AccelFlags.Visible);
 			link.Show ();
+
+			Gtk.ImageMenuItem toc = new Gtk.ImageMenuItem (
+				Catalog.GetString ("_Open Table of Contents"));
+			toc.Image = new Gtk.Image (Gtk.Stock.SortAscending, Gtk.IconSize.Menu);
+			toc.Activated += OpenTOCActivate;
+			toc.AddAccelerator ("activate",
+					     accel_group,
+					     (uint) Gdk.Key.o, 
+					     Gdk.ModifierType.ControlMask,
+					     Gtk.AccelFlags.Visible);
+			toc.Show ();
 
 			Gtk.ImageMenuItem text_item = 
 				new Gtk.ImageMenuItem (Catalog.GetString ("Te_xt"));
@@ -410,7 +420,7 @@ namespace Tomboy
 			text_item.Show ();
 
 			Gtk.ImageMenuItem find_item = 
-				new Gtk.ImageMenuItem (Catalog.GetString ("_Search"));
+				new Gtk.ImageMenuItem (Catalog.GetString ("_Find"));
 			find_item.Image = new Gtk.Image (Gtk.Stock.Find, Gtk.IconSize.Menu);
 			find_item.Submenu = MakeFindMenu ();
 			find_item.Show ();
@@ -421,6 +431,7 @@ namespace Tomboy
 			args.Menu.Prepend (spacer1);
 			args.Menu.Prepend (text_item);
 			args.Menu.Prepend (find_item);
+			args.Menu.Prepend (toc);
 			args.Menu.Prepend (link);
 
 			Gtk.MenuItem close_all = 
@@ -510,6 +521,21 @@ namespace Tomboy
 
 			toolbar.AppendSpace ();
 
+			Gtk.Widget toc = 
+				toolbar.AppendItem (
+					Catalog.GetString ("ToC"), 
+					Catalog.GetString ("Open Table of Contents"),
+					null, 
+					new Gtk.Image (Gtk.Stock.SortAscending, toolbar.IconSize),
+					new Gtk.SignalFunc (TOCButtonClicked));
+			toc.AddAccelerator ("activate",
+					    accel_group,
+					    (uint) Gdk.Key.o, 
+					    Gdk.ModifierType.ControlMask,
+					    Gtk.AccelFlags.Visible);
+
+			toolbar.AppendSpace ();
+
 		        Gtk.Widget delete = 
 				toolbar.AppendItem (
 					Catalog.GetString ("Delete"), 
@@ -570,7 +596,7 @@ namespace Tomboy
 			menu.AccelGroup = accel_group;
 
 			Gtk.ImageMenuItem find = 
-				new Gtk.ImageMenuItem (Catalog.GetString ("_Search..."));
+				new Gtk.ImageMenuItem (Catalog.GetString ("_Find..."));
 			find.Image = new Gtk.Image (Gtk.Stock.Find, Gtk.IconSize.Menu);
 			find.Activated += FindActivate;
 			find.AddAccelerator ("activate",
@@ -703,6 +729,18 @@ namespace Tomboy
 		{
 			GuiUtils.ShowHelp("tomboy.xml", "editing-notes", Screen, this);
 		}
+
+		void TOCButtonClicked ()
+		{
+			NoteRecentChanges toc = NoteRecentChanges.GetInstance (note.Manager);
+			toc.SearchText = note.Buffer.Selection;
+			toc.Present ();
+		}
+
+		void OpenTOCActivate (object sender, EventArgs args)
+		{
+			TOCButtonClicked ();
+		}
 	}
 	
 	public class NoteFindBar : Gtk.HBox
@@ -764,13 +802,16 @@ namespace Tomboy
 			next_button.Show ();
 			PackStart (next_button, false, false, 0);
 			
-			case_sensitive = new Gtk.CheckButton (Catalog.GetString ("Case _sensitive"));
+			case_sensitive = new Gtk.CheckButton (
+				Catalog.GetString ("Case _sensitive"));
 			case_sensitive.Toggled += OnCaseSensitiveToggled;
 			case_sensitive.Show ();
 			PackStart (case_sensitive, true, true, 0);
 			
-			// Bind ESC to close the FindBar if it's open and has focus or the window otherwise
-			// Also bind Return and Shift+Return to advance the search if the search entry has focus
+			// Bind ESC to close the FindBar if it's open and has
+			// focus or the window otherwise.  Also bind Return and
+			// Shift+Return to advance the search if the search
+			// entry has focus.
 			shift_key_pressed = false;
 			entry.KeyPressEvent += KeyPressed;
 			entry.KeyReleaseEvent += KeyReleased;

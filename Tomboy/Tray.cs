@@ -123,7 +123,6 @@ namespace Tomboy
 		Gtk.Tooltips tips;
 		Gtk.Image image;
 		PreferencesDialog prefs_dlg;
-		Gtk.Window recent_dlg;
 		int icon_size_last = -1;
 
 		public TomboyTray (NoteManager manager) 
@@ -298,7 +297,7 @@ namespace Tomboy
 
 			menu.Append (new Gtk.SeparatorMenuItem ());
 
-			item = new Gtk.ImageMenuItem (Catalog.GetString ("_All Notes"));
+			item = new Gtk.ImageMenuItem (Catalog.GetString ("_Table of Contents"));
 			item.Image = new Gtk.Image (Gtk.Stock.SortAscending, Gtk.IconSize.Menu);
 			item.Activated += ViewRecentChanges;
 			menu.Append (item);
@@ -330,21 +329,10 @@ namespace Tomboy
 				dialog.Destroy ();
 			}
 		}
-		
-		void OnRecentChangesHidden (object sender, EventArgs args)
-		{
-			recent_dlg = null;
-		}
 
 		void ViewRecentChanges (object sender, EventArgs args)
 		{
-			if (recent_dlg == null) {
-				recent_dlg = new NoteRecentChanges (manager);
-				recent_dlg.Hidden += OnRecentChangesHidden;
-				recent_dlg.Show ();
-			}
-			
-			recent_dlg.Present ();
+			NoteRecentChanges.GetInstance (manager).Present ();
 		}
 
 		// Used by TomboyApplet to modify the icon background.

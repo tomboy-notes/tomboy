@@ -46,14 +46,25 @@ namespace Tomboy
 
 		static Gdk.Pixbuf note_icon;
 		static ArrayList previous_searches;
+		static NoteRecentChanges instance;
 
 		static NoteRecentChanges ()
 		{
 			note_icon = GuiUtils.GetIcon ("tomboy", 22);
 		}
 
-		public NoteRecentChanges (NoteManager manager)
-			: base (Catalog.GetString ("All Notes"))
+		public static NoteRecentChanges GetInstance (NoteManager manager)
+		{
+			if (instance == null)
+				instance = new NoteRecentChanges (manager);
+			System.Diagnostics.Debug.Assert (
+				instance.manager == manager, 
+				"Multiple NoteManagers not supported");
+			return instance;
+		}
+
+		protected NoteRecentChanges (NoteManager manager)
+			: base (Catalog.GetString ("Table of Contents"))
 		{
 			this.manager = manager;
 			this.IconName = "tomboy";
@@ -69,7 +80,7 @@ namespace Tomboy
 			Gtk.Image image = new Gtk.Image (Gtk.Stock.SortAscending, 
 							 Gtk.IconSize.Dialog);
 
-			Gtk.Label label = new Gtk.Label (Catalog.GetString ("_Filter:"));
+			Gtk.Label label = new Gtk.Label (Catalog.GetString ("_Search:"));
 			label.Xalign = 1;
 			
 			find_combo = Gtk.ComboBoxEntry.NewText ();
@@ -83,20 +94,23 @@ namespace Tomboy
 				}
 			}
 			
-			clear_search_button = new Gtk.Button (new Gtk.Image (Gtk.Stock.Clear, Gtk.IconSize.Menu));
+			clear_search_button = new Gtk.Button (new Gtk.Image (Gtk.Stock.Clear, 
+									     Gtk.IconSize.Menu));
 			clear_search_button.Sensitive = false;
 			clear_search_button.Clicked += ClearSearchClicked;
 			clear_search_button.Show ();
 			
 			case_sensitive = 
-				new Gtk.CheckButton (Catalog.GetString ("Case _Sensitive"));
+				new Gtk.CheckButton (Catalog.GetString ("C_ase Sensitive"));
 			case_sensitive.Toggled += OnCaseSensitiveToggled;
 
 			Gtk.Table table = new Gtk.Table (2, 3, false);
 			table.Attach (label, 0, 1, 0, 1, Gtk.AttachOptions.Shrink, 0, 0, 0);
 			table.Attach (find_combo, 1, 2, 0, 1);
 			table.Attach (case_sensitive, 1, 2, 1, 2);
-			table.Attach (clear_search_button, 2, 3, 0, 1, Gtk.AttachOptions.Shrink, 0, 0, 0);
+			table.Attach (clear_search_button, 
+				      2, 3, 0, 1, 
+				      Gtk.AttachOptions.Shrink, 0, 0, 0);
 			table.ColumnSpacing = 4;
 			table.ShowAll ();
 
@@ -268,10 +282,11 @@ namespace Tomboy
 
 			tree.Model = store_sort;
 			
-			note_count.Text = string.Format (Catalog.GetPluralString("Total: {0} note",
-										 "Total: {0} notes",
-										 cnt),
-							 cnt);
+			note_count.Text = string.Format (
+				Catalog.GetPluralString("Total: {0} note",
+							"Total: {0} notes",
+							cnt),
+				cnt);
 
 			PerformSearch ();
 		}
@@ -310,7 +325,9 @@ namespace Tomboy
 					continue;
 				
 				ArrayList note_matches =
-					FindMatchesInBuffer (note.Buffer, words, case_sensitive.Active);
+					FindMatchesInBuffer (note.Buffer, 
+							     words, 
+							     case_sensitive.Active);
 				
 				if (note_matches == null)
 					continue;
@@ -344,13 +361,15 @@ namespace Tomboy
 				
 				matches_column = new Gtk.TreeViewColumn ();
 				matches_column.Title = Catalog.GetString ("Matches");
-				matches_column.Sizing = Gtk.TreeViewColumnSizing.Autosize;
+				matches_column.Sizing = Gtk.TreeViewColumnSizing.Fixed;
 				matches_column.Resizable = false;
 				
 				renderer = new Gtk.CellRendererText ();
 				renderer.Width = 75;
 				matches_column.PackStart (renderer, false);
-				matches_column.SetCellDataFunc (renderer, new Gtk.TreeCellDataFunc (MatchesColumnDataFunc));
+				matches_column.SetCellDataFunc (
+					renderer, 
+					new Gtk.TreeCellDataFunc (MatchesColumnDataFunc));
 				matches_column.SortColumnId = 4;
 				matches_column.SortIndicator = false;
 				matches_column.Reorderable = false;
@@ -376,8 +395,10 @@ namespace Tomboy
 			store_sort.SetSortColumnId (2, Gtk.SortType.Descending);
 		}
 		
-		void MatchesColumnDataFunc (Gtk.TreeViewColumn column, Gtk.CellRenderer cell,
-									  Gtk.TreeModel model, Gtk.TreeIter iter)
+		void MatchesColumnDataFunc (Gtk.TreeViewColumn column, 
+					    Gtk.CellRenderer cell,
+					    Gtk.TreeModel model, 
+					    Gtk.TreeIter iter)
 		{
 			Gtk.CellRendererText crt = cell as Gtk.CellRendererText;
 			if (crt == null)
@@ -389,11 +410,11 @@ namespace Tomboy
 			if (note != null) {
 				ArrayList matches = current_matches [note.Uri] as ArrayList;
 				if (matches != null && matches.Count > 0) {
-					match_cnt =
-						string.Format (Catalog.GetPluralString ("{0} match",
-										"{0} matches",
-										matches.Count),
-										matches.Count);
+					match_cnt = string.Format (
+						Catalog.GetPluralString ("{0} match",
+									 "{0} matches",
+									 matches.Count),
+						matches.Count);
 				}
 			}
 			
@@ -402,17 +423,17 @@ namespace Tomboy
 		
 		void UpdateNoteCount (int total, int matches)
 		{
-			string cnt =
-				string.Format (
-					Catalog.GetPluralString("Total: {0} note",
-										 "Total: {0} notes",
-										 total), total);
+			string cnt = string.Format (
+				Catalog.GetPluralString("Total: {0} note",
+							"Total: {0} notes",
+							total), 
+				total);
 			if (matches >= 0) {
-				cnt += ", " +
-					string.Format (Catalog.GetPluralString ("{0} match",
-									"{0} matches",
-									matches),
-									matches);
+				cnt += ", " + string.Format (
+					Catalog.GetPluralString ("{0} match",
+								 "{0} matches",
+								 matches),
+					matches);
 			}
 			note_count.Text = cnt;
 		}
@@ -437,7 +458,9 @@ namespace Tomboy
 		{
 			ArrayList matches = new ArrayList ();
 			
-			string note_text = buffer.GetText (buffer.StartIter, buffer.EndIter, false /* hidden_chars */);
+			string note_text = buffer.GetText (buffer.StartIter, 
+							   buffer.EndIter, 
+							   false /* hidden_chars */);
 			if (!match_case)
 				note_text = note_text.ToLower ();
 			
@@ -567,11 +590,13 @@ namespace Tomboy
 					return String.Format (Catalog.GetString ("Yesterday, {0}"),
 							      short_time);
 				else if (date.DayOfYear > now.DayOfYear - 6)
-					return String.Format (Catalog.GetString ("{0} days ago, {1}"), 
-							      now.DayOfYear - date.DayOfYear,
-							      short_time);
+					return String.Format (
+						Catalog.GetString ("{0} days ago, {1}"), 
+						now.DayOfYear - date.DayOfYear,
+						short_time);
 				else
-					return date.ToString (Catalog.GetString ("MMMM d, h:mm tt"));
+					return date.ToString (
+						Catalog.GetString ("MMMM d, h:mm tt"));
 			} else
 				return date.ToString (Catalog.GetString ("MMMM d yyyy, h:mm tt"));
 		}
@@ -580,6 +605,7 @@ namespace Tomboy
 		{
 			Hide ();
 			Destroy ();
+			instance = null;
 		}
 		
 		void OnDelete (object sender, Gtk.DeleteEventArgs args)
@@ -644,7 +670,8 @@ namespace Tomboy
 				if (result != 0) {
 					int sort_col_id;
 					Gtk.SortType sort_type;
-					if (store_sort.GetSortColumnId (out sort_col_id, out sort_type)) {
+					if (store_sort.GetSortColumnId (out sort_col_id, 
+									out sort_type)) {
 						if (sort_type == Gtk.SortType.Descending)
 							result = result * -1;	// reverse sign
 					}
@@ -763,14 +790,14 @@ namespace Tomboy
 		{
 			get {
 				string text = find_combo.Entry.Text;
-				if (text.Trim () == String.Empty)
+				text = text.Trim ();
+				if (text == String.Empty)
 					return null;
-				
-				return text.Trim ();
+				return text;
 			}
 			set {
 				if (value != null && value != "")
-					find_combo.AppendText (value);
+					find_combo.Entry.Text = value;
 			}
 		}
 	}
