@@ -9,6 +9,7 @@ tango_icons = 				\
 	tomboy-note-16.png		\
 	tomboy-22.png			\
 	tomboy-note-22.png		\
+	tomboy-32.png			\
 	tomboy.png			\
 	tomboy.svg
 
@@ -21,6 +22,8 @@ install-data-local:
 	@-$(mkinstalldirs) $(DESTDIR)$(hicolordir)/22x22/apps
 	$(INSTALL_DATA) $(srcdir)/tomboy-22.png $(DESTDIR)$(hicolordir)/22x22/apps/tomboy.png
 	$(INSTALL_DATA) $(srcdir)/tomboy-note-22.png $(DESTDIR)$(hicolordir)/22x22/apps/tomboy-note.png
+	@-$(mkinstalldirs) $(DESTDIR)$(hicolordir)/32x32/apps
+	$(INSTALL_DATA) $(srcdir)/tomboy-32.png $(DESTDIR)$(hicolordir)/32x32/apps/tomboy.png
 	@-$(mkinstalldirs) $(DESTDIR)$(hicolordir)/48x48/apps
 	$(INSTALL_DATA) $(srcdir)/tomboy.png $(DESTDIR)$(hicolordir)/48x48/apps/tomboy.png
 
@@ -41,6 +44,7 @@ uninstall-hook:
 	rm -f $(DESTDIR)$(hicolordir)/16x16/apps/tomboy-note.png
 	rm -f $(DESTDIR)$(hicolordir)/22x22/apps/tomboy.png
 	rm -f $(DESTDIR)$(hicolordir)/22x22/apps/tomboy-note.png
+	rm -f $(DESTDIR)$(hicolordir)/32x32/apps/tomboy.png
 	rm -f $(DESTDIR)$(hicolordir)/48x48/apps/tomboy.png
 
 
