@@ -118,6 +118,7 @@ $(BUGZILLA_TARGET): $(BUGZILLA_CSFILES) $(top_builddir)/Tomboy/Tomboy.exe
 
 pluginsdir = $(pkglibdir)/Plugins
 plugins_DATA = 			\
+	$(BUGZILLA_TARGET)	\
 	$(EVO_TARGET)		\
 	$(EXPORT_TARGET)	\
 	$(FIXEDWIDTH_TARGET)	\
@@ -125,9 +126,6 @@ plugins_DATA = 			\
 	$(NOTD_TARGET)		\
 	$(PRINT_TARGET)		\
 	$(STICKYIMPORT_TARGET)
-
-noinst_DATA = 			\
-	$(BUGZILLA_TARGET)
 
 
 EXTRA_DIST =            	\

@@ -7,34 +7,6 @@ using System.Xml;
 
 using Tomboy;
 
-/*
- * This object watches open NoteBuffers and reacts to changes.  This makes
- * it easier to do complex, "undoable" operations to the buffer without
- * dealing with TextIter agony.
- */
-public class BugzillaWatcher
-{
-	NoteBuffer Buffer;
-
-	public BugzillaWatcher (NoteBuffer buffer)
-	{
-		Buffer = buffer;
-
-		Buffer.TagApplied  += OnTagApplied;
-		Buffer.TagRemoved  += OnTagRemoved;
-	}
-
-	void OnTagApplied (object sender, Gtk.TagAppliedArgs args)
-	{
-		// XXX: insert image.
-	}
-
-	void OnTagRemoved (object sender, Gtk.TagRemovedArgs args)
-	{
-		// XXX: remove image.
-	}
-}
-
 public class InsertBugAction : SplitterAction
 {
 	BugzillaLink Tag;
@@ -54,11 +26,14 @@ public class InsertBugAction : SplitterAction
 
 	public override void Undo (Gtk.TextBuffer buffer)
 	{
+		// Tag images change the offset by one, but only when deleting.
 		Gtk.TextIter start_iter = buffer.GetIterAtOffset (Offset);
-		Gtk.TextIter end_iter = buffer.GetIterAtOffset (Offset + chop.Length);
+		Gtk.TextIter end_iter = buffer.GetIterAtOffset (Offset + chop.Length + 1);
 		buffer.Delete (ref start_iter, ref end_iter);
 		buffer.MoveMark (buffer.InsertMark, buffer.GetIterAtOffset (Offset));
 		buffer.MoveMark (buffer.SelectionBound, buffer.GetIterAtOffset (Offset));
+
+		Tag.ImageLocation = null;
 
 		ApplySplitTags (buffer);
 	}
@@ -134,10 +109,7 @@ public class BugzillaLink : DynamicNoteTag
 	public string BugUrl
 	{
 		get { return (string) Attributes ["uri"]; }
-		set {
-			Attributes ["uri"] = value;
-			GLib.Idle.Add (new GLib.IdleHandler (ReloadImage));
-		}
+		set { Attributes ["uri"] = value; }
 	}
 
 	protected override bool OnActivate (NoteEditor editor, Gtk.TextIter start, Gtk.TextIter end)
@@ -152,37 +124,32 @@ public class BugzillaLink : DynamicNoteTag
 	public override void Read (XmlTextReader xml, bool start)
 	{
 		base.Read (xml, start);
-		GLib.Idle.Add (new GLib.IdleHandler (ReloadImage));
 	}
 
-	public Gdk.Pixbuf GetIcon ()
+	public override Gdk.Pixbuf Image
 	{
-		if (Icon != null) {
+		get
+		{
+			if (Icon != null)
+				return Icon;
+
+			System.Uri uri = new System.Uri(BugUrl);
+			if (uri == null)
+				return null;
+
+			string host = uri.Host;
+			string imageDir = "~/.tomboy/BugzillaIcons/";
+
+			string imagePath = imageDir.Replace ("~", Environment.GetEnvironmentVariable ("HOME")) + host + ".png";
+
+			try {
+				Icon = new Gdk.Pixbuf (imagePath);
+			} catch (GLib.GException) {
+				Icon = new Gdk.Pixbuf(null, "stock_bug.png");
+			}
+
 			return Icon;
 		}
-
-		System.Uri uri = Attributes["uri"] as System.Uri;
-		if (uri == null) {
-			return null;
-		}
-
-		string host = uri.Host;
-		string imageDir = "~/.tomboy/BugzillaIcons/";
-
-		string imagePath = 
-			imageDir.Replace ("~", Environment.GetEnvironmentVariable ("HOME")) + 
-			host + ".png";
-
-		Icon = new Gdk.Pixbuf (imagePath);
-
-		return Icon;
-	}
-
-	protected bool ReloadImage ()
-	{
-		Icon = null;
-		// XXX: Emit changed
-		return false;
 	}
 }
 
@@ -209,8 +176,6 @@ public class BugzillaPlugin : NotePlugin
 	protected override void OnNoteOpened ()
 	{
 		Window.Editor.DragDataReceived += OnDragDataReceived;
-
-		new BugzillaWatcher (Buffer);
 	}
 
 	[DllImport("libgobject-2.0.so.0")]

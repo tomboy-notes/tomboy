@@ -15,6 +15,7 @@ namespace Tomboy
 	{
 		string element_name;
 		Gdk.Pixbuf image;
+		Gtk.TextMark imageLocation;
 
 		[Flags]
 		enum TagFlags {
@@ -232,7 +233,7 @@ namespace Tomboy
 
 		public event TagActivatedHandler Activated;
 
-		public Gdk.Pixbuf Image
+		public virtual Gdk.Pixbuf Image
 		{
 			get { return image; }
 			set {
@@ -245,6 +246,12 @@ namespace Tomboy
 					Changed (this, args);
 				}
 			}
+		}
+
+		public virtual Gtk.TextMark ImageLocation
+		{
+			get { return imageLocation; }
+			set { imageLocation = value; }
 		}
 
 		public event Gtk.TagChangedHandler Changed;

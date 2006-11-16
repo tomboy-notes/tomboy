@@ -97,11 +97,25 @@ namespace Tomboy
 			chop.RemoveTag(tag);
 		}
 
+		protected int GetSplitOffset ()
+		{
+			int offset = 0;
+			foreach (TagData tag in splitTags) {
+				NoteTag noteTag = tag.tag as NoteTag;
+				if (noteTag.Image != null) {
+					offset++;
+				}
+			}
+			return offset;
+		}
+
 		protected void ApplySplitTags (Gtk.TextBuffer buffer)
 		{
 			foreach (TagData tag in splitTags) {
-				Gtk.TextIter start = buffer.GetIterAtOffset (tag.start);
-				Gtk.TextIter end = buffer.GetIterAtOffset (tag.end);
+				int offset = GetSplitOffset ();
+
+				Gtk.TextIter start = buffer.GetIterAtOffset (tag.start - offset);
+				Gtk.TextIter end = buffer.GetIterAtOffset (tag.end - offset);
 				buffer.ApplyTag(tag.tag, start, end);
 			}
 		}
@@ -142,11 +156,13 @@ namespace Tomboy
 
 		public override void Undo (Gtk.TextBuffer buffer)
 		{
-			Gtk.TextIter start_iter = buffer.GetIterAtOffset (index);
-			Gtk.TextIter end_iter = buffer.GetIterAtOffset (index + chop.Length);
+			int tag_images = GetSplitOffset ();
+
+			Gtk.TextIter start_iter = buffer.GetIterAtOffset (index - tag_images);
+			Gtk.TextIter end_iter = buffer.GetIterAtOffset (index - tag_images + chop.Length);
 			buffer.Delete (ref start_iter, ref end_iter);
-			buffer.MoveMark (buffer.InsertMark, buffer.GetIterAtOffset (index));
-			buffer.MoveMark (buffer.SelectionBound, buffer.GetIterAtOffset (index));
+			buffer.MoveMark (buffer.InsertMark, buffer.GetIterAtOffset (index - tag_images));
+			buffer.MoveMark (buffer.SelectionBound, buffer.GetIterAtOffset (index - tag_images));
 
 			ApplySplitTags (buffer);
 		}
@@ -228,14 +244,17 @@ namespace Tomboy
 
 		public override void Undo (Gtk.TextBuffer buffer)
 		{
-			Gtk.TextIter start_iter = buffer.GetIterAtOffset (start);
-			Gtk.TextIter end_iter;
+			int tag_images = GetSplitOffset ();
+
+			Gtk.TextIter start_iter = buffer.GetIterAtOffset (start - tag_images);
 			buffer.InsertRange (ref start_iter, chop.Start, chop.End);
 
 			buffer.MoveMark (buffer.InsertMark, 
-					 buffer.GetIterAtOffset (is_forward ? start : end));
+					 buffer.GetIterAtOffset (is_forward ? start - tag_images
+					                                    : end - tag_images));
 			buffer.MoveMark (buffer.SelectionBound, 
-					 buffer.GetIterAtOffset (is_forward ? end : start));
+					 buffer.GetIterAtOffset (is_forward ? end - tag_images
+					                                    : start - tag_images));
 
 			ApplySplitTags (buffer);
 		}

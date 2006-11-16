@@ -14,6 +14,19 @@ namespace Tomboy
 	{
 		UndoManager undo_manager;
 
+		// GODDAMN Gtk.TextBuffer. I hate you. Hate Hate Hate.
+		struct ImageInsertData
+		{
+			public bool adding;
+			public Gtk.TextBuffer buffer;
+			public Gtk.TextMark position;
+			public Gdk.Pixbuf image;
+			public NoteTag tag;
+		};
+		ArrayList imageQueue;
+		uint imageQueueTimeout;
+		// HATE.
+
 		// list of Gtk.TextTags to apply on insert
 		ArrayList active_tags;
 
@@ -27,6 +40,9 @@ namespace Tomboy
 			MarkSet += MarkSetEvent;
 
 			tags.TagChanged += OnTagChanged;
+
+			imageQueue = new ArrayList();
+			imageQueueTimeout = 0;
 		}
 
 		// Signal that text has been inserted, and any active tags have
@@ -149,19 +165,63 @@ namespace Tomboy
 
 		void ImageSwap (NoteTag tag, 
 				Gtk.TextIter start, 
-				Gtk.TextIter end) 
+				Gtk.TextIter end,
+				bool adding) 
 		{
-			if (tag.Image != null &&
-			    tag.Image != start.Pixbuf) {
-				Logger.Log ("ImageSwap: tag='{0}' {1}:'{3}'-{2}:'{4}'", 
-					    tag.ElementName,
-					    start.Offset,
-					    end.Offset,
-					    start.Char,
-					    end.Char);
+			if (tag.Image == null)
+				return;
 
-				start.Buffer.InsertPixbuf (ref start, tag.Image);
+			Gtk.TextIter prev = start;
+			prev.BackwardChar();
+
+			if ((adding == true  && tag.Image != prev.Pixbuf) ||
+			    (adding == false && tag.Image == prev.Pixbuf)) {
+				ImageInsertData data = new ImageInsertData();
+				data.buffer = start.Buffer;
+				data.tag = tag;
+				data.image = tag.Image;
+				data.adding = adding;
+
+				if (adding) {
+					data.position = start.Buffer.CreateMark (null, start, true);
+				} else {
+					data.position = tag.ImageLocation;
+				}
+
+				imageQueue.Add(data);
+
+				if (imageQueueTimeout == 0) {
+					imageQueueTimeout = GLib.Idle.Add(RunImageQueue);
+				}
 			}
+		}
+
+		public bool RunImageQueue ()
+		{
+			foreach (ImageInsertData data in imageQueue) {
+				NoteBuffer buffer = data.buffer as NoteBuffer;
+				Gtk.TextIter iter = buffer.GetIterAtMark (data.position);
+
+				buffer.Undoer.FreezeUndo();
+
+				if (data.adding && data.tag.ImageLocation == null) {
+					buffer.InsertPixbuf (ref iter, data.image);
+					data.tag.ImageLocation = data.position;
+				} else if (!data.adding && data.tag.ImageLocation != null) {
+					Gtk.TextIter end = iter;
+					end.ForwardChar();
+					buffer.Delete (ref iter, ref end);
+					buffer.DeleteMark (data.position);
+					data.tag.ImageLocation = null;
+				}
+
+				buffer.Undoer.ThawUndo();
+			}
+
+			imageQueue.Clear();
+
+			imageQueueTimeout = 0;
+			return false;
 		}
 
 		void OnTagChanged (object sender, Gtk.TagChangedArgs args)
@@ -171,7 +231,7 @@ namespace Tomboy
 				TextTagEnumerator enumerator = 
 					new TextTagEnumerator (this, note_tag);
 				foreach (TextRange range in enumerator) {
-					ImageSwap (note_tag, range.Start, range.End);
+					ImageSwap (note_tag, range.Start, range.End, true);
 				}
 			}
 		}
@@ -184,8 +244,20 @@ namespace Tomboy
 
 			NoteTag note_tag = tag as NoteTag;
 			if (note_tag != null) {
-				ImageSwap (note_tag, start, end);
+				ImageSwap (note_tag, start, end, true);
 			}
+		}
+
+		protected override void OnTagRemoved (Gtk.TextTag tag,
+		                                      Gtk.TextIter start,
+		                                      Gtk.TextIter end)
+		{
+			NoteTag note_tag = tag as NoteTag;
+			if (note_tag != null) {
+				ImageSwap (note_tag, start, end, false);
+			}
+
+			base.OnTagRemoved (tag, start, end);
 		}
 
 		public UndoManager Undoer
@@ -419,9 +491,6 @@ namespace Tomboy
 
 					if (tag_start.Tag is NoteTag) {
 						((NoteTag) tag_start.Tag).Read (xml, true);
-						if (((NoteTag) tag_start.Tag).Image != null) {
-							offset++;
-						}
 					}
 
 					stack.Push (tag_start);
