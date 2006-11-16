@@ -603,6 +603,11 @@ namespace Tomboy
 
 		void CloseClicked (object sender, EventArgs args)
 		{
+			// Disconnect external signal handlers to prevent bloweup
+			manager.NoteDeleted -= OnNotesChanged;
+			manager.NoteAdded -= OnNotesChanged;
+			manager.NoteRenamed -= OnNoteRenamed;
+
 			Hide ();
 			Destroy ();
 			instance = null;
