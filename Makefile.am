@@ -9,7 +9,9 @@ EXTRA_DIST = 			\
 	intltool-update.in	\
 	\
 	tomboy.spec.in		\
-	tomboy.spec
+	tomboy.spec			\
+	\
+	MAINTAINERS
 
 DISTCLEANFILES = 			\
 	gnome-doc-utils.make		\
