@@ -1,3 +1,37 @@
+2006-11-15  David Trowbridge  <trowbrds@gmail.com>
+
+	* Tomboy/NoteBuffer.cs: Rearranged the way tags with an Image
+	attribute actually apply that image to the buffer, to work around
+	Gtk.TextBuffer suckage.  Made it so that the image gets removed from
+	the buffer when the tag is removed.
+
+	* Tomboy/NoteTag.cs: Added an ImageLocation parameter, which is used
+	to track the location in the buffer of the image associated with a
+	tag.  This makes it possible to reliably remove the image.
+
+	* Tomboy/Undo.cs: Rework SplitterActions to take into account the
+	delayed nature of tag image inserts/removals in their offset positions
+	during undo/redo for the tags that these operations end up removing
+	from the buffer.
+
+	* Tomboy/Plugins/Bugzilla.cs: Remove the BugzillaWatcher class, since
+	the image changes above make it possible to just use the builtin image
+	facilities within tomboy.
+
+	Change InsertBugAction to do the same kind of tag offset magic as
+	InsertAction and EraseAction (see Undo.cs changes).
+
+	Add bug icon facilities back now that everything supports icons in a
+	way that's powerful and robust enough to satisfy me (mostly).  At the
+	moment this allows icons to be customized per-bugzilla host via
+	sticking the file in ~/.tomboy/BugzillaIcons/{host}.png.  I do
+	eventually intend to have some GUI for customizing this (along with
+	maybe favicon magic).
+
+	* Tomboy/Plugins/Makefile.am: Move the bugzilla plugin into the
+	installed-plugins target, since I'm happy enough with it now to ship
+	to the world.
+
 2006-11-15  Boyd Timothy  <btimothy@gmail.com>
 	
 	* Tomboy/RecentChanges.cs: Fixed a problem where a destroyed
