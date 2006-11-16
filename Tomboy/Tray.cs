@@ -368,7 +368,12 @@ namespace Tomboy
 		public void ShowAbout ()
 		{
 			string [] authors = new string [] {
-				"Alex Graveley <alex@beatniksoftware.com>"
+				"Alex Graveley <alex@beatniksoftware.com>",
+				"Boyd Timothy <btimothy@gmail.com>",
+				"David Trowbridge <trowbrds@gmail.com>",
+				"Ryan Lortie <desrt@desrt.ca>",
+				"Sandy Armstrong <sanfordarmstrong@gmail.com>",
+				"Sebastian Rittau <srittau@jroger.in-berlin.de>"
 			};
 
 			string [] documenters = new string [] {
