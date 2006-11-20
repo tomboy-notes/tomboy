@@ -129,7 +129,7 @@ namespace Tomboy
 			: base ()
 		{
 			this.manager = manager;
-			this.image = new Gtk.Image ();
+			this.image = new Gtk.Image ("tomboy", Gtk.IconSize.Menu);
 
 			this.CanFocus = true;
 			this.ButtonPressEvent += ButtonPress;
