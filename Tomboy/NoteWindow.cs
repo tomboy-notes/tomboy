@@ -763,9 +763,6 @@ namespace Tomboy
 		{
 			this.note = note;
 			
-			note.Buffer.InsertText += OnInsertText;
-			note.Buffer.DeleteRange += OnDeleteRange;
-			
 			BorderWidth = 2;
 			
 			Gtk.Button button = new Gtk.Button ();
@@ -823,6 +820,11 @@ namespace Tomboy
 
 			// Highlight words from a previous existing search
 			HighlightMatches (true);
+			
+			// Call PerformSearch on newly inserted text when
+			// the FindBar is visible
+			note.Buffer.InsertText += OnInsertText;
+			note.Buffer.DeleteRange += OnDeleteRange;
 
 			base.OnShown ();
 		}
@@ -830,6 +832,10 @@ namespace Tomboy
 		protected override void OnHidden ()
 		{
 			HighlightMatches (false);
+			
+			// Prevent searching when the FindBar is not visible
+			note.Buffer.InsertText -= OnInsertText;
+			note.Buffer.DeleteRange -= OnDeleteRange;
 
 			base.OnShown ();
 		}

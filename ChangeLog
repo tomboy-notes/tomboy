@@ -1,3 +1,10 @@
+2006-11-20  Boyd Timothy  <btimothy@gmail.com>
+	
+	* Tomboy/NoteWindow.cs: Fixed FindBar to not actively search for
+	matches when it's not visible.  PerformSearch was being called even
+	when the FindBar had never been shown (extra work that didn't need
+	to be going on).
+
 2006-11-16  Boyd Timothy  <btimothy@gmail.com>
 	
 	* www/img/applet-small.png: New screenshot from 0.5.0 release.
