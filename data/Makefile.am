@@ -37,7 +37,7 @@ endif
 
 
 if ENABLE_DBUS
-dbusservicedir       = $(libdir)/dbus-1.0/services
+dbusservicedir       = $(DBUS_SERVICE_DIR)
 dbusservice_in_files = com.beatniksoftware.Tomboy.service.in
 dbusservice_DATA     = $(dbusservice_in_files:.service.in=.service)
 
