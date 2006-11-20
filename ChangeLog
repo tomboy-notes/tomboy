@@ -1,4 +1,32 @@
 2006-11-20  Boyd Timothy  <btimothy@gmail.com>
+
+	Integrated patch files from Sebastian Dröge (Bug # 357848) to fix
+	Tomboy's DBus story.  Tomboy now uses NDesk's DBusSharp (managed
+	DBus) which requires .NET 2.0 (we have to use "gmcs" instead of
+	"mcs" now).
+	
+	* configure.in: Test for "gmcs" instead of "mcs".  Remove checks for
+	libdbus.
+	
+	* Tomboy/dbus-sharp/*.cs: Removed old dbus-sharp bindings.
+	
+	* Tomboy/dbus-sharp/dbus-sharp/*: New NDesk.DBusSharp code.
+
+	* Tomboy/dbus-sharp/dbus-sharp-glib/*: Ditto.
+	
+	* Tomboy/Makefile.am: "mcs" -> "gmcs".  Build managed DBus.
+	
+	* Tomboy/RemoteControl.cs: Code modified to use NDesk.DBus.
+	* Tomboy/RemoteControlProxy.cs: Ditto.
+	* Tomboy/Tomboy.cs: Ditto.  Also modified the code to ensure that
+	only one Tomboy instance is allowed to run at a time (when using
+	DBus).
+	
+	* Tomboy/Plugins/Makefile.am: "mcs" -> "gmcs".
+	
+	* test/Makefile.am: Ditto.
+
+2006-11-20  Boyd Timothy  <btimothy@gmail.com>
 	
 	* Tomboy/NoteWindow.cs: Fixed FindBar to not actively search for
 	matches when it's not visible.  PerformSearch was being called even

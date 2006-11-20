@@ -1,4 +1,4 @@
-CSC = mcs
+CSC = gmcs
 
 TARGET = TomboyTest.dll
 

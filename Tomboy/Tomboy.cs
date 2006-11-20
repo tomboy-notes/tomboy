@@ -8,7 +8,9 @@ namespace Tomboy
 	public class Tomboy : Application
 	{
 		static NoteManager manager;
-		static Object remote_control;
+#if ENABLE_DBUS
+		static RemoteControl remote_control;
+#endif
 
 		public static void Main (string [] args) 
 		{
@@ -76,12 +78,15 @@ namespace Tomboy
 		{
 #if ENABLE_DBUS
 			try {
-				remote_control = new RemoteControl (manager);
-				((RemoteControl) remote_control).Register ();
-
-				Logger.Log ("Tomboy remote control active.");
+				remote_control = RemoteControlProxy.Register (manager);
+				if (remote_control != null) {
+					Logger.Log ("Tomboy remote control active.");
+				} else {
+					Logger.Log ("Tomboy is already running.  Exiting...");
+					System.Environment.Exit (-1);
+				}
 			} catch (Exception e) {
-				Logger.Log ("Tomboy remote control disabled: {0}",
+				Logger.Log ("Tomboy remote control disabled (DBus exception): {0}",
 						   e.Message);
 			}
 #endif
@@ -281,7 +286,16 @@ namespace Tomboy
 		public void Execute ()
 		{
 #if ENABLE_DBUS
-			RemoteControlProxy remote = RemoteControlProxy.GetInstance ();
+			RemoteControl remote = null;
+			try {
+				remote = RemoteControlProxy.GetInstance ();
+			} catch (Exception e) {
+				Logger.Log ("Unable to connect to Tomboy remote control: {0}",
+					e.Message);
+			}
+
+			if (remote == null)
+				return;
 
 			if (new_note) {
 				string new_uri;

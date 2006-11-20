@@ -36,9 +36,9 @@ AM_GCONF_SOURCE_2
 #
 # Find mcs
 #
-AC_PATH_PROG(MCS, mcs)
-if test "x$MCS" = "x" ; then
-	AC_MSG_ERROR([Can't find "mcs" in your PATH])
+AC_PATH_PROG(GMCS, gmcs)
+if test "x$GMCS" = "x" ; then
+	AC_MSG_ERROR([Can't find "gmcs" in your PATH])
 fi
 
 #
@@ -90,23 +90,10 @@ AM_CONDITIONAL(FIXED_GTKSPELL, test "$FIXED_GTKSPELL" = "yes")
 #
 # Use DBus to export our remote control if available.
 #
-PKG_CHECK_MODULES(DBUS, 
-		  dbus-1
-		  dbus-glib-1,
-		  ENABLE_DBUS="yes", ENABLE_DBUS="no")
 AC_ARG_ENABLE(dbus, 
 	      [  --enable-dbus[[=no/yes]]    compile with dbus support [[default: yes]]],
 	      ENABLE_DBUS="$enableval")
-AM_CONDITIONAL(ENABLE_DBUS, test "$ENABLE_DBUS" = "yes")
-
-# DBus devel detect .so version for dll maps
-PKG_CHECK_MODULES(DBUS90, dbus-1 >= 0.90, dbus90=yes, dbus90=no)
-if test "x$dbus90" = "xyes"; then
-	DBUS_SOVERSION=3
-else
-	DBUS_SOVERSION=2
-fi
-AC_SUBST(DBUS_SOVERSION)
+AM_CONDITIONAL(ENABLE_DBUS, test "x$ENABLE_DBUS" != "xno")
 
 #
 # Tomboy.exe needs Gtk# Gnome# GConf#
@@ -141,14 +128,6 @@ PKG_CHECK_MODULES(NUNIT, nunit, HAVE_NUNIT="yes", HAVE_NUNIT="no")
 AM_CONDITIONAL(HAVE_NUNIT, test "$HAVE_NUNIT" = "yes")
 AC_SUBST(NUNIT_LIBS)
 AC_PATH_PROG(NUNIT, nunit-console)
-
-#
-# Properly handle libraries that aren't in our standard GAC path.
-#
-###DBUS_PREFIX=`$PKG_CONFIG --variable=prefix dbus-sharp`
-###EXTRA_GAC_PREFIX="$DBUS_PREFIX"
-###AC_SUBST(EXTRA_GAC_PREFIX)
-
 
 AC_OUTPUT([
 Makefile
