@@ -1,5 +1,5 @@
 
-CSC = mcs
+CSC = gmcs
 
 CSFLAGS = 		\
 	-debug 		\

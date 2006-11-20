@@ -2,9 +2,13 @@
 using System;
 using System.Collections;
 
+using NDesk.DBus;
+using org.freedesktop.DBus;
+
 namespace Tomboy
 {
-	public class RemoteControl : RemoteControlProxy
+	[Interface ("com.beatniksoftware.Tomboy.RemoteControl")]
+	public class RemoteControl : MarshalByRefObject
 	{
 		private NoteManager note_manager;
 
@@ -13,7 +17,7 @@ namespace Tomboy
 			note_manager = mgr;
 		}
 
-		public override bool DisplayNote (string uri)
+		public bool DisplayNote (string uri)
 		{
 			Note note;
 
@@ -25,7 +29,7 @@ namespace Tomboy
 			return true;
 		}
 
-		public override bool DisplayNoteWithSearch (string uri, string search)
+		public bool DisplayNoteWithSearch (string uri, string search)
 		{
 			Note note;
 
@@ -44,13 +48,13 @@ namespace Tomboy
 			return true;
 		}
 
-		public override string FindNote (string linked_title)
+		public string FindNote (string linked_title)
 		{
 			Note note = note_manager.Find (linked_title);
 			return (note == null) ? "" : note.Uri;
 		}
 
-		public override string CreateNote ()
+		public string CreateNote ()
 		{
 			try {
 				Note note = note_manager.Create ();
@@ -60,7 +64,7 @@ namespace Tomboy
 			}
 		}
 
-		public override string CreateNamedNote (string linked_title)
+		public string CreateNamedNote (string linked_title)
 		{
 			Note note;
 			
@@ -76,7 +80,7 @@ namespace Tomboy
 			}
 		}
 
-		public override bool DeleteNote (string uri)
+		public bool DeleteNote (string uri)
 		{
 			Note note;
 

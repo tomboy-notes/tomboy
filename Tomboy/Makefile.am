@@ -1,7 +1,7 @@
 
 SUBDIRS = . Plugins
 
-CSC = mcs
+CSC = gmcs
 
 TARGET = Tomboy.exe
 WRAPPER = tomboy
@@ -9,7 +9,8 @@ WRAPPER = tomboy
 if ENABLE_DBUS
 DBUS_CSFLAGS = -define:ENABLE_DBUS
 DBUS_CSFILES = 				\
-	$(srcdir)/dbus-sharp/*.cs	\
+	$(srcdir)/dbus-sharp/dbus-sharp/src/*.cs	\
+	$(srcdir)/dbus-sharp/dbus-sharp-glib/glib/*.cs	\
 	$(srcdir)/RemoteControl.cs	\
 	$(srcdir)/RemoteControlProxy.cs
 endif
@@ -90,7 +91,6 @@ $(WRAPPER): $(srcdir)/$(WRAPPER).in Makefile
 
 $(TARGET).config: $(srcdir)/$(TARGET).config.in Makefile
 	sed -e "s|\@pkglibdir\@|$(pkglibdir)|" \
-	    -e "s|\@DBUS_SOVERSION\@|$(DBUS_SOVERSION)|" \
 	    < $< > $@
 
 Defines.cs: $(srcdir)/Defines.cs.in Makefile
