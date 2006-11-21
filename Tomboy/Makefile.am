@@ -86,6 +86,7 @@ $(WRAPPER): $(srcdir)/$(WRAPPER).in Makefile
 	    -e "s|\@target\@|$(TARGET)|g" 		\
 	    -e "s|\@wrapper\@|$(WRAPPER)|g"		\
 	    -e "s|\@extragac\@|$(EXTRA_GAC_PREFIX)|g"	\
+	    -e "s|\@srcdir\@|$(PWD)|g"	\
 	    < $< > $@
 	chmod +x $(WRAPPER)
 

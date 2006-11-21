@@ -1,9 +1,10 @@
-2006-11-20  Boyd Timothy  <btimothy@gmail.com>
+2006-11-21  Boyd Timothy  <btimothy@gmail.com>
 	
-	* Tomboy/Tray.cs: Applied patch from Sebastian Dröge to fix bug
-	#352432.  Use the "tomboy" icon from the get-go instead of a blank
-	Gtk.Image (which ended up showing up as a 1x1 pixel area in the
-	notification area).
+	* Tomboy/Makefile.am: Fix for Bug #329535.  Changed the wrapper to
+	only run "Uninstalled Tomboy" if it is started from the <full path to
+	Tomboy source code>/Tomboy directory.  This makes the wrapper script
+	more secure (see Comment #1 in the bug).
+	* Tomboy/tomboy.in: Ditto.
 
 2006-11-20  Boyd Timothy  <btimothy@gmail.com>
 	
