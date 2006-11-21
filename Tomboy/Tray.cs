@@ -123,13 +123,14 @@ namespace Tomboy
 		Gtk.Tooltips tips;
 		Gtk.Image image;
 		PreferencesDialog prefs_dlg;
-		int icon_size_last = -1;
 
 		public TomboyTray (NoteManager manager) 
 			: base ()
 		{
 			this.manager = manager;
-			this.image = new Gtk.Image ("tomboy", Gtk.IconSize.Menu);
+			// Load a 24x24-sized icon to ensure we don't end up with a
+			// 1x1 pixel.
+			this.image = new Gtk.Image (GuiUtils.GetIcon ("tomboy", 24));
 
 			this.CanFocus = true;
 			this.ButtonPressEvent += ButtonPress;
@@ -152,8 +153,6 @@ namespace Tomboy
 			tips.Sink ();
 
 			SetupDragAndDrop ();
-
-			InitSomeStuff ();
 		}
 
 		void ButtonPress (object sender, Gtk.ButtonPressEventArgs args) 
@@ -459,54 +458,27 @@ namespace Tomboy
 
 		protected override void OnSizeAllocated (Gdk.Rectangle rect)
 		{
+			// When running TrayIcon inside the notification area, panel is
+			// incorrectly reporting the width and height.  Depending on
+			// whether you're using a vertical or horizontal panel, one of
+			// rect.Width/rect.Height doesn't change when OnSizeAllocated
+			// is called after the panel size grows/shrinks.
+			int icon_size = -1;
+			if (Allocation.Width != rect.Width)
+				icon_size = rect.Width;
+			else if (Allocation.Height != rect.Height)
+				icon_size = rect.Height;
+			
 			base.OnSizeAllocated (rect);
-
-			int icon_size = Math.Min (rect.Height, rect.Width);
-			if (icon_size_last != icon_size) {
-				icon_size_last = icon_size;
-				image.Pixbuf = GuiUtils.GetIcon (GetIconName (), icon_size);
+			
+			if (icon_size > 1) {
+				Gdk.Pixbuf new_icon = GuiUtils.GetIcon ("tomboy", icon_size);
+				if (image.Pixbuf.Width != new_icon.Width ||
+						image.Pixbuf.Height != new_icon.Height) {
+					image.Pixbuf = new_icon;
+				}
 			}
 		}
-
-		void ReloadIcon ()
-		{
-			icon_size_last = -1;
-			QueueResize ();
-		}
-
-		// NOTHING TO SEE HERE
-		void InitSomeStuff ()
-		{
-			manager.NoteDeleted += OnNoteDeletedUpdateIcon;
-			manager.NoteAdded += OnNoteAddedUpdateIcon;
-			manager.NoteRenamed += OnNoteRenamedUpdateIcon;
-		}
-
-		void OnNoteDeletedUpdateIcon (object sender, Note changed)
-		{
-			if (changed.Title == "Tintin")
-				ReloadIcon ();
-		}
-
-		void OnNoteAddedUpdateIcon (object sender, Note changed)
-		{
-			if (changed.Title == "Tintin")
-				ReloadIcon ();
-		}
-
-		void OnNoteRenamedUpdateIcon (Note note, string old_title)
-		{
-			if (note.Title == "Tintin" || old_title == "Tintin")
-				ReloadIcon ();
-		}
-
-		string GetIconName ()
-		{
-			if (manager.Find ("Tintin") != null)
-				return "tintin";
-			return "tomboy";
-		}
-		// GO ABOUT YOUR BUSINESS
 	}
 
 	// 
