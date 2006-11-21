@@ -1,5 +1,13 @@
 2006-11-21  Boyd Timothy  <btimothy@gmail.com>
 	
+	* Tomboy/dbus-sharp/dbus-sharp/src/IntrospectionSchema.cs: Removed
+	this file as it will fail on an older mono and neither is used in any
+	code path.  These files will eventually be used for doing DBus on
+	non-linux platforms, but they are not ready yet.
+	* Tomboy/dbus-sharp/dbus-sharp/src/UnixMonoTransport.cs: Ditto.
+
+2006-11-21  Boyd Timothy  <btimothy@gmail.com>
+	
 	* Tomboy/NoteWindow.cs: Added code to 1) Regain focus into the
 	TextView when the NoteFindBar is hidden (closed) and 2) automatically
 	select/scroll to the first match found during a search.
