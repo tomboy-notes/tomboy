@@ -1,5 +1,18 @@
 2006-11-21  Boyd Timothy  <btimothy@gmail.com>
 	
+	* Tomboy/TrayIcon.cs: Added code to pay attention to when the width
+	OR height change individually (instead of just taking the Min of
+	them).  Fixes bugs #354416 (panel resizing), #352432 (1x1 TrayIcon),
+	and #354417 (tintin code removal - sorry Alex).
+	
+	* Tomboy/Makefile.am: Remove -resource:tintin.png line.
+
+	* data/images/Makefile.am: Remove tintin.png from noinst_DATA.
+
+	* data/images/tintin.png: Removed this file.
+
+2006-11-21  Boyd Timothy  <btimothy@gmail.com>
+	
 	* Tomboy/Makefile.am: Fix for Bug #329535.  Changed the wrapper to
 	only run "Uninstalled Tomboy" if it is started from the <full path to
 	Tomboy source code>/Tomboy directory.  This makes the wrapper script
