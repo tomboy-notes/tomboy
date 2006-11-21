@@ -195,6 +195,7 @@ namespace Tomboy
 			find_bar = new NoteFindBar (note);
 			find_bar.Visible = false;
 			find_bar.NoShowAll = true;
+			find_bar.Hidden += FindBarHidden;
 
 			Gtk.VBox box = new Gtk.VBox (false, 2);
 			box.PackStart (toolbar, false, false, 0);
@@ -675,6 +676,13 @@ namespace Tomboy
 		{
 			FindButtonClicked ();
 		}
+		
+		void FindBarHidden (object sender, EventArgs args)
+		{
+			// Reposition the current focus back to the editor so the
+			// cursor will be ready for typing.
+			editor.GrabFocus ();
+		}
 
 		//
 		// Link menu item activate
@@ -969,8 +977,12 @@ namespace Tomboy
 			
 			prev_search_text = SearchText;
 
-			if (current_matches != null)
+			if (current_matches != null) {
 				HighlightMatches (true);
+				
+				// Select/scroll to the first match
+				OnNextClicked (this, EventArgs.Empty);
+			}
 
 			UpdateSensitivity ();
 		}
