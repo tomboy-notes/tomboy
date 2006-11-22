@@ -296,9 +296,9 @@ namespace Tomboy
 
 			menu.Append (new Gtk.SeparatorMenuItem ());
 
-			item = new Gtk.ImageMenuItem (Catalog.GetString ("_Table of Contents"));
-			item.Image = new Gtk.Image (Gtk.Stock.SortAscending, Gtk.IconSize.Menu);
-			item.Activated += ViewRecentChanges;
+			item = new Gtk.ImageMenuItem (Catalog.GetString ("_Search All Notes"));
+			item.Image = new Gtk.Image (Gtk.Stock.Find, Gtk.IconSize.Menu);
+			item.Activated += OpenSearchAll;
 			menu.Append (item);
 
 			if (enable_keybindings)
@@ -329,7 +329,7 @@ namespace Tomboy
 			}
 		}
 
-		void ViewRecentChanges (object sender, EventArgs args)
+		void OpenSearchAll (object sender, EventArgs args)
 		{
 			NoteRecentChanges.GetInstance (manager).Present ();
 		}
@@ -458,11 +458,12 @@ namespace Tomboy
 
 		protected override void OnSizeAllocated (Gdk.Rectangle rect)
 		{
-			// When running TrayIcon inside the notification area, panel is
-			// incorrectly reporting the width and height.  Depending on
-			// whether you're using a vertical or horizontal panel, one of
-			// rect.Width/rect.Height doesn't change when OnSizeAllocated
-			// is called after the panel size grows/shrinks.
+			// When running TrayIcon inside the notification area,
+			// gnome-panel is incorrectly reporting the width and
+			// height.  Depending on whether you're using a vertical
+			// or horizontal panel, one of rect.Width/rect.Height
+			// doesn't change when OnSizeAllocated is called after
+			// the panel size grows/shrinks.
 			int icon_size = -1;
 			if (Allocation.Width != rect.Width)
 				icon_size = rect.Width;
@@ -474,7 +475,7 @@ namespace Tomboy
 			if (icon_size > 1) {
 				Gdk.Pixbuf new_icon = GuiUtils.GetIcon ("tomboy", icon_size);
 				if (image.Pixbuf.Width != new_icon.Width ||
-						image.Pixbuf.Height != new_icon.Height) {
+				    image.Pixbuf.Height != new_icon.Height) {
 					image.Pixbuf = new_icon;
 				}
 			}
@@ -523,9 +524,10 @@ namespace Tomboy
 								  out uint virtual_mods);
 
 		[DllImport("libtomboy")]
-		static extern void egg_keymap_resolve_virtual_modifiers (IntPtr keymap,
-									 uint virtual_mods,
-									 out Gdk.ModifierType real_mods);
+		static extern void egg_keymap_resolve_virtual_modifiers (
+			IntPtr keymap,
+			uint virtual_mods,
+			out Gdk.ModifierType real_mods);
 
 		public static bool GetAccelKeys (string               gconf_path, 
 						 out uint             keyval, 

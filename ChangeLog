@@ -1,3 +1,23 @@
+2006-11-22  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Utils.cs: Don't print errors loading icon names
+	prematurely.  Set ToolMenuButton to not FocusOnClick and use the
+	toolbar's relief style, since these are available in Gtk#2.
+
+	* Tomboy/Tray.cs: Rename "Table of Contents" back to "Search All
+	Notes", since it's more easily understood.
+
+	* Tomboy/NoteWindow.cs: Use Gtk.Drag.DestGetTargetList instead of
+	using a DllImport.  Add "Find in This Note" menu item to Text
+	menu, which opens the search bar.  Add back "Search All Notes" to
+	context menu, and "Search" button to toolbar, replacing the ToC.
+	Set FocusOnClick=false for find bar buttons so they don't steal
+	cursor focus.
+
+	* Tomboy/RecentChanges.cs: Name the dialog "Search All Notes", and
+	clear out the unused min/max hits stuff.  Use "gnome-searchtool"
+	as the dialog icon.
+
 2006-11-21  Boyd Timothy  <btimothy@gmail.com>
 	
 	* Tomboy/dbus-sharp/dbus-sharp/src/IntrospectionSchema.cs: Removed
