@@ -19,13 +19,10 @@ namespace Tomboy
 		Gtk.ScrolledWindow matches_window;
 		Gtk.VBox content_vbox;
 		Gtk.TreeViewColumn matches_column;
-		
-		int search_hit_max;
-		int search_hit_min;
 
 		Gtk.TreeView tree;
 		Gtk.ListStore store;
-		
+
 		Gtk.TreeModelFilter store_filter;
 		Gtk.TreeModelSort store_sort;
 		
@@ -64,21 +61,18 @@ namespace Tomboy
 		}
 
 		protected NoteRecentChanges (NoteManager manager)
-			: base (Catalog.GetString ("Table of Contents"))
+			: base (Catalog.GetString ("Search All Notes"))
 		{
 			this.manager = manager;
 			this.IconName = "tomboy";
 			this.DefaultWidth = 200;
 			this.current_matches = new Hashtable ();
-			this.search_hit_max = 0;
-			this.search_hit_min = 0;
 
 			// For Escape (Close)
 			accel_group = new Gtk.AccelGroup ();
 			AddAccelGroup (accel_group);
 
-			Gtk.Image image = new Gtk.Image (Gtk.Stock.SortAscending, 
-							 Gtk.IconSize.Dialog);
+			Gtk.Image image = new Gtk.Image (GuiUtils.GetIcon ("gnome-searchtool", 48));
 
 			Gtk.Label label = new Gtk.Label (Catalog.GetString ("_Search:"));
 			label.Xalign = 1;
@@ -312,43 +306,25 @@ namespace Tomboy
 			// Used for matching in the raw note XML
 			string [] encoded_words = XmlEncoder.Encode (text).Split (' ', '\t', '\n');
 			
-			bool found_one = false;
-			search_hit_max = 0;
-			search_hit_min = Int32.MaxValue;
 			current_matches.Clear ();
 			
 			foreach (Note note in manager.Notes) {
-				// Check the note's raw XML for at least
-				// one match, to avoid deserializing
-				// Buffers unnecessarily.
-				if (!CheckNoteHasMatch (note, encoded_words, case_sensitive.Active))
-					continue;
-				
-				ArrayList note_matches =
-					FindMatchesInBuffer (note.Buffer, 
-							     words, 
-							     case_sensitive.Active);
-				
-				if (note_matches == null)
-					continue;
-				
-				int match_count = note_matches.Count;
-				
-				// Update the max and min hits
-				if (match_count > search_hit_max)
-					search_hit_max = match_count;
-				if (match_count < search_hit_min)
-					search_hit_min = match_count;
-
-				current_matches [note.Uri] = note_matches;
-				found_one = true;
+				// Check the note's raw XML for at least one
+				// match, to avoid deserializing Buffers
+				// unnecessarily.
+				if (CheckNoteHasMatch (note, 
+						       encoded_words, 
+						       case_sensitive.Active)) {
+					ArrayList note_matches =
+						FindMatchesInBuffer (note.Buffer, 
+								     words, 
+								     case_sensitive.Active);
+					if (note_matches != null)
+						current_matches [note.Uri] = note_matches;
+				}
 			}
 			
-			if (found_one)
-				UpdateNoteCount (store.IterNChildren (), current_matches.Count);
-			else
-				UpdateNoteCount (store.IterNChildren (), 0);
-
+			UpdateNoteCount (store.IterNChildren (), current_matches.Count);
 			AddMatchesColumn ();
 			store_filter.Refilter ();
 			tree.ScrollToPoint (0, 0);
@@ -525,14 +501,7 @@ namespace Tomboy
 				return false;
 
 			Note note = (Note) model.GetValue (iter, 3 /* note */);
-			if (note == null)
-				return false;
-
-			ArrayList matches = current_matches [note.Uri] as ArrayList;
-			if (matches == null)
-				return false;
-			else
-				return true;
+			return note != null && current_matches [note.Uri] != null;
 		}
 
 		void OnCaseSensitiveToggled (object sender, EventArgs args)

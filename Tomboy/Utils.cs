@@ -69,9 +69,6 @@ namespace Tomboy
 			try {
 				return Gtk.IconTheme.Default.LoadIcon (resource_name, size, 0);
 			} catch (GLib.GException e) {
-				Logger.Log ("Unable to load icon '{0}': {1}", 
-					    resource_name, 
-					    e.Message);
 			}
 
 			try {
@@ -80,6 +77,7 @@ namespace Tomboy
 			} catch (ArgumentException e) {
 			}
 
+			Logger.Log ("Unable to load icon '{0}'.", resource_name);
 			return null;
 		}
 
@@ -665,11 +663,8 @@ namespace Tomboy
 				       Gtk.Menu menu)
 		{
 			this.CanFocus = true;
-			this.Relief = Gtk.ReliefStyle.None;
-
-			// FIXME: Not implemented in Gtk#1
-			//this.Relief = toolbar.ReliefStyle;
-			//this.FocusOnClick = false;
+			this.Relief = toolbar.ReliefStyle;
+			this.FocusOnClick = false;
 
 			this.is_important = false;
 

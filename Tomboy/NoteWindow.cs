@@ -30,20 +30,10 @@ namespace Tomboy
 
 			// Set extra editor drag targets supported (in addition
 			// to the default TextView's various text formats)...
-			//// Gtk.TargetList list = Gtk.Drag.DestGetTargetList (this);
-
-			IntPtr list_ptr = gtk_drag_dest_get_target_list (this.Handle);
-			Gtk.TargetList list = new Gtk.TargetList (list_ptr);
-
+			Gtk.TargetList list = Gtk.Drag.DestGetTargetList (this);
 			list.Add (Gdk.Atom.Intern ("text/uri-list", false), 0, 1);
 			list.Add (Gdk.Atom.Intern ("_NETSCAPE_URL", false), 0, 1);
 		}
-
-		// FIXME: Gtk# broke compatibility at some point with the
-		// methodref for DestGetTargetList.  We invoke it manually so
-		// our binary will work for everyone.
-		[DllImport("libgtk-win32-2.0-0.dll")]
-		static extern IntPtr gtk_drag_dest_get_target_list (IntPtr raw);
 
 		public static int DefaultMargin
 		{
@@ -166,6 +156,27 @@ namespace Tomboy
 			AddAccelGroup (accel_group);
 
 			text_menu = new NoteTextMenu (accel_group, note.Buffer, note.Buffer.Undoer);
+
+			// Add the Find menu item to the toolbar Text menu.  It
+			// should only show up in the toplevel Text menu, since
+			// the context menu already has a Find submenu.
+
+			Gtk.SeparatorMenuItem spacer = new Gtk.SeparatorMenuItem ();
+			spacer.Show ();
+			text_menu.Append (spacer);
+
+			Gtk.ImageMenuItem find_item = 
+				new Gtk.ImageMenuItem (Catalog.GetString("Find in This Note"));
+			find_item.Image = new Gtk.Image (Gtk.Stock.Find, Gtk.IconSize.Menu);
+			find_item.Activated += FindActivate;
+			find_item.AddAccelerator ("activate",
+						  accel_group,
+						  (uint) Gdk.Key.f, 
+						  Gdk.ModifierType.ControlMask,
+						  Gtk.AccelFlags.Visible);
+			find_item.Show ();
+			text_menu.Append (find_item);
+
 			plugin_menu = MakePluginMenu ();
 
 			toolbar = MakeToolbar ();
@@ -221,12 +232,6 @@ namespace Tomboy
 			// Close all windows on current Desktop (Ctrl-Q)
 			global_keys.AddAccelerator (new EventHandler (CloseAllWindowsHandler),
 						    (uint) Gdk.Key.q, 
-						    Gdk.ModifierType.ControlMask,
-						    Gtk.AccelFlags.Visible);
-
-			// Open Find Dialog (Ctrl-F)
-			global_keys.AddAccelerator (new EventHandler (FindActivate),
-						    (uint) Gdk.Key.f, 
 						    Gdk.ModifierType.ControlMask,
 						    Gtk.AccelFlags.Visible);
 
@@ -389,6 +394,18 @@ namespace Tomboy
 			Gtk.MenuItem spacer1 = new Gtk.SeparatorMenuItem ();
 			spacer1.Show ();
 
+			Gtk.ImageMenuItem search = new Gtk.ImageMenuItem (
+				Catalog.GetString ("_Search All Notes"));
+			search.Image = new Gtk.Image (Gtk.Stock.Find, Gtk.IconSize.Menu);
+			search.Activated += SearchActivate;
+			search.AddAccelerator ("activate",
+					       accel_group,
+					       (uint) Gdk.Key.f, 
+					       (Gdk.ModifierType.ControlMask | 
+						Gdk.ModifierType.ShiftMask),
+					       Gtk.AccelFlags.Visible);
+			search.Show ();
+
 			Gtk.ImageMenuItem link = 
 				new Gtk.ImageMenuItem (Catalog.GetString ("_Link to New Note"));
 			link.Image = new Gtk.Image (Gtk.Stock.JumpTo, Gtk.IconSize.Menu);
@@ -401,17 +418,6 @@ namespace Tomboy
 					     Gtk.AccelFlags.Visible);
 			link.Show ();
 
-			Gtk.ImageMenuItem toc = new Gtk.ImageMenuItem (
-				Catalog.GetString ("_Open Table of Contents"));
-			toc.Image = new Gtk.Image (Gtk.Stock.SortAscending, Gtk.IconSize.Menu);
-			toc.Activated += OpenTOCActivate;
-			toc.AddAccelerator ("activate",
-					     accel_group,
-					     (uint) Gdk.Key.o, 
-					     Gdk.ModifierType.ControlMask,
-					     Gtk.AccelFlags.Visible);
-			toc.Show ();
-
 			Gtk.ImageMenuItem text_item = 
 				new Gtk.ImageMenuItem (Catalog.GetString ("Te_xt"));
 			text_item.Image = new Gtk.Image (Gtk.Stock.SelectFont, Gtk.IconSize.Menu);
@@ -421,7 +427,7 @@ namespace Tomboy
 			text_item.Show ();
 
 			Gtk.ImageMenuItem find_item = 
-				new Gtk.ImageMenuItem (Catalog.GetString ("_Find"));
+				new Gtk.ImageMenuItem (Catalog.GetString ("_Find in This Note"));
 			find_item.Image = new Gtk.Image (Gtk.Stock.Find, Gtk.IconSize.Menu);
 			find_item.Submenu = MakeFindMenu ();
 			find_item.Show ();
@@ -432,8 +438,8 @@ namespace Tomboy
 			args.Menu.Prepend (spacer1);
 			args.Menu.Prepend (text_item);
 			args.Menu.Prepend (find_item);
-			args.Menu.Prepend (toc);
 			args.Menu.Prepend (link);
+			args.Menu.Prepend (search);
 
 			Gtk.MenuItem close_all = 
 				new Gtk.MenuItem (Catalog.GetString ("Clos_e All Notes"));
@@ -472,23 +478,25 @@ namespace Tomboy
 			Gtk.Toolbar toolbar = new Gtk.Toolbar ();
 			toolbar.Tooltips = true;
 
-			Gtk.Widget find = 
+			Gtk.Widget search = 
 				toolbar.AppendItem (
-					Catalog.GetString ("Find"), 
-					Catalog.GetString ("Find in this note"),
+					Catalog.GetString ("Search"), 
+					Catalog.GetString ("Search your notes (Ctrl-Shift-F)"),
 					null, 
 					new Gtk.Image (Gtk.Stock.Find, toolbar.IconSize),
-					new Gtk.SignalFunc (FindButtonClicked));
-			find.AddAccelerator ("activate",
-					     accel_group,
-					     (uint) Gdk.Key.f, 
-					     Gdk.ModifierType.ControlMask,
-					     Gtk.AccelFlags.Visible);
+					new Gtk.SignalFunc (SearchButtonClicked));
+			search.AddAccelerator ("activate",
+					       accel_group,
+					       (uint) Gdk.Key.f, 
+					       (Gdk.ModifierType.ControlMask | 
+						Gdk.ModifierType.ShiftMask),
+					       Gtk.AccelFlags.Visible);
 
 			link_button = 
 				toolbar.AppendItem (
 					Catalog.GetString ("Link"), 
-					Catalog.GetString ("Link selected text to a new note"), 
+					Catalog.GetString (
+						"Link selected text to a new note (Ctrl-L)"), 
 					null, 
 					new Gtk.Image (Gtk.Stock.JumpTo, toolbar.IconSize),
 					new Gtk.SignalFunc (LinkButtonClicked));
@@ -519,21 +527,6 @@ namespace Tomboy
 			toolbar.AppendWidget (plugin_button, 
 					      Catalog.GetString ("Use tools on this note"), 
 					      null);
-
-			toolbar.AppendSpace ();
-
-			Gtk.Widget toc = 
-				toolbar.AppendItem (
-					Catalog.GetString ("ToC"), 
-					Catalog.GetString ("Open Table of Contents"),
-					null, 
-					new Gtk.Image (Gtk.Stock.SortAscending, toolbar.IconSize),
-					new Gtk.SignalFunc (TOCButtonClicked));
-			toc.AddAccelerator ("activate",
-					    accel_group,
-					    (uint) Gdk.Key.o, 
-					    Gdk.ModifierType.ControlMask,
-					    Gtk.AccelFlags.Visible);
 
 			toolbar.AppendSpace ();
 
@@ -658,6 +651,11 @@ namespace Tomboy
 			Find.SearchText = note.Buffer.Selection;
 		}
 
+		void FindActivate (object sender, EventArgs args)
+		{
+			FindButtonClicked ();
+		}
+
 		void FindNextActivate (object sender, EventArgs args)
 		{
 			Find.FindNextButton.Click ();
@@ -666,15 +664,6 @@ namespace Tomboy
 		void FindPreviousActivate (object sender, EventArgs args)
 		{
 			Find.FindPreviousButton.Click ();
-		}
-
-		// 
-		// Signature trampoline for editor context-menu "Find"
-		//
-
-		void FindActivate (object sender, EventArgs args)
-		{
-			FindButtonClicked ();
 		}
 		
 		void FindBarHidden (object sender, EventArgs args)
@@ -724,10 +713,6 @@ namespace Tomboy
 			match.Window.Present ();
 		}
 
-		// 
-		// Signature trampoline for editor context-menu "Link to Note"
-		//
-
 		void LinkToNoteActivate (object sender, EventArgs args)
 		{
 			LinkButtonClicked ();
@@ -735,19 +720,21 @@ namespace Tomboy
 
 		void OpenHelpActivate (object sender, EventArgs args)
 		{
-			GuiUtils.ShowHelp("tomboy.xml", "editing-notes", Screen, this);
+			GuiUtils.ShowHelp ("tomboy.xml", "editing-notes", Screen, this);
 		}
 
-		void TOCButtonClicked ()
+		void SearchButtonClicked ()
 		{
-			NoteRecentChanges toc = NoteRecentChanges.GetInstance (note.Manager);
-			toc.SearchText = note.Buffer.Selection;
-			toc.Present ();
+			NoteRecentChanges search = NoteRecentChanges.GetInstance (note.Manager);
+			if (note.Buffer.Selection != null) {
+				search.SearchText = note.Buffer.Selection;
+			}
+			search.Present ();
 		}
 
-		void OpenTOCActivate (object sender, EventArgs args)
+		void SearchActivate (object sender, EventArgs args)
 		{
-			TOCButtonClicked ();
+			SearchButtonClicked ();
 		}
 	}
 	
@@ -795,6 +782,7 @@ namespace Tomboy
 			prev_button.Image = new Gtk.Image (Gtk.Stock.GoBack, Gtk.IconSize.Menu);
 			prev_button.Relief = Gtk.ReliefStyle.None;
 			prev_button.Sensitive = false;
+			prev_button.FocusOnClick = false;
 			prev_button.Clicked += OnPrevClicked;
 			prev_button.Show ();
 			PackStart (prev_button, false, false, 0);
@@ -803,6 +791,7 @@ namespace Tomboy
 			next_button.Image = new Gtk.Image (Gtk.Stock.GoForward, Gtk.IconSize.Menu);
 			next_button.Relief = Gtk.ReliefStyle.None;
 			next_button.Sensitive = false;
+			next_button.FocusOnClick = false;
 			next_button.Clicked += OnNextClicked;
 			next_button.Show ();
 			PackStart (next_button, false, false, 0);
@@ -922,9 +911,9 @@ namespace Tomboy
 			if (entry_changed_timeout != null)
 				entry_changed_timeout.Cancel ();
 			
-			if (prev_search_text != null 
-				&& SearchText != null 
-				&& prev_search_text.CompareTo (SearchText) == 0)
+			if (prev_search_text != null && 
+			    SearchText != null && 
+			    prev_search_text.CompareTo (SearchText) == 0)
 				next_button.Click ();
 			else
 				PerformSearch ();
