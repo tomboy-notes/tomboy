@@ -91,5 +91,21 @@ namespace Tomboy
 			note_manager.Delete (note);
 			return true;
 		}
+		
+		public void DisplaySearch ()
+		{
+			NoteRecentChanges.GetInstance (note_manager).Present ();
+		}
+		
+		public void DisplaySearchWithText (string search_text)
+		{
+			NoteRecentChanges recent_changes =
+				NoteRecentChanges.GetInstance (note_manager);
+			if (recent_changes == null)
+				return;
+			
+			recent_changes.SearchText = search_text;
+			recent_changes.Present ();
+		}
 	}
 }

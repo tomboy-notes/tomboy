@@ -107,6 +107,8 @@ namespace Tomboy
 		string open_note_name;
 		string highlight_search;
 		string note_path;
+		string search_text;
+		bool open_search;
 
 		public TomboyCommandLine (string [] args)
 		{
@@ -121,7 +123,10 @@ namespace Tomboy
 		public bool NeedsExecute
 		{
 			get { 
-				return new_note || open_note_name != null || open_note_uri != null;
+				return new_note || 
+						open_note_name != null ||
+						open_note_uri != null || 
+						open_search;
 			}
 		}
 
@@ -162,7 +167,9 @@ namespace Tomboy
 					"matching title.\n" +
 					"  --start-here\t\t\tDisplay the 'Start Here' note.\n" +
 					"  --highlight-search [text]\tSearch and highlight text " +
-					"in the opened note.\n");
+					"in the opened note.\n" +
+					"  --search [text]\tOpen the search all notes window with" +
+					"the search text.\n");
 #else
 			usage += Catalog.GetString ("D-BUS remote control disabled.\n");
 #endif
@@ -223,11 +230,21 @@ namespace Tomboy
 					++idx;
 					highlight_search = args [idx];
 					break;
+
+				case "--search":
+					// Get optional search text...
+					if (idx + 1 < args.Length && args [idx + 1][0] != '-') {
+						search_text = args [++idx];
+					}
+					
+					open_search = true;
+					break;
 #else
 				case "--new-note":
 				case "--open-note":
 				case "--start-here":
 				case "--highlight-search":
+				case "--search":
 					string unknown_opt = 
 						Catalog.GetString (
 							"Tomboy: unsupported option '{0}'\n" +
@@ -321,6 +338,13 @@ namespace Tomboy
 								      highlight_search);
 				else
 					remote.DisplayNote (open_note_uri);
+			}
+			
+			if (open_search) {
+				if (search_text != null)
+					remote.DisplaySearchWithText (search_text);
+				else
+					remote.DisplaySearch ();
 			}
 #endif // ENABLE_DBUS
 		}
