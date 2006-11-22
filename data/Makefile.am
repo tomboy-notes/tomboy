@@ -65,8 +65,7 @@ man_MANS = tomboy.1
 
 noinst_DATA = 			\
 	DefaultPlugins.desktop	\
-	GNOME_TomboyApplet.xml	\
-	$(desktop_files)
+	GNOME_TomboyApplet.xml
 
 
 EXTRA_DIST = 					\
