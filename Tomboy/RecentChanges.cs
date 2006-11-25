@@ -72,7 +72,7 @@ namespace Tomboy
 			accel_group = new Gtk.AccelGroup ();
 			AddAccelGroup (accel_group);
 
-			Gtk.Image image = new Gtk.Image (GuiUtils.GetIcon ("gnome-searchtool", 48));
+			Gtk.Image image = new Gtk.Image (GuiUtils.GetIcon ("system-search", 48));
 
 			Gtk.Label label = new Gtk.Label (Catalog.GetString ("_Search:"));
 			label.Xalign = 1;
