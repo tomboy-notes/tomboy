@@ -785,9 +785,6 @@ namespace Tomboy
 		{
 			SetProcessName (process_name);
 
-			// Initialize GETTEXT
-			Catalog.Init (locale_dir, Defines.GNOME_LOCALE_DIR);
-
 			Gtk.Application.Init ();
 			program = new Gnome.Program ("Tomboy", 
 						     Defines.VERSION, 

@@ -14,6 +14,9 @@ namespace Tomboy
 
 		public static void Main (string [] args) 
 		{
+			// Initialize GETTEXT
+			Catalog.Init ("tomboy", Defines.GNOME_LOCALE_DIR);
+			
 			TomboyCommandLine cmd_line = new TomboyCommandLine (args);
 
 			if (cmd_line.NeedsExecute) {
@@ -168,7 +171,7 @@ namespace Tomboy
 					"  --start-here\t\t\tDisplay the 'Start Here' note.\n" +
 					"  --highlight-search [text]\tSearch and highlight text " +
 					"in the opened note.\n" +
-					"  --search [text]\tOpen the search all notes window with" +
+					"  --search [text]\t\tOpen the search all notes window with " +
 					"the search text.\n");
 #else
 			usage += Catalog.GetString ("D-BUS remote control disabled.\n");
