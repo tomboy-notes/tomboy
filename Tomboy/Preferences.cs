@@ -371,9 +371,9 @@ namespace Tomboy
 			keybind_peditor.AddGuard (entry);
 
 
-			// Open All Notes window keybinding...
+			// Open Search All Notes window keybinding...
 
-			label = MakeLabel (Catalog.GetString ("Open \"_Table of Contents\""));
+			label = MakeLabel (Catalog.GetString ("Open \"Search _All Notes\""));
 			table.Attach (label, 0, 1, 3, 4);
 
 			entry = new Gtk.Entry ();
