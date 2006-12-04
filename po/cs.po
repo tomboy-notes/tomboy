@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-02 16:38+0200\n"
-"PO-Revision-Date: 2006-10-02 16:54+0200\n"
+"POT-Creation-Date: 2006-12-04 16:46+0100\n"
+"PO-Revision-Date: 2006-12-04 16:53+0100\n"
 "Last-Translator: Jakub Friedl <jfriedl@suse.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -33,7 +33,7 @@ msgstr "Adresář obsahující zásuvné moduly nainstalované v systému"
 msgid "Accessories"
 msgstr "Příslušenství"
 
-#: ../data/GNOME_TomboyApplet.server.in.in.h:2
+#: ../data/GNOME_TomboyApplet.server.in.in.h:2 ../data/tomboy.desktop.in.h:2
 msgid "Simple and easy to use note-taking"
 msgstr "Jednoduché a snadno použitelné psaní poznámek"
 
@@ -42,7 +42,7 @@ msgid "Tomboy Applet Factory"
 msgstr "Generátor apletu Tomboy"
 
 #: ../data/GNOME_TomboyApplet.server.in.in.h:4 ../data/tomboy.desktop.in.h:3
-#: ../Tomboy/Applet.cs:152 ../Tomboy/Tray.cs:37
+#: ../Tomboy/Applet.cs:152 ../Tomboy/Tray.cs:140
 msgid "Tomboy Notes"
 msgstr "Poznámky Tomboy"
 
@@ -55,7 +55,7 @@ msgid "_Help"
 msgstr "_Nápověda"
 
 #: ../data/GNOME_TomboyApplet.xml.h:3 ../Tomboy/Applet.cs:185
-#: ../Tomboy/NoteWindow.cs:519
+#: ../Tomboy/NoteWindow.cs:561
 msgid "_Open Plugins Folder"
 msgstr "_Otevřít adresář zásuvných modulů"
 
@@ -66,10 +66,6 @@ msgstr "_Předvolby"
 #: ../data/tomboy.desktop.in.h:1
 msgid "Note-taker"
 msgstr "Poznámky"
-
-#: ../data/tomboy.desktop.in.h:2
-msgid "Quick and handy note-taker"
-msgstr "Rychlé a pohodlné poznámky"
 
 #: ../data/tomboy.schemas.in.h:1
 msgid "Create a new Note"
@@ -151,34 +147,50 @@ msgid ""
 "Indicates that the Sticky Note Importer plugin has not been run, so it "
 "should run automatically the next time Tomboy starts."
 msgstr ""
-"Značí, že import lepicích poznámek nebyl spuštěn, takže by měl "
-"být spuštěn automaticky při dalším spuštění aplikace Tomboy."
+"Značí, že import lepicích poznámek nebyl spuštěn, takže by měl být spuštěn "
+"automaticky při dalším spuštění aplikace Tomboy."
 
 #: ../data/tomboy.schemas.in.h:15
+msgid ""
+"Integer determining the minimum number of notes to show in the Tomboy note "
+"menu."
+msgstr ""
+"Celé číslo určující minimální počet poznámek zobrazovaných v nabídce "
+"poznámek Tomboy."
+
+#: ../data/tomboy.schemas.in.h:16
+msgid "List of pinned notes."
+msgstr "Seznam připíchnutých poznámek."
+
+#: ../data/tomboy.schemas.in.h:17
+msgid "Minimum number of notes to show in menu"
+msgstr "Minimální počet poznámek zobrazovaných v nabídce"
+
+#: ../data/tomboy.schemas.in.h:18
 msgid "Open Recent Changes"
 msgstr "Otevřít nedávné změny"
 
-#: ../data/tomboy.schemas.in.h:16
+#: ../data/tomboy.schemas.in.h:19
 msgid "Open Search Dialog"
 msgstr "Otevřít dialog hledání"
 
-#: ../data/tomboy.schemas.in.h:17
+#: ../data/tomboy.schemas.in.h:20
 msgid "Open Start Here"
 msgstr "Otevřít Začněte zde"
 
-#: ../data/tomboy.schemas.in.h:18
+#: ../data/tomboy.schemas.in.h:21
 msgid "Set to TRUE to activate"
 msgstr "Pro aktivaci nastavte na TRUE"
 
-#: ../data/tomboy.schemas.in.h:19
+#: ../data/tomboy.schemas.in.h:22
 msgid "Show applet menu"
 msgstr "Zobrazit menu apletu"
 
-#: ../data/tomboy.schemas.in.h:20
+#: ../data/tomboy.schemas.in.h:23
 msgid "Sticky Note Importer First Run"
 msgstr "První spuštění importu lepících poznámek"
 
-#: ../data/tomboy.schemas.in.h:21
+#: ../data/tomboy.schemas.in.h:24
 msgid ""
 "The global keybinding for creating and displaying a new Note. The format "
 "looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The "
@@ -193,7 +205,7 @@ msgstr ""
 "Ctl&gt;\" a \"&lt;Ctrl&gt;\". Pokud možnost nastavíte na speciální řetězec "
 "\"disabled\", nebude pro tuto akci žádná klávesová zkratka."
 
-#: ../data/tomboy.schemas.in.h:22
+#: ../data/tomboy.schemas.in.h:25
 msgid ""
 "The global keybinding for opening the \"Start Here\" note. The format looks "
 "like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
@@ -208,7 +220,7 @@ msgstr ""
 "Ctl&gt;\" a \"&lt;Ctrl&gt;\". Pokud možnost nastavíte na speciální řetězec "
 "\"disabled\", nebude pro tuto akci žádná klávesová zkratka."
 
-#: ../data/tomboy.schemas.in.h:23
+#: ../data/tomboy.schemas.in.h:26
 msgid ""
 "The global keybinding for opening the Note Search dialog. The format looks "
 "like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
@@ -223,7 +235,7 @@ msgstr ""
 "Ctl&gt;\" a \"&lt;Ctrl&gt;\". Pokud možnost nastavíte na speciální řetězec "
 "\"disabled\", nebude pro tuto akci žádná klávesová zkratka."
 
-#: ../data/tomboy.schemas.in.h:24
+#: ../data/tomboy.schemas.in.h:27
 msgid ""
 "The global keybinding for opening the Recent Changes dialog. The format "
 "looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The "
@@ -238,7 +250,7 @@ msgstr ""
 "Ctl&gt;\" a \"&lt;Ctrl&gt;\". Pokud možnost nastavíte na speciální řetězec "
 "\"disabled\", nebude pro tuto akci žádná klávesová zkratka."
 
-#: ../data/tomboy.schemas.in.h:25
+#: ../data/tomboy.schemas.in.h:28
 msgid ""
 "The global keybinding for showing the Tomboy applet's menu. The format looks "
 "like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
@@ -253,23 +265,31 @@ msgstr ""
 "Ctl&gt;\" a \"&lt;Ctrl&gt;\". Pokud možnost nastavíte na speciální řetězec "
 "\"disabled\", nebude pro tuto akci žádná klávesová zkratka."
 
-#: ../data/tomboy.schemas.in.h:26
+#: ../data/tomboy.schemas.in.h:29
 msgid "The handler for \"note://\" URLs"
 msgstr "Obsluhovač pro URL typu \"note://\""
 
-#: ../data/tomboy.schemas.in.h:27
+#: ../data/tomboy.schemas.in.h:30
 msgid "The last directory a note was exported to using the Export To HTML plugin."
 msgstr ""
 "Poslední aresář, do kterého byla exportována poznámka pomocí zásuvného "
 "modulu Exportovat do HTML."
 
-#: ../data/tomboy.schemas.in.h:28
+#: ../data/tomboy.schemas.in.h:31
 msgid ""
 "The last setting for the 'Export linked notes' checkbox in the Export to "
 "HTML plugin."
 msgstr ""
 "Poslední nastavení zaškrtávacího pole 'Exportovat související poznámky' v "
 "zásuvném modulu Exportovat do HTML."
+
+#: ../data/tomboy.schemas.in.h:32
+msgid ""
+"Whitespace-separated list of note URIs for notes that should always appear "
+"in the Tomboy note menu."
+msgstr ""
+"Seznam URI poznámek, které by vždy měly být zobrazeny v nabídce poznámek "
+"Tomboy. Položky seznamu jsou odděleny bílými znaky."
 
 #: ../libtomboy/gedit-print.c:142 ../Tomboy/Plugins/PrintNotes.cs:15
 msgid "Print"
@@ -311,17 +331,17 @@ msgid "_Quit"
 msgstr "U_končit"
 
 #. Open the Start Here note
-#: ../Tomboy/Note.cs:571 ../Tomboy/NoteManager.cs:107
-#: ../Tomboy/NoteManager.cs:115 ../Tomboy/Tomboy.cs:208 ../Tomboy/Tray.cs:123
-#: ../Tomboy/Tray.cs:179 ../Tomboy/Tray.cs:385 ../Tomboy/XKeybinder.cs:259
+#: ../Tomboy/Note.cs:570 ../Tomboy/NoteManager.cs:107
+#: ../Tomboy/NoteManager.cs:115 ../Tomboy/Tomboy.cs:223 ../Tomboy/Tray.cs:224
+#: ../Tomboy/Tray.cs:286 ../Tomboy/Tray.cs:450 ../Tomboy/XKeybinder.cs:259
 msgid "Start Here"
 msgstr "Začněte zde"
 
-#: ../Tomboy/Note.cs:817
+#: ../Tomboy/Note.cs:847
 msgid "Really delete this note?"
 msgstr "Opravdu odstranit tuto poznámku?"
 
-#: ../Tomboy/Note.cs:818
+#: ../Tomboy/Note.cs:848
 msgid "If you delete a note it is permanently lost."
 msgstr "Pokud odstraníte poznámku, je navždy ztracena."
 
@@ -346,148 +366,168 @@ msgstr "Nová poznámka {0}"
 msgid "Describe your new note here."
 msgstr "Sem napište svou novou poznámku."
 
-#: ../Tomboy/NoteWindow.cs:370
+#: ../Tomboy/NoteWindow.cs:169
+msgid "Find in This Note"
+msgstr "Najít v této poznámce"
+
+#: ../Tomboy/NoteWindow.cs:398 ../Tomboy/Tray.cs:299
+msgid "_Search All Notes"
+msgstr "_Prohledat všechny poznámky"
+
+#: ../Tomboy/NoteWindow.cs:410
 msgid "_Link to New Note"
 msgstr "_Odkaz na novou poznámku"
 
-#: ../Tomboy/NoteWindow.cs:383
+#: ../Tomboy/NoteWindow.cs:422
 msgid "Te_xt"
 msgstr "_Text"
 
-#: ../Tomboy/NoteWindow.cs:391
-msgid "_Search"
-msgstr "_Hledat"
+#: ../Tomboy/NoteWindow.cs:430
+msgid "_Find in This Note"
+msgstr "_Najít v této poznámce"
 
-#: ../Tomboy/NoteWindow.cs:405
+#: ../Tomboy/NoteWindow.cs:445
 msgid "Clos_e All Notes"
 msgstr "Z_avřít všechny poznámky"
 
-#: ../Tomboy/NoteWindow.cs:415
+#: ../Tomboy/NoteWindow.cs:455
 msgid "_Close"
 msgstr "_Zavřít"
 
-#: ../Tomboy/NoteWindow.cs:443
+#: ../Tomboy/NoteWindow.cs:483
 msgid "Search"
 msgstr "Hledat"
 
-#: ../Tomboy/NoteWindow.cs:444
-msgid "Search your notes"
-msgstr "Hledat ve vašich poznámkách"
+#: ../Tomboy/NoteWindow.cs:484
+msgid "Search your notes (Ctrl-Shift-F)"
+msgstr "Prohledat poznámky (Ctrl-Shift-F)"
 
-#: ../Tomboy/NoteWindow.cs:456
+#: ../Tomboy/NoteWindow.cs:497
 msgid "Link"
 msgstr "Odkaz"
 
-#: ../Tomboy/NoteWindow.cs:457
-msgid "Link selected text to a new note"
-msgstr "Propojit vybraný text s novou poznámkou"
+#: ../Tomboy/NoteWindow.cs:499
+msgid "Link selected text to a new note (Ctrl-L)"
+msgstr "Propojit vybraný text s novou poznámkou (Ctrl-L)"
 
-#: ../Tomboy/NoteWindow.cs:471
+#: ../Tomboy/NoteWindow.cs:513
 msgid "_Text"
 msgstr "_Text"
 
-#: ../Tomboy/NoteWindow.cs:476
+#: ../Tomboy/NoteWindow.cs:518
 msgid "Set properties of text"
 msgstr "Nastavit vlastnosti textu"
 
-#: ../Tomboy/NoteWindow.cs:482
+#: ../Tomboy/NoteWindow.cs:524
 msgid "T_ools"
 msgstr "_Nástroje"
 
-#: ../Tomboy/NoteWindow.cs:486
+#: ../Tomboy/NoteWindow.cs:528
 msgid "Use tools on this note"
 msgstr "Použít na tuto poznámku nástroje"
 
-#: ../Tomboy/NoteWindow.cs:493
+#: ../Tomboy/NoteWindow.cs:535
 msgid "Delete"
 msgstr "Odstranit"
 
-#: ../Tomboy/NoteWindow.cs:494
+#: ../Tomboy/NoteWindow.cs:536
 msgid "Delete this note"
 msgstr "Odstranit tuto poznámku"
 
-#: ../Tomboy/NoteWindow.cs:551
-msgid "_Search..."
-msgstr "_Hledat..."
+#: ../Tomboy/NoteWindow.cs:593
+msgid "_Find..."
+msgstr "_Najít..."
 
-#: ../Tomboy/NoteWindow.cs:562 ../Tomboy/Search.cs:177
+#: ../Tomboy/NoteWindow.cs:604 ../Tomboy/NoteWindow.cs:790
 msgid "Find _Next"
 msgstr "Hledat _následující"
 
-#: ../Tomboy/NoteWindow.cs:575
+#: ../Tomboy/NoteWindow.cs:617
 msgid "Find _Previous"
 msgstr "Hledat _předchozí"
 
-#: ../Tomboy/NoteWindow.cs:659
+#: ../Tomboy/NoteWindow.cs:705
 msgid "Cannot create note"
 msgstr "Nemohu vytvořit poznámku"
 
-#: ../Tomboy/NoteWindow.cs:757
+#: ../Tomboy/NoteWindow.cs:770
+msgid "_Find:"
+msgstr "_Hledat:"
+
+#: ../Tomboy/NoteWindow.cs:781
+msgid "_Previous"
+msgstr "_Předchozí"
+
+#: ../Tomboy/NoteWindow.cs:800
+msgid "Case _sensitive"
+msgstr "_Rozlišovat velikost písmen"
+
+#: ../Tomboy/NoteWindow.cs:1243
 msgid "_Bold"
 msgstr "_Tučné"
 
-#: ../Tomboy/NoteWindow.cs:769
+#: ../Tomboy/NoteWindow.cs:1255
 msgid "_Italic"
 msgstr "_Kurzíva"
 
-#: ../Tomboy/NoteWindow.cs:781
+#: ../Tomboy/NoteWindow.cs:1267
 msgid "_Strikeout"
 msgstr "_Přeškrtunté"
 
-#: ../Tomboy/NoteWindow.cs:793
+#: ../Tomboy/NoteWindow.cs:1279
 msgid "_Highlight"
 msgstr "_Zvýraznění"
 
-#: ../Tomboy/NoteWindow.cs:806
+#: ../Tomboy/NoteWindow.cs:1292
 msgid "Font Size"
 msgstr "Velikost písma"
 
-#: ../Tomboy/NoteWindow.cs:809
+#: ../Tomboy/NoteWindow.cs:1295
 msgid "_Normal"
 msgstr "_Normální"
 
-#: ../Tomboy/NoteWindow.cs:816
+#: ../Tomboy/NoteWindow.cs:1302
 msgid "Hu_ge"
 msgstr "_Obrovské"
 
-#: ../Tomboy/NoteWindow.cs:824
+#: ../Tomboy/NoteWindow.cs:1310
 msgid "_Large"
 msgstr "_Velké"
 
-#: ../Tomboy/NoteWindow.cs:832
+#: ../Tomboy/NoteWindow.cs:1318
 msgid "S_mall"
 msgstr "_Malé"
 
-#: ../Tomboy/Preferences.cs:125
+#: ../Tomboy/Preferences.cs:133
 msgid "Tomboy Preferences"
 msgstr "Nastavení Tomboy"
 
-#: ../Tomboy/Preferences.cs:139
+#: ../Tomboy/Preferences.cs:147
 msgid "Editing"
 msgstr "Úpravy"
 
-#: ../Tomboy/Preferences.cs:142
+#: ../Tomboy/Preferences.cs:150
 msgid "Hotkeys"
 msgstr "Klávesové zkratky"
 
-#: ../Tomboy/Preferences.cs:184
+#: ../Tomboy/Preferences.cs:192
 msgid "_Spell check while typing"
 msgstr "_Kontrola překlepů během psaní"
 
-#: ../Tomboy/Preferences.cs:193
+#: ../Tomboy/Preferences.cs:201
 msgid ""
 "Misspellings will be underlined in red, and correct spelling suggestions "
 "shown in the context menu."
 msgstr ""
-"Překlepy budou červeně podtrženy a návrhy správného zápisu budou "
-"zobrazovány v kontextové nabídce."
+"Překlepy budou červeně podtrženy a návrhy správného zápisu budou zobrazovány "
+"v kontextové nabídce."
 
 #. WikiWords...
-#: ../Tomboy/Preferences.cs:203
+#: ../Tomboy/Preferences.cs:211
 msgid "Highlight _WikiWords"
 msgstr "Zvýrazňovat _WikiSlova"
 
-#: ../Tomboy/Preferences.cs:210
+#: ../Tomboy/Preferences.cs:218
 msgid ""
 "Enable this option to highlight words <b>ThatLookLikeThis</b>. Clicking the "
 "word will create a note with that name."
@@ -496,16 +536,16 @@ msgstr ""
 "Kliknutí na slovo vytvoří poznámku s takovým názvem."
 
 #. Custom font...
-#: ../Tomboy/Preferences.cs:219
+#: ../Tomboy/Preferences.cs:227
 msgid "Use custom _font"
 msgstr "Používat vlastní _písmo"
 
 #. Hotkeys...
-#: ../Tomboy/Preferences.cs:289
+#: ../Tomboy/Preferences.cs:297
 msgid "Listen for _Hotkeys"
 msgstr "Sledovat _klávesové zkratky"
 
-#: ../Tomboy/Preferences.cs:297
+#: ../Tomboy/Preferences.cs:305
 msgid ""
 "Hotkeys allow you to quickly access your notes from anywhere with a "
 "keypress. Example Hotkeys: <b>&lt;Control&gt;&lt;Shift&gt;F11</b>, <b>&lt;"
@@ -516,50 +556,50 @@ msgstr ""
 "Shift&gt;F11</b>, <b>&lt;Alt&gt;N</b>"
 
 #. Show notes menu keybinding...
-#: ../Tomboy/Preferences.cs:317
+#: ../Tomboy/Preferences.cs:325
 msgid "Show notes _menu"
 msgstr "Zobrazit _menu poznámek"
 
 #. Open Start Here keybinding...
-#: ../Tomboy/Preferences.cs:333
+#: ../Tomboy/Preferences.cs:342
 msgid "Open \"_Start Here\""
 msgstr "Otevřít \"_Začněte zde\""
 
 #. Create new note keybinding...
-#: ../Tomboy/Preferences.cs:349
+#: ../Tomboy/Preferences.cs:359
 msgid "Create _new note"
 msgstr "Vytvořit _novou poznámku"
 
-#. Search dialog keybinding...
-#: ../Tomboy/Preferences.cs:365
-msgid "S_earch notes"
-msgstr "_Hledat v poznámkách"
+#. Open Search All Notes window keybinding...
+#: ../Tomboy/Preferences.cs:376
+msgid "Open \"Search _All Notes\""
+msgstr "Otevřít \"_Prohledat všechny poznámky\""
 
-#: ../Tomboy/Preferences.cs:427
+#: ../Tomboy/Preferences.cs:439
 msgid "Choose Note Font"
 msgstr "Zvolte písmo poznámek"
 
-#: ../Tomboy/RecentChanges.cs:37
-msgid "Table of Contents"
-msgstr "Obsah"
+#: ../Tomboy/RecentChanges.cs:64
+msgid "Search All Notes"
+msgstr "Hledat ve všech poznámkách"
 
-#: ../Tomboy/RecentChanges.cs:51
-msgid ""
-"<b>Table of Contents</b> lists all your notes.\n"
-"Double click to open a note."
-msgstr ""
-"<b>Obsah</b> vypisuje všechny vaše poznámky.\n"
-"Poznámku otevřete dvojitým kliknutím."
+#: ../Tomboy/RecentChanges.cs:77
+msgid "_Search:"
+msgstr "_Hledat:"
 
-#: ../Tomboy/RecentChanges.cs:151
+#: ../Tomboy/RecentChanges.cs:98
+msgid "C_ase Sensitive"
+msgstr "_Rozlišovat velikost písmen"
+
+#: ../Tomboy/RecentChanges.cs:207
 msgid "Note"
 msgstr "Poznámka"
 
-#: ../Tomboy/RecentChanges.cs:167
+#: ../Tomboy/RecentChanges.cs:226
 msgid "Last Changed"
 msgstr "Naposledy změněno"
 
-#: ../Tomboy/RecentChanges.cs:211
+#: ../Tomboy/RecentChanges.cs:280 ../Tomboy/RecentChanges.cs:403
 #, csharp-format
 msgid "Total: {0} note"
 msgid_plural "Total: {0} notes"
@@ -567,71 +607,42 @@ msgstr[0] "Celkem: {0} poznámka"
 msgstr[1] "Celkem: {0} poznámky"
 msgstr[2] "Celkem: {0} poznámek"
 
-#: ../Tomboy/RecentChanges.cs:261
+#: ../Tomboy/RecentChanges.cs:339
+msgid "Matches"
+msgstr "Odpovídá"
+
+#: ../Tomboy/RecentChanges.cs:390 ../Tomboy/RecentChanges.cs:409
+#, csharp-format
+msgid "{0} match"
+msgid_plural "{0} matches"
+msgstr[0] "{0} odpovídá"
+msgstr[1] "{0} odpovídají"
+msgstr[2] "{0} odpovídá"
+
+#: ../Tomboy/RecentChanges.cs:556
 #, csharp-format
 msgid "Today, {0}"
 msgstr "Dnes, {0}"
 
-#: ../Tomboy/RecentChanges.cs:264
+#: ../Tomboy/RecentChanges.cs:559
 #, csharp-format
 msgid "Yesterday, {0}"
 msgstr "Včera, {0}"
 
-#: ../Tomboy/RecentChanges.cs:267
+#: ../Tomboy/RecentChanges.cs:563
 #, csharp-format
 msgid "{0} days ago, {1}"
 msgstr "Před {0} dny, {1}"
 
-#: ../Tomboy/RecentChanges.cs:271
+#: ../Tomboy/RecentChanges.cs:568
 msgid "MMMM d, h:mm tt"
 msgstr "d. MMMM, h:mm tt"
 
-#: ../Tomboy/RecentChanges.cs:273
+#: ../Tomboy/RecentChanges.cs:570
 msgid "MMMM d yyyy, h:mm tt"
 msgstr "d. MMMM yyyy, h:mm tt"
 
-#: ../Tomboy/Search.cs:87 ../Tomboy/Search.cs:489
-msgid "Search All Notes"
-msgstr "Hledat ve všech poznámkách"
-
-#: ../Tomboy/Search.cs:88 ../Tomboy/Search.cs:493
-msgid "Search Note"
-msgstr "Hledat v poznámce"
-
-#: ../Tomboy/Search.cs:110
-msgid "_Find:"
-msgstr "_Hledat:"
-
-#: ../Tomboy/Search.cs:114
-msgid "Search _All Notes"
-msgstr "Hledat ve _všech poznámkách"
-
-#: ../Tomboy/Search.cs:120
-msgid "Case _Sensitive"
-msgstr "_Rozlišovat velikost písmen"
-
-#: ../Tomboy/Search.cs:165
-msgid "_Previous"
-msgstr "_Předchozí"
-
-#: ../Tomboy/Search.cs:250
-msgid "Search _Results"
-msgstr "_Výsledky hledání"
-
-#: ../Tomboy/Search.cs:732
-#, csharp-format
-msgid "({0} match)"
-msgid_plural "({0} matches)"
-msgstr[0] "({0} výsledek)"
-msgstr[1] "({0} výsledky)"
-msgstr[2] "({0} výsledků)"
-
-#. title
-#: ../Tomboy/Search.cs:750
-msgid "No notes found"
-msgstr "Nenalezena žádná poznámka"
-
-#: ../Tomboy/Tomboy.cs:132
+#: ../Tomboy/Tomboy.cs:145
 msgid ""
 "Tomboy: A simple, easy to use desktop note-taking application.\n"
 "Copyright (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
@@ -642,7 +653,7 @@ msgstr ""
 "Copyright © 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
 "\n"
 
-#: ../Tomboy/Tomboy.cs:144
+#: ../Tomboy/Tomboy.cs:157
 msgid ""
 "Usage:\n"
 "  --version\t\t\tPrint version information.\n"
@@ -654,30 +665,32 @@ msgstr ""
 "  --help\t\t\tVypsat tuto zprávu o použití.\n"
 "  --note-path [cesta]\t\tNačítat/ukládat data poznámek v tomto adresáři.\n"
 
-#: ../Tomboy/Tomboy.cs:153
+#: ../Tomboy/Tomboy.cs:166
 msgid ""
 "  --new-note\t\t\tCreate and display a new note.\n"
 "  --new-note [title]\t\tCreate and display a new note, with a title.\n"
 "  --open-note [title/url]\tDisplay the existing note matching title.\n"
 "  --start-here\t\t\tDisplay the 'Start Here' note.\n"
 "  --highlight-search [text]\tSearch and highlight text in the opened note.\n"
+"  --search [text]\t\tOpen the search all notes window with the search text.\n"
 msgstr ""
 "  --new-note\t\t\tVytvořit a zobrazit novou poznámku.\n"
 "  --new-note [název]\t\tVytvořit a zobrazit novou poznámku s názvem.\n"
 "  --open-note [název/url]\tZobrazit existující poznámku odpovídající názvu.\n"
 "  --start-here\t\t\tZobrazit poznámku 'Začněte Zde'.\n"
 "  --highlight-search [text]\tHledat a zvýraznit text v otevřené poznámce.\n"
+"  --search [text]\t\tOtevřít okno prohledávání všech poznámek s hledaným textem.\n"
 
-#: ../Tomboy/Tomboy.cs:162
+#: ../Tomboy/Tomboy.cs:177
 msgid "D-BUS remote control disabled.\n"
 msgstr "Vzdálené ovládání přes D-BUS zakázáno.\n"
 
-#: ../Tomboy/Tomboy.cs:170
+#: ../Tomboy/Tomboy.cs:185
 #, csharp-format
 msgid "Version {0}"
 msgstr "Verze {0}"
 
-#: ../Tomboy/Tomboy.cs:228
+#: ../Tomboy/Tomboy.cs:253
 #, csharp-format
 msgid ""
 "Tomboy: unsupported option '{0}'\n"
@@ -688,56 +701,48 @@ msgstr ""
 "Pro více informací zkuste 'tomboy --help'.\n"
 "Vzdálené ovládání D-BUS zakázáno."
 
-#. initial newline
-#: ../Tomboy/Tray.cs:82
-msgid "dddd, MMMM d, h:mm tt"
-msgstr "dddd d. MMMM, h:mm tt"
-
-#: ../Tomboy/Tray.cs:145
-msgid "Create _New Note"
-msgstr "Vytvořit _novou poznámku"
-
-#: ../Tomboy/Tray.cs:192
-msgid "_Table of Contents"
-msgstr "_Obsah"
-
-#: ../Tomboy/Tray.cs:202
-msgid "_Search Notes..."
-msgstr "_Hledat poznámky..."
-
-#: ../Tomboy/Tray.cs:220
+#: ../Tomboy/Tray.cs:63
 msgid " (new)"
 msgstr " (nová)"
 
-#: ../Tomboy/Tray.cs:258
+#. initial newline
+#: ../Tomboy/Tray.cs:183
+msgid "dddd, MMMM d, h:mm tt"
+msgstr "dddd d. MMMM, h:mm tt"
+
+#: ../Tomboy/Tray.cs:246
+msgid "Create _New Note"
+msgstr "Vytvořit _novou poznámku"
+
+#: ../Tomboy/Tray.cs:325
 msgid "Cannot create new note"
 msgstr "Nemohu vytvořit novou poznámku"
 
-#: ../Tomboy/Tray.cs:317
+#: ../Tomboy/Tray.cs:382
 msgid "translator-credits"
 msgstr "Miloslav Trmač <mitr@volny.cz> Jakub Friedl <jfriedl@suse.cz>"
 
-#: ../Tomboy/Tray.cs:326
+#: ../Tomboy/Tray.cs:391
 msgid "Copyright © 2004-2006 Alex Graveley"
 msgstr "Copyright © 2004-2006 Alex Graveley"
 
-#: ../Tomboy/Tray.cs:327
+#: ../Tomboy/Tray.cs:392
 msgid "A simple and easy to use desktop note-taking application."
 msgstr "Jednoduchá a snadno použitelná aplikace pro poznámky na pracovní ploše."
 
-#: ../Tomboy/Tray.cs:330
+#: ../Tomboy/Tray.cs:395
 msgid "Homepage & Donations"
 msgstr "Domovská stránka a příspěvky"
 
-#: ../Tomboy/Utils.cs:123
+#: ../Tomboy/Utils.cs:121
 msgid ""
 "The \"Tomboy Notes Manual\" could not be found.  Please verify that your "
 "installation has been completed successfully."
 msgstr ""
-"Nelze nalézt \"Příručku poznámek Tomboy\". Ověřte, že instalace "
-"byla dokončena v pořádku."
+"Nelze nalézt \"Příručku poznámek Tomboy\". Ověřte, že instalace byla "
+"dokončena v pořádku."
 
-#: ../Tomboy/Utils.cs:132
+#: ../Tomboy/Utils.cs:130
 msgid "Help not found"
 msgstr "Nápověda nenalezena"
 
@@ -844,7 +849,7 @@ msgstr "Úkoly"
 msgid "Appointments"
 msgstr "Schůzky"
 
-#: ../Tomboy/Plugins/NoteOfTheDay.cs:177
+#: ../Tomboy/Plugins/NoteOfTheDay.cs:188
 msgid "Create Note of the Day"
 msgstr "Vytvořit poznámku dne"
 
