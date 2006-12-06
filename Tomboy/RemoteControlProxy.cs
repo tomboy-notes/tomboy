@@ -5,8 +5,8 @@ using org.freedesktop.DBus;
 namespace Tomboy
 {
 	public static class RemoteControlProxy {
-		private const string Path = "/com/beatniksoftware/Tomboy/RemoteControl";
-		private const string Namespace = "com.beatniksoftware.Tomboy";
+		private const string Path = "/org/gnome/Tomboy/RemoteControl";
+		private const string Namespace = "org.gnome.Tomboy";
 
 		public static RemoteControl GetInstance () {
 			BusG.Init ();

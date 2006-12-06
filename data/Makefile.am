@@ -38,7 +38,7 @@ endif
 
 if ENABLE_DBUS
 dbusservicedir       = $(DBUS_SERVICE_DIR)
-dbusservice_in_files = com.beatniksoftware.Tomboy.service.in
+dbusservice_in_files = org.gnome.Tomboy.service.in
 dbusservice_DATA     = $(dbusservice_in_files:.service.in=.service)
 
 $(dbusservice_DATA): $(dbusservice_in_files) Makefile

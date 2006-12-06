@@ -7,7 +7,7 @@ using org.freedesktop.DBus;
 
 namespace Tomboy
 {
-	[Interface ("com.beatniksoftware.Tomboy.RemoteControl")]
+	[Interface ("org.gnome.Tomboy.RemoteControl")]
 	public class RemoteControl : MarshalByRefObject
 	{
 		private NoteManager note_manager;
