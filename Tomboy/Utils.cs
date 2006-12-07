@@ -216,6 +216,7 @@ namespace Tomboy
 			}
 
 			image.Show ();
+			image.Yalign = 0;
 			hbox.PackStart (image, false, false, 0);
 			
 			Gtk.VBox label_vbox = new Gtk.VBox (false, 0);
