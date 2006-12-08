@@ -1,18 +1,147 @@
 
 using System;
-using System.Collections;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
 using System.IO;
+
+using Mono.Unix;
 using Mono.Unix.Native;
 
 namespace Tomboy
 {
-	public abstract class NotePlugin : IDisposable
+	using PluginTable = IDictionary<Type, NotePlugin>;
+
+	class PluginReference : WeakReference
+	{
+		readonly string description;
+
+		public PluginReference (object plugin, string description) : 
+			base (plugin)
+		{
+			this.description = description;
+		}
+
+		public string Description
+		{
+			get { return description; }
+		}
+	}
+
+	[AttributeUsage(
+		AttributeTargets.Class,
+		AllowMultiple = false, Inherited = false)]
+	public class PluginInfoAttribute : Attribute
+	{
+		string name;
+		string version;
+		string description;
+		string website;
+		string author;
+
+		Type preferencesWidget;
+
+		public string Name
+		{
+			get { return name; }
+			set { name = value; }
+		}
+
+		public string Version
+		{
+			get { return version; }
+			set { version = value; }
+		}
+
+		public string Description
+		{
+			get { return description; }
+			set { description = value; }
+		}
+
+		public string WebSite
+		{
+			get { return website; }
+			set { website = value; }
+		}
+
+		public string Author
+		{
+			get { return author; }
+			set { author = value; }
+		}
+
+		public Type PreferencesWidget
+		{
+			get { return preferencesWidget; }
+			set { preferencesWidget = value; }
+		}
+	}
+
+	[AttributeUsage(
+		AttributeTargets.Class,
+		AllowMultiple = false, Inherited = true)]
+	public class RequiredPlugins: Attribute
+	{
+		readonly string[] pluginNames;
+
+		public RequiredPlugins(params string[] pluginNames)
+		{
+			this.pluginNames = pluginNames;
+		}
+
+		public string[] PluginNames
+		{
+			get { return pluginNames; }
+		}
+	}
+
+	[AttributeUsage(
+		AttributeTargets.Class,
+		AllowMultiple = false, Inherited = true)]
+	public class SuggestedPlugins: Attribute
+	{
+		readonly string[] pluginNames;
+
+		public SuggestedPlugins(params string[] pluginNames)
+		{
+			this.pluginNames = pluginNames;
+		}
+
+		public string[] PluginNames
+		{
+			get { return pluginNames; }
+		}
+	}
+
+	public interface IPlugin : IDisposable
+	{
+	}
+
+	public abstract class AbstractPlugin : IPlugin
+	{
+		~AbstractPlugin ()
+		{
+			Dispose (false);
+		}
+
+		public void Dispose ()
+		{
+			Dispose (true);
+			GC.SuppressFinalize (this);
+		}
+
+		protected virtual void Dispose (bool disposing)
+		{
+		}
+	}
+
+	public abstract class NotePlugin : AbstractPlugin
 	{
 		Note note;
-		ArrayList plugin_menu_items;
-		ArrayList text_menu_items;
+
+		List<Gtk.MenuItem> plugin_menu_items;
+		List<Gtk.MenuItem> text_menu_items;
 
 		public void Initialize (Note note)
 		{
@@ -25,22 +154,23 @@ namespace Tomboy
 				OnNoteOpened ();
 		}
 
-		public void Dispose ()
+		protected override void Dispose (bool disposing)
 		{
-			this.note.Opened -= OnNoteOpenedEvent;
-
-			if (plugin_menu_items != null) {
-				foreach (Gtk.Widget item in plugin_menu_items) {
-					item.Destroy ();
+			if (disposing) {
+				if (plugin_menu_items != null) {
+					foreach (Gtk.Widget item in plugin_menu_items)
+						item.Destroy ();
 				}
-			}
-			if (text_menu_items != null) {
-				foreach (Gtk.Widget item in text_menu_items) {
-					item.Destroy ();
+
+				if (text_menu_items != null) {
+					foreach (Gtk.Widget item in text_menu_items)
+						item.Destroy ();
 				}
+
+				Shutdown ();
 			}
 
-			Shutdown ();
+			note.Opened -= OnNoteOpenedEvent;
 		}
 
 		protected abstract void Initialize ();
@@ -93,7 +223,7 @@ namespace Tomboy
 		public void AddPluginMenuItem (Gtk.MenuItem item)
 		{
 			if (plugin_menu_items == null)
-				plugin_menu_items = new ArrayList ();
+				plugin_menu_items = new List<Gtk.MenuItem> ();
 
 			plugin_menu_items.Add (item);
 
@@ -104,7 +234,7 @@ namespace Tomboy
 		public void AddTextMenuItem (Gtk.MenuItem item)
 		{
 			if (text_menu_items == null)
-				text_menu_items = new ArrayList ();
+				text_menu_items = new List<Gtk.MenuItem> ();
 
 			text_menu_items.Add (item);
 
@@ -117,26 +247,29 @@ namespace Tomboy
 
 	public class PluginManager
 	{
-		string plugins_dir;
-		ArrayList plugin_types;
-		Hashtable plugin_hash;
-		FileSystemWatcher dir_watcher;
-		FileSystemWatcher sys_dir_watcher;
+		readonly string plugins_dir;
+
+		readonly IList<Type> plugin_types;
+		readonly IDictionary<Note, PluginTable> attached_plugins;
+
+		readonly FileSystemWatcher dir_watcher;
+		readonly FileSystemWatcher sys_dir_watcher;
+
+		static bool check_plugin_unloading;
 
 		// Plugins in the tomboy.exe assembly, always loaded.
-		static Type [] stock_plugins = 
-			new Type [] {
-				typeof (NoteRenameWatcher),
-				typeof (NoteSpellChecker),
-				typeof (NoteUrlWatcher),
-				typeof (NoteLinkWatcher),
-				typeof (NoteWikiWatcher),
-				typeof (MouseHandWatcher),
-				
-				// Not ready yet:
-				// typeof (NoteRelatedToWatcher),
-				// typeof (IndentWatcher),
-			};
+		static Type[] stock_plugins = {
+			typeof (NoteRenameWatcher),
+			typeof (NoteSpellChecker),
+			typeof (NoteUrlWatcher),
+			typeof (NoteLinkWatcher),
+			typeof (NoteWikiWatcher),
+			typeof (MouseHandWatcher),
+			
+			// Not ready yet:
+			// typeof (NoteRelatedToWatcher),
+			// typeof (IndentWatcher),
+		};
 
 		public PluginManager (string plugins_dir)
 		{
@@ -164,9 +297,16 @@ namespace Tomboy
 					    Defines.SYS_PLUGINS_DIR, e.Message);
 				sys_dir_watcher = null;
 			}
-			
+
 			plugin_types = FindPluginTypes ();
-			plugin_hash = new Hashtable ();
+			attached_plugins = new Dictionary<Note, PluginTable> ();
+
+		}
+
+		public static bool CheckPluginUnloading
+		{
+			get { return check_plugin_unloading; }
+			set { check_plugin_unloading = value; }
 		}
 
 		// Run file manager for ~/.tomboy/Plugins
@@ -203,23 +343,10 @@ namespace Tomboy
 
 		public void LoadPluginsForNote (Note note)
 		{
-			ArrayList note_plugins = new ArrayList ();
-
 			foreach (Type type in plugin_types) {
-				try {
-					NotePlugin plugin = (NotePlugin) 
-						Activator.CreateInstance (type);
-					if (plugin != null) {
-						plugin.Initialize (note);
-						note_plugins.Add (plugin);
-					}
-				} catch (Exception e) {
-					// Do nothing
-				}
+				if (IsPluginEnabled (type))
+					AttachPlugin (type, note);
 			}
-
-			// Store the plugins for this note
-			plugin_hash [note] = note_plugins;
 
 			// Make sure we remove plugins when a note is deleted
 			note.Manager.NoteDeleted += OnNoteDeleted;
@@ -301,17 +428,158 @@ namespace Tomboy
 		void OnNoteDeleted (object sender, Note deleted)
 		{
 			// Clean out the plugins for this deleted note.
-			ArrayList note_plugins = (ArrayList) plugin_hash [deleted];
-
-			if (note_plugins != null) {
-				foreach (NotePlugin plugin in note_plugins) {
-					plugin.Dispose ();
+			PluginTable note_plugins = null;
+			
+			if (attached_plugins.TryGetValue (deleted, out note_plugins)) {
+				foreach (NotePlugin plugin in note_plugins.Values) {
+					try {
+						plugin.Dispose ();
+					} catch (Exception e) {
+						Logger.Fatal (
+							"Cannot dispose {0}: {1}", 
+							plugin.GetType(), e);
+					}
 				}
 
 				note_plugins.Clear ();
+				attached_plugins.Remove (deleted);
+			}
+		}
+
+		void AttachPlugin (Type type, Note note)
+		{
+			PluginTable note_plugins;
+
+			if (!attached_plugins.TryGetValue (note, out note_plugins)) {
+				note_plugins = new Dictionary<Type, NotePlugin> ();
+				attached_plugins [note] = note_plugins;
 			}
 
-			plugin_hash.Remove (deleted);
+			if (typeof (NotePlugin).IsAssignableFrom (type)) {
+				NotePlugin plugin;
+
+				try {
+					plugin = (NotePlugin)Activator.CreateInstance (type);
+					plugin.Initialize (note);
+				} catch (Exception e) {
+					Logger.Fatal (
+							"Cannot initialize {0} for note '{1}': {2}", 
+							type, note.Title, e);
+					plugin = null;
+				}
+
+				if (null != plugin)
+					note_plugins[type] = plugin;
+			}
+		}
+
+		void AttachPlugin (Type type)
+		{
+			if (typeof (NotePlugin).IsAssignableFrom (type)) {
+				foreach (Note note in attached_plugins.Keys)
+					AttachPlugin (type, note);
+			}
+		}
+
+		void DetachPlugin (Type type)
+		{
+			List<PluginReference> references;
+			
+			if (CheckPluginUnloading) {
+				references = new List<PluginReference> ();
+			} else {
+				references = null;
+			}
+
+			DetachPlugin (type, references);
+
+			Logger.Debug ("Starting garbage collection...");
+
+			GC.Collect();
+			GC.WaitForPendingFinalizers ();
+			
+			Logger.Debug ("Garbage collection complete.");
+
+			if (!CheckPluginUnloading) 
+				return;
+
+			Logger.Debug ("Checking plugin references...");
+
+			int finalized = 0, leaking = 0;
+
+			foreach (PluginReference r in references) {
+				object plugin = r.Target;
+
+				if (null != plugin) {
+					Logger.Fatal (
+						"Leaking reference on {0}: '{1}'",
+						plugin, r.Description);
+
+					++leaking;
+				} else {
+					++finalized;
+				}
+			}
+
+			if (leaking > 0) {
+				string heapshot =
+					"http://svn.myrealbox.com/source/trunk/heap-shot";
+				string title = String.Format (
+					Catalog.GetString ("Cannot fully disable {0}."),
+					type);
+				string message = String.Format (Catalog.GetString (
+					"Cannot fully disable {0} as there still are " +
+					"at least {1} reference to this plugin. This " +
+					"indicates a programming error. Contact the " +
+					"plugin's author and report this problem.\n\n" +
+					"<b>Developer Information:</b> This problem " +
+					"usually occurs when the plugin's Dispose " +
+					"method fails to disconnect all event handlers. " +
+					"The heap-shot profiler ({2}) can help to " +
+					"identify leaking references."),
+					type, leaking, heapshot);
+
+				HIGMessageDialog dialog = new HIGMessageDialog (
+					null, 0, Gtk.MessageType.Error, Gtk.ButtonsType.Ok,
+					title, message);
+
+				dialog.Run ();
+				dialog.Destroy ();
+			}
+
+			Logger.Debug ("finalized: {0}, leaking: {1}", finalized, leaking);
+		}
+
+		// Dispose loop has to happen on separate stack frame when debugging,
+		// as otherwise the local variable "plugin" will cause at least one
+		// plugin instance to not be garbage collected. Just assigning
+		// null to the variable will not help, as the JIT optimizes this
+		// assignment away.
+		void DetachPlugin (Type type, List<PluginReference> references)
+		{
+			if (typeof (NotePlugin).IsAssignableFrom (type)) {
+				foreach (KeyValuePair<Note, PluginTable> pair 
+						in attached_plugins) {
+					NotePlugin plugin = null;
+
+					if (pair.Value.TryGetValue (type, out plugin)) {
+						pair.Value[type] = null;
+						pair.Value.Remove (type);
+
+						try {
+							plugin.Dispose();
+						} catch (Exception e) {
+							Logger.Fatal (
+								"Cannot dispose {0} for note '{1}': {2}", 
+								type, pair.Key.Title, e);
+						}
+
+						if (null != references)
+							references.Add (new PluginReference (
+									plugin, pair.Key.Title));
+					}
+				}
+			}
 		}
 
 		void OnPluginCreated (object sender, FileSystemEventArgs args)
@@ -319,25 +587,14 @@ namespace Tomboy
 			Logger.Log ("Plugin '{0}' Created", 
 					   Path.GetFileName (args.FullPath));
 
-			ArrayList asm_plugins = FindPluginTypesInFile (args.FullPath);
+			IList<Type> asm_plugins = FindPluginTypesInFile (args.FullPath);
 
 			// Add the plugin to the list
+			// and load the added plugin for all existing plugged in notes
 			foreach (Type type in asm_plugins) {
-				plugin_types.Add (type);
-			}
-
-			// Load the added plugin for all existing plugged in notes
-			foreach (Type type in asm_plugins) {
-				foreach (Note note in plugin_hash.Keys) {
-					NotePlugin plugin = (NotePlugin) 
-						Activator.CreateInstance (type);
-					if (plugin == null)
-						continue;
-
-					plugin.Initialize (note);
-
-					ArrayList note_plugins = (ArrayList) plugin_hash [note];
-					note_plugins.Add (plugin);
+				if (IsPluginEnabled (type)) {
+					plugin_types.Add (type);
+					AttachPlugin (type);
 				}
 			}
 
@@ -349,64 +606,152 @@ namespace Tomboy
 			Logger.Log ("Plugin '{0}' Deleted", 
 					   Path.GetFileName (args.FullPath));
 
-			ArrayList kill_list = new ArrayList ();
+			List<Type> kill_list = new List<Type> ();
 
 			// Find the plugins in the deleted assembly
 			foreach (Type type in plugin_types) {
-				if (type.Assembly.Location == args.FullPath) {
+				if (type.Assembly.Location == args.FullPath)
 					kill_list.Add (type);
-				}
 			}
 
 			foreach (Type type in kill_list) {
 				plugin_types.Remove (type);
-			}
-
-			foreach (Note note in plugin_hash.Keys) {
-				ArrayList note_plugins = (ArrayList) plugin_hash [note];
-
-				for (int i = 0; i < note_plugins.Count; i++) {
-					NotePlugin plugin = (NotePlugin) note_plugins [i];
-
-					if (kill_list.Contains (plugin.GetType ())) {
-						// Allow the plugin to free resources
-						plugin.Dispose ();
-						note_plugins.Remove (plugin);
-					}
-				}
+				DetachPlugin (type);
 			}
 
 			kill_list.Clear ();
 		}
 
-		ArrayList FindPluginTypes ()
+		public Type[] Plugins
 		{
-			ArrayList all_plugin_types = new ArrayList ();
+			get
+			{
+				List<Type> plugins = new List<Type> (plugin_types.Count);
 
-			// Load the stock plugins
-			foreach (Type type in stock_plugins) {
-				all_plugin_types.Add (type);
+				foreach (Type type in plugin_types) {
+					if (!IsBuiltin (type))
+						plugins.Add (type);
+				}
+
+				return plugins.ToArray ();
+			}
+		}
+
+		static string[] GetActivePlugins ()
+		{
+			return (string[]) Preferences.Get (Preferences.ENABLED_PLUGINS);
+		}
+
+		public static bool IsBuiltin (Type plugin)
+		{
+			return plugin.Assembly == typeof (PluginManager).Assembly;
+		}
+
+		public bool IsPluginEnabled (Type plugin)
+		{
+			return IsBuiltin (plugin) || 
+					Array.IndexOf (GetActivePlugins (), plugin.Name) >= 0;
+		}
+
+		public void SetPluginEnabled (Type plugin, bool enabled)
+		{
+			List<string> active_plugins = new List<string> (GetActivePlugins ());
+			int index = active_plugins.IndexOf (plugin.Name);
+
+			if (enabled != (index >= 0)) {
+				if (enabled) {
+					active_plugins.Add (plugin.Name);
+					AttachPlugin (plugin);
+				} else {
+					active_plugins.RemoveAt (index);
+					DetachPlugin (plugin);
+				}
+
+				Preferences.Set (Preferences.ENABLED_PLUGINS,
+						active_plugins.ToArray ());
+			}
+		}
+
+		public static PluginInfoAttribute GetPluginInfo(Type plugin)
+		{
+			return Attribute.GetCustomAttribute (plugin, 
+					typeof (PluginInfoAttribute)) as PluginInfoAttribute;
+		}
+
+		public static string GetPluginName (Type type, PluginInfoAttribute info)
+		{
+			string name = null;
+			
+			if (null != info)
+				name = info.Name;
+			if (null == name)
+				name = type.Name;
+
+			return name;
+		}
+
+		public static string GetPluginVersion (Type type, PluginInfoAttribute info)
+		{
+			string version = null;
+			
+			if (null != info)
+				version = info.Version;
+
+			if (null == version) {
+				foreach (Attribute attribute
+						in type.Assembly.GetCustomAttributes (true)) {
+					AssemblyInformationalVersionAttribute productVersion =
+						attribute as AssemblyInformationalVersionAttribute;
+
+					if (null != productVersion) {
+						version = productVersion.InformationalVersion;
+						break;
+					}
+
+					AssemblyFileVersionAttribute fileVersion = 
+						attribute as AssemblyFileVersionAttribute;
+
+					if (null != fileVersion) {
+						version = fileVersion.Version;
+						break;
+					}
+				}
 			}
 
-			// Load system default plugins
-			ArrayList sys_plugin_types;
-			sys_plugin_types = FindPluginTypesInDirectory (Defines.SYS_PLUGINS_DIR);
-			foreach (Type type in sys_plugin_types) {
-				all_plugin_types.Add (type);
-			}
+			if (null == version)
+				version = type.Assembly.GetName().Version.ToString();
 
-			// Load user's plugins
-			ArrayList user_plugin_types = FindPluginTypesInDirectory (plugins_dir);
-			foreach (Type type in user_plugin_types) {
-				all_plugin_types.Add (type);
-			}
+			return version;
+		}
+
+		public static string GetPluginName (Type type)
+		{
+			return GetPluginName (type, GetPluginInfo (type));
+		}
+
+		public static Gtk.Widget CreatePreferencesWidget (PluginInfoAttribute info)
+		{
+			if (null != info && null != info.PreferencesWidget)
+				return (Gtk.Widget)Activator.CreateInstance (info.PreferencesWidget);
+
+			return null;
+		}
+
+		IList<Type> FindPluginTypes ()
+		{
+			List<Type> all_plugin_types = new List<Type> ();
+
+			all_plugin_types.AddRange (stock_plugins);
+			all_plugin_types.AddRange (
+					FindPluginTypesInDirectory (Defines.SYS_PLUGINS_DIR));
+			all_plugin_types.AddRange (FindPluginTypesInDirectory (plugins_dir));
 
 			return all_plugin_types;
 		}
 
-		static ArrayList FindPluginTypesInDirectory (string dirpath)
+		static IList<Type> FindPluginTypesInDirectory (string dirpath)
 		{
-			ArrayList dir_plugin_types = new ArrayList ();
+			IList<Type> dir_plugin_types = new List<Type> ();
 			string [] files;
 			
 			try {
@@ -422,7 +767,7 @@ namespace Tomboy
 				Console.Write ("Trying Plugin: {0} ... ", Path.GetFileName (file));
 				
 				try {
-					ArrayList asm_plugins = FindPluginTypesInFile (file);
+					IList<Type> asm_plugins = FindPluginTypesInFile (file);
 					foreach (Type type in asm_plugins) {
 						dir_plugin_types.Add (type);
 					}
@@ -434,20 +779,20 @@ namespace Tomboy
 			return dir_plugin_types;
 		}
 
-		static ArrayList FindPluginTypesInFile (string filepath)
+		static IList<Type> FindPluginTypesInFile (string filepath)
 		{
 			Assembly asm = Assembly.LoadFrom (filepath);
 			return FindPluginTypesInAssembly (asm);
 		}
 
-		static ArrayList FindPluginTypesInAssembly (Assembly asm)
+		static IList<Type> FindPluginTypesInAssembly (Assembly asm)
 		{
+			IList<Type> asm_plugins = new List<Type> ();
 			Type [] types = asm.GetTypes ();
-			ArrayList asm_plugins = new ArrayList ();
 			bool found_one = false;
 
 			foreach (Type type in types) {
-				if (type.IsSubclassOf (typeof (NotePlugin))) {
+				if (typeof (IPlugin).IsAssignableFrom (type)) {
 					Console.Write ("{0}. ", type.FullName);
 					asm_plugins.Add (type);
 					found_one = true;

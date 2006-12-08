@@ -7,6 +7,11 @@ namespace Tomboy
 {
 	public class Preferences
 	{
+		static readonly string[] DefaultEnabledPlugins = {
+			"EvolutionPlugin", "ExportToHTMLPlugin", "FixedWidthPlugin",
+			"NoteOfTheDayPlugin", "PrintPlugin", "StickyNoteImporter"
+		};
+
 		public const string ENABLE_SPELLCHECKING = "/apps/tomboy/enable_spellchecking";
 		public const string ENABLE_WIKIWORDS = "/apps/tomboy/enable_wikiwords";
 		public const string ENABLE_CUSTOM_FONT = "/apps/tomboy/enable_custom_font";
@@ -15,6 +20,7 @@ namespace Tomboy
 		public const string CUSTOM_FONT_FACE = "/apps/tomboy/custom_font_face";
 		public const string MENU_NOTE_COUNT = "/apps/tomboy/menu_note_count";
 		public const string MENU_PINNED_NOTES = "/apps/tomboy/menu_pinned_notes";
+		public const string ENABLED_PLUGINS = "/apps/tomboy/enabled_plugins";
 
 		public const string KEYBINDING_SHOW_NOTE_MENU = "/apps/tomboy/global_keybindings/show_note_menu";
 		public const string KEYBINDING_OPEN_START_HERE = "/apps/tomboy/global_keybindings/open_start_here";
@@ -63,6 +69,9 @@ namespace Tomboy
 
 			case MENU_PINNED_NOTES:
 				return "";
+
+			case ENABLED_PLUGINS:
+				return DefaultEnabledPlugins;
 
 			case KEYBINDING_SHOW_NOTE_MENU:
 				return "<Alt>F12";
@@ -119,17 +128,34 @@ namespace Tomboy
 
 	public class PreferencesDialog : Gtk.Dialog
 	{
+		readonly PluginManager plugin_manager;
+
+		Type current_plugin;
+		PluginInfoAttribute plugin_info;
+
 		Gtk.Button font_button;
 		Gtk.Label font_face;
 		Gtk.Label font_size;
 
-		public PreferencesDialog ()
+		Gtk.ListStore plugin_store;
+		Gtk.Label plugin_name;
+
+		Gtk.TextView plugin_description;
+		Gtk.TextView plugin_author;
+		Gtk.TextView plugin_website;
+		Gtk.TextView plugin_filename;
+
+		Gtk.Button plugin_preferences;
+
+		public PreferencesDialog (PluginManager plugin_manager)
 			: base ()
 		{
+			this.plugin_manager = plugin_manager;
+
 			IconName = "tomboy";
 			HasSeparator = false;
 			BorderWidth = 5;
-			Resizable = false;
+			Resizable = true;
 			Title = Catalog.GetString ("Tomboy Preferences");
 
 			VBox.Spacing = 5;
@@ -144,10 +170,11 @@ namespace Tomboy
 			notebook.Show ();
 
 			notebook.AppendPage (MakeEditingPane (), 
-					     new Gtk.Label (Catalog.GetString ("Editing")));
-
+				new Gtk.Label (Catalog.GetString ("Editing")));
 			notebook.AppendPage (MakeHotkeysPane (), 
-					     new Gtk.Label (Catalog.GetString ("Hotkeys")));
+				new Gtk.Label (Catalog.GetString ("Hotkeys")));
+			notebook.AppendPage (MakePluginsPane (), 
+				new Gtk.Label (Catalog.GetString ("Plugins")));
 
 			VBox.PackStart (notebook, true, true, 0);
 
@@ -391,6 +418,269 @@ namespace Tomboy
 			return hotkeys_list;
 		}
 
+		// Page 3
+		// Plugin Preferences
+		public Gtk.Widget MakePluginsPane ()
+		{
+			Gtk.HPaned pane;
+
+			pane = new Gtk.HPaned ();
+			pane.Pack2 (MakePluginDetails (), true, false);
+			pane.Pack1 (MakePluginList (), false, false);
+			pane.BorderWidth = 6;
+			pane.ShowAll ();
+
+			return pane;
+		}
+
+		Gtk.Widget MakePluginList ()
+		{
+			Gtk.TreeView tree_view;
+			Gtk.CellRendererText caption;
+			Gtk.CellRendererToggle enabled;
+			Gtk.ScrolledWindow scroller;
+
+			Gtk.TreeIter first_plugin;
+
+			plugin_store = new Gtk.ListStore (typeof (Type), typeof (string));
+			plugin_store.SetSortColumnId (1, Gtk.SortType.Ascending);
+			
+			foreach (Type type in plugin_manager.Plugins) {
+				string name = PluginManager.GetPluginName (type);
+				plugin_store.AppendValues (type, name);
+			}
+
+			tree_view = new Gtk.TreeView (plugin_store);
+			tree_view.HeadersVisible = false;
+			tree_view.SetSizeRequest (160, 0);
+			tree_view.Selection.Mode = Gtk.SelectionMode.Browse;
+			tree_view.Selection.Changed += SelectedPluginChanged;
+
+			enabled = new Gtk.CellRendererToggle ();
+			enabled.Toggled += PluginStateToggled;
+			tree_view.AppendColumn (null, enabled, (Gtk.TreeCellDataFunc)GetPluginState);
+			
+			caption = new Gtk.CellRendererText ();
+			caption.Ellipsize = Pango.EllipsizeMode.End;
+			tree_view.AppendColumn (null, caption, "text", 1);
+
+			scroller = new Gtk.ScrolledWindow ();
+			scroller.BorderWidth = 6;
+			scroller.ShadowType = Gtk.ShadowType.In;
+			scroller.SetPolicy (Gtk.PolicyType.Never, Gtk.PolicyType.Automatic);
+			scroller.Add (tree_view);
+
+			if (plugin_store.GetIterFirst (out first_plugin))
+				tree_view.Selection.SelectIter (first_plugin);
+
+			return scroller;
+		}
+
+		void GetPluginState (
+			Gtk.TreeViewColumn column, Gtk.CellRenderer cell,
+			Gtk.TreeModel model, Gtk.TreeIter iter)
+		{
+			Type plugin = (Type)model.GetValue(iter, 0);
+
+			((Gtk.CellRendererToggle)cell).Active =
+				plugin_manager.IsPluginEnabled (plugin); 
+		}
+
+		void PluginStateToggled (object sender, Gtk.ToggledArgs e)
+		{
+			Gtk.TreeIter iter;
+
+			if (plugin_store.GetIter (out iter, new Gtk.TreePath (e.Path))) {
+				Type plugin = (Type)plugin_store.GetValue (iter, 0);
+				bool enabled = plugin_manager.IsPluginEnabled (plugin);
+				plugin_manager.SetPluginEnabled (plugin, !enabled);
+			}
+		}
+
+		string MakePluginTitle ()
+		{
+			return String.Format (
+				"<span size='large' weight='bold'>{0} {1}</span>",
+				PluginManager.GetPluginName (current_plugin, plugin_info),
+				PluginManager.GetPluginVersion (current_plugin, plugin_info));
+		}
+
+		void SelectedPluginChanged (object sender, EventArgs e)
+		{
+			Gtk.TreeSelection selection;
+			Gtk.TreeModel model;
+			Gtk.TreeIter iter;
+			
+			selection = (Gtk.TreeSelection)sender;
+
+			if (selection.GetSelected (out model, out iter)) {
+				current_plugin = (Type)model.GetValue (iter, 0);
+				plugin_info = PluginManager.GetPluginInfo (current_plugin);
+				string description = null, author = null, website = null;
+
+				if (null != plugin_info) {
+					description = plugin_info.Description;
+					website = plugin_info.WebSite;
+					author = plugin_info.Author;
+				}
+
+				plugin_name.Markup = MakePluginTitle ();
+
+				SetPluginDetail (plugin_filename, current_plugin.Assembly.Location);
+				SetPluginDetail (plugin_description, description);
+				SetPluginDetail (plugin_website, website);
+				SetPluginDetail (plugin_author, author);
+
+				plugin_preferences.Sensitive = 
+					null != plugin_info && null != plugin_info.PreferencesWidget;
+			} else {
+				current_plugin = null;
+				plugin_info = null;
+			}
+		}
+
+		static void SetPluginDetail (Gtk.TextView detail, string text)
+		{
+			if (null == text || 0 == text.Length)
+				text = Catalog.GetString ("Not available");
+
+			detail.Buffer.Text = text;
+		}
+
+		static Gtk.TextView MakePluginDetail (
+				Gtk.Table table, uint row, string caption)
+		{
+			Gtk.Label label;
+			Gtk.TextView detail;
+
+			label = MakeLabel ("<b>{0}</b>", Catalog.GetString (caption));
+			label.Yalign = 0.0f;
+
+			detail = new Gtk.TextView ();
+			detail.WrapMode = Gtk.WrapMode.WordChar;
+			detail.Editable = false;
+
+			table.Attach (
+				label, 0, 1, row, row + 1,
+				Gtk.AttachOptions.Fill,
+				Gtk.AttachOptions.Fill, 0, 0);
+			table.Attach (
+				detail, 1, 2, row, row + 1, 
+				Gtk.AttachOptions.Fill | Gtk.AttachOptions.Expand, 
+				Gtk.AttachOptions.Fill, 0, 0);
+
+			return detail;
+		}
+
+		Gtk.Widget MakePluginDetails ()
+		{
+			Gtk.Table table;
+			Gtk.ScrolledWindow scroller;
+			Gdk.Color base_color;
+			Gtk.VBox vbox;
+
+			Gtk.HBox action_area;
+			Gtk.Button open_plugin_folder;
+
+			// Name...
+
+			plugin_name = new Gtk.Label ();
+			plugin_name.UseMarkup = true;
+			plugin_name.UseUnderline = false;
+			plugin_name.ModifyBase (Gtk.StateType.Normal,
+					new Gdk.Color (255, 0, 0));
+
+			// Details...
+
+			table = new Gtk.Table (4, 2, false);
+			table.BorderWidth = 6;
+			table.ColumnSpacing = 6;
+			table.RowSpacing = 6;
+
+			plugin_description = MakePluginDetail(
+				table, 0, Catalog.GetString ("Description:"));
+			plugin_author = MakePluginDetail (
+				table, 1, Catalog.GetString ("Written by:"));
+			plugin_website = MakePluginDetail (
+				table, 2, Catalog.GetString ("Web site:"));
+			plugin_filename = MakePluginDetail (
+				table, 3, Catalog.GetString ("File name:"));
+
+			scroller = new Gtk.ScrolledWindow ();
+			scroller.SetPolicy (Gtk.PolicyType.Never, Gtk.PolicyType.Automatic);
+			scroller.AddWithViewport (table);
+
+			plugin_description.EnsureStyle ();
+			base_color = plugin_description.Style.Base (Gtk.StateType.Normal);
+			scroller.Child.ModifyBg (Gtk.StateType.Normal, base_color);
+
+			// Action area...
+
+			plugin_preferences = new Gtk.Button (Gtk.Stock.Preferences);
+			plugin_preferences.Clicked += ShowPluginPreferences;
+
+			open_plugin_folder = new Gtk.Button ("_Open Plugin Folder");
+			open_plugin_folder.Image =
+				new Gtk.Image (Gtk.Stock.Directory, Gtk.IconSize.Button);
+			open_plugin_folder.Clicked += delegate (object sender, EventArgs e) {
+				plugin_manager.ShowPluginsDirectory();
+			};
+
+			action_area = new Gtk.HBox (false, 12);
+			action_area.PackStart (plugin_preferences, false, false, 0);
+			action_area.PackEnd (open_plugin_folder, false, false, 0);
+			action_area.ModifyBase (Gtk.StateType.Normal,
+					new Gdk.Color (0, 255, 0));
+
+			// VBox
+
+			vbox = new Gtk.VBox (false, 6);
+			vbox.PackStart (plugin_name, false, true, 0);
+			vbox.PackStart (scroller, true, true, 0);
+			vbox.PackStart (action_area, false, true, 0);
+			vbox.BorderWidth = 6;
+			vbox.ShowAll ();
+
+			return vbox;
+		}
+
+		void ShowPluginPreferences (object sender, EventArgs e)
+		{
+			Gtk.Image icon = 
+				new Gtk.Image (Gtk.Stock.Preferences, Gtk.IconSize.Dialog);
+
+			Gtk.Label caption = new Gtk.Label();
+			caption.Markup = MakePluginTitle ();
+			caption.Xalign = 0;
+
+			Gtk.Widget preferences =
+				PluginManager.CreatePreferencesWidget (plugin_info);
+			
+			Gtk.HBox hbox = new Gtk.HBox (false, 6);
+			Gtk.VBox vbox = new Gtk.VBox (false, 6);
+			vbox.BorderWidth = 6;
+			
+			hbox.PackStart (icon, false, false, 0);
+			hbox.PackStart (caption, true, true, 0);
+			vbox.PackStart (hbox, false, false, 0);
+			
+			vbox.PackStart (preferences, true, true, 0);			
+			vbox.ShowAll ();
+			
+			Gtk.Dialog dialog = new Gtk.Dialog (
+				string.Format (
+					Catalog.GetString ("{0} Preferences"),
+						plugin_info.Name),
+				this,
+				Gtk.DialogFlags.DestroyWithParent | Gtk.DialogFlags.NoSeparator,
+				Gtk.Stock.Close, Gtk.ResponseType.Close);
+
+			dialog.VBox.PackStart (vbox, true, true, 0);
+
+			dialog.Run ();
+			dialog.Destroy();
+		}
+
 		void SetupPropertyEditor (PropertyEditor peditor)
 		{
 			// Ensure the key exists
@@ -400,9 +690,13 @@ namespace Tomboy
 
 		// Utilities...
 
-		Gtk.Label MakeLabel (string label_text)
+		static Gtk.Label MakeLabel (string label_text, params object[] args)
 		{
+			if (args.Length > 0)
+				label_text = String.Format (label_text, args);
+
 			Gtk.Label label = new Gtk.Label (label_text);
+
 			label.UseMarkup = true;
 			label.Justify = Gtk.Justification.Left;
 			label.SetAlignment (0.0f, 0.5f);
@@ -411,7 +705,7 @@ namespace Tomboy
 			return label;
 		}
 
-		Gtk.CheckButton MakeCheckButton (string label_text)
+		static Gtk.CheckButton MakeCheckButton (string label_text)
 		{
 			Gtk.Label label = MakeLabel (label_text);
 
@@ -422,10 +716,9 @@ namespace Tomboy
 			return check;
 		}
 
-		Gtk.Label MakeTipLabel (string label_text)
+		static Gtk.Label MakeTipLabel (string label_text)
 		{
-			Gtk.Label label =  MakeLabel (String.Format ("<small>{0}</small>", 
-								     label_text));
+			Gtk.Label label =  MakeLabel ("<small>{0}</small>", label_text);
 			label.LineWrap = true;
 			label.Xpad = 20;
 			return label;
@@ -436,9 +729,11 @@ namespace Tomboy
 		void OnFontButtonClicked (object sender, EventArgs args)
 		{
 			Gtk.FontSelectionDialog font_dialog = 
-				new Gtk.FontSelectionDialog (Catalog.GetString ("Choose Note Font"));
+				new Gtk.FontSelectionDialog (
+					Catalog.GetString ("Choose Note Font"));
 
-			string font_name = (string) Preferences.Get (Preferences.CUSTOM_FONT_FACE);
+			string font_name = (string)
+				Preferences.Get (Preferences.CUSTOM_FONT_FACE);
 			font_dialog.SetFontName (font_name);
 
 			if ((int) Gtk.ResponseType.Ok == font_dialog.Run ()) {
@@ -455,7 +750,8 @@ namespace Tomboy
 
 		void UpdateFontButton (string font_desc)
 		{
-			Pango.FontDescription desc = Pango.FontDescription.FromString (font_desc);
+			Pango.FontDescription desc =
+				Pango.FontDescription.FromString (font_desc);
 
 			// Set the size label
 			font_size.Text = (desc.Size / Pango.Scale.PangoScale).ToString ();
@@ -469,3 +765,4 @@ namespace Tomboy
 		}
 	}
 }
+
