@@ -28,9 +28,11 @@ public class StickyNoteImporter : NotePlugin
 
 	private string sticky_xml_path;
 	
+	Gtk.ImageMenuItem item;
+	
 	protected override void Initialize ()
 	{
-		Gtk.ImageMenuItem item = 
+		item = 
 			new Gtk.ImageMenuItem (Catalog.GetString ("Import from Sticky Notes"));
 		item.Image = new Gtk.Image (Gtk.Stock.Convert, Gtk.IconSize.Menu);
 		item.Activated += ImportButtonClicked;
@@ -46,7 +48,9 @@ public class StickyNoteImporter : NotePlugin
 	
 	protected override void Shutdown ()
 	{
-		// Do nothing.
+		// Disconnect the event handlers so
+		// there aren't any memory leaks.
+		item.Activated -= ImportButtonClicked;
 	}
 
 	protected override void OnNoteOpened () 

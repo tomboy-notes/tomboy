@@ -203,6 +203,12 @@ public class NoteOfTheDayPlugin : NotePlugin
 			timeout.Cancel();
 			timeout = null;
 		}
+		
+		// Disconnect the event handlers so
+		// there aren't any memory leaks.
+		Preferences.SettingChanged -= OnSettingChanged;
+		item.Toggled -= OnToggleEnabled;
+		enabled_toggled -= OnToggleMenuItem;
 	}
 
 	protected override void OnNoteOpened () 
