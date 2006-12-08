@@ -358,7 +358,7 @@ namespace Tomboy
 		public void ShowPreferences ()
 		{
 			if (prefs_dlg == null) {
-				prefs_dlg = new PreferencesDialog ();
+				prefs_dlg = new PreferencesDialog (manager.PluginManager);
 				prefs_dlg.Response += OnPreferencesResponse;
 			}
 			prefs_dlg.Present ();
