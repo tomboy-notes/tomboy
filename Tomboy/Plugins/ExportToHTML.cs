@@ -16,6 +16,8 @@ public class ExportToHTMLPlugin : NotePlugin
 	const string stylesheet_name = "ExportToHTML.xsl";
 	static XslTransform xsl;
 
+	Gtk.ImageMenuItem item;
+
 	static ExportToHTMLPlugin ()
 	{
 		Assembly asm = Assembly.GetExecutingAssembly ();
@@ -43,7 +45,7 @@ public class ExportToHTMLPlugin : NotePlugin
 
 	protected override void Initialize ()
 	{
-		Gtk.ImageMenuItem item = 
+		item = 
 			new Gtk.ImageMenuItem (Catalog.GetString ("Export to HTML"));
 		item.Image = new Gtk.Image (Gtk.Stock.Save, Gtk.IconSize.Menu);
 		item.Activated += ExportButtonClicked;
@@ -53,7 +55,9 @@ public class ExportToHTMLPlugin : NotePlugin
 
 	protected override void Shutdown ()
 	{
-		// Do nothing.
+		// Disconnect the event handlers so
+		// there aren't any memory leaks.
+		item.Activated -= ExportButtonClicked;
 	}
 
 	protected override void OnNoteOpened () 

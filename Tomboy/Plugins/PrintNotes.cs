@@ -9,10 +9,11 @@ using Tomboy;
 
 public class PrintPlugin : NotePlugin
 {
+	Gtk.ImageMenuItem item;
+
 	protected override void Initialize ()
 	{
-		Gtk.ImageMenuItem item = 
-			new Gtk.ImageMenuItem (Catalog.GetString ("Print"));
+		item = new Gtk.ImageMenuItem (Catalog.GetString ("Print"));
 		item.Image = new Gtk.Image (Gtk.Stock.Print, Gtk.IconSize.Menu);
 		item.Activated += PrintButtonClicked;
 		item.Show ();
@@ -21,7 +22,9 @@ public class PrintPlugin : NotePlugin
 
 	protected override void Shutdown ()
 	{
-		// Do nothing.
+		// Disconnect the event handlers so
+		// there aren't any memory leaks.
+		item.Activated -= PrintButtonClicked;
 	}
 
 	protected override void OnNoteOpened () 
