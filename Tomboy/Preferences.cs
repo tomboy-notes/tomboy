@@ -227,7 +227,7 @@ namespace Tomboy
 
 				label = MakeTipLabel (
 					Catalog.GetString ("Misspellings will be underlined " +
-							   "in red, and correct spelling " +
+							   "in red, with correct spelling " +
 							   "suggestions shown in the context " +
 							   "menu."));
 				options_list.PackStart (label, false, false, 0);
@@ -243,10 +243,11 @@ namespace Tomboy
 								  check);
 			SetupPropertyEditor (peditor);
 
-			label = MakeTipLabel (Catalog.GetString ("Enable this option to highlight " +
-								 "words <b>ThatLookLikeThis</b>. " +
-								 "Clicking the word will create a " +
-								 "note with that name."));
+			label = MakeTipLabel (
+				Catalog.GetString ("Enable this option to highlight " +
+						   "words <b>ThatLookLikeThis</b>. " +
+						   "Clicking the word will create a " +
+						   "note with that name."));
 			options_list.PackStart (label, false, false, 0);
 
 
@@ -330,11 +331,12 @@ namespace Tomboy
 								check);
 			SetupPropertyEditor (keybind_peditor);
 
-			label = MakeTipLabel (Catalog.GetString ("Hotkeys allow you to quickly access " +
-								 "your notes from anywhere with a keypress. " +
-								 "Example Hotkeys: " +
-								 "<b>&lt;Control&gt;&lt;Shift&gt;F11</b>, " +
-								 "<b>&lt;Alt&gt;N</b>"));
+			label = MakeTipLabel (
+				Catalog.GetString ("Hotkeys allow you to quickly access " +
+						   "your notes from anywhere with a keypress. " +
+						   "Example Hotkeys: " +
+						   "<b>&lt;Control&gt;&lt;Shift&gt;F11</b>, " +
+						   "<b>&lt;Alt&gt;N</b>"));
 			hotkeys_list.PackStart (label, false, false, 0);
 
 			align = new Gtk.Alignment (0.5f, 0.5f, 0.0f, 1.0f);
@@ -409,8 +411,9 @@ namespace Tomboy
 			entry.Show ();
 			table.Attach (entry, 1, 2, 3, 4);
 
-			peditor = new PropertyEditorEntry (Preferences.KEYBINDING_OPEN_RECENT_CHANGES, 
-							   entry);
+			peditor = new PropertyEditorEntry (
+				Preferences.KEYBINDING_OPEN_RECENT_CHANGES, 
+				entry);
 			SetupPropertyEditor (peditor);
 
 			keybind_peditor.AddGuard (entry);
@@ -459,7 +462,9 @@ namespace Tomboy
 
 			enabled = new Gtk.CellRendererToggle ();
 			enabled.Toggled += PluginStateToggled;
-			tree_view.AppendColumn (null, enabled, (Gtk.TreeCellDataFunc)GetPluginState);
+			tree_view.AppendColumn (null, 
+						enabled, 
+						(Gtk.TreeCellDataFunc) GetPluginState);
 			
 			caption = new Gtk.CellRendererText ();
 			caption.Ellipsize = Pango.EllipsizeMode.End;
@@ -481,9 +486,9 @@ namespace Tomboy
 			Gtk.TreeViewColumn column, Gtk.CellRenderer cell,
 			Gtk.TreeModel model, Gtk.TreeIter iter)
 		{
-			Type plugin = (Type)model.GetValue(iter, 0);
+			Type plugin = (Type) model.GetValue (iter, 0);
 
-			((Gtk.CellRendererToggle)cell).Active =
+			((Gtk.CellRendererToggle) cell).Active =
 				plugin_manager.IsPluginEnabled (plugin); 
 		}
 
@@ -492,7 +497,7 @@ namespace Tomboy
 			Gtk.TreeIter iter;
 
 			if (plugin_store.GetIter (out iter, new Gtk.TreePath (e.Path))) {
-				Type plugin = (Type)plugin_store.GetValue (iter, 0);
+				Type plugin = (Type) plugin_store.GetValue (iter, 0);
 				bool enabled = plugin_manager.IsPluginEnabled (plugin);
 				plugin_manager.SetPluginEnabled (plugin, !enabled);
 			}
@@ -515,7 +520,7 @@ namespace Tomboy
 			selection = (Gtk.TreeSelection)sender;
 
 			if (selection.GetSelected (out model, out iter)) {
-				current_plugin = (Type)model.GetValue (iter, 0);
+				current_plugin = (Type) model.GetValue (iter, 0);
 				plugin_info = PluginManager.GetPluginInfo (current_plugin);
 				string description = null, author = null, website = null;
 
@@ -533,7 +538,8 @@ namespace Tomboy
 				SetPluginDetail (plugin_author, author);
 
 				plugin_preferences.Sensitive = 
-					null != plugin_info && null != plugin_info.PreferencesWidget;
+					null != plugin_info && 
+					null != plugin_info.PreferencesWidget;
 			} else {
 				current_plugin = null;
 				plugin_info = null;
@@ -561,14 +567,16 @@ namespace Tomboy
 			detail.WrapMode = Gtk.WrapMode.WordChar;
 			detail.Editable = false;
 
-			table.Attach (
-				label, 0, 1, row, row + 1,
-				Gtk.AttachOptions.Fill,
-				Gtk.AttachOptions.Fill, 0, 0);
-			table.Attach (
-				detail, 1, 2, row, row + 1, 
-				Gtk.AttachOptions.Fill | Gtk.AttachOptions.Expand, 
-				Gtk.AttachOptions.Fill, 0, 0);
+			table.Attach (label, 
+				      0, 1, row, row + 1,
+				      Gtk.AttachOptions.Fill,
+				      Gtk.AttachOptions.Fill, 
+				      0, 0);
+			table.Attach (detail, 
+				      1, 2, row, row + 1, 
+				      Gtk.AttachOptions.Fill | Gtk.AttachOptions.Expand, 
+				      Gtk.AttachOptions.Fill, 
+				      0, 0);
 
 			return detail;
 		}
@@ -598,7 +606,7 @@ namespace Tomboy
 			table.ColumnSpacing = 6;
 			table.RowSpacing = 6;
 
-			plugin_description = MakePluginDetail(
+			plugin_description = MakePluginDetail (
 				table, 0, Catalog.GetString ("Description:"));
 			plugin_author = MakePluginDetail (
 				table, 1, Catalog.GetString ("Written by:"));
@@ -617,15 +625,20 @@ namespace Tomboy
 
 			// Action area...
 
-			plugin_preferences = new Gtk.Button (Gtk.Stock.Preferences);
-			plugin_preferences.Clicked += ShowPluginPreferences;
+			plugin_preferences = 
+				GuiUtils.MakeImageButton (Gtk.Stock.Preferences,
+							  Catalog.GetString ("Settings"));
+			plugin_preferences.Clicked += ShowPluginSettings;
 
-			open_plugin_folder = new Gtk.Button ("_Open Plugin Folder");
-			open_plugin_folder.Image =
-				new Gtk.Image (Gtk.Stock.Directory, Gtk.IconSize.Button);
-			open_plugin_folder.Clicked += delegate (object sender, EventArgs e) {
-				plugin_manager.ShowPluginsDirectory();
-			};
+			open_plugin_folder = 
+				GuiUtils.MakeImageButton (
+					Gtk.Stock.Directory,
+					Catalog.GetString ("_Open Plugins Folder"));
+			open_plugin_folder.Clicked += 
+				delegate (object sender, EventArgs e) 
+				{
+					plugin_manager.ShowPluginsDirectory ();
+				};
 
 			action_area = new Gtk.HBox (false, 12);
 			action_area.PackStart (plugin_preferences, false, false, 0);
@@ -645,7 +658,7 @@ namespace Tomboy
 			return vbox;
 		}
 
-		void ShowPluginPreferences (object sender, EventArgs e)
+		void ShowPluginSettings (object sender, EventArgs e)
 		{
 			Gtk.Image icon = 
 				new Gtk.Image (Gtk.Stock.Preferences, Gtk.IconSize.Dialog);
@@ -669,9 +682,8 @@ namespace Tomboy
 			vbox.ShowAll ();
 			
 			Gtk.Dialog dialog = new Gtk.Dialog (
-				string.Format (
-					Catalog.GetString ("{0} Preferences"),
-						plugin_info.Name),
+				string.Format (Catalog.GetString ("{0} Settings"),
+					       plugin_info.Name),
 				this,
 				Gtk.DialogFlags.DestroyWithParent | Gtk.DialogFlags.NoSeparator,
 				Gtk.Stock.Close, Gtk.ResponseType.Close);
