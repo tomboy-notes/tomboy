@@ -10,6 +10,7 @@ using Tomboy;
 public class BacklinkMenuItem : Gtk.ImageMenuItem, System.IComparable
 {
 	Note note;
+	string title_search;
 	
 	static Gdk.Pixbuf note_icon;
 	
@@ -18,10 +19,11 @@ public class BacklinkMenuItem : Gtk.ImageMenuItem, System.IComparable
 		note_icon = GuiUtils.GetIcon ("tomboy-note", 22);
 	}
 
-	public BacklinkMenuItem (Note note) : 
+	public BacklinkMenuItem (Note note, string title_search) : 
 			base (note.Title)
 	{
 		this.note = note;
+		this.title_search = title_search;
 		this.Image = new Gtk.Image (note_icon);
 	}
 	
@@ -29,6 +31,13 @@ public class BacklinkMenuItem : Gtk.ImageMenuItem, System.IComparable
 	{
 		if (note == null)
 			return;
+		
+		// Show the title of the note
+		// where the user just came from.
+		NoteFindBar find = note.Window.Find;
+		find.ShowAll ();
+		find.Visible = true;
+		find.SearchText = title_search;
 		
 		note.Window.Present ();
 	}
@@ -141,14 +150,16 @@ public class BacklinksPlugin : NotePlugin
 	{
 		ArrayList items = new ArrayList ();
 		
-		string encoded_title = XmlEncoder.Encode (Note.Title.ToLower ());
-		
+		string search_title = Note.Title;
+		string encoded_title = XmlEncoder.Encode (search_title.ToLower ());
+
 		// Go through each note looking for
 		// notes that link to this one.
 		foreach (Note note in Note.Manager.Notes) {
 			if (note != Note // don't match ourself
 						&& CheckNoteHasMatch (note, encoded_title)) {
-				BacklinkMenuItem item = new BacklinkMenuItem (note);
+				BacklinkMenuItem item =
+					new BacklinkMenuItem (note, search_title);
 
 				items.Add (item);
 			}
