@@ -116,8 +116,21 @@ $(BUGZILLA_TARGET): $(BUGZILLA_CSFILES) $(top_builddir)/Tomboy/Tomboy.exe
 	$(CSC) -out:$@ $(CSFLAGS) $(ASSEMBLIES) $(BUGZILLA_CSFILES) $(BUGZILLA_RESOURCES)
 
 
+#
+# Backlinks plugin
+#
+
+BACKLINKS_TARGET = Backlinks.dll
+BACKLINKS_CSFILES = $(srcdir)/Backlinks.cs
+BACKLINKS_RESOURCES = -resource:$(top_srcdir)/data/images/stock_bug.png,stock_bug.png
+
+$(BACKLINKS_TARGET): $(BACKLINKS_CSFILES) $(top_builddir)/Tomboy/Tomboy.exe
+	$(CSC) -out:$@ $(CSFLAGS) $(ASSEMBLIES) $(BACKLINKS_CSFILES) $(BACKLINKS_RESOURCES)
+
+
 pluginsdir = $(pkglibdir)/Plugins
 plugins_DATA = 			\
+	$(BACKLINKS_TARGET)	\
 	$(BUGZILLA_TARGET)	\
 	$(EVO_TARGET)		\
 	$(EXPORT_TARGET)	\
@@ -129,6 +142,7 @@ plugins_DATA = 			\
 
 
 EXTRA_DIST =            	\
+	$(BACKLINKS_CSFILES)	\
 	$(BUGZILLA_CSFILES)	\
 	$(EVO_CSFILES)		\
 	ExportToHTML.xsl	\
@@ -140,6 +154,8 @@ EXTRA_DIST =            	\
 	$(STICKYIMPORT_CSFILES)
 
 CLEANFILES =				\
+	$(BACKLINKS_TARGET)		\
+	$(BACKLINKS_TARGET).mdb	\
 	$(BUGZILLA_TARGET)		\
 	$(BUGZILLA_TARGET).mdb		\
 	$(EVO_TARGET)			\
