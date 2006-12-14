@@ -26,7 +26,7 @@ namespace NDesk.DBus
 			string argName = defaultName;
 
 			//TODO: no need for foreach
-			foreach (ArgumentAttribute aa in attrProvider.GetCustomAttributes (typeof (ArgumentAttribute), false))
+			foreach (ArgumentAttribute aa in attrProvider.GetCustomAttributes (typeof (ArgumentAttribute), true))
 				argName = aa.Name;
 
 			return argName;
@@ -42,7 +42,7 @@ namespace NDesk.DBus
 			//we need to have a proper look at what's really public at some point
 			//this will do for now
 
-			if (type.IsDefined (typeof (InterfaceAttribute), false))
+			if (type.IsDefined (typeof (InterfaceAttribute), true))
 				return true;
 
 			if (type.IsSubclassOf (typeof (MarshalByRefObject)))
@@ -63,7 +63,7 @@ namespace NDesk.DBus
 			//TODO: better fallbacks and namespace mangling when no InterfaceAttribute is available
 
 			//TODO: no need for foreach
-			foreach (InterfaceAttribute ia in type.GetCustomAttributes (typeof (InterfaceAttribute), false))
+			foreach (InterfaceAttribute ia in type.GetCustomAttributes (typeof (InterfaceAttribute), true))
 				interfaceName = ia.Name;
 
 			return interfaceName;
@@ -98,7 +98,7 @@ namespace NDesk.DBus
 
 		public static bool IsDeprecated (ICustomAttributeProvider attrProvider)
 		{
-			return attrProvider.IsDefined (typeof (ObsoleteAttribute), false);
+			return attrProvider.IsDefined (typeof (ObsoleteAttribute), true);
 		}
 	}
 
@@ -120,6 +120,12 @@ namespace NDesk.DBus
 
 		public static object[] GetDynamicValues (Message msg, Type[] types)
 		{
+			//TODO: this validation check should provide better information, eg. message dump or a stack trace
+			if (Protocol.Verbose) {
+				if (Signature.GetSig (types) != msg.Signature)
+					Console.Error.WriteLine ("Warning: The signature of the message does not match that of the handler");
+			}
+
 			object[] vals = new object[types.Length];
 
 			if (msg.Body != null) {
@@ -145,7 +151,7 @@ namespace NDesk.DBus
 			Signature inSig = Signature.GetSig (vals);
 
 			if (vals != null && vals.Length != 0) {
-				MessageWriter writer = new MessageWriter ();
+				MessageWriter writer = new MessageWriter (Connection.NativeEndianness);
 
 				foreach (object arg in vals)
 					writer.Write (arg.GetType (), arg);
@@ -173,7 +179,7 @@ namespace NDesk.DBus
 			Signature inSig = Signature.GetSig (retType);
 
 			if (inSig != Signature.Empty) {
-				MessageWriter writer = new MessageWriter ();
+				MessageWriter writer = new MessageWriter (Connection.NativeEndianness);
 				writer.Write (retType, retVal);
 				replyMsg.Body = writer.ToArray ();
 			}

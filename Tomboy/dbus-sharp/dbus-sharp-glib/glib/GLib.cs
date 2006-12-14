@@ -14,36 +14,33 @@ namespace NDesk.DBus
 	//FIXME: this API needs review and de-unixification. It is horrid, but gets the job done.
 	public static class BusG
 	{
-		static bool SystemDispatch (IOChannel source, IOCondition condition, IntPtr data)
-		{
-			Bus.System.Iterate ();
-			return true;
-		}
-
-		static bool SessionDispatch (IOChannel source, IOCondition condition, IntPtr data)
-		{
-			Bus.Session.Iterate ();
-			return true;
-		}
-
 		static bool initialized = false;
 		public static void Init ()
 		{
 			if (initialized)
 				return;
 
-			Init (Bus.System, SystemDispatch);
-			Init (Bus.Session, SessionDispatch);
+			Init (Bus.System);
+			Init (Bus.Session);
+			//TODO: consider starter bus?
 
 			initialized = true;
 		}
 
-		public static void Init (Connection conn, IOFunc dispatchHandler)
+		public static void Init (Connection conn)
 		{
-			IOChannel channel = new IOChannel ((int)conn.SocketHandle);
-			IO.AddWatch (channel, IOCondition.In, dispatchHandler);
+			IOFunc dispatchHandler = delegate (IOChannel source, IOCondition condition, IntPtr data) {
+				conn.Iterate ();
+				return true;
+			};
+
+			Init (conn, dispatchHandler);
 		}
 
-		//TODO: add public API to watch an arbitrary connection
+		public static void Init (Connection conn, IOFunc dispatchHandler)
+		{
+			IOChannel channel = new IOChannel ((int)conn.Transport.SocketHandle);
+			IO.AddWatch (channel, IOCondition.In, dispatchHandler);
+		}
 	}
 }

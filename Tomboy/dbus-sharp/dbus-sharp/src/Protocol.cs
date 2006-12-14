@@ -143,11 +143,25 @@ namespace NDesk.DBus
 		public string[] Decomposed
 		{
 			get {
-				return Value.Split ('/');
+				return Value.Split (new char[] {'/'}, StringSplitOptions.RemoveEmptyEntries);
 			/*
 			} set {
 				Value = String.Join ("/", value);
 			*/
+			}
+		}
+
+		public ObjectPath Parent
+		{
+			get {
+				if (Value == Root.Value)
+					return new ObjectPath (null);
+
+				string par = Value.Substring (0, Value.LastIndexOf ('/'));
+				if (par == String.Empty)
+					par = "/";
+
+				return new ObjectPath (par);
 			}
 		}
 
@@ -174,11 +188,7 @@ namespace NDesk.DBus
 		//protocol versions that we support
 		public const byte MinVersion = 0;
 		public const byte Version = 1;
-#if PROTO_TYPE_SINGLE
-		public const byte MaxVersion = 2;
-#else
-		public const byte MaxVersion = 1;
-#endif
+		public const byte MaxVersion = Version;
 
 		public static int PadNeeded (int pos, int alignment)
 		{

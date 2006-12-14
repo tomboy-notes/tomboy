@@ -2,11 +2,14 @@
 // This software is made available under the MIT License
 // See COPYING for details
 
+//We send BSD-style credentials on all platforms
+//Doesn't seem to break Linux (but is redundant there)
+//This may turn out to be a bad idea
+#define HAVE_CMSGCRED
+
 using System;
 using System.IO;
 using System.Text;
-using System.Net;
-using System.Net.Sockets;
 
 using System.Runtime.InteropServices;
 
@@ -18,6 +21,10 @@ namespace NDesk.DBus.Transports
 	public class UnixSocket
 	{
 		public const short AF_UNIX = 1;
+		//TODO: SOCK_STREAM is 2 on Solaris
+		public const short SOCK_STREAM = 1;
+
+		//TODO: some of these are provided by libsocket instead of libc on Solaris
 
 		[DllImport ("libc", SetLastError=true)]
 			protected static extern int socket (int domain, int type, int protocol);
@@ -42,6 +49,12 @@ namespace NDesk.DBus.Transports
 		[DllImport ("libc", SetLastError=true)]
 			protected static extern int setsockopt (int s, int optname, IntPtr optval, uint optlen);
 
+		[DllImport ("libc", SetLastError=true)]
+			public static extern int recvmsg (int s, IntPtr msg, int flags);
+
+		[DllImport ("libc", SetLastError=true)]
+			public static extern int sendmsg (int s, IntPtr msg, int flags);
+
 		public int Handle;
 
 		public UnixSocket (int handle)
@@ -51,10 +64,10 @@ namespace NDesk.DBus.Transports
 
 		public UnixSocket ()
 		{
-			//TODO: don't hard-code PF_UNIX and SocketType.Stream
+			//TODO: don't hard-code PF_UNIX and SOCK_STREAM or SocketType.Stream
 			//AddressFamily family, SocketType type, ProtocolType proto
 
-			int r = socket (AF_UNIX, (int)SocketType.Stream, 0);
+			int r = socket (AF_UNIX, SOCK_STREAM, 0);
 			//we should get the Exception from UnixMarshal and throw it here for a better stack trace, but the relevant API seems to be private
 			UnixMarshal.ThrowExceptionForLastErrorIf (r);
 			Handle = r;
@@ -98,11 +111,17 @@ namespace NDesk.DBus.Transports
 		}
 	}
 
-	public class UnixNativeTransport : Transport, IAuthenticator
+	public struct IOVector
+	{
+		public IntPtr Base;
+		public int Length;
+	}
+
+	public class UnixNativeTransport : UnixTransport
 	{
 		protected UnixSocket socket;
 
-		public UnixNativeTransport (string path, bool @abstract)
+		public override void Open (string path, bool @abstract)
 		{
 			if (String.IsNullOrEmpty (path))
 				throw new ArgumentException ("path");
@@ -117,11 +136,36 @@ namespace NDesk.DBus.Transports
 			Stream = new UnixStream ((int)socket.Handle);
 		}
 
-		public override string AuthString ()
+		//send peer credentials null byte
+		//different platforms do this in different ways
+		unsafe public override void WriteCred ()
 		{
-			long uid = UnixUserInfo.GetRealUserId ();
+			//null credentials byte
+			byte buf = 0;
 
-			return uid.ToString ();
+#if HAVE_CMSGCRED 
+			IOVector iov = new IOVector ();
+			iov.Base = (IntPtr)(&buf);
+			iov.Length = 1;
+
+			msghdr msg = new msghdr ();
+			msg.msg_iov = &iov;
+			msg.msg_iovlen = 1;
+
+			cmsg cm = new cmsg ();
+			msg.msg_control = (IntPtr)(&cm);
+			msg.msg_controllen = (uint)sizeof (cmsg);
+			cm.hdr.cmsg_len = (uint)sizeof (cmsg);
+			cm.hdr.cmsg_level = 0xffff; //SOL_SOCKET
+			cm.hdr.cmsg_type = 0x03; //SCM_CREDS
+
+			int written = UnixSocket.sendmsg (socket.Handle, (IntPtr)(&msg), 0);
+			UnixMarshal.ThrowExceptionForLastErrorIf (written);
+			if (written != 1)
+				throw new Exception ("Failed to write credentials");
+#else
+			Stream.WriteByte (buf);
+#endif
 		}
 
 		protected UnixSocket OpenAbstractUnix (string path)
@@ -166,4 +210,51 @@ namespace NDesk.DBus.Transports
 			return client;
 		}
 	}
+
+#if HAVE_CMSGCRED 
+	/*
+	public struct msg
+	{
+		public IntPtr msg_next;
+		public long msg_type;
+		public ushort msg_ts;
+		short msg_spot;
+		IntPtr label;
+	}
+	*/
+
+	unsafe public struct msghdr
+	{
+		public IntPtr msg_name; //optional address
+		public uint msg_namelen; //size of address
+		public IOVector *msg_iov; //scatter/gather array
+		public int msg_iovlen; //# elements in msg_iov
+		public IntPtr msg_control; //ancillary data, see below
+		public uint msg_controllen; //ancillary data buffer len
+		public int msg_flags; //flags on received message
+	}
+
+	public struct cmsghdr
+	{
+		public uint cmsg_len; //data byte count, including header
+		public int cmsg_level; //originating protocol
+		public int cmsg_type; //protocol-specific type
+	}
+
+	unsafe public struct cmsgcred
+	{
+		public int cmcred_pid; //PID of sending process
+		public uint cmcred_uid; //real UID of sending process
+		public uint cmcred_euid; //effective UID of sending process
+		public uint cmcred_gid; //real GID of sending process
+		public short cmcred_ngroups; //number or groups
+		public fixed uint cmcred_groups[16]; //groups, CMGROUP_MAX
+	}
+
+	public struct cmsg
+	{
+		public cmsghdr hdr;
+		public cmsgcred cred;
+	}
+#endif
 }
