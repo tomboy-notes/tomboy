@@ -21,7 +21,8 @@ namespace Tomboy
 		public static RemoteControl Register (NoteManager manager) {
 			BusG.Init ();
 			
-			if (Bus.Session.RequestName (Namespace) != NameReply.PrimaryOwner)
+			if (Bus.Session.RequestName (Namespace)
+					!= RequestNameReply.PrimaryOwner)
 				return null;
 
 			RemoteControl remote_control = new RemoteControl (manager);

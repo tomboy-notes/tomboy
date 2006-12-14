@@ -3,15 +3,10 @@
 // See COPYING for details
 
 using System;
-using System.Diagnostics;
 using System.Collections.Generic;
 using System.IO;
-
 using System.Threading;
-
 using System.Reflection;
-
-//using Console = System.Diagnostics.Trace;
 
 namespace NDesk.DBus
 {
@@ -20,9 +15,8 @@ namespace NDesk.DBus
 
 	public class Connection
 	{
-		//TODO: reduce/correct visibility of these when appropriate
-		public Stream ns = null;
-		public long SocketHandle;
+		//TODO: reconsider this field
+		protected Stream ns = null;
 
 		protected Transport transport;
 		public Transport Transport {
@@ -33,10 +27,15 @@ namespace NDesk.DBus
 			}
 		}
 
-		//TODO: reduce visibility when test-server no longer needs this
-		//protected Connection ()
-		public Connection ()
+		protected Connection () {}
+
+		public Connection (Transport transport)
 		{
+			this.transport = transport;
+			transport.Connection = this;
+
+			//TODO: clean this bit up
+			ns = transport.Stream;
 		}
 
 		public Connection (string address)
@@ -53,6 +52,7 @@ namespace NDesk.DBus
 			}
 		}
 
+		//should we do connection sharing here?
 		public static Connection Open (string address)
 		{
 			Connection conn = new Connection ();
@@ -66,30 +66,27 @@ namespace NDesk.DBus
 		//protected void OpenPrivate (string address)
 		public void OpenPrivate (string address)
 		{
-			string path;
-			bool abstr;
-
 			if (address == null)
 				throw new ArgumentNullException ("address");
 
-			if (!Address.Parse (address, out path, out abstr))
-				throw new ArgumentException ("Invalid D-Bus address: '" + address + "'", "address");
+			AddressEntry[] entries = Address.Parse (address);
+			if (entries.Length == 0)
+				throw new Exception ("No addresses were found");
 
-			Open (path, abstr);
+			//TODO: try alternative addresses if needed
+			AddressEntry entry = entries[0];
 
-			isConnected = true;
-		}
+			transport = Transport.Create (entry);
 
-		void Open (string path, bool abstr)
-		{
-			//transport = new UnixMonoTransport (path, abstr);
-			transport = new UnixNativeTransport (path, abstr);
+			//TODO: clean this bit up
 			ns = transport.Stream;
-			SocketHandle = transport.SocketHandle;
 		}
 
 		public void Authenticate ()
 		{
+			if (transport != null)
+				transport.WriteCred ();
+
 			SaslClient auth = new SaslClient (this);
 			auth.Run ();
 			isAuthenticated = true;
@@ -103,18 +100,6 @@ namespace NDesk.DBus
 			}
 		}
 
-		protected string unique_name = null;
-		public virtual string UniqueName
-		{
-			get {
-				return unique_name;
-			} set {
-				if (unique_name != null)
-					throw new Exception ("Unique name of a Connection can only be set once");
-				unique_name = value;
-			}
-		}
-
 		//Interlocked.Increment() handles the overflow condition for uint correctly, so it's ok to store the value as an int but cast it to uint
 		protected int serial = 0;
 		protected uint GenerateSerial ()
@@ -123,14 +108,19 @@ namespace NDesk.DBus
 			return (uint)Interlocked.Increment (ref serial);
 		}
 
-
-
-
 		public Message SendWithReplyAndBlock (Message msg)
 		{
 			uint id = SendWithReply (msg);
 
-			Message retMsg = WaitForReplyTo (id);
+			Message retMsg;
+
+			//TODO: this isn't fully thread-safe but works much of the time
+			while (!replies.TryGetValue (id, out retMsg))
+				HandleMessage (ReadMessage ());
+
+			replies.Remove (id);
+
+			//FIXME: we should dispatch signals and calls on the main thread
 			DispatchSignals ();
 
 			return retMsg;
@@ -157,22 +147,11 @@ namespace NDesk.DBus
 			return msg.Header.Serial;
 		}
 
-		//could be cleaner
 		protected void WriteMessage (Message msg)
 		{
-			//Monitor.Enter (ns);
-
-			//ns.Write (msg.HeaderData, 0, msg.HeaderSize);
-			//Console.WriteLine ("headerSize: " + msg.HeaderSize);
-			//Console.WriteLine ("headerLength: " + msg.HeaderData.Length);
-			//Console.WriteLine ();
 			ns.Write (msg.HeaderData, 0, msg.HeaderData.Length);
-			if (msg.Body != null) {
+			if (msg.Body != null && msg.Body.Length != 0)
 				ns.Write (msg.Body, 0, msg.Body.Length);
-				//msg.Body.WriteTo (ns);
-			}
-
-			//Monitor.Exit (ns);
 		}
 
 		protected Queue<Message> Inbound = new Queue<Message> ();
@@ -223,8 +202,6 @@ namespace NDesk.DBus
 
 		public Message ReadMessage ()
 		{
-			//Monitor.Enter (ns);
-
 			//FIXME: fix reading algorithm to work in one step
 			//this code is a bit silly and inefficient
 			//hopefully it's at least correct and avoids polls for now
@@ -286,6 +263,7 @@ namespace NDesk.DBus
 			ms.Write (buf, 0, buf.Length);
 
 			Message msg = new Message ();
+			msg.Connection = this;
 			msg.HeaderData = ms.ToArray ();
 
 			//read the body
@@ -305,31 +283,11 @@ namespace NDesk.DBus
 				msg.Body = body;
 			}
 
-			//Monitor.Exit (ns);
-
 			//this needn't be done here
 			msg.ParseHeader ();
 
 			return msg;
 		}
-
-		//needs to be done properly
-		public Message WaitForReplyTo (uint id)
-		{
-			//Message msg = Inbound.Dequeue ();
-			Message msg;
-
-			while ((msg = ReadMessage ()) != null) {
-				if (msg.Header.Fields.ContainsKey (FieldCode.ReplySerial))
-					if ((uint)msg.Header.Fields[FieldCode.ReplySerial] == id)
-						return msg;
-
-				HandleMessage (msg);
-			}
-
-			return null;
-		}
-
 
 		//temporary hack
 		protected void DispatchSignals ()
@@ -353,26 +311,30 @@ namespace NDesk.DBus
 
 		protected void HandleMessage (Message msg)
 		{
+			{
+				//TODO: don't store replies unless they are expected (right now all replies are expected as we don't support NoReplyExpected)
+				object reply_serial;
+				if (msg.Header.Fields.TryGetValue (FieldCode.ReplySerial, out reply_serial)) {
+					replies[(uint)reply_serial] = msg;
+					return;
+				}
+			}
+
 			switch (msg.Header.MessageType) {
 				case MessageType.MethodCall:
 					MethodCall method_call = new MethodCall (msg);
 					HandleMethodCall (method_call);
 					break;
-				case MessageType.MethodReturn:
-					MethodReturn method_return = new MethodReturn (msg);
-					if (PendingCalls.ContainsKey (method_return.ReplySerial)) {
-						//TODO: pending calls
-						//return msg;
-					}
-					//if the signature is empty, it's just a token return message
-					if (msg.Signature != Signature.Empty)
-						Console.Error.WriteLine ("Warning: Couldn't handle async MethodReturn message for request id " + method_return.ReplySerial + " with signature '" + msg.Signature + "'");
+				case MessageType.Signal:
+					//HandleSignal (msg);
+					lock (Inbound)
+						Inbound.Enqueue (msg);
 					break;
 				case MessageType.Error:
 					//TODO: better exception handling
 					Error error = new Error (msg);
-					string errMsg = "";
-					if (msg.Signature.Value == "s") {
+					string errMsg = String.Empty;
+					if (msg.Signature.Value.StartsWith ("s")) {
 						MessageReader reader = new MessageReader (msg);
 						reader.GetValue (out errMsg);
 					}
@@ -380,19 +342,13 @@ namespace NDesk.DBus
 					//if (Protocol.Verbose)
 					Console.Error.WriteLine ("Remote Error: Signature='" + msg.Signature.Value + "' " + error.ErrorName + ": " + errMsg);
 					break;
-				case MessageType.Signal:
-					//HandleSignal (msg);
-					lock (Inbound)
-						Inbound.Enqueue (msg);
-					break;
 				case MessageType.Invalid:
 				default:
 					throw new Exception ("Invalid message received: MessageType='" + msg.Header.MessageType + "'");
 			}
 		}
 
-		protected Dictionary<uint,Message> PendingCalls = new Dictionary<uint,Message> ();
-
+		protected Dictionary<uint,Message> replies = new Dictionary<uint,Message> ();
 
 		//this might need reworking with MulticastDelegate
 		protected void HandleSignal (Message msg)
@@ -418,12 +374,39 @@ namespace NDesk.DBus
 
 		public Dictionary<string,Delegate> Handlers = new Dictionary<string,Delegate> ();
 
+		//very messy
+		void MaybeSendUnknownMethodError (MethodCall method_call)
+		{
+			string errMsg = String.Format ("Method \"{0}\" with signature \"{1}\" on interface \"{2}\" doesn't exist", method_call.Member, method_call.Signature.Value, method_call.Interface);
+
+			if (!method_call.message.ReplyExpected) {
+				if (!Protocol.Verbose)
+					return;
+
+				Console.Error.WriteLine ();
+				Console.Error.WriteLine ("Warning: Not sending Error message (" + errMsg + ") as reply because no reply was expected");
+				Console.Error.WriteLine ();
+				return;
+			}
+
+			Error error = new Error ("org.freedesktop.DBus.Error.UnknownMethod", method_call.message.Header.Serial);
+			error.message.Signature = new Signature (DType.String);
+
+			MessageWriter writer = new MessageWriter (Connection.NativeEndianness);
+			writer.connection = this;
+			writer.Write (errMsg);
+			error.message.Body = writer.ToArray ();
+
+			//TODO: we should be more strict here, but this fallback was added as a quick fix for p2p
+			if (method_call.Sender != null)
+				error.message.Header.Fields[FieldCode.Destination] = method_call.Sender;
+
+			Send (error.message);
+		}
+
 		//not particularly efficient and needs to be generalized
 		protected void HandleMethodCall (MethodCall method_call)
 		{
-			//Console.Error.WriteLine ("method_call destination: " + method_call.Destination);
-			//Console.Error.WriteLine ("method_call path: " + method_call.Path);
-
 			//TODO: Ping and Introspect need to be abstracted and moved somewhere more appropriate once message filter infrastructure is complete
 
 			if (method_call.Interface == "org.freedesktop.DBus.Peer" && method_call.Member == "Ping") {
@@ -436,15 +419,29 @@ namespace NDesk.DBus
 			if (method_call.Interface == "org.freedesktop.DBus.Introspectable" && method_call.Member == "Introspect") {
 				Introspector intro = new Introspector ();
 				intro.root_path = method_call.Path;
+				intro.WriteStart ();
+
 				//FIXME: do this properly
+				//this is messy and inefficient
+				List<string> linkNodes = new List<string> ();
+				int depth = method_call.Path.Decomposed.Length;
 				foreach (ObjectPath pth in RegisteredObjects.Keys) {
-					if (pth.Value.StartsWith (method_call.Path.Value)) {
-						intro.target_path = pth;
-						intro.target_type = RegisteredObjects[pth].GetType ();
+					if (pth.Value == (method_call.Path.Value)) {
+						intro.WriteType (RegisteredObjects[pth].GetType ());
+					} else {
+						for (ObjectPath cur = pth ; cur.Value != null ; cur = cur.Parent) {
+							if (cur.Value == method_call.Path.Value) {
+								string linkNode = pth.Decomposed[depth];
+								if (!linkNodes.Contains (linkNode)) {
+									intro.WriteNode (linkNode);
+									linkNodes.Add (linkNode);
+								}
+							}
+						}
 					}
 				}
-				intro.HandleIntrospect ();
-				//Console.Error.WriteLine (intro.xml);
+
+				intro.WriteEnd ();
 
 				object[] introRet = new object[1];
 				introRet[0] = intro.xml;
@@ -453,93 +450,78 @@ namespace NDesk.DBus
 				return;
 			}
 
-			if (RegisteredObjects.ContainsKey (method_call.Path)) {
-				object obj = RegisteredObjects[method_call.Path];
-				Type type = obj.GetType ();
-				//object retObj = type.InvokeMember (msg.Member, BindingFlags.InvokeMethod, null, obj, MessageHelper.GetDynamicValues (msg));
+			if (!RegisteredObjects.ContainsKey (method_call.Path)) {
+				MaybeSendUnknownMethodError (method_call);
+				return;
+			}
 
-				string methodName = method_call.Member;
+			object obj = RegisteredObjects[method_call.Path];
+			Type type = obj.GetType ();
+			//object retObj = type.InvokeMember (msg.Member, BindingFlags.InvokeMethod, null, obj, MessageHelper.GetDynamicValues (msg));
 
-				//map property accessors
-				//FIXME: this needs to be done properly, not with simple String.Replace
-				//special case for Notifications left as a reminder that this is broken
-				if (method_call.Interface == "org.freedesktop.Notifications") {
-					methodName = methodName.Replace ("Get", "get_");
-					methodName = methodName.Replace ("Set", "set_");
-				}
+			//TODO: there is no member name mapping for properties etc. yet
 
-				//FIXME: breaks for overloaded methods
-				MethodInfo mi = type.GetMethod (methodName, BindingFlags.Public | BindingFlags.Instance);
+			//FIXME: breaks for overloaded methods and ignores Interface
+			MethodInfo mi = type.GetMethod (method_call.Member, BindingFlags.Public | BindingFlags.Instance);
 
-				//TODO: send errors instead of passing up local exceptions for these
+			if (mi == null) {
+				MaybeSendUnknownMethodError (method_call);
+				return;
+			}
 
-				if (mi == null)
-					throw new Exception ("The requested method could not be resolved");
+			//FIXME: such a simple approach won't work unfortunately
+			//if (!Mapper.IsPublic (mi))
+			//	throw new Exception ("The resolved method is not marked as being public on this bus");
 
-				//FIXME: such a simple approach won't work unfortunately
-				//if (!Mapper.IsPublic (mi))
-				//	throw new Exception ("The resolved method is not marked as being public on this bus");
+			object retObj = null;
+			try {
+				object[] inArgs = MessageHelper.GetDynamicValues (method_call.message, mi.GetParameters ());
+				retObj = mi.Invoke (obj, inArgs);
+			} catch (TargetInvocationException e) {
+				Exception ie = e.InnerException;
+				//TODO: complete exception sending support
 
-				object retObj = null;
-			 	try {
-					object[] inArgs = MessageHelper.GetDynamicValues (method_call.message, mi.GetParameters ());
-					retObj = mi.Invoke (obj, inArgs);
-				} catch (TargetInvocationException e) {
-					//TODO: consider whether it's correct to send an error for calls that don't expect a reply
-
-					//TODO: complete exception sending support
-					//TODO: method not found etc. exceptions
-					Exception ie = e.InnerException;
-					if (Protocol.Verbose) {
-						Console.Error.WriteLine ();
-						Console.Error.WriteLine (ie);
-						Console.Error.WriteLine ();
-					}
-
-					if (!method_call.message.ReplyExpected) {
-						Console.Error.WriteLine ();
-						Console.Error.WriteLine ("Warning: Not sending Error message (" + ie.GetType ().Name + ") as reply because no reply was expected by call to '" + (method_call.Interface + "." + method_call.Member) + "'");
-						Console.Error.WriteLine ();
+				if (!method_call.message.ReplyExpected) {
+					if (!Protocol.Verbose)
 						return;
-					}
 
-					Error error = new Error (Mapper.GetInterfaceName (ie.GetType ()), method_call.message.Header.Serial);
-					error.message.Signature = new Signature (DType.String);
-
-					MessageWriter writer = new MessageWriter ();
-					writer.Write (ie.Message);
-					error.message.Body = writer.ToArray ();
-
-					//TODO: we should be more strict here, but this fallback was added as a quick fix for p2p
-					if (method_call.Sender != null)
-						error.message.Header.Fields[FieldCode.Destination] = method_call.Sender;
-
-					error.message.Header.Fields[FieldCode.Interface] = method_call.Interface;
-					error.message.Header.Fields[FieldCode.Member] = method_call.Member;
-
-					Send (error.message);
+					Console.Error.WriteLine ();
+					Console.Error.WriteLine ("Warning: Not sending Error message (" + ie.GetType ().Name + ") as reply because no reply was expected by call to '" + (method_call.Interface + "." + method_call.Member) + "'");
+					Console.Error.WriteLine ();
 					return;
 				}
 
-				if (method_call.message.ReplyExpected) {
-					/*
-					object[] retObjs;
+				Error error = new Error (Mapper.GetInterfaceName (ie.GetType ()), method_call.message.Header.Serial);
+				error.message.Signature = new Signature (DType.String);
 
-					if (retObj == null) {
-						retObjs = new object[0];
-					} else {
-						retObjs = new object[1];
-						retObjs[0] = retObj;
-					}
+				MessageWriter writer = new MessageWriter (Connection.NativeEndianness);
+				writer.connection = this;
+				writer.Write (ie.Message);
+				error.message.Body = writer.ToArray ();
 
-					Message reply = ConstructReplyFor (method_call, retObjs);
-					*/
-					Message reply = MessageHelper.ConstructReplyFor (method_call, mi.ReturnType, retObj);
-					Send (reply);
+				//TODO: we should be more strict here, but this fallback was added as a quick fix for p2p
+				if (method_call.Sender != null)
+					error.message.Header.Fields[FieldCode.Destination] = method_call.Sender;
+
+				Send (error.message);
+				return;
+			}
+
+			if (method_call.message.ReplyExpected) {
+				/*
+				object[] retObjs;
+
+				if (retObj == null) {
+					retObjs = new object[0];
+				} else {
+					retObjs = new object[1];
+					retObjs[0] = retObj;
 				}
-			} else {
-				//FIXME: send the appropriate Error message
-				Console.Error.WriteLine ("Warning: No method handler for " + method_call.Member);
+
+				Message reply = ConstructReplyFor (method_call, retObjs);
+				*/
+				Message reply = MessageHelper.ConstructReplyFor (method_call, mi.ReturnType, retObj);
+				Send (reply);
 			}
 		}
 
@@ -554,7 +536,10 @@ namespace NDesk.DBus
 		{
 			BusObject busObject = new BusObject (this, bus_name, path);
 			DProxy prox = new DProxy (busObject, type);
-			return prox.GetTransparentProxy ();
+
+			object obj = prox.GetTransparentProxy ();
+
+			return obj;
 		}
 
 		/*

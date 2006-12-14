@@ -16,7 +16,10 @@ namespace NDesk.DBus
 			get {
 				if (systemBus == null) {
 					try {
-						systemBus = Bus.Open (Address.System);
+						if (Address.StarterBusType == "system")
+							systemBus = Starter;
+						else
+							systemBus = Bus.Open (Address.System);
 					} catch (Exception e) {
 						throw new Exception ("Unable to open the system message bus.", e);
 					}
@@ -32,7 +35,10 @@ namespace NDesk.DBus
 			get {
 				if (sessionBus == null) {
 					try {
-						sessionBus = Bus.Open (Address.Session);
+						if (Address.StarterBusType == "session")
+							sessionBus = Starter;
+						else
+							sessionBus = Bus.Open (Address.Session);
 					} catch (Exception e) {
 						throw new Exception ("Unable to open the session message bus.", e);
 					}
@@ -68,6 +74,9 @@ namespace NDesk.DBus
 		//public static Connection Open (string address)
 		public static new Bus Open (string address)
 		{
+			if (address == null)
+				throw new ArgumentNullException ("address");
+
 			if (buses.ContainsKey (address))
 				return buses[address];
 
@@ -94,21 +103,12 @@ namespace NDesk.DBus
 		};
 		*/
 			Register ();
-			//handle the signal -- might not work properly in all cases, needs testing
-			Iterate ();
 		}
 
 		/*
-		protected void Register ()
+		public void Register ()
 		{
 			unique_name = bus.Hello ();
-		}
-
-		public override string UniqueName
-		{
-			get {
-				return unique_name;
-			}
 		}
 
 		public ulong GetUnixUser (string name)
@@ -116,12 +116,12 @@ namespace NDesk.DBus
 			return bus.GetConnectionUnixUser (name);
 		}
 
-		public NameReply RequestName (string name)
+		public RequestNameReply RequestName (string name)
 		{
 			return RequestName (name, NameFlag.None);
 		}
 
-		public NameReply RequestName (string name, NameFlag flags)
+		public RequestNameReply RequestName (string name, NameFlag flags)
 		{
 			return bus.RequestName (name, flags);
 		}
@@ -149,25 +149,31 @@ namespace NDesk.DBus
 		public override void AddMatch (string rule)
 		{
 			bus.AddMatch (rule);
-			//Iterate ();
 		}
 
 		public override void RemoveMatch (string rule)
 		{
 			bus.RemoveMatch (rule);
-			//Iterate ();
 		}
 		*/
 
-		protected void Register ()
+		public void Register ()
 		{
+			if (unique_name != null)
+				throw new Exception ("Bus already has a unique name");
+
 			unique_name = (string)bus.InvokeMethod (typeof (IBus).GetMethod ("Hello"));
 		}
 
-		public override string UniqueName
+		protected string unique_name = null;
+		public string UniqueName
 		{
 			get {
 				return unique_name;
+			} set {
+				if (unique_name != null)
+					throw new Exception ("Unique name can only be set once");
+				unique_name = value;
 			}
 		}
 
@@ -176,14 +182,14 @@ namespace NDesk.DBus
 			return (ulong)bus.InvokeMethod (typeof (IBus).GetMethod ("GetConnectionUnixUser"), name);
 		}
 
-		public NameReply RequestName (string name)
+		public RequestNameReply RequestName (string name)
 		{
 			return RequestName (name, NameFlag.None);
 		}
 
-		public NameReply RequestName (string name, NameFlag flags)
+		public RequestNameReply RequestName (string name, NameFlag flags)
 		{
-			return (NameReply)bus.InvokeMethod (typeof (IBus).GetMethod ("RequestName"), name, flags);
+			return (RequestNameReply)bus.InvokeMethod (typeof (IBus).GetMethod ("RequestName"), name, flags);
 		}
 
 		public ReleaseNameReply ReleaseName (string name)

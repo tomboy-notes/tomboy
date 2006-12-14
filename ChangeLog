@@ -1,5 +1,24 @@
 2006-12-14  Boyd Timothy  <btimothy@gmail.com>
 
+	DBusSharp released new tarballs today.  Upgrading to dbus-sharp-0.3 and
+	dbus-sharp-0.2.
+	
+		* Improved support for multi-threaded use, FreeBSD support...
+		* API change: The NameReply enum is now RequestNameReply to bring
+		  it in line with the spec.
+
+	* Tomboy/dbus-sharp/dbus-sharp/src/Address.cs, Authentication.cs,
+	Bus.cs, BusObject.cs, Connection.cs, DBus.cs, DProxy.cs, Introspection.cs,
+	Mapper.cs, Message.cs, MessageReader.cs, MessageWriter.cs, Protocol.cs,
+	Signature.cs, SocketTransport.cs (new), Transport.cs,
+	UnixNativeTransport.cs, UnixTransport.cs (new), Wrapper.cs.
+	* Tomboy/dbus-sharp/dbus-sharp-glib/glib/GLib.cs
+	
+	* Tomboy/RemoteControlProxy.cs: Changed "NameReply" -> "RequestNameReply"
+	since it changed in dbus-sharp.
+	
+2006-12-14  Boyd Timothy  <btimothy@gmail.com>
+
 	The following files address bug #381357 by adding a Menubar to the
 	Search All Notes window.  They also add in consumption of
 	Gtk.UIManager and Gtk.Action(s).

@@ -3,10 +3,8 @@
 // See COPYING for details
 
 using System;
-using System.Diagnostics;
 using System.Collections.Generic;
 using System.IO;
-
 using System.Text;
 using System.Globalization;
 
@@ -43,15 +41,11 @@ namespace NDesk.DBus.Authentication
 		{
 			//NetworkStream ns = new NetworkStream (sock);
 			//UnixStream ns = new UnixStream ((int)sock.Handle);
-			StreamReader sr = new StreamReader (conn.ns, Encoding.ASCII);
-			StreamWriter sw = new StreamWriter (conn.ns, Encoding.ASCII);
+			StreamReader sr = new StreamReader (conn.Transport.Stream, Encoding.ASCII);
+			StreamWriter sw = new StreamWriter (conn.Transport.Stream, Encoding.ASCII);
 
 			sw.NewLine = "\r\n";
 			//sw.AutoFlush = true;
-
-			//send peer credentials null byte. note that this might not be portable
-			//there are also selinux, BSD etc. considerations
-			sw.Write ('\0');
 
 			string str = conn.Transport.AuthString ();
 			byte[] bs = Encoding.ASCII.GetBytes (str);

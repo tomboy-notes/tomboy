@@ -3,7 +3,6 @@
 // See COPYING for details
 
 using System;
-using System.Diagnostics;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml;
@@ -21,9 +20,7 @@ namespace NDesk.DBus
 
 		public StringBuilder sb;
 		public string xml;
-		public Type target_type = null;
 		public ObjectPath root_path = ObjectPath.Root;
-		public ObjectPath target_path = ObjectPath.Root;
 
 		protected XmlWriter writer;
 
@@ -39,44 +36,26 @@ namespace NDesk.DBus
 			writer = XmlWriter.Create (sb, settings);
 		}
 
-		public void HandleIntrospect ()
+		public void WriteStart ()
 		{
 			writer.WriteDocType ("node", PUBLIC_IDENTIFIER, SYSTEM_IDENTIFIER, null);
 
-			//TODO: write version info in a comment, when we get an AssemblyInfo.cs
-
-			writer.WriteComment (" Never rely on XML introspection data for dynamic binding. It is provided only for convenience and is subject to change at any time. ");
-
-			writer.WriteComment (" Warning: Intospection support is incomplete in this implementation ");
-
-			writer.WriteComment (" This is the introspection result for ObjectPath: " + root_path + " ");
+			AssemblyName aname = Assembly.GetExecutingAssembly().GetName ();
+			writer.WriteComment (" " + aname.Name + " " + aname.Version.ToString (3) + " ");
 
 			//the root node element
 			writer.WriteStartElement ("node");
+		}
 
-			//FIXME: don't hardcode this stuff, do it properly!
-			if (root_path.Value == "/") {
-				writer.WriteStartElement ("node");
-				writer.WriteAttributeString ("name", "org");
-				writer.WriteEndElement ();
-			}
+		public void WriteNode (string name)
+		{
+			writer.WriteStartElement ("node");
+			writer.WriteAttributeString ("name", name);
+			writer.WriteEndElement ();
+		}
 
-			if (root_path.Value == "/org") {
-				writer.WriteStartElement ("node");
-				writer.WriteAttributeString ("name", "ndesk");
-				writer.WriteEndElement ();
-			}
-
-			if (root_path.Value == "/org/ndesk") {
-				writer.WriteStartElement ("node");
-				writer.WriteAttributeString ("name", "test");
-				writer.WriteEndElement ();
-			}
-
-			if (root_path.Value == target_path.Value) {
-				WriteNodeBody ();
-			}
-
+		public void WriteEnd ()
+		{
 			/*
 			WriteEnum (typeof (org.freedesktop.DBus.NameFlag));
 			WriteEnum (typeof (org.freedesktop.DBus.NameReply));
@@ -92,7 +71,7 @@ namespace NDesk.DBus
 		}
 
 		//public void WriteNode ()
-		public void WriteNodeBody ()
+		public void WriteType (Type target_type)
 		{
 			//writer.WriteStartElement ("node");
 

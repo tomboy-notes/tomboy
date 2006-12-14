@@ -3,7 +3,6 @@
 // See COPYING for details
 
 using System;
-using System.Diagnostics;
 using System.Collections.Generic;
 using System.IO;
 
@@ -13,7 +12,7 @@ namespace NDesk.DBus
 	{
 		public Message ()
 		{
-			Header.Endianness = EndianFlag.Little;
+			Header.Endianness = Connection.NativeEndianness;
 			Header.MessageType = MessageType.MethodCall;
 			//hdr->Flags = HeaderFlag.None;
 			Header.Flags = HeaderFlag.NoReplyExpected; //TODO: is this the right place to do this?
@@ -25,6 +24,8 @@ namespace NDesk.DBus
 
 		public Header Header;
 		public byte[] HeaderData;
+
+		public Connection Connection;
 
 		public Signature Signature
 		{
@@ -74,8 +75,8 @@ namespace NDesk.DBus
 			EndianFlag endianness = (EndianFlag)HeaderData[0];
 			MessageReader reader = new MessageReader (endianness, HeaderData);
 
-			ValueType valT;
-			reader.GetValue (typeof (Header), out valT);
+			object valT;
+			reader.GetValueStruct (typeof (Header), out valT);
 			Header = (Header)valT;
 
 			/*
@@ -121,8 +122,8 @@ namespace NDesk.DBus
 			if (Body != null)
 				Header.Length = (uint)Body.Length;
 
-			MessageWriter writer = new MessageWriter ();
-			writer.Write (typeof (Header), Header);
+			MessageWriter writer = new MessageWriter (Connection.NativeEndianness);
+			writer.WriteStruct (typeof (Header), Header);
 			//writer.WriteFromDict (typeof (FieldCode), typeof (object), Header.Fields);
 			writer.CloseWrite ();
 			HeaderData = writer.ToArray ();

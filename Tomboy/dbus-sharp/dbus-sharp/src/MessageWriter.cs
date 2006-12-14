@@ -7,33 +7,26 @@
 
 using System;
 using System.Text;
-using System.Diagnostics;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 
 namespace NDesk.DBus
 {
 	public class MessageWriter
 	{
-		//TODO: use endianness instead of writing the message is in native format
 		protected EndianFlag endianness;
 		protected MemoryStream stream;
-		protected BinaryWriter bw;
 
-		//TODO: enable this ctor instead of the current one when endian support is done
+		public Connection connection;
+
+		//a default constructor is a bad idea for now as we want to make sure the header and content-type match
 		//public MessageWriter () : this (Connection.NativeEndianness)
-		public MessageWriter () : this (EndianFlag.Little)
-		{
-		}
 
 		public MessageWriter (EndianFlag endianness)
 		{
-			if (endianness != EndianFlag.Little)
-				throw new NotImplementedException ("Only little-endian message writing is currently supported");
-
 			this.endianness = endianness;
 			stream = new MemoryStream ();
-			bw = new BinaryWriter (stream);
 		}
 
 		public byte[] ToArray ()
@@ -51,73 +44,114 @@ namespace NDesk.DBus
 
 		public void Write (byte val)
 		{
-			WritePad (1);
-			bw.Write (val);
+			stream.WriteByte (val);
 		}
 
 		public void Write (bool val)
 		{
-			WritePad (4);
-			bw.Write ((uint) (val ? 1 : 0));
+			Write ((uint) (val ? 1 : 0));
 		}
 
-		public void Write (short val)
+		unsafe protected void MarshalUShort (byte *data)
 		{
 			WritePad (2);
-			bw.Write (val);
+			byte[] dst = new byte[2];
+
+			if (endianness == Connection.NativeEndianness) {
+				dst[0] = data[0];
+				dst[1] = data[1];
+			} else {
+				dst[0] = data[1];
+				dst[1] = data[0];
+			}
+
+			stream.Write (dst, 0, 2);
 		}
 
-		public void Write (ushort val)
+		unsafe public void Write (short val)
 		{
-			WritePad (2);
-			bw.Write (val);
+			MarshalUShort ((byte*)&val);
 		}
 
-		public void Write (int val)
+		unsafe public void Write (ushort val)
+		{
+			MarshalUShort ((byte*)&val);
+		}
+
+		unsafe protected void MarshalUInt (byte *data)
 		{
 			WritePad (4);
-			bw.Write (val);
+			byte[] dst = new byte[4];
+
+			if (endianness == Connection.NativeEndianness) {
+				dst[0] = data[0];
+				dst[1] = data[1];
+				dst[2] = data[2];
+				dst[3] = data[3];
+			} else {
+				dst[0] = data[3];
+				dst[1] = data[2];
+				dst[2] = data[1];
+				dst[3] = data[0];
+			}
+
+			stream.Write (dst, 0, 4);
 		}
 
-		public void Write (uint val)
+		unsafe public void Write (int val)
 		{
-
-			WritePad (4);
-			bw.Write (val);
+			MarshalUInt ((byte*)&val);
 		}
 
-		public void Write (long val)
+		unsafe public void Write (uint val)
+		{
+			MarshalUInt ((byte*)&val);
+		}
+
+		unsafe protected void MarshalULong (byte *data)
 		{
 			WritePad (8);
-			bw.Write (val);
+			byte[] dst = new byte[8];
+
+			if (endianness == Connection.NativeEndianness) {
+				for (int i = 0; i < 8; ++i)
+					dst[i] = data[i];
+			} else {
+				for (int i = 0; i < 8; ++i)
+					dst[i] = data[7 - i];
+			}
+
+			stream.Write (dst, 0, 8);
 		}
 
-		public void Write (ulong val)
+		unsafe public void Write (long val)
 		{
-			WritePad (8);
-			bw.Write (val);
+			MarshalULong ((byte*)&val);
+		}
+
+		unsafe public void Write (ulong val)
+		{
+			MarshalULong ((byte*)&val);
 		}
 
 #if PROTO_TYPE_SINGLE
-		public void Write (float val)
+		unsafe public void Write (float val)
 		{
-			WritePad (4);
-			bw.Write (val);
+			MarshalUInt ((byte*)&val);
 		}
 #endif
 
-		public void Write (double val)
+		unsafe public void Write (double val)
 		{
-			WritePad (8);
-			bw.Write (val);
+			MarshalULong ((byte*)&val);
 		}
 
 		public void Write (string val)
 		{
 			byte[] utf8_data = Encoding.UTF8.GetBytes (val);
 			Write ((uint)utf8_data.Length);
-			bw.Write (utf8_data);
-			bw.Write ((byte)0); //NULL string terminator
+			stream.Write (utf8_data, 0, utf8_data.Length);
+			stream.WriteByte (0); //NULL string terminator
 		}
 
 		public void Write (ObjectPath val)
@@ -127,10 +161,10 @@ namespace NDesk.DBus
 
 		public void Write (Signature val)
 		{
-			WritePad (1);
-			Write ((byte)val.Length);
-			bw.Write (val.GetBuffer ());
-			bw.Write ((byte)0); //NULL signature terminator
+			byte[] ascii_data = val.GetBuffer ();
+			Write ((byte)ascii_data.Length);
+			stream.Write (ascii_data, 0, ascii_data.Length);
+			stream.WriteByte (0); //NULL signature terminator
 		}
 
 		public void Write (Type type, object val)
@@ -144,12 +178,18 @@ namespace NDesk.DBus
 				Write ((ObjectPath)val);
 			} else if (type == typeof (Signature)) {
 				Write ((Signature)val);
+			} else if (type == typeof (object)) {
+				Write (val);
+			} else if (type == typeof (string)) {
+				Write ((string)val);
 			} else if (type.IsGenericType && (type.GetGenericTypeDefinition () == typeof (IDictionary<,>) || type.GetGenericTypeDefinition () == typeof (Dictionary<,>))) {
 				Type[] genArgs = type.GetGenericArguments ();
 				System.Collections.IDictionary idict = (System.Collections.IDictionary)val;
 				WriteFromDict (genArgs[0], genArgs[1], idict);
-			} else if (!type.IsPrimitive && type.IsValueType && !type.IsEnum) {
-				Write (type, (ValueType)val);
+			} else if (Mapper.IsPublic (type)) {
+				WriteObject (type, val);
+			} else if (!type.IsPrimitive && !type.IsEnum) {
+				WriteStruct (type, val);
 				/*
 			} else if (type.IsGenericType && type.GetGenericTypeDefinition () == typeof (Nullable<>)) {
 				//is it possible to support nullable types?
@@ -243,6 +283,24 @@ namespace NDesk.DBus
 			}
 		}
 
+		public void WriteObject (Type type, object val)
+		{
+			ObjectPath path;
+
+			BusObject bobj = val as BusObject;
+
+			if (bobj == null && val is MarshalByRefObject) {
+				bobj = ((MarshalByRefObject)val).GetLifetimeService () as BusObject;
+			}
+
+			if (bobj == null)
+				throw new Exception ("No object reference to write");
+
+			path = bobj.Path;
+
+			Write (path);
+		}
+
 		//variant
 		public void Write (object val)
 		{
@@ -267,19 +325,25 @@ namespace NDesk.DBus
 		//this requires a seekable stream for now
 		public void Write (Type type, Array val)
 		{
-			//if (type.IsArray)
-			type = type.GetElementType ();
+			Type elemType = type.GetElementType ();
+
+			//TODO: more fast paths for primitive arrays
+			if (elemType == typeof (byte)) {
+				Write ((uint)val.Length);
+				stream.Write ((byte[])val, 0, val.Length);
+				return;
+			}
 
 			Write ((uint)0);
 			long lengthPos = stream.Position - 4;
 
 			//advance to the alignment of the element
-			WritePad (Protocol.GetAlignment (Signature.TypeToDType (type)));
+			WritePad (Protocol.GetAlignment (Signature.TypeToDType (elemType)));
 
 			long startPos = stream.Position;
 
 			foreach (object elem in val)
-				Write (type, elem);
+				Write (elemType, elem);
 
 			long endPos = stream.Position;
 
@@ -316,7 +380,7 @@ namespace NDesk.DBus
 			stream.Position = endPos;
 		}
 
-		public void Write (Type type, ValueType val)
+		public void WriteStruct (Type type, object val)
 		{
 			WritePad (8); //offset for structs, right?
 
@@ -339,7 +403,7 @@ namespace NDesk.DBus
 				return;
 			}
 
-			System.Reflection.FieldInfo[] fis = type.GetFields ();
+			FieldInfo[] fis = type.GetFields (BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
 
 			foreach (System.Reflection.FieldInfo fi in fis) {
 				object elem;
@@ -350,7 +414,6 @@ namespace NDesk.DBus
 			}
 		}
 
-		//RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider ();
 		public void WritePad (int alignment)
 		{
 			stream.Position = Protocol.Padded ((int)stream.Position, alignment);

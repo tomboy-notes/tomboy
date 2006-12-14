@@ -327,6 +327,7 @@ namespace NDesk.DBus
 			}
 		}
 
+		//FIXME: this method is bad, get rid of it
 		public static DType TypeToDType (Type type)
 		{
 			if (type == typeof (void))
@@ -354,11 +355,13 @@ namespace NDesk.DBus
 			if (type.IsArray)
 				return DType.Array;
 
-			if (!type.IsPrimitive && type.IsValueType && !type.IsEnum)
-				return DType.Struct;
-
 			//if (type.UnderlyingSystemType != null)
 			//	return TypeToDType (type.UnderlyingSystemType);
+			if (Mapper.IsPublic (type))
+				return DType.ObjectPath;
+
+			if (!type.IsPrimitive && !type.IsEnum)
+				return DType.Struct;
 
 			//TODO: maybe throw an exception here
 			return DType.Invalid;
@@ -477,29 +480,30 @@ namespace NDesk.DBus
 			if (type == typeof (void))
 				return Signature.Empty;
 
+			if (type == typeof (string))
+				return new Signature (DType.String);
+
+			if (type == typeof (object))
+				return new Signature (DType.Variant);
+
 			if (type.IsArray)
 				return GetSig (type.GetElementType ()).MakeArraySignature ();
 
-			if (type.IsMarshalByRef) {
-				//TODO: consider further what to do for remote object reference marshaling
-				return new Signature (DType.ObjectPath);
-			}
-			
 			if (type.IsGenericType && (type.GetGenericTypeDefinition () == typeof (IDictionary<,>) || type.GetGenericTypeDefinition () == typeof (Dictionary<,>))) {
 
 				Type[] genArgs = type.GetGenericArguments ();
 				return Signature.MakeDict (GetSig (genArgs[0]), GetSig (genArgs[1]));
 			}
 
-			if (!type.IsPrimitive && type.IsValueType && !type.IsEnum) {
+			if (Mapper.IsPublic (type)) {
+				return new Signature (DType.ObjectPath);
+			}
+
+			if (!type.IsPrimitive && !type.IsEnum) {
 				Signature sig = Signature.Empty;
 
-				foreach (FieldInfo fi in type.GetFields ()) {
-					//there didn't seem to be a way to do this with BindingFlags at time of writing
-					if (fi.IsStatic)
-						continue;
+				foreach (FieldInfo fi in type.GetFields (BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance))
 					sig += GetSig (fi.FieldType);
-				}
 
 				return Signature.MakeStruct (sig);
 			}
