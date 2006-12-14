@@ -1,13 +1,13 @@
 
 using System;
-using System.Collections.Generic;
+using System.Collections;
 
 using Mono.Unix;
 
 using Tomboy;
 
 
-public class BacklinkMenuItem : Gtk.ImageMenuItem
+public class BacklinkMenuItem : Gtk.ImageMenuItem, System.IComparable
 {
 	Note note;
 	
@@ -31,7 +31,19 @@ public class BacklinkMenuItem : Gtk.ImageMenuItem
 			return;
 		
 		note.Window.Present ();
-	} 
+	}
+	
+	public Note Note
+	{
+		get { return note; }
+	}
+	
+	// IComparable interface
+	public int CompareTo (object obj)
+	{
+		BacklinkMenuItem other_item = obj as BacklinkMenuItem;
+		return note.Title.CompareTo (other_item.Note.Title);
+	}
 }
 
 [PluginInfo(
@@ -99,8 +111,6 @@ public class BacklinksPlugin : NotePlugin
 	
 	void UpdateMenu ()
 	{
-		Gtk.ImageMenuItem item;
-		
 		//
 		// Clear out the old list
 		//
@@ -111,10 +121,8 @@ public class BacklinksPlugin : NotePlugin
 		//
 		// Build a new list
 		//
-		foreach (Note backlink_note in GetBacklinkedNotes ()) {
-			item = new BacklinkMenuItem (backlink_note);
+		foreach (BacklinkMenuItem item in GetBacklinkMenuItems ()) {
 			item.ShowAll ();
-			
 			menu.Append (item);
 		}
 		
@@ -129,9 +137,9 @@ public class BacklinksPlugin : NotePlugin
 		submenu_built = true;
 	}
 	
-	List<Note> GetBacklinkedNotes ()
+	BacklinkMenuItem [] GetBacklinkMenuItems ()
 	{
-		List<Note> notes = new List<Note> ();
+		ArrayList items = new ArrayList ();
 		
 		string encoded_title = XmlEncoder.Encode (Note.Title.ToLower ());
 		
@@ -140,13 +148,15 @@ public class BacklinksPlugin : NotePlugin
 		foreach (Note note in Note.Manager.Notes) {
 			if (note != Note // don't match ourself
 						&& CheckNoteHasMatch (note, encoded_title)) {
-				notes.Add (note);
+				BacklinkMenuItem item = new BacklinkMenuItem (note);
+
+				items.Add (item);
 			}
 		}
 		
-		notes.Sort (CompareNoteTitles);
+		items.Sort ();
 		
-		return notes;
+		return items.ToArray (typeof (BacklinkMenuItem)) as BacklinkMenuItem [];
 	}
 	
 	bool CheckNoteHasMatch (Note note, string encoded_title)
