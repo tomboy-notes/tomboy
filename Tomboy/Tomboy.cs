@@ -8,6 +8,8 @@ namespace Tomboy
 	public class Tomboy : Application
 	{
 		static NoteManager manager;
+		static TomboyTrayIcon tray_icon;
+		static bool tray_icon_showing = false;
 #if ENABLE_DBUS
 		static RemoteControl remote_control;
 #endif
@@ -19,11 +21,13 @@ namespace Tomboy
 			
 			TomboyCommandLine cmd_line = new TomboyCommandLine (args);
 
+#if ENABLE_DBUS // Run command-line earlier with DBus enabled
 			if (cmd_line.NeedsExecute) {
 				// Execute args at an existing tomboy instance...
 				cmd_line.Execute ();
 				return;
 			}
+#endif // ENABLE_DBUS
 
 			Initialize ("tomboy", "Tomboy", "tomboy", args);
 
@@ -35,8 +39,23 @@ namespace Tomboy
 
 			// Register the manager to handle remote requests.
 			RegisterRemoteControl (manager);
+			
+			SetupGlobalActions ();
+
+#if !ENABLE_DBUS
+			if (cmd_line.NeedsExecute) {
+				cmd_line.Execute ();
+			}
+#endif
+			ActionManager am = Tomboy.ActionManager;
 
 			if (cmd_line.UsePanelApplet) {
+				tray_icon_showing = true;
+
+				// Show the Close item and hide the Quit item
+				am ["CloseWindowAction"].Visible = true;
+				am ["QuitTomboyAction"].Visible = false;
+
 				RegisterPanelAppletFactory ();
 			} else {
 				RegisterSessionManagerRestart (
@@ -45,7 +64,7 @@ namespace Tomboy
 					new string [] { "TOMBOY_PATH=" + note_path  });
 				StartTrayIcon ();
 			}
-
+			
 			Logger.Log ("All done.  Ciao!");
 		}
 
@@ -73,10 +92,35 @@ namespace Tomboy
 		static void StartTrayIcon ()
 		{
 			// Create the tray icon and run the main loop
-			TomboyTrayIcon tray_icon = new TomboyTrayIcon (DefaultNoteManager);
+			tray_icon = new TomboyTrayIcon (DefaultNoteManager);
+			
+			// Give the TrayIcon 2 seconds to appear.  If it
+			// doesn't by then, open the SearchAllNotes window.
+			tray_icon.Embedded += TrayIconEmbedded;
+			GLib.Timeout.Add (2000, CheckTrayIconShowing);
 			tray_icon.Show ();
 
 			StartMainLoop ();
+		}
+		
+		// This event is signaled when Tomboy's TrayIcon is added to the
+		// Notification Area.  If it's never signaled, the Notification Area
+		// is not available.
+		static void TrayIconEmbedded (object sender, EventArgs args)
+		{
+			tray_icon_showing = true;
+		}
+		
+		static bool CheckTrayIconShowing ()
+		{
+			// Check to make sure the tray icon is showing.  If it's not,
+			// it's likely that the Notification Area isn't available.  So
+			// instead, launch the Search All Notes window so the user can
+			// can still use Tomboy.
+			if (tray_icon_showing == false)
+				ActionManager ["ShowSearchAllNotesAction"].Activate ();
+			
+			return false; // prevent GLib.Timeout from calling this method again
 		}
 
 		static void RegisterRemoteControl (NoteManager manager)
@@ -97,9 +141,109 @@ namespace Tomboy
 #endif
 		}
 
+		// These actions can be called from anywhere in Tomboy
+		static void SetupGlobalActions ()
+		{
+			ActionManager am = Tomboy.ActionManager;
+			am ["NewNoteAction"].Activated += OnNewNoteAction;
+			am ["QuitTomboyAction"].Activated += OnQuitTomboyAction;
+			am ["ShowPreferencesAction"].Activated += OnShowPreferencesAction;
+			am ["ShowHelpAction"].Activated += OnShowHelpAction;
+			am ["ShowAboutAction"].Activated += OnShowAboutAction;
+			am ["TrayNewNoteAction"].Activated += OnNewNoteAction;
+			am ["ShowSearchAllNotesAction"].Activated += OpenSearchAll;
+		}
+		
+		static void OnNewNoteAction (object sender, EventArgs args)
+		{
+			try {
+				Note new_note = manager.Create ();
+				new_note.Window.Show ();
+			} catch (Exception e) {
+				HIGMessageDialog dialog = 
+					new HIGMessageDialog (
+						null,
+						0,
+						Gtk.MessageType.Error,
+						Gtk.ButtonsType.Ok,
+						Catalog.GetString ("Cannot create new note"),
+						e.Message);
+				dialog.Run ();
+				dialog.Destroy ();
+			}
+		}
+		
+		static void OnQuitTomboyAction (object sender, EventArgs args)
+		{
+			Logger.Log ("Quitting Tomboy.  Ciao!");
+			Exit (0);
+		}
+		
+		static void OnShowPreferencesAction (object sender, EventArgs args)
+		{
+			tray_icon.TomboyTray.ShowPreferences ();
+		}
+		
+		static void OnShowHelpAction (object sender, EventArgs args)
+		{
+			GuiUtils.ShowHelp("tomboy.xml", null, tray_icon.TomboyTray.Screen, null);
+		}
+		
+		static void OnShowAboutAction (object sender, EventArgs args)
+		{
+			string [] authors = new string [] {
+				"Alex Graveley <alex@beatniksoftware.com>",
+				"Boyd Timothy <btimothy@gmail.com>",
+				"David Trowbridge <trowbrds@gmail.com>",
+				"Ryan Lortie <desrt@desrt.ca>",
+				"Sandy Armstrong <sanfordarmstrong@gmail.com>",
+				"Sebastian Rittau <srittau@jroger.in-berlin.de>"
+			};
+
+			string [] documenters = new string [] {
+				"Alex Graveley <alex@beatniksoftware.com>"
+			};
+
+			string translators = Catalog.GetString ("translator-credits");
+			if (translators == "translator-credits")
+				translators = null;
+
+			Gtk.AboutDialog about = new Gtk.AboutDialog ();
+			about.Name = "Tomboy";
+			about.Version = Defines.VERSION;
+			about.Logo = GuiUtils.GetIcon ("tomboy", 48);
+			about.Copyright = 
+				Catalog.GetString ("Copyright \xa9 2004-2006 Alex Graveley");
+			about.Comments = Catalog.GetString ("A simple and easy to use desktop " +
+							    "note-taking application.");
+			about.Website = "http://www.beatniksoftware.com/tomboy";
+			about.WebsiteLabel = Catalog.GetString("Homepage & Donations");
+			about.Authors = authors;
+			about.Documenters = documenters;
+			about.TranslatorCredits = translators;
+			about.IconName = "tomboy";
+			about.Run ();
+			about.Destroy ();
+		}
+		
+		static void OpenSearchAll (object sender, EventArgs args)
+		{
+			NoteRecentChanges.GetInstance (manager).Present ();
+		}
+		
 		public static NoteManager DefaultNoteManager
 		{
 			get { return manager; }
+		}
+		
+		public static bool TrayIconShowing
+		{
+			get { return tray_icon_showing; }
+		}
+		
+		public static TomboyTray Tray
+		{
+			get { return tray_icon.TomboyTray; }
 		}
 	}
 
@@ -168,7 +312,9 @@ namespace Tomboy
 					"  --note-path [path]\t\tLoad/store note data in this " +
 					"directory.\n" +
 					"  --check-plugin-unloading\tCheck if plugins are " +
-					"unloaded properly.\n");
+					"unloaded properly.\n" +
+					"  --search [text]\t\tOpen the search all notes window with " +
+					"the search text.\n");
 
 #if ENABLE_DBUS
 			usage += 
@@ -180,9 +326,7 @@ namespace Tomboy
 					"matching title.\n" +
 					"  --start-here\t\t\tDisplay the 'Start Here' note.\n" +
 					"  --highlight-search [text]\tSearch and highlight text " +
-					"in the opened note.\n" +
-					"  --search [text]\t\tOpen the search all notes window with " +
-					"the search text.\n");
+					"in the opened note.\n");
 #else
 			usage += Catalog.GetString ("D-BUS remote control disabled.\n");
 #endif
@@ -243,21 +387,11 @@ namespace Tomboy
 					++idx;
 					highlight_search = args [idx];
 					break;
-
-				case "--search":
-					// Get optional search text...
-					if (idx + 1 < args.Length && args [idx + 1][0] != '-') {
-						search_text = args [++idx];
-					}
-					
-					open_search = true;
-					break;
 #else
 				case "--new-note":
 				case "--open-note":
 				case "--start-here":
 				case "--highlight-search":
-				case "--search":
 					string unknown_opt = 
 						Catalog.GetString (
 							"Tomboy: unsupported option '{0}'\n" +
@@ -289,6 +423,15 @@ namespace Tomboy
 						quit = true;
 					}
 
+					break;
+
+				case "--search":
+					// Get optional search text...
+					if (idx + 1 < args.Length && args [idx + 1][0] != '-') {
+						search_text = args [++idx];
+					}
+					
+					open_search = true;
 					break;
 
 				case "--check-plugin-unloading":
@@ -362,6 +505,18 @@ namespace Tomboy
 					remote.DisplaySearchWithText (search_text);
 				else
 					remote.DisplaySearch ();
+			}
+#else
+			if (open_search) {
+				NoteRecentChanges recent_changes =
+					NoteRecentChanges.GetInstance (Tomboy.DefaultNoteManager);
+				if (recent_changes == null)
+					return;
+				
+				if (search_text != null)
+					recent_changes.SearchText = search_text;
+
+				recent_changes.Present ();
 			}
 #endif // ENABLE_DBUS
 		}

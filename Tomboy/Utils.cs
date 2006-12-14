@@ -778,6 +778,7 @@ namespace Tomboy
 	public class Application
 	{
 		static Gnome.Program program;
+		static ActionManager action_manager;
 
 		public static void Initialize (string locale_dir, 
 					       string display_name, 
@@ -791,6 +792,9 @@ namespace Tomboy
 						     Defines.VERSION, 
 						     Gnome.Modules.UI, 
 						     args);
+			
+			action_manager = new ActionManager ();
+			action_manager.LoadInterface ();
 
 			RegisterSignalHandlers ();
 		}
@@ -892,6 +896,11 @@ namespace Tomboy
 		public static void QuitMainLoop ()
 		{
 			Gtk.Main.Quit ();
+		}
+		
+		public static ActionManager ActionManager
+		{
+			get { return action_manager; }
 		}
 	}
 }
