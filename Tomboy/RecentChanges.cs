@@ -10,7 +10,7 @@ namespace Tomboy
 	{
 		NoteManager manager;
 
-		Gtk.AccelGroup accel_group;
+		Gtk.MenuBar menu_bar;
 		Gtk.ComboBoxEntry find_combo;
 		Gtk.Button clear_search_button;
 		Gtk.CheckButton case_sensitive;
@@ -67,11 +67,11 @@ namespace Tomboy
 			this.IconName = "tomboy";
 			this.DefaultWidth = 200;
 			this.current_matches = new Hashtable ();
+			
+			AddAccelGroup (Tomboy.ActionManager.UI.AccelGroup);
 
-			// For Escape (Close)
-			accel_group = new Gtk.AccelGroup ();
-			AddAccelGroup (accel_group);
-
+			menu_bar = CreateMenuBar ();
+			
 			Gtk.Image image = new Gtk.Image (GuiUtils.GetIcon ("system-search", 48));
 
 			Gtk.Label label = new Gtk.Label (Catalog.GetString ("_Search:"));
@@ -118,6 +118,7 @@ namespace Tomboy
 			tree.Show ();
 
 			note_count = new Gtk.Label ();
+			note_count.Xalign = 0;
 			note_count.Show ();
 
 			// Update on changes to notes
@@ -148,33 +149,59 @@ namespace Tomboy
 			matches_window.Add (tree);
 			matches_window.Show ();
 
-			close_button = new Gtk.Button (Gtk.Stock.Close);
-			close_button.Clicked += CloseClicked;
-			close_button.AddAccelerator ("activate",
-						     accel_group,
-						     (uint) Gdk.Key.Escape, 
-						     0,
-						     Gtk.AccelFlags.Visible);
-			close_button.Show ();
+			Gtk.HBox status_box = new Gtk.HBox (false, 8);
+			status_box.PackStart (note_count, true, true, 0);
+			status_box.Show ();
+			
+			Gtk.VBox vbox = new Gtk.VBox (false, 8);
+			vbox.BorderWidth = 6;
+			vbox.PackStart (hbox, false, false, 0);
+			vbox.PackStart (matches_window);
+			vbox.PackStart (status_box, false, false, 0);
+			vbox.Show ();
 
-			Gtk.HButtonBox button_box = new Gtk.HButtonBox ();
-			button_box.Layout = Gtk.ButtonBoxStyle.Edge;
-			button_box.Spacing = 8;
-			button_box.PackStart (note_count);
-			button_box.PackStart (close_button);
-			button_box.Show ();
-
-			content_vbox = new Gtk.VBox (false, 8);
-			content_vbox.BorderWidth = 6;
-			content_vbox.PackStart (hbox, false, false, 0);
-			content_vbox.PackStart (matches_window);
-			content_vbox.PackStart (button_box, false, false, 0);
+			// Use another VBox to place the MenuBar
+			// right at thetop of the window.
+			content_vbox = new Gtk.VBox (false, 0);
+			content_vbox.PackStart (menu_bar, false, false, 0);
+			content_vbox.PackStart (vbox, true, true, 0);
 			content_vbox.Show ();
 
 			this.Add (content_vbox);
 			this.DeleteEvent += OnDelete;
+			this.KeyPressEvent += OnKeyPressed; // For Escape
 		}
-
+		
+		Gtk.MenuBar CreateMenuBar ()
+		{
+			ActionManager am = Tomboy.ActionManager;
+			Gtk.MenuBar menubar =
+				am.GetWidget ("/MainWindowMenubar") as Gtk.MenuBar;
+			
+			am ["OpenNoteAction"].Activated += OnOpenNote;
+			am ["DeleteNoteAction"].Activated += OnDeleteNote;
+			am ["CloseWindowAction"].Activated += OnCloseWindow;
+			if (Tomboy.TrayIconShowing == false)
+				am ["CloseWindowAction"].Visible = false;
+			
+			// Allow Escape to close the window as well as <Control>W
+			// Should be able to add Escape to the CloseAction.  Can't do that
+			// until someone fixes AccelGroup.Connect:
+			//     http://bugzilla.ximian.com/show_bug.cgi?id=76988)
+			//
+			//	am.UI.AccelGroup.Connect ((uint) Gdk.Key.Escape,
+			//			0,
+			//			Gtk.AccelFlags.Mask,
+			//			OnCloseWindow);
+			
+			return menubar;
+		}
+		
+		void ShowMenuItem (Gtk.Widget widget)
+		{
+			widget.Show ();
+		}
+		
 		void MakeRecentTree ()
 		{
 			Gtk.TargetEntry [] targets = 
@@ -195,7 +222,8 @@ namespace Tomboy
 			tree.RulesHint = true;
 			tree.RowActivated += OnRowActivated;
 			tree.DragDataGet += OnDragDataGet;
-			tree.KeyPressEvent += OnKeyPressed;
+			tree.Selection.Changed += OnSelectionChanged;
+			tree.ButtonPressEvent += OnButtonPressed;
 
 			tree.EnableModelDragSource (Gdk.ModifierType.Button1Mask,
 						    targets,
@@ -534,6 +562,120 @@ namespace Tomboy
 
 			args.SelectionData.Text = note.Title;
 		}
+		
+		void OnSelectionChanged (object sender, EventArgs args)
+		{
+			Note note = GetSelectedNote ();
+			if (note != null) {
+				Tomboy.ActionManager ["OpenNoteAction"].Sensitive = true;
+				Tomboy.ActionManager ["DeleteNoteAction"].Sensitive = true;
+			} else {
+				Tomboy.ActionManager ["OpenNoteAction"].Sensitive = false;
+				Tomboy.ActionManager ["DeleteNoteAction"].Sensitive = false;
+			}
+		}
+		
+		[GLib.ConnectBefore]
+		void OnButtonPressed (object sender, Gtk.ButtonPressEventArgs args)
+		{
+			switch (args.Event.Button) {
+			case 3: // third mouse button (right-click)
+				Gtk.TreePath path = null;
+				Gtk.TreeViewColumn column = null;
+				
+				if (tree.GetPathAtPos ((int) args.Event.X,
+						(int) args.Event.Y,
+						out path,
+						out column) == false)
+					break;
+				
+				Gtk.TreeSelection selection = tree.Selection;
+				if (selection.CountSelectedRows () == 0)
+					break;
+				
+				PopupContextMenuAtLocation ((int) args.Event.X,
+						(int) args.Event.Y);
+
+				break;
+			}
+		}
+		
+		void PopupContextMenuAtLocation (int x, int y)
+		{
+			Gtk.Menu menu = Tomboy.ActionManager.GetWidget (
+					"/MainWindowContextMenu") as Gtk.Menu;
+			menu.ShowAll ();
+			Gtk.MenuPositionFunc pos_menu_func = null;
+			
+			// Set up the funtion to position the context menu
+			// if we were called by the keyboard Gdk.Key.Menu.
+			if (x == 0 && y == 0)
+				pos_menu_func = PositionContextMenu;
+				
+			menu.Popup (null, null,
+					pos_menu_func,
+					0,
+					Gtk.Global.CurrentEventTime);
+		}
+		
+		// This is needed for when the user opens
+		// the context menu with the keyboard.
+		void PositionContextMenu (Gtk.Menu menu,
+				out int x, out int y, out bool push_in)
+		{
+			Gtk.TreeIter iter;
+			Gtk.TreePath path;
+			Gtk.TreeSelection selection;
+			
+			// Set default "return" values
+			push_in = false; // not used
+			x = 0;
+			y = 0;
+			
+			selection = tree.Selection;
+			if (!selection.GetSelected (out iter))
+				return;
+			
+			path = store_sort.GetPath (iter);
+			
+			int pos_x = 0;
+			int pos_y = 0;
+			
+			GetWidgetScreenPos (tree, ref pos_x, ref pos_y);
+			Gdk.Rectangle cell_rect = tree.GetCellArea (path, tree.Columns [0]);
+			
+			// Add 100 to x so it's not be at the far left
+			x = pos_x + cell_rect.X + 100;
+			y = pos_y + cell_rect.Y;
+		}
+		
+		// Walk the widget hiearchy to figure out
+		// where to position the context menu.
+		void GetWidgetScreenPos (Gtk.Widget widget, ref int x, ref int y)
+		{
+			int widget_x;
+			int widget_y;
+			
+			if (widget is Gtk.Window) {
+				((Gtk.Window) widget).GetPosition (out widget_x, out widget_y);
+			} else {
+				GetWidgetScreenPos (widget.Parent, ref x, ref y);
+				
+				// Special case the TreeView because it adds
+				// too much since it's in a scrolled window.
+				if (widget == tree) {
+					widget_x = 2;
+					widget_y = 2;
+				} else {
+					Gdk.Rectangle widget_rect = widget.Allocation;
+					widget_x = widget_rect.X;
+					widget_y = widget_rect.Y;
+				}
+			}
+			
+			x += widget_x;
+			y += widget_y;
+		}
 
 		Note GetSelectedNote ()
 		{
@@ -569,23 +711,71 @@ namespace Tomboy
 			} else
 				return date.ToString (Catalog.GetString ("MMMM d yyyy, h:mm tt"));
 		}
-
-		void CloseClicked (object sender, EventArgs args)
+		
+		void OnOpenNote (object sender, EventArgs args)
+		{
+			Note note = GetSelectedNote ();
+			if (note == null)
+				return;
+				
+			note.Window.Present ();
+		}
+		
+		void OnDeleteNote (object sender, EventArgs args)
+		{
+			Note note = GetSelectedNote ();
+			if (note == null)
+				return;
+			
+			NoteUtils.ShowDeletionDialog (note, this);
+		}
+		
+		void OnCloseWindow (object sender, EventArgs args)
 		{
 			// Disconnect external signal handlers to prevent bloweup
 			manager.NoteDeleted -= OnNotesChanged;
 			manager.NoteAdded -= OnNotesChanged;
 			manager.NoteRenamed -= OnNoteRenamed;
-
+			
+			// The following code has to be done for the MenuBar to
+			// appear properly the next time this window is opened.
+			if (menu_bar != null) {
+				content_vbox.Remove (menu_bar);
+				ActionManager am = Tomboy.ActionManager;
+				am ["OpenNoteAction"].Activated -= OnOpenNote;
+				am ["DeleteNoteAction"].Activated -= OnDeleteNote;
+				am ["CloseWindowAction"].Activated -= OnCloseWindow;
+			}
+			
 			Hide ();
 			Destroy ();
 			instance = null;
+
+			if (Tomboy.TrayIconShowing == false)
+				Tomboy.ActionManager ["QuitTomboyAction"].Activate ();
 		}
 		
 		void OnDelete (object sender, Gtk.DeleteEventArgs args)
 		{
-			CloseClicked (sender, EventArgs.Empty);
+			OnCloseWindow (sender, EventArgs.Empty);
 			args.RetVal = true;
+		}
+		
+		void OnKeyPressed (object sender, Gtk.KeyPressEventArgs args)
+		{
+			switch (args.Event.Key) {
+			case Gdk.Key.Escape:
+				// Allow Escape to close the window
+				OnCloseWindow (this, EventArgs.Empty);
+				break;
+			case Gdk.Key.Menu:
+				// Pop up the context menu if a note is selected
+				Note note = GetSelectedNote ();
+				if (note != null)
+					PopupContextMenuAtLocation (0, 0);
+
+				break;
+			}
 		}
 		
 		protected override void OnShown ()
@@ -677,21 +867,6 @@ namespace Tomboy
 			}
 		}
 
-		void OnKeyPressed (object obj, Gtk.KeyPressEventArgs args)
-		{
-			Gdk.EventKey eventKey = args.Event;
-
-			if (eventKey.Key == Gdk.Key.Delete && 
-			    eventKey.State == 0 /* Gdk.ModifierType.None */) {
-				// Get the selected note and prompt for deletion
-				Note note = GetSelectedNote();
-				if (note == null)
-					return;
-
-				NoteUtils.ShowDeletionDialog (note, this);
-			}		
-		}
-		
 		void OnEntryActivated (object sender, EventArgs args)
 		{
 			if (entry_changed_timeout != null)

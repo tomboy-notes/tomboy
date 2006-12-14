@@ -76,7 +76,8 @@ EXTRA_DIST = 					\
 	$(man_MANS)				\
 	$(noinst_DATA)				\
 	GNOME_TomboyApplet.server.in.in		\
-	$(dbusservice_in_files)
+	$(dbusservice_in_files)				\
+	UIManagerLayout.xml
 
 DISTCLEANFILES = 				\
 	DefaultPlugins.desktop.in		\

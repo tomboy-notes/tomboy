@@ -91,12 +91,12 @@ namespace Tomboy
 
 		void ShowHelpVerb ()
 		{
-			GuiUtils.ShowHelp("tomboy.xml", null, Screen, null);
+			Tomboy.ActionManager ["ShowHelpAction"].Activate ();
 		}
 
 		void ShowAboutVerb ()
 		{
-			tray.ShowAbout ();
+			Tomboy.ActionManager ["ShowAboutAction"].Activate ();
 		}
 
 		protected override void OnChangeBackground (PanelAppletBackgroundType type, 
@@ -217,28 +217,34 @@ namespace Tomboy
 
 		void ShowPreferences (object sender, EventArgs args)
 		{
-			tray.ShowPreferences ();
+			Tomboy.ActionManager ["ShowPreferencesAction"].Activate ();
 		}
 
 		void ShowPlugins (object sender, EventArgs args)
 		{
+			// FIXME: Make this a global action
 			manager.PluginManager.ShowPluginsDirectory ();
 		}
 
 		void ShowHelpContents (object sender, EventArgs args)
 		{
-			GuiUtils.ShowHelp("tomboy.xml", null, Screen, null);
+			Tomboy.ActionManager ["ShowHelpAction"].Activate ();
 		}
 
 		void ShowAbout (object sender, EventArgs args)
 		{
-			tray.ShowAbout ();
+			Tomboy.ActionManager ["ShowAboutAction"].Activate ();
 		}
 
 		void Quit (object sender, EventArgs args)
 		{
-			Logger.Log ("Quitting Tomboy.  Ciao!");
-			Tomboy.Exit (0);
+			Tomboy.ActionManager ["QuitTomboyAction"].Activate ();
+		}
+		
+		public TomboyTray TomboyTray
+		{
+			get { return tray; }
 		}
 	}
 }
+

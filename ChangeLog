@@ -1,5 +1,46 @@
 2006-12-14  Boyd Timothy  <btimothy@gmail.com>
 
+	The following files address bug #381357 by adding a Menubar to the
+	Search All Notes window.  They also add in consumption of
+	Gtk.UIManager and Gtk.Action(s).
+	
+	* data/Makefile.am: Include UIManagerLayout.xml in EXTRA_DIST.
+	
+	* data/UIManagerLayout.xml: The XML file needed for Gtk.UIManager.
+	Includes entries for the Search All Notes menubar, a context menu
+	for the Search All Notes window, and the TrayIcon menu.
+	
+	* Tomboy/ActionManager.cs: New file to manage Tomboy's consumption
+	of Gtk.Action(s) and Gtk.UIManager.  Using the UIManager should
+	allow plugins to tie in to Tomboy's UI more easily.
+	
+	* Tomboy/Applet.cs: Event handlers now activate the global actions
+	in the ActionManager.
+	
+	* Tomboy/Makefile.am: Added ActionManager.cs as a source file.  Added
+	UIManagerLayout.xml as a resource.
+	
+	* Tomboy/RecentChanges.cs: Added a menubar (uses the UIManager).
+	Removed Close button.  Added right-click menu so users can open/delete
+	a note from the TreeView with a context menu.
+	
+	* Tomboy/Tomboy.cs: Make "--search" work also for non-dbus.  Added about
+	dialog (originally in Tray.cs).  Added code to verify that the tray icon
+	gets added to the NotificationArea (when not running as a panel applet).
+	If the tray icon doesn't appear, the Search All Notes window is opened
+	automatically.  Set up global actions and action handlers that can be
+	called anywhere in Tomboy via Tomboy.ActionManager ["<action name>"].
+	Activate ();.
+	
+	* Tomboy/Tray.cs: Moved ShowAbout to Tomboy.cs.  Changed the popup menu
+	to use the UIManager so plugins can eventually add things to the menu
+	if absolutely necessary.
+	
+	* Tomboy/Utils.cs: Initialize ActionManager and added public static
+	accessor for it to the Application class.
+
+2006-12-14  Boyd Timothy  <btimothy@gmail.com>
+
 	* data/tomboy.schemas.in: Added "BacklinksPlugin" as a default enabled
 	plugin.
 	* Tomboy/Preferences.cs: Ditto.

@@ -1,6 +1,7 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Text;
 using Mono.Unix;
 using System.Runtime.InteropServices;
@@ -123,6 +124,9 @@ namespace Tomboy
 		Gtk.Tooltips tips;
 		Gtk.Image image;
 		PreferencesDialog prefs_dlg;
+		Gtk.Menu recent_menu;
+		bool menu_added = false;
+		List<Gtk.MenuItem> recent_notes = new List<Gtk.MenuItem> ();
 
 		public TomboyTray (NoteManager manager) 
 			: base ()
@@ -153,6 +157,9 @@ namespace Tomboy
 			tips.Sink ();
 
 			SetupDragAndDrop ();
+			
+			recent_menu = MakeRecentNotesMenu ();
+			recent_menu.Hidden += MenuHidden;
 		}
 
 		void ButtonPress (object sender, Gtk.ButtonPressEventArgs args) 
@@ -161,7 +168,7 @@ namespace Tomboy
 
 			switch (args.Event.Button) {
 			case 1:
-				Gtk.Menu recent_menu = MakeRecentNotesMenu (parent);
+				UpdateRecentNotesMenu (parent);
 				GuiUtils.PopupMenu (recent_menu, args.Event);
 				args.RetVal = true;
 				break;
@@ -232,33 +239,61 @@ namespace Tomboy
 
 			return true;
 		}
-
-		Gtk.Menu MakeRecentNotesMenu (Gtk.Widget parent) 
+		
+		Gtk.Menu MakeRecentNotesMenu ()
 		{
-			Gtk.Menu menu = new Gtk.Menu ();
-			menu.AttachToWidget (parent, GuiUtils.DetachMenu);
-
+			Gtk.Menu menu =
+				Tomboy.ActionManager.GetWidget ("/TrayIconMenu") as Gtk.Menu;
+			
 			bool enable_keybindings = (bool) 
 				Preferences.Get (Preferences.ENABLE_KEYBINDINGS);
-
-			Gtk.ImageMenuItem item;
-
-			item = new Gtk.ImageMenuItem (Catalog.GetString ("Create _New Note"));
-			item.Image = new Gtk.Image (Gtk.Stock.New, Gtk.IconSize.Menu);
-			item.Activated += CreateNewNote;
-			menu.Append (item);
-
-			if (enable_keybindings)
-				GConfKeybindingToAccel.AddAccelerator (
-					item, 
-					Preferences.KEYBINDING_CREATE_NEW_NOTE);
-
+			if (enable_keybindings) {
+				// Create New Note Keybinding
+				Gtk.MenuItem item =
+					Tomboy.ActionManager.GetWidget (
+						"/TrayIconMenu/NewNote") as Gtk.MenuItem;
+				if (item != null)
+					GConfKeybindingToAccel.AddAccelerator (
+						item,
+						Preferences.KEYBINDING_CREATE_NEW_NOTE);
+				
+				// Show Search All Notes Keybinding
+				item =
+					Tomboy.ActionManager.GetWidget (
+						"/TrayIconMenu/ShowSearchAllNotes") as Gtk.MenuItem;
+				if (item != null)
+					GConfKeybindingToAccel.AddAccelerator (
+						item,
+						Preferences.KEYBINDING_CREATE_NEW_NOTE);
+				
+				// Open Start Here Keybinding			
+				item =
+					Tomboy.ActionManager.GetWidget (
+						"/TrayIconMenu/OpenStartHereNote") as Gtk.MenuItem;
+				if (item != null)
+					GConfKeybindingToAccel.AddAccelerator (
+						item,
+						Preferences.KEYBINDING_OPEN_RECENT_CHANGES);
+			}				
+			
+			return menu;
+		}
+		
+		void MenuHidden (object sender, EventArgs args)
+		{
+			// Remove the old dynamic items
+			RemoveRecentlyChangedNotes ();
+		}
+		
+		void AddRecentlyChangedNotes ()
+		{
 			int min_size = (int) Preferences.Get (Preferences.MENU_NOTE_COUNT);
 			int max_size = 18;
 			int list_size = 0;
+			NoteMenuItem item;
 
 			DateTime days_ago = DateTime.Today.AddDays (-3);
-
+			
 			// List the i most recently changed notes, any currently
 			// opened notes, and any pinned notes...
 			foreach (Note note in manager.Notes) {
@@ -278,7 +313,11 @@ namespace Tomboy
 
 				if (show) {
 					item = new NoteMenuItem (note, true);
-					menu.Append (item);
+					// Add this widget to the menu (+2 to add after separator)
+					recent_menu.Insert (item, list_size + 2);
+					// Keep track of this item so we can remove it later
+					recent_notes.Add (item);
+					
 					list_size++;
 				}
 			}
@@ -286,54 +325,45 @@ namespace Tomboy
 			Note start = manager.Find (Catalog.GetString ("Start Here"));
 			if (start != null) {
 				item = new NoteMenuItem (start, false);
-				menu.Append (item);
+				recent_menu.Insert (item, list_size + 2);
+				recent_notes.Add (item);
 
+				list_size++;
+
+				bool enable_keybindings = (bool) 
+					Preferences.Get (Preferences.ENABLE_KEYBINDINGS);
 				if (enable_keybindings)
 					GConfKeybindingToAccel.AddAccelerator (
 						item, 
 						Preferences.KEYBINDING_OPEN_START_HERE);
 			}
-
-			menu.Append (new Gtk.SeparatorMenuItem ());
-
-			item = new Gtk.ImageMenuItem (Catalog.GetString ("_Search All Notes"));
-			item.Image = new Gtk.Image (Gtk.Stock.Find, Gtk.IconSize.Menu);
-			item.Activated += OpenSearchAll;
-			menu.Append (item);
-
-			if (enable_keybindings)
-				GConfKeybindingToAccel.AddAccelerator (
-					item, 
-					Preferences.KEYBINDING_OPEN_RECENT_CHANGES);
-
-			menu.ShowAll ();
-			return menu;
+			
+			Gtk.SeparatorMenuItem separator = new Gtk.SeparatorMenuItem ();
+			recent_menu.Insert (separator, list_size + 2);
+			recent_notes.Add (separator);
 		}
-
-		void CreateNewNote (object sender, EventArgs args) 
+		
+		void RemoveRecentlyChangedNotes ()
 		{
-			try {
-				Note new_note = manager.Create ();
-				new_note.Window.Show ();
-			} catch (Exception e) {
-				HIGMessageDialog dialog = 
-					new HIGMessageDialog (
-						null,
-						0,
-						Gtk.MessageType.Error,
-						Gtk.ButtonsType.Ok,
-						Catalog.GetString ("Cannot create new note"),
-						e.Message);
-				dialog.Run ();
-				dialog.Destroy ();
+			foreach (Gtk.Widget item in recent_notes) {
+				recent_menu.Remove (item);
 			}
+			
+			recent_notes.Clear ();
 		}
-
-		void OpenSearchAll (object sender, EventArgs args)
+		
+		void UpdateRecentNotesMenu (Gtk.Widget parent) 
 		{
-			NoteRecentChanges.GetInstance (manager).Present ();
-		}
+			if (!menu_added) {
+				recent_menu.AttachToWidget (parent, GuiUtils.DetachMenu);
+				menu_added = true;
+			}
+			
+			AddRecentlyChangedNotes ();
 
+			recent_menu.ShowAll ();
+		}
+		
 		// Used by TomboyApplet to modify the icon background.
 		public Gtk.Image Image
 		{
@@ -342,7 +372,7 @@ namespace Tomboy
 
 		public void ShowMenu (bool select_first_item)
 		{
-			Gtk.Menu recent_menu = MakeRecentNotesMenu (this);
+			UpdateRecentNotesMenu (this);
 			if (select_first_item)
 				recent_menu.SelectFirst (false);
 
@@ -362,43 +392,6 @@ namespace Tomboy
 				prefs_dlg.Response += OnPreferencesResponse;
 			}
 			prefs_dlg.Present ();
-		}
-
-		public void ShowAbout ()
-		{
-			string [] authors = new string [] {
-				"Alex Graveley <alex@beatniksoftware.com>",
-				"Boyd Timothy <btimothy@gmail.com>",
-				"David Trowbridge <trowbrds@gmail.com>",
-				"Ryan Lortie <desrt@desrt.ca>",
-				"Sandy Armstrong <sanfordarmstrong@gmail.com>",
-				"Sebastian Rittau <srittau@jroger.in-berlin.de>"
-			};
-
-			string [] documenters = new string [] {
-				"Alex Graveley <alex@beatniksoftware.com>"
-			};
-
-			string translators = Catalog.GetString ("translator-credits");
-			if (translators == "translator-credits")
-				translators = null;
-
-			Gtk.AboutDialog about = new Gtk.AboutDialog ();
-			about.Name = "Tomboy";
-			about.Version = Defines.VERSION;
-			about.Logo = GuiUtils.GetIcon ("tomboy", 48);
-			about.Copyright = 
-				Catalog.GetString ("Copyright \xa9 2004-2006 Alex Graveley");
-			about.Comments = Catalog.GetString ("A simple and easy to use desktop " +
-							    "note-taking application.");
-			about.Website = "http://www.beatniksoftware.com/tomboy";
-			about.WebsiteLabel = Catalog.GetString("Homepage & Donations");
-			about.Authors = authors;
-			about.Documenters = documenters;
-			about.TranslatorCredits = translators;
-			about.IconName = "tomboy";
-			about.Run ();
-			about.Destroy ();
 		}
 
 		// Support dropping text/uri-lists and _NETSCAPE_URLs currently.
