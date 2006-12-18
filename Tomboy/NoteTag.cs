@@ -311,6 +311,34 @@ namespace Tomboy
 			}
 		}
 	}
+	
+	public class DepthNoteTag : NoteTag
+	{
+		int depth = -1;
+		
+		public int Depth
+		{
+			get{ return depth; }
+			set{ depth = value; }
+		}
+
+		public DepthNoteTag (int depth)
+			: base("depth:" + depth)
+		{
+			Depth = depth;
+		}
+
+		public override void Write (XmlTextWriter xml, bool start)
+		{
+			if (CanSerialize) {
+				if (start) {
+					xml.WriteStartElement (null, "list-item", null);
+				} else {
+					xml.WriteEndElement ();
+				}
+			}
+		}
+	}	
 
 	public class NoteTagTable : Gtk.TextTagTable
 	{
@@ -488,6 +516,29 @@ namespace Tomboy
 			if (tag is NoteTag)
 				return ((NoteTag) tag).CanActivate;
 			return false;
+		}
+		
+		public static bool TagHasDepth (Gtk.TextTag tag)
+		{
+			if (tag is DepthNoteTag)
+				return true;
+			
+			return false;
+		}
+
+		public DepthNoteTag GetDepthTag(int depth)
+		{
+			DepthNoteTag tag = Lookup ("depth:" + depth) as DepthNoteTag;
+
+			if (tag == null) {
+				tag = new DepthNoteTag (depth);
+				tag.Indent = -13;
+				tag.LeftMargin = (depth+1) * 25;
+				tag.PixelsBelowLines = 4;
+				Add (tag);				
+			}
+
+			return tag;
 		}
 
 		public DynamicNoteTag CreateDynamicTag (string tag_name)

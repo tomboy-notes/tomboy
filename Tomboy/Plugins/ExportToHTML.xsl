@@ -119,6 +119,21 @@
 	<a href="{node()}"><xsl:value-of select="node()"/></a>
 </xsl:template>
 
+<xsl:template match="tomboy:list">
+	<ul>
+		<xsl:apply-templates select="tomboy:list-item" />
+	</ul>
+</xsl:template>
+
+<xsl:template match="tomboy:list-item">
+	<li>
+		<xsl:if test="normalize-space(text()) = ''">
+			<xsl:attribute name="style">list-style-type: none</xsl:attribute>
+		</xsl:if>
+		<xsl:apply-templates select="node()" />
+	</li>
+</xsl:template>
+
 <!-- Evolution.dll Plugin -->
 <xsl:template match="link:evo-mail">
 	<a href="{./@uri}">
