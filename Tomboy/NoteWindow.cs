@@ -33,6 +33,8 @@ namespace Tomboy
 			Gtk.TargetList list = Gtk.Drag.DestGetTargetList (this);
 			list.Add (Gdk.Atom.Intern ("text/uri-list", false), 0, 1);
 			list.Add (Gdk.Atom.Intern ("_NETSCAPE_URL", false), 0, 1);
+			
+			KeyPressEvent += KeyPressed;
 		}
 
 		public static int DefaultMargin
@@ -119,6 +121,47 @@ namespace Tomboy
 			} else {
 				base.OnDragDataReceived (context, x, y, selection_data, info, time);
 			}
+		}
+		
+		[GLib.ConnectBefore()]
+		void KeyPressed (object sender, Gtk.KeyPressEventArgs args)
+		{
+			args.RetVal = true;
+			bool ret_value = false;
+			
+			switch (args.Event.Key)
+			{
+			case Gdk.Key.Return:
+				ret_value = ((NoteBuffer) Buffer).AddNewline ();
+				ScrollMarkOnscreen (Buffer.InsertMark);
+				break;
+			case Gdk.Key.Tab:
+				ret_value = ((NoteBuffer) Buffer).AddTab ();
+				ScrollMarkOnscreen (Buffer.InsertMark);
+				break;
+			case Gdk.Key.ISO_Left_Tab:
+				ret_value = ((NoteBuffer) Buffer).RemoveTab ();
+				ScrollMarkOnscreen (Buffer.InsertMark);
+				break;
+			case Gdk.Key.Delete:
+				ret_value = ((NoteBuffer) Buffer).DeleteKeyHandler ();
+				ScrollMarkOnscreen (Buffer.InsertMark);
+				break;
+			case Gdk.Key.BackSpace:
+				ret_value = ((NoteBuffer) Buffer).BackspaceKeyHandler ();
+				break;
+ 			case Gdk.Key.Left:
+ 			case Gdk.Key.Right:
+ 			case Gdk.Key.Up:
+ 			case Gdk.Key.Down:
+				ret_value = false;
+				break;
+			default:
+				((NoteBuffer) Buffer).CheckSelection ();
+				break;
+			}
+			
+			args.RetVal = ret_value;
 		}
 	}
 
@@ -256,7 +299,19 @@ namespace Tomboy
 			
 			// Have Esc key close the note window
 			KeyPressEvent += KeyPressed;
+						   
+			// Increase Indent			    
+			global_keys.AddAccelerator (new EventHandler (IncreaseDepthHandler),
+						    (uint) Gdk.Key.Right, 
+						    Gdk.ModifierType.Mod1Mask,
+						    Gtk.AccelFlags.Visible);
 						    
+			// Decrease Indent
+			global_keys.AddAccelerator (new EventHandler (DecreaseDepthHandler),
+						    (uint) Gdk.Key.Left, 
+						    Gdk.ModifierType.Mod1Mask,
+						    Gtk.AccelFlags.Visible);			
+
 			this.Add (box);
 		}
 
@@ -736,6 +791,16 @@ namespace Tomboy
 		{
 			SearchButtonClicked ();
 		}
+
+		void IncreaseDepthHandler (object sender, EventArgs args)
+		{
+			((NoteBuffer)editor.Buffer).IncreaseCursorDepth();
+		}
+		
+		void DecreaseDepthHandler (object sender, EventArgs args)
+		{
+			((NoteBuffer)editor.Buffer).DecreaseCursorDepth();
+		}	
 	}
 	
 	public class NoteFindBar : Gtk.HBox
@@ -1184,6 +1249,9 @@ namespace Tomboy
 		Gtk.RadioMenuItem large;
 		Gtk.RadioMenuItem small;
 		Gtk.CheckMenuItem highlight;
+		Gtk.CheckMenuItem bullets;
+		Gtk.ImageMenuItem increase_indent;
+		Gtk.ImageMenuItem decrease_indent;
 
 		// Active when the text size is indeterminable, such as when in
 		// the note's title line.
@@ -1323,7 +1391,20 @@ namespace Tomboy
 
 			hidden_no_size = new Gtk.RadioMenuItem (small.Group, string.Empty);
 			hidden_no_size.Hide ();
+			
+			Gtk.SeparatorMenuItem spacer2 = new Gtk.SeparatorMenuItem ();
+			
+			bullets = new Gtk.CheckMenuItem (Catalog.GetString ("Bullets"));
+			bullets.Activated += ToggleBulletsClicked;
 
+			increase_indent = new Gtk.ImageMenuItem (Gtk.Stock.Indent, accel_group);
+			increase_indent.Activated += IncreaseIndentClicked;
+			increase_indent.Show ();
+			
+			decrease_indent = new Gtk.ImageMenuItem (Gtk.Stock.Unindent, accel_group);
+			decrease_indent.Activated += DecreaseIndentClicked;
+			decrease_indent.Show ();
+			
 			RefreshState ();
 
 			Append (bold);
@@ -1336,6 +1417,10 @@ namespace Tomboy
 			Append (normal);
 			Append (large);
 			Append (huge);
+			Append (spacer2);
+			Append (bullets);
+			Append (increase_indent);
+			Append (decrease_indent);
 			ShowAll ();
 		}
 
@@ -1380,6 +1465,13 @@ namespace Tomboy
 			italic.Active = buffer.IsActiveTag ("italic");
 			strikeout.Active = buffer.IsActiveTag ("strikethrough");
 			highlight.Active = buffer.IsActiveTag ("highlight");
+			
+			bool inside_bullets = buffer.IsBulletedListActive ();
+			bullets.Activated -= ToggleBulletsClicked;
+			bullets.Active = inside_bullets;
+			bullets.Activated += ToggleBulletsClicked;
+			increase_indent.Sensitive = inside_bullets;
+			decrease_indent.Sensitive = inside_bullets;
 
 			RefreshSizingState ();
 
@@ -1455,6 +1547,37 @@ namespace Tomboy
 		{
 			undo.Sensitive = undo_manager.CanUndo;
 			redo.Sensitive = undo_manager.CanRedo;
+		}
+		
+		//
+		// Bulleted list handlers
+		//
+		void ToggleBulletsClicked (object sender, EventArgs args)
+		{
+			bool inside_bullets = buffer.IsBulletedListActive ();
+			if (!inside_bullets)
+				buffer.IncreaseCursorDepth ();
+			else {
+				// FIXME: This is a bad hack.  There's got to be
+				// a better way to remove the bullet.
+				
+				// For now, keep calling buffer.DecreaseCursorDepth ()
+				// until bullets are no longer present.
+				do {
+					buffer.DecreaseCursorDepth ();
+					inside_bullets = buffer.IsBulletedListActive ();
+				} while (inside_bullets == true);
+			}
+		}
+		
+		void IncreaseIndentClicked (object sender, EventArgs args)
+		{
+			buffer.IncreaseCursorDepth ();
+		}
+		
+		void DecreaseIndentClicked (object sender, EventArgs args)
+		{
+			buffer.DecreaseCursorDepth ();
 		}
 	}
 }

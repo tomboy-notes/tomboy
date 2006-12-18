@@ -1,3 +1,18 @@
+2006-12-18  Boyd Timothy  <btimothy@gmail.com>
+	
+	* Tomboy/NoteBuffer.cs: Applied patch from Chris Scobell (Bug #319221)
+	to add bulleted list support.  Added code to watch newlines to determine
+	whether they begin with "*" or "-" to start new bulleted lists.  Code
+	also added to increase and decrease bulleted list depth (indent).
+	* Tomboy/NoteTag.cs: Ditto.  Added DepthNoteTag.
+	* Tomboy/NoteWindow.cs: Ditto.  Added accelerators to manipulate tab
+	depth for bullted lists (Tab, Shift-Tab, Alt-RightArrow, Alt-LeftArrow).
+	Create new bullted list by using "*" or "-" at beginning of line or by
+	selecting "Bullets" from the "Text" menu.
+	* Tomboy/Undo.cs: Ditto.  Added ChangeDepthAction and InsertBulletAction.
+	* Tomboy/Plugins/ExportToHTML.xsl: Ditto.  Convert <list> tags to HTML
+	during an export.
+
 2006-12-14  Boyd Timothy  <btimothy@gmail.com>
 
 	* Tomboy/Plugins/Backlinks.cs: Open the note findbar with the original

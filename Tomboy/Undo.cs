@@ -428,6 +428,112 @@ namespace Tomboy
 		}
 	}
 
+	class ChangeDepthAction : EditAction
+	{
+		int line;
+		bool direction;
+		
+		public ChangeDepthAction (int line, bool direction)
+		{
+			this.line = line;
+			this.direction = direction;
+		}
+
+		public void Undo (Gtk.TextBuffer buffer)
+		{		
+			Gtk.TextIter iter = buffer.GetIterAtLine (line);
+		
+			if (direction) {
+				((NoteBuffer) buffer).DecreaseDepth (ref iter);
+			} else {
+				((NoteBuffer) buffer).IncreaseDepth (ref iter);
+			}
+
+			buffer.MoveMark (buffer.InsertMark, iter);
+			buffer.MoveMark (buffer.SelectionBound, iter);
+		}
+
+		public void Redo (Gtk.TextBuffer buffer)
+		{
+			Gtk.TextIter iter = buffer.GetIterAtLine (line);
+
+			if (direction) {
+				((NoteBuffer) buffer).IncreaseDepth (ref iter);
+			} else {
+				((NoteBuffer) buffer).DecreaseDepth (ref iter);
+			}
+
+			buffer.MoveMark (buffer.InsertMark, iter);
+			buffer.MoveMark (buffer.SelectionBound, iter);
+		}
+
+		public void Merge (EditAction action)
+		{
+			throw new Exception ("ChangeDepthActions cannot be merged");
+		}
+
+		public bool CanMerge (EditAction action)
+		{
+			return false;
+		}
+
+		public void Destroy ()
+		{
+		}
+	}
+	
+	class InsertBulletAction : EditAction
+	{
+		int offset;
+		int depth;
+		
+		public InsertBulletAction (int offset, int depth)
+		{
+			this.offset = offset;
+			this.depth = depth;
+		}
+
+		public void Undo (Gtk.TextBuffer buffer)
+		{		
+			Gtk.TextIter iter = buffer.GetIterAtOffset (offset);
+			iter.ForwardLine ();
+			iter = buffer.GetIterAtLine (iter.Line);
+
+			((NoteBuffer) buffer).RemoveBullet (ref iter);
+
+			iter.ForwardToLineEnd ();
+
+			buffer.MoveMark (buffer.InsertMark, iter);
+			buffer.MoveMark (buffer.SelectionBound, iter);
+		}
+
+		public void Redo (Gtk.TextBuffer buffer)
+		{
+			Gtk.TextIter iter = buffer.GetIterAtOffset (offset);
+
+			buffer.Insert (ref iter, "\n");
+
+			((NoteBuffer) buffer).InsertBullet (ref iter, depth);
+
+			buffer.MoveMark (buffer.InsertMark, iter);
+			buffer.MoveMark (buffer.SelectionBound, iter);
+		}
+
+		public void Merge (EditAction action)
+		{
+			throw new Exception ("InsertBulletActions cannot be merged");
+		}
+
+		public bool CanMerge (EditAction action)
+		{
+			return false;
+		}
+
+		public void Destroy ()
+		{
+		}
+	}	
+
 	public class UndoManager
 	{
 		uint frozen_cnt;
@@ -449,6 +555,8 @@ namespace Tomboy
 			chop_buffer = new ChopBuffer (buffer.TagTable);
 
 			buffer.InsertTextWithTags += OnInsertText;
+			buffer.NewBulletInserted += OnBulletInserted;
+			buffer.ChangeTextDepth += OnChangeDepth;
 			buffer.DeleteRange += OnDeleteRange; // Before handler
 			buffer.TagApplied += OnTagApplied;
 			buffer.TagRemoved += OnTagRemoved;
@@ -624,5 +732,19 @@ namespace Tomboy
 				}
 			}
 		}
+
+		void OnChangeDepth(object sender, ChangeDepthEventArgs args)
+		{
+			if (frozen_cnt == 0) {
+				AddUndoAction (new ChangeDepthAction (args.Line, args.Direction));
+			}
+		}
+		
+		void OnBulletInserted(object sender, InsertBulletEventArgs args)
+		{
+			if (frozen_cnt == 0) {
+				AddUndoAction (new InsertBulletAction (args.Offset, args.Depth));
+			}
+		}		
 	}
 }
