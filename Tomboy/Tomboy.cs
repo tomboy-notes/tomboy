@@ -311,8 +311,6 @@ namespace Tomboy
 					"  --help\t\t\tPrint this usage message.\n" +
 					"  --note-path [path]\t\tLoad/store note data in this " +
 					"directory.\n" +
-					"  --check-plugin-unloading\tCheck if plugins are " +
-					"unloaded properly.\n" +
 					"  --search [text]\t\tOpen the search all notes window with " +
 					"the search text.\n");
 
@@ -327,7 +325,14 @@ namespace Tomboy
 					"  --start-here\t\t\tDisplay the 'Start Here' note.\n" +
 					"  --highlight-search [text]\tSearch and highlight text " +
 					"in the opened note.\n");
-#else
+#endif
+
+			usage +=
+				Catalog.GetString (
+					"  --check-plugin-unloading\tCheck if plugins are " +
+					"unloaded properly.\n");
+
+#if !ENABLE_DBUS
 			usage += Catalog.GetString ("D-BUS remote control disabled.\n");
 #endif
 
@@ -348,7 +353,10 @@ namespace Tomboy
 #if ENABLE_DBUS
 				case "--new-note":
 					// Get optional name for new note...
-					if (idx + 1 < args.Length && args [idx + 1][0] != '-') {
+					if (idx + 1 < args.Length
+							&& args [idx + 1] != null
+							&& args [idx + 1] != String.Empty
+							&& args [idx + 1][0] != '-') {
 						new_note_name = args [++idx];
 					}
 
@@ -357,7 +365,10 @@ namespace Tomboy
 
 				case "--open-note":
 					// Get required name for note to open...
-					if (idx + 1 >= args.Length || args [idx + 1][0] == '-') {
+					if (idx + 1 >= args.Length ||
+							(args [idx + 1] != null
+								&& args [idx + 1] != String.Empty
+								&& args [idx + 1][0] == '-')) {
 						PrintUsage ();
 						quit = true;
 					}
@@ -379,7 +390,10 @@ namespace Tomboy
 
 				case "--highlight-search":
 					// Get required search string to highlight
-					if (idx + 1 >= args.Length || args [idx + 1][0] == '-') {
+					if (idx + 1 >= args.Length ||
+							(args [idx + 1] != null
+								&& args [idx + 1] != String.Empty
+								&& args [idx + 1][0] == '-')) {
 						PrintUsage ();
 						quit = true;
 					}
@@ -408,7 +422,10 @@ namespace Tomboy
 					break;
 
 				case "--note-path":
-					if (idx + 1 >= args.Length || args [idx + 1][0] == '-') {
+					if (idx + 1 >= args.Length || 
+							(args [idx + 1] != null
+								&& args [idx + 1] != String.Empty
+								&& args [idx + 1][0] == '-')) {
 						PrintUsage ();
 						quit = true;
 					}
@@ -427,7 +444,10 @@ namespace Tomboy
 
 				case "--search":
 					// Get optional search text...
-					if (idx + 1 < args.Length && args [idx + 1][0] != '-') {
+					if (idx + 1 < args.Length
+							&& args [idx + 1] != null
+							&& args [idx + 1] != String.Empty
+							&& args [idx + 1][0] != '-') {
 						search_text = args [++idx];
 					}
 					
@@ -455,7 +475,7 @@ namespace Tomboy
 					break;
 				}
 
-				if (quit == true) 
+				if (quit == true)
 					System.Environment.Exit (1);
 			}
 		}
