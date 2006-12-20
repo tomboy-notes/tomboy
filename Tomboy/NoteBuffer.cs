@@ -371,6 +371,15 @@ namespace Tomboy
 
 			if (selection) {
 				AugmentSelection (ref start, ref end);
+			} else {
+				// If the cursor is at the start of a bulleted line
+				// move it so it is after the bullet.
+				if (start.LineOffset == 0 && FindDepthTag (ref start) != null) {
+					start.ForwardChar ();
+					if (start.Char == " ")
+						start.ForwardChar ();
+					SelectRange (start, start);
+				}
 			}
 		}
 
