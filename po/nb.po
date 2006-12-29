@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tomboy 0.3.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-12-15 11:03+0100\n"
-"PO-Revision-Date: 2006-12-15 12:17+0100\n"
+"POT-Creation-Date: 2006-12-29 12:44+0100\n"
+"PO-Revision-Date: 2006-12-29 12:52+0100\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian Bokmal <i18n-nb@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
@@ -43,20 +43,22 @@ msgstr "Tomboy programfabrikk"
 msgid "Tomboy Notes"
 msgstr "Tomboy notatskriver"
 
-#: ../data/GNOME_TomboyApplet.xml.h:1
+#: ../data/GNOME_TomboyApplet.xml.h:1 ../Tomboy/ActionManager.cs:100
 msgid "_About"
 msgstr "_Om"
 
-#: ../data/GNOME_TomboyApplet.xml.h:2 ../Tomboy/Applet.cs:197
+#: ../data/GNOME_TomboyApplet.xml.h:2 ../Tomboy/ActionManager.cs:93
+#: ../Tomboy/Applet.cs:197
 msgid "_Help"
 msgstr "_Hjelp"
 
 #: ../data/GNOME_TomboyApplet.xml.h:3 ../Tomboy/Applet.cs:185
-#: ../Tomboy/NoteWindow.cs:561 ../Tomboy/Preferences.cs:636
+#: ../Tomboy/NoteWindow.cs:616 ../Tomboy/Preferences.cs:636
 msgid "_Open Plugins Folder"
 msgstr "_Åpne mappe for programtillegg"
 
-#: ../data/GNOME_TomboyApplet.xml.h:4 ../Tomboy/Applet.cs:192
+#: ../data/GNOME_TomboyApplet.xml.h:4 ../Tomboy/ActionManager.cs:89
+#: ../Tomboy/Applet.cs:192
 msgid "_Preferences"
 msgstr "_Brukervalg"
 
@@ -324,17 +326,93 @@ msgstr "Side %N av %Q"
 msgid "%A %x, %X"
 msgstr "%A %x, %X"
 
+#: ../Tomboy/ActionManager.cs:63
+msgid "_File"
+msgstr "_Fil"
+
+#: ../Tomboy/ActionManager.cs:66
+msgid "_New"
+msgstr "_Ny"
+
+#: ../Tomboy/ActionManager.cs:67 ../Tomboy/ActionManager.cs:108
+msgid "Create a new note"
+msgstr "Opprett et nytt notat"
+
+#: ../Tomboy/ActionManager.cs:70
+msgid "_Open..."
+msgstr "_Åpne..."
+
+#: ../Tomboy/ActionManager.cs:71
+msgid "Open the selected note"
+msgstr "Åpne valgt notat"
+
+#: ../Tomboy/ActionManager.cs:74
+msgid "_Delete"
+msgstr "_Slett"
+
+#: ../Tomboy/ActionManager.cs:75
+msgid "Delete the selected note"
+msgstr "Slett valgt notat"
+
+#: ../Tomboy/ActionManager.cs:78 ../Tomboy/NoteWindow.cs:510
+msgid "_Close"
+msgstr "_Lukk"
+
+#: ../Tomboy/ActionManager.cs:79
+msgid "Close this window"
+msgstr "Lukk dette vinduet"
+
+#: ../Tomboy/ActionManager.cs:82 ../Tomboy/Applet.cs:209
+msgid "_Quit"
+msgstr "_Avslutt"
+
+#: ../Tomboy/ActionManager.cs:83
+msgid "Quit Tomboy"
+msgstr "Avslutt Tomboy"
+
+#: ../Tomboy/ActionManager.cs:86
+msgid "_Edit"
+msgstr "R_ediger"
+
+#: ../Tomboy/ActionManager.cs:90 ../Tomboy/Preferences.cs:160
+msgid "Tomboy Preferences"
+msgstr "Innstillinger"
+
+#: ../Tomboy/ActionManager.cs:96
+msgid "_Contents"
+msgstr "_Innhold"
+
+#: ../Tomboy/ActionManager.cs:97
+msgid "Tomboy Help"
+msgstr "Tomboy hjelp"
+
+#: ../Tomboy/ActionManager.cs:101
+msgid "About Tomboy"
+msgstr "Om Tomboy"
+
+#: ../Tomboy/ActionManager.cs:104
+msgid "TrayIcon"
+msgstr "TrayIcon"
+
+#: ../Tomboy/ActionManager.cs:107
+msgid "Create _New Note"
+msgstr "Opprett _nytt notat"
+
+#: ../Tomboy/ActionManager.cs:111 ../Tomboy/NoteWindow.cs:453
+msgid "_Search All Notes"
+msgstr "_Søk i alle notatene"
+
+#: ../Tomboy/ActionManager.cs:112
+msgid "Open the Search All Notes window"
+msgstr "Åpne vinduet «Søk i alle notater»"
+
 #: ../Tomboy/Applet.cs:202
 msgid "_About Tomboy"
 msgstr "_Om Tomboy"
 
-#: ../Tomboy/Applet.cs:209
-msgid "_Quit"
-msgstr "_Avslutt"
-
 #. Open the Start Here note
 #: ../Tomboy/Note.cs:570 ../Tomboy/NoteManager.cs:107
-#: ../Tomboy/NoteManager.cs:115 ../Tomboy/Tomboy.cs:377 ../Tomboy/Tray.cs:231
+#: ../Tomboy/NoteManager.cs:115 ../Tomboy/Tomboy.cs:388 ../Tomboy/Tray.cs:231
 #: ../Tomboy/Tray.cs:325 ../Tomboy/Tray.cs:443 ../Tomboy/XKeybinder.cs:259
 msgid "Start Here"
 msgstr "Start her"
@@ -368,141 +446,153 @@ msgstr "Nytt notat {0}"
 msgid "Describe your new note here."
 msgstr "Skriv innholdet her."
 
-#: ../Tomboy/NoteWindow.cs:169
+#: ../Tomboy/NoteWindow.cs:212
 msgid "Find in This Note"
 msgstr "Finn i dette notatet"
 
-#: ../Tomboy/NoteWindow.cs:398
-msgid "_Search All Notes"
-msgstr "_Søk i alle notatene"
-
-#: ../Tomboy/NoteWindow.cs:410
+#: ../Tomboy/NoteWindow.cs:465
 msgid "_Link to New Note"
 msgstr "_Lenke til nytt notat"
 
-#: ../Tomboy/NoteWindow.cs:422
+#: ../Tomboy/NoteWindow.cs:477
 msgid "Te_xt"
 msgstr "_Tekst"
 
-#: ../Tomboy/NoteWindow.cs:430
+#: ../Tomboy/NoteWindow.cs:485
 msgid "_Find in This Note"
 msgstr "_Finn i dette notatet"
 
-#: ../Tomboy/NoteWindow.cs:445
+#: ../Tomboy/NoteWindow.cs:500
 msgid "Clos_e All Notes"
 msgstr "_Lukk alle notater"
 
-#: ../Tomboy/NoteWindow.cs:455
-msgid "_Close"
-msgstr "_Lukk"
-
-#: ../Tomboy/NoteWindow.cs:483
+#: ../Tomboy/NoteWindow.cs:538
 msgid "Search"
 msgstr "Søk"
 
-#: ../Tomboy/NoteWindow.cs:484
+#: ../Tomboy/NoteWindow.cs:539
 msgid "Search your notes (Ctrl-Shift-F)"
 msgstr "Søk i notatene dine (Ctrl-Shift-F)"
 
-#: ../Tomboy/NoteWindow.cs:497
+#: ../Tomboy/NoteWindow.cs:552
 msgid "Link"
 msgstr "Lenke"
 
-#: ../Tomboy/NoteWindow.cs:499
+#: ../Tomboy/NoteWindow.cs:554
 msgid "Link selected text to a new note (Ctrl-L)"
 msgstr "Lenk sammen valgt tekst til et nytt notat (Ctrl-L)"
 
-#: ../Tomboy/NoteWindow.cs:513
+#: ../Tomboy/NoteWindow.cs:568
 msgid "_Text"
 msgstr "_Tekst"
 
-#: ../Tomboy/NoteWindow.cs:518
+#: ../Tomboy/NoteWindow.cs:573
 msgid "Set properties of text"
 msgstr "Velg tekstegenskaper"
 
-#: ../Tomboy/NoteWindow.cs:524
+#: ../Tomboy/NoteWindow.cs:579
 msgid "T_ools"
 msgstr "_Verktøy"
 
-#: ../Tomboy/NoteWindow.cs:528
+#: ../Tomboy/NoteWindow.cs:583
 msgid "Use tools on this note"
 msgstr "Bruk verktøy på dette notatet"
 
-#: ../Tomboy/NoteWindow.cs:535
+#: ../Tomboy/NoteWindow.cs:590
 msgid "Delete"
 msgstr "Slett"
 
-#: ../Tomboy/NoteWindow.cs:536
+#: ../Tomboy/NoteWindow.cs:591
 msgid "Delete this note"
 msgstr "Slett dette notatet"
 
-#: ../Tomboy/NoteWindow.cs:593
+#: ../Tomboy/NoteWindow.cs:648
 msgid "_Find..."
 msgstr "_Finn..."
 
-#: ../Tomboy/NoteWindow.cs:604 ../Tomboy/NoteWindow.cs:790
+#: ../Tomboy/NoteWindow.cs:659 ../Tomboy/NoteWindow.cs:855
 msgid "Find _Next"
 msgstr "Finn _neste"
 
-#: ../Tomboy/NoteWindow.cs:617
+#: ../Tomboy/NoteWindow.cs:672
 msgid "Find _Previous"
 msgstr "Finn _forrige"
 
-#: ../Tomboy/NoteWindow.cs:705
+#: ../Tomboy/NoteWindow.cs:760
 msgid "Cannot create note"
 msgstr "Kan ikke opprette notat"
 
-#: ../Tomboy/NoteWindow.cs:770
+#: ../Tomboy/NoteWindow.cs:835
 msgid "_Find:"
 msgstr "_Finn:"
 
-#: ../Tomboy/NoteWindow.cs:781
+#: ../Tomboy/NoteWindow.cs:846
 msgid "_Previous"
 msgstr "_Forrige"
 
-#: ../Tomboy/NoteWindow.cs:800
+#: ../Tomboy/NoteWindow.cs:865
 msgid "Case _sensitive"
 msgstr "_Skill mellom små og store bokstaver"
 
-#: ../Tomboy/NoteWindow.cs:1243
+#: ../Tomboy/NoteWindow.cs:1311
 msgid "_Bold"
 msgstr "_Fet"
 
-#: ../Tomboy/NoteWindow.cs:1255
+#: ../Tomboy/NoteWindow.cs:1323
 msgid "_Italic"
 msgstr "_Kursiv"
 
-#: ../Tomboy/NoteWindow.cs:1267
+#: ../Tomboy/NoteWindow.cs:1335
 msgid "_Strikeout"
 msgstr "_Streket ut"
 
-#: ../Tomboy/NoteWindow.cs:1279
+#: ../Tomboy/NoteWindow.cs:1347
 msgid "_Highlight"
 msgstr "_Markér"
 
-#: ../Tomboy/NoteWindow.cs:1292
+#: ../Tomboy/NoteWindow.cs:1360
 msgid "Font Size"
 msgstr "Skriftstørrelse"
 
-#: ../Tomboy/NoteWindow.cs:1295
+#: ../Tomboy/NoteWindow.cs:1363
 msgid "_Normal"
 msgstr "_Normal"
 
-#: ../Tomboy/NoteWindow.cs:1302
+#: ../Tomboy/NoteWindow.cs:1370
 msgid "Hu_ge"
 msgstr "_Veldig stor"
 
-#: ../Tomboy/NoteWindow.cs:1310
+#: ../Tomboy/NoteWindow.cs:1378
 msgid "_Large"
 msgstr "_Stor"
 
-#: ../Tomboy/NoteWindow.cs:1318
+#: ../Tomboy/NoteWindow.cs:1386
 msgid "S_mall"
 msgstr "_Liten"
 
-#: ../Tomboy/Preferences.cs:160
-msgid "Tomboy Preferences"
-msgstr "Innstillinger"
+#: ../Tomboy/NoteWindow.cs:1397
+msgid "Bullets"
+msgstr "Kulepunkter"
+
+#: ../Tomboy/PluginManager.cs:528
+#, csharp-format
+msgid "Cannot fully disable {0}."
+msgstr "Kan ikke deaktivere {0} helt."
+
+#: ../Tomboy/PluginManager.cs:531
+#, csharp-format
+msgid ""
+"Cannot fully disable {0} as there still are at least {1} reference to this "
+"plugin. This indicates a programming error. Contact the plugin's author and "
+"report this problem.\n"
+"\n"
+"<b>Developer Information:</b> This problem usually occurs when the plugin's "
+"Dispose method fails to disconnect all event handlers. The heap-shot "
+"profiler ({2}) can help to identify leaking references."
+msgstr ""
+"Kan ikke deaktivere {0} da det fremdeles er minst {1} referanse til dette tillegget. Dette indikerer en programmeringsfeil. Kontakt den som har utviklet tillegget og rapporter dette problemet.\n"
+"\n"
+"<b>Informasjon til utviklere:</b> Dette problemet oppstår vanligvis når tilleggets «dispose»-metode ikke kobler fra alle hendelseshåndterere. Heap-shot profileringsprogrammet ({2}) kan hjelpe med å identifisere lekkasje av referanser."
 
 #: ../Tomboy/Preferences.cs:174
 msgid "Editing"
@@ -711,17 +801,15 @@ msgid ""
 "  --version\t\t\tPrint version information.\n"
 "  --help\t\t\tPrint this usage message.\n"
 "  --note-path [path]\t\tLoad/store note data in this directory.\n"
-"  --check-plugin-unloading\tCheck if plugins are unloaded properly.\n"
 "  --search [text]\t\tOpen the search all notes window with the search text.\n"
 msgstr ""
 "Bruk:\n"
 "  --version\t\t\tSkriv versjonsinformasjon.\n"
 "  --help\t\t\tSkriv denne hjelpemeldingen.\n"
 "  --note-path [path]\t\tLast/lagre notatdata i denne katalogen.\n"
-"  --check-plugin-unloading\tSjekk om tillegg lastes ut korrekt.\n"
 "  --search [text]\t\tÅpne vindu for søk i alle notater med søketeksten.\n"
 
-#: ../Tomboy/Tomboy.cs:322
+#: ../Tomboy/Tomboy.cs:320
 msgid ""
 "  --new-note\t\t\tCreate and display a new note.\n"
 "  --new-note [title]\t\tCreate and display a new note, with a title.\n"
@@ -735,16 +823,20 @@ msgstr ""
 "  --start-here\t\t\tVis «Start her»-notatet.\n"
 "  --highlight-search [tekst]\tSøk eller marker tekst i det åpnede notatet.\n"
 
-#: ../Tomboy/Tomboy.cs:331
+#: ../Tomboy/Tomboy.cs:332
+msgid "  --check-plugin-unloading\tCheck if plugins are unloaded properly.\n"
+msgstr "  --check-plugins-unloading\tSjekk om tillegg ble lastet ut på korrekt måte.\n"
+
+#: ../Tomboy/Tomboy.cs:336
 msgid "D-BUS remote control disabled.\n"
 msgstr "D-BUS fjernkontroll er deaktivert.\n"
 
-#: ../Tomboy/Tomboy.cs:339
+#: ../Tomboy/Tomboy.cs:344
 #, csharp-format
 msgid "Version {0}"
 msgstr "Versjon {0}"
 
-#: ../Tomboy/Tomboy.cs:397
+#: ../Tomboy/Tomboy.cs:411
 #, csharp-format
 msgid ""
 "Tomboy: unsupported option '{0}'\n"
@@ -805,6 +897,59 @@ msgstr "_Kopier lenkeadresse"
 #: ../Tomboy/Watchers.cs:521
 msgid "_Open Link"
 msgstr "_Åpne lenke"
+
+#: ../Tomboy/Plugins/Backlinks.cs:82
+msgid "What links here?"
+msgstr "Hva lenker hit?"
+
+#: ../Tomboy/Plugins/Backlinks.cs:140
+msgid "(none)"
+msgstr "(ingen)"
+
+#: ../Tomboy/Plugins/Bugzilla.cs:181
+msgid "Use the following:"
+msgstr "Bruk følgende:"
+
+#: ../Tomboy/Plugins/Bugzilla.cs:197
+msgid "Host Name"
+msgstr "Vertsnavn"
+
+#: ../Tomboy/Plugins/Bugzilla.cs:214
+msgid "Icon"
+msgstr "Ikon"
+
+#: ../Tomboy/Plugins/Bugzilla.cs:337
+msgid "Select an icon..."
+msgstr "Velg et ikon..."
+
+#. Extra Widget
+#: ../Tomboy/Plugins/Bugzilla.cs:352
+msgid "_Host name:"
+msgstr "_Vertsnavn:"
+
+#: ../Tomboy/Plugins/Bugzilla.cs:381
+msgid "No host name specified"
+msgstr "Ingen vertsnavn oppgitt"
+
+#: ../Tomboy/Plugins/Bugzilla.cs:382
+msgid "You must specify the Bugzilla host name to use with this icon."
+msgstr "Du må oppgi vertsnavn for Bugzilla som skal brukes med dette ikonet."
+
+#: ../Tomboy/Plugins/Bugzilla.cs:408
+msgid "Error saving icon"
+msgstr "Feil ved lagring av ikon"
+
+#: ../Tomboy/Plugins/Bugzilla.cs:409
+msgid "Could not save the icon file.  "
+msgstr "Kunne ikke lagre ikonfilen."
+
+#: ../Tomboy/Plugins/Bugzilla.cs:457
+msgid "Really remove this icon?"
+msgstr "Vil du fjerne dette ikonet?"
+
+#: ../Tomboy/Plugins/Bugzilla.cs:458
+msgid "If you remove an icon it is permanently lost."
+msgstr "Hvis du fjerner et ikon går det tapt for alltid."
 
 #: ../Tomboy/Plugins/Evolution.cs:264
 msgid "Cannot open email"
