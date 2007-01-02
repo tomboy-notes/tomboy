@@ -298,7 +298,8 @@ public class EvolutionPlugin : NotePlugin
 
 	protected override void Shutdown ()
 	{
-		TargetList.Remove (Gdk.Atom.Intern ("x-uid-list", false));
+		if (HasWindow)
+			TargetList.Remove (Gdk.Atom.Intern ("x-uid-list", false));
 	}
 
 	protected override void OnNoteOpened () 

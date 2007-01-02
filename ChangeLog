@@ -1,3 +1,17 @@
+2007-01-02  Boyd Timothy  <btimothy@gmail.com>
+
+	Applied patch from Mathias Hasselmann (Bug #383772) to prevent
+	Gtk-WARNING messages when deleting notes.
+	
+	* Tomboy/Note.cs: Added HasBuffer and HasWindow properties.
+	
+	* Tomboy/PluginManager.cs: Added IsDisposing property to prevent problems
+	returning the Buffer and Window when a plugin is being disposed.
+	
+	* Tomboy/Plugins/Evolution.cs: Check HasWindow during Shutdown.
+	
+	* Tomboy/Plugins/FixedWidth.cs: Check HasWindow in OnDestroyed.
+
 2006-12-20  Boyd Timothy  <btimothy@gmail.com>
 	
 	* Tomboy/NoteBuffer.cs: Applied patch from Chris Scobell (Bug #319221)

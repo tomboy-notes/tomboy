@@ -60,7 +60,9 @@ class FixedWidthMenuItem : CheckMenuItem
 
 	protected override void OnDestroyed ()
 	{
-		Plugin.Window.TextMenu.Shown -= MenuShown;
+		if (Plugin.HasWindow)
+			Plugin.Window.TextMenu.Shown -= MenuShown;
+
 		base.OnDestroyed();
 	}
 }
