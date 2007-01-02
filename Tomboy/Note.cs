@@ -521,6 +521,11 @@ namespace Tomboy
 			}
 		}
 
+		public bool HasBuffer
+		{
+			get { return null != buffer; }
+		}
+
 		public NoteBuffer Buffer
 		{
 			get {
@@ -539,6 +544,11 @@ namespace Tomboy
 				}
 				return buffer;
 			}
+		}
+
+		public bool HasWindow
+		{
+			get { return null != window; }
 		}
 
 		public NoteWindow Window 

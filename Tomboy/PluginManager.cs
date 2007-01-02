@@ -120,6 +120,8 @@ namespace Tomboy
 
 	public abstract class AbstractPlugin : IPlugin
 	{
+		bool disposing = false;
+
 		~AbstractPlugin ()
 		{
 			Dispose (false);
@@ -127,12 +129,19 @@ namespace Tomboy
 
 		public void Dispose ()
 		{
+			disposing = true;
 			Dispose (true);
+
 			GC.SuppressFinalize (this);
 		}
 
 		protected virtual void Dispose (bool disposing)
 		{
+		}
+
+		public bool IsDisposing
+		{
+			get { return disposing; }
 		}
 	}
 
@@ -182,14 +191,36 @@ namespace Tomboy
 			get { return note; }
 		}
 
+		public bool HasBuffer
+		{
+			get { return note.HasBuffer; }
+		}
+
 		public NoteBuffer Buffer
 		{
-			get { return note.Buffer; }
+			get
+			{
+				if (IsDisposing && !HasBuffer)
+					throw new InvalidOperationException ("Plugin is disposing already");
+
+				return note.Buffer; 
+			}
+		}
+
+		public bool HasWindow
+		{
+			get { return note.HasWindow; }
 		}
 
 		public NoteWindow Window
 		{
-			get { return note.Window; }
+			get
+			{
+				if (IsDisposing && !HasWindow)
+					throw new InvalidOperationException ("Plugin is disposing already");
+
+				return note.Window; 
+			}
 		}
 
 		public NoteManager Manager
@@ -222,6 +253,9 @@ namespace Tomboy
 
 		public void AddPluginMenuItem (Gtk.MenuItem item)
 		{
+			if (IsDisposing)
+				throw new InvalidOperationException ("Plugin is disposing already");
+
 			if (plugin_menu_items == null)
 				plugin_menu_items = new List<Gtk.MenuItem> ();
 
@@ -233,6 +267,9 @@ namespace Tomboy
 
 		public void AddTextMenuItem (Gtk.MenuItem item)
 		{
+			if (IsDisposing)
+				throw new InvalidOperationException ("Plugin is disposing already");
+
 			if (text_menu_items == null)
 				text_menu_items = new List<Gtk.MenuItem> ();
 
