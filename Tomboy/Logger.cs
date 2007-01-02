@@ -38,7 +38,7 @@ namespace Tomboy
 					Environment.GetEnvironmentVariable ("HOME"), 
 					".tomboy.log"));
 				log.Flush ();
-			} catch (IOException e) {
+			} catch (IOException) {
 				// FIXME: Use temp file
 			}
 

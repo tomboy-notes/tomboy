@@ -380,7 +380,8 @@ namespace Tomboy
 
 		public void LoadPluginsForNote (Note note)
 		{
-			foreach (Type type in plugin_types) {
+			foreach (Type type in plugin_types as 
+					System.Collections.Generic.IEnumerable<Type>) {
 				if (IsPluginEnabled (type))
 					AttachPlugin (type, note);
 			}
@@ -468,7 +469,8 @@ namespace Tomboy
 			PluginTable note_plugins = null;
 			
 			if (attached_plugins.TryGetValue (deleted, out note_plugins)) {
-				foreach (NotePlugin plugin in note_plugins.Values) {
+				foreach (NotePlugin plugin in note_plugins.Values as
+						System.Collections.Generic.IEnumerable<NotePlugin>) {
 					try {
 						plugin.Dispose ();
 					} catch (Exception e) {
@@ -513,7 +515,8 @@ namespace Tomboy
 		void AttachPlugin (Type type)
 		{
 			if (typeof (NotePlugin).IsAssignableFrom (type)) {
-				foreach (Note note in attached_plugins.Keys)
+				foreach (Note note in attached_plugins.Keys as
+						System.Collections.Generic.IEnumerable<Note>)
 					AttachPlugin (type, note);
 			}
 		}
@@ -596,7 +599,10 @@ namespace Tomboy
 		{
 			if (typeof (NotePlugin).IsAssignableFrom (type)) {
 				foreach (KeyValuePair<Note, PluginTable> pair 
-						in attached_plugins) {
+						in attached_plugins as
+							System.Collections.Generic.IEnumerable<
+								System.Collections.Generic.KeyValuePair<
+									Note, PluginTable>>) {
 					NotePlugin plugin = null;
 
 					if (pair.Value.TryGetValue (type, out plugin)) {
@@ -628,7 +634,8 @@ namespace Tomboy
 
 			// Add the plugin to the list
 			// and load the added plugin for all existing plugged in notes
-			foreach (Type type in asm_plugins) {
+			foreach (Type type in asm_plugins as
+					System.Collections.Generic.IEnumerable<Type>) {
 				if (IsPluginEnabled (type)) {
 					plugin_types.Add (type);
 					AttachPlugin (type);
@@ -646,7 +653,8 @@ namespace Tomboy
 			List<Type> kill_list = new List<Type> ();
 
 			// Find the plugins in the deleted assembly
-			foreach (Type type in plugin_types) {
+			foreach (Type type in plugin_types as
+					System.Collections.Generic.IEnumerable<Type>) {
 				if (type.Assembly.Location == args.FullPath)
 					kill_list.Add (type);
 			}
@@ -665,7 +673,8 @@ namespace Tomboy
 			{
 				List<Type> plugins = new List<Type> (plugin_types.Count);
 
-				foreach (Type type in plugin_types) {
+				foreach (Type type in plugin_types as
+						System.Collections.Generic.IEnumerable<Type>) {
 					if (!IsBuiltin (type))
 						plugins.Add (type);
 				}
@@ -805,7 +814,8 @@ namespace Tomboy
 				
 				try {
 					IList<Type> asm_plugins = FindPluginTypesInFile (file);
-					foreach (Type type in asm_plugins) {
+					foreach (Type type in asm_plugins as
+							System.Collections.Generic.IEnumerable<Type>) {
 						dir_plugin_types.Add (type);
 					}
 				} catch (Exception e) {

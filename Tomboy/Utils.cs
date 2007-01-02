@@ -68,14 +68,12 @@ namespace Tomboy
 		{
 			try {
 				return Gtk.IconTheme.Default.LoadIcon (resource_name, size, 0);
-			} catch (GLib.GException e) {
-			}
+			} catch (GLib.GException) {}
 
 			try {
 				Gdk.Pixbuf ret = new Gdk.Pixbuf (null, resource_name + ".png");
 				return ret.ScaleSimple (size, size, Gdk.InterpType.Bilinear);
-			} catch (ArgumentException e) {
-			}
+			} catch (ArgumentException) {}
 
 			Logger.Log ("Unable to load icon '{0}'.", resource_name);
 			return null;
@@ -116,7 +114,7 @@ namespace Tomboy
 					filename, 
 					link_id, 
 					screen);
-			} catch (GLib.GException e) {
+			} catch {
 				string message = 
 					Catalog.GetString ("The \"Tomboy Notes Manual\" could " +
 							   "not be found.  Please verify " +

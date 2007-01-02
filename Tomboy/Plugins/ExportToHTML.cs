@@ -121,9 +121,9 @@ public class ExportToHTMLPlugin : NotePlugin
 				msg_dialog.Run ();
 				msg_dialog.Destroy ();
 			}
-		} catch (UnauthorizedAccessException uae) {
+		} catch (UnauthorizedAccessException) {
 			error_message = Catalog.GetString ("Access denied.");
-		} catch (DirectoryNotFoundException dnfe) {
+		} catch (DirectoryNotFoundException) {
 			error_message = Catalog.GetString ("Folder does not exist.");
 		} catch (Exception e) {
 			Logger.Log ("Could not export: {0}", e);

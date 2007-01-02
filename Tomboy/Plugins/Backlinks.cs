@@ -178,9 +178,4 @@ public class BacklinksPlugin : NotePlugin
 		
 		return true;
 	}
-	
-	private static int CompareNoteTitles (Note a, Note b)
-	{
-		return a.Title.CompareTo (b.Title);
-	}
 }

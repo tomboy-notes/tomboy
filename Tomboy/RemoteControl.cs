@@ -59,7 +59,7 @@ namespace Tomboy
 			try {
 				Note note = note_manager.Create ();
 				return note.Uri;
-			} catch (Exception e) {
+			} catch {
 				return  "";
 			}
 		}
@@ -75,7 +75,7 @@ namespace Tomboy
 			try {
 				note = note_manager.Create (linked_title);
 				return note.Uri;
-			} catch (Exception e) {
+			} catch {
 				return "";
 			}
 		}
