@@ -211,7 +211,7 @@ namespace Tomboy
 				if (test_ptr != IntPtr.Zero)
 					gtkspell_detach (test_ptr);
 				return true;
-			} catch (Exception e) {
+			} catch {
 				return false;
 			}
 		}
@@ -783,7 +783,7 @@ namespace Tomboy
 				Logger.Log ("Creating note '{0}'...", link_name);
 				try {
 				    link = Manager.Create (link_name);
-				} catch (Exception e) {
+				} catch {
 				    // Fail silently.
 				}
 			}

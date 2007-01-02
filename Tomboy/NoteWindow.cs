@@ -1021,9 +1021,6 @@ namespace Tomboy
 
 			string [] words = text.Split (' ', '\t', '\n');
 
-			// Used for matching in the raw note XML
-			string [] encoded_words = XmlEncoder.Encode (text).Split (' ', '\t', '\n');
-
 			current_matches = 
 				FindMatchesInBuffer (note.Buffer, 
 						     words, 

@@ -116,7 +116,7 @@ namespace Tomboy
 							  content);
 				start_note.Save ();
 				start_note.Window.Show ();
-			} catch (Exception e) {
+			} catch {
 				// Fail silently
 			}
 		}

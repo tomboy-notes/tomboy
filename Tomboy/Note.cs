@@ -639,6 +639,8 @@ namespace Tomboy
 	public class NoteArchiver
 	{
 		public const string CURRENT_VERSION = "0.2";
+		
+		public const string DATE_TIME_FORMAT = "yyyy-MM-ddTHH:mm:ss.fffffffzzz";
 
 		static NoteArchiver instance = null;
 		static readonly object lock_ = new object();
@@ -698,11 +700,11 @@ namespace Tomboy
 						break;
 					case "last-change-date":
 						note.ChangeDate = 
-							XmlConvert.ToDateTime (xml.ReadString ());
+							XmlConvert.ToDateTime (xml.ReadString (), DATE_TIME_FORMAT);
 						break;
 					case "create-date":
 						note.CreateDate = 
-							XmlConvert.ToDateTime (xml.ReadString ());
+							XmlConvert.ToDateTime (xml.ReadString (), DATE_TIME_FORMAT);
 						break;
 					case "cursor-position":
 						note.CursorPosition = int.Parse (xml.ReadString ());
@@ -810,12 +812,14 @@ namespace Tomboy
 			xml.WriteEndElement ();
 
 			xml.WriteStartElement (null, "last-change-date", null);
-			xml.WriteString (XmlConvert.ToString (note.ChangeDate));
+			xml.WriteString (
+						XmlConvert.ToString (note.ChangeDate, DATE_TIME_FORMAT));
 			xml.WriteEndElement ();
 
 			if (note.CreateDate != DateTime.MinValue) {
 				xml.WriteStartElement (null, "create-date", null);
-				xml.WriteString (XmlConvert.ToString (note.CreateDate));
+				xml.WriteString (
+						XmlConvert.ToString (note.CreateDate, DATE_TIME_FORMAT));
 				xml.WriteEndElement ();
 			}
 

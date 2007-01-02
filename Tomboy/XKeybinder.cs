@@ -138,7 +138,7 @@ namespace Tomboy
 
 				try {
 					key_sequence = (string) parent.client.Get (gconf_path);
-				} catch (Exception e) {
+				} catch {
 					Logger.Log ("GConf key '{0}' does not exist, using default.", 
 							   gconf_path);
 				}
@@ -266,7 +266,7 @@ namespace Tomboy
 			try {
 				Note new_note = manager.Create ();
 				new_note.Window.Show ();
-			} catch (Exception e) {
+			} catch {
 				// Fail silently.
 			}
 		}

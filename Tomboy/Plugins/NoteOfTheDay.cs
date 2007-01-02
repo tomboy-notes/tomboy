@@ -166,7 +166,7 @@ public class NoteOfTheDayPlugin : NotePlugin
 				// Grab enabled from GConf preference
 				// Fails if no schema
 				enabled = (bool) Preferences.Get (GCONF_ENABLED_KEY);
-			} catch (Exception e) {				
+			} catch {				
 				Logger.Log ("NotD: Error getting GConf enabled key");
 				try {
 					// Succeeds if no schema
