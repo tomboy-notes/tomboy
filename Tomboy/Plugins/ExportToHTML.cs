@@ -89,7 +89,7 @@ public class ExportToHTMLPlugin : NotePlugin
 			}
 
 			writer = new StreamWriter (output_path);
-			WriteHTMLForNote (writer, Note, dialog.ExportLinked);
+			WriteHTMLForNote (writer, Note, dialog.ExportLinked, dialog.ExportLinkedAll);
 			
 			// Save the dialog preferences now that the note has
 			// successfully been exported
@@ -160,7 +160,8 @@ public class ExportToHTMLPlugin : NotePlugin
 
 	public void WriteHTMLForNote (TextWriter writer, 
 			       Note note,
-			       bool export_linked) 
+			       bool export_linked,
+			       bool export_linked_all) 
 	{
 		// NOTE: Don't use the XmlDocument version, which strips
 		// whitespace between elements for some reason.  Also,
@@ -174,6 +175,7 @@ public class ExportToHTMLPlugin : NotePlugin
 
 		XsltArgumentList args = new XsltArgumentList ();
 		args.AddParam ("export-linked", "", export_linked);
+		args.AddParam ("export-linked-all", "", export_linked_all);
 		args.AddParam ("root-note", "", note.Title);
 
 		if ((bool) Preferences.Get (Preferences.ENABLE_CUSTOM_FONT)) {
@@ -193,12 +195,10 @@ public class ExportToHTMLPlugin : NotePlugin
 class NoteNameResolver : XmlResolver
 {
 	NoteManager manager;
-	ArrayList already_resolved;
 
 	public NoteNameResolver (NoteManager manager)
 	{
 		this.manager = manager;
-		this.already_resolved = new ArrayList ();
 	}
 
 	public override System.Net.ICredentials Credentials 
@@ -212,17 +212,12 @@ class NoteNameResolver : XmlResolver
 		if (note == null)
 			return null;
 
-		// Avoid infinite recursion.
-		if (already_resolved.Contains (note))
-			return null;
-
 		StringWriter writer = new StringWriter ();
 		NoteArchiver.Write (writer, note.Data);
 		Stream stream = WriterToStream (writer);
 		writer.Close ();
 
 		Logger.Log ("GetEntity: Returning Stream");
-		already_resolved.Add (note);
 		return stream;
 	}
 
@@ -260,6 +255,7 @@ class NoteNameResolver : XmlResolver
 class ExportToHTMLDialog : Gtk.FileChooserDialog
 {
 	Gtk.CheckButton export_linked;
+	Gtk.CheckButton export_linked_all;
 
 	public ExportToHTMLDialog (string default_file) : 
 		base (Catalog.GetString ("Destination for HTML Export"),
@@ -270,8 +266,18 @@ class ExportToHTMLDialog : Gtk.FileChooserDialog
 		
 		DefaultResponse = Gtk.ResponseType.Ok;
 		
+		Gtk.Table table = new Gtk.Table (2, 2, false);
+		
 		export_linked = new Gtk.CheckButton (Catalog.GetString ("Export linked notes"));
-		ExtraWidget = export_linked;
+		export_linked.Toggled += OnExportLinkedToggled;
+		table.Attach (export_linked, 0, 2, 0, 1, Gtk.AttachOptions.Fill, 0, 0, 0);
+		
+		export_linked_all =
+			new Gtk.CheckButton (Catalog.GetString ("Include all other linked notes"));
+		table.Attach (export_linked_all,
+				1, 2, 1, 2, Gtk.AttachOptions.Expand | Gtk.AttachOptions.Fill, 0, 20, 0);
+		
+		ExtraWidget = table;
 		
 		DoOverwriteConfirmation = true;
 		LocalOnly = true;
@@ -286,12 +292,19 @@ class ExportToHTMLDialog : Gtk.FileChooserDialog
 		set { export_linked.Active = value; }
 	}
 	
+	public bool ExportLinkedAll
+	{
+		get { return export_linked_all.Active; }
+		set { export_linked_all.Active = value; }
+	}
+	
 	public void SavePreferences () 
 	{
 		string dir = System.IO.Path.GetDirectoryName (Filename);
 		Preferences.Set (Preferences.EXPORTHTML_LAST_DIRECTORY, dir);
 
 		Preferences.Set (Preferences.EXPORTHTML_EXPORT_LINKED, ExportLinked);
+		Preferences.Set (Preferences.EXPORTHTML_EXPORT_LINKED_ALL, ExportLinkedAll);
 	}
 	
 	protected void LoadPreferences (string default_file) 
@@ -303,5 +316,14 @@ class ExportToHTMLDialog : Gtk.FileChooserDialog
 		CurrentName = default_file;
 
 		ExportLinked = (bool) Preferences.Get (Preferences.EXPORTHTML_EXPORT_LINKED);
+		ExportLinkedAll = (bool) Preferences.Get (Preferences.EXPORTHTML_EXPORT_LINKED_ALL);
+	}
+	
+	protected void OnExportLinkedToggled (object sender, EventArgs args)
+	{
+		if (export_linked.Active)
+			export_linked_all.Sensitive = true;
+		else
+			export_linked_all.Sensitive = false;
 	}
 }

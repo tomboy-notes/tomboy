@@ -31,6 +31,7 @@ namespace Tomboy
 
 		public const string EXPORTHTML_LAST_DIRECTORY = "/apps/tomboy/export_html/last_directory";
 		public const string EXPORTHTML_EXPORT_LINKED = "/apps/tomboy/export_html/export_linked";
+		public const string EXPORTHTML_EXPORT_LINKED_ALL = "/apps/tomboy/export_html/export_linked_all";
 
 		public const string STICKYNOTEIMPORTER_FIRST_RUN = "/apps/tomboy/sticky_note_importer/sticky_importer_first_run";
 
@@ -87,6 +88,9 @@ namespace Tomboy
 
 			case EXPORTHTML_EXPORT_LINKED:
 				return true;
+			
+			case EXPORTHTML_EXPORT_LINKED_ALL:
+				return false;
 
 			case EXPORTHTML_LAST_DIRECTORY:
 				return "";
