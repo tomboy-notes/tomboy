@@ -1,3 +1,17 @@
+2007-01-04  Boyd Timothy  <btimothy@gmail.com>
+
+	* data/tomboy.schemas.in: Added /apps/tomboy/export_html/export_linked_all.
+	
+	* Tomboy/Plugins/ExportToHTML.cs: Added "Include all other linked notes"
+	checkbox to the Export to HTML dialog (Fix for bug #351517).  Also includes
+	code to fix bug #350977 by preventing recursive links from being evaluated.
+	
+	* Tomboy/Plugins/ExportToHTML.xsl: Prevent recursive links (bug #350977) by
+	using an <xsl:key> to keep track of already processed note titles.  Allow
+	exporting of recursive links (bug #351517).
+	
+	* Tomboy/Preferences.cs: Added /apps/tomboy/export_html/export_linked_all.
+	
 2007-01-02  Boyd Timothy  <btimothy@gmail.com>
 
 	* Tomboy/Logger.cs: Fixed compiler warning.  Removed unused exception
