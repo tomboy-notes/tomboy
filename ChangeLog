@@ -1,5 +1,11 @@
 2007-01-04  Boyd Timothy  <btimothy@gmail.com>
 
+	* Tomboy/PluginManager.cs: Changed SystemException -> Exception to catch
+	any exception that might occur when doing a Process.Start () to show the
+	plugins directory (fixes crasher bug #351703).
+	
+2007-01-04  Boyd Timothy  <btimothy@gmail.com>
+
 	* data/tomboy.schemas.in: Added /apps/tomboy/export_html/export_linked_all.
 	
 	* Tomboy/Plugins/ExportToHTML.cs: Added "Include all other linked notes"

@@ -370,7 +370,7 @@ namespace Tomboy
 
 			try {
 				Process.Start (command, args);
-			} catch (SystemException e) {
+			} catch (Exception e) {
 				Logger.Log ("Error opening file browser \"{0}\" to \"{1}\": {2}",
 					    command,
 					    plugins_dir,
