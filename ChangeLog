@@ -1,5 +1,13 @@
 2007-01-05  Boyd Timothy  <btimothy@gmail.com>
 
+	* configure.in: Do not have configure automatically detect the DBus
+	services directory (detection is now commented out).  Packagers will need
+	to apply a patch to re-enable the detection.  This change allows
+	"make install" to work without permission problems for non-root users.
+	Fixes bug #379427.
+
+2007-01-05  Boyd Timothy  <btimothy@gmail.com>
+
 	* Tomboy/NoteManager.cs: Added environment variable TOMBOY_PLUGINS_PATH
 	to safer plugin development (patch from Adam Lofts, bug #378650).
 
