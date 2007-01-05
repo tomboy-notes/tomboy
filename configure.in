@@ -67,17 +67,26 @@ if test "x$GTK_2_6" = "xyes"; then
              [Whether GTK+ method gdk_x11_window_set_user_time() is present.])
 fi
 
+PANELAPPLET_SERVER_DIR="$libdir/bonobo/servers"
+
+#
+# Packagers, comment out the above PANELAPPLET_SERVER_DIR variable and
+# uncomment the following lines to have the panel applet server dier be
+# detected by pkg-config.
+#
+
 #
 # If libpanelapplet available, use it to find .server install location.
 #
-if test "x$prefix" = "x$ac_default_prefix"; then
-   PANELAPPLET_LIBDIR=`$PKG_CONFIG --variable=libdir libpanelapplet-2.0`
-fi
-if test "x$PANELAPPLET_LIBDIR" = "x"; then
-   PANELAPPLET_SERVER_DIR="$libdir/bonobo/servers"
-else
-   PANELAPPLET_SERVER_DIR="$PANELAPPLET_LIBDIR/bonobo/servers"
-fi
+#if test "x$prefix" = "x$ac_default_prefix"; then
+#   PANELAPPLET_LIBDIR=`$PKG_CONFIG --variable=libdir libpanelapplet-2.0`
+#fi
+#if test "x$PANELAPPLET_LIBDIR" = "x"; then
+#   PANELAPPLET_SERVER_DIR="$libdir/bonobo/servers"
+#else
+#   PANELAPPLET_SERVER_DIR="$PANELAPPLET_LIBDIR/bonobo/servers"
+#fi
+
 AC_SUBST(PANELAPPLET_SERVER_DIR)
 
 #
