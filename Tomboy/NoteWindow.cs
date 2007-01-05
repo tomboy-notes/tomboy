@@ -297,6 +297,12 @@ namespace Tomboy
 						    0,
 						    0);
 			
+			// Create a new note
+			global_keys.AddAccelerator (new EventHandler (CreateNewNote),
+							(uint) Gdk.Key.n,
+							Gdk.ModifierType.ControlMask,
+							Gtk.AccelFlags.Visible);
+			
 			// Have Esc key close the note window
 			KeyPressEvent += KeyPressed;
 						   
@@ -776,6 +782,11 @@ namespace Tomboy
 		void OpenHelpActivate (object sender, EventArgs args)
 		{
 			GuiUtils.ShowHelp ("tomboy.xml", "editing-notes", Screen, this);
+		}
+		
+		void CreateNewNote (object sender, EventArgs args)
+		{
+			Tomboy.ActionManager ["NewNoteAction"].Activate ();
 		}
 
 		void SearchButtonClicked ()
