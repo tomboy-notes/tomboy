@@ -1,4 +1,4 @@
-// Import notes from StickyNote applet to Tomboy
+// Import notes from Sticky Notes applet to Tomboy
 // (C) 2006 Sandy Armstrong <sanfordarmstrong@gmail.com>
 
 using System;
@@ -8,6 +8,13 @@ using Mono.Unix;
 
 using Tomboy;
 
+[PluginInfo(
+	Name = "Sticky Notes Importer",
+	Author="Sandy Armstrong <sanfordarmstrong@gmail.com>",
+	Version="0.4.0",
+	Description="Import your notes from the Sticky Notes applet.",
+	PreferencesWidget = null
+	)]
 public class StickyNoteImporter : NotePlugin
 {
 	private const string sticky_xml_rel_path = "/.gnome2/stickynotes_applet";
