@@ -17,6 +17,14 @@ namespace Tomboy
 			note_manager = mgr;
 		}
 
+		//Convert System.DateTime to unix timestamp
+		private static long UnixDateTime(DateTime d)
+		{
+			long epoch_ticks = new DateTime (1970,1,1).Ticks;
+			//Ticks is in 100s of nanoseconds, unix time is in seconds
+			return (d.ToUniversalTime ().Ticks - epoch_ticks) / 10000000;
+		}
+	
 		public bool DisplayNote (string uri)
 		{
 			Note note;
@@ -106,6 +114,86 @@ namespace Tomboy
 			
 			recent_changes.SearchText = search_text;
 			recent_changes.Present ();
+		}
+
+		public bool NoteExists (string uri)
+		{
+			Note note = note_manager.FindByUri (uri);
+			return note != null;
+		}
+
+		public string[] ListAllNotes ()
+		{
+			ArrayList uris = new ArrayList ();
+			foreach (Note note in note_manager.Notes) {
+				uris.Add (note.Uri);
+			}
+			return (string []) uris.ToArray (typeof (string)) ;
+		}
+
+		public string GetNoteContents (string uri)
+		{
+			Note note;
+			note = note_manager.FindByUri (uri);
+			if (note == null)
+				return "";
+			return note.TextContent;
+		}
+
+		public string GetNoteTitle (string uri)
+		{
+			Note note;
+			note = note_manager.FindByUri (uri);
+			if (note == null)
+				return "";
+			return note.Title;
+		}
+
+		public long GetNoteCreateDate (string uri)
+		{
+			Note note;
+			note = note_manager.FindByUri (uri);
+			if (note == null)
+				return -1;
+			return UnixDateTime (note.CreateDate);
+		}
+
+		public long GetNoteChangeDate (string uri)
+		{
+			Note note;
+			note = note_manager.FindByUri (uri);
+			if (note == null)
+				return -1;
+			return UnixDateTime (note.ChangeDate);
+		}
+
+		public string GetNoteContentsXml (string uri)
+		{
+			Note note;
+			note = note_manager.FindByUri (uri);
+			if (note == null)
+				return "";
+			return note.XmlContent;
+		}
+
+		public bool SetNoteContents (string uri, string text_contents)
+		{
+			Note note;
+			note = note_manager.FindByUri (uri);
+			if (note == null)
+				return false;
+			note.TextContent = text_contents;
+			return true;
+		}
+
+		public bool SetNoteContentsXml (string uri, string xml_contents)
+		{
+			Note note;
+			note = note_manager.FindByUri (uri);
+			if (note == null)
+				return false;
+			note.XmlContent = xml_contents;
+			return true;
 		}
 	}
 }

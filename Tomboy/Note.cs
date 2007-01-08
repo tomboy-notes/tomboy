@@ -160,13 +160,14 @@ namespace Tomboy
 			}
 		}
 
+		//Text is actually an Xml formatted string
 		public string Text
 		{
 			get {
 				SynchronizeText ();
 				return data.Text;
 			}
-			set { 
+			set {
 				data.Text = value;
 				SynchronizeBuffer ();
 			}
@@ -463,7 +464,12 @@ namespace Tomboy
 		public string XmlContent 
 		{
 			get { return data.Text; }
-			set { data.Text = value; }
+			set { 
+				if (buffer != null)
+					buffer.SetText (XmlDecoder.Decode (value));
+				else
+					data.Text = value; 
+			}
 		}
 
 		public string TextContent
@@ -476,6 +482,13 @@ namespace Tomboy
 				else 
 					return XmlDecoder.Decode (XmlContent);
 			}
+			set {
+				if (buffer != null)
+					buffer.SetText (value);
+				else
+					Logger.Log ("Setting text content for closed notes not supported");
+			}
+				
 		}
 
 		public NoteData Data
