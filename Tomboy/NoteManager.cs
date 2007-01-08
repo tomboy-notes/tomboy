@@ -36,8 +36,8 @@ namespace Tomboy
 			trie_controller = CreateTrieController ();
 
 			if (first_run) {
-				// First run. Create "Start Here" note.
-				CreateStartNote ();
+				// First run. Create "Start Here" notes.
+				CreateStartNotes ();
 			} else {
 				LoadNotes ();
 			}
@@ -104,25 +104,57 @@ namespace Tomboy
 				NoteRenamed (note, old_title);
 		}
 
-		protected virtual void CreateStartNote () 
+		protected virtual void CreateStartNotes () 
 		{
-			string content = 
-				string.Format ("<note-content>" +
-					       "{0}\n\n" +
-					       "<bold>{1}</bold>\n\n" +
-					       "{2}" +
-					       "</note-content>",
-					       Catalog.GetString ("Start Here"),
-					       Catalog.GetString ("Welcome to Tomboy!"),
-					       Catalog.GetString ("Use this page as a Start Page " +
-								  "for organizing your notes and " +
-								  "keeping unorganized ideas " +
-								  "around."));
+			// FIXME: Delay the creation of the start notes so the panel/tray
+			// icon has enough time to appear so that Tomboy.TrayIconShowing
+			// is valid.  Then, we'll be able to instruct the user where to
+			// find the Tomboy icon.
+			//string icon_str = Tomboy.TrayIconShowing ?
+			//					Catalog.GetString ("System Tray Icon area") :
+			//					Catalog.GetString ("GNOME Panel");
+			string start_note_content = 
+				Catalog.GetString ("<note-content>" +
+						"Start Here\n\n" +
+						"<bold>Welcome to Tomboy!</bold>\n\n" +
+						"Use this \"Start Here\" note to begin organizing " +
+						"your ideas and thoughts.\n\n" +
+						"You can create new notes to hold your ideas by " +
+						"selecting the \"Create New Note\" item from the " +
+						"Tomboy Notes menu in your GNOME Panel.\n\n" +
+						"Then organize the notes you create by linking " +
+						"related notes and ideas together!\n\n" +
+						"We've created a note called " +
+						"<link:internal>Using Links in Tomboy</link:internal>.  " +
+						"Notice how each time we type <link:internal>Using " +
+						"Links in Tomboy</link:internal> it automatically " +
+						"gets underlined?  Click on the link to open the note." +
+						"</note-content>");
+
+			string links_note_content =
+				Catalog.GetString ("<note-content>" +
+						"Using Links in Tomboy\n\n" +
+						"Notes in Tomboy can be linked together by " +
+						"highlighting text in the current note and clicking" +
+						" the <bold>Link</bold> button above in the toolbar.  " +
+						"Doing so will create a new note and also underline " +
+						"the note's title in the current note.\n\n" +
+						"Changing the title of a note will update links " +
+						"present in other notes.  This prevents broken links " +
+						"from occurring when a note is renamed.\n\n" +
+						"Also, if you type the name of another note in your " +
+						"current note, it will automatically be linked for you." +
+						"</note-content>");
 
 			try {
-				Note start_note = Create (Catalog.GetString ("Start Here"), 
-							  content);
+				Note start_note = Create (Catalog.GetString ("Start Here"),
+								start_note_content);
 				start_note.Save ();
+
+				Note links_note = Create (Catalog.GetString ("Using Links in Tomboy"),
+								links_note_content);
+				links_note.Save ();
+				
 				start_note.Window.Show ();
 			} catch {
 				// Fail silently
