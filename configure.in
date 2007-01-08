@@ -67,26 +67,35 @@ if test "x$GTK_2_6" = "xyes"; then
              [Whether GTK+ method gdk_x11_window_set_user_time() is present.])
 fi
 
-PANELAPPLET_SERVER_DIR="$libdir/bonobo/servers"
-
 #
-# Packagers, comment out the above PANELAPPLET_SERVER_DIR variable and
-# uncomment the following lines to have the panel applet server dier be
-# detected by pkg-config.
+# Use pkg-config to check for the panel applet server directory if
+# specified by --enable-panelapplet-srvdir-check.
 #
+AC_ARG_ENABLE(panelapplet-srvdir-check,
+	      [  --enable-panelapplet-srvdir-check[[=no/yes]]    query for panel applet server dir [[default: yes]]],
+	      [case "$enableval" in
+	      	yes) ENABLE_PANELAPPLET_SRVDIR_CHECK=yes ;;
+	      	no)  ENABLE_PANELAPPLET_SRVDIR_CHECK=no ;;
+	      	*)   AC_MSG_ERROR(bad value ${enableval} for --enable-panelapplet-srvdir-check) ;;
+	      esac],
+	      [ENABLE_PANELAPPLET_SRVDIR_CHECK=yes])
+AM_CONDITIONAL(ENABLE_PANELAPPLET_SRVDIR_CHECK, test "$ENABLE_PANELAPPLET_SRVDIR_CHECK" = "yes")
 
+if test "$ENABLE_PANELAPPLET_SRVDIR_CHECK" = "yes" ; then
 #
 # If libpanelapplet available, use it to find .server install location.
 #
-#if test "x$prefix" = "x$ac_default_prefix"; then
-#   PANELAPPLET_LIBDIR=`$PKG_CONFIG --variable=libdir libpanelapplet-2.0`
-#fi
-#if test "x$PANELAPPLET_LIBDIR" = "x"; then
-#   PANELAPPLET_SERVER_DIR="$libdir/bonobo/servers"
-#else
-#   PANELAPPLET_SERVER_DIR="$PANELAPPLET_LIBDIR/bonobo/servers"
-#fi
-
+if test "x$prefix" = "x$ac_default_prefix"; then
+   PANELAPPLET_LIBDIR=`$PKG_CONFIG --variable=libdir libpanelapplet-2.0`
+fi
+if test "x$PANELAPPLET_LIBDIR" != "x"; then
+   PANELAPPLET_SERVER_DIR="$PANELAPPLET_LIBDIR/bonobo/servers"
+fi
+fi
+# Set PANELAPPLET_SERVER_DIR default if it's not already set
+if test "x$PANELAPPLET_SERVER_DIR" = "x" ; then
+	PANELAPPLET_SERVER_DIR="$libdir/bonobo/servers"
+fi
 AC_SUBST(PANELAPPLET_SERVER_DIR)
 
 #
@@ -104,20 +113,30 @@ AC_ARG_ENABLE(dbus,
 	      ENABLE_DBUS="$enableval")
 AM_CONDITIONAL(ENABLE_DBUS, test "x$ENABLE_DBUS" != "xno")
 
-DBUS_SERVICE_DIR=$libdir/dbus-1.0/services
-
 #
-# Packagers, comment out the above DBUS_SERVICE_DIR variable and uncomment
-# the following lines to have the DBus Service Directory be detected by
-# pkg-config.
+# Use pkg-config to check for the DBus Service directory if specified by
+# --enable-dbus-service-dir-check.
 #
-#DBUS_SERVICE_DIR_TEST=`$PKG_CONFIG --variable=session_bus_services_dir dbus-1`
-#if test "x$DBUS_SERVICE_DIR_TEST" = "x" ; then
-#	DBUS_SERVICE_DIR=$libdir/dbus-1.0/services
-#else
-#	DBUS_SERVICE_DIR=$DBUS_SERVICE_DIR_TEST
-#fi
+AC_ARG_ENABLE(dbus-service-dir-check,
+	      [  --enable-dbus-service-dir-check[[=no/yes]]    query for service directory [[default: yes]]],
+	      [case "$enableval" in
+	      	yes) ENABLE_DBUS_SERVICE_DIR_CHECK=yes ;;
+	      	no)  ENABLE_DBUS_SERVICE_DIR_CHECK=no ;;
+	      	*)   AC_MSG_ERROR(bad value ${enableval} for --enable-dbus-service-dir-check) ;;
+	      esac],
+	      [ENABLE_DBUS_SERVICE_DIR_CHECK=yes])
+AM_CONDITIONAL(ENABLE_DBUS_SERVICE_DIR_CHECK, test "$ENABLE_DBUS_SERVICE_DIR_CHECK" = "yes")
 
+if test "$ENABLE_DBUS_SERVICE_DIR_CHECK" = "yes" ; then
+DBUS_SERVICE_DIR_TEST=`$PKG_CONFIG --variable=session_bus_services_dir dbus-1`
+if test "x$DBUS_SERVICE_DIR_TEST" != "x" ; then
+	DBUS_SERVICE_DIR=$DBUS_SERVICE_DIR_TEST
+fi
+fi
+# Set DBUS_SERVICE_DIR if it's not already set
+if test "x$DBUS_SERVICE_DIR" = "x" ; then
+	DBUS_SERVICE_DIR=$libdir/dbus-1.0/services
+fi
 AC_SUBST(DBUS_SERVICE_DIR)
 
 #
