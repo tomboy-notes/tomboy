@@ -865,7 +865,9 @@ namespace Tomboy
 								
 							} else {
 								// Start of new list
-								for (int i = 0; i <= depth_tag.Depth; i++) {
+								xml.WriteStartElement (null, "list", null);
+								for (int i = 1; i <= depth_tag.Depth; i++) {
+								    xml.WriteStartElement (null, "list-item", null);
 									xml.WriteStartElement (null, "list", null);
 								}
 								new_list = true;
