@@ -24,6 +24,11 @@ namespace Tomboy
 			//Ticks is in 100s of nanoseconds, unix time is in seconds
 			return (d.ToUniversalTime ().Ticks - epoch_ticks) / 10000000;
 		}
+
+		public string Version ()
+		{
+			return Defines.VERSION;
+		}
 	
 		public bool DisplayNote (string uri)
 		{
