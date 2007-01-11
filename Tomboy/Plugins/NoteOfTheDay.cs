@@ -129,16 +129,7 @@ public class NoteOfTheDayPlugin : NotePlugin
 {
 	Gtk.CheckMenuItem item;
 	bool timeout_owner;
-	static bool enabled;
 	static InterruptableTimeout timeout;
-	static event EventHandler enabled_toggled;
-
-	const string GCONF_ENABLED_KEY = "/apps/tomboy/note_of_the_day/enable_notd";
-
-	static NoteOfTheDayPlugin ()
-	{
-		enabled = true;
-	}
 
 	// Called only by instance with timeout_owner set.
 	void CheckNewDay (object sender, EventArgs args)
@@ -148,76 +139,21 @@ public class NoteOfTheDayPlugin : NotePlugin
 			NoteOfTheDay.CleanupOld (Manager);
 			
 			// Create a new NotD if the day has changed
-			if (enabled)
-				NoteOfTheDay.Create (Manager, DateTime.Now);
+			NoteOfTheDay.Create (Manager, DateTime.Now);
 		}
 
 		// Re-run every minute
 		timeout.Reset (1000 * 60);
 	}
 
-	void OnToggleEnabled (object sender, EventArgs args)
-	{
-		enabled = !enabled;
-
-		try {
-			// Will call OnSettingChanged
-			Preferences.Set (GCONF_ENABLED_KEY, enabled);
-		} catch (Exception e) {
-			Logger.Log ("NotD: Error updating GConf enabled key value: {0}", e);
-			enabled_toggled (sender, args);
-		}
-	}
-
-	void OnToggleMenuItem (object sender, EventArgs args)
-	{
-		item.Toggled -= OnToggleEnabled;
-		item.Active = enabled;
-		item.Toggled += OnToggleEnabled;
-	}
-
-	void OnSettingChanged (object sender, GConf.NotifyEventArgs args)
-	{
-		if (args.Key ==	GCONF_ENABLED_KEY) {
-			enabled = (bool) args.Value;
-			enabled_toggled (sender, args);
-		}
-	}
-
 	protected override void Initialize ()
 	{
 		if (timeout == null) {
-			try {
-				// Grab enabled from GConf preference
-				// Fails if no schema
-				enabled = (bool) Preferences.Get (GCONF_ENABLED_KEY);
-			} catch {				
-				Logger.Log ("NotD: Error getting GConf enabled key");
-				try {
-					// Succeeds if no schema
-					Preferences.Set (GCONF_ENABLED_KEY, enabled);
-				} catch (Exception e2) {
-					Logger.Log ("NotD: Error setting initial " +
-							   "GConf enabled key value: {0}", e2);
-				}
-			}
-
-			Preferences.SettingChanged += OnSettingChanged;
-
 			timeout = new InterruptableTimeout ();
 			timeout.Timeout += CheckNewDay;
 			timeout.Reset (0);
 			timeout_owner = true;
 		}
-
-		item = new Gtk.CheckMenuItem (Catalog.GetString ("Create Note of the Day"));
-		item.Active = enabled;
-		item.Toggled += OnToggleEnabled;
-		item.Show ();
-		AddPluginMenuItem (item);
-
-		// Catch toggles in other instances
-		enabled_toggled += OnToggleMenuItem;
 	}
 
 	protected override void Shutdown ()
@@ -228,12 +164,6 @@ public class NoteOfTheDayPlugin : NotePlugin
 			timeout.Cancel();
 			timeout = null;
 		}
-		
-		// Disconnect the event handlers so
-		// there aren't any memory leaks.
-		Preferences.SettingChanged -= OnSettingChanged;
-		item.Toggled -= OnToggleEnabled;
-		enabled_toggled -= OnToggleMenuItem;
 	}
 
 	protected override void OnNoteOpened () 
