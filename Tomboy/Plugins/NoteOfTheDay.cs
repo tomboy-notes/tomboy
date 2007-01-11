@@ -82,11 +82,12 @@ class NoteOfTheDay
 	public static void CleanupOld (NoteManager manager)
 	{
 		ArrayList kill_list = new ArrayList();
+		DateTime date_today = DateTime.Today; // time set to 00:00:00
 
 		foreach (Note note in manager.Notes) {
 			if (note.Title.StartsWith (title_prefix) &&
 			    note.Title != template_title &&
-			    note.CreateDate.Day != DateTime.Now.Day &&
+			    note.CreateDate.Date != date_today &&
 			    !HasChanged (note)) {
 				kill_list.Add (note);
 			}
@@ -97,6 +98,30 @@ class NoteOfTheDay
 					   note.Title);
 			manager.Delete (note);
 		}
+	}
+	
+	///
+	/// Returns the NotD note for the specified date
+	///
+	public static Note GetNoteByDate (NoteManager manager, DateTime date)
+	{
+		DateTime normalized_date = date.Date; // same date with time set to 00:00:00
+		Note found_note = null;
+
+		// Go through all the NotD notes and look for the one that was
+		// created on the date specified.
+		foreach (Note note in manager.Notes) {
+			if (note.Title.StartsWith (title_prefix) &&
+					note.Title != template_title) {
+				DateTime note_date = note.CreateDate.Date;
+				if (note_date == normalized_date) {
+					found_note = note;
+					break;
+				}
+			}
+		}
+		
+		return found_note;
 	}
 }
 
@@ -118,10 +143,10 @@ public class NoteOfTheDayPlugin : NotePlugin
 	// Called only by instance with timeout_owner set.
 	void CheckNewDay (object sender, EventArgs args)
 	{
-		Note notd = Manager.Find (NoteOfTheDay.GetTitle (DateTime.Now));
-		if (notd == null || notd.CreateDate.Day != DateTime.Now.Day) {
+		Note notd = NoteOfTheDay.GetNoteByDate (Manager, DateTime.Today);
+		if (notd == null) {
 			NoteOfTheDay.CleanupOld (Manager);
-
+			
 			// Create a new NotD if the day has changed
 			if (enabled)
 				NoteOfTheDay.Create (Manager, DateTime.Now);
