@@ -127,7 +127,6 @@ class NoteOfTheDay
 
 public class NoteOfTheDayPlugin : NotePlugin
 {
-	Gtk.CheckMenuItem item;
 	bool timeout_owner;
 	static InterruptableTimeout timeout;
 
