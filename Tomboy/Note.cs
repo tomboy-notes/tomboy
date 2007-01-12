@@ -590,7 +590,7 @@ namespace Tomboy
 
 		public bool IsSpecial 
 		{
-			get { return data.Data.Title == Catalog.GetString ("Start Here"); }
+			get { return NoteManager.StartNoteUri == data.Data.Uri; }
 		}
 
 		public bool IsNew 

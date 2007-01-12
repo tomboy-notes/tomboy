@@ -227,8 +227,8 @@ namespace Tomboy
 
 			if (text == null || text.Trim() == string.Empty)
 				return false;
-
-			Note link_note = manager.Find (Catalog.GetString ("Start Here"));
+			
+			Note link_note = manager.FindByUri (NoteManager.StartNoteUri);
 			if (link_note == null)
 				return false;
 
@@ -322,7 +322,7 @@ namespace Tomboy
 				}
 			}
 
-			Note start = manager.Find (Catalog.GetString ("Start Here"));
+			Note start = manager.FindByUri (NoteManager.StartNoteUri);
 			if (start != null) {
 				item = new NoteMenuItem (start, false);
 				recent_menu.Insert (item, list_size + 2);
@@ -439,8 +439,8 @@ namespace Tomboy
 
 				more_than_one = true;
 			}
-
-			Note link_note = manager.Find (Catalog.GetString ("Start Here"));
+			
+			Note link_note = manager.FindByUri (NoteManager.StartNoteUri);
 			if (link_note != null) {
 				link_note.Window.Present ();
 				PrependTimestampedText (link_note, 

@@ -15,6 +15,27 @@ namespace Tomboy
 		ArrayList notes;
 		PluginManager plugin_mgr;
 		TrieController trie_controller;
+		
+		static string start_note_uri = String.Empty;
+
+		static NoteManager ()
+		{
+			// Watch the START_NOTE_URI setting and update it so that the
+			// StartNoteUri property doesn't generate a call to
+			// Preferences.Get () each time it's accessed.
+			start_note_uri =
+				Preferences.Get (Preferences.START_NOTE_URI) as string;
+			Preferences.SettingChanged += OnSettingChanged;
+		}
+		
+		static void OnSettingChanged (object sender, GConf.NotifyEventArgs args)
+		{
+			switch (args.Key) {
+			case Preferences.START_NOTE_URI:
+				start_note_uri = args.Value as string;
+				break;
+			}
+		}
 
 		public NoteManager (string directory) : 
 			this (directory, Path.Combine (directory, "Backup")) 
@@ -150,6 +171,7 @@ namespace Tomboy
 				Note start_note = Create (Catalog.GetString ("Start Here"),
 								start_note_content);
 				start_note.Save ();
+				Preferences.Set (Preferences.START_NOTE_URI, start_note.Uri);
 
 				Note links_note = Create (Catalog.GetString ("Using Links in Tomboy"),
 								links_note_content);
@@ -188,6 +210,16 @@ namespace Tomboy
 			ArrayList notesCopy = new ArrayList (notes);
 			foreach (Note note in notesCopy) {
 				plugin_mgr.LoadPluginsForNote (note);
+			}
+			
+			// Make sure that a Start Note Uri is set in the preferences.  This
+			// has to be done here for long-time Tomboy users who won't go
+			// through the CreateStartNotes () process.
+			if (StartNoteUri == String.Empty) {
+				// Attempt to find an existing Start Here note
+				Note start_note = Find (Catalog.GetString ("Start Here"));
+				if (start_note != null)
+					Preferences.Set (Preferences.START_NOTE_URI, start_note.Uri);
 			}
 		}
 
@@ -364,6 +396,11 @@ namespace Tomboy
 					return DateTime.Compare (note_b.ChangeDate, 
 								 note_a.ChangeDate);
 			}
+		}
+		
+		public static string StartNoteUri
+		{
+			get { return start_note_uri; }
 		}
 
 		public ArrayList Notes 

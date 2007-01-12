@@ -64,7 +64,13 @@ namespace Tomboy
 		public string FindNote (string linked_title)
 		{
 			Note note = note_manager.Find (linked_title);
-			return (note == null) ? "" : note.Uri;
+			return (note == null) ? String.Empty : note.Uri;
+		}
+		
+		public string FindStartHereNote ()
+		{
+			Note note = note_manager.FindByUri (NoteManager.StartNoteUri);
+			return (note == null) ? String.Empty : note.Uri;
 		}
 
 		public string CreateNote ()

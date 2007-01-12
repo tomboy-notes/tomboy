@@ -256,7 +256,7 @@ namespace Tomboy
 
 		void KeyOpenStartHere (object sender, EventArgs args)
 		{
-			Note note = manager.Find (Catalog.GetString ("Start Here"));
+			Note note = manager.FindByUri (NoteManager.StartNoteUri);
 			if (note != null)
 				note.Window.Present ();
 		}

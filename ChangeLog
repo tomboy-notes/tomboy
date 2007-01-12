@@ -1,3 +1,34 @@
+2007-01-12  Boyd Timothy  <btimothy@gmail.com>
+	
+	The following files fix bug #315222 – Renaming Start Here breaks key
+	bindings.
+	
+	* data/tomboy.schemas.in: Added /apps/tomboy/start_note.
+	
+	* Tomboy/Note.cs: Change Note.IsSpecial property to check the Note.Uri
+	to determine whether it's special instead of checking it's title.
+	
+	* Tomboy/NoteManager.cs: Maintain a start_note_uri in GConf to keep
+	track of which note should be deemed the "Start Here" note.  Set the
+	URI in GConf when the Start Here note is first created.  Also looks for
+	the existing Start Here note and sets the URI if it's blank (for
+	existing Tomboy users).  Add a StartNoteUri property.
+	
+	* Tomboy/Preferences.cs: Added START_NOTE_URI preference.
+	
+	* Tomboy/RemoteControl.cs: Added FindStartHereNote so --start-here
+	command-line option doesn't break.
+	
+	* Tomboy/Tomboy.cs: Updated the --start-here option to open the correct
+	note.
+	
+	* Tomboy/Tray.cs: Paste to the start note specified in GConf.  Add the
+	start note specified in GConf to the Tomboy's main menu.  Drag and drop
+	text to the correct start note.
+	
+	* Tomboy/XKeybinder.cs: Bind to the "Start Here" keybinding to the
+	start note specified in GConf.
+
 2007-01-11  Boyd Timothy  <btimothy@gmail.com>
 
 	* Tomboy/Plugins/NoteOfTheDay.cs: Removed the "Create Note of the Day"

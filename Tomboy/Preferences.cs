@@ -18,6 +18,7 @@ namespace Tomboy
 		public const string ENABLE_CUSTOM_FONT = "/apps/tomboy/enable_custom_font";
 		public const string ENABLE_KEYBINDINGS = "/apps/tomboy/enable_keybindings";
 
+		public const string START_NOTE_URI = "/apps/tomboy/start_note";
 		public const string CUSTOM_FONT_FACE = "/apps/tomboy/custom_font_face";
 		public const string MENU_NOTE_COUNT = "/apps/tomboy/menu_note_count";
 		public const string MENU_PINNED_NOTES = "/apps/tomboy/menu_pinned_notes";
@@ -62,6 +63,9 @@ namespace Tomboy
 
 			case ENABLE_WIKIWORDS:
 				return false;
+			
+			case START_NOTE_URI:
+				return String.Empty;
 
 			case CUSTOM_FONT_FACE:
 				return "Serif 11";
