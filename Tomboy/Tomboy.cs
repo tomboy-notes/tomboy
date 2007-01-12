@@ -252,6 +252,7 @@ namespace Tomboy
 		bool new_note;
 		bool panel_applet;
 		string new_note_name;
+		bool open_start_here;
 		string open_note_uri;
 		string open_note_name;
 		string highlight_search;
@@ -385,7 +386,7 @@ namespace Tomboy
 
 				case "--start-here":
 					// Open the Start Here note
-					open_note_name = Catalog.GetString ("Start Here");
+					open_start_here = true;
 					break;
 
 				case "--highlight-search":
@@ -509,9 +510,12 @@ namespace Tomboy
 					remote.DisplayNote (new_uri);
 			}
 
+			if (open_start_here)
+				open_note_uri = remote.FindStartHereNote ();
+
 			if (open_note_name != null)
 				open_note_uri = remote.FindNote (open_note_name);
-
+			
 			if (open_note_uri != null) {
 				if (highlight_search != null)
 					remote.DisplayNoteWithSearch (open_note_uri, 
