@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tomboy.gnome-2-16.ar\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-08 14:58+0000\n"
+"POT-Creation-Date: 2007-01-13 05:56+0000\n"
 "PO-Revision-Date: 2007-01-08 16:37+0200\n"
 "Last-Translator: Mohamed Magdy <alnokta@yahoo.com>\n"
 "Language-Team: Arabic <support@arabeyes.org>\n"
@@ -56,7 +56,7 @@ msgid "_Help"
 msgstr "م_ساعدة"
 
 #: ../data/GNOME_TomboyApplet.xml.h:3 ../Tomboy/Applet.cs:185
-#: ../Tomboy/NoteWindow.cs:622 ../Tomboy/Preferences.cs:640
+#: ../Tomboy/NoteWindow.cs:622 ../Tomboy/Preferences.cs:644
 msgid "_Open Plugins Folder"
 msgstr "ا_فتح مجلد الملحقات"
 
@@ -202,10 +202,15 @@ msgid "Show applet menu"
 msgstr "اظهر قائمة البريمج"
 
 #: ../data/tomboy.schemas.in.h:26
+#, fuzzy
+msgid "Start Here Note"
+msgstr "ابدأ هنا"
+
+#: ../data/tomboy.schemas.in.h:27
 msgid "Sticky Note Importer First Run"
 msgstr "التشغيل الأول لمستورد المذكّرات اللاصقة"
 
-#: ../data/tomboy.schemas.in.h:27
+#: ../data/tomboy.schemas.in.h:28
 msgid ""
 "The global keybinding for creating and displaying a new Note. The format "
 "looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The "
@@ -220,7 +225,7 @@ msgstr ""
 "مثل \"&lt;Ctl&gt;\" و \"&lt;Ctrl&gt;\". إذا ضبطت الخيار للنص الخاص \"disabled"
 "\"، فحينها لن يكون هناك إرتباط للمفاتيح لهذه العملية"
 
-#: ../data/tomboy.schemas.in.h:28
+#: ../data/tomboy.schemas.in.h:29
 msgid ""
 "The global keybinding for opening the \"Start Here\" note. The format looks "
 "like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
@@ -235,7 +240,7 @@ msgstr ""
 "مثل \"&lt;Ctl&gt;\" و \"&lt;Ctrl&gt;\". إذا ضبطت الخيار للنص الخاص \"disabled"
 "\"، فحينها لن يكون هناك إرتباط للمفاتيح لهذه العملية"
 
-#: ../data/tomboy.schemas.in.h:29
+#: ../data/tomboy.schemas.in.h:30
 msgid ""
 "The global keybinding for opening the Note Search dialog. The format looks "
 "like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
@@ -250,7 +255,7 @@ msgstr ""
 "مثل \"&lt;Ctl&gt;\" و \"&lt;Ctrl&gt;\". إذا ضبطت الخيار للنص الخاص \"disabled"
 "\"، فحينها لن يكون هناك إرتباط للمفاتيح لهذه العملية"
 
-#: ../data/tomboy.schemas.in.h:30
+#: ../data/tomboy.schemas.in.h:31
 msgid ""
 "The global keybinding for opening the Recent Changes dialog. The format "
 "looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The "
@@ -265,7 +270,7 @@ msgstr ""
 "مثل \"&lt;Ctl&gt;\" و \"&lt;Ctrl&gt;\". إذا ضبطت الخيار للنص الخاص \"disabled"
 "\"، فحينها لن يكون هناك إرتباط للمفاتيح لهذه العملية"
 
-#: ../data/tomboy.schemas.in.h:31
+#: ../data/tomboy.schemas.in.h:32
 msgid ""
 "The global keybinding for showing the Tomboy applet's menu. The format looks "
 "like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
@@ -280,16 +285,16 @@ msgstr ""
 "\"&lt;Ctl&gt;\" و \"&lt;Ctrl&gt;\". إذا ضبطت الخيار للنص الخاص \"disabled\"، "
 "فحينها لن يكون هناك إرتباط للمفاتيح لهذه العملية"
 
-#: ../data/tomboy.schemas.in.h:32
+#: ../data/tomboy.schemas.in.h:33
 msgid "The handler for \"note://\" URLs"
 msgstr "العامل الخاص لعناوين \"note://\""
 
-#: ../data/tomboy.schemas.in.h:33
+#: ../data/tomboy.schemas.in.h:34
 msgid ""
 "The last directory a note was exported to using the Export To HTML plugin."
 msgstr "آخر دليل تم تصدير ملاحظة إليه باستخدام الملحق تصدير بصيغة HTML"
 
-#: ../data/tomboy.schemas.in.h:34
+#: ../data/tomboy.schemas.in.h:35
 msgid ""
 "The last setting for the 'Export linked notes' checkbox in the Export to "
 "HTML plugin."
@@ -297,7 +302,7 @@ msgstr ""
 "آخر الإعدادات لـصندوق الاختيار \"صدّر الملاحظات المرتبطة\" في ملحق التصدير "
 "بصيغة HTML"
 
-#: ../data/tomboy.schemas.in.h:35
+#: ../data/tomboy.schemas.in.h:36
 msgid ""
 "The last setting for the 'Include all other linked notes' checkbox in the "
 "Export to HTML plugin. This setting is used in conjunction with the 'HTML "
@@ -305,7 +310,14 @@ msgid ""
 "recursively) should be included during an export to HTML."
 msgstr ""
 
-#: ../data/tomboy.schemas.in.h:36
+#: ../data/tomboy.schemas.in.h:37
+msgid ""
+"The note URI of the note that should be considered the \"Start Here\" note, "
+"which is always placed at the bottom of the Tomboy note menu and also "
+"accessible by hotkey."
+msgstr ""
+
+#: ../data/tomboy.schemas.in.h:38
 msgid ""
 "Whitespace-separated list of note URIs for notes that should always appear "
 "in the Tomboy note menu."
@@ -390,7 +402,7 @@ msgstr "_اخرج من تومبوي"
 msgid "_Edit"
 msgstr "_عدل"
 
-#: ../Tomboy/ActionManager.cs:90 ../Tomboy/Preferences.cs:164
+#: ../Tomboy/ActionManager.cs:90 ../Tomboy/Preferences.cs:168
 msgid "Tomboy Preferences"
 msgstr "تقضيلات Tomboy"
 
@@ -428,39 +440,65 @@ msgstr "احفظ جميع الملفات المفتوحة"
 msgid "_About Tomboy"
 msgstr "_حوْل tomboy"
 
-#. Open the Start Here note
-#: ../Tomboy/Note.cs:580 ../Tomboy/NoteManager.cs:115
-#: ../Tomboy/NoteManager.cs:123 ../Tomboy/Tomboy.cs:388 ../Tomboy/Tray.cs:231
-#: ../Tomboy/Tray.cs:325 ../Tomboy/Tray.cs:443 ../Tomboy/XKeybinder.cs:259
-msgid "Start Here"
-msgstr "ابدأ هنا"
-
-#: ../Tomboy/Note.cs:861
+#: ../Tomboy/Note.cs:874
 msgid "Really delete this note?"
 msgstr "هل تريد حقا حذف هذه الملاحظة؟"
 
-#: ../Tomboy/Note.cs:862
+#: ../Tomboy/Note.cs:875
 msgid "If you delete a note it is permanently lost."
 msgstr "إذا حذفت الملاحظة فسوف تفقد للأبد"
 
-#: ../Tomboy/NoteManager.cs:116
-msgid "Welcome to Tomboy!"
-msgstr "مرحبا بكم في Tomboy!"
-
-#: ../Tomboy/NoteManager.cs:117
+#: ../Tomboy/NoteManager.cs:138
 msgid ""
-"Use this page as a Start Page for organizing your notes and keeping "
-"unorganized ideas around."
+"<note-content>Start Here\n"
+"\n"
+"<bold>Welcome to Tomboy!</bold>\n"
+"\n"
+"Use this \"Start Here\" note to begin organizing your ideas and thoughts.\n"
+"\n"
+"You can create new notes to hold your ideas by selecting the \"Create New "
+"Note\" item from the Tomboy Notes menu in your GNOME Panel.\n"
+"\n"
+"Then organize the notes you create by linking related notes and ideas "
+"together!\n"
+"\n"
+"We've created a note called <link:internal>Using Links in Tomboy</link:"
+"internal>.  Notice how each time we type <link:internal>Using Links in "
+"Tomboy</link:internal> it automatically gets underlined?  Click on the link "
+"to open the note.</note-content>"
 msgstr ""
-"استخدم هذه الصفحة كصفحة بداية لتنظيم الملاحظات و إبقاء الأفكار الغير منظمة "
-"في الجوار."
 
-#: ../Tomboy/NoteManager.cs:211
+#: ../Tomboy/NoteManager.cs:156
+msgid ""
+"<note-content>Using Links in Tomboy\n"
+"\n"
+"Notes in Tomboy can be linked together by highlighting text in the current "
+"note and clicking the <bold>Link</bold> button above in the toolbar.  Doing "
+"so will create a new note and also underline the note's title in the current "
+"note.\n"
+"\n"
+"Changing the title of a note will update links present in other notes.  This "
+"prevents broken links from occurring when a note is renamed.\n"
+"\n"
+"Also, if you type the name of another note in your current note, it will "
+"automatically be linked for you.</note-content>"
+msgstr ""
+
+#. Attempt to find an existing Start Here note
+#: ../Tomboy/NoteManager.cs:171 ../Tomboy/NoteManager.cs:220
+msgid "Start Here"
+msgstr "ابدأ هنا"
+
+#: ../Tomboy/NoteManager.cs:176
+msgid "Using Links in Tomboy"
+msgstr ""
+
+#: ../Tomboy/NoteManager.cs:275
 #, csharp-format
 msgid "New Note {0}"
 msgstr "ملاحظة جديدة {0}"
 
-#: ../Tomboy/NoteManager.cs:257
+#: ../Tomboy/NoteManager.cs:321
 msgid "Describe your new note here."
 msgstr "صِف ملاحظتك الجديدة هنا."
 
@@ -615,24 +653,24 @@ msgid ""
 "profiler ({2}) can help to identify leaking references."
 msgstr ""
 
-#: ../Tomboy/Preferences.cs:178
+#: ../Tomboy/Preferences.cs:182
 msgid "Editing"
 msgstr "جاري التعديل"
 
-#: ../Tomboy/Preferences.cs:180
+#: ../Tomboy/Preferences.cs:184
 msgid "Hotkeys"
 msgstr "مفاتيح ساخنة"
 
-#: ../Tomboy/Preferences.cs:182
+#: ../Tomboy/Preferences.cs:186
 #, fuzzy
 msgid "Plugins"
 msgstr "ملحقات"
 
-#: ../Tomboy/Preferences.cs:224
+#: ../Tomboy/Preferences.cs:228
 msgid "_Spell check while typing"
 msgstr "دقّق التّهجئة أثناء ال_كتابة"
 
-#: ../Tomboy/Preferences.cs:233
+#: ../Tomboy/Preferences.cs:237
 #, fuzzy
 msgid ""
 "Misspellings will be underlined in red, with correct spelling suggestions "
@@ -642,11 +680,11 @@ msgstr ""
 "الزر الأيمن"
 
 #. WikiWords...
-#: ../Tomboy/Preferences.cs:243
+#: ../Tomboy/Preferences.cs:247
 msgid "Highlight _WikiWords"
 msgstr "أبرِز _كلمات الويكي"
 
-#: ../Tomboy/Preferences.cs:251
+#: ../Tomboy/Preferences.cs:255
 msgid ""
 "Enable this option to highlight words <b>ThatLookLikeThis</b>. Clicking the "
 "word will create a note with that name."
@@ -655,16 +693,16 @@ msgstr ""
 "إنشاء ملاحظة جديدة بنفس الاسم"
 
 #. Custom font...
-#: ../Tomboy/Preferences.cs:260
+#: ../Tomboy/Preferences.cs:264
 msgid "Use custom _font"
 msgstr "استخدم _خط مخصّص"
 
 #. Hotkeys...
-#: ../Tomboy/Preferences.cs:330
+#: ../Tomboy/Preferences.cs:334
 msgid "Listen for _Hotkeys"
 msgstr "إستمع إلى الم_فاتيح الساخنة"
 
-#: ../Tomboy/Preferences.cs:339
+#: ../Tomboy/Preferences.cs:343
 msgid ""
 "Hotkeys allow you to quickly access your notes from anywhere with a "
 "keypress. Example Hotkeys: <b>&lt;Control&gt;&lt;Shift&gt;F11</b>, <b>&lt;"
@@ -675,56 +713,56 @@ msgstr ""
 "Alt&gt;N</b>"
 
 #. Show notes menu keybinding...
-#: ../Tomboy/Preferences.cs:359
+#: ../Tomboy/Preferences.cs:363
 msgid "Show notes _menu"
 msgstr "اظهر _قائمة الملاحظات"
 
 #. Open Start Here keybinding...
-#: ../Tomboy/Preferences.cs:376
+#: ../Tomboy/Preferences.cs:380
 msgid "Open \"_Start Here\""
 msgstr "افتح \"ملاحظة ا_بدأ هنا\""
 
 #. Create new note keybinding...
-#: ../Tomboy/Preferences.cs:393
+#: ../Tomboy/Preferences.cs:397
 msgid "Create _new note"
 msgstr "أنشيء ملاحظة _جديدة"
 
 #. Open Search All Notes window keybinding...
-#: ../Tomboy/Preferences.cs:410
+#: ../Tomboy/Preferences.cs:414
 #, fuzzy
 msgid "Open \"Search _All Notes\""
 msgstr "احفظ جميع الملفات المفتوحة"
 
-#: ../Tomboy/Preferences.cs:556
+#: ../Tomboy/Preferences.cs:560
 msgid "Not available"
 msgstr "غير متاح"
 
-#: ../Tomboy/Preferences.cs:614
+#: ../Tomboy/Preferences.cs:618
 msgid "Description:"
 msgstr "الوصف:"
 
-#: ../Tomboy/Preferences.cs:616
+#: ../Tomboy/Preferences.cs:620
 msgid "Written by:"
 msgstr "كتب بواسطة:"
 
-#: ../Tomboy/Preferences.cs:618
+#: ../Tomboy/Preferences.cs:622
 msgid "Web site:"
 msgstr "موقع ويب:"
 
-#: ../Tomboy/Preferences.cs:620
+#: ../Tomboy/Preferences.cs:624
 msgid "File name:"
 msgstr "إسم الملف:"
 
-#: ../Tomboy/Preferences.cs:634
+#: ../Tomboy/Preferences.cs:638
 msgid "Settings"
 msgstr "الاعدادات"
 
-#: ../Tomboy/Preferences.cs:689
+#: ../Tomboy/Preferences.cs:693
 #, csharp-format
 msgid "{0} Settings"
 msgstr "{0} الاعدادات"
 
-#: ../Tomboy/Preferences.cs:750
+#: ../Tomboy/Preferences.cs:754
 msgid "Choose Note Font"
 msgstr "اختر خط الملاحظات"
 
@@ -819,7 +857,7 @@ msgstr "تطبيق سطح مكتب بسيط و سهل الاستخدام لتس�
 msgid "Homepage & Donations"
 msgstr "صفحة الإنترنت و التبرعات"
 
-#: ../Tomboy/Tomboy.cs:297
+#: ../Tomboy/Tomboy.cs:298
 msgid ""
 "Tomboy: A simple, easy to use desktop note-taking application.\n"
 "Copyright (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
@@ -828,7 +866,7 @@ msgstr ""
 "Tomboy: تطبيق بسيط و سهل الاستخدام لتسجيل الملاحظات.\n"
 "حقوق النسخ (c) 2004-2006 أليكس جرافيلي <alex@beatniksoftware.com> \n"
 
-#: ../Tomboy/Tomboy.cs:309
+#: ../Tomboy/Tomboy.cs:310
 #, fuzzy
 msgid ""
 "Usage:\n"
@@ -842,7 +880,7 @@ msgstr ""
 "  --help\t\t\tلطباعة رسالة الإستخدام هذه\n"
 " -note-path [path]\t\tحمّل/خزّن معلومات الملاحظة في هذا الديل.\n"
 
-#: ../Tomboy/Tomboy.cs:320
+#: ../Tomboy/Tomboy.cs:321
 msgid ""
 "  --new-note\t\t\tCreate and display a new note.\n"
 "  --new-note [title]\t\tCreate and display a new note, with a title.\n"
@@ -856,20 +894,20 @@ msgstr ""
 "  --start-here\t\t\tاعرض ابدأ هنا\n"
 "  --highlight-search [text]\tابحث و ظلل النص text في الملاحظات المفتوحة\n"
 
-#: ../Tomboy/Tomboy.cs:332
+#: ../Tomboy/Tomboy.cs:333
 msgid "  --check-plugin-unloading\tCheck if plugins are unloaded properly.\n"
 msgstr ""
 
-#: ../Tomboy/Tomboy.cs:336
+#: ../Tomboy/Tomboy.cs:337
 msgid "D-BUS remote control disabled.\n"
 msgstr "D-BUS للتحكم عن بعد معطلة\n"
 
-#: ../Tomboy/Tomboy.cs:344
+#: ../Tomboy/Tomboy.cs:345
 #, csharp-format
 msgid "Version {0}"
 msgstr "النسخة {0}"
 
-#: ../Tomboy/Tomboy.cs:411
+#: ../Tomboy/Tomboy.cs:412
 #, csharp-format
 msgid ""
 "Tomboy: unsupported option '{0}'\n"
@@ -1069,10 +1107,6 @@ msgstr "مهام"
 msgid "Appointments"
 msgstr "مواعيد"
 
-#: ../Tomboy/Plugins/NoteOfTheDay.cs:188
-msgid "Create Note of the Day"
-msgstr "أنشيء ملاحظة اليوم"
-
 #: ../Tomboy/Plugins/StickyNoteImport.cs:43
 msgid "Import from Sticky Notes"
 msgstr "استورد من برنامج المذكّرات اللاصقة"
@@ -1102,6 +1136,19 @@ msgstr "بدون عنوان"
 #: ../Tomboy/Plugins/StickyNoteImport.cs:172
 msgid "Sticky Note: "
 msgstr "مذكرة لاصقة:"
+
+#~ msgid "Welcome to Tomboy!"
+#~ msgstr "مرحبا بكم في Tomboy!"
+
+#~ msgid ""
+#~ "Use this page as a Start Page for organizing your notes and keeping "
+#~ "unorganized ideas around."
+#~ msgstr ""
+#~ "استخدم هذه الصفحة كصفحة بداية لتنظيم الملاحظات و إبقاء الأفكار الغير "
+#~ "منظمة في الجوار."
+
+#~ msgid "Create Note of the Day"
+#~ msgstr "أنشيء ملاحظة اليوم"
 
 #~ msgid "Quick and handy note-taker"
 #~ msgstr "مسجل ملاحظات عملي و سريع"
