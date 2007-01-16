@@ -146,6 +146,7 @@ class EvoUtils
 			case "imapp":
 			case "groupwise":
 			case "nntp":
+			case "exchange":
 				match = (uri.Authority == source_uri.Authority) &&
 					(uri.UserInfo == source_uri.UserInfo);
 				break;
