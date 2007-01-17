@@ -827,6 +827,7 @@ namespace Tomboy
 		string prev_search_text;
 		
 		InterruptableTimeout entry_changed_timeout;
+		InterruptableTimeout note_changed_timeout;
 
 		bool shift_key_pressed;
 		
@@ -979,20 +980,22 @@ namespace Tomboy
 
 		void OnCaseSensitiveToggled (object sender, EventArgs args)
 		{
-			PerformSearch ();
+			PerformSearch (true);
 		}
 		
 		void OnFindEntryActivated (object sender, EventArgs args)
 		{
-			if (entry_changed_timeout != null)
+			if (entry_changed_timeout != null) {
 				entry_changed_timeout.Cancel ();
+				entry_changed_timeout = null;
+			}
 			
 			if (prev_search_text != null && 
 			    SearchText != null && 
 			    prev_search_text.CompareTo (SearchText) == 0)
 				next_button.Click ();
 			else
-				PerformSearch ();
+				PerformSearch (true);
 		}
 		
 		void OnFindEntryChanged (object sender, EventArgs args)
@@ -1003,23 +1006,25 @@ namespace Tomboy
 			}
 			
 			if (SearchText == null) {
-				PerformSearch ();
+				PerformSearch (false);
 			} else {
 				entry_changed_timeout.Reset (500);
 			}
 		}
 		
 		// Called after .5 seconds of typing inactivity, or on explicit
-		// activate.  Redo the serach and update the results...
+		// activate.  Redo the search and update the results...
 		void EntryChangedTimeout (object sender, EventArgs args)
 		{
+			entry_changed_timeout = null;
+			
 			if (SearchText == null)
 				return;
 			
-			PerformSearch ();
+			PerformSearch (true);
 		}
 		
-		void PerformSearch ()
+		void PerformSearch (bool scroll_to_hit)
 		{
 			CleanupMatches ();
 
@@ -1043,7 +1048,8 @@ namespace Tomboy
 				HighlightMatches (true);
 				
 				// Select/scroll to the first match
-				OnNextClicked (this, EventArgs.Empty);
+				if (scroll_to_hit)
+					OnNextClicked (this, EventArgs.Empty);
 			}
 
 			UpdateSensitivity ();
@@ -1065,14 +1071,42 @@ namespace Tomboy
 			}
 		}
 		
+		void UpdateSearch ()
+		{
+			if (note_changed_timeout == null) {
+				note_changed_timeout = new InterruptableTimeout ();
+				note_changed_timeout.Timeout += NoteChangedTimeout;
+			}
+			
+			if (SearchText == null) {
+				PerformSearch (false);
+			} else {
+				note_changed_timeout.Reset (500);
+			}
+		}
+		
+		// Called after .5 seconds of typing inactivity to update
+		// the search when the text of a note changes.  This prevents
+		// the search from running on every single change made in a
+		// note.
+		void NoteChangedTimeout (object sender, EventArgs args)
+		{
+			note_changed_timeout = null;
+			
+			if (SearchText == null)
+				return;
+			
+			PerformSearch (false);
+		}
+		
 		void OnInsertText (object sender, Gtk.InsertTextArgs args)
 		{
-			PerformSearch ();
+			UpdateSearch ();
 		}
 		
 		void OnDeleteRange (object sender, Gtk.DeleteRangeArgs args)
 		{
-			PerformSearch ();
+			UpdateSearch ();
 		}
 		
 		//
