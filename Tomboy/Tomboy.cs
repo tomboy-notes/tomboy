@@ -10,6 +10,7 @@ namespace Tomboy
 		static NoteManager manager;
 		static TomboyTrayIcon tray_icon;
 		static bool tray_icon_showing = false;
+		static bool is_panel_applet = false;
 #if ENABLE_DBUS
 		static RemoteControl remote_control;
 #endif
@@ -51,6 +52,7 @@ namespace Tomboy
 
 			if (cmd_line.UsePanelApplet) {
 				tray_icon_showing = true;
+				is_panel_applet = true;
 
 				// Show the Close item and hide the Quit item
 				am ["CloseWindowAction"].Visible = true;
@@ -175,6 +177,9 @@ namespace Tomboy
 		
 		static void OnQuitTomboyAction (object sender, EventArgs args)
 		{
+			if (Tomboy.IsPanelApplet)
+				return; // Ignore the quit action
+
 			Logger.Log ("Quitting Tomboy.  Ciao!");
 			Exit (0);
 		}
@@ -239,6 +244,11 @@ namespace Tomboy
 		public static bool TrayIconShowing
 		{
 			get { return tray_icon_showing; }
+		}
+		
+		public static bool IsPanelApplet
+		{
+			get { return is_panel_applet; }
 		}
 		
 		public static TomboyTray Tray
