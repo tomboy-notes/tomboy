@@ -1,5 +1,14 @@
 2007-01-18  Boyd Timothy  <btimothy@gmail.com>
 	
+	* Tomboy/RecentChanges.cs: Changed current_matches to store the
+	match count instead of an array list of matches (since the actual
+	matches aren't used in this window).  Use Note.TextContent instead
+	of Note.Buffer to prevent the note buffer from being loaded, which
+	causes it to be "accessed/saved" without the user actually viewing
+	the note.  Fixes bug #397717.
+	
+2007-01-18  Boyd Timothy  <btimothy@gmail.com>
+	
 	* Tomboy/Tomboy.cs: Track when Tomboy runs as a panel applet so the
 	QuitTomboyAction can be disabled.  Fixes Ctrl+Q crash in bug #397700.
 	
