@@ -343,12 +343,12 @@ namespace Tomboy
 				if (CheckNoteHasMatch (note, 
 						       encoded_words, 
 						       case_sensitive.Active)) {
-					ArrayList note_matches =
-						FindMatchesInBuffer (note.Buffer, 
-								     words, 
-								     case_sensitive.Active);
-					if (note_matches != null)
-						current_matches [note.Uri] = note_matches;
+					int match_count =
+							FindMatchCountInNote (note.TextContent,
+													words,
+													case_sensitive.Active);
+					if (match_count > 0)
+						current_matches [note.Uri] = match_count;
 				}
 			}
 			
@@ -408,21 +408,24 @@ namespace Tomboy
 			if (crt == null)
 				return;
 			
-			string match_cnt = "";
+			string match_str = "";
 			
 			Note note = (Note) model.GetValue (iter, 3 /* note */);
 			if (note != null) {
-				ArrayList matches = current_matches [note.Uri] as ArrayList;
-				if (matches != null && matches.Count > 0) {
-					match_cnt = string.Format (
-						Catalog.GetPluralString ("{0} match",
-									 "{0} matches",
-									 matches.Count),
-						matches.Count);
+				object matches = current_matches [note.Uri];
+				if (matches != null) {
+					int match_count = (int) matches;
+					if (match_count > 0) {
+						match_str = string.Format (
+							Catalog.GetPluralString ("{0} match",
+										 "{0} matches",
+										 match_count),
+							match_count);
+					}
 				}
 			}
 			
-			crt.Text = match_cnt;
+			crt.Text = match_str;
 		}
 		
 		void UpdateNoteCount (int total, int matches)
@@ -458,13 +461,10 @@ namespace Tomboy
 			return true;
 		}
 		
-		ArrayList FindMatchesInBuffer (NoteBuffer buffer, string [] words, bool match_case)
+		int FindMatchCountInNote (string note_text, string [] words, bool match_case)
 		{
-			ArrayList matches = new ArrayList ();
+			int matches = 0;
 			
-			string note_text = buffer.GetText (buffer.StartIter, 
-							   buffer.EndIter, 
-							   false /* hidden_chars */);
 			if (!match_case)
 				note_text = note_text.ToLower ();
 			
@@ -482,31 +482,18 @@ namespace Tomboy
 						if (this_word_found)
 							break;
 						else
-							return null;
+							return 0;
 					}
 					
 					this_word_found = true;
 					
-					Gtk.TextIter start = buffer.GetIterAtOffset (idx);
-					Gtk.TextIter end = start;
-					end.ForwardChars (word.Length);
-					
-					Match match = new Match ();
-					match.Buffer = buffer;
-					match.StartMark = buffer.CreateMark (null, start, false);
-					match.EndMark = buffer.CreateMark (null, end, true);
-					match.Highlighting = false;
-					
-					matches.Add (match);
+					matches++;
 					
 					idx += word.Length;
 				}
 			}
 			
-			if (matches.Count == 0)
-				return null;
-			else
-				return matches;
+			return matches;
 		}
 		
 		class Match 
@@ -815,8 +802,8 @@ namespace Tomboy
 				return -1;
 			}
 			
-			ArrayList matches_a = current_matches [note_a.Uri] as ArrayList;
-			ArrayList matches_b = current_matches [note_b.Uri] as ArrayList;
+			object matches_a = current_matches [note_a.Uri];
+			object matches_b = current_matches [note_b.Uri];
 			
 			if (matches_a == null || matches_b == null) {
 				if (matches_a != null)
@@ -825,7 +812,7 @@ namespace Tomboy
 				return -1;
 			}
 			
-			int result = matches_a.Count - matches_b.Count;
+			int result = (int) matches_a - (int) matches_b;
 			if (result == 0) {
 				// Do a secondary sort by note title in alphabetical order
 				result = CompareTitles (model, a, b);
