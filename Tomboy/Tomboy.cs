@@ -133,6 +133,15 @@ namespace Tomboy
 				if (remote_control != null) {
 					Logger.Log ("Tomboy remote control active.");
 				} else {
+					// If Tomboy is already running, open the search window
+					// so the user gets some sort of feedback when they
+					// attempt to run Tomboy again.
+					RemoteControl remote = null;
+					try {
+						remote = RemoteControlProxy.GetInstance ();
+						remote.DisplaySearch ();
+					} catch {}
+
 					Logger.Log ("Tomboy is already running.  Exiting...");
 					System.Environment.Exit (-1);
 				}
@@ -287,7 +296,8 @@ namespace Tomboy
 				return new_note || 
 						open_note_name != null ||
 						open_note_uri != null || 
-						open_search;
+						open_search ||
+						open_start_here;
 			}
 		}
 

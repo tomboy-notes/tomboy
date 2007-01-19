@@ -1,3 +1,12 @@
+2007-01-19  Boyd Timothy  <btimothy@gmail.com>
+	
+	* Tomboy/Tomboy.cs: Use DBus to open the search window in the
+	Tomboy instance that is already running inside RegisterRemoteControl ().
+	This gives the user feedback that something occurs when they attempt
+	to launch Tomboy again when it's already running.  Fixes bug #350707.
+	Also added open_start_here to the TomboyCommandLine.NeedsExecute so
+	"--start-here" will work.
+
 2007-01-18  Boyd Timothy  <btimothy@gmail.com>
 	
 	* www/index.html: Redirect to the website's new home on GNOME
