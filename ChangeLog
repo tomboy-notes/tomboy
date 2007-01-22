@@ -1,5 +1,14 @@
 2007-01-22  Boyd Timothy  <btimothy@gmail.com>
 
+	* data/DefaultPlugins.desktop.in.in: Removed "Version" key from the
+	file since it's not a required to be present and most .desktop files
+	do not specify it.
+	(http://standards.freedesktop.org/desktop-entry-spec/latest/ar01s05.html).
+	Fixes bug #399446.
+	* data/tomboy.desktop.in: Ditto.
+
+2007-01-22  Boyd Timothy  <btimothy@gmail.com>
+
 	* data/Makefile.am: Removed comment about only installing the
 	tomboy.desktop for KDE.  Since we now install this regardless, the
 	comment no longer makes sense.
