@@ -310,6 +310,11 @@ namespace Tomboy
 			if (is_forward != erase.is_forward)
 				return false;
 
+			// Group if something other than text was deleted
+			// (e.g. an email image)
+			if (chop.Text.Length == 0 || erase.chop.Text.Length == 0)
+				return true;
+
 			// Don't group more than one line (inclusive)
 			if (chop.Text[0] == '\n')
 				return false;
