@@ -1,5 +1,11 @@
 2007-01-22  Boyd Timothy  <btimothy@gmail.com>
 
+	* Tomboy/Applet.cs: Don't use the "ShowHelpAction" to display the help
+	in this case because the handler expects to use the Gdk.Screen from the
+	tray icon.  Fixes bug #399490.
+
+2007-01-22  Boyd Timothy  <btimothy@gmail.com>
+
 	* data/DefaultPlugins.desktop.in.in: Removed "Version" key from the
 	file since it's not a required to be present and most .desktop files
 	do not specify it.
