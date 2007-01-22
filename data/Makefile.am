@@ -1,10 +1,6 @@
 
 SUBDIRS = images
 
-### tomboy.desktop should only appear in KDE, where it executes the tray-icon
-### version.  Gnome is our target audience, and since we don't want them to have
-### an extra menu item, we don't install this for now.
-
 @INTLTOOL_DESKTOP_RULE@
 
 desktop_in_files = tomboy.desktop.in DefaultPlugins.desktop.in
