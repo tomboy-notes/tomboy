@@ -1,5 +1,10 @@
 2007-01-23  Boyd Timothy  <btimothy@gmail.com>
 
+	* Tomboy/Util.cs: Ignore when SetProcessName fails by surrounding it with
+	a try/catch.  It's not a necessity for running tomboy.  Fixes bug #399755.
+
+2007-01-23  Boyd Timothy  <btimothy@gmail.com>
+
 	* Tomboy/NoteBuffer.cs: Applied patch from Chris Scobell to prevent extra
 	space character from being used inside bulleted lists (directly after the
 	bullet character).  Fixes bug #395100.
