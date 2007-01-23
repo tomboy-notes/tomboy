@@ -783,7 +783,9 @@ namespace Tomboy
 					       string process_name,  
 					       string [] args)
 		{
-			SetProcessName (process_name);
+			try {
+				SetProcessName (process_name);
+			} catch {} // Ignore exception if fail (not needed to run)
 
 			Gtk.Application.Init ();
 			program = new Gnome.Program ("Tomboy", 
