@@ -35,6 +35,7 @@ namespace Tomboy
 			list.Add (Gdk.Atom.Intern ("_NETSCAPE_URL", false), 0, 1);
 			
 			KeyPressEvent += KeyPressed;
+			ButtonPressEvent += ButtonPressed;
 		}
 
 		public static int DefaultMargin
@@ -162,6 +163,12 @@ namespace Tomboy
 			}
 			
 			args.RetVal = ret_value;
+		}
+		
+		[GLib.ConnectBefore()]
+		void ButtonPressed (object sender, Gtk.ButtonPressEventArgs args)
+		{
+			((NoteBuffer) Buffer).CheckSelection ();
 		}
 	}
 

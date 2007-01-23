@@ -176,10 +176,10 @@ namespace Tomboy
 					Gtk.TextIter end = start;
 					end.ForwardToLineEnd ();
 
-					if (end.LineOffset < 1) {
+					if (end.LineOffset < 2) {
 						end = start;
 					} else {
-						end = GetIterAtLineOffset (iter.Line, 1);
+						end = GetIterAtLineOffset (iter.Line, 2);
 					}
 					
 					Delete (ref start, ref end);
@@ -200,8 +200,6 @@ namespace Tomboy
 					
 					NewBulletInserted (this,
 						new InsertBulletEventArgs (offset, prev_depth.Depth));
-
-					Insert (ref start, " ");
 				}
 				
 				return true;
@@ -218,9 +216,6 @@ namespace Tomboy
 					IncreaseDepth (ref start);
 				} else {
 					IncreaseDepth (ref start);
-
-					if (start.Char != " ")
-						Insert (ref start, " ");
 					
 					iter = GetIterAtMark (insert_mark);
 					int offset = iter.Offset;
@@ -235,8 +230,6 @@ namespace Tomboy
 
 					NewBulletInserted (this,
 						new InsertBulletEventArgs (offset, 0));
-
-					Insert (ref iter, " ");
 				}			
 				
 				return true;
@@ -301,7 +294,7 @@ namespace Tomboy
 			} else if (start.EndsLine () && start.Line < LineCount) {
 				Gtk.TextIter next = GetIterAtLine (start.Line + 1);
 				end = start;
-				end.ForwardChars (2);
+				end.ForwardChars (3);
 				
 				DepthNoteTag depth = FindDepthTag (ref next);
 				
@@ -348,7 +341,7 @@ namespace Tomboy
 				Gtk.TextIter prev = start;
 				
 				if (prev.LineOffset != 0)
-					prev.BackwardChars (2);
+					prev.BackwardChars (1);
 				
 				DepthNoteTag prev_depth = FindDepthTag (ref prev);
 				if (depth != null || prev_depth != null) {
@@ -374,10 +367,10 @@ namespace Tomboy
 			} else {
 				// If the cursor is at the start of a bulleted line
 				// move it so it is after the bullet.
-				if (start.LineOffset == 0 && FindDepthTag (ref start) != null) {
-					start.ForwardChar ();
-					if (start.Char == " ")
-						start.ForwardChar ();
+				if ((start.LineOffset == 0 || start.LineOffset == 1) && 
+						FindDepthTag (ref start) != null) 
+				{
+					start.LineOffset = 2;
 					SelectRange (start, start);
 				}
 			}
@@ -387,12 +380,29 @@ namespace Tomboy
 		// bullets that are in or near the seletion
 		void AugmentSelection (ref Gtk.TextIter start, ref Gtk.TextIter end)
 		{
+			DepthNoteTag start_depth = FindDepthTag (ref start);
 			DepthNoteTag end_depth = FindDepthTag (ref end);
+
+			Gtk.TextIter inside_end = end;
+			inside_end.BackwardChar ();
+			
+			DepthNoteTag inside_end_depth = FindDepthTag (ref inside_end);
+
+			// Start inside bullet region
+			if (start_depth != null) {
+				start.LineOffset = 2;
+				SelectRange (start, end);
+			}
+
+			// End inside another bullet
+			if (inside_end_depth != null) {
+				end.LineOffset = 2;
+				SelectRange (start, end);
+			}
 
 			// Check if the End is right before start of bullet
 			if (end_depth != null) {
-				
-				end.LineOffset = 1;
+				end.LineOffset = 2;
 				SelectRange (start, end);
 			}
 		}
@@ -580,9 +590,6 @@ namespace Tomboy
 
 			insert_iter.LineOffset = 0;
 
-			if (insert_iter.Char != " " && FindDepthTag (ref insert_iter) == null)
-				Insert (ref insert_iter, " ");			
-
 			IncreaseDepth (ref insert_iter);
 		}
 		
@@ -601,7 +608,7 @@ namespace Tomboy
 			DepthNoteTag tag = note_table.GetDepthTag (depth);
 
 			string bullet =
-				indent_bullets [depth % indent_bullets.Length] + String.Empty;
+				indent_bullets [depth % indent_bullets.Length] + " ";
 			
 			InsertWithTags (ref iter, bullet, tag);
 		}
@@ -613,10 +620,10 @@ namespace Tomboy
 
 			line_end.ForwardToLineEnd ();
 
-			if (line_end.LineOffset < 1) {
-				end = GetIterAtLineOffset (iter.Line, 0);
-			} else {
+			if (line_end.LineOffset < 2) {
 				end = GetIterAtLineOffset (iter.Line, 1);
+			} else {
+				end = GetIterAtLineOffset (iter.Line, 2);
 			}
 
 			// Go back one more character to delete the \n as well
@@ -636,7 +643,7 @@ namespace Tomboy
 			line_end.ForwardToLineEnd ();
 
 			end = start;
-			end.ForwardChars (1);
+			end.ForwardChars (2);
 
 			DepthNoteTag curr_depth = FindDepthTag (ref start);
 
@@ -666,10 +673,10 @@ namespace Tomboy
 			Gtk.TextIter line_end = start;
 			line_end.ForwardToLineEnd ();
 
-			if (line_end.LineOffset < 1) {
+			if (line_end.LineOffset < 2) {
 				end = start;
 			} else {
-				end = GetIterAtLineOffset (start.Line, 1);
+				end = GetIterAtLineOffset (start.Line, 2);
 			}
 
 			DepthNoteTag curr_depth = FindDepthTag (ref start);
@@ -946,7 +953,9 @@ namespace Tomboy
 				
 				// Find all the tags that continue across, 
 				// into or outof indented lines
-				if (end_of_depth_line || (next_line_has_depth && next_iter.EndsLine())) {
+				if (end_of_depth_line || 
+					(next_line_has_depth && (next_iter.EndsLine () || (iter.EndsLine () && iter.StartsLine ()))))
+				{
 					foreach (Gtk.TextTag tag in iter.Tags) {
 						if (!TagEndsHere (tag, 
 									  iter, 
@@ -1004,8 +1013,13 @@ namespace Tomboy
 					prev_depth_line = iter.Line;
 				}
 
-				iter.ForwardChar ();
-				next_iter.ForwardChar ();
+				int no_chars_to_move = 1;
+				
+				if (iter_has_depth_tag)
+					no_chars_to_move = 2;
+
+				iter.ForwardChars (no_chars_to_move);
+				next_iter.ForwardChars (no_chars_to_move);
 			}
 
 			// Empty any trailing tags left in tag_stack..
@@ -1132,7 +1146,8 @@ namespace Tomboy
 					
 					if (depth_tag != null && (bool) list_stack.Pop ()) {
 						((NoteBuffer) buffer).InsertBullet (ref apply_start, depth_tag.Depth);
-						offset += 1;
+						buffer.RemoveAllTags (apply_start, apply_start);
+						offset += 2;
 					} else if(depth_tag == null) {
 						buffer.ApplyTag (tag_start.Tag, apply_start, apply_end);
 					}
