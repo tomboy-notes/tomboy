@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tomboy HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-05 03:24+0000\n"
-"PO-Revision-Date: 2007-01-08 17:40+0200\n"
+"POT-Creation-Date: 2007-01-09 06:29+0000\n"
+"PO-Revision-Date: 2007-01-23 09:45+0200\n"
 "Last-Translator: Ivar Smolin <okul@linux.ee>\n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
 "MIME-Version: 1.0\n"
@@ -54,7 +54,7 @@ msgid "_Help"
 msgstr "_Abi"
 
 #: ../data/GNOME_TomboyApplet.xml.h:3 ../Tomboy/Applet.cs:185
-#: ../Tomboy/NoteWindow.cs:616 ../Tomboy/Preferences.cs:640
+#: ../Tomboy/NoteWindow.cs:622 ../Tomboy/Preferences.cs:640
 msgid "_Open Plugins Folder"
 msgstr "Ava _pluginate kataloog"
 
@@ -73,7 +73,7 @@ msgstr "Uue märkme loomine"
 
 #: ../data/tomboy.schemas.in.h:2
 msgid "Currently enabled plugins."
-msgstr ""
+msgstr "Praegu lubatud pluginad."
 
 #: ../data/tomboy.schemas.in.h:3
 msgid "Custom Font Face"
@@ -163,11 +163,11 @@ msgstr ""
 msgid ""
 "Integer determining the minimum number of notes to show in the Tomboy note "
 "menu."
-msgstr ""
+msgstr "Täisarv, millega määratakse vähim märgete arv Tomboy märkmemenüüs."
 
 #: ../data/tomboy.schemas.in.h:18
 msgid "List containing the names of currently enabled plugins."
-msgstr ""
+msgstr "Hetkel lubatud pluginate nimekiri."
 
 #: ../data/tomboy.schemas.in.h:19
 msgid "List of pinned notes."
@@ -175,7 +175,7 @@ msgstr ""
 
 #: ../data/tomboy.schemas.in.h:20
 msgid "Minimum number of notes to show in menu"
-msgstr ""
+msgstr "Vähim menüüs näidatavate märgete arv"
 
 #: ../data/tomboy.schemas.in.h:21
 msgid "Open Recent Changes"
@@ -371,7 +371,7 @@ msgstr "_Kustuta"
 msgid "Delete the selected note"
 msgstr "Valitud märkme kustutamine"
 
-#: ../Tomboy/ActionManager.cs:78 ../Tomboy/NoteWindow.cs:510
+#: ../Tomboy/ActionManager.cs:78 ../Tomboy/NoteWindow.cs:516
 msgid "_Close"
 msgstr "_Sulge"
 
@@ -415,7 +415,7 @@ msgstr "SalveIkoon"
 msgid "Create _New Note"
 msgstr "Loo _uus märge"
 
-#: ../Tomboy/ActionManager.cs:111 ../Tomboy/NoteWindow.cs:453
+#: ../Tomboy/ActionManager.cs:111 ../Tomboy/NoteWindow.cs:459
 msgid "_Search All Notes"
 msgstr "_Otsi kõikide märkmete hulgast"
 
@@ -428,38 +428,66 @@ msgid "_About Tomboy"
 msgstr "_Tomboy'st lähemalt"
 
 #. Open the Start Here note
-#: ../Tomboy/Note.cs:580 ../Tomboy/NoteManager.cs:107
-#: ../Tomboy/NoteManager.cs:115 ../Tomboy/Tomboy.cs:388 ../Tomboy/Tray.cs:231
-#: ../Tomboy/Tray.cs:325 ../Tomboy/Tray.cs:443 ../Tomboy/XKeybinder.cs:259
+#: ../Tomboy/Note.cs:593 ../Tomboy/NoteManager.cs:150 ../Tomboy/Tomboy.cs:388
+#: ../Tomboy/Tray.cs:231 ../Tomboy/Tray.cs:325 ../Tomboy/Tray.cs:443
+#: ../Tomboy/XKeybinder.cs:259
 msgid "Start Here"
 msgstr "Alusta siit"
 
-#: ../Tomboy/Note.cs:861
+#: ../Tomboy/Note.cs:874
 msgid "Really delete this note?"
 msgstr "Kas tõesti kustutada see märge?"
 
-#: ../Tomboy/Note.cs:862
+#: ../Tomboy/Note.cs:875
 msgid "If you delete a note it is permanently lost."
-msgstr "Kui sa märkme kustutad, siis läheb see jäädavalt kaotsi."
+msgstr "Kui sa märkme kustutad, siis on see jäädavalt kadunud."
 
-#: ../Tomboy/NoteManager.cs:108
-msgid "Welcome to Tomboy!"
-msgstr "Tere tulemast kasutama Tomboy'd!"
-
-#: ../Tomboy/NoteManager.cs:109
+#: ../Tomboy/NoteManager.cs:117
 msgid ""
-"Use this page as a Start Page for organizing your notes and keeping "
-"unorganized ideas around."
+"<note-content>Start Here\n"
+"\n"
+"<bold>Welcome to Tomboy!</bold>\n"
+"\n"
+"Use this \"Start Here\" note to begin organizing your ideas and thoughts.\n"
+"\n"
+"You can create new notes to hold your ideas by selecting the \"Create New "
+"Note\" item from the Tomboy Notes menu in your GNOME Panel.\n"
+"\n"
+"Then organize the notes you create by linking related notes and ideas "
+"together!\n"
+"\n"
+"We've created a note called <link:internal>Using Links in Tomboy</link:"
+"internal>.  Notice how each time we type <link:internal>Using Links in "
+"Tomboy</link:internal> it automatically gets underlined?  Click on the link "
+"to open the note.</note-content>"
 msgstr ""
-"See leht võiks olla hea Algusleht sinu märkmete ja veel algusjärgus olevate "
-"ideede hoidmiseks."
 
-#: ../Tomboy/NoteManager.cs:203
+#: ../Tomboy/NoteManager.cs:135
+msgid ""
+"<note-content>Using Links in Tomboy\n"
+"\n"
+"Notes in Tomboy can be linked together by highlighting text in the current "
+"note and clicking the <bold>Link</bold> button above in the toolbar.  Doing "
+"so will create a new note and also underline the note's title in the current "
+"note.\n"
+"\n"
+"Changing the title of a note will update links present in other notes.  This "
+"prevents broken links from occurring when a note is renamed.\n"
+"\n"
+"Also, if you type the name of another note in your current note, it will "
+"automatically be linked for you.</note-content>"
+msgstr ""
+
+#: ../Tomboy/NoteManager.cs:154
+msgid "Using Links in Tomboy"
+msgstr ""
+
+#: ../Tomboy/NoteManager.cs:243
 #, csharp-format
 msgid "New Note {0}"
 msgstr "Uus märge {0}"
 
-#: ../Tomboy/NoteManager.cs:249
+#: ../Tomboy/NoteManager.cs:289
 msgid "Describe your new note here."
 msgstr "Siia saad uue märkme kirjutada."
 
@@ -467,127 +495,127 @@ msgstr "Siia saad uue märkme kirjutada."
 msgid "Find in This Note"
 msgstr ""
 
-#: ../Tomboy/NoteWindow.cs:465
+#: ../Tomboy/NoteWindow.cs:471
 msgid "_Link to New Note"
 msgstr "_Viita uuele märkmele"
 
-#: ../Tomboy/NoteWindow.cs:477
+#: ../Tomboy/NoteWindow.cs:483
 msgid "Te_xt"
 msgstr "_Tekst"
 
-#: ../Tomboy/NoteWindow.cs:485
+#: ../Tomboy/NoteWindow.cs:491
 msgid "_Find in This Note"
 msgstr ""
 
-#: ../Tomboy/NoteWindow.cs:500
+#: ../Tomboy/NoteWindow.cs:506
 msgid "Clos_e All Notes"
 msgstr "_Sulge kõik märkmed"
 
-#: ../Tomboy/NoteWindow.cs:538
+#: ../Tomboy/NoteWindow.cs:544
 msgid "Search"
 msgstr "Otsi"
 
-#: ../Tomboy/NoteWindow.cs:539
+#: ../Tomboy/NoteWindow.cs:545
 msgid "Search your notes (Ctrl-Shift-F)"
 msgstr "Otsing Sinu märkmete hulgast (Ctrl-Shift-F)"
 
-#: ../Tomboy/NoteWindow.cs:552
+#: ../Tomboy/NoteWindow.cs:558
 msgid "Link"
 msgstr "Viit"
 
-#: ../Tomboy/NoteWindow.cs:554
+#: ../Tomboy/NoteWindow.cs:560
 msgid "Link selected text to a new note (Ctrl-L)"
-msgstr "Valitud tekstist viitamine uuele märkmele (Ctrl-L)"
+msgstr "Valitud tekstist uuele märkmele viitamine (Ctrl-L)"
 
-#: ../Tomboy/NoteWindow.cs:568
+#: ../Tomboy/NoteWindow.cs:574
 msgid "_Text"
 msgstr "_Tekst"
 
-#: ../Tomboy/NoteWindow.cs:573
+#: ../Tomboy/NoteWindow.cs:579
 msgid "Set properties of text"
 msgstr "Teksti omaduste määramine"
 
-#: ../Tomboy/NoteWindow.cs:579
+#: ../Tomboy/NoteWindow.cs:585
 msgid "T_ools"
 msgstr "Töö_riistad"
 
-#: ../Tomboy/NoteWindow.cs:583
+#: ../Tomboy/NoteWindow.cs:589
 msgid "Use tools on this note"
 msgstr "Tööriistade kasutamine selle märkme jaoks"
 
-#: ../Tomboy/NoteWindow.cs:590
+#: ../Tomboy/NoteWindow.cs:596
 msgid "Delete"
 msgstr "Kustuta"
 
-#: ../Tomboy/NoteWindow.cs:591
+#: ../Tomboy/NoteWindow.cs:597
 msgid "Delete this note"
 msgstr "Selle märkme kustutamine"
 
-#: ../Tomboy/NoteWindow.cs:648
+#: ../Tomboy/NoteWindow.cs:654
 msgid "_Find..."
 msgstr "_Leia..."
 
-#: ../Tomboy/NoteWindow.cs:659 ../Tomboy/NoteWindow.cs:855
+#: ../Tomboy/NoteWindow.cs:665 ../Tomboy/NoteWindow.cs:866
 msgid "Find _Next"
 msgstr "Leia _järgmine"
 
-#: ../Tomboy/NoteWindow.cs:672
+#: ../Tomboy/NoteWindow.cs:678
 msgid "Find _Previous"
 msgstr "Leia _eelmine"
 
-#: ../Tomboy/NoteWindow.cs:760
+#: ../Tomboy/NoteWindow.cs:766
 msgid "Cannot create note"
 msgstr "Märget pole võimalik luua"
 
-#: ../Tomboy/NoteWindow.cs:835
+#: ../Tomboy/NoteWindow.cs:846
 msgid "_Find:"
 msgstr "_Otsing:"
 
-#: ../Tomboy/NoteWindow.cs:846
+#: ../Tomboy/NoteWindow.cs:857
 msgid "_Previous"
 msgstr "_Eelmine"
 
-#: ../Tomboy/NoteWindow.cs:865
+#: ../Tomboy/NoteWindow.cs:876
 msgid "Case _sensitive"
 msgstr "_Tõstutundlik"
 
-#: ../Tomboy/NoteWindow.cs:1308
+#: ../Tomboy/NoteWindow.cs:1319
 msgid "_Bold"
 msgstr "_Rasvane"
 
-#: ../Tomboy/NoteWindow.cs:1320
+#: ../Tomboy/NoteWindow.cs:1331
 msgid "_Italic"
 msgstr "_Kursiiv"
 
-#: ../Tomboy/NoteWindow.cs:1332
+#: ../Tomboy/NoteWindow.cs:1343
 msgid "_Strikeout"
 msgstr "_Läbijoonitud"
 
-#: ../Tomboy/NoteWindow.cs:1344
+#: ../Tomboy/NoteWindow.cs:1355
 msgid "_Highlight"
 msgstr "_Esiletõstetud"
 
-#: ../Tomboy/NoteWindow.cs:1357
+#: ../Tomboy/NoteWindow.cs:1368
 msgid "Font Size"
 msgstr "Kirjatüübi suurus"
 
-#: ../Tomboy/NoteWindow.cs:1360
+#: ../Tomboy/NoteWindow.cs:1371
 msgid "_Normal"
 msgstr "_Tavaline"
 
-#: ../Tomboy/NoteWindow.cs:1367
+#: ../Tomboy/NoteWindow.cs:1378
 msgid "Hu_ge"
 msgstr "Vä_ga suur"
 
-#: ../Tomboy/NoteWindow.cs:1375
+#: ../Tomboy/NoteWindow.cs:1386
 msgid "_Large"
 msgstr "_Suur"
 
-#: ../Tomboy/NoteWindow.cs:1383
+#: ../Tomboy/NoteWindow.cs:1394
 msgid "S_mall"
 msgstr "_Väike"
 
-#: ../Tomboy/NoteWindow.cs:1394
+#: ../Tomboy/NoteWindow.cs:1405
 msgid "Bullets"
 msgstr "Mummud"
 
@@ -822,7 +850,8 @@ msgstr ""
 "  --help\t\t\tSelle kasutusõpetuse printimine.\n"
 "  --note-path [path]\t\tMärkmete laadimine ja salvestamine selles "
 "kataloogis.\n"
-"  --search [tekst]\t\tKõikidest märkmetest otsimise akna avamine koos määratud otsingutekstiga.\n"
+"  --search [tekst]\t\tKõikidest märkmetest otsimise akna avamine koos "
+"määratud otsingutekstiga.\n"
 
 #: ../Tomboy/Tomboy.cs:320
 msgid ""
@@ -951,7 +980,7 @@ msgstr "Hosti nimi on määramata"
 
 #: ../Tomboy/Plugins/Bugzilla.cs:382
 msgid "You must specify the Bugzilla host name to use with this icon."
-msgstr ""
+msgstr "Sa pead määrama selle ikooniga kasutamiseks Bugzilla hosti nime"
 
 #: ../Tomboy/Plugins/Bugzilla.cs:408
 msgid "Error saving icon"
@@ -1050,32 +1079,32 @@ msgstr "Sündmused"
 msgid "Create Note of the Day"
 msgstr "PäevaMärkme loomine"
 
-#: ../Tomboy/Plugins/StickyNoteImport.cs:36
+#: ../Tomboy/Plugins/StickyNoteImport.cs:43
 msgid "Import from Sticky Notes"
 msgstr "Impordi Märkmepaberid"
 
-#: ../Tomboy/Plugins/StickyNoteImport.cs:114
+#: ../Tomboy/Plugins/StickyNoteImport.cs:121
 msgid "No Sticky Notes found"
 msgstr "Märkmepabereid ei leitud"
 
-#: ../Tomboy/Plugins/StickyNoteImport.cs:115
+#: ../Tomboy/Plugins/StickyNoteImport.cs:122
 #, csharp-format
 msgid "No suitable Sticky Notes file was found at \"{0}\"."
 msgstr "Asukohast \"{0}\" ei leitud sobivat Märkmepaberite faili."
 
-#: ../Tomboy/Plugins/StickyNoteImport.cs:124
+#: ../Tomboy/Plugins/StickyNoteImport.cs:131
 msgid "Sticky Notes import completed"
 msgstr "Märkmepaberite import on valmis"
 
-#: ../Tomboy/Plugins/StickyNoteImport.cs:125
+#: ../Tomboy/Plugins/StickyNoteImport.cs:132
 #, csharp-format
 msgid "<b>{0}</b> of <b>{1}</b> Sticky Notes were successfully imported."
 msgstr "<b>{0}</b> märkmepaberit <b>{1}</b>-st on edukalt imporditud."
 
-#: ../Tomboy/Plugins/StickyNoteImport.cs:137
+#: ../Tomboy/Plugins/StickyNoteImport.cs:144
 msgid "Untitled"
 msgstr "Pealkirjata"
 
-#: ../Tomboy/Plugins/StickyNoteImport.cs:165
+#: ../Tomboy/Plugins/StickyNoteImport.cs:172
 msgid "Sticky Note: "
-msgstr "Märkmepaber:"
+msgstr "Märkmepaber: "
