@@ -1,5 +1,28 @@
 2007-01-23  Boyd Timothy  <btimothy@gmail.com>
 
+	Patch from Chris Scobell to fix bugs #395100 and #402075:
+	
+	* Tomboy/NoteBuffer.cs: Change bullets so that the space after the
+	bullet is treated as part of the bullet and the user is prevented from
+	removing it.  Fix bug where tags continuing over the start of a new list
+	were not being properly closed.  Fix bug caused be bugzilla plugin where
+	the bug image got inserted before the bullet.  When serializing check that
+	a tag is serializable before unwinding the other tags on the tag stack to
+	prevent tags such as those from gtkspell from breaking up other tags.
+	Fix bug where the start or end of tags would get lost because they started
+	or ended inside the region which has the bullet character and the space
+	after the bullet.
+	
+	* Tomboy/NoteTag.cs: Add weight, style and strikethrough properties to
+	the depth note tags so that they are unaffected by the bold, italic and
+	strikethough formatting operations.
+	
+	* Tomboy/NoteWindow.cs: Check the selection on mouse button press to
+	prevent operations such as right click > cut from messing up the bullets
+	in a note.
+
+2007-01-23  Boyd Timothy  <btimothy@gmail.com>
+
 	* Tomboy/NoteBuffer.cs: Rolling back changes for bulleted-list space
 	character fix (reopened bug #395100).
 	* Tomboy/NoteTag.cs: Ditto.
