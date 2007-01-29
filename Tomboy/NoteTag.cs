@@ -535,7 +535,10 @@ namespace Tomboy
 				tag.Indent = -13;
 				tag.LeftMargin = (depth+1) * 25;
 				tag.PixelsBelowLines = 4;
-				Add (tag);				
+				tag.Weight = Pango.Weight.Normal;
+				tag.Strikethrough = false;
+				tag.Style = Pango.Style.Normal;
+				Add (tag);
 			}
 
 			return tag;
