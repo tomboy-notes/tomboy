@@ -118,6 +118,8 @@ namespace Tomboy
 		}
 	}
 
+	public enum PanelOrientation { Horizontal, Vertical };
+	
 	public class TomboyTray : Gtk.EventBox
 	{
 		NoteManager manager;
@@ -127,6 +129,7 @@ namespace Tomboy
 		Gtk.Menu recent_menu;
 		bool menu_added = false;
 		List<Gtk.MenuItem> recent_notes = new List<Gtk.MenuItem> ();
+		int panel_size;
 
 		public TomboyTray (NoteManager manager) 
 			: base ()
@@ -134,7 +137,8 @@ namespace Tomboy
 			this.manager = manager;
 			// Load a 24x24-sized icon to ensure we don't end up with a
 			// 1x1 pixel.
-			this.image = new Gtk.Image (GuiUtils.GetIcon ("tomboy", 24));
+			panel_size = 24;
+			this.image = new Gtk.Image (GuiUtils.GetIcon ("tomboy", panel_size));
 
 			this.CanFocus = true;
 			this.ButtonPressEvent += ButtonPress;
@@ -155,7 +159,7 @@ namespace Tomboy
 			tips.SetTip (this, tip_text, null);
 			tips.Enable ();
 			tips.Sink ();
-
+			
 			SetupDragAndDrop ();
 			
 			recent_menu = MakeRecentNotesMenu ();
@@ -448,30 +452,59 @@ namespace Tomboy
 							insert_text.ToString ());
 			}
 		}
+		
+		void InitPixbuf ()
+		{
+			// For some reason, the first time we ask for the allocation,
+			// it's a 1x1 pixel.  Prevent against this by returning a
+			// reasonable default.  Setting the icon causes OnSizeAllocated
+			// to be called again anyhow.
+			if (panel_size <= 4)
+				panel_size = 24;
+
+			// Request an icon that's 4 pixels smaller than the allocation
+			// size so that there's enough padding.
+			Gdk.Pixbuf new_icon = GuiUtils.GetIcon ("tomboy", panel_size - 4);
+			image.Pixbuf = new_icon;
+		}
+		
+		///
+		/// Determine whether the tray is inside a horizontal or vertical
+		/// panel so the size of the icon can adjust correctly.
+		///
+		PanelOrientation GetPanelOrientation ()
+		{
+			if (this.ParentWindow == null) {
+				return PanelOrientation.Horizontal;
+			}
+			
+			Gdk.Window top_level_window = this.ParentWindow.Toplevel;
+			
+			Gdk.Rectangle rect = top_level_window.FrameExtents;
+			if (rect.Width < rect.Height)
+				return PanelOrientation.Vertical;
+			
+			return PanelOrientation.Horizontal;
+		}
 
 		protected override void OnSizeAllocated (Gdk.Rectangle rect)
 		{
-			// When running TrayIcon inside the notification area,
-			// gnome-panel is incorrectly reporting the width and
-			// height.  Depending on whether you're using a vertical
-			// or horizontal panel, one of rect.Width/rect.Height
-			// doesn't change when OnSizeAllocated is called after
-			// the panel size grows/shrinks.
-			int icon_size = -1;
-			if (Allocation.Width != rect.Width)
-				icon_size = rect.Width;
-			else if (Allocation.Height != rect.Height)
-				icon_size = rect.Height;
-			
 			base.OnSizeAllocated (rect);
-			
-			if (icon_size > 1) {
-				Gdk.Pixbuf new_icon = GuiUtils.GetIcon ("tomboy", icon_size);
-				if (image.Pixbuf.Width != new_icon.Width ||
-				    image.Pixbuf.Height != new_icon.Height) {
-					image.Pixbuf = new_icon;
-				}
+
+			// Determine the orientation
+			if (GetPanelOrientation () == PanelOrientation.Horizontal) {
+				if (panel_size == Allocation.Height)
+					return;
+				
+				panel_size = Allocation.Height;
+			} else {
+				if (panel_size == Allocation.Width)
+					return;
+				
+				panel_size = Allocation.Width;
 			}
+			
+			InitPixbuf ();
 		}
 	}
 
