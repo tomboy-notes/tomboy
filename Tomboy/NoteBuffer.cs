@@ -595,20 +595,33 @@ namespace Tomboy
 
 		public void IncreaseCursorDepth ()
 		{
-			Gtk.TextMark insert_mark = InsertMark;
-			Gtk.TextIter insert_iter = GetIterAtMark (insert_mark);
-
-			insert_iter.LineOffset = 0;
-
-			IncreaseDepth (ref insert_iter);
+			ChangeCursorDepth (true);
 		}
 		
 		public void DecreaseCursorDepth ()
 		{
-			Gtk.TextMark insert_mark = InsertMark;
-			Gtk.TextIter insert_iter = GetIterAtMark (insert_mark);
+			ChangeCursorDepth (false);
+		}
+		
+		void ChangeCursorDepth(bool increase)
+		{
+			Gtk.TextIter start;
+			Gtk.TextIter end;
 			
-			DecreaseDepth (ref insert_iter);
+			GetSelectionBounds (out start, out end);
+			
+			Gtk.TextIter curr_line;
+			
+			int start_line = start.Line;
+			int end_line = end.Line;
+			
+			for (int i = start_line; i <= end_line; i++) {
+				curr_line = GetIterAtLine(i);
+				if (increase)
+					IncreaseDepth (ref curr_line);
+				else
+					DecreaseDepth (ref curr_line);
+			}		
 		}
 		
 		public void InsertBullet (ref Gtk.TextIter iter, int depth)
