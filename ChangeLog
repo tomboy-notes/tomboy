@@ -1,3 +1,17 @@
+2007-01-31  Boyd Timothy  <btimothy@gmail.com>
+
+	The following files fix bug #378400 by allowing the search window to
+	update when notes are saved.
+	
+	* Tomboy/Note.cs: Add a Saved event.
+	
+	* Tomboy/NoteManager.cs: Watch Note.Saved event.  Add NoteSaved
+	event.
+	
+	* Tomboy/RecentChanges.cs: Watch NoteManager.NoteSaved event.  Update
+	list of notes when a NoteSaved event occurs.  Save the current selection
+	when rebuilding the list of notes.
+
 2007-01-30  Boyd Timothy  <btimothy@gmail.com>
 
 	* Tomboy/Tray.cs: Take into account which direction the panel is

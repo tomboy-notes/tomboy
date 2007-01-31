@@ -124,6 +124,12 @@ namespace Tomboy
 			if (NoteRenamed != null)
 				NoteRenamed (note, old_title);
 		}
+		
+		void OnNoteSave (Note note)
+		{
+			if (NoteSaved != null)
+				NoteSaved (note);
+		}
 
 		protected virtual void CreateStartNotes () 
 		{
@@ -192,6 +198,7 @@ namespace Tomboy
 					Note note = Note.Load (file_path, this);
 					if (note != null) {
 						note.Renamed += OnNoteRename;
+						note.Saved += OnNoteSave;
 						notes.Add (note);
 					}
 				} catch (System.Xml.XmlException e) {
@@ -352,6 +359,7 @@ namespace Tomboy
 			Note new_note = Note.CreateNewNote (title, filename, this);
 			new_note.XmlContent = xml_content;
 			new_note.Renamed += OnNoteRename;
+			new_note.Saved += OnNoteSave;
 
 			notes.Add (new_note);
 
@@ -430,6 +438,7 @@ namespace Tomboy
 		public event NotesChangedHandler NoteDeleted;
 		public event NotesChangedHandler NoteAdded;
 		public event NoteRenameHandler NoteRenamed;
+		public event NoteSavedHandler NoteSaved;
 	}
 
 	public class TrieController
