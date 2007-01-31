@@ -125,6 +125,7 @@ namespace Tomboy
 			manager.NoteDeleted += OnNotesChanged;
 			manager.NoteAdded += OnNotesChanged;
 			manager.NoteRenamed += OnNoteRenamed;
+			manager.NoteSaved += OnNoteSaved;
 
 			// List all the current notes
 			UpdateResults ();
@@ -269,13 +270,19 @@ namespace Tomboy
 
 		void UpdateResults ()
 		{
-			// FIXME: Restore the currently highlighted note
+			// Restore the currently highlighted note
+			Note selected_note = null;
+			Gtk.TreeIter selected_iter;
+			if (store_sort != null && 
+					tree.Selection.GetSelected (out selected_iter)) {
+				selected_note =
+					(Note) store_sort.GetValue (selected_iter, 3 /* note */);
+			}
 
 			int sort_column = 2; /* change date */
 			Gtk.SortType sort_type = Gtk.SortType.Descending;
-			if (store != null) {
-				store.GetSortColumnId (out sort_column, out sort_type);
-			}
+			if (store_sort != null)
+				store_sort.GetSortColumnId (out sort_column, out sort_type);
 
 			store = new Gtk.ListStore (column_types);
 			
@@ -291,16 +298,13 @@ namespace Tomboy
 			foreach (Note note in manager.Notes) {
 				string nice_date = PrettyPrintDate (note.ChangeDate);
 
-				store.AppendValues (note_icon,  /* icon */
+				Gtk.TreeIter iter =
+					store.AppendValues (note_icon,  /* icon */
 						    note.Title, /* title */
 						    nice_date,  /* change date */
 						    note);      /* note */
 				cnt++;
 			}
-
-			// Set the sort column after loading data, since we
-			// don't want to resort on every append.
-			store_sort.SetSortColumnId (sort_column, sort_type);
 
 			tree.Model = store_sort;
 			
@@ -311,13 +315,44 @@ namespace Tomboy
 				cnt);
 
 			PerformSearch ();
+
+			if (sort_column >= 0) {
+				// Set the sort column after loading data, since we
+				// don't want to resort on every append.
+				store_sort.SetSortColumnId (sort_column, sort_type);
+			}
+			
+			// Restore the previous selection
+			if (selected_note != null) {
+				SelectNote (selected_note);
+			}
+		}
+		
+		void SelectNote (Note note)
+		{
+			Gtk.TreeIter iter;
+			
+			if (store_sort.IterChildren (out iter) == false)
+				return;
+			
+			do {
+				Note iter_note = (Note) store_sort.GetValue (iter, 3 /* note */);
+				if (iter_note == note) {
+					// Found it!
+					tree.Selection.SelectIter (iter);
+					break;
+				}
+			} while (store_sort.IterNext (ref iter));
 		}
 		
 		void PerformSearch ()
 		{
+			// For some reason, the matches column must be rebuilt
+			// every time because otherwise, it's not sortable.
+			RemoveMatchesColumn ();
+
 			string text = SearchText;
 			if (text == null) {
-				RemoveMatchesColumn ();
 				current_matches.Clear ();
 				store_filter.Refilter ();
 				UpdateNoteCount (store.IterNChildren (), -1);
@@ -375,17 +410,16 @@ namespace Tomboy
 					renderer, 
 					new Gtk.TreeCellDataFunc (MatchesColumnDataFunc));
 				matches_column.SortColumnId = 4;
-				matches_column.SortIndicator = false;
+				matches_column.SortIndicator = true;
 				matches_column.Reorderable = false;
 				matches_column.SortOrder = Gtk.SortType.Descending;
+				matches_column.Clickable = true;
 				store_sort.SetSortFunc (4 /* matches */,
 					new Gtk.TreeIterCompareFunc (CompareSearchHits));
-			}
-			
-			if (tree.Columns.Length < 3)
-				tree.AppendColumn (matches_column);
 
-			store_sort.SetSortColumnId (4, Gtk.SortType.Descending);
+				tree.AppendColumn (matches_column);
+				store_sort.SetSortColumnId (4, Gtk.SortType.Descending);
+			}
 		}
 		
 		void RemoveMatchesColumn ()
@@ -530,6 +564,11 @@ namespace Tomboy
 		}
 
 		void OnNoteRenamed (Note note, string old_title)
+		{
+			UpdateResults ();
+		}
+		
+		void OnNoteSaved (Note note)
 		{
 			UpdateResults ();
 		}
@@ -723,6 +762,7 @@ namespace Tomboy
 			manager.NoteDeleted -= OnNotesChanged;
 			manager.NoteAdded -= OnNotesChanged;
 			manager.NoteRenamed -= OnNoteRenamed;
+			manager.NoteSaved -= OnNoteSaved;
 			
 			// The following code has to be done for the MenuBar to
 			// appear properly the next time this window is opened.

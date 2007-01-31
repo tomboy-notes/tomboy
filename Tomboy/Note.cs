@@ -9,6 +9,7 @@ using Mono.Unix;
 namespace Tomboy
 {
 	public delegate void NoteRenameHandler (Note sender, string old_title);
+	public delegate void NoteSavedHandler (Note note);
 
 	// Contains all pure note data, like the note title and note text.
 	public class NoteData
@@ -327,6 +328,9 @@ namespace Tomboy
 			Logger.Log ("Saving '{0}'...", data.Data.Title);
 
 			NoteArchiver.Write (filepath, data.GetDataSynchronized ());
+			
+			if (Saved != null)
+				Saved (this);
 		}
 
 		//
@@ -644,6 +648,7 @@ namespace Tomboy
 
 		public event EventHandler Opened;
 		public event NoteRenameHandler Renamed;
+		public event NoteSavedHandler Saved;
 	}
 
 	// Singleton - allow overriding the instance for easy sensing in
