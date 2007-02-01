@@ -1,5 +1,20 @@
 2007-01-31  Boyd Timothy  <btimothy@gmail.com>
 
+	Patch from Chris Scobell to fix bug #403026:
+	
+	* Tomboy/NoteBuffer.cs: Hook up a handler to the TagChanged signal on
+	the NoteBuffer which removes formatting tags from any bullets in the
+	selection. Modify the IsActiveTag and ToggleActiveTag methods so that
+	they ignore the bullet character and look at the first character in the
+	list item instead.
+	
+	* Tomboy/NoteTag.cs: Remove the tag properties on the DepthNoteTags
+	that were previously used to override formatting tags. Give the
+	DepthNoteTags an explicit point size and tweak the indent so that
+	wrapped lines line up better.
+
+2007-01-31  Boyd Timothy  <btimothy@gmail.com>
+
 	The following files fix bug #378400 by allowing the search window to
 	update when notes are saved.
 	

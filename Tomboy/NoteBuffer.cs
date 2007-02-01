@@ -39,6 +39,8 @@ namespace Tomboy
 
 			InsertText += TextInsertedEvent;
 			MarkSet += MarkSetEvent;
+			
+			TagApplied += OnTagApplied;
 
 			tags.TagChanged += OnTagChanged;
 
@@ -63,6 +65,10 @@ namespace Tomboy
 			Gtk.TextIter select_start, select_end;
 
 			if (GetSelectionBounds (out select_start, out select_end)) {
+				// Ignore the bullet character
+				if (FindDepthTag(ref select_start) != null)
+					select_start.LineOffset = 2;
+
 				if (select_start.BeginsTag (tag) || select_start.HasTag (tag))
 					RemoveTag (tag, select_start, select_end);
 				else
@@ -103,15 +109,39 @@ namespace Tomboy
 			}
 		}
 
+		public void OnTagApplied (object o, Gtk.TagAppliedArgs args)
+		{	
+			if (!(args.Tag is DepthNoteTag)) {
+				// Remove the tag from any bullets in the selection
+				Undoer.FreezeUndo ();
+				Gtk.TextIter iter;
+				for (int i = args.StartChar.Line; i <= args.EndChar.Line; i++) {
+					iter = GetIterAtLine(i);
+					
+					if (FindDepthTag (ref iter) != null) {
+						Gtk.TextIter next = iter;
+						next.ForwardChars (2);
+						RemoveTag(args.Tag, iter, next);
+					}
+				}
+				Undoer.ThawUndo ();
+			}
+		}
+
 		public bool IsActiveTag (string tag_name)
 		{
 			Gtk.TextTag tag = TagTable.Lookup (tag_name);
 			Gtk.TextIter iter, select_end;
 
-			if (GetSelectionBounds (out iter, out select_end))
+			if (GetSelectionBounds (out iter, out select_end)) {
+				// Ignore the bullet character and look at the
+				// first character of the list item
+				if (FindDepthTag(ref iter) != null)
+					iter.ForwardChars (2);
 				return iter.BeginsTag (tag) || iter.HasTag (tag);
-			else
+			} else {
 				return active_tags.Contains (tag);
+			}
 		}
 		
 		// Returns true if the cursor is inside of a bulleted list
