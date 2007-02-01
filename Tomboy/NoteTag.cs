@@ -532,12 +532,11 @@ namespace Tomboy
 
 			if (tag == null) {
 				tag = new DepthNoteTag (depth);
-				tag.Indent = -13;
+				tag.Indent = -14;
 				tag.LeftMargin = (depth+1) * 25;
 				tag.PixelsBelowLines = 4;
-				tag.Weight = Pango.Weight.Normal;
-				tag.Strikethrough = false;
-				tag.Style = Pango.Style.Normal;
+				tag.Scale = Pango.Scale.Medium;
+				tag.SizePoints = 12;
 				Add (tag);
 			}
 
