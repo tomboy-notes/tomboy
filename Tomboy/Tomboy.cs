@@ -11,6 +11,7 @@ namespace Tomboy
 		static TomboyTrayIcon tray_icon;
 		static bool tray_icon_showing = false;
 		static bool is_panel_applet = false;
+		static PreferencesDialog prefs_dlg;
 #if ENABLE_DBUS
 		static RemoteControl remote_control;
 #endif
@@ -195,12 +196,25 @@ namespace Tomboy
 		
 		static void OnShowPreferencesAction (object sender, EventArgs args)
 		{
-			tray_icon.TomboyTray.ShowPreferences ();
+			if (prefs_dlg == null) {
+				prefs_dlg = new PreferencesDialog (manager.PluginManager);
+				prefs_dlg.Response += OnPreferencesResponse;
+			}
+			prefs_dlg.Present ();
+		}
+
+		static void OnPreferencesResponse (object sender, Gtk.ResponseArgs args)
+		{
+			((Gtk.Widget) sender).Destroy ();
+			prefs_dlg = null;
 		}
 		
 		static void OnShowHelpAction (object sender, EventArgs args)
 		{
-			GuiUtils.ShowHelp("tomboy.xml", null, tray_icon.TomboyTray.Screen, null);
+			// Pass in null for the screen when we're running as a panel applet
+			GuiUtils.ShowHelp("tomboy.xml", null,
+					tray_icon == null ? null : tray_icon.TomboyTray.Screen,
+					null);
 		}
 		
 		static void OnShowAboutAction (object sender, EventArgs args)

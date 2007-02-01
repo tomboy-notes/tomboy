@@ -81,7 +81,7 @@ namespace Tomboy
 
 		void ShowPreferencesVerb ()
 		{
-			tray.ShowPreferences ();
+			Tomboy.ActionManager ["ShowPreferencesAction"].Activate ();
 		}
 
 		void ShowPluginsVerb ()

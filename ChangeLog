@@ -1,4 +1,17 @@
-2007-01-31  Boyd Timothy  <btimothy@gmail.com>
+2007-02-01  Boyd Timothy  <btimothy@gmail.com>
+
+	* Tomboy/Applet.cs: Use the ShowPreferencesAction to show the preferences
+	dialog.  Fixes bug #403290.
+	
+	* Tomboy/Tomboy.cs: Handle opening the preferences dialog here so that both
+	the panel applet and notification area icon use this via ActionManager.
+	Also fixed OnShowHelpAction to prevent Tomboy from crashing when the user
+	accesses the help from the search window menu in panel applet mode.
+	
+	* Tomboy/Tray.cs: Removed PreferencesDialog handling here (moved to
+	Tomboy.cs).
+
+2007-02-01  Boyd Timothy  <btimothy@gmail.com>
 
 	* libtomboy/gedit-print.c: Patch from Changwoo Ryu to add
 	xgettext:no-c-format to the line before "%A %x, %X" so translations
