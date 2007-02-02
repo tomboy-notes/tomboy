@@ -1,5 +1,12 @@
 2007-02-02  Boyd Timothy  <btimothy@gmail.com>
 
+	* Tomboy/NoteBuffer.cs: Patch from Chris Scobell to fix bug #403745. Fix
+	problem where upon deserialization bullets can get formatting tags due to
+	the order is which tags are applied.  In the OnTagApplied handler remove
+	any existing tags if the tag being applied is a DepthNoteTag.
+
+2007-02-02  Boyd Timothy  <btimothy@gmail.com>
+
 	* Tomboy/NoteBuffer.cs: Patch from Chris Scobell to fix bug #403408.  Add
 	a method 'CanMakeBulletedList' which returns true if the cursor is at a
 	line that can be made into a bulleted list (i.e., anything but the first
