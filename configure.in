@@ -173,6 +173,29 @@ AM_CONDITIONAL(HAVE_NUNIT, test "$HAVE_NUNIT" = "yes")
 AC_SUBST(NUNIT_LIBS)
 AC_PATH_PROG(NUNIT, nunit-console)
 
+#
+# Replace xgettext by our PluginInfo aware wrapper script
+#
+XGETTEXT_XCOMMENT=`echo 'Test("1")' |\
+       xgettext -L C\# -k'Test:1,"XCOMMENT"' -o- - |\
+       grep XCOMMENT`
+
+# Test to see if comments are supported in xgettext
+# (known to work in 0.15 but not in 0.14.5)
+if test "x#. XCOMMENT" = "x${XGETTEXT_XCOMMENT}"; then
+       XGETTEXT_PLUGIN_NAME=',"Plugin Name"'
+       XGETTEXT_PLUGIN_DESC=',"Plugin Description"'
+else
+       XGETTEXT_PLUGIN_NAME=
+       XGETTEXT_PLUGIN_DESC=
+fi
+
+AC_SUBST(XGETTEXT_PLUGIN_NAME)
+AC_SUBST(XGETTEXT_PLUGIN_DESC)
+
+INTLTOOL_UPDATE="XGETTEXT=\$(top_builddir)/pot-update $INTLTOOL_UPDATE"
+AC_CONFIG_FILES([pot-update], [chmod +x pot-update])
+
 AC_OUTPUT([
 Makefile
 tomboy.spec

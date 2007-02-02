@@ -11,6 +11,11 @@ using Mono.Unix;
 
 using Tomboy;
 
+[PluginInfo(
+	"Export to HTML", Defines.VERSION,
+	"Alex Gravely <alex@beatniksoftware.com>",
+	"Exports individual notes to HTML."
+	)]
 public class ExportToHTMLPlugin : NotePlugin
 {
 	const string stylesheet_name = "ExportToHTML.xsl";

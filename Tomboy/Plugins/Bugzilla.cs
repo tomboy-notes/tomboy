@@ -488,12 +488,11 @@ class BugzillaPreferences : Gtk.VBox
 }
 
 [PluginInfo(
-	Name = "Bugzilla Plugin", Version = Defines.VERSION,
-	Author = "David Trowbridge <trowbrds@gmail.com>",
-	Description = 
-		"Allows you to drag a Bugzilla URL from your browser " +
-		"directly into a tomboy note.  The bug number is " +
-		"inserted as a link with a little bug icon next to it.",
+	"Bugzilla Plugin", Defines.VERSION,
+	"David Trowbridge <trowbrds@gmail.com>",
+    "Allows you to drag a Bugzilla URL from your browser " +
+    "directly into a tomboy note.  The bug number is " +
+    "inserted as a link with a little bug icon next to it.",
 	PreferencesWidget = typeof (BugzillaPreferences)
 	)]
 
