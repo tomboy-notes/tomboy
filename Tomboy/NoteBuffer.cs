@@ -121,7 +121,16 @@ namespace Tomboy
 					if (FindDepthTag (ref iter) != null) {
 						Gtk.TextIter next = iter;
 						next.ForwardChars (2);
-						RemoveTag(args.Tag, iter, next);
+						RemoveTag (args.Tag, iter, next);
+					}
+				}
+				Undoer.ThawUndo ();
+			} else {
+				// Remove any existing tags when a depth tag is applied
+				Undoer.FreezeUndo ();
+				foreach (Gtk.TextTag tag in args.StartChar.Tags) {
+					if (!(tag is DepthNoteTag)) {
+						RemoveTag (tag, args.StartChar, args.EndChar);
 					}
 				}
 				Undoer.ThawUndo ();
