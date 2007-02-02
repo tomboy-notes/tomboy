@@ -1516,9 +1516,11 @@ namespace Tomboy
 			highlight.Active = buffer.IsActiveTag ("highlight");
 			
 			bool inside_bullets = buffer.IsBulletedListActive ();
+			bool can_make_bulleted_list = buffer.CanMakeBulletedList ();
 			bullets.Activated -= ToggleBulletsClicked;
 			bullets.Active = inside_bullets;
 			bullets.Activated += ToggleBulletsClicked;
+			bullets.Sensitive = can_make_bulleted_list;
 			increase_indent.Sensitive = inside_bullets;
 			decrease_indent.Sensitive = inside_bullets;
 

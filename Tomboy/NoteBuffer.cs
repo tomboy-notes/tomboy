@@ -158,6 +158,19 @@ namespace Tomboy
 			
 			return true;
 		}
+		
+		// Returns true if the cursor is at a position that can
+		// be made into a bulleted list
+		public bool CanMakeBulletedList ()
+		{
+			Gtk.TextMark insert_mark = InsertMark;
+			Gtk.TextIter iter = GetIterAtMark (insert_mark);
+			
+			if (iter.Line == 0)
+				return false;
+			
+			return true;			
+		}
 
 		// Apply active_tags to inserted text
 		void TextInsertedEvent (object sender, Gtk.InsertTextArgs args)
@@ -183,7 +196,10 @@ namespace Tomboy
 		}
 		
 		public bool AddNewline()
-		{			
+		{	
+			if (!CanMakeBulletedList())
+				return false;
+				
 			Gtk.TextMark insert_mark = InsertMark;
 			Gtk.TextIter iter = GetIterAtMark (insert_mark);
 			iter.LineOffset = 0;
@@ -688,6 +704,9 @@ namespace Tomboy
 		
 		public void IncreaseDepth (ref Gtk.TextIter start)
 		{
+			if (!CanMakeBulletedList())
+				return;
+				
 			Gtk.TextIter end;
 
 			start = GetIterAtLineOffset (start.Line, 0);
@@ -719,6 +738,9 @@ namespace Tomboy
 				
 		public void DecreaseDepth (ref Gtk.TextIter start)
 		{
+			if (!CanMakeBulletedList())
+				return;
+						
 			Gtk.TextIter end;
 
 			start = GetIterAtLineOffset (start.Line, 0);
