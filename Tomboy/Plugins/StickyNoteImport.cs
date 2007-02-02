@@ -9,11 +9,9 @@ using Mono.Unix;
 using Tomboy;
 
 [PluginInfo(
-	Name = "Sticky Notes Importer",
-	Author="Sandy Armstrong <sanfordarmstrong@gmail.com>",
-	Version="0.4.0",
-	Description="Import your notes from the Sticky Notes applet.",
-	PreferencesWidget = null
+	"Sticky Notes Importer", "0.4.0",
+	"Sandy Armstrong <sanfordarmstrong@gmail.com>",
+	"Import your notes from the Sticky Notes applet."
 	)]
 public class StickyNoteImporter : NotePlugin
 {

@@ -40,6 +40,22 @@ namespace Tomboy
 		string author;
 
 		Type preferencesWidget;
+		
+		// The default constructor is, for some reason, needed or Tomboy will
+		// crash when attempting to read the plugin attributes.
+		public PluginInfoAttribute ()
+		{
+			// Intentionally blank
+		}
+
+		public PluginInfoAttribute (string name, string version,
+		                            string author, string description)
+		{
+			this.name = Catalog.GetString (name);
+			this.description = Catalog.GetString (description);
+			this.version = version;
+			this.author = author;
+		}
 
 		public string Name
 		{

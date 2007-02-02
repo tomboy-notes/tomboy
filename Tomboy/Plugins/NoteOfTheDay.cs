@@ -125,6 +125,12 @@ class NoteOfTheDay
 	}
 }
 
+[PluginInfo(
+	"Note of the Day", Defines.VERSION,
+	"Alex Gravely <alex@beatniksoftware.com>",
+	"Automatically creates a \"Today\" note for easily jotting down " +
+	"daily thoughts."
+	)]
 public class NoteOfTheDayPlugin : NotePlugin
 {
 	bool timeout_owner;

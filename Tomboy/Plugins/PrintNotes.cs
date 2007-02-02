@@ -7,6 +7,11 @@ using Gtk;
 
 using Tomboy;
 
+[PluginInfo(
+	"Print Plugin", Defines.VERSION,
+	"Alex Gravely <alex@beatniksoftware.com>",
+	"Allows you to print a note."
+	)]
 public class PrintPlugin : NotePlugin
 {
 	Gtk.ImageMenuItem item;

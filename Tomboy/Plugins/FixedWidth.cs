@@ -67,6 +67,11 @@ class FixedWidthMenuItem : CheckMenuItem
 	}
 }
 
+[PluginInfo(
+	"Fixed Width Plugin", Defines.VERSION,
+	"Ryan Lortie <desrt@desrt.ca>",
+	"Adds fixed-width font style."
+	)]
 public class FixedWidthPlugin : NotePlugin
 {
 	TextTag tag;
