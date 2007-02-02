@@ -973,7 +973,7 @@ namespace Tomboy
 				bool end_of_depth_line = line_has_depth && next_iter.EndsLine ();
 
 				bool next_line_has_depth = false;
-				if (iter.Line < buffer.LineCount) {
+				if (iter.Line < buffer.LineCount - 1) {
 					Gtk.TextIter next_line = buffer.GetIterAtLine(iter.Line+1);
 					next_line_has_depth =
 						((NoteBuffer)buffer).FindDepthTag(ref next_line) != null;
@@ -1039,9 +1039,9 @@ namespace Tomboy
 				if (end_of_depth_line && !next_line_has_depth) {
 					for (int i = prev_depth; i > -1; i--) {
 						// Close <list>
-						xml.WriteEndElement ();
+						xml.WriteFullEndElement ();
 						// Close <list-item>
-						xml.WriteEndElement ();
+						xml.WriteFullEndElement ();
 					}
 							
 					prev_depth = -1;
