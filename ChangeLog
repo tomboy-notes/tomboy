@@ -1,5 +1,17 @@
 2007-02-02  Boyd Timothy  <btimothy@gmail.com>
 
+	* Tomboy/NoteBuffer.cs: Patch from Chris Scobell to fix bug #403408.  Add
+	a method 'CanMakeBulletedList' which returns true if the cursor is at a
+	line that can be made into a bulleted list (i.e., anything but the first
+	line which has the title). Add checks to IncreaseDepth, DecreaseDepth and
+	AddNewLine which use this method to determine if they should apply bullet
+	operations.
+	
+	* Tomboy/NoteWindow.cs: In RefreshState make the bulleted list toggle
+	formatting menu item senstive only if CanMakeBulletedList returns true.
+
+2007-02-02  Boyd Timothy  <btimothy@gmail.com>
+
 	* Tomboy/NoteBuffer.cs: Patch from Chris Scobell to fix bug #403033.  Fix
 	bug where an empty list item was being serialized as: "<list-item/> rather
 	than as "<list-item></list-item>" by using WriteFullEndElement instead of
