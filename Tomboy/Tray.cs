@@ -134,9 +134,9 @@ namespace Tomboy
 			: base ()
 		{
 			this.manager = manager;
-			// Load a 24x24-sized icon to ensure we don't end up with a
+			// Load a 16x16-sized icon to ensure we don't end up with a
 			// 1x1 pixel.
-			panel_size = 24;
+			panel_size = 16;
 			this.image = new Gtk.Image (GuiUtils.GetIcon ("tomboy", panel_size));
 
 			this.CanFocus = true;
@@ -443,12 +443,21 @@ namespace Tomboy
 			// it's a 1x1 pixel.  Prevent against this by returning a
 			// reasonable default.  Setting the icon causes OnSizeAllocated
 			// to be called again anyhow.
-			if (panel_size <= 4)
-				panel_size = 24;
-
+			if (panel_size < 16)
+				panel_size = 16;
+			
 			// Request an icon that's 4 pixels smaller than the allocation
-			// size so that there's enough padding.
-			Gdk.Pixbuf new_icon = GuiUtils.GetIcon ("tomboy", panel_size - 4);
+			// size so that there's enough padding.  Control which icon is
+			// used at the smaller sizes.  See bug #403500 for more info.
+			int icon_size = panel_size - 4;
+			if (icon_size <= 21)
+				icon_size = 16;
+			else if (icon_size <= 31)
+				icon_size = 22;
+			else if (icon_size <= 47)
+				icon_size = 32;
+
+			Gdk.Pixbuf new_icon = GuiUtils.GetIcon ("tomboy", icon_size);
 			image.Pixbuf = new_icon;
 		}
 		
