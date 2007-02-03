@@ -222,6 +222,7 @@ namespace Tomboy
 			string [] authors = new string [] {
 				"Alex Graveley <alex@beatniksoftware.com>",
 				"Boyd Timothy <btimothy@gmail.com>",
+				"Chris Scobell <chris@thescobells.com>",
 				"David Trowbridge <trowbrds@gmail.com>",
 				"Ryan Lortie <desrt@desrt.ca>",
 				"Sandy Armstrong <sanfordarmstrong@gmail.com>",
