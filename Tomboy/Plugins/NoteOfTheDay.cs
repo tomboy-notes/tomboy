@@ -10,12 +10,12 @@ using Tomboy;
 
 class NoteOfTheDay 
 {
-	static string title_prefix = Catalog.GetString ("NotD: ");
-	static string template_title = Catalog.GetString ("NotD: Template");
+	static string title_prefix = Catalog.GetString ("Today: ");
+	static string template_title = Catalog.GetString ("Today: Template");
 
 	public static string GetTitle (DateTime day)
 	{
-		// Format: "NotD: Friday, July 01 2005"
+		// Format: "Today: Friday, July 01 2005"
 		return title_prefix + day.ToString (Catalog.GetString ("dddd, MMMM d yyyy"));
 	}
 
@@ -94,7 +94,7 @@ class NoteOfTheDay
 		}
 		
 		foreach (Note note in kill_list) {
-			Logger.Log ("NotD: Deleting old unmodified '{0}'",
+			Logger.Log ("NoteOfTheDay: Deleting old unmodified '{0}'",
 					   note.Title);
 			manager.Delete (note);
 		}
