@@ -148,7 +148,8 @@ namespace Tomboy
 						"your ideas and thoughts.\n\n" +
 						"You can create new notes to hold your ideas by " +
 						"selecting the \"Create New Note\" item from the " +
-						"Tomboy Notes menu in your GNOME Panel.\n\n" +
+						"Tomboy Notes menu in your GNOME Panel. " +
+						"Your note will be saved automatically.\n\n" +
 						"Then organize the notes you create by linking " +
 						"related notes and ideas together!\n\n" +
 						"We've created a note called " +
