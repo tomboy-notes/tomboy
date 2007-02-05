@@ -30,6 +30,15 @@ namespace NDesk.DBus
 		public static void Init (Connection conn)
 		{
 			IOFunc dispatchHandler = delegate (IOChannel source, IOCondition condition, IntPtr data) {
+				if ((condition & IOCondition.Hup) == IOCondition.Hup) {
+					if (Protocol.Verbose)
+						Console.Error.WriteLine ("Warning: Connection was probably hung up (" + condition + ")");
+
+					//TODO: handle disconnection properly, consider memory management
+					return false;
+				}
+
+				//this may not provide expected behaviour all the time, but works for now
 				conn.Iterate ();
 				return true;
 			};
@@ -37,10 +46,10 @@ namespace NDesk.DBus
 			Init (conn, dispatchHandler);
 		}
 
-		public static void Init (Connection conn, IOFunc dispatchHandler)
+		static void Init (Connection conn, IOFunc dispatchHandler)
 		{
 			IOChannel channel = new IOChannel ((int)conn.Transport.SocketHandle);
-			IO.AddWatch (channel, IOCondition.In, dispatchHandler);
+			IO.AddWatch (channel, IOCondition.In | IOCondition.Hup, dispatchHandler);
 		}
 	}
 }
