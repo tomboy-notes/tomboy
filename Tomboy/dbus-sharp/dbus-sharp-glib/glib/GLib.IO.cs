@@ -13,7 +13,7 @@ namespace NDesk.GLib
 
 	@data: the data element.
 	*/
-	public delegate void DestroyNotify (IntPtr data);
+	delegate void DestroyNotify (IntPtr data);
 
 	/*
 	Specifies the type of function passed to g_io_add_watch() or g_io_add_watch_full(), which is called when the requested condition on a GIOChannel is satisfied.
@@ -24,11 +24,11 @@ namespace NDesk.GLib
 
 	Returns: the function should return FALSE if the event source should be removed.
 	*/
-	public delegate bool IOFunc (IOChannel source, IOCondition condition, IntPtr data);
+	delegate bool IOFunc (IOChannel source, IOCondition condition, IntPtr data);
 
 	//this is actually somewhat like Stream, but we don't use it that way
 	[StructLayout (LayoutKind.Sequential)]
-	public struct IOChannel
+	struct IOChannel
 	{
 		const string GLIB = "libglib-2.0-0.dll";
 
@@ -106,7 +106,7 @@ namespace NDesk.GLib
 		}
 	}
 
-	public class IO
+	class IO
 	{
 		const string GLIB = "libglib-2.0-0.dll";
 
@@ -190,7 +190,8 @@ namespace NDesk.GLib
 	}
 
 	//A bitwise combination representing a condition to watch for on an event source.
-	public enum IOCondition : short
+	[Flags]
+	enum IOCondition : short
 	{
 		//There is data to read.
 		In = PollEvents.POLLIN,
@@ -207,7 +208,7 @@ namespace NDesk.GLib
 	}
 
 	[Flags]
-	public enum IOFlags : short
+	enum IOFlags : short
 	{
 		Append = 1 << 0,
 		Nonblock = 1 << 1,
