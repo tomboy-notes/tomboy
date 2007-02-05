@@ -446,10 +446,14 @@ namespace Tomboy
 			if (panel_size < 16)
 				panel_size = 16;
 			
-			// Request an icon that's 4 pixels smaller than the allocation
-			// size so that there's enough padding.  Control which icon is
-			// used at the smaller sizes.  See bug #403500 for more info.
-			int icon_size = panel_size - 4;
+			// Control specifically which icon is used at the smaller sizes
+			// so that no scaling occurs.  In the case of the panel applet,
+			// add a couple extra pixels of padding so it matches the behavior
+			// of the notification area tray icon.  See bug #403500 for more
+			// info.
+			int icon_size = panel_size;
+			if (Tomboy.IsPanelApplet)
+				icon_size = panel_size - 2;	// padding
 			if (icon_size <= 21)
 				icon_size = 16;
 			else if (icon_size <= 31)
