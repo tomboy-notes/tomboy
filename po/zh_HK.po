@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tomboy 0.3.9\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-09-05 05:26+0800\n"
-"PO-Revision-Date: 2006-09-05 05:41+0800\n"
-"Last-Translator: Abel Cheung <abelcheung@gmail.com>\n"
+"POT-Creation-Date: 2007-02-07 19:52+0800\n"
+"PO-Revision-Date: 2007-02-07 19:54+0800\n"
+"Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: Ubuntu Traditional Chinese Translators (https://launchpad.net/"
 "people/ubuntu-l10n-zh-tw)\n"
 "MIME-Version: 1.0\n"
@@ -32,7 +32,7 @@ msgstr "載有已安裝的外掛程式的目錄"
 msgid "Accessories"
 msgstr "附屬應用程式"
 
-#: ../data/GNOME_TomboyApplet.server.in.in.h:2
+#: ../data/GNOME_TomboyApplet.server.in.in.h:2 ../data/tomboy.desktop.in.h:2
 msgid "Simple and easy to use note-taking"
 msgstr "簡單易用的桌面筆記軟件"
 
@@ -41,125 +41,157 @@ msgid "Tomboy Applet Factory"
 msgstr "Tomboy 面板程式工廠"
 
 #: ../data/GNOME_TomboyApplet.server.in.in.h:4 ../data/tomboy.desktop.in.h:3
-#: ../Tomboy/Applet.cs:136 ../Tomboy/Tray.cs:37
+#: ../Tomboy/Applet.cs:154 ../Tomboy/Tray.cs:147
 msgid "Tomboy Notes"
 msgstr "Tomboy 筆記"
 
-#: ../data/GNOME_TomboyApplet.xml.h:1 ../Tomboy/Applet.cs:179
-msgid "_About Tomboy"
-msgstr "關於 _Tomboy"
+#: ../data/GNOME_TomboyApplet.xml.h:1 ../Tomboy/ActionManager.cs:100
+msgid "_About"
+msgstr "關於(_A)"
 
-#: ../data/GNOME_TomboyApplet.xml.h:2 ../Tomboy/Applet.cs:174
-#: ../Tomboy/NoteWindow.cs:513
+#: ../data/GNOME_TomboyApplet.xml.h:2 ../Tomboy/ActionManager.cs:93
+#: ../Tomboy/Applet.cs:199
+msgid "_Help"
+msgstr "求助(_H)"
+
+#: ../data/GNOME_TomboyApplet.xml.h:3 ../Tomboy/Applet.cs:187
+#: ../Tomboy/NoteWindow.cs:629 ../Tomboy/Preferences.cs:644
 msgid "_Open Plugins Folder"
 msgstr "開啟外掛程式資料夾(_O)"
 
-#: ../data/GNOME_TomboyApplet.xml.h:3 ../Tomboy/Applet.cs:169
-msgid "_Preferences..."
-msgstr "偏好設定(_P)..."
+#: ../data/GNOME_TomboyApplet.xml.h:4 ../Tomboy/ActionManager.cs:89
+#: ../Tomboy/Applet.cs:194
+msgid "_Preferences"
+msgstr "偏好設定(_P)"
 
 #: ../data/tomboy.desktop.in.h:1
 msgid "Note-taker"
 msgstr "筆記軟件"
-
-#: ../data/tomboy.desktop.in.h:2
-msgid "Quick and handy note-taker"
-msgstr "簡單易用的桌面筆記軟件"
 
 #: ../data/tomboy.schemas.in.h:1
 msgid "Create a new Note"
 msgstr "新增筆記頁"
 
 #: ../data/tomboy.schemas.in.h:2
+msgid "Currently enabled plugins."
+msgstr "目前啟用的外掛程式。"
+
+#: ../data/tomboy.schemas.in.h:3
 msgid "Custom Font Face"
 msgstr "自選字型名稱"
 
-#: ../data/tomboy.schemas.in.h:3
+#: ../data/tomboy.schemas.in.h:4
 msgid "Enable WikiWord highlighting"
 msgstr "啟用加強顯示 WikiWord 的功能"
 
-#: ../data/tomboy.schemas.in.h:4
+#: ../data/tomboy.schemas.in.h:5
 msgid "Enable custom font"
 msgstr "啟用自選字型"
 
-#: ../data/tomboy.schemas.in.h:5
+#: ../data/tomboy.schemas.in.h:6
 msgid "Enable global keybindings"
 msgstr "啟用桌面按鍵組合"
 
-#: ../data/tomboy.schemas.in.h:6
+#: ../data/tomboy.schemas.in.h:7
 msgid "Enable spellchecking"
 msgstr "啟用拼字檢查"
 
-#: ../data/tomboy.schemas.in.h:7
+#: ../data/tomboy.schemas.in.h:8
 msgid ""
 "Enable this option to highlight words ThatLookLikeThis. Clicking the word "
 "will create a note with that name."
 msgstr "啟用這個選項可以加強顯示像 <b>ThatLookLikeThis</b> 這種將兩個或以上英文字合併的字。點選這個字就會加一頁新筆記，以這個字命名。"
 
-#: ../data/tomboy.schemas.in.h:8
+#: ../data/tomboy.schemas.in.h:9
+msgid "HTML Export All Linked Notes"
+msgstr "匯出所有鏈結的筆記頁"
+
+#: ../data/tomboy.schemas.in.h:10
 msgid "HTML Export Last Directory"
 msgstr "最後一次匯出 HTML 的目錄"
 
-#: ../data/tomboy.schemas.in.h:9
+#: ../data/tomboy.schemas.in.h:11
 msgid "HTML Export Linked Notes"
 msgstr "匯出有鏈結的筆記頁"
 
-#: ../data/tomboy.schemas.in.h:10
+#: ../data/tomboy.schemas.in.h:12
 msgid ""
 "If enable_custom_font is true, the font name set here will be used as the "
 "font when displaying notes."
 msgstr "如果 enable_custom_font 設定鍵為 true，顯示筆記時會使用這裏設定的字型。"
 
-#: ../data/tomboy.schemas.in.h:11
+#: ../data/tomboy.schemas.in.h:13
 msgid ""
 "If true, misspellings will be underlined in red, and correct spelling "
 "suggestions shown in the right-click menu."
 msgstr "拼字有錯誤的地方會被劃上紅色底線，在上面按滑鼠右鍵時將出現正確拼字的建議。"
 
-#: ../data/tomboy.schemas.in.h:12
+#: ../data/tomboy.schemas.in.h:14
 msgid ""
 "If true, the desktop-global keybindings set in /apps/tomboy/"
 "global_keybindings will be enabled, allowing for useful Tomboy actions to be "
 "available from any application."
 msgstr "如果是 true，在 /apps/tomboy/global_keybindings 中設定的桌面按鍵組合就會啟用，這樣無論在任何程式中都可以隨時使用 Tomboy。"
 
-#: ../data/tomboy.schemas.in.h:13
+#: ../data/tomboy.schemas.in.h:15
 msgid ""
 "If true, the font name set in custom_font_face will be used as the font when "
 "displaying notes. Otherwise the desktop default font will be used."
 msgstr "如果是 true，會使用在 custom_font_face 設定鍵中指定的字型，否則會使用預設桌面字型。"
 
-#: ../data/tomboy.schemas.in.h:14
+#: ../data/tomboy.schemas.in.h:16
 msgid ""
 "Indicates that the Sticky Note Importer plugin has not been run, so it "
 "should run automatically the next time Tomboy starts."
 msgstr "這裏表示匯入舊「便條」的外掛程式未執行過，下次啟動 Tomboy 時會自動執行該外掛程式。"
 
-#: ../data/tomboy.schemas.in.h:15
+#: ../data/tomboy.schemas.in.h:17
+msgid ""
+"Integer determining the minimum number of notes to show in the Tomboy note "
+"menu."
+msgstr "決定在 Tomboy 筆記選單中顯示最小筆記數的整數值。"
+
+#: ../data/tomboy.schemas.in.h:18
+msgid "List containing the names of currently enabled plugins."
+msgstr "包含目前啟用的外掛程式的清單。"
+
+#: ../data/tomboy.schemas.in.h:19
+msgid "List of pinned notes."
+msgstr "貼上的筆記清單。"
+
+#: ../data/tomboy.schemas.in.h:20
+msgid "Minimum number of notes to show in menu"
+msgstr "選單中顯示的最小筆記數"
+
+#: ../data/tomboy.schemas.in.h:21
 msgid "Open Recent Changes"
 msgstr "開啟最近更改紀錄"
 
-#: ../data/tomboy.schemas.in.h:16
+#: ../data/tomboy.schemas.in.h:22
 msgid "Open Search Dialog"
 msgstr "開啟搜尋對話方塊"
 
-#: ../data/tomboy.schemas.in.h:17
+#: ../data/tomboy.schemas.in.h:23
 msgid "Open Start Here"
 msgstr "開啟「起始頁面」"
 
-#: ../data/tomboy.schemas.in.h:18
+#: ../data/tomboy.schemas.in.h:24
 msgid "Set to TRUE to activate"
 msgstr "設定為 TRUE 會啟用功能"
 
-#: ../data/tomboy.schemas.in.h:19
+#: ../data/tomboy.schemas.in.h:25
 msgid "Show applet menu"
 msgstr "顯示面板程式選單"
 
-#: ../data/tomboy.schemas.in.h:20
+#: ../data/tomboy.schemas.in.h:26
+msgid "Start Here Note"
+msgstr "起始頁面筆記"
+
+#: ../data/tomboy.schemas.in.h:27
 msgid "Sticky Note Importer First Run"
 msgstr "首次執行舊「便條」匯入程序"
 
-#: ../data/tomboy.schemas.in.h:21
+#: ../data/tomboy.schemas.in.h:28
 msgid ""
 "The global keybinding for creating and displaying a new Note. The format "
 "looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The "
@@ -169,7 +201,7 @@ msgid ""
 "for this action."
 msgstr "這個是產生和顯示新筆記時使用的按鍵組合。格式可以像“&lt;Control&gt;a”或是“&lt;Shift&gt;&lt;Alt&gt;F1”。分析按鍵組合字串時是比較寬鬆的，允許使用大寫或小寫，也允許使用像“&lt;Ctl&gt;”及“&lt;Ctrl&gt;”等的縮寫。如果將此選項設定為字串“disabled”，則不會為該項操作安排任何按鍵組合。"
 
-#: ../data/tomboy.schemas.in.h:22
+#: ../data/tomboy.schemas.in.h:29
 msgid ""
 "The global keybinding for opening the \"Start Here\" note. The format looks "
 "like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
@@ -179,7 +211,7 @@ msgid ""
 "action."
 msgstr "這個是開啟「起始頁面」時使用的按鍵組合。格式可以像“&lt;Control&gt;a”或是“&lt;Shift&gt;&lt;Alt&gt;F1”。分析按鍵組合字串時是比較寬鬆的，允許使用大寫或小寫，也允許使用像“&lt;Ctl&gt;”及“&lt;Ctrl&gt;”等的縮寫。如果將此選項設定為字串“disabled”，則不會為該項操作安排任何按鍵組合。"
 
-#: ../data/tomboy.schemas.in.h:23
+#: ../data/tomboy.schemas.in.h:30
 msgid ""
 "The global keybinding for opening the Note Search dialog. The format looks "
 "like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
@@ -189,7 +221,7 @@ msgid ""
 "action."
 msgstr "這個是開啟搜尋筆記對話方塊時使用的按鍵組合。格式可以像“&lt;Control&gt;a”或是“&lt;Shift&gt;&lt;Alt&gt;F1”。分析按鍵組合字串時是比較寬鬆的，允許使用大寫或小寫，也允許使用像“&lt;Ctl&gt;”及“&lt;Ctrl&gt;”等的縮寫。如果將此選項設定為字串“disabled”，則不會為該項操作安排任何按鍵組合。"
 
-#: ../data/tomboy.schemas.in.h:24
+#: ../data/tomboy.schemas.in.h:31
 msgid ""
 "The global keybinding for opening the Recent Changes dialog. The format "
 "looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The "
@@ -199,7 +231,7 @@ msgid ""
 "for this action."
 msgstr "這個是顯示最近更改紀錄時使用的按鍵組合。格式可以像“&lt;Control&gt;a”或是“&lt;Shift&gt;&lt;Alt&gt;F1”。分析按鍵組合字串時是比較寬鬆的，允許使用大寫或小寫，也允許使用像“&lt;Ctl&gt;”及“&lt;Ctrl&gt;”等的縮寫。如果將此選項設定為字串“disabled”，則不會為該項操作安排任何按鍵組合。"
 
-#: ../data/tomboy.schemas.in.h:25
+#: ../data/tomboy.schemas.in.h:32
 msgid ""
 "The global keybinding for showing the Tomboy applet's menu. The format looks "
 "like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
@@ -209,22 +241,43 @@ msgid ""
 "action."
 msgstr "這個是顯示 Tomboy 的面板程式選單時使用的按鍵組合。格式可以像“&lt;Control&gt;a”或是“&lt;Shift&gt;&lt;Alt&gt;F1”。分析按鍵組合字串時是比較寬鬆的，允許使用大寫或小寫，也允許使用像“&lt;Ctl&gt;”及“&lt;Ctrl&gt;”等的縮寫。如果將此選項設定為字串“disabled”，則不會為該項操作安排任何按鍵組合。"
 
-#: ../data/tomboy.schemas.in.h:26
+#: ../data/tomboy.schemas.in.h:33
 msgid "The handler for \"note://\" URLs"
 msgstr "“note://” 類型 URL 的處理程式"
 
-#: ../data/tomboy.schemas.in.h:27
+#: ../data/tomboy.schemas.in.h:34
 msgid ""
 "The last directory a note was exported to using the Export To HTML plugin."
 msgstr "「匯出至 HTML」外掛程式最後一次將筆記匯出成為 HTML 所在的目錄。"
 
-#: ../data/tomboy.schemas.in.h:28
+#: ../data/tomboy.schemas.in.h:35
 msgid ""
 "The last setting for the 'Export linked notes' checkbox in the Export to "
 "HTML plugin."
 msgstr "「匯出至 HTML」外掛程式中，「同時匯出鏈結的內容」的設定。"
 
-#: ../libtomboy/gedit-print.c:142 ../Tomboy/Plugins/PrintNotes.cs:15
+#: ../data/tomboy.schemas.in.h:36
+msgid ""
+"The last setting for the 'Include all other linked notes' checkbox in the "
+"Export to HTML plugin. This setting is used in conjunction with the 'HTML "
+"Export Linked Notes' setting and is used to specify whether all notes (found "
+"recursively) should be included during an export to HTML."
+msgstr "在匯出 HTML 外掛程式中‘同時匯出鏈結的內容’核取方塊的最新設定值。這個設定值是用來配合‘匯出有鏈結的筆記頁’設定值；它可以指定在匯出筆記頁時是否應包含所有的筆記。"
+
+#: ../data/tomboy.schemas.in.h:37
+msgid ""
+"The note URI of the note that should be considered the \"Start Here\" note, "
+"which is always placed at the bottom of the Tomboy note menu and also "
+"accessible by hotkey."
+msgstr "作為「起始頁面」的筆記 URI，它將被放置在 Tomboy 筆記選單的底部，並且可以使用快速鍵來操作它。"
+
+#: ../data/tomboy.schemas.in.h:38
+msgid ""
+"Whitespace-separated list of note URIs for notes that should always appear "
+"in the Tomboy note menu."
+msgstr "在 Tomboy 筆記選單中出現的筆記 URI 清單，以空白鍵分隔。"
+
+#: ../libtomboy/gedit-print.c:142 ../Tomboy/Plugins/PrintNotes.cs:21
 msgid "Print"
 msgstr "打印"
 
@@ -251,206 +304,368 @@ msgid "Page %N of %Q"
 msgstr "%N / %Q 頁"
 
 # (Abel) 沒辦法，%x 和 %X 不論是香港還是台灣都是爛的
-#: ../libtomboy/gedit-print.c:444
+#: ../libtomboy/gedit-print.c:445
 #, no-c-format
 msgid "%A %x, %X"
 msgstr "%Y年%m月%d日(%a) %p %l:%M:%S"
 
-#: ../Tomboy/Applet.cs:186
+#: ../Tomboy/ActionManager.cs:63
+msgid "_File"
+msgstr "檔案(_F)"
+
+#: ../Tomboy/ActionManager.cs:66
+msgid "_New"
+msgstr "新增(_N)"
+
+#: ../Tomboy/ActionManager.cs:67 ../Tomboy/ActionManager.cs:108
+msgid "Create a new note"
+msgstr "建立一個新的筆記"
+
+#: ../Tomboy/ActionManager.cs:70
+msgid "_Open..."
+msgstr "開啟(_O)..."
+
+#: ../Tomboy/ActionManager.cs:71
+msgid "Open the selected note"
+msgstr "開啟選定的筆記"
+
+#: ../Tomboy/ActionManager.cs:74
+msgid "_Delete"
+msgstr "刪除(_D)"
+
+#: ../Tomboy/ActionManager.cs:75
+msgid "Delete the selected note"
+msgstr "刪除選定的筆記"
+
+#: ../Tomboy/ActionManager.cs:78 ../Tomboy/NoteWindow.cs:523
+msgid "_Close"
+msgstr "關閉(_C)"
+
+#: ../Tomboy/ActionManager.cs:79
+msgid "Close this window"
+msgstr "關閉這個視窗"
+
+#: ../Tomboy/ActionManager.cs:82 ../Tomboy/Applet.cs:211
 msgid "_Quit"
 msgstr "離開(_Q)"
 
-#. Open the Start Here note
-#: ../Tomboy/Note.cs:562 ../Tomboy/NoteManager.cs:107
-#: ../Tomboy/NoteManager.cs:115 ../Tomboy/Tomboy.cs:208 ../Tomboy/Tray.cs:123
-#: ../Tomboy/Tray.cs:179 ../Tomboy/Tray.cs:385 ../Tomboy/XKeybinder.cs:259
-msgid "Start Here"
-msgstr "起始頁面"
+#: ../Tomboy/ActionManager.cs:83
+msgid "Quit Tomboy"
+msgstr "離開 Tomboy"
 
-#: ../Tomboy/Note.cs:808
+#: ../Tomboy/ActionManager.cs:86
+msgid "_Edit"
+msgstr "編輯(_E)"
+
+#: ../Tomboy/ActionManager.cs:90 ../Tomboy/Preferences.cs:168
+msgid "Tomboy Preferences"
+msgstr "Tomboy 偏好設定"
+
+#: ../Tomboy/ActionManager.cs:96
+msgid "_Contents"
+msgstr "內容(_C)"
+
+#: ../Tomboy/ActionManager.cs:97
+msgid "Tomboy Help"
+msgstr "Tomboy 求助"
+
+#: ../Tomboy/ActionManager.cs:101
+msgid "About Tomboy"
+msgstr "關於 Tomboy"
+
+#: ../Tomboy/ActionManager.cs:104
+msgid "TrayIcon"
+msgstr "系統匣圖示"
+
+#: ../Tomboy/ActionManager.cs:107
+msgid "Create _New Note"
+msgstr "新增筆記(_N)"
+
+#: ../Tomboy/ActionManager.cs:111 ../Tomboy/NoteWindow.cs:466
+msgid "_Search All Notes"
+msgstr "搜尋所有筆記(_S)"
+
+#: ../Tomboy/ActionManager.cs:112
+msgid "Open the Search All Notes window"
+msgstr "開啟搜尋所有筆記視窗"
+
+#: ../Tomboy/Applet.cs:204
+msgid "_About Tomboy"
+msgstr "關於 _Tomboy"
+
+#: ../Tomboy/Note.cs:879
 msgid "Really delete this note?"
 msgstr "確定要刪除此頁嗎？"
 
-#: ../Tomboy/Note.cs:809
+#: ../Tomboy/Note.cs:880
 msgid "If you delete a note it is permanently lost."
 msgstr "如果你選擇刪除，此頁面將被永久刪除。"
 
-#: ../Tomboy/NoteManager.cs:108
-msgid "Welcome to Tomboy!"
-msgstr "歡迎使用 Tomboy!"
-
-#: ../Tomboy/NoteManager.cs:109
+#: ../Tomboy/NoteManager.cs:144
 msgid ""
-"Use this page as a Start Page for organizing your notes and keeping "
-"unorganized ideas around."
-msgstr "以這一頁為起始頁面，你可以開始編寫筆記，隨時將想到的點子記錄下來。"
+"<note-content>Start Here\n"
+"\n"
+"<bold>Welcome to Tomboy!</bold>\n"
+"\n"
+"Use this \"Start Here\" note to begin organizing your ideas and thoughts.\n"
+"\n"
+"You can create new notes to hold your ideas by selecting the \"Create New "
+"Note\" item from the Tomboy Notes menu in your GNOME Panel. Your note will "
+"be saved automatically.\n"
+"\n"
+"Then organize the notes you create by linking related notes and ideas "
+"together!\n"
+"\n"
+"We've created a note called <link:internal>Using Links in Tomboy</link:"
+"internal>.  Notice how each time we type <link:internal>Using Links in "
+"Tomboy</link:internal> it automatically gets underlined?  Click on the link "
+"to open the note.</note-content>"
+msgstr ""
+"<note-content>起始頁面\n"
+"\n"
+"<bold>歡迎使用 Tomboy！</bold>\n"
+"\n"
+"使用這一個「起始頁面」開始組織你的創意與想法。\n"
+"\n"
+"你可以從 GNOME 面板的 Tomboy 筆記選單選擇「新增筆記頁」建立新的筆記來保存你的點子。你的筆記會被自動儲存。\n"
+"\n"
+"接着你可以藉連結相關的筆記與點子來組織你所建立的筆記！\n"
+"\n"
+"我們已經建立一個名為 <link:internal>在 Tomboy 中使用連結</link:internal>的筆記。注意到當我們輸入 <link:internal>在 Tomboy 中使用連結</link:internal> 時它會自動加上底線嗎？按下該連結就可以開啟筆記。</note-content>"
 
-#: ../Tomboy/NoteManager.cs:203
+#: ../Tomboy/NoteManager.cs:163
+msgid ""
+"<note-content>Using Links in Tomboy\n"
+"\n"
+"Notes in Tomboy can be linked together by highlighting text in the current "
+"note and clicking the <bold>Link</bold> button above in the toolbar.  Doing "
+"so will create a new note and also underline the note's title in the current "
+"note.\n"
+"\n"
+"Changing the title of a note will update links present in other notes.  This "
+"prevents broken links from occurring when a note is renamed.\n"
+"\n"
+"Also, if you type the name of another note in your current note, it will "
+"automatically be linked for you.</note-content>"
+msgstr ""
+"<note-content>在 Tomboy 中使用連結\n"
+"\n"
+"Tomboy 中的筆記可以藉由在目前筆記反白文字並按下工具列上的<bold>連結</bold>按鈕來相互連結。這樣做會建立新的筆記，同時該筆記的標題會在目前的筆記中以加底線的方式出現。\n"
+"\n"
+"改變筆記的標題也會改變它在其他筆記中的連結。這樣可以避免因筆記重新命名而使得連結失效。\n"
+"\n"
+"還有，如果在目前的筆記中輸入其他筆記的名稱，也會自動為你建立連結。</note-content>"
+
+#. Attempt to find an existing Start Here note
+#: ../Tomboy/NoteManager.cs:178 ../Tomboy/NoteManager.cs:228
+msgid "Start Here"
+msgstr "起始頁面"
+
+#: ../Tomboy/NoteManager.cs:183
+msgid "Using Links in Tomboy"
+msgstr "在 Tomboy 中使用連結"
+
+#: ../Tomboy/NoteManager.cs:283
 #, csharp-format
 msgid "New Note {0}"
 msgstr "添加新筆記頁 {0}"
 
-#: ../Tomboy/NoteManager.cs:249
+#: ../Tomboy/NoteManager.cs:329
 msgid "Describe your new note here."
 msgstr "在這裏編寫新筆記頁。"
 
-#: ../Tomboy/NoteWindow.cs:364
+#: ../Tomboy/NoteWindow.cs:219
+msgid "Find in This Note"
+msgstr "在這個筆記中尋找"
+
+#: ../Tomboy/NoteWindow.cs:478
 msgid "_Link to New Note"
 msgstr "連結到新頁面(_L)"
 
-#: ../Tomboy/NoteWindow.cs:377
+#: ../Tomboy/NoteWindow.cs:490
 msgid "Te_xt"
 msgstr "文字格式(_X)"
 
-#: ../Tomboy/NoteWindow.cs:385
-msgid "_Search"
-msgstr "搜尋(_S)"
+#: ../Tomboy/NoteWindow.cs:498
+msgid "_Find in This Note"
+msgstr "在這個筆記中尋找(_F)"
 
-#: ../Tomboy/NoteWindow.cs:399
+#: ../Tomboy/NoteWindow.cs:513
 msgid "Clos_e All Notes"
 msgstr "關閉所有筆記頁(_E)"
 
-#: ../Tomboy/NoteWindow.cs:409
-msgid "_Close"
-msgstr "關閉(_C)"
-
-#: ../Tomboy/NoteWindow.cs:437
+#: ../Tomboy/NoteWindow.cs:551
 msgid "Search"
 msgstr "搜尋"
 
-#: ../Tomboy/NoteWindow.cs:438
-msgid "Search your notes"
-msgstr "搜尋筆記"
+#: ../Tomboy/NoteWindow.cs:552
+msgid "Search your notes (Ctrl-Shift-F)"
+msgstr "搜尋你的筆記 (Ctrl-Shift-F)"
 
-#: ../Tomboy/NoteWindow.cs:450
+#: ../Tomboy/NoteWindow.cs:565
 msgid "Link"
 msgstr "鏈結"
 
-#: ../Tomboy/NoteWindow.cs:451
-msgid "Link selected text to a new note"
-msgstr "已選擇的文字成為鏈結，連到新的筆記頁"
+#: ../Tomboy/NoteWindow.cs:567
+msgid "Link selected text to a new note (Ctrl-L)"
+msgstr "已選擇的文字成為鏈結，連到新的筆記頁(Ctrl-L)"
 
-#: ../Tomboy/NoteWindow.cs:465
+#: ../Tomboy/NoteWindow.cs:581
 msgid "_Text"
 msgstr "文字(_T)"
 
-#: ../Tomboy/NoteWindow.cs:470
+#: ../Tomboy/NoteWindow.cs:586
 msgid "Set properties of text"
 msgstr "設定文字屬性"
 
-#: ../Tomboy/NoteWindow.cs:476
+#: ../Tomboy/NoteWindow.cs:592
 msgid "T_ools"
 msgstr "工具(_O)"
 
-#: ../Tomboy/NoteWindow.cs:480
+#: ../Tomboy/NoteWindow.cs:596
 msgid "Use tools on this note"
 msgstr "在此頁筆記上使用工具"
 
-#: ../Tomboy/NoteWindow.cs:487
+#: ../Tomboy/NoteWindow.cs:603
 msgid "Delete"
 msgstr "刪除"
 
-#: ../Tomboy/NoteWindow.cs:488
+#: ../Tomboy/NoteWindow.cs:604
 msgid "Delete this note"
 msgstr "刪除這頁筆記"
 
-#: ../Tomboy/NoteWindow.cs:545
-msgid "_Search..."
-msgstr "搜尋(_S)..."
+#: ../Tomboy/NoteWindow.cs:661
+msgid "_Find..."
+msgstr "搜尋(_F)..."
 
-#: ../Tomboy/NoteWindow.cs:556 ../Tomboy/Search.cs:177
+#: ../Tomboy/NoteWindow.cs:672 ../Tomboy/NoteWindow.cs:874
 msgid "Find _Next"
 msgstr "找下一個(_N)"
 
-#: ../Tomboy/NoteWindow.cs:569
+#: ../Tomboy/NoteWindow.cs:685
 msgid "Find _Previous"
 msgstr "找上一個(_P)"
 
-#: ../Tomboy/NoteWindow.cs:653
+#: ../Tomboy/NoteWindow.cs:773
 msgid "Cannot create note"
 msgstr "無法建立筆記頁"
 
-#: ../Tomboy/NoteWindow.cs:746
+#: ../Tomboy/NoteWindow.cs:854
+msgid "_Find:"
+msgstr "尋找(_F):"
+
+#: ../Tomboy/NoteWindow.cs:865
+msgid "_Previous"
+msgstr "上一頁(_P)"
+
+#: ../Tomboy/NoteWindow.cs:884
+msgid "Case _sensitive"
+msgstr "區分大小寫(_S)"
+
+#: ../Tomboy/NoteWindow.cs:1360
 msgid "_Bold"
 msgstr "粗體(_B)"
 
-#: ../Tomboy/NoteWindow.cs:758
+#: ../Tomboy/NoteWindow.cs:1372
 msgid "_Italic"
 msgstr "斜體(_I)"
 
-#: ../Tomboy/NoteWindow.cs:770
+#: ../Tomboy/NoteWindow.cs:1384
 msgid "_Strikeout"
 msgstr "刪除線(_S)"
 
-#: ../Tomboy/NoteWindow.cs:782
+#: ../Tomboy/NoteWindow.cs:1396
 msgid "_Highlight"
 msgstr "加強顯示(_H)"
 
-#: ../Tomboy/NoteWindow.cs:795
+#: ../Tomboy/NoteWindow.cs:1409
 msgid "Font Size"
 msgstr "字型大小"
 
-#: ../Tomboy/NoteWindow.cs:798
+#: ../Tomboy/NoteWindow.cs:1412
 msgid "_Normal"
 msgstr "一般(_N)"
 
-#: ../Tomboy/NoteWindow.cs:805
+#: ../Tomboy/NoteWindow.cs:1419
 msgid "Hu_ge"
 msgstr "巨大(_G)"
 
-#: ../Tomboy/NoteWindow.cs:813
+#: ../Tomboy/NoteWindow.cs:1427
 msgid "_Large"
 msgstr "大(_L)"
 
-#: ../Tomboy/NoteWindow.cs:821
+#: ../Tomboy/NoteWindow.cs:1435
 msgid "S_mall"
 msgstr "小(_S)"
 
-#: ../Tomboy/Preferences.cs:125
-msgid "Tomboy Preferences"
-msgstr "Tomboy 偏好設定"
+#: ../Tomboy/NoteWindow.cs:1446
+msgid "Bullets"
+msgstr "項目符號"
 
-#: ../Tomboy/Preferences.cs:139
+#: ../Tomboy/PluginManager.cs:602
+#, csharp-format
+msgid "Cannot fully disable {0}."
+msgstr "無法完整停用{0}。"
+
+#: ../Tomboy/PluginManager.cs:605
+#, csharp-format
+msgid ""
+"Cannot fully disable {0} as there still are at least {1} reference to this "
+"plugin. This indicates a programming error. Contact the plugin's author and "
+"report this problem.\n"
+"\n"
+"<b>Developer Information:</b> This problem usually occurs when the plugin's "
+"Dispose method fails to disconnect all event handlers. The heap-shot "
+"profiler ({2}) can help to identify leaking references."
+msgstr ""
+"無法完整的停用 {0}，因為至少有 {1} 個參照指向此外掛程式。這代表程式上的錯誤。請聯絡外掛程式的作者並回報這個問題。\n"
+"\n"
+"<b>給開發者的資訊：</b>這類問題通常起因於外掛程式的 Dispose 方法無法與所有的事件處理程序斷線。 heap-shot profiler ({2}) 可以協助辨識遺漏的參照。"
+
+#: ../Tomboy/Preferences.cs:182
 msgid "Editing"
 msgstr "編輯"
 
-#: ../Tomboy/Preferences.cs:142
+#: ../Tomboy/Preferences.cs:184
 msgid "Hotkeys"
 msgstr "快速鍵"
 
-#. Spell checking...
-#: ../Tomboy/Preferences.cs:182
+#: ../Tomboy/Preferences.cs:186
+msgid "Plugins"
+msgstr "外掛程式"
+
+#: ../Tomboy/Preferences.cs:228
 msgid "_Spell check while typing"
 msgstr "拼字隨打即查(_S)"
 
-#: ../Tomboy/Preferences.cs:189
+#: ../Tomboy/Preferences.cs:237
 msgid ""
-"Misspellings will be underlined in red, and correct spelling suggestions "
-"shown in the right-click menu."
-msgstr "拼字有錯誤的地方會被劃上紅色底線，在上面按下滑鼠右鍵時將出現正確拼字的建議."
+"Misspellings will be underlined in red, with correct spelling suggestions "
+"shown in the context menu."
+msgstr "拼字有錯誤的地方會被劃上紅色底線，在上面按下滑鼠右鍵時將出現正確拼字的建議。"
 
 #. WikiWords...
-#: ../Tomboy/Preferences.cs:198
+#: ../Tomboy/Preferences.cs:247
 msgid "Highlight _WikiWords"
 msgstr "將 _WikiWord 加強顯示"
 
-#: ../Tomboy/Preferences.cs:205
+#: ../Tomboy/Preferences.cs:255
 msgid ""
 "Enable this option to highlight words <b>ThatLookLikeThis</b>. Clicking the "
 "word will create a note with that name."
 msgstr "啟用這個選項來加強顯示像 <b>ThatLookLikeThis</b> 這種將兩個或以上英文字合併的字。點選這個字就會加一頁新筆記，以這個字命名。"
 
 #. Custom font...
-#: ../Tomboy/Preferences.cs:214
+#: ../Tomboy/Preferences.cs:264
 msgid "Use custom _font"
 msgstr "使用自選字型(_F)"
 
 #. Hotkeys...
-#: ../Tomboy/Preferences.cs:284
+#: ../Tomboy/Preferences.cs:334
 msgid "Listen for _Hotkeys"
 msgstr "啟用快速鍵(_H)"
 
-#: ../Tomboy/Preferences.cs:292
+#: ../Tomboy/Preferences.cs:343
 msgid ""
 "Hotkeys allow you to quickly access your notes from anywhere with a "
 "keypress. Example Hotkeys: <b>&lt;Control&gt;&lt;Shift&gt;F11</b>, <b>&lt;"
@@ -458,118 +673,146 @@ msgid ""
 msgstr "快速鍵允許你從任何地方以按鍵組合快速存取筆記頁，例如 <b>&lt;Control&gt;&lt;Shift&gt;F11</b> 或<b>&lt;Alt&gt;N</b>"
 
 #. Show notes menu keybinding...
-#: ../Tomboy/Preferences.cs:312
+#: ../Tomboy/Preferences.cs:363
 msgid "Show notes _menu"
 msgstr "顯示筆記本選單(_M)"
 
 #. Open Start Here keybinding...
-#: ../Tomboy/Preferences.cs:328
+#: ../Tomboy/Preferences.cs:380
 msgid "Open \"_Start Here\""
 msgstr "開啟「起始頁面」(_S)"
 
 #. Create new note keybinding...
-#: ../Tomboy/Preferences.cs:344
+#: ../Tomboy/Preferences.cs:397
 msgid "Create _new note"
 msgstr "新增筆記頁(_N)"
 
-#. Search dialog keybinding...
-#: ../Tomboy/Preferences.cs:360
-msgid "S_earch notes"
-msgstr "搜尋筆記(_E)"
+#. Open Search All Notes window keybinding...
+#: ../Tomboy/Preferences.cs:414
+msgid "Open \"Search _All Notes\""
+msgstr "開啟「搜尋所有筆記(_A)」"
 
-#: ../Tomboy/Preferences.cs:422
+#: ../Tomboy/Preferences.cs:560
+msgid "Not available"
+msgstr "無法使用"
+
+#: ../Tomboy/Preferences.cs:618
+msgid "Description:"
+msgstr "描述:"
+
+#: ../Tomboy/Preferences.cs:620
+msgid "Written by:"
+msgstr "作者:"
+
+#: ../Tomboy/Preferences.cs:622
+msgid "Web site:"
+msgstr "網址:"
+
+#: ../Tomboy/Preferences.cs:624
+msgid "File name:"
+msgstr "檔案名稱:"
+
+#: ../Tomboy/Preferences.cs:638
+msgid "Settings"
+msgstr "設定值"
+
+#: ../Tomboy/Preferences.cs:693
+#, csharp-format
+msgid "{0} Settings"
+msgstr "{0} 設定值"
+
+#: ../Tomboy/Preferences.cs:754
 msgid "Choose Note Font"
 msgstr "選擇字型"
 
-#: ../Tomboy/RecentChanges.cs:37
-msgid "Table of Contents"
-msgstr "目錄"
+#: ../Tomboy/RecentChanges.cs:64
+msgid "Search All Notes"
+msgstr "搜尋所有筆記"
 
-#: ../Tomboy/RecentChanges.cs:51
-msgid ""
-"<b>Table of Contents</b> lists all your notes.\n"
-"Double click to open a note."
-msgstr ""
-"「<b>目錄</b>」會列出所有的筆記頁。\n"
-"連按兩下以開啟筆記頁。"
+#: ../Tomboy/RecentChanges.cs:77
+msgid "_Search:"
+msgstr "搜尋(_S):"
 
-#: ../Tomboy/RecentChanges.cs:151
+#: ../Tomboy/RecentChanges.cs:98
+msgid "C_ase Sensitive"
+msgstr "區分大小寫(_A)"
+
+#: ../Tomboy/RecentChanges.cs:236
 msgid "Note"
 msgstr "筆記"
 
-#: ../Tomboy/RecentChanges.cs:167
+#: ../Tomboy/RecentChanges.cs:255
 msgid "Last Changed"
 msgstr "上次更改"
 
-#: ../Tomboy/RecentChanges.cs:211
+#: ../Tomboy/RecentChanges.cs:312 ../Tomboy/RecentChanges.cs:468
 #, csharp-format
 msgid "Total: {0} note"
 msgid_plural "Total: {0} notes"
 msgstr[0] "總共：{0} 頁筆記"
 
-#: ../Tomboy/RecentChanges.cs:261
+#: ../Tomboy/RecentChanges.cs:402
+msgid "Matches"
+msgstr "符合"
+
+#: ../Tomboy/RecentChanges.cs:454 ../Tomboy/RecentChanges.cs:474
+#, csharp-format
+msgid "{0} match"
+msgid_plural "{0} matches"
+msgstr[0] "{0} 項符合"
+
+#: ../Tomboy/RecentChanges.cs:724
 #, csharp-format
 msgid "Today, {0}"
 msgstr "今天, {0}"
 
-#: ../Tomboy/RecentChanges.cs:264
+#: ../Tomboy/RecentChanges.cs:727
 #, csharp-format
 msgid "Yesterday, {0}"
 msgstr "昨天, {0}"
 
-#: ../Tomboy/RecentChanges.cs:267
+#: ../Tomboy/RecentChanges.cs:731
 #, csharp-format
 msgid "{0} days ago, {1}"
 msgstr "{0} 天前, {1}"
 
-#: ../Tomboy/RecentChanges.cs:271
+#: ../Tomboy/RecentChanges.cs:736
 msgid "MMMM d, h:mm tt"
 msgstr "M 月 dd 日，h:mm tt"
 
-#: ../Tomboy/RecentChanges.cs:273
+#: ../Tomboy/RecentChanges.cs:738
 msgid "MMMM d yyyy, h:mm tt"
 msgstr "yyyy 年 M 月 d 日，h:mm tt"
 
-#: ../Tomboy/Search.cs:87 ../Tomboy/Search.cs:489
-msgid "Search All Notes"
-msgstr "搜尋所有筆記"
+#: ../Tomboy/Tomboy.cs:181
+msgid "Cannot create new note"
+msgstr "無法建立新筆記頁"
 
-#: ../Tomboy/Search.cs:88 ../Tomboy/Search.cs:493
-msgid "Search Note"
-msgstr "搜尋筆記"
+#: ../Tomboy/Tomboy.cs:236
+msgid "translator-credits"
+msgstr ""
+"如對翻譯有任何意見，請送一封電子郵件給\n"
+"以下地址，GNOME 翻譯隊伍會儘快回覆你：\n"
+"community@linuxhall.org\n"
+"\n"
+"Abel Cheung <abelcheung@gmail.com>, 2006\n"
+"elleryq <elleryq@gmail.com>, 2006\n"
+"Youchen Lee <copyleft@ubuntu.org.tw>, 2005\n"
+"BlueT <BlueT@Ubuntu.org.tw>, 2005"
 
-#: ../Tomboy/Search.cs:110
-msgid "_Find:"
-msgstr "尋找(_F):"
+#: ../Tomboy/Tomboy.cs:245
+msgid "Copyright © 2004-2007 Alex Graveley"
+msgstr "版權所有 © 2004-2007 Alex Graveley"
 
-#: ../Tomboy/Search.cs:114
-msgid "Search _All Notes"
-msgstr "搜尋所有筆記(_A)"
+#: ../Tomboy/Tomboy.cs:246
+msgid "A simple and easy to use desktop note-taking application."
+msgstr "一款簡單易用的桌面筆記軟件。"
 
-#: ../Tomboy/Search.cs:120
-msgid "Case _Sensitive"
-msgstr "區分大小寫(_S)"
+#: ../Tomboy/Tomboy.cs:249
+msgid "Homepage & Donations"
+msgstr "網頁及捐獻"
 
-#: ../Tomboy/Search.cs:165
-msgid "_Previous"
-msgstr "上一頁(_P)"
-
-#: ../Tomboy/Search.cs:250
-msgid "Search _Results"
-msgstr "搜尋結果(_R)"
-
-#: ../Tomboy/Search.cs:732
-#, csharp-format
-msgid "({0} match)"
-msgid_plural "({0} matches)"
-msgstr[0] "({0} 個相符結果)"
-
-#. title
-#: ../Tomboy/Search.cs:750
-msgid "No notes found"
-msgstr "找不到"
-
-#: ../Tomboy/Tomboy.cs:132
+#: ../Tomboy/Tomboy.cs:333
 msgid ""
 "Tomboy: A simple, easy to use desktop note-taking application.\n"
 "Copyright (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
@@ -579,19 +822,21 @@ msgstr ""
 "版權所有 (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
 "\n"
 
-#: ../Tomboy/Tomboy.cs:144
+#: ../Tomboy/Tomboy.cs:345
 msgid ""
 "Usage:\n"
 "  --version\t\t\tPrint version information.\n"
 "  --help\t\t\tPrint this usage message.\n"
 "  --note-path [path]\t\tLoad/store note data in this directory.\n"
+"  --search [text]\t\tOpen the search all notes window with the search text.\n"
 msgstr ""
 "用法：\n"
-"\t--version\t\t\t顯示版本資訊\n"
-"\t--help\t\t\t顯示程式用法\n"
-"\t--note-path [path]\t\t在此目錄載入或儲存筆記資料\n"
+"  --version\t\t\t顯示版本資訊。\n"
+"  --help\t\t\t顯示程式用法。\n"
+"  --note-path [path]\t\t在此目錄載入或儲存筆記資料\n"
+"  --search [text]\t\t以要搜尋的文字開啟搜尋所有筆記視窗。\n"
 
-#: ../Tomboy/Tomboy.cs:153
+#: ../Tomboy/Tomboy.cs:356
 msgid ""
 "  --new-note\t\t\tCreate and display a new note.\n"
 "  --new-note [title]\t\tCreate and display a new note, with a title.\n"
@@ -605,16 +850,20 @@ msgstr ""
 "\t--start-here\t\t\t顯示「起始頁面」筆記頁\n"
 "\t--highlight-search [text]\t搜尋筆記並在其上加強顯示指定文字\n"
 
-#: ../Tomboy/Tomboy.cs:162
+#: ../Tomboy/Tomboy.cs:368
+msgid "  --check-plugin-unloading\tCheck if plugins are unloaded properly.\n"
+msgstr "  --check-plugin-unloading\t檢查外掛程式是否正確的卸載。\n"
+
+#: ../Tomboy/Tomboy.cs:372
 msgid "D-BUS remote control disabled.\n"
 msgstr "關閉 D-BUS 遠端控制功能。\n"
 
-#: ../Tomboy/Tomboy.cs:170
+#: ../Tomboy/Tomboy.cs:380
 #, csharp-format
 msgid "Version {0}"
 msgstr "{0} 版本"
 
-#: ../Tomboy/Tomboy.cs:228
+#: ../Tomboy/Tomboy.cs:447
 #, csharp-format
 msgid ""
 "Tomboy: unsupported option '{0}'\n"
@@ -625,54 +874,24 @@ msgstr ""
 "請嘗試執行‘tomboy --help’取得更多資訊。\n"
 "D-BUS 遠端控制功能沒有開啟。"
 
-#. initial newline
-#: ../Tomboy/Tray.cs:82
-msgid "dddd, MMMM d, h:mm tt"
-msgstr "MMMM d日 (dddd) h:mm tt"
-
-#: ../Tomboy/Tray.cs:145
-msgid "Create _New Note"
-msgstr "新增筆記(_N)"
-
-#: ../Tomboy/Tray.cs:192
-msgid "_Table of Contents"
-msgstr "目錄(_T)"
-
-#: ../Tomboy/Tray.cs:202
-msgid "_Search Notes..."
-msgstr "搜尋筆記(_S)..."
-
-#: ../Tomboy/Tray.cs:220
+#: ../Tomboy/Tray.cs:64
 msgid " (new)"
 msgstr " (新)"
 
-#: ../Tomboy/Tray.cs:258
-msgid "Cannot create new note"
-msgstr "無法建立新筆記頁"
+#. initial newline
+#: ../Tomboy/Tray.cs:193
+msgid "dddd, MMMM d, h:mm tt"
+msgstr "MMMM d日 (dddd) h:mm tt"
 
-#: ../Tomboy/Tray.cs:317
-msgid "translator-credits"
-msgstr ""
-"如對翻譯有任何意見，請送一封電子郵件給\n"
-"以下地址，GNOME 翻譯隊伍會儘快回覆你：\n"
-"community@linuxhall.org\n"
-"\n"
-"Abel Cheung <abelcheung@gmail.com>, 2006\n"
-"elleryq <elleryq@gmail.com>, 2006\n"
-"Youchen Lee <copyleft@ubuntu.org.tw>, 2005\n"
-"BlueT <BlueT@Ubuntu.org.tw>, 2005"
+#: ../Tomboy/Utils.cs:119
+msgid ""
+"The \"Tomboy Notes Manual\" could not be found.  Please verify that your "
+"installation has been completed successfully."
+msgstr "找不到「Tomboy 筆記使用手冊」。請檢查你的安裝過程是否正確的結束。"
 
-#: ../Tomboy/Tray.cs:326
-msgid "Copyright © 2004-2006 Alex Graveley"
-msgstr "版權所有 © 2004-2006 Alex Graveley"
-
-#: ../Tomboy/Tray.cs:327
-msgid "A simple and easy to use desktop note-taking application."
-msgstr "一款簡單易用的桌面筆記軟件。"
-
-#: ../Tomboy/Tray.cs:330
-msgid "Homepage & Donations"
-msgstr "網頁及捐獻"
+#: ../Tomboy/Utils.cs:128
+msgid "Help not found"
+msgstr "找不到求助檔"
 
 #: ../Tomboy/Watchers.cs:137
 #, csharp-format
@@ -690,33 +909,113 @@ msgstr "以標題「<b>{0}</b>」命名的筆記頁已經存在。繼續之前�
 msgid "Note title taken"
 msgstr "已取得筆記頁標題"
 
-#: ../Tomboy/Watchers.cs:386
+#: ../Tomboy/Watchers.cs:422
 msgid "Cannot open location"
 msgstr "無法開啟位置"
 
-#: ../Tomboy/Watchers.cs:480
+#: ../Tomboy/Watchers.cs:516
 msgid "_Copy Link Address"
 msgstr "複製鏈結位址(_C)"
 
-#: ../Tomboy/Watchers.cs:485
+#: ../Tomboy/Watchers.cs:521
 msgid "_Open Link"
 msgstr "開啟鏈結(_O)"
 
-#: ../Tomboy/Plugins/Evolution.cs:264
+#: ../Tomboy/Plugins/Backlinks.cs:78
+msgid "What links here?"
+msgstr "要在這裏鏈結什麼？"
+
+#: ../Tomboy/Plugins/Backlinks.cs:136
+msgid "(none)"
+msgstr "（沒有）"
+
+#: ../Tomboy/Plugins/Bugzilla.cs:181
+msgid "Use the following:"
+msgstr "使用下列:"
+
+#: ../Tomboy/Plugins/Bugzilla.cs:197
+msgid "Host Name"
+msgstr "主機名稱"
+
+#: ../Tomboy/Plugins/Bugzilla.cs:214
+msgid "Icon"
+msgstr "圖示"
+
+#: ../Tomboy/Plugins/Bugzilla.cs:337
+msgid "Select an icon..."
+msgstr "選擇圖示..."
+
+#. Extra Widget
+#: ../Tomboy/Plugins/Bugzilla.cs:352
+msgid "_Host name:"
+msgstr "主機名稱(_H):"
+
+#: ../Tomboy/Plugins/Bugzilla.cs:381
+msgid "No host name specified"
+msgstr "沒有指定主機名稱"
+
+#: ../Tomboy/Plugins/Bugzilla.cs:382
+msgid "You must specify the Bugzilla host name to use with this icon."
+msgstr "你必須指定 Bugzilla 主機名稱才能使用此圖示。"
+
+#: ../Tomboy/Plugins/Bugzilla.cs:408
+msgid "Error saving icon"
+msgstr "儲存圖示發生錯誤"
+
+#: ../Tomboy/Plugins/Bugzilla.cs:409
+msgid "Could not save the icon file.  "
+msgstr "無法儲存圖示檔案。"
+
+#: ../Tomboy/Plugins/Bugzilla.cs:457
+msgid "Really remove this icon?"
+msgstr "確定移除這個圖示？"
+
+#: ../Tomboy/Plugins/Bugzilla.cs:458
+msgid "If you remove an icon it is permanently lost."
+msgstr "如果你刪除圖示，它將被永久刪除。"
+
+#: ../Tomboy/Plugins/Evolution.cs:265
 msgid "Cannot open email"
 msgstr "無法開啟電子郵件"
 
-#: ../Tomboy/Plugins/ExportToHTML.cs:47
+#: ../Tomboy/Plugins/ExportToHTML.cs:54
 msgid "Export to HTML"
 msgstr "匯出成 HTML 檔"
 
-#: ../Tomboy/Plugins/ExportToHTML.cs:201
+#: ../Tomboy/Plugins/ExportToHTML.cs:113
+#, csharp-format
+msgid "Your note was exported to \"{0}\"."
+msgstr "你的筆記已匯出至「{0}」。"
+
+#: ../Tomboy/Plugins/ExportToHTML.cs:124
+msgid "Note exported successfully"
+msgstr "筆記已經成功的匯出"
+
+#: ../Tomboy/Plugins/ExportToHTML.cs:130
+msgid "Access denied."
+msgstr "存取被禁止。"
+
+#: ../Tomboy/Plugins/ExportToHTML.cs:132
+msgid "Folder does not exist."
+msgstr "資料夾不存在。"
+
+#: ../Tomboy/Plugins/ExportToHTML.cs:147
+#, csharp-format
+msgid "Could not save the file \"{0}\""
+msgstr "無法儲存檔案「{0}」"
+
+#: ../Tomboy/Plugins/ExportToHTML.cs:266
 msgid "Destination for HTML Export"
 msgstr "匯出 HTML 到指定位置"
 
 # (Abel) 這裡的英文完全是誤導
-#: ../Tomboy/Plugins/ExportToHTML.cs:206
+#: ../Tomboy/Plugins/ExportToHTML.cs:276
 msgid "Export linked notes"
+msgstr "匯出鏈結的內容"
+
+# (Abel) 這裡的英文完全是誤導
+#: ../Tomboy/Plugins/ExportToHTML.cs:281
+msgid "Include all other linked notes"
 msgstr "同時匯出鏈結的內容"
 
 #: ../Tomboy/Plugins/FixedWidth.cs:34
@@ -734,53 +1033,52 @@ msgid "Error running gaim-remote: {0}"
 msgstr "執行 gaim-remote 發生錯誤: {0}"
 
 #: ../Tomboy/Plugins/NoteOfTheDay.cs:13
-msgid "NotD: "
-msgstr "今天的筆記頁:"
+msgid "Today: "
+msgstr "今天:"
 
-#. Format: "NotD: Friday, July 01 2005"
-#: ../Tomboy/Plugins/NoteOfTheDay.cs:18
+#: ../Tomboy/Plugins/NoteOfTheDay.cs:14
+msgid "Today: Template"
+msgstr "今天: 範本"
+
+#. Format: "Today: Friday, July 01 2005"
+#: ../Tomboy/Plugins/NoteOfTheDay.cs:19
 msgid "dddd, MMMM d yyyy"
 msgstr "yyyy年 MMMM d日 (dddd)"
 
-#: ../Tomboy/Plugins/NoteOfTheDay.cs:33
+#: ../Tomboy/Plugins/NoteOfTheDay.cs:40
 msgid "Tasks"
 msgstr "工作"
 
-#: ../Tomboy/Plugins/NoteOfTheDay.cs:34
+#: ../Tomboy/Plugins/NoteOfTheDay.cs:41
 msgid "Appointments"
 msgstr "約會"
 
-#: ../Tomboy/Plugins/NoteOfTheDay.cs:169
-msgid "Create Note of the Day"
-msgstr "建立今天的筆記頁"
-
-#: ../Tomboy/Plugins/StickyNoteImport.cs:34
+#: ../Tomboy/Plugins/StickyNoteImport.cs:41
 msgid "Import from Sticky Notes"
 msgstr "從舊「便條」匯入資料"
 
-#: ../Tomboy/Plugins/StickyNoteImport.cs:110
+#: ../Tomboy/Plugins/StickyNoteImport.cs:119
 msgid "No Sticky Notes found"
 msgstr "找不到舊「便條」內容"
 
-#: ../Tomboy/Plugins/StickyNoteImport.cs:111
+#: ../Tomboy/Plugins/StickyNoteImport.cs:120
 #, csharp-format
 msgid "No suitable Sticky Notes file was found at \"{0}\"."
 msgstr "在 “{0}” 中找不到適當的舊「便條」檔案。"
 
-#: ../Tomboy/Plugins/StickyNoteImport.cs:120
+#: ../Tomboy/Plugins/StickyNoteImport.cs:129
 msgid "Sticky Notes import completed"
 msgstr "成功匯入舊「便條」的資料"
 
-#: ../Tomboy/Plugins/StickyNoteImport.cs:121
+#: ../Tomboy/Plugins/StickyNoteImport.cs:130
 #, csharp-format
 msgid "<b>{0}</b> of <b>{1}</b> Sticky Notes were successfully imported."
 msgstr "成功匯入了 <b>{1}</b> 頁舊「便條」內容中的 <b>{0}</b> 頁。"
 
-#: ../Tomboy/Plugins/StickyNoteImport.cs:133
+#: ../Tomboy/Plugins/StickyNoteImport.cs:142
 msgid "Untitled"
 msgstr "無標題"
 
-#: ../Tomboy/Plugins/StickyNoteImport.cs:161
+#: ../Tomboy/Plugins/StickyNoteImport.cs:170
 msgid "Sticky Note: "
 msgstr "「便條」："
-
