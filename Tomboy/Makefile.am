@@ -8,11 +8,17 @@ WRAPPER = tomboy
 
 if ENABLE_DBUS
 DBUS_CSFLAGS = -define:ENABLE_DBUS
+if EXTERNAL_DBUS
+DBUS_CSFILES = 				\
+	$(srcdir)/RemoteControl.cs	\
+	$(srcdir)/RemoteControlProxy.cs
+else
 DBUS_CSFILES = 				\
 	$(srcdir)/dbus-sharp/dbus-sharp/src/*.cs	\
 	$(srcdir)/dbus-sharp/dbus-sharp-glib/glib/*.cs	\
 	$(srcdir)/RemoteControl.cs	\
 	$(srcdir)/RemoteControlProxy.cs
+endif
 endif
 
 if FIXED_GTKSPELL
@@ -54,7 +60,8 @@ CSFILES = 					\
 
 ASSEMBLIES = 		\
 	$(TOMBOY_LIBS) 	\
-	-r:Mono.Posix
+	-r:Mono.Posix	\
+	$(DBUS_LIBS)
 
 RESOURCES = 										\
 	-resource:$(top_srcdir)/data/GNOME_TomboyApplet.xml,GNOME_TomboyApplet.xml	\
