@@ -491,11 +491,13 @@ namespace Tomboy
 	{
 		int offset;
 		int depth;
+		Pango.Direction direction;
 		
-		public InsertBulletAction (int offset, int depth)
+		public InsertBulletAction (int offset, int depth, Pango.Direction direction)
 		{
 			this.offset = offset;
 			this.depth = depth;
+			this.direction = direction;
 		}
 
 		public void Undo (Gtk.TextBuffer buffer)
@@ -518,7 +520,7 @@ namespace Tomboy
 
 			buffer.Insert (ref iter, "\n");
 
-			((NoteBuffer) buffer).InsertBullet (ref iter, depth);
+			((NoteBuffer) buffer).InsertBullet (ref iter, depth, direction);
 
 			buffer.MoveMark (buffer.InsertMark, iter);
 			buffer.MoveMark (buffer.SelectionBound, iter);
@@ -748,7 +750,7 @@ namespace Tomboy
 		void OnBulletInserted(object sender, InsertBulletEventArgs args)
 		{
 			if (frozen_cnt == 0) {
-				AddUndoAction (new InsertBulletAction (args.Offset, args.Depth));
+				AddUndoAction (new InsertBulletAction (args.Offset, args.Depth, args.Direction));
 			}
 		}		
 	}

@@ -1,3 +1,32 @@
+2007-02-09 Chris Scobell <chris@thescobells.com>
+	
+	Fixes for bug #405603:
+
+	* NoteBuffer.cs: Change the signature of FindDepthTag so that it no longer
+	unnecessarily requires the TextIter to be passed by reference. When 
+	inserting text at the start of a bulleted line change the direction of 
+	the bullet to match	the writing direction of the text. Add an event 
+	handler	for the DeleteRange event which changes the direction of a 
+	bulleted line to match the new first character after the previous one is
+	deleted. When a new line is added in the middle of a bulleted line make
+	sure that the new bulleted inserted at the start of the new line is the 
+	same direction as the first character on that line. Add a "direction" 
+	parameter to InsertBullet so that it can use the DepthNoteTag of the 
+	correct writing direction. Add a ToggleSelectionBullets method which 
+	toggles bullets on or off in the selection.
+	
+	* NoteWindow.cs: Remove ugly toggle bullets hack.
+	
+	* NoteTag.cs: Add a "Direction" property to specify the writing direction that
+	the tag is for. Add a "rtl" attribute to the DepthNoteTag serialized XML.
+	When creating a new DepthNoteTag set either the LeftMargin for a LTR direction
+	or the RightMargin for a RTL direction.
+	
+	* Undo.cs: Store the writing direction for an InsertBulletAction so that the 
+	InsertBullet can be redone using the correct direction.
+	
+	* Plugins/ExportToHTML.xsl: Output the "dir" attribute on list-items.
+
 2007-02-08  Boyd Timothy  <btimothy@gmail.com>
 
 	* Tomboy/dbus-sharp/*: Updated dbus-sharp and dbus-sharp-glib to 0.4.0 and

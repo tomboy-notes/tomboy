@@ -315,17 +315,23 @@ namespace Tomboy
 	public class DepthNoteTag : NoteTag
 	{
 		int depth = -1;
+		Pango.Direction direction = Pango.Direction.Ltr;
 		
 		public int Depth
 		{
 			get{ return depth; }
-			set{ depth = value; }
+		}
+		
+		public Pango.Direction Direction
+		{
+			get{ return direction; }
 		}
 
-		public DepthNoteTag (int depth)
-			: base("depth:" + depth)
+		public DepthNoteTag (int depth, Pango.Direction direction)
+			: base("depth:" + depth + ":" + direction)
 		{
-			Depth = depth;
+			this.depth = depth;
+			this.direction = direction;
 		}
 
 		public override void Write (XmlTextWriter xml, bool start)
@@ -333,6 +339,14 @@ namespace Tomboy
 			if (CanSerialize) {
 				if (start) {
 					xml.WriteStartElement (null, "list-item", null);
+					
+					// Write the list items writing direction
+					xml.WriteStartAttribute (null, "dir", null);
+					if (Direction == Pango.Direction.Rtl)
+						xml.WriteString ("rtl");
+					else
+						xml.WriteString ("ltr");
+					xml.WriteEndAttribute ();
 				} else {
 					xml.WriteEndElement ();
 				}
@@ -526,14 +540,21 @@ namespace Tomboy
 			return false;
 		}
 
-		public DepthNoteTag GetDepthTag(int depth)
+		public DepthNoteTag GetDepthTag(int depth, Pango.Direction direction)
 		{
-			DepthNoteTag tag = Lookup ("depth:" + depth) as DepthNoteTag;
+			string name = "depth:" + depth + ":" + direction;
+			
+			DepthNoteTag tag = Lookup (name) as DepthNoteTag;
 
 			if (tag == null) {
-				tag = new DepthNoteTag (depth);
+				tag = new DepthNoteTag (depth, direction);
 				tag.Indent = -14;
-				tag.LeftMargin = (depth+1) * 25;
+				
+				if (direction == Pango.Direction.Rtl)
+					tag.RightMargin = (depth+1) * 25;
+				else
+					tag.LeftMargin = (depth+1) * 25;
+				
 				tag.PixelsBelowLines = 4;
 				tag.Scale = Pango.Scale.Medium;
 				tag.SizePoints = 12;
