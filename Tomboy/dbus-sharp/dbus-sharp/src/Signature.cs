@@ -12,7 +12,7 @@ using System.Reflection;
 namespace NDesk.DBus
 {
 	//maybe this should be nullable?
-	public struct Signature
+	struct Signature
 	{
 		//TODO: this class needs some work
 		//Data should probably include the null terminator
@@ -96,13 +96,13 @@ namespace NDesk.DBus
 		}
 
 		//this will become obsolete soon
-		public Signature (DType value)
+		internal Signature (DType value)
 		{
 			this.data = new byte[1];
 			this.data[0] = (byte)value;
 		}
 
-		public Signature (DType[] value)
+		internal Signature (DType[] value)
 		{
 			this.data = new byte[value.Length];
 
@@ -126,7 +126,7 @@ namespace NDesk.DBus
 			return data;
 		}
 
-		public DType this[int index]
+		internal DType this[int index]
 		{
 			get {
 				return (DType)data[index];
@@ -288,7 +288,7 @@ namespace NDesk.DBus
 			return ret;
 		}
 
-		public static DType TypeCodeToDType (TypeCode typeCode)
+		internal static DType TypeCodeToDType (TypeCode typeCode)
 		{
 			switch (typeCode)
 			{
@@ -334,7 +334,7 @@ namespace NDesk.DBus
 		}
 
 		//FIXME: this method is bad, get rid of it
-		public static DType TypeToDType (Type type)
+		internal static DType TypeToDType (Type type)
 		{
 			if (type == typeof (void))
 				return DType.Invalid;
@@ -394,7 +394,7 @@ namespace NDesk.DBus
 				return DType.Int64;
 			else if (type == typeof (ulong))
 				return DType.UInt64;
-			else if (type == typeof (float)) //FIXME: this isn't supported by DBus yet
+			else if (type == typeof (float)) //not supported by libdbus at time of writing
 				return DType.Single;
 			else if (type == typeof (double))
 				return DType.Double;
@@ -432,7 +432,7 @@ namespace NDesk.DBus
 					return typeof (long);
 				case DType.UInt64:
 					return typeof (ulong);
-				case DType.Single: //Not yet supported!
+				case DType.Single: ////not supported by libdbus at time of writing
 					return typeof (float);
 				case DType.Double:
 					return typeof (double);
@@ -532,13 +532,13 @@ namespace NDesk.DBus
 		}
 	}
 
-	public enum ArgDirection
+	enum ArgDirection
 	{
 		In,
 		Out,
 	}
 
-	public enum DType : byte
+	enum DType : byte
 	{
 		Invalid = (byte)'\0',
 
