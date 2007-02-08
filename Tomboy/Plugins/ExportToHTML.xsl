@@ -147,6 +147,9 @@
 		<xsl:if test="normalize-space(text()) = ''">
 			<xsl:attribute name="style">list-style-type: none</xsl:attribute>
 		</xsl:if>
+		<xsl:attribute name="dir">
+			<xsl:value-of select="@dir"/>
+		</xsl:attribute>
 		<xsl:apply-templates select="node()" />
 	</li>
 </xsl:template>

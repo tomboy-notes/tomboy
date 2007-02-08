@@ -314,13 +314,13 @@ namespace Tomboy
 			KeyPressEvent += KeyPressed;
 						   
 			// Increase Indent			    
-			global_keys.AddAccelerator (new EventHandler (IncreaseDepthHandler),
+			global_keys.AddAccelerator (new EventHandler (ChangeDepthRightHandler),
 						    (uint) Gdk.Key.Right, 
 						    Gdk.ModifierType.Mod1Mask,
 						    Gtk.AccelFlags.Visible);
 						    
 			// Decrease Indent
-			global_keys.AddAccelerator (new EventHandler (DecreaseDepthHandler),
+			global_keys.AddAccelerator (new EventHandler (ChangeDepthLeftHandler),
 						    (uint) Gdk.Key.Left, 
 						    Gdk.ModifierType.Mod1Mask,
 						    Gtk.AccelFlags.Visible);			
@@ -810,14 +810,14 @@ namespace Tomboy
 			SearchButtonClicked ();
 		}
 
-		void IncreaseDepthHandler (object sender, EventArgs args)
+		void ChangeDepthRightHandler (object sender, EventArgs args)
 		{
-			((NoteBuffer)editor.Buffer).IncreaseCursorDepth();
+			((NoteBuffer)editor.Buffer).ChangeCursorDepthDirectional (true);
 		}
 		
-		void DecreaseDepthHandler (object sender, EventArgs args)
+		void ChangeDepthLeftHandler (object sender, EventArgs args)
 		{
-			((NoteBuffer)editor.Buffer).DecreaseCursorDepth();
+			((NoteBuffer)editor.Buffer).ChangeCursorDepthDirectional (false);
 		}	
 	}
 	
@@ -1605,20 +1605,7 @@ namespace Tomboy
 		//
 		void ToggleBulletsClicked (object sender, EventArgs args)
 		{
-			bool inside_bullets = buffer.IsBulletedListActive ();
-			if (!inside_bullets)
-				buffer.IncreaseCursorDepth ();
-			else {
-				// FIXME: This is a bad hack.  There's got to be
-				// a better way to remove the bullet.
-				
-				// For now, keep calling buffer.DecreaseCursorDepth ()
-				// until bullets are no longer present.
-				do {
-					buffer.DecreaseCursorDepth ();
-					inside_bullets = buffer.IsBulletedListActive ();
-				} while (inside_bullets == true);
-			}
+			buffer.ToggleSelectionBullets ();
 		}
 		
 		void IncreaseIndentClicked (object sender, EventArgs args)

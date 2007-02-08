@@ -38,6 +38,7 @@ namespace Tomboy
 			undo_manager = new UndoManager (this);
 
 			InsertText += TextInsertedEvent;
+			DeleteRange += RangeDeletedEvent;
 			MarkSet += MarkSetEvent;
 			
 			TagApplied += OnTagApplied;
@@ -66,7 +67,7 @@ namespace Tomboy
 
 			if (GetSelectionBounds (out select_start, out select_end)) {
 				// Ignore the bullet character
-				if (FindDepthTag(ref select_start) != null)
+				if (FindDepthTag (select_start) != null)
 					select_start.LineOffset = 2;
 
 				if (select_start.BeginsTag (tag) || select_start.HasTag (tag))
@@ -118,7 +119,7 @@ namespace Tomboy
 				for (int i = args.StartChar.Line; i <= args.EndChar.Line; i++) {
 					iter = GetIterAtLine(i);
 					
-					if (FindDepthTag (ref iter) != null) {
+					if (FindDepthTag (iter) != null) {
 						Gtk.TextIter next = iter;
 						next.ForwardChars (2);
 						RemoveTag (args.Tag, iter, next);
@@ -145,7 +146,7 @@ namespace Tomboy
 			if (GetSelectionBounds (out iter, out select_end)) {
 				// Ignore the bullet character and look at the
 				// first character of the list item
-				if (FindDepthTag(ref iter) != null)
+				if (FindDepthTag (iter) != null)
 					iter.ForwardChars (2);
 				return iter.BeginsTag (tag) || iter.HasTag (tag);
 			} else {
@@ -160,7 +161,7 @@ namespace Tomboy
 			Gtk.TextIter iter = GetIterAtMark (insert_mark);
 			iter.LineOffset = 0;
 			
-			DepthNoteTag depth = FindDepthTag (ref iter);
+			DepthNoteTag depth = FindDepthTag (iter);
 			
 			if (depth == null)
 				return false;
@@ -199,9 +200,48 @@ namespace Tomboy
 				}
 				Undoer.ThawUndo ();
 			}
+			
+			// See if we want to change the direction of the bullet
+			Gtk.TextIter line_start = args.Pos;
+			line_start.LineOffset = 0;
+
+			if (args.Pos.LineOffset - args.Text.Length == 2 && 
+				FindDepthTag (line_start) != null) {
+				Pango.Direction direction = Pango.Direction.Ltr;
+				
+				if (args.Text.Length > 0)
+					direction = Pango.Global.UnicharDirection (args.Text[0]);
+
+				ChangeBulletDirection (args.Pos, direction);
+			}
 
 			if (InsertTextWithTags != null)
 				InsertTextWithTags (sender, args);
+		}
+		
+		// Change the direction of a bulleted line to match the new 
+		// first character after the previous character is deleted.
+		void RangeDeletedEvent (object sender, Gtk.DeleteRangeArgs args)
+		{
+			Gtk.TextIter[] iters = {args.Start, args.End};
+			foreach (Gtk.TextIter iter in iters) {
+				Gtk.TextIter line_start = iter;
+				line_start.LineOffset = 0;
+			
+				if ((iter.LineOffset == 3 || iter.LineOffset == 2) && 
+					FindDepthTag (line_start) != null) {
+					
+					Gtk.TextIter first_char = iter;					
+					first_char.LineOffset = 2;
+					
+					Pango.Direction direction = Pango.Direction.Ltr;
+					
+					if (first_char.Char.Length > 0)
+						direction = Pango.Global.UnicharDirection (first_char.Char[0]);
+					
+					ChangeBulletDirection (first_char, direction);
+				}
+			}
 		}
 		
 		public bool AddNewline()
@@ -213,7 +253,7 @@ namespace Tomboy
 			Gtk.TextIter iter = GetIterAtMark (insert_mark);
 			iter.LineOffset = 0;
 			
-			DepthNoteTag prev_depth = FindDepthTag (ref iter);
+			DepthNoteTag prev_depth = FindDepthTag (iter);
 
 			// If the previous line has a bullet point on it we add a bullet
 			// to the new line, unless the previous line was blank (apart from
@@ -249,12 +289,18 @@ namespace Tomboy
 				
 					iter = GetIterAtMark (insert_mark);
 					Gtk.TextIter start = GetIterAtLine (iter.Line);
+					
+					// Set the direction of the bullet to be the same
+					// as the first character on the new line
+					Pango.Direction direction = prev_depth.Direction;
+					if (iter.Char != "\n" && iter.Char.Length > 0)
+						direction = Pango.Global.UnicharDirection (iter.Char[0]);	
 
-					InsertBullet (ref start, prev_depth.Depth);
+					InsertBullet (ref start, prev_depth.Depth, direction);
 					Undoer.ThawUndo ();
 					
 					NewBulletInserted (this,
-						new InsertBulletEventArgs (offset, prev_depth.Depth));
+						new InsertBulletEventArgs (offset, prev_depth.Depth, direction));
 				}
 				
 				return true;
@@ -267,6 +313,12 @@ namespace Tomboy
 				// Remove the '*' character and any leading white space
 				if (end.Char == " ")
 					end.ForwardChar();
+				
+				// Set the direction of the bullet to be the same as
+				// the first character after the '*' or '-'
+				Pango.Direction direction = Pango.Direction.Ltr;
+				if (end.Char.Length > 0)
+					direction = Pango.Global.UnicharDirection (end.Char[0]);
 				
 				Delete (ref start, ref end);
 
@@ -283,11 +335,11 @@ namespace Tomboy
 					iter.LineOffset = 0;
 
 					Undoer.FreezeUndo ();
-					InsertBullet (ref iter, 0);
+					InsertBullet (ref iter, 0, direction);
 					Undoer.ThawUndo ();
 
 					NewBulletInserted (this,
-						new InsertBulletEventArgs (offset, 0));
+						new InsertBulletEventArgs (offset, 0, direction));
 				}			
 				
 				return true;
@@ -303,7 +355,7 @@ namespace Tomboy
 			Gtk.TextIter iter = GetIterAtMark (insert_mark);
 			iter.LineOffset = 0;		
 			
-			DepthNoteTag depth = FindDepthTag (ref iter);
+			DepthNoteTag depth = FindDepthTag (iter);
 			
 			// If the cursor is at a line with a depth and a tab has been
 			// inserted then we increase the indent depth of that line.
@@ -322,7 +374,7 @@ namespace Tomboy
 			Gtk.TextIter iter = GetIterAtMark (insert_mark);
 			iter.LineOffset = 0;
 			
-			DepthNoteTag depth = FindDepthTag (ref iter);
+			DepthNoteTag depth = FindDepthTag (iter);
 			
 			// If the cursor is at a line with depth and a tab has been
 			// inserted, then we decrease the depth of that line.
@@ -354,7 +406,7 @@ namespace Tomboy
 				end = start;
 				end.ForwardChars (3);
 				
-				DepthNoteTag depth = FindDepthTag (ref next);
+				DepthNoteTag depth = FindDepthTag (next);
 				
 				if (depth != null) {
 					Delete (ref start, ref end);
@@ -366,8 +418,8 @@ namespace Tomboy
 				if (next.LineOffset != 0)
 					next.ForwardChar ();
 				
-				DepthNoteTag depth = FindDepthTag (ref start);
-				DepthNoteTag nextDepth = FindDepthTag (ref next);
+				DepthNoteTag depth = FindDepthTag (start);
+				DepthNoteTag nextDepth = FindDepthTag (next);
 				if (depth != null || nextDepth != null) {
 					DecreaseDepth (ref start);
 					return true;
@@ -383,7 +435,7 @@ namespace Tomboy
 			
 			bool selection = GetSelectionBounds (out start, out end);
 			
-			DepthNoteTag depth = FindDepthTag (ref start);
+			DepthNoteTag depth = FindDepthTag (start);
 			
 			if (selection) {
 				AugmentSelection (ref start, ref end);
@@ -401,7 +453,7 @@ namespace Tomboy
 				if (prev.LineOffset != 0)
 					prev.BackwardChars (1);
 				
-				DepthNoteTag prev_depth = FindDepthTag (ref prev);
+				DepthNoteTag prev_depth = FindDepthTag (prev);
 				if (depth != null || prev_depth != null) {
 					DecreaseDepth (ref start);
 					return true;
@@ -426,7 +478,7 @@ namespace Tomboy
 				// If the cursor is at the start of a bulleted line
 				// move it so it is after the bullet.
 				if ((start.LineOffset == 0 || start.LineOffset == 1) && 
-						FindDepthTag (ref start) != null) 
+						FindDepthTag (start) != null) 
 				{
 					start.LineOffset = 2;
 					SelectRange (start, start);
@@ -438,13 +490,13 @@ namespace Tomboy
 		// bullets that are in or near the seletion
 		void AugmentSelection (ref Gtk.TextIter start, ref Gtk.TextIter end)
 		{
-			DepthNoteTag start_depth = FindDepthTag (ref start);
-			DepthNoteTag end_depth = FindDepthTag (ref end);
+			DepthNoteTag start_depth = FindDepthTag (start);
+			DepthNoteTag end_depth = FindDepthTag (end);
 
 			Gtk.TextIter inside_end = end;
 			inside_end.BackwardChar ();
 			
-			DepthNoteTag inside_end_depth = FindDepthTag (ref inside_end);
+			DepthNoteTag inside_end_depth = FindDepthTag (inside_end);
 
 			// Start inside bullet region
 			if (start_depth != null) {
@@ -537,7 +589,7 @@ namespace Tomboy
 				Gtk.TextMark location = data.position;
 				
 				// Prevent the image from being inserted before a bullet
-				if (FindDepthTag(ref iter) != null) {
+				if (FindDepthTag (iter) != null) {
 					iter.LineOffset = 2;
 					location = CreateMark(data.position.Name, iter, data.position.LeftGravity);
 				}
@@ -647,6 +699,36 @@ namespace Tomboy
 					end.ForwardToTagToggle (avoid_tag);
 			}
 		}
+		
+		// Toggle the lines in the selection to have bullets or not
+		public void ToggleSelectionBullets ()
+		{
+			Gtk.TextIter start;
+			Gtk.TextIter end;
+			
+			GetSelectionBounds (out start, out end);
+
+			start = GetIterAtLineOffset (start.Line, 0);
+			
+			bool toggle_on = true;
+			if (FindDepthTag (start) != null) {
+				Gtk.TextIter bullet_end = GetIterAtLineOffset (start.Line, 2);
+				toggle_on = false;
+			}
+			
+			int start_line = start.Line;
+			int end_line = end.Line;
+			
+			for (int i = start_line; i <= end_line; i++) {
+				Gtk.TextIter curr_line = GetIterAtLine(i);
+				if (toggle_on && FindDepthTag (curr_line) == null) {
+					IncreaseDepth (ref curr_line);
+				} else if (!toggle_on && FindDepthTag (curr_line) != null) {
+					Gtk.TextIter bullet_end = GetIterAtLineOffset (curr_line.Line, 2);
+					Delete (ref curr_line, ref bullet_end);
+				}
+			}
+		}
 
 		public void IncreaseCursorDepth ()
 		{
@@ -657,6 +739,50 @@ namespace Tomboy
 		{
 			ChangeCursorDepth (false);
 		}
+		
+		// Increase or decrease the depth of the line at the
+		// cursor depending on wheather it is RTL or LTR
+		public void ChangeCursorDepthDirectional (bool right)
+		{
+			Gtk.TextIter start;
+			Gtk.TextIter end;
+			
+			GetSelectionBounds (out start, out end);
+
+			// If we are moving right then:
+			//   RTL => decrease depth
+			//   LTR => increase depth
+			// We choose to increase or decrease the depth 
+			// based on the fist line in the selection.
+			bool increase = right;
+			start.LineOffset = 0;
+			DepthNoteTag start_depth = FindDepthTag (start);
+			
+			bool rtl_depth = start_depth != null && start_depth.Direction == Pango.Direction.Rtl;
+			bool first_char_rtl = start.Char.Length > 0 && 
+									(Pango.Global.UnicharDirection (start.Char[0]) 
+										== Pango.Direction.Rtl);
+			Gtk.TextIter next = start;
+			
+			if (start_depth != null) {
+				next.ForwardChars (2);
+			} else {
+				// Look for the first non-space character on the line
+				// and use that to determine what direction we should go
+				next.ForwardSentenceEnd ();
+				next.BackwardSentenceStart ();
+				first_char_rtl = 
+					next.Char.Length > 0 && 
+						(Pango.Global.UnicharDirection (next.Char[0]) == Pango.Direction.Rtl);				
+			}
+			
+			if ((rtl_depth || first_char_rtl) && 
+					((next.Line == start.Line) && !next.EndsLine ())) {
+				increase = !right;
+			}
+			
+			ChangeCursorDepth(increase);
+		}	
 		
 		void ChangeCursorDepth(bool increase)
 		{
@@ -678,12 +804,37 @@ namespace Tomboy
 					DecreaseDepth (ref curr_line);
 			}		
 		}
+
+		// Change the writing direction (ie. RTL or LTR) of a bullet.
+		// This makes the bulleted line use the correct indent
+		public void ChangeBulletDirection (Gtk.TextIter iter, Pango.Direction direction)
+		{	
+			iter.LineOffset = 0;
+			
+			DepthNoteTag tag = FindDepthTag (iter);
+			if (tag != null) {
+				if (tag.Direction != direction && 
+					direction != Pango.Direction.Neutral) {	
+					NoteTagTable note_table = TagTable as NoteTagTable;
+					
+					// Get the depth tag for the given direction
+					Gtk.TextTag new_tag = note_table.GetDepthTag (tag.Depth, direction);
+				
+					Gtk.TextIter next = iter;
+					next.ForwardChar ();
+				
+					// Replace the old depth tag with the new one
+					RemoveAllTags (iter, next);
+					ApplyTag (new_tag, iter, next);
+				}
+			}
+		}		
 		
-		public void InsertBullet (ref Gtk.TextIter iter, int depth)
+		public void InsertBullet (ref Gtk.TextIter iter, int depth, Pango.Direction direction)
 		{
 			NoteTagTable note_table = TagTable as NoteTagTable;
 
-			DepthNoteTag tag = note_table.GetDepthTag (depth);
+			DepthNoteTag tag = note_table.GetDepthTag (depth, direction);
 
 			string bullet =
 				indent_bullets [depth % indent_bullets.Length] + " ";
@@ -726,19 +877,29 @@ namespace Tomboy
 			end = start;
 			end.ForwardChars (2);
 
-			DepthNoteTag curr_depth = FindDepthTag (ref start);
+			DepthNoteTag curr_depth = FindDepthTag (start);
 
 			Undoer.FreezeUndo ();
 			if (curr_depth == null) {
 				// Insert a brand new bullet
-				InsertBullet (ref start, 0);
+				Gtk.TextIter next = start;
+				next.ForwardSentenceEnd ();
+				next.BackwardSentenceStart ();
+				
+				// Insert the bullet using the same direction
+				// as the text on the line
+				Pango.Direction direction = Pango.Direction.Ltr;
+				if (next.Char.Length > 0 && next.Line == start.Line)
+					direction = Pango.Global.UnicharDirection (next.Char[0]);
+								
+				InsertBullet (ref start, 0, direction);
 			} else {
 				// Remove the previous indent
 				Delete (ref start, ref end);
 				
 				// Insert the indent at the new depth
 				int nextDepth = curr_depth.Depth + 1;
-				InsertBullet (ref start, nextDepth);
+				InsertBullet (ref start, nextDepth, curr_depth.Direction);
 			}
 			Undoer.ThawUndo ();			
 
@@ -757,13 +918,13 @@ namespace Tomboy
 			Gtk.TextIter line_end = start;
 			line_end.ForwardToLineEnd ();
 
-			if (line_end.LineOffset < 2) {
+			if (line_end.LineOffset < 2 || start.EndsLine()) {
 				end = start;
 			} else {
 				end = GetIterAtLineOffset (start.Line, 2);
 			}
 
-			DepthNoteTag curr_depth = FindDepthTag (ref start);
+			DepthNoteTag curr_depth = FindDepthTag (start);
 
 			Undoer.FreezeUndo ();
 			if (curr_depth != null) {
@@ -774,7 +935,7 @@ namespace Tomboy
 				int nextDepth = curr_depth.Depth - 1;
 
 				if (nextDepth != -1) {
-					InsertBullet (ref start, nextDepth);
+					InsertBullet (ref start, nextDepth, curr_depth.Direction);
 				}
 			}
 			Undoer.ThawUndo ();
@@ -782,7 +943,7 @@ namespace Tomboy
 			ChangeTextDepth (this, new ChangeDepthEventArgs (start.Line, false));
 		}
 				
-		public DepthNoteTag FindDepthTag (ref Gtk.TextIter iter)
+		public DepthNoteTag FindDepthTag (Gtk.TextIter iter)
 		{
 			DepthNoteTag depth_tag = null;
 			
@@ -820,6 +981,7 @@ namespace Tomboy
 		int offset;
 		int line;
 		int depth;
+		Pango.Direction direction;
 
 		public int Offset { get {return offset; } }
 
@@ -827,10 +989,13 @@ namespace Tomboy
 
 		public int Depth { get {return depth; } }
 		
-		public InsertBulletEventArgs (int offset, int depth)
+		public Pango.Direction Direction { get {return direction; } }
+		
+		public InsertBulletEventArgs (int offset, int depth, Pango.Direction direction)
 		{
 			this.offset = offset;
 			this.depth = depth;
+			this.direction = direction;
 		}
   	}
   
@@ -909,7 +1074,7 @@ namespace Tomboy
 			while (!iter.Equal (end) && iter.Char != null) {
 				bool new_list = false;
 
-				DepthNoteTag depth_tag = ((NoteBuffer)buffer).FindDepthTag(ref iter);
+				DepthNoteTag depth_tag = ((NoteBuffer)buffer).FindDepthTag (iter);
 
 				// If we are at a character with a depth tag we are at the 
 				// start of a bulleted line
@@ -1007,7 +1172,7 @@ namespace Tomboy
 				if (iter.Line < buffer.LineCount - 1) {
 					Gtk.TextIter next_line = buffer.GetIterAtLine(iter.Line+1);
 					next_line_has_depth =
-						((NoteBuffer)buffer).FindDepthTag(ref next_line) != null;
+						((NoteBuffer)buffer).FindDepthTag (next_line) != null;
 				}
 				
 				bool at_empty_line = iter.EndsLine () && iter.StartsLine ();
@@ -1147,7 +1312,13 @@ namespace Tomboy
 						break;
 					} else if (xml.Name == "list-item") {
 						if (curr_depth >= 0) {
-							tag_start.Tag = note_table.GetDepthTag (curr_depth);
+							if (xml.GetAttribute ("dir") == "rtl") {
+								tag_start.Tag = 
+									note_table.GetDepthTag (curr_depth, Pango.Direction.Rtl);
+							} else {
+								tag_start.Tag = 
+									note_table.GetDepthTag (curr_depth, Pango.Direction.Ltr);
+							}							
 							list_stack.Push (false);
 						} else {
 							Logger.Error("</list> tag mismatch");
@@ -1205,7 +1376,9 @@ namespace Tomboy
 					DepthNoteTag depth_tag = tag_start.Tag as DepthNoteTag;
 					
 					if (depth_tag != null && (bool) list_stack.Pop ()) {
-						((NoteBuffer) buffer).InsertBullet (ref apply_start, depth_tag.Depth);
+						((NoteBuffer) buffer).InsertBullet (ref apply_start, 
+															depth_tag.Depth,
+															depth_tag.Direction);
 						buffer.RemoveAllTags (apply_start, apply_start);
 						offset += 2;
 					} else if(depth_tag == null) {
