@@ -8,7 +8,7 @@ using System.Reflection;
 
 namespace NDesk.DBus
 {
-	public static class Mapper
+	static class Mapper
 	{
 		//TODO: move these Get*Name helpers somewhere more appropriate
 		public static string GetArgumentName (ParameterInfo pi)
@@ -30,6 +30,51 @@ namespace NDesk.DBus
 				argName = aa.Name;
 
 			return argName;
+		}
+
+		//this will be inefficient for larger interfaces, could be easily rewritten
+		public static MemberInfo[] GetPublicMembers (Type type)
+		{
+			List<MemberInfo> mis = new List<MemberInfo> ();
+
+			foreach (Type ifType in type.GetInterfaces ())
+				mis.AddRange (GetPublicMembers (ifType));
+
+			//TODO: will DeclaredOnly for inherited members? inheritance support isn't widely used or tested in other places though
+			if (IsPublic (type))
+				foreach (MemberInfo mi in type.GetMembers (BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly))
+					mis.Add (mi);
+
+			return mis.ToArray ();
+		}
+
+		//this method walks the interface tree in an undefined manner and returns the first match, or if no matches are found, null
+		public static MethodInfo GetMethod (Type type, MethodCall method_call)
+		{
+			foreach (MemberInfo member in Mapper.GetPublicMembers (type)) {
+				MethodInfo meth = member as MethodInfo;
+
+				if (meth == null)
+					continue;
+
+				if (meth.Name != method_call.Member)
+					continue;
+
+				//this could be made more efficient by using the given interface name earlier and avoiding walking through all public interfaces
+				if (method_call.Interface != null)
+					if (GetInterfaceName (meth) != method_call.Interface)
+						continue;
+
+				Type[] inTypes = Mapper.GetTypes (ArgDirection.In, meth.GetParameters ());
+				Signature inSig = Signature.GetSig (inTypes);
+
+				if (inSig != method_call.Signature)
+					continue;
+
+				return meth;
+			}
+
+			return null;
 		}
 
 		public static bool IsPublic (MemberInfo mi)
@@ -103,7 +148,7 @@ namespace NDesk.DBus
 	}
 
 	//TODO: this class is messy, move the methods somewhere more appropriate
-	public static class MessageHelper
+	static class MessageHelper
 	{
 		//GetDynamicValues() should probably use yield eventually
 

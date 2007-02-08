@@ -16,10 +16,10 @@ namespace NDesk.DBus
 	public class Connection
 	{
 		//TODO: reconsider this field
-		protected Stream ns = null;
+		Stream ns = null;
 
-		protected Transport transport;
-		public Transport Transport {
+		Transport transport;
+		internal Transport Transport {
 			get {
 				return transport;
 			} set {
@@ -29,7 +29,7 @@ namespace NDesk.DBus
 
 		protected Connection () {}
 
-		public Connection (Transport transport)
+		internal Connection (Transport transport)
 		{
 			this.transport = transport;
 			transport.Connection = this;
@@ -38,19 +38,22 @@ namespace NDesk.DBus
 			ns = transport.Stream;
 		}
 
-		public Connection (string address)
+		//should this be public?
+		internal Connection (string address)
 		{
 			OpenPrivate (address);
 			Authenticate ();
 		}
 
-		protected bool isConnected = false;
+		/*
+		bool isConnected = false;
 		public bool IsConnected
 		{
 			get {
 				return isConnected;
 			}
 		}
+		*/
 
 		//should we do connection sharing here?
 		public static Connection Open (string address)
@@ -62,9 +65,7 @@ namespace NDesk.DBus
 			return conn;
 		}
 
-		//TODO: reduce visibility when test-server no longer needs this
-		//protected void OpenPrivate (string address)
-		public void OpenPrivate (string address)
+		internal void OpenPrivate (string address)
 		{
 			if (address == null)
 				throw new ArgumentNullException ("address");
@@ -82,7 +83,7 @@ namespace NDesk.DBus
 			ns = transport.Stream;
 		}
 
-		public void Authenticate ()
+		void Authenticate ()
 		{
 			if (transport != null)
 				transport.WriteCred ();
@@ -92,8 +93,8 @@ namespace NDesk.DBus
 			isAuthenticated = true;
 		}
 
-		protected bool isAuthenticated = false;
-		public bool IsAuthenticated
+		bool isAuthenticated = false;
+		internal bool IsAuthenticated
 		{
 			get {
 				return isAuthenticated;
@@ -101,14 +102,14 @@ namespace NDesk.DBus
 		}
 
 		//Interlocked.Increment() handles the overflow condition for uint correctly, so it's ok to store the value as an int but cast it to uint
-		protected int serial = 0;
-		protected uint GenerateSerial ()
+		int serial = 0;
+		uint GenerateSerial ()
 		{
 			//return ++serial;
 			return (uint)Interlocked.Increment (ref serial);
 		}
 
-		public Message SendWithReplyAndBlock (Message msg)
+		internal Message SendWithReplyAndBlock (Message msg)
 		{
 			uint id = SendWithReply (msg);
 
@@ -126,13 +127,13 @@ namespace NDesk.DBus
 			return retMsg;
 		}
 
-		public uint SendWithReply (Message msg)
+		internal uint SendWithReply (Message msg)
 		{
 			msg.ReplyExpected = true;
 			return Send (msg);
 		}
 
-		public uint Send (Message msg)
+		internal uint Send (Message msg)
 		{
 			msg.Header.Serial = GenerateSerial ();
 
@@ -147,16 +148,16 @@ namespace NDesk.DBus
 			return msg.Header.Serial;
 		}
 
-		protected void WriteMessage (Message msg)
+		internal void WriteMessage (Message msg)
 		{
 			ns.Write (msg.HeaderData, 0, msg.HeaderData.Length);
 			if (msg.Body != null && msg.Body.Length != 0)
 				ns.Write (msg.Body, 0, msg.Body.Length);
 		}
 
-		protected Queue<Message> Inbound = new Queue<Message> ();
+		Queue<Message> Inbound = new Queue<Message> ();
 		/*
-		protected Queue<Message> Outbound = new Queue<Message> ();
+		Queue<Message> Outbound = new Queue<Message> ();
 
 		public void Flush ()
 		{
@@ -200,7 +201,7 @@ namespace NDesk.DBus
 		}
 		*/
 
-		public Message ReadMessage ()
+		internal Message ReadMessage ()
 		{
 			//FIXME: fix reading algorithm to work in one step
 			//this code is a bit silly and inefficient
@@ -210,6 +211,9 @@ namespace NDesk.DBus
 
 			byte[] buf = new byte[16];
 			read = ns.Read (buf, 0, 16);
+
+			if (read == 0)
+				return null;
 
 			if (read != 16)
 				throw new Exception ("Header read length mismatch: " + read + " of expected " + "16");
@@ -290,7 +294,7 @@ namespace NDesk.DBus
 		}
 
 		//temporary hack
-		protected void DispatchSignals ()
+		void DispatchSignals ()
 		{
 			lock (Inbound) {
 				while (Inbound.Count != 0) {
@@ -309,8 +313,12 @@ namespace NDesk.DBus
 			DispatchSignals ();
 		}
 
-		protected void HandleMessage (Message msg)
+		internal void HandleMessage (Message msg)
 		{
+			//TODO: support disconnection situations properly and move this check elsewhere
+			if (msg == null)
+				throw new ArgumentNullException ("msg", "Cannot handle a null message; maybe the bus was disconnected");
+
 			{
 				//TODO: don't store replies unless they are expected (right now all replies are expected as we don't support NoReplyExpected)
 				object reply_serial;
@@ -348,10 +356,10 @@ namespace NDesk.DBus
 			}
 		}
 
-		protected Dictionary<uint,Message> replies = new Dictionary<uint,Message> ();
+		Dictionary<uint,Message> replies = new Dictionary<uint,Message> ();
 
 		//this might need reworking with MulticastDelegate
-		protected void HandleSignal (Message msg)
+		internal void HandleSignal (Message msg)
 		{
 			Signal signal = new Signal (msg);
 
@@ -372,7 +380,7 @@ namespace NDesk.DBus
 			}
 		}
 
-		public Dictionary<string,Delegate> Handlers = new Dictionary<string,Delegate> ();
+		internal Dictionary<string,Delegate> Handlers = new Dictionary<string,Delegate> ();
 
 		//very messy
 		void MaybeSendUnknownMethodError (MethodCall method_call)
@@ -405,7 +413,7 @@ namespace NDesk.DBus
 		}
 
 		//not particularly efficient and needs to be generalized
-		protected void HandleMethodCall (MethodCall method_call)
+		internal void HandleMethodCall (MethodCall method_call)
 		{
 			//TODO: Ping and Introspect need to be abstracted and moved somewhere more appropriate once message filter infrastructure is complete
 
@@ -460,18 +468,12 @@ namespace NDesk.DBus
 			//object retObj = type.InvokeMember (msg.Member, BindingFlags.InvokeMethod, null, obj, MessageHelper.GetDynamicValues (msg));
 
 			//TODO: there is no member name mapping for properties etc. yet
-
-			//FIXME: breaks for overloaded methods and ignores Interface
-			MethodInfo mi = type.GetMethod (method_call.Member, BindingFlags.Public | BindingFlags.Instance);
+			MethodInfo mi = Mapper.GetMethod (type, method_call);
 
 			if (mi == null) {
 				MaybeSendUnknownMethodError (method_call);
 				return;
 			}
-
-			//FIXME: such a simple approach won't work unfortunately
-			//if (!Mapper.IsPublic (mi))
-			//	throw new Exception ("The resolved method is not marked as being public on this bus");
 
 			object retObj = null;
 			try {
@@ -525,7 +527,7 @@ namespace NDesk.DBus
 			}
 		}
 
-		protected Dictionary<ObjectPath,object> RegisteredObjects = new Dictionary<ObjectPath,object> ();
+		Dictionary<ObjectPath,object> RegisteredObjects = new Dictionary<ObjectPath,object> ();
 
 		//FIXME: this shouldn't be part of the core API
 		//that also applies to much of the other object mapping code
@@ -560,16 +562,17 @@ namespace NDesk.DBus
 
 			BusObject busObject = new BusObject (this, bus_name, path);
 
-			foreach (EventInfo ei in type.GetEvents (BindingFlags.Public | BindingFlags.Instance)) {
-				//hook up only events that are public to the bus
-				if (!Mapper.IsPublic (ei))
+			foreach (MemberInfo mi in Mapper.GetPublicMembers (type)) {
+				EventInfo ei = mi as EventInfo;
+
+				if (ei == null)
 					continue;
 
 				Delegate dlg = busObject.GetHookupDelegate (ei);
 				ei.AddEventHandler (obj, dlg);
 			}
 
-			//FIXME: implement some kind of tree data structure or internal object hierarchy. right now we are ignoring the name and putting all object paths in one namespace, which is bad
+			//TODO: implement some kind of tree data structure or internal object hierarchy. right now we are ignoring the name and putting all object paths in one namespace, which is bad
 			RegisteredObjects[path] = obj;
 		}
 
@@ -589,11 +592,11 @@ namespace NDesk.DBus
 		}
 
 		//these look out of place, but are useful
-		public virtual void AddMatch (string rule)
+		internal protected virtual void AddMatch (string rule)
 		{
 		}
 
-		public virtual void RemoveMatch (string rule)
+		internal protected virtual void RemoveMatch (string rule)
 		{
 		}
 
@@ -605,6 +608,6 @@ namespace NDesk.DBus
 				NativeEndianness = EndianFlag.Big;
 		}
 
-		public static readonly EndianFlag NativeEndianness;
+		internal static readonly EndianFlag NativeEndianness;
 	}
 }
