@@ -616,6 +616,6 @@ namespace Tomboy
 			}
 		}
 
-		public override event Gtk.TagChangedHandler TagChanged;
+		public new event Gtk.TagChangedHandler TagChanged;
 	}
 }
