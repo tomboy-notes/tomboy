@@ -1,3 +1,10 @@
+2007-02-09  Sandy Armstrong  <sanfordarmstrong@gmail.com>
+
+	* Tomboy/Plugins/StickyNoteImport.cs: Remove fix for bug #404739.  Not a
+	complete revert; still check for null on Shutdown, and kept
+	sticky_xml_path as a static member (no need to construct for each
+	instance).
+
 2007-02-09  Boyd Timothy  <btimothy@gmail.com>
 
 	* Tomboy/NoteTag.cs: Use "new" instead of "override" for TagChanged event
