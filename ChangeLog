@@ -1,3 +1,10 @@
+2007-02-12  Chris Scobell <chris@thescobells.com>
+	* Tomboy/Undo.cs: When creating an InsertAction from a InsertText
+	event use the Length property of the text as the length given by the
+	InsertText event appears to be the length of the text in bytes not
+	characters, which breaks undo/redo for languages which have their
+	characters encoded in more than 1 byte. Fixes bug #407205.
+
 2007-02-12  Boyd Timothy  <btimothy@gmail.com>
 
 	* configure.in: Fixed --enable-dbus=no configure error.  Previous patch
