@@ -150,6 +150,10 @@ if test "x$ENABLE_DBUS" != "xno" ; then
 	fi
 	AM_CONDITIONAL(EXTERNAL_DBUS, test "x$have_external_dbus" = "xyes")
 	AC_SUBST(DBUS_LIBS)
+else
+	DBUS_LIBS=
+	AM_CONDITIONAL(EXTERNAL_DBUS, false)
+	AC_SUBST(DBUS_LIBS)
 fi
 
 #
