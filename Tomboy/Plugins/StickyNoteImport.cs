@@ -36,17 +36,31 @@ public class StickyNoteImporter : NotePlugin
 			+ sticky_xml_rel_path;
 	
 	Gtk.ImageMenuItem item;
+
+	private static bool sticky_file_might_exist = true;
+	private static bool sticky_file_existence_confirmed = false;
 	
 	protected override void Initialize ()
 	{
-		item = new Gtk.ImageMenuItem (
-					Catalog.GetString ("Import from Sticky Notes"));
-		item.Image = new Gtk.Image (Gtk.Stock.Convert, Gtk.IconSize.Menu);
-		item.Activated += ImportButtonClicked;
-		item.Show ();
-		AddPluginMenuItem (item);
+		// Don't add item to tools menu if Sticky Notes XML file does not
+		// exist. Only check for the file once, since Initialize is called
+		// for each note when Tomboy starts up.
+		if (sticky_file_might_exist) {
+			if (sticky_file_existence_confirmed || File.Exists (sticky_xml_path)) {
+				item = new Gtk.ImageMenuItem (
+						Catalog.GetString ("Import from Sticky Notes"));
+				item.Image = new Gtk.Image (Gtk.Stock.Convert, Gtk.IconSize.Menu);
+				item.Activated += ImportButtonClicked;
+				item.Show ();
+				AddPluginMenuItem (item);
 
-		CheckForFirstRun ();
+				sticky_file_existence_confirmed = true;
+				CheckForFirstRun ();
+			} else {
+				sticky_file_might_exist = false;
+				Logger.Log (debug_no_sticky_file);
+			}
+		}
 	}
 	
 	protected override void Shutdown ()
