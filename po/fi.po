@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tomboy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-02-14 15:28+0300\n"
-"PO-Revision-Date: 2007-02-14 15:29+0300\n"
+"POT-Creation-Date: 2007-02-19 21:23+0300\n"
+"PO-Revision-Date: 2007-02-19 21:33+0300\n"
 "Last-Translator: Ilkka Tuohela <hile@iki.fi>\n"
 "Language-Team: Finnish <gnome-fi-laatu@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -310,6 +310,10 @@ msgid ""
 "Export Linked Notes' setting and is used to specify whether all notes (found "
 "recursively) should be included during an export to HTML."
 msgstr ""
+"Viimeisin asetus \"Sisällytä kaikki muut linkitetyt muistilaput\" -valinnalle "
+"Vie HTML-muotoon -liitännäisessä. Tätä asetusta käytetään linkitettyjen "
+"viestien HTML-viennin asetuksetn kanssa ja sillä määritellään, tulisiko "
+"kaikki linkitetyt muistilaput viedä rekursiivisesti vietäessä HTML-muotoon."
 
 #: ../data/tomboy.schemas.in.h:37
 msgid ""
@@ -317,6 +321,9 @@ msgid ""
 "which is always placed at the bottom of the Tomboy note menu and also "
 "accessible by hotkey."
 msgstr ""
+"URI \"Aloita tästä\"-muistilappuna käytettävään muistilappuun, joka on aina "
+"sijoitettu Tomboyn muistilappuvalikon alimmaiseksi ja johon pääsee käsiksi "
+"pikanäppäimellä."
 
 #: ../data/tomboy.schemas.in.h:38
 msgid ""
@@ -679,6 +686,14 @@ msgid ""
 "Dispose method fails to disconnect all event handlers. The heap-shot "
 "profiler ({2}) can help to identify leaking references."
 msgstr ""
+"Liitännäistä {0} ei voi poistaa täysin käytöstä, koska siihen on vielä ainakin "
+"{1} viittausta. Tämä tarkoittaa yleensä ohjelmointivirhettä. Ota yhteyttä "
+"liitännäisen tekijään ja kerro tästä ongelmasta.\n"
+"\n"
+"<b>Tietoja kehittäjille:</b> Tämä ongelma tapahtuu yleensä, kun liitännäisen "
+"Dispose-metodi ei onnistu katkaisemaan kaikkien tapahtumakäsittelijöiden "
+"yhteyksiä. Heap-shot -profiloija ({2}) voi auttaa vuotavien viittauksien "
+"etsinnässä."
 
 #: ../Tomboy/Preferences.cs:182
 msgid "Editing"
@@ -697,7 +712,6 @@ msgid "_Spell check while typing"
 msgstr "_Oikolue kirjoitettaessa"
 
 #: ../Tomboy/Preferences.cs:237
-#, fuzzy
 msgid ""
 "Misspellings will be underlined in red, with correct spelling suggestions "
 "shown in the context menu."
@@ -886,7 +900,6 @@ msgstr ""
 "Copyright (©) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
 
 #: ../Tomboy/Tomboy.cs:345
-#, fuzzy
 msgid ""
 "Usage:\n"
 "  --version\t\t\tPrint version information.\n"
@@ -897,7 +910,8 @@ msgstr ""
 "Käyttö:\n"
 "  --version\t\t\tNäytä versiotiedot.\n"
 "  --help\t\t\tNäytä tämä ohje.\n"
-"  --note-path [path]\t\tLataa tai tallenna tästä hakemistosta.\n"
+"  --note-path [polku]\t\tLataa tai tallenna tiedot tähän hakemistoon.\n"
+"  --search [teksti]\t\tAvaa hakuikkunan teksti kaikkien muistilappujen hakuun.\n"
 
 #: ../Tomboy/Tomboy.cs:356
 msgid ""
