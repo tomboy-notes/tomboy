@@ -13,7 +13,7 @@ using Tomboy;
 
 [PluginInfo(
 	"Export to HTML", Defines.VERSION,
-	"Alex Gravely <alex@beatniksoftware.com>",
+	"Alex Graveley <alex@beatniksoftware.com>",
 	"Exports individual notes to HTML."
 	)]
 public class ExportToHTMLPlugin : NotePlugin

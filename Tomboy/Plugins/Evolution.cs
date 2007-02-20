@@ -274,7 +274,7 @@ public class EmailLink : DynamicNoteTag
 
 [PluginInfo(
 	"Evolution Plugin", Defines.VERSION,
-	"Alex Gravely <alex@beatniksoftware.com>",
+	"Alex Graveley <alex@beatniksoftware.com>",
 	"Allows you to drag an email from Evolution into a tomboy note.  The " +
 	"message subject is added as a link in the note."
 	)]
