@@ -9,8 +9,7 @@ namespace Tomboy
 	{
 		static readonly string[] DefaultEnabledPlugins = {
 			"BacklinksPlugin", "EvolutionPlugin", "ExportToHTMLPlugin",
-			"FixedWidthPlugin", "NoteOfTheDayPlugin", "PrintPlugin",
-			"StickyNoteImporter"
+			"FixedWidthPlugin", "PrintPlugin", "StickyNoteImporter"
 		};
 
 		public const string ENABLE_SPELLCHECKING = "/apps/tomboy/enable_spellchecking";
