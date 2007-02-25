@@ -10,8 +10,9 @@ using Tomboy;
 
 [PluginInfo(
 	"Sticky Notes Importer", "0.4.0",
-	"Sandy Armstrong <sanfordarmstrong@gmail.com>",
-	"Import your notes from the Sticky Notes applet."
+	PluginInfoAttribute.OFFICIAL_AUTHOR,
+	"Import your notes from the Sticky Notes applet.",
+	WebSite = "http://www.gnome.org/projects/tomboy/"
 	)]
 public class StickyNoteImporter : NotePlugin
 {

@@ -127,9 +127,10 @@ class NoteOfTheDay
 
 [PluginInfo(
 	"Note of the Day", Defines.VERSION,
-	"Alex Graveley <alex@beatniksoftware.com>",
+	PluginInfoAttribute.OFFICIAL_AUTHOR,
 	"Automatically creates a \"Today\" note for easily jotting down " +
-	"daily thoughts."
+	"daily thoughts.",
+	WebSite = "http://www.gnome.org/projects/tomboy/"
 	)]
 public class NoteOfTheDayPlugin : NotePlugin
 {

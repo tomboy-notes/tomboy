@@ -57,8 +57,9 @@ public class BacklinkMenuItem : Gtk.ImageMenuItem, System.IComparable
 
 [PluginInfo(
 	"Backlinks Plugin", Defines.VERSION,
-	"Boyd Timothy <btimothy@gmail.com>",
-	"See which notes link to the one you're currently viewing."
+	PluginInfoAttribute.OFFICIAL_AUTHOR,
+	"See which notes link to the one you're currently viewing.",
+	WebSite = "http://www.gnome.org/projects/tomboy/"
 	)]
 
 public class BacklinksPlugin : NotePlugin

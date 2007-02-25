@@ -69,8 +69,9 @@ class FixedWidthMenuItem : CheckMenuItem
 
 [PluginInfo(
 	"Fixed Width Plugin", Defines.VERSION,
-	"Ryan Lortie <desrt@desrt.ca>",
-	"Adds fixed-width font style."
+	PluginInfoAttribute.OFFICIAL_AUTHOR,
+	"Adds fixed-width font style.",
+	WebSite = "http://www.gnome.org/projects/tomboy/"
 	)]
 public class FixedWidthPlugin : NotePlugin
 {

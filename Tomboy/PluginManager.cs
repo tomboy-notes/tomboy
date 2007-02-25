@@ -40,6 +40,8 @@ namespace Tomboy
 		string author;
 
 		Type preferencesWidget;
+
+		public const string OFFICIAL_AUTHOR = "official";
 		
 		// The default constructor is, for some reason, needed or Tomboy will
 		// crash when attempting to read the plugin attributes.
@@ -54,7 +56,10 @@ namespace Tomboy
 			this.name = Catalog.GetString (name);
 			this.description = Catalog.GetString (description);
 			this.version = version;
-			this.author = author;
+			if (author == OFFICIAL_AUTHOR)
+				this.author = Catalog.GetString ("Tomboy Project");
+			else
+				this.author = author;
 		}
 
 		public string Name
