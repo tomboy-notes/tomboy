@@ -538,13 +538,15 @@ public class BugzillaPlugin : NotePlugin
 
 	void DropUriList (Gtk.DragDataReceivedArgs args)
 	{
-		string uriString = Encoding.UTF8.GetString (args.SelectionData.Data);
+		if (args.SelectionData.Length > 0) {
+			string uriString = Encoding.UTF8.GetString (args.SelectionData.Data);
 
-		if (uriString.IndexOf ("show_bug.cgi?id=") != -1) {
-			if (InsertBug (uriString)) {
-				Gtk.Drag.Finish (args.Context, true, false, args.Time);
-				g_signal_stop_emission_by_name(Window.Editor.Handle,
-							       "drag_data_received");
+			if (uriString.IndexOf ("show_bug.cgi?id=") != -1) {
+				if (InsertBug (uriString)) {
+					Gtk.Drag.Finish (args.Context, true, false, args.Time);
+					g_signal_stop_emission_by_name(Window.Editor.Handle,
+								       "drag_data_received");
+				}
 			}
 		}
 	}
