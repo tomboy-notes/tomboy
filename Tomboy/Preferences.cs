@@ -56,9 +56,11 @@ namespace Tomboy
 		{
 			switch (key) {
 			case ENABLE_SPELLCHECKING:
-			case ENABLE_CUSTOM_FONT:
 			case ENABLE_KEYBINDINGS:
 				return true;
+
+			case ENABLE_CUSTOM_FONT:
+				return false;
 
 			case ENABLE_WIKIWORDS:
 				return false;
