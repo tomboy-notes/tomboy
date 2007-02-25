@@ -9,8 +9,9 @@ using Tomboy;
 
 [PluginInfo(
 	"Print Plugin", Defines.VERSION,
-	"Alex Graveley <alex@beatniksoftware.com>",
-	"Allows you to print a note."
+	PluginInfoAttribute.OFFICIAL_AUTHOR,
+	"Allows you to print a note.",
+	WebSite = "http://www.gnome.org/projects/tomboy/"
 	)]
 public class PrintPlugin : NotePlugin
 {

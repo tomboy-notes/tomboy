@@ -245,7 +245,7 @@ namespace Tomboy
 				Catalog.GetString ("Copyright \xa9 2004-2007 Alex Graveley");
 			about.Comments = Catalog.GetString ("A simple and easy to use desktop " +
 							    "note-taking application.");
-			about.Website = "http://www.beatniksoftware.com/tomboy";
+			about.Website = "http://www.gnome.org/projects/tomboy/";
 			about.WebsiteLabel = Catalog.GetString("Homepage & Donations");
 			about.Authors = authors;
 			about.Documenters = documenters;
