@@ -325,6 +325,9 @@ public class EvolutionPlugin : NotePlugin
 	void OnDragDataReceived (object sender, Gtk.DragDataReceivedArgs args)
 	{
 		bool stop_emission = false;
+		
+		if (args.SelectionData.Length < 0)
+			return;
 
 		if (args.Info == 1) {
 			foreach (Gdk.Atom atom in args.Context.Targets) {
