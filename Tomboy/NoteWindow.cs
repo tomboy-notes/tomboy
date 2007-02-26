@@ -111,8 +111,15 @@ namespace Tomboy
 				}
 
 				if (insert.Length > 0) {
-					Gtk.TextIter insert_iter = 
-						Buffer.GetIterAtMark (Buffer.InsertMark);
+					// Place the cursor in the position where the uri was
+					// dropped, adjusting x and y by the TextView's VisibleRect.
+					Gdk.Rectangle rect = VisibleRect;
+					int adjustedX = x + rect.X;
+					int adjustedY = y + rect.Y;
+					Gtk.TextIter insert_iter =
+						GetIterAtLocation (adjustedX, adjustedY);
+					Buffer.PlaceCursor (insert_iter);
+
 					Buffer.InsertWithTags (ref insert_iter,
 							       insert.ToString (),
 							       Buffer.TagTable.Lookup ("link:url"));
