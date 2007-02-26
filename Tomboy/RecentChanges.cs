@@ -6,7 +6,7 @@ using Mono.Unix;
 
 namespace Tomboy
 {
-	public class NoteRecentChanges : Gtk.Window
+	public class NoteRecentChanges : ForcedPresentWindow
 	{
 		NoteManager manager;
 

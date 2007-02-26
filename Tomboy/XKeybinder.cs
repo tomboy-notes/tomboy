@@ -283,8 +283,8 @@ namespace Tomboy
 
 		void KeyOpenRecentChanges (object sender, EventArgs args)
 		{
-			Gtk.Window recent = NoteRecentChanges.GetInstance (manager);
-			recent.Show ();
+			NoteRecentChanges recent = NoteRecentChanges.GetInstance (manager);
+			recent.Present ();
 		}
 	}
 }
