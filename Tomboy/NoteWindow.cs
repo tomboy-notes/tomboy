@@ -93,39 +93,46 @@ namespace Tomboy
 
 			if (has_url) {
 				UriList uri_list = new UriList (selection_data);
-				StringBuilder insert = new StringBuilder ();
+				bool more_than_one = false;
+				
+				// Place the cursor in the position where the uri was
+				// dropped, adjusting x,y by the TextView's VisibleRect.
+				Gdk.Rectangle rect = VisibleRect;
+				int adjustedX = x + rect.X;
+				int adjustedY = y + rect.Y;
+				Gtk.TextIter cursor = GetIterAtLocation (adjustedX, adjustedY);
+				Buffer.PlaceCursor (cursor);
+				
+				Gtk.TextTag link_tag = Buffer.TagTable.Lookup ("link:url");
 
 				foreach (Uri uri in uri_list) {
 					Logger.Log ("Got Dropped URI: {0}", uri);
-
-					// FIXME: The space here is a hack
-					// around a bug in the URL Regex which
-					// matches across newlines.
-					if (insert.Length > 0)
-						insert.Append (" \n");
-
-					if (uri.IsFile) 
-						insert.Append (uri.LocalPath);
+					string insert;
+					if (uri.IsFile)
+						insert = uri.LocalPath;
 					else
-						insert.Append (uri.ToString ());
+						insert = uri.ToString ();
+					
+					if (insert == null || insert.Trim () == String.Empty)
+						continue;
+					
+					if (more_than_one) {
+						cursor = Buffer.GetIterAtMark (Buffer.InsertMark);
+						
+						// FIXME: The space here is a hack
+						// around a bug in the URL Regex which
+						// matches across newlines.
+						if (cursor.LineOffset == 0)
+							Buffer.Insert (ref cursor, " \n");
+						else
+							Buffer.Insert (ref cursor, ", ");
+					}
+					
+					Buffer.InsertWithTags (ref cursor, insert, link_tag);
+					more_than_one = true;
 				}
 
-				if (insert.Length > 0) {
-					// Place the cursor in the position where the uri was
-					// dropped, adjusting x and y by the TextView's VisibleRect.
-					Gdk.Rectangle rect = VisibleRect;
-					int adjustedX = x + rect.X;
-					int adjustedY = y + rect.Y;
-					Gtk.TextIter insert_iter =
-						GetIterAtLocation (adjustedX, adjustedY);
-					Buffer.PlaceCursor (insert_iter);
-
-					Buffer.InsertWithTags (ref insert_iter,
-							       insert.ToString (),
-							       Buffer.TagTable.Lookup ("link:url"));
-				}
-
-				Gtk.Drag.Finish (context, insert.Length > 0, false, time);
+				Gtk.Drag.Finish (context, more_than_one, false, time);
 			} else {
 				base.OnDragDataReceived (context, x, y, selection_data, info, time);
 			}
