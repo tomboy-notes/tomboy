@@ -103,7 +103,6 @@ tomboy_window_move_to_current_workspace (GtkWindow *window)
 static void
 tomboy_window_override_user_time (GtkWindow *window)
 {
-#ifdef HAVE_GDK_X11_WINDOW_SET_USER_TIME
 	guint32 ev_time = gtk_get_current_event_time();
 
 	if (ev_time == 0) {
@@ -129,7 +128,6 @@ tomboy_window_override_user_time (GtkWindow *window)
 
 	TRACE (g_print("Setting _NET_WM_USER_TIME to: %d\n", ev_time));
 	gdk_x11_window_set_user_time (GTK_WIDGET(window)->window, ev_time);
-#endif
 }
 
 void
