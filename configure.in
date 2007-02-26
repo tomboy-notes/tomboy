@@ -44,8 +44,8 @@ fi
 #
 # Gdk and Atk are needed for libtrayicon
 #
-GDK20_MINIMUM_VERSION=2.2.3
-GTK20_MINIMUM_VERSION=2.2.3
+GDK20_MINIMUM_VERSION=2.6.0
+GTK20_MINIMUM_VERSION=2.6.0
 ATK_MINIMUM_VERSION=1.2.4
 
 PKG_CHECK_MODULES(LIBTOMBOY, 
@@ -56,16 +56,6 @@ PKG_CHECK_MODULES(LIBTOMBOY,
 		  atk >= $ATK_MINIMUM_VERSION)
 AC_SUBST(LIBTOMBOY_CFLAGS)
 AC_SUBST(LIBTOMBOY_LIBS)
-
-#
-# Need Gtk 2.6+ for gdk_x11_window_set_user_time() to get around 
-# anti-focus avoidance for keybindings.
-#
-PKG_CHECK_MODULES(GTK, gtk+-2.0 >= 2.6.0, GTK_2_6="yes", GTK_2_6="no")
-if test "x$GTK_2_6" = "xyes"; then
-   AC_DEFINE(HAVE_GDK_X11_WINDOW_SET_USER_TIME, 1, 
-             [Whether GTK+ method gdk_x11_window_set_user_time() is present.])
-fi
 
 #
 # Use pkg-config to check for the panel applet server directory if
