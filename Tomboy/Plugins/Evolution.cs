@@ -354,7 +354,7 @@ public class EvolutionPlugin : NotePlugin
 
 			// Insert the email: links into the note, using the
 			// message subject as the display text.
-			InsertMailLinks (xuid_list, subject_list);
+			InsertMailLinks (args.X, args.Y, xuid_list, subject_list);
 
 			Gtk.Drag.Finish (args.Context, true, false, args.Time);
 			stop_emission = true;
@@ -440,13 +440,20 @@ public class EvolutionPlugin : NotePlugin
 		}
 	}
 
-	void InsertMailLinks (ArrayList xuid_list, ArrayList subject_list)
+	void InsertMailLinks (int x, int y, ArrayList xuid_list, ArrayList subject_list)
 	{
 		int message_idx = 0;
 		bool more_than_one = false;
+		
+		// Place the cursor in the position where the uri was
+		// dropped, adjusting x,y by the TextView's VisibleRect.
+		Gdk.Rectangle rect = Window.Editor.VisibleRect;
+		x = x + rect.X;
+		y = y + rect.Y;
+		Gtk.TextIter cursor = Window.Editor.GetIterAtLocation (x, y);
+		Buffer.PlaceCursor (cursor);
 
 		foreach (string subject in subject_list) {
-			Gtk.TextIter cursor;
 			int start_offset;
 
 			if (more_than_one) {
