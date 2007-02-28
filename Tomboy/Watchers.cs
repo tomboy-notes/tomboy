@@ -788,7 +788,7 @@ namespace Tomboy
 				}
 			}
 
-			if (link != null && link != this.Note) {
+			if (link != null) {
 				Logger.Log ("Opening note '{0}' on click...", link_name);
 				link.Window.Present ();
 				return true;
