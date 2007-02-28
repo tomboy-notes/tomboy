@@ -177,16 +177,17 @@ namespace Tomboy
 			try {
 				Note start_note = Create (Catalog.GetString ("Start Here"),
 								start_note_content);
-				start_note.Save ();
+				start_note.QueueSave (true);
 				Preferences.Set (Preferences.START_NOTE_URI, start_note.Uri);
 
 				Note links_note = Create (Catalog.GetString ("Using Links in Tomboy"),
 								links_note_content);
-				links_note.Save ();
+				links_note.QueueSave (true);
 				
 				start_note.Window.Show ();
-			} catch {
-				// Fail silently
+			} catch (Exception e) {
+				Logger.Warn ("Error creating start notes: {0}\n{1}",
+						e.Message, e.StackTrace);
 			}
 		}
 
