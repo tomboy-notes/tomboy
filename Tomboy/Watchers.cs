@@ -787,7 +787,13 @@ namespace Tomboy
 				    // Fail silently.
 				}
 			}
-
+			
+			// FIXME: We used to also check here for (link != this.Note), but
+			// somehow this was causing problems receiving clicks for the
+			// wrong instance of a note (see bug #413234).  Since a
+			// link:internal tag is never applied around text that's the same
+			// as the current note's title, it's safe to omit this check and
+			// also works around the bug.
 			if (link != null) {
 				Logger.Log ("Opening note '{0}' on click...", link_name);
 				link.Window.Present ();
