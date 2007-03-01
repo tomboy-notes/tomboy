@@ -132,19 +132,16 @@ AC_SUBST(DBUS_SERVICE_DIR)
 #
 # Check for external NDesk DBus
 #
+DBUS_LIBS=
 if test "x$ENABLE_DBUS" != "xno" ; then
 	PKG_CHECK_MODULES(DBUS, ndesk-dbus-1.0 >= 0.4 \
 		ndesk-dbus-glib-1.0 >= 0.3, have_external_dbus="yes", have_external_dbus="no")
 	if test "x$have_external_dbus" != "xyes"; then
 		AC_MSG_RESULT([using internal copy])
 	fi
-	AM_CONDITIONAL(EXTERNAL_DBUS, test "x$have_external_dbus" = "xyes")
-	AC_SUBST(DBUS_LIBS)
-else
-	DBUS_LIBS=
-	AM_CONDITIONAL(EXTERNAL_DBUS, false)
-	AC_SUBST(DBUS_LIBS)
 fi
+AM_CONDITIONAL(EXTERNAL_DBUS, test "x$have_external_dbus" = "xyes")
+AC_SUBST(DBUS_LIBS)
 
 #
 # Tomboy.exe needs Gtk# Gnome# GConf#
