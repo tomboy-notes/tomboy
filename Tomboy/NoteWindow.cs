@@ -1426,7 +1426,7 @@ namespace Tomboy
 			normal = new Gtk.RadioMenuItem (Catalog.GetString ("_Normal"));
 			MarkupLabel (normal);
 			normal.Active = true;
-			normal.Toggled += FontSizeClicked;
+			normal.Activated += FontSizeActivated;
 
 			huge = new Gtk.RadioMenuItem (normal.Group, 
 						      "<span size=\"x-large\">" +
@@ -1434,7 +1434,7 @@ namespace Tomboy
 						      "</span>");
 			MarkupLabel (huge);
 			huge.Data ["Tag"] = "size:huge";
-			huge.Toggled += FontSizeClicked;
+			huge.Activated += FontSizeActivated;
 
 			large = new Gtk.RadioMenuItem (huge.Group, 
 						       "<span size=\"large\">" +
@@ -1442,7 +1442,7 @@ namespace Tomboy
 						       "</span>");
 			MarkupLabel (large);
 			large.Data ["Tag"] = "size:large";
-			large.Toggled += FontSizeClicked;
+			large.Activated += FontSizeActivated;
 
 			small = new Gtk.RadioMenuItem (large.Group, 
 						       "<span size=\"small\">" +
@@ -1450,7 +1450,7 @@ namespace Tomboy
 						       "</span>");
 			MarkupLabel (small);
 			small.Data ["Tag"] = "size:small";
-			small.Toggled += FontSizeClicked;
+			small.Activated += FontSizeActivated;
 
 			hidden_no_size = new Gtk.RadioMenuItem (small.Group, string.Empty);
 			hidden_no_size.Hide ();
@@ -1573,8 +1573,13 @@ namespace Tomboy
 		// Set the font size tag for the current text.  Style tags are
 		// stored in a "Tag" member of the menuitem's Data.
 		//
-
-		void FontSizeClicked (object sender, EventArgs args) 
+		
+		// FIXME: Change this back to use FontSizeToggled instead of using the
+		// Activated signal.  Fix the Text menu so it doesn't show a specific
+		// font size already selected if multiple sizes are highlighted. The
+		// Activated event is used here to fix
+		// http://bugzilla.gnome.org/show_bug.cgi?id=412404.
+		void FontSizeActivated (object sender, EventArgs args)
 		{
 			if (event_freeze)
 				return;

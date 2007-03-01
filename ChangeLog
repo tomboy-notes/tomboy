@@ -1,5 +1,12 @@
 2007-03-01  Boyd Timothy  <btimothy@gmail.com>
 
+	* Tomboy/NoteWindow.cs: Use RadioMenuItem.Activated instead of the Toggled
+	event.  This makes it so that even if "Normal" or another font size is
+	already selected, a large selection of text (with multiple sizes) can be
+	sized to the selected font.  Fixes bug #412404.
+	
+2007-03-01  Boyd Timothy  <btimothy@gmail.com>
+
 	* Tomboy/Plugins/StickyNoteImport.cs: Use the Defines.VERSION string since
 	this is a built-in/official plugin.
 	
