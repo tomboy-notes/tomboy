@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tomboy HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-02-03 10:29+0000\n"
-"PO-Revision-Date: 2007-02-03 19:42+0200\n"
+"POT-Creation-Date: 2007-02-25 23:02+0000\n"
+"PO-Revision-Date: 2007-02-28 21:26+0200\n"
 "Last-Translator: Ivar Smolin <okul@linux.ee>\n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
 "MIME-Version: 1.0\n"
@@ -54,7 +54,7 @@ msgid "_Help"
 msgstr "_Abi"
 
 #: ../data/GNOME_TomboyApplet.xml.h:3 ../Tomboy/Applet.cs:187
-#: ../Tomboy/NoteWindow.cs:629 ../Tomboy/Preferences.cs:644
+#: ../Tomboy/NoteWindow.cs:629 ../Tomboy/Preferences.cs:645
 msgid "_Open Plugins Folder"
 msgstr "Ava _pluginate kataloog"
 
@@ -199,7 +199,7 @@ msgstr "Rakendimenüü näitamine"
 
 #: ../data/tomboy.schemas.in.h:26
 msgid "Start Here Note"
-msgstr ""
+msgstr "\"Alusta siit\" märge"
 
 #: ../data/tomboy.schemas.in.h:27
 msgid "Sticky Note Importer First Run"
@@ -323,7 +323,7 @@ msgid ""
 "in the Tomboy note menu."
 msgstr ""
 
-#: ../libtomboy/gedit-print.c:142 ../Tomboy/Plugins/PrintNotes.cs:21
+#: ../libtomboy/gedit-print.c:142 ../Tomboy/Plugins/PrintNotes.cs:22
 msgid "Print"
 msgstr "Prindi"
 
@@ -402,7 +402,7 @@ msgstr "Tomboy töö lõpetamine"
 msgid "_Edit"
 msgstr "_Redaktor"
 
-#: ../Tomboy/ActionManager.cs:90 ../Tomboy/Preferences.cs:168
+#: ../Tomboy/ActionManager.cs:90 ../Tomboy/Preferences.cs:169
 msgid "Tomboy Preferences"
 msgstr "Tomboy eelistused"
 
@@ -455,7 +455,8 @@ msgid ""
 "Use this \"Start Here\" note to begin organizing your ideas and thoughts.\n"
 "\n"
 "You can create new notes to hold your ideas by selecting the \"Create New "
-"Note\" item from the Tomboy Notes menu in your GNOME Panel.\n"
+"Note\" item from the Tomboy Notes menu in your GNOME Panel. Your note will "
+"be saved automatically.\n"
 "\n"
 "Then organize the notes you create by linking related notes and ideas "
 "together!\n"
@@ -466,7 +467,7 @@ msgid ""
 "to open the note.</note-content>"
 msgstr ""
 
-#: ../Tomboy/NoteManager.cs:162
+#: ../Tomboy/NoteManager.cs:163
 msgid ""
 "<note-content>Using Links in Tomboy\n"
 "\n"
@@ -483,20 +484,20 @@ msgid ""
 msgstr ""
 
 #. Attempt to find an existing Start Here note
-#: ../Tomboy/NoteManager.cs:177 ../Tomboy/NoteManager.cs:227
+#: ../Tomboy/NoteManager.cs:178 ../Tomboy/NoteManager.cs:228
 msgid "Start Here"
 msgstr "Alusta siit"
 
-#: ../Tomboy/NoteManager.cs:182
+#: ../Tomboy/NoteManager.cs:183
 msgid "Using Links in Tomboy"
 msgstr ""
 
-#: ../Tomboy/NoteManager.cs:282
+#: ../Tomboy/NoteManager.cs:283
 #, csharp-format
 msgid "New Note {0}"
 msgstr "Uus märge {0}"
 
-#: ../Tomboy/NoteManager.cs:328
+#: ../Tomboy/NoteManager.cs:329
 msgid "Describe your new note here."
 msgstr "Siia saad uue märkme kirjutada."
 
@@ -628,12 +629,16 @@ msgstr "_Väike"
 msgid "Bullets"
 msgstr "Mummud"
 
-#: ../Tomboy/PluginManager.cs:602
+#: ../Tomboy/PluginManager.cs:60
+msgid "Tomboy Project"
+msgstr "Tomboy projekt"
+
+#: ../Tomboy/PluginManager.cs:607
 #, csharp-format
 msgid "Cannot fully disable {0}."
-msgstr ""
+msgstr "Pluginat {0} pole võimalik täielikult keelata."
 
-#: ../Tomboy/PluginManager.cs:605
+#: ../Tomboy/PluginManager.cs:610
 #, csharp-format
 msgid ""
 "Cannot fully disable {0} as there still are at least {1} reference to this "
@@ -644,24 +649,32 @@ msgid ""
 "Dispose method fails to disconnect all event handlers. The heap-shot "
 "profiler ({2}) can help to identify leaking references."
 msgstr ""
+"Pluginat {0} pole võimalik täielikult keelata kuna sellele on vähemasti {1} "
+"viide. See viitab programmeerimisveale. Palun võta ühendust plugina autoriga "
+"ja teavita teda probleemist.\n"
+"\n"
+"<b>Teave arendajatele:</b> See probleem ilmneb arvatavasti juhul, kui "
+"plugina Dispose meetodis tekib tõrge kõikide sündmusekäsitlejatega ühenduse "
+"katkestamisel. Heap-shot profileerija ({2}) võib aidata lekkivaid viitasid "
+"tuvastada."
 
-#: ../Tomboy/Preferences.cs:182
+#: ../Tomboy/Preferences.cs:183
 msgid "Editing"
 msgstr "Redaktor"
 
-#: ../Tomboy/Preferences.cs:184
+#: ../Tomboy/Preferences.cs:185
 msgid "Hotkeys"
 msgstr "Kiirklahvid"
 
-#: ../Tomboy/Preferences.cs:186
+#: ../Tomboy/Preferences.cs:187
 msgid "Plugins"
 msgstr "Pluginad"
 
-#: ../Tomboy/Preferences.cs:228
+#: ../Tomboy/Preferences.cs:229
 msgid "_Spell check while typing"
 msgstr "Õi_gekirjakontroll sisestamise ajal"
 
-#: ../Tomboy/Preferences.cs:237
+#: ../Tomboy/Preferences.cs:238
 msgid ""
 "Misspellings will be underlined in red, with correct spelling suggestions "
 "shown in the context menu."
@@ -670,11 +683,11 @@ msgstr ""
 "õigekirjasoovitusi näidatakse kontekstimenüüs."
 
 #. WikiWords...
-#: ../Tomboy/Preferences.cs:247
+#: ../Tomboy/Preferences.cs:248
 msgid "Highlight _WikiWords"
 msgstr "_WikiSõnade esiletõstmine"
 
-#: ../Tomboy/Preferences.cs:255
+#: ../Tomboy/Preferences.cs:256
 msgid ""
 "Enable this option to highlight words <b>ThatLookLikeThis</b>. Clicking the "
 "word will create a note with that name."
@@ -683,16 +696,16 @@ msgstr ""
 "b>. Sõnal klõpsamine loob uue märkme, mille nimeks saab see sõna."
 
 #. Custom font...
-#: ../Tomboy/Preferences.cs:264
+#: ../Tomboy/Preferences.cs:265
 msgid "Use custom _font"
 msgstr "_Kohandatud kirjatüübi kasutamine"
 
 #. Hotkeys...
-#: ../Tomboy/Preferences.cs:334
+#: ../Tomboy/Preferences.cs:335
 msgid "Listen for _Hotkeys"
 msgstr "Kiirklahve _jälgitakse"
 
-#: ../Tomboy/Preferences.cs:343
+#: ../Tomboy/Preferences.cs:344
 msgid ""
 "Hotkeys allow you to quickly access your notes from anywhere with a "
 "keypress. Example Hotkeys: <b>&lt;Control&gt;&lt;Shift&gt;F11</b>, <b>&lt;"
@@ -703,55 +716,55 @@ msgstr ""
 "Shift&gt;F11</b>, <b>&lt;Alt&gt;N</b>"
 
 #. Show notes menu keybinding...
-#: ../Tomboy/Preferences.cs:363
+#: ../Tomboy/Preferences.cs:364
 msgid "Show notes _menu"
 msgstr "_Märkmete menüü näitamine"
 
 #. Open Start Here keybinding...
-#: ../Tomboy/Preferences.cs:380
+#: ../Tomboy/Preferences.cs:381
 msgid "Open \"_Start Here\""
 msgstr "\"Alusta siit\" a_vamine"
 
 #. Create new note keybinding...
-#: ../Tomboy/Preferences.cs:397
+#: ../Tomboy/Preferences.cs:398
 msgid "Create _new note"
 msgstr "_Uue märkme loomine"
 
 #. Open Search All Notes window keybinding...
-#: ../Tomboy/Preferences.cs:414
+#: ../Tomboy/Preferences.cs:415
 msgid "Open \"Search _All Notes\""
-msgstr ""
+msgstr "\"Otsing kõikide märkmete hulgast\" avamine"
 
-#: ../Tomboy/Preferences.cs:560
+#: ../Tomboy/Preferences.cs:561
 msgid "Not available"
 msgstr "Pole saadaval"
 
-#: ../Tomboy/Preferences.cs:618
+#: ../Tomboy/Preferences.cs:619
 msgid "Description:"
 msgstr "Kirjeldus:"
 
-#: ../Tomboy/Preferences.cs:620
+#: ../Tomboy/Preferences.cs:621
 msgid "Written by:"
 msgstr "Autor:"
 
-#: ../Tomboy/Preferences.cs:622
+#: ../Tomboy/Preferences.cs:623
 msgid "Web site:"
 msgstr "Veebisait:"
 
-#: ../Tomboy/Preferences.cs:624
+#: ../Tomboy/Preferences.cs:625
 msgid "File name:"
 msgstr "Faili nimi:"
 
-#: ../Tomboy/Preferences.cs:638
+#: ../Tomboy/Preferences.cs:639
 msgid "Settings"
 msgstr "Sätted"
 
-#: ../Tomboy/Preferences.cs:693
+#: ../Tomboy/Preferences.cs:694
 #, csharp-format
 msgid "{0} Settings"
 msgstr "{0} - sätted"
 
-#: ../Tomboy/Preferences.cs:754
+#: ../Tomboy/Preferences.cs:755
 msgid "Choose Note Font"
 msgstr "Märkme kirjatüübi valimine"
 
@@ -820,23 +833,23 @@ msgstr "d. MMMM yyyy, h:mm tt"
 msgid "Cannot create new note"
 msgstr "Uut märget pole võimalik luua"
 
-#: ../Tomboy/Tomboy.cs:235
+#: ../Tomboy/Tomboy.cs:236
 msgid "translator-credits"
 msgstr "Ivar Smolin <okul@linux.ee>, 2006, 2007."
 
-#: ../Tomboy/Tomboy.cs:244
+#: ../Tomboy/Tomboy.cs:245
 msgid "Copyright © 2004-2007 Alex Graveley"
 msgstr "Autoriõigused © 2004-2007 Alex Graveley"
 
-#: ../Tomboy/Tomboy.cs:245
+#: ../Tomboy/Tomboy.cs:246
 msgid "A simple and easy to use desktop note-taking application."
 msgstr "Lihtne ja kergestikasutatav märkmete tegemise programm."
 
-#: ../Tomboy/Tomboy.cs:248
+#: ../Tomboy/Tomboy.cs:249
 msgid "Homepage & Donations"
 msgstr "Koduleht ja annetused"
 
-#: ../Tomboy/Tomboy.cs:332
+#: ../Tomboy/Tomboy.cs:333
 msgid ""
 "Tomboy: A simple, easy to use desktop note-taking application.\n"
 "Copyright (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
@@ -846,7 +859,7 @@ msgstr ""
 "Autoriõigused (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
 "\n"
 
-#: ../Tomboy/Tomboy.cs:344
+#: ../Tomboy/Tomboy.cs:345
 msgid ""
 "Usage:\n"
 "  --version\t\t\tPrint version information.\n"
@@ -862,7 +875,7 @@ msgstr ""
 "  --search [tekst]\t\tKõikidest märkmetest otsimise akna avamine koos "
 "määratud otsingutekstiga.\n"
 
-#: ../Tomboy/Tomboy.cs:355
+#: ../Tomboy/Tomboy.cs:356
 msgid ""
 "  --new-note\t\t\tCreate and display a new note.\n"
 "  --new-note [title]\t\tCreate and display a new note, with a title.\n"
@@ -879,22 +892,22 @@ msgstr ""
 "  --highlight-search [tekst]\tAvatud märkmest teksti otsimine ja "
 "esiletõstmine.\n"
 
-#: ../Tomboy/Tomboy.cs:367
+#: ../Tomboy/Tomboy.cs:368
 msgid "  --check-plugin-unloading\tCheck if plugins are unloaded properly.\n"
 msgstr ""
 "  --check-plugin-unloading\tPluginate korrektse väljalaadimise "
 "kontrollimine.\n"
 
-#: ../Tomboy/Tomboy.cs:371
+#: ../Tomboy/Tomboy.cs:372
 msgid "D-BUS remote control disabled.\n"
 msgstr "D-BUS kaugjuhtimine on keelatud.\n"
 
-#: ../Tomboy/Tomboy.cs:379
+#: ../Tomboy/Tomboy.cs:380
 #, csharp-format
 msgid "Version {0}"
 msgstr "Versioon {0}"
 
-#: ../Tomboy/Tomboy.cs:446
+#: ../Tomboy/Tomboy.cs:447
 #, csharp-format
 msgid ""
 "Tomboy: unsupported option '{0}'\n"
@@ -954,11 +967,11 @@ msgstr "_Kopeeri viida aadress"
 msgid "_Open Link"
 msgstr "_Ava viit"
 
-#: ../Tomboy/Plugins/Backlinks.cs:78
+#: ../Tomboy/Plugins/Backlinks.cs:79
 msgid "What links here?"
 msgstr "Mis siia viitab?"
 
-#: ../Tomboy/Plugins/Backlinks.cs:136
+#: ../Tomboy/Plugins/Backlinks.cs:137
 msgid "(none)"
 msgstr "(puudub)"
 
@@ -1011,41 +1024,41 @@ msgstr "Kui sa ikooni kustutad, siis läheb see jäädavalt kaotsi."
 msgid "Cannot open email"
 msgstr "E-posti pole võimalik avada"
 
-#: ../Tomboy/Plugins/ExportToHTML.cs:54
+#: ../Tomboy/Plugins/ExportToHTML.cs:55
 msgid "Export to HTML"
 msgstr "Ekspordi HTML-iks"
 
-#: ../Tomboy/Plugins/ExportToHTML.cs:113
+#: ../Tomboy/Plugins/ExportToHTML.cs:114
 #, csharp-format
 msgid "Your note was exported to \"{0}\"."
 msgstr ""
 
-#: ../Tomboy/Plugins/ExportToHTML.cs:124
+#: ../Tomboy/Plugins/ExportToHTML.cs:125
 msgid "Note exported successfully"
 msgstr "Märge on edukalt eksporditud"
 
-#: ../Tomboy/Plugins/ExportToHTML.cs:130
+#: ../Tomboy/Plugins/ExportToHTML.cs:131
 msgid "Access denied."
 msgstr "Juurdepääs keelatud."
 
-#: ../Tomboy/Plugins/ExportToHTML.cs:132
+#: ../Tomboy/Plugins/ExportToHTML.cs:133
 msgid "Folder does not exist."
 msgstr "Kataloogi pole olemas."
 
-#: ../Tomboy/Plugins/ExportToHTML.cs:147
+#: ../Tomboy/Plugins/ExportToHTML.cs:148
 #, csharp-format
 msgid "Could not save the file \"{0}\""
 msgstr "Faili \"{0}\" pole võimalik salvestada"
 
-#: ../Tomboy/Plugins/ExportToHTML.cs:266
+#: ../Tomboy/Plugins/ExportToHTML.cs:267
 msgid "Destination for HTML Export"
 msgstr "HTML-ekspordi sihtkoht"
 
-#: ../Tomboy/Plugins/ExportToHTML.cs:276
+#: ../Tomboy/Plugins/ExportToHTML.cs:277
 msgid "Export linked notes"
 msgstr "Viidatud märkmete eksportimine"
 
-#: ../Tomboy/Plugins/ExportToHTML.cs:281
+#: ../Tomboy/Plugins/ExportToHTML.cs:282
 msgid "Include all other linked notes"
 msgstr "Kõigi viidatud märkmete kaasamine"
 
@@ -1084,33 +1097,33 @@ msgstr "Ülesanded"
 msgid "Appointments"
 msgstr "Sündmused"
 
-#: ../Tomboy/Plugins/StickyNoteImport.cs:41
+#: ../Tomboy/Plugins/StickyNoteImport.cs:52
 msgid "Import from Sticky Notes"
 msgstr "Impordi Märkmepaberid"
 
-#: ../Tomboy/Plugins/StickyNoteImport.cs:119
+#: ../Tomboy/Plugins/StickyNoteImport.cs:134
 msgid "No Sticky Notes found"
 msgstr "Märkmepabereid ei leitud"
 
-#: ../Tomboy/Plugins/StickyNoteImport.cs:120
+#: ../Tomboy/Plugins/StickyNoteImport.cs:135
 #, csharp-format
 msgid "No suitable Sticky Notes file was found at \"{0}\"."
 msgstr "Asukohast \"{0}\" ei leitud sobivat Märkmepaberite faili."
 
-#: ../Tomboy/Plugins/StickyNoteImport.cs:129
+#: ../Tomboy/Plugins/StickyNoteImport.cs:144
 msgid "Sticky Notes import completed"
 msgstr "Märkmepaberite import on valmis"
 
-#: ../Tomboy/Plugins/StickyNoteImport.cs:130
+#: ../Tomboy/Plugins/StickyNoteImport.cs:145
 #, csharp-format
 msgid "<b>{0}</b> of <b>{1}</b> Sticky Notes were successfully imported."
 msgstr "<b>{0}</b> märkmepaberit <b>{1}</b>-st on edukalt imporditud."
 
-#: ../Tomboy/Plugins/StickyNoteImport.cs:142
+#: ../Tomboy/Plugins/StickyNoteImport.cs:157
 msgid "Untitled"
 msgstr "Pealkirjata"
 
-#: ../Tomboy/Plugins/StickyNoteImport.cs:170
+#: ../Tomboy/Plugins/StickyNoteImport.cs:185
 msgid "Sticky Note: "
 msgstr "Märkmepaber: "
 
