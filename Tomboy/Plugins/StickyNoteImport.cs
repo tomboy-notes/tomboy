@@ -9,7 +9,7 @@ using Mono.Unix;
 using Tomboy;
 
 [PluginInfo(
-	"Sticky Notes Importer", "0.4.0",
+	"Sticky Notes Importer", Defines.VERSION,
 	PluginInfoAttribute.OFFICIAL_AUTHOR,
 	"Import your notes from the Sticky Notes applet.",
 	WebSite = "http://www.gnome.org/projects/tomboy/"
