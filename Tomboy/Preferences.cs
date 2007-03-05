@@ -638,6 +638,7 @@ namespace Tomboy
 				GuiUtils.MakeImageButton (Gtk.Stock.Preferences,
 							  Catalog.GetString ("Settings"));
 			plugin_preferences.Clicked += ShowPluginSettings;
+			plugin_preferences.Sensitive = false;
 
 			open_plugin_folder = 
 				GuiUtils.MakeImageButton (
@@ -669,6 +670,9 @@ namespace Tomboy
 
 		void ShowPluginSettings (object sender, EventArgs e)
 		{
+			if (current_plugin == null)
+				return;
+			
 			Gtk.Image icon = 
 				new Gtk.Image (Gtk.Stock.Preferences, Gtk.IconSize.Dialog);
 
