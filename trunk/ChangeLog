@@ -1,0 +1,3874 @@
+2007-03-05  Boyd Timothy  <btimothy@gmail.com>
+
+	* NEWS: Fix typo of calling 0.6.0, 0.5.10.
+
+2007-03-05  Boyd Timothy  <btimothy@gmail.com>
+
+	* configure.in: Bump version to 0.6.0 (stable release).
+
+	* NEWS: Update for 0.6.0.
+
+2007-03-05  Sandy Armstrong  <sanfordarmstrong@gmail.com
+
+	* Tomboy/PluginManager.cs: When attaching plugins to notes, be sure to
+	iterate through a copy of the list of notes, as notes may be added or
+	removed to the list by the plugins that are being instantiated.  Fixes
+	bug #414957.
+
+2007-03-05  Boyd Timothy  <btimothy@gmail.com>
+
+	* Tomboy/Preferences.cs: Patch from Sanford Armstrong to make the plugins
+	Settings button be insensitive by default and prevent null reference crash.
+	Fixes bug #414933.
+	
+2007-03-02  Boyd Timothy  <btimothy@gmail.com>
+
+	* Tomboy/NoteWindow.cs: Respect Emacs keybindings for Ctrl-W and Ctrl-N.
+	Fixes bug #412402.
+	
+2007-03-01  Boyd Timothy  <btimothy@gmail.com>
+
+	* Tomboy/NoteWindow.cs: Use RadioMenuItem.Activated instead of the Toggled
+	event.  This makes it so that even if "Normal" or another font size is
+	already selected, a large selection of text (with multiple sizes) can be
+	sized to the selected font.  Fixes bug #412404.
+	
+2007-03-01  Boyd Timothy  <btimothy@gmail.com>
+
+	* Tomboy/Plugins/StickyNoteImport.cs: Use the Defines.VERSION string since
+	this is a built-in/official plugin.
+	
+2007-03-01  Boyd Timothy  <btimothy@gmail.com>
+
+	* configure.in: Cleaned up the check for ndesk-dbus-1.0 by not using an
+	else statement.  Additional cleanup fix for bug #405577.
+	
+2007-03-01  Boyd Timothy  <btimothy@gmail.com>
+
+	* Tomboy/Watchers.cs: Added a comment in the code about why the previous
+	change is needed (bug #413234).
+	
+2007-02-28  Boyd Timothy  <btimothy@gmail.com>
+
+	* Tomboy/Watchers.cs: Don't check for link == this.Note.  Fixes bug
+	#413234.
+	
+2007-02-28  Boyd Timothy  <btimothy@gmail.com>
+
+	* Tomboy/NoteManager: Use Note.QueueSave () instead of Note.Save () when
+	creating the start notes so they both get saved.  Fixes bug #413230.
+	
+2007-02-26  Boyd Timothy  <btimothy@gmail.com>
+
+	* configure.in: Bump version to 0.5.10.
+	
+2007-02-26  Boyd Timothy  <btimothy@gmail.com>
+
+	* NEWS: Update for 0.5.9.
+	
+2007-02-26  Sandy Armstrong  <sanfordarmstrong@gmail.com>
+
+	* configure.in: Bump minimum required gtk-sharp2 to 2.6.0.  From bug
+	#412130.
+
+2007-02-26  Boyd Timothy  <btimothy@gmail.com>
+
+	* Tomboy/NoteWindow.cs: Deal with multiple uris dropped from nautilus by
+	making sure multiple <link:uri> tags are used.  Fixes bug #412355.
+	
+2007-02-26  Sandy Armstrong  <sanfordarmstrong@gmail.com>
+
+	* configure.in: Bump minimum required gtk/gdk to 2.6.0.  From bug #412130.
+	* libtomboy/tomboyutil.c: Remove #ifdef that is obsolete since gtk/gdk
+	>=2.6.0 is now required.
+
+2007-02-26  Boyd Timothy  <btimothy@gmail.com>
+	
+	* Tomboy/Plugins/Evolution.cs: Pay attention to the x and y position where
+	the user drag and drops links so the cursor position can be adjusted before
+	inserting the link.  Fixes bug #330964.
+
+	* Tomboy/Plugins/Bugzilla.cs: Ditto.
+
+	* Tomboy/NoteWindow.cs: Ditto.
+	
+2007-02-26  Wouter Bolsterlee  <wbolster@svn.gnome.org>
+
+	* Tomboy/RecentChanges.cs:
+	* Tomboy/XKeybinder.cs:
+
+	Search dialog should open in foreground if it's invoked
+	from a keybinding. Fixes bug #411924, patch by Sanford
+	Armstrong.
+
+2007-02-25  Sandy Armstrong  <sanfordarmstrong@gmail.com>
+
+	Fixes for bug 410314:
+	* Tomboy/Plugins/FixedWidth.cs: Set author to OFFICIAL_AUTHOR, website
+	to official Tomboy website.
+	* Tomboy/Plugins/GalagoPresence.cs: Ditto.
+	* Tomboy/Plugins/Backlinks.cs: Ditto.
+	* Tomboy/Plugins/Evolution.cs: Ditto.
+	* Tomboy/Plugins/PrintNotes.cs: Ditto.
+	* Tomboy/Plugins/StickyNoteImport.cs: Ditto.
+	* Tomboy/Plugins/Bugzilla.cs: Ditto.
+	* Tomboy/Plugins/ExportToHTML.cs: Ditto.
+	* Tomboy/Plugins/NoteOfTheDay.cs: Ditto.
+	* Tomboy/PluginManager.cs: Added OFFICIAL_AUTHOR constant for use by
+	plugins maintained by Tomboy project.
+	* Tomboy/Tomboy.cs: Updated website to gnome.org URL.
+
+2007-02-25  Wouter Bolsterlee  <wbolster@svn.gnome.org>
+
+	* Tomboy/Preferences.cs:
+	* data/tomboy.schemas.in:
+
+	Default font settings should not enable the 'use custom
+	font' checkbox. Fixes bug #358974.
+
+2007-02-24 Chris Scobell <chris@thescobells.com>
+	* Tomboy/Utils.cs: Check for > 0 SelectionData Length before
+	proceding to process the drag-and-drop data. This prevents a crash
+	when dragging an email with a blank subject from evolution. Fixes
+	bug #408859.
+	
+	* Tomboy/Plugins/Evolution.cs: Ditto.
+	
+	* Tomboy/Plugins/Bugzilla.cs: Ditto.
+	
+2007-02-20  Boyd Timothy  <btimothy@gmail.com>
+
+	* data/tomboy.schemas.in: Remove NoteOfTheDayPlugin from the default
+	enabled plugins since this is an advanced feature of Tomboy that has
+	confused many.
+	
+	* Tomboy/Preferences.cs: Ditto.
+
+2007-02-15  Alp Toker  <alp@atoker.com>
+
+	* configure.in: Correct the non-detected D-Bus service file prefix.
+
+2007-02-13  Yair Hershkovitz  <yairhr@gmail.com>
+
+	* configure.in: Added "he" to ALL_LINGUAS
+
+2007-02-13  Sandy Armstrong  <sanfordarmstrong@gmail.com>
+
+	* Tomboy/Plugins/StickyNoteImport.cs: Reapply fix for bug #404739.
+
+2007-02-12  Boyd Timothy  <btimothy@gmail.com>
+
+	* configure.in: Bump version to 0.5.9.
+
+2007-02-12  Boyd Timothy  <btimothy@gmail.com>
+
+	* NEWS: Update for 0.5.8.
+
+2007-02-12  Chris Scobell <chris@thescobells.com>
+
+	* Tomboy/Undo.cs: When creating an InsertAction from a InsertText
+	event use the Length property of the text as the length given by the
+	InsertText event appears to be the length of the text in bytes not
+	characters, which breaks undo/redo for languages which have their
+	characters encoded in more than 1 byte. Fixes bug #407205.
+
+2007-02-12  Boyd Timothy  <btimothy@gmail.com>
+
+	* configure.in: Fixed --enable-dbus=no configure error.  Previous patch
+	for bug #405577 did not account for building without dbus support.
+
+2007-02-12  Boyd Timothy  <btimothy@gmail.com>
+
+	* Tomboy/RemoteControlProxy.cs: Patch from Sebastian Dröge to reorder
+	registration and name requesting of the dbus object.  Fixes bug #406224.
+
+2007-02-12  Boyd Timothy  <btimothy@gmail.com>
+
+	* configure.in: Bump version to 0.5.8.
+
+2007-02-12  Boyd Timothy  <btimothy@gmail.com>
+
+	* NEWS: Update for 0.5.7.
+
+2007-02-09  Sandy Armstrong  <sanfordarmstrong@gmail.com>
+
+	* Tomboy/Plugins/StickyNoteImport.cs: Remove fix for bug #404739.  Not a
+	complete revert; still check for null on Shutdown, and kept
+	sticky_xml_path as a static member (no need to construct for each
+	instance).
+
+2007-02-09  Boyd Timothy  <btimothy@gmail.com>
+
+	* Tomboy/NoteTag.cs: Use "new" instead of "override" for TagChanged event
+	so that Tomboy will build in newer versions of gtk-sharp (Sebastian Dröge).
+
+2007-02-09  Sandy Armstrong  <sanfordarmstrong@gmail.com>
+
+	* Tomboy/Plugins/StickyNoteImport.cs : When first plugin instance is
+	initialized, check for existence of Sticky Notes XML file.  If file does
+	not exist, never add "Import Sticky Notes" menu item for rest of Tomboy
+	instance lifetime.  Fixes bug #404739.
+
+2007-02-09 Chris Scobell <chris@thescobells.com>
+	
+	Fixes for bug #405603:
+
+	* NoteBuffer.cs: Change the signature of FindDepthTag so that it no longer
+	unnecessarily requires the TextIter to be passed by reference. When 
+	inserting text at the start of a bulleted line change the direction of 
+	the bullet to match	the writing direction of the text. Add an event 
+	handler	for the DeleteRange event which changes the direction of a 
+	bulleted line to match the new first character after the previous one is
+	deleted. When a new line is added in the middle of a bulleted line make
+	sure that the new bulleted inserted at the start of the new line is the 
+	same direction as the first character on that line. Add a "direction" 
+	parameter to InsertBullet so that it can use the DepthNoteTag of the 
+	correct writing direction. Add a ToggleSelectionBullets method which 
+	toggles bullets on or off in the selection.
+	
+	* NoteWindow.cs: Remove ugly toggle bullets hack.
+	
+	* NoteTag.cs: Add a "Direction" property to specify the writing direction that
+	the tag is for. Add a "rtl" attribute to the DepthNoteTag serialized XML.
+	When creating a new DepthNoteTag set either the LeftMargin for a LTR direction
+	or the RightMargin for a RTL direction.
+	
+	* Undo.cs: Store the writing direction for an InsertBulletAction so that the 
+	InsertBullet can be redone using the correct direction.
+	
+	* Plugins/ExportToHTML.xsl: Output the "dir" attribute on list-items.
+
+2007-02-08  Boyd Timothy  <btimothy@gmail.com>
+
+	* Tomboy/dbus-sharp/*: Updated dbus-sharp and dbus-sharp-glib to 0.4.0 and
+	0.3.0 respectively; number of fixes and performance improvements including
+	a fix for surviving a session bus restart (bug #404738).
+
+2007-02-08  Boyd Timothy  <btimothy@gmail.com>
+
+	* configure.in: Patch from Sebastian Dröge to check for ndesk-dbus being
+	installed in the GAC.  Fixes bug #405577.
+	
+	* Tomboy/Makefile.am: Don't compile tomboy's copy of dbus-sharp if
+	ndesk-dbus is already installed, but use the installed version.
+
+2007-02-05  Boyd Timothy  <btimothy@gmail.com>
+
+	* Tomboy/dbus-sharp/dbus-sharp-glib/glib/GLib.cs: Copied similar code from
+	f-spot (submitted by alp/dbus-sharp owner) to fix a crash caused by the
+	dbus session restarting.  Fixes bug #404738.
+	* Tomboy/dbus-sharp/dbus-sharp-glib/glib/GLib.IO.cs: Ditto.
+
+2007-02-05  Boyd Timothy  <btimothy@gmail.com>
+
+	* configure.in: Bump version to 0.5.7.
+
+2007-02-05  Boyd Timothy  <btimothy@gmail.com>
+
+	* NEWS: Update for 0.5.6.
+
+2007-02-05  Boyd Timothy  <btimothy@gmail.com>
+
+	* Tomboy/Tray.cs: Only pad the icon when running as the panel applet.
+	Additional fix for bug #403500.
+
+2007-02-03  Boyd Timothy  <btimothy@gmail.com>
+
+	* Tomboy/NoteManager.cs: Patch from Tommi Asiala to add a sentence about
+	autosave in the start note.
+
+2007-02-03  Boyd Timothy  <btimothy@gmail.com>
+
+	* AUTHORS: Add Chris.
+	
+	* Tomboy/Tomboy.cs: Add Chris to the about dialog authors.
+
+2007-02-02  Boyd Timothy  <btimothy@gmail.com>
+
+	* Tomboy/Tray.cs: Don't scale small non-SVG icons in the panel or tray.
+	Fixes bug #403500.
+
+2007-02-02  Boyd Timothy  <btimothy@gmail.com>
+
+	* Tomboy/Plugins/NoteOfTheDay.cs: Rename "NotD" -> "Today" so it's easier
+	to learn what the purpose of the Note of the Day plugin is for.
+
+2007-02-02  Boyd Timothy  <btimothy@gmail.com>
+
+	Patch from Mathias Hasselmann to fix bug #387579.
+
+	* configure.in: Set up a custom INTLTOOL_UPDATE script to make xgettext
+	PluginInfo aware.
+	
+	* pot-update.in: New file (this is the script).
+	
+	* Tomboy/PluginManager.cs: Add code to call Catalog.GetString for name
+	and description.
+	
+	* Tomboy/Plugins/Backlinks.cs: Updated PluginInfo syntax so it's
+	localizable.
+	* Tomboy/Plugins/Bugzilla.cs: Ditto.
+	* Tomboy/Plugins/StickyNotesImport.cs: Ditto.
+	
+	* Tomboy/Plugins/Evolution.cs: Added initial plugin name and description.
+	* Tomboy/Plugins/ExportToHTML.cs: Ditto.
+	* Tomboy/Plugins/FixedWidth.cs: Ditto.
+	* Tomboy/Plugins/GalagoPresence.cs: Ditto.
+	* Tomboy/Plugins/NoteOfTheDay.cs: Ditto.
+	* Tomboy/Plugins/PrintNotes.cs: Ditto.
+
+2007-02-02  Boyd Timothy  <btimothy@gmail.com>
+
+	* Tomboy/NoteBuffer.cs: Patch from Chris Scobell to fix bug #403745. Fix
+	problem where upon deserialization bullets can get formatting tags due to
+	the order is which tags are applied.  In the OnTagApplied handler remove
+	any existing tags if the tag being applied is a DepthNoteTag.
+
+2007-02-02  Boyd Timothy  <btimothy@gmail.com>
+
+	* Tomboy/NoteBuffer.cs: Patch from Chris Scobell to fix bug #403408.  Add
+	a method 'CanMakeBulletedList' which returns true if the cursor is at a
+	line that can be made into a bulleted list (i.e., anything but the first
+	line which has the title). Add checks to IncreaseDepth, DecreaseDepth and
+	AddNewLine which use this method to determine if they should apply bullet
+	operations.
+	
+	* Tomboy/NoteWindow.cs: In RefreshState make the bulleted list toggle
+	formatting menu item senstive only if CanMakeBulletedList returns true.
+
+2007-02-02  Boyd Timothy  <btimothy@gmail.com>
+
+	* Tomboy/NoteBuffer.cs: Patch from Chris Scobell to fix bug #403033.  Fix
+	bug where an empty list item was being serialized as: "<list-item/> rather
+	than as "<list-item></list-item>" by using WriteFullEndElement instead of
+	WriteEndElement. Fix bug where if the last line in a note was part of a
+	bulleted list it would be incorrectly identified as having a following
+	line with a depth.
+
+2007-02-01  Boyd Timothy  <btimothy@gmail.com>
+
+	* Tomboy/Applet.cs: Use the ShowPreferencesAction to show the preferences
+	dialog.  Fixes bug #403290.
+	
+	* Tomboy/Tomboy.cs: Handle opening the preferences dialog here so that both
+	the panel applet and notification area icon use this via ActionManager.
+	Also fixed OnShowHelpAction to prevent Tomboy from crashing when the user
+	accesses the help from the search window menu in panel applet mode.
+	
+	* Tomboy/Tray.cs: Removed PreferencesDialog handling here (moved to
+	Tomboy.cs).
+
+2007-02-01  Boyd Timothy  <btimothy@gmail.com>
+
+	* libtomboy/gedit-print.c: Patch from Changwoo Ryu to add
+	xgettext:no-c-format to the line before "%A %x, %X" so translations
+	can be properly made for this string.  Fixes bug #356448.
+
+2007-01-31  Boyd Timothy  <btimothy@gmail.com>
+
+	Patch from Chris Scobell to fix bug #403026:
+	
+	* Tomboy/NoteBuffer.cs: Hook up a handler to the TagChanged signal on
+	the NoteBuffer which removes formatting tags from any bullets in the
+	selection. Modify the IsActiveTag and ToggleActiveTag methods so that
+	they ignore the bullet character and look at the first character in the
+	list item instead.
+	
+	* Tomboy/NoteTag.cs: Remove the tag properties on the DepthNoteTags
+	that were previously used to override formatting tags. Give the
+	DepthNoteTags an explicit point size and tweak the indent so that
+	wrapped lines line up better.
+
+2007-01-31  Boyd Timothy  <btimothy@gmail.com>
+
+	The following files fix bug #378400 by allowing the search window to
+	update when notes are saved.
+	
+	* Tomboy/Note.cs: Add a Saved event.
+	
+	* Tomboy/NoteManager.cs: Watch Note.Saved event.  Add NoteSaved
+	event.
+	
+	* Tomboy/RecentChanges.cs: Watch NoteManager.NoteSaved event.  Update
+	list of notes when a NoteSaved event occurs.  Save the current selection
+	when rebuilding the list of notes.
+
+2007-01-30  Boyd Timothy  <btimothy@gmail.com>
+
+	* Tomboy/Tray.cs: Take into account which direction the panel is
+	oriented (horizontally/vertically) and add a little padding around
+	the tray/panel icon.  Additional fix for bug #354416.
+
+2007-01-30  Boyd Timothy  <btimothy@gmail.com>
+
+	* Tomboy/NoteBuffer.cs: Patch from Chris Scobell to adjust the
+	increase/decrease code to account for all lines that are highlighted
+	when increase/decrease are pressed.  Fixes bug #402338.
+
+2007-01-29  Boyd Timothy  <btimothy@gmail.com>
+
+	* configure.in: Bump version to 0.5.6.
+
+2007-01-29  Boyd Timothy  <btimothy@gmail.com>
+
+	* NEWS: Update for 0.5.5.
+
+2007-01-29  Boyd Timothy  <btimothy@gmail.com>
+
+	* Tomboy/dbus-sharp/dbus-sharp/src/BusObject.cs: Update DBusSharp to
+	include bugfixes from dbus-sharp-0.3.1.
+	* Tomboy/dbus-sharp/dbus-sharp/src/Connection.cs: Ditto.
+	* Tomboy/dbus-sharp/dbus-sharp/src/DBus.cs: Ditto.
+	* Tomboy/dbus-sharp/dbus-sharp/src/Introspection.cs: Ditto.
+	* Tomboy/dbus-sharp/dbus-sharp/src/Signature.cs: Ditto.
+	* Tomboy/dbus-sharp/dbus-sharp/src/UnixNativeTransport.cs: Ditto.
+
+2007-01-29  Boyd Timothy  <btimothy@gmail.com>
+
+	Patch from Chris Scobell to fix bugs #395100 and #402075:
+	
+	* Tomboy/NoteBuffer.cs: Change bullets so that the space after the
+	bullet is treated as part of the bullet and the user is prevented from
+	removing it.  Fix bug where tags continuing over the start of a new list
+	were not being properly closed.  Fix bug caused be bugzilla plugin where
+	the bug image got inserted before the bullet.  When serializing check that
+	a tag is serializable before unwinding the other tags on the tag stack to
+	prevent tags such as those from gtkspell from breaking up other tags.
+	Fix bug where the start or end of tags would get lost because they started
+	or ended inside the region which has the bullet character and the space
+	after the bullet.
+	
+	* Tomboy/NoteTag.cs: Add weight, style and strikethrough properties to
+	the depth note tags so that they are unaffected by the bold, italic and
+	strikethough formatting operations.
+	
+	* Tomboy/NoteWindow.cs: Check the selection on mouse button press to
+	prevent operations such as right click > cut from messing up the bullets
+	in a note.
+
+2007-01-23  Boyd Timothy  <btimothy@gmail.com>
+
+	* Tomboy/NoteBuffer.cs: Rolling back changes for bulleted-list space
+	character fix (reopened bug #395100).
+	* Tomboy/NoteTag.cs: Ditto.
+	* Tomboy/NoteWindow.cs: Ditto.
+
+2007-01-23  Boyd Timothy  <btimothy@gmail.com>
+
+	* Tomboy/Util.cs: Ignore when SetProcessName fails by surrounding it with
+	a try/catch.  It's not a necessity for running tomboy.  Fixes bug #399755.
+
+2007-01-23  Boyd Timothy  <btimothy@gmail.com>
+
+	* Tomboy/NoteBuffer.cs: Applied patch from Chris Scobell to prevent extra
+	space character from being used inside bulleted lists (directly after the
+	bullet character).  Fixes bug #395100.
+	* Tomboy/NoteTag.cs: Ditto.
+	* Tomboy/NoteWindow.cs: Ditto.
+
+2007-01-22  Boyd Timothy  <btimothy@gmail.com>
+
+	* Tomboy/Undo.cs: Applied patch from Stefan Schweizer to prevent a
+	crash when backspacing over an Evolution link in a note.  Fixes 
+	bug #349183.
+
+2007-01-22  Boyd Timothy  <btimothy@gmail.com>
+
+	* Tomboy/Applet.cs: Don't use the "ShowHelpAction" to display the help
+	in this case because the handler expects to use the Gdk.Screen from the
+	tray icon.  Fixes bug #399490.
+
+2007-01-22  Boyd Timothy  <btimothy@gmail.com>
+
+	* data/DefaultPlugins.desktop.in.in: Removed "Version" key from the
+	file since it's not a required to be present and most .desktop files
+	do not specify it
+	(http://standards.freedesktop.org/desktop-entry-spec/latest/ar01s05.html).
+	Fixes bug #399446.
+	* data/tomboy.desktop.in: Ditto.
+
+2007-01-22  Boyd Timothy  <btimothy@gmail.com>
+
+	* data/Makefile.am: Removed comment about only installing the
+	tomboy.desktop for KDE.  Since we now install this regardless, the
+	comment no longer makes sense.
+
+2007-01-22  Boyd Timothy  <btimothy@gmail.com>
+
+	* Tomboy/PluginManager.cs: Check existing DefaultPlugins.desktop file
+	and upgrade it if it doesn't contain the correct directory.  Fixes
+	bug #399442.
+
+2007-01-19  Boyd Timothy  <btimothy@gmail.com>
+
+	* configure.in: Bump version to 0.5.5.
+
+2007-01-19  Boyd Timothy  <btimothy@gmail.com>
+
+	* NEWS: Update for 0.5.4.
+
+2007-01-19  Boyd Timothy  <btimothy@gmail.com>
+	
+	* Tomboy/Tomboy.cs: Use DBus to open the search window in the
+	Tomboy instance that is already running inside RegisterRemoteControl ().
+	This gives the user feedback that something occurs when they attempt
+	to launch Tomboy again when it's already running.  Fixes bug #350707.
+	Also added open_start_here to the TomboyCommandLine.NeedsExecute so
+	"--start-here" will work.
+
+2007-01-18  Boyd Timothy  <btimothy@gmail.com>
+	
+	* www/index.html: Redirect to the website's new home on GNOME
+	(http://www.gnome.org/projects/tomboy).  The content is still in
+	SVN, just inside the gnomeweb-wml project
+	(gnomeweb-wml/trunk/www.gnome.org/projects/tomboy/).
+
+2007-01-18  Boyd Timothy  <btimothy@gmail.com>
+	
+	* Tomboy/RecentChanges.cs: Changed current_matches to store the
+	match count instead of an array list of matches (since the actual
+	matches aren't used in this window).  Use Note.TextContent instead
+	of Note.Buffer to prevent the note buffer from being loaded, which
+	causes it to be "accessed/saved" without the user actually viewing
+	the note.  Fixes bug #397717.
+	
+2007-01-18  Boyd Timothy  <btimothy@gmail.com>
+	
+	* Tomboy/Tomboy.cs: Track when Tomboy runs as a panel applet so the
+	QuitTomboyAction can be disabled.  Fixes Ctrl+Q crash in bug #397700.
+	
+2007-01-17  Boyd Timothy  <btimothy@gmail.com>
+	
+	* www/index.html: Changed references from CVS -> SVN.
+	
+2007-01-17  Boyd Timothy  <btimothy@gmail.com>
+	
+	* Tomboy/NoteWindow.cs: Added "bool scroll_to_hit" as a parameter to
+	PerformSearch () so it can be called without scrolling the cursor to
+	the first hit.  Modified Buffer.InsertText and Buffer.DeleteRange
+	handlers to call PerformSearch (false) after a 500ms delay.  This
+	updates the search as the user types and prevents note corruption.
+	Fixes bug #397223.
+	
+2007-01-16  Boyd Timothy  <btimothy@gmail.com>
+	
+	* Tomboy/Plugins/Evolution.cs: Applied patch from Stefan Schweizer to
+	allow the Evolution Plugin to work with an Evolution exchange account.
+	Fixes bug #397390.
+	
+2007-01-12  Boyd Timothy  <btimothy@gmail.com>
+	
+	* Tomboy/Plugins/NoteOfTheDay.cs: Removed unused Gtk.CheckMenuItem
+	variable.
+	
+2007-01-12  Boyd Timothy  <btimothy@gmail.com>
+	
+	The following files fix bug #315222 – Renaming Start Here breaks key
+	bindings.
+	
+	* data/tomboy.schemas.in: Added /apps/tomboy/start_note.
+	
+	* Tomboy/Note.cs: Change Note.IsSpecial property to check the Note.Uri
+	to determine whether it's special instead of checking it's title.
+	
+	* Tomboy/NoteManager.cs: Maintain a start_note_uri in GConf to keep
+	track of which note should be deemed the "Start Here" note.  Set the
+	URI in GConf when the Start Here note is first created.  Also looks for
+	the existing Start Here note and sets the URI if it's blank (for
+	existing Tomboy users).  Add a StartNoteUri property.
+	
+	* Tomboy/Preferences.cs: Added START_NOTE_URI preference.
+	
+	* Tomboy/RemoteControl.cs: Added FindStartHereNote so --start-here
+	command-line option doesn't break.
+	
+	* Tomboy/Tomboy.cs: Updated the --start-here option to open the correct
+	note.
+	
+	* Tomboy/Tray.cs: Paste to the start note specified in GConf.  Add the
+	start note specified in GConf to the Tomboy's main menu.  Drag and drop
+	text to the correct start note.
+	
+	* Tomboy/XKeybinder.cs: Bind to the "Start Here" keybinding to the
+	start note specified in GConf.
+
+2007-01-11  Boyd Timothy  <btimothy@gmail.com>
+
+	* Tomboy/Plugins/NoteOfTheDay.cs: Removed the "Create Note of the Day"
+	menu item from the Tools menu since plugins are enabled/disabled from
+	the configurable plugins UI in the preferences dialog.  If it's disabled
+	there, the plugin won't run.  Fixes bug #383765.
+
+2007-01-11  Boyd Timothy  <btimothy@gmail.com>
+
+	* Tomboy/Plugins/NoteOfTheDay.cs: Modified CheckNewDay so that it
+	uses both the title_prefix and DateTime.Date (time set to 00:00:00)
+	to check whether to create a new note.  Fixes bug #382190.
+
+2007-01-08  Boyd Timothy  <btimothy@gmail.com>
+
+	* Tomboy/RemoteControl.cs: Added patch from John Stowers to allow
+	DBus clients to retrieve the version of Tomboy (fixes bug #394501).
+
+2007-01-08  Boyd Timothy  <btimothy@gmail.com>
+
+	* Tomboy/NoteBuffer.cs: Applied patch from Chris Scobell to fix bug in
+	serialization of lists that start with and item of depth greater than
+	zero (bug #319221).
+
+2007-01-08  Boyd Timothy  <btimothy@gmail.com>
+
+	* configure.in: Bump version to 0.5.4.
+
+2007-01-08  Boyd Timothy  <btimothy@gmail.com>
+
+	* NEWS: Update for 0.5.3.
+	* www/index.html: Ditto.
+
+2007-01-08  Boyd Timothy  <btimothy@gmail.com>
+
+	* configure.in: Change of plans again.  Assume a root install.  Added
+	--enable-dbus-service-dir-check and --enable-panelapplet-srvdir-check
+	variables with defaults of "yes".  Non-root users will now be able
+	to disable these checks and successfully run a "make install" without
+	permission errors.
+
+2007-01-08  Boyd Timothy  <btimothy@gmail.com>
+
+	* Tomboy/RemoteControl.cs: Patch from John Stowers (bug #393389)
+	to improve DBus interface for note synchronization.
+	
+	* Tomboy/Note.cs: Make setting note.XmlContent work for open notes.
+
+2007-01-08  Boyd Timothy  <btimothy@gmail.com>
+
+	* data/tomboy.1: Fixed typo "thir" -> "their" in man page documentation.
+	Fixes bug #394167.
+
+2007-01-08  Boyd Timothy  <btimothy@gmail.com>
+
+	* Tomboy/NoteManager.cs: Added additional instructions in the Start Here
+	note to explain how to use Links in Tomboy.  This is primarily for brand
+	new users of Tomboy.
+
+2007-01-06  Sandy Armstrong  <sanfordarmstrong@gmail.com>
+
+	* Tomboy/Plugins/StickyNoteImport.cs: Added PluginInfo attribute.
+
+2007-01-05  Boyd Timothy  <btimothy@gmail.com>
+
+	* Tomboy/NoteWindow.cs: Added a Control+N keybinding so a keyboard user
+	can easily create a new note.
+
+2007-01-05  Boyd Timothy  <btimothy@gmail.com>
+
+	* configure.in: Do not have configure automatically detect the panel
+	applet server directory (detection is now commented out).  Packagers will
+	need to apply a patch to re-enable the detection.  This change allows
+	"make install" to work without permission problems for non-root users.
+
+2007-01-05  Boyd Timothy  <btimothy@gmail.com>
+
+	* configure.in: Do not have configure automatically detect the DBus
+	services directory (detection is now commented out).  Packagers will need
+	to apply a patch to re-enable the detection.  This change allows
+	"make install" to work without permission problems for non-root users.
+	Fixes bug #379427.
+
+2007-01-05  Boyd Timothy  <btimothy@gmail.com>
+
+	* Tomboy/NoteManager.cs: Added environment variable TOMBOY_PLUGINS_PATH
+	to safer plugin development (patch from Adam Lofts, bug #378650).
+
+2007-01-04  Boyd Timothy  <btimothy@gmail.com>
+
+	* help/C/tomboy.xml: Updated copyright for 2007.
+	* NEWS: Ditto.
+	* README: Ditto.
+	* Tomboy/Tomboy.cs: Ditto.
+	* www/index.html: Ditto.
+
+2007-01-04  Boyd Timothy  <btimothy@gmail.com>
+
+	* Tomboy/PluginManager.cs: Changed SystemException -> Exception to catch
+	any exception that might occur when doing a Process.Start () to show the
+	plugins directory (fixes crasher bug #351703).
+	
+2007-01-04  Boyd Timothy  <btimothy@gmail.com>
+
+	* data/tomboy.schemas.in: Added /apps/tomboy/export_html/export_linked_all.
+	
+	* Tomboy/Plugins/ExportToHTML.cs: Added "Include all other linked notes"
+	checkbox to the Export to HTML dialog (Fix for bug #351517).  Also includes
+	code to fix bug #350977 by preventing recursive links from being evaluated.
+	
+	* Tomboy/Plugins/ExportToHTML.xsl: Prevent recursive links (bug #350977) by
+	using an <xsl:key> to keep track of already processed note titles.  Allow
+	exporting of recursive links (bug #351517).
+	
+	* Tomboy/Preferences.cs: Added /apps/tomboy/export_html/export_linked_all.
+	
+2007-01-02  Boyd Timothy  <btimothy@gmail.com>
+
+	* Tomboy/Logger.cs: Fixed compiler warning.  Removed unused exception
+	variable.
+	
+	* Tomboy/Note.cs: Ditto.  Use a DateTime format when reading and writing
+	dates in NoteArchiver.
+	
+	* Tomboy/NoteManager.cs: Ditto.  Removed unused exception variable.
+	
+	* Tomboy/NoteWindow.cs: Ditto.  Removed unused variable "encoded_words"
+	from the NoteFindBar.
+	
+	* Tomboy/PluginManager.cs: Ditto.  Removed ambiguity between
+	System.Collections.IEnumerable and
+	System.Collections.Generic.IEnumerable<T>.
+	
+	* Tomboy/RemoteControl.cs: Ditto.  Removed unused exception variables.
+	
+	* Tomboy/Utils.cs: Ditto.
+	
+	* Tomboy/Watchers.cs: Ditto.
+	
+	* Tomboy/XKeybinder.cs: Ditto.
+	
+	* Tomboy/Plugins/Backlinks.cs: Ditto.  Removed unused CompareNoteTitles.
+	
+	* Tomboy/Plugins/ExportToHTML: Ditto.  Removed unused exception variables.
+	
+	* Tomboy/Plugins/NoteOfTheDay.cs: Ditto.
+
+2007-01-02  Boyd Timothy  <btimothy@gmail.com>
+
+	Applied patch from Mathias Hasselmann (Bug #383772) to prevent
+	Gtk-WARNING messages when deleting notes.
+	
+	* Tomboy/Note.cs: Added HasBuffer and HasWindow properties.
+	
+	* Tomboy/PluginManager.cs: Added IsDisposing property to prevent problems
+	returning the Buffer and Window when a plugin is being disposed.
+	
+	* Tomboy/Plugins/Evolution.cs: Check HasWindow during Shutdown.
+	
+	* Tomboy/Plugins/FixedWidth.cs: Check HasWindow in OnDestroyed.
+
+2006-12-20  Boyd Timothy  <btimothy@gmail.com>
+	
+	* Tomboy/NoteBuffer.cs: Applied patch from Chris Scobell (Bug #319221)
+	to prevent text from being inserted before a bullet by moving the cursor
+	after the bullet.
+
+2006-12-19  Boyd Timothy  <btimothy@gmail.com>
+	
+	* Tomboy/NoteBuffer.cs: Fix for bug #387452 by using escaped UTF-8
+	characters for bullets instead of including them directly in the source
+	code.
+
+2006-12-18  Boyd Timothy  <btimothy@gmail.com>
+	
+	* Tomboy/Tomboy.cs: Fix for bug #386010 by not assuming the next argument
+	has a length greater than 0.  It could be "".  Also, moved the
+	"--check-plugin-unloading" option to be printed out in the usage as the
+	last option.
+
+2006-12-18  Boyd Timothy  <btimothy@gmail.com>
+	
+	* configure.in: Bump version to 0.5.3.
+
+2006-12-18  Boyd Timothy  <btimothy@gmail.com>
+	
+	* NEWS: Update for 0.5.2.
+	* www/index.html: Ditto.  Also added information about the latest
+	stable release (0.4.1) to the page.
+
+2006-12-18  Boyd Timothy  <btimothy@gmail.com>
+	
+	* Tomboy/NoteBuffer.cs: Applied patch from Chris Scobell (Bug #319221)
+	to add bulleted list support.  Added code to watch newlines to determine
+	whether they begin with "*" or "-" to start new bulleted lists.  Code
+	also added to increase and decrease bulleted list depth (indent).
+	* Tomboy/NoteTag.cs: Ditto.  Added DepthNoteTag.
+	* Tomboy/NoteWindow.cs: Ditto.  Added accelerators to manipulate tab
+	depth for bullted lists (Tab, Shift-Tab, Alt-RightArrow, Alt-LeftArrow).
+	Create new bullted list by using "*" or "-" at beginning of line or by
+	selecting "Bullets" from the "Text" menu.
+	* Tomboy/Undo.cs: Ditto.  Added ChangeDepthAction and InsertBulletAction.
+	* Tomboy/Plugins/ExportToHTML.xsl: Ditto.  Convert <list> tags to HTML
+	during an export.
+
+2006-12-14  Boyd Timothy  <btimothy@gmail.com>
+
+	* Tomboy/Plugins/Backlinks.cs: Open the note findbar with the original
+	note's title filled in (so the link is highlighted).
+
+2006-12-14  Boyd Timothy  <btimothy@gmail.com>
+
+	* Tomboy/Plugins/Backlinks.cs: Reverted back to an ArrayList since
+	the List<T>.Sort () method isn't quite implemented completely on older
+	versions of Mono.
+	
+2006-12-14  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Preferences.cs: Use "Settings" instead of "Preferences"
+	in the Plugins pane, so it's less confusing with the dialog
+	title.  Be anal about code formatting.  
+
+2006-12-14  Boyd Timothy  <btimothy@gmail.com>
+
+	DBusSharp released new tarballs today.  Upgrading to dbus-sharp-0.3 and
+	dbus-sharp-0.2.
+	
+		* Improved support for multi-threaded use, FreeBSD support...
+		* API change: The NameReply enum is now RequestNameReply to bring
+		  it in line with the spec.
+
+	* Tomboy/dbus-sharp/dbus-sharp/src/Address.cs, Authentication.cs,
+	Bus.cs, BusObject.cs, Connection.cs, DBus.cs, DProxy.cs, Introspection.cs,
+	Mapper.cs, Message.cs, MessageReader.cs, MessageWriter.cs, Protocol.cs,
+	Signature.cs, SocketTransport.cs (new), Transport.cs,
+	UnixNativeTransport.cs, UnixTransport.cs (new), Wrapper.cs.
+	* Tomboy/dbus-sharp/dbus-sharp-glib/glib/GLib.cs
+	
+	* Tomboy/RemoteControlProxy.cs: Changed "NameReply" -> "RequestNameReply"
+	since it changed in dbus-sharp.
+	
+2006-12-14  Boyd Timothy  <btimothy@gmail.com>
+
+	The following files address bug #381357 by adding a Menubar to the
+	Search All Notes window.  They also add in consumption of
+	Gtk.UIManager and Gtk.Action(s).
+	
+	* data/Makefile.am: Include UIManagerLayout.xml in EXTRA_DIST.
+	
+	* data/UIManagerLayout.xml: The XML file needed for Gtk.UIManager.
+	Includes entries for the Search All Notes menubar, a context menu
+	for the Search All Notes window, and the TrayIcon menu.
+	
+	* Tomboy/ActionManager.cs: New file to manage Tomboy's consumption
+	of Gtk.Action(s) and Gtk.UIManager.  Using the UIManager should
+	allow plugins to tie in to Tomboy's UI more easily.
+	
+	* Tomboy/Applet.cs: Event handlers now activate the global actions
+	in the ActionManager.
+	
+	* Tomboy/Makefile.am: Added ActionManager.cs as a source file.  Added
+	UIManagerLayout.xml as a resource.
+	
+	* Tomboy/RecentChanges.cs: Added a menubar (uses the UIManager).
+	Removed Close button.  Added right-click menu so users can open/delete
+	a note from the TreeView with a context menu.
+	
+	* Tomboy/Tomboy.cs: Make "--search" work also for non-dbus.  Added about
+	dialog (originally in Tray.cs).  Added code to verify that the tray icon
+	gets added to the NotificationArea (when not running as a panel applet).
+	If the tray icon doesn't appear, the Search All Notes window is opened
+	automatically.  Set up global actions and action handlers that can be
+	called anywhere in Tomboy via Tomboy.ActionManager ["<action name>"].
+	Activate ();.
+	
+	* Tomboy/Tray.cs: Moved ShowAbout to Tomboy.cs.  Changed the popup menu
+	to use the UIManager so plugins can eventually add things to the menu
+	if absolutely necessary.
+	
+	* Tomboy/Utils.cs: Initialize ActionManager and added public static
+	accessor for it to the Application class.
+
+2006-12-14  Boyd Timothy  <btimothy@gmail.com>
+
+	* data/tomboy.schemas.in: Added "BacklinksPlugin" as a default enabled
+	plugin.
+	* Tomboy/Preferences.cs: Ditto.
+
+	* Tomboy/Plugins/Backlinks.cs: New Backlinks plugin to allow users to see
+	what other notes link to the current note.
+	* Tomboy/Plugins/Makefile.am: Ditto.
+	
+2006-12-14  Alex Graveley  <alex@beatniksoftware.com>
+
+	* data/images/pinup.png: Make the inactive icon grey instead of
+	green to make it more visually distinct from the green pushed-in
+	and hover icons.
+
+2006-12-12  Matic Zgur  <mr.zgur@gmail.com>
+
+	* configure.in: Added sl to ALL_LINGUAS
+
+2006-12-08  Boyd Timothy  <btimothy@gmail.com>
+
+	* Tomboy/Plugins/Bugzilla.cs: Added simple UI configuration for adding
+	custom icons.
+	
+	* Tomboy/Plugins/ExportToHTML.cs: Added code to detach event handlers when
+	being disabled so there are no leaks.
+	* Tomboy/Plugins/NoteOfTheDay.cs: Ditto.
+	* Tomboy/Plugins/PrintNotes.cs: Ditto.
+	* Tomboy/Plugins/StickyNoteImport.cs: Ditto.
+	
+2006-12-07  Boyd Timothy  <btimothy@gmail.com>
+
+	The following files provide configurable plugins.  More history is in
+	Bug #380636.  Kudos to Mathias Hasselmann for all the time spent making
+	this a reality.
+	
+	* data/tomboy.schemas.in: Added a "enabled_plugins" setting with defaults.
+	
+	* Tomboy/Defines.cs.in: Added AssemblyInformationalVersion.
+	
+	* Tomboy/PluginManager.cs: Use System.Collections.Generic for everything.
+	Added an attribute class to allow attributes (like name, version, etc.) on
+	plugins.  Added code to enable only the plugins set in GConf under the
+	"enabled_plugins" setting.  Detect when plugins are unloaded whether they
+	are leaving around references (usually event handlers) and warn the
+	developer.
+	
+	* Tomboy/Preferences.cs: Added support for the "enabled_plugins" setting.
+	Added a "Plugins" tab in the preferences dialog so users can: 1) see all
+	the installed plugins, 2) enable/disable plugins, and 3) configure plugins
+	that are configurable.
+	
+	* Tomboy/Tomboy.cs: Added the command-line option "--check-plugin-unloading"
+	that enables checks for leaks when users manually disable plugins.
+	
+	* Tomboy/Tray.cs: Pass in the PluginManager to the preferences dialog.
+
+2006-12-06  Boyd Timothy  <btimothy@gmail.com>
+
+	* Tomboy/Util.cs: Fixed HIGMessageDialog to vertically align the
+	dialog icon at the top.  Without this, the icon would float in
+	the middle of the message on the left and look weird.
+
+2006-12-06  Boyd Timothy  <btimothy@gmail.com>
+
+	* data/.cvsignore: com.beatniksoftware.Tomboy.service ->
+	org.gnome.Tomboy.service.
+	* data/com.beatniksoftware.Tomboy.service.in: Ditto.
+	* data/org.gnome.Tomboy.service.in: Ditto.
+	* data/Makefile.am: Ditto.
+	* Tomboy/RemoteControl.cs: Ditto.
+	* Tomboy/RemoteControlProxy.cs: Ditto.
+	* tomboy.spec.in: Ditto.
+
+2006-12-05  Ales Nyakhaychyk  <nab@mail.by>
+
+	* configure.in: Add 'be' to ALL_LINGUAS
+
+2006-11-27  Boyd Timothy  <btimothy@gmail.com>
+	
+	* Tomboy/Preferences.cs: Renamed "Table of Contents" (old) ->
+	"Search All Notes".
+
+2006-11-27  Boyd Timothy  <btimothy@gmail.com>
+	
+	* Tomboy/Tomboy.cs: Added GETTEXT initialization as the first
+	thing Tomboy does before parsing command-line parameters.  This
+	Allows --start-here and command-line usage output to function in
+	non-English languages.  Also fixed --search command-line usage
+	string.
+
+	* Tomboy/Util.cs: Removed GETTEXT initialization.
+
+2006-11-25  Jakub Steiner <jimmac@ximian.com>
+
+	* Tomboy/RecentChanges.cs: use a search action icon defined in the
+		icon naming spec instead of gnome-searchtool.
+	* data/images/pindown.png
+	* data/images/pinup-active.png
+	* data/images/pinup.png
+	* data/images/stock_bug.png
+	* data/images/stock_mail.png: update in tango style
+	* data/images/gnome-searchtool.png: this looks like it could be
+		removed, but keeping it (in tango style) to be safe.
+
+2006-11-22  Boyd Timothy  <btimothy@gmail.com>
+	
+	* configure.in: Bump version to 0.5.2.
+
+2006-11-22  Boyd Timothy  <btimothy@gmail.com>
+	
+	* NEWS: Update for 0.5.1.
+	* www/index.html: Ditto.  Also added information about the latest
+	stable release (0.4.1) to the page.
+	
+	* www/img/applet-small.png: New screenshot from 0.5.1.
+	* www/img/search-small.png: Ditto.
+	* www/img/windows-small.png: Ditto.
+
+2006-11-22  Boyd Timothy  <btimothy@gmail.com>
+	
+	* Tomboy/dbus-sharp/dbus-sharp/src/Connection.cs: Updates from
+	the DBusSharp project to support reading of non-native endian
+	messages.  D-Bus capabilities should now work on PPC.
+	* Tomboy/dbus-sharp/dbus-sharp/src/MessageReader.cs: Ditto.
+
+2006-11-22  Boyd Timothy  <btimothy@gmail.com>
+	
+	* data/Makefile.am: Install tomboy.desktop.
+	
+	* data/tomboy.desktop.in: Use for GNOME and KDE now and use
+	the "--search" command-line option.
+	
+	* Tomboy/RemoteControl.cs: Added DisplaySearch and
+	DisplaySearchWithText to remotely open the Search All Notes
+	window.
+	
+	* Tomboy/Tomboy.cs: Added "--search" command-line option.
+
+2006-11-22  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Utils.cs: Don't print errors loading icon names
+	prematurely.  Set ToolMenuButton to not FocusOnClick and use the
+	toolbar's relief style, since these are available in Gtk#2.
+
+	* Tomboy/Tray.cs: Rename "Table of Contents" back to "Search All
+	Notes", since it's more easily understood.
+
+	* Tomboy/NoteWindow.cs: Use Gtk.Drag.DestGetTargetList instead of
+	using a DllImport.  Add "Find in This Note" menu item to Text
+	menu, which opens the search bar.  Add back "Search All Notes" to
+	context menu, and "Search" button to toolbar, replacing the ToC.
+	Set FocusOnClick=false for find bar buttons so they don't steal
+	cursor focus.
+
+	* Tomboy/RecentChanges.cs: Name the dialog "Search All Notes", and
+	clear out the unused min/max hits stuff.  Use "gnome-searchtool"
+	as the dialog icon.
+
+2006-11-21  Boyd Timothy  <btimothy@gmail.com>
+	
+	* Tomboy/dbus-sharp/dbus-sharp/src/IntrospectionSchema.cs: Removed
+	this file as it will fail on an older mono and neither is used in any
+	code path.  These files will eventually be used for doing DBus on
+	non-linux platforms, but they are not ready yet.
+	* Tomboy/dbus-sharp/dbus-sharp/src/UnixMonoTransport.cs: Ditto.
+
+2006-11-21  Boyd Timothy  <btimothy@gmail.com>
+	
+	* Tomboy/NoteWindow.cs: Added code to 1) Regain focus into the
+	TextView when the NoteFindBar is hidden (closed) and 2) automatically
+	select/scroll to the first match found during a search.
+
+2006-11-21  Boyd Timothy  <btimothy@gmail.com>
+	
+	* Tomboy/TrayIcon.cs: Added code to pay attention to when the width
+	OR height change individually (instead of just taking the Min of
+	them).  Fixes bugs #354416 (panel resizing), #352432 (1x1 TrayIcon),
+	and #354417 (tintin code removal - sorry Alex).
+	
+	* Tomboy/Makefile.am: Remove -resource:tintin.png line.
+
+	* data/images/Makefile.am: Remove tintin.png from noinst_DATA.
+
+	* data/images/tintin.png: Removed this file.
+
+2006-11-21  Boyd Timothy  <btimothy@gmail.com>
+	
+	* Tomboy/Makefile.am: Fix for Bug #329535.  Changed the wrapper to
+	only run "Uninstalled Tomboy" if it is started from the <full path to
+	Tomboy source code>/Tomboy directory.  This makes the wrapper script
+	more secure (see Comment #1 in the bug).
+	* Tomboy/tomboy.in: Ditto.
+
+2006-11-20  Boyd Timothy  <btimothy@gmail.com>
+	
+	* configure.in: Detect where to install the DBus service file by
+	reading dbus-1.pc.
+	
+	* tomboy.spec.in: Install the DBus service file in the correct
+	location.
+	
+	* data/Makefile.am: Ditto.
+
+2006-11-20  Boyd Timothy  <btimothy@gmail.com>
+
+	Integrated patch files from Sebastian Dröge (Bug # 357848) to fix
+	Tomboy's DBus story.  Tomboy now uses NDesk's DBusSharp (managed
+	DBus) which requires .NET 2.0 (we have to use "gmcs" instead of
+	"mcs" now).
+	
+	* configure.in: Test for "gmcs" instead of "mcs".  Remove checks for
+	libdbus.
+	
+	* Tomboy/dbus-sharp/*.cs: Removed old dbus-sharp bindings.
+	
+	* Tomboy/dbus-sharp/dbus-sharp/*: New NDesk.DBusSharp code.
+
+	* Tomboy/dbus-sharp/dbus-sharp-glib/*: Ditto.
+	
+	* Tomboy/Makefile.am: "mcs" -> "gmcs".  Build managed DBus.
+	
+	* Tomboy/RemoteControl.cs: Code modified to use NDesk.DBus.
+	* Tomboy/RemoteControlProxy.cs: Ditto.
+	* Tomboy/Tomboy.cs: Ditto.  Also modified the code to ensure that
+	only one Tomboy instance is allowed to run at a time (when using
+	DBus).
+	
+	* Tomboy/Plugins/Makefile.am: "mcs" -> "gmcs".
+	
+	* test/Makefile.am: Ditto.
+
+2006-11-20  Boyd Timothy  <btimothy@gmail.com>
+	
+	* Tomboy/NoteWindow.cs: Fixed FindBar to not actively search for
+	matches when it's not visible.  PerformSearch was being called even
+	when the FindBar had never been shown (extra work that didn't need
+	to be going on).
+
+2006-11-16  Boyd Timothy  <btimothy@gmail.com>
+	
+	* www/img/applet-small.png: New screenshot from 0.5.0 release.
+	* www/img/search-small.png: Ditto.
+	* www/img/windows-small.png: Ditto.
+	
+	* www/index.html: Update for 0.5.0.
+
+2006-11-16  Boyd Timothy  <btimothy@gmail.com>
+	
+	* Tomboy/Search.cs: Removed.  This file is no longer needed since
+	the search interface has been replaced by the integrated search in
+	the ToC and the FindBar in individual notes.
+
+2006-11-16  Boyd Timothy  <btimothy@gmail.com>
+	
+	* configure.in: Bump version to 0.5.1.
+
+2006-11-16  Boyd Timothy  <btimothy@gmail.com>
+	
+	* NEWS: Update for 0.5.0.
+	
+	* README: Modified instructions for bug reporting to direct people
+	to use bugzilla.gnome.org.
+
+2006-11-15  Boyd Timothy  <btimothy@gmail.com>
+	
+	* Makefile.am: Added MAINTAINERS to EXTRA_DIST.
+
+2006-11-15  David Trowbridge  <trowbrds@gmail.com>
+
+	* Tomboy/NoteBuffer.cs: Rearranged the way tags with an Image
+	attribute actually apply that image to the buffer, to work around
+	Gtk.TextBuffer suckage.  Made it so that the image gets removed from
+	the buffer when the tag is removed.
+
+	* Tomboy/NoteTag.cs: Added an ImageLocation parameter, which is used
+	to track the location in the buffer of the image associated with a
+	tag.  This makes it possible to reliably remove the image.
+
+	* Tomboy/Undo.cs: Rework SplitterActions to take into account the
+	delayed nature of tag image inserts/removals in their offset positions
+	during undo/redo for the tags that these operations end up removing
+	from the buffer.
+
+	* Tomboy/Plugins/Bugzilla.cs: Remove the BugzillaWatcher class, since
+	the image changes above make it possible to just use the builtin image
+	facilities within tomboy.
+
+	Change InsertBugAction to do the same kind of tag offset magic as
+	InsertAction and EraseAction (see Undo.cs changes).
+
+	Add bug icon facilities back now that everything supports icons in a
+	way that's powerful and robust enough to satisfy me (mostly).  At the
+	moment this allows icons to be customized per-bugzilla host via
+	sticking the file in ~/.tomboy/BugzillaIcons/{host}.png.  I do
+	eventually intend to have some GUI for customizing this (along with
+	maybe favicon magic).
+
+	* Tomboy/Plugins/Makefile.am: Move the bugzilla plugin into the
+	installed-plugins target, since I'm happy enough with it now to ship
+	to the world.
+
+2006-11-15  Boyd Timothy  <btimothy@gmail.com>
+	
+	* Tomboy/RecentChanges.cs: Fixed a problem where a destroyed
+	Table of Contents window was being called by the NoteRenamed
+	event, causing a null reference exception.
+
+2006-11-15  Boyd Timothy  <btimothy@gmail.com>
+	
+	* Tomboy/Tray.cs: Added Boyd, David, Ryan, Sandy, and
+	Sebastian to the About Dialog's authors list.
+
+2006-11-15  Boyd Timothy  <btimothy@gmail.com>
+	
+	* data/images/Makefile.am: Added tomboy-note-*.png for
+	inclusion in EXTRA_DIST.
+
+	* Tomboy/Makefile.am: Added tomboy-note-16.png as the
+	default tomboy-note.png resource.
+
+2006-11-15  Boyd Timothy  <btimothy@gmail.com>
+	
+	* data/images/tomboy*.png,svg: Updated the icons to the
+	ones jimmac created.
+
+	* data/images/Makefile.am: Install/uninstall
+	tomboy-note-16.png and tomboy-note-22.png.
+	
+	* Tomboy/Tray.cs: Changed the NoteMenuItem to use the
+	updated tomboy-note-16.png.
+	
+	* Tomboy/RecentChanges.cs: Now uses tomboy-note-22.png to
+	show notes in the TreeView.
+
+2006-11-15  Alex Graveley  <alex@beatniksoftware.com>
+
+	* AUTHORS: Add Boyd, David, Ryan, Sandy, and Sebastian.
+
+	* MAINTAINERS: New file with me and Boyd listed.  Needed for
+	bugmaster to set up bugzilla admin rights.
+
+2006-11-15  Boyd Timothy  <btimothy@gmail.com>
+
+	* Tomboy/Note.cs: Changed CreateExistingNote() to use the
+	create date passed inside the NoteData (which was read from
+	an existing note file) instead of using DateTime.MinValue.
+	Fixes bug #375380.
+	
+	* Tomboy/Plugins/NoteOfTheDay.cs: Added a try/catch around
+	the code that calls NoteManager.Create() to prevent failures
+	from crashing Tomboy altogether.  Worst case scenario now is
+	that the NoteOfTheDay Plugin doesn't create new notes.
+
+2006-11-15  Boyd Timothy  <btimothy@gmail.com>
+
+	* Tomboy/Preferences.cs: "Open 'All Notes' window" -> "Open
+	'Table of Contents'".  Also added mnemonic widgets to the
+	keybinding labels.
+
+2006-11-15  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Tray.cs: "All Notes" -> "Table of Contents".
+
+	* Tomboy/RecentChanges.cs: Make into a singleton.  Figure out if
+	we want to keep it around or desroy it on hide.
+
+	* Tomboy/NoteWindow.cs: Add "ToC" button to toolbar, which open
+	the new searchable Table of Contents.  Add Ctrl-O keybinding.
+	Use Find instead of Search in context menu.  Add Open Table of
+	Contents context menu item.
+
+	* Tomboy/Makefile.am (CSFILES): Don't build Search.cs.
+
+2006-11-14  Boyd Timothy  <btimothy@gmail.com>
+
+	* Implemented the new search interface bug #348023 (Improved
+	Search Interface).
+
+	* Tomboy/NoteWindow: Added a find bar for searching within an
+	individual note.
+	
+	* Tomboy/Preferences.cs: Modified the option in the preferences
+	dialog to open the "All Notes" (RecentChanges) instead of the
+	old search dialog.
+	
+	* Tomboy/RecentChanges.cs: Modified the code to provide the
+	Table of Contents and Search interface in one dialog.
+	
+	* Tomboy/RemoteControl.cs: Removed a call to NoteFindDialog (the
+	old search dialog) and added a call to open the find bar in the
+	note window for the DisplayNoteWithSearch() method.
+	
+	* Tomboy/Tray.cs: Removed the "Table of Contents" and "Search
+	Notes" menu items and replaced it with one "All Notes" menu item.
+
+2006-11-14  Boyd Timothy  <btimothy@gmail.com>
+
+	* tomboy.spec: Updated the BuildRequires and Requires lines to use
+	gtk-sharp2 instead of just gtk-sharp.
+
+	* data/tomboy-plugins.pc.in: Updated the Requires line to use
+	gtk-sharp-2.0 instead of gtk-sharp.
+
+2006-11-12  David Trowbridge  <trowbrds@gmail.com>
+
+	* Tomboy/NoteTag.cs: Add a new "CanSplit" field.  This field is used
+	to notate tags which only make sense so long as the text within them
+	is unchanged; examples of this are bugzilla bug numbers or contacts.
+
+	* Tomboy/Undo.cs: Add an abstract SplitterAction class which deals
+	with the mechanics of inserting/deleting text in the middle of tags
+	which are marked as un-splittable.  Change InsertAction and
+	EraseAction to inherit from SplitterAction.
+
+	* Tomboy/Utils.cs: Add TextRange.RemoveTag.
+
+	* Tomboy/Plugins/Bugzilla.cs: Add an Undo action for inserting a bug
+	and stick it on the undo stack when the drop occurs.
+
+2006-11-12  Alex Graveley  <alex@beatniksoftware.com>
+
+	* data/images/Makefile.am (noinst_DATA): Add stock_bug.png to
+	noinst_DATA.
+
+	* data/images/stock_bug.png: Add the stock bug icon.
+
+	* Tomboy/Plugins/Bugzilla.cs: Add David Trowbridge's bugzilla
+	plugin (from patch in comment #4 on bug 354378).
+
+	* Tomboy/Plugins/Makefile.am: Create Bugzilla plugin, but don't
+	install it by default.  Install the FixedWidth and NoteOfTheDay
+	plugins default now though.
+
+2006-11-11  Miguel de Icaza  <miguel@novell.com>
+
+	* Tomboy/NoteTag.cs: Do not store boolean flags on the hashtable
+	as those are quite large (boxing, bools, hashtable) instead use a
+	bitfield.
+
+	344k reduction on my system.
+
+2006-11-09  Alex Graveley  <alex@beatniksoftware.com>
+
+	* data/tomboy.schemas.in: Add menu_note_count and
+	menu_pinned_notes schemas.
+
+	* Tomboy/Tray.cs: Add a NoteMenuItem widget that subclasses
+	Gtk.ImageMenuItem and packs in a pin icon, which allows clicking
+	to pin the note to the tomboy menu.  The pinup icon is replaced
+	with pinup-active when the mouse hovers over the pin.  Show all
+	pinned notes in the Tomboy menu, and respect the menu_note_count
+	GConf key as the minimum number of notes to show.
+
+	* Tomboy/Preferences.cs: Add menu_note_count and menu_pinned_notes
+	GConf key default values.
+
+	* Tomboy/Note.cs: In Note, add IsPinned getter which checks if the
+	note's URI is in the menu_pinned_notes GConf, and setter which
+	adds the URI.
+
+	* data/images/Makefile.am (noinst_DATA): Add pinup.png,
+	pinup-active.png, and pindown.png.
+	* Tomboy/Makefile.am (RESOURCES): Include these pin images in the
+	assembly.
+
+	* Tomboy/Logger.cs: In FileLogger handle IOException when creating
+	~/.tomboy.log.
+
+2006-10-15  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Logger.cs: Store the log in ~/.tomboy.log.  Storing in
+	~/.tomboy/log chokes if the directory isn't created yet, so just
+	avoid this putting the log in the home directory.
+
+2006-09-20  Boyd Timothy  <btimothy@gmail.com>
+
+	* Tomboy/Plugins/ExportToHTML.cs: Fixed bug #336507 by changing
+	the ExportToHTMLDialog to extend Gtk.FileChooserDialog.  With this
+	also comes overwrite notification.
+
+2006-09-19  Boyd Timothy  <btimothy@gmail.com>
+
+	* Tomboy/Plugins/ExportToHTML.cs: Fix bug #351664 by adding
+	try/catch around the code that attempts to load the exported note
+	into a web browser.  If opening a web browser fails, a dialog will
+	alert the user that the note was exported successfully.  Also, the
+	export preferences are not saved unless the note is exported
+	successfully.
+
+2006-09-19  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Logger.cs: Patch from Jeff Rose to output timestamped log
+	data to ~/.tomboy/log and to the console.
+
+	* Tomboy/Applet.cs: Keep the menu verb callbacks in a static
+	member, since they are being reaped unexpectedly, causing crashes
+	sometimes when opening Preferences.
+
+2006-09-06  Alex Graveley  <alex@beatniksoftware.com>
+
+	* configure.in: Bump version to 0.5.0.  This alters the versioning
+	scheme used for future releases: Y version numbers will be odd for
+	Gnome devel cycle releases, and even for stable releases.  So
+	0.5.x is for Gnome 2.17 and 0.6.x will be Gnome 2.18.
+	
+2006-09-06  Alex Graveley  <alex@beatniksoftware.com>
+
+	* configure.in: Remove hard gtkspell dependency, as it is now
+	detected at runtime.  Bump version to 0.4.2.
+
+	* Tomboy/Defines.cs.in: Add GNOME_HELP_DIR, used for opening the
+	help manual.
+
+	* Tomboy/Note.cs: In NoteDataBufferSynchronizer, when setting the
+	xml text, flush the buffer contents and reload it.
+
+	* data/GNOME_TomboyApplet.xml: Add Help menu item, move Open
+	Plugins Folder first, followed by a separator to match the context
+	menu layout of other applets.
+
+	* Tomboy/NoteWindow.cs: Bind F1 to opening help.
+
+	* Tomboy/Applet.cs: Add Help menu item to applet and tray icon
+	context menus.
+
+	* Tomboy/Utils.cs: Add ShowHelp utility which opens the
+	Tomboy manual.
+
+	* Tomboy/PluginManager.cs: Catch exceptions thrown during plugin
+	creation, such as the one NoteSpellChecker may throw.
+
+	* Tomboy/Preferences.cs: Show spell check option if
+	NoteSpellChecker.GtkSpellAvailable.
+
+	* Tomboy/Watchers.cs: In NoteSpellChecker, detect gtkspell
+	availability at runtime.
+
+2006-09-06  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Watchers.cs: In NoteLinkWatcher, highlight links at
+	sentence boundaries as well as word boundaries.  This fixes
+	linking to notes with titles ending or beginning in punctuation.
+
+	* Tomboy/Applet.cs: Fix bug #354416 by setting the
+	PanelAppletFlags.ExpandMinor flag to get sizing updates, and
+	overriding OnChangeSize to set the icon's size request.
+
+2006-09-05  Sandy Armstrong  <sanfordarmstrong@gmail.com>
+
+	* Tomboy/Plugins/NoteOfTheDay.cs: Add support for using a note
+	titled "NotD: Template" as a template for each "Note of the Day".
+
+2006-09-05  Alex Graveley  <alex@beatniksoftware.com>
+
+	* configure.in: Update version to 0.4.0.
+	* NEWS: Ditto.
+
+2006-09-02  Alex Graveley  <alex@beatniksoftware.com>
+
+	* configure.in: Set $ENABLE_GTKSPELL if gtkspell-2.0 is installed.
+	This makes gtkspell optional as required for GNOME release.
+
+	* Tomboy/Makefile.am: Pass -define:ENABLE_DBUS if it's enabled.
+
+	If gtkspell isn't enabled...
+	* Tomboy/Watchers.cs: Conditionally include NoteSpellChecker.
+	* Tomboy/Preferences.cs: Don't show spell check enable checkbox,
+	and don't pack the font button to fill the extra space.
+	* Tomboy/PluginManager.cs: Don't create NoteSpellChecker objects.
+
+2006-09-04  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/dbus-sharp/Connection.cs: Use dbus_connection_close
+	instead of disconnect which no longer exists in DBUS 0.90.
+
+2006-09-03  Priit Laes <plaes@cvs.gnome.org>
+
+	* configure.in: Added 'et' to ALL_LINGUAS
+
+2006-09-02  Brent Smith  <gnome@nextreality.net>
+
+	* help/C/figures/tomboy-new-note.png:
+	* help/C/figures/tomboy-preferences-editing.png:
+	* help/C/figures/tomboy-preferences-hotkeys.png:
+	* help/C/tomboy.xml: Finished the documentation
+	* help/ChangeLog:
+
+2006-09-01  Brent Smith  <gnome@nextreality.net>
+
+	* help/C/figures/tomboy-new-note.png:
+	* help/C/figures/tomboy-panel.png:
+	* help/C/figures/tomboy-preferences-editing.png:
+	* help/C/figures/tomboy-preferences-hotkeys.png:
+	* help/C/figures/tomboy-tools.png:
+	* help/C/tomboy.xml:
+	* help/ChangeLog:
+	unfinished version of Tomboy manual; committed so Alex can branch.
+
+2006-08-31  Danilo Segan  <danilo@gnome.org>
+
+	* configure.in: Added Serbian (sr, sr@Latn) to ALL_LINGUAS.
+
+2006-08-27  Sandy Armstrong <sanfordarmstrong@gmail.com>
+
+	* Tomboy/Plugins/StickyNoteImport.cs: Added support for automatic
+	import of Sticky Notes upon first run of Tomboy with this plugin
+	installed.
+
+	* Tomboy/Preferences.cs: Added handling of
+	STICKYNOTEIMPORTER_FIRST_RUN GConf key.
+
+	* data/tomboy.schemas.in: Added STICKYNOTEIMPORTER_FIRST_RUN to GConf
+	schema.
+
+	* Tomboy/NoteManager.cs: When loading plugins for all notes, use
+	copy of notes ArrayList, since the real list may get modified
+	during the initialization of a plugin (like when automatically
+	importing Sticky Notes on first run of Tomboy).
+
+2006-08-22  Ani Peter <peter.ani@gmail.com>
+
+	* configure.in: Added Malayalam (ml) to the ALL_LINGUAS
+
+2006-08-20  Duarte Loreto <happyguy_pt@hotmail.com>
+
+	* configure.in: Added Portuguese (pt) to ALL_LINGUAS.
+
+2006-08-19  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Makefile.am: Substitute $DBUS_SOVERSION for
+	@DBUS_SOVERSION@ in generated Tomboy.exe.config.
+
+	* configure.in: Detect the DBUS .so version.
+
+2006-08-19  Subhransu Behera  <arya_subhransu@yahoo.co.in>
+
+	* configure.in: Added Oriya (or) to the ALL_LINGUAS.
+
+2006-08-17  Sandy Armstrong <sanfordarmstrong@gmail.com>
+
+	* Tomboy/Plugins/NoteOfTheDay.cs: Reverted NotD Template patch,
+	since it broke the string freeze for GNOME 2.16.
+	
+	* NEWS: Removed NotD template bullet.
+
+2006-08-16  Erdal Ronahi  <erdal.ronahi@gmail.com>
+
+	* configure.in: Added ku (Kurdish) to ALL_LINGUAS
+
+2006-08-16  Sebastian Rittau  <srittau@jroger.in-berlin.de>
+
+	* Tomboy/Note.cs: NoteArchiver now works on NoteData instead of
+	Notes.  Also, the Read methods now return a new instance instead
+	of getting an instance passed.
+
+2006-08-16  Raivis Dejus  <orvils@gmail.com>
+
+	* configure.ac: Added "lv" (Latvian) to ALL_LINGUAS.
+	* po/lv.po: Added Latvian Translation.
+
+2006-08-16  Sebastian Rittau  <srittau@jroger.in-berlin.de>
+
+	* Tomboy/Note.cs: NoteData is now identified by an immutable URI.
+	Introduced a new class NoteDataBufferSynchronizer that
+	synchronizes a NoteBuffer instance and a NoteData instance. Moved
+	code from class Note into this new class. Moved rewriting of
+	obsolete XML files from class Note to class NoteArchiver.
+
+	* test/Makefile.am: Also link against $(TOMBOY_LIBS).
+
+	* test/NoteTest.cs: Test case for NoteDataBufferSynchronizer.
+
+2006-08-16  Alex Graveley  <alex@beatniksoftware.com>
+
+	* NEWS: Update with NotD template bullet.
+
+	* configure.in: Require dbus-1 >= 0.90, which has libdbus-1.so.3.
+
+	* Tomboy/Tomboy.exe.config.in: Link libdbus-1.so.3 instead of
+	libdbus-1.so.3, which fixes a crash where older versions of
+	libdbus are linked in with newer versions of libdbus-glib.  Fixes
+	bug #350463.
+
+2006-08-15  Sandy Armstrong  <sanfordarmstrong@gmail.com>
+
+	* Tomboy/Plugins/NoteOfTheDay.cs: Add support for using a note
+	titled "NotD: Template" as a template for each "Note of the Day".
+
+2006-08-10  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Tomboy.cs: Cleanup the main class by subclassing the new
+	Application helper.
+
+	* Tomboy/Utils.cs: Add Application, a new calls to encapsulate
+	application-level utilities such as setting up gettext,
+	registering exit signal handlers and sending an exiting event,
+	setting up session management, and setting program name by calling
+	prctl(2) (new, allows `killall tomboy` behavior).
+
+	* Tomboy/RemoteControlProxy.cs: Add GetInstance and Register
+	methods, to encapsulate DBUS calls.
+
+2006-08-09  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Search.cs: Make the text entry grab focus on shown,
+	instead of Close if the dialog was dismissed using Close
+	previusly.
+
+2006-08-09  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/dbus-sharp/Connection.cs: Check IntPtr handle is correct
+	type, fixes an old crash detailed in bugs.freedesktop.org #5716.
+	* Tomboy/dbus-sharp/Message.cs: Ditto.
+
+	* Tomboy/Tray.cs: Override size_allocate to reload the best
+	fitting icon for the new allocation, so that tray/panel icon fits
+	as much space as possible.
+
+	* Tomboy/Utils.cs (GetIcon): Scale icon stored in resources using
+	bilinear.
+
+2006-08-09  Sebastian Rittau  <srittau@jroger.in-berlin.de>
+
+	* Tomboy/Note.cs: Split class NoteData out of class Note. NoteData
+	is a moderately dumb data store and doesn't contain any
+	application logic.
+	
+	* test/NoteTest.cs: Test case for class NoteData.
+
+2006-08-09  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Tray.cs: Run & Destroy the about dialog.
+
+2006-08-08  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Watchers.cs (NoteLinkWatcher.OnNoteRenamed): Fix typo
+	that totally horks links when renaming the linked note.
+	(NoteLinkWatcher.DoHighlight): Only link against whole
+	words/phrases, so that e.g. notes named "sed" are not highlighted
+	inside "sedimentary".
+
+2006-08-08  Ignacio Casal Quinteiro  <nacho.resa@gmail.com>
+
+	* configure.in: Added 'gl' to ALL_LINGUAS
+
+2006-08-08  Alex Graveley  <alex@beatniksoftware.com>
+
+	* configure.in: Bump to version 0.3.10 following GNOME 2.16 Beta 2
+	freeze.
+
+2006-08-07  Alex Graveley  <alex@beatniksoftware.com>
+
+	* configure.in: Call GNOME_COMMON_INIT.
+
+	* autogen.sh: Switch to using gnome-autogen.sh.
+
+	* Delete intltool-extract.in intltool-merge.in intltool-update.in,
+	which are installed by gnome-autogen.sh.
+
+2006-08-07  Alex Graveley  <alex@beatniksoftware.com>
+
+	* NEWS: Update a little for 0.4.
+
+	* configure.in: Fix the build: remove help/C/Makefile.
+
+	* Makefile.am (DISTCHECK_CONFIGURE_FLAGS): Add scrollkeeper
+	uninstall mojo.  Don't install schemas on distcheck.
+
+2006-08-07  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Tray.cs: Use Gtk.AboutDialog, instead of Gnome.About.
+
+2006-08-06  Alex Graveley  <alex@beatniksoftware.com>
+
+	* tomboy.spec.in (Requires): dbus-sharp -> dbus-glib.
+
+	* configure.in: Check for dbus and dbus-glib-1, not dbus-sharp.
+
+	* Tomboy/Makefile.am (ASSEMBLIES): Don't link DBUS_LIBS.  If dbus
+	is enabled, compile dbus-sharp/*.cs.
+
+	* Tomboy/Tomboy.exe.config.in: Include dbus-1 and dbus-glib-1
+	linkage.
+
+	* Tomboy/dbus-sharp/*.cs: Include the deprecated dbus-sharp
+	bindings.
+
+	* Tomboy/Plugins/Makefile.am (ASSEMBLIES): Don't link DBUS_LIBS.
+
+2006-08-06  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Watchers.cs: Ref TextIter arguments that mutate the
+	TextBuffer, since the old version is deprecated.
+	* Tomboy/Utils.cs: Ditto.
+	* Tomboy/Undo.cs: Ditto.
+	* Tomboy/Tray.cs: Ditto.
+	* Tomboy/NoteWindow.cs: Ditto.
+	* Tomboy/Plugins/Evolution.cs: Ditto.
+
+	* Tomboy/panelapplet/PanelApplet.cs: Inhibit unused member
+	warnings for autgen'd code.
+	* Tomboy/panelapplet/BonoboUIVerb.cs: Ditto.
+
+2006-08-06  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Tray.cs: Don't run the preferences dialog in a recursive
+	main loop, instead just show it and destroy the dialog after the
+	response signal.  Keep the current preferences instance around so
+	we can focus it instead of opening duplicate windows.
+
+2006-08-02  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Preferences.cs: Don't italicize descriptions, use
+	sentence capitalization for checkbox labels where applicable, and
+	"Spellcheck" -> "Spell check".
+
+2006-07-28  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/RecentChanges.cs: Set the ListStore's sort function after
+	loading the note data, as otherwise the sorting slows down loading
+	drastically.  Show the total number of notes at the buttom.
+
+2006-07-27  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/NoteManager.cs: Skip notes whose XML cannot be parsed.
+
+	* Tomboy/PluginManager.cs: Catch exception thrown by Process.Start
+	if executable not found.
+
+2006-07-27  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Tomboy.cs: Add session manager auto-restart for tray icon
+	mode.  Use TOMBOY_PATH as default note location if --note-path not
+	specified.
+
+	* Tomboy/NoteManager.cs: Remove default constructor.
+
+	* Tomboy/PluginManager.cs: Print missing directory error message,
+	instead of full trace.
+
+2006-07-26  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Tomboy.cs: Handle SIGINT (not SIGQUIT).
+
+2006-07-26  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/panelapplet/*.cs: Add these GTK# generated bindings, with
+	the fix for PanelApplet.OnBackgroundChanged applied.
+	
+	* Tomboy/Applet.cs: GTK#2 panel applet bindings are still broken
+	for setting the background pixmap/transparency, so use the
+	custom-built variant instead.
+
+	* Tomboy/Makefile.am (CSFILES): Build panelapplet/*.cs (once again).
+
+	* Tomboy/Tomboy.cs: Use _Gnome.PanelApplet.
+
+	* data/GNOME_TomboyApplet.xml: When using PanelApplet.SetupMenu,
+	the XML doesn't work if it has the <Root> or <popups> elements.
+	Go figure.
+
+2006-07-25  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Plugins/StickyNoteImport.cs: When uniquifying titles by
+	appending numbers, start at 2.  A few minor string changes.
+
+2006-07-25  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Plugins/StickyNoteImport.cs: Initial Sticky Note importer
+	plugin from Sanford Armstrong.
+
+	* Tomboy/Plugins/Makefile.am (plugins_DATA): Install the Sticky
+	Note importer by default.
+
+2006-07-24  Abel Cheung  <abel@oaka.org>
+
+	* configure.in: Added "zh_HK" "zh_TW" to ALL_LINGUAS.
+
+2006-07-24  Alex Graveley  <alex@beatniksoftware.com>
+
+	* libtomboy/gtksourceprintjob.c (create_layout_for_para): Do not
+	include error underlines.  Avoids printing out spelling error
+	indicators, fixing bug #339846.
+
+	* Tomboy/Plugins/ExportToHTML.cs: Avoid infinite recursion by
+	keeping track of resolved note entities, and returning null if
+	already resolved.
+
+	* Tomboy/Note.cs: Make IsNew return true if note was created in
+	the last 24 hours.  Fixes bug #343078.
+
+	* configure.in: Don't require libpanelapplet to build, but if it
+	is present, lookup the .server install location.
+
+	* libtomboy/gedit-print.c (gedit_print_job_info_new): Use
+	locale-friendly date/time formats in printed page footer.  Advice
+	from James Henstridge, in bug #345509.
+
+2006-07-24  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Plugins/GalagoPresence.cs: Update plugin for Galago 0.5.0
+	API.  Patch from Kevin Kubasik.
+
+	* configure.in (GALAGO): Check for Galago 0.5.0.
+
+2006-07-24  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Tray.cs: Don't show translator credits if we aren't
+	translating.
+
+	* Tomboy/RecentChanges.cs: Translate "Note" column header.
+
+2006-07-24  Alex Graveley  <alex@beatniksoftware.com>
+
+	Remove Tintin icon from Tomboy due to legal restrictions. :-(
+
+	Patch originally from Gary Ekker of Novell...
+
+	* Tomboy/Makefile.am: Remove tintin.png, stock_notes.png and
+	gnome-stock-searchtool.png resources.  Add 48x48 tomboy.png and
+	gnome-searchtool.png.
+	* Tomboy/NoteWindow.cs: Set window IconName to "tomboy".
+	* Tomboy/Preferences.cs: Ditto.
+	* Tomboy/RecentChanges.cs: Ditto.  Use 22px "tomboy" icon for notes.
+	* Tomboy/Tray.cs: Ditto.  Use 16px "tomboy" icon for notes in menu.
+	* Tomboy/Search.cs: Ditto.  Set IconName to "stock_search".
+	* Tomboy/Utils.cs: Make GetIcon take an icon size, and first
+	lookup the icon in the Gtk icon theme before falling back to the
+	assembly's resources.
+	* data/tomboy.desktop.in: Use Icon=tomboy.
+	* data/GNOME_TomboyApplet.server.in.in: Use icon="tomboy.png".
+	* data/images/Makefile.am: Install tomboy icons into correct size
+	icon theme directory, and call gtk-update-icon-cache.
+	* data/images/tomboy.svg: New Tango icon.
+	* data/images/tomboy.png: New Tango icon.
+	* data/images/tomboy-16.png: New Tango icon.
+	* data/images/tomboy-22.png: New Tango icon.
+	* data/images/tintin.png: Remove.
+
+2006-07-23  Alex Graveley  <alex@beatniksoftware.com>
+
+	* libtomboy/eggtrayicon.c: Patch from Dan Winship to setup tray
+	icon transparency.
+
+	A few more tomboy-0-4 merges...
+	
+	* Tomboy/NoteTag.cs: XX_Large -> XXLarge.
+
+	* Tomboy/Watchers.cs: SetText -> Text.
+
+2006-07-23  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Tomboy.cs: Patch from Dan Winship to avoid crash in DBUS
+	bindings.  Fixes bug 328930.
+
+2006-07-23  Alex Graveley  <alex@beatniksoftware.com>
+
+	Partial port of changes from tomboy-0-4 branch to build against
+	Gtk#2 and Mono 1.1.13...
+
+	- Use GuiUtils.DetachMenu when calling Gtk.Menu.AttachToWidget,
+	since this can't be null for some reason.
+
+	- Remove Tomboy/panelapplet/*.
+
+	* tomboy.spec.in: Install tomboy.desktop, don't install
+	GNOME_TomboyApplet.xml.
+
+	* data/Makefile.am: Install the tomboy.desktop file.
+	I believe the other non-RedHat desktops have caught up with
+	supporting OnlyShowIn=KDE.
+
+	* Tomboy/Watchers.cs: Drop old gtkspell compatibility code.
+
+	* Tomboy/Utils.cs: Update for Gtk.Menu.Popup API change.
+
+	* Tomboy/Tomboy.cs: Syscall.signal -> Stdlib.signal.
+
+	* Tomboy/Search.cs: Gtk.Combo -> Gtk.ComboBoxEntry.  Keep previous
+	searches in an ArrayList.  Remove GLib.Markup.EscapeText bug
+	workaround.
+	
+	* Tomboy/RecentChanges.cs: Update for chaged SetSortFunc API.
+
+	* Tomboy/NoteWindow.cs: In NoteTextMenu,
+	don't store accel_group.
+
+	* Tomboy/Makefile.am: Don't build panelapplet/*.  Don't define
+	OLD_GTKSPELL_CSFLAGS.
+
+	* libtomboy/tomboyutil.c: Remove tomboy_widget_set_bg_pixmap.
+
+	* Tomboy/Applet.cs: Switch to using Gnome.PanelApplet.  Drop
+	stored reference (hopefully not needed anymore).  BackgroundType
+	-> PanelAppletBackgroundType.  Drop tomboy_widget_set_bg_pixmap.
+	
+	* configure.in: Bump version to 0.3.9.  Drop old gtkspell checks.
+	Switch to gtk-sharp-2.0, gnome-sharp-2.0, and gconf-sharp-2.0.
+
+2006-07-22  Christopher Orr  <chris@orr.me.uk>
+
+	* Tomboy/Note.cs: Moved note deletion UI to new NoteUtils class.
+	* Tomboy/NoteWindow.cs:
+	* Tomboy/RecentChanges.cs: Allow note deletion via Delete key.
+
+2006-07-22  Sebastian Rittau  <srittau@jroger.in-berlin.de>
+
+	* Tomboy/NoteManager.cs: Hardcode the path to the plugins directory to
+	~/.tomboy/Plugins.
+
+2006-07-21  Sebastian Rittau  <srittau@jroger.in-berlin.de>
+
+	* test/Plugins/ExportToHTMLTest.cs: Mute the logger while executing
+	tests.
+
+2006-07-20  Sebastian Rittau  <srittau@jroger.in-berlin.de>
+
+	* Tomboy/Logger.cs:
+	* Tomboy/Makefile.am: New Logger class to replace existing calls to
+	Console.WriteLine.
+	* test/LoggerTest.cs:
+	* test/Makefile.am: Test case.
+	* Tomboy/Applet.cs:
+	* Tomboy/Note.cs:
+	* Tomboy/NoteBuffer.cs:
+	* Tomboy/NoteManager.cs:
+	* Tomboy/NoteTag.cs:
+	* Tomboy/NoteWindow.cs:
+	* Tomboy/PluginManager.cs:
+	* Tomboy/Search.cs:
+	* Tomboy/Tomboy.cs:
+	* Tomboy/Trie.cs:
+	* Tomboy/Utils.cs:
+	* Tomboy/Watchers.cs:
+	* Tomboy/XKeybinder.cs:
+	* Tomboy/Plugins/Evolution.cs:
+	* Tomboy/Plugins/ExportToHTML.cs:
+	* Tomboy/Plugins/GalagoPresence.cs:
+	* Tomboy/Plugins/NoteOfTheDay.cs: Use Logger instead of
+	Console.WriteLine, where appropriate.
+
+	* Tomboy/Note.cs: Made Note constructors private and instead
+	introduced factory methods CreateNewNote and CreateExistingNote.
+	NoteArchiver is now a singleton.
+
+	* Tomboy/NoteManager.cs: Split methods FirstRun and
+	CreateTrieController out of NoteManager and made them protected
+	virtual to allow overriding in test cases. Use new Note factory
+	method.
+
+	* test/DummyNote.cs: A DummyNoteArchiver class for use in unit tests.
+
+	* test/NoteTest.cs: Use the new Note factory method.
+
+	* test/Makefile.am: Added DummyNote.cs. Made test target
+	phony. Test now depends on Tomboy.exe, so if tomboy is rebuilt,
+	the tests are also rebuilt. MONO_PATH now includes the Plugins
+	directory.
+
+	* Tomboy/Plugins/ExportToHTML.cs: Don't use the on-disk copy of
+	the note for exporting, but an in-memory copy.
+	
+	* test/Plugins/ExportToHTMLTest.cs: Test case.
+	
+	* test/Makefile.am: Added Plugins/ExportToHTMLTest.cs.
+
+2006-07-06  Kostas Papadimas <pkst@gnome.org>
+
+	* configure.in: Added Greek (el) to ALL_LINGUAS
+
+2006-07-03  Runa Bhattacharjee <runabh@gmail.com>
+
+	* configure.in: Added Bengali India (bn_IN) to ALL_LINGUAS.
+
+2006-06-30  Guntupalli Karunakar  <karunakar@indlinux.org>
+	
+	* configure.in: Added Dzongkha (dz) to ALL_LINGUAS.
+	* configure.in: Added Hindi (hi) to ALL_LINGUAS.
+
+2006-06-24  Runa Bhattacharjee <runa@bengalinux.org>
+	* configure.in: Added Bengali (bn) to ALL_LINGUAS.
+
+2006-06-20  Sebastian Rittau  <srittau@jroger.in-berlin.de>
+
+	* libtomboy/gtksourceprintjob.c:
+	* libtomboy/gedit-print.c:
+	* libtomboy/tomboykeybinder.c:
+	* libtomboy/tomboyutil.c:
+	* libtomboy/tomboyutil.h:
+	* Tomboy/Plugins/GalagoPresence.cs:
+	* Tomboy/Plugins/Evolution.cs:
+	* Tomboy/Plugins/ExportToHTML.cs:
+	* Tomboy/Plugins/NoteOfTheDay.cs:
+	* Tomboy/Tray.cs:
+	* Tomboy/Watchers.cs:
+	* Tomboy/Applet.cs:
+	* Tomboy/PluginManager.cs:
+	* Tomboy/NoteWindow.cs:
+	* Tomboy/NoteManager.cs:
+	* Tomboy/Preferences.cs:
+	* Tomboy/XKeybinder.cs:
+	* Tomboy/Search.cs:
+	* Tomboy/Note.cs:
+	* Tomboy/RecentChanges.cs:
+	* Tomboy/Tomboy.cs: Warning fixes.
+
+	* Tomboy/Note.cs: New method NoteArchiver.Write (TextWriter, Note).
+	* Tomboy/Plugins/ExportToHTML.cs: WriteHTMLForNote: Use NoteArchiver
+	  as source for the XSLT transformation, instead of reading the note
+	  file from disc.
+
+2006-06-19  I Felix  <ifelix25@gmail.com>
+
+	* configure.in: Added 'ta' to the ALL_LINGUAS.
+
+2006-06-14  Ankit Patel  <ankit644@yahoo.com>
+
+	* configure.in: Added 'gu' to the ALL_LINGUAS.
+
+2006-06-13  Sebastian Rittau  <srittau@jroger.in-berlin.de>
+
+	* test/NoteManagerTest.cs:
+	* test/Makefile.am: Added a test case for the NoteManager.
+	
+	* Tomboy/NoteManager.cs: Extract Method on NoteManager
+	constructor.  New methods (partly virtual): CreatePluginManager,
+	DirectoryExists, CreateDirectory, CreateNotesDir, LoadNotes. Made
+	CreateStartNote virtual.
+
+2006-06-07  Sebastian Rittau  <srittau@jroger.in-berlin.de>
+
+	Added support for NUnit unit tests.
+
+	* configure.in: Check for NUnit. Added test/Makefile.
+	* Makefile.am: Added test to SUBDIRS and a test target.
+	* test/Makefile.am: New file.
+	* test/NoteTest.cs: New file. Currently contains only one dummy test.
+
+2006-05-26  David Trowbridge  <trowbrds@gmail.com>
+
+	* data/tomboy.schemas.in: Add gnome URL handler entries
+
+2006-04-18  Kjartan Maraas  <kmaraas@gnome.org>
+
+	* configure.in: Make Joe even happier.
+	* po/no.po: Same.
+
+2006-02-07  Theppitak Karoonboonyanan  <thep@linux.thai.net>
+
+	* configure.in: Added 'th' (Thai) to ALL_LINGUAS.
+
+2006-02-03  Alex Graveley  <alex@beatniksoftware.com>
+
+	* libtomboy/gtksourceprintjob.c: Fix warnings about char
+	signedness.
+	* libtomboy/gedit-print.c: Ditto.
+
+2006-02-02  Alex Graveley  <alex@beatniksoftware.com>
+
+	* configure.in: Bump version to 0.3.5.
+	* NEWS: Update for 0.3.5.
+	* www/index.html: Ditto, and add link to screencast.
+
+2006-01-31  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Plugins/Evolution.cs: Catch //account/source/url URI
+	parse errors, and print the offending URI to the console.
+
+2006-01-30  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Plugins/Makefile.am: Always EXTRA_DIST the Evolution and
+	Galago sources, otherwise make dist won't include them.
+
+	* Tomboy/Tomboy.cs: Fix compile breakage when D-BUS not enabled.
+
+2006-01-29  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/NoteBuffer.cs: When reading note XML, handle unregistered
+	tags gracefully.
+
+	* Tomboy/Watchers.cs: Avoid checking the "gtkspell-misspelled" tag
+	for spellcheckability: it will always fail since it isn't created
+	by Tomboy.  Fixes spellchecking.
+
+	* Tomboy/NoteWindow.cs: Use GLib.ConnectBefore with
+	OnPopulatePopup so that the GtkSpell submenu will be the first
+	item.
+
+2006-01-29  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Plugins/ExportToHTML.xsl: Add inline Base64 encoded
+	version of stock_mail.png when linking to emails.
+
+2006-01-28  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Plugins/ExportToHTML.xsl: Add support for "datetime",
+	"monospace", and "link:evo-mail" note tags.
+
+2006-01-26  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Watchers.cs: Select the title text when there is a title
+	name clash.
+
+2006-01-26  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Applet.cs: Use Tomboy.DefaultNoteManager instead of
+	creating one ourselves.
+
+	* Tomboy/Tomboy.cs: Add a --note-path, to specify the directory to
+	use for loading and storing notes.  Create a NoteManager with this
+	path, and expose it through DefaultNoteManager.
+
+	* www/index.html: Add a Reporting Bugs section.
+
+2006-01-26  Alex Graveley  <alex@beatniksoftware.com>
+
+	* configure.in: Bump version to 0.3.4.
+
+	* README: Update copyright to 2006.
+	* www/index.html: Ditto.  Point to 0.3.4 tarball, and update text.
+	* Tomboy/Tomboy.cs: Ditto.
+	* Tomboy/Tray.cs: Ditto.
+	* NEWS: Ditto.  Add some 0.3.4 bullets.
+
+	* Tomboy/Plugins/FixedWidth.cs: Use "(C)" instead of copyright
+	character, which chokes gettext.
+
+2006-01-25  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Tray.cs: In the handler for middle button clicks, only
+	return true if the primary clipboard has some text to paste, and
+	block waiting for it.  This is a broken workaround the fact that
+	eating middle clicks blocks the panel applet from being moved.
+
+2006-01-24  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/PluginManager.cs: Extend the NotePlugin interface with
+	AddTextMenuItem, which adds a menu item to the Text menu.
+
+	* Tomboy/Plugins/FixedWidth.cs: Use AddTextMenuItem, and drop all
+	manual menu item handling.  Set CanGrow and CanUndo on the
+	monospace tag, so it behaves as it should.  Disconnect from Text
+	menu's Shown event in OnDestroyed instead of the finalizer.
+
+2006-01-23  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Watchers.cs: In NoteRenameWatcher, fix jrb's bug:
+	inserting newlines in the title line doesn't update the title.
+	Only call Update in OnMarkSet if he mark is the insertion mark.
+	In Update, if setting editing_title state, call Changed. Remove
+	all other calls to Changed.
+
+2006-01-22  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/RecentChanges.cs: Call SetSortColumnId on the list store,
+	which sets the defualt sort order and causes the treeview to draw
+	the sort indicator by default.
+
+2006-01-22  Nickolay V. Shmyrev  <nshmyrev@yandex.ru>
+
+	* configure.in: Added ru and vi to ALL_LINGUAS.
+
+2006-01-06  Ryan Lortie  <desrt@desrt.ca>
+
+	* Tomboy/Plugins/FixedWidth.cs:
+	* Tomboy/Plugins/Makefile.am: Add plugin for fixed-width font style.
+
+2006-01-02  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/RecentChanges.cs: Rename "Recent Changes" to "Table of
+	Contents".  
+	* Tomboy/Tray.cs: Ditto.
+
+2005-12-31  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/NoteManager.cs: Handle link title text better, by
+	stripping whitespace, using only the first line of selected text
+	and using other lines as the new note body.  Throw Create
+	exceptions on empty titles, or if the title is already taken.
+
+	* Tomboy/NoteWindow.cs: Handle note create exceptions with an
+	error dialog, use NoteManager.SplitTitleFromContent to split title
+	from selection for use in matching existing notes.
+
+	* Tomboy/Tray.cs: Handle note create exceptions with an error
+	dialog.
+
+	* Tomboy/RemoteControl.cs: Handle Create exceptions silently.
+	* Tomboy/Watchers.cs: Ditto.
+	* Tomboy/XKeybinder.cs: Ditto.
+
+	* Tomboy/Utils.cs: InterruptableTimeout: clear timeout_id on
+	cancel.
+
+	* Tomboy/Plugins/NoteOfTheDay.cs: Do a better job cleaning up on
+	shutdown.
+
+2005-12-29  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/NoteWindow.cs: Rename "Plugins" menu to "Tools".
+
+	* data/GNOME_TomboyApplet.xml: Remove "..."
+
+2005-12-26  Alex Graveley  <alex@beatniksoftware.com>
+
+	* NEWS: Add some 0.3.4 bullets.
+
+	* Tomboy/Watchers.cs: Use NoteBuffer.GetBlockExtents in
+	NoteUrlWatcher & NoteLinkWatcher's text input handling, which
+	should speed up typing in large paragraphs.
+
+	* Tomboy/Utils.cs (TextTagEnumerator): Use left gravity for
+	current position mark.  This fixes the Gaim/Evo plugin, which
+	attempt to inline replace existing text.
+	(InterruptableTimeout): In Reset, allow an optional EventArgs
+	argument passed to timeout handlers.
+
+	* Tomboy/Trie.cs: Add MaxLength property to return the longest key
+	length.
+
+	* Tomboy/NoteBuffer.cs: Add new GetBlockExtents, which takes a
+	start/end iter and extends it to encompass the text of the current
+	paragraph, within some threshold, and avoids splitting tags in
+	half.
+
+2005-10-19  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/tomboy.in: Only pass --debug when running an uninstalled
+	target.
+
+2005-10-19  Alex Graveley  <alex@beatniksoftware.com>
+	
+	* Tomboy/Plugins/GalagoPresence.cs: Split trie creation into two
+	phases, which makes the code a little cleaner.
+
+	* Tomboy/Plugins/Makefile.am (EVO_RESOURCES): Add
+	data/images/stock_mail.png.
+
+	* Tomboy/Plugins/Evolution.cs: Set the link:evo-mail tag's Image
+	attribute to the resource "stock_mail.png".
+
+	* Tomboy/NoteTag.cs: Add Image attribute, which fires the tag's
+	Changed signal when set.  In NoteTagTable, fire a TagChanged even
+	whenever a tag's Changed signal is emitted.
+
+	* Tomboy/NoteBuffer.cs: Add rudimentary tag image support, by
+	inserting a NoteTag's image on TagChanged or TagApplied.  Be sure
+	to adjust the offsets when deserializing notes to account for the
+	new image anchor 'character'.
+
+2005-10-06  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Tray.cs: Correctly show any opened notes in Tomboy
+	menu. This behavior has been there forever, but a bug existed
+	which would break from looking for open notes after the 18th note.
+	(Only include notes with mapped windows.)
+
+2005-10-04  Pawan Chitrakar  <pchitrakar@gmail.com>
+
+	* configure.in: Added ne in ALL_LINGUAS
+
+2005-09-28  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Tray.cs: Add some visual feedback during a middle-button
+	paste operation, using Gtk.Drag.Highlight.
+
+2005-09-28  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Tray.cs: Implement feature request from Mig... handle
+	middle button click by prepending the Primary clipboard text to
+	"Start Here" along with a date/time stamp.  Factor out this
+	insertion to PrependTimestampedText, and se it for URL drops as
+	well.
+
+	* Tomboy/NoteTag.cs: Add "datetime" tag, used for visually
+	formatting the date string inserted with URL drops and middle
+	button paste to the tray icon.
+
+2005-09-27  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Plugins/Makefile.am: Build Evolution.dll.
+
+	* Tomboy/Plugins/GalagoPresence.cs: Update to using a custom
+	NoteTag to handle opening Galago person links.
+
+	* Tomboy/Plugins/Evolution.cs: New Evolution email linking plugin.
+	Handles dropped emails, inserting the message subject as a link
+	which when clicked opens the mail in Evolution.  Parsing the mime
+	message is done using Gmime#.
+
+	* Tomboy/Watchers.cs: In NoteSpellChecker, use
+	NoteTagTable.TagIsSpellCheckable().
+
+	In NoteUrlWatcher, connect to link:url's new NoteTag.Activated
+	signal to handle opening links, and remove an unnedded URL
+	massaging step.  
+
+	In NoteLinkWatcher, connect to link:internal's and link:broken's
+	new NoteTag.Activated signal to handle opening links.
+
+	In MouseHandWatcher, remove link:internal click handling, and
+	handle mouse-hand hovering and key press events generically for
+	any "activatable" tags.
+
+	* Tomboy/PluginManager.cs: Use IsSubclassOf() for determining
+	plugin types, instead of explicitly comparing the base type.
+
+	* Tomboy/NoteBuffer.cs: Remove NoteTagTable.  Add support for
+	NoteTag's Read/Write serialization in NoteBufferArchiver.
+
+	* Tomboy/NoteTag.cs: New file, move NoteTagTable here, add new
+	NoteTag and DynamicNoteTag classes.
+
+	* configure.in: Add check for Gmime#, used by the new Evolution
+	plugin.
+
+2005-09-20  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Plugins/Makefile.am: Install GalagoPresence.dll if it is
+	built.
+
+	* Tomboy/Plugins/GalagoPresence.cs: Strip broken image insertion
+	for now, so this is actually functional.
+
+2005-09-20  Alex Graveley  <alex@beatniksoftware.com>
+
+	* configure.in: Add --enable-galago option.
+
+	* Tomboy/Plugins/Makefile.am: Make the GalagoPresence.dll compile
+	conditional based on ENABLE_GALAGO (set by configure).
+
+2005-09-20  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Plugins/GalagoPresence.cs: Initial commit, very broken.
+
+	* libtomboy/gtksourceprintjob.c: Fix missed conversion from
+	GTK_IS_SOURCE_VIEW -> GTK_IS_TEXT_VIEW.
+
+	* Tomboy/Plugins/Makefile.am: Build GalagoPresence.dll and add it
+	to noinst_DATA.
+
+	* Tomboy/Watchers.cs: Store and use tags at initialization
+	throughout, instead of looking up tags on-demand.  Update link
+	Watcher to new Trie API.
+
+	* Tomboy/Trie.cs (AddKeyword): Assign 'n' to null to avoid
+	confusing mcs-1.1.9.  Change API to return a set of TrieHits.
+
+2005-09-06  Ilkka Tuohela  <hile@iki.fi>
+
+	* configure.fi: Added "fi" to ALL_LINGUAS.
+
+2005-08-30  Dan Damian  <dand@gnome.ro>
+
+	* configure.in: Added "ro" to ALL_LINGUAS.
+
+2005-08-15  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Watchers.cs: Undo last change causing lingering
+	link:internal tag to hang around after partial delete.
+
+2005-08-13  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Plugins/NoteOfTheDay.cs: Add NotD plugin.
+
+	* Tomboy/Preferences.cs: "Ok" -> "Close".  Fixes bug 313382.
+
+	* data/Makefile.am (server_in_files): Install
+	GNOME_TomboyApplet.server to PANELAPPLET_SERVER_DIR.
+
+	* configure.in (PANELAPPLET_SERVER_DIR): AC_SUBST this value from
+	the pkg-config variable, to give the install location of the panel
+	applet .server file.
+
+2005-08-10  Alex Graveley  <alex@beatniksoftware.com>
+
+	* configure.in: Bump version to 0.3.3.
+	* NEWS: Update for 0.3.3.
+	* www/index.html: Point to 0.3.3 tarball.
+
+	* data/Makefile.am: Make distcheck happy regarding
+	DefaultPlugins.desktop*.
+
+	* Tomboy/Plugins/Makefile.am (EXTRA_DIST): Add ExportToHTML.xsl.
+
+	* Tomboy/Makefile.am: Don't specify path to Defines.cs, since this
+	may be generated in a different location from srcdir.
+
+	* Tomboy/Watchers.cs: Remove unused NoteRelatedToWatcher.  In
+	NoteLinkWatcher, use the NoteManager's trie controller.  In
+	NoteSpellChecker, only attempt to fixup GtkSpell's misspelling tag
+	for really old versions (<2.0.6), to avoid a crash when deleting
+	notes.
+
+	* Tomboy/NoteManager.cs: Move TrieController here, and create one
+	as a member of NoteManager.
+
+	* Tomboy/panelapplet/generated/PanelAppletSharp.cs: Aggregate
+	generated signal callback class files into a single file.  This
+	fixes distcheck, which dies on long tar path names.
+
+2005-08-04  MAxim Dziumanenko <mvd@mylinux.ua>
+
+	* configure.in: Add "uk" (Ukrainian) to ALL_LINGUAS.
+
+2005-07-31  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Note.cs: Add DebugSave conditional method, and some calls
+	for all the Save entry points.  Delete the temp '~' write file
+	when saving.
+
+	* Tomboy/NoteBuffer.cs: Add note-title as an unserialized tag
+	again, to avoid saving notes on open when NoteRenameWatcher
+	reapplies the title tag.
+
+	* Tomboy/Watchers.cs: In NoteRenameWatcher, use TitleTag property
+	to get the note-title tag.
+
+2005-07-13  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/RemoteControl.cs: Check that NoteManager.Create() hasn't
+	failed.
+	* Tomboy/Tray.cs: Ditto.
+	* Tomboy/XKeybinder.cs: Ditto.
+
+	* Tomboy/NoteManager.cs: Protect against creating notes with
+	titles containing only whitespace.
+
+	* Tomboy/Utils.cs: Clean up formatting a bit.
+
+2005-07-10  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Utils.cs: Check parsed uri is non-null.  Fixes bug
+	170686.
+
+2005-07-08  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/NoteWindow.cs: Add DefaultMargin (always 8) accessor.
+	Call InsertWithTags with "link:url" so URLs with spaces are
+	inserted as-is.
+
+	* Tomboy/Note.cs: Store the TagTable used by the buffer and add an
+	accessor.
+
+	* Tomboy/NoteBuffer.cs: Rename TagIsIgnored to TagIsSerializable.
+
+2005-07-02  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/PluginManager.cs: Fix bug 308867, a startup crash on
+	missing system Plugins directory. Patch from Michael Levy
+	<mlevy@wardium.homeip.net>.
+
+	* Tomboy/Plugins/PrintNotes.cs: Remove using Gnome.
+
+2005-06-30  Enver ALTIN  <ealtin@parkyeri.com>
+
+	* configure.in: Add Turkish (tr) to ALL_LINGUAS.
+	* po/tr.po (new): Added initial Turkish translation.
+
+2005-06-28  Raja R Harinath  <rharinath@novell.com>
+
+	* Tomboy/Makefile.am (RESOURCES): DefaultPlugins.desktop is found
+	in the builddir.
+
+2005-06-18  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Note.cs: Don't center new notes. Avoids overlapping note
+	windows.
+
+	* Tomboy/Search.cs: Unhighlight if the dialog is not visible.
+
+2005-06-14  Chris Toshok  <toshok@hungry.com>
+
+	* libtomboy/gtksourceprintjob.c (create_layout_for_para): comment
+	out call to pango_layout_set_ellipsize, as per orph's
+	instructions.
+
+2005-06-08  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Plugins/ExportToHTML.cs: Fix another protected static
+	access, which recently in mono 1.1.7.2 been fixed to throw an
+	error.
+
+2005-06-08  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/panelapplet/AppletFactory.cs: Subclass from GLib.Object.
+	Needed to work around what I can only guess is a mono 1.0.x and
+	1.1.x incompatibility, whereby calling protected
+	GLib.Object.LookupGType externally is no longer allowed.
+	Hopefully fixes bug #306815.
+
+2005-06-05  Alex Graveley  <alex@beatniksoftware.com>
+
+	* libtomboy/tomboykeybinder.c: Lookup and bind to combinations of
+	ignorable modifiers: scroll lock, num lock, and caps lock.  Fixes
+	bug #300076.
+
+2005-06-03  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Note.cs: Store last-change-date and create-date to note
+	XML.  Rewrite notes with old (or non-existent) note:version on
+	startup.  Use note:version of "0.2".
+
+	* Tomboy/Plugins/ExportToHTML.cs: Remove note rewriting
+	workaround, since all notes are now rewritten with the latest
+	XML-compliant encoding on startup.
+
+2005-06-03  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Utils.cs: In ToolMenuButton, subclass from ToggleButton
+	to give the look of a depressed button while the menu is showing.
+	Also override OnMnemonicActivated() to avoid always grabbing focus
+	away from the editor.
+
+2005-06-01  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/NoteWindow.cs: Don't include markup in to-be-translated
+	Text menuitem strings.  Fixes bug 306167.
+
+2005-06-01  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Plugins/ExportToHTML.xsl: Maintain whitespace in note
+	content using various CSS implementation-specific "white-space"
+	values.  Don't indent the HTML output, so we maintain the source's
+	whitespace.  Remove the now unneeded newline formatting code.
+
+2005-06-01  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/NoteBuffer.cs: Remove unused list:bullet and
+	list:numbered tags.
+
+2005-05-31  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Watchers.cs: Fix bug where multiple URLs are opened on
+	click, due to shared TagTables between notes with newer "fixed"
+	versions of GtkSpell.
+
+2005-05-25  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Undo.cs: Reimplement Undo to support tags on deleted
+	text.  This needs lots of testing.
+
+	* Tomboy/Utils.cs: Beef up TextRange.
+
+	* Tomboy/Plugins/Makefile.am: Use -out and -debug.
+	* Tomboy/Makefile.am: Ditto.
+
+2005-05-24  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/NoteBuffer.cs: Fix style application by adding active
+	tags correctly, and only applying them on character insert
+	(not text paste).
+
+2005-05-24  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Plugins/ExportToHTML.xsl: Use the text() node when
+	passing a note name to document(), in case there is an embedded
+	tag in the note title.
+
+2005-05-24  Alex Graveley  <alex@beatniksoftware.com>
+
+	* data/DefaultPlugins.desktop.in.in (Icon): Use
+	"gnome-fs-directory" instead of "gnome-run" so people know it's a
+	directory they're opening.
+
+2005-05-23  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/NoteWindow.cs: Handle the case of no workspace number by
+	closing all open windows.
+
+	* Tomboy/Makefile.am (RESOURCES): Add DefaultPlugins.desktop as a
+	Tomboy.exe resource.
+
+	* Tomboy/NoteManager.cs: Always try to create the plugins dir.
+
+	* Tomboy/PluginManager.cs: Load and monitor user and system
+	plugins dirs for changes.  Cleanup any lingering "Uninstalled
+	Plugins" and PrintToNote.dll or ExportToHTML.dll by unlinking
+	them.  Copy the "DefaultPlugins.desktop" resource to the Plugins
+	directory if it doesn't exist.  Watch the system plugins directory
+	for changes as well as the user's Plugins directory.
+
+	* data/Makefile.am: Generate DefaultPlugins.desktop from
+	DefaultPlugins.desktop.in.in.
+
+	* data/DefaultPlugins.desktop.in.in: New file.  This URL launcher
+	opens the "default" (system-wide) plugins directory, and uses the
+	gnome-run icon.  Allows for an internationalized symlink
+	equivalent.
+
+2005-05-22  Alex Graveley  <alex@beatniksoftware.com>
+
+	* data/GNOME_TomboyApplet.xml: Rename "Install Plugins" menu item
+	to "Open Plugins Folder".
+	* Tomboy/Applet.cs: Ditto.
+
+	* Tomboy/NoteWindow.cs: Add 'o' mnemonic to "Open Plugins Folder".
+
+2005-05-22  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/NoteWindow.cs: Add Ctrl-Q to "Close All Notes" on the
+	current desktop, by calling CloseWindowHandler for any open note
+	windows on the same workspace, as returned by
+	tomboy_window_get_workspace().  Also, rename the "Close Window"
+	menuitem to just "Close" to match Nautilus.
+
+	* libtomboy/tomboyutil.c (tomboy_window_get_workspace): Add this
+	method, which returns a GtkWindow's_NET_WM_DESKTOP as an integer.
+
+2005-05-21  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Watchers.cs: Clear out unused IndentWatcher and
+	SpacingWatcher until they are moved to another file.
+	In LinkWatcher, support opening URLs and copying a URL to the
+	clipboard via the right-click context menu.
+
+2005-05-19  Alex Graveley  <alex@beatniksoftware.com>
+
+	* libtomboy/gtksourceprintjob.c: New file.
+	* libtomboy/gedit-print.c: Ditto.
+
+	* libtomboy/Makefile.am (libtomboy_la_SOURCES): Add
+	gedit-print.[ch] and gtksourceprintjob.[ch].
+
+	* Tomboy/Plugins/PrintNotes.cs: Use the new gedit_print() C call
+	added to libtomboy, and remove all the existing printing code.
+
+2005-05-17  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/XKeybinder.cs: Pass 'true' to ShowMenu when handling
+	keypresses, so the first menu item is selected (matches GTK's
+	behavior).
+
+	* Tomboy/Tray.cs: Call SelectFirst on the notes menu when told to.
+
+2005-05-16  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/NoteWindow.cs: Use ToolMenuButton, and remove all the
+	cruft that went along with the old non-generic implementation.
+	Only show the "Plugins" menu label when toolbar style is 'text
+	under icon'.
+
+	* Tomboy/Utils.cs: In GetMenuPosition, offset X by the
+	AttachWidget's allocation.  Cleanup ToolMenuButton, which is now a
+	nice generic button used for the Text and Plugins menus.
+
+2005-05-16  I�aki Larra�aga  <dooteo@euskalgnu.org>
+
+	* configure.in: Added "eu" (Basque) to ALL_LINGUAS.
+
+2005-05-14  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Utils.cs: Create ToolMenuButton, used by the Text and
+	Plugins toolbar menus.
+
+	* Tomboy/PluginManager.cs: Add AddPluginMenuItem, called by
+	plugins to add menu items to the Plugins menu.
+
+	* Tomboy/NoteWindow.cs: Add PluginMenu, populated by loaded
+	plugins, containing an "Open Plugins Folder" menu item.
+
+	* Tomboy/Plugins/PrintNotes.cs: Add the menuitem to the Plugins
+	menu using NotePlugin.AddPluginMenuItem().
+	* Tomboy/Plugins/ExportToHTML.cs: Ditto.
+
+2005-05-05  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Plugins/ExportToHTML.xsl: Allow link:internal nodes we
+	wish to export to be arbitrarily nested.
+
+	* Tomboy/Trie.cs: Fix compile error on mono 1.1.7, which seems to
+	have better flow control logic.
+
+2005-05-05  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Plugins/ExportToHTML.xsl: Fix internal references by
+	loading the document and using the actual title node.
+
+2005-05-04  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Plugins/ExportToHTML.cs: Look for an overriden copy of
+	ExportToHTML.xsl in the directory of ExportToHTML.dll.
+
+2005-05-04  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Plugins/ExportToHTML.cs: Switch to using XPathDocument
+	for XsltTrasforms, instead of XmlDocument.  This causes whitespace
+	between elements to be retained (different parser I guess), and is
+	much faster!
+
+2005-05-04  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Plugins/ExportToHTML.xsl: Undo second part of last
+	commit.  Doh!
+
+2005-05-04  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Plugins/ExportToHTML.xsl: Minor cleanup, use $newline
+	instead of '&#xA;' everywhere, and remove unneeded call to
+	replace() after note title line.
+
+2005-05-04  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Plugins/ExportToHTML.cs: Rewrite all linked notes to
+	fixup whitespace and namespaces instead of just the root note, and
+	try to reset the write time to what it was previously (though I
+	think this has no effect on Linux).
+
+	* Tomboy/NoteBuffer.cs: Handle XmlNodeType.SignificantWhitespace.
+	Don't write the xml:space tag here, since it is inherited from the
+	<text> tag.
+
+	* Tomboy/Note.cs: Add xml:space="preserve" to the <text> tag,
+	instead of the <note-content> tag.  This allows fixup of notes by
+	just writing the "wrapper" without worrying whether the note's
+	buffer has been initialized.
+	
+2005-05-04  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Note.cs: Add namespace entries for the link: 
+	namespace.
+
+	* Tomboy/Applet.cs: Store the most recent Applet instance as a
+	static to hold the ref, so that it is not reclaimed prematurely.
+
+2005-05-04  Alex Graveley  <alex@beatniksoftware.com>
+
+	Patches orginally from Antonis Stampoulis <enplo00@gmail.com> and
+	Dmitry Kostenko <bis0n@mail.ru>...
+
+	* Tomboy/NoteBuffer.cs: Add xml:space="preserve" when saving
+	notes.
+
+	* Tomboy/Plugins/ExportToHTML.xsl: Initial XSLT commit.  Generates
+	simple HTML for a note and it's linked notes.
+
+	* Tomboy/Plugins/ExportToHTML.cs: Load the ExportToHTML.xsl XSLT
+	template and process the note being exported with it.  Show a save
+	dialog for the destination of the export, and allow including
+	linked notes in the generated HTML.
+
+	* data/tomboy.schemas.in: Add last-use HTML Export preferences to
+	the schema.
+
+	* Tomboy/Preferences.cs: Add default values for HTML export
+	location and include linked preferences.
+
+2005-04-18  Martin Willemoes Hansen  <mwh@sysrq.dk>
+
+	* Tomboy/Tray.cs: Use standard way to get 
+	  translator credits for the about dialog.
+
+2005-04-04  Alex Graveley  <alex@beatniksoftware.com>
+
+	* configure.in: Bump version to 0.3.2.
+	* NEWS: Update for 0.3.2.
+	* www/index.html: Point to 0.3.2 tarball and RPM.
+
+2005-04-02  Alex Graveley  <alex@beatniksoftware.com>
+
+	* libtomboy/tomboyutil.c (tomboy_window_override_user_time): Split
+	out _NET_WM_USER_TIME setting code to here.  Call
+	gdk_x11_get_server_time() to generate an X event time if we have
+	no active events to use.  Fixes bug where notes opened via D-BUS
+	would be presented underneath other windows. 
+
+2005-04-01  Steve Murphy  <murf@e-tools.com>
+
+        * configure.in: Added "rw" to ALL_LINGUAS.
+
+2005-03-30  Alex Graveley  <alex@beatniksoftware.com>
+
+	* libtomboy/tomboyutil.c (tomboy_window_present_hardcore): Only
+	call gdk_x11_window_set_user_time() if
+	HAVE_GDK_X11_WINDOW_SET_USER_TIME is defined.
+
+	* Tomboy/Tomboy.exe.config.in: Add libgtk-win32-2.0-0.dll <dllmap>
+
+	* configure.in (HAVE_GDK_X11_WINDOW_SET_USER_TIME): Set this if
+	the Gtk version installed is 2.6+ and therefore has this
+	function.  Remove extraneous check for pkg-config.
+
+2005-03-29  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/NoteBuffer.cs: Fix Selection getter to not return empty
+	strings.  Remove unused GetCurrentBlock methods.
+
+	* Tomboy/NoteWindow.cs: Update the link button sensitivity in a
+	timeout handler, to work around GTK+ bug #172050.
+
+2005-03-29  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/NoteWindow.cs: Work around bug in regex match of multiple
+	URLs across newlines.  Use a single Insert so that drops are
+	undoable. P/Invoke call gtk_drag_dest_get_target_list() ourselves,
+	to avoid methodref incompatibility in Gtk# builds.
+
+2005-03-28  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/NoteWindow.cs: Fix URI dropping by overriding
+	OnDragDataReceived to check all the target types for those of
+	URLs, and if none are present, pass it to the base implementation.
+
+2005-03-25  Alex Graveley  <alex@beatniksoftware.com>
+
+	* libtomboy/tomboyutil.c (tomboy_window_present_hardcore): Work
+	around recent behavioral changes in Gnome 2.10, so that note
+	windows when shown are always moved to the current desktop if
+	already shown, and that they are not shown underneath other
+	windows.
+	(tomboy_window_move_to_current_workspace): Do the work of moving a
+	window to the current desktop as set in _NET_CURRENT_DESKTOP.
+
+	* libtomboy/tomboykeybinder.c
+	(tomboy_keybinder_get_last_event_time): Return the current root
+	window keypress time, used by tomboy_window_present_hardcore() to
+	get around anti-focus stealing.
+
+	* Tomboy/Utils.cs: Add ForcedPresentWindow, a Gtk.Window that
+	replaces Gtk.Window.Present and calls
+	tomboy_window_present_hardcore.
+
+	* Tomboy/Search.cs: Subclass NoteFindDialog from
+	ForcedPresentWindow.
+	
+	* Tomboy/NoteWindow.cs: Subclass NoteWindow from
+	ForcedPresentWindow.
+
+2005-03-25  Joe Shaw  <joeshaw@novell.com>
+
+	* Tomboy/Tomboy.cs: Make the DBus.Connection static for the
+	class, to prevent it from being garbage collected and
+	breaking the remote control.
+
+2005-03-10  Alex Graveley  <alex@beatniksoftware.com>
+
+	* libtomboy/tomboykeybinder.c: Wrap XGrabKey in
+	gdk_error_trap_push/pop pair to avoid crashing when global
+	keybinding fails.
+
+2005-03-09  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Search.cs: Use Catalog.GetPluralString to get the
+	correctly translated plural/singluar string of "{0} match(es)".
+	Thanks to mwh@sysrq.dk for suggesting this.
+
+2005-03-09  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Tomboy.cs: Add 2005 to copyright notice.
+	* Tomboy/Tray.cs: Ditto.
+
+2005-03-09  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Tomboy.cs: Start in TrayIcon mode by default, remove
+	--tray-icon option, and accept --panel-applet to register for
+	panel startup.  This should fix the case of people running
+	'tomboy' from the command-line expecting something to happen, but
+	it just exits or hangs.
+
+	* data/GNOME_TomboyApplet.server.in.in: Pass --panel-applet.
+
+	* data/tomboy.desktop.in: Don't pass --tray-icon, since this is
+	the default now.
+
+2005-03-09  Alex Graveley  <alex@beatniksoftware.com>
+
+	* data/tomboy-plugins.pc.in: Actually add this file.
+
+	* Tomboy/Makefile.am (CLEANFILES): Clean up .mdb files.
+	* Tomboy/Plugins/Makefile.am (CLEANFILES): Ditto.
+
+2005-03-09  Alex Graveley  <alex@beatniksoftware.com>
+
+	* data/tomboy-plugins.pc.in: Add a .pc file for plugin authors.
+
+	* data/Makefile.am: Install tomboy-plugins.pc to
+	$libdir/pkgconfig.
+
+	* tomboy.spec.in: Add tomboy-plugins.pc.in.
+
+2005-03-08  Alex Graveley  <alex@beatniksoftware.com>
+
+	* configure.in: Require D-BUS# 0.23.2 or later to enable the
+	remote control interface.
+
+2005-03-08  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Applet.cs: Handle ChangeBackgroundEvent by creating a new
+	RcStyle or modifying the BG color.  I guess this is how this is
+	supposed to work.  Had to manually tweak the panelapplet bindings
+	not to crash.
+
+2005-03-08  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/NoteWindow.cs: Make the Text toolbar menu support the
+	different GTK toolbar styles, and have the toolbar listen to GTK theme
+	settings.  Move the Link button to after the Search button, and
+	only sensitize it whenever text is selected in the Note buffer.
+
+2005-02-28  Martin Willemoes Hansen  <mwh@sysrq.dk>
+
+	* configure.in: Added Danish (da) to ALL_LINGUAS.
+
+2005-02-28  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Plugins/PrintNotes.cs: Fix tab printing by moving forward
+	to the next 8-space-width tabstop when encountering a '\t'.
+
+2005-02-27  Alex Graveley  <alex@beatniksoftware.com>
+
+	* configure.in: Add 'it' to ALL_LINGUAS.
+
+2005-02-27  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/NoteWindow.cs: 
+	* Tomboy/NoteBuffer.cs: 
+	* Tomboy/Tray.cs: Apply minimal patch to support building under
+	mono 1.1.x.
+
+2005-02-15  Changwoo Ryu  <cwryu@debian.org>
+
+	* configure.in: Added "ko" to ALL_LINGUAS.
+
+2005-01-28  Alexander Shopov  <ash@contact.bg>
+
+	* configure.in (ALL_LINGUAS): Added "bg" (Bulgarian)
+
+2005-01-18  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Makefile.am: Make our generated scripts depend on
+	Makefile so they get regenerated when ./configure is rerun.
+
+	* Tomboy/Plugins/Makefile.am: Make ExportToHTML.dll, just don't
+	install it.
+
+	* data/Makefile.am: Make tomboy.desktop, just don't install it.
+
+2005-01-18  Alex Graveley  <alex@beatniksoftware.com>
+
+	* configure.in: Bump version to 0.3.1.
+	* NEWS: Update for 0.3.1.
+	* www/index.html: Point to 0.3.1 tarball and RPM.
+
+2005-01-18  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/NoteBuffer.cs: Remove now unused "normal" tag.
+
+	* Tomboy/Watchers.cs: Always fixup the GtkSpell tag, since this
+	allows us to make an RPM that works no matter what GTK spell
+	version you are running.
+
+2005-01-18  Alex Graveley  <alex@beatniksoftware.com>
+
+	* data/tomboy.schemas.in: Disable WikiWords by default.
+	* Tomboy/Preferences.cs: Ditto.
+
+2005-01-18  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Applet.cs: Rename "Manage Plugins" to "Install Plugins".
+	* data/GNOME_TomboyApplet.xml: Ditto.
+
+2005-01-18  Alex Graveley  <alex@beatniksoftware.com>
+
+	* www/index.html: Update with friendly description of 0.3.0.
+	Point to RPM.
+
+	* Tomboy/Makefile.am: Fix another distcheck bug.
+
+	* configure.in: Bump version to 0.3.0.
+
+	* NEWS: Update for 0.3.0 release.
+
+2005-01-18  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Plugins/Makefile.am: Use top_builddir when referring to
+	Tomboy.exe, to pass distcheck.
+
+	* tomboy.spec.in: Require libpanel-applet-2.so.0.  Don't install
+	tomvoy.desktop (for now).
+
+2005-01-18  Alex Graveley  <alex@beatniksoftware.com>
+
+	* data/Makefile.am: Don't install the tomboy.desktop file for
+	KDE...
+
+	### Non-RedHat Gnome desktops don't honor the OnlyShowIn setting in .desktop
+	### files.  tomboy.desktop should only appear in KDE, where it executes the
+	### tray-icon version.  Gnome is our target audience, and since we don't want
+	### them to have an extra menu item, we leave this out for now.
+
+	* Tomboy/Plugins/Makefile.am: Don't install ExportToHTML.cs, since
+	it doesn't do anything yet.
+
+	* Tomboy/Watchers.cs: Stop listening to NoteManager events on
+	shutdown, so we don't keep our deleted note alive if a linked-to
+	note is deleted or renamed.
+
+	* Tomboy/PluginManager.cs: Execute konqueror for opening Plugins
+	directory if one of the common KDE environment variables are set.
+
+	* configure.in: Bump version to 0.2.99, in preparation for release.
+
+2005-01-17  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Note.cs: Emit the Opened event when the window is
+	created.  Change IsOpened to mean "does the window exist".  Listen
+	for window destroy instead of delete.
+
+	* Tomboy/Watchers.cs: Update for new Trie interface.
+
+	* Tomboy/Trie.cs: Implement the Aho-Corasick string matcher for
+	note title lookups.
+
+2005-01-17 Amanpreet Singh Alam <amanpreetalam@yahoo.com>
+
+	*confiure.in: ALL_LINGUAS is updated with pa Punjabi
+
+2005-01-12  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/NoteManager.cs: Fix bootstrapping by checking if the
+	.tomboy directory exists before creating the PluginManager, which
+	might create the directory, causing Start Here to not be created
+	the first time Tomboy is run.
+
+2005-01-08  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Tray.cs: Escape underscores in note titles so tray
+	menuitems do not have accidental mnemonics.  When dropping URLs,
+	only apply a small text size to the inserted date using
+	ForwardToLineEnd, instead of ForwardLines.
+
+2005-01-04  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Search.cs: Fix Enter handling to focus the result list
+	for global searches and to click Find Next for one-note searches.
+
+2004-12-20  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Plugins/PrintNotes.cs: Add basic printing support based
+	on patch from Jamin Philip Gray <jamin@pubcrawler.org>.
+
+	* Tomboy/PluginManager.cs: Cleanup deleted plugins so they aren't
+	added to new notes.
+
+2004-12-15  Alex Graveley  <alex@beatniksoftware.com>
+
+	* data/GNOME_TomboyApplet.xml: Plugins is note spelled Plguins.
+
+2004-12-14  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Plugins/ExportToHTML.cs: Remove the toolbar item we add
+	on Dispose ().
+	* Tomboy/Plugins/PrintNotes.cs: Ditto.
+
+	* Tomboy/Watchers.cs: Add Dispose() to all plugins.  Support file
+	urls matching ~/foo.
+
+	* Tomboy/PluginManager.cs: Make NotePlugin implement IDisposable,
+	so that unloading can happen explicitly on plugin delete.  Call
+	dispose when a Deleted FileSystemWatcher event for a plugin occurs.
+
+2004-12-13  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Watchers.cs: Match filename URLs starting with '~/'.
+
+2004-12-13  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Watchers.cs: Convert everything to the new NotePlugin
+	interface.
+	* Tomboy/Plugins/ExportToHTML.cs: Ditto.
+	* Tomboy/Plugins/PrintNotes.cs: Ditto.
+
+	* Tomboy/PluginManager.cs: Add an abstract OnNoteOpened method,
+	that plugins fill out to cause some action on note load, do this
+	instead of connecting to Note.OnNoteLoad in each NotePlugin so we
+	can dynamically add plugins and have it work for already opened
+	notes.
+
+2004-12-10  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Makefile.am: Compile the current directory first, before
+	Plugins, since they depend on Tomboy.exe.
+
+	* Tomboy/Tomboy.cs: Fix compile error for non DBUS systems.
+
+2004-12-10  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/PluginManager.cs: Create.  Handles loading plugins from
+	~/.tomboy/Plugins, and connecting them to Notes.  Creates the
+	Plugins dir if it doesn't exist, and creates an Uninstalled
+	Plugins symlink to the system plugins.
+
+	* Tomboy/NoteWindow.cs: Split out NoteWindow.editor related
+	functions into NoteEditor class.
+
+	* Tomboy/NoteManager.cs: Create a PluginManager and use it to load
+	plugins for notes on init and on Create.
+
+	* Tomboy/Makefile.am: Add PluginManager.cs.
+
+	* Tomboy/Defines.cs.in: Add PKGLIBDIR and SYS_PLUGINS_DIR.
+
+	* Tomboy/Applet.cs: Handle showing plugins directory from
+	right-click menus.
+
+	* data/GNOME_TomboyApplet.xml: Add "Manage Plugins..." right-click
+	menu entry.
+
+2004-12-08  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Search.cs: Listen to buffer content changes and update
+	search results.
+
+2004-12-08  Alex Graveley  <alex@beatniksoftware.com>
+
+	* data/tomboy.desktop.in: Add OnlyShowIn=KDE, which executes
+	`tomboy --tray-icon`.  In Gnome, you start Tomboy through the
+	normal applet adding mechanism.
+
+	* Tomboy/Watchers.cs: Update the note title only when the cursor
+	leaves the title line, or when the window is closed to avoid
+	popping up annoying nameclash dialog while you type a title.  Use
+	Note.TextContent when searching other notes for link references on
+	add/delete/rename, to handle matching <link>Full</link>Title xml.
+
+	* Tomboy/Utils.cs: Add XmlDecoder which reads xml and returns only
+	the text/whitespace content.  Add InterruptableTimeout, a simple
+	wrapper around GLib timeouts that allow resetting and cancelling a
+	currently active timeout.
+
+	* Tomboy/Tray.cs: Support dropping links/urls/files onto the
+	tomboy applet/tray icon.  Drops open Start Here and insert a
+	timestamp and the URL(s) into the note.
+
+	* Tomboy/Tomboy.cs: Add --tray-icon option, which displays in the
+	notification area.
+
+	* Tomboy/Note.cs: Rename Text to XmlContent, and add TextContent
+	that is a stripped version of XmlContent using the new XmlDecoder
+	utility.  Switch to using InterruptableTimeout for save timeouts.
+
+	* Tomboy/Search.cs: Update results when notes are
+	added/deleted. Switch to InterruptableTimeout for keypress
+	timeout.  Fix conflicting Alt-C accellerators, make Alt-F jump the
+	find entry.
+
+2004-12-03  Sigurd Gartmann  <sigurd-translate@brogar.org>
+
+	* configure.in: Add 'nb' and 'no' to ALL_LINGUAS.
+
+2004-12-02  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Watchers.cs: In NoteLinkWatcher, don't create inter-note
+	links if we are inside a URL.  Fixes bug #156127.
+
+2004-12-02  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Watchers.cs: Kill debug spew if a 'gtkspell-misspelled'
+	tag isn't set on the Buffer (either you've disabled spellchecking
+	or you don't have gtkspell installed).
+
+	* Tomboy/NoteWindow.cs: Fix crasher on window creation for buffers
+	that restore the cursor to the first line.
+
+2004-12-02  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Watchers.cs: Use Unicode lowercase & uppercase character
+	classes instead of [A-Z] and [a-z] in the WikiWatcher regexp.
+
+2004-12-02  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Watchers.cs: In NoteLinkWatcher, use TextTagEnumerator in
+	note delete/rename handlers.	
+
+	* Tomboy/Utils.cs: Add TextRange, a helper utility to support
+	ranges of text that can be operated on.  Add TextTagEnumerator,
+	which enumerates the tags as TextRanges in a Gtk.TextBuffer.
+
+2004-11-30  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Trie.cs: Fix compile error for newer mono versions.
+
+2004-11-30  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Note.cs: Disable the NoteRelatedToWatcher for now.
+
+	* Tomboy/Watchers.cs: NoteLinkWatcher: Add nested TrieController
+	class that handles updating the trie of note titles on
+	load/create/delete/rename. Create a static TrieController in
+	Initialize if it doesn't exist yet.
+	Don't check ContainsText in OnNoteAdded as this breaks certain
+	note creation linkage.
+
+	* Tomboy/NoteManager.cs: Add NotesLoaded event, so the note linker
+	can know when to generate the trie of note titles.
+
+2004-11-29  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Makefile.am (CSFILES): Add Trie.cs.
+
+	* Tomboy/Watchers.cs: Update to use a TrieTree instead of the slow
+	naive approach for matching inline note-titles.
+
+	* Tomboy/Trie.cs: Created.  An efficient tree-based string set
+	matcher.
+
+2004-11-26  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Tomboy.exe.config: Map panel-applet-2 to
+	libpanel-applet-2.so.0, so we'll load even if -devel packages
+	aren't installed.
+
+2004-11-25  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Applet.cs: Handling ChangeBackground crashes in the panel
+	applet C# binding.  Comment out for now.
+
+2004-11-24  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Applet.cs: Support transparent panels correctly by
+	listening to ChangeBackground events correctly (or at least, how
+	the trashapplet does).
+
+	* Tomboy/Tray.cs: export the icon Gtk.Image, so it's sytle can be reset
+	by the panel applet's ChangeBackground handler.
+
+2004-11-24  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Watchers.cs: Add NoteRelatedToWatcher, which monitors
+	link creation in other notes, and updates a "related notes" line
+	(under the title-line) if a link to the current note is created.
+
+	* Tomboy/NoteBuffer.cs: Add "related-to" tag, used in the Related
+	line to indent and give the text a small size.
+
+	* Tomboy/NoteWindow.cs: Always remove any sizing tags when a
+	sizing menu item is applied. Add an unshown sizing menuitem to the Text
+	menu, which gets set when text size is indeterminable (i.e. when
+	on the title line).
+
+2004-11-15  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Applet.cs: Pass Defines.DATADIR so the panel can find
+	GNOME_TomboyApplet.xml even if we're installed into an odd path.
+
+	* libtomboy/Makefile.am (libtomboy_la_LIBADD): Remove
+	install/uninstall hooks for libtomboy.
+
+	* configure.in: Use AM_DISABLE_STATIC to avoid creating libtomboy.a.
+
+2004-11-02  Alex Graveley  <alex@beatniksoftware.com>
+
+	* data/Makefile.am: Don't --shutdown the gconf daemon, as
+	--makefile-install-rule already does it.
+
+2004-11-02  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Utils.cs: In PopupMenu, set menu parent state to Selected
+	on click, and back to Normal on deactivate.
+
+2004-10-31  Alex Graveley  <alex@beatniksoftware.com>
+
+	* configure.in: Add 'ru' to ALL_LINGUAS.
+
+2004-10-31  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/panelapplet/generated/PanelApplet.cs: Rename Flags to
+	AppletFlags to avoid conflict with Gtk.Widget.Flags.
+
+	* data/Makefile.am (EXTRA_DIST): Add dbusservice_in_files.
+
+	* configure.in: Add --enable-dbus option.
+
+	* tomboy.spec.in: Support rpmbuild option --with dbus, which
+	requires a dbus-sharp package, and installs the .service file.
+
+2004-10-31  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Tomboy.cs: Print error for unknown options (excluding
+	the panel's --oaf* options).
+
+	* Tomboy/Utils.cs: Handle broken evolution-passed urls like
+	file:////.
+
+	* Tomboy/Watchers.cs: Fix bug where clicking the first character
+	of a link would crate a new note.
+
+2004-10-30  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Search.cs: Make MarkupEscapeText which calls
+	g_markup_escape_text, since GLib.Markup.EscapeText passes an
+	incorrect length which crashes when searching for Japanese (>1
+	byte) characters.
+
+2004-10-28  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/tomboy.in: Simplify, and use 'exec' to start mono.
+
+2004-10-23  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Tray.cs: Encode characters as UTF-8 escapes, so we can
+	pass distcheck.
+
+2004-10-23  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Tray.cs: Call Sink to kill hanging tooltips reference.
+
+	* Tomboy/Makefile.am: Install GNOME_TomboyApplet.xml.
+
+	* Tomboy/Applet.cs: Use SetupMenuFromFile, as SetupMenu is failing
+	silently for me.
+
+	* Tomboy/panelapplet/generated/PanelApplet.cs: Add generated
+	SetupMenuFromFile and SetupMenuFromResource.
+
+2004-10-23  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/GNOME_TomboyApplet.server.in.in: Set category to
+	Accessories, and mark for translation.
+
+	* Tomboy/Makefile.am (CSFILES): Add Applet.cs, compile with
+	-unsafe (used by panelapplet), and include all the panel applet
+	sources from developmental Gtk#.  Add
+	GNOME_TomboyApplet.server.in.in, the applet registration file, and
+	GNOME_TomboyApplet.xml the applet menu definition.
+
+	* Tomboy/NoteManager.cs: Listen to Tomboy.ExitingEvent, and save
+	unsaved notes on emmission.
+
+	* Tomboy/Tomboy.cs: Register TomboyApplet with the applet
+	factory.  Make RegisterRemoteControl public so the applet can
+	register the manager it creates.  Add an ExitingEvent, which is
+	fired on SIGQUIT/SIGTERM, or by calling Exit.
+
+	* Tomboy/Applet.cs: Add.  Create TomboyApplet gnome panel applet
+	which contains a TomboyTray, and registers right-click menu XML.
+	Create TomboyTrayIcon which wraps TomboyTray as a notification try
+	icon, and provides a right-click menu.
+
+	* Tomboy/Tray.cs: Make TomboyTray a generic widget with button
+	press handler to show the notes menu.
+
+2004-10-22  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Tomboy.cs: Support --version command line arg.
+
+	* Tomboy/Tray.cs: Add Takeshi AIHANA to translators pane in About
+	dialog.
+
+2004-10-22  Takeshi AIHANA <aihana@gnome.gr.jp>
+
+	* configure.in: Added 'ja' (Japanese) to ALL_LINGUAS.
+
+2004-10-21  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Tray.cs: Add list of translations to about dialog.  Use
+	"About Tomboy" in the menuitem label, and add a separator before
+	quit.
+
+	* tomboy.schemas.in: Oops. Forgot to commit the updates to support
+	the preferences dialog settings.
+
+2004-10-21  Jamin P. Gray <jamin@pubcrawler.org>
+
+	* Tomboy/Tray.cs: Implement the about dialog
+	* Tomboy/Utils.cs: new method GetIcon which does the same thing 
+	as GetMiniIcon except it doesn't scale the image.  
+
+2004-10-21  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Watchers.cs: Listen to changes in the WikiWord
+	preference, do it easily by just avoiding future highlighting, and
+	leaving existing ones intact.
+
+2004-10-21  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/XKeybinder.cs: In TomboyGConfXKeybinder, Use Preferences
+	for getting Gconf paths and default values.  Unbind everything
+	when the Hotkey setting is deactivated, and listen for changes to
+	it.
+
+	* Tomboy/Watchers.cs: In NoteSpellChecker, listen for
+	spellchecking gconf setting, and gtkspell_detach when it is
+	deactivated.  Add back patronymic name avoidance for WikiWords.
+
+	* Tomboy/Tray.cs: Use the Preferences helper class.  Add
+	right-click menu to access preferences dialog, and quit.
+
+	* Tomboy/Preferences.cs: Make Preferences, a Gconf settings access
+	helper.  PreferencesDialog uses GConf PropertyEditors now, and is
+	almost finished.
+
+	* Tomboy/NoteWindow.cs: Listen for changes to custom_font gconf
+	settings, and update the editing font.
+
+2004-10-20  Alex Graveley  <alex@beatniksoftware.com>
+
+	* configure.in: Only set FIXED_GTKSPELL if GtkSpell version is
+	greater than 2.0.9.  Because 2.0.8 is still broken.  
+	Add nl.po translation from Paul Bolle <pebolle@tiscali.nl>.
+
+2004-10-20  Alex Graveley  <alex@beatniksoftware.com>
+
+	* configure.in: Add Catalan translation from Jordi Mas
+	<jmas@softcatala.org>.  Add Icelandic translation from Gunnar
+	Steinn MagnÃºsson <gsm@gunnarsteinn.com>.  If gtkspell version
+	>= 2.0.8, define FIXED_GTKSPELL.
+
+	* Tomboy/Note.cs: Use shared TagTable when creating Buffer if
+	FIXED_GTKSPELL is defined.
+
+	Remove included gtkspell.  Included this out of frustration, but
+	its not really the right thing to do.
+
+2004-10-20  David Lodge <dave@cirt.net>
+                                                                                
+        * configure.in: Added en_GB to ALL_LINGUAS.
+                                                                                
+2004-10-20  Christian Rose  <menthos@menthos.com>
+
+	* configure.in: Added "sv" to ALL_LINGUAS.
+
+2004-10-19  Alex Graveley  <alex@beatniksoftware.com>
+
+	Add stripped down gtkspell 2.0.8 to the source tree, that will be
+	installed in $pkglibdir.
+
+	* Tomboy/NoteBuffer.cs: Remove all tags from the inserted text
+	before applying the active tags... fixes bug where toggling bold
+	inside a bold region would still insert bold.
+
+	* Makefile.am (SUBDIRS): Build gtkspell conditionally.
+
+	* tomboy.spec.in: Add tomboy manpage.
+
+	* configure.in: Add Polish translation from Marek Habersack
+	<grendel@caudium.net>.  Call AC_CONFIG_SUBDIRS on gtkspell
+	directory if GtkSpell installed is older than 2.0.8 (likely).
+
+2004-10-17  Alex Graveley  <alex@beatniksoftware.com>
+
+	* configure.in: Add Hungarian translation from TÃ¶rÃ¶k GÃ¡bor
+	<gabo@linuxportal.hu>.  Thanks dude!
+
+2004-10-15  Alex Graveley  <alex@beatniksoftware.com>
+
+	* configure.in: Bump version to 0.2.2.
+
+2004-10-15  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Note.cs: Fix bug where we try to deserialize a null
+	value.
+
+	* Tomboy/NoteManager.cs: Add method for creating a new note with
+	specified content, and use it in CreateStartNote().
+
+2004-10-15  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Utils.cs: Add XmlEncoder, a simple class to xml-encode
+	text strings.
+
+	* Tomboy/Search.cs: Use XmlEncoder, and GLib.Markup.EscapeText
+	when adding to result treeview.
+
+	* Tomboy/NoteManager.cs: Use XmlEncoder.
+	* Tomboy/Watchers.cs: Ditto.
+
+2004-10-14  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/tomboy.1: Add manpage originally from Luca Capello, but
+	with lots of changes.
+
+2004-10-14  Alex Graveley  <alex@beatniksoftware.com>
+
+	* configure.in: Add German translation from Philipp Meier
+	<meier@fnogol.de>.  Thanks!
+
+2004-10-14  Alex Graveley  <alex@beatniksoftware.com>
+
+	* www/index.html: Point to 0.2.1 tarball, and list some of the
+	cooler changes.
+
+	* configure.in: Bump version to 0.2.1.
+
+	* tomboy.desktop.in: Don't pass any args, for now.
+
+	* Tomboy/Watchers.cs: Fix unix path pattern to match only when
+	preceding character is whitespace or start-of-line.
+
+2004-10-14  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Search.cs: Don't highlight in all notes at once.  This
+	opens some UI issues I don't want to deal with yet, like making
+	Next/Previous work if you bring an already opened note to the
+	foreground.
+
+2004-10-13  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Watchers.cs: In NoteRenameWatcher, show a unique name
+	like "(Untitled 42)" if someone deletes the title.  In
+	NoteLineWatcher, use InsertWithTags to fix a bug where a longer
+	renamed title won't be fully marked up.
+
+2004-10-13  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Watchers.cs: Cleanup NoteRenameWatcher to not allow other
+	tags on the title line, handle title line breaks and insertions
+	correctly, wait 1 second before updating the the Note title
+	(instead of 0.5), and always grab the title explicitly instead of
+	using a textmark.
+
+2004-10-12  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Tomboy.cs: Add a --start-here argument that opens the
+	(possibly translated) "Start Here" note.
+
+	* Tomboy/Search.cs: Highlight matches in all notes, not just
+	current one.
+
+	* Tomboy/RemoteControl.cs: Call find.FindNextButton.Click () in
+	DisplayNoteWithSearch to scroll the note to the first match.
+
+	* Tomboy/NoteWindow.cs: Don't link to the current word if none is
+	selected. This makes problems when people make a note from a common
+	word, then rename the note later, as all notes with that common
+	word will have their content changed to the renamed title.
+
+2004-10-11  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Note.cs: Don't save window dimensions if window is
+	maximized.
+
+	* Tomboy/NoteWindow.cs: Unmaximize before closing to ensure we
+	don't reopen pseudo-maximized.
+
+	* Tomboy/NoteBuffer.cs: Keep a reference to the TagTable passed
+	in, otherwise it gets collected and gtk# creates a new one.
+
+2004-10-11  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Watchers.cs: Fix bugs in Url matching regex to recognise
+	unix paths again.
+
+2004-10-10  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Search.cs: Html Encode the note title to html before adding.
+	Don't reset the search to empty if SearchText is set null.  Don't
+	set TransientFor ever.
+
+	* configure.in: gtkspell 2.0.5 is still broken.  
+
+2004-10-10  Dave Camp  <dave@novell.com>
+
+	* Tomboy/NoteWindow.cs: Make "link to new note" work on the 
+	word under the cursor if there is no selection.
+
+	* Tomboy/NoteBuffer.cs: Add a GetCurrentBlock overload that 
+	uses the InsertMark by default
+
+2004-10-09  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Watchers.cs: Make ContainsText encode the search text.
+
+	* Tomboy/Tomboy.cs: Add help string for --highlight-search.
+
+	* Tomboy/RemoteControl.cs: Fix DisplayNoteWithSearch.
+
+	* Tomboy/NoteManager.cs: Entity encode new note titles in Create.
+
+2004-10-09  Jon Trowbridge  <trow@ximian.com>
+
+	* Tomboy/Tomboy.cs: If the argument to --open-note looks like a
+	Uri, treat it like a Uri instead of as a note title.  Also, added
+	the --highlight-search command-line option.
+
+2004-10-09  Nat Friedman  <nat@novell.com>
+
+	* Tomboy/Search.cs: Make FindMatches and HighlightMatches public
+	static.
+	* Tomboy/RemoteControlProxy.cs
+	Tomboy/RemoteControl.cs: Add DisplayNoteWithSearch.
+
+2004-10-08  Alex Graveley  <alex@beatniksoftware.com>
+
+	* NEWS: Update for 0.2.0.
+
+2004-10-08  Alex Graveley  <alex@beatniksoftware.com>
+
+	* tomboy.spec.in: Add all the missing files, register .schemas
+	file.
+
+2004-10-08  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/NoteManager.cs: Select the initial note text on newly
+	created notes.
+
+2004-10-08  Alex Graveley  <alex@beatniksoftware.com>
+
+	* configure.in: Bump version to 0.2.0.
+
+	* Tomboy/Makefile.am (EXTRA_DIST): Add
+	com.beatniksoftware.Tomboy.service to CLEANFILES.
+
+2004-10-08  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Watchers.cs: Move all watchers to NotePlugin interface,
+	which simplifies code and avoid creating windows/buffers
+	prematurely; eventually this will be the interface to allow 3rd
+	party plugins.  Move wiki/url watchers to using regex matching,
+	which simplifies the code.
+
+	* Tomboy/Tray.cs: Show notes edited in the last two days in menu
+	(up to 18).
+
+	* Tomboy/RecentChanges.cs: Remove open-one-at-a-time behavior.
+	* Tomboy/Search.cs: Ditto.
+
+	* Tomboy/NoteManager.cs: Split NoteChanged into NoteAdded and
+	NoteDeleted signals.  Make new note filenames be guids, to avoid
+	renaming files on note rename, and to give permalink urls.
+
+	* Tomboy/Note.cs: Load plugins as creation.
+	Send Opened signal on window realize.  Add IsLoaded property to
+	tell if buffer has been deserialized.
+
+	* Tomboy/Makefile.am (com.beatniksoftware.Tomboy.service): Install
+	com.beatniksoftware.Tomboy.service to $libdir/dbus-1.0/services.
+
+2004-10-07  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Tomboy.cs: Make --new-note "NoteTitle" open an existing
+	note if it exists.
+
+2004-10-05  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/NoteWindow.cs: Get the target list and add our extra
+	targets to it, this way we don't overwrite the targets GtkTextView
+	installs.  Install text/uri-list (nautilus drags) and
+	_NETSCAPE_URL (moz drags).
+
+2004-10-05  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Tomboy.cs: Add TomboyRemoteExecute, a simple command line
+	frontend to a running tomboy.  Allows opening an existing note,
+	and create new notes.
+
+2004-10-05  Alex Graveley  <alex@beatniksoftware.com>
+
+	* configure.in: Add "es" to ALL_LINGUAS.  Translation by Antonio
+	Ognio <gnrfan@gnrfan.org>.
+
+2004-10-04  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Tomboy.cs: Switch from a System.Diagnostics.Conditional
+	attribute on RegisterRemoteControl to a #if ENABLE_DBUS.
+	With ConditionalAttribute the compiler still parses the method
+	body, which can't find the DBus types if they aren't installed.
+	Fixes 154496, reported by Adam Lopresto (adam@pubcrawler.org).
+
+2004-10-03  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/NoteManager.cs: Properly Url encode filenames on creation
+	and rename.  Allows '/' in note titles and fixes bug #154396 filed
+	by Erik Volkman.
+
+	* Tomboy/Search.cs: Fix bug with GetInstance implementation being
+	passed a string to search.  Instead add SearchText property.
+	Fixes a bug where just selecting text then right-clicking would
+	activate searching for the selected text.
+
+2004-10-02  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/NoteWindow.cs: Implement simple (and broken) DND to note
+	content, to allow dragging urls from nautilus/firefox/etc.
+
+2004-10-02  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/XKeybinder.cs: Split out XKeybinding classes from
+	Utils.cs.
+
+2004-10-02  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/RecentChanges.cs: Support dnd of results into open notes.
+	* Tomboy/Search.cs: Ditto.
+
+2004-10-01  Alex Graveley  <alex@beatniksoftware.com>
+
+	Thanks to hurricane Jeanne last week, here is a massive commit...
+
+	Thanks to Jon Trowbridge <trow@ximian.com> for the dbus-based
+	remote control interface.
+
+	* configure.in: add optional check for dbus, and set ENABLE_DBUS
+	if found.  Check for old version (<2.0.5) of GtkSpell, and set
+	OLD_GTKSPELL if found.
+
+	* Tomboy/Makefile.am: include RemoteControl.cs and
+	RemoteControlProxy.cs if ENABLE_DBUS is set.
+
+	* Tomboy/Note.cs: make SaveDate into ChangeDate, which we update
+	whenever the buffer changes.  Fixes ordering in the panel applet
+	for notes where the save timeout hasn't been called yet.  Add Uri,
+	used by remote control. Add IsOpened, used by the tray menu.  Fix
+	newly created notes to remember window position.
+
+	* Tomboy/NoteManager.cs: Use a HIGMessageDialog for showing name
+	clash errors.  Add FindByUri, used by the remote control.
+
+	* Tomboy/NoteWindow.cs: Use a HIGMessageDialog for the delete
+	dialog.
+
+	* Tomboy/RecentChanges.cs: Update results on note
+	rename/add/delete.
+
+	* Tomboy/Tomboy.cs: Register the remote control with dbus.
+
+	* Tomboy/Tray.cs: Add tooltip to notification icon which says
+	"Tomboy Notes" and lists the global shortcut key for showing the
+	menu.  Create menu accelerators which map to their global
+	shortcuts stored in gconf ("Alt-F11" next to Start Here, by
+	default).
+
+	* Tomboy/Utils.cs: Add HIGMessageDialog, which implements the HIG
+	recommended message dialog.
+
+	* Tomboy/Watchers.cs: Middle clicking a link/url closes the
+	opening note.  Shift or control clicking a link/url places the
+	cursor instead of opening.  Control-Enter with cursor on a
+	link/url opens it. Use a HIGMessageDialog for location open error
+	dialog.  Fix wikiword identification to ignore words with internal
+	punctuation, and disregard any trailing punctuation.
+
+	* TrayIcon/libtrayicon/tomboykeybinder.c: Regrab keys if the
+	default keymap changes.
+
+2004-10-01  Adam Lopresto <adam@pubcrawler.org>
+
+	* Tomboy/Search.cs: Make searches implicitly AND words instead of
+	OR.  Also fix a bug with spaces at the end of the search string.
+
+2004-09-27  BenoÃÂ®t Dejean  <tazforever@dlfp.org>
+
+	* configure.in: Added "fr" to ALL_LINGUAS.
+
+2004-09-27  Alex Graveley  <alex@beatniksoftware.com>
+
+	Lots of changes...
+
+	* Add calls to Catalog.GetString everywhere we use a translatable
+	string.
+	* Add MouseHandWatcher which will change the mouse cursor to a
+	hand when hovering over links.
+	* Add global keybinding code
+	* Add gconf setting to allow opening the notes menu (<Alt>F12 by
+	default), opening Start Here (<Alt>F11 by default), creating a new
+	note, opening the Search dialog, and opening the Recent Changes
+	dialog.
+	* Fix session saving, so our wrapper script gets executed by
+	gnome-session.
+	* Add beginning of bullet list and horizonal spacer code,
+	commented out for now.
+	
+	Added Files...
+
+	* tomboy.desktop.in: .desktop file to make tomboy show up in
+	Applications/Accessories.
+	* tomboy.schemas.in: Add gconf schema with global keybindings.
+	* Tomboy/Defines.cs.in: Gets generated to Defines.cs, so we can
+	find our translation files.
+	* TrayIcon/libtrayicon/eggaccelerators.[ch]: Handles parsing of
+	global gconf keybinding strings.
+	* TrayIcon/libtrayicon/tomboykeybinder.[ch]: Listens for global
+	keybindings on the X root window.
+
+2004-09-24  Alex Graveley  <alex@beatniksoftware.com>
+
+	* www/index.html: Add copyright notice for Tintin.
+
+2004-09-23  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Watchers.cs: Copy the mautilus behavior of "middle click
+	closes the opener" when clicking note links.  Should this apply
+	for clicking urls as well?
+
+2004-09-21  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Note.cs: Subscribe to window configure events, and save
+	the note on change.  This should fix any problems people are
+	having with spatial note windows.
+
+2004-09-21  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/Search.cs: Fixed up things a bit: Make the dialog a
+	singleton, so clicking search anywhere will bring up same search
+	dialog, and reapply the search to the current note.  Scroll to
+	the matched text.  Fix insertion into the search history list
+	(sort of, it'll still show partial entries if you type slow).
+	Search still needs some work wrt listening for change events and
+	optimizing, as well as making the currently iterated note title
+	bold in the search dialog.
+
+	* Tomboy/NoteWindow.cs: Use a property accessor to get the find
+	dialog instance everywhere, instead of keeping a local copy.
+	* Tomboy/Tray.cs: Ditto.
+
+2004-09-21  Alex Graveley  <alex@beatniksoftware.com>
+
+	* configure.in: Drop the gtkspell 2.0.6 dependency.  Bump version
+	to 0.1.2.
+	* tomboy.spec.in (Requires): Ditto.
+
+	* Tomboy/NoteWindow.cs: Bind find-next and find-previous to the
+	right callback, instead of CloseWindowHandler.  Doh.
+
+	* Tomboy/Watchers.cs: Override gtkspell's tag to use the squiggly
+	with a black foreground text color.  This makes us not depend on
+	the newest gtkspell versions.  Gtk 2.2 versions of pango will just
+	show misspellings as black text with a regular underline.
+
+	* Tomboy/Search.cs (OnFindPreviousClicked): Fix bug where previous
+	was only jumping between first and last match.
+
+	* www/index.html: Point to 0.1.2 tarball.
+
+2004-09-20  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/NoteWindow.cs: Allow escape and Ctrl-w to close a note
+	for now, until I get some feedback on which to use.
+
+2004-09-20  Alex Graveley  <alex@beatniksoftware.com>
+
+	* configure.in: Bump version to 0.1.1.
+	* www/index.html: Point to 0.1.1 tarball.
+
+	Add NEWS, AUTHORS, COPYING, README files.
+
+2004-09-20  Alex Graveley  <alex@ximian.com>
+
+	* Tomboy/NoteWindow.cs: Set the close window key to Escape, which
+	makes tomboy feel less obtrusive.  Suggestion from Michael GroÃe
+	<mgrosze@web.de>.
+
+2004-09-20  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/NoteWindow.cs: Ask for confirmation before deleting.
+	Based on patch from Johan Wallenborg <johan@deepfolks.com>.
+
+2004-09-20  Alex Graveley  <alex@beatniksoftware.com>
+
+	* tomboy.spec.in: Initial spec file from Ricardo Veguilla
+	<veguilla@hpcf.upr.edu>.
+
+	* Tomboy/NoteManager.cs (NoteManager.CreateStartNote): Fix typo.
+
+	* Tomboy/Note.cs: Pass a StreamReader for the note's file to the
+	XmlTextReader constructor.  Hopefully it won't complain about
+	invalid URLs in some versions of mono.  Reported by O'Grady
+	Stephen <sogrady@redmonk.com>.
+
+2004-09-19  Alex Graveley  <alex@beatniksoftware.com>
+
+	* configure.in: Require gtkspell version 2.0.6.
+
+2004-09-19  Jesse Andrews  <anotherjesse@gmail.com>
+
+	* Tomboy/NoteBuffer.cs: changed internal linnk back to red
+
+2004-09-19  Jesse Andrews  <anotherjesse@gmail.com>
+
+	* Tomboy/NoteBuffer.cs: modified color of internal link to
+	dark green since misspellings are red
+
+	* Tomboy/NoteManager.cs: store notes in ~/.tomboy instead of ~/tomboy
+
+2004-09-18  Alex Graveley  <alex@beatniksoftware.com>
+
+	* TrayIcon/libtrayicon/Makefile.am: Install libtrayicon.so into
+	pkglibdir.
+
+	* TrayIcon/Makefile.am: Install TrayIcon.dll into pkglibdir.
+
+	* Tomboy/tomboy.in: Set LD_LIBRARY_PATH, and MONO_PATH.
+
+	* Tomboy/Watchers.cs: Avoid an infinite loop for buffers with no
+	content.
+
+2004-09-18  Alex Graveley  <alex@beatniksoftware.com>
+
+	* Tomboy/NoteWindow.cs: 
+	* Tomboy/RecentChanges.cs: 
+	* Tomboy/Search.cs: Gtk.ScrolledWindow.Child is read-only on Gtk#
+	HEAD, use Add() instead.
+
+	* configure.in: PKG_CHECK for gtkspell-2.0, since we call into it
+	from C#.
+

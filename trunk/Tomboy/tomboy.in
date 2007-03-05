@@ -1,0 +1,21 @@
+#!/bin/sh
+
+if [ "x$PWD" = "x@srcdir@" ] ; then
+    echo "*** Running uninstalled @target@ ***"
+
+    export LD_LIBRARY_PATH="../libtomboy/.libs:$LD_LIBRARY_PATH"
+    export TOMBOY_WRAPPER_PATH="$PWD/@wrapper@"
+
+    THIS_EXE="--debug ./@target@"
+else
+    export LD_LIBRARY_PATH="@pkglibdir@:$LD_LIBRARY_PATH"
+    export TOMBOY_WRAPPER_PATH="@bindir@/@wrapper@"
+
+    THIS_EXE="@pkglibdir@/@target@"
+fi
+
+if [ -n "@extragac@" ]; then
+    export MONO_GAC_PREFIX="@extragac@:$MONO_GAC_PREFIX"
+fi
+
+exec mono $MONO_EXTRA_ARGS $THIS_EXE "$@"

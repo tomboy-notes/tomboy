@@ -1,0 +1,1163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+"http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+<!ENTITY date "February 2007">
+<!ENTITY app "<application>Tomboy Notes</application>">
+<!ENTITY appname "Tomboy">
+<!ENTITY extappname "Tomboy Notes">
+<!ENTITY manversion "2.0">
+<!ENTITY version "0.6.0">
+]>
+<!-- 
+  (Do not remove this comment block.)
+  Maintained by the GNOME Documentation Project
+  http://live.gnome.org/DocumentationProject
+  Template version: 3.0 beta
+  Template last modified August 7th, 2006
+-->
+<!-- =============Document Header ============================= -->
+<!-- please do not change the id; for translations, change lang to -->
+<!-- appropriate code -->
+<article id="index" lang="en">
+  <articleinfo>
+    <title>Tomboy Notes Manual</title>
+
+    <abstract role="description">
+      <para>Tomboy is a simple desktop note-taking application, with some
+      powerful built-in features to help you organize your ideas.</para>
+    </abstract>
+
+    <copyright>
+      <year>2007</year>
+
+      <holder>Alex Graveley</holder>
+    </copyright>
+
+    <copyright>
+      <year>2006</year>
+
+      <holder>Brent Smith</holder>
+    </copyright>
+
+    <copyright>
+      <year>2006</year>
+
+      <holder>Free Software Foundation</holder>
+    </copyright>
+    
+    <copyright>
+      <year>2007</year>
+      
+      <holder>Boyd Timothy</holder>
+    </copyright>
+
+    <!-- translators: uncomment this:
+    <copyright>
+      <year>2002</year>
+      <holder>ME-THE-TRANSLATOR (Latin translation)</holder>
+    </copyright>
+-->
+
+    <publisher>
+      <publishername>GNOME Documentation Project</publishername>
+    </publisher>
+
+    <include href="legal.xml" xmlns="http://www.w3.org/2001/XInclude" />
+
+    <!-- This file  contains link to license for the documentation (GNU FDL), and 
+         other legal stuff such as "NO WARRANTY" statement. Please do not change 
+	 any of this. -->
+
+    <authorgroup>
+      <author role="maintainer">
+        <firstname>Alex</firstname>
+
+        <surname>Graveley</surname>
+
+        <affiliation>
+          <orgname>GNOME Documentation Project</orgname>
+
+          <address><email>alex@beatniksoftware.com</email></address>
+        </affiliation>
+      </author>
+
+      <author>
+        <firstname>Brent</firstname>
+
+        <surname>Smith</surname>
+
+        <affiliation>
+          <orgname>GNOME Documentation Project</orgname>
+
+          <address><email>gnome@nextreality.net</email></address>
+        </affiliation>
+      </author>
+      
+      <author role="maintainer">
+        <firstname>Boyd</firstname>
+        
+        <surname>Timothy</surname>
+        
+        <affiliation>
+          <orgname>GNOME Documentation Project</orgname>
+
+          <address><email>btimothy@gmail.com</email></address>
+        </affiliation>
+      </author>
+
+      <!-- This is appropriate place for other contributors: translators,
+     maintainers,  etc. Commented out by default.
+      <othercredit role="translator">
+        <firstname>Latin</firstname> 
+        <surname>Translator 1</surname> 
+        <affiliation> 
+          <orgname>Latin Translation Team</orgname> 
+          <address> <email>translator@gnome.org</email> </address> 
+        </affiliation>
+        <contrib>Latin translation</contrib>
+     </othercredit>-->
+    </authorgroup>
+
+    <!-- According to GNU FDL, revision history is mandatory if you are -->
+
+    <!-- modifying/reusing someone else's document.  If not, you can omit it. -->
+
+    <revhistory>
+      <!-- Remember to remove the &manrevision; entity from the revision entries other
+   than the current revision. -->
+
+      <revision>
+        <revnumber>Tomboy Manual 2.0</revnumber>
+
+        <date>2007-02-28</date>
+
+        <revdescription>
+          <para role="author">Boyd Timothy</para>
+
+          <para role="publisher">GNOME Documentation Project</para>
+        </revdescription>
+      </revision>
+    </revhistory>
+
+    <releaseinfo>This manual describes version 0.6.0 of Tomboy</releaseinfo>
+
+    <legalnotice>
+      <title>Feedback</title>
+
+      <para>To report a bug or make a suggestion regarding the Application
+      Name application or this manual, follow the directions in the <ulink
+      type="help" url="ghelp:gnome-feedback">GNOME Feedback
+      Page</ulink>.</para>
+
+      <!-- Translators may also add here feedback address for translations -->
+    </legalnotice>
+  </articleinfo>
+
+  <indexterm zone="index">
+    <primary>Tomboy Notes</primary>
+  </indexterm>
+
+  <indexterm zone="index">
+    <primary>Tomboy</primary>
+  </indexterm>
+
+  <indexterm zone="index">
+    <primary>notes</primary>
+  </indexterm>
+
+  <!-- ============= Introduction ============================== -->
+
+  <sect1 id="tomboy-intro">
+    <title>Introduction</title>
+
+    <figure id="tomboy-panel">
+      <title>Notes Application</title>
+
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="figures/tomboy-panel.png" />
+        </imageobject>
+      </mediaobject>
+    </figure>
+
+    <para>Tomboy is a desktop note-taking application for GNOME. It is simple
+    and easy to use, and allows you to organize the ideas and information you
+    deal with every day. Tomboy has some very useful editing features to help
+    you customize your notes, including:</para>
+
+    <itemizedlist>
+      <listitem>
+        <para>Highlighting Search Text</para>
+      </listitem>
+
+      <listitem>
+        <para>Inline Spell Checking</para>
+      </listitem>
+
+      <listitem>
+        <para>Auto-linking Web &amp; Email Addresses</para>
+      </listitem>
+
+      <listitem>
+        <para>Undo/Redo Support</para>
+      </listitem>
+
+      <listitem>
+        <para>Font Styling &amp; Sizing</para>
+      </listitem>
+
+      <listitem>
+        <para>Bulleted Lists</para>
+      </listitem>
+    </itemizedlist>
+
+    <para>Tomboy is accessed through the GNOME panel. To startup Tomboy
+    automatically when you log into GNOME, see the section <xref
+    linkend="add-to-panel" />.</para>
+  </sect1>
+
+  <!--=========== Getting Started ============================== -->
+
+  <sect1 id="getting-started">
+    <title>Getting Started</title>
+
+    <sect2 id="add-to-panel">
+      <title>Adding Tomboy to the Panel</title>
+
+      <para>To add Tomboy to a panel, right-click on the panel, then choose
+      <menuchoice>
+          <guimenuitem>Add to Panel</guimenuitem>
+        </menuchoice>. Select Tomboy Notes in the Add to the panel dialog,
+      then click <menuchoice>
+          <guibutton>Add</guibutton>
+        </menuchoice>. You should see a yellow note icon appear in the panel,
+      representing Tomboy. The panel icon is illustrated in <xref
+      linkend="tomboy-panel" />.</para>
+    </sect2>
+
+    <sect2 id="creating-notes">
+      <title>Creating Notes</title>
+
+      <para>Once you have successfully added Tomboy to the Panel, you can
+      create new notes using one of the following methods.</para>
+
+      <para>To create a new note using the mouse:</para>
+
+      <orderedlist>
+        <listitem>
+          <para>Click on the Tomboy note icon present in the GNOME Panel. A
+          menu will appear.</para>
+        </listitem>
+
+        <listitem>
+          <para>Select the <menuchoice>
+              <guimenuitem>Create New Note</guimenuitem>
+            </menuchoice> option in the menu.</para>
+        </listitem>
+      </orderedlist>
+
+      <para>To create a new note using the keyboard:</para>
+
+      <orderedlist>
+        <listitem>
+          <para>Open the Tomboy menu using the key combination <keycombo>
+              <keycap>Alt</keycap>
+
+              <keycap>F12</keycap>
+            </keycombo>.</para>
+        </listitem>
+
+        <listitem>
+          <para>Use the <keycap>N</keycap> key to select the menu option
+          <menuchoice>
+              <guimenuitem>Create New Note</guimenuitem>
+            </menuchoice>.</para>
+        </listitem>
+      </orderedlist>
+    </sect2>
+
+    <sect2 id="editing-notes">
+      <title>Editing Notes</title>
+
+      <para>After creating a new note, a new window will appear with the title
+      <literal>New Note <replaceable>N</replaceable></literal>. At the top of
+      the note is a toolbar with several buttons and text. Directly below this
+      toolbar is the content area of the note. This is illustrated in <xref
+      linkend="new-note" />.</para>
+
+      <para>The note can be edited by clicking in the content area and using
+      the keyboard to add and remove content. The first line is considered the
+      title of the note. By default this is populated with the text
+      <quote><literal>New Note <replaceable>N</replaceable></literal></quote>.
+      The title is changed by clicking in the content area on the first line
+      and using the keyboard to change the title. By default, focus is given
+      to the content area upon creation of a new note, so you can immediately
+      start editing the note without the need to click on the content area
+      with the mouse.</para>
+
+      <para>Using the toolbar available on each note is discussed in the
+      section <xref linkend="working-with-notes" />.</para>
+
+      <figure id="new-note">
+        <title>The default window for a New Note</title>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="figures/tomboy-new-note.png" />
+          </imageobject>
+        </mediaobject>
+      </figure>
+    </sect2>
+
+    <sect2 id="search-all-notes">
+      <title>Table of Contents</title>
+
+      <para>To get an overview of all the notes managed by Tomboy, select the
+      <menuchoice>
+          <guimenuitem>Search All Notes</guimenuitem>
+        </menuchoice> menu item from the panel menu. By default, the
+      <interface>Search All Notes</interface> dialog will display the notes
+      in the order that they were last modified. Click the
+      <guilabel>Note</guilabel> or <guilabel>Last Changed</guilabel> column
+      headings to change the sort order. Click the column heading a second
+      time to toggle between ascending and descending order.</para>
+      
+      <para>You can find specific notes by entering text into the search field
+      in the <interface>Search All Notes</interface> dialog.  The list of notes
+      will automatically update to list only the notes which have matching
+      text.</para>
+      
+      <para>To open a note in the <interface>Search All Notes</interface>
+      dialog, do one of the following:</para>
+
+      <orderedlist>
+        <listitem>
+          <para>Double-click on a note.</para>
+        </listitem>
+        
+        <listitem>
+          <para>Highlight a note by selecting it and then select <menuchoice>
+              <guimenuitem>Open</guimenuitem>
+            </menuchoice> from the <guimenuitem>File</guimenuitem> menu.</para>
+        </listitem>
+        
+        <listitem>
+          <para>Right-click on a note and select <menuchoice>
+              <guimenuitem>Open</guimenuitem>
+            </menuchoice> from the context menu that appears.</para>
+        </listitem>
+        
+        <listitem>
+          <para>Highlight a note by selecting it and then press the key
+          combination <keycombo>
+              <keycap>Ctrl</keycap>
+
+              <keycap>O</keycap>
+            </keycombo>.</para>
+        </listitem>
+      </orderedlist>
+    </sect2>
+  </sect1>
+
+  <!--=========== Working With Notes ============================== -->
+
+  <sect1 id="working-with-notes">
+    <title>Working With Notes</title>
+
+    <para>Notes are modified and edited through the main window for each
+    note. The toolbar at the top of each note allows you to stylize the note
+    and perform other note-related functions. We discuss the functions of each
+    item on the toolbar in the following sections.</para>
+
+    <sect2 id="search">
+      <title>Search</title>
+
+      <para>Clicking the <guibutton>Search</guibutton> button will open the
+      <interface>Search All Notes</interface> dialog described earlier
+      (<xref linkend="search-all-notes" />.)</para>
+    </sect2>
+
+    <sect2 id="link">
+      <title>Link</title>
+
+      <para>The <guibutton>Link</guibutton> button allows you to create a link
+      to a new note from within the current note. For example, if your note
+      contains the phrase <quote>FinalExam</quote>, you can select this text
+      with the mouse and click the <guibutton>Link</guibutton> button to
+      create a new note with the title <quote>FinalExam</quote>. A link will
+      also be created in the current note that can be clicked to open the new
+      <quote>FinalExam</quote> note.</para>
+
+      <note>
+        <para>Changing the title of a note will update links present in other
+        notes. This prevents broken links from occurring when a note is
+        renamed.</para>
+      </note>
+    </sect2>
+
+    <sect2 id="text">
+      <title>Text</title>
+
+      <para>Formatting text within your notes can be done using the
+      <guibutton>Text</guibutton> button. The <guibutton>Text</guibutton>
+      button will display a drop down menu with several options from which you
+      can choose. Each menu item is explained next.</para>
+
+      <variablelist>
+        <varlistentry>
+          <term>Undo</term>
+
+          <listitem>
+            <para>Support for <quote>Undo</quote> is available in Tomboy
+            through this menu item. The Undo function allows you to revert
+            previous changes made to your note during the current session. To
+            undo your last change using the keyboard, use the standard
+            keybinding, <keycombo>
+                <keycap>Ctrl</keycap>
+
+                <keycap>Z</keycap>
+              </keycombo>.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>Redo</term>
+
+          <listitem>
+            <para>The <quote>Redo</quote> function is used to put back changes
+            that were removed using the <quote>Undo</quote> feature. To redo
+            your last change using the keyboard, use the standard keybinding,
+            <keycombo>
+                <keycap>Shift</keycap>
+
+                <keycap>Ctrl</keycap>
+
+                <keycap>Z</keycap>
+              </keycombo>.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>Bold</term>
+
+          <listitem>
+            <para>To make text within your note bold, first select the text
+            you want to modify. Then select the <menuchoice>
+                <guimenuitem>Bold</guimenuitem>
+              </menuchoice> option from the <guibutton>Text</guibutton>
+            dropdown menu. You may also use the keybinding <keycombo>
+                <keycap>Ctrl</keycap>
+
+                <keycap>B</keycap>
+              </keycombo> after selecting the text.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>Italic</term>
+
+          <listitem>
+            <para>To make text within your note italic, first select the text
+            you want to modify. Then select the <menuchoice>
+                <guimenuitem>Italic</guimenuitem>
+              </menuchoice> option from the <guibutton>Text</guibutton>
+            dropdown menu. You may also use the keybinding <keycombo>
+                <keycap>Ctrl</keycap>
+
+                <keycap>I</keycap>
+              </keycombo> after selecting the text.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>Strikeout</term>
+
+          <listitem>
+            <para>The strikeout style will put a line through the selected
+            text. To add a strikeout, select the text and then select the
+            <menuchoice>
+                <guimenuitem>Strikeout</guimenuitem>
+              </menuchoice> option from the <guibutton>Text</guibutton>
+            dropdown menu. You may also use the keybinding <keycombo>
+                <keycap>Ctrl</keycap>
+
+                <keycap>S</keycap>
+              </keycombo> after selecting the text.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>Highlight</term>
+
+          <listitem>
+            <para>The highlight style will put a yellow background around the
+            selected text. To add a highlight, select the text and then select
+            the <menuchoice>
+                <guimenuitem>Highlight</guimenuitem>
+              </menuchoice> option from the <guibutton>Text</guibutton>
+            dropdown menu. You may also use the keybinding <keycombo>
+                <keycap>Ctrl</keycap>
+
+                <keycap>H</keycap>
+              </keycombo> after selecting the text.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>Fixed Width</term>
+
+          <listitem>
+            <para>The fixed width style allows text to use a fixed width font.
+            To change existing text, first select the text you want to modify.
+            Then select the <menuchoice>
+                <guimenuitem>Fixed Width</guimenuitem>
+              </menuchoice> option from the <guibutton>Text</guibutton>
+            dropdown menu.  You can also select the <menuchoice>
+                <guimenuitem>Fixed Width</guimenuitem>
+              </menuchoice> option from the <guibutton>Text</guibutton> before
+            you start typing to have the text you type be in a fixed width
+            style.</para>
+            
+            <para>The <menuchoice>
+                <guimenuitem>Fixed Width</guimenuitem>
+              </menuchoice> option is a feature provided by the Fixed Width
+              Plugin. For more information on plugins, see
+              <xref linkend="plugins" />.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>Font size</term>
+
+          <listitem>
+            <para>There are actually four options in this part of the menu:
+            <simplelist type="inline">
+                <member><guilabel>Small</guilabel></member>
+
+                <member><guilabel>Normal</guilabel></member>
+
+                <member><guilabel>Large</guilabel></member>
+
+                <member><guilabel>Huge</guilabel></member>
+              </simplelist>. Each one of these options represents a font size
+            to use for the selected text in the note. To modify the font size,
+            select the text and then select one of <simplelist type="inline">
+                <member><guilabel>Small</guilabel></member>
+
+                <member><guilabel>Normal</guilabel></member>
+
+                <member><guilabel>Large</guilabel></member>
+
+                <member><guilabel>Huge</guilabel></member>
+              </simplelist> options from the <guibutton>Text</guibutton>
+            dropdown menu.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>Bullets</term>
+
+          <listitem>
+            <para>Select the <menuchoice>
+                <guimenuitem>Bullets</guimenuitem>
+              </menuchoice> option from the <guibutton>Text</guibutton>
+            dropdown menu to begin or end a bulleted list. If the cursor is
+            inside a bulleted list, the <simplelist type="inline">
+                <member><guilabel>Increase Indent</guilabel></member>
+                
+                <member><guilabel>Decrease Indent</guilabel></member>
+              </simplelist> options will be enabled.</para>
+             
+            <para>With the cursor on a bulleted list line, select the
+              <menuchoice>
+                <guimenuitem>Increase Indent</guimenuitem>
+              </menuchoice> option to shift the current line to the right or
+            the <menuchoice>
+                <guimenuitem>Decrease Indent</guimenuitem>
+              </menuchoice> option to shift the current line to the left.
+            </para>
+            
+            <para>For more information on bullets, see
+            <xref linkend="bullets" />.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>Find in This Note</term>
+
+          <listitem>
+          	<para>Use this to search for text within the current note.  A small
+          	find bar will open up at the bottom of the note. To open the find
+          	bar using the keyboard, use the standard keybinding, <keycombo>
+                <keycap>Ctrl</keycap>
+
+                <keycap>F</keycap>
+              </keycombo>.</para>
+            
+            <para>Enter text to find. After entering text, the matches will be
+            highlighted. Click <guibutton>Find Next</guibutton> to
+            highlight the next match and place the cursor there. Click
+          	<guibutton>Previous</guibutton> to move to the previous
+          	match.</para>
+          	
+          	<para>Use the <guibutton>Case sensitive</guibutton> checkbox to
+          	limit the matches to ones that match the case of the search string
+          	exactly.</para>
+          	
+          	<para>To close the find bar, click <guibutton>X</guibutton> (Close
+          	Button) on the far left or press the <keycap>Escape</keycap>
+          	key.</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </sect2>
+
+    <sect2 id="tools">
+      <title>Tools (gear icon)</title>
+
+      <para>The <guibutton>Tools</guibutton> button is represented by the
+      <inlinegraphic fileref="figures/tomboy-tools.png" /> icon. When you
+      click the <guiicon>Tools</guiicon> icon on the toolbar present on your
+      note, a dropdown menu will appear with the following items:</para>
+
+      <variablelist>
+        <varlistentry>
+          <term>Open Plugins Folder</term>
+
+          <listitem>
+            <para>This option will open the plugins folder for Tomboy in the
+            File Browser application. For more information on plugins, see
+            <xref linkend="plugins" />.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>What links here?</term>
+
+          <listitem>
+            <para>This option allows you to quickly see what other notes link
+            to the current note. This feature is provided by the Backlinks
+            Plugin. For more information on plugins, see
+            <xref linkend="plugins" />.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>Export to HTML</term>
+
+          <listitem>
+            <para>You can create an <acronym>HTML</acronym> (Hypertext Markup
+            Language) document from one or more notes by selecting this
+            option. For more information, please see <xref
+            linkend="plugins" />.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>Print</term>
+
+          <listitem>
+            <para>Select this option to print the current note. You will be
+            presented with the standard GNOME print dialog.</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+
+      <note>
+        <para>Depending on the plugins that you have installed for Tomboy, you
+        may have more or less items available in the <guimenu>Tools</guimenu>
+        menu.</para>
+      </note>
+    </sect2>
+
+    <sect2 id="delete">
+      <title>Delete</title>
+
+      <para>The <guibutton>Delete</guibutton> button will pop up a dialog box
+      asking if you want to permanently delete the note and its contents.
+      Click the <guibutton>Delete</guibutton> button to discard the note
+      permanently, or <guibutton>Cancel</guibutton> to abort the process.
+      Links to this note from other notes will still exist, but will re-create
+      the note upon activation.</para>
+    </sect2>
+  </sect1>
+
+  <!--=========== Panel Menu ====================================== -->
+
+  <sect1 id="panel-menu">
+    <title>Panel Menu</title>
+
+    <para>Tomboy keeps the most recently used notes quickly available to you in
+    a menu that appears when you click on the Tomboy Icon in the GNOME
+    Panel.</para>
+
+    <sect2 id="note-pinning">
+      <title>Note Pinning</title>
+
+      <para>To force a note to always be in the panel menu regardless of when
+      you last accessed it, click the thumbtack icon to "pin" it to the menu.
+      Notes that are pinned to the panel menu will have a thumbtack icons that
+      look like this: <inlinegraphic fileref="figures/tomboy-pindown.png" />.
+      Notes that are not pinned to the panel menu will have thumbtack icons
+      that look like this:
+      <inlinegraphic fileref="figures/tomboy-pinup.png" />.</para>
+
+      <figure>
+        <title>Tomboy Panel Menu</title>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="figures/tomboy-main-menu.png" />
+          </imageobject>
+        </mediaobject>
+      </figure>
+    </sect2>
+  </sect1>
+
+  <!--=========== Bulleted Lists ================================== -->
+
+  <sect1 id="bullets">
+    <title>Bulleted Lists</title>
+
+    <sect2 id="bullet-start">
+      <title>Begin a bulleted list</title>
+        
+      <para>You may begin a bulleted list by using one of the
+      following methods:</para>
+
+      <orderedlist>
+        <listitem>
+          <para>Select <menuchoice>
+              <guimenuitem>Bullets</guimenuitem>
+            </menuchoice> from the <guibutton>Text</guibutton> dropdown
+          menu.</para>
+        </listitem>
+
+        <listitem>
+          <para>Begin a line with a single dash character (-), type some text
+          immediately following the dash, and press <keycap>Enter</keycap>.
+          </para>
+        </listitem>
+      </orderedlist>
+    </sect2>
+      
+    <sect2 id="bullet-end">
+      <title>End a bulleted list</title>
+
+      <para>End a bulleted list by doing one of the following:</para>
+      
+      <orderedlist>
+        <listitem>
+          <para>Select <menuchoice>
+              <guimenuitem>Bullets</guimenuitem>
+            </menuchoice> from the <guibutton>Text</guibutton> dropdown
+          menu.</para>
+        </listitem>
+
+        <listitem>
+          <para>Press <keycap>Enter</keycap> on a blank bulleted line.</para>
+        </listitem>
+
+        <listitem>
+          <para>Select <menuchoice>
+              <guimenuitem>Decrease Indent</guimenuitem>
+            </menuchoice> from the <guibutton>Text</guibutton> dropdown menu in
+          succession until the current line is no longer part of the bulleted
+          list.</para>
+        </listitem>
+
+        <listitem>
+          <para>Using the key combination <keycombo>
+              <keycap>Shift</keycap>
+
+              <keycap>Tab</keycap>
+            </keycombo> in succession until the current line is no longer part
+          of the bulleted list.</para>
+        </listitem>
+      </orderedlist>
+    </sect2>
+      
+    <sect2 id="bullet-increase-indent">
+      <title>Increase Indentation</title>
+      
+      <para>To increase the line indentation in a bulleted list with the
+      mouse:</para>
+      
+      <itemizedlist>
+        <listitem>
+          <para>Select <menuchoice>
+              <guimenuitem>Increase Indent</guimenuitem>
+            </menuchoice> from the <guibutton>Text</guibutton> dropdown
+          menu.</para>
+        </listitem>
+      </itemizedlist>
+
+      <para>To increase the line indentation in a bulleted list with the
+      keyboard:</para>
+      
+      <itemizedlist>
+        <listitem>
+          <para>Press the <keycap>Tab</keycap> key.</para>
+        </listitem>
+      </itemizedlist>
+    </sect2>
+      
+    <sect2 id="bullet-decrease-indent">
+      <title>Decrease Indentation</title>
+        
+      <para>To decrease the line indentation in a bulleted list with the
+      mouse:</para>
+      
+      <itemizedlist>
+        <listitem>
+          <para>Select <menuchoice>
+              <guimenuitem>Decrease Indent</guimenuitem>
+            </menuchoice> from the <guibutton>Text</guibutton> dropdown
+          menu.</para>
+        </listitem>
+      </itemizedlist>
+
+      <para>To decrease the line indentation in a bulleted list with the
+      keyboard:</para>
+      
+      <itemizedlist>
+        <listitem>
+          <para>Press the key combination <keycombo>
+              <keycap>Shift</keycap>
+
+              <keycap>Tab</keycap>
+            </keycombo>.</para>
+        </listitem>
+      </itemizedlist>
+    </sect2>
+  </sect1>
+
+  <sect1>
+    <title>Preferences</title>
+
+    <para>To set preferences for Tomboy, right-click on the icon in the panel,
+    and select <menuchoice>
+        <guimenuitem>Preferences</guimenuitem>
+      </menuchoice> from the menu. You will see a dialog similar to the one
+    displayed in <xref linkend="pref-editing" />. There are two categories of
+    preferences, <guilabel>Editing</guilabel> and
+    <guilabel>Hotkeys</guilabel>. Preferences for each section will be
+    described below.</para>
+
+    <sect2>
+      <title>Editing</title>
+
+      <para>The editing section will allow you to set preferences related to
+      editing notes. There are three checkboxes on this tab, which can either
+      be turned on or off.</para>
+
+      <variablelist>
+        <varlistentry>
+          <term>Spellcheck While Typing</term>
+
+          <listitem>
+            <para>Enable this checkbox to underline misspellings in red, and
+            provide suggestions in the right click context menu. Enable or
+            disable the checkbox using the mouse or the key combination
+            <keycombo>
+                <keycap>Alt</keycap>
+
+                <keycap>S</keycap>
+              </keycombo>.</para>
+
+            <note>
+              <para>The spellcheck option is only available if you have the
+              <application>GtkSpell</application> package for your
+              distribution installed.</para>
+            </note>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>Highlight WikiWords</term>
+
+          <listitem>
+            <para>Enable this checkbox to create links for phrases
+            <literal>ThatLookLikeThis</literal>. Clicking on the link will
+            create a new note with the title corresponding to the link text.
+            Enable or disable this checkbox using the mouse or the key
+            combination <keycombo>
+                <keycap>Alt</keycap>
+
+                <keycap>W</keycap>
+              </keycombo>.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>Use Custom Font</term>
+
+          <listitem>
+            <para>Enable this checkbox to set a custom font to be used in your
+            notes. If this option is disabled, the default system font will be
+            used. Enable or disable this checkbox using the mouse or the key
+            combination <keycombo>
+                <keycap>Alt</keycap>
+
+                <keycap>F</keycap>
+              </keycombo>.</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+
+      <figure id="pref-editing">
+        <title>Tomboy Editing Preferences</title>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="figures/tomboy-preferences-editing.png" />
+          </imageobject>
+        </mediaobject>
+      </figure>
+    </sect2>
+
+    <sect2>
+      <title>Hotkeys</title>
+
+      <para>The hotkeys section allows you to set global key combinations to
+      perform different functions in Tomboy. In order to set key combinations,
+      you must have the <guibutton>Listen for Hotkeys</guibutton> checkbox
+      enabled. Use <keycombo>
+          <keycap>Alt</keycap>
+
+          <keycap>H</keycap>
+        </keycombo> to toggle this option.</para>
+
+      <variablelist>
+        <varlistentry>
+          <term>Show notes menu</term>
+
+          <listitem>
+            <para>Enter the key combination to open the notes menu. </para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>Open "Start Here"</term>
+
+          <listitem>
+            <para>Enter the key combination to open the <quote>Start
+            Here</quote> note, which is preinstalled with Tomboy.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>Create new note</term>
+
+          <listitem>
+            <para>Enter the key combination to create a new note.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>Search notes</term>
+
+          <listitem>
+            <para>Enter the key combination to open the <interface>Search All
+            Notes</interface> dialog.</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+
+      <figure>
+        <title>Tomboy Hotkey Preferences</title>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="figures/tomboy-preferences-hotkeys.png" />
+          </imageobject>
+        </mediaobject>
+      </figure>
+    </sect2>
+
+    <sect2 id="prefs-plugins">
+      <title>Plugins</title>
+
+      <para>The plugins section allows you to enable and configure Tomboy
+      Plugins.</para>
+      
+      <para>The list of installed plugins shows on the left.  A plugin is
+      enabled by placing a check in the checkbox.  Disable a plugin by
+      unchecking its checkbox.</para>
+      
+      <para>Please see the <xref linkend="plugins" /> section for more
+      information about the plugins that are installed with Tomboy.</para>
+
+      <figure>
+        <title>Tomboy Plugin Preferences</title>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="figures/tomboy-preferences-plugins.png" />
+          </imageobject>
+        </mediaobject>
+      </figure>
+    </sect2>
+  </sect1>
+
+  <sect1 id="plugins">
+    <title>Plugins</title>
+
+    <para>By default, Tomboy comes with several pre-installed plugins:
+    <simplelist type="inline">
+        <member>Backlinks</member>
+
+        <member>Bugzilla URL Drop</member>
+
+        <member>Evolution Mail Drop</member>
+
+        <member>Export to HTML</member>
+
+        <member>Fixed Width</member>
+
+        <member>Note of the Day</member>
+
+        <member>Print Notes</member>
+
+        <member>and Sticky Notes Import.</member>
+      </simplelist> Since these are preinstalled, they are ready to use and
+    are automatically loaded into the Tomboy interface.</para>
+
+    <note>
+      <para>Some plugins exist that are not installed by default.</para>
+    </note>
+
+    <variablelist>
+      <varlistentry>
+        <term>Backlinks (What links here?)</term>
+
+        <listitem>
+          <para>This plugin allows you to know which notes link to the note
+          you're currently editing. It makes it easier to keep track of the
+          relationships between notes. If this plugin is enabled, the
+          <link linkend="tools">Tools</link> menu will have a
+          <guimenuitem>What links here?</guimenuitem> option. When you
+          select this option, it will list all the notes which link to the
+          current note in a submenu. Select a note in the submenu to open
+          it.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Bugzilla URL Drop</term>
+
+        <listitem>
+          <para>Allows you to drag a Bugzilla URL from your browser directly
+          into a Tomboy note.  The bug number is inserted as a link with a
+          small bug icon next to it. Once the Bugzilla link has been inserted
+          into the note, click on it to open the URL in your web
+          browser.</para>
+          
+          <para>Customize the icons that are used by editing the plugin's
+          settings in the <link linkend="prefs-plugins">Preferences
+          Dialog</link>.  After highlighting the Bugzilla Plugin, click
+          <guibutton>Settings</guibutton> to open the
+          <interface>Bugzilla PluginSettings</interface> dialog.  To add a new
+          icon, click <guibutton>Add</guibutton>, select an icon on your
+          computer, provide a Bugzilla host name (e.g., bugzilla.gnome.org),
+          and click <guibutton>Open</guibutton>. Any Bugzilla URL that is
+          dragged and dropped from one of these custom host names will now use
+          the icon you specified.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Evolution Mail Drop</term>
+
+        <listitem>
+          <para>This plugin allows you to drag and drag an e-mail message from
+          the <application>Evolution</application> mail application to one of
+          your Tomboy notes. Clicking on the mail icon in the note will then
+          open the corresponding e-mail message in Evolution.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Export to HTML</term>
+
+        <listitem>
+          <para>When this plugin is installed, the <link
+          linkend="tools">Tools</link> menu will have the <guimenuitem>Export to
+          HTML</guimenuitem> option available.</para>
+
+          <para>After selecting this option, you will be presented with a
+          dialog that allows you to choose where to save the
+          <acronym>HTML</acronym> file. Enter the destination filename and
+          click <guibutton>OK</guibutton> to save the file, or
+          <guibutton>Cancel</guibutton> to abort the operation.</para>
+
+          <para>To export any notes for which a link exists in the current
+          note, select the <guibutton>Export linked notes</guibutton>
+          button.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Fixed Width</term>
+
+        <listitem>
+          <para>Allows you to use a fixed-width font when creating/editing
+          notes. If this plugin is enabled, the
+          <link linkend="text">Text</link> menu will have a
+          <guimenuitem>Fixed Width</guimenuitem> option.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Note of the Day</term>
+
+        <listitem>
+          <para>This plugin automatically creates a "Today" note for jotting
+          daily thoughts down. The current date is used as a basis for the
+          title of the note.  As an example, the title of a "Today" note
+          created on February 28, 2007, would be, "Today: Wednesday, February
+          28 2007"</para>
+          
+          <para>If you leave a "Today" note unmodified, the Note of the Day
+          Plugin will automatically delete the note.</para>
+          
+          <para>To customize the content of the default "Today" note, create
+          a new note and change the title of the note to be, "Today: Template".
+          Change the content of the template note to whatever you'd like.  When
+          new "Today" notes are created, it will then use the content of your
+          "Today: Template" note.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Print Notes</term>
+
+        <listitem>
+          <para>When this plugin is installed, the <link
+          linkend="tools">Tools</link> menu will have the
+          <guimenuitem>Print</guimenuitem> option available.</para>
+
+          <para>Select this option to print the current note. You will be
+          presented with the standard GNOME print dialog.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Sticky Notes Import</term>
+
+        <listitem>
+          <para>When this plugin is installed, the <link
+          linkend="tools">Tools</link> menu will have the <guimenuitem>Import
+          from Sticky Notes</guimenuitem> option available.</para>
+
+          <para>Use this option to import notes from the <application>Sticky
+          Notes</application> application that is available in prior releases
+          of GNOME. This option has been included in Tomboy to provide an
+          upgrade path for users who would like to migrate from
+          <application>Sticky Notes</application> to Tomboy for their note
+          taking purposes. </para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+  </sect1>
+</article>

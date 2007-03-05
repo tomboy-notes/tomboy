@@ -1,0 +1,33 @@
+<oaf_info>
+<oaf_server iid="OAFIID:TomboyApplet_Factory" 
+	    type="exe"
+            location="@bindir@/@wrapper@ --panel-applet">
+
+        <oaf_attribute name="repo_ids" type="stringv">
+                <item value="IDL:Bonobo/GenericFactory:1.0"/>
+                <item value="IDL:Bonobo/Unknown:1.0"/>
+        </oaf_attribute>
+        <oaf_attribute name="name" type="string" _value="Tomboy Applet Factory"/>
+	<oaf_attribute name="description" type="string" _value="Tomboy Applet Factory"/>
+</oaf_server>
+
+<oaf_server iid="OAFIID:TomboyApplet" 
+	    type="factory"
+            location="OAFIID:TomboyApplet_Factory">
+
+        <oaf_attribute name="repo_ids" type="stringv">
+                <item value="IDL:GNOME/Vertigo/PanelAppletShell:1.0"/>
+                <item value="IDL:Bonobo/Control:1.0"/>
+                <item value="IDL:Bonobo/Unknown:1.0"/>
+        </oaf_attribute>
+        <oaf_attribute name="name" type="string" _value="Tomboy Notes"/>
+        <oaf_attribute name="description" type="string" _value="Simple and easy to use note-taking"/>
+        <oaf_attribute name="panel:category" type="string" _value="Accessories"/>
+        <oaf_attribute name="panel:icon" type="string" value="tomboy.png"/>
+
+	<oaf_attribute name="bugzilla:bugzilla" type="string" value="GNOME"/>
+        <oaf_attribute name="bugzilla:product" type="string" value="Tomboy"/>
+        <oaf_attribute name="bugzilla:component" type="string" value="General"/>
+        <oaf_attribute name="bugzilla:other_binaries" type="string" value="tomboy"/>
+</oaf_server>
+</oaf_info>

@@ -1,0 +1,326 @@
+
+<gconfschemafile>
+  <schemalist>
+    <schema>
+      <key>/schemas/apps/tomboy/enable_spellchecking</key>
+      <applyto>/apps/tomboy/enable_spellchecking</applyto>
+      <owner>tomboy</owner>
+      <type>bool</type>
+      <default>true</default>
+      <locale name="C">
+         <short>Enable spellchecking</short>
+         <long>
+	   If true, misspellings will be underlined in red, and correct spelling
+	   suggestions shown in the right-click menu.
+         </long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/tomboy/enable_wikiwords</key>
+      <applyto>/apps/tomboy/enable_wikiwords</applyto>
+      <owner>tomboy</owner>
+      <type>bool</type>
+      <default>false</default>
+      <locale name="C">
+         <short>Enable WikiWord highlighting</short>
+         <long>
+	   Enable this option to highlight words ThatLookLikeThis.  Clicking the
+	   word will create a note with that name.
+         </long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/tomboy/enable_custom_font</key>
+      <applyto>/apps/tomboy/enable_custom_font</applyto>
+      <owner>tomboy</owner>
+      <type>bool</type>
+      <default>false</default>
+      <locale name="C">
+         <short>Enable custom font</short>
+         <long>
+	   If true, the font name set in custom_font_face will be used as
+	   the font when displaying notes.  Otherwise the desktop default font
+	   will be used.
+         </long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/tomboy/custom_font_face</key>
+      <applyto>/apps/tomboy/custom_font_face</applyto>
+      <owner>tomboy</owner>
+      <type>string</type>
+      <default>Serif 11</default>
+      <locale name="C">
+         <short>Custom Font Face</short>
+         <long>
+	   If enable_custom_font is true, the font name set here will be used as
+	   the font when displaying notes.
+         </long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/tomboy/enable_keybindings</key>
+      <applyto>/apps/tomboy/enable_keybindings</applyto>
+      <owner>tomboy</owner>
+      <type>bool</type>
+      <default>true</default>
+      <locale name="C">
+         <short>Enable global keybindings</short>
+         <long>
+	   If true, the desktop-global keybindings set in
+	   /apps/tomboy/global_keybindings will be enabled, allowing for useful Tomboy
+	   actions to be available from any application.
+         </long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/tomboy/start_note</key>
+      <applyto>/apps/tomboy/start_note</applyto>
+      <owner>tomboy</owner>
+      <type>string</type>
+      <default></default>
+      <locale name="C">
+         <short>Start Here Note</short>
+         <long>
+	   The note URI of the note that should be considered the
+	   "Start Here" note, which is always placed at the bottom
+	   of the Tomboy note menu and also accessible by hotkey.
+         </long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/tomboy/menu_note_count</key>
+      <applyto>/apps/tomboy/menu_note_count</applyto>
+      <owner>tomboy</owner>
+      <type>int</type>
+      <default>10</default>
+      <locale name="C">
+         <short>Minimum number of notes to show in menu</short>
+         <long>
+           Integer determining the minimum number of notes to show in the Tomboy
+           note menu.
+         </long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/tomboy/menu_pinned_notes</key>
+      <applyto>/apps/tomboy/menu_pinned_notes</applyto>
+      <owner>tomboy</owner>
+      <type>string</type>
+      <default></default>
+      <locale name="C">
+         <short>List of pinned notes.</short>
+         <long>
+	   Whitespace-separated list of note URIs for notes that should always
+	   appear in the Tomboy note menu.
+         </long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/tomboy/enabled_plugins</key>
+      <applyto>/apps/tomboy/enabled_plugins</applyto>
+      <owner>tomboy</owner>
+      <type>list</type>
+      <list_type>string</list_type>
+      <default>[BacklinksPlugin,EvolutionPlugin,ExportToHTMLPlugin,FixedWidthPlugin,PrintPlugin,StickyNoteImporter]</default>
+      <locale name="C">
+         <short>Currently enabled plugins.</short>
+         <long>
+	   List containing the names of currently enabled plugins.
+         </long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/tomboy/global_keybindings/show_note_menu</key>
+      <applyto>/apps/tomboy/global_keybindings/show_note_menu</applyto>
+      <owner>tomboy</owner>
+      <type>string</type>
+      <default>&lt;Alt&gt;F12</default>
+      <locale name="C">
+         <short>Show applet menu</short>
+         <long>
+	   The global keybinding for showing the Tomboy applet's menu.
+
+	   The format looks like "&lt;Control&gt;a" or
+          "&lt;Shift&gt;&lt;Alt&gt;F1".  The parser is fairly liberal and allows
+          lower or upper case, and also abbreviations such as "&lt;Ctl&gt;" and
+          "&lt;Ctrl&gt;". If you set the option to the special string
+          "disabled", then there will be no keybinding for this action.
+         </long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/tomboy/global_keybindings/open_start_here</key>
+      <applyto>/apps/tomboy/global_keybindings/open_start_here</applyto>
+      <owner>tomboy</owner>
+      <type>string</type>
+      <default>&lt;Alt&gt;F11</default>
+      <locale name="C">
+         <short>Open Start Here</short>
+         <long>
+	   The global keybinding for opening the "Start Here" note.
+
+	   The format looks like "&lt;Control&gt;a" or
+          "&lt;Shift&gt;&lt;Alt&gt;F1".  The parser is fairly liberal and allows
+          lower or upper case, and also abbreviations such as "&lt;Ctl&gt;" and
+          "&lt;Ctrl&gt;". If you set the option to the special string
+          "disabled", then there will be no keybinding for this action.
+         </long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/tomboy/global_keybindings/create_new_note</key>
+      <applyto>/apps/tomboy/global_keybindings/create_new_note</applyto>
+      <owner>tomboy</owner>
+      <type>string</type>
+      <default>disabled</default>
+      <locale name="C">
+         <short>Create a new Note</short>
+         <long>
+	   The global keybinding for creating and displaying a new Note.
+
+	   The format looks like "&lt;Control&gt;a" or
+          "&lt;Shift&gt;&lt;Alt&gt;F1".  The parser is fairly liberal and allows
+          lower or upper case, and also abbreviations such as "&lt;Ctl&gt;" and
+          "&lt;Ctrl&gt;". If you set the option to the special string
+          "disabled", then there will be no keybinding for this action.
+         </long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/tomboy/global_keybindings/open_search</key>
+      <applyto>/apps/tomboy/global_keybindings/open_search</applyto>
+      <owner>tomboy</owner>
+      <type>string</type>
+      <default>disabled</default>
+      <locale name="C">
+         <short>Open Search Dialog</short>
+         <long>
+	   The global keybinding for opening the Note Search dialog.
+
+	   The format looks like "&lt;Control&gt;a" or
+          "&lt;Shift&gt;&lt;Alt&gt;F1".  The parser is fairly liberal and allows
+          lower or upper case, and also abbreviations such as "&lt;Ctl&gt;" and
+          "&lt;Ctrl&gt;". If you set the option to the special string
+          "disabled", then there will be no keybinding for this action.
+         </long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/tomboy/global_keybindings/open_recent_changes</key>
+      <applyto>/apps/tomboy/global_keybindings/open_recent_changes</applyto>
+      <owner>tomboy</owner>
+      <type>string</type>
+      <default>disabled</default>
+      <locale name="C">
+         <short>Open Recent Changes</short>
+         <long>
+	   The global keybinding for opening the Recent Changes dialog.
+
+	   The format looks like "&lt;Control&gt;a" or
+          "&lt;Shift&gt;&lt;Alt&gt;F1".  The parser is fairly liberal and allows
+          lower or upper case, and also abbreviations such as "&lt;Ctl&gt;" and
+          "&lt;Ctrl&gt;". If you set the option to the special string
+          "disabled", then there will be no keybinding for this action.
+         </long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/tomboy/export_html/last_directory</key>
+      <applyto>/apps/tomboy/export_html/last_directory</applyto>
+      <owner>tomboy</owner>
+      <type>string</type>
+      <default></default>
+      <locale name="C">
+         <short>HTML Export Last Directory</short>
+         <long>
+	   The last directory a note was exported to using the Export To HTML plugin.
+         </long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/tomboy/export_html/export_linked</key>
+      <applyto>/apps/tomboy/export_html/export_linked</applyto>
+      <owner>tomboy</owner>
+      <type>bool</type>
+      <default>true</default>
+      <locale name="C">
+         <short>HTML Export Linked Notes</short>
+         <long>
+	   The last setting for the 'Export linked notes' checkbox in the Export to HTML plugin.
+         </long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/tomboy/export_html/export_linked_all</key>
+      <applyto>/apps/tomboy/export_html/export_linked_all</applyto>
+      <owner>tomboy</owner>
+      <type>bool</type>
+      <default>false</default>
+      <locale name="C">
+         <short>HTML Export All Linked Notes</short>
+         <long>
+	   The last setting for the 'Include all other linked notes' checkbox in the Export to HTML plugin.
+
+	   This setting is used in conjunction with the 'HTML Export Linked Notes' setting
+	   and is used to specify whether all notes (found recursively) should be included
+	   during an export to HTML.
+         </long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/tomboy/sticky_note_importer/sticky_importer_first_run</key>
+      <applyto>/apps/tomboy/sticky_note_importer/sticky_importer_first_run</applyto>
+      <owner>tomboy</owner>
+      <type>bool</type>
+      <default>true</default>
+      <locale name="C">
+         <short>Sticky Note Importer First Run</short>
+         <long>
+	   Indicates that the Sticky Note Importer plugin has not been run, so it should run
+	   automatically the next time Tomboy starts.
+         </long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/desktop/gnome/url-handlers/note/command</key>
+      <applyto>/desktop/gnome/url-handlers/note/command</applyto>
+      <owner>tomboy</owner>
+      <type>string</type>
+      <default>tomboy --open-note '%s'</default>
+      <locale name="C">
+        <short>The handler for "note://" URLs</short>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/desktop/gnome/url-handlers/note/enabled</key>
+      <applyto>/desktop/gnome/url-handlers/note/enabled</applyto>
+      <owner>tomboy</owner>
+      <type>bool</type>
+      <default>true</default>
+      <locale name="C">
+        <short>Set to TRUE to activate</short>
+      </locale>
+    </schema>
+
+  </schemalist>
+</gconfschemafile>
