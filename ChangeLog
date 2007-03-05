@@ -1,3 +1,9 @@
+2007-03-05  Sandy Armstrong  <sanfordarmstrong@gmail.com
+	* Tomboy/PluginManager.cs: When attaching plugins to notes, be sure to
+	iterate through a copy of the list of notes, as notes may be added or
+	removed to the list by the plugins that are being instantiated.  Fixes
+	bug #414957.
+
 2007-03-05  Boyd Timothy  <btimothy@gmail.com>
 
 	* Tomboy/Preferences.cs: Patch from Sanford Armstrong to make the plugins

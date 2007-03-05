@@ -554,8 +554,13 @@ namespace Tomboy
 		void AttachPlugin (Type type)
 		{
 			if (typeof (NotePlugin).IsAssignableFrom (type)) {
-				foreach (Note note in attached_plugins.Keys as
-						System.Collections.Generic.IEnumerable<Note>)
+				// A plugin may add or remove notes when being
+				// created. Therefore, it is best to iterate
+				// through a copy of the notes list to avoid
+				// "System.InvalidOperationException: out of sync"
+				List<Note> notes_copy =
+					new List<Note> (attached_plugins.Keys);				
+				foreach (Note note in notes_copy)
 					AttachPlugin (type, note);
 			}
 		}
