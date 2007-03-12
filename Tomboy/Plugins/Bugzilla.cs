@@ -18,7 +18,7 @@ public class InsertBugAction : SplitterAction
 	public InsertBugAction (Gtk.TextIter start,
 	                        string id,
 	                        Gtk.TextBuffer buffer,
-				BugzillaLink tag)
+	                        BugzillaLink tag)
 	{
 		Tag = tag;
 		Id = id;
@@ -121,11 +121,6 @@ public class BugzillaLink : DynamicNoteTag
 			Gnome.Url.Show (BugUrl);
 		}
 		return true;
-	}
-
-	public override void Read (XmlTextReader xml, bool start)
-	{
-		base.Read (xml, start);
 	}
 
 	public override Gdk.Pixbuf Image
@@ -256,9 +251,9 @@ class BugzillaPreferences : Gtk.VBox
 	Gtk.ListStore CreateIconStore ()
 	{
 		Gtk.ListStore store = new Gtk.ListStore (
-			typeof (Gdk.Pixbuf), 	// icon
-			typeof (string),	// host
-			typeof (string));	// file path
+			typeof (Gdk.Pixbuf), // icon
+			typeof (string),     // host
+			typeof (string));    // file path
 		store.SetSortColumnId (1, Gtk.SortType.Ascending);
 
 		return store;
@@ -287,35 +282,33 @@ class BugzillaPreferences : Gtk.VBox
 			if (pixbuf == null)
 				continue;
 
-			string host;
-			if (!ParseHost (file_info, out host))
-				continue;
-
-			Gtk.TreeIter iter = icon_store.Append ();
-			icon_store.SetValue (iter, 0, pixbuf);
-			icon_store.SetValue (iter, 1, host);
-			icon_store.SetValue (iter, 2, icon_file);
+			string host = ParseHost (file_info);
+			if (host != null) {
+				Gtk.TreeIter iter = icon_store.Append ();
+				icon_store.SetValue (iter, 0, pixbuf);
+				icon_store.SetValue (iter, 1, host);
+				icon_store.SetValue (iter, 2, icon_file);
+			}
 		}
 	}
 
-	bool ParseHost (FileInfo file_info, out string host)
+	string ParseHost (FileInfo file_info)
 	{
-		host = null;
 		string name = file_info.Name;
 		string ext = file_info.Extension;
 
 		if (ext == null || ext == String.Empty)
-			return false;
+			return null;
 
 		int ext_pos = name.IndexOf (ext);
 		if (ext_pos <= 0)
-			return false;
+			return null;
 
-		host = name.Substring (0, ext_pos);
+		string host = name.Substring (0, ext_pos);
 		if (host == null || host == String.Empty)
-			return false;
+			return null;
 
-		return true;
+		return host;
 	}
 
 	protected override void OnRealized ()
@@ -327,19 +320,15 @@ class BugzillaPreferences : Gtk.VBox
 
 	void SelectionChanged (object sender, EventArgs args)
 	{
-		// Update the remove button sensitivity
-		Gtk.TreeIter iter;
-		if (icon_tree.Selection.GetSelected (out iter))
-			remove_button.Sensitive = true;
-		else
-			remove_button.Sensitive = false;
+		remove_button.Sensitive =
+			icon_tree.Selection.CountSelectedRows() > 0;
 	}
 
 	void AddClicked (object sender, EventArgs args)
 	{
 		Gtk.FileChooserDialog dialog = new Gtk.FileChooserDialog (
-				Catalog.GetString ("Select an icon..."),
-				null, Gtk.FileChooserAction.Open, new object[] {});
+			Catalog.GetString ("Select an icon..."),
+			null, Gtk.FileChooserAction.Open, new object[] {});
 		dialog.AddButton (Gtk.Stock.Cancel, Gtk.ResponseType.Cancel);
 		dialog.AddButton (Gtk.Stock.Open, Gtk.ResponseType.Ok);
 
@@ -384,7 +373,7 @@ class BugzillaPreferences : Gtk.VBox
 					Gtk.ButtonsType.Ok,
 					Catalog.GetString ("No host name specified"),
 					Catalog.GetString ("You must specify the Bugzilla " +
-								"host name to use with this icon."));
+					                   "host name to use with this icon."));
 			warn.Run ();
 			warn.Destroy ();
 
@@ -411,7 +400,7 @@ class BugzillaPreferences : Gtk.VBox
 					Gtk.ButtonsType.Ok,
 					Catalog.GetString ("Error saving icon"),
 					Catalog.GetString ("Could not save the icon file.  " +
-								err_msg));
+					                   err_msg));
 			err.Run ();
 			err.Destroy ();
 		}
@@ -420,7 +409,8 @@ class BugzillaPreferences : Gtk.VBox
 	}
 
 	bool CopyToBugizllaIconsDir (string file_path,
-			string host, out string err_msg)
+	                             string host,
+	                             out string err_msg)
 	{
 		err_msg = null;
 
@@ -460,7 +450,7 @@ class BugzillaPreferences : Gtk.VBox
 				Gtk.ButtonsType.None,
 				Catalog.GetString ("Really remove this icon?"),
 				Catalog.GetString ("If you remove an icon it is " +
-						   "permanently lost."));
+				                   "permanently lost."));
 
 		Gtk.Button button;
 
@@ -482,8 +472,8 @@ class BugzillaPreferences : Gtk.VBox
 				UpdateIconStore ();
 			} catch (Exception e) {
 				Logger.Error ("Error removing icon {0}: {1}",
-					icon_path,
-					e.Message);
+				              icon_path,
+				              e.Message);
 			}
 		}
 
@@ -549,7 +539,7 @@ public class BugzillaPlugin : NotePlugin
 				if (InsertBug (args.X, args.Y, uriString)) {
 					Gtk.Drag.Finish (args.Context, true, false, args.Time);
 					g_signal_stop_emission_by_name(Window.Editor.Handle,
-								       "drag_data_received");
+					                               "drag_data_received");
 				}
 			}
 		}
