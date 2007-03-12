@@ -1,16 +1,17 @@
-# translation of tomboy.gnome-2-16.tr.po to Turkish
+# translation of tr.po to Turkish
 # Turkish translation of Tomboy
 # Copyright (C) 2005 Free Software Foundation.
 # This file is distributed under the same license as the Tomboy package.
 #
 # Enver ALTIN <ealtin@parkyeri.com>, 2005.
 # Serdar Cicek <serdar@nerd.com.tr>, 2006.
+# Baris Cicek <baris@teamforce.name.tr>, 2007.
 msgid ""
 msgstr ""
 "Project-Id-Version: tomboy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-11-12 19:20+0200\n"
-"PO-Revision-Date: 2006-11-12 17:20+0200\n"
+"POT-Creation-Date: 2007-03-12 22:57+0200\n"
+"PO-Revision-Date: 2007-03-12 22:55+0200\n"
 "Last-Translator: Serdar Cicek <serdar@nerd.com.tr>\n"
 "Language-Team: Turkish <gnome-turk@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -31,7 +32,7 @@ msgstr "Dizin sistem tarafından yüklenmiş eklentileri içeriyor"
 msgid "Accessories"
 msgstr "Donatılar"
 
-#: ../data/GNOME_TomboyApplet.server.in.in.h:2
+#: ../data/GNOME_TomboyApplet.server.in.in.h:2 ../data/tomboy.desktop.in.h:2
 msgid "Simple and easy to use note-taking"
 msgstr "Basit ve kullanışlı not alma"
 
@@ -40,24 +41,26 @@ msgid "Tomboy Applet Factory"
 msgstr "Tomboy Uygulamacık Üreticisi"
 
 #: ../data/GNOME_TomboyApplet.server.in.in.h:4 ../data/tomboy.desktop.in.h:3
-#: ../Tomboy/Applet.cs:152 ../Tomboy/Tray.cs:139
+#: ../Tomboy/Applet.cs:154 ../Tomboy/Tray.cs:147
 msgid "Tomboy Notes"
 msgstr "Tomboy Notları"
 
-#: ../data/GNOME_TomboyApplet.xml.h:1
+#: ../data/GNOME_TomboyApplet.xml.h:1 ../Tomboy/ActionManager.cs:100
 msgid "_About"
 msgstr "_Hakkında"
 
-#: ../data/GNOME_TomboyApplet.xml.h:2 ../Tomboy/Applet.cs:197
+#: ../data/GNOME_TomboyApplet.xml.h:2 ../Tomboy/ActionManager.cs:93
+#: ../Tomboy/Applet.cs:199
 msgid "_Help"
 msgstr "_Yardım"
 
-#: ../data/GNOME_TomboyApplet.xml.h:3 ../Tomboy/Applet.cs:185
-#: ../Tomboy/NoteWindow.cs:519
+#: ../data/GNOME_TomboyApplet.xml.h:3 ../Tomboy/Applet.cs:187
+#: ../Tomboy/NoteWindow.cs:652 ../Tomboy/Preferences.cs:646
 msgid "_Open Plugins Folder"
 msgstr "_Eklentiler Klasörünü Aç"
 
-#: ../data/GNOME_TomboyApplet.xml.h:4 ../Tomboy/Applet.cs:192
+#: ../data/GNOME_TomboyApplet.xml.h:4 ../Tomboy/ActionManager.cs:89
+#: ../Tomboy/Applet.cs:194
 msgid "_Preferences"
 msgstr "_Tercihler"
 
@@ -65,35 +68,35 @@ msgstr "_Tercihler"
 msgid "Note-taker"
 msgstr "Not Tutucu"
 
-#: ../data/tomboy.desktop.in.h:2
-msgid "Quick and handy note-taker"
-msgstr "Hızlı ve kullanışlı not tutucu"
-
 #: ../data/tomboy.schemas.in.h:1
 msgid "Create a new Note"
 msgstr "Yeni bir not oluştur"
 
 #: ../data/tomboy.schemas.in.h:2
+msgid "Currently enabled plugins."
+msgstr "Şu anda etkin olan eklentiler."
+
+#: ../data/tomboy.schemas.in.h:3
 msgid "Custom Font Face"
 msgstr "Özel Yazı Tipi"
 
-#: ../data/tomboy.schemas.in.h:3
+#: ../data/tomboy.schemas.in.h:4
 msgid "Enable WikiWord highlighting"
 msgstr "WikiWord belirtecini etkinleştir"
 
-#: ../data/tomboy.schemas.in.h:4
+#: ../data/tomboy.schemas.in.h:5
 msgid "Enable custom font"
 msgstr "Özel yazı tiplerini etkinleştir"
 
-#: ../data/tomboy.schemas.in.h:5
+#: ../data/tomboy.schemas.in.h:6
 msgid "Enable global keybindings"
 msgstr "Genel tuş bağlarını etkinleştir"
 
-#: ../data/tomboy.schemas.in.h:6
+#: ../data/tomboy.schemas.in.h:7
 msgid "Enable spellchecking"
 msgstr "İmla denetimini etkinleştir"
 
-#: ../data/tomboy.schemas.in.h:7
+#: ../data/tomboy.schemas.in.h:8
 msgid ""
 "Enable this option to highlight words ThatLookLikeThis. Clicking the word "
 "will create a note with that name."
@@ -102,15 +105,19 @@ msgstr ""
 "etkinleştirin. Bu sözcüğü tıklatmak bu adla yeni bir not oluşturulmasını "
 "sağlayacaktır."
 
-#: ../data/tomboy.schemas.in.h:8
-msgid "HTML Export Last Directory"
-msgstr "HTML Olarak Dışa Aktarma Son Dizini"
-
 #: ../data/tomboy.schemas.in.h:9
-msgid "HTML Export Linked Notes"
+msgid "HTML Export All Linked Notes"
 msgstr "Bağlı Notları HTML Olarak Dışa Aktar"
 
 #: ../data/tomboy.schemas.in.h:10
+msgid "HTML Export Last Directory"
+msgstr "HTML Olarak Dışa Aktarma Son Dizini"
+
+#: ../data/tomboy.schemas.in.h:11
+msgid "HTML Export Linked Notes"
+msgstr "Bağlı Notları HTML Olarak Dışa Aktar"
+
+#: ../data/tomboy.schemas.in.h:12
 msgid ""
 "If enable_custom_font is true, the font name set here will be used as the "
 "font when displaying notes."
@@ -118,7 +125,7 @@ msgstr ""
 "Eğer enable_custom_font seçiliyse, burada ayarlanan yazı tipi ismi notlar "
 "gösterilirken kullanılacak."
 
-#: ../data/tomboy.schemas.in.h:11
+#: ../data/tomboy.schemas.in.h:13
 msgid ""
 "If true, misspellings will be underlined in red, and correct spelling "
 "suggestions shown in the right-click menu."
@@ -126,7 +133,7 @@ msgstr ""
 "Eğer seçiliyse, imla hatalarının altı kırmızı çizilir ve doğru yazım "
 "tavsiyeleri sağ tıklama menüsünde görüntülenir."
 
-#: ../data/tomboy.schemas.in.h:12
+#: ../data/tomboy.schemas.in.h:14
 msgid ""
 "If true, the desktop-global keybindings set in /apps/tomboy/"
 "global_keybindings will be enabled, allowing for useful Tomboy actions to be "
@@ -134,9 +141,9 @@ msgid ""
 msgstr ""
 "Eğer seciliyse, /apps/tomboy/global_keybindings içinde ayarlanmış olan genel "
 "tuş bağları etkinleştirilecek. Bu kullanışlı Tomboy eylemlerinin her "
-"uygulamalamada mevcut olabilmesine olanak sağlayacak. "
+"uygulamalamada mevcut olabilmesine olanak sağlayacak."
 
-#: ../data/tomboy.schemas.in.h:13
+#: ../data/tomboy.schemas.in.h:15
 msgid ""
 "If true, the font name set in custom_font_face will be used as the font when "
 "displaying notes. Otherwise the desktop default font will be used."
@@ -144,7 +151,7 @@ msgstr ""
 "Eğer seçiliyse, notlar gösterilirken custom_font_face'de ayarlı olan yazı "
 "tipi kullanılacak. Aksi taktirde masaüstünde öntanımlı yazıtipi kullanılacak."
 
-#: ../data/tomboy.schemas.in.h:14
+#: ../data/tomboy.schemas.in.h:16
 msgid ""
 "Indicates that the Sticky Note Importer plugin has not been run, so it "
 "should run automatically the next time Tomboy starts."
@@ -153,46 +160,54 @@ msgstr ""
 "Böylece eklenti Tomboy'un bir sonraki başlatılmasında kendiliğinden "
 "çalışacak."
 
-#: ../data/tomboy.schemas.in.h:15
+#: ../data/tomboy.schemas.in.h:17
 msgid ""
 "Integer determining the minimum number of notes to show in the Tomboy note "
 "menu."
 msgstr ""
-"Tomboy not menüsünde gösterilecek asgari not sayısını belirten tamsayı."
-
-#: ../data/tomboy.schemas.in.h:16
-msgid "List of pinned notes."
-msgstr "İğnelenmiş notları listele."
-
-#: ../data/tomboy.schemas.in.h:17
-msgid "Minimum number of notes to show in menu"
-msgstr "Menüde gösterilecek azami not sayısı"
+"Tomboy not menüsünde gösterilecek asgari not sayısını belirten tam sayı."
 
 #: ../data/tomboy.schemas.in.h:18
+msgid "List containing the names of currently enabled plugins."
+msgstr "Şu anda etkin olan eklentilerin isimlerini taşıyan liste."
+
+#: ../data/tomboy.schemas.in.h:19
+msgid "List of pinned notes."
+msgstr "İğnelenmiş notların listesi."
+
+#: ../data/tomboy.schemas.in.h:20
+msgid "Minimum number of notes to show in menu"
+msgstr "Menü içerisinde gösterilecek asgari not sayısı"
+
+#: ../data/tomboy.schemas.in.h:21
 msgid "Open Recent Changes"
 msgstr "Son Yapılan Değişiklikleri Aç"
 
-#: ../data/tomboy.schemas.in.h:19
+#: ../data/tomboy.schemas.in.h:22
 msgid "Open Search Dialog"
 msgstr "Arama Penceresini Aç"
 
-#: ../data/tomboy.schemas.in.h:20
+#: ../data/tomboy.schemas.in.h:23
 msgid "Open Start Here"
 msgstr "Buradan Başla'yı Aç"
 
-#: ../data/tomboy.schemas.in.h:21
+#: ../data/tomboy.schemas.in.h:24
 msgid "Set to TRUE to activate"
 msgstr "Etkinleştirmek için seçin"
 
-#: ../data/tomboy.schemas.in.h:22
+#: ../data/tomboy.schemas.in.h:25
 msgid "Show applet menu"
 msgstr "Uygulamacık menüsünü göster"
 
-#: ../data/tomboy.schemas.in.h:23
+#: ../data/tomboy.schemas.in.h:26
+msgid "Start Here Note"
+msgstr "Buradan Başla Notu"
+
+#: ../data/tomboy.schemas.in.h:27
 msgid "Sticky Note Importer First Run"
 msgstr "En Başta Yapışkan Not İçe Aktarıcısını Çalıştır"
 
-#: ../data/tomboy.schemas.in.h:24
+#: ../data/tomboy.schemas.in.h:28
 msgid ""
 "The global keybinding for creating and displaying a new Note. The format "
 "looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The "
@@ -207,7 +222,7 @@ msgstr ""
 "\"&lt;Ctrl&gt;\" gibi kısaltmalara izin verir. Eğer seçenek özel dizgi "
 "\"disabled\" olarak atandıysa bu eylem için tuş bağı olmayacak."
 
-#: ../data/tomboy.schemas.in.h:25
+#: ../data/tomboy.schemas.in.h:29
 msgid ""
 "The global keybinding for opening the \"Start Here\" note. The format looks "
 "like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
@@ -222,7 +237,7 @@ msgstr ""
 "\"&lt;Ctrl&gt;\" gibi kısaltmalara izin verir. Eğer seçenek özel dizgi "
 "\"disabled\" olarak atandıysa bu eylem için tuş bağı olmayacak."
 
-#: ../data/tomboy.schemas.in.h:26
+#: ../data/tomboy.schemas.in.h:30
 msgid ""
 "The global keybinding for opening the Note Search dialog. The format looks "
 "like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
@@ -237,7 +252,7 @@ msgstr ""
 "kısaltmalara izin verir. Eğer seçenek özel dizgi \"disabled\" olarak "
 "atandıysa bu eylem için tuş bağı olmayacak."
 
-#: ../data/tomboy.schemas.in.h:27
+#: ../data/tomboy.schemas.in.h:31
 msgid ""
 "The global keybinding for opening the Recent Changes dialog. The format "
 "looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The "
@@ -252,7 +267,7 @@ msgstr ""
 "\"&lt;Ctrl&gt;\" gibi kısaltmalara izin verir. Eğer seçenek özel dizgi "
 "\"disabled\" olarak atandıysa bu eylem için tuş bağı olmayacak."
 
-#: ../data/tomboy.schemas.in.h:28
+#: ../data/tomboy.schemas.in.h:32
 msgid ""
 "The global keybinding for showing the Tomboy applet's menu. The format looks "
 "like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
@@ -267,18 +282,18 @@ msgstr ""
 "\"&lt;Ctrl&gt;\" gibi kısaltmalara izin verir. Eğer seçenek özel dizgi "
 "\"disabled\" olarak atandıysa bu eylem için tuş bağı olmayacak."
 
-#: ../data/tomboy.schemas.in.h:29
+#: ../data/tomboy.schemas.in.h:33
 msgid "The handler for \"note://\" URLs"
 msgstr "\"note://\" URL'leri için işleyici"
 
-#: ../data/tomboy.schemas.in.h:30
+#: ../data/tomboy.schemas.in.h:34
 msgid ""
 "The last directory a note was exported to using the Export To HTML plugin."
 msgstr ""
 "Bir notun HTML Dışa Aktarım Eklentisi kullanılarak dışa aktarıldığı en son "
 "dizin."
 
-#: ../data/tomboy.schemas.in.h:31
+#: ../data/tomboy.schemas.in.h:35
 msgid ""
 "The last setting for the 'Export linked notes' checkbox in the Export to "
 "HTML plugin."
@@ -286,15 +301,36 @@ msgstr ""
 "HTML Dışa Aktarım Eklentisi içindeki 'Bağlı Notlar Dışa Aktar' seçeneği için "
 "son ayar."
 
-#: ../data/tomboy.schemas.in.h:32
+#: ../data/tomboy.schemas.in.h:36
+msgid ""
+"The last setting for the 'Include all other linked notes' checkbox in the "
+"Export to HTML plugin. This setting is used in conjunction with the 'HTML "
+"Export Linked Notes' setting and is used to specify whether all notes (found "
+"recursively) should be included during an export to HTML."
+msgstr ""
+"HTML Dışa Aktar eklentisi içerisindeki \"Tüm diğer bağlı notları içer\" "
+"seçim düğmesinin en son değeri. Bu ayar 'Bağlı Notları HTML Dışa Aktar\" "
+"ayarı ile bağlı olarak kullanılır ve tüm notların (alt notları da dahil) "
+"HTML dışa aktarma için dahil edilmesini belirtir."
+
+#: ../data/tomboy.schemas.in.h:37
+msgid ""
+"The note URI of the note that should be considered the \"Start Here\" note, "
+"which is always placed at the bottom of the Tomboy note menu and also "
+"accessible by hotkey."
+msgstr ""
+"Her zaman Tomboy not menüsünün en üstünde bulunan ve tuş bağı ile "
+"erişilebilen \"Buradan Başla\" notu olarak kabul edilecek not URI'si."
+
+#: ../data/tomboy.schemas.in.h:38
 msgid ""
 "Whitespace-separated list of note URIs for notes that should always appear "
 "in the Tomboy note menu."
 msgstr ""
-"Tomboy not menüsünde görünmesi gereken URI'lerin boşluk karakterleri ile "
-"ayırılmış listesi."
+"Tomboy not menüsünde her zaman görünmesi gereken not URI'lerinin boşluk ile "
+"ayrılmış listesi."
 
-#: ../libtomboy/gedit-print.c:142 ../Tomboy/Plugins/PrintNotes.cs:15
+#: ../libtomboy/gedit-print.c:142 ../Tomboy/Plugins/PrintNotes.cs:22
 msgid "Print"
 msgstr "Yazdır"
 
@@ -318,199 +354,374 @@ msgstr "Baskı önizleme"
 
 #: ../libtomboy/gedit-print.c:442
 msgid "Page %N of %Q"
-msgstr "%Q sayfadan %N"
+msgstr "Sayfa %N / %Q"
 
-#: ../libtomboy/gedit-print.c:444
-#, c-format
+#: ../libtomboy/gedit-print.c:445
+#, no-c-format
 msgid "%A %x, %X"
 msgstr "%A %x, %X"
 
-#: ../Tomboy/Applet.cs:202
-msgid "_About Tomboy"
-msgstr "Tomboy _Hakkında"
+#: ../Tomboy/ActionManager.cs:63
+msgid "_File"
+msgstr "_Dosya"
 
-#: ../Tomboy/Applet.cs:209
+#: ../Tomboy/ActionManager.cs:66
+msgid "_New"
+msgstr "_Yeni"
+
+#: ../Tomboy/ActionManager.cs:67 ../Tomboy/ActionManager.cs:108
+msgid "Create a new note"
+msgstr "Yeni bir not oluştur"
+
+#: ../Tomboy/ActionManager.cs:70
+msgid "_Open..."
+msgstr "_Aç..."
+
+#: ../Tomboy/ActionManager.cs:71
+msgid "Open the selected note"
+msgstr "Seçili notu aç"
+
+#: ../Tomboy/ActionManager.cs:74
+msgid "_Delete"
+msgstr "_Sil"
+
+#: ../Tomboy/ActionManager.cs:75
+msgid "Delete the selected note"
+msgstr "Seçilen notu sil"
+
+#: ../Tomboy/ActionManager.cs:78 ../Tomboy/NoteWindow.cs:546
+msgid "_Close"
+msgstr "_Kapat"
+
+#: ../Tomboy/ActionManager.cs:79
+msgid "Close this window"
+msgstr "Bu pencereyi kapat"
+
+#: ../Tomboy/ActionManager.cs:82 ../Tomboy/Applet.cs:211
 msgid "_Quit"
 msgstr "Çı_k"
 
-#. Open the Start Here note
-#: ../Tomboy/Note.cs:571 ../Tomboy/NoteManager.cs:107
-#: ../Tomboy/NoteManager.cs:115 ../Tomboy/Tomboy.cs:208 ../Tomboy/Tray.cs:225
-#: ../Tomboy/Tray.cs:287 ../Tomboy/Tray.cs:463 ../Tomboy/XKeybinder.cs:259
-msgid "Start Here"
-msgstr "Buradan Başla"
+#: ../Tomboy/ActionManager.cs:83
+msgid "Quit Tomboy"
+msgstr "Tomboy'dan Çık"
 
-#: ../Tomboy/Note.cs:848
+#: ../Tomboy/ActionManager.cs:86
+msgid "_Edit"
+msgstr "_Düzenle"
+
+#: ../Tomboy/ActionManager.cs:90 ../Tomboy/Preferences.cs:169
+msgid "Tomboy Preferences"
+msgstr "Tomboy Tercihleri"
+
+#: ../Tomboy/ActionManager.cs:96
+msgid "_Contents"
+msgstr "İçi_ndekiler"
+
+#: ../Tomboy/ActionManager.cs:97
+msgid "Tomboy Help"
+msgstr "Tomboy Yardım"
+
+#: ../Tomboy/ActionManager.cs:101
+msgid "About Tomboy"
+msgstr "Tomboy Hakkında"
+
+#: ../Tomboy/ActionManager.cs:104
+msgid "TrayIcon"
+msgstr "Simge"
+
+#: ../Tomboy/ActionManager.cs:107
+msgid "Create _New Note"
+msgstr "Yeni _Not Oluştur"
+
+#: ../Tomboy/ActionManager.cs:111 ../Tomboy/NoteWindow.cs:489
+msgid "_Search All Notes"
+msgstr "_Tüm Notları Ara"
+
+#: ../Tomboy/ActionManager.cs:112
+msgid "Open the Search All Notes window"
+msgstr "Tüm Notları Ara Penceresini Aç"
+
+#: ../Tomboy/Applet.cs:204
+msgid "_About Tomboy"
+msgstr "Tomboy _Hakkında"
+
+#: ../Tomboy/Note.cs:879
 msgid "Really delete this note?"
 msgstr "Bu notu silmek istediğinizden emin misiniz?"
 
-#: ../Tomboy/Note.cs:849
+#: ../Tomboy/Note.cs:880
 msgid "If you delete a note it is permanently lost."
 msgstr "Eğer bir notu silerseniz kalıcı olarak kaybolacaktır."
 
-#: ../Tomboy/NoteManager.cs:108
-msgid "Welcome to Tomboy!"
-msgstr "Tomboy'a Hoşgeldiniz!"
-
-#: ../Tomboy/NoteManager.cs:109
+#: ../Tomboy/NoteManager.cs:144
 msgid ""
-"Use this page as a Start Page for organizing your notes and keeping "
-"unorganized ideas around."
+"<note-content>Start Here\n"
+"\n"
+"<bold>Welcome to Tomboy!</bold>\n"
+"\n"
+"Use this \"Start Here\" note to begin organizing your ideas and thoughts.\n"
+"\n"
+"You can create new notes to hold your ideas by selecting the \"Create New "
+"Note\" item from the Tomboy Notes menu in your GNOME Panel. Your note will "
+"be saved automatically.\n"
+"\n"
+"Then organize the notes you create by linking related notes and ideas "
+"together!\n"
+"\n"
+"We've created a note called <link:internal>Using Links in Tomboy</link:"
+"internal>.  Notice how each time we type <link:internal>Using Links in "
+"Tomboy</link:internal> it automatically gets underlined?  Click on the link "
+"to open the note.</note-content>"
 msgstr ""
-"Bu sayfayı notlarınızı düzenli tutmak ve düzenlenmemiş düşünceleri bir arada "
-"tutmak için başlangıç noktası olarak kullanın."
+"<note-content>Buradan Başla\n"
+"\n"
+"<bold>Tomboy'a Hoşgeldiniz!</bold>\n"
+"Bu \"Buradan Başla\" notunu düşüncelerinizi ve fikirlerinizi organize etmeye "
+"başlamak  için kullanın.\n"
+"\n"
+"GNOME Panel üzerindeki Tomboy Notları menüsü içerisindeki \"Yeni Not Oluştur"
+"\" menü öğesini kullanarak yeni fikirlerinizi saklamak için yeni notlar "
+"oluşturmak için kullanabilirsiniz. Notunuz kendiliğinden kaydedilecektir.\n"
+"\n"
+"Daha sonra notlarınızı ve fikirlerinizi, ilgili notları birbirine bağlayarak "
+"organize edin!\n"
+"\n"
+"<link:internal>Tomboy İçerisinde Bağ Kullanmak</link:internal> notunu "
+"oluşturduk. Her <link:internal>Tomboy İçerisinde Bağ Kullanmak</link:"
+"internal> yazdığımızda bunun kendiliğinden altı çizili olduğunu farkettiniz "
+"mi? Notu açmak için bu bağın üzerine tıklayın.</note-content>"
 
-#: ../Tomboy/NoteManager.cs:203
+#: ../Tomboy/NoteManager.cs:163
+msgid ""
+"<note-content>Using Links in Tomboy\n"
+"\n"
+"Notes in Tomboy can be linked together by highlighting text in the current "
+"note and clicking the <bold>Link</bold> button above in the toolbar.  Doing "
+"so will create a new note and also underline the note's title in the current "
+"note.\n"
+"\n"
+"Changing the title of a note will update links present in other notes.  This "
+"prevents broken links from occurring when a note is renamed.\n"
+"\n"
+"Also, if you type the name of another note in your current note, it will "
+"automatically be linked for you.</note-content>"
+msgstr ""
+"<note-content>Tomboy İçinde Bağları Kullanma\n"
+"Tomboy içerisindeki notlar mevcut not seçilip araç çubuğunda bulunan "
+"<bold>Bağ</bold> düğmesi tıklanarak bağlanabilir. Bunu yapmak yeni bir not "
+"oluşturur ve ayrıca mevcut notun not başlığının altını çizer.\n"
+"\n"
+"Notun başlığını değiştirmek diğer notlardaki bağları günceller. Bu bir not "
+"yeniden adlandırıldığında kırılmış bağlar oluşmasını engeller.\n"
+"\n"
+"Ayrıca, eğer mevcut not içerisinde başka bir notu yazarsanız, bu "
+"kendiliğinden yazılan nota bağlanılmasını sağlar.</note-content>"
+
+#. Attempt to find an existing Start Here note
+#: ../Tomboy/NoteManager.cs:178 ../Tomboy/NoteManager.cs:229
+msgid "Start Here"
+msgstr "Buradan Başla"
+
+#: ../Tomboy/NoteManager.cs:183
+msgid "Using Links in Tomboy"
+msgstr "Tomboy İçinde Bağları Kullanma"
+
+#: ../Tomboy/NoteManager.cs:284
 #, csharp-format
 msgid "New Note {0}"
 msgstr "Yeni Not {0}"
 
-#: ../Tomboy/NoteManager.cs:249
+#: ../Tomboy/NoteManager.cs:330
 msgid "Describe your new note here."
 msgstr "Yeni notunuzu burada açıklayın."
 
-#: ../Tomboy/NoteWindow.cs:370
-msgid "_Link to New Note"
-msgstr "Yeni notla _bağla"
+#: ../Tomboy/NoteWindow.cs:233
+msgid "Find in This Note"
+msgstr "Bu Not İçinde Bul"
 
-#: ../Tomboy/NoteWindow.cs:383
+#: ../Tomboy/NoteWindow.cs:501
+msgid "_Link to New Note"
+msgstr "Yeni Nota _Bağla"
+
+#: ../Tomboy/NoteWindow.cs:513
 msgid "Te_xt"
 msgstr "M_etin"
 
-#: ../Tomboy/NoteWindow.cs:391
-msgid "_Search"
-msgstr "_Ara"
+#: ../Tomboy/NoteWindow.cs:521
+msgid "_Find in This Note"
+msgstr "_Bu Not İçinde Bul"
 
-#: ../Tomboy/NoteWindow.cs:405
+#: ../Tomboy/NoteWindow.cs:536
 msgid "Clos_e All Notes"
 msgstr "Tü_m Notları Kapat"
 
-#: ../Tomboy/NoteWindow.cs:415
-msgid "_Close"
-msgstr "_Kapat"
-
-#: ../Tomboy/NoteWindow.cs:443
+#: ../Tomboy/NoteWindow.cs:574
 msgid "Search"
 msgstr "Ara"
 
-#: ../Tomboy/NoteWindow.cs:444
-msgid "Search your notes"
-msgstr "Notlarınızı arayın"
+#: ../Tomboy/NoteWindow.cs:575
+msgid "Search your notes (Ctrl-Shift-F)"
+msgstr "Notlarınızı arayın (Ctrl-Shift-F)"
 
-#: ../Tomboy/NoteWindow.cs:456
+#: ../Tomboy/NoteWindow.cs:588
 msgid "Link"
 msgstr "Bağ"
 
-#: ../Tomboy/NoteWindow.cs:457
-msgid "Link selected text to a new note"
-msgstr "Seçilmiş metni yeni bir not ile bağla"
+#: ../Tomboy/NoteWindow.cs:590
+msgid "Link selected text to a new note (Ctrl-L)"
+msgstr "Seçilmiş metni yeni bir nota bağla (Ctrl-L)"
 
-#: ../Tomboy/NoteWindow.cs:471
+#: ../Tomboy/NoteWindow.cs:604
 msgid "_Text"
 msgstr "_Metin"
 
-#: ../Tomboy/NoteWindow.cs:476
+#: ../Tomboy/NoteWindow.cs:609
 msgid "Set properties of text"
 msgstr "Metin özelliklerini ayarla"
 
-#: ../Tomboy/NoteWindow.cs:482
+#: ../Tomboy/NoteWindow.cs:615
 msgid "T_ools"
 msgstr "_Araçlar"
 
-#: ../Tomboy/NoteWindow.cs:486
+#: ../Tomboy/NoteWindow.cs:619
 msgid "Use tools on this note"
 msgstr "Bu notta araçları kullan"
 
-#: ../Tomboy/NoteWindow.cs:493
+#: ../Tomboy/NoteWindow.cs:626
 msgid "Delete"
 msgstr "Sil"
 
-#: ../Tomboy/NoteWindow.cs:494
+#: ../Tomboy/NoteWindow.cs:627
 msgid "Delete this note"
 msgstr "Bu notu sil"
 
-#: ../Tomboy/NoteWindow.cs:551
-msgid "_Search..."
-msgstr "_Ara..."
+#: ../Tomboy/NoteWindow.cs:684
+msgid "_Find..."
+msgstr "_Bul..."
 
-#: ../Tomboy/NoteWindow.cs:562 ../Tomboy/Search.cs:177
+#: ../Tomboy/NoteWindow.cs:695 ../Tomboy/NoteWindow.cs:897
 msgid "Find _Next"
 msgstr "So_nrakini Bul"
 
-#: ../Tomboy/NoteWindow.cs:575
+#: ../Tomboy/NoteWindow.cs:708
 msgid "Find _Previous"
 msgstr "Ön_cekini Bul"
 
-#: ../Tomboy/NoteWindow.cs:659
+#: ../Tomboy/NoteWindow.cs:796
 msgid "Cannot create note"
 msgstr "Not oluşturulamıyor"
 
-#: ../Tomboy/NoteWindow.cs:757
+#: ../Tomboy/NoteWindow.cs:877
+msgid "_Find:"
+msgstr "_Bul:"
+
+#: ../Tomboy/NoteWindow.cs:888
+msgid "_Previous"
+msgstr "Ö_nceki"
+
+#: ../Tomboy/NoteWindow.cs:907
+msgid "Case _sensitive"
+msgstr "Büyük/küçük harf _duyarlı"
+
+#: ../Tomboy/NoteWindow.cs:1383
 msgid "_Bold"
 msgstr "_Kalın"
 
-#: ../Tomboy/NoteWindow.cs:769
+#: ../Tomboy/NoteWindow.cs:1395
 msgid "_Italic"
 msgstr "_Eğik"
 
-#: ../Tomboy/NoteWindow.cs:781
+#: ../Tomboy/NoteWindow.cs:1407
 msgid "_Strikeout"
 msgstr "Ü_stü çizili"
 
-#: ../Tomboy/NoteWindow.cs:793
+#: ../Tomboy/NoteWindow.cs:1419
 msgid "_Highlight"
 msgstr "_Aydınlat"
 
-#: ../Tomboy/NoteWindow.cs:806
+#: ../Tomboy/NoteWindow.cs:1432
 msgid "Font Size"
 msgstr "Yazıtipi Boyutu"
 
-#: ../Tomboy/NoteWindow.cs:809
+#: ../Tomboy/NoteWindow.cs:1435
 msgid "_Normal"
 msgstr "_Normal"
 
-#: ../Tomboy/NoteWindow.cs:816
+#: ../Tomboy/NoteWindow.cs:1442
 msgid "Hu_ge"
 msgstr "Çok _büyük"
 
-#: ../Tomboy/NoteWindow.cs:824
+#: ../Tomboy/NoteWindow.cs:1450
 msgid "_Large"
 msgstr "Bü_yük"
 
-#: ../Tomboy/NoteWindow.cs:832
+#: ../Tomboy/NoteWindow.cs:1458
 msgid "S_mall"
 msgstr "_Küçük"
 
-#: ../Tomboy/Preferences.cs:133
-msgid "Tomboy Preferences"
-msgstr "Tomboy Tercihleri"
+#: ../Tomboy/NoteWindow.cs:1469
+msgid "Bullets"
+msgstr "Listeler"
 
-#: ../Tomboy/Preferences.cs:147
+#: ../Tomboy/PluginManager.cs:60
+msgid "Tomboy Project"
+msgstr "Tomboy Projesi"
+
+#: ../Tomboy/PluginManager.cs:612
+#, csharp-format
+msgid "Cannot fully disable {0}."
+msgstr "{0} tam olarak kapatılamadı."
+
+#: ../Tomboy/PluginManager.cs:615
+#, csharp-format
+msgid ""
+"Cannot fully disable {0} as there still are at least {1} reference to this "
+"plugin. This indicates a programming error. Contact the plugin's author and "
+"report this problem.\n"
+"\n"
+"<b>Developer Information:</b> This problem usually occurs when the plugin's "
+"Dispose method fails to disconnect all event handlers. The heap-shot "
+"profiler ({2}) can help to identify leaking references."
+msgstr ""
+"{0} eklentisi tam olarak kapatılamıyor çünkü en az {1} eklenti bu eklentiye "
+"bağlı. Bu bir programlama hatası anlamına gelmektedir. Eklentiyi yazan "
+"kişiyle iletişime geçip bu hatayı bildirin.\n"
+"\n"
+"<b>Geliştirici Bilgisi:</b>Bu problem genellikle eklentinin Dispose "
+"metodunun tüm olay işleyicilerinin bağlantısını kesememesinden kaynaklanır. "
+"Heap görünümü profilleyicisi ({2}) sızıntı bağlarını tespit etmekte yardımcı "
+"olabilir."
+
+#: ../Tomboy/Preferences.cs:183
 msgid "Editing"
 msgstr "Düzenleme"
 
-#: ../Tomboy/Preferences.cs:150
+#: ../Tomboy/Preferences.cs:185
 msgid "Hotkeys"
 msgstr "Kısayollar"
 
-#: ../Tomboy/Preferences.cs:192
+#: ../Tomboy/Preferences.cs:187
+msgid "Plugins"
+msgstr "Eklentiler"
+
+#: ../Tomboy/Preferences.cs:229
 msgid "_Spell check while typing"
 msgstr "_Yazarken imla denetimi yap"
 
-#: ../Tomboy/Preferences.cs:201
+#: ../Tomboy/Preferences.cs:238
 msgid ""
-"Misspellings will be underlined in red, and correct spelling suggestions "
+"Misspellings will be underlined in red, with correct spelling suggestions "
 "shown in the context menu."
 msgstr ""
-"İmla hatalarının altı kırmızı çizilir ve doğru yazım önerileri içerik "
-"menüsünde görüntülenir."
+"İmla hatalarının altı kırmızı çizilir ve doğru yazımlar imla hataları sağ "
+"tıklandığında görüntülenir."
 
 #. WikiWords...
-#: ../Tomboy/Preferences.cs:211
+#: ../Tomboy/Preferences.cs:248
 msgid "Highlight _WikiWords"
 msgstr "_WikiSözcükleri aydınlat"
 
-#: ../Tomboy/Preferences.cs:218
+#: ../Tomboy/Preferences.cs:256
 msgid ""
 "Enable this option to highlight words <b>ThatLookLikeThis</b>. Clicking the "
 "word will create a note with that name."
@@ -520,16 +731,16 @@ msgstr ""
 "sağlayacaktır."
 
 #. Custom font...
-#: ../Tomboy/Preferences.cs:227
+#: ../Tomboy/Preferences.cs:265
 msgid "Use custom _font"
 msgstr "Özel _yazı tipi kullan"
 
 #. Hotkeys...
-#: ../Tomboy/Preferences.cs:297
+#: ../Tomboy/Preferences.cs:335
 msgid "Listen for _Hotkeys"
 msgstr "Kısayol _tuşlarını dinle"
 
-#: ../Tomboy/Preferences.cs:305
+#: ../Tomboy/Preferences.cs:344
 msgid ""
 "Hotkeys allow you to quickly access your notes from anywhere with a "
 "keypress. Example Hotkeys: <b>&lt;Control&gt;&lt;Shift&gt;F11</b>, <b>&lt;"
@@ -540,119 +751,141 @@ msgstr ""
 "F11</b>, <b>&lt;Alt&gt;N</b>"
 
 #. Show notes menu keybinding...
-#: ../Tomboy/Preferences.cs:325
+#: ../Tomboy/Preferences.cs:364
 msgid "Show notes _menu"
 msgstr "Notlar _menüsünü görüntüle"
 
 #. Open Start Here keybinding...
-#: ../Tomboy/Preferences.cs:341
+#: ../Tomboy/Preferences.cs:381
 msgid "Open \"_Start Here\""
 msgstr "\"_Buradan Başla\" notunu aç"
 
 #. Create new note keybinding...
-#: ../Tomboy/Preferences.cs:357
+#: ../Tomboy/Preferences.cs:398
 msgid "Create _new note"
 msgstr "Yeni _not oluştur"
 
-#. Search dialog keybinding...
-#: ../Tomboy/Preferences.cs:373
-msgid "S_earch notes"
-msgstr "N_otları ara"
+#. Open Search All Notes window keybinding...
+#: ../Tomboy/Preferences.cs:415
+msgid "Open \"Search _All Notes\""
+msgstr "\"_Tüm Notları Ara\" Aç"
 
-#: ../Tomboy/Preferences.cs:435
+#: ../Tomboy/Preferences.cs:561
+msgid "Not available"
+msgstr "Mevcut değil"
+
+#: ../Tomboy/Preferences.cs:619
+msgid "Description:"
+msgstr "Tanım:"
+
+#: ../Tomboy/Preferences.cs:621
+msgid "Written by:"
+msgstr "Yazan:"
+
+#: ../Tomboy/Preferences.cs:623
+msgid "Web site:"
+msgstr "Web sitesi:"
+
+#: ../Tomboy/Preferences.cs:625
+msgid "File name:"
+msgstr "Dosya adı:"
+
+#: ../Tomboy/Preferences.cs:639
+msgid "Settings"
+msgstr "Ayarlar"
+
+#: ../Tomboy/Preferences.cs:698
+#, csharp-format
+msgid "{0} Settings"
+msgstr "{0} Ayarları"
+
+#: ../Tomboy/Preferences.cs:759
 msgid "Choose Note Font"
 msgstr "Not Yazıtipi Seçin"
 
-#: ../Tomboy/RecentChanges.cs:37
-msgid "Table of Contents"
-msgstr "İçindekiler"
+#: ../Tomboy/RecentChanges.cs:64
+msgid "Search All Notes"
+msgstr "Tüm Notları Ara"
 
-#: ../Tomboy/RecentChanges.cs:51
-msgid ""
-"<b>Table of Contents</b> lists all your notes.\n"
-"Double click to open a note."
-msgstr ""
-"<b>İçindekiler</b> bütün notlarını listeler.\n"
-"Bir not açmak için çift tıklayın."
+#: ../Tomboy/RecentChanges.cs:77
+msgid "_Search:"
+msgstr "_Ara:"
 
-#: ../Tomboy/RecentChanges.cs:151
+#: ../Tomboy/RecentChanges.cs:98
+msgid "C_ase Sensitive"
+msgstr "Büyük/küçük Harf _Duyarlı"
+
+#: ../Tomboy/RecentChanges.cs:236
 msgid "Note"
 msgstr "Not"
 
-#: ../Tomboy/RecentChanges.cs:167
+#: ../Tomboy/RecentChanges.cs:255
 msgid "Last Changed"
 msgstr "Son Değiştirilme"
 
-#: ../Tomboy/RecentChanges.cs:211
+#: ../Tomboy/RecentChanges.cs:312 ../Tomboy/RecentChanges.cs:468
 #, csharp-format
 msgid "Total: {0} note"
 msgid_plural "Total: {0} notes"
 msgstr[0] "Toplam: {0} not"
 
-#: ../Tomboy/RecentChanges.cs:261
+#: ../Tomboy/RecentChanges.cs:402
+msgid "Matches"
+msgstr "Eşleşme"
+
+#: ../Tomboy/RecentChanges.cs:454 ../Tomboy/RecentChanges.cs:474
+#, csharp-format
+msgid "{0} match"
+msgid_plural "{0} matches"
+msgstr[0] "{0} eşleşme"
+msgstr[1] "({0} eşleşme)"
+
+#: ../Tomboy/RecentChanges.cs:724
 #, csharp-format
 msgid "Today, {0}"
 msgstr "Bugün, {0}"
 
-#: ../Tomboy/RecentChanges.cs:264
+#: ../Tomboy/RecentChanges.cs:727
 #, csharp-format
 msgid "Yesterday, {0}"
 msgstr "Dün, {0}"
 
-#: ../Tomboy/RecentChanges.cs:267
+#: ../Tomboy/RecentChanges.cs:731
 #, csharp-format
 msgid "{0} days ago, {1}"
 msgstr "{0} gün önce, {1}"
 
-#: ../Tomboy/RecentChanges.cs:271
+#: ../Tomboy/RecentChanges.cs:736
 msgid "MMMM d, h:mm tt"
 msgstr "d MMMM, HH:mm"
 
-#: ../Tomboy/RecentChanges.cs:273
+#: ../Tomboy/RecentChanges.cs:738
 msgid "MMMM d yyyy, h:mm tt"
 msgstr "d MMMM yyyy, HH:mm"
 
-#: ../Tomboy/Search.cs:87 ../Tomboy/Search.cs:489
-msgid "Search All Notes"
-msgstr "Tüm Notları Ara"
+#: ../Tomboy/Tomboy.cs:181
+msgid "Cannot create new note"
+msgstr "Yeni not oluşturulamıyor"
 
-#: ../Tomboy/Search.cs:88 ../Tomboy/Search.cs:493
-msgid "Search Note"
-msgstr "Not Ara"
+#: ../Tomboy/Tomboy.cs:236
+msgid "translator-credits"
+msgstr ""
+"Serdar ÇİÇEK <serdar@nerd.com.tr>\n"
+"Enver ALTIN <ealtin@parkyeri.com>"
 
-#: ../Tomboy/Search.cs:110
-msgid "_Find:"
-msgstr "_Bul:"
+#: ../Tomboy/Tomboy.cs:245
+msgid "Copyright © 2004-2007 Alex Graveley"
+msgstr "Telif hakkı © 2004-2007 Alex Graveley"
 
-#: ../Tomboy/Search.cs:114
-msgid "Search _All Notes"
-msgstr "_Tüm Notları Ara"
+#: ../Tomboy/Tomboy.cs:246
+msgid "A simple and easy to use desktop note-taking application."
+msgstr "Basit ve kullanışlı bir not tutucu uygulaması."
 
-#: ../Tomboy/Search.cs:120
-msgid "Case _Sensitive"
-msgstr "Büyük/küçük Harf _Duyarlı"
+#: ../Tomboy/Tomboy.cs:249
+msgid "Homepage & Donations"
+msgstr "Anasayfa ve Bağışlar"
 
-#: ../Tomboy/Search.cs:165
-msgid "_Previous"
-msgstr "Ö_nceki"
-
-#: ../Tomboy/Search.cs:250
-msgid "Search _Results"
-msgstr "_Arama Sonuçları"
-
-#: ../Tomboy/Search.cs:732
-#, csharp-format
-msgid "({0} match)"
-msgid_plural "({0} matches)"
-msgstr[0] "({0} eşleşme)"
-msgstr[1] "({0} eşleşme)"
-
-#. title
-#: ../Tomboy/Search.cs:750
-msgid "No notes found"
-msgstr "Not bulunamadı"
-
-#: ../Tomboy/Tomboy.cs:132
+#: ../Tomboy/Tomboy.cs:333
 msgid ""
 "Tomboy: A simple, easy to use desktop note-taking application.\n"
 "Copyright (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
@@ -662,19 +895,21 @@ msgstr ""
 "Telif hakkı (C) 2004, 2006 Alex Graveley <alex@beatniksoftware.com>\n"
 "\n"
 
-#: ../Tomboy/Tomboy.cs:144
+#: ../Tomboy/Tomboy.cs:345
 msgid ""
 "Usage:\n"
 "  --version\t\t\tPrint version information.\n"
 "  --help\t\t\tPrint this usage message.\n"
 "  --note-path [path]\t\tLoad/store note data in this directory.\n"
+"  --search [text]\t\tOpen the search all notes window with the search text.\n"
 msgstr ""
 "Kullanım:\n"
 "  --version\t\t\tSürüm bilgisini görüntüle.\n"
 "  --help\t\t\tBu kullanım bilgisini görüntüle.\n"
 "  --note-path [yol]\t\tBu dizin içindeki not verisini yükle/sakla.\n"
+"  --search [metin]\t\tArama metni ile tüm notları ara penceresini açar.\n"
 
-#: ../Tomboy/Tomboy.cs:153
+#: ../Tomboy/Tomboy.cs:356
 msgid ""
 "  --new-note\t\t\tCreate and display a new note.\n"
 "  --new-note [title]\t\tCreate and display a new note, with a title.\n"
@@ -690,16 +925,22 @@ msgstr ""
 "  --highlight-search [metin]\tAçık notlar içerisinde 'metin' metnini ara ve "
 "aydınlat.\n"
 
-#: ../Tomboy/Tomboy.cs:162
+#: ../Tomboy/Tomboy.cs:368
+msgid "  --check-plugin-unloading\tCheck if plugins are unloaded properly.\n"
+msgstr ""
+"  --check-plugin-unloading\tEklentilerin doğru bir biçimde kaldırıldığını "
+"kontrol eder.\n"
+
+#: ../Tomboy/Tomboy.cs:372
 msgid "D-BUS remote control disabled.\n"
 msgstr "D-BUS uzaktan kumandası kapalı.\n"
 
-#: ../Tomboy/Tomboy.cs:170
+#: ../Tomboy/Tomboy.cs:380
 #, csharp-format
 msgid "Version {0}"
 msgstr "Sürüm {0}"
 
-#: ../Tomboy/Tomboy.cs:228
+#: ../Tomboy/Tomboy.cs:447
 #, csharp-format
 msgid ""
 "Tomboy: unsupported option '{0}'\n"
@@ -710,58 +951,24 @@ msgstr ""
 "Daha fazla bilgi için 'tomboy --help' komutunu deneyin.\n"
 "D-BUS uzaktan denetim etkin değil."
 
-#: ../Tomboy/Tray.cs:63
+#: ../Tomboy/Tray.cs:64
 msgid " (new)"
 msgstr " (yeni)"
 
 #. initial newline
-#: ../Tomboy/Tray.cs:184
+#: ../Tomboy/Tray.cs:193
 msgid "dddd, MMMM d, h:mm tt"
 msgstr "dddd, d MMMM, HH:mm"
 
-#: ../Tomboy/Tray.cs:247
-msgid "Create _New Note"
-msgstr "Yeni _Not Oluştur"
-
-#: ../Tomboy/Tray.cs:300
-msgid "_Table of Contents"
-msgstr "İçi_ndekiler"
-
-#: ../Tomboy/Tray.cs:310
-msgid "_Search Notes..."
-msgstr "Not _Ara..."
-
-#: ../Tomboy/Tray.cs:336
-msgid "Cannot create new note"
-msgstr "Yeni not oluşturulamıyor"
-
-#: ../Tomboy/Tray.cs:395
-msgid "translator-credits"
-msgstr ""
-"Serdar ÇİÇEK <serdar@nerd.com.tr>\n"
-"Enver ALTIN <ealtin@parkyeri.com> "
-
-#: ../Tomboy/Tray.cs:404
-msgid "Copyright © 2004-2006 Alex Graveley"
-msgstr "Telif hakkı © 2004-2006 Alex Graveley"
-
-#: ../Tomboy/Tray.cs:405
-msgid "A simple and easy to use desktop note-taking application."
-msgstr "Basit ve kullanışlı bir not tutucu uygulaması."
-
-#: ../Tomboy/Tray.cs:408
-msgid "Homepage & Donations"
-msgstr "Anasayfa ve Bağışlar"
-
-#: ../Tomboy/Utils.cs:123
+#: ../Tomboy/Utils.cs:119
 msgid ""
 "The \"Tomboy Notes Manual\" could not be found.  Please verify that your "
 "installation has been completed successfully."
 msgstr ""
-"\"Tomboy Not Kılavuzu\" bulunamadı. Lütfen kurulumunuzun başarıyla "
+"\"Tomboy Notları Kılavuzu\" bulunamadı. Lütfen kurulumunuzun başarıyla "
 "tamamlandığından emin olun."
 
-#: ../Tomboy/Utils.cs:132
+#: ../Tomboy/Utils.cs:128
 msgid "Help not found"
 msgstr "Yardım bulunamadı"
 
@@ -795,43 +1002,100 @@ msgstr "Bağlantı Adresini _Kopyala"
 msgid "_Open Link"
 msgstr "_Bağlantıyı Aç"
 
-#: ../Tomboy/Plugins/Evolution.cs:264
+#: ../Tomboy/Plugins/Backlinks.cs:79
+msgid "What links here?"
+msgstr "Buraya ne bağlı?"
+
+#: ../Tomboy/Plugins/Backlinks.cs:137
+msgid "(none)"
+msgstr "(yok)"
+
+#: ../Tomboy/Plugins/Bugzilla.cs:181
+msgid "Use the following:"
+msgstr "Aşağıdakini kullan:"
+
+#: ../Tomboy/Plugins/Bugzilla.cs:197
+msgid "Host Name"
+msgstr "Makine Adı"
+
+#: ../Tomboy/Plugins/Bugzilla.cs:214
+msgid "Icon"
+msgstr "Simge"
+
+#: ../Tomboy/Plugins/Bugzilla.cs:337
+msgid "Select an icon..."
+msgstr "Bir simge seçin..."
+
+#. Extra Widget
+#: ../Tomboy/Plugins/Bugzilla.cs:352
+msgid "_Host name:"
+msgstr "_Makine adı:"
+
+#: ../Tomboy/Plugins/Bugzilla.cs:381
+msgid "No host name specified"
+msgstr "Hiçbir makine adı belirtilmemiş"
+
+#: ../Tomboy/Plugins/Bugzilla.cs:382
+msgid "You must specify the Bugzilla host name to use with this icon."
+msgstr "Bu simge ile bir Bugzilla makine adı belirtmek zorundasınız."
+
+#: ../Tomboy/Plugins/Bugzilla.cs:408
+msgid "Error saving icon"
+msgstr "Simge kaydedilirken hata"
+
+#: ../Tomboy/Plugins/Bugzilla.cs:409
+msgid "Could not save the icon file.  "
+msgstr "Simge dosyası kaydedilemedi.  "
+
+#: ../Tomboy/Plugins/Bugzilla.cs:457
+msgid "Really remove this icon?"
+msgstr "Bu simgeyi silmek istediğinizden emin misiniz?"
+
+#: ../Tomboy/Plugins/Bugzilla.cs:458
+msgid "If you remove an icon it is permanently lost."
+msgstr "Eğer bir simgeyi silerseniz kalıcı olarak kaybolacaktır."
+
+#: ../Tomboy/Plugins/Evolution.cs:265
 msgid "Cannot open email"
 msgstr "E-posta açılamıyor"
 
-#: ../Tomboy/Plugins/ExportToHTML.cs:47
+#: ../Tomboy/Plugins/ExportToHTML.cs:55
 msgid "Export to HTML"
 msgstr "HTML olarak dışa aktar"
 
-#: ../Tomboy/Plugins/ExportToHTML.cs:104
+#: ../Tomboy/Plugins/ExportToHTML.cs:114
 #, csharp-format
 msgid "Your note was exported to \"{0}\"."
 msgstr "Notunuz \"{0}\" konumuna aktarıldı."
 
-#: ../Tomboy/Plugins/ExportToHTML.cs:115
+#: ../Tomboy/Plugins/ExportToHTML.cs:125
 msgid "Note exported successfully"
 msgstr "Not başarıyla dışa aktarıldı"
 
-#: ../Tomboy/Plugins/ExportToHTML.cs:121
+#: ../Tomboy/Plugins/ExportToHTML.cs:131
 msgid "Access denied."
-msgstr "İzin verilmedi."
+msgstr "Erişim engellendi."
 
-#: ../Tomboy/Plugins/ExportToHTML.cs:123
+#: ../Tomboy/Plugins/ExportToHTML.cs:133
 msgid "Folder does not exist."
 msgstr "Klasör mevcut değil."
 
-#: ../Tomboy/Plugins/ExportToHTML.cs:138
+#: ../Tomboy/Plugins/ExportToHTML.cs:148
 #, csharp-format
 msgid "Could not save the file \"{0}\""
 msgstr "\"{0}\" dosyası kaydedilemedi"
 
-#: ../Tomboy/Plugins/ExportToHTML.cs:261
+#: ../Tomboy/Plugins/ExportToHTML.cs:267
 msgid "Destination for HTML Export"
 msgstr "HTML Dışa Aktarımı İçin Konum"
 
-#: ../Tomboy/Plugins/ExportToHTML.cs:269
+#: ../Tomboy/Plugins/ExportToHTML.cs:277
 msgid "Export linked notes"
 msgstr "Bağlı notları dışa aktar"
+
+#: ../Tomboy/Plugins/ExportToHTML.cs:282
+msgid "Include all other linked notes"
+msgstr "Tüm diğer bağlı notları içer"
 
 #: ../Tomboy/Plugins/FixedWidth.cs:34
 msgid "_Fixed Width"
@@ -848,14 +1112,14 @@ msgid "Error running gaim-remote: {0}"
 msgstr "Gaim uzaktan kumandası çalıştırılırken hata: {0}"
 
 #: ../Tomboy/Plugins/NoteOfTheDay.cs:13
-msgid "NotD: "
-msgstr "NotD: "
+msgid "Today: "
+msgstr "Bugün: "
 
 #: ../Tomboy/Plugins/NoteOfTheDay.cs:14
-msgid "NotD: Template"
-msgstr "NotD: Şablom"
+msgid "Today: Template"
+msgstr "Bugün: Şablom"
 
-#. Format: "NotD: Friday, July 01 2005"
+#. Format: "Today: Friday, July 01 2005"
 #: ../Tomboy/Plugins/NoteOfTheDay.cs:19
 msgid "dddd, MMMM d yyyy"
 msgstr "d MMMM yyyy, dddd"
@@ -868,36 +1132,32 @@ msgstr "Görevler"
 msgid "Appointments"
 msgstr "Randevular"
 
-#: ../Tomboy/Plugins/NoteOfTheDay.cs:177
-msgid "Create Note of the Day"
-msgstr "Günün Notunu Oluştur"
-
-#: ../Tomboy/Plugins/StickyNoteImport.cs:34
+#: ../Tomboy/Plugins/StickyNoteImport.cs:52
 msgid "Import from Sticky Notes"
-msgstr "Yapışkan Not'lardan İçe Aktar"
+msgstr "Yapışkan Notlardan İçe Aktar"
 
-#: ../Tomboy/Plugins/StickyNoteImport.cs:110
+#: ../Tomboy/Plugins/StickyNoteImport.cs:134
 msgid "No Sticky Notes found"
 msgstr "Yapışkan Not bulunamadı"
 
-#: ../Tomboy/Plugins/StickyNoteImport.cs:111
+#: ../Tomboy/Plugins/StickyNoteImport.cs:135
 #, csharp-format
 msgid "No suitable Sticky Notes file was found at \"{0}\"."
 msgstr "\"{0}\" konumunda uygun olmayayan Yapışkan Not dosyaları bulundu."
 
-#: ../Tomboy/Plugins/StickyNoteImport.cs:120
+#: ../Tomboy/Plugins/StickyNoteImport.cs:144
 msgid "Sticky Notes import completed"
 msgstr "Yapışkan Not içe aktarımı tamamlandı"
 
-#: ../Tomboy/Plugins/StickyNoteImport.cs:121
+#: ../Tomboy/Plugins/StickyNoteImport.cs:145
 #, csharp-format
 msgid "<b>{0}</b> of <b>{1}</b> Sticky Notes were successfully imported."
 msgstr "<b>{0}</b> / <b>{1}</b> Yapışkan Not başarıyla içeri aktarıldı."
 
-#: ../Tomboy/Plugins/StickyNoteImport.cs:133
+#: ../Tomboy/Plugins/StickyNoteImport.cs:157
 msgid "Untitled"
 msgstr "Başlıksız"
 
-#: ../Tomboy/Plugins/StickyNoteImport.cs:161
+#: ../Tomboy/Plugins/StickyNoteImport.cs:185
 msgid "Sticky Note: "
 msgstr "Yapışkan Not: "
