@@ -159,20 +159,20 @@ class BugzillaPreferences : Gtk.VBox
 {
 	Gtk.TreeView icon_tree;
 	Gtk.ListStore icon_store;
-	
+
 	Gtk.Button add_button;
 	Gtk.Button remove_button;
-	
+
 	string last_opened_dir;
-	
+
 	static string IMAGE_DIR = "~/.tomboy/BugzillaIcons";
 	static string image_dir = null;
-	
+
 	static BugzillaPreferences ()
 	{
 		image_dir = IMAGE_DIR.Replace ("~", Environment.GetEnvironmentVariable ("HOME"));
 	}
-	
+
 	public BugzillaPreferences ()
 		: base (false, 12)
 	{
@@ -181,25 +181,25 @@ class BugzillaPreferences : Gtk.VBox
 		Gtk.Label l = new Gtk.Label (Catalog.GetString ("Use the following:"));
 		l.Wrap = true;
 		l.Xalign = 0;
-		
+
 		PackStart (l, false, false, 0);
-		
+
 		icon_store = CreateIconStore ();
 
 		icon_tree = new Gtk.TreeView (icon_store);
 		icon_tree.HeadersVisible = true;
 		icon_tree.Selection.Mode = Gtk.SelectionMode.Single;
 		icon_tree.Selection.Changed += SelectionChanged;
-		
+
 		Gtk.CellRenderer renderer;
-		
+
 		Gtk.TreeViewColumn host_col = new Gtk.TreeViewColumn ();
 		host_col.Title = Catalog.GetString ("Host Name");
 		host_col.Sizing = Gtk.TreeViewColumnSizing.Autosize;
 		host_col.Resizable = true;
 		host_col.Expand = true;
 		host_col.MinWidth = 200;
-		
+
 		renderer = new Gtk.CellRendererText ();
 		host_col.PackStart (renderer, true);
 		host_col.AddAttribute (renderer, "text", 1 /* host name */);
@@ -207,48 +207,48 @@ class BugzillaPreferences : Gtk.VBox
 		host_col.SortIndicator = false;
 		host_col.Reorderable = false;
 		host_col.SortOrder = Gtk.SortType.Ascending;
-		
+
 		icon_tree.AppendColumn (host_col);
-		
+
 		Gtk.TreeViewColumn icon_col = new Gtk.TreeViewColumn ();
 		icon_col.Title = Catalog.GetString ("Icon");
 		icon_col.Sizing = Gtk.TreeViewColumnSizing.Fixed;
 		icon_col.MaxWidth = 50;
 		icon_col.MinWidth = 50;
 		icon_col.Resizable = false;
-		
+
 		renderer = new Gtk.CellRendererPixbuf ();
 		icon_col.PackStart (renderer, false);
 		icon_col.AddAttribute (renderer, "pixbuf", 0 /* icon */);
-		
+
 		icon_tree.AppendColumn (icon_col);
-		
+
 		Gtk.ScrolledWindow sw = new Gtk.ScrolledWindow ();
 		sw.ShadowType = Gtk.ShadowType.In;
 		sw.HeightRequest = 100;
 		sw.WidthRequest = 300;
 		sw.SetPolicy (Gtk.PolicyType.Automatic, Gtk.PolicyType.Automatic);
 		sw.Add (icon_tree);
-		
+
 		PackStart (sw, true, true, 0);
-		
+
 		add_button = new Gtk.Button (Gtk.Stock.Add);
 		add_button.Clicked += AddClicked;
-		
+
 		remove_button = new Gtk.Button (Gtk.Stock.Remove);
 		remove_button.Sensitive = false;
 		remove_button.Clicked += RemoveClicked;
-		
+
 		Gtk.HButtonBox hbutton_box = new Gtk.HButtonBox ();
 		hbutton_box.Layout = Gtk.ButtonBoxStyle.Start;
-		
+
 		hbutton_box.PackStart (add_button);
 		hbutton_box.PackStart (remove_button);
 		PackStart (hbutton_box, false, false, 0);
-		
+
 		ShowAll ();
 	}
-	
+
 	Gtk.ListStore CreateIconStore ()
 	{
 		Gtk.ListStore store = new Gtk.ListStore (
@@ -256,19 +256,19 @@ class BugzillaPreferences : Gtk.VBox
 			typeof (string),		// host
 			typeof (string));		// file path
 		store.SetSortColumnId (1, Gtk.SortType.Ascending);
-		
+
 		return store;
 	}
-	
+
 	void UpdateIconStore ()
 	{
 		// Read ~/.tomboy/BugzillaIcons/"
-		
+
 		if (!Directory.Exists (image_dir))
 			return;
-		
+
 		icon_store.Clear (); // clear out the old entries
-		
+
 		string [] icon_files = Directory.GetFiles (image_dir);
 		foreach (string icon_file in icon_files) {
 			FileInfo file_info = new FileInfo (icon_file);
@@ -279,48 +279,48 @@ class BugzillaPreferences : Gtk.VBox
 			} catch (Exception e) {
 				Logger.Warn ("Error loading Bugzilla Icon {0}: {1}", icon_file, e.Message);
 			}
-			
+
 			if (pixbuf == null)
 				continue;
-			
+
 			string host;
 			if (!ParseHost (file_info, out host))
 				continue;
-			
+
 			Gtk.TreeIter iter = icon_store.Append ();
 			icon_store.SetValue (iter, 0, pixbuf);
 			icon_store.SetValue (iter, 1, host);
 			icon_store.SetValue (iter, 2, icon_file);
 		}
 	}
-	
+
 	bool ParseHost (FileInfo file_info, out string host)
 	{
 		host = null;
 		string name = file_info.Name;
 		string ext = file_info.Extension;
-		
+
 		if (ext == null || ext == String.Empty)
 			return false;
-		
+
 		int ext_pos = name.IndexOf (ext);
 		if (ext_pos <= 0)
 			return false;
-		
+
 		host = name.Substring (0, ext_pos);
 		if (host == null || host == String.Empty)
 			return false;
-		
+
 		return true;
 	}
-	
+
 	protected override void OnRealized ()
 	{
 		base.OnRealized ();
-		
+
 		UpdateIconStore ();
 	}
-	
+
 	void SelectionChanged (object sender, EventArgs args)
 	{
 		// Update the remove button sensitivity
@@ -330,7 +330,7 @@ class BugzillaPreferences : Gtk.VBox
 		else
 			remove_button.Sensitive = false;
 	}
-	
+
 	void AddClicked (object sender, EventArgs args)
 	{
 		Gtk.FileChooserDialog dialog = new Gtk.FileChooserDialog (
@@ -338,16 +338,16 @@ class BugzillaPreferences : Gtk.VBox
 				null, Gtk.FileChooserAction.Open, new object[] {});
 		dialog.AddButton (Gtk.Stock.Cancel, Gtk.ResponseType.Cancel);
 		dialog.AddButton (Gtk.Stock.Open, Gtk.ResponseType.Ok);
-		
+
 		dialog.DefaultResponse = Gtk.ResponseType.Ok;
 		dialog.LocalOnly = true;
 		dialog.SetCurrentFolder (last_opened_dir);
-		
+
 		Gtk.FileFilter filter = new Gtk.FileFilter ();
 		filter.AddPixbufFormats ();
-		
+
 		dialog.Filter = filter;
-		
+
 		// Extra Widget
 		Gtk.Label l = new Gtk.Label (Catalog.GetString ("_Host name:"));
 		Gtk.Entry host_entry = new Gtk.Entry ();
@@ -356,23 +356,23 @@ class BugzillaPreferences : Gtk.VBox
 		hbox.PackStart (l, false, false, 0);
 		hbox.PackStart (host_entry, true, true, 0);
 		hbox.ShowAll ();
-		
+
 		dialog.ExtraWidget = hbox;
-		
+
 		int response;
 		string icon_file;
 		string host;
-		
+
 		run_add_dialog:
 		response = dialog.Run ();
 		icon_file = dialog.Filename;
 		host = host_entry.Text.Trim ();
-		
+
 		if (response == (int) Gtk.ResponseType.Ok
 				&& host == String.Empty) {
 			// Let the user know that they
 			// have to specify a host name.
-			HIGMessageDialog warn = 
+			HIGMessageDialog warn =
 				new HIGMessageDialog (
 					null,
 					Gtk.DialogFlags.DestroyWithParent,
@@ -390,7 +390,7 @@ class BugzillaPreferences : Gtk.VBox
 			dialog.Destroy ();
 			return;
 		}
-		
+
 		// Keep track of the last directory the user had open
 		last_opened_dir = dialog.CurrentFolder;
 
@@ -399,7 +399,7 @@ class BugzillaPreferences : Gtk.VBox
 		// Copy the file to the BugzillaIcons directory
 		string err_msg;
 		if (!CopyToBugizllaIconsDir (icon_file, host, out err_msg)) {
-			HIGMessageDialog err = 
+			HIGMessageDialog err =
 				new HIGMessageDialog (
 					null,
 					Gtk.DialogFlags.DestroyWithParent,
@@ -411,15 +411,15 @@ class BugzillaPreferences : Gtk.VBox
 			err.Run ();
 			err.Destroy ();
 		}
-		
+
 		UpdateIconStore ();
 	}
-	
-	bool CopyToBugizllaIconsDir (string file_path, 
+
+	bool CopyToBugizllaIconsDir (string file_path,
 			string host, out string err_msg)
 	{
 		err_msg = null;
-		
+
 		FileInfo file_info = new FileInfo (file_path);
 		string ext = file_info.Extension;
 		string saved_path = System.IO.Path.Combine (image_dir, host + ext);
@@ -429,26 +429,26 @@ class BugzillaPreferences : Gtk.VBox
 			err_msg = e.Message;
 			return false;
 		}
-		
+
 		ResizeIfNeeded (saved_path);
 		return true;
 	}
-	
+
 	void ResizeIfNeeded (string file_path)
 	{
 		// FIXME: Resize the icon to not be larger than 16x16
 	}
-	
+
 	void RemoveClicked (object sender, EventArgs args)
 	{
 		// Remove the icon file and call UpdateIconStore ().
 		Gtk.TreeIter iter;
 		if (!icon_tree.Selection.GetSelected (out iter))
 			return;
-		
+
 		string icon_path = icon_store.GetValue (iter, 2) as string;
-		
-		HIGMessageDialog dialog = 
+
+		HIGMessageDialog dialog =
 			new HIGMessageDialog (
 				null,
 				Gtk.DialogFlags.DestroyWithParent,
@@ -487,15 +487,14 @@ class BugzillaPreferences : Gtk.VBox
 	}
 }
 
-[PluginInfo(
-	"Bugzilla Plugin", Defines.VERSION,
-	PluginInfoAttribute.OFFICIAL_AUTHOR,
-    "Allows you to drag a Bugzilla URL from your browser " +
-    "directly into a tomboy note.  The bug number is " +
-    "inserted as a link with a little bug icon next to it.",
-	WebSite = "http://www.gnome.org/projects/tomboy/",
-	PreferencesWidget = typeof (BugzillaPreferences)
-	)]
+[PluginInfo("Bugzilla Plugin", Defines.VERSION,
+            PluginInfoAttribute.OFFICIAL_AUTHOR,
+            "Allows you to drag a Bugzilla URL from your browser directly " +
+            "into a tomboy note.  The bug number is inserted as a link with " +
+            "a little bug icon next to it.",
+            WebSite = "http://www.gnome.org/projects/tomboy/",
+            PreferencesWidget = typeof (BugzillaPreferences)
+            )]
 
 public class BugzillaPlugin : NotePlugin
 {
