@@ -305,13 +305,16 @@ namespace Tomboy
 
 				bool show = false;
 				
-				if ((note.IsOpened && note.Window.IsMapped) ||
+				// Test for note.IsPinned first so that all of the pinned notes
+				// are guaranteed to be included regardless of the size of the
+				// list.
+				if (note.IsPinned) {
+					show = true;
+				} else if ((note.IsOpened && note.Window.IsMapped) ||
 				    note.ChangeDate > days_ago ||
 				    list_size < min_size) {
 					if (list_size <= max_size)
 						show = true;
-				} else if (note.IsPinned) {
-					show = true;
 				}
 
 				if (show) {
