@@ -178,7 +178,10 @@ class BugzillaPreferences : Gtk.VBox
 	{
 		last_opened_dir = Environment.GetEnvironmentVariable ("HOME");
 
-		Gtk.Label l = new Gtk.Label (Catalog.GetString ("Use the following:"));
+		Gtk.Label l = new Gtk.Label (Catalog.GetString (
+			"You can use any bugzilla just by dragging links " +
+			"into notes.  If you want a special icon for " +
+			"certain hosts, add them here."));
 		l.Wrap = true;
 		l.Xalign = 0;
 
@@ -225,7 +228,7 @@ class BugzillaPreferences : Gtk.VBox
 
 		Gtk.ScrolledWindow sw = new Gtk.ScrolledWindow ();
 		sw.ShadowType = Gtk.ShadowType.In;
-		sw.HeightRequest = 100;
+		sw.HeightRequest = 200;
 		sw.WidthRequest = 300;
 		sw.SetPolicy (Gtk.PolicyType.Automatic, Gtk.PolicyType.Automatic);
 		sw.Add (icon_tree);
@@ -241,6 +244,7 @@ class BugzillaPreferences : Gtk.VBox
 
 		Gtk.HButtonBox hbutton_box = new Gtk.HButtonBox ();
 		hbutton_box.Layout = Gtk.ButtonBoxStyle.Start;
+		hbutton_box.Spacing = 6;
 
 		hbutton_box.PackStart (add_button);
 		hbutton_box.PackStart (remove_button);
@@ -253,8 +257,8 @@ class BugzillaPreferences : Gtk.VBox
 	{
 		Gtk.ListStore store = new Gtk.ListStore (
 			typeof (Gdk.Pixbuf), 	// icon
-			typeof (string),		// host
-			typeof (string));		// file path
+			typeof (string),	// host
+			typeof (string));	// file path
 		store.SetSortColumnId (1, Gtk.SortType.Ascending);
 
 		return store;
