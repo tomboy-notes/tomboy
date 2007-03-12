@@ -639,7 +639,7 @@ namespace Tomboy
 		//
 		// Plugin toolbar menu
 		//
-		// Prefixed with Open Plugins Folder action, the rest being
+		// This menu can be
 		// populated by individual plugins using
 		// NotePlugin.AddPluginMenuItem().
 		//
@@ -647,24 +647,7 @@ namespace Tomboy
 		Gtk.Menu MakePluginMenu ()
 		{
 			Gtk.Menu menu = new Gtk.Menu ();
-
-			Gtk.ImageMenuItem open;
-			open = new Gtk.ImageMenuItem (Catalog.GetString ("_Open Plugins Folder"));
-			open.Image = new Gtk.Image (Gtk.Stock.Open, Gtk.IconSize.Menu);
-			open.Activated += OnOpenPluginsFolderActivate;
-			open.Show ();
-			menu.Add (open);
-
-			Gtk.SeparatorMenuItem sep = new Gtk.SeparatorMenuItem ();
-			sep.Show ();
-			menu.Add (sep);
-
 			return menu;
-		}
-
-		void OnOpenPluginsFolderActivate (object sender, EventArgs args)
-		{
-			note.Manager.PluginManager.ShowPluginsDirectory ();
 		}
 
 		//

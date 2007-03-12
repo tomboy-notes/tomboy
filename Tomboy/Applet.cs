@@ -51,7 +51,6 @@ namespace Tomboy
 
 			if (menu_verbs == null) {
 				menu_verbs = new BonoboUIVerb [] {
-					new BonoboUIVerb ("Plugins", ShowPluginsVerb),
 					new BonoboUIVerb ("Props", ShowPreferencesVerb),
 					new BonoboUIVerb ("Help", ShowHelpVerb),
 					new BonoboUIVerb ("About", ShowAboutVerb)
@@ -82,11 +81,6 @@ namespace Tomboy
 		void ShowPreferencesVerb ()
 		{
 			Tomboy.ActionManager ["ShowPreferencesAction"].Activate ();
-		}
-
-		void ShowPluginsVerb ()
-		{
-			manager.PluginManager.ShowPluginsDirectory ();
 		}
 
 		void ShowHelpVerb ()
@@ -184,13 +178,6 @@ namespace Tomboy
 
 			Gtk.ImageMenuItem item;
 
-			item = new Gtk.ImageMenuItem (Catalog.GetString ("_Open Plugins Folder"));
-			item.Image = new Gtk.Image (Gtk.Stock.Execute, Gtk.IconSize.Menu);
-			item.Activated += ShowPlugins;
-			menu.Append (item);
-
-			menu.Append (new Gtk.SeparatorMenuItem ());
-
 			item = new Gtk.ImageMenuItem (Catalog.GetString ("_Preferences"));
 			item.Image = new Gtk.Image (Gtk.Stock.Preferences, Gtk.IconSize.Menu);
 			item.Activated += ShowPreferences;
@@ -220,12 +207,6 @@ namespace Tomboy
 		void ShowPreferences (object sender, EventArgs args)
 		{
 			Tomboy.ActionManager ["ShowPreferencesAction"].Activate ();
-		}
-
-		void ShowPlugins (object sender, EventArgs args)
-		{
-			// FIXME: Make this a global action
-			manager.PluginManager.ShowPluginsDirectory ();
 		}
 
 		void ShowHelpContents (object sender, EventArgs args)
