@@ -65,7 +65,6 @@ ASSEMBLIES = 		\
 
 RESOURCES = 										\
 	-resource:$(top_srcdir)/data/GNOME_TomboyApplet.xml,GNOME_TomboyApplet.xml	\
-	-resource:$(top_builddir)/data/DefaultPlugins.desktop,DefaultPlugins.desktop	\
 	-resource:$(top_srcdir)/data/UIManagerLayout.xml	\
 	-resource:$(top_srcdir)/data/images/tomboy.png,tomboy.png			\
 	-resource:$(top_srcdir)/data/images/tomboy-note-16.png,tomboy-note.png		\
