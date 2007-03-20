@@ -459,47 +459,6 @@ namespace Tomboy
 
 			// Clean up old plugin remnants
 			CleanupOldPlugins (plugins_dir);
-
-			// Copy Plugins/DefaultPlugins.desktop file from resource
-			string default_desktop = "DefaultPlugins.desktop";
-			string default_path = Path.Combine (plugins_dir, default_desktop);
-			if (File.Exists (default_path)) {
-				// Check the existing file to make sure it has the correct path.
-				// If it doesn't, delete it so a correct one will installed.
-				StreamReader reader = null;
-				try {
-					reader = new StreamReader (File.OpenRead (default_path));
-					string contents = reader.ReadToEnd ();
-					if (contents.IndexOf ("file://" + Defines.SYS_PLUGINS_DIR) < 0)
-						File.Delete (default_path);
-				} catch (Exception e) {
-					Logger.Warn ("Could not update DefaultPlugins.desktop file: {0}",
-						e.Message);
-				} finally {
-					if (reader != null)
-						reader.Close ();
-				}
-			}
-
-			if (!File.Exists (default_path)) {
-				Assembly asm = Assembly.GetExecutingAssembly();
-				Stream stream = asm.GetManifestResourceStream (default_desktop);
-				if (stream != null) {
-					Logger.Log ("Writing '{0}'...", default_path);
-					try {
-						StreamWriter file = File.CreateText (default_path);
-						StreamReader reader;
-						try {
-							reader = new StreamReader (stream);
-							file.Write (reader.ReadToEnd ());
-						} finally {
-							file.Close ();
-						}
-					} finally {
-						stream.Close ();
-					}
-				}
-			}
 		}
 
 		void OnNoteDeleted (object sender, Note deleted)

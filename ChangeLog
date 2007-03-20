@@ -1,3 +1,15 @@
+2007-03-20  Boyd Timothy <btimothy@gmail.com> 
+
+	Fixes bug #418567.
+	
+	* Tomboy/PluginManager.cs: Removed code to update/copy the
+	  DefaultPlugins.desktop file from Tomboy.exe into place.
+	* Tomboy/Makefile.am: Removed DefaultPlugins.desktop from being
+	  included as a resource.
+	* data/DefaultPlugins.desktop.in.in: This file is no longer needed.
+	* data/Makefile.am: Removed DefaultPlugins.desktop.in.
+	* po/POTFILES.in: Removed data/DefaultPlugins.desktop.in.in.
+
 2007-03-20  Sandy Armstrong <sanfordarmstrong@gmail.com> 
 
 	* Tomboy.mdp, Makefile.am: Adding `make run` support for running
