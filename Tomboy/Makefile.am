@@ -6,6 +6,10 @@ CSC = gmcs
 TARGET = Tomboy.exe
 WRAPPER = tomboy
 
+DBUS_SHARP_CSFILES = \
+	$(srcdir)/dbus-sharp/dbus-sharp/src/*.cs	\
+	$(srcdir)/dbus-sharp/dbus-sharp-glib/glib/*.cs
+
 if ENABLE_DBUS
 DBUS_CSFLAGS = -define:ENABLE_DBUS
 if EXTERNAL_DBUS
@@ -14,8 +18,7 @@ DBUS_CSFILES = 				\
 	$(srcdir)/RemoteControlProxy.cs
 else
 DBUS_CSFILES = 				\
-	$(srcdir)/dbus-sharp/dbus-sharp/src/*.cs	\
-	$(srcdir)/dbus-sharp/dbus-sharp-glib/glib/*.cs	\
+	$(DBUS_SHARP_CSFILES)		\
 	$(srcdir)/RemoteControl.cs	\
 	$(srcdir)/RemoteControlProxy.cs
 endif
@@ -65,7 +68,6 @@ ASSEMBLIES = 		\
 
 RESOURCES = 										\
 	-resource:$(top_srcdir)/data/GNOME_TomboyApplet.xml,GNOME_TomboyApplet.xml	\
-	-resource:$(top_builddir)/data/DefaultPlugins.desktop,DefaultPlugins.desktop	\
 	-resource:$(top_srcdir)/data/UIManagerLayout.xml	\
 	-resource:$(top_srcdir)/data/images/tomboy.png,tomboy.png			\
 	-resource:$(top_srcdir)/data/images/tomboy-note-16.png,tomboy-note.png		\
@@ -108,6 +110,7 @@ Defines.cs: $(srcdir)/Defines.cs.in Makefile
 
 EXTRA_DIST =            		\
 	$(CSFILES)      		\
+	$(DBUS_SHARP_CSFILES)		\
 	$(WRAPPER).in			\
 	$(TARGET).config.in		\
 	$(srcdir)/Defines.cs.in	
