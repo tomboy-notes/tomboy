@@ -427,7 +427,7 @@ namespace Tomboy
 
 			tag = new NoteTag ("note-title");
 			tag.Underline = Pango.Underline.Single;
-			tag.Foreground = "red";
+			tag.Foreground = "#204a87";
 			tag.Scale = Pango.Scale.XXLarge;
 			// FiXME: Hack around extra rewrite on open
 			tag.CanSerialize = false;
@@ -443,7 +443,7 @@ namespace Tomboy
 			tag = new NoteTag ("datetime");
 			tag.Scale = Pango.Scale.Small;
 			tag.Style = Pango.Style.Italic;
-			tag.Foreground = "grey";
+			tag.Foreground = "#888a85";
 			Add (tag);
 
 			// Font sizes
@@ -480,19 +480,19 @@ namespace Tomboy
 
 			tag = new NoteTag ("link:broken");
 			tag.Underline = Pango.Underline.Single;
-			tag.Foreground = "darkgrey";
+			tag.Foreground = "#555753";
 			tag.CanActivate = true;
 			Add (tag);
 
 			tag = new NoteTag ("link:internal");
 			tag.Underline = Pango.Underline.Single;
-			tag.Foreground = "red";
+			tag.Foreground = "#204a87";
 			tag.CanActivate = true;
 			Add (tag);
 
 			tag = new NoteTag ("link:url");
 			tag.Underline = Pango.Underline.Single;
-			tag.Foreground = "blue";
+			tag.Foreground = "#3465a4";
 			tag.CanActivate = true;
 			Add (tag);
 		}
