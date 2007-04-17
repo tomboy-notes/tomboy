@@ -668,7 +668,7 @@ namespace Tomboy
 				if (range.Text.ToLower () != old_title_lower)
 					continue;
 
-				Logger.Log ("Replacing '{0}' with '{0}'", 
+				Logger.Log ("Replacing '{0}' with '{1}'", 
 					    range.Text, 
 					    renamed.Title);
 
