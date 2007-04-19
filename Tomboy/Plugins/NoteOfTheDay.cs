@@ -10,8 +10,9 @@ using Tomboy;
 
 class NoteOfTheDay 
 {
+	public static string TemplateTitle = Catalog.GetString ("Today: Template");
+	
 	static string title_prefix = Catalog.GetString ("Today: ");
-	static string template_title = Catalog.GetString ("Today: Template");
 
 	public static string GetTitle (DateTime day)
 	{
@@ -21,24 +22,29 @@ class NoteOfTheDay
 
 	public static string GetContent (DateTime day, NoteManager manager)
 	{
-		const string base_xml = 
+		string title = GetTitle (day);
+
+		// Attempt to load content from template
+		Note templateNote = manager.Find (TemplateTitle);
+		if (templateNote != null)
+			return templateNote.XmlContent.Replace (TemplateTitle, title);
+		else
+			return GetTemplateContent (title);
+	}
+	
+	public static string GetTemplateContent (string title)
+	{
+		const string base_xml =
 			"<note-content>" +
 			"<note-title>{0}</note-title>\n\n\n\n" +
 			"<size:huge>{1}</size:huge>\n\n\n" +
 			"<size:huge>{2}</size:huge>\n\n\n" +
 			"</note-content>";
-			
-		string title = GetTitle (day);
 
-		// Attempt to load content from template
-		Note templateNote = manager.Find (template_title);
-		if (templateNote != null)
-			return templateNote.XmlContent.Replace (template_title, title);
-		else
-			return string.Format (base_xml, 
-				      title, 
-				      Catalog.GetString ("Tasks"),
-				      Catalog.GetString ("Appointments"));
+		return string.Format (base_xml, 
+			      title, 
+			      Catalog.GetString ("Tasks"),
+			      Catalog.GetString ("Appointments"));
 	}
 
 	public static Note Create (NoteManager manager, DateTime day)
@@ -58,8 +64,15 @@ class NoteOfTheDay
 			notd = null;
 		}
 
-		if (notd != null)
-			notd.Save ();
+		if (notd != null) {
+			// Automatically tag all new Note of the Day notes
+			Tag notd_tag = TagManager.GetOrCreateTag (
+					Catalog.GetString ("Note of the Day"));
+			notd.AddTag (notd_tag);
+			
+			// notd.AddTag queues a save so the following is no longer necessary
+			//notd.Save ();
+		}
 
 		return notd;
 	}
@@ -86,7 +99,7 @@ class NoteOfTheDay
 
 		foreach (Note note in manager.Notes) {
 			if (note.Title.StartsWith (title_prefix) &&
-			    note.Title != template_title &&
+			    note.Title != TemplateTitle &&
 			    note.CreateDate.Date != date_today &&
 			    !HasChanged (note)) {
 				kill_list.Add (note);
@@ -112,7 +125,7 @@ class NoteOfTheDay
 		// created on the date specified.
 		foreach (Note note in manager.Notes) {
 			if (note.Title.StartsWith (title_prefix) &&
-					note.Title != template_title) {
+					note.Title != TemplateTitle) {
 				DateTime note_date = note.CreateDate.Date;
 				if (note_date == normalized_date) {
 					found_note = note;
@@ -130,7 +143,8 @@ class NoteOfTheDay
 	PluginInfoAttribute.OFFICIAL_AUTHOR,
 	"Automatically creates a \"Today\" note for easily jotting down " +
 	"daily thoughts.",
-	WebSite = "http://www.gnome.org/projects/tomboy/"
+	WebSite = "http://www.gnome.org/projects/tomboy/",
+    PreferencesWidget = typeof (NoteOfTheDayPreferences)
 	)]
 public class NoteOfTheDayPlugin : NotePlugin
 {
@@ -175,5 +189,56 @@ public class NoteOfTheDayPlugin : NotePlugin
 	protected override void OnNoteOpened () 
 	{
 		// Do nothing.
+	}
+}
+
+class NoteOfTheDayPreferences : Gtk.VBox
+{
+	Gtk.Button open_template_button;
+
+	public NoteOfTheDayPreferences ()
+		: base (false, 12)
+	{
+		Gtk.Label label = new Gtk.Label (
+				Catalog.GetString (
+					"Change the <span weight=\"bold\">Today: Template</span> " +
+					"note to customize the text that new Today notes have."));
+		label.UseMarkup = true;
+		label.Wrap = true;
+		label.Show ();
+		PackStart (label, true, true, 0);
+		
+		open_template_button = new Gtk.Button (
+				Catalog.GetString ("_Open Today: Template"));
+		open_template_button.UseUnderline = true;
+		open_template_button.Clicked += OpenTemplateButtonClicked;
+		open_template_button.Show ();
+		PackStart (open_template_button, false, false, 0);
+
+		ShowAll ();
+	}
+
+	void OpenTemplateButtonClicked (object sender, EventArgs args)
+	{
+		NoteManager manager = Tomboy.Tomboy.DefaultNoteManager;
+		Note template_note = manager.Find (NoteOfTheDay.TemplateTitle);
+
+		if (template_note == null) {
+			// Create a new template note for the user
+			try {
+				template_note = manager.Create (
+						NoteOfTheDay.TemplateTitle,
+						NoteOfTheDay.GetTemplateContent (
+								NoteOfTheDay.TemplateTitle));
+				template_note.QueueSave (true);
+			} catch (Exception e) {
+				Logger.Warn ("Error creating Note of the Day Template note: {0}\n{1}",
+						e.Message, e.StackTrace);
+			}
+		}
+		
+		// Open the template note
+		if (template_note != null)
+			template_note.Window.Show ();
 	}
 }
