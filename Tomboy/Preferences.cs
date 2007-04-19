@@ -1,5 +1,6 @@
 
 using System;
+using System.Collections.Generic;
 using Mono.Unix;
 using GConf.PropertyEditors;
 
@@ -156,6 +157,10 @@ namespace Tomboy
 		Gtk.TextView plugin_filename;
 
 		Gtk.Button plugin_preferences;
+		// Keep track of the opened plugin settings dialogs so other windows
+		// can be interacted with (as opposed to opening these as modal
+		// dialogs).
+		Dictionary<PluginInfoAttribute, Gtk.Dialog> plugin_dialogs;
 
 		public PreferencesDialog (PluginManager plugin_manager)
 			: base ()
@@ -170,7 +175,9 @@ namespace Tomboy
 
 			VBox.Spacing = 5;
 			ActionArea.Layout = Gtk.ButtonBoxStyle.End;
-
+			
+			plugin_dialogs =
+				new Dictionary<PluginInfoAttribute, Gtk.Dialog> ();
 
 			// Notebook Tabs (Editing, Hotkeys)...
 
@@ -673,38 +680,70 @@ namespace Tomboy
 			if (current_plugin == null)
 				return;
 			
-			Gtk.Image icon = 
-				new Gtk.Image (Gtk.Stock.Preferences, Gtk.IconSize.Dialog);
+			Gtk.Dialog dialog = null;
+			if (plugin_dialogs.ContainsKey (plugin_info) == false) {
+				// This dialog isn't open already so create a new one
+				Gtk.Image icon = 
+					new Gtk.Image (Gtk.Stock.Preferences, Gtk.IconSize.Dialog);
 
-			Gtk.Label caption = new Gtk.Label();
-			caption.Markup = MakePluginTitle ();
-			caption.Xalign = 0;
+				Gtk.Label caption = new Gtk.Label();
+				caption.Markup = MakePluginTitle ();
+				caption.Xalign = 0;
 
-			Gtk.Widget preferences =
-				PluginManager.CreatePreferencesWidget (plugin_info);
-			
-			Gtk.HBox hbox = new Gtk.HBox (false, 6);
-			Gtk.VBox vbox = new Gtk.VBox (false, 6);
-			vbox.BorderWidth = 6;
-			
-			hbox.PackStart (icon, false, false, 0);
-			hbox.PackStart (caption, true, true, 0);
-			vbox.PackStart (hbox, false, false, 0);
-			
-			vbox.PackStart (preferences, true, true, 0);			
-			vbox.ShowAll ();
-			
-			Gtk.Dialog dialog = new Gtk.Dialog (
-				string.Format (Catalog.GetString ("{0} Settings"),
-					       plugin_info.Name),
-				this,
-				Gtk.DialogFlags.DestroyWithParent | Gtk.DialogFlags.NoSeparator,
-				Gtk.Stock.Close, Gtk.ResponseType.Close);
+				Gtk.Widget preferences =
+					PluginManager.CreatePreferencesWidget (plugin_info);
+				
+				Gtk.HBox hbox = new Gtk.HBox (false, 6);
+				Gtk.VBox vbox = new Gtk.VBox (false, 6);
+				vbox.BorderWidth = 6;
+				
+				hbox.PackStart (icon, false, false, 0);
+				hbox.PackStart (caption, true, true, 0);
+				vbox.PackStart (hbox, false, false, 0);
+				
+				vbox.PackStart (preferences, true, true, 0);			
+				vbox.ShowAll ();
+				
+				dialog = new Gtk.Dialog (
+					string.Format (Catalog.GetString ("{0} Settings"),
+						       plugin_info.Name),
+					this,
+					Gtk.DialogFlags.DestroyWithParent | Gtk.DialogFlags.NoSeparator,
+					Gtk.Stock.Close, Gtk.ResponseType.Close);
 
-			dialog.VBox.PackStart (vbox, true, true, 0);
-
-			dialog.Run ();
-			dialog.Destroy();
+				dialog.VBox.PackStart (vbox, true, true, 0);
+				dialog.DeleteEvent += PluginDialogDeleted;
+				dialog.Response += PluginDialogResponse;
+				
+				// Store it off in our dictionary so we can present it again
+				dialog.Data ["PluginInfoAttribute"] = plugin_info;
+				plugin_dialogs [plugin_info] = dialog;
+			} else {
+				// It's already opened so just present it again
+				dialog = plugin_dialogs [plugin_info] as Gtk.Dialog;
+			}
+			
+			dialog.Present ();
+		}
+		
+		[GLib.ConnectBefore]
+		void PluginDialogDeleted (object sender, Gtk.DeleteEventArgs args)
+		{
+			// Remove the plugin_info from the plugin_dialogs Dictionary
+			Gtk.Dialog dialog = sender as Gtk.Dialog;
+			dialog.Hide ();
+			
+			if (dialog.Data.ContainsKey ("PluginInfoAttribute")) {
+				plugin_dialogs.Remove (
+					dialog.Data ["PluginInfoAttribute"] as PluginInfoAttribute);
+			}
+			
+			dialog.Destroy ();
+		}
+		
+		void PluginDialogResponse (object sender, Gtk.ResponseArgs args)
+		{
+			PluginDialogDeleted (sender, null);
 		}
 
 		void SetupPropertyEditor (PropertyEditor peditor)
