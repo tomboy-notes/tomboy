@@ -1,3 +1,11 @@
+2007-04-20  Boyd Timothy <btimothy@novell.com> 
+
+	* Tomboy/Note.cs: Make sure every note has a create and changed date
+	  set.  If loading an existing note and they're not set already, use
+	  the creation and last write times.  This fixes a problem of someone
+	  copying a set of tomboy notes to a newer computer and seeing the
+	  last modified date being set to the last modified date of the file.
+
 2007-04-20  Sandy Armstrong <sanfordarmstrong@gmail.com> 
 
 	* Tomboy/Plugins/NoteOfTheDay.cs: Reverting to previous version now
