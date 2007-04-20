@@ -1,3 +1,34 @@
+2007-04-20  Boyd Timothy <btimothy@novell.com> 
+
+	* Tomboy.mdp: Added references to TagManager.cs, Tag.cs, TagButton.cs
+	  and WrapBox.cs.
+	* Tomboy/PluginManager.cs: Add NoteTagsWatcher (from Watchers.cs) to
+	  the list of built-in plugins.
+	* Tomboy/TagManager.cs: Static class to provide access to tags
+	  throughout the application.
+	* Tomboy/RecentChanges.cs: Added a rudimentary TreeView to the
+	  left-hand side of the window to show tags with checkboxes which
+	  filters the list by tags.
+	* Tomboy/Tag.cs: New class to represent a tag.
+	* Tomboy/Watchers.cs: Added NoteTagsWatcher (NotePlugin) whose main job
+	  is to remove tags from the TagManager when no more notes are tagged
+	  with the tag.
+	* Tomboy/WrapBox.cs: Code from Alp
+	  (http://svn.ndesk.org/ndesk/Parts/WrapBox.cs) that provides a
+	  container that will wrap widgets.  This is used in NoteTagBar in
+	  the NoteWindow.
+	* Tomboy/NoteWindow.cs: Added NoteTagBar which allows users to
+	  add/remove tags to their notes.  Need to change the tag icon in the
+	  toolbar.
+	* Tomboy/Makefile.am: Include TagManager.cs, Tag.cs, TagButton.cs and
+	  WrapBox.cs.
+	* Tomboy/Note.cs: Read and write tags in the archiver.  AddTag () and
+	  RemoveTag () added on Note.  Each note keeps track of which tags is
+	  is tagged with.  TagAdded, TagRemoving, and TagRemoved events added
+	  to Note.
+	* Tomboy/TagButton.cs: Button used in the NoteTagBar to allow a user to
+	  remove an existing tag from a note.
+
 2007-04-20  Sandy Armstrong <sanfordarmstrong@gmail.com> 
 
 	* Tomboy/Plugins/NoteOfTheDay.cs: Removing references to uncommitted
