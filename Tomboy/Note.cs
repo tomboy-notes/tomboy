@@ -1,6 +1,7 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Xml;
@@ -10,6 +11,9 @@ namespace Tomboy
 {
 	public delegate void NoteRenameHandler (Note sender, string old_title);
 	public delegate void NoteSavedHandler (Note note);
+	public delegate void TagAddedHandler (Note note, Tag tag);
+	public delegate void TagRemovingHandler (Note note, Tag tag);
+	public delegate void TagRemovedHandler (Note note, string tag_name);
 
 	// Contains all pure note data, like the note title and note text.
 	public class NoteData
@@ -23,6 +27,8 @@ namespace Tomboy
 		int cursor_pos;
 		int width, height;
 		int x, y;
+		
+		Dictionary<string, Tag> tags;
 
 		const int noPosition = -1;
 
@@ -32,6 +38,8 @@ namespace Tomboy
 			this.text = "";
 			x = noPosition;
 			y = noPosition;
+			
+			tags = new Dictionary<string, Tag> ();
 		}
 
 		public string Uri
@@ -95,6 +103,11 @@ namespace Tomboy
 		{
 			get { return y; }
 			set { y = value; }
+		}
+		
+		public Dictionary<string, Tag> Tags
+		{
+			get { return tags; }
 		}
 
 		public void SetPositionExtent (int x, int y, int width, int height)
@@ -270,6 +283,13 @@ namespace Tomboy
 			this.data = new NoteDataBufferSynchronizer (data);
 			this.filepath = filepath;
 			this.manager = manager;
+			
+			// Make sure each of the tags that NoteData found point to the
+			// instance of this note.
+			foreach (Tag tag in data.Tags.Values) {
+				AddTag (tag);
+			}
+			
 			save_timeout = new InterruptableTimeout ();
 			save_timeout.Timeout += SaveTimeout;
 		}
@@ -302,6 +322,11 @@ namespace Tomboy
 		public void Delete ()
 		{
 			save_timeout.Cancel ();
+			
+			// Remove the note from all the tags
+			foreach (Tag tag in Tags) {
+				RemoveTag (tag);
+			}
 
 			if (window != null) {
 				window.Hide ();
@@ -435,6 +460,47 @@ namespace Tomboy
 				// error message correctly.
 				Logger.Log ("Error while saving: {0}", e);
 			}
+		}
+		
+		public void AddTag (Tag tag)
+		{
+			if (tag == null)
+				throw new ArgumentNullException ("Note.AddTag () called with a null tag.");
+
+Logger.Debug ("Note.AddTag: {0}", tag.Name);
+			
+			tag.AddNote (this);
+			
+			if (!data.Data.Tags.ContainsKey (tag.NormalizedName)) {
+				data.Data.Tags [tag.NormalizedName] = tag;
+
+				if (TagAdded != null)
+					TagAdded (this, tag);
+
+				DebugSave ("Tag added, queueing save");
+				QueueSave (false);
+			}
+		}
+		
+		public void RemoveTag (Tag tag)
+		{
+			if (tag == null)
+				throw new ArgumentException ("Note.RemoveTag () called with a null tag.");
+			
+			if (!data.Data.Tags.ContainsKey (tag.NormalizedName))
+				return;
+			
+			if (TagRemoving != null)
+				TagRemoving (this, tag);
+			
+			data.Data.Tags.Remove (tag.NormalizedName);
+			tag.RemoveNote (this);
+			
+			if (TagRemoved != null)
+				TagRemoved (this, tag.NormalizedName);
+
+			DebugSave ("Tag removed, queueing save");
+			QueueSave (false);
 		}
 
 		public string Uri
@@ -645,10 +711,18 @@ namespace Tomboy
 				Preferences.Set (Preferences.MENU_PINNED_NOTES, new_pinned);
 			}
 		}
+		
+		public List<Tag> Tags
+		{
+			get { return new List<Tag> (data.Data.Tags.Values); }
+		}
 
 		public event EventHandler Opened;
 		public event NoteRenameHandler Renamed;
 		public event NoteSavedHandler Saved;
+		public event TagAddedHandler TagAdded;
+		public event TagRemovingHandler TagRemoving;
+		public event TagRemovedHandler TagRemoved;
 	}
 
 	// Singleton - allow overriding the instance for easy sensing in
@@ -738,6 +812,14 @@ namespace Tomboy
 						break;
 					case "y":
 						note.Y = int.Parse (xml.ReadString ());
+						break;
+					case "tags":
+						XmlDocument doc = new XmlDocument ();
+						List<string> tag_strings = ParseTags (doc.ReadNode (xml.ReadSubtree ()));
+						foreach (string tag_str in tag_strings) {
+							Tag tag = TagManager.GetOrCreateTag (tag_str);
+							note.Tags [tag.NormalizedName] = tag;
+						}
 						break;
 					}
 					break;
@@ -860,9 +942,34 @@ namespace Tomboy
 			xml.WriteStartElement (null, "y", null);
 			xml.WriteString (note.Y.ToString ());
 			xml.WriteEndElement ();
+			
+			if (note.Tags.Count > 0) {
+				xml.WriteStartElement (null, "tags", null);
+				foreach (Tag tag in note.Tags.Values) {
+					xml.WriteStartElement (null, "tag", null);
+					xml.WriteString (tag.Name);
+					xml.WriteEndElement ();
+				}
+				xml.WriteEndElement ();
+			}
 
 			xml.WriteEndElement (); // Note
 			xml.WriteEndDocument ();
+		}
+		
+		// <summary>
+		// Parse the tags from the <tags> element
+		// </summary>
+		List<string> ParseTags (XmlNode tagNodes)
+		{
+			List<string> tags = new List<string> ();
+			
+			foreach (XmlNode node in tagNodes.SelectNodes ("//tag")) {
+				string tag = node.InnerText;
+				tags.Add (tag);
+			}
+			
+			return tags;
 		}
 	}
 

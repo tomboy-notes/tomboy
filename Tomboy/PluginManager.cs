@@ -323,6 +323,7 @@ namespace Tomboy
 			typeof (NoteLinkWatcher),
 			typeof (NoteWikiWatcher),
 			typeof (MouseHandWatcher),
+			typeof (NoteTagsWatcher),
 			
 			// Not ready yet:
 			// typeof (NoteRelatedToWatcher),

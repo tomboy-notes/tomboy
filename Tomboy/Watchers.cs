@@ -1050,4 +1050,56 @@ namespace Tomboy
 			}
 		}
 	}
+	
+	public class NoteTagsWatcher : NotePlugin
+	{
+		static NoteTagsWatcher ()
+		{
+		}
+
+		protected override void Initialize ()
+		{
+			Note.TagAdded += OnTagAdded;
+			Note.TagRemoving += OnTagRemoving;
+			Note.TagRemoved += OnTagRemoved;
+		}
+
+		protected override void Shutdown ()
+		{
+			Note.TagAdded -= OnTagAdded;
+			Note.TagRemoving -= OnTagRemoving;
+			Note.TagRemoved -= OnTagRemoved;
+		}
+
+		protected override void OnNoteOpened ()
+		{
+			// FIXME: Just for kicks, spit out the current tags
+			Logger.Debug ("{0} tags:", Note.Title);
+			foreach (Tag tag in Note.Tags) {
+				Logger.Debug ("\t{0}", tag.Name);
+			}
+		}
+		
+		void OnTagAdded (Note note, Tag tag)
+		{
+			Logger.Debug ("Tag added to {0}: {1}", note.Title, tag.Name);
+		}
+		
+		void OnTagRemoving (Note note, Tag tag)
+		{
+			Logger.Debug ("Removing tag from {0}: {1}", note.Title, tag.Name);
+		}
+		
+		// <summary>
+		// Keep the TagManager clean by removing tags that are no longer
+		// tagging any other notes.
+		// </summary>
+		void OnTagRemoved (Note note, string tag_name)
+		{
+			Tag tag = TagManager.GetTag (tag_name);
+Logger.Debug ("Watchers.OnTagRemoved popularity count: {0}", tag.Popularity);
+			if (tag.Popularity == 0)
+				TagManager.RemoveTag (tag);
+		}
+	}
 }
