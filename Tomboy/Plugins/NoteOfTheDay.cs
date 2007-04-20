@@ -65,13 +65,13 @@ class NoteOfTheDay
 		}
 
 		if (notd != null) {
-			// Automatically tag all new Note of the Day notes
-			Tag notd_tag = TagManager.GetOrCreateTag (
-					Catalog.GetString ("Note of the Day"));
-			notd.AddTag (notd_tag);
+			// Automatically tag all new Note of the Day notes (uncomment after tagging patch lands)
+			//Tag notd_tag = TagManager.GetOrCreateTag (
+			//		Catalog.GetString ("Note of the Day"));
+			//notd.AddTag (notd_tag);
 			
-			// notd.AddTag queues a save so the following is no longer necessary
-			//notd.Save ();
+			// notd.AddTag queues a save so the following is no longer necessary (comment or delete after tagging patch lands)
+			notd.Save ();
 		}
 
 		return notd;
