@@ -40,6 +40,9 @@ namespace Tomboy
 			y = noPosition;
 			
 			tags = new Dictionary<string, Tag> ();
+			
+			create_date = DateTime.MinValue;
+			change_date = DateTime.MinValue;
 		}
 
 		public string Uri
@@ -315,7 +318,10 @@ namespace Tomboy
 						       string filepath,
 						       NoteManager manager)
 		{
-			data.ChangeDate = File.GetLastWriteTime (filepath);
+			if (data.CreateDate == DateTime.MinValue)
+				data.CreateDate = File.GetCreationTime (filepath);
+			if (data.ChangeDate == DateTime.MinValue)
+				data.ChangeDate = File.GetLastWriteTime (filepath);
 			return new Note (data, filepath, manager);
 		}
 
