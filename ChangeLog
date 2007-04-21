@@ -1,4 +1,10 @@
-2007-04-20  Boyd Timothy <btimothy@novell.com> 
+2007-04-20  Boyd Timothy <btimothy@gmail.com> 
+
+	* Tomboy/WrapBox.cs: Applied modified patch from Stefan Schweizer to
+	  delete the TextChildAnchors inside Remove ().  Added a Dictionary
+	  to track the TextChildAnchors so this is an O(1) operation.
+
+2007-04-20  Boyd Timothy <btimothy@gmail.com> 
 
 	* Tomboy/Note.cs: Make sure every note has a create and changed date
 	  set.  If loading an existing note and they're not set already, use
@@ -11,7 +17,7 @@
 	* Tomboy/Plugins/NoteOfTheDay.cs: Reverting to previous version now
 	  that tagging has landed on trunk.
 
-2007-04-20  Boyd Timothy <btimothy@novell.com> 
+2007-04-20  Boyd Timothy <btimothy@gmail.com> 
 
 	* Tomboy.mdp: Added references to TagManager.cs, Tag.cs, TagButton.cs
 	  and WrapBox.cs.
@@ -48,19 +54,19 @@
 	  tagging code.  When tagging patch lands on trunk, this should be
 	  restored to the previous version.
 
-2007-04-19  Boyd Timothy <btimothy@novell.com> 
+2007-04-19  Boyd Timothy <btimothy@gmail.com> 
 
 	* Tomboy/Plugins/NoteOfTheDay.cs: Added a settings dialog with
 	  a button so the user can easily open/create the Today:
 	  Template note.  This addresses part of the issue mentioned
 	  in bug #387580.
 
-2007-04-19  Boyd Timothy <btimothy@novell.com> 
+2007-04-19  Boyd Timothy <btimothy@gmail.com> 
 
 	* Tomboy/Preferences.cs: Keep track of plugin setting dialogs in a
 	  Dictionary so that they don't have to be modal dialogs.
 
-2007-04-17  Boyd Timothy <btimothy@novell.com> 
+2007-04-17  Boyd Timothy <btimothy@gmail.com> 
 
 	* Tomboy/Watchers.cs: Fix title replace debug log message to use the
 	  right parameters.
