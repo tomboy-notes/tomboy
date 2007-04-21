@@ -11,6 +11,7 @@ namespace Tomboy
 		EventBox eb;
 		TextView tv;
 		public bool IsBase;
+		Dictionary<Widget, TextChildAnchor> child_anchors;
 		
 		#region Constructors
 		public WrapBox()
@@ -28,6 +29,8 @@ namespace Tomboy
 			
 			// Not sure what the following line does
 			Raw = tv.Handle;
+			
+			child_anchors = new Dictionary<Widget, TextChildAnchor> ();
 		}
 		#endregion
 		
@@ -85,6 +88,11 @@ namespace Tomboy
 			anchor = tv.Buffer.CreateChildAnchor (ref end_iter);
 			
 			tv.AddChildAtAnchor (child, anchor);
+			
+			// Keep track of the widget's anchor so that we can
+			// remove the anchor and the widget inside of the
+			// Remove () call.
+			child_anchors [child] = anchor;
 		}
 		
 		public void Clear ()
@@ -95,6 +103,21 @@ namespace Tomboy
 		public void Remove (Widget child)
 		{
 			tv.Remove (child);
+
+			// Remove the TextChildAnchor also
+			if (child_anchors.ContainsKey (child)) {
+				TextChildAnchor anchor =
+						child_anchors [child] as TextChildAnchor;
+				
+				if (anchor.Widgets.Length == 0) {
+					TextIter start = tv.Buffer.GetIterAtChildAnchor (anchor);
+					TextIter end = start.Copy ();
+					end.ForwardChar ();
+					tv.Buffer.Delete (ref start, ref end);
+				}
+				
+				child_anchors.Remove (child);
+			}
 		}
 		#endregion
 	}
