@@ -473,8 +473,6 @@ namespace Tomboy
 			if (tag == null)
 				throw new ArgumentNullException ("Note.AddTag () called with a null tag.");
 
-Logger.Debug ("Note.AddTag: {0}", tag.Name);
-			
 			tag.AddNote (this);
 			
 			if (!data.Data.Tags.ContainsKey (tag.NormalizedName)) {
