@@ -359,7 +359,7 @@ namespace Tomboy
 			int insertion_point = 2;	// If menu opens downard
 			
 			// FIXME: Rearrange this stuff to have less wasteful reordering
-			if(menuOpensUpward) {
+			if (menuOpensUpward) {
 				// Relocate common items to bottom of menu
 				recent_menu.ReorderChild (searchNotesItem, list_size + 1);
 				recent_menu.ReorderChild (newNoteItem, list_size + 1);
@@ -374,7 +374,7 @@ namespace Tomboy
 		bool MenuOpensUpward ()
 		{
 			int x, y;
-			this.GdkWindow.GetOrigin(out x, out y);
+			this.GdkWindow.GetOrigin (out x, out y);
 			return y > 100;	// FIXME: This can be better, I'm sure
 		}
 		
