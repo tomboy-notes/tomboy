@@ -293,7 +293,16 @@ namespace Tomboy
 			int min_size = (int) Preferences.Get (Preferences.MENU_NOTE_COUNT);
 			int max_size = 18;
 			int list_size = 0;
+			bool menuOpensUpward = MenuOpensUpward ();
 			NoteMenuItem item;
+			
+			// Assume menu opens downward, move common items to top of menu
+			Gtk.MenuItem newNoteItem = Tomboy.ActionManager.GetWidget (
+				"/TrayIconMenu/TrayNewNote") as Gtk.MenuItem;			
+			Gtk.MenuItem searchNotesItem = Tomboy.ActionManager.GetWidget (
+				"/TrayIconMenu/ShowSearchAllNotes") as Gtk.MenuItem;
+			recent_menu.ReorderChild (newNoteItem, 0);
+			recent_menu.ReorderChild (searchNotesItem, 1);
 
 			DateTime days_ago = DateTime.Today.AddDays (-3);
 			
@@ -319,7 +328,7 @@ namespace Tomboy
 
 				if (show) {
 					item = new NoteMenuItem (note, true);
-					// Add this widget to the menu (+2 to add after separator)
+					// Add this widget to the menu (+2 to add after new+search)
 					recent_menu.Insert (item, list_size + 2);
 					// Keep track of this item so we can remove it later
 					recent_notes.Add (item);
@@ -331,7 +340,10 @@ namespace Tomboy
 			Note start = manager.FindByUri (NoteManager.StartNoteUri);
 			if (start != null) {
 				item = new NoteMenuItem (start, false);
-				recent_menu.Insert (item, list_size + 2);
+				if (menuOpensUpward)
+					recent_menu.Insert (item, list_size + 2);
+				else
+					recent_menu.Insert (item, 2);
 				recent_notes.Add (item);
 
 				list_size++;
@@ -343,10 +355,27 @@ namespace Tomboy
 						item, 
 						Preferences.KEYBINDING_OPEN_START_HERE);
 			}
+
+			int insertion_point = 2;	// If menu opens downard
 			
+			// FIXME: Rearrange this stuff to have less wasteful reordering
+			if(menuOpensUpward) {
+				// Relocate common items to bottom of menu
+				recent_menu.ReorderChild (searchNotesItem, list_size + 1);
+				recent_menu.ReorderChild (newNoteItem, list_size + 1);
+				insertion_point = list_size;
+			}
+
 			Gtk.SeparatorMenuItem separator = new Gtk.SeparatorMenuItem ();
-			recent_menu.Insert (separator, list_size + 2);
+			recent_menu.Insert (separator, insertion_point);			
 			recent_notes.Add (separator);
+		}
+		
+		bool MenuOpensUpward ()
+		{
+			int x, y;
+			this.GdkWindow.GetOrigin(out x, out y);
+			return y > 100;	// FIXME: This can be better, I'm sure
 		}
 		
 		void RemoveRecentlyChangedNotes ()
