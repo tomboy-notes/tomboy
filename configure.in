@@ -103,29 +103,12 @@ AC_ARG_ENABLE(dbus,
 	      ENABLE_DBUS="$enableval")
 AM_CONDITIONAL(ENABLE_DBUS, test "x$ENABLE_DBUS" != "xno")
 
-#
-# Use pkg-config to check for the DBus Service directory if specified by
-# --enable-dbus-service-dir-check.
-#
-AC_ARG_ENABLE(dbus-service-dir-check,
-	      [  --enable-dbus-service-dir-check[[=no/yes]]    query for service directory [[default: yes]]],
-	      [case "$enableval" in
-	      	yes) ENABLE_DBUS_SERVICE_DIR_CHECK=yes ;;
-	      	no)  ENABLE_DBUS_SERVICE_DIR_CHECK=no ;;
-	      	*)   AC_MSG_ERROR(bad value ${enableval} for --enable-dbus-service-dir-check) ;;
-	      esac],
-	      [ENABLE_DBUS_SERVICE_DIR_CHECK=yes])
-AM_CONDITIONAL(ENABLE_DBUS_SERVICE_DIR_CHECK, test "$ENABLE_DBUS_SERVICE_DIR_CHECK" = "yes")
-
-if test "$ENABLE_DBUS_SERVICE_DIR_CHECK" = "yes" ; then
-DBUS_SERVICE_DIR_TEST=`$PKG_CONFIG --variable=session_bus_services_dir dbus-1`
-if test "x$DBUS_SERVICE_DIR_TEST" != "x" ; then
-	DBUS_SERVICE_DIR=$DBUS_SERVICE_DIR_TEST
-fi
-fi
-# Set DBUS_SERVICE_DIR if it's not already set
-if test "x$DBUS_SERVICE_DIR" = "x" ; then
-	DBUS_SERVICE_DIR=$datadir/dbus-1/services
+AC_ARG_WITH(dbus_service_dir, [  --with-dbus-service-dir=DIR            Where to install Tomboy's DBus service file.])
+AM_CONDITIONAL(WITH_DBUS_SERVICE_DIR, test "x$with_dbus_service_dir" != "x")
+if test "x$with_dbus_service_dir" != "x"; then
+	DBUS_SERVICE_DIR=$with_dbus_service_dir
+else
+	DBUS_SERVICE_DIR=${datadir}/dbus-1/services
 fi
 AC_SUBST(DBUS_SERVICE_DIR)
 

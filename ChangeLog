@@ -1,3 +1,11 @@
+2007-04-23  Boyd Timothy <btimothy@gmail.com> 
+
+	* configure.in: Don't automatically check for the dbus service
+	  directory.  Instead, allow packagers to set
+	  --with-dbus-service-dir=DIR.  This allows "make distcheck" to work
+	  much easier since it won't attempt to install any files outside of
+	  prefix.
+
 2007-04-23  Sandy Armstrong <sanfordarmstrong@gmail.com> 
 
 	* Tomboy/Tray.cs, data/UIManagerLayout.xml: Keep static menu items in
