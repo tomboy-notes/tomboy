@@ -143,7 +143,7 @@ class NoteOfTheDay
 	PluginInfoAttribute.OFFICIAL_AUTHOR,
 	"Automatically creates a \"Today\" note for easily jotting down " +
 	"daily thoughts.",
-	WebSite = "http://www.gnome.org/projects/tomboy/",
+	WebSite = Defines.TOMBOY_WEBSITE,
     PreferencesWidget = typeof (NoteOfTheDayPreferences)
 	)]
 public class NoteOfTheDayPlugin : NotePlugin

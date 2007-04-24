@@ -11,7 +11,7 @@ using Tomboy;
 	"Print Plugin", Defines.VERSION,
 	PluginInfoAttribute.OFFICIAL_AUTHOR,
 	"Allows you to print a note.",
-	WebSite = "http://www.gnome.org/projects/tomboy/"
+	WebSite = Defines.TOMBOY_WEBSITE
 	)]
 public class PrintPlugin : NotePlugin
 {

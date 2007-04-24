@@ -12,7 +12,7 @@ using Tomboy;
 	"Sticky Notes Importer", Defines.VERSION,
 	PluginInfoAttribute.OFFICIAL_AUTHOR,
 	"Import your notes from the Sticky Notes applet.",
-	WebSite = "http://www.gnome.org/projects/tomboy/"
+	WebSite = Defines.TOMBOY_WEBSITE
 	)]
 public class StickyNoteImporter : NotePlugin
 {

@@ -486,7 +486,7 @@ class BugzillaPreferences : Gtk.VBox
             "Allows you to drag a Bugzilla URL from your browser directly " +
             "into a tomboy note.  The bug number is inserted as a link with " +
             "a little bug icon next to it.",
-            WebSite = "http://www.gnome.org/projects/tomboy/",
+            WebSite = Defines.TOMBOY_WEBSITE,
             PreferencesWidget = typeof (BugzillaPreferences)
             )]
 

@@ -259,7 +259,7 @@ class PersonTag : NoteTag
 	"Galago Presence Plugin", Defines.VERSION,
 	PluginInfoAttribute.OFFICIAL_AUTHOR,
 	"See online presence of buddies mentioned in a note.",
-	WebSite = "http://www.gnome.org/projects/tomboy/"
+	WebSite = Defines.TOMBOY_WEBSITE
 	)]
 class GalagoPresencePlugin : NotePlugin 
 {
