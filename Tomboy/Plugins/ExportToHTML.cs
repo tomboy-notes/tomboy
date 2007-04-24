@@ -15,7 +15,7 @@ using Tomboy;
 	"Export to HTML", Defines.VERSION,
 	PluginInfoAttribute.OFFICIAL_AUTHOR,
 	"Exports individual notes to HTML.",
-	WebSite = "http://www.gnome.org/projects/tomboy/"
+	WebSite = Defines.TOMBOY_WEBSITE
 	)]
 public class ExportToHTMLPlugin : NotePlugin
 {

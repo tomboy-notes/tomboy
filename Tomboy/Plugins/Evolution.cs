@@ -277,7 +277,7 @@ public class EmailLink : DynamicNoteTag
 	PluginInfoAttribute.OFFICIAL_AUTHOR,
 	"Allows you to drag an email from Evolution into a tomboy note.  The " +
 	"message subject is added as a link in the note.",
-	WebSite = "http://www.gnome.org/projects/tomboy/"
+	WebSite = Defines.TOMBOY_WEBSITE
 	)]
 public class EvolutionPlugin : NotePlugin
 {
