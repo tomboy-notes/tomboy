@@ -9,6 +9,11 @@ namespace Tomboy
 {
 	public class NoteEditor : Gtk.TextView
 	{
+		//GNOME desktop default document font GConf setting path
+		const string DESKTOP_GNOME_INTERFACE_PATH = "/desktop/gnome/interface";
+		const string GNOME_DOCUMENT_FONT_KEY =
+			DESKTOP_GNOME_INTERFACE_PATH + "/document_font_name";
+
 		public NoteEditor (Gtk.TextBuffer buffer)
 			: base (buffer)
 		{
@@ -17,15 +22,23 @@ namespace Tomboy
 			RightMargin = DefaultMargin;
 			CanDefault = true;
 
+			//Set up the GConf client to watch the default document font
+			Preferences.Client.AddNotify (DESKTOP_GNOME_INTERFACE_PATH,
+							OnFontSettingChanged);
+
 			// Make sure the cursor position is visible
 			ScrollMarkOnscreen (buffer.InsertMark);
 
 			// Set Font from GConf preference
 			if ((bool) Preferences.Get (Preferences.ENABLE_CUSTOM_FONT)) {
-				string font_string = (string) 
+				string font_string = (string)
 					Preferences.Get (Preferences.CUSTOM_FONT_FACE);
 				ModifyFont (Pango.FontDescription.FromString (font_string));
 			}
+			else {
+				ModifyFont (GetGnomeDocumentFontDescription ());
+			}
+				
 			Preferences.SettingChanged += OnFontSettingChanged;
 
 			// Set extra editor drag targets supported (in addition
@@ -43,8 +56,23 @@ namespace Tomboy
 			get { return 8; }
 		}
 
+		// Retrieve the GNOME document font setting
+		Pango.FontDescription GetGnomeDocumentFontDescription ()
+		{
+			try {
+				string doc_font_string = (string)
+					Preferences.Client.Get (GNOME_DOCUMENT_FONT_KEY);
+				return Pango.FontDescription.FromString (doc_font_string);				
+			} catch (GConf.NoSuchKeyException) {
+			} catch (System.InvalidCastException) {
+			}
+
+			return new Pango.FontDescription ();		
+		}
+
 		//
 		// Update the font based on the changed Preference dialog setting.
+		// Also update the font based on the changed GConf GNOME document font setting.
 		//
 		void OnFontSettingChanged (object sender, GConf.NotifyEventArgs args)
 		{
@@ -58,17 +86,24 @@ namespace Tomboy
 						Preferences.Get (Preferences.CUSTOM_FONT_FACE);
 					ModifyFont (Pango.FontDescription.FromString (font_string));
 				} else
-					ModifyFont (new Pango.FontDescription ());
+					ModifyFont (GetGnomeDocumentFontDescription ());
 
 				break;
 
+			case GNOME_DOCUMENT_FONT_KEY:
+				if (!(bool) Preferences.Get (Preferences.ENABLE_CUSTOM_FONT))
+					ModifyFontFromString ((string) args.Value);
+				break;
 			case Preferences.CUSTOM_FONT_FACE:
-				Logger.Log ("Switching note font to '{0}'...", 
-					    (string) args.Value);
-
-				ModifyFont (Pango.FontDescription.FromString ((string) args.Value));
+				ModifyFontFromString ((string) args.Value);
 				break;
 			}
+		}
+
+		void ModifyFontFromString (string fontString)
+		{
+			Logger.Log ("Switching note font to '{0}'...", fontString);
+			ModifyFont (Pango.FontDescription.FromString (fontString));
 		}
 
 		//
