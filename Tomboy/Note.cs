@@ -338,6 +338,9 @@ namespace Tomboy
 				window.Hide ();
 				window.Destroy ();
 			}
+			
+			// Remove note URI from GConf entry menu_pinned_notes
+			IsPinned = false;
 		}
 
 		// Load from an existing Note...
