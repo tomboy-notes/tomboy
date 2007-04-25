@@ -651,13 +651,14 @@ namespace Tomboy
 					      Catalog.GetString ("Set properties of text"), 
 					      null);
 			
-			// FIXME: Use a proper icon for the Tags button
+			// FIXME: Isn't there a better way to load an icon besides having
+			// to specify a size implicitly?  (tomboy-tag, 22)
 			Gtk.Widget tags_button =
 				toolbar.AppendItem (
 					Catalog.GetString ("Tags"),
 					Catalog.GetString ("Add/Remove note tags"),
 					null,
-					new Gtk.Image (Gtk.Stock.SelectFont, toolbar.IconSize),
+					new Gtk.Image (GuiUtils.GetIcon ("tomboy-tag", 22)),
 					new Gtk.SignalFunc (TagBarClicked));
 			tags_button.AddAccelerator ("activate",
 						    accel_group,
