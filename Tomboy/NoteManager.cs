@@ -212,6 +212,9 @@ namespace Tomboy
 
 			// Update the trie so plugins can access it, if they want.
 			trie_controller.Update ();
+			
+			bool startup_notes_enabled = (bool)
+					Preferences.Get (Preferences.ENABLE_STARTUP_NOTES);
 
 			// Load all the plugins for our notes.
 			// Iterating through copy of notes list, because list may be
@@ -219,6 +222,15 @@ namespace Tomboy
 			ArrayList notesCopy = new ArrayList (notes);
 			foreach (Note note in notesCopy) {
 				plugin_mgr.LoadPluginsForNote (note);
+				
+				// Show all notes that were visible when tomboy was shut down
+				if (note.IsOpenOnStartup) {
+					if (startup_notes_enabled)
+						note.Window.Show ();
+					
+					note.IsOpenOnStartup = false;
+					note.QueueSave (false);
+				}
 			}
 			
 			// Make sure that a Start Note Uri is set in the preferences.  This
@@ -237,6 +249,11 @@ namespace Tomboy
 			Logger.Log ("Saving unsaved notes...");
 
 			foreach (Note note in notes) {
+				// If the note is visible, it will be shown automatically on
+				// next startup
+				if (note.HasWindow && note.Window.Visible)
+					note.IsOpenOnStartup = true;
+				
 				note.Save ();
 			}
 		}

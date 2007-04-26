@@ -27,6 +27,7 @@ namespace Tomboy
 		int cursor_pos;
 		int width, height;
 		int x, y;
+		bool open_on_startup;
 		
 		Dictionary<string, Tag> tags;
 
@@ -112,7 +113,13 @@ namespace Tomboy
 		{
 			get { return tags; }
 		}
-
+		
+		public bool IsOpenOnStartup
+		{
+			get { return open_on_startup; }
+			set { open_on_startup = value; }
+		}
+		
 		public void SetPositionExtent (int x, int y, int width, int height)
 		{
 			Debug.Assert (x >= 0 && y >= 0);
@@ -719,6 +726,17 @@ namespace Tomboy
 			}
 		}
 		
+		public bool IsOpenOnStartup
+		{
+			get { return Data.IsOpenOnStartup; }
+			set {
+				if (Data.IsOpenOnStartup != value) {
+					Data.IsOpenOnStartup = value;
+					save_needed = true;
+				}
+			}
+		}
+		
 		public List<Tag> Tags
 		{
 			get { return new List<Tag> (data.Data.Tags.Values); }
@@ -827,6 +845,9 @@ namespace Tomboy
 							Tag tag = TagManager.GetOrCreateTag (tag_str);
 							note.Tags [tag.NormalizedName] = tag;
 						}
+						break;
+					case "open-on-startup":
+						note.IsOpenOnStartup = bool.Parse (xml.ReadString ());
 						break;
 					}
 					break;
@@ -959,6 +980,10 @@ namespace Tomboy
 				}
 				xml.WriteEndElement ();
 			}
+			
+			xml.WriteStartElement (null, "open-on-startup", null);
+			xml.WriteString (note.IsOpenOnStartup.ToString ());
+			xml.WriteEndElement ();
 
 			xml.WriteEndElement (); // Note
 			xml.WriteEndDocument ();
