@@ -418,6 +418,10 @@ class BugzillaPreferences : Gtk.VBox
 		string ext = file_info.Extension;
 		string saved_path = System.IO.Path.Combine (image_dir, host + ext);
 		try {
+			if (!Directory.Exists (image_dir)) {
+				Directory.CreateDirectory (image_dir);
+			}
+
 			File.Copy (file_path, saved_path);
 		} catch (Exception e) {
 			err_msg = e.Message;
