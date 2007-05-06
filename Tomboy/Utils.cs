@@ -798,6 +798,10 @@ namespace Tomboy
 			action_manager.LoadInterface ();
 
 			RegisterSignalHandlers ();
+			
+			// Register handler for saving session when logging out of Gnome
+			Gnome.Client client = Gnome.Global.MasterClient ();
+			client.SaveYourself += OnSaveYourself;
 		}
 
 		[DllImport("libc")]
@@ -826,6 +830,14 @@ namespace Tomboy
 			// unsaved notes on exit...
 			Stdlib.signal (Signum.SIGTERM, OnExitSignal);
 			Stdlib.signal (Signum.SIGINT, OnExitSignal);
+		}
+
+		static void OnSaveYourself (object sender, Gnome.SaveYourselfArgs args)
+		{
+			Logger.Log ("Received request for saving session");
+			
+			if (ExitingEvent != null)
+				ExitingEvent (null, new EventArgs ());
 		}
 
 		public static void RegisterSessionManagerRestart (string executable_path,
