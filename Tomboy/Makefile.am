@@ -42,6 +42,7 @@ CSFILES = 					\
 	$(srcdir)/Applet.cs 			\
 	$(srcdir)/Logger.cs			\
 	$(srcdir)/Note.cs 			\
+	$(srcdir)/NoteEditor.cs			\
 	$(srcdir)/NoteManager.cs 		\
 	$(srcdir)/NoteWindow.cs 		\
 	$(srcdir)/NoteBuffer.cs 		\
