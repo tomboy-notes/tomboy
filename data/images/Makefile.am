@@ -48,9 +48,9 @@ install-data-hook:
 
 uninstall-hook:
 	rm -f $(DESTDIR)$(hicolordir)/scalable/apps/tomboy-tag.svg
-	rm -f $(DESTDIR)$(hicolordir)/16x16/apps/tomboy-tag.svg
-	rm -f $(DESTDIR)$(hicolordir)/22x22/apps/tomboy-tag.svg
-	rm -f $(DESTDIR)$(hicolordir)/32x32/apps/tomboy-tag.svg
+	rm -f $(DESTDIR)$(hicolordir)/16x16/apps/tomboy-tag.png
+	rm -f $(DESTDIR)$(hicolordir)/22x22/apps/tomboy-tag.png
+	rm -f $(DESTDIR)$(hicolordir)/32x32/apps/tomboy-tag.png
 	rm -f $(DESTDIR)$(hicolordir)/scalable/apps/tomboy.svg
 	rm -f $(DESTDIR)$(hicolordir)/16x16/apps/tomboy.png
 	rm -f $(DESTDIR)$(hicolordir)/16x16/apps/tomboy-note.png
