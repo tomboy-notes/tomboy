@@ -100,6 +100,7 @@ namespace Tomboy
 
 			// Spell checking...
 
+#if FIXED_GTKSPELL
 			if (NoteSpellChecker.GtkSpellAvailable) {
 				check = MakeCheckButton (
 					Catalog.GetString ("_Spell check while typing"));
@@ -117,6 +118,7 @@ namespace Tomboy
 							   "menu."));
 				options_list.PackStart (label, false, false, 0);
 			}
+#endif
 
 
 			// WikiWords...
