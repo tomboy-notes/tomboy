@@ -318,7 +318,9 @@ namespace Tomboy
 		// Plugins in the tomboy.exe assembly, always loaded.
 		static Type[] stock_plugins = {
 			typeof (NoteRenameWatcher),
+#if FIXED_GTKSPELL
 			typeof (NoteSpellChecker),
+#endif
 			typeof (NoteUrlWatcher),
 			typeof (NoteLinkWatcher),
 			typeof (NoteWikiWatcher),

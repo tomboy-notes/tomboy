@@ -186,6 +186,7 @@ namespace Tomboy
 		}
 	}
 
+#if FIXED_GTKSPELL
 	public class NoteSpellChecker : NotePlugin
 	{
 		IntPtr obj_ptr = IntPtr.Zero;
@@ -317,6 +318,7 @@ namespace Tomboy
 			}
 		}
 	}
+#endif
 
 	public class NoteUrlWatcher : NotePlugin
 	{
