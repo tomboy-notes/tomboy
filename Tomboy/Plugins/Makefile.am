@@ -122,10 +122,33 @@ $(BUGZILLA_TARGET): $(BUGZILLA_CSFILES) $(top_builddir)/Tomboy/Tomboy.exe
 
 BACKLINKS_TARGET = Backlinks.dll
 BACKLINKS_CSFILES = $(srcdir)/Backlinks.cs
-BACKLINKS_RESOURCES = -resource:$(top_srcdir)/data/images/stock_bug.png,stock_bug.png
+BACKLINKS_RESOURCES =
 
 $(BACKLINKS_TARGET): $(BACKLINKS_CSFILES) $(top_builddir)/Tomboy/Tomboy.exe
 	$(CSC) -out:$@ $(CSFLAGS) $(ASSEMBLIES) $(BACKLINKS_CSFILES) $(BACKLINKS_RESOURCES)
+
+
+#
+# Tasks plugin
+#
+
+TASKS_TARGET = Tasks.dll
+TASKS_CSFILES = \
+	$(srcdir)/Task.cs \
+	$(srcdir)/TaskArchiver.cs \
+	$(srcdir)/TaskData.cs \
+	$(srcdir)/TaskManager.cs \
+	$(srcdir)/TaskTag.cs \
+	$(srcdir)/TasksPlugin.cs
+TASKS_RESOURCES = \
+	-resource:$(srcdir)/checkbox-done.png,checkbox-done.png \
+	-resource:$(srcdir)/checkbox-todo.png,checkbox-todo.png
+TASKS_IMAGES = \
+	$(srcdir)/checkbox-done.png \
+	$(srcdir)/checkbox-todo.png
+
+$(TASKS_TARGET): $(TASKS_CSFILES) $(top_builddir)/Tomboy/Tomboy.exe
+	$(CSC) -out:$@ $(CSFLAGS) $(ASSEMBLIES) $(TASKS_CSFILES) $(TASKS_RESOURCES)
 
 
 pluginsdir = $(pkglibdir)/Plugins
@@ -138,7 +161,8 @@ plugins_DATA = 			\
 	$(GALAGO_TARGET)	\
 	$(NOTD_TARGET)		\
 	$(PRINT_TARGET)		\
-	$(STICKYIMPORT_TARGET)
+	$(STICKYIMPORT_TARGET) \
+	$(TASKS_TARGET)
 
 
 EXTRA_DIST =            	\
@@ -151,7 +175,9 @@ EXTRA_DIST =            	\
 	$(PRINT_CSFILES)	\
 	$(NOTD_CSFILES)		\
 	$(FIXEDWIDTH_CSFILES)	\
-	$(STICKYIMPORT_CSFILES)
+	$(STICKYIMPORT_CSFILES) \
+	$(TASKS_CSFILES) \
+	$(TASKS_IMAGES)
 
 CLEANFILES =				\
 	$(BACKLINKS_TARGET)		\
@@ -171,4 +197,6 @@ CLEANFILES =				\
 	$(FIXEDWIDTH_TARGET)		\
 	$(FIXEDWIDTH_TARGET).mdb	\
 	$(STICKYIMPORT_TARGET)		\
-	$(STICKYIMPORT_TARGET).mdb
+	$(STICKYIMPORT_TARGET).mdb \
+	$(TASKS_TARGET).mdb \
+	$(TASKS_TARGET)
