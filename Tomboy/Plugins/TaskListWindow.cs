@@ -184,12 +184,29 @@ public class TaskListWindow : Tomboy.ForcedPresentWindow
 		renderer = new Gtk.CellRendererText ();
 		(renderer as CellRendererText).Editable = true;
 		(renderer as CellRendererText).Edited += OnTaskSummaryEdited;
-		(renderer as CellRendererText).Xalign = 0.0f;
+		renderer.Xalign = 0.0f;
 		summary.PackStart (renderer, true);
 		summary.SetCellDataFunc (renderer,
 				new Gtk.TreeCellDataFunc (SummaryCellDataFunc));
 
 		tree.AppendColumn (summary);
+		
+		///
+		/// Due Date
+		///
+		Gtk.TreeViewColumn due_date = new Gtk.TreeViewColumn ();
+		due_date.Title = Catalog.GetString ("Due Date");
+		due_date.Sizing = Gtk.TreeViewColumnSizing.Autosize;
+		due_date.Resizable = false;
+		
+		renderer = new Gtk.Extras.CellRendererDate ();
+		(renderer as Gtk.Extras.CellRendererDate).Editable = true;
+		(renderer as Gtk.Extras.CellRendererDate).Edited += OnDueDateEdited;
+		renderer.Xalign = 0.0f;
+		due_date.PackStart (renderer, true);
+		due_date.SetCellDataFunc (renderer,
+				new Gtk.TreeCellDataFunc (DueDateCellDataFunc));
+		tree.AppendColumn (due_date);
 	}
 
 	void ToggleCellDataFunc (Gtk.TreeViewColumn tree_column,
@@ -215,6 +232,18 @@ public class TaskListWindow : Tomboy.ForcedPresentWindow
 			crt.Text = String.Empty;
 		else
 			crt.Text = task.Summary;
+	}
+	
+	void DueDateCellDataFunc (Gtk.TreeViewColumn tree_column,
+			Gtk.CellRenderer cell, Gtk.TreeModel tree_model,
+			Gtk.TreeIter iter)
+	{
+		Gtk.Extras.CellRendererDate crd = cell as Gtk.Extras.CellRendererDate;
+		Task task = tree_model.GetValue (iter, 0) as Task;
+		if (task == null)
+			crd.Date = DateTime.MinValue;
+		else
+			crd.Date = task.DueDate;
 	}
 
 	void SetUpTreeModel ()
@@ -553,8 +582,6 @@ public class TaskListWindow : Tomboy.ForcedPresentWindow
 
 	void OnTaskToggled (object sender, Gtk.ToggledArgs args)
 	{
-//		Gtk.CellRendererToggle crt = sender as Gtk.CellRendererToggle;
-
 		Gtk.TreePath path = new Gtk.TreePath (args.Path);
 		Gtk.TreeIter iter;
 		if (store_sort.GetIter (out iter, path) == false)
@@ -581,6 +608,19 @@ Logger.Debug ("TaskListWindow.OnTaskSummaryEdited");
 		
 		Task task = store_sort.GetValue (iter, 0) as Task;
 		task.Summary = args.NewText;
+	}
+	
+	void OnDueDateEdited (Gtk.Extras.CellRendererDate renderer, string path)
+	{
+		Logger.Debug ("OnDueDateEdited");
+		
+		Gtk.TreeIter iter;
+		Gtk.TreePath tree_path = new TreePath (path);
+		if (store_sort.GetIter (out iter, tree_path) == false)
+			return;
+		
+		Task task = store_sort.GetValue (iter, 0) as Task;
+		task.DueDate = renderer.Date;
 	}
 	
 	void OnTaskAdded (TaskManager manager, Task task)
@@ -625,3 +665,4 @@ Logger.Debug ("TaskListWindow.OnTaskSummaryEdited");
 		} while (store_sort.IterNext (ref iter));
 	}
 }
+
