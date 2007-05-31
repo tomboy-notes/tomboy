@@ -137,15 +137,18 @@ TASKS_CSFILES = \
 	$(srcdir)/Task.cs \
 	$(srcdir)/TaskArchiver.cs \
 	$(srcdir)/TaskData.cs \
+	$(srcdir)/TaskListWindow.cs \
 	$(srcdir)/TaskManager.cs \
 	$(srcdir)/TaskTag.cs \
 	$(srcdir)/TasksPlugin.cs
 TASKS_RESOURCES = \
 	-resource:$(srcdir)/checkbox-done.png,checkbox-done.png \
-	-resource:$(srcdir)/checkbox-todo.png,checkbox-todo.png
-TASKS_IMAGES = \
+	-resource:$(srcdir)/checkbox-todo.png,checkbox-todo.png \
+	-resource:$(srcdir)/TasksUIManagerLayout.xml
+TASKS_EXTRA_DIST = \
 	$(srcdir)/checkbox-done.png \
-	$(srcdir)/checkbox-todo.png
+	$(srcdir)/checkbox-todo.png \
+	$(srcdir)/TasksUIManagerLayout.xml
 
 $(TASKS_TARGET): $(TASKS_CSFILES) $(top_builddir)/Tomboy/Tomboy.exe
 	$(CSC) -out:$@ $(CSFLAGS) $(ASSEMBLIES) $(TASKS_CSFILES) $(TASKS_RESOURCES)
@@ -177,7 +180,7 @@ EXTRA_DIST =            	\
 	$(FIXEDWIDTH_CSFILES)	\
 	$(STICKYIMPORT_CSFILES) \
 	$(TASKS_CSFILES) \
-	$(TASKS_IMAGES)
+	$(TASKS_EXTRA_DIST)
 
 CLEANFILES =				\
 	$(BACKLINKS_TARGET)		\

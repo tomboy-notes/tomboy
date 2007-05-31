@@ -1,0 +1,20 @@
+<ui>
+    <menubar name="TaskListWindowMenubar">
+        <menu name="TaskListFileMenu" action="TaskListFileMenuAction">
+            <menuitem name="NewTask" action="NewTaskAction" />
+            <menuitem name="OpenTask" action="OpenTaskAction" />
+            <separator />
+            <menuitem name="CloseTaskListWindow" action="CloseTaskListWindowAction" />
+        </menu>
+        <menu name="TaskListEditMenu" action="TaskListEditMenuAction">
+            <menuitem name="DeleteTask" action="DeleteTaskAction" />
+        </menu>
+        <menu name="TaskListHelpMenu" action="TaskListHelpMenuAction">
+            <menuitem name="ShowTaskHelp" action="ShowTaskHelpAction" />
+        </menu>
+    </menubar>
+    <popup name="TaskListWindowContextMenu" action="TaskListWindowContextMenuAction">
+    	<menuitem name="OpenTask" action="OpenTaskAction" />
+    	<menuitem name="DeleteTask" action="DeleteTaskAction" />
+    </popup>
+</ui>
