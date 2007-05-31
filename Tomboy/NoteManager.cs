@@ -453,6 +453,11 @@ namespace Tomboy
 				return trie_controller.TitleTrie;
 			}
 		}
+		
+		public string NoteDirectoryPath
+		{
+			get { return notes_dir; }
+		}
 
 		public event NotesChangedHandler NoteDeleted;
 		public event NotesChangedHandler NoteAdded;
