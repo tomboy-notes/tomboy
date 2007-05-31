@@ -18,6 +18,10 @@ public class TaskListWindow : Tomboy.ForcedPresentWindow
 
 	Gtk.TreeView tree;
 	Gtk.TreeModelSort store_sort;
+	
+	// Use this to select the task that was created inside
+	// this window.
+	bool expecting_newly_created_task;
 
 	static TaskListWindow instance;
 
@@ -38,6 +42,8 @@ public class TaskListWindow : Tomboy.ForcedPresentWindow
 		this.IconName = "tomboy";
 		this.DefaultWidth = 200;
 		
+		expecting_newly_created_task = false;
+		
 		AddAccelGroup (Tomboy.Tomboy.ActionManager.UI.AccelGroup);
 
 		action_group = new Gtk.ActionGroup ("TaskList");
@@ -46,7 +52,7 @@ public class TaskListWindow : Tomboy.ForcedPresentWindow
 				Catalog.GetString ("_File"), null, null, null),
 
 			new Gtk.ActionEntry ("NewTaskAction", Gtk.Stock.New,
-				Catalog.GetString ("_New"), "<Control>N",
+				Catalog.GetString ("New _Task"), "<Control>T",
 				Catalog.GetString ("Create a new task"), null),
 			
 			new Gtk.ActionEntry ("OpenTaskAction", String.Empty,
@@ -86,6 +92,8 @@ public class TaskListWindow : Tomboy.ForcedPresentWindow
 
 		tasks_sw = new Gtk.ScrolledWindow ();
 		tasks_sw.ShadowType = Gtk.ShadowType.In;
+		tasks_sw.VscrollbarPolicy = Gtk.PolicyType.Automatic;
+		tasks_sw.HscrollbarPolicy = Gtk.PolicyType.Automatic;
 
 		// Reign in the window size if there are notes with long
 		// names, or a lot of notes...
@@ -93,13 +101,9 @@ public class TaskListWindow : Tomboy.ForcedPresentWindow
 		Gtk.Requisition tree_req = tree.SizeRequest ();
 		if (tree_req.Height > 420)
 			tasks_sw.HeightRequest = 420;
-		else
-			tasks_sw.VscrollbarPolicy = Gtk.PolicyType.Never;
 
 		if (tree_req.Width > 480)
 			tasks_sw.WidthRequest = 480;
-		else
-			tasks_sw.HscrollbarPolicy = Gtk.PolicyType.Never;
 
 		tasks_sw.Add (tree);
 		tasks_sw.Show ();
@@ -390,9 +394,28 @@ public class TaskListWindow : Tomboy.ForcedPresentWindow
 			return date.ToString (Catalog.GetString ("MMMM d yyyy, h:mm tt"));
 	}
 	
+	/// <summary>
+	/// Create a new task using "New Task NNN" format
+	/// </summary>
 	void OnNewTask (object sender, EventArgs args)
 	{
-		Logger.Debug ("FIXME: Implement TaskListWindow.OnNewTask");
+		int new_num = manager.Tasks.IterNChildren ();
+		string summary;
+		
+		while (true) {
+			summary = String.Format (Catalog.GetString ("New Task {0}"), 
+						    ++new_num);
+			if (manager.Find (summary) == null)
+				break;
+		}
+		
+		try {
+			expecting_newly_created_task = true;
+			manager.Create (summary);
+		} catch (Exception e) {
+			expecting_newly_created_task = false;
+			Logger.Error ("Could not create a new task with summary: {0}:{1}", summary, e.Message);
+		}
 	}
 	
 	void OnOpenTask (object sender, EventArgs args)
@@ -562,6 +585,13 @@ Logger.Debug ("TaskListWindow.OnTaskSummaryEdited");
 	
 	void OnTaskAdded (TaskManager manager, Task task)
 	{
+		if (expecting_newly_created_task) {
+			// A user just created this task inside this window
+			expecting_newly_created_task = false;
+			
+			SelectTask (task);
+		}
+		
 		int cnt = manager.Tasks.IterNChildren ();
 		UpdateTaskCount (cnt);
 	}
@@ -575,5 +605,23 @@ Logger.Debug ("TaskListWindow.OnTaskSummaryEdited");
 	void OnTaskStatusChanged (Task task)
 	{
 		// FIXME: Eventually update the status bar to include the number of completed notes
+	}
+	
+	void SelectTask (Task task)
+	{
+		// FIXME: YUCK!  TaskListWindow.SelectTask is pretty ugly (brute force).  Is there a better way to do this?
+		Gtk.TreeIter iter;
+		
+		if (store_sort.IterChildren (out iter) == false)
+			return;
+		
+		do {
+			Task iter_task = store_sort.GetValue (iter, 0) as Task;
+			if (iter_task == task) {
+				// Found it!
+				tree.Selection.SelectIter (iter);
+				break;
+			}
+		} while (store_sort.IterNext (ref iter));
 	}
 }
