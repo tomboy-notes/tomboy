@@ -17,6 +17,11 @@ public class TasksPlugin : NotePlugin
 {
 	static TaskManager manager;
 	static object locker = new object ();
+	
+	static Gtk.ActionGroup action_group;
+	static uint tray_icon_ui = 0;
+	
+	static TaskListWindow task_list_window = null;
 
 	static TasksPlugin ()
 	{
@@ -42,6 +47,26 @@ public class TasksPlugin : NotePlugin
 						Path.Combine (Note.Manager.NoteDirectoryPath, "Tasks"));
 				}
 			}
+			
+			///
+			/// Add a "To Do List" to Tomboy's Tray Icon Menu
+			///
+			action_group = new Gtk.ActionGroup ("Tasks");
+			action_group.Add (new Gtk.ActionEntry [] {
+				new Gtk.ActionEntry ("OpenToDoListAction", null,
+					Catalog.GetString ("To Do List"), null, null,
+					delegate { OnOpenToDoListAction (); })
+			});
+			
+			tray_icon_ui = Tomboy.Tomboy.ActionManager.UI.AddUiFromString (@"
+				<ui>
+					<popup name='TrayIconMenu' action='TrayIconMenuAction'>
+						<menuitem name='OpenToDoList' action='OpenToDoListAction' />
+					</popup>
+				</ui>
+			");
+			
+			Tomboy.Tomboy.ActionManager.UI.InsertActionGroup (action_group, 0);
 		}
 	}
 
@@ -50,6 +75,9 @@ public class TasksPlugin : NotePlugin
 		if (TasksPluginShutdownEvent != null) {
 			TasksPluginShutdownEvent (this, EventArgs.Empty);
 			manager = null;
+			
+			Tomboy.Tomboy.ActionManager.UI.RemoveActionGroup (action_group);
+			Tomboy.Tomboy.ActionManager.UI.RemoveUi (tray_icon_ui);
 		}
 		
 //		Buffer.InsertText -= OnInsertText;
@@ -169,5 +197,12 @@ public class TasksPlugin : NotePlugin
 		}
 		
 		return false;
+	}
+	
+	private void OnOpenToDoListAction ()
+	{
+		TaskListWindow task_list_window = TaskListWindow.GetInstance (manager);
+		if (task_list_window != null)
+			task_list_window.Present ();
 	}
 }

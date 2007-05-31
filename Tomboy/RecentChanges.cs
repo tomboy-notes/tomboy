@@ -17,7 +17,6 @@ namespace Tomboy
 		Gtk.CheckButton case_sensitive;
 		Gtk.HPaned hpaned;
 		Gtk.Label note_count;
-		Gtk.Button close_button;
 		Gtk.ScrolledWindow matches_window;
 		Gtk.VBox content_vbox;
 		Gtk.TreeViewColumn matches_column;
@@ -229,11 +228,6 @@ namespace Tomboy
 			//			OnCloseWindow);
 			
 			return menubar;
-		}
-		
-		void ShowMenuItem (Gtk.Widget widget)
-		{
-			widget.Show ();
 		}
 		
 		Gtk.TreeView MakeTagsTree ()

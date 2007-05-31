@@ -1,5 +1,22 @@
 2007-05-31  Boyd Timothy <btimothy@gmail.com> 
 
+	* Tomboy.mdp: Added TaskListWindow.cs.
+	* Tomboy/Plugins/TaskListWindow.cs: New Window to show the list of
+	  tasks.
+	* Tomboy/Plugins/TaskManager.cs: Added a public property to expose the
+	  Tasks ListStore.  Also emit changes in the ListStore when a task is
+	  renamed, saved, or status changes.
+	* Tomboy/Plugins/TasksPlugin.cs: Add a "To Do List" to Tomboy's Icon
+	  Menu.  Load the UIManager xml for the TaskListWindow actions.
+	* Tomboy/Plugins/Makefile.am: Added TaskListWindow.cs.  Added
+	  TasksUIManagerLayout.xml as a resource.
+	* Tomboy/Plugins/TasksUIManagerLayout.xml: UIManager XML file for the
+	  Task List Window.
+	* Tomboy/RecentChanges.cs: Removed unused code which was giving
+	  compiler warnings.
+
+2007-05-31  Boyd Timothy <btimothy@gmail.com> 
+
 	* Tomboy.mdp, Tomboy/Plugins/TaskArchiver.cs,
 	  Tomboy/Plugins/checkbox-done.png, Tomboy/Plugins/TaskData.cs,
 	  Tomboy/Plugins/TaskManager.cs, Tomboy/Plugins/TaskTag.cs,

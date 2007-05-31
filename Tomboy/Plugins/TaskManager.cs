@@ -49,6 +49,10 @@ public class TaskManager
 #endregion // Constructors
 
 #region Public Properties
+	public Gtk.ListStore Tasks
+	{
+		get { return tasks; }
+	}
 #endregion // Public Properties
 
 #region Public Methods
@@ -237,6 +241,16 @@ public class TaskManager
 		Guid guid = Guid.NewGuid ();
 		return Path.Combine (tasks_dir, guid.ToString () + ".task");
 	}
+
+	void EmitRowChangedForTask (Task task)
+	{
+		if (task_iters.ContainsKey (task.Uri)) {
+			Gtk.TreeIter iter = task_iters [task.Uri];
+			
+			tasks.EmitRowChanged (tasks.GetPath (iter), iter);
+		}
+	}
+
 #endregion // Private Methods
 
 #region Event Handlers
@@ -263,18 +277,24 @@ public class TaskManager
 
 	void OnTaskRenamed (Task task, string old_summary)
 	{
+		EmitRowChangedForTask (task);
+
 		if (TaskRenamed != null)
 			TaskRenamed (task, old_summary);
 	}
 	
 	void OnTaskSaved (Task task)
 	{
+		EmitRowChangedForTask (task);
+
 		if (TaskSaved != null)
 			TaskSaved (task);
 	}
 	
 	void OnTaskStatusChanged (Task task)
 	{
+		EmitRowChangedForTask (task);
+		
 		if (TaskStatusChanged != null)
 			TaskStatusChanged (task);
 	}
