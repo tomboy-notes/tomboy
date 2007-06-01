@@ -470,30 +470,6 @@ public class TaskListWindow : Tomboy.ForcedPresentWindow
 		return (Task) model.GetValue (iter, 0);
 	}
 
-	string PrettyPrintDate (DateTime date)
-	{
-		DateTime now = DateTime.Now;
-		string short_time = date.ToShortTimeString ();
-
-		if (date.Year == now.Year) {
-			if (date.DayOfYear == now.DayOfYear)
-				return String.Format (Catalog.GetString ("Today, {0}"), 
-						      short_time);
-			else if (date.DayOfYear == now.DayOfYear - 1)
-				return String.Format (Catalog.GetString ("Yesterday, {0}"),
-						      short_time);
-			else if (date.DayOfYear > now.DayOfYear - 6)
-				return String.Format (
-					Catalog.GetString ("{0} days ago, {1}"), 
-					now.DayOfYear - date.DayOfYear,
-					short_time);
-			else
-				return date.ToString (
-					Catalog.GetString ("MMMM d, h:mm tt"));
-		} else
-			return date.ToString (Catalog.GetString ("MMMM d yyyy, h:mm tt"));
-	}
-	
 	/// <summary>
 	/// Create a new task using "New Task NNN" format
 	/// </summary>
@@ -524,7 +500,10 @@ public class TaskListWindow : Tomboy.ForcedPresentWindow
 		if (task == null)
 			return;
 		
-		Logger.Debug ("FIXME: Implement TaskListWindow.OnOpenTask");
+		TaskOptionsDialog dialog = new TaskOptionsDialog (this, DialogFlags.DestroyWithParent, task);
+		Logger.Debug ("FIXME: Position the TaskOptionsDialog right next to the selected task (row)");
+		dialog.Run ();
+		dialog.Destroy ();
 	}
 	
 	void OnDeleteTask (object sender, EventArgs args)
@@ -609,13 +588,7 @@ public class TaskListWindow : Tomboy.ForcedPresentWindow
 	
 	void OnRowActivated (object sender, Gtk.RowActivatedArgs args)
 	{
-		Gtk.TreeIter iter;
-		if (!store_sort.GetIter (out iter, args.Path)) 
-			return;
-
-		Task task = store_sort.GetValue (iter, 0) as Task;
-		
-		Logger.Debug ("FIXME: Implement TaskListWindow.OnRowActivated: {0}", task.Summary);
+		Tomboy.Tomboy.ActionManager ["OpenTaskAction"].Activate ();
 	}
 	
 	void ShowDeletionDialog (Task task)

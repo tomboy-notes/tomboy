@@ -131,6 +131,44 @@ namespace Tomboy
 				dialog.Destroy ();
 			}
 		}
+		
+		/// <summary>
+		/// Get a string that is more friendly/pretty for the specified date.
+		/// For example, "Today, 3:00 PM", "4 days ago, 9:20 AM".
+		/// </summary>
+		public static string GetPrettyPrintDate (DateTime date)
+		{
+			DateTime now = DateTime.Now;
+			string short_time = date.ToShortTimeString ();
+
+			if (date.Year == now.Year) {
+				if (date.DayOfYear == now.DayOfYear)
+					return String.Format (Catalog.GetString ("Today, {0}"), 
+							      short_time);
+				else if (date.DayOfYear < now.DayOfYear
+							&& date.DayOfYear == now.DayOfYear - 1)
+					return String.Format (Catalog.GetString ("Yesterday, {0}"),
+									short_time);
+				else if (date.DayOfYear < now.DayOfYear
+							&& date.DayOfYear > now.DayOfYear - 6)
+					return String.Format (Catalog.GetString ("{0} days ago, {1}"),
+						now.DayOfYear - date.DayOfYear, short_time);
+				else if (date.DayOfYear > now.DayOfYear
+							&& date.DayOfYear == now.DayOfYear + 1)
+					return String.Format (Catalog.GetString ("Tomorrow, {0}"),
+									short_time);
+				else if (date.DayOfYear > now.DayOfYear
+							&& date.DayOfYear < now.DayOfYear + 6)
+					return String.Format (Catalog.GetString ("In {0} days, {1}"),
+						date.DayOfYear - now.DayOfYear, short_time);
+				else
+					return date.ToString (
+						Catalog.GetString ("MMMM d, h:mm tt"));
+			} else if (date == DateTime.MinValue)
+				return Catalog.GetString ("No Date");
+			else
+				return date.ToString (Catalog.GetString ("MMMM d yyyy, h:mm tt"));
+		}
 	}
 
 	public class GlobalKeybinder 

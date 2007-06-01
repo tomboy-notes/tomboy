@@ -135,12 +135,14 @@ $(BACKLINKS_TARGET): $(BACKLINKS_CSFILES) $(top_builddir)/Tomboy/Tomboy.exe
 TASKS_TARGET = Tasks.dll
 TASKS_CSFILES = \
 	$(srcdir)/CellRendererDate.cs \
+	$(srcdir)/DateButton.cs \
 	$(srcdir)/DateTimeChooserDialog.cs \
 	$(srcdir)/Task.cs \
 	$(srcdir)/TaskArchiver.cs \
 	$(srcdir)/TaskData.cs \
 	$(srcdir)/TaskListWindow.cs \
 	$(srcdir)/TaskManager.cs \
+	$(srcdir)/TaskOptionsDialog.cs \
 	$(srcdir)/TaskTag.cs \
 	$(srcdir)/TasksPlugin.cs
 TASKS_RESOURCES = \

@@ -56,7 +56,10 @@ namespace Gtk.Extras
 				out int x_offset, out int y_offset, out int width, out int height)
 		{
 			Pango.Layout layout = GetLayout (widget);
-			layout.SetText (PrettyPrintDate (date));
+			
+			// FIXME: If this code is ever built into its own library,
+			// the call to Tomboy will definitely have to change
+			layout.SetText (Tomboy.GuiUtils.GetPrettyPrintDate (date));
 			
 			CalculateSize (layout, out x_offset, out y_offset, out width, out height);
 		}
@@ -90,7 +93,10 @@ namespace Gtk.Extras
 				Gdk.Rectangle expose_area, CellRendererState flags)
 		{
 			Pango.Layout layout = GetLayout (widget);
-			layout.SetText (PrettyPrintDate (date));
+
+			// FIXME: If this code is ever built into its own library,
+			// the call to Tomboy will definitely have to change
+			layout.SetText (Tomboy.GuiUtils.GetPrettyPrintDate (date));
 			
 			int x, y, w, h;
 			CalculateSize (layout, out x, out y, out w, out h);
@@ -127,39 +133,13 @@ namespace Gtk.Extras
 			width = w + ((int) Xpad) * 2;
 			height = h + ((int) Ypad) * 2;
 		}
-		
-		static string PrettyPrintDate (DateTime date)
-		{
-			if (date == DateTime.MinValue)
-				return Catalog.GetString ("No Date");
-			
-			DateTime now = DateTime.Now;
-			string short_time = date.ToShortTimeString ();
-
-			if (date.Year == now.Year) {
-				if (date.DayOfYear == now.DayOfYear)
-					return String.Format (Catalog.GetString ("Today, {0}"), 
-							      short_time);
-				else if (date.DayOfYear == now.DayOfYear - 1)
-					return String.Format (Catalog.GetString ("Yesterday, {0}"),
-							      short_time);
-				else if (date.DayOfYear > now.DayOfYear - 6)
-					return String.Format (
-						Catalog.GetString ("{0} days ago, {1}"), 
-						now.DayOfYear - date.DayOfYear,
-						short_time);
-				else
-					return date.ToString (
-						Catalog.GetString ("MMMM d, h:mm tt"));
-			} else
-				return date.ToString (Catalog.GetString ("MMMM d yyyy, h:mm tt"));
-		}
 #endregion
 
 #region Event Handlers
 		[GLib.ConnectBefore]
 		void OnDialogResponse (object sender, Gtk.ResponseArgs args)
 		{
+			System.Console.WriteLine ("Response: {0}", args.ResponseId);
 			response_type = args.ResponseId;
 		}
 		
