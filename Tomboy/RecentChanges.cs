@@ -354,7 +354,7 @@ namespace Tomboy
 
 			int cnt = 0;
 			foreach (Note note in manager.Notes) {
-				string nice_date = PrettyPrintDate (note.ChangeDate);
+				string nice_date = GuiUtils.GetPrettyPrintDate (note.ChangeDate);
 
 				Gtk.TreeIter iter =
 					store.AppendValues (note_icon,  /* icon */
@@ -813,30 +813,6 @@ namespace Tomboy
 			return (Note) model.GetValue (iter, 3 /* note */);
 		}
 
-		string PrettyPrintDate (DateTime date)
-		{
-			DateTime now = DateTime.Now;
-			string short_time = date.ToShortTimeString ();
-
-			if (date.Year == now.Year) {
-				if (date.DayOfYear == now.DayOfYear)
-					return String.Format (Catalog.GetString ("Today, {0}"), 
-							      short_time);
-				else if (date.DayOfYear == now.DayOfYear - 1)
-					return String.Format (Catalog.GetString ("Yesterday, {0}"),
-							      short_time);
-				else if (date.DayOfYear > now.DayOfYear - 6)
-					return String.Format (
-						Catalog.GetString ("{0} days ago, {1}"), 
-						now.DayOfYear - date.DayOfYear,
-						short_time);
-				else
-					return date.ToString (
-						Catalog.GetString ("MMMM d, h:mm tt"));
-			} else
-				return date.ToString (Catalog.GetString ("MMMM d yyyy, h:mm tt"));
-		}
-		
 		void OnOpenNote (object sender, EventArgs args)
 		{
 			Note note = GetSelectedNote ();

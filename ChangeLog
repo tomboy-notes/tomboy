@@ -1,5 +1,26 @@
 2007-06-01  Boyd Timothy <btimothy@gmail.com> 
 
+	* Tomboy.mdp, Tomboy/Plugins/Makefile.am: Added TaskOptionsDialog.cs
+	  and DateButton.cs.
+	* Tomboy/Plugins/TaskArchiver.cs: Load in details directly instead of
+	  the <text> element surrounding it.
+	* Tomboy/Plugins/TaskListWindow.cs: Use
+	  Tomboy.GuiUtils.GetPrettyPrintDate ().  Also show the task options
+	  when activated/opened.
+	* Tomboy/Plugins/TaskOptionsDialog.cs: Initial/stub of little dialog to
+	  allow the user to edit the details of a task.
+	* Tomboy/Plugins/DateTimeChooserDialog.cs: Add more options to the
+	  calendar display options.
+	* Tomboy/Plugins/CellRendererDate.cs, Tomboy/RecentChanges.cs: Use
+	  Tomboy.GuiUtils.GetPrettyPrintDate ().
+	* Tomboy/Plugins/DateButton.cs: DateButton kindly donated by Banshee
+	  (abock).  Modified it a little bit to deal directly with a
+	  DateTime.
+	* Tomboy/Utils.cs: Added GetPrettyPrintDate () so other classes can use
+	  this.  Also made it deal with dates in the future.
+
+2007-06-01  Boyd Timothy <btimothy@gmail.com> 
+
 	* Tomboy/Plugins/DateTimeChooserDialog.cs: Remove old comments.
 
 2007-06-01  Boyd Timothy <btimothy@gmail.com> 

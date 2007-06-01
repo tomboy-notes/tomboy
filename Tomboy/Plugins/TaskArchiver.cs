@@ -65,8 +65,7 @@ public class TaskArchiver
 				case "summary":
 					data.Summary = xml.ReadString ();
 					break;
-				case "text":
-					// <text> is just a wrapper around <details>
+				case "details":
 					data.Details = xml.ReadInnerXml ();
 					break;
 				case "create-date":

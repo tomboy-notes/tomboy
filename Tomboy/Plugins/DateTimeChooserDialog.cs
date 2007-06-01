@@ -33,7 +33,9 @@ namespace Gtk.Extras
 			AddAccelGroup (accel_group);
 			
 			calendar = new Gtk.Calendar ();
-			calendar.DisplayOptions = CalendarDisplayOptions.ShowHeading;
+			calendar.DisplayOptions = CalendarDisplayOptions.ShowHeading
+								| CalendarDisplayOptions.ShowDayNames 
+								| CalendarDisplayOptions.ShowWeekNumbers;
 			calendar.Date = date;
 			calendar.Show ();
 			VBox.PackStart (calendar, true, true, 0);
