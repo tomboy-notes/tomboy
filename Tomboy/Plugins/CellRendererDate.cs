@@ -112,11 +112,7 @@ namespace Gtk.Extras
 			
 			int x, y, w, h;
 			CalculateSize (layout, out x, out y, out w, out h);
-			Xalign = x;
-			Yalign = y;
-			Width = w;
-			Height = h;
-			
+
             StateType state = RendererStateToWidgetState(flags);
 
 			Gdk.GC gc;
@@ -131,7 +127,7 @@ namespace Gtk.Extras
 			drawable.DrawLayout (
 				gc,
 				cell_area.X + (int)Xalign + (int)Xpad,
-				cell_area.Y + (int)Yalign + (int)Ypad,
+				cell_area.Y + ((cell_area.Height - h) / 2), 
 				layout);
 		}
 
