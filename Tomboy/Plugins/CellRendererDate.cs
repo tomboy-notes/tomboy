@@ -7,18 +7,34 @@ namespace Gtk.Extras
 {
 	public delegate void DateEditedHandler (CellRendererDate renderer, string path);
 	
-	public class CellRendererDate : Gtk.CellRenderer//, Gtk.CellEditable
+	public class CellRendererDate : Gtk.CellRenderer
 	{
 		DateTime date;
 		bool editable;
-		Gtk.ResponseType response_type;
+		
+		Window popup;
+		Calendar cal;
+		string path;
+		
+		// The following variable is set during StartEditing ()
+		// and this is kind of a hack, but it "works".  The widget
+		// that is passed-in to StartEditing() is the TreeView.
+		// This is used to position the calendar popup.
+		Gtk.TreeView tree;
 
-#region Constructors		
+		private const uint CURRENT_TIME = 0;
+
+#region Constructors
+		/// <summary>
+		/// <param name="parent">The parent window where this CellRendererDate
+		/// will be used from.  This is needed to access the Gdk.Screen so the
+		/// Calendar will popup in the proper location.</param>
+		/// </summary>
 		public CellRendererDate()
 		{
 			date = DateTime.MinValue;
 			editable = false;
-			response_type = Gtk.ResponseType.None;
+			popup = null;
 		}
 		
 		protected CellRendererDate (System.IntPtr ptr) : base (ptr)
@@ -68,13 +84,9 @@ namespace Gtk.Extras
 				Widget widget, string path, Gdk.Rectangle background_area,
 				Gdk.Rectangle cell_area, CellRendererState flags)
 		{
-			Gtk.Extras.DateTimeChooserDialog dialog =
-					new Gtk.Extras.DateTimeChooserDialog (null, DialogFlags.Modal,
-						date == DateTime.MinValue ? DateTime.Now : date);
-			dialog.TreePathString = path;
-			dialog.EditingDone += OnDateEditingDone;
-			dialog.Response += OnDialogResponse;
-			dialog.Show ();
+			this.path = path;
+			this.tree = widget as Gtk.TreeView;
+			ShowCalendar();
 			
 			return null;
 		}
@@ -133,29 +145,134 @@ namespace Gtk.Extras
 			width = w + ((int) Xpad) * 2;
 			height = h + ((int) Ypad) * 2;
 		}
+
+		private void ShowCalendar()
+		{
+			popup = new Window(WindowType.Popup);
+			popup.Screen = tree.Screen;
+
+			Frame frame = new Frame();
+			frame.Shadow = ShadowType.Out;
+			frame.Show();
+
+			popup.Add(frame);
+
+			VBox box = new VBox(false, 0);
+			box.Show();
+			frame.Add(box);
+			
+			cal = new Calendar();
+			cal.DisplayOptions = CalendarDisplayOptions.ShowHeading
+				| CalendarDisplayOptions.ShowDayNames 
+				| CalendarDisplayOptions.ShowWeekNumbers;
+				
+			cal.KeyPressEvent += OnCalendarKeyPressed;
+			popup.ButtonPressEvent += OnButtonPressed;
+			
+			cal.Show();
+			
+			Alignment calAlignment = new Alignment(0.0f, 0.0f, 1.0f, 1.0f);
+			calAlignment.Show();
+			calAlignment.SetPadding(4, 4, 4, 4);
+			calAlignment.Add(cal);
+		
+			box.PackStart(calAlignment, false, false, 0);
+			
+			// FIXME: Make the popup appear directly below the date
+			Gdk.Rectangle allocation = tree.Allocation;
+			Gtk.Requisition req = tree.SizeRequest ();
+			int x = 0, y = 0;
+			tree.GdkWindow.GetOrigin(out x, out y);
+//			popup.Move(x + allocation.X, y + allocation.Y + req.Height + 3);
+			popup.Move(x + allocation.X, y + allocation.Y);
+			popup.Show();
+			popup.GrabFocus();
+				
+			Grab.Add(popup);
+
+			Gdk.GrabStatus grabbed = Gdk.Pointer.Grab(popup.GdkWindow, true, 
+				Gdk.EventMask.ButtonPressMask 
+				| Gdk.EventMask.ButtonReleaseMask 
+				| Gdk.EventMask.PointerMotionMask, null, null, CURRENT_TIME);
+
+			if(grabbed == Gdk.GrabStatus.Success) {
+				grabbed = Gdk.Keyboard.Grab(popup.GdkWindow, 
+					true, CURRENT_TIME);
+
+				if(grabbed != Gdk.GrabStatus.Success) {
+					Grab.Remove(popup);
+					popup.Destroy();
+					popup = null;
+				}
+			} else {
+				Grab.Remove(popup);
+				popup.Destroy();
+				popup = null;
+			}
+				
+    		cal.DaySelectedDoubleClick += OnCalendarDaySelected;
+			cal.ButtonPressEvent += OnCalendarButtonPressed;
+
+			cal.Date = date == DateTime.MinValue ? DateTime.Now : date;
+		}
+		
+		public void HideCalendar(bool update)
+		{
+			if(popup != null) {
+				Grab.Remove(popup);
+				Gdk.Pointer.Ungrab(CURRENT_TIME);
+				Gdk.Keyboard.Ungrab(CURRENT_TIME);
+
+				popup.Destroy();
+				popup = null;
+			}
+
+			if(update) {
+				date = cal.GetDate();
+
+				if (Edited != null)
+					Edited (this, path);
+			}
+		}
 #endregion
 
 #region Event Handlers
-		[GLib.ConnectBefore]
-		void OnDialogResponse (object sender, Gtk.ResponseArgs args)
+		private void OnButtonPressed(object o, ButtonPressEventArgs args)
 		{
-			System.Console.WriteLine ("Response: {0}", args.ResponseId);
-			response_type = args.ResponseId;
+			if(popup != null)
+				HideCalendar(false);
 		}
 		
-		void OnDateEditingDone (object sender, EventArgs args)
+		private void OnCalendarDaySelected(object o, EventArgs args)
 		{
-			Gtk.Extras.DateTimeChooserDialog dialog = sender as Gtk.Extras.DateTimeChooserDialog;
-
-			if (response_type != Gtk.ResponseType.Cancel) {
-				date = dialog.Date;
-				
-				if (Edited != null)
-					Edited (this, dialog.TreePathString);
-			}
-
-			dialog.Destroy ();
+			HideCalendar(true);
 		}
+		
+		private void OnCalendarButtonPressed(object o, 
+			ButtonPressEventArgs args)
+		{
+			args.RetVal = true;
+		}
+	
+		private void OnCalendarKeyPressed(object o, KeyPressEventArgs args)
+		{
+			switch(args.Event.Key) {
+				case Gdk.Key.Escape:
+					HideCalendar(false);
+					break;
+				case Gdk.Key.KP_Enter:
+				case Gdk.Key.ISO_Enter:
+				case Gdk.Key.Key_3270_Enter:
+				case Gdk.Key.Return:
+				case Gdk.Key.space:
+				case Gdk.Key.KP_Space:
+					HideCalendar(true);
+					break;
+				default:
+					break;
+			}
+		}
+
 #endregion // Event Handlers
 	}
 }

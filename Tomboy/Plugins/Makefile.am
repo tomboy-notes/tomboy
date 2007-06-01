@@ -136,7 +136,6 @@ TASKS_TARGET = Tasks.dll
 TASKS_CSFILES = \
 	$(srcdir)/CellRendererDate.cs \
 	$(srcdir)/DateButton.cs \
-	$(srcdir)/DateTimeChooserDialog.cs \
 	$(srcdir)/Task.cs \
 	$(srcdir)/TaskArchiver.cs \
 	$(srcdir)/TaskData.cs \
