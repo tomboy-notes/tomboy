@@ -11,7 +11,8 @@ namespace Gtk.Extras
 	public class DateTimeChooserDialog : Gtk.Dialog, Gtk.CellEditable
 	{
 		Gtk.AccelGroup accel_group;
-		DateTimeChooser date_time_chooser;
+//		DateTimeChooser date_time_chooser;
+		Gtk.Calendar calendar;
 		string path;
 		
 #region Constructors
@@ -32,18 +33,16 @@ namespace Gtk.Extras
 			accel_group = new Gtk.AccelGroup ();
 			AddAccelGroup (accel_group);
 			
-			date_time_chooser = new DateTimeChooser ();
-			date_time_chooser.Date = date;
-			date_time_chooser.DateSelected += OnDateSelected;
-			date_time_chooser.Show ();
-			VBox.PackStart (date_time_chooser, true, true, 0);
+			calendar = new Gtk.Calendar ();
+			calendar.DisplayOptions = CalendarDisplayOptions.ShowHeading;
+			calendar.Date = date;
+			calendar.Show ();
+			VBox.PackStart (calendar, true, true, 0);
 			
+			AddButton (Catalog.GetString ("None"), Gtk.ResponseType.None);
 			AddButton (Gtk.Stock.Cancel, Gtk.ResponseType.Cancel, false);
-			AddButton (Catalog.GetString ("Today"), Gtk.ResponseType.Ok);
-			AddButton (Catalog.GetString ("None"), Gtk.ResponseType.No);
+			AddButton (Gtk.Stock.Ok, Gtk.ResponseType.Ok, true);
 			
-			DefaultResponse = Gtk.ResponseType.Ok;
-
 			if (parent != null)
 				TransientFor = parent;
 
@@ -58,11 +57,11 @@ namespace Gtk.Extras
 #region Public Properties
 		public DateTime Date
 		{
-			get { return date_time_chooser.Date; }
-			set { date_time_chooser.Date = value; }
+			get { return calendar.Date; }
+			set { calendar.Date = value; }
 		}
 		
-		public string Path
+		public string TreePathString
 		{
 			get { return path; }
 			set { path = value; }
@@ -91,11 +90,8 @@ namespace Gtk.Extras
 		protected override void OnResponse (ResponseType response_id)
 		{
 			switch (response_id) {
-			case Gtk.ResponseType.Ok:
-				date_time_chooser.Date = DateTime.Now;
-				break;
-			case Gtk.ResponseType.No:
-				date_time_chooser.Date = DateTime.MinValue;
+			case Gtk.ResponseType.None:
+				calendar.Date = DateTime.MinValue;
 				break;
 			default:
 				break;
@@ -110,10 +106,9 @@ namespace Gtk.Extras
 #endregion // Private Methods
 
 #region Event Handlers
-		void OnDateSelected (DateTimeChooser chooser, DateTime date)
-		{
-			this.Respond (ResponseType.Apply);
-		}
+//		void OnDaySelected (object sender, EventArgs args)
+//		{
+//		}
 #endregion // EventHandlers
 
 #region Gtk.CellEditable Interfaces

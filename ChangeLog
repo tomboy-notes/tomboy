@@ -1,5 +1,16 @@
 2007-06-01  Boyd Timothy <btimothy@gmail.com> 
 
+	* Tomboy/Plugins/DateTimeChooser.cs: Use Gtk.Calendar instead.
+	* Tomboy/Plugins/DateTimeChooserDialog.cs: Use Gtk.Calendar instead of
+	  coming up with our own thing.
+	* Tomboy/Plugins/CellRendererDate.cs: Added code to make the date
+	  chooser use the existing value and also allow the user to cancel
+	  selecting a new date without causing the date value to change.
+	* Tomboy/Plugins/Makefile.am: Removed DateTimeChooser.cs since
+	  Gtk.Calendar is exactly what we need.
+
+2007-06-01  Boyd Timothy <btimothy@gmail.com> 
+
 	* Tomboy/Plugins/TaskListWindow.cs: Added Completion Date and Priority.
 	   Also fixed the default size so the window will be a decent size.
 
