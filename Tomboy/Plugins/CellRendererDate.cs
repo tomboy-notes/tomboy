@@ -117,9 +117,16 @@ namespace Gtk.Extras
 			Width = w;
 			Height = h;
 			
-			// FIXME: Use the proper Gtk.StateType so text appears properly
-			
-			Gdk.GC gc = widget.Style.TextGC(Gtk.StateType.Normal);
+            StateType state = RendererStateToWidgetState(flags);
+
+			Gdk.GC gc;
+			if (state.Equals(StateType.Selected)) {
+				// Use the proper Gtk.StateType so text appears properly when selected
+				gc = new Gdk.GC(drawable);
+				gc.Copy(widget.Style.TextGC(state));
+				gc.RgbFgColor = widget.Style.Foreground(state);
+			} else
+				gc = widget.Style.TextGC(Gtk.StateType.Normal);
 			
 			drawable.DrawLayout (
 				gc,
@@ -234,6 +241,15 @@ namespace Gtk.Extras
 					Edited (this, path);
 			}
 		}
+
+        private StateType RendererStateToWidgetState(CellRendererState flags)
+        {
+            StateType state = StateType.Normal;
+            if((CellRendererState.Selected & flags).Equals(
+                CellRendererState.Selected))
+                state = StateType.Selected;
+            return state;
+        }
 #endregion
 
 #region Event Handlers
