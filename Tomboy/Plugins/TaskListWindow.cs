@@ -40,7 +40,7 @@ public class TaskListWindow : Tomboy.ForcedPresentWindow
 	{
 		this.manager = manager;
 		this.IconName = "tomboy";
-		this.DefaultWidth = 200;
+		this.SetDefaultSize (500, 300);
 		
 		expecting_newly_created_task = false;
 		
@@ -207,6 +207,46 @@ public class TaskListWindow : Tomboy.ForcedPresentWindow
 		due_date.SetCellDataFunc (renderer,
 				new Gtk.TreeCellDataFunc (DueDateCellDataFunc));
 		tree.AppendColumn (due_date);
+		
+		///
+		/// Completion Date
+		///
+		Gtk.TreeViewColumn completion_date = new Gtk.TreeViewColumn ();
+		completion_date.Title = Catalog.GetString ("Completion Date");
+		completion_date.Sizing = Gtk.TreeViewColumnSizing.Autosize;
+		completion_date.Resizable = false;
+		
+		renderer = new Gtk.Extras.CellRendererDate ();
+		(renderer as Gtk.Extras.CellRendererDate).Editable = false;
+		renderer.Xalign = 0.0f;
+		completion_date.PackStart (renderer, true);
+		completion_date.SetCellDataFunc (renderer,
+				new Gtk.TreeCellDataFunc (CompletionDateCellDataFunc));
+		tree.AppendColumn (completion_date);
+		
+		///
+		/// Priority
+		///
+		Gtk.TreeViewColumn priority = new Gtk.TreeViewColumn ();
+		priority.Title = Catalog.GetString ("Priority");
+		priority.Sizing = Gtk.TreeViewColumnSizing.Autosize;
+		priority.Resizable = false;
+		
+		renderer = new Gtk.CellRendererCombo ();
+		(renderer as Gtk.CellRendererCombo).Editable = true;
+		(renderer as Gtk.CellRendererCombo).HasEntry = false;
+		(renderer as Gtk.CellRendererCombo).Edited += OnTaskPriorityEdited;
+		Gtk.ListStore priority_store = new Gtk.ListStore (typeof (string));
+		priority_store.AppendValues (Catalog.GetString ("Low"));
+		priority_store.AppendValues (Catalog.GetString ("Normal"));
+		priority_store.AppendValues (Catalog.GetString ("High"));
+		(renderer as Gtk.CellRendererCombo).Model = priority_store;
+		(renderer as Gtk.CellRendererCombo).TextColumn = 0;
+		renderer.Xalign = 0.0f;
+		priority.PackStart (renderer, true);
+		priority.SetCellDataFunc (renderer,
+				new Gtk.TreeCellDataFunc (PriorityCellDataFunc));
+		tree.AppendColumn (priority);
 	}
 
 	void ToggleCellDataFunc (Gtk.TreeViewColumn tree_column,
@@ -244,6 +284,37 @@ public class TaskListWindow : Tomboy.ForcedPresentWindow
 			crd.Date = DateTime.MinValue;
 		else
 			crd.Date = task.DueDate;
+	}
+	
+	void CompletionDateCellDataFunc (Gtk.TreeViewColumn tree_column,
+			Gtk.CellRenderer cell, Gtk.TreeModel tree_model,
+			Gtk.TreeIter iter)
+	{
+		Gtk.Extras.CellRendererDate crd = cell as Gtk.Extras.CellRendererDate;
+		Task task = tree_model.GetValue (iter, 0) as Task;
+		if (task == null)
+			crd.Date = DateTime.MinValue;
+		else
+			crd.Date = task.CompletionDate;
+	}
+	
+	void PriorityCellDataFunc (Gtk.TreeViewColumn tree_column,
+			Gtk.CellRenderer cell, Gtk.TreeModel tree_model,
+			Gtk.TreeIter iter)
+	{
+		Gtk.CellRendererCombo crc = cell as Gtk.CellRendererCombo;
+		Task task = tree_model.GetValue (iter, 0) as Task;
+		switch (task.Priority) {
+		case TaskPriority.Low:
+			crc.Text = Catalog.GetString ("Low");
+			break;
+		case TaskPriority.High:
+			crc.Text = Catalog.GetString ("High");
+			break;
+		default:
+			crc.Text = Catalog.GetString ("Normal");
+			break;
+		}
 	}
 
 	void SetUpTreeModel ()
@@ -621,6 +692,22 @@ Logger.Debug ("TaskListWindow.OnTaskSummaryEdited");
 		
 		Task task = store_sort.GetValue (iter, 0) as Task;
 		task.DueDate = renderer.Date;
+	}
+	
+	void OnTaskPriorityEdited (object sender, Gtk.EditedArgs args)
+	{
+		Gtk.TreeIter iter;
+		Gtk.TreePath path = new TreePath (args.Path);
+		if (store_sort.GetIter (out iter, path) == false)
+			return;
+		
+		Task task = store_sort.GetValue (iter, 0) as Task;
+		if (args.NewText.CompareTo (Catalog.GetString ("Low")) == 0)
+			task.Priority = TaskPriority.Low;
+		else if (args.NewText.CompareTo (Catalog.GetString ("High")) == 0)
+			task.Priority = TaskPriority.High;
+		else
+			task.Priority = TaskPriority.Normal;
 	}
 	
 	void OnTaskAdded (TaskManager manager, Task task)
