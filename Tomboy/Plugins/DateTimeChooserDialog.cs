@@ -11,7 +11,6 @@ namespace Gtk.Extras
 	public class DateTimeChooserDialog : Gtk.Dialog, Gtk.CellEditable
 	{
 		Gtk.AccelGroup accel_group;
-//		DateTimeChooser date_time_chooser;
 		Gtk.Calendar calendar;
 		string path;
 		
@@ -106,9 +105,6 @@ namespace Gtk.Extras
 #endregion // Private Methods
 
 #region Event Handlers
-//		void OnDaySelected (object sender, EventArgs args)
-//		{
-//		}
 #endregion // EventHandlers
 
 #region Gtk.CellEditable Interfaces
