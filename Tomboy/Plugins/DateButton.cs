@@ -188,7 +188,10 @@ namespace Gtk.Extras
 		public DateTime Date
 		{
 			get { return date; }
-			set { date = value; }
+			set {
+				date = value;
+				Label = Tomboy.GuiUtils.GetPrettyPrintDate (date);
+			}
 		}
 	}
 }

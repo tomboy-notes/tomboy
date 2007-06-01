@@ -237,6 +237,7 @@ public class TaskListWindow : Tomboy.ForcedPresentWindow
 		(renderer as Gtk.CellRendererCombo).HasEntry = false;
 		(renderer as Gtk.CellRendererCombo).Edited += OnTaskPriorityEdited;
 		Gtk.ListStore priority_store = new Gtk.ListStore (typeof (string));
+		priority_store.AppendValues (Catalog.GetString ("None"));
 		priority_store.AppendValues (Catalog.GetString ("Low"));
 		priority_store.AppendValues (Catalog.GetString ("Normal"));
 		priority_store.AppendValues (Catalog.GetString ("High"));
@@ -302,17 +303,21 @@ public class TaskListWindow : Tomboy.ForcedPresentWindow
 			Gtk.CellRenderer cell, Gtk.TreeModel tree_model,
 			Gtk.TreeIter iter)
 	{
+		// FIXME: Add bold (for high), light (for None), and also colors to priority?
 		Gtk.CellRendererCombo crc = cell as Gtk.CellRendererCombo;
 		Task task = tree_model.GetValue (iter, 0) as Task;
 		switch (task.Priority) {
 		case TaskPriority.Low:
 			crc.Text = Catalog.GetString ("Low");
 			break;
+		case TaskPriority.Normal:
+			crc.Text = Catalog.GetString ("Normal");
+			break;
 		case TaskPriority.High:
 			crc.Text = Catalog.GetString ("High");
 			break;
 		default:
-			crc.Text = Catalog.GetString ("Normal");
+			crc.Text = Catalog.GetString ("None");
 			break;
 		}
 	}
@@ -674,13 +679,20 @@ Logger.Debug ("TaskListWindow.OnTaskSummaryEdited");
 		if (store_sort.GetIter (out iter, path) == false)
 			return;
 		
-		Task task = store_sort.GetValue (iter, 0) as Task;
+		TaskPriority new_priority;
 		if (args.NewText.CompareTo (Catalog.GetString ("Low")) == 0)
-			task.Priority = TaskPriority.Low;
+			new_priority = TaskPriority.Low;
+		else if (args.NewText.CompareTo (Catalog.GetString ("Normal")) == 0)
+			new_priority = TaskPriority.Normal;
 		else if (args.NewText.CompareTo (Catalog.GetString ("High")) == 0)
-			task.Priority = TaskPriority.High;
+			new_priority = TaskPriority.High;
 		else
-			task.Priority = TaskPriority.Normal;
+			new_priority = TaskPriority.Undefined;
+
+		// Update the priority if it's different
+		Task task = store_sort.GetValue (iter, 0) as Task;
+		if (task.Priority != new_priority)
+			task.Priority = new_priority;
 	}
 	
 	void OnTaskAdded (TaskManager manager, Task task)
