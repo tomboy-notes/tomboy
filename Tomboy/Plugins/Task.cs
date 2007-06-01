@@ -8,8 +8,9 @@ public delegate void TaskRenamedHandler (Task task, string old_title);
 public delegate void TaskSavedHandler (Task task);
 public delegate void TaskStatusChangedHandler (Task task);
 
-public enum TaskPriority
+public enum TaskPriority : uint
 {
+	Undefined = 0,
 	Low,
 	Normal,
 	High

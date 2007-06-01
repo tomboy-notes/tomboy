@@ -93,11 +93,14 @@ public class TaskArchiver
 						case "low":
 							data.Priority = TaskPriority.Low;
 							break;
+						case "normal":
+							data.Priority = TaskPriority.Normal;
+							break;
 						case "high":
 							data.Priority = TaskPriority.High;
 							break;
 						default:
-							data.Priority = TaskPriority.Normal;
+							data.Priority = TaskPriority.Undefined;
 							break;
 						}
 					}
@@ -214,9 +217,11 @@ public class TaskArchiver
 			xml.WriteEndElement ();
 		}
 		
-		xml.WriteStartElement (null, "priority", null);
-		xml.WriteString (data.Priority.ToString ().ToLower ());
-		xml.WriteEndElement ();
+		if (data.Priority != TaskPriority.Undefined) {
+			xml.WriteStartElement (null, "priority", null);
+			xml.WriteString (data.Priority.ToString ().ToLower ());
+			xml.WriteEndElement ();
+		}
 
 		xml.WriteEndElement (); // </task>
 		xml.WriteEndDocument ();
