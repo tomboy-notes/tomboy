@@ -11,12 +11,14 @@ namespace Gtk.Extras
 	{
 		DateTime date;
 		bool editable;
+		Gtk.ResponseType response_type;
 
 #region Constructors		
 		public CellRendererDate()
 		{
 			date = DateTime.MinValue;
 			editable = false;
+			response_type = Gtk.ResponseType.None;
 		}
 		
 		protected CellRendererDate (System.IntPtr ptr) : base (ptr)
@@ -64,9 +66,11 @@ namespace Gtk.Extras
 				Gdk.Rectangle cell_area, CellRendererState flags)
 		{
 			Gtk.Extras.DateTimeChooserDialog dialog =
-					new Gtk.Extras.DateTimeChooserDialog (null, DialogFlags.Modal, DateTime.Now);
-			dialog.Path = path;
+					new Gtk.Extras.DateTimeChooserDialog (null, DialogFlags.Modal,
+						date == DateTime.MinValue ? DateTime.Now : date);
+			dialog.TreePathString = path;
 			dialog.EditingDone += OnDateEditingDone;
+			dialog.Response += OnDialogResponse;
 			dialog.Show ();
 			
 			return null;
@@ -153,14 +157,24 @@ namespace Gtk.Extras
 #endregion
 
 #region Event Handlers
+		[GLib.ConnectBefore]
+		void OnDialogResponse (object sender, Gtk.ResponseArgs args)
+		{
+			response_type = args.ResponseId;
+		}
+		
 		void OnDateEditingDone (object sender, EventArgs args)
 		{
 			Gtk.Extras.DateTimeChooserDialog dialog = sender as Gtk.Extras.DateTimeChooserDialog;
-			date = dialog.Date;
+
+			if (response_type != Gtk.ResponseType.Cancel) {
+				date = dialog.Date;
+				
+				if (Edited != null)
+					Edited (this, dialog.TreePathString);
+			}
+
 			dialog.Destroy ();
-			
-			if (Edited != null)
-				Edited (this, dialog.Path);
 		}
 #endregion // Event Handlers
 	}
