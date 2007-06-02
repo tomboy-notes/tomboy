@@ -178,8 +178,11 @@ namespace Tomboy
 			switch (args.Event.Key)
 			{
 			case Gdk.Key.Return:
-				ret_value = ((NoteBuffer) Buffer).AddNewline ();
-				ScrollMarkOnscreen (Buffer.InsertMark);
+				// Allow opening notes with Ctrl + Enter
+				if (args.Event.State != Gdk.ModifierType.ControlMask) {
+					ret_value = ((NoteBuffer) Buffer).AddNewline ();
+					ScrollMarkOnscreen (Buffer.InsertMark);
+				}
 				break;
 			case Gdk.Key.Tab:
 				ret_value = ((NoteBuffer) Buffer).AddTab ();
