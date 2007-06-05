@@ -50,6 +50,12 @@ namespace Tomboy
 			}
 #endif
 			ActionManager am = Tomboy.ActionManager;
+			
+			ApplicationAddin [] addins =
+				manager.AddinManager.GetApplicationAddins ();
+			foreach (ApplicationAddin addin in addins) {
+				addin.Initialize ();
+			}
 
 			if (cmd_line.UsePanelApplet) {
 				tray_icon_showing = true;

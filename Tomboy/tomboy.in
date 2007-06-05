@@ -5,10 +5,12 @@ if [ "x$PWD" = "x@srcdir@" ] ; then
 
     export LD_LIBRARY_PATH="../libtomboy/.libs:$LD_LIBRARY_PATH"
     export TOMBOY_WRAPPER_PATH="$PWD/@wrapper@"
+    export MONO_PATH=$MONO_PATH:./Addins:./Mono.Addins/Mono.Addins:./Mono.Addins/Mono.Addins.Setup:./Mono.Addins/Mono.Addins.Gui
 
     THIS_EXE="--debug ./@target@"
 else
     export LD_LIBRARY_PATH="@pkglibdir@:$LD_LIBRARY_PATH"
+    export MONO_PATH=$MONO_PATH:@pkglibdir@:@pkglibdir@/addins
     export TOMBOY_WRAPPER_PATH="@bindir@/@wrapper@"
 
     THIS_EXE="@pkglibdir@/@target@"
