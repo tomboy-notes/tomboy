@@ -16,6 +16,7 @@ namespace Tomboy.Tasks
 		
 		static Gtk.ActionGroup action_group;
 		static uint tray_icon_ui = 0;
+		static uint tools_menu_ui = 0;
 		
 		static TaskListWindow task_list_window = null;
 
@@ -46,6 +47,8 @@ namespace Tomboy.Tasks
 				///
 				action_group = new Gtk.ActionGroup ("Tasks");
 				action_group.Add (new Gtk.ActionEntry [] {
+					new Gtk.ActionEntry ("ToolsMenuAction", null,
+						Catalog.GetString ("_Tools"), null, null, null),
 					new Gtk.ActionEntry ("OpenToDoListAction", null,
 						Catalog.GetString ("To Do List"), null, null,
 						delegate { OnOpenToDoListAction (); })
@@ -56,6 +59,18 @@ namespace Tomboy.Tasks
 						<popup name='TrayIconMenu' action='TrayIconMenuAction'>
 							<menuitem name='OpenToDoList' action='OpenToDoListAction' />
 						</popup>
+					</ui>
+				");
+				
+				tools_menu_ui = Tomboy.ActionManager.UI.AddUiFromString (@"
+					<ui>
+					    <menubar name='MainWindowMenubar'>
+					    	<placeholder name='MainWindowMenuPlaceholder'>
+						    	<menu name='ToolsMenu' action='ToolsMenuAction'>
+						    		<menuitem name='OpenToDoList' action='OpenToDoListAction' />
+						    	</menu>
+						    </placeholder>
+					    </menubar>
 					</ui>
 				");
 				
@@ -74,6 +89,7 @@ namespace Tomboy.Tasks
 			} catch {}
 			try {
 				Tomboy.ActionManager.UI.RemoveUi (tray_icon_ui);
+				Tomboy.ActionManager.UI.RemoveUi (tools_menu_ui);
 			} catch {}
 		}
 
