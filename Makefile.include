@@ -1,0 +1,28 @@
+## Makefile.include
+
+## Directories
+
+DIR_ADDINS_ADDINS = $(top_builddir)/Tomboy/Mono.Addins/Mono.Addins
+DIR_ADDINS_GUI = $(top_builddir)/Tomboy/Mono.Addins/Mono.Addins.Gui
+DIR_ADDINS_SETUP = $(top_builddir)/Tomboy/Mono.Addins/Mono.Addins.Setup
+
+## Links
+
+LINK_TOMBOY_EXE =					\
+	-r:$(top_builddir)/Tomboy/Tomboy.exe
+LINK_MONO_ADDINS =					\
+	-r:$(DIR_ADDINS_ADDINS)/Mono.Addins.dll		\
+	-r:$(DIR_ADDINS_SETUP)/Mono.Addins.Setup.dll	\
+	-r:$(DIR_ADDINS_GUI)/Mono.Addins.Gui.dll
+
+## Build
+
+CSC_FLAGS = -debug
+CSC = gmcs $(CSC_FLAGS) -target:exe
+CSC_LIB = $(CSC) -target:library
+
+## Runtime
+
+MONO_DEBUGFLAGS = --debug
+RUNTIME = mono $(MONO_DEBUGFLAGS)
+

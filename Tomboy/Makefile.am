@@ -1,7 +1,6 @@
+include $(top_srcdir)/Makefile.include
 
-SUBDIRS = . Plugins
-
-CSC = gmcs
+SUBDIRS = Mono.Addins . Addins Plugins
 
 TARGET = Tomboy.exe
 WRAPPER = tomboy
@@ -38,10 +37,14 @@ CSFLAGS = 				\
 
 CSFILES = 					\
 	$(srcdir)/Tomboy.cs 			\
+	$(srcdir)/AbstractAddin.cs		\
 	$(srcdir)/ActionManager.cs		\
+	$(srcdir)/AddinManager.cs		\
 	$(srcdir)/Applet.cs 			\
+	$(srcdir)/ApplicationAddin.cs		\
 	$(srcdir)/Logger.cs			\
 	$(srcdir)/Note.cs 			\
+	$(srcdir)/NoteAddin.cs			\
 	$(srcdir)/NoteEditor.cs			\
 	$(srcdir)/NoteManager.cs 		\
 	$(srcdir)/NoteWindow.cs 		\
@@ -70,7 +73,8 @@ CSFILES = 					\
 ASSEMBLIES = 		\
 	$(TOMBOY_LIBS) 	\
 	-r:Mono.Posix	\
-	$(DBUS_LIBS)
+	$(DBUS_LIBS)	\
+	$(LINK_MONO_ADDINS)
 
 RESOURCES = 										\
 	-resource:$(top_srcdir)/data/GNOME_TomboyApplet.xml,GNOME_TomboyApplet.xml	\
@@ -80,7 +84,8 @@ RESOURCES = 										\
 	-resource:$(top_srcdir)/data/images/gnome-searchtool.png,gnome-searchtool.png	\
 	-resource:$(top_srcdir)/data/images/pinup.png,pinup.png				\
 	-resource:$(top_srcdir)/data/images/pinup-active.png,pinup-active.png		\
-	-resource:$(top_srcdir)/data/images/pindown.png,pindown.png
+	-resource:$(top_srcdir)/data/images/pindown.png,pindown.png			\
+	-resource:$(srcdir)/Tomboy.addin.xml
 
 
 $(TARGET): $(CSFILES) Defines.cs
@@ -113,13 +118,13 @@ Defines.cs: $(srcdir)/Defines.cs.in Makefile
 	    -e "s|\@pkglibdir\@|$(pkglibdir)|" \
 	    < $< > $@
 
-
 EXTRA_DIST =            		\
 	$(CSFILES)      		\
 	$(DBUS_SHARP_CSFILES)		\
 	$(WRAPPER).in			\
 	$(TARGET).config.in		\
-	$(srcdir)/Defines.cs.in	
+	$(srcdir)/Defines.cs.in		\
+	$(srcdir)/Tomboy.addin.xml
 
 CLEANFILES =			\
 	$(TARGET) 		\
@@ -127,3 +132,4 @@ CLEANFILES =			\
 	$(TARGET).mdb 		\
 	$(WRAPPER)		\
 	Defines.cs
+

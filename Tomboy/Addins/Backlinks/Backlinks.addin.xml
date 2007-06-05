@@ -1,0 +1,19 @@
+<Addin id="BacklinksAddin"
+	namespace="Tomboy"
+	name="Backlinks Add-in"
+	author="Tomboy Project"
+	description="See which notes link to the one you're currently viewing."
+	version="0.1">
+
+	<Runtime>
+		<Import assembly="Backlinks.dll" />
+	</Runtime>
+
+	<Dependencies>
+		<Addin id="Tomboy" version="0.7" />
+	</Dependencies>
+
+	<Extension path="/Tomboy/NoteAddins">
+		<NoteAddin type="Tomboy.Backlinks.BacklinksNoteAddin" />
+	</Extension>
+</Addin>

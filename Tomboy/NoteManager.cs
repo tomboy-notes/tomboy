@@ -14,6 +14,7 @@ namespace Tomboy
 		string backup_dir;
 		ArrayList notes;
 		PluginManager plugin_mgr;
+		AddinManager addin_mgr;
 		TrieController trie_controller;
 		
 		static string start_note_uri = String.Empty;
@@ -55,6 +56,7 @@ namespace Tomboy
 
 			plugin_mgr = CreatePluginManager ();
 			trie_controller = CreateTrieController ();
+			addin_mgr = CreateAddinManager ();
 
 			if (first_run) {
 				// First run. Create "Start Here" notes.
@@ -91,6 +93,15 @@ namespace Tomboy
 		protected virtual TrieController CreateTrieController ()
 		{
 			return new TrieController (this);
+		}
+		
+		protected virtual AddinManager CreateAddinManager ()
+		{
+			string tomboy_conf_dir =
+				Path.Combine (Environment.GetEnvironmentVariable ("HOME"),
+							".tomboy");
+			
+			return new AddinManager (tomboy_conf_dir);
 		}
 
 		// For overriding in test methods.
@@ -233,6 +244,14 @@ namespace Tomboy
 				}
 			}
 			
+			// Load all the addins for our notes.
+			// Iterating through copy of notes list, because list may be
+			// changed when loading addins.
+			notesCopy = new ArrayList (notes);
+			foreach (Note note in notesCopy) {
+				addin_mgr.LoadAddinsForNote (note);
+			}
+			
 			// Make sure that a Start Note Uri is set in the preferences.  This
 			// has to be done here for long-time Tomboy users who won't go
 			// through the CreateStartNotes () process.
@@ -246,6 +265,16 @@ namespace Tomboy
 
 		void OnExitingEvent (object sender, EventArgs args)
 		{
+			// Call ApplicationAddin.Shutdown () on all the known ApplicationAddins
+			foreach (ApplicationAddin addin in addin_mgr.GetApplicationAddins ()) {
+				try {
+					addin.Shutdown ();
+				} catch (Exception e) {
+					Logger.Warn ("Error calling {0}.Shutdown (): {1}",
+							addin.GetType ().ToString (), e.Message);
+				}
+			}
+
 			Logger.Log ("Saving unsaved notes...");
 
 			foreach (Note note in notes) {
@@ -384,6 +413,9 @@ namespace Tomboy
 
 			// Load all the plugins for the new note
 			plugin_mgr.LoadPluginsForNote (new_note);
+			
+			// Load all the addins for the new note
+			addin_mgr.LoadAddinsForNote (new_note);
 
 			if (NoteAdded != null)
 				NoteAdded (this, new_note);
@@ -442,16 +474,17 @@ namespace Tomboy
 
 		public PluginManager PluginManager
 		{
-			get {
-				return plugin_mgr;
-			}
+			get { return plugin_mgr; }
 		}
 
 		public TrieTree TitleTrie
 		{
-			get {
-				return trie_controller.TitleTrie;
-			}
+			get { return trie_controller.TitleTrie; }
+		}
+		
+		public AddinManager AddinManager
+		{
+			get { return addin_mgr; }
 		}
 		
 		public string NoteDirectoryPath

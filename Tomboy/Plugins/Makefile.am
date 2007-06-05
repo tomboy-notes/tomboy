@@ -1,5 +1,4 @@
-
-CSC = gmcs
+include $(top_srcdir)/Makefile.include
 
 CSFLAGS = 		\
 	-debug 		\
@@ -116,50 +115,8 @@ $(BUGZILLA_TARGET): $(BUGZILLA_CSFILES) $(top_builddir)/Tomboy/Tomboy.exe
 	$(CSC) -out:$@ $(CSFLAGS) $(ASSEMBLIES) $(BUGZILLA_CSFILES) $(BUGZILLA_RESOURCES)
 
 
-#
-# Backlinks plugin
-#
-
-BACKLINKS_TARGET = Backlinks.dll
-BACKLINKS_CSFILES = $(srcdir)/Backlinks.cs
-BACKLINKS_RESOURCES =
-
-$(BACKLINKS_TARGET): $(BACKLINKS_CSFILES) $(top_builddir)/Tomboy/Tomboy.exe
-	$(CSC) -out:$@ $(CSFLAGS) $(ASSEMBLIES) $(BACKLINKS_CSFILES) $(BACKLINKS_RESOURCES)
-
-
-#
-# Tasks plugin
-#
-
-TASKS_TARGET = Tasks.dll
-TASKS_CSFILES = \
-	$(srcdir)/CellRendererDate.cs \
-	$(srcdir)/DateButton.cs \
-	$(srcdir)/Task.cs \
-	$(srcdir)/TaskArchiver.cs \
-	$(srcdir)/TaskData.cs \
-	$(srcdir)/TaskListWindow.cs \
-	$(srcdir)/TaskManager.cs \
-	$(srcdir)/TaskOptionsDialog.cs \
-	$(srcdir)/TaskTag.cs \
-	$(srcdir)/TasksPlugin.cs
-TASKS_RESOURCES = \
-	-resource:$(srcdir)/checkbox-done.png,checkbox-done.png \
-	-resource:$(srcdir)/checkbox-todo.png,checkbox-todo.png \
-	-resource:$(srcdir)/TasksUIManagerLayout.xml
-TASKS_EXTRA_DIST = \
-	$(srcdir)/checkbox-done.png \
-	$(srcdir)/checkbox-todo.png \
-	$(srcdir)/TasksUIManagerLayout.xml
-
-$(TASKS_TARGET): $(TASKS_CSFILES) $(top_builddir)/Tomboy/Tomboy.exe
-	$(CSC) -out:$@ $(CSFLAGS) $(ASSEMBLIES) $(TASKS_CSFILES) $(TASKS_RESOURCES)
-
-
 pluginsdir = $(pkglibdir)/Plugins
 plugins_DATA = 			\
-	$(BACKLINKS_TARGET)	\
 	$(BUGZILLA_TARGET)	\
 	$(EVO_TARGET)		\
 	$(EXPORT_TARGET)	\
@@ -167,12 +124,10 @@ plugins_DATA = 			\
 	$(GALAGO_TARGET)	\
 	$(NOTD_TARGET)		\
 	$(PRINT_TARGET)		\
-	$(STICKYIMPORT_TARGET) \
-	$(TASKS_TARGET)
+	$(STICKYIMPORT_TARGET)
 
 
 EXTRA_DIST =            	\
-	$(BACKLINKS_CSFILES)	\
 	$(BUGZILLA_CSFILES)	\
 	$(EVO_CSFILES)		\
 	ExportToHTML.xsl	\
@@ -181,13 +136,9 @@ EXTRA_DIST =            	\
 	$(PRINT_CSFILES)	\
 	$(NOTD_CSFILES)		\
 	$(FIXEDWIDTH_CSFILES)	\
-	$(STICKYIMPORT_CSFILES) \
-	$(TASKS_CSFILES) \
-	$(TASKS_EXTRA_DIST)
+	$(STICKYIMPORT_CSFILES)
 
 CLEANFILES =				\
-	$(BACKLINKS_TARGET)		\
-	$(BACKLINKS_TARGET).mdb	\
 	$(BUGZILLA_TARGET)		\
 	$(BUGZILLA_TARGET).mdb		\
 	$(EVO_TARGET)			\
@@ -203,6 +154,4 @@ CLEANFILES =				\
 	$(FIXEDWIDTH_TARGET)		\
 	$(FIXEDWIDTH_TARGET).mdb	\
 	$(STICKYIMPORT_TARGET)		\
-	$(STICKYIMPORT_TARGET).mdb \
-	$(TASKS_TARGET).mdb \
-	$(TASKS_TARGET)
+	$(STICKYIMPORT_TARGET).mdb

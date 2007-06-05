@@ -1,3 +1,50 @@
+2007-06-05  Boyd Timothy <btimothy@gmail.com> 
+
+	Adding in initial support for Tomboy Addins (via Mono.Addins framework):
+	
+	* configure.in: Generate Makefiles for Mono.Addins and the new
+	  Backlinks addin.
+	* Tomboy.mdp: Adding Tomboy/AbstractAddin.cs,
+	  Tomboy/ApplicationAddin.cs,Tomboy/NoteAddin.cs,
+	  Tomboy/AddinManager.cs, Tomboy/Addins/Backlinks/*.cs.
+	* Makefile.include: New file with variables that any Makefile.am can
+	  use as a convenience.
+	* Tomboy/Plugins/TaskArchiver.cs, Tomboy/Plugins/TaskListWindow.cs,
+	  Tomboy/Plugins/TaskData.cs, Tomboy/Plugins/TaskManager.cs,
+	  Tomboy/Plugins/TaskOptionsDialog.cs, Tomboy/Plugins/TaskTag.cs,
+	  Tomboy/Plugins/Task.cs, Tomboy/Plugins/CellRendererDate.cs,
+	  Tomboy/Plugins/TasksPlugin.cs,
+	  Tomboy/Plugins/TasksUIManagerLayout.xml,
+	  Tomboy/Plugins/DateButton.cs: Removing the Tasks Plugin temporarily
+	  (in the process of converting it to a Tomboy Addin).
+	* Tomboy/Plugins/Backlinks.cs: Converted this into a Tomboy.NoteAddin.
+	* Tomboy/Plugins/Makefile.am: Use Makefile.include.  Removed the
+	  Backlinks and Tasks Plugins (converting them to Addins).
+	* Tomboy/ApplicationAddin.cs, Tomboy/AddinManager.cs,
+	  Tomboy/Tomboy.addin.xml, Tomboy/Addins/Makefile.am,
+	  Tomboy/AbstractAddin.cs, Tomboy/NoteAddin.cs: Part of the new
+	  Tomboy Addin (Mono.Addins).
+	* Tomboy/Tomboy.cs: Call ApplicationAddin.Initialize () when Tomboy
+	  starts up.
+	* Tomboy/Defines.cs.in: Added SYS_ADDINS_DIR so system addins can be
+	  loaded at runtime.
+	* Tomboy/Addins/Backlinks/BacklinkMenuItem.cs,
+	  Tomboy/Addins/Backlinks/Makefile.am,
+	  Tomboy/Addins/Backlinks/BacklinksNoteAddin.cs,
+	  Tomboy/Addins/Backlinks/Backlinks.addin.xml: Part of the new
+	  Backlinks Addin (used to be Tomboy/Plugins/Backlinks.cs).
+	* Tomboy/NoteManager.cs: Initialize and call Tomboy.AddinManager at
+	  startup and when new notes are loaded (just like happens with
+	  PluginManager).
+	* Tomboy/Makefile.am: Build Mono.Addins and also Addins.  Added
+	  AbstractAddin.cs, AddinManager.cs, ApplicationAddin.cs, and
+	  NoteAddin.cs.  Include Tomboy.addin.xml as a resource so
+	  Mono.Addins will pick it up off of Tomboy.exe.
+	* Tomboy/Mono.Addins/*: Mono.Addins copied from f-spot/trunk on 04 Jun 2007.
+	* Tomboy/tomboy.in: Set a MONO_PATH so the Addin DLLs can be loaded
+	  properly.
+	* Makefile.am: Use Makefile.include.
+
 2007-06-02  Sandy Armstrong <sanfordarmstrong@gmail.com> 
 
 	* Tomboy/NoteEditor.cs: Allow opening notes with keyboard in bullet
