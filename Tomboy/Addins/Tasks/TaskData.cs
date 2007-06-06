@@ -17,6 +17,7 @@ namespace Tomboy.Tasks
 		DateTime due_date;
 		DateTime completion_date;
 		TaskPriority priority;
+		string origin_note_uri;
 
 		public TaskData (string uri)
 		{
@@ -28,6 +29,7 @@ namespace Tomboy.Tasks
 			due_date = DateTime.MinValue;
 			completion_date = DateTime.MinValue;
 			priority = TaskPriority.Normal;
+			origin_note_uri = string.Empty;
 		}
 
 		public string Uri
@@ -75,6 +77,12 @@ namespace Tomboy.Tasks
 		{
 			get { return priority; }
 			set { priority = value; }
+		}
+		
+		public string OriginNoteUri
+		{
+			get { return origin_note_uri; }
+			set { origin_note_uri = value; }
 		}
 	}
 }

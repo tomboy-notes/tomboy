@@ -1,3 +1,33 @@
+2007-06-06  Boyd Timothy <btimothy@gmail.com> 
+
+	* Tomboy.mdp: Removed old reference to Tomboy/Plugins/Backlinks.cs. 
+	  Added Tomboy/Addins/Tasks/TasksNoteAddin.cs.
+	* Tomboy/AddinManager.cs: Surround initializing and adding the
+	  NoteAddins with try/catch.
+	* Tomboy/Addins/Tasks/TasksNoteAddin.cs: New NoteAddin to watch when
+	  users type new tasks inline in a note.
+	* Tomboy/Addins/Tasks/TaskArchiver.cs, Tomboy/Addins/Tasks/TaskData.cs,
+	  Tomboy/Addins/Tasks/Task.cs: Added OriginNoteUri so a task can be
+	  associated with the note it was created in.
+	* Tomboy/Addins/Tasks/TaskListWindow.cs: Use the static events from
+	  TaskManager.
+	* Tomboy/Addins/Tasks/TaskManager.cs: Queue a save on a newly created
+	  task.  Convert the task events to static so that other classes can
+	  register for them before TaskManager may be fully initialized.
+	* Tomboy/Addins/Tasks/TaskTag.cs: Don't allow this tag to be activated
+	  anymore (use right-click instead).  Allow the status to be updated.
+	   Stubbed-out checkbox pixbuf (commented-out).
+	* Tomboy/Addins/Tasks/TaskOptionsDialog.cs: Expose the Task object as a
+	  property.
+	* Tomboy/Addins/Tasks/Tasks.addin.xml: Add TasksNoteAddin and fix
+	  reference to TasksApplicationAddin.
+	* Tomboy/Addins/Tasks/Makefile.am: Add TasksNoteAddin.cs.
+	* Tomboy/Addins/Tasks/TasksApplicationAddin.cs: Rename TasksAddin ->
+	  TasksApplicationAddin.
+	* Tomboy/NoteBuffer.cs: Added a GetDynamicTag to allow addins to get
+	  DynamicNoteTag instances based off a Gtk.TextIter.
+	* Tomboy/NoteManager.cs: Initialize NoteAddins before NotePlugins.
+
 2007-06-05  Boyd Timothy <btimothy@gmail.com> 
 
 	* Tomboy/Addins/Tasks/Tasks.dll: Oops.  Removing this file since it

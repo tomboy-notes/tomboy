@@ -9,7 +9,7 @@ namespace Tomboy.Tasks
 {
 	public class TaskOptionsDialog : Gtk.Dialog
 	{
-	#region Private Fields
+#region Private Fields
 		Task task;
 		Gtk.AccelGroup accel_group;
 		
@@ -20,9 +20,9 @@ namespace Tomboy.Tasks
 		Gtk.ComboBox priority_combo_box;
 		
 		Gtk.TextView details_text_view;
-	#endregion // Private Fields
+#endregion // Private Fields
 		
-	#region Constructors
+#region Constructors
 		public TaskOptionsDialog(Gtk.Window parent,
 					Gtk.DialogFlags flags,
 					Task task)
@@ -141,9 +141,15 @@ namespace Tomboy.Tasks
 			if ((int) (flags & Gtk.DialogFlags.DestroyWithParent) != 0)
 				DestroyWithParent = true;
 		}
-	#endregion // Constructors
+#endregion // Constructors
+#region Public Properties
+		public Task Task
+		{
+			get { return task; }
+		}
+#endregion // Public Properties
 
-	#region Private Methods
+#region Private Methods
 		protected override void OnRealized ()
 		{
 			base.OnRealized ();
@@ -193,9 +199,9 @@ namespace Tomboy.Tasks
 			if (task.Details != new_details)
 				task.Details = new_details;
 		}
-	#endregion // Private Methods
+#endregion // Private Methods
 
-	#region Event Handlers
+#region Event Handlers
 		void OnDueDateCheckButtonToggled (object sender, EventArgs args)
 		{
 			if (due_date_check_button.Active) {
@@ -225,6 +231,6 @@ namespace Tomboy.Tasks
 			if (priority_combo_box.Active == 0)
 				priority_check_button.Active = false;
 		}
-	#endregion // Event Handlers
+#endregion // Event Handlers
 	}
 }

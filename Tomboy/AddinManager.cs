@@ -142,8 +142,16 @@ namespace Tomboy
 			}
 			
 			// Add the addin to the list
-			addins.Add (addin);
-			addin.Initialize (note);
+			try {
+				addin.Initialize (note);
+				addins.Add (addin);
+			} catch (Exception e) {
+				Logger.Warn ("Error initializing addin: {0}: {1}",
+						addin.GetType ().ToString (), e.Message);
+				// FIXME: Would be nice to figure out how to just disable
+				// the addin altogether if it's failing to initialize so
+				// it doesn't keep causing problems.
+			}
 		}
 		
 		/// <summary>

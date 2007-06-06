@@ -227,10 +227,18 @@ namespace Tomboy
 			bool startup_notes_enabled = (bool)
 					Preferences.Get (Preferences.ENABLE_STARTUP_NOTES);
 
+			// Load all the addins for our notes.
+			// Iterating through copy of notes list, because list may be
+			// changed when loading addins.
+			ArrayList notesCopy = new ArrayList (notes);
+			foreach (Note note in notesCopy) {
+				addin_mgr.LoadAddinsForNote (note);
+			}
+			
 			// Load all the plugins for our notes.
 			// Iterating through copy of notes list, because list may be
 			// changed when loading plugins.
-			ArrayList notesCopy = new ArrayList (notes);
+			notesCopy = new ArrayList (notes);
 			foreach (Note note in notesCopy) {
 				plugin_mgr.LoadPluginsForNote (note);
 				
@@ -242,14 +250,6 @@ namespace Tomboy
 					note.IsOpenOnStartup = false;
 					note.QueueSave (false);
 				}
-			}
-			
-			// Load all the addins for our notes.
-			// Iterating through copy of notes list, because list may be
-			// changed when loading addins.
-			notesCopy = new ArrayList (notes);
-			foreach (Note note in notesCopy) {
-				addin_mgr.LoadAddinsForNote (note);
 			}
 			
 			// Make sure that a Start Note Uri is set in the preferences.  This

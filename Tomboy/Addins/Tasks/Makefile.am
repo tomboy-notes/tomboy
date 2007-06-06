@@ -21,6 +21,7 @@ TASKS_CSFILES = \
 	$(srcdir)/DateButton.cs \
 	$(srcdir)/Task.cs \
 	$(srcdir)/TasksApplicationAddin.cs \
+	$(srcdir)/TasksNoteAddin.cs \
 	$(srcdir)/TaskArchiver.cs \
 	$(srcdir)/TaskData.cs \
 	$(srcdir)/TaskListWindow.cs \
