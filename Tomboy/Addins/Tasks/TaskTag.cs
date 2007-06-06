@@ -41,7 +41,7 @@ namespace Tomboy.Tasks
 				Strikethrough = true;
 			} else {
 				Foreground = "red"; // This is temporary so we can view state
-				Strikethrough = true;
+				Strikethrough = false;
 			}
 		}
 		

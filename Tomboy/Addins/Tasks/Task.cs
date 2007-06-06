@@ -42,6 +42,16 @@ namespace Tomboy.Tasks
 			
 			save_timeout = new InterruptableTimeout ();
 			save_timeout.Timeout += SaveTimeout;
+
+			// If an OriginNoteUri exists, make sure the note
+			// actually exists.  If it doesn't, clean it up
+			string origin_note_uri = OriginNoteUri;
+			if (origin_note_uri != null && origin_note_uri != string.Empty) {
+				Note note =
+					Tomboy.DefaultNoteManager.FindByUri (origin_note_uri);
+				if (note == null)
+					OriginNoteUri = String.Empty;
+			}
 		}
 		#endregion // Constructors
 		

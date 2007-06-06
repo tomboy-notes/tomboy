@@ -26,6 +26,13 @@ namespace Tomboy.Tasks
 		bool expecting_newly_created_task;
 
 		static TaskListWindow instance;
+		
+		static Gdk.Pixbuf note_pixbuf;
+		
+		static TaskListWindow ()
+		{
+			note_pixbuf = GuiUtils.GetIcon ("tomboy-note", 16);
+		}
 
 		public static TaskListWindow GetInstance (TaskManager manager)
 		{
@@ -165,9 +172,23 @@ namespace Tomboy.Tasks
 			tree.Selection.Changed += OnSelectionChanged;
 			tree.ButtonPressEvent += OnButtonPressed;
 			
-			// Columns: Summary, Due Date (No Date/Date), Completed (No Date/Date), Priority
+			// Columns: OriginNote, Summary, Due Date (No Date/Date), Completed (No Date/Date), Priority
 
 			Gtk.CellRenderer renderer;
+			
+			///
+			/// OriginNote
+			///
+			Gtk.TreeViewColumn note = new Gtk.TreeViewColumn ();
+			note.Title = string.Empty;
+			note.Sizing = Gtk.TreeViewColumnSizing.Autosize;
+			note.Resizable = false;
+			
+			renderer = new Gtk.CellRendererPixbuf ();
+			note.PackStart (renderer, false);
+			note.SetCellDataFunc (renderer,
+					new Gtk.TreeCellDataFunc (NoteIconCellDataFunc));
+			tree.AppendColumn (note);
 			
 			///
 			/// Summary
@@ -250,6 +271,18 @@ namespace Tomboy.Tasks
 			priority.SetCellDataFunc (renderer,
 					new Gtk.TreeCellDataFunc (PriorityCellDataFunc));
 			tree.AppendColumn (priority);
+		}
+		
+		void NoteIconCellDataFunc (Gtk.TreeViewColumn tree_column,
+				Gtk.CellRenderer cell, Gtk.TreeModel tree_model,
+				Gtk.TreeIter iter)
+		{
+			Gtk.CellRendererPixbuf crp = cell as Gtk.CellRendererPixbuf;
+			Task task = tree_model.GetValue (iter, 0) as Task;
+			if (task != null && task.OriginNoteUri != string.Empty)
+				crp.Pixbuf = note_pixbuf;
+			else
+				crp.Pixbuf = null;
 		}
 
 		void ToggleCellDataFunc (Gtk.TreeViewColumn tree_column,
