@@ -21,6 +21,8 @@ namespace Tomboy.Tasks
 		Gtk.TreeView tree;
 		Gtk.TreeModelSort store_sort;
 		
+		Gtk.Menu ctx_menu;
+		
 		// Use this to select the task that was created inside
 		// this window.
 		bool expecting_newly_created_task;
@@ -31,7 +33,7 @@ namespace Tomboy.Tasks
 		
 		static TaskListWindow ()
 		{
-			note_pixbuf = GuiUtils.GetIcon ("tomboy-note", 16);
+			note_pixbuf = GuiUtils.GetIcon ("tomboy-note", 8);
 		}
 
 		public static TaskListWindow GetInstance (TaskManager manager)
@@ -78,6 +80,10 @@ namespace Tomboy.Tasks
 				new Gtk.ActionEntry ("DeleteTaskAction", Gtk.Stock.Preferences,
 					Catalog.GetString ("_Delete"), "Delete",
 					Catalog.GetString ("Delete the selected task"), null),
+				
+				new Gtk.ActionEntry ("OpenOriginNoteAction", null,
+					Catalog.GetString ("Open Origin _Note"), null,
+					Catalog.GetString ("Open the note containing the task"), null),
 
 				new Gtk.ActionEntry ("TaskListHelpMenuAction", null,
 					Catalog.GetString ("_Help"), null, null, null),
@@ -88,6 +94,7 @@ namespace Tomboy.Tasks
 			});
 			
 			Tomboy.ActionManager.UI.InsertActionGroup (action_group, 0);
+			Tomboy.ActionManager ["OpenOriginNoteAction"].Sensitive = false;
 
 			menu_bar = CreateMenuBar ();
 			
@@ -172,7 +179,7 @@ namespace Tomboy.Tasks
 			tree.Selection.Changed += OnSelectionChanged;
 			tree.ButtonPressEvent += OnButtonPressed;
 			
-			// Columns: OriginNote, Summary, Due Date (No Date/Date), Completed (No Date/Date), Priority
+			// Columns: OriginNote, Completion Status Summary, Due Date (No Date/Date), Completed (No Date/Date), Priority
 
 			Gtk.CellRenderer renderer;
 			
@@ -191,18 +198,27 @@ namespace Tomboy.Tasks
 			tree.AppendColumn (note);
 			
 			///
+			/// Completion Status
+			///
+			Gtk.TreeViewColumn status = new Gtk.TreeViewColumn ();
+			status.Title = string.Empty;
+			status.Sizing = Gtk.TreeViewColumnSizing.Autosize;
+			status.Resizable = false;
+			
+			renderer = new Gtk.CellRendererToggle ();
+			(renderer as Gtk.CellRendererToggle).Toggled += OnTaskToggled;
+			status.PackStart (renderer, false);
+			status.SetCellDataFunc (renderer,
+					new Gtk.TreeCellDataFunc (ToggleCellDataFunc));
+			tree.AppendColumn (status);
+			
+			///
 			/// Summary
 			///
 			Gtk.TreeViewColumn summary = new Gtk.TreeViewColumn ();
 			summary.Title = Catalog.GetString ("Summary");
 			summary.Sizing = Gtk.TreeViewColumnSizing.Autosize;
 			summary.Resizable = true;
-			
-			renderer = new Gtk.CellRendererToggle ();
-			(renderer as Gtk.CellRendererToggle).Toggled += OnTaskToggled;
-			summary.PackStart (renderer, false);
-			summary.SetCellDataFunc (renderer,
-					new Gtk.TreeCellDataFunc (ToggleCellDataFunc));
 			
 			renderer = new Gtk.CellRendererText ();
 			(renderer as CellRendererText).Editable = true;
@@ -414,19 +430,39 @@ namespace Tomboy.Tasks
 				Gtk.TreeSelection selection = tree.Selection;
 				if (selection.CountSelectedRows () == 0)
 					break;
+				Gtk.TreeIter iter;
+				if (!selection.GetSelected (out iter))
+					break;
 				
-				PopupContextMenuAtLocation ((int) args.Event.X,
+				Task task = store_sort.GetValue (iter, 0) as Task;
+				if (task == null)
+					break;
+				
+				PopupContextMenuAtLocation (task, (int) args.Event.X,
 						(int) args.Event.Y);
 
 				break;
 			}
 		}
 		
-		void PopupContextMenuAtLocation (int x, int y)
+		/// <summary>
+		/// <param name="task">The selected task</param>
+		/// </summary>
+		void PopupContextMenuAtLocation (Task task, int x, int y)
 		{
-			Gtk.Menu menu = Tomboy.ActionManager.GetWidget (
+			if (ctx_menu == null) {
+				ctx_menu = Tomboy.ActionManager.GetWidget (
 					"/TaskListWindowContextMenu") as Gtk.Menu;
-			menu.ShowAll ();
+				Tomboy.ActionManager ["OpenOriginNoteAction"].Activated +=
+						OnOpenOriginNote;
+			}
+			
+			if (task.OriginNoteUri != string.Empty)
+				Tomboy.ActionManager ["OpenOriginNoteAction"].Sensitive = true;
+			else
+				Tomboy.ActionManager ["OpenOriginNoteAction"].Sensitive = false;
+			
+			ctx_menu.ShowAll ();
 			Gtk.MenuPositionFunc pos_menu_func = null;
 			
 			// Set up the funtion to position the context menu
@@ -434,7 +470,7 @@ namespace Tomboy.Tasks
 			if (x == 0 && y == 0)
 				pos_menu_func = PositionContextMenu;
 				
-			menu.Popup (null, null,
+			ctx_menu.Popup (null, null,
 					pos_menu_func,
 					0,
 					Gtk.Global.CurrentEventTime);
@@ -604,10 +640,32 @@ namespace Tomboy.Tasks
 				// Pop up the context menu if a note is selected
 				Task task = GetSelectedTask ();
 				if (task != null)
-					PopupContextMenuAtLocation (0, 0);
+					PopupContextMenuAtLocation (task, 0, 0);
 
 				break;
 			}
+		}
+		
+		void OnOpenOriginNote (object sender, EventArgs args)
+		{
+			Gtk.TreeSelection selection;
+			Gtk.TreeIter iter;
+			
+			selection = tree.Selection;
+			if (!selection.GetSelected (out iter))
+				return;
+			
+			Task task = store_sort.GetValue (iter, 0) as Task;
+			if (task == null || task.OriginNoteUri == string.Empty)
+				return;
+			
+			Note note =
+				Tomboy.DefaultNoteManager.FindByUri (task.OriginNoteUri);
+			
+			if (note == null)
+				return;
+			
+			note.Window.Present ();
 		}
 		
 	//	protected override void OnShown ()
