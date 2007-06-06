@@ -28,7 +28,7 @@ namespace Tomboy.Tasks
 			last_change_date = DateTime.MinValue;
 			due_date = DateTime.MinValue;
 			completion_date = DateTime.MinValue;
-			priority = TaskPriority.Normal;
+			priority = TaskPriority.Undefined;
 			origin_note_uri = string.Empty;
 		}
 
