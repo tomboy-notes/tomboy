@@ -94,7 +94,6 @@ namespace Tomboy.Tasks
 			});
 			
 			Tomboy.ActionManager.UI.InsertActionGroup (action_group, 0);
-			Tomboy.ActionManager ["OpenOriginNoteAction"].Sensitive = false;
 
 			menu_bar = CreateMenuBar ();
 			
@@ -163,6 +162,8 @@ namespace Tomboy.Tasks
 			
 			am ["NewTaskAction"].Activated += OnNewTask;
 			am ["OpenTaskAction"].Activated += OnOpenTask;
+			am ["OpenOriginNoteAction"].Activated += OnOpenOriginNote;
+			am ["OpenOriginNoteAction"].Sensitive = false;
 			am ["CloseTaskListWindowAction"].Activated += OnCloseWindow;
 			am ["DeleteTaskAction"].Activated += OnDeleteTask;
 			am ["ShowTaskHelpAction"].Activated += OnShowHelp;
@@ -407,6 +408,11 @@ namespace Tomboy.Tasks
 			if (task != null) {
 				Tomboy.ActionManager ["OpenTaskAction"].Sensitive = true;
 				Tomboy.ActionManager ["DeleteTaskAction"].Sensitive = true;
+				
+				if (task.OriginNoteUri != string.Empty)
+					Tomboy.ActionManager ["OpenOriginNoteAction"].Sensitive = true;
+				else
+					Tomboy.ActionManager ["OpenOriginNoteAction"].Sensitive = false;
 			} else {
 				Tomboy.ActionManager ["OpenTaskAction"].Sensitive = false;
 				Tomboy.ActionManager ["DeleteTaskAction"].Sensitive = false;
@@ -453,14 +459,7 @@ namespace Tomboy.Tasks
 			if (ctx_menu == null) {
 				ctx_menu = Tomboy.ActionManager.GetWidget (
 					"/TaskListWindowContextMenu") as Gtk.Menu;
-				Tomboy.ActionManager ["OpenOriginNoteAction"].Activated +=
-						OnOpenOriginNote;
 			}
-			
-			if (task.OriginNoteUri != string.Empty)
-				Tomboy.ActionManager ["OpenOriginNoteAction"].Sensitive = true;
-			else
-				Tomboy.ActionManager ["OpenOriginNoteAction"].Sensitive = false;
 			
 			ctx_menu.ShowAll ();
 			Gtk.MenuPositionFunc pos_menu_func = null;
