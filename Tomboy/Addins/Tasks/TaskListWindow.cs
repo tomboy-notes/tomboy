@@ -433,12 +433,11 @@ namespace Tomboy.Tasks
 						out column) == false)
 					break;
 				
-				Gtk.TreeSelection selection = tree.Selection;
-				if (selection.CountSelectedRows () == 0)
-					break;
 				Gtk.TreeIter iter;
-				if (!selection.GetSelected (out iter))
+				if (store_sort.GetIter (out iter, path) == false)
 					break;
+				
+				tree.Selection.SelectIter (iter);
 				
 				Task task = store_sort.GetValue (iter, 0) as Task;
 				if (task == null)
