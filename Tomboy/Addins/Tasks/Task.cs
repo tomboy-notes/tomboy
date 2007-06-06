@@ -127,6 +127,18 @@ namespace Tomboy.Tasks
 				}
 			}
 		}
+		
+		public string OriginNoteUri
+		{
+			get { return data.OriginNoteUri; }
+			set {
+				if (data.OriginNoteUri != value) {
+					data.OriginNoteUri = value;
+					
+					QueueSave (true);
+				}
+			}
+		}
 
 		public TaskManager Manager
 		{

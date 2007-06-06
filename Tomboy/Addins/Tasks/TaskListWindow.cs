@@ -88,9 +88,9 @@ namespace Tomboy.Tasks
 			tree.Show ();
 
 			// Update on changes to tasks
-			manager.TaskAdded += OnTaskAdded;
-			manager.TaskDeleted += OnTaskDeleted;
-			manager.TaskStatusChanged += OnTaskStatusChanged;
+			TaskManager.TaskAdded += OnTaskAdded;
+			TaskManager.TaskDeleted += OnTaskDeleted;
+			TaskManager.TaskStatusChanged += OnTaskStatusChanged;
 
 			tasks_sw = new Gtk.ScrolledWindow ();
 			tasks_sw.ShadowType = Gtk.ShadowType.In;
@@ -530,9 +530,9 @@ namespace Tomboy.Tasks
 		void OnCloseWindow (object sender, EventArgs args)
 		{
 			// Disconnect external signal handlers to prevent bloweup
-			manager.TaskAdded -= OnTaskAdded;
-			manager.TaskDeleted -= OnTaskDeleted;
-			manager.TaskStatusChanged -= OnTaskStatusChanged;
+			TaskManager.TaskAdded -= OnTaskAdded;
+			TaskManager.TaskDeleted -= OnTaskDeleted;
+			TaskManager.TaskStatusChanged -= OnTaskStatusChanged;
 			
 			// The following code has to be done for the MenuBar to
 			// appear properly the next time this window is opened.

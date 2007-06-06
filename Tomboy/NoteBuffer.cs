@@ -109,6 +109,23 @@ namespace Tomboy
 				active_tags.Remove (tag);
 			}
 		}
+		
+		/// <summary>
+		/// Returns the specified DynamicNoteTag if one exists on the TextIter
+		/// or null if none was found.
+		/// </summary>
+		public DynamicNoteTag GetDynamicTag (string tag_name, Gtk.TextIter iter)
+		{
+			Gtk.TextTag [] tags = iter.Tags;
+			foreach (Gtk.TextTag tag in iter.Tags) {
+				DynamicNoteTag dynamic_tag = tag as DynamicNoteTag;
+				if (dynamic_tag != null &&
+						dynamic_tag.ElementName.CompareTo (tag_name) == 0)
+					return dynamic_tag;
+			}
+			
+			return null;
+		}
 
 		public void OnTagApplied (object o, Gtk.TagAppliedArgs args)
 		{	

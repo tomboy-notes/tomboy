@@ -24,23 +24,25 @@ namespace Tomboy.Tasks
 		{
 			base.Initialize (element_name);
 
-	//		Underline = Pango.Underline.Single;
-			Foreground = "green"; // This is temporary just so during debugging we can visualize the tag
+//			Underline = Pango.Underline.Single;
 			Editable = true;
-			CanActivate = true;
+			CanActivate = false;
 			CanGrow = true;
 			CanSpellCheck = true;
 			CanSplit = false;
-		}
-
-		protected override bool OnActivate (NoteEditor editor, Gtk.TextIter start, Gtk.TextIter end)
-		{
-			string uri = Attributes ["uri"] as string;
-			if (uri == null)
-				return false;
 			
-			Logger.Debug ("FIXME: Implement Tasks.OnActivate: {0}", uri);
-			return true;
+			UpdateStatus ();
+		}
+		
+		public void UpdateStatus ()
+		{
+			if (Completed) {
+				Foreground = "green"; // This is temporary so we can view state
+				Strikethrough = true;
+			} else {
+				Foreground = "red"; // This is temporary so we can view state
+				Strikethrough = true;
+			}
 		}
 		
 		public string Uri
@@ -61,7 +63,28 @@ namespace Tomboy.Tasks
 			}
 			set {
 				Attributes ["completed"] = value.ToString ();
+				UpdateStatus ();
 			}
 		}
+
+/*
+		public override Gdk.Pixbuf Image
+		{
+			get
+			{
+				if (Uri == null)
+					return todo_icon;
+				
+				TaskManager task_mgr = TasksApplicationAddin.DefaultTaskManager;
+				if (task_mgr != null) {
+					Task task = task_mgr.FindByUri (Uri);
+					if (task != null && task.IsComplete)
+						return done_icon;
+				}
+				
+				return todo_icon;
+			}
+		}
+*/
 	}
 }

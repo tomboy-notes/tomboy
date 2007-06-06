@@ -9,7 +9,7 @@ using Mono.Addins;
 
 namespace Tomboy.Tasks
 {
-	public class TasksAddin : ApplicationAddin
+	public class TasksApplicationAddin : ApplicationAddin
 	{
 		static TaskManager manager;
 		static object locker = new object ();
@@ -25,14 +25,9 @@ namespace Tomboy.Tasks
 			get { return manager; }
 		}
 
-		public TasksAddin ()
-		{
-			Logger.Debug ("TasksAddin Constructor");
-		}
-		
 		public override void Initialize ()
 		{
-			Logger.Debug ("TasksAddin.Initialize ()");
+			Logger.Debug ("TasksApplicationAddin.Initialize ()");
 
 			if (manager == null) {
 				lock (locker) {
@@ -80,7 +75,7 @@ namespace Tomboy.Tasks
 
 		public override void Shutdown ()
 		{
-			Logger.Debug ("TasksAddin.Shutdown ()");
+			Logger.Debug ("TasksApplicationAddin.Shutdown ()");
 			manager.Shutdown ();
 			manager = null;
 			

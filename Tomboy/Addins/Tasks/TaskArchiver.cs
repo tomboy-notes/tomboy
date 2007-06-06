@@ -107,6 +107,9 @@ namespace Tomboy.Tasks
 							}
 						}
 						break;
+					case "origin-note-uri":
+						data.OriginNoteUri = xml.ReadString ();
+						break;
 					}
 					break;
 				}
@@ -222,6 +225,12 @@ namespace Tomboy.Tasks
 			if (data.Priority != TaskPriority.Undefined) {
 				xml.WriteStartElement (null, "priority", null);
 				xml.WriteString (data.Priority.ToString ().ToLower ());
+				xml.WriteEndElement ();
+			}
+			
+			if (data.OriginNoteUri != string.Empty) {
+				xml.WriteStartElement (null, "origin-note-uri", null);
+				xml.WriteString (data.OriginNoteUri);
 				xml.WriteEndElement ();
 			}
 

@@ -117,6 +117,8 @@ namespace Tomboy.Tasks
 
 			if (TaskAdded != null)
 				TaskAdded (this, new_task);
+			
+			new_task.QueueSave (true);
 
 			return new_task;
 		}
@@ -169,11 +171,11 @@ namespace Tomboy.Tasks
 	#endregion // Public Methods
 
 	#region Events
-		public event TasksChangedHandler TaskDeleted;
-		public event TasksChangedHandler TaskAdded;
-		public event TaskRenamedHandler TaskRenamed;
-		public event TaskSavedHandler TaskSaved;
-		public event TaskStatusChangedHandler TaskStatusChanged;
+		public static event TasksChangedHandler TaskDeleted;
+		public static event TasksChangedHandler TaskAdded;
+		public static event TaskRenamedHandler TaskRenamed;
+		public static event TaskSavedHandler TaskSaved;
+		public static event TaskStatusChangedHandler TaskStatusChanged;
 	#endregion // Events
 
 	#region Private Methods
