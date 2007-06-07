@@ -354,7 +354,8 @@ namespace Tomboy
 
 			int cnt = 0;
 			foreach (Note note in manager.Notes) {
-				string nice_date = GuiUtils.GetPrettyPrintDate (note.ChangeDate);
+				string nice_date =
+					GuiUtils.GetPrettyPrintDate (note.ChangeDate, true);
 
 				Gtk.TreeIter iter =
 					store.AppendValues (note_icon,  /* icon */

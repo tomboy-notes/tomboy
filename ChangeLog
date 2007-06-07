@@ -1,5 +1,26 @@
 2007-06-07  Boyd Timothy <btimothy@gmail.com> 
 
+	* Tomboy/Utils.cs: Added a show_time:bool argument to Changed
+	  GetPrettyPrintDate that allows a pretty print date to optionally
+	  show the time.
+	* Tomboy/RecentChanges.cs: Update GuiUtils.GetPrettyPrintDate () call
+	  to pass in true to show the time.
+	* Tomboy/Addins/Tasks/TasksNoteAddin.cs: Fix possible null reference
+	  problem when applying task tag.  Open the TaskOptionsDialog in the
+	  center of the NoteWindow.
+	* Tomboy/Addins/Tasks/TaskListWindow.cs: Show the time in the completed
+	  date column.  Don't show the time in the due date column.  Center
+	  the TaskOptionsDialog in the center of the TaskListWindow when
+	  opening options.  Prevent possible null reference exception in
+	  CompareTasks ().
+	* Tomboy/Addins/Tasks/TaskOptionsDialog.cs: Added summary entry and
+	  completed check button.  Add Cancel/Save buttons.
+	* Tomboy/Addins/Tasks/CellRendererDate.cs,
+	  Tomboy/Addins/Tasks/DateButton.cs: Added the option to not show the
+	  time.
+
+2007-06-07  Boyd Timothy <btimothy@gmail.com> 
+
 	* Tomboy/Addins/Tasks/TaskListWindow.cs: Add column sorting by allowing
 	  the user to click on the column headings.
 

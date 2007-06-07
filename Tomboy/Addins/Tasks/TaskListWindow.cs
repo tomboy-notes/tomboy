@@ -83,7 +83,7 @@ namespace Tomboy.Tasks
 					Catalog.GetString ("Create a new task"), null),
 				
 				new Gtk.ActionEntry ("OpenTaskAction", String.Empty,
-					Catalog.GetString ("_Open..."), "<Control>O",
+					Catalog.GetString ("_Options..."), "<Control>O",
 					Catalog.GetString ("Open the selected task"), null),
 				
 				new Gtk.ActionEntry ("CloseTaskListWindowAction", Gtk.Stock.Close,
@@ -98,7 +98,7 @@ namespace Tomboy.Tasks
 					Catalog.GetString ("Delete the selected task"), null),
 				
 				new Gtk.ActionEntry ("OpenOriginNoteAction", null,
-					Catalog.GetString ("Open Origin _Note"), null,
+					Catalog.GetString ("Open Associated _Note"), null,
 					Catalog.GetString ("Open the note containing the task"), null),
 
 				new Gtk.ActionEntry ("TaskListHelpMenuAction", null,
@@ -273,6 +273,7 @@ namespace Tomboy.Tasks
 			renderer = new Gtk.Extras.CellRendererDate ();
 			(renderer as Gtk.Extras.CellRendererDate).Editable = true;
 			(renderer as Gtk.Extras.CellRendererDate).Edited += OnDueDateEdited;
+			(renderer as Gtk.Extras.CellRendererDate).ShowTime = false;
 			renderer.Xalign = 0.0f;
 			due_date_column.PackStart (renderer, true);
 			due_date_column.SetCellDataFunc (renderer,
@@ -293,6 +294,7 @@ namespace Tomboy.Tasks
 			
 			renderer = new Gtk.Extras.CellRendererDate ();
 			(renderer as Gtk.Extras.CellRendererDate).Editable = false;
+			(renderer as Gtk.Extras.CellRendererDate).ShowTime = true;
 			renderer.Xalign = 0.0f;
 			completion_column.PackStart (renderer, true);
 			completion_column.SetCellDataFunc (renderer,
@@ -615,7 +617,7 @@ Logger.Debug ("store_sort has {0} columns", store_sort.NColumns);
 				return;
 			
 			TaskOptionsDialog dialog = new TaskOptionsDialog (this, DialogFlags.DestroyWithParent, task);
-			Logger.Debug ("FIXME: Position the TaskOptionsDialog right next to the selected task (row)");
+			dialog.WindowPosition = Gtk.WindowPosition.CenterOnParent;
 			dialog.Run ();
 			dialog.Destroy ();
 		}
@@ -779,17 +781,27 @@ Logger.Debug ("store_sort has {0} columns", store_sort.NColumns);
 		/// </summary>
 		int CompareTasks (Task a, Task b, SortColumn sort_type)
 		{
-			switch (sort_column) {
-			case SortColumn.CompletionDate:
-				return DateTime.Compare (a.CompletionDate, b.CompletionDate);
-			case SortColumn.DueDate:
-				return DateTime.Compare (a.DueDate, b.DueDate);
-			case SortColumn.OriginNote:
-				return a.OriginNoteUri.CompareTo (b.OriginNoteUri);
-			case SortColumn.Priority:
-				return (int) a.Priority - (int) b.Priority;
-			case SortColumn.Summary:
-				return a.Summary.CompareTo (b.Summary);
+			if (a == null)
+				return -1;
+			if (b == null)
+				return 1;
+			
+			try {
+				switch (sort_column) {
+				case SortColumn.CompletionDate:
+					return DateTime.Compare (a.CompletionDate, b.CompletionDate);
+				case SortColumn.DueDate:
+					return DateTime.Compare (a.DueDate, b.DueDate);
+				case SortColumn.OriginNote:
+					return a.OriginNoteUri.CompareTo (b.OriginNoteUri);
+				case SortColumn.Priority:
+					return (int) a.Priority - (int) b.Priority;
+				case SortColumn.Summary:
+					return a.Summary.CompareTo (b.Summary);
+				}
+			} catch (Exception e) {
+				Logger.Warn ("Exception in TaskListWindow.CompareTasks ({0}): {1}",
+					sort_type, e.Message);
 			}
 			
 			return -1;

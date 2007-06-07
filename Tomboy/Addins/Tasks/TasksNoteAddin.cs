@@ -141,7 +141,11 @@ namespace Tomboy.Tasks
 					task_tag.Uri = task.Uri;
 				} else {
 					task = task_mgr.FindByUri (task_tag.Uri);
-					task.Summary = summary;
+					if (task != null) {
+						task.Summary = summary;
+					} else {
+						Logger.Debug ("FIXME: Add code to remove the task tag if this case is hit");
+					}
 				}
 
 				Buffer.ApplyTag (task_tag, start, line_end);
@@ -412,15 +416,11 @@ namespace Tomboy.Tasks
 						Note.Window,
 						Gtk.DialogFlags.DestroyWithParent,
 						task);
+				dialog.WindowPosition = Gtk.WindowPosition.CenterOnParent;
 				dialog.DeleteEvent += OnOptionsDialogDeleted;
 				options_dialogs [task] = dialog;
 			}
 			
-			Logger.Debug ("FIXME: Attempt to move the Task Options popup right at the tag location");
-			Gdk.Rectangle allocation = Note.Window.Editor.Allocation;
-			int origin_x, origin_y;
-			Note.Window.Editor.GdkWindow.GetOrigin (out origin_x, out origin_y);
-			dialog.Move (origin_x + allocation.X, origin_y + allocation.Y);
 			dialog.Show ();
 			dialog.GrabFocus ();
 		}

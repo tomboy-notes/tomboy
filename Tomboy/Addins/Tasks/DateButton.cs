@@ -37,18 +37,20 @@ namespace Gtk.Extras
 		private Window popup;
 		private DateTime date;
 		private Calendar cal;
+		private bool show_time;
 	
 		private const uint CURRENT_TIME = 0;
 		
 		// FIXME: If this is ever moved to its own library
 		// this reference to Tomboy will obviously have to
 		// be removed.
-		public DateButton(DateTime date_time)
-			: base(Tomboy.GuiUtils.GetPrettyPrintDate (date_time))
+		public DateButton(DateTime date_time, bool show_time)
+			: base(Tomboy.GuiUtils.GetPrettyPrintDate (date_time, show_time))
 		{
 			Toggled += OnToggled;
 			popup = null;
 			date = date_time;
+			this.show_time = show_time;
 		}
 		
 		private void ShowCalendar()
@@ -134,7 +136,7 @@ namespace Gtk.Extras
 				// FIXME: If this is ever moved to its own library
 				// this reference to Tomboy will obviously have to
 				// be removed.
-				Label = Tomboy.GuiUtils.GetPrettyPrintDate (date);
+				Label = Tomboy.GuiUtils.GetPrettyPrintDate (date, show_time);
 			}
 
 			Active = false;
@@ -190,8 +192,18 @@ namespace Gtk.Extras
 			get { return date; }
 			set {
 				date = value;
-				Label = Tomboy.GuiUtils.GetPrettyPrintDate (date);
+				Label = Tomboy.GuiUtils.GetPrettyPrintDate (date, show_time);
 			}
+		}
+		
+		/// <summary>
+		/// If true, both the date and time will be shown.  If false, the time
+		/// will be omitted.
+		/// </summary>
+		public bool ShowTime
+		{
+			get { return show_time; }
+			set { show_time = value; }
 		}
 	}
 }
