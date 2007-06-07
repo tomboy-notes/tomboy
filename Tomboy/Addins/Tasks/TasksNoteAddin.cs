@@ -127,11 +127,12 @@ namespace Tomboy.Tasks
 			string text = start.GetText (line_end);
 			//Logger.Debug ("Evaluating with regex: {0}", text);
 			
+			TaskManager task_mgr = TasksApplicationAddin.DefaultTaskManager;
+			Task task;
+
 			Match match = regex.Match (text);
 			if (match.Success) {
 				string summary = GetTaskSummaryFromLine (text);
-				TaskManager task_mgr = TasksApplicationAddin.DefaultTaskManager;
-				Task task;
 				if (task_tag == null) {
 					Logger.Debug ("Creating a new task for: {0}", summary);
 					task = task_mgr.Create (summary);
@@ -150,6 +151,13 @@ namespace Tomboy.Tasks
 
 				Buffer.ApplyTag (task_tag, start, line_end);
 				last_removed_tag = null;
+			} else if (task_tag != null) {
+				// This task should be deleted
+				task = task_mgr.FindByUri (task_tag.Uri);
+				if (task != null) {
+					task_mgr.Delete (task);
+					last_removed_tag = null;
+				}
 			}
 		}
 		
