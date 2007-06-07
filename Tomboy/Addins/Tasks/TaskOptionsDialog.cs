@@ -13,6 +13,11 @@ namespace Tomboy.Tasks
 		Task task;
 		Gtk.AccelGroup accel_group;
 		
+		Gtk.Entry summary_entry;
+		
+		Gtk.CheckButton completed_check_button;
+		Gtk.Label completed_label;
+		
 		Gtk.CheckButton due_date_check_button;
 		Gtk.Extras.DateButton due_date_button;
 		
@@ -26,43 +31,104 @@ namespace Tomboy.Tasks
 		public TaskOptionsDialog(Gtk.Window parent,
 					Gtk.DialogFlags flags,
 					Task task)
-			: base ()
+			: base (Catalog.GetString ("Task Options"), parent, flags)
 		{
 			HasSeparator = false;
 			//BorderWidth = 0;
 			Resizable = false;
-			//Title = string.Empty;
-			Decorated = false;
-			this.SetDefaultSize (300, 200);
+			//Decorated = false;
+			this.SetDefaultSize (400, 300);
 			this.task = task;
 
-			Frame frame = new Frame();
-			frame.Shadow = ShadowType.Out;
-			frame.Show();
-			VBox.PackStart (frame, true, true, 0);
+//			Frame frame = new Frame();
+//			frame.Shadow = ShadowType.Out;
+//			frame.Show();
+//			VBox.PackStart (frame, true, true, 0);
 			
-			VBox vbox = new VBox (false, 12);
+			VBox vbox = new VBox (false, 6);
 			vbox.BorderWidth = 6;
 			vbox.Show ();
-			frame.Add (vbox);
+			VBox.PackStart (vbox, true, true, 0);
+//			frame.Add (vbox);
 			
 			ActionArea.Layout = Gtk.ButtonBoxStyle.End;
 			
 			accel_group = new Gtk.AccelGroup ();
 			AddAccelGroup (accel_group);
 			
-			Gtk.Label l = new Gtk.Label (
-					string.Format (
-						"<span weight=\"bold\">{0}</span>",
-						Catalog.GetString ("Task Options")));
-			l.UseMarkup = true;
+//			Gtk.Label l = new Gtk.Label (
+//					string.Format (
+//						"<span weight=\"bold\">{0}</span>",
+//						Catalog.GetString ("Task Options")));
+//			l.UseMarkup = true;
+//			l.Show ();
+//			vbox.PackStart (l, false, false, 0);
+			
+			///
+			/// Summary
+			///
+			Gtk.Label l = new Label (Catalog.GetString ("_Summary:"));
+			l.Xalign = 0;
 			l.Show ();
 			vbox.PackStart (l, false, false, 0);
+			
+			summary_entry = new Gtk.Entry ();
+			l.MnemonicWidget = summary_entry;
+			summary_entry.Text = task.Summary;
+			summary_entry.Show ();
+			vbox.PackStart (summary_entry, false, false, 0);
+			
+			///
+			/// Details
+			///
+			l = new Label (Catalog.GetString ("_Details:"));
+			l.Xalign = 0;
+			l.Show ();
+			vbox.PackStart (l, false, false, 0);
+			
+			details_text_view = new TextView ();
+			l.MnemonicWidget = details_text_view;
+			details_text_view.WrapMode = WrapMode.Word;
+			details_text_view.Show ();
+			
+			ScrolledWindow sw = new ScrolledWindow ();
+			sw.ShadowType = Gtk.ShadowType.EtchedIn;
+			sw.Add (details_text_view);
+			sw.Show ();
+			
+			vbox.PackStart (sw, true, true, 0);
+
+			///
+			/// Completion Checkbox
+			///
+			HBox hbox = new Gtk.HBox (false, 4);
+			
+			completed_check_button = new Gtk.CheckButton (
+					task.IsComplete ?
+						Catalog.GetString ("_Completed:") :
+						Catalog.GetString ("_Complete"));
+			if (task.IsComplete)
+				completed_check_button.Active = true;
+			completed_check_button.UseUnderline = true;
+			completed_check_button.Toggled += OnCompletedCheckButtonToggled;
+			completed_check_button.Show ();
+			hbox.PackStart (completed_check_button, false, false, 0);
+			
+			completed_label = new Gtk.Label (
+					task.IsComplete ?
+						GuiUtils.GetPrettyPrintDate (task.CompletionDate, true) :
+						string.Empty);
+			completed_label.Xalign = 0;
+			completed_label.Show ();
+			hbox.PackStart (completed_label, true, true, 0);
+			
+			hbox.Show ();
+			vbox.PackStart (hbox, false, false, 0);
 					
 			///
 			/// Due Date
 			///
-			HBox hbox = new HBox (false, 4);
+			hbox = new HBox (false, 4);
 			due_date_check_button = new CheckButton (Catalog.GetString ("Due Date:"));
 			if (task.DueDate != DateTime.MinValue)
 				due_date_check_button.Active = true;
@@ -71,7 +137,7 @@ namespace Tomboy.Tasks
 			hbox.PackStart (due_date_check_button, false, false, 0);
 			
 			due_date_button =
-					new Gtk.Extras.DateButton (task.DueDate);
+					new Gtk.Extras.DateButton (task.DueDate, false);
 			if (task.DueDate == DateTime.MinValue)
 				due_date_button.Sensitive = false;
 			due_date_button.Show ();
@@ -111,35 +177,17 @@ namespace Tomboy.Tasks
 			hbox.Show ();
 			vbox.PackStart (hbox, false, false, 0);
 			
-			///
-			/// Details
-			///
-			l = new Label (Catalog.GetString ("Details:"));
-			l.Xalign = 0;
-			l.Show ();
-			vbox.PackStart (l, false, false, 0);
+			AddButton (Gtk.Stock.Cancel, Gtk.ResponseType.Cancel, false);
+			AddButton (Gtk.Stock.Save, Gtk.ResponseType.Ok, true);
 			
-			details_text_view = new TextView ();
-			details_text_view.WrapMode = WrapMode.Word;
-			details_text_view.Show ();
-			
-			ScrolledWindow sw = new ScrolledWindow ();
-			sw.ShadowType = Gtk.ShadowType.EtchedIn;
-			sw.Add (details_text_view);
-			sw.Show ();
-			
-			vbox.PackStart (sw, true, true, 0);
-			
-			AddButton (Gtk.Stock.Close, Gtk.ResponseType.Close, true);
-			
-			if (parent != null)
-				TransientFor = parent;
+//			if (parent != null)
+//				TransientFor = parent;
 
-			if ((int) (flags & Gtk.DialogFlags.Modal) != 0)
-				Modal = true;
+//			if ((int) (flags & Gtk.DialogFlags.Modal) != 0)
+//				Modal = true;
 
-			if ((int) (flags & Gtk.DialogFlags.DestroyWithParent) != 0)
-				DestroyWithParent = true;
+//			if ((int) (flags & Gtk.DialogFlags.DestroyWithParent) != 0)
+//				DestroyWithParent = true;
 		}
 #endregion // Constructors
 #region Public Properties
@@ -179,6 +227,27 @@ namespace Tomboy.Tasks
 		{
 			Hide ();
 			
+			if (response_id != Gtk.ResponseType.Ok)
+				return;
+			
+			// Save summary
+			string new_summary = summary_entry.Text.Trim ();
+			if (task.Summary.CompareTo (new_summary) != 0)
+				task.Summary = new_summary;
+			
+			// Save details
+			string new_details = details_text_view.Buffer.Text;
+			if (task.Details != new_details)
+				task.Details = new_details;
+			
+			// Save Completed Status
+			if (task.IsComplete != completed_check_button.Active) {
+				if (completed_check_button.Active)
+					task.Complete ();
+				else
+					task.ReOpen ();
+			}
+			
 			// Save due date
 			DateTime new_due_date;
 			if (due_date_check_button.Active)
@@ -193,15 +262,21 @@ namespace Tomboy.Tasks
 			TaskPriority new_priority = (TaskPriority) priority_combo_box.Active;
 			if (task.Priority != new_priority)
 				task.Priority = new_priority;
-			
-			// Save details
-			string new_details = details_text_view.Buffer.Text;
-			if (task.Details != new_details)
-				task.Details = new_details;
 		}
 #endregion // Private Methods
 
 #region Event Handlers
+		void OnCompletedCheckButtonToggled (object sender, EventArgs args)
+		{
+			if (completed_check_button.Active) {
+				completed_check_button.Label = Catalog.GetString ("_Completed:");
+				completed_label.Text = GuiUtils.GetPrettyPrintDate (DateTime.Now, true);
+			} else {
+				completed_check_button.Label = Catalog.GetString ("_Complete");
+				completed_label.Text = string.Empty;
+			}
+		}
+		
 		void OnDueDateCheckButtonToggled (object sender, EventArgs args)
 		{
 			if (due_date_check_button.Active) {

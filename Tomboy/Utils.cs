@@ -135,39 +135,60 @@ namespace Tomboy
 		/// <summary>
 		/// Get a string that is more friendly/pretty for the specified date.
 		/// For example, "Today, 3:00 PM", "4 days ago, 9:20 AM".
+		/// <param name="date">The DateTime to evaluate</param>
+		/// <param name="show_time">If true, output the time along with the
+		/// date</param>
 		/// </summary>
-		public static string GetPrettyPrintDate (DateTime date)
+		public static string GetPrettyPrintDate (DateTime date, bool show_time)
 		{
+			string pretty_str = String.Empty;
 			DateTime now = DateTime.Now;
 			string short_time = date.ToShortTimeString ();
 
 			if (date.Year == now.Year) {
 				if (date.DayOfYear == now.DayOfYear)
-					return String.Format (Catalog.GetString ("Today, {0}"), 
-							      short_time);
+					pretty_str = show_time ?
+						String.Format (Catalog.GetString ("Today, {0}"), 
+							      short_time) :
+						Catalog.GetString ("Today");
 				else if (date.DayOfYear < now.DayOfYear
 							&& date.DayOfYear == now.DayOfYear - 1)
-					return String.Format (Catalog.GetString ("Yesterday, {0}"),
-									short_time);
+					pretty_str = show_time ?
+						String.Format (Catalog.GetString ("Yesterday, {0}"),
+									short_time) :
+						Catalog.GetString ("Yesterday");
 				else if (date.DayOfYear < now.DayOfYear
 							&& date.DayOfYear > now.DayOfYear - 6)
-					return String.Format (Catalog.GetString ("{0} days ago, {1}"),
-						now.DayOfYear - date.DayOfYear, short_time);
+					pretty_str = show_time ?
+						String.Format (Catalog.GetString ("{0} days ago, {1}"),
+							now.DayOfYear - date.DayOfYear, short_time) :
+						String.Format (Catalog.GetString ("{0} days ago"),
+							now.DayOfYear - date.DayOfYear);
 				else if (date.DayOfYear > now.DayOfYear
 							&& date.DayOfYear == now.DayOfYear + 1)
-					return String.Format (Catalog.GetString ("Tomorrow, {0}"),
-									short_time);
+					pretty_str = show_time ?
+						String.Format (Catalog.GetString ("Tomorrow, {0}"),
+									short_time) :
+						Catalog.GetString ("Tomorrow");
 				else if (date.DayOfYear > now.DayOfYear
 							&& date.DayOfYear < now.DayOfYear + 6)
-					return String.Format (Catalog.GetString ("In {0} days, {1}"),
-						date.DayOfYear - now.DayOfYear, short_time);
+					pretty_str = show_time ?
+						String.Format (Catalog.GetString ("In {0} days, {1}"),
+							date.DayOfYear - now.DayOfYear, short_time) :
+						String.Format (Catalog.GetString ("In {0} days"),
+							date.DayOfYear - now.DayOfYear);
 				else
-					return date.ToString (
-						Catalog.GetString ("MMMM d, h:mm tt"));
+					pretty_str = show_time ?
+						date.ToString (Catalog.GetString ("MMMM d, h:mm tt")) :
+						date.ToString (Catalog.GetString ("MMMM d"));
 			} else if (date == DateTime.MinValue)
-				return Catalog.GetString ("No Date");
+				pretty_str = Catalog.GetString ("No Date");
 			else
-				return date.ToString (Catalog.GetString ("MMMM d yyyy, h:mm tt"));
+				pretty_str = show_time ?
+					date.ToString (Catalog.GetString ("MMMM d yyyy, h:mm tt")) :
+					date.ToString (Catalog.GetString ("MMMM d yyyy"));
+				
+			return pretty_str;
 		}
 	}
 

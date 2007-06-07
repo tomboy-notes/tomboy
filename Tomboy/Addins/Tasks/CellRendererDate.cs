@@ -11,6 +11,7 @@ namespace Gtk.Extras
 	{
 		DateTime date;
 		bool editable;
+		bool show_time;
 		
 		Window popup;
 		Calendar cal;
@@ -35,6 +36,7 @@ namespace Gtk.Extras
 			date = DateTime.MinValue;
 			editable = false;
 			popup = null;
+			show_time = true;
 		}
 		
 		protected CellRendererDate (System.IntPtr ptr) : base (ptr)
@@ -65,6 +67,16 @@ namespace Gtk.Extras
 					Mode = CellRendererMode.Inert;
 			}
 		}
+		
+		/// <summary>
+		/// If true, both the date and time will be shown.  If false, the time
+		/// will be omitted.  The default is true.
+		/// </summary>
+		public bool ShowTime
+		{
+			get { return show_time; }
+			set { show_time = value; }
+		}
 #endregion // Public Properties
 
 #region Public Methods
@@ -75,7 +87,7 @@ namespace Gtk.Extras
 			
 			// FIXME: If this code is ever built into its own library,
 			// the call to Tomboy will definitely have to change
-			layout.SetText (Tomboy.GuiUtils.GetPrettyPrintDate (date));
+			layout.SetText (Tomboy.GuiUtils.GetPrettyPrintDate (date, show_time));
 			
 			CalculateSize (layout, out x_offset, out y_offset, out width, out height);
 		}
@@ -108,7 +120,7 @@ namespace Gtk.Extras
 
 			// FIXME: If this code is ever built into its own library,
 			// the call to Tomboy will definitely have to change
-			layout.SetText (Tomboy.GuiUtils.GetPrettyPrintDate (date));
+			layout.SetText (Tomboy.GuiUtils.GetPrettyPrintDate (date, show_time));
 			
 			int x, y, w, h;
 			CalculateSize (layout, out x, out y, out w, out h);
