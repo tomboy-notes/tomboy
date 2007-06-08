@@ -20,6 +20,9 @@ namespace Tomboy.Tasks
 		
 		Dictionary<Task, TaskOptionsDialog> options_dialogs;
 		
+		// Use this variable to track the GLib.Idle.Add call to ProcessNewline
+		uint prev_line_handler;
+		
 		const string TASK_REGEX = 
 			@"(^\s*{0}:.*$)";
 
@@ -50,6 +53,8 @@ namespace Tomboy.Tasks
 			TaskManager.TaskStatusChanged += OnTaskStatusChanged;
 			
 			options_dialogs = new Dictionary<Task, TaskOptionsDialog> ();
+			
+			prev_line_handler = 0;
 		}
 		
 		public override void Shutdown ()
@@ -106,17 +111,12 @@ namespace Tomboy.Tasks
 			} while (iter.ForwardLine());
 		}
 		
-		void ApplyTaskTagToBlock (Gtk.TextIter start, Gtk.TextIter end)
+		void ApplyTaskTagToBlock (ref Gtk.TextIter start, Gtk.TextIter end)
 		{
-			while (start.StartsLine () == false) {
-				start.BackwardChar ();
-			}
-			
 			Gtk.TextIter line_end = start;
 			line_end.ForwardToLineEnd ();
 			
-			TaskTag task_tag = (TaskTag)
-					Buffer.GetDynamicTag ("task", start);
+			TaskTag task_tag = GetTaskTagFromLineIter (ref start);
 			
 			if (task_tag != null) {
 				Buffer.RemoveTag (task_tag, start, line_end);
@@ -125,7 +125,7 @@ namespace Tomboy.Tasks
 			}
 			
 			string text = start.GetText (line_end);
-			//Logger.Debug ("Evaluating with regex: {0}", text);
+//			Logger.Debug ("Evaluating with regex: {0}", text);
 			
 			TaskManager task_mgr = TasksApplicationAddin.DefaultTaskManager;
 			Task task;
@@ -134,7 +134,6 @@ namespace Tomboy.Tasks
 			if (match.Success) {
 				string summary = GetTaskSummaryFromLine (text);
 				if (task_tag == null) {
-					Logger.Debug ("Creating a new task for: {0}", summary);
 					task = task_mgr.Create (summary);
 					task.OriginNoteUri = Note.Uri;
 					task_tag = (TaskTag)
@@ -157,6 +156,8 @@ namespace Tomboy.Tasks
 				if (task != null) {
 					task_mgr.Delete (task);
 					last_removed_tag = null;
+				} else {
+					last_removed_tag = null;
 				}
 			}
 		}
@@ -178,13 +179,106 @@ namespace Tomboy.Tasks
 			string summary = line.Substring (todo_str.Length);
 			return summary.Trim ();
 		}
-
+		
+		/// <summary>
+		/// Returns true if the current Note contains the specified text.
+		/// <param name="text">The text to search for in the note.</param>
+		/// </summary>
 		bool ContainsText (string text)
 		{
 			string body = Note.TextContent.ToLower ();
 			string match = text.ToLower ();
 
 			return body.IndexOf (match) > -1;
+		}
+		
+		TaskTag GetTaskTagFromLineIter (ref Gtk.TextIter line_iter)
+		{
+			TaskTag task_tag = null;
+			
+			while (line_iter.StartsLine () == false) {
+				line_iter.BackwardChar ();
+			}
+			
+			task_tag = (TaskTag) Buffer.GetDynamicTag ("task", line_iter);
+			
+			return task_tag;
+		}
+		
+		/// <summary>
+		/// Each time the user enters a newline (presses enter),
+		/// evaluate the previous line to see if a new task should
+		/// be created or the previous one removed...
+		/// </summary>
+		bool ProcessNewline ()
+		{
+			prev_line_handler = 0;
+			
+			Gtk.TextIter iter = Buffer.GetIterAtMark (Buffer.InsertMark);
+			Gtk.TextIter prev_line = iter;
+			if (prev_line.BackwardLine () == false)
+				return false;
+			
+			TaskTag task_tag = GetTaskTagFromLineIter (ref prev_line);
+			if (task_tag == null)
+				return false; // nothing to do with tasks here!
+			Task task =
+				TasksApplicationAddin.DefaultTaskManager.FindByUri (task_tag.Uri);
+			
+			if (task == null) {
+				// This shouldn't happen, but just in case we have a left-over
+				// TaskTag without a real task, go ahead and remove the TaskTag
+				
+				// FIXME: Remove TaskTag from the line
+				
+				return false;
+			}
+			
+			if (task.Summary == string.Empty) {
+				// If the previous line's task summary is empty, delete the task
+				Logger.Debug ("Previous line's task summary is empty, deleting it...");
+				TasksApplicationAddin.DefaultTaskManager.Delete (task);
+			} else {
+				// If the previous line's task summary is not empty, create a new
+				// task on the current line.
+				
+				Buffer.InsertAtCursor (
+						string.Format ("{0}: ",
+								Catalog.GetString ("todo")));
+			}
+			
+			return false;
+		}
+		
+		/// <summary>
+		/// Delete the task tag on the line specified by the TextIter.
+		/// <param name="iter">The TextIter specifying the line where the
+		/// TaskTag should be removed.</param>
+		/// <returns>True if a TaskTag was removed, otherwise False.</returns>
+		/// </summary>
+		bool RemoveTaskTagFromLine (ref Gtk.TextIter iter)
+		{
+			TaskTag task_tag = GetTaskTagFromLineIter (ref iter);
+			if (task_tag == null)
+				return false;
+
+			while (iter.StartsLine () == false) {
+				iter.BackwardChar ();
+			}
+			
+			Gtk.TextIter line_end = iter;
+			line_end.ForwardToLineEnd ();
+			
+			string text = iter.GetText (line_end);
+			
+			Buffer.Delete (ref iter, ref line_end);
+			last_removed_tag = null;
+			Buffer.RemoveTag (task_tag, iter, line_end);
+			
+			text = GetTaskSummaryFromLine (text);
+			if (text.Length > 0)
+				Buffer.Insert (ref iter, text);
+			return true;
 		}
 #endregion // Private Methods
 
@@ -212,16 +306,7 @@ namespace Tomboy.Tasks
 					if (task_tag.Uri != task.Uri)
 						continue;
 					
-					Gtk.TextIter line_start = iter;
-					while (line_start.StartsLine () == false)
-						line_start.BackwardChar ();
-					Gtk.TextIter line_end = iter;
-					line_end.ForwardToLineEnd ();
-					
-					Buffer.Delete (ref line_start, ref line_end);
-					last_removed_tag = null;
-					Buffer.RemoveTag (task_tag, line_start, line_end);
-					Buffer.Insert (ref line_start, task.Summary);
+					RemoveTaskTagFromLine (ref iter);
 					break;
 				}
 			} while (iter.ForwardLine());
@@ -301,15 +386,38 @@ namespace Tomboy.Tasks
 
 		void OnDeleteRange (object sender, Gtk.DeleteRangeArgs args)
 		{
-			ApplyTaskTagToBlock (args.Start, args.End);
+			Gtk.TextIter start = args.Start;
+			ApplyTaskTagToBlock (ref start, args.End);
 		}
-
+		
 		void OnInsertText (object sender, Gtk.InsertTextArgs args)
 		{
 			Gtk.TextIter start = args.Pos;
-			start.BackwardChars (args.Length);
+//Logger.Debug ("TaskNoteAddin.OnInsertText:\n" +
+//				"\tLength: {0}\n" +
+//				"\tText: {1}\n" +
+//				"\tLine: {2}",
+//				args.Length,
+//				args.Text,
+//				args.Pos.Line);
 
-			ApplyTaskTagToBlock (start, args.Pos);
+			if (args.Length == 1 && args.Text == "\n") {
+				Gtk.TextIter prev_line = args.Pos;
+				prev_line.BackwardLine ();
+				TaskTag task_tag = GetTaskTagFromLineIter (ref prev_line);
+				if (task_tag != null) {
+					// If the user just entered a newline and the previous
+					// line was a task, do some special processing...but
+					// we have to do it on idle since there are other
+					// Buffer.InsertText handlers that we'll screw up if
+					// we modify anything here.
+					if (prev_line_handler != 0)
+						GLib.Source.Remove (prev_line_handler);
+					prev_line_handler = GLib.Idle.Add (ProcessNewline);
+				}
+			} else {
+				ApplyTaskTagToBlock (ref start, args.Pos);
+			}
 		}
 
 		[GLib.ConnectBefore]
