@@ -101,8 +101,8 @@ namespace Tomboy.Tasks
 			if (summary == null)
 				throw new ArgumentNullException ("summary", "You cannot create the a new task with a null summary.  Use String.Empty instead.");
 
-			if (summary.Length > 0 && Find (summary) != null)
-				throw new Exception ("A task with this summary already exists");
+//			if (summary.Length > 0 && Find (summary) != null)
+//				throw new Exception ("A task with this summary already exists");
 
 			string filename = MakeNewFileName ();
 			
@@ -114,7 +114,7 @@ namespace Tomboy.Tasks
 			Gtk.TreeIter iter = tasks.Append ();
 			tasks.SetValue (iter, 0, new_task);
 			task_iters [new_task.Uri] = iter;
-
+			
 			if (TaskAdded != null)
 				TaskAdded (this, new_task);
 			
