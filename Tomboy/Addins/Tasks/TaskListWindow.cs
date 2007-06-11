@@ -242,6 +242,8 @@ namespace Tomboy.Tasks
 			///
 			summary_column = new Gtk.TreeViewColumn ();
 			summary_column.Title = Catalog.GetString ("Summary");
+			summary_column.MinWidth = 200;
+			summary_column.FixedWidth = 200;
 			summary_column.Sizing = Gtk.TreeViewColumnSizing.Autosize;
 			summary_column.Resizable = true;
 			summary_column.Clickable = true;
@@ -251,6 +253,7 @@ namespace Tomboy.Tasks
 			
 			renderer = new Gtk.CellRendererText ();
 			(renderer as CellRendererText).Editable = true;
+			(renderer as CellRendererText).Ellipsize = Pango.EllipsizeMode.End;
 			(renderer as CellRendererText).Edited += OnTaskSummaryEdited;
 			renderer.Xalign = 0.0f;
 			summary_column.PackStart (renderer, true);
