@@ -23,7 +23,7 @@
 	body { <xsl:value-of select="$font" /> }
 	h1 { font-size: xx-large;
      	     font-weight: bold;
-     	     color: red;
+     	     color: #204A87;
      	     text-decoration: underline; }
 	div.note { overflow: auto;
 		   position: relative;
@@ -103,7 +103,7 @@
 </xsl:template>
 
 <xsl:template match="tomboy:datetime">
-	<span style="font-style:italic;font-size:small;color:grey">
+	<span style="font-style:italic;font-size:small;color:#888A85">
 		<xsl:apply-templates select="node()"/>
 	</span>
 </xsl:template>
@@ -121,19 +121,19 @@
 </xsl:template>
 
 <xsl:template match="link:broken">
-	<span style="color:silver;text-decoration:underline">
+	<span style="color:#555753;text-decoration:underline">
 		<xsl:value-of select="node()"/>
 	</span>
 </xsl:template>
 
 <xsl:template match="link:internal">
-	<a style="color:red" href="#{document(node())/tomboy:note/tomboy:title}">
+	<a style="color:#204A87" href="#{document(node())/tomboy:note/tomboy:title}">
 		<xsl:value-of select="node()"/>
 	</a>
 </xsl:template>
 
 <xsl:template match="link:url">
-	<a href="{node()}"><xsl:value-of select="node()"/></a>
+	<a style="color:#3465A4" href="{node()}"><xsl:value-of select="node()"/></a>
 </xsl:template>
 
 <xsl:template match="tomboy:list">
