@@ -15,7 +15,6 @@ namespace Tomboy
 		Gtk.ComboBoxEntry find_combo;
 		Gtk.Button clear_search_button;
 		Gtk.CheckButton case_sensitive;
-		Gtk.HPaned hpaned;
 		Gtk.Label note_count;
 		Gtk.ScrolledWindow matches_window;
 		Gtk.VBox content_vbox;
