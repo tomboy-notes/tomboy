@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tomboy HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-06-04 03:49+0100\n"
-"PO-Revision-Date: 2007-06-13 10:24+0300\n"
+"POT-Creation-Date: 2007-06-25 03:31+0100\n"
+"PO-Revision-Date: 2007-06-27 10:52+0300\n"
 "Last-Translator: Ivar Smolin <okul@linux.ee>\n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
 "MIME-Version: 1.0\n"
@@ -41,7 +41,7 @@ msgid "_About"
 msgstr "_Tomboy'st lähemalt"
 
 #: ../data/GNOME_TomboyApplet.xml.h:2 ../Tomboy/ActionManager.cs:93
-#: ../Tomboy/Applet.cs:186
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:105 ../Tomboy/Applet.cs:186
 msgid "_Help"
 msgstr "_Abi"
 
@@ -362,7 +362,7 @@ msgstr "Lehekülg %N (%Q-st)"
 msgid "%A %x, %X"
 msgstr "%A %x, %X"
 
-#: ../Tomboy/ActionManager.cs:63
+#: ../Tomboy/ActionManager.cs:63 ../Tomboy/Addins/Tasks/TaskListWindow.cs:79
 msgid "_File"
 msgstr "_Fail"
 
@@ -382,7 +382,7 @@ msgstr "_Ava..."
 msgid "Open the selected note"
 msgstr "Valitud märkme avamine"
 
-#: ../Tomboy/ActionManager.cs:74
+#: ../Tomboy/ActionManager.cs:74 ../Tomboy/Addins/Tasks/TaskListWindow.cs:97
 msgid "_Delete"
 msgstr "_Kustuta"
 
@@ -390,11 +390,12 @@ msgstr "_Kustuta"
 msgid "Delete the selected note"
 msgstr "Valitud märkme kustutamine"
 
-#: ../Tomboy/ActionManager.cs:78 ../Tomboy/NoteWindow.cs:374
+#: ../Tomboy/ActionManager.cs:78 ../Tomboy/Addins/Tasks/TaskListWindow.cs:90
+#: ../Tomboy/NoteWindow.cs:374
 msgid "_Close"
 msgstr "_Sulge"
 
-#: ../Tomboy/ActionManager.cs:79
+#: ../Tomboy/ActionManager.cs:79 ../Tomboy/Addins/Tasks/TaskListWindow.cs:91
 msgid "Close this window"
 msgstr "Selle akna sulgemine"
 
@@ -406,15 +407,15 @@ msgstr "_Lõpeta"
 msgid "Quit Tomboy"
 msgstr "Tomboy töö lõpetamine"
 
-#: ../Tomboy/ActionManager.cs:86
+#: ../Tomboy/ActionManager.cs:86 ../Tomboy/Addins/Tasks/TaskListWindow.cs:94
 msgid "_Edit"
 msgstr "_Redaktor"
 
-#: ../Tomboy/ActionManager.cs:90
+#: ../Tomboy/ActionManager.cs:90 ../Tomboy/PreferencesDialog.cs:43
 msgid "Tomboy Preferences"
 msgstr "Tomboy eelistused"
 
-#: ../Tomboy/ActionManager.cs:96
+#: ../Tomboy/ActionManager.cs:96 ../Tomboy/Addins/Tasks/TaskListWindow.cs:108
 msgid "_Contents"
 msgstr "_Sisukord"
 
@@ -442,6 +443,494 @@ msgstr "_Otsi kõikide märkmete hulgast"
 msgid "Open the Search All Notes window"
 msgstr "Otsing kõikide märkmete hulgast"
 
+#: ../Tomboy/AddinManager.cs:223 ../Tomboy/PluginManager.cs:574
+#, csharp-format
+msgid "Cannot fully disable {0}."
+msgstr "Pluginat {0} pole võimalik täielikult keelata."
+
+#: ../Tomboy/AddinManager.cs:226
+#, fuzzy, csharp-format
+msgid ""
+"Cannot fully disable {0} as there still are at least {1} reference to this "
+"addin. This indicates a programming error. Contact the addin's author and "
+"report this problem.\n"
+"\n"
+"<b>Developer Information:</b> This problem usually occurs when the addin's "
+"Dispose method fails to disconnect all event handlers. The heap-shot "
+"profiler ({2}) can help to identify leaking references."
+msgstr ""
+"Pluginat {0} pole võimalik täielikult keelata kuna sellele on vähemasti {1} "
+"viide. See viitab programmeerimisveale. Palun võta ühendust plugina autoriga "
+"ja teavita teda probleemist.\n"
+"\n"
+"<b>Teave arendajatele:</b> See probleem ilmneb arvatavasti juhul, kui "
+"plugina Dispose meetodis tekib tõrge kõikide sündmusekäsitlejatega ühenduse "
+"katkestamisel. Heap-shot profileerija ({2}) võib aidata lekkivaid viitasid "
+"tuvastada."
+
+#: ../Tomboy/Addins/Backlinks/BacklinksNoteAddin.cs:25
+msgid "What links here?"
+msgstr "Mis siia viitab?"
+
+#: ../Tomboy/Addins/Backlinks/BacklinksNoteAddin.cs:83
+msgid "(none)"
+msgstr "(puudub)"
+
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:65
+#: ../Tomboy/Addins/Tasks/TasksApplicationAddin.cs:48
+msgid "To Do List"
+msgstr ""
+
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:82
+msgid "New _Task"
+msgstr ""
+
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:83
+msgid "Create a new task"
+msgstr "Uue ülesande loomine"
+
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:86
+msgid "_Options..."
+msgstr "_Valikud..."
+
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:87
+msgid "Open the selected task"
+msgstr "Valitud ülesande avamine"
+
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:98
+msgid "Delete the selected task"
+msgstr "Valitud ülesande kustutamine"
+
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:101
+#, fuzzy
+msgid "Open Associated _Note"
+msgstr "Valitud märkme avamine"
+
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:102
+msgid "Open the note containing the task"
+msgstr ""
+
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:109
+#, fuzzy
+msgid "Tasks Help"
+msgstr "Ülesanded"
+
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:244
+msgid "Summary"
+msgstr "Kokkuvõte"
+
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:268
+msgid "Due Date"
+msgstr "Tähtaeg"
+
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:290
+msgid "Completion Date"
+msgstr "Valmimise aeg"
+
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:311
+msgid "Priority"
+msgstr "Tähtus"
+
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:324
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:416
+#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:164
+msgid "None"
+msgstr "Puudub"
+
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:325
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:407
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:902
+#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:165
+msgid "Low"
+msgstr "Madal"
+
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:326
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:410
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:904
+#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:166
+msgid "Normal"
+msgstr "Tavaline"
+
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:327
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:413
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:906
+#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:167
+msgid "High"
+msgstr "Kõrge"
+
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:433
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:442
+#, csharp-format
+msgid "Total: {0} task"
+msgid_plural "Total: {0} tasks"
+msgstr[0] "Kokku: {0} ülesanne"
+msgstr[1] "Kokku: {0} ülesannet"
+
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:601
+#, csharp-format
+msgid "New Task {0}"
+msgstr "Uus ülesanne {0}"
+
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:826
+msgid "Really delete this task?"
+msgstr "Kas kustutada see ülesanne?"
+
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:827
+msgid "If you delete a task it is permanently lost."
+msgstr "Kui sa ülesande kustutad, siis on see jäädavalt kadunud."
+
+#: ../Tomboy/Addins/Tasks/TaskManager.cs:216
+msgid "Learn About Tomboy"
+msgstr ""
+
+#: ../Tomboy/Addins/Tasks/TaskManager.cs:219
+msgid ""
+"Click on the Tomboy icon in your panel and select \"Start Here\".  You'll "
+"see more instructions on how to use Tomboy inside the \"Start Here\" note.\n"
+"\n"
+"When you've opened the \"Start Here\" note, mark this task as being complete."
+msgstr ""
+
+#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:34
+msgid "Task Options"
+msgstr "Ülesande valikud"
+
+#. Gtk.Label l = new Gtk.Label (
+#. string.Format (
+#. "<span weight=\"bold\">{0}</span>",
+#. Catalog.GetString ("Task Options")));
+#. l.UseMarkup = true;
+#. l.Show ();
+#. vbox.PackStart (l, false, false, 0);
+#. /
+#. / Summary
+#. /
+#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:70
+msgid "_Summary:"
+msgstr ""
+
+#. /
+#. / Details
+#. /
+#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:84
+msgid "_Details:"
+msgstr ""
+
+#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:108
+#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:272
+msgid "_Completed:"
+msgstr ""
+
+#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:109
+#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:275
+#, fuzzy
+msgid "_Complete"
+msgstr "_Kustuta"
+
+#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:132
+#, fuzzy
+msgid "Due Date:"
+msgstr "Kuupäev puudub"
+
+#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:156
+msgid "Priority:"
+msgstr "Tähtsus:"
+
+#: ../Tomboy/Addins/Tasks/TasksApplicationAddin.cs:46
+msgid "_Tools"
+msgstr "_Tööriistad"
+
+#: ../Tomboy/Addins/Tasks/TasksNoteAddin.cs:37
+#: ../Tomboy/Addins/Tasks/TasksNoteAddin.cs:170
+#: ../Tomboy/Addins/Tasks/TasksNoteAddin.cs:247
+#: ../Tomboy/Addins/Tasks/TasksNoteAddin.cs:351
+msgid "todo"
+msgstr ""
+
+#: ../Tomboy/Addins/Tasks/TasksNoteAddin.cs:453
+msgid "Open To Do List"
+msgstr ""
+
+#: ../Tomboy/Addins/Tasks/TasksNoteAddin.cs:458
+msgid "To Do Options"
+msgstr ""
+
+#: ../Tomboy/Addins/Tasks/TasksNoteAddin.cs:466
+msgid "Mark Undone"
+msgstr ""
+
+#: ../Tomboy/Addins/Tasks/TasksNoteAddin.cs:467
+msgid "Mark Complete"
+msgstr ""
+
+#: ../Tomboy/Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinInfoDialog.cs:62
+msgid "Version:"
+msgstr "Versioon:"
+
+#: ../Tomboy/Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinInfoDialog.cs:65
+msgid "Author:"
+msgstr "Autor:"
+
+#: ../Tomboy/Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinInfoDialog.cs:68
+msgid "Copyright:"
+msgstr "Autoriõigus:"
+
+#: ../Tomboy/Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinInfoDialog.cs:71
+msgid "Add-in Dependencies:"
+msgstr ""
+
+#: ../Tomboy/Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinInstallDialog.cs:96
+msgid "All registered repositories"
+msgstr ""
+
+#: ../Tomboy/Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinInstallDialog.cs:180
+msgid "Are you sure you want to cancel the installation?"
+msgstr ""
+
+#: ../Tomboy/Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinInstallDialog.cs:297
+msgid ""
+"<b>The following packages will be uninstalled:</b>\n"
+"\n"
+msgstr ""
+
+#: ../Tomboy/Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinInstallDialog.cs:302
+msgid ""
+"<b>There are other add-ins that depend on the previous ones which will also "
+"be uninstalled:</b>\n"
+"\n"
+msgstr ""
+
+#: ../Tomboy/Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinInstallDialog.cs:373
+msgid ""
+"<b><span foreground=\"red\">The selected add-ins can't be installed because "
+"there are dependency conflicts.</span></b>\n"
+msgstr ""
+
+#: ../Tomboy/Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinInstallDialog.cs:375
+#: ../Tomboy/Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinInstallDialog.cs:382
+msgid "<b><span foreground=\"red\">"
+msgstr ""
+
+#: ../Tomboy/Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinInstallDialog.cs:375
+#: ../Tomboy/Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinInstallDialog.cs:382
+msgid "</span></b>\n"
+msgstr ""
+
+#: ../Tomboy/Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinInstallDialog.cs:387
+msgid ""
+"<b>The following packages will be installed:</b>\n"
+"\n"
+msgstr ""
+
+#: ../Tomboy/Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinInstallDialog.cs:391
+msgid " (in user directory)"
+msgstr ""
+
+#: ../Tomboy/Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinInstallDialog.cs:397
+msgid ""
+"<b>The following packages need to be uninstalled:</b>\n"
+"\n"
+msgstr ""
+
+#: ../Tomboy/Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinInstallDialog.cs:405
+msgid ""
+"<b>The following dependencies could not be resolved:</b>\n"
+"\n"
+msgstr ""
+
+#: ../Tomboy/Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinInstallDialog.cs:429
+msgid "The installation has been successfully completed."
+msgstr ""
+
+#: ../Tomboy/Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinInstallDialog.cs:430
+msgid "The installation failed!"
+msgstr ""
+
+#: ../Tomboy/Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinInstallDialog.cs:433
+msgid "The uninstallation has been successfully completed."
+msgstr ""
+
+#: ../Tomboy/Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinInstallDialog.cs:434
+msgid "The uninstallation failed!"
+msgstr ""
+
+#: ../Tomboy/Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinInstallDialog.cs:593
+msgid "Repository"
+msgstr ""
+
+#: ../Tomboy/Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinTreeWidget.cs:91
+msgid "Add-in"
+msgstr ""
+
+#: ../Tomboy/Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinTreeWidget.cs:112
+msgid "Version"
+msgstr "Versioon"
+
+#: ../Tomboy/Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinTreeWidget.cs:168
+msgid "Other"
+msgstr ""
+
+#: ../Tomboy/Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/ManageSitesDialog.cs:51
+msgid "Name"
+msgstr "Nimi"
+
+#: ../Tomboy/Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/ManageSitesDialog.cs:52
+msgid "Url"
+msgstr "Url"
+
+#: ../Tomboy/Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/Services.cs:59
+#: ../Tomboy/Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/Services.cs:68
+#, csharp-format
+msgid "Exception occurred: {0}"
+msgstr ""
+
+#: ../Tomboy/Mono.Addins/Mono.Addins.Gui/gtk-gui/Mono.Addins.Gui.AddinInfoDialog.cs:32
+msgid "MonoDevelop Package"
+msgstr ""
+
+#: ../Tomboy/Mono.Addins/Mono.Addins.Gui/gtk-gui/Mono.Addins.Gui.AddinInstallDialog.cs:110
+msgid "Add-in Installation"
+msgstr ""
+
+#: ../Tomboy/Mono.Addins/Mono.Addins.Gui/gtk-gui/Mono.Addins.Gui.AddinInstallDialog.cs:133
+msgid "<b>Select the add-ins to install and click on Next</b>"
+msgstr ""
+
+#: ../Tomboy/Mono.Addins/Mono.Addins.Gui/gtk-gui/Mono.Addins.Gui.AddinInstallDialog.cs:147
+msgid "Install from:"
+msgstr ""
+
+#: ../Tomboy/Mono.Addins/Mono.Addins.Gui/gtk-gui/Mono.Addins.Gui.AddinInstallDialog.cs:176
+#: ../Tomboy/Mono.Addins/Mono.Addins.Gui/gtk-gui/Mono.Addins.Gui.AddinManagerDialog.cs:181
+msgid "_Repositories..."
+msgstr ""
+
+#: ../Tomboy/Mono.Addins/Mono.Addins.Gui/gtk-gui/Mono.Addins.Gui.AddinInstallDialog.cs:216
+msgid "Show all packages"
+msgstr ""
+
+#: ../Tomboy/Mono.Addins/Mono.Addins.Gui/gtk-gui/Mono.Addins.Gui.AddinInstallDialog.cs:217
+msgid "Show new versions only"
+msgstr ""
+
+#: ../Tomboy/Mono.Addins/Mono.Addins.Gui/gtk-gui/Mono.Addins.Gui.AddinInstallDialog.cs:218
+msgid "Show updates only"
+msgstr ""
+
+#: ../Tomboy/Mono.Addins/Mono.Addins.Gui/gtk-gui/Mono.Addins.Gui.AddinInstallDialog.cs:243
+msgid "_Unselect All"
+msgstr ""
+
+#: ../Tomboy/Mono.Addins/Mono.Addins.Gui/gtk-gui/Mono.Addins.Gui.AddinInstallDialog.cs:255
+msgid "Select _All"
+msgstr ""
+
+#: ../Tomboy/Mono.Addins/Mono.Addins.Gui/gtk-gui/Mono.Addins.Gui.AddinInstallDialog.cs:330
+msgid "label124"
+msgstr ""
+
+#: ../Tomboy/Mono.Addins/Mono.Addins.Gui/gtk-gui/Mono.Addins.Gui.AddinInstallDialog.cs:341
+msgid "Overall Progress:"
+msgstr ""
+
+#: ../Tomboy/Mono.Addins/Mono.Addins.Gui/gtk-gui/Mono.Addins.Gui.AddinInstallDialog.cs:369
+msgid "Downloading add-ins..."
+msgstr ""
+
+#: ../Tomboy/Mono.Addins/Mono.Addins.Gui/gtk-gui/Mono.Addins.Gui.AddinManagerDialog.cs:58
+msgid "MonoDevelop Add-in Manager"
+msgstr ""
+
+#: ../Tomboy/Mono.Addins/Mono.Addins.Gui/gtk-gui/Mono.Addins.Gui.AddinManagerDialog.cs:88
+msgid "<big><b>MonoDevelop Add-in Manager</b></big>"
+msgstr ""
+
+#: ../Tomboy/Mono.Addins/Mono.Addins.Gui/gtk-gui/Mono.Addins.Gui.AddinManagerDialog.cs:108
+msgid "The following add-ins are currently installed:"
+msgstr ""
+
+#: ../Tomboy/Mono.Addins/Mono.Addins.Gui/gtk-gui/Mono.Addins.Gui.AddinManagerDialog.cs:166
+msgid "_Install Add-ins..."
+msgstr ""
+
+#: ../Tomboy/Mono.Addins/Mono.Addins.Gui/gtk-gui/Mono.Addins.Gui.AddinManagerDialog.cs:215
+msgid "_Uninstall..."
+msgstr ""
+
+#: ../Tomboy/Mono.Addins/Mono.Addins.Gui/gtk-gui/Mono.Addins.Gui.AddinManagerDialog.cs:245
+msgid "Enable"
+msgstr ""
+
+#: ../Tomboy/Mono.Addins/Mono.Addins.Gui/gtk-gui/Mono.Addins.Gui.AddinManagerDialog.cs:275
+msgid "Disable"
+msgstr ""
+
+#: ../Tomboy/Mono.Addins/Mono.Addins.Gui/gtk-gui/Mono.Addins.Gui.ErrorDialog.cs:40
+msgid "MonoDevelop"
+msgstr ""
+
+#: ../Tomboy/Mono.Addins/Mono.Addins.Gui/gtk-gui/Mono.Addins.Gui.ErrorDialog.cs:111
+msgid "Details"
+msgstr ""
+
+#: ../Tomboy/Mono.Addins/Mono.Addins.Gui/gtk-gui/Mono.Addins.Gui.ManageSitesDialog.cs:34
+msgid "Add-in Repository Management"
+msgstr ""
+
+#: ../Tomboy/Mono.Addins/Mono.Addins.Gui/gtk-gui/Mono.Addins.Gui.NewSiteDialog.cs:52
+msgid "Add New Repository"
+msgstr ""
+
+#: ../Tomboy/Mono.Addins/Mono.Addins.Gui/gtk-gui/Mono.Addins.Gui.NewSiteDialog.cs:68
+msgid "Select the location of the repository you want to register:"
+msgstr ""
+
+#. Container child vbox89.Gtk.Box+BoxChild
+#: ../Tomboy/Mono.Addins/Mono.Addins.Gui/gtk-gui/Mono.Addins.Gui.NewSiteDialog.cs:75
+msgid "Register an on-line repository"
+msgstr ""
+
+#: ../Tomboy/Mono.Addins/Mono.Addins.Gui/gtk-gui/Mono.Addins.Gui.NewSiteDialog.cs:104
+msgid "Url:"
+msgstr ""
+
+#. Container child vbox89.Gtk.Box+BoxChild
+#: ../Tomboy/Mono.Addins/Mono.Addins.Gui/gtk-gui/Mono.Addins.Gui.NewSiteDialog.cs:125
+msgid "Register a local repository"
+msgstr ""
+
+#: ../Tomboy/Mono.Addins/Mono.Addins.Gui/gtk-gui/Mono.Addins.Gui.NewSiteDialog.cs:153
+msgid "Path:"
+msgstr ""
+
+#: ../Tomboy/Mono.Addins/Mono.Addins.Gui/gtk-gui/Mono.Addins.Gui.NewSiteDialog.cs:177
+msgid "Browse..."
+msgstr ""
+
+#: ../Tomboy/Mono.Addins/Mono.Addins/Mono.Addins.Description/AssemblyDependency.cs:79
+#, csharp-format
+msgid "(provided by {0})"
+msgstr ""
+
+#: ../Tomboy/Mono.Addins/Mono.Addins/Mono.Addins/AddinSessionService.cs:108
+msgid "Disabled add-ins can't be loaded."
+msgstr ""
+
+#: ../Tomboy/Mono.Addins/Mono.Addins/Mono.Addins/AddinSessionService.cs:133
+#, csharp-format
+msgid "Loading {0} add-in"
+msgstr ""
+
+#: ../Tomboy/Mono.Addins/Mono.Addins/Mono.Addins/AddinSessionService.cs:216
+#, csharp-format
+msgid "The required addin '{0}' is disabled."
+msgstr ""
+
+#: ../Tomboy/Mono.Addins/Mono.Addins/Mono.Addins/AddinSessionService.cs:218
+#, csharp-format
+msgid "The required addin '{0}' is not installed."
+msgstr ""
+
 #: ../Tomboy/Applet.cs:191
 msgid "_About Tomboy"
 msgstr "_Tomboy'st lähemalt"
@@ -454,7 +943,7 @@ msgstr "Kas kustutada see märge?"
 msgid "If you delete a note it is permanently lost."
 msgstr "Kui sa märkme kustutad, siis on see jäädavalt kadunud."
 
-#: ../Tomboy/NoteManager.cs:144
+#: ../Tomboy/NoteManager.cs:155
 msgid ""
 "<note-content>Start Here\n"
 "\n"
@@ -487,13 +976,12 @@ msgstr ""
 "Seejärel on võimalik märkmete ja ideede vahel viiteid luues neid ühtseks "
 "tervikuks organiseerida!\n"
 "\n"
-"Me oleme loonud märkme <link:internal>Viitade kasutamine "
-"Tomboy's</link:internal>.  Paned tähele, et iga kord kui sisestada "
-"<link:internal>Viitade kasutamine Tomboy's</link:internal>, siis joonitakse "
-"see automaatselt alla?  Sellel viidal klõpsates avaneb vastava nimega märge."
-"</note-content>"
+"Me oleme loonud märkme <link:internal>Viitade kasutamine Tomboy's</link:"
+"internal>.  Paned tähele, et iga kord kui sisestada <link:internal>Viitade "
+"kasutamine Tomboy's</link:internal>, siis joonitakse see automaatselt alla?  "
+"Sellel viidal klõpsates avaneb vastava nimega märge.</note-content>"
 
-#: ../Tomboy/NoteManager.cs:163
+#: ../Tomboy/NoteManager.cs:174
 msgid ""
 "<note-content>Using Links in Tomboy\n"
 "\n"
@@ -523,20 +1011,20 @@ msgstr ""
 "automaatselt uus viit nimetatud märkmele.</note-content>"
 
 #. Attempt to find an existing Start Here note
-#: ../Tomboy/NoteManager.cs:178 ../Tomboy/NoteManager.cs:241
+#: ../Tomboy/NoteManager.cs:189 ../Tomboy/NoteManager.cs:260
 msgid "Start Here"
 msgstr "Alusta siit"
 
-#: ../Tomboy/NoteManager.cs:183
+#: ../Tomboy/NoteManager.cs:194
 msgid "Using Links in Tomboy"
 msgstr "Viitade kasutamine Tomboy's"
 
-#: ../Tomboy/NoteManager.cs:301
+#: ../Tomboy/NoteManager.cs:330
 #, csharp-format
 msgid "New Note {0}"
 msgstr "Uus märge {0}"
 
-#: ../Tomboy/NoteManager.cs:347
+#: ../Tomboy/NoteManager.cs:376
 msgid "Describe your new note here."
 msgstr "Siia saad uue märkme kirjutada."
 
@@ -584,7 +1072,7 @@ msgstr "_Tekst"
 msgid "Set properties of text"
 msgstr "Teksti omaduste määramine"
 
-#: ../Tomboy/NoteWindow.cs:444 ../Tomboy/RecentChanges.cs:244
+#: ../Tomboy/NoteWindow.cs:444 ../Tomboy/RecentChanges.cs:243
 msgid "Tags"
 msgstr "Sildid"
 
@@ -684,11 +1172,6 @@ msgstr "Mummud"
 msgid "Tomboy Project"
 msgstr "Tomboy projekt"
 
-#: ../Tomboy/PluginManager.cs:574
-#, csharp-format
-msgid "Cannot fully disable {0}."
-msgstr "Pluginat {0} pole võimalik täielikult keelata."
-
 #: ../Tomboy/PluginManager.cs:577
 #, csharp-format
 msgid ""
@@ -709,23 +1192,143 @@ msgstr ""
 "katkestamisel. Heap-shot profileerija ({2}) võib aidata lekkivaid viitasid "
 "tuvastada."
 
-#: ../Tomboy/RecentChanges.cs:69
+#: ../Tomboy/PreferencesDialog.cs:59
+msgid "Editing"
+msgstr "Redigeerimine"
+
+#: ../Tomboy/PreferencesDialog.cs:61
+msgid "Hotkeys"
+msgstr ""
+
+#: ../Tomboy/PreferencesDialog.cs:63
+msgid "Plugins"
+msgstr "Pluginad"
+
+#: ../Tomboy/PreferencesDialog.cs:106
+msgid "_Spell check while typing"
+msgstr ""
+
+#: ../Tomboy/PreferencesDialog.cs:115
+#, fuzzy
+msgid ""
+"Misspellings will be underlined in red, with correct spelling suggestions "
+"shown in the context menu."
+msgstr ""
+"Kui märgitud, siis õigekirjakontrolli poolt kahtlaseks märgitud sõnad "
+"joonitakse punaselt alla ja sõnal parema hiireklõpsu peale avanev menüü "
+"sisaldab õigekirjakontrolli soovitusi."
+
+#. WikiWords...
+#: ../Tomboy/PreferencesDialog.cs:126
+msgid "Highlight _WikiWords"
+msgstr ""
+
+#: ../Tomboy/PreferencesDialog.cs:134
+#, fuzzy
+msgid ""
+"Enable this option to highlight words <b>ThatLookLikeThis</b>. Clicking the "
+"word will create a note with that name."
+msgstr ""
+"Selle võtme lubamisega tõstetakse SellisedSõnad (sõnad millel on suur täht "
+"keskel) esile. Sellisele sõnale klõpsates luuakse uus märge, mille "
+"pealkirjaks on klõpsatud sõna."
+
+#. Custom font...
+#: ../Tomboy/PreferencesDialog.cs:143
+#, fuzzy
+msgid "Use custom _font"
+msgstr "Kohandatud kirjatüübi lubamine"
+
+#. Hotkeys...
+#: ../Tomboy/PreferencesDialog.cs:213
+msgid "Listen for _Hotkeys"
+msgstr ""
+
+#: ../Tomboy/PreferencesDialog.cs:222
+msgid ""
+"Hotkeys allow you to quickly access your notes from anywhere with a "
+"keypress. Example Hotkeys: <b>&lt;Control&gt;&lt;Shift&gt;F11</b>, <b>&lt;"
+"Alt&gt;N</b>"
+msgstr ""
+
+#. Show notes menu keybinding...
+#: ../Tomboy/PreferencesDialog.cs:242
+#, fuzzy
+msgid "Show notes _menu"
+msgstr "Rakendimenüü näitamine"
+
+#. Open Start Here keybinding...
+#: ../Tomboy/PreferencesDialog.cs:259
+#, fuzzy
+msgid "Open \"_Start Here\""
+msgstr "\"Alusta siit\" avamine"
+
+#. Create new note keybinding...
+#: ../Tomboy/PreferencesDialog.cs:276
+#, fuzzy
+msgid "Create _new note"
+msgstr "Uue märkme loomine"
+
+#. Open Search All Notes window keybinding...
+#: ../Tomboy/PreferencesDialog.cs:293
+#, fuzzy
+msgid "Open \"Search _All Notes\""
+msgstr "Otsing kõikide märkmete hulgast"
+
+#: ../Tomboy/PreferencesDialog.cs:439
+msgid "Not available"
+msgstr ""
+
+#: ../Tomboy/PreferencesDialog.cs:497
+msgid "Description:"
+msgstr "Kirjeldus:"
+
+#: ../Tomboy/PreferencesDialog.cs:499
+msgid "Written by:"
+msgstr ""
+
+#: ../Tomboy/PreferencesDialog.cs:501
+msgid "Web site:"
+msgstr "Veebisait:"
+
+#: ../Tomboy/PreferencesDialog.cs:503
+msgid "File name:"
+msgstr "Faili nimi:"
+
+#: ../Tomboy/PreferencesDialog.cs:517
+msgid "Settings"
+msgstr "Sätted"
+
+#: ../Tomboy/PreferencesDialog.cs:524
+msgid "_Open Plugins Folder"
+msgstr ""
+
+#: ../Tomboy/PreferencesDialog.cs:579
+#, csharp-format
+msgid "{0} Settings"
+msgstr ""
+
+#: ../Tomboy/PreferencesDialog.cs:669
+msgid "Choose Note Font"
+msgstr ""
+
+#: ../Tomboy/RecentChanges.cs:68
 msgid "Search All Notes"
 msgstr "Otsing kõikide märkmete hulgast"
 
-#: ../Tomboy/RecentChanges.cs:84
+#: ../Tomboy/RecentChanges.cs:83
 msgid "_Search:"
 msgstr "_Otsing:"
 
-#: ../Tomboy/RecentChanges.cs:105
+#: ../Tomboy/RecentChanges.cs:104
 msgid "C_ase Sensitive"
 msgstr "_Tõstutundlik"
 
-#: ../Tomboy/RecentChanges.cs:294
+#: ../Tomboy/RecentChanges.cs:293
 msgid "Note"
 msgstr "Märge"
 
-#: ../Tomboy/RecentChanges.cs:313
+#: ../Tomboy/RecentChanges.cs:312
 msgid "Last Changed"
 msgstr "Viimati muudetud"
 
@@ -747,27 +1350,27 @@ msgid_plural "{0} matches"
 msgstr[0] "{0} vastavus"
 msgstr[1] "{0} vastavust"
 
-#: ../Tomboy/Tomboy.cs:181
+#: ../Tomboy/Tomboy.cs:187
 msgid "Cannot create new note"
 msgstr "Uut märget pole võimalik luua"
 
-#: ../Tomboy/Tomboy.cs:236
+#: ../Tomboy/Tomboy.cs:242
 msgid "translator-credits"
 msgstr "Ivar Smolin <okul@linux.ee>, 2006, 2007."
 
-#: ../Tomboy/Tomboy.cs:245
+#: ../Tomboy/Tomboy.cs:251
 msgid "Copyright © 2004-2007 Alex Graveley"
 msgstr "Autoriõigused © 2004-2007 Alex Graveley"
 
-#: ../Tomboy/Tomboy.cs:246
+#: ../Tomboy/Tomboy.cs:252
 msgid "A simple and easy to use desktop note-taking application."
 msgstr "Lihtne ja kergestikasutatav märkmete tegemise programm."
 
-#: ../Tomboy/Tomboy.cs:249
+#: ../Tomboy/Tomboy.cs:255
 msgid "Homepage"
 msgstr "Koduleht"
 
-#: ../Tomboy/Tomboy.cs:333
+#: ../Tomboy/Tomboy.cs:339
 msgid ""
 "Tomboy: A simple, easy to use desktop note-taking application.\n"
 "Copyright (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
@@ -777,7 +1380,7 @@ msgstr ""
 "Autoriõigused (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
 "\n"
 
-#: ../Tomboy/Tomboy.cs:345
+#: ../Tomboy/Tomboy.cs:351
 msgid ""
 "Usage:\n"
 "  --version\t\t\tPrint version information.\n"
@@ -793,7 +1396,7 @@ msgstr ""
 "  --search [tekst]\t\tKõikidest märkmetest otsimise akna avamine koos "
 "määratud otsingutekstiga.\n"
 
-#: ../Tomboy/Tomboy.cs:356
+#: ../Tomboy/Tomboy.cs:362
 msgid ""
 "  --new-note\t\t\tCreate and display a new note.\n"
 "  --new-note [title]\t\tCreate and display a new note, with a title.\n"
@@ -810,22 +1413,22 @@ msgstr ""
 "  --highlight-search [tekst]\tAvatud märkmest teksti otsimine ja "
 "esiletõstmine.\n"
 
-#: ../Tomboy/Tomboy.cs:368
+#: ../Tomboy/Tomboy.cs:374
 msgid "  --check-plugin-unloading\tCheck if plugins are unloaded properly.\n"
 msgstr ""
 "  --check-plugin-unloading\tPluginate korrektse väljalaadimise "
 "kontrollimine.\n"
 
-#: ../Tomboy/Tomboy.cs:372
+#: ../Tomboy/Tomboy.cs:378
 msgid "D-BUS remote control disabled.\n"
 msgstr "D-BUS kaugjuhtimine on keelatud.\n"
 
-#: ../Tomboy/Tomboy.cs:380
+#: ../Tomboy/Tomboy.cs:386
 #, csharp-format
 msgid "Version {0}"
 msgstr "Versioon {0}"
 
-#: ../Tomboy/Tomboy.cs:447
+#: ../Tomboy/Tomboy.cs:453
 #, csharp-format
 msgid ""
 "Tomboy: unsupported option '{0}'\n"
@@ -857,42 +1460,72 @@ msgstr ""
 msgid "Help not found"
 msgstr "Abiteavet ei leitud"
 
-#: ../Tomboy/Utils.cs:146
+#: ../Tomboy/Utils.cs:151
 #, csharp-format
 msgid "Today, {0}"
 msgstr "Täna, {0}"
 
-#: ../Tomboy/Utils.cs:150
+#: ../Tomboy/Utils.cs:153
+msgid "Today"
+msgstr "Täna"
+
+#: ../Tomboy/Utils.cs:157
 #, csharp-format
 msgid "Yesterday, {0}"
 msgstr "Eile, {0}"
 
-#: ../Tomboy/Utils.cs:154
+#: ../Tomboy/Utils.cs:159
+msgid "Yesterday"
+msgstr "Eile"
+
+#: ../Tomboy/Utils.cs:163
 #, csharp-format
 msgid "{0} days ago, {1}"
 msgstr "{0} päeva tagasi, {1}"
 
-#: ../Tomboy/Utils.cs:158
+#: ../Tomboy/Utils.cs:165
+#, csharp-format
+msgid "{0} days ago"
+msgstr "{0} päeva tagasi"
+
+#: ../Tomboy/Utils.cs:170
 #, csharp-format
 msgid "Tomorrow, {0}"
 msgstr "Homme, {0}"
 
-#: ../Tomboy/Utils.cs:162
+#: ../Tomboy/Utils.cs:172
+msgid "Tomorrow"
+msgstr "Homme"
+
+#: ../Tomboy/Utils.cs:176
 #, csharp-format
 msgid "In {0} days, {1}"
 msgstr "{0} päeva jooksul, {1}"
 
-#: ../Tomboy/Utils.cs:166
+#: ../Tomboy/Utils.cs:178
+#, csharp-format
+msgid "In {0} days"
+msgstr "{0} päeva jooksul"
+
+#: ../Tomboy/Utils.cs:182
 msgid "MMMM d, h:mm tt"
 msgstr "d. MMMM h:mm tt"
 
-#: ../Tomboy/Utils.cs:168
+#: ../Tomboy/Utils.cs:183
+msgid "MMMM d"
+msgstr ""
+
+#: ../Tomboy/Utils.cs:185
 msgid "No Date"
 msgstr "Kuupäev puudub"
 
-#: ../Tomboy/Utils.cs:170
+#: ../Tomboy/Utils.cs:188
 msgid "MMMM d yyyy, h:mm tt"
 msgstr "d. MMMM yyyy, h:mm tt"
+
+#: ../Tomboy/Utils.cs:189
+msgid "MMMM d yyyy"
+msgstr "d. MMMM yyyy"
 
 #: ../Tomboy/Watchers.cs:137
 #, csharp-format
@@ -923,14 +1556,6 @@ msgstr "_Kopeeri viida aadress"
 #: ../Tomboy/Watchers.cs:523
 msgid "_Open Link"
 msgstr "_Ava viit"
-
-#: ../Tomboy/Plugins/Backlinks.cs:79
-msgid "What links here?"
-msgstr "Mis siia viitab?"
-
-#: ../Tomboy/Plugins/Backlinks.cs:137
-msgid "(none)"
-msgstr "(puudub)"
 
 #: ../Tomboy/Plugins/Bugzilla.cs:177
 msgid ""
