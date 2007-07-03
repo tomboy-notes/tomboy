@@ -5,7 +5,7 @@ if [ "x$PWD" = "x@srcdir@" ] ; then
 
     export LD_LIBRARY_PATH="../libtomboy/.libs:$LD_LIBRARY_PATH"
     export TOMBOY_WRAPPER_PATH="$PWD/@wrapper@"
-    export MONO_PATH=$MONO_PATH:./Addins:./Mono.Addins/Mono.Addins:./Mono.Addins/Mono.Addins.Setup:./Mono.Addins/Mono.Addins.Gui
+    export MONO_PATH=$MONO_PATH:./Addins:../Mono.Addins/Mono.Addins:../Mono.Addins/Mono.Addins.Setup:../Mono.Addins/Mono.Addins.Gui
 
     THIS_EXE="--debug ./@target@"
 else
