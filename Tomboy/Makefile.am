@@ -1,6 +1,6 @@
 include $(top_srcdir)/Makefile.include
 
-SUBDIRS = Mono.Addins . Addins Plugins
+SUBDIRS = . Addins Plugins
 
 TARGET = Tomboy.exe
 WRAPPER = tomboy

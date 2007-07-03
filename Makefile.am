@@ -1,5 +1,5 @@
 
-SUBDIRS = data libtomboy Tomboy test po help
+SUBDIRS = data libtomboy Mono.Addins Tomboy test po help
 
 EXTRA_DIST = 			\
 	gnome-doc-utils.make	\
