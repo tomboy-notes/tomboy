@@ -206,5 +206,15 @@ namespace Tomboy
 			note.XmlContent = xml_contents;
 			return true;
 		}
+		
+		public bool SetNoteContentsCompleteXml (string uri, string xml_contents)
+		{
+			Note note;
+			note = note_manager.FindByUri (uri);
+			if (note == null)
+				return false;
+			note.LoadForeignNoteXml (xml_contents);
+			return true;
+		}
 	}
 }

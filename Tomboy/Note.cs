@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Xml;
+using System.Text.RegularExpressions;
 using Mono.Unix;
 
 namespace Tomboy
@@ -448,9 +449,13 @@ namespace Tomboy
 			window = null;
 		}
 
-		// Set a 4 second timeout to execute the save.  Possibly
-		// invalidate the text, which causes a re-serialize when the
-		// timeout is called...
+		/// <summary>
+		/// Set a 4 second timeout to execute the save.  Possibly
+		/// invalidate the text, which causes a re-serialize when the
+		/// timeout is called...
+		/// </summary>
+		/// <param name="content_changed">Indicates whether or not
+		/// to update the note's last change date</param>
 		public void QueueSave (bool content_changed)
 		{
 			DebugSave ("Got QueueSave");
@@ -492,7 +497,7 @@ namespace Tomboy
 					TagAdded (this, tag);
 
 				DebugSave ("Tag added, queueing save");
-				QueueSave (false);
+				QueueSave (true);
 			}
 		}
 		
@@ -514,7 +519,7 @@ namespace Tomboy
 				TagRemoved (this, tag.NormalizedName);
 
 			DebugSave ("Tag removed, queueing save");
-			QueueSave (false);
+			QueueSave (true);
 		}
 
 		public string Uri
@@ -549,11 +554,89 @@ namespace Tomboy
 		{
 			get { return data.Text; }
 			set { 
-				if (buffer != null)
-					buffer.SetText (XmlDecoder.Decode (value));
-				else
+				if (buffer != null) {
+					buffer.SetText("");
+					NoteBufferArchiver.Deserialize (buffer, value);
+				} else
 					data.Text = value; 
 			}
+		}
+		
+		// Reload note data from a complete note XML string
+		// Should referesh note window, too
+		public void LoadForeignNoteXml (string foreignNoteXml)
+		{
+			if (foreignNoteXml == null)
+				throw new ArgumentNullException ("foreignNoteXml");
+
+			// Arguments to this method cannot be trusted.  If this method
+			// were to throw an XmlException in the middle of processing,
+			// a note could be damaged.  Therefore, we check for parseability
+			// ahead of time, and throw early.
+			XmlDocument xmlDoc = new XmlDocument ();
+			// This will throw an XmlException if foreignNoteXml is not parseable
+			xmlDoc.LoadXml (foreignNoteXml);
+			xmlDoc = null;
+			
+			StringReader reader = new StringReader (foreignNoteXml);
+			XmlTextReader xml = new XmlTextReader (reader);
+			xml.Namespaces = false;
+			
+			// Remove tags now, since a note with no tags has
+			// no "tags" element in the XML
+			foreach (Tag tag in Tags)
+				RemoveTag (tag);
+
+			while (xml.Read ()) {
+				switch (xml.NodeType) {
+				case XmlNodeType.Element:
+					switch (xml.Name) {
+					case "title":
+						Title = xml.ReadString ();
+						break;
+					case "text":
+						XmlContent = xml.ReadInnerXml ();
+						break;
+					case "last-change-date":
+						data.Data.ChangeDate = 
+							XmlConvert.ToDateTime (xml.ReadString (), NoteArchiver.DATE_TIME_FORMAT);
+						break;
+					case "create-date":
+						data.Data.CreateDate = 
+							XmlConvert.ToDateTime (xml.ReadString (), NoteArchiver.DATE_TIME_FORMAT);
+						break;
+					case "tags":
+						XmlDocument doc = new XmlDocument ();
+						List<string> tag_strings = ParseTags (doc.ReadNode (xml.ReadSubtree ()));
+						foreach (string tag_str in tag_strings) {
+							Tag tag = TagManager.GetOrCreateTag (tag_str);
+							AddTag (tag);
+						}
+						break;
+					case "open-on-startup":
+						IsOpenOnStartup = bool.Parse (xml.ReadString ());
+						break;
+					}
+					break;
+				}
+			}
+
+			xml.Close ();
+			
+			// TODO: Any reason to queue a save here?  Maybe not for sync but for others?
+		}
+		
+		// TODO: NEEDS REFACTORING; CODE DUPLICATION SUCKS
+		List<string> ParseTags (XmlNode tagNodes)
+		{
+			List<string> tags = new List<string> ();
+			
+			foreach (XmlNode node in tagNodes.SelectNodes ("//tag")) {
+				string tag = node.InnerText;
+				tags.Add (tag);
+			}
+			
+			return tags;
 		}
 
 		public string TextContent
@@ -1002,6 +1085,48 @@ namespace Tomboy
 			}
 			
 			return tags;
+		}
+		
+		public virtual string GetRenamedNoteXml (string noteXml, string oldTitle, string newTitle)
+		{
+			string updatedXml;
+			
+			// Replace occurences of oldTitle with newTitle in noteXml
+			string titleTagPattern =
+				string.Format ("<title>{0}</title>", oldTitle);
+			string titleTagReplacement =
+				string.Format ("<title>{0}</title>", newTitle);
+			updatedXml = Regex.Replace (noteXml, titleTagPattern, titleTagReplacement);
+			
+			string titleContentPattern =
+				string.Format ("<note-content([^>]*)>\\s*{0}", oldTitle);
+			string titleContentReplacement =
+				string.Format ("<note-content$1>{0}", newTitle);
+			updatedXml = Regex.Replace (updatedXml, titleContentPattern, titleContentReplacement);
+			
+			return updatedXml;
+		}
+		
+		public virtual string GetTitleFromNoteXml (string noteXml)
+		{
+			if (noteXml != null && noteXml.Length > 0) {
+				XmlTextReader xml = new XmlTextReader (new StringReader (noteXml));
+				xml.Namespaces = false;
+
+				while (xml.Read ()) {
+					switch (xml.NodeType) {
+					case XmlNodeType.Element:
+						switch (xml.Name) {
+					case "title":
+						return xml.ReadString ();
+						break;
+					}
+						break;
+					}
+				}
+			}
+			
+			return null;
 		}
 	}
 
