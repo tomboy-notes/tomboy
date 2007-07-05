@@ -1,6 +1,7 @@
 
 using System;
 using System.IO;
+using System.Xml;
 using Mono.Unix;
 
 namespace Tomboy 
@@ -295,6 +296,7 @@ namespace Tomboy
 		bool open_start_here;
 		string open_note_uri;
 		string open_note_name;
+		string open_external_note_path;
 		string highlight_search;
 		string note_path;
 		string search_text;
@@ -318,7 +320,8 @@ namespace Tomboy
 						open_note_name != null ||
 						open_note_uri != null || 
 						open_search ||
-						open_start_here;
+						open_start_here ||
+						open_external_note_path != null;
 			}
 		}
 
@@ -420,7 +423,10 @@ namespace Tomboy
 					// If the argument looks like a Uri, treat it like a Uri.
 					if (args [idx].StartsWith ("note://tomboy/"))
 						open_note_uri = args [idx];
-					else
+					else if (File.Exists (args [idx])) {
+						// This is potentially a note file
+						open_external_note_path = args [idx];
+					} else
 						open_note_name = args [idx];
 
 					break;
@@ -563,6 +569,52 @@ namespace Tomboy
 								      highlight_search);
 				else
 					remote.DisplayNote (open_note_uri);
+			}
+			
+			if (open_external_note_path != null) {
+				string note_id = Path.GetFileNameWithoutExtension (open_external_note_path);
+				if (note_id != null && note_id != string.Empty) {
+					// Attempt to load the note, assuming it might already
+					// be part of our notes list.
+					if (remote.DisplayNote (
+							string.Format ("note://tomboy/{0}", note_id)) == false) {
+
+						StreamReader sr = File.OpenText (open_external_note_path);
+						if (sr != null) {
+							string noteTitle = null;
+							string noteXml = sr.ReadToEnd ();
+							
+							// Make sure noteXml is parseable
+							XmlDocument xmlDoc = new XmlDocument ();
+							try {
+								xmlDoc.LoadXml (noteXml);
+							} catch {
+								noteXml = null;
+							}
+							
+							if (noteXml != null) {
+								noteTitle = NoteArchiver.Instance.GetTitleFromNoteXml (noteXml);
+								if (noteTitle != null) {
+									// Check for conflicting titles
+									string baseTitle = (string)noteTitle.Clone ();
+									for (int i = 1; remote.FindNote (noteTitle) != string.Empty; i++)
+										noteTitle = baseTitle + " (" + i.ToString() + ")";
+									
+									string note_uri = remote.CreateNamedNote (noteTitle);
+									
+									// Update title in the note XML
+									noteXml = NoteArchiver.Instance.GetRenamedNoteXml (noteXml, baseTitle, noteTitle);
+
+									if (note_uri != null) {
+										// Load in the XML contents of the note file
+										if (remote.SetNoteContentsCompleteXml (note_uri, noteXml))
+											remote.DisplayNote (note_uri);
+									}
+								}
+							}
+						}
+					}
+				}
 			}
 			
 			if (open_search) {

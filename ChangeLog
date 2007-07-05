@@ -1,3 +1,19 @@
+2007-07-04  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/Tomboy.cs: (From tomboy-sync) --open-note command line option
+	  now accepts a file path as an argument.  It will attempt to create
+	  a new note using the specified file as the note XML.  This works
+	  great in conjunction with Giver.
+	* Tomboy/RemoteControl.cs: (From tomboy-sync) Added
+	  SetNoteContentsCompleteXml as an interface to
+	  Note.LoadForeignNoteXml.
+	* Tomboy/Note.cs: (From tomboy-sync) Applying John Carr's XmlContent
+	  patch from bug #440562.  Adding or removing tags should now cause a
+	  note to be saved.  Added Note.LoadForeignNoteXml method to reload
+	  note data from a foreign XML source.  Added
+	  NoteArchiver.GetRenamedNoteXml and NoteArchiver.GetTitleFromNoteXml
+	  to assist with renaming directly on in the note's XML.
+
 2007-07-03  Boyd Timothy <btimothy@gmail.com> 
 
 	* MAINTAINERS: Added Sandy to the list.
