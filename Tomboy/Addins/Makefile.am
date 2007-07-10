@@ -1,2 +1,2 @@
-SUBDIRS = Backlinks Bugzilla ExportToHtml Tasks
+SUBDIRS = Backlinks Bugzilla ExportToHtml FixedWidth Tasks
 

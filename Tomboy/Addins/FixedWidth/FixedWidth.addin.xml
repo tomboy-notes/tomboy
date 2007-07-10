@@ -1,0 +1,21 @@
+<Addin id="FixedWidthAddin"
+	namespace="Tomboy"
+	name="Fixed Width"
+	author="Tomboy Project"
+	description="Adds fixed-width font style."
+	category="Formatting"
+	defaultEnabled="true"
+	version="0.1">
+
+	<Runtime>
+		<Import assembly="FixedWidth.dll" />
+	</Runtime>
+
+	<Dependencies>
+		<Addin id="Tomboy" version="0.7" />
+	</Dependencies>
+
+	<Extension path="/Tomboy/NoteAddins">
+		<NoteAddin type="Tomboy.FixedWidth.FixedWidthNoteAddin" />
+	</Extension>
+</Addin>
