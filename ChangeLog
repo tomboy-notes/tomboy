@@ -1,5 +1,23 @@
 2007-07-10  Boyd Timothy <btimothy@gmail.com> 
 
+	* configure.in: Added Tomboy/Addins/ExportToHtml/Makefile.
+	* Tomboy.mdp: Remove the old ExportToHTML reference and include the
+	  source files for the new ExportToHtml addin.
+	* Tomboy/Plugins/ExportToHTML.cs, Tomboy/Plugins/ExportToHTML.xsl:
+	  Moved these files to Tomboy/Addins/ExportToHtml/.
+	* Tomboy/Addins/Makefile.am: Add ExportToHtml to SUBDIRS.
+	* Tomboy/Addins/ExportToHtml,
+	  Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs,
+	  Tomboy/Addins/ExportToHtml/ExportToHtml.addin.xml,
+	  Tomboy/Addins/ExportToHtml/Makefile.am,
+	  Tomboy/Addins/ExportToHtml/NoteNameResolver.cs,
+	  Tomboy/Addins/ExportToHtml/ExportToHtmlDialog.cs,
+	  Tomboy/Addins/ExportToHtml/ExportToHtml.xsl: The new ExportToHtml
+	  addin.
+	* po/POTFILES.in: Look in the new addin path for ExportToHtml strings.
+
+2007-07-10  Boyd Timothy <btimothy@gmail.com> 
+
 	* Tomboy/Addins/Backlinks/Makefile.am: Use an "ADDIN_NAME" variable to
 	  be consistent with the other addins.
 
