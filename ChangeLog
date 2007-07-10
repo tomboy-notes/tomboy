@@ -1,5 +1,11 @@
 2007-07-10  Boyd Timothy <btimothy@gmail.com> 
 
+	* Tomboy/AddinManager.cs: Don't use the non-existence of an addin
+	  category to determine a built-in addin.  It turns out that the
+	  built-in (root) addin isn''t returned in this call anyhow.
+
+2007-07-10  Boyd Timothy <btimothy@gmail.com> 
+
 	* configure.in: Add Tomboy/Addins/FixedWidth/Makefile.
 	* Tomboy.mdp: Added the files needed for the FixedWidth addin.
 	* Tomboy/Plugins/FixedWidth.cs: Moved FixedWidth.cs (old plugin) to be
