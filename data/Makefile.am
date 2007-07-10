@@ -11,7 +11,7 @@ desktop_DATA = $(desktop_files)
 
 
 pkgconfigdir = $(libdir)/pkgconfig
-pkgconfig_in_files = tomboy-plugins.pc.in
+pkgconfig_in_files = tomboy-addins.pc.in
 pkgconfig_DATA = $(pkgconfig_in_files:.pc.in=.pc)
 
 

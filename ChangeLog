@@ -1,5 +1,26 @@
 2007-07-10  Boyd Timothy <btimothy@gmail.com> 
 
+	* configure.in: Removed references to "plugin" and "Plugin".  Don't
+	  create the Tomboy/Plugins/Makefile anymore.
+	* Tomboy.mdp: Don't build PluginManager.cs anymore since it's not used.
+	* Tomboy/PluginManager.cs: Removing old PluginManager.cs.
+	* Tomboy/Tomboy.cs: Removed the "--check-plugin-unloading" cmd-line
+	  option for now.
+	* Tomboy/AddinManager.cs: Only return addins in the GetAllAddins ()
+	  call that have a category specified.  This allows us to leave the
+	  category off of built-in addins (all the addins in Watchers.cs).
+	* Tomboy/Watchers.cs: Changed the watcher plugins to be addins.
+	* Tomboy/Tomboy.addin.xml: Added extension information for all the
+	  built-in addins in Watchers.cs.
+	* Tomboy/NoteManager.cs: Removed all PluginManager references.
+	* Tomboy/Makefile.am: Don't build PluginManager.cs anymore.
+	* data/tomboy-addins.pc.in: New file (used to be tomboy-plugins.pc.in).
+	* data/Makefile.am: Build tomboy-addins.pc instead of
+	  tomboy-plugins.pc.
+	* data/tomboy-plugins.pc.in: Renamed to tomboy-addins.pc.in.
+
+2007-07-10  Boyd Timothy <btimothy@gmail.com> 
+
 	* Tomboy.mdp: Added AddinPreferenceFactory.cs.
 	* Tomboy/PreferencesDialog.cs: Changed to use the AddinManager instead
 	  of the PluginManager.  Replaced the "Plugins" tab with a new

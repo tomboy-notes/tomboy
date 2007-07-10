@@ -251,8 +251,21 @@ namespace Tomboy
 			Mono.Addins.Addin [] addinsArray = 
 				Mono.Addins.AddinManager.Registry.GetAddins ();
 			
-			if (addinsArray != null)
-				addins = new List<Mono.Addins.Addin> (addinsArray);
+			if (addinsArray != null) {
+				// Only add in the addins that have a category specified.
+				// This allows us to leave the category specification off of
+				// our built-in addins.
+				foreach (Mono.Addins.Addin addin in addinsArray) {
+					string category =
+						Mono.Addins.Setup.SetupService.GetAddinHeader (
+							addin).Category;
+					if (category == null || category.Trim () == string.Empty) {
+						continue;
+					}
+					
+					addins.Add (addin);
+				}
+			}
 			
 			return addins;
 		}

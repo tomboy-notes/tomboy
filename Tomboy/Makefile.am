@@ -51,7 +51,6 @@ CSFILES = 					\
 	$(srcdir)/NoteWindow.cs 		\
 	$(srcdir)/NoteBuffer.cs 		\
 	$(srcdir)/NoteTag.cs 			\
-	$(srcdir)/PluginManager.cs		\
 	$(srcdir)/Preferences.cs		\
 	$(srcdir)/PreferencesDialog.cs		\
 	$(srcdir)/RecentChanges.cs		\

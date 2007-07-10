@@ -8,17 +8,17 @@ using Mono.Unix;
 
 namespace Tomboy
 {
-	public class NoteRenameWatcher : NotePlugin
+	public class NoteRenameWatcher : NoteAddin
 	{
 		bool editing_title;
 		Gtk.TextTag title_tag;
 
-		protected override void Initialize ()
+		public override void Initialize ()
 		{
 			title_tag = Note.TagTable.Lookup ("note-title");
 		}
 
-		protected override void Shutdown ()
+		public override void Shutdown ()
 		{
 			// Do nothing.
 		}
@@ -37,7 +37,7 @@ namespace Tomboy
 			get { return Buffer.StartIter; }
 		}
 
-		protected override void OnNoteOpened ()
+		public override void OnNoteOpened ()
 		{
 			Buffer.MarkSet += OnMarkSet;
 			Buffer.InsertText += OnInsertText;
@@ -187,7 +187,7 @@ namespace Tomboy
 	}
 
 #if FIXED_GTKSPELL
-	public class NoteSpellChecker : NotePlugin
+	public class NoteSpellChecker : NoteAddin
 	{
 		IntPtr obj_ptr = IntPtr.Zero;
 
@@ -235,17 +235,17 @@ namespace Tomboy
 			}
 		}
 
-		protected override void Initialize ()
+		public override void Initialize ()
 		{
 			// Do nothing.
 		}
 
-		protected override void Shutdown ()
+		public override void Shutdown ()
 		{
 			// Do nothing.
 		}
 
-		protected override void OnNoteOpened ()
+		public override void OnNoteOpened ()
 		{
 			Buffer.TagApplied += TagApplied;
 			Preferences.SettingChanged += OnEnableSpellcheckChanged;
@@ -320,7 +320,7 @@ namespace Tomboy
 	}
 #endif
 
-	public class NoteUrlWatcher : NotePlugin
+	public class NoteUrlWatcher : NoteAddin
 	{
 		NoteTag url_tag;
 		Gtk.TextMark click_mark;
@@ -338,17 +338,17 @@ namespace Tomboy
 			text_event_connected = false;
 		}
 
-		protected override void Initialize ()
+		public override void Initialize ()
 		{
 			url_tag = (NoteTag) Note.TagTable.Lookup ("link:url");
 		}
 
-		protected override void Shutdown ()
+		public override void Shutdown ()
 		{
 			// Do nothing.
 		}
 
-		protected override void OnNoteOpened ()
+		public override void OnNoteOpened ()
 		{
 #if FIXED_GTKSPELL
 			// NOTE: This hack helps avoid multiple URL opens for
@@ -560,7 +560,7 @@ namespace Tomboy
 		}
 	}
 
-	public class NoteLinkWatcher : NotePlugin
+	public class NoteLinkWatcher : NoteAddin
 	{
 		NoteTag url_tag;
 		NoteTag link_tag;
@@ -568,7 +568,7 @@ namespace Tomboy
 
 		static bool text_event_connected;
 
-		protected override void Initialize () 
+		public override void Initialize () 
 		{
 			Manager.NoteDeleted += OnNoteDeleted;
 			Manager.NoteAdded += OnNoteAdded;
@@ -579,14 +579,14 @@ namespace Tomboy
 			broken_link_tag = (NoteTag) Note.TagTable.Lookup ("link:broken");
 		}
 
-		protected override void Shutdown ()
+		public override void Shutdown ()
 		{
 			Manager.NoteDeleted -= OnNoteDeleted;
 			Manager.NoteAdded -= OnNoteAdded;
 			Manager.NoteRenamed -= OnNoteRenamed;
 		}
 
-		protected override void OnNoteOpened ()
+		public override void OnNoteOpened ()
 		{
 #if FIXED_GTKSPELL
 			// NOTE: This avoid multiple link opens for cases where
@@ -814,7 +814,7 @@ namespace Tomboy
 		}
 	}
 
-	public class NoteWikiWatcher : NotePlugin
+	public class NoteWikiWatcher : NoteAddin
 	{
 		Gtk.TextTag broken_link_tag;
 
@@ -828,17 +828,17 @@ namespace Tomboy
 			regex = new Regex (WIKIWORD_REGEX, RegexOptions.Compiled);
 		}
 
-		protected override void Initialize ()
+		public override void Initialize ()
 		{
 			broken_link_tag = Note.TagTable.Lookup ("link:broken");
 		}
 
-		protected override void Shutdown ()
+		public override void Shutdown ()
 		{
 			// Do nothing.
 		}
 
-		protected override void OnNoteOpened ()
+		public override void OnNoteOpened ()
 		{
 			if ((bool) Preferences.Get (Preferences.ENABLE_WIKIWORDS)) {
 				Buffer.InsertText += OnInsertText;
@@ -922,7 +922,7 @@ namespace Tomboy
 		}
 	}
 
-	public class MouseHandWatcher : NotePlugin
+	public class MouseHandWatcher : NoteAddin
 	{
 		bool hovering_on_link;
 
@@ -935,17 +935,17 @@ namespace Tomboy
 			hand_cursor = new Gdk.Cursor (Gdk.CursorType.Hand2);
 		}
 
-		protected override void Initialize ()
+		public override void Initialize ()
 		{
 			// Do nothing.
 		}
 
-		protected override void Shutdown ()
+		public override void Shutdown ()
 		{
 			// Do nothing.
 		}
 
-		protected override void OnNoteOpened ()
+		public override void OnNoteOpened ()
 		{
 			Gtk.TextView editor = Window.Editor;
 			editor.MotionNotifyEvent += OnEditorMotion;
@@ -1053,27 +1053,27 @@ namespace Tomboy
 		}
 	}
 	
-	public class NoteTagsWatcher : NotePlugin
+	public class NoteTagsWatcher : NoteAddin
 	{
 		static NoteTagsWatcher ()
 		{
 		}
 
-		protected override void Initialize ()
+		public override void Initialize ()
 		{
 			Note.TagAdded += OnTagAdded;
 			Note.TagRemoving += OnTagRemoving;
 			Note.TagRemoved += OnTagRemoved;
 		}
 
-		protected override void Shutdown ()
+		public override void Shutdown ()
 		{
 			Note.TagAdded -= OnTagAdded;
 			Note.TagRemoving -= OnTagRemoving;
 			Note.TagRemoved -= OnTagRemoved;
 		}
 
-		protected override void OnNoteOpened ()
+		public override void OnNoteOpened ()
 		{
 			// FIXME: Just for kicks, spit out the current tags
 			Logger.Debug ("{0} tags:", Note.Title);
