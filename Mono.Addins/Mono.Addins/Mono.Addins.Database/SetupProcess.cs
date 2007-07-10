@@ -28,6 +28,7 @@
 
 
 using System;
+using System.Collections.Specialized;
 using System.IO;
 using System.Text;
 using System.Diagnostics;
@@ -40,13 +41,19 @@ namespace Mono.Addins.Database
 		internal static void ExecuteCommand (IProgressStatus monitor, string registryPath, string startupDir, string name, params string[] args)
 		{
 			string asm = new Uri (typeof(SetupProcess).Assembly.CodeBase).LocalPath;
-			string verboseParam = monitor.VerboseLog ? "v " : "nv";
+			string verboseParam = monitor.LogLevel.ToString ();
+			
+			// Arguments string
+			StringBuilder sb = new StringBuilder ();
+			sb.Append (verboseParam).Append (' ').Append (name);
+			foreach (string arg in args)
+				sb.Append (" \"").Append (arg).Append ("\"");
 			
 			Process process = new Process ();
 			if (Util.IsWindows)
-				process.StartInfo = new ProcessStartInfo (asm, verboseParam + " " + name + " " + string.Join (" ", args));
+				process.StartInfo = new ProcessStartInfo (asm, sb.ToString ());
 			else
-				process.StartInfo = new ProcessStartInfo ("mono", "--debug " + asm + " " + verboseParam + " " + name + " " + string.Join (" ", args));
+				process.StartInfo = new ProcessStartInfo ("mono", "--debug " + asm + " " + sb.ToString ());
 			process.StartInfo.WorkingDirectory = AppDomain.CurrentDomain.BaseDirectory;
 			process.StartInfo.UseShellExecute = false;
 			process.StartInfo.RedirectStandardInput = true;
@@ -67,12 +74,16 @@ namespace Mono.Addins.Database
 //			string rr = process.StandardOutput.ReadToEnd ();
 //			Console.WriteLine (rr);
 			
-			ProcessProgressStatus.MonitorProcessStatus (monitor, process.StandardOutput);
+			StringCollection progessLog = new StringCollection ();
+			ProcessProgressStatus.MonitorProcessStatus (monitor, process.StandardOutput, progessLog);
+			process.WaitForExit ();
+			if (process.ExitCode != 0)
+				throw new ProcessFailedException (progessLog);
 		}
 		
-		public static void Main (string[] args)
+		public static int Main (string[] args)
 		{
-			ProcessProgressStatus monitor = new ProcessProgressStatus (args[0] == "v");
+			ProcessProgressStatus monitor = new ProcessProgressStatus (int.Parse (args[0]));
 			
 			try {
 				string registryPath = Console.In.ReadLine ();
@@ -83,7 +94,12 @@ namespace Mono.Addins.Database
 			
 				switch (args [1]) {
 				case "scan":
-					reg.ScanFolders (monitor, args.Length > 2 ? args [2] : null);
+					string folder = args.Length > 2 ? args [2] : null;
+					if (folder.Length == 0) folder = null;
+					StringCollection filesToIgnore = new StringCollection ();
+					for (int n=3; n<args.Length; n++)
+						filesToIgnore.Add (args[n]);
+					reg.ScanFolders (monitor, folder, filesToIgnore);
 					break;
 				case "get-desc":
 					reg.ParseAddin (monitor, args[2], args[3]);
@@ -91,7 +107,27 @@ namespace Mono.Addins.Database
 				}
 			} catch (Exception ex) {
 				monitor.ReportError ("Unexpected error in setup process", ex);
+				return 1;
 			}
+			return 0;
+		}
+	}
+	
+	class ProcessFailedException: Exception
+	{
+		StringCollection progessLog;
+		
+		public ProcessFailedException (StringCollection progessLog)
+		{
+			this.progessLog = progessLog;
+		}
+		
+		public StringCollection ProgessLog {
+			get { return progessLog; }
+		}
+		
+		public string LastLog {
+			get { return progessLog.Count > 0 ? progessLog [progessLog.Count - 1] : ""; }
 		}
 	}
 }

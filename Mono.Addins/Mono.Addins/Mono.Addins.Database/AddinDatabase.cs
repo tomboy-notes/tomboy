@@ -72,6 +72,10 @@ namespace Mono.Addins.Database
 			get { return Path.Combine (AddinDbDir, "addin-dir-data"); }
 		}
 		
+		public string AddinPrivateDataPath {
+			get { return Path.Combine (AddinDbDir, "addin-priv-data"); }
+		}
+		
 		string HostIndexFile {
 			get { return Path.Combine (AddinDbDir, "host-index"); }
 		}
@@ -199,14 +203,21 @@ namespace Mono.Addins.Database
 		
 		public Addin GetInstalledAddin (string id, bool exactVersionMatch, bool enabledOnly)
 		{
-			Addin sinfo = (Addin) cachedAddinSetupInfos [id];
-			if (sinfo != null) {
-				if (!enabledOnly || sinfo.Enabled)
-					return sinfo;
-				if (exactVersionMatch)
+			Addin sinfo = null;
+			object ob = cachedAddinSetupInfos [id];
+			if (ob != null) {
+				sinfo = ob as Addin;
+				if (sinfo != null) {
+					if (!enabledOnly || sinfo.Enabled)
+						return sinfo;
+					if (exactVersionMatch)
+						return null;
+				}
+				else if (enabledOnly)
+					// Ignore the 'not installed' flag when disabled add-ins are allowed
 					return null;
 			}
-				
+		
 			InternalCheck ();
 			
 			using (fileDatabase.LockRead ())
@@ -217,8 +228,11 @@ namespace Mono.Addins.Database
 					cachedAddinSetupInfos [id] = sinfo;
 					if (!enabledOnly || sinfo.Enabled)
 						return sinfo;
-					if (exactVersionMatch)
+					if (exactVersionMatch) {
+						// Cache lookups with negative result
+						cachedAddinSetupInfos [id] = this;
 						return null;
+					}
 				}
 				
 				// Exact version not found. Look for a compatible version
@@ -244,6 +258,11 @@ namespace Mono.Addins.Database
 						return sinfo;
 					}
 				}
+				
+				// Cache lookups with negative result
+				// Ignore the 'not installed' flag when disabled add-ins are allowed
+				if (enabledOnly)
+					cachedAddinSetupInfos [id] = this;
 				return null;
 			}
 		}
@@ -265,10 +284,16 @@ namespace Mono.Addins.Database
 		public Addin GetAddinForHostAssembly (string assemblyLocation)
 		{
 			InternalCheck ();
+			Addin ainfo = null;
 			
-			Addin ainfo = (Addin) cachedAddinSetupInfos [assemblyLocation];
-			if (ainfo != null)
-				return ainfo;
+			object ob = cachedAddinSetupInfos [assemblyLocation];
+			if (ob != null) {
+				ainfo = ob as Addin;
+				if (ainfo != null)
+					return ainfo;
+				else
+					return null;
+			}
 
 			AddinHostIndex index = GetAddinHostIndex ();
 			string addin, addinFile;
@@ -284,14 +309,20 @@ namespace Mono.Addins.Database
 		public bool IsAddinEnabled (string id)
 		{
 			Addin ainfo = GetInstalledAddin (id);
-			return ainfo.Enabled;
+			if (ainfo != null)
+				return ainfo.Enabled;
+			else
+				return false;
 		}
 		
 		internal bool IsAddinEnabled (string id, bool exactVersionMatch)
 		{
 			if (!exactVersionMatch)
 				return IsAddinEnabled (id);
-			return !Configuration.DisabledAddins.Contains (id);
+			Addin ainfo = GetInstalledAddin (id, exactVersionMatch, false);
+			if (ainfo == null)
+				return false;
+			return Configuration.IsEnabled (id, ainfo.AddinInfo.EnabledByDefault);
 		}
 		
 		public void EnableAddin (string id)
@@ -301,7 +332,7 @@ namespace Mono.Addins.Database
 		
 		internal void EnableAddin (string id, bool exactVersionMatch)
 		{
-			Addin ainfo = GetInstalledAddin (id, exactVersionMatch);
+			Addin ainfo = GetInstalledAddin (id, exactVersionMatch, false);
 			if (ainfo == null)
 				// It may be an add-in root
 				return;
@@ -309,9 +340,6 @@ namespace Mono.Addins.Database
 			if (IsAddinEnabled (id))
 				return;
 			
-			Configuration.DisabledAddins.Remove (id);
-			SaveConfiguration ();
-
 			// Enable required add-ins
 			
 			foreach (Dependency dep in ainfo.AddinInfo.Dependencies) {
@@ -321,6 +349,10 @@ namespace Mono.Addins.Database
 					EnableAddin (adepid, false);
 				}
 			}
+
+			Configuration.SetStatus (id, true, ainfo.AddinInfo.EnabledByDefault);
+			SaveConfiguration ();
+
 			if (AddinManager.IsInitialized && AddinManager.Registry.RegistryPath == registry.RegistryPath)
 				AddinManager.SessionService.ActivateAddin (id);
 		}
@@ -333,36 +365,45 @@ namespace Mono.Addins.Database
 
 			if (!IsAddinEnabled (id))
 				return;
-
-			Configuration.DisabledAddins.Add (id);
+			
+			Configuration.SetStatus (id, false, ai.AddinInfo.EnabledByDefault);
 			SaveConfiguration ();
 			
 			// Disable all add-ins which depend on it
 			
-			string idName = Addin.GetIdName (id);
-			
-			foreach (Addin ainfo in GetInstalledAddins ()) {
-				foreach (Dependency dep in ainfo.AddinInfo.Dependencies) {
-					AddinDependency adep = dep as AddinDependency;
-					if (adep == null)
-						continue;
-					
-					string adepid = Addin.GetFullId (ainfo.AddinInfo.Namespace, adep.AddinId, null);
-					if (adepid != idName)
-						continue;
-					
-					// The add-in that has been disabled, might be a requeriment of this one, or maybe not
-					// if there is an older version available. Check it now.
-					
-					adepid = Addin.GetFullId (ainfo.AddinInfo.Namespace, adep.AddinId, adep.Version);
-					Addin adepinfo = GetInstalledAddin (adepid, false, true);
-					
-					if (adepinfo == null) {
-						DisableAddin (ainfo.Id);
-						break;
+			try {
+				string idName = Addin.GetIdName (id);
+				
+				foreach (Addin ainfo in GetInstalledAddins ()) {
+					foreach (Dependency dep in ainfo.AddinInfo.Dependencies) {
+						AddinDependency adep = dep as AddinDependency;
+						if (adep == null)
+							continue;
+						
+						string adepid = Addin.GetFullId (ainfo.AddinInfo.Namespace, adep.AddinId, null);
+						if (adepid != idName)
+							continue;
+						
+						// The add-in that has been disabled, might be a requeriment of this one, or maybe not
+						// if there is an older version available. Check it now.
+						
+						adepid = Addin.GetFullId (ainfo.AddinInfo.Namespace, adep.AddinId, adep.Version);
+						Addin adepinfo = GetInstalledAddin (adepid, false, true);
+						
+						if (adepinfo == null) {
+							DisableAddin (ainfo.Id);
+							break;
+						}
 					}
 				}
 			}
+			catch {
+				// If something goes wrong, enable the add-in again
+				Configuration.SetStatus (id, true, ai.AddinInfo.EnabledByDefault);
+				SaveConfiguration ();
+				throw;
+			}
+
 			if (AddinManager.IsInitialized && AddinManager.Registry.RegistryPath == registry.RegistryPath)
 				AddinManager.SessionService.UnloadAddin (id);
 		}		
@@ -399,12 +440,7 @@ namespace Mono.Addins.Database
 			
 			Hashtable addinHash = new Hashtable ();
 			
-			relExtensionPoints = 0;
-			relExtensions = 0;
-			relNodeSetTypes = 0;
-			relExtensionNodes = 0;
-		
-			if (monitor.VerboseLog)
+			if (monitor.LogLevel > 1)
 				monitor.Log ("Generating add-in extension maps");
 			
 			Hashtable changedAddins = null;
@@ -493,21 +529,15 @@ namespace Mono.Addins.Database
 			foreach (AddinDescription conf in descriptionsToSave)
 				conf.SaveBinary (fileDatabase);
 			
-			if (monitor.VerboseLog) {
+			if (monitor.LogLevel > 1) {
 				monitor.Log ("Addin relation map generated.");
 				monitor.Log ("  Addins Updated: " + descriptionsToSave.Count);
-				monitor.Log ("  Extension points: " + relExtensionPoints);
-				monitor.Log ("  Extensions: " + relExtensions);
-				monitor.Log ("  Extension nodes: " + relExtensionNodes);
-				monitor.Log ("  Node sets: " + relNodeSetTypes);
+				monitor.Log ("  Extension points: " + updateData.RelExtensionPoints);
+				monitor.Log ("  Extensions: " + updateData.RelExtensions);
+				monitor.Log ("  Extension nodes: " + updateData.RelExtensionNodes);
+				monitor.Log ("  Node sets: " + updateData.RelNodeSetTypes);
 			}
 		}
-		
-		int relExtensionPoints;
-		int relExtensions;
-		int relNodeSetTypes;
-		int relExtensionNodes;
-		
 		
 		// Collects extension data in a hash table. The key is the path, the value is a list
 		// of add-ins ids that extend that path
@@ -517,7 +547,7 @@ namespace Mono.Addins.Database
 			foreach (ExtensionNodeSet nset in conf.ExtensionNodeSets) {
 				try {
 					updateData.RegisterNodeSet (conf, nset);
-					relNodeSetTypes++;
+					updateData.RelNodeSetTypes++;
 				} catch (Exception ex) {
 					throw new InvalidOperationException ("Error reading node set: " + nset.Id, ex);
 				}
@@ -526,7 +556,7 @@ namespace Mono.Addins.Database
 			foreach (ExtensionPoint ep in conf.ExtensionPoints) {
 				try {
 					updateData.RegisterExtensionPoint (conf, ep);
-					relExtensionPoints++;
+					updateData.RelExtensionPoints++;
 				} catch (Exception ex) {
 					throw new InvalidOperationException ("Error reading extension point: " + ep.Path, ex);
 				}
@@ -534,7 +564,7 @@ namespace Mono.Addins.Database
 			
 			foreach (ModuleDescription module in conf.AllModules) {
 				foreach (Extension ext in module.Extensions) {
-					relExtensions++;
+					updateData.RelExtensions++;
 					updateData.RegisterExtension (conf, module, ext);
 					AddChildExtensions (conf, module, updateData, ext.Path, ext.ExtensionNodes, false);
 				}
@@ -550,7 +580,7 @@ namespace Mono.Addins.Database
 			foreach (ExtensionNodeDescription node in nodes) {
 				if (node.NodeName == "ComplexCondition")
 					continue;
-				relExtensionNodes++;
+				updateData.RelExtensionNodes++;
 				string id = node.GetAttribute ("id");
 				if (id.Length != 0)
 					AddChildExtensions (conf, module, updateData, path + "/" + id, node.ChildNodes, node.NodeName == "Condition");
@@ -591,9 +621,12 @@ namespace Mono.Addins.Database
 		{
 			using (fileDatabase.LockWrite ()) {
 				try {
-					Directory.Delete (AddinCachePath, true);
-					Directory.Delete (AddinFolderCachePath, true);
-					File.Delete (HostIndexFile);
+					if (Directory.Exists (AddinCachePath))
+						Directory.Delete (AddinCachePath, true);
+					if (Directory.Exists (AddinFolderCachePath))
+						Directory.Delete (AddinFolderCachePath, true);
+					if (File.Exists (HostIndexFile))
+						File.Delete (HostIndexFile);
 				}
 				catch (Exception ex) {
 					monitor.ReportError ("The add-in registry could not be rebuilt. It may be due to lack of write permissions to the directory: " + AddinDbDir, ex);
@@ -605,7 +638,7 @@ namespace Mono.Addins.Database
 		public void Update (IProgressStatus monitor)
 		{
 			if (monitor == null)
-				monitor = new ConsoleProgressStatus (true);
+				monitor = new ConsoleProgressStatus (false);
 
 			if (RunningSetupProcess)
 				return;
@@ -620,7 +653,7 @@ namespace Mono.Addins.Database
 			if (monitor.IsCanceled)
 				return;
 			
-			if (monitor.VerboseLog)
+			if (monitor.LogLevel > 1)
 				monitor.Log ("Folders checked (" + (int) (DateTime.Now - tim).TotalMilliseconds + " ms)");
 			
 			if (changesFound) {
@@ -633,17 +666,8 @@ namespace Mono.Addins.Database
 					}
 				}
 				
-				try {
-					if (monitor.VerboseLog)
-						monitor.Log ("Looking for addins");
-					SetupProcess.ExecuteCommand (monitor, registry.RegistryPath, AddinManager.StartupDirectory, "scan");
-				}
-				catch (Exception ex) {
-					fatalDatabseError = true;
-					monitor.ReportError ("Add-in scan operation failed", ex);
-					monitor.Cancel ();
-					return;
-				}
+				RunScannerProcess (monitor);
+			
 				ResetCachedData ();
 			}
 			
@@ -668,6 +692,56 @@ namespace Mono.Addins.Database
 					}
 				}
 			}
+		}
+		
+		void RunScannerProcess (IProgressStatus monitor)
+		{
+			IProgressStatus scanMonitor = monitor;
+			ArrayList pparams = new ArrayList ();
+			pparams.Add (null); // scan folder
+			
+			bool retry = false;
+			do {
+				try {
+					if (monitor.LogLevel > 1)
+						monitor.Log ("Looking for addins");
+					SetupProcess.ExecuteCommand (scanMonitor, registry.RegistryPath, AddinManager.StartupDirectory, "scan", (string[]) pparams.ToArray (typeof(string)));
+					retry = false;
+				}
+				catch (Exception ex) {
+					ProcessFailedException pex = ex as ProcessFailedException;
+					if (pex != null) {
+						// Get the last logged operation.
+						if (pex.LastLog.StartsWith ("scan:")) {
+							// It crashed while scanning a file. Add the file to the ignore list and try again.
+							string file = pex.LastLog.Substring (5);
+							pparams.Add (file);
+							monitor.ReportWarning ("Could not scan file: " + file);
+							retry = true;
+							continue;
+						}
+					}
+					fatalDatabseError = true;
+					// If the process has crashed, try to do a new scan, this time using verbose log,
+					// to give the user more information about the origin of the crash.
+					if (pex != null && !retry) {
+						monitor.ReportError ("Add-in scan operation failed. The Mono runtime may have encountered an error while trying to load an assembly.", null);
+						if (monitor.LogLevel <= 1) {
+							// Re-scan again using verbose log, to make it easy to find the origin of the error.
+							retry = true;
+							scanMonitor = new ConsoleProgressStatus (true);
+						}
+					} else
+						retry = false;
+					
+					if (!retry) {
+						monitor.ReportError ("Add-in scan operation failed", (ex is ProcessFailedException ? null : ex));
+						monitor.Cancel ();
+						return;
+					}
+				}
+			}
+			while (retry);
 		}
 		
 		bool DatabaseInfrastructureCheck (IProgressStatus monitor)
@@ -714,9 +788,11 @@ namespace Mono.Addins.Database
 			}
 		}
 		
-		internal void ScanFolders (IProgressStatus monitor, string folderToScan)
+		internal void ScanFolders (IProgressStatus monitor, string folderToScan, StringCollection filesToIgnore)
 		{
-			ScanFolders (monitor, new AddinScanResult ());
+			AddinScanResult res = new AddinScanResult ();
+			res.FilesToIgnore = filesToIgnore;
+			ScanFolders (monitor, res);
 		}
 		
 		internal void ScanFolders (IProgressStatus monitor, AddinScanResult scanResult)
@@ -842,14 +918,14 @@ namespace Mono.Addins.Database
 			foreach (AddinScanFolderInfo finfo in scanResult.ModifiedFolderInfos)
 				SaveFolderInfo (monitor, finfo);
 
-			if (monitor.VerboseLog)
+			if (monitor.LogLevel > 1)
 				monitor.Log ("Folders scan completed (" + (int) (DateTime.Now - tim).TotalMilliseconds + " ms)");
 
 			SaveAddinHostIndex ();
 			ResetCachedData ();
 			
 			if (!scanResult.ChangesFound) {
-				if (monitor.VerboseLog)
+				if (monitor.LogLevel > 1)
 					monitor.Log ("No changes found");
 				return;
 			}
@@ -866,7 +942,7 @@ namespace Mono.Addins.Database
 				monitor.ReportError ("The add-in database could not be updated. It may be due to file corruption. Try running the setup repair utility", ex);
 			}
 			
-			if (monitor.VerboseLog)
+			if (monitor.LogLevel > 1)
 				monitor.Log ("Add-in relations analyzed (" + (int) (DateTime.Now - tim).TotalMilliseconds + " ms)");
 			
 			SaveAddinHostIndex ();
@@ -960,7 +1036,7 @@ namespace Mono.Addins.Database
 				return;
 			
 			// Add-in already existed. The dependencies of the old add-in need to be re-analized
-						
+
 			AddinDescription desc;
 			if (ReadAddinDescription (monitor, file, out desc)) {
 				Util.AddDependencies (desc, scanResult);
@@ -971,6 +1047,7 @@ namespace Mono.Addins.Database
 				scanResult.RegenerateRelationData = true;
 
 			SafeDelete (monitor, file);
+			SafeDeleteDir (monitor, Path.Combine (AddinPrivateDataPath, Path.GetFileNameWithoutExtension (file)));
 		}
 		
 		public bool GetHostDescription (IProgressStatus monitor, string addinId, string fileName, out AddinDescription description)
@@ -1090,8 +1167,23 @@ namespace Mono.Addins.Database
 				return true;
 			}
 			catch (Exception ex) {
-				if (monitor.VerboseLog) {
+				if (monitor.LogLevel > 1) {
 					monitor.Log ("Could not delete file: " + file);
+					monitor.Log (ex.ToString ());
+				}
+				return false;
+			}
+		}
+		
+		public bool SafeDeleteDir (IProgressStatus monitor, string dir)
+		{
+			try {
+				fileDatabase.DeleteDir (dir);
+				return true;
+			}
+			catch (Exception ex) {
+				if (monitor.LogLevel > 1) {
+					monitor.Log ("Could not delete directory: " + dir);
 					monitor.Log (ex.ToString ());
 				}
 				return false;
