@@ -1,9 +1,10 @@
-SUBDIRS = \
-	Backlinks		\
-	Bugzilla		\
-	ExportToHtml	\
-	FixedWidth		\
-	NoteOfTheDay	\
-	PrintNotes		\
+SUBDIRS =				\
+	Backlinks			\
+	Bugzilla			\
+	ExportToHtml		\
+	FixedWidth			\
+	NoteOfTheDay		\
+	PrintNotes			\
+	StickyNoteImport	\
 	Tasks
 

@@ -1,0 +1,21 @@
+<Addin id="StickyNoteImportAddin"
+	namespace="Tomboy"
+	name="Sticky Notes Importer"
+	author="Tomboy Project"
+	description="Import your notes from the Sticky Notes applet."
+	category="Tools"
+	defaultEnabled="true"
+	version="0.1">
+
+	<Runtime>
+		<Import assembly="StickyNoteImport.dll" />
+	</Runtime>
+
+	<Dependencies>
+		<Addin id="Tomboy" version="0.7" />
+	</Dependencies>
+
+	<Extension path="/Tomboy/NoteAddins">
+		<NoteAddin type="Tomboy.StickyNoteImport.StickyNoteImportNoteAddin" />
+	</Extension>
+</Addin>
