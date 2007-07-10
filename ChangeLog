@@ -1,5 +1,21 @@
 2007-07-10  Boyd Timothy <btimothy@gmail.com> 
 
+	* configure.in: Addd PrintNotes addin Makefile.
+	* Tomboy.mdp: Remove the old PrintNotes plugin and replace it with the
+	  PrintNotes addin.
+	* Tomboy/Plugins/PrintNotes.cs: Moved this to
+	  Tomboy/Addins/PrintNotes/PrintNotesNoteAddin.cs.
+	* Tomboy/Addins/PrintNotes,
+	  Tomboy/Addins/PrintNotes/PrintNotesNoteAddin.cs,
+	  Tomboy/Addins/PrintNotes/PrintNotes.addin.xml,
+	  Tomboy/Addins/PrintNotes/Makefile.am: The new PrintNotes addin.
+	* Tomboy/Addins/Makefile.am: Add PrintNotes to SUBDIRS and also split
+	  it out onto a separate line since it was beginning to be too long.
+	* po/POTFILES.in: Replace the old PrintNotes plugin source with the new
+	  addin.
+
+2007-07-10  Boyd Timothy <btimothy@gmail.com> 
+
 	* configure.in: Added makefile for NoteOfTheDay addin.
 	* Tomboy.mdp: Moved NoteOfTheDay from a plugin to an addin.
 	* Tomboy/Plugins/NoteOfTheDay.cs: Moved the NoteOfTheDay plugin to be
