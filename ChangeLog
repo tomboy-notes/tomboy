@@ -1,5 +1,32 @@
 2007-07-10  Boyd Timothy <btimothy@gmail.com> 
 
+	* Tomboy.mdp: Added AddinPreferenceFactory.cs.
+	* Tomboy/PreferencesDialog.cs: Changed to use the AddinManager instead
+	  of the PluginManager.  Replaced the "Plugins" tab with a new
+	  "Add-ins" tab.
+	* Tomboy/ApplicationAddin.cs: Added an Initialized:bool property to
+	  allow the addin manager to know whether to initialize again.
+	* Tomboy/AddinPreferenceFactory.cs: New class to allow addins to
+	  provide a preferences dialog.
+	* Tomboy/Tomboy.cs: Pass in the AddinManager to the PreferencesDialog
+	  instead of the old PluginManager.
+	* Tomboy/AddinManager.cs: Added code to track app addins and note
+	  addins so that they can be enabled and disabled at runtime and be
+	  properly initialized and shut down.
+	* Tomboy/Tomboy.addin.xml: Added a new extension point to allow addins
+	  to provide preferences.
+	* Tomboy/Addins/Backlinks/Backlinks.addin.xml: Set a category and
+	  enable this addin by default.
+	* Tomboy/Addins/Tasks/Tasks.addin.xml: Set a category and disable this
+	  addin by default.
+	* Tomboy/Addins/Tasks/TasksApplicationAddin.cs: Added code to signal
+	  when this addin is initialized.
+	* Tomboy/Makefile.am: Don't compile the Plugins directory anymore.  We
+	  need to transition these over to addins ASAP.  Also added
+	  AddinPreferenceFactory.cs.
+
+2007-07-10  Boyd Timothy <btimothy@gmail.com> 
+
 	* Mono.Addins.Setup/AssemblyInfo.cs,
 	  Mono.Addins.Setup/Mono.Addins.Setup/ConsoleAddinInstaller.cs,
 	  Mono.Addins/Mono.Addins/IAddinInstaller.cs,

@@ -19,10 +19,17 @@ namespace Tomboy.Tasks
 		static uint tools_menu_ui = 0;
 		
 		static TaskListWindow task_list_window = null;
+		
+		bool initialized;
 
 		public static TaskManager DefaultTaskManager
 		{
 			get { return manager; }
+		}
+		
+		public TasksApplicationAddin ()
+		{
+			initialized = false;
 		}
 
 		public override void Initialize ()
@@ -70,6 +77,8 @@ namespace Tomboy.Tasks
 				");
 				
 				Tomboy.ActionManager.UI.InsertActionGroup (action_group, 0);
+				
+				initialized = true;
 			}
 		}
 
@@ -86,6 +95,8 @@ namespace Tomboy.Tasks
 				Tomboy.ActionManager.UI.RemoveUi (tray_icon_ui);
 				Tomboy.ActionManager.UI.RemoveUi (tools_menu_ui);
 			} catch {}
+			
+			initialized = false;
 		}
 
 		private void OnOpenToDoListAction ()
@@ -93,6 +104,11 @@ namespace Tomboy.Tasks
 			TaskListWindow task_list_window = TaskListWindow.GetInstance (manager);
 			if (task_list_window != null)
 				task_list_window.Present ();
+		}
+		
+		public override bool Initialized
+		{
+			get { return initialized; }
 		}
 	}
 }

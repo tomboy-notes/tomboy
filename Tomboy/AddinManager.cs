@@ -14,12 +14,26 @@ namespace Tomboy
 	{
 		readonly string tomboy_conf_dir;
 		
-		Dictionary<Note,List<NoteAddin>> note_addins;
+		/// <summary>
+		/// Key = TypeExtensionNode.Id
+		/// </summary>
+		Dictionary<string, ApplicationAddin> app_addins;
+
+		/// <summary>
+		/// </summary>
+		Dictionary<Note, List<NoteAddinInfo>> note_addins;
+
+		/// <summary>
+		/// Key = TypeExtensionNode.Id
+		/// </summary>
+		Dictionary<string, List<NoteAddinInfo>> note_addin_infos;
 		
 		public AddinManager (string tomboy_conf_dir)
 		{
 			this.tomboy_conf_dir = tomboy_conf_dir;
-			note_addins = new Dictionary<Note,List<NoteAddin>> ();
+			app_addins = new Dictionary<string, ApplicationAddin> ();
+			note_addins = new Dictionary<Note, List<NoteAddinInfo>> ();
+			note_addin_infos = new Dictionary<string, List<NoteAddinInfo>> ();
 			
 			InitializeMonoAddins ();
 		}
@@ -54,6 +68,8 @@ namespace Tomboy
 			Mono.Addins.AddinManager.AddinUnloaded += OnAddinUnloaded;
 			Mono.Addins.AddinManager.Initialize (tomboy_conf_dir);
 			Mono.Addins.AddinManager.Registry.Rebuild (null);
+			Mono.Addins.AddinManager.AddExtensionNodeHandler ("/Tomboy/ApplicationAddins", OnApplicationAddinExtensionChanged);
+			Mono.Addins.AddinManager.AddExtensionNodeHandler ("/Tomboy/NoteAddins", OnNoteAddinExtensionChanged);
 		}
 		
 		void OnAddinLoaded (object sender, Mono.Addins.AddinEventArgs args)
@@ -70,18 +86,116 @@ namespace Tomboy
 		void OnAddinUnloaded (object sender, Mono.Addins.AddinEventArgs args)
 		{
 			Logger.Debug ("AddinManager.OnAddinUnloaded: {0}", args.AddinId);
-			DetachAddin (args.AddinId);
 		}
+		
+		void OnApplicationAddinExtensionChanged (object sender, Mono.Addins.ExtensionNodeEventArgs args)
+		{
+			Mono.Addins.TypeExtensionNode type_node =
+					args.ExtensionNode as Mono.Addins.TypeExtensionNode;
+			
+			ApplicationAddin addin;
+			if (args.Change == Mono.Addins.ExtensionChange.Add) {
+				// Load NoteAddins
+				if (Tomboy.DefaultNoteManager == null) {
+					return; // too early -- YUCK!  Bad hack
+				}
 
+				addin = type_node.GetInstance (
+						typeof (ApplicationAddin)) as ApplicationAddin;
+				if (addin != null) {
+					if (addin.Initialized == false) {
+						try {
+							addin.Initialize ();
+							app_addins [type_node.Id] = addin;
+						} catch (Exception e) {
+							Logger.Debug ("Error initializing app addin {0}: {1}\n{2}",
+								addin.GetType ().ToString (),
+								e.Message,
+								e.StackTrace);
+						}
+					}
+				}
+			} else {
+				if (app_addins.ContainsKey (type_node.Id)) {
+					addin = app_addins [type_node.Id];
+					try {
+						addin.Shutdown ();
+					} catch (Exception e1) {
+						Logger.Warn ("Error shutting down app addin {0}: {1}\n{2}",
+							addin.GetType ().ToString (),
+							e1.Message,
+							e1.StackTrace);
+					} finally {
+						app_addins.Remove (type_node.Id);
+					}
+					
+					try {
+						addin.Dispose ();
+					} catch (Exception e1) {
+						Logger.Warn ("Error disposing app addin: {0} - {1}",
+								addin.GetType ().ToString (), e1.Message);
+					}
+				}
+			}
+		}
+		
+		void OnNoteAddinExtensionChanged (object sender, Mono.Addins.ExtensionNodeEventArgs args)
+		{
+			if (args.Change == Mono.Addins.ExtensionChange.Add)
+				OnNoteAddinEnabled (args);
+			else
+				OnNoteAddinDisabled (args);
+		}
+		
+		void OnNoteAddinEnabled (Mono.Addins.ExtensionNodeEventArgs args)
+		{
+			// Load NoteAddins
+			if (Tomboy.DefaultNoteManager == null) {
+				return; // too early -- YUCK!  Bad hack
+			}
+			
+			foreach (Note note in Tomboy.DefaultNoteManager.Notes) {
+				// Create a new NoteAddin
+				Mono.Addins.TypeExtensionNode type_node =
+						args.ExtensionNode as Mono.Addins.TypeExtensionNode;
+				
+				try {
+					NoteAddin n_addin = type_node.CreateInstance () as NoteAddin;
+					
+					// Keep track of the addins added to each note
+					AttachAddin (type_node.Id, note, n_addin);
+				} catch (Exception e) {
+					Logger.Debug ("Couldn't create a NoteAddin instance: {0}", e.Message);
+				}
+			}
+		}
+		
+		void OnNoteAddinDisabled (Mono.Addins.ExtensionNodeEventArgs args)
+		{
+			Mono.Addins.TypeExtensionNode type_node =
+					args.ExtensionNode as Mono.Addins.TypeExtensionNode;
+			
+			OnDisabledAddin (type_node.Id);
+		}
+		
 		public void LoadAddinsForNote (Note note)
 		{
-			NoteAddin [] addins = CreateNoteAddins ();
-			
-			foreach (NoteAddin addin in addins) {
-				AttachAddin (addin, note);
+			Mono.Addins.ExtensionNodeList list = Mono.Addins.AddinManager.GetExtensionNodes ("/Tomboy/NoteAddins");
+			foreach (Mono.Addins.ExtensionNode node in list) {
+				Mono.Addins.TypeExtensionNode type_node =
+						node as Mono.Addins.TypeExtensionNode;
+				
+				try {
+					NoteAddin n_addin = type_node.CreateInstance () as NoteAddin;
+					
+					// Keep track of the addins added to each note
+					AttachAddin (type_node.Id, note, n_addin);
+				} catch (Exception e) {
+					Logger.Debug ("Couldn't create a NoteAddin instance: {0}", e.Message);
+				}
 			}
 
-			// Make sure we remove plugins when a note is deleted
+			// Make sure we remove addins when a note is deleted
 			note.Manager.NoteDeleted += OnNoteDeleted;
 		}
 		
@@ -90,26 +204,27 @@ namespace Tomboy
 		/// </summary>
 		public ApplicationAddin [] GetApplicationAddins ()
 		{
-			ApplicationAddin [] addins;
+			ApplicationAddin [] app_addins;
 			
 			try {
-				addins = (ApplicationAddin [])
+				app_addins = (ApplicationAddin [])
 						Mono.Addins.AddinManager.GetExtensionObjects (
 							"/Tomboy/ApplicationAddins",
-							typeof (ApplicationAddin));
+							typeof (ApplicationAddin),
+							true);
 			} catch (Exception e) {
 				Logger.Debug ("No ApplicationAddins found: {0}", e.Message);
-				addins = new ApplicationAddin [0];
+				app_addins = new ApplicationAddin [0];
 			}
 			
-			return addins;
+			return app_addins;
 		}
 		
 		/// <summary>
-		/// Create new instances of any NoteAddin that is installed/enabled
-		/// and return them.
+		/// Returns an array of NoteAddin objects that tomboy
+		/// currently knows about.
 		/// </summary>
-		private NoteAddin [] CreateNoteAddins ()
+		public NoteAddin [] GetNoteAddins ()
 		{
 			NoteAddin [] addins;
 			
@@ -117,8 +232,7 @@ namespace Tomboy
 				addins = (NoteAddin [])
 						Mono.Addins.AddinManager.GetExtensionObjects (
 							"/Tomboy/NoteAddins",
-							typeof (NoteAddin),
-							false); // Don't reuse objects from cache, create new ones
+							typeof (NoteAddin));
 			} catch (Exception e) {
 				Logger.Debug ("No NoteAddins found: {0}", e.Message);
 				addins = new NoteAddin [0];
@@ -128,32 +242,21 @@ namespace Tomboy
 		}
 		
 		/// <summary>
-		/// Add the addin to the note and save off a reference to the addin that
-		/// will be used when the note is deleted.
+		/// Return all the Addins available to Tomboy
 		/// </summary>
-		void AttachAddin (NoteAddin addin, Note note)
+		public List<Mono.Addins.Addin> GetAllAddins ()
 		{
-			List<NoteAddin> addins;
-			if (note_addins.ContainsKey (note) == false) {
-				addins = new List<NoteAddin> ();
-				note_addins [note] = addins;
-			} else {
-				addins = note_addins [note];
-			}
+			List<Mono.Addins.Addin> addins = new List<Mono.Addins.Addin> ();
 			
-			// Add the addin to the list
-			try {
-				addin.Initialize (note);
-				addins.Add (addin);
-			} catch (Exception e) {
-				Logger.Warn ("Error initializing addin: {0}: {1}",
-						addin.GetType ().ToString (), e.Message);
-				// FIXME: Would be nice to figure out how to just disable
-				// the addin altogether if it's failing to initialize so
-				// it doesn't keep causing problems.
-			}
+			Mono.Addins.Addin [] addinsArray = 
+				Mono.Addins.AddinManager.Registry.GetAddins ();
+			
+			if (addinsArray != null)
+				addins = new List<Mono.Addins.Addin> (addinsArray);
+			
+			return addins;
 		}
-		
+
 		/// <summary>
 		/// Call NoteAddin.Shutdown () and NoteAddin.Dispose () on every
 		/// NoteAddin that's attached to the deleted Note.
@@ -162,142 +265,166 @@ namespace Tomboy
 		{
 			if (note_addins.ContainsKey (deleted) == false)
 				return;
-			
-			List<NoteAddin> addins = note_addins [deleted];
-			foreach (NoteAddin addin in addins) {
-				try {
-					addin.Dispose ();
-				} catch (Exception e) {
-					Logger.Fatal (
-						"Cannot dispose {0}: {1}",
-						addin.GetType (), e);
-				}
-			}
-
-			addins.Clear ();
-			note_addins.Remove (deleted);
-		}
-		
-		// FIXME: Warning, the DetachAddin code has never been tested since we don't have a way to disable/uninstall addins yet
-		void DetachAddin (string addin_id)
-		{
-			List<AddinReference> references = null;
-			
-			// FIXME: Eventually prevent reference checks and enable from command-line
-//			if (CheckAddinUnloading)
-				references = new List<AddinReference> ();
-			
-			DetachAddin (addin_id, references);
-			
-			Logger.Debug ("Starting garbage collection...");
-			GC.Collect ();
-			GC.WaitForPendingFinalizers ();
-
-			Logger.Debug ("Garbage collection complete.");
-
-//			if (!CheckPluginUnloading) 
-//				return;
-
-			Logger.Debug ("Checking addin references...");
-
-			int finalized = 0, leaking = 0;
-
-			foreach (AddinReference r in references) {
-				object addin = r.Target;
-
-				if (null != addin) {
-					Logger.Fatal (
-						"Leaking reference on {0}: '{1}'",
-						addin, r.Description);
-
-					++leaking;
-				} else {
-					++finalized;
-				}
-			}
-
-			if (leaking > 0) {
-				string heapshot =
-					"http://svn.myrealbox.com/source/trunk/heap-shot";
-				string title = String.Format (
-					Catalog.GetString ("Cannot fully disable {0}."),
-					addin_id);
-				string message = String.Format (Catalog.GetString (
-					"Cannot fully disable {0} as there still are " +
-					"at least {1} reference to this addin. This " +
-					"indicates a programming error. Contact the " +
-					"addin's author and report this problem.\n\n" +
-					"<b>Developer Information:</b> This problem " +
-					"usually occurs when the addin's Dispose " +
-					"method fails to disconnect all event handlers. " +
-					"The heap-shot profiler ({2}) can help to " +
-					"identify leaking references."),
-					addin_id, leaking, heapshot);
-
-				HIGMessageDialog dialog = new HIGMessageDialog (
-					null, 0, Gtk.MessageType.Error, Gtk.ButtonsType.Ok,
-					title, message);
-
-				dialog.Run ();
-				dialog.Destroy ();
-			}
-
-			Logger.Debug ("finalized: {0}, leaking: {1}", finalized, leaking);
+				
+			OnDeletedNote (deleted);
 		}
 
-		// Dispose loop has to happen on separate stack frame when debugging,
-		// as otherwise the local variable "plugin" will cause at least one
-		// plugin instance to not be garbage collected. Just assigning
-		// null to the variable will not help, as the JIT optimizes this
-		// assignment away.
-		void DetachAddin (string addin_id, List<AddinReference> references)
+		void AttachAddin (string ext_node_id, Note note, NoteAddin addin)
 		{
-			Mono.Addins.Addin addin =
-				Mono.Addins.AddinManager.Registry.GetAddin (addin_id);
-			if (addin == null)
+			if (ext_node_id == null || note == null || addin == null)
+				throw new ArgumentNullException ("Cannot pass in a null parameter to AttachAddin");
+			
+			// Loading the addin to the note
+			try {
+				addin.Initialize (note);
+			} catch (Exception e) {
+				Logger.Warn ("Error initializing addin: {0}: {1}",
+						addin.GetType ().ToString (), e.Message);
+				// TODO: Would be nice to figure out how to just disable
+				// the addin altogether if it's failing to initialize so
+				// it doesn't keep causing problems.
 				return;
-			
-			Mono.Addins.Description.AddinDescription description =
-				addin.Description;
-			
-			foreach (Mono.Addins.Description.ExtensionPoint point in 
-							description.ExtensionPoints) {
-				if (point.Path != "/Tomboy/NoteAddins")
-					continue;
-				
-				Mono.Addins.Description.ExtensionNodeSet node_set =
-						point.NodeSet;
-				
-				foreach (object o in node_set.NodeTypes) {
-					// FIXME: Get the System.Type of the NoteAddins so we can
-					// look them up and remove them from note_addins.
-					Logger.Debug ("NodeType: {0}", o.GetType ().ToString ());
-				}
 			}
+
+			NoteAddinInfo info = new NoteAddinInfo (ext_node_id, note, addin);
+			List<NoteAddinInfo> note_addin_list;
+			List<NoteAddinInfo> ext_node_addin_list;
+			
+			if (note_addins.ContainsKey (note))
+				note_addin_list = note_addins [note];
+			else {
+				note_addin_list = new List<NoteAddinInfo> ();
+				note_addins [note] = note_addin_list;
+			}
+			
+			if (note_addin_infos.ContainsKey (ext_node_id))
+				ext_node_addin_list = note_addin_infos [ext_node_id];
+			else {
+				ext_node_addin_list = new List<NoteAddinInfo> ();
+				note_addin_infos [ext_node_id] = ext_node_addin_list;
+			}
+			
+			note_addin_list.Add (info);
+			ext_node_addin_list.Add (info);
 		}
 		
-		void DetachAddin (Type type, List<AddinReference> references)
+		void OnDisabledAddin (string ext_node_id)
 		{
-			if (typeof (NoteAddin).IsAssignableFrom (type)) {
-				foreach (List<NoteAddin> addin_list in note_addins.Values) {
-					foreach (NoteAddin addin in addin_list) {
-						try {
-							addin.Dispose ();
-						} catch (Exception e) {
-							Logger.Fatal (
-								"Cannot dispose {0}: {1}",
-								type, e.Message);
+			if (ext_node_id == null)
+				throw new ArgumentNullException (
+					"Cannot call OnDisabledAddin with null parameters");
+			
+			Logger.Debug ("OnDisabledAddin: {0}", ext_node_id);
+			
+			// Remove and shut down all the addins
+			if (note_addin_infos.ContainsKey (ext_node_id) == false)
+				throw new ArgumentException (
+					"Cannot call OnDisabledAddin with an invalid Mono.Addins.ExtensionNode.Id");
+			
+			List<NoteAddinInfo> addin_info_list = note_addin_infos [ext_node_id];
+			foreach (NoteAddinInfo info in addin_info_list) {
+				try {
+					info.Addin.Shutdown ();
+				} catch (Exception e) {
+					Logger.Warn ("Error shutting down addin: {0} - {1}",
+							info.Addin.GetType ().ToString (), e.Message);
+				}
+				
+				try {
+					info.Addin.Dispose ();
+				} catch (Exception e1) {
+					Logger.Warn ("Error disposing addin: {0} - {1}",
+							info.Addin.GetType ().ToString (), e1.Message);
+				}
+				
+				// Remove the addin from the Note
+				if (note_addins.ContainsKey (info.Note)) {
+					List<NoteAddinInfo> note_addin_list = note_addins [info.Note];
+					note_addin_list.Remove (info);
+				}
+			}
+			note_addin_infos.Remove (ext_node_id);
+		}
+		
+		void OnDeletedNote (Note note)
+		{
+			if (note == null)
+				throw new ArgumentNullException (
+					"Cannot call OnDeletedNote with null parameters");
+			
+			if (note_addins.ContainsKey (note) == false)
+				throw new ArgumentException (
+					"Cannot call OnDeletedNote with an invalid Note");
+			
+			List<NoteAddinInfo> note_addin_list = note_addins [note];
+			foreach (NoteAddinInfo info in note_addin_list) {
+				try {
+					info.Addin.Shutdown ();
+				} catch (Exception e) {
+					Logger.Warn ("Error shutting down addin: {0} - {1}",
+							info.Addin.GetType ().ToString (), e.Message);
+				}
+				
+				try {
+					info.Addin.Dispose ();
+				} catch (Exception e1) {
+					Logger.Warn ("Error disposing addin: {0} - {1}",
+							info.Addin.GetType ().ToString (), e1.Message);
+				}
+				
+				if (note_addin_infos.ContainsKey (info.ExtensionNodeId)) {
+					List<NoteAddinInfo> addin_info_list =
+						note_addin_infos [info.ExtensionNodeId];
+					addin_info_list.Remove (info);
+				}
+			}
+			
+			note_addins.Remove (note);
+		}
+		
+		public bool IsAddinConfigurable (Mono.Addins.Addin addin)
+		{
+			object o = GetAddinPrefFactory (addin);
+			
+			if (o == null)
+				return false;
+			
+			return true;
+		}
+		
+		public Gtk.Widget CreateAddinPreferenceWidget (Mono.Addins.Addin addin)
+		{
+			AddinPreferenceFactory factory = GetAddinPrefFactory (addin);
+			if (factory == null)
+				return null;
+			
+			return factory.CreatePreferenceWidget ();
+		}
+		
+		AddinPreferenceFactory GetAddinPrefFactory (Mono.Addins.Addin addin)
+		{
+			Mono.Addins.ExtensionNode node =
+				Mono.Addins.AddinManager.GetExtensionNode ("/Tomboy/AddinPreferences");
+			
+			if (node != null) {
+				Mono.Addins.ExtensionNodeList child_nodes = node.ChildNodes;
+				if (child_nodes != null) {
+					foreach (Mono.Addins.ExtensionNode child_node in child_nodes) {
+						if (addin.Id.StartsWith (child_node.Addin.Id)) {
+							AddinPreferenceFactory factory =
+								((Mono.Addins.TypeExtensionNode)child_node).GetInstance () as AddinPreferenceFactory;
+							return factory;
 						}
-						
-						if (null != references)
-							references.Add (new AddinReference (
-								addin, type.ToString ()));
 					}
 				}
 			}
+			
+			return null;
 		}
 	}
-
+	
+	// TODO: Add this back in so that we can know when Addins leak memory at
+	// disable/shutdown.
 	class AddinReference : WeakReference
 	{
 		readonly string description;
@@ -311,6 +438,35 @@ namespace Tomboy
 		public string Description
 		{
 			get { return description; }
+		}
+	}
+	
+	class NoteAddinInfo
+	{
+		readonly string extension_node_id;
+		readonly Note note;
+		readonly NoteAddin note_addin;
+		
+		public NoteAddinInfo (string node_id, Note note, NoteAddin addin)
+		{
+			this.extension_node_id = node_id;
+			this.note = note;
+			this.note_addin = addin;
+		}
+		
+		public string ExtensionNodeId
+		{
+			get { return extension_node_id; }
+		}
+		
+		public Note Note
+		{
+			get { return note; }
+		}
+		
+		public NoteAddin Addin
+		{
+			get { return note_addin; }
 		}
 	}
 }
