@@ -32,11 +32,11 @@ using System.Xml;
 
 namespace Mono.Addins
 {
-	[ExtensionNode ("Type")]
-	public class TypeExtensionNode: ExtensionNode
+	[ExtensionNode ("Type", Description="Specifies a class that will be used to create an extension object. The name of the class can be provided in the 'class' attribute. If 'class' is not provided, the name will be taken from the 'id' attribute")]
+	[NodeAttribute ("class", typeof(Type), false, Description="Name of the class")]
+	public class TypeExtensionNode: InstanceExtensionNode
 	{
 		string typeName;
-		object cachedInstance;
 		
 		internal protected override void Read (NodeElement elem)
 		{
@@ -48,30 +48,7 @@ namespace Mono.Addins
 				typeName = elem.GetAttribute ("id");
 		}
 		
-		public object GetInstance (Type expectedType)
-		{
-			object ob = GetInstance ();
-			if (!expectedType.IsInstanceOfType (ob))
-				throw new InvalidOperationException (string.Format ("Expected subclass of type '{0}'. Found '{1}'.", expectedType, ob.GetType ()));
-			return ob;
-		}
-		
-		public object GetInstance ()
-		{
-			if (cachedInstance == null)
-				cachedInstance = CreateInstance ();
-			return cachedInstance;
-		}
-		
-		public object CreateInstance (Type expectedType)
-		{
-			object ob = CreateInstance ();
-			if (!expectedType.IsInstanceOfType (ob))
-				throw new InvalidOperationException (string.Format ("Expected subclass of type '{0}'. Found '{1}'.", expectedType, ob.GetType ()));
-			return ob;
-		}
-		
-		public virtual object CreateInstance ()
+		public override object CreateInstance ()
 		{
 			if (typeName.Length == 0)
 				throw new InvalidOperationException ("Type name not specified.");

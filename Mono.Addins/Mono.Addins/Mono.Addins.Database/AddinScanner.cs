@@ -57,7 +57,7 @@ namespace Mono.Addins.Database
 			if (!scanResult.VisitFolder (path))
 				return;
 			
-			if (monitor.VerboseLog && !scanResult.LocateAssembliesOnly)
+			if (monitor.LogLevel > 1 && !scanResult.LocateAssembliesOnly)
 				monitor.Log ("Checking: " + path);
 			
 			AddinScanFolderInfo folderInfo;
@@ -76,19 +76,23 @@ namespace Mono.Addins.Database
 			
 			if (Directory.Exists (path))
 			{
-				foreach (string file in Directory.GetFiles (path)) {
-					if (file.EndsWith (".addin.xml")) {
+				string[] files = Directory.GetFiles (path);
+				
+				// First of all, look for .addin files. Addin files must be processed before
+				// assemblies, because they may add files to the ignore list (i.e., assemblies
+				// included in .addin files won't be scanned twice).
+				foreach (string file in files) {
+					if (file.EndsWith (".addin.xml") || file.EndsWith (".addin")) {
 						RegisterFileToScan (monitor, file, scanResult, folderInfo);
-						continue;
 					}
+				}
+				
+				foreach (string file in files) {
 					switch (Path.GetExtension (file)) {
 					case ".dll":
 					case ".exe":
 						RegisterFileToScan (monitor, file, scanResult, folderInfo);
 						scanResult.AddAssemblyLocation (file);
-						break;
-					case ".addin":
-						RegisterFileToScan (monitor, file, scanResult, folderInfo);
 						break;
 					case ".addins":
 						ScanAddinsFile (monitor, file, scanResult);
@@ -168,9 +172,21 @@ namespace Mono.Addins.Database
 		
 		public void ScanFile (IProgressStatus monitor, string file, AddinScanFolderInfo folderInfo, AddinScanResult scanResult)
 		{
-			if (monitor.VerboseLog)
+			if (scanResult.IgnoreFile (file)) {
+				// The file must be ignored. Maybe it caused a crash in a previous scan, or it
+				// might be included by a .addin file (in which case it will be scanned when processing
+				// the .addin file).
+				folderInfo.SetLastScanTime (file, null, false, File.GetLastWriteTime (file), true);
+				return;
+			}
+			
+			if (monitor.LogLevel > 1)
 				monitor.Log ("Scanning file: " + file);
-				
+			
+			// Log the file to be scanned, so in case of a process crash the main process
+			// will know what crashed
+			monitor.Log ("plog:scan:" + file);
+			
 			string scannedAddinId = null;
 			bool scannedIsRoot = false;
 			bool scanSuccessful = false;
@@ -184,7 +200,7 @@ namespace Mono.Addins.Database
 				else
 					scanSuccessful = ScanConfigAssemblies (monitor, file, scanResult, out config);
 
-				if (config != null && config.AddinId.Length > 0) {
+				if (config != null) {
 					
 					AddinFileInfo fi = folderInfo.GetAddinFileInfo (file);
 					
@@ -274,6 +290,7 @@ namespace Mono.Addins.Database
 			}
 			finally {
 				folderInfo.SetLastScanTime (file, scannedAddinId, scannedIsRoot, File.GetLastWriteTime (file), !scanSuccessful);
+				monitor.Log ("plog:endscan");
 			}
 		}
 		
@@ -281,9 +298,11 @@ namespace Mono.Addins.Database
 		{
 			AddinDescription config = null;
 			
-			if (monitor.VerboseLog)
+			if (monitor.LogLevel > 1)
 				monitor.Log ("Scanning file: " + file);
 				
+			monitor.Log ("plog:scan:" + file);
+			
 			try {
 				string ext = Path.GetExtension (file);
 				bool scanSuccessful;
@@ -306,6 +325,8 @@ namespace Mono.Addins.Database
 			}
 			catch (Exception ex) {
 				monitor.ReportError ("Unexpected error while scanning file: " + file, ex);
+			} finally {
+				monitor.Log ("plog:endscan");
 			}
 			return config;
 		}
@@ -331,6 +352,14 @@ namespace Mono.Addins.Database
 								directoriesWithSubdirs.Add (path);
 							else
 								directories.Add (path);
+						}
+					}
+					else if (r.NodeType == XmlNodeType.Element && r.LocalName == "GacAssembly") {
+						string aname = r.ReadElementString ().Trim ();
+						if (aname.Length > 0) {
+							aname = Util.GetGacPath (aname);
+							if (aname != null)
+								directories.Add (aname);
 						}
 					}
 					else
@@ -443,13 +472,23 @@ namespace Mono.Addins.Database
 			// First of all scan the main module
 			
 			ArrayList assemblies = new ArrayList ();
+			ArrayList asmFiles = new ArrayList ();
 			ArrayList hostExtensionClasses = new ArrayList ();
 			
 			try {
+				// Add all data files to the ignore file list. It avoids scanning assemblies
+				// which are included as 'data' in an add-in.
+				foreach (string df in config.AllFiles) {
+					string file = Path.Combine (config.BasePath, df);
+					scanResult.AddFileToIgnore (Util.GetFullPath (file));
+				}
+				
 				foreach (string s in config.MainModule.Assemblies) {
 					string asmFile = Path.Combine (config.BasePath, s);
+					asmFiles.Add (asmFile);
 					Assembly asm = Util.LoadAssemblyForReflection (asmFile);
 					assemblies.Add (asm);
+					scanResult.AddFileToIgnore (Util.GetFullPath (asmFile));
 				}
 				
 				foreach (Assembly asm in assemblies)
@@ -466,14 +505,12 @@ namespace Mono.Addins.Database
 				
 				if (config.IsRoot && scanResult.HostIndex != null) {
 					// If the add-in is a root, register its assemblies
-					foreach (Assembly asm in assemblies) {
-						string asmFile = new Uri (asm.CodeBase).LocalPath;
+					foreach (string asmFile in asmFiles)
 						scanResult.HostIndex.RegisterAssembly (asmFile, config.AddinId, config.AddinFile);
-					}
 				}
 				
 			} catch (Exception ex) {
-				if (monitor.VerboseLog)
+				if (monitor.LogLevel > 1)
 					monitor.Log ("Could not load some add-in assemblies: " + ex.Message);
 				scanResult.AddFileToWithFailure (config.AddinFile);
 				return false;
@@ -486,6 +523,10 @@ namespace Mono.Addins.Database
 			// Extension node types may have child nodes declared as attributes. Find them.
 			
 			Hashtable internalNodeSets = new Hashtable ();
+			
+			foreach (ExtensionNodeSet eset in config.ExtensionNodeSets)
+				ScanNodeSet (config, eset, assemblies, internalNodeSets);
+			
 			foreach (ExtensionPoint ep in config.ExtensionPoints) {
 				ScanNodeSet (config, ep.NodeSet, assemblies, internalNodeSets);
 			}
@@ -496,24 +537,25 @@ namespace Mono.Addins.Database
 				foreach (ModuleDescription mod in config.OptionalModules) {
 					try {
 						assemblies.Clear ();
+						asmFiles.Clear ();
 						foreach (string s in mod.Assemblies) {
 							string asmFile = Path.Combine (config.BasePath, s);
+							asmFiles.Add (asmFile);
 							Assembly asm = Util.LoadAssemblyForReflection (asmFile);
 							assemblies.Add (asm);
+							scanResult.AddFileToIgnore (Util.GetFullPath (asmFile));
 						}
 						foreach (Assembly asm in assemblies)
 							ScanAssemblyContents (config, asm, null, scanResult);
 				
 						if (config.IsRoot && scanResult.HostIndex != null) {
 							// If the add-in is a root, register its assemblies
-							foreach (Assembly asm in assemblies) {
-								string asmFile = new Uri (asm.CodeBase).LocalPath;
+							foreach (string asmFile in asmFiles)
 								scanResult.HostIndex.RegisterAssembly (asmFile, config.AddinId, config.AddinFile);
-							}
 						}
 						
 					} catch (Exception ex) {
-						if (monitor.VerboseLog)
+						if (monitor.LogLevel > 1)
 							monitor.Log ("Could not load some add-in assemblies: " + ex.Message);
 						scanResult.AddFileToWithFailure (config.AddinFile);
 					}
@@ -630,72 +672,68 @@ namespace Mono.Addins.Database
 		
 		void ScanNodeSet (AddinDescription config, ExtensionNodeSet nset, ArrayList assemblies, Hashtable internalNodeSets)
 		{
-			foreach (ExtensionNodeType nt in nset.NodeTypes) {
-				if (nt.TypeName.Length == 0)
-					nt.TypeName = "Mono.Addins.TypeExtensionNode";
-				
-				Type ntype = FindAddinType (nt.TypeName, assemblies);
-				if (ntype == null)
-					continue;
-
-				// Add type information declared with attributes in the code
-				ExtensionNodeAttribute nodeAtt = (ExtensionNodeAttribute) Attribute.GetCustomAttribute (ntype, typeof(ExtensionNodeAttribute), false);
-				if (nodeAtt != null) {
-					if (nt.Id.Length == 0 && nodeAtt.NodeName.Length > 0)
-						nt.Id = nodeAtt.NodeName;
-					if (nt.Description.Length == 0 && nodeAtt.Description.Length > 0)
-						nt.Description = nodeAtt.Description;
-				} else {
-					// Use the node type name as default name
-					if (nt.Id.Length == 0)
-						nt.Id = ntype.Name;
-				}
-				
-				// Add information about attributes
-				object[] fieldAtts = ntype.GetCustomAttributes (typeof(NodeAttributeAttribute), true);
-				foreach (NodeAttributeAttribute fatt in fieldAtts) {
+			foreach (ExtensionNodeType nt in nset.NodeTypes)
+				ScanNodeType (config, nt, assemblies, internalNodeSets);
+		}
+		
+		void ScanNodeType (AddinDescription config, ExtensionNodeType nt, ArrayList assemblies, Hashtable internalNodeSets)
+		{
+			if (nt.TypeName.Length == 0)
+				nt.TypeName = "Mono.Addins.TypeExtensionNode";
+			
+			Type ntype = FindAddinType (nt.TypeName, assemblies);
+			if (ntype == null)
+				return;
+			
+			// Add type information declared with attributes in the code
+			ExtensionNodeAttribute nodeAtt = (ExtensionNodeAttribute) Attribute.GetCustomAttribute (ntype, typeof(ExtensionNodeAttribute), true);
+			if (nodeAtt != null) {
+				if (nt.Id.Length == 0 && nodeAtt.NodeName.Length > 0)
+					nt.Id = nodeAtt.NodeName;
+				if (nt.Description.Length == 0 && nodeAtt.Description.Length > 0)
+					nt.Description = nodeAtt.Description;
+			} else {
+				// Use the node type name as default name
+				if (nt.Id.Length == 0)
+					nt.Id = ntype.Name;
+			}
+			
+			// Add information about attributes
+			object[] fieldAtts = ntype.GetCustomAttributes (typeof(NodeAttributeAttribute), true);
+			foreach (NodeAttributeAttribute fatt in fieldAtts) {
+				NodeTypeAttribute natt = new NodeTypeAttribute ();
+				natt.Name = fatt.Name;
+				natt.Required = fatt.Required;
+				if (fatt.Type != null)
+					natt.Type = fatt.Type.FullName;
+				if (fatt.Description.Length > 0)
+					natt.Description = fatt.Description;
+				nt.Attributes.Add (natt);
+			}
+			
+			// Check if the type has NodeAttribute attributes applied to fields.
+			foreach (FieldInfo field in ntype.GetFields (BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)) {
+				NodeAttributeAttribute fatt = (NodeAttributeAttribute) Attribute.GetCustomAttribute (field, typeof(NodeAttributeAttribute));
+				if (fatt != null) {
 					NodeTypeAttribute natt = new NodeTypeAttribute ();
-					natt.Name = fatt.Name;
-					natt.Required = fatt.Required;
-					if (fatt.Type != null)
-						natt.Type = fatt.Type.FullName;
+					if (fatt.Name.Length > 0)
+						natt.Name = fatt.Name;
+					else
+						natt.Name = field.Name;
 					if (fatt.Description.Length > 0)
 						natt.Description = fatt.Description;
+					natt.Type = field.FieldType.FullName;
+					natt.Required = fatt.Required;
 					nt.Attributes.Add (natt);
 				}
-				
-				// Check if the type has NodeAttribute attributes applied to fields.
-				foreach (FieldInfo field in ntype.GetFields (BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)) {
-					NodeAttributeAttribute fatt = (NodeAttributeAttribute) Attribute.GetCustomAttribute (field, typeof(NodeAttributeAttribute));
-					if (fatt != null) {
-						NodeTypeAttribute natt = new NodeTypeAttribute ();
-						if (fatt.Name.Length > 0)
-							natt.Name = fatt.Name;
-						else
-							natt.Name = field.Name;
-						if (fatt.Description.Length > 0)
-							natt.Description = fatt.Description;
-						natt.Type = field.FieldType.FullName;
-						natt.Required = fatt.Required;
-						nt.Attributes.Add (natt);
-					}
-				}
-				
-				// Check if the extension type allows children by looking for [ExtensionNodeChild] attributes.
-				// First of all, look in the internalNodeSets hashtable, which is being used as cache
-				
-				string childSet = (string) internalNodeSets [nt.TypeName];
-				if (childSet != null) {
-					if (childSet.Length == 0) {
-						// The extension type does not declare children.
-						continue;
-					}
-					// The extension type can have children. The allowed children are
-					// defined in this extension set.
-					nt.NodeSets.Add (childSet);
-					continue;
-				}
-				
+			}
+			
+			// Check if the extension type allows children by looking for [ExtensionNodeChild] attributes.
+			// First of all, look in the internalNodeSets hashtable, which is being used as cache
+			
+			string childSet = (string) internalNodeSets [nt.TypeName];
+			
+			if (childSet == null) {
 				object[] ats = ntype.GetCustomAttributes (typeof(ExtensionNodeChildAttribute), true);
 				if (ats.Length > 0) {
 					// Create a new node set for this type. It is necessary to create a new node set
@@ -719,6 +757,18 @@ namespace Mono.Addins.Database
 					ScanNodeSet (config, internalSet, assemblies, internalNodeSets);
 				}
 			}
+			else {
+				if (childSet.Length == 0) {
+					// The extension type does not declare children.
+					return;
+				}
+				// The extension type can have children. The allowed children are
+				// defined in this extension set.
+				nt.NodeSets.Add (childSet);
+				return;
+			}
+			
+			ScanNodeSet (config, nt, assemblies, internalNodeSets);
 		}
 		
 		string GetBaseTypeNameList (Type type)

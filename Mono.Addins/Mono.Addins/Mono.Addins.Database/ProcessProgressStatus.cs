@@ -28,6 +28,7 @@
 
 
 using System;
+using System.Collections.Specialized;
 using System.IO;
 
 namespace Mono.Addins.Database
@@ -35,11 +36,11 @@ namespace Mono.Addins.Database
 	internal class ProcessProgressStatus: MarshalByRefObject, IProgressStatus
 	{
 		bool canceled;
-		bool verbose;
+		int logLevel;
 		
-		public ProcessProgressStatus (bool verboseLog)
+		public ProcessProgressStatus (int logLevel)
 		{
-			verbose = verboseLog;
+			this.logLevel = logLevel;
 		}
 		
 		public void SetMessage (string msg)
@@ -54,7 +55,12 @@ namespace Mono.Addins.Database
 		
 		public void Log (string msg)
 		{
-			Console.WriteLine ("process-ps-log:" + Encode (msg));
+			if (msg.StartsWith ("plog:"))
+				// This is an special type of log that will be provided to the
+				// main process in case of a crash in the setup process
+				Console.WriteLine ("process-ps-plog:" + Encode (msg.Substring (5)));
+			else
+				Console.WriteLine ("process-ps-log:" + Encode (msg));
 		}
 		
 		public void ReportWarning (string message)
@@ -66,7 +72,7 @@ namespace Mono.Addins.Database
 		{
 			if (message == null) message = string.Empty;
 			string et;
-			if (verbose)
+			if (logLevel > 1)
 				et = exception != null ? exception.ToString () : string.Empty;
 			else
 				et = exception != null ? exception.Message : string.Empty;
@@ -79,8 +85,8 @@ namespace Mono.Addins.Database
 			get { return canceled; }
 		}
 		
-		public bool VerboseLog {
-			get { return verbose; }
+		public int LogLevel {
+			get { return logLevel; }
 		}
 		
 		public void Cancel ()
@@ -101,7 +107,7 @@ namespace Mono.Addins.Database
 			return msg.Replace ("&a", "&");
 		}
 		
-		public static void MonitorProcessStatus (IProgressStatus monitor, TextReader reader)
+		public static void MonitorProcessStatus (IProgressStatus monitor, TextReader reader, StringCollection progessLog)
 		{
 			string line;
 			string exceptionText = null;
@@ -137,6 +143,9 @@ namespace Mono.Addins.Database
 							break;
 						case "process-ps-cancel":
 							monitor.Cancel ();
+							break;
+						case "process-ps-plog":
+							progessLog.Add (Decode (txt));
 							break;
 						default:
 							wasTag = false;

@@ -42,7 +42,9 @@ namespace Mono.Addins.Database
 		string rootDirectory;
 		Hashtable foldersToUpdate;
 		Hashtable deletedFiles;
+		Hashtable deletedDirs;
 		IDisposable transactionLock;
+		bool ignoreDesc;
 		
 		public FileDatabase (string rootDirectory)
 		{
@@ -55,6 +57,12 @@ namespace Mono.Addins.Database
 		
 		string UpdateDatabaseLockFile {
 			get { return Path.Combine (rootDirectory, "fdb-update-lock"); }
+		}
+		
+		// Returns 'true' if description data must be ignored when reading the contents of a file
+		public bool IgnoreDescriptionData {
+			get { return ignoreDesc; }
+			set { ignoreDesc = value; }
 		}
 		
 		public bool BeginTransaction ()
@@ -80,6 +88,7 @@ namespace Mono.Addins.Database
 			inTransaction = true;
 			foldersToUpdate = new Hashtable ();
 			deletedFiles = new Hashtable ();
+			deletedDirs = new Hashtable ();
 			return true;
 		}
 		
@@ -168,6 +177,22 @@ namespace Mono.Addins.Database
 				File.Delete (fileName);
 			}
 		}
+
+		public void DeleteDir (string dirName)
+		{
+			if (inTransaction) {
+				if (deletedDirs.Contains (dirName))
+					return;
+				if (Directory.Exists (dirName + ".new"))
+					Directory.Delete (dirName + ".new", true);
+				if (Directory.Exists (dirName))
+					deletedDirs [dirName] = null;
+			}
+			else {
+				Directory.Delete (dirName, true);
+			}
+		}
+
 		
 		public bool Exists (string fileName)
 		{
@@ -222,6 +247,8 @@ namespace Mono.Addins.Database
 				}
 				foreach (string file in deletedFiles.Keys)
 					File.Delete (file);
+				foreach (string dir in deletedDirs.Keys)
+					Directory.Delete (dir, true);
 			}
 			finally {
 				transactionLock.Dispose ();

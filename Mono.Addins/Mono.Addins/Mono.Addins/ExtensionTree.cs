@@ -93,7 +93,7 @@ namespace Mono.Addins
 				string before = elem.GetAttribute ("insertbefore");
 				if (before.Length > 0) {
 					int i = tnode.Children.IndexOfNode (before);
-					if (i != -1 && i > curPos)
+					if (i != -1)
 						curPos = i;
 				}
 				
@@ -124,8 +124,10 @@ namespace Mono.Addins
 					Context.RegisterNodeCondition (cnode, cnode.Condition);
 
 				// Load children
-				int cp = 0;
-				LoadExtensionElement (cnode, addin, elem.ChildNodes, ref cp, parentCondition, false, addedNodes);
+				if (elem.ChildNodes.Count > 0) {
+					int cp = 0;
+					LoadExtensionElement (cnode, addin, elem.ChildNodes, ref cp, parentCondition, false, addedNodes);
+				}
 				
 				curPos++;
 			}
@@ -173,7 +175,7 @@ namespace Mono.Addins
 				return node;
 			}
 			catch (Exception ex) {
-				AddinManager.ReportError ("Could not read extension node", addin, ex, false);
+				AddinManager.ReportError ("Could not read extension node of type '" + ntype.Type + "' from extension path '" + tnode.GetPath() + "'", addin, ex, false);
 				return null;
 			}
 		}
@@ -199,7 +201,7 @@ namespace Mono.Addins
 				return true;
 			}
 			
-			ntype.Type = p.GetType (ntype.TypeName);
+			ntype.Type = p.GetType (ntype.TypeName, false);
 			if (ntype.Type == null) {
 				AddinManager.ReportError ("Extension node type '" + ntype.TypeName + "' not found.", ntype.AddinId, null, false);
 				return false;
@@ -210,7 +212,7 @@ namespace Mono.Addins
 			
 			// Check if the type has NodeAttribute attributes applied to fields.
 			foreach (FieldInfo field in ntype.Type.GetFields (BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)) {
-				NodeAttributeAttribute at = (NodeAttributeAttribute) Attribute.GetCustomAttribute (field, typeof(NodeAttributeAttribute));
+				NodeAttributeAttribute at = (NodeAttributeAttribute) Attribute.GetCustomAttribute (field, typeof(NodeAttributeAttribute), true);
 				if (at != null) {
 					string name;
 					if (at.Name != null && at.Name.Length > 0)

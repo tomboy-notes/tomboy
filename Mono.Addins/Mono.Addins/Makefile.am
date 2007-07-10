@@ -64,6 +64,8 @@ ASSEMBLY_SOURCES =								\
 	$(srcdir)/Mono.Addins/ExtensionPointAttribute.cs 			\
 	$(srcdir)/Mono.Addins/ExtensionTree.cs 					\
 	$(srcdir)/Mono.Addins/GettextCatalog.cs 				\
+	$(srcdir)/Mono.Addins/IAddinInstaller.cs 				\
+	$(srcdir)/Mono.Addins/InstanceExtensionNode.cs 				\
 	$(srcdir)/Mono.Addins/IProgressStatus.cs 				\
 	$(srcdir)/Mono.Addins/MissingDependencyException.cs 			\
 	$(srcdir)/Mono.Addins/NodeAttributeAttribute.cs 			\

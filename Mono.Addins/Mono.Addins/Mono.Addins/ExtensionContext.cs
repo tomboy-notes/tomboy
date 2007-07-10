@@ -250,7 +250,7 @@ namespace Mono.Addins
 		
 		public object[] GetExtensionObjects (string path, bool reuseCachedInstance)
 		{
-			return GetExtensionObjects (path, typeof(object), true);
+			return GetExtensionObjects (path, typeof(object), reuseCachedInstance);
 		}
 		
 		public object[] GetExtensionObjects (string path, Type arrayElementType)
@@ -390,8 +390,10 @@ namespace Mono.Addins
 					if (data != null) {
 						foreach (Extension ext in data.Extensions) {
 							TreeNode node = GetNode (ext.Path);
-							if (node != null && node.ExtensionNodeSet != null)
-								LoadModuleExtensionNodes (ext, data.AddinId, node.ExtensionNodeSet, loadedNodes);
+							if (node != null && node.ExtensionNodeSet != null) {
+								if (node.ChildrenLoaded)
+									LoadModuleExtensionNodes (ext, data.AddinId, node.ExtensionNodeSet, loadedNodes);
+							}
 							else
 								AddinManager.ReportError ("Extension node not found or not extensible: " + ext.Path, id, null, false);
 						}
@@ -715,9 +717,9 @@ namespace Mono.Addins
 		
 		public object ExtensionObject {
 			get {
-				TypeExtensionNode tnode = node as TypeExtensionNode;
+				InstanceExtensionNode tnode = node as InstanceExtensionNode;
 				if (tnode == null)
-					throw new InvalidOperationException ("Node is not a TypeExtensionNode");
+					throw new InvalidOperationException ("Node is not an InstanceExtensionNode");
 				return tnode.GetInstance (); 
 			}
 		}

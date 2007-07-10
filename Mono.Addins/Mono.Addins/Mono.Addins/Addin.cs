@@ -79,6 +79,10 @@ namespace Mono.Addins
 			get { return this.AddinInfo.Name; }
 		}
 		
+		internal string PrivateDataPath {
+			get { return Path.Combine (database.AddinPrivateDataPath, Path.GetFileNameWithoutExtension (Description.FileName)); }
+		}
+		
 		public bool SupportsVersion (string version)
 		{
 			return AddinInfo.SupportsVersion (version);
@@ -98,7 +102,7 @@ namespace Mono.Addins
 		}
 		
 		public bool Enabled {
-			get { return database.IsAddinEnabled (AddinInfo.Id, true); }
+			get { return AddinInfo.IsRoot ? true : database.IsAddinEnabled (AddinInfo.Id, true); }
 			set {
 				if (value)
 					database.EnableAddin (AddinInfo.Id, true);
