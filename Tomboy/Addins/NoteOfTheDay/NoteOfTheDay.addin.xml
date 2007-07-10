@@ -1,0 +1,25 @@
+<Addin id="NoteOfTheDayAddin"
+	namespace="Tomboy"
+	name="Note of the Day"
+	author="Tomboy Project"
+	description="Automatically creates a &quot;Today&quot; note for easily jotting down daily thoughts."
+	category="Tools"
+	defaultEnabled="false"
+	version="0.1">
+
+	<Runtime>
+		<Import assembly="NoteOfTheDay.dll" />
+	</Runtime>
+
+	<Dependencies>
+		<Addin id="Tomboy" version="0.7" />
+	</Dependencies>
+
+	<Extension path="/Tomboy/ApplicationAddins">
+		<ApplicationAddin type="Tomboy.NoteOfTheDay.NoteOfTheDayApplicationAddin" />
+	</Extension>
+	
+	<Extension path="/Tomboy/AddinPreferences">
+		<AddinPreferenceFactory type="Tomboy.NoteOfTheDay.NoteOfTheDayPreferencesFactory" />
+	</Extension>
+</Addin>
