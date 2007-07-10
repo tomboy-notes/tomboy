@@ -252,19 +252,11 @@ namespace Tomboy
 				Mono.Addins.AddinManager.Registry.GetAddins ();
 			
 			if (addinsArray != null) {
-				// Only add in the addins that have a category specified.
-				// This allows us to leave the category specification off of
-				// our built-in addins.
-				foreach (Mono.Addins.Addin addin in addinsArray) {
-					string category =
-						Mono.Addins.Setup.SetupService.GetAddinHeader (
-							addin).Category;
-					if (category == null || category.Trim () == string.Empty) {
-						continue;
-					}
-					
-					addins.Add (addin);
-				}
+				// It just so happens that the NoteAddins that are part of
+				// Tomboy.exe (from Watchers.cs) are not returned by the
+				// above GetAddins () call, so we don't have to do anything
+				// to exclude them here.
+				addins = new List<Mono.Addins.Addin> (addinsArray);
 			}
 			
 			return addins;
