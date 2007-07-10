@@ -1,0 +1,21 @@
+<Addin id="ExportToHtmlAddin"
+	namespace="Tomboy"
+	name="Export to HTML"
+	author="Tomboy Project"
+	description="Exports individual notes to HTML."
+	category="Note Tools"
+	defaultEnabled="true"
+	version="0.1">
+
+	<Runtime>
+		<Import assembly="ExportToHtml.dll" />
+	</Runtime>
+
+	<Dependencies>
+		<Addin id="Tomboy" version="0.7" />
+	</Dependencies>
+
+	<Extension path="/Tomboy/NoteAddins">
+		<NoteAddin type="Tomboy.ExportToHtml.ExportToHtmlNoteAddin" />
+	</Extension>
+</Addin>
