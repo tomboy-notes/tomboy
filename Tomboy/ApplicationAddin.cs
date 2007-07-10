@@ -18,5 +18,13 @@ namespace Tomboy
 		/// Called just before Tomboy shuts down for good.
 		/// </summary>
 		public abstract void Shutdown ();
+		
+		/// <summary>
+		/// Return true if the addin is initialized
+		/// </summary>
+		public abstract bool Initialized
+		{
+			get;
+		}
 	}
 }

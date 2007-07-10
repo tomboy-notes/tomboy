@@ -8,33 +8,34 @@ namespace Tomboy
 {
 	public class PreferencesDialog : Gtk.Dialog
 	{
-		readonly PluginManager plugin_manager;
+		readonly AddinManager addin_manager;
 
-		Type current_plugin;
-		PluginInfoAttribute plugin_info;
+		Type current_extension;
 
 		Gtk.Button font_button;
 		Gtk.Label font_face;
 		Gtk.Label font_size;
+		
+		Mono.Addins.Gui.AddinTreeWidget addin_tree;
+		
+		Gtk.Button enable_addin_button;
+		Gtk.Button disable_addin_button;
+		Gtk.Button addin_prefs_button;
+		Gtk.Button addin_info_button;
 
-		Gtk.ListStore plugin_store;
-		Gtk.Label plugin_name;
+		/// <summary>
+		/// Keep track of the opened addin prefs dialogs so other windows
+		/// can be interacted with (as opposed to opening these as modal
+		/// dialogs).
+		///
+		/// Key = Mono.Addins.Addin.Id
+		/// </summary>
+		Dictionary<string, Gtk.Dialog> addin_prefs_dialogs;
 
-		Gtk.TextView plugin_description;
-		Gtk.TextView plugin_author;
-		Gtk.TextView plugin_website;
-		Gtk.TextView plugin_filename;
-
-		Gtk.Button plugin_preferences;
-		// Keep track of the opened plugin settings dialogs so other windows
-		// can be interacted with (as opposed to opening these as modal
-		// dialogs).
-		Dictionary<PluginInfoAttribute, Gtk.Dialog> plugin_dialogs;
-
-		public PreferencesDialog (PluginManager plugin_manager)
+		public PreferencesDialog (AddinManager addin_manager)
 			: base ()
 		{
-			this.plugin_manager = plugin_manager;
+			this.addin_manager = addin_manager;
 
 			IconName = "tomboy";
 			HasSeparator = false;
@@ -45,8 +46,8 @@ namespace Tomboy
 			VBox.Spacing = 5;
 			ActionArea.Layout = Gtk.ButtonBoxStyle.End;
 			
-			plugin_dialogs =
-				new Dictionary<PluginInfoAttribute, Gtk.Dialog> ();
+			addin_prefs_dialogs =
+				new Dictionary<string, Gtk.Dialog> ();
 
 			// Notebook Tabs (Editing, Hotkeys)...
 
@@ -59,8 +60,8 @@ namespace Tomboy
 				new Gtk.Label (Catalog.GetString ("Editing")));
 			notebook.AppendPage (MakeHotkeysPane (), 
 				new Gtk.Label (Catalog.GetString ("Hotkeys")));
-			notebook.AppendPage (MakePluginsPane (), 
-				new Gtk.Label (Catalog.GetString ("Plugins")));
+			notebook.AppendPage (MakeAddinsPane (),
+			    new Gtk.Label (Catalog.GetString ("Add-ins")));
 
 			VBox.PackStart (notebook, true, true, 0);
 
@@ -310,259 +311,181 @@ namespace Tomboy
 		}
 
 		// Page 3
-		// Plugin Preferences
-		public Gtk.Widget MakePluginsPane ()
+		// Extension Preferences
+		public Gtk.Widget MakeAddinsPane ()
 		{
-			Gtk.HPaned pane;
-
-			pane = new Gtk.HPaned ();
-			pane.Pack2 (MakePluginDetails (), true, false);
-			pane.Pack1 (MakePluginList (), false, false);
-			pane.BorderWidth = 6;
-			pane.ShowAll ();
-
-			return pane;
-		}
-
-		Gtk.Widget MakePluginList ()
-		{
-			Gtk.TreeView tree_view;
-			Gtk.CellRendererText caption;
-			Gtk.CellRendererToggle enabled;
-			Gtk.ScrolledWindow scroller;
-
-			Gtk.TreeIter first_plugin;
-
-			plugin_store = new Gtk.ListStore (typeof (Type), typeof (string));
-			plugin_store.SetSortColumnId (1, Gtk.SortType.Ascending);
-			
-			foreach (Type type in plugin_manager.Plugins) {
-				string name = PluginManager.GetPluginName (type);
-				plugin_store.AppendValues (type, name);
-			}
-
-			tree_view = new Gtk.TreeView (plugin_store);
-			tree_view.HeadersVisible = false;
-			tree_view.SetSizeRequest (160, 0);
-			tree_view.Selection.Mode = Gtk.SelectionMode.Browse;
-			tree_view.Selection.Changed += SelectedPluginChanged;
-
-			enabled = new Gtk.CellRendererToggle ();
-			enabled.Toggled += PluginStateToggled;
-			tree_view.AppendColumn (null, 
-						enabled, 
-						(Gtk.TreeCellDataFunc) GetPluginState);
-			
-			caption = new Gtk.CellRendererText ();
-			caption.Ellipsize = Pango.EllipsizeMode.End;
-			tree_view.AppendColumn (null, caption, "text", 1);
-
-			scroller = new Gtk.ScrolledWindow ();
-			scroller.BorderWidth = 6;
-			scroller.ShadowType = Gtk.ShadowType.In;
-			scroller.SetPolicy (Gtk.PolicyType.Never, Gtk.PolicyType.Automatic);
-			scroller.Add (tree_view);
-
-			if (plugin_store.GetIterFirst (out first_plugin))
-				tree_view.Selection.SelectIter (first_plugin);
-
-			return scroller;
-		}
-
-		void GetPluginState (
-			Gtk.TreeViewColumn column, Gtk.CellRenderer cell,
-			Gtk.TreeModel model, Gtk.TreeIter iter)
-		{
-			Type plugin = (Type) model.GetValue (iter, 0);
-
-			((Gtk.CellRendererToggle) cell).Active =
-				plugin_manager.IsPluginEnabled (plugin); 
-		}
-
-		void PluginStateToggled (object sender, Gtk.ToggledArgs e)
-		{
-			Gtk.TreeIter iter;
-
-			if (plugin_store.GetIter (out iter, new Gtk.TreePath (e.Path))) {
-				Type plugin = (Type) plugin_store.GetValue (iter, 0);
-				bool enabled = plugin_manager.IsPluginEnabled (plugin);
-				plugin_manager.SetPluginEnabled (plugin, !enabled);
-			}
-		}
-
-		string MakePluginTitle ()
-		{
-			return String.Format (
-				"<span size='large' weight='bold'>{0} {1}</span>",
-				PluginManager.GetPluginName (current_plugin, plugin_info),
-				PluginManager.GetPluginVersion (current_plugin, plugin_info));
-		}
-
-		void SelectedPluginChanged (object sender, EventArgs e)
-		{
-			Gtk.TreeSelection selection;
-			Gtk.TreeModel model;
-			Gtk.TreeIter iter;
-			
-			selection = (Gtk.TreeSelection)sender;
-
-			if (selection.GetSelected (out model, out iter)) {
-				current_plugin = (Type) model.GetValue (iter, 0);
-				plugin_info = PluginManager.GetPluginInfo (current_plugin);
-				string description = null, author = null, website = null;
-
-				if (null != plugin_info) {
-					description = plugin_info.Description;
-					website = plugin_info.WebSite;
-					author = plugin_info.Author;
-				}
-
-				plugin_name.Markup = MakePluginTitle ();
-
-				SetPluginDetail (plugin_filename, current_plugin.Assembly.Location);
-				SetPluginDetail (plugin_description, description);
-				SetPluginDetail (plugin_website, website);
-				SetPluginDetail (plugin_author, author);
-
-				plugin_preferences.Sensitive = 
-					null != plugin_info && 
-					null != plugin_info.PreferencesWidget;
-			} else {
-				current_plugin = null;
-				plugin_info = null;
-			}
-		}
-
-		static void SetPluginDetail (Gtk.TextView detail, string text)
-		{
-			if (null == text || 0 == text.Length)
-				text = Catalog.GetString ("Not available");
-
-			detail.Buffer.Text = text;
-		}
-
-		static Gtk.TextView MakePluginDetail (
-				Gtk.Table table, uint row, string caption)
-		{
-			Gtk.Label label;
-			Gtk.TextView detail;
-
-			label = MakeLabel ("<b>{0}</b>", Catalog.GetString (caption));
-			label.Yalign = 0.0f;
-
-			detail = new Gtk.TextView ();
-			detail.WrapMode = Gtk.WrapMode.WordChar;
-			detail.Editable = false;
-
-			table.Attach (label, 
-				      0, 1, row, row + 1,
-				      Gtk.AttachOptions.Fill,
-				      Gtk.AttachOptions.Fill, 
-				      0, 0);
-			table.Attach (detail, 
-				      1, 2, row, row + 1, 
-				      Gtk.AttachOptions.Fill | Gtk.AttachOptions.Expand, 
-				      Gtk.AttachOptions.Fill, 
-				      0, 0);
-
-			return detail;
-		}
-
-		Gtk.Widget MakePluginDetails ()
-		{
-			Gtk.Table table;
-			Gtk.ScrolledWindow scroller;
-			Gdk.Color base_color;
-			Gtk.VBox vbox;
-
-			Gtk.HBox action_area;
-			Gtk.Button open_plugin_folder;
-
-			// Name...
-
-			plugin_name = new Gtk.Label ();
-			plugin_name.UseMarkup = true;
-			plugin_name.UseUnderline = false;
-			plugin_name.ModifyBase (Gtk.StateType.Normal,
-					new Gdk.Color (255, 0, 0));
-
-			// Details...
-
-			table = new Gtk.Table (4, 2, false);
-			table.BorderWidth = 6;
-			table.ColumnSpacing = 6;
-			table.RowSpacing = 6;
-
-			plugin_description = MakePluginDetail (
-				table, 0, Catalog.GetString ("Description:"));
-			plugin_author = MakePluginDetail (
-				table, 1, Catalog.GetString ("Written by:"));
-			plugin_website = MakePluginDetail (
-				table, 2, Catalog.GetString ("Web site:"));
-			plugin_filename = MakePluginDetail (
-				table, 3, Catalog.GetString ("File name:"));
-
-			scroller = new Gtk.ScrolledWindow ();
-			scroller.SetPolicy (Gtk.PolicyType.Never, Gtk.PolicyType.Automatic);
-			scroller.AddWithViewport (table);
-
-			plugin_description.EnsureStyle ();
-			base_color = plugin_description.Style.Base (Gtk.StateType.Normal);
-			scroller.Child.ModifyBg (Gtk.StateType.Normal, base_color);
-
-			// Action area...
-
-			plugin_preferences = 
-				GuiUtils.MakeImageButton (Gtk.Stock.Preferences,
-							  Catalog.GetString ("Settings"));
-			plugin_preferences.Clicked += ShowPluginSettings;
-			plugin_preferences.Sensitive = false;
-
-			open_plugin_folder = 
-				GuiUtils.MakeImageButton (
-					Gtk.Stock.Directory,
-					Catalog.GetString ("_Open Plugins Folder"));
-			open_plugin_folder.Clicked += 
-				delegate (object sender, EventArgs e) 
-				{
-					plugin_manager.ShowPluginsDirectory ();
-				};
-
-			action_area = new Gtk.HBox (false, 12);
-			action_area.PackStart (plugin_preferences, false, false, 0);
-			action_area.PackEnd (open_plugin_folder, false, false, 0);
-			action_area.ModifyBase (Gtk.StateType.Normal,
-					new Gdk.Color (0, 255, 0));
-
-			// VBox
-
-			vbox = new Gtk.VBox (false, 6);
-			vbox.PackStart (plugin_name, false, true, 0);
-			vbox.PackStart (scroller, true, true, 0);
-			vbox.PackStart (action_area, false, true, 0);
+			Gtk.VBox vbox = new Gtk.VBox (false, 6);
 			vbox.BorderWidth = 6;
-			vbox.ShowAll ();
+			Gtk.Label l = new Gtk.Label (Catalog.GetString (
+					"The following add-ins are installed"));
+			l.Xalign = 0;
+			l.Show ();
+			vbox.PackStart (l, false, false, 0);
+			
+			Gtk.HBox hbox = new Gtk.HBox (false, 6);
+			
+			// TreeView of Add-ins
+			Gtk.TreeView tree = new Gtk.TreeView ();
+			addin_tree = new Mono.Addins.Gui.AddinTreeWidget (tree);
+			
+			tree.Show ();
 
+			Gtk.ScrolledWindow sw = new Gtk.ScrolledWindow ();
+			sw.HscrollbarPolicy = Gtk.PolicyType.Automatic;
+			sw.VscrollbarPolicy = Gtk.PolicyType.Automatic;
+			sw.ShadowType = Gtk.ShadowType.In;
+			sw.Add (tree);
+			sw.Show ();
+			hbox.PackStart (sw, true, true, 0);
+
+			// Action Buttons (right of TreeView)
+			Gtk.VButtonBox button_box = new Gtk.VButtonBox ();
+			button_box.Spacing = 4;
+			button_box.Layout = Gtk.ButtonBoxStyle.Start;
+			
+			// TODO: In a future version, add in an "Install Add-ins..." button
+			
+			// TODO: In a future version, add in a "Repositories..." button
+			
+			enable_addin_button =
+				new Gtk.Button (Catalog.GetString ("_Enable"));
+			enable_addin_button.Sensitive = false;
+			enable_addin_button.Clicked += OnEnableAddinButton;
+			enable_addin_button.Show ();
+
+			disable_addin_button =
+				new Gtk.Button (Catalog.GetString ("_Disable"));
+			disable_addin_button.Sensitive = false;
+			disable_addin_button.Clicked += OnDisableAddinButton;
+			disable_addin_button.Show ();
+
+			addin_prefs_button =
+				new Gtk.Button (Gtk.Stock.Preferences);
+			addin_prefs_button.Sensitive = false;
+			addin_prefs_button.Clicked += OnAddinPrefsButton;
+			addin_prefs_button.Show ();
+
+			addin_info_button =
+				new Gtk.Button (Gtk.Stock.Info);
+			addin_info_button.Sensitive = false;
+			addin_info_button.Clicked += OnAddinInfoButton;
+			addin_info_button.Show ();
+
+			button_box.PackStart (enable_addin_button);
+			button_box.PackStart (disable_addin_button);
+			button_box.PackStart (addin_prefs_button);
+			button_box.PackStart (addin_info_button);
+			
+			button_box.Show ();
+			hbox.PackStart (button_box, false, false, 0);
+			
+			hbox.Show ();
+			vbox.PackStart (hbox, true, true, 0);
+			vbox.Show ();
+			
+			tree.Selection.Changed += OnAddinTreeSelectionChanged;
+			LoadAddins ();
+			
 			return vbox;
 		}
-
-		void ShowPluginSettings (object sender, EventArgs e)
+		
+		void OnAddinTreeSelectionChanged (object sender, EventArgs args)
 		{
-			if (current_plugin == null)
+			UpdateAddinButtons ();
+		}
+		
+		/// <summary>
+		/// Set the sensitivity of the buttons based on what is selected
+		/// </summary>
+		void UpdateAddinButtons ()
+		{
+			Mono.Addins.Addin sinfo =
+					addin_tree.ActiveAddinData as Mono.Addins.Addin;
+			
+			if (sinfo == null) {
+				enable_addin_button.Sensitive = false;
+				disable_addin_button.Sensitive = false;
+				addin_prefs_button.Sensitive = false;
+				addin_info_button.Sensitive = false;
+			} else {
+				enable_addin_button.Sensitive = !sinfo.Enabled;
+				disable_addin_button.Sensitive = sinfo.Enabled;
+				addin_prefs_button.Sensitive = addin_manager.IsAddinConfigurable (sinfo);
+				addin_info_button.Sensitive = true;
+			}
+		}
+		
+		void LoadAddins ()
+		{
+			object s = addin_tree.SaveStatus ();
+			
+			addin_tree.Clear ();
+			foreach (Mono.Addins.Addin ainfo in addin_manager.GetAllAddins ()) {
+				addin_tree.AddAddin (
+					Mono.Addins.Setup.SetupService.GetAddinHeader (ainfo),
+					ainfo,
+					ainfo.Enabled,
+					ainfo.IsUserAddin);
+			}
+			
+			addin_tree.RestoreStatus (s);
+			UpdateAddinButtons ();
+		}
+		
+		void OnEnableAddinButton (object sender, EventArgs args)
+		{
+			Mono.Addins.Addin sinfo =
+				addin_tree.ActiveAddinData as Mono.Addins.Addin;
+			
+			if (sinfo == null)
 				return;
 			
+			EnableAddin (sinfo, true);
+		}
+		
+		void OnDisableAddinButton (object sender, EventArgs args)
+		{
+			Mono.Addins.Addin sinfo =
+				addin_tree.ActiveAddinData as Mono.Addins.Addin;
+			
+			if (sinfo == null)
+				return;
+				
+			EnableAddin (sinfo, false);
+		}
+		
+		void EnableAddin (Mono.Addins.Addin addin, bool enable)
+		{
+			addin.Enabled = enable;
+			LoadAddins ();
+		}
+		
+		void OnAddinPrefsButton (object sender, EventArgs args)
+		{
 			Gtk.Dialog dialog = null;
-			if (plugin_dialogs.ContainsKey (plugin_info) == false) {
-				// This dialog isn't open already so create a new one
-				Gtk.Image icon = 
+			Mono.Addins.Addin addin =
+				addin_tree.ActiveAddinData as Mono.Addins.Addin;
+			
+			if (addin == null)
+				return;
+			
+			if (addin_prefs_dialogs.ContainsKey (addin.Id) == false) {
+				// A preference dialog isn't open already so create a new one
+				Gtk.Image icon =
 					new Gtk.Image (Gtk.Stock.Preferences, Gtk.IconSize.Dialog);
-
-				Gtk.Label caption = new Gtk.Label();
-				caption.Markup = MakePluginTitle ();
+				Gtk.Label caption = new Gtk.Label ();
+				caption.Markup = string.Format (
+					"<span size='large' weight='bold'>{0} {1}</span>",
+					addin.Name, addin.Version);
 				caption.Xalign = 0;
-
-				Gtk.Widget preferences =
-					PluginManager.CreatePreferencesWidget (plugin_info);
+				caption.UseMarkup = true;
+				caption.UseUnderline = false;
+				
+				Gtk.Widget pref_widget =
+					addin_manager.CreateAddinPreferenceWidget (addin);
+				
+				if (pref_widget == null)
+					pref_widget = new Gtk.Label (Catalog.GetString ("Not Implemented"));
 				
 				Gtk.HBox hbox = new Gtk.HBox (false, 6);
 				Gtk.VBox vbox = new Gtk.VBox (false, 6);
@@ -572,49 +495,55 @@ namespace Tomboy
 				hbox.PackStart (caption, true, true, 0);
 				vbox.PackStart (hbox, false, false, 0);
 				
-				vbox.PackStart (preferences, true, true, 0);			
+				vbox.PackStart (pref_widget, true, true, 0);
 				vbox.ShowAll ();
 				
 				dialog = new Gtk.Dialog (
-					string.Format (Catalog.GetString ("{0} Settings"),
-						       plugin_info.Name),
+					string.Format (Catalog.GetString ("{0} Preferences"),
+						addin.Name),
 					this,
 					Gtk.DialogFlags.DestroyWithParent | Gtk.DialogFlags.NoSeparator,
 					Gtk.Stock.Close, Gtk.ResponseType.Close);
-
-				dialog.VBox.PackStart (vbox, true, true, 0);
-				dialog.DeleteEvent += PluginDialogDeleted;
-				dialog.Response += PluginDialogResponse;
 				
-				// Store it off in our dictionary so we can present it again
-				dialog.Data ["PluginInfoAttribute"] = plugin_info;
-				plugin_dialogs [plugin_info] = dialog;
+				dialog.VBox.PackStart (vbox, true, true, 0);
+				dialog.DeleteEvent += AddinPrefDialogDeleted;
+				dialog.Response += AddinPrefDialogResponse;
+				
+				// Store this dialog off in the dictionary so it can be
+				// presented again if the user clicks on the preferences button
+				// again before closing the preferences dialog.
+				dialog.Data ["AddinId"] = addin.Id;
+				addin_prefs_dialogs [addin.Id] = dialog;
 			} else {
 				// It's already opened so just present it again
-				dialog = plugin_dialogs [plugin_info] as Gtk.Dialog;
+				dialog = addin_prefs_dialogs [addin.Id];
 			}
 			
 			dialog.Present ();
 		}
 		
-		[GLib.ConnectBefore]
-		void PluginDialogDeleted (object sender, Gtk.DeleteEventArgs args)
+		[GLib.ConnectBeforeAttribute]
+		void AddinPrefDialogDeleted (object sender, Gtk.DeleteEventArgs args)
 		{
-			// Remove the plugin_info from the plugin_dialogs Dictionary
+			// Remove the addin from the addin_prefs_dialogs Dictionary
 			Gtk.Dialog dialog = sender as Gtk.Dialog;
 			dialog.Hide ();
 			
-			if (dialog.Data.ContainsKey ("PluginInfoAttribute")) {
-				plugin_dialogs.Remove (
-					dialog.Data ["PluginInfoAttribute"] as PluginInfoAttribute);
+			if (dialog.Data.ContainsKey ("AddinId")) {
+				addin_prefs_dialogs.Remove (dialog.Data ["AddinId"] as String);
 			}
 			
 			dialog.Destroy ();
 		}
 		
-		void PluginDialogResponse (object sender, Gtk.ResponseArgs args)
+		void AddinPrefDialogResponse (object sender, Gtk.ResponseArgs args)
 		{
-			PluginDialogDeleted (sender, null);
+			AddinPrefDialogDeleted (sender, null);
+		}
+		
+		void OnAddinInfoButton (object sender, EventArgs args)
+		{
+			// TODO: Implement OnAddinInfoButton so an info dialog pops up
 		}
 
 		void SetupPropertyEditor (PropertyEditor peditor)

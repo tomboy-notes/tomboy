@@ -204,7 +204,7 @@ namespace Tomboy
 		static void OnShowPreferencesAction (object sender, EventArgs args)
 		{
 			if (prefs_dlg == null) {
-				prefs_dlg = new PreferencesDialog (manager.PluginManager);
+				prefs_dlg = new PreferencesDialog (manager.AddinManager);
 				prefs_dlg.Response += OnPreferencesResponse;
 			}
 			prefs_dlg.Present ();
