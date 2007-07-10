@@ -11,16 +11,13 @@ ASSEMBLIES = 					\
 	$(LINK_MONO_ADDINS)			\
 	-r:Mono.Posix
 
-#
-# Backlinks Addin
-#
-
-TARGET = Backlinks.dll
+ADDIN_NAME = Backlinks
+TARGET = $(ADDIN_NAME).dll
 CSFILES = \
 	$(srcdir)/BacklinkMenuItem.cs		\
 	$(srcdir)/BacklinksNoteAddin.cs
 RESOURCES = \
-	-resource:$(srcdir)/Backlinks.addin.xml
+	-resource:$(srcdir)/$(ADDIN_NAME).addin.xml
 
 $(TARGET): $(CSFILES) $(top_builddir)/Tomboy/Tomboy.exe
 	$(CSC) -out:$@ $(CSFLAGS) $(ASSEMBLIES) $(CSFILES) $(RESOURCES)
@@ -32,7 +29,7 @@ addins_DATA = 			\
 
 EXTRA_DIST =            	\
 	$(CSFILES) \
-	$(srcdir)/Backlinks.addin.xml
+	$(srcdir)/$(ADDIN_NAME).addin.xml
 
 CLEANFILES =				\
 	$(TARGET).mdb \
