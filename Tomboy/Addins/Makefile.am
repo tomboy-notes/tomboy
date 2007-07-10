@@ -1,2 +1,2 @@
-SUBDIRS = Backlinks Tasks
+SUBDIRS = Backlinks Bugzilla Tasks
 

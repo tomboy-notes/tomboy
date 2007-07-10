@@ -1,0 +1,27 @@
+<Addin id="BugzillaAddin"
+	namespace="Tomboy"
+	name="Bugzilla Add-in"
+	author="Tomboy Project"
+	description="Allows you to drag a Bugzilla URL from your browser directly
+				into a tomboy note.  The bug number is inserted as a link with
+				a little bug icon next to it."
+	category="Note Tools"
+	defaultEnabled="false"
+	version="0.1">
+
+	<Runtime>
+		<Import assembly="Bugzilla.dll" />
+	</Runtime>
+
+	<Dependencies>
+		<Addin id="Tomboy" version="0.7" />
+	</Dependencies>
+
+	<Extension path="/Tomboy/NoteAddins">
+		<NoteAddin type="Tomboy.Bugzilla.BugzillaNoteAddin" />
+	</Extension>
+	
+	<Extension path="/Tomboy/AddinPreferences">
+		<AddinPreferenceFactory type="Tomboy.Bugzilla.BugzillaPreferenceFactory" />
+	</Extension>
+</Addin>
