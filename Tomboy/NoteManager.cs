@@ -13,7 +13,6 @@ namespace Tomboy
 		string notes_dir;
 		string backup_dir;
 		ArrayList notes;
-		PluginManager plugin_mgr;
 		AddinManager addin_mgr;
 		TrieController trie_controller;
 		
@@ -54,7 +53,6 @@ namespace Tomboy
 			bool first_run = FirstRun ();
 			CreateNotesDir ();
 
-			plugin_mgr = CreatePluginManager ();
 			trie_controller = CreateTrieController ();
 			addin_mgr = CreateAddinManager ();
 
@@ -66,27 +64,6 @@ namespace Tomboy
 			}
 
 			Tomboy.ExitingEvent += OnExitingEvent;
-		}
-
-		// Create & populate the Plugins dir. For overriding in test
-		// methods.
-		protected virtual PluginManager CreatePluginManager ()
-		{
-			// Allow developers to override the plugins path with an
-			// environment variable.
-			string plugins_dir =
-				Environment.GetEnvironmentVariable ("TOMBOY_PLUGINS_PATH");
-
-			if (plugins_dir == null) {
-				string tomboy_dir = 
-					Path.Combine (Environment.GetEnvironmentVariable ("HOME"), 
-						      ".tomboy");
-				plugins_dir = Path.Combine (tomboy_dir, "Plugins");
-			}
-
-			PluginManager.CreatePluginsDir (plugins_dir);
-
-			return new PluginManager (plugins_dir);
 		}
 
 		// Create the TrieController. For overriding in test methods.
@@ -221,7 +198,7 @@ namespace Tomboy
 				}
 			}
 
-			// Update the trie so plugins can access it, if they want.
+			// Update the trie so addins can access it, if they want.
 			trie_controller.Update ();
 			
 			bool startup_notes_enabled = (bool)
@@ -233,15 +210,7 @@ namespace Tomboy
 			ArrayList notesCopy = new ArrayList (notes);
 			foreach (Note note in notesCopy) {
 				addin_mgr.LoadAddinsForNote (note);
-			}
-			
-			// Load all the plugins for our notes.
-			// Iterating through copy of notes list, because list may be
-			// changed when loading plugins.
-			notesCopy = new ArrayList (notes);
-			foreach (Note note in notesCopy) {
-				plugin_mgr.LoadPluginsForNote (note);
-				
+
 				// Show all notes that were visible when tomboy was shut down
 				if (note.IsOpenOnStartup) {
 					if (startup_notes_enabled)
@@ -423,9 +392,6 @@ namespace Tomboy
 
 			notes.Add (new_note);
 
-			// Load all the plugins for the new note
-			plugin_mgr.LoadPluginsForNote (new_note);
-			
 			// Load all the addins for the new note
 			addin_mgr.LoadAddinsForNote (new_note);
 
@@ -482,11 +448,6 @@ namespace Tomboy
 				notes.Sort (new CompareDates ());
 				return notes; 
 			}
-		}
-
-		public PluginManager PluginManager
-		{
-			get { return plugin_mgr; }
 		}
 
 		public TrieTree TitleTrie
