@@ -1,6 +1,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Text;
 using GConf.PropertyEditors;
 using Mono.Unix;
 
@@ -31,6 +32,12 @@ namespace Tomboy
 		/// Key = Mono.Addins.Addin.Id
 		/// </summary>
 		Dictionary<string, Gtk.Dialog> addin_prefs_dialogs;
+		
+		/// <summary>
+		/// Used to keep track of open AddinInfoDialogs.
+		/// Key = Mono.Addins.Addin.Id
+		/// </summary>
+		Dictionary<string, Gtk.Dialog> addin_info_dialogs;
 
 		public PreferencesDialog (AddinManager addin_manager)
 			: base ()
@@ -47,6 +54,8 @@ namespace Tomboy
 			ActionArea.Layout = Gtk.ButtonBoxStyle.End;
 			
 			addin_prefs_dialogs =
+				new Dictionary<string, Gtk.Dialog> ();
+			addin_info_dialogs =
 				new Dictionary<string, Gtk.Dialog> ();
 
 			// Notebook Tabs (Editing, Hotkeys)...
@@ -543,9 +552,52 @@ namespace Tomboy
 		
 		void OnAddinInfoButton (object sender, EventArgs args)
 		{
-			// TODO: Implement OnAddinInfoButton so an info dialog pops up
+			Mono.Addins.Addin addin =
+				addin_tree.ActiveAddinData as Mono.Addins.Addin;
+			
+			if (addin == null)
+				return;
+			
+			Gtk.Dialog dialog = null;
+			if (addin_info_dialogs.ContainsKey (addin.Id) == false) {
+				dialog = new AddinInfoDialog (
+						Mono.Addins.Setup.SetupService.GetAddinHeader (addin),
+						this);
+				dialog.DeleteEvent += AddinInfoDialogDeleted;
+				dialog.Response += AddinInfoDialogResponse;
+				
+				// Store this dialog off in a dictionary so it can be presented
+				// again if the user clicks on the Info button before closing
+				// the original dialog.
+				dialog.Data ["AddinId"] = addin.Id;
+				addin_info_dialogs [addin.Id] = dialog;
+			} else {
+				// It's already opened so just present it again
+				dialog = addin_info_dialogs [addin.Id];
+			}
+			
+			dialog.Present ();
 		}
-
+		
+		[GLib.ConnectBeforeAttribute]
+		void AddinInfoDialogDeleted (object sender, Gtk.DeleteEventArgs args)
+		{
+			// Remove the addin from the addin_prefs_dialogs Dictionary
+			Gtk.Dialog dialog = sender as Gtk.Dialog;
+			dialog.Hide ();
+			
+			if (dialog.Data.ContainsKey ("AddinId")) {
+				addin_info_dialogs.Remove (dialog.Data ["AddinId"] as String);
+			}
+			
+			dialog.Destroy ();
+		}
+		
+		void AddinInfoDialogResponse (object sender, Gtk.ResponseArgs args)
+		{
+			AddinInfoDialogDeleted (sender, null);
+		}
+		
 		void SetupPropertyEditor (PropertyEditor peditor)
 		{
 			// Ensure the key exists
@@ -627,6 +679,96 @@ namespace Tomboy
 			font_face.Markup = String.Format ("<span font_desc='{0}'>{1}</span>",
 							  font_desc,
 							  desc.ToString ());
+		}
+	}
+	
+	// TODO: Figure out how to use Mono.Addins.Gui.AddinInfoDialog here instead.
+	// The class here is adapted directly from Mono.Addins.Gui.AddinInfoDialog.
+	class AddinInfoDialog : Gtk.Dialog
+	{
+		Mono.Addins.Setup.AddinHeader info;
+		Gtk.Label info_label;
+		
+		public AddinInfoDialog (
+				Mono.Addins.Setup.AddinHeader info,
+				Gtk.Window parent)
+			: base (info.Name,
+					parent,
+					Gtk.DialogFlags.DestroyWithParent | Gtk.DialogFlags.NoSeparator,
+					Gtk.Stock.Close, Gtk.ResponseType.Close)
+		{
+			this.info = info;
+			
+			// TODO: Change this icon to be an addin/package icon
+			Gtk.Image icon =
+				new Gtk.Image (Gtk.Stock.Info, Gtk.IconSize.Dialog);
+			icon.Yalign = 0;
+			
+			info_label = new Gtk.Label ();
+			info_label.Xalign = 0;
+			info_label.Yalign = 0;
+			info_label.UseMarkup = true;
+			info_label.UseUnderline = false;
+			
+			Gtk.HBox hbox = new Gtk.HBox (false, 6);
+			Gtk.VBox vbox = new Gtk.VBox (false, 12);
+			hbox.BorderWidth = 12;
+			vbox.BorderWidth = 6;
+			
+			hbox.PackStart (icon, false, false, 0);
+			hbox.PackStart (vbox, true, true, 0);
+			
+			vbox.PackStart (info_label, true, true, 0);
+
+			hbox.ShowAll ();
+			
+			VBox.PackStart (hbox, true, true, 0);
+
+			Fill ();
+		}
+		
+		void Fill ()
+		{
+			StringBuilder sb = new StringBuilder ();
+			sb.Append ("<b><big>" + info.Name + "</big></b>\n\n");
+			
+			if (info.Description != string.Empty)
+				sb.Append (info.Description + "\n\n");
+			
+			sb.Append ("<small>");
+			
+			sb.Append (string.Format (
+				"<b>{0}</b>\n" +
+				"{1}\n\n",
+				Catalog.GetString ("Version:"),
+				info.Version));
+			
+			if (info.Author != string.Empty)
+				sb.Append (string.Format (
+					"<b>{0}</b>\n" +
+					"{1}\n\n",
+					Catalog.GetString ("Author:"),
+					info.Author));
+			
+			if (info.Copyright != string.Empty)
+				sb.Append (string.Format (
+					"<b>{0}</b>\n" +
+					"{1}\n\n",
+					Catalog.GetString ("Copyright:"),
+					info.Copyright));
+			
+			if (info.Dependencies.Count > 0) {
+				sb.Append (string.Format (
+					"<b>{0}</b>\n",
+					Catalog.GetString ("Add-in Dependencies")));
+				foreach (Mono.Addins.Description.Dependency dep in info.Dependencies) {
+					sb.Append (dep.Name + "\n");
+				}
+			}
+			
+			sb.Append ("</small>");
+			
+			info_label.Markup = sb.ToString ();
 		}
 	}
 }
