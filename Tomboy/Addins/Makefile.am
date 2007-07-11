@@ -4,6 +4,7 @@ SUBDIRS =				\
 	ExportToHtml			\
 	Evolution		\
 	FixedWidth			\
+	GalagoPresence		\
 	NoteOfTheDay		\
 	PrintNotes			\
 	StickyNoteImport	\

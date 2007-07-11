@@ -10,6 +10,10 @@ using Galago;
 
 using Tomboy;
 
+// TODO: Indent everything in this namespace in a seperate commit
+namespace Tomboy.GalagoPresence
+{
+
 class GalagoManager
 {
 	TrieTree trie;
@@ -255,30 +259,25 @@ class PersonTag : NoteTag
 	}
 }
 
-[PluginInfo(
-	"Galago Presence Plugin", Defines.VERSION,
-	PluginInfoAttribute.OFFICIAL_AUTHOR,
-	"See online presence of buddies mentioned in a note.",
-	WebSite = Defines.TOMBOY_WEBSITE
-	)]
-class GalagoPresencePlugin : NotePlugin 
+	
+public class GalagoPresenceNoteAddin : NoteAddin
 {
 	static GalagoManager galago;
 	Gtk.TextTag person_tag;
 	Gtk.TextTag link_tag;
 	Gtk.TextTag url_tag;
 
-	static GalagoPresencePlugin ()
+	static GalagoPresenceNoteAddin ()
 	{
 		galago = new GalagoManager ();
 	}
 
-	public GalagoPresencePlugin ()
+	public GalagoPresenceNoteAddin ()
 	{
 		// Do nothing.
 	}
 
-    	protected override void Initialize ()
+    	public override void Initialize ()
 	{
 		person_tag = Note.TagTable.Lookup ("link:person");
 		if (person_tag == null) {
@@ -292,13 +291,13 @@ class GalagoPresencePlugin : NotePlugin
 		url_tag = Note.TagTable.Lookup ("link:url");
 	}
 
-	protected override void Shutdown ()
+	public override void Shutdown ()
 	{
 		galago.PeopleChanged -= OnPeopleChanged;
 		galago.PresenceChanged -= OnPresenceChanged;
 	}
 
-	protected override void OnNoteOpened () 
+	public override void OnNoteOpened () 
 	{
 		galago.PeopleChanged += OnPeopleChanged;
 		galago.PresenceChanged += OnPresenceChanged;
@@ -383,4 +382,6 @@ class GalagoPresencePlugin : NotePlugin
 		UnhighlightInBlock (start, end);
 		HighlightInBlock (start, end);
 	}
-}	
+}
+
+}
