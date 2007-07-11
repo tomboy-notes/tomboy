@@ -13,7 +13,11 @@ using Mono.Unix.Native;
 
 using Tomboy;
 
-class EvoUtils 
+// TODO: Indent everything in this namespace in a seperate commit
+namespace Tomboy.Evolution
+{
+
+class EvoUtils
 {
 	// Cache of account URLs to account UIDs
 	static Hashtable source_url_to_uid;
@@ -272,25 +276,19 @@ public class EmailLink : DynamicNoteTag
 	}
 }
 
-[PluginInfo(
-	"Evolution Plugin", Defines.VERSION,
-	PluginInfoAttribute.OFFICIAL_AUTHOR,
-	"Allows you to drag an email from Evolution into a tomboy note.  The " +
-	"message subject is added as a link in the note.",
-	WebSite = Defines.TOMBOY_WEBSITE
-	)]
-public class EvolutionPlugin : NotePlugin
+
+public class EvolutionNoteAddin : NoteAddin
 {
 	// Used in the two-phase evolution drop handling.
 	ArrayList xuid_list;
 	ArrayList subject_list;
 
-	static EvolutionPlugin ()
+	static EvolutionNoteAddin ()
 	{
 		GMime.Global.Init();
 	}
 
-	protected override void Initialize ()
+	public override void Initialize ()
 	{
 		if (!Note.TagTable.IsDynamicTagRegistered ("link:evo-mail")) {
 			Note.TagTable.RegisterDynamicTag ("link:evo-mail", typeof (EmailLink));
@@ -304,13 +302,13 @@ public class EvolutionPlugin : NotePlugin
 		}
 	}
 
-	protected override void Shutdown ()
+	public override void Shutdown ()
 	{
 		if (HasWindow)
 			TargetList.Remove (Gdk.Atom.Intern ("x-uid-list", false));
 	}
 
-	protected override void OnNoteOpened () 
+	public override void OnNoteOpened () 
 	{
 		TargetList.Add (Gdk.Atom.Intern ("x-uid-list", false), 0, 99);
 		Window.Editor.DragDataReceived += OnDragDataReceived;
@@ -484,3 +482,4 @@ public class EvolutionPlugin : NotePlugin
 	}
 }
 
+}
