@@ -1,7 +1,8 @@
 SUBDIRS =				\
 	Backlinks			\
 	Bugzilla			\
-	ExportToHtml		\
+	ExportToHtml			\
+	Evolution		\
 	FixedWidth			\
 	NoteOfTheDay		\
 	PrintNotes			\
