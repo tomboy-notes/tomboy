@@ -32,7 +32,8 @@ addins_DATA = 			\
 
 EXTRA_DIST =            	\
 	$(CSFILES) \
-	$(srcdir)/$(ADDIN_NAME).addin.xml
+	$(srcdir)/$(ADDIN_NAME).addin.xml \
+	$(srcdir)/ExportToHtml.xsl
 
 CLEANFILES =				\
 	$(TARGET).mdb \
