@@ -760,7 +760,7 @@ namespace Tomboy
 			if (info.Dependencies.Count > 0) {
 				sb.Append (string.Format (
 					"<b>{0}</b>\n",
-					Catalog.GetString ("Add-in Dependencies")));
+					Catalog.GetString ("Add-in Dependencies:")));
 				foreach (Mono.Addins.Description.Dependency dep in info.Dependencies) {
 					sb.Append (dep.Name + "\n");
 				}
