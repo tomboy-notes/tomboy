@@ -1,3 +1,8 @@
+2007-07-12  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/Preferences.cs, data/tomboy.schemas.in: Removing use of
+	  enabled_plugins GConf key.
+
 2007-07-11  Boyd Timothy <btimothy@gmail.com> 
 
 	* Tomboy.mdp: Reverting this because it was accidentally checked-in
@@ -146,7 +151,9 @@
 	  addin.
 	* po/POTFILES.in: Look in the new addin path for ExportToHtml strings.
 
-2007-07-10  Boyd Timothy <btimothy@gmail.com> 
+2007-07-10  Boyd Timothy <btimothy@gmail.com> Unless note is created using the "Link"
+	  button, select title when create new notes (instead of content). 
+	  Fixes bug #449478 (patch from Yonatan Oren).
 
 	* Tomboy/Addins/Backlinks/Makefile.am: Use an "ADDIN_NAME" variable to
 	  be consistent with the other addins.

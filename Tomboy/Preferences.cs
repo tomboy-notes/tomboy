@@ -5,11 +5,6 @@ namespace Tomboy
 {
 	public class Preferences
 	{
-		static readonly string[] DefaultEnabledPlugins = {
-			"BacklinksPlugin", "EvolutionPlugin", "ExportToHTMLPlugin",
-			"FixedWidthPlugin", "PrintPlugin", "StickyNoteImporter"
-		};
-
 		public const string ENABLE_SPELLCHECKING = "/apps/tomboy/enable_spellchecking";
 		public const string ENABLE_WIKIWORDS = "/apps/tomboy/enable_wikiwords";
 		public const string ENABLE_CUSTOM_FONT = "/apps/tomboy/enable_custom_font";
@@ -20,7 +15,6 @@ namespace Tomboy
 		public const string CUSTOM_FONT_FACE = "/apps/tomboy/custom_font_face";
 		public const string MENU_NOTE_COUNT = "/apps/tomboy/menu_note_count";
 		public const string MENU_PINNED_NOTES = "/apps/tomboy/menu_pinned_notes";
-		public const string ENABLED_PLUGINS = "/apps/tomboy/enabled_plugins";
 
 		public const string KEYBINDING_SHOW_NOTE_MENU = "/apps/tomboy/global_keybindings/show_note_menu";
 		public const string KEYBINDING_OPEN_START_HERE = "/apps/tomboy/global_keybindings/open_start_here";
@@ -75,9 +69,6 @@ namespace Tomboy
 
 			case MENU_PINNED_NOTES:
 				return "";
-
-			case ENABLED_PLUGINS:
-				return DefaultEnabledPlugins;
 
 			case KEYBINDING_SHOW_NOTE_MENU:
 				return "<Alt>F12";
