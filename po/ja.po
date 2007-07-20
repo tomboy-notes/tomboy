@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tomboy trunk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-05-27 01:09+0900\n"
-"PO-Revision-Date: 2007-05-27 01:09+0900\n"
+"POT-Creation-Date: 2007-07-20 23:19+0900\n"
+"PO-Revision-Date: 2007-07-20 23:18+0900\n"
 "Last-Translator: Takeshi AIHANA <takeshi.aihana@gmail.com>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
 "MIME-Version: 1.0\n"
@@ -39,7 +39,7 @@ msgid "_About"
 msgstr "情報(_A)"
 
 #: ../data/GNOME_TomboyApplet.xml.h:2 ../Tomboy/ActionManager.cs:93
-#: ../Tomboy/Applet.cs:186
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:105 ../Tomboy/Applet.cs:186
 msgid "_Help"
 msgstr "ヘルプ(_H)"
 
@@ -57,34 +57,30 @@ msgid "Create a new Note"
 msgstr "新しいメモの作成"
 
 #: ../data/tomboy.schemas.in.h:2
-msgid "Currently enabled plugins."
-msgstr "現在、有効になっているプラグイン"
-
-#: ../data/tomboy.schemas.in.h:3
 msgid "Custom Font Face"
 msgstr "カスタム・フォント"
 
-#: ../data/tomboy.schemas.in.h:4
+#: ../data/tomboy.schemas.in.h:3
 msgid "Enable WikiWord highlighting"
 msgstr "WikiWord (予約語) を強調表示する"
 
-#: ../data/tomboy.schemas.in.h:5
+#: ../data/tomboy.schemas.in.h:4
 msgid "Enable custom font"
 msgstr "カスタム・フォントを使う"
 
-#: ../data/tomboy.schemas.in.h:6
+#: ../data/tomboy.schemas.in.h:5
 msgid "Enable global keybindings"
 msgstr "グローバルなホットキーを有効にする"
 
-#: ../data/tomboy.schemas.in.h:7
+#: ../data/tomboy.schemas.in.h:6
 msgid "Enable spellchecking"
 msgstr "スペルチェックを有効にする"
 
-#: ../data/tomboy.schemas.in.h:8
+#: ../data/tomboy.schemas.in.h:7
 msgid "Enable startup notes"
 msgstr "起動時にメモを開く"
 
-#: ../data/tomboy.schemas.in.h:9
+#: ../data/tomboy.schemas.in.h:8
 msgid ""
 "Enable this option to highlight words ThatLookLikeThis. Clicking the word "
 "will create a note with that name."
@@ -92,19 +88,19 @@ msgstr ""
 "このオプションを有効にすると、<b>こんな感じ</b>で単語を強調表示します。単語を"
 "クリックすると、単語の名前をタイトルにした新しいメモを作成します。"
 
-#: ../data/tomboy.schemas.in.h:10
+#: ../data/tomboy.schemas.in.h:9
 msgid "HTML Export All Linked Notes"
 msgstr "リンク付きの全てのメモを HTML にエキスポートする"
 
-#: ../data/tomboy.schemas.in.h:11
+#: ../data/tomboy.schemas.in.h:10
 msgid "HTML Export Last Directory"
 msgstr "最後にHTMLをエキスポートしたフォルダ"
 
-#: ../data/tomboy.schemas.in.h:12
+#: ../data/tomboy.schemas.in.h:11
 msgid "HTML Export Linked Notes"
 msgstr "最後にHTMLへエキスポートしたメモ"
 
-#: ../data/tomboy.schemas.in.h:13
+#: ../data/tomboy.schemas.in.h:12
 msgid ""
 "If enable_custom_font is true, the font name set here will be used as the "
 "font when displaying notes."
@@ -112,7 +108,7 @@ msgstr ""
 "enable_custom_font が TRUE の場合、メモを表示するときに、ここにセットしたフォ"
 "ント名を使用します。"
 
-#: ../data/tomboy.schemas.in.h:14
+#: ../data/tomboy.schemas.in.h:13
 msgid ""
 "If enabled, all notes that were open when Tomboy quit will automatically be "
 "reopened at startup."
@@ -120,7 +116,7 @@ msgstr ""
 "TRUE にすると、Tomboy を終了した時にオープンされていた全てのメモを起動時にも"
 "う一度、自動的にオープンします。"
 
-#: ../data/tomboy.schemas.in.h:15
+#: ../data/tomboy.schemas.in.h:14
 msgid ""
 "If true, misspellings will be underlined in red, and correct spelling "
 "suggestions shown in the right-click menu."
@@ -128,7 +124,7 @@ msgstr ""
 "TRUE の場合、スペル違いは赤色の下線がつき、右クリック・メニューに妥当なスペル"
 "を提示します。"
 
-#: ../data/tomboy.schemas.in.h:16
+#: ../data/tomboy.schemas.in.h:15
 msgid ""
 "If true, the desktop-global keybindings set in /apps/tomboy/"
 "global_keybindings will be enabled, allowing for useful Tomboy actions to be "
@@ -137,7 +133,7 @@ msgstr ""
 "TRUE の場合、/apps/tomboy/global_keybindings の desktop-global キーバインドが"
 "有効になり、別のアプリケーションから Tomboy の操作が可能になります。"
 
-#: ../data/tomboy.schemas.in.h:17
+#: ../data/tomboy.schemas.in.h:16
 msgid ""
 "If true, the font name set in custom_font_face will be used as the font when "
 "displaying notes. Otherwise the desktop default font will be used."
@@ -145,7 +141,7 @@ msgstr ""
 "TRUE の場合、メモを表示するときに custom_font_face にセットしたフォント名を使"
 "用します。それ以外は、デスクトップのデフォルト・フォントを使用します。"
 
-#: ../data/tomboy.schemas.in.h:18
+#: ../data/tomboy.schemas.in.h:17
 msgid ""
 "Indicates that the Sticky Note Importer plugin has not been run, so it "
 "should run automatically the next time Tomboy starts."
@@ -153,53 +149,49 @@ msgstr ""
 "付箋紙アプレットのインポートを行っていないことを表しています。そのため、次回 "
 "Tomboy を起動したら自動的にインポートを行うことになります。"
 
-#: ../data/tomboy.schemas.in.h:19
+#: ../data/tomboy.schemas.in.h:18
 msgid ""
 "Integer determining the minimum number of notes to show in the Tomboy note "
 "menu."
 msgstr "Tomboy のメニューの中に表示するメモの個数 (最小値) を表す整数値です。"
 
-#: ../data/tomboy.schemas.in.h:20
-msgid "List containing the names of currently enabled plugins."
-msgstr "現在利用可能なプラグインの名前を並べたものです。"
-
-#: ../data/tomboy.schemas.in.h:21
+#: ../data/tomboy.schemas.in.h:19
 msgid "List of pinned notes."
 msgstr "画びょう付きのメモの一覧"
 
-#: ../data/tomboy.schemas.in.h:22
+#: ../data/tomboy.schemas.in.h:20
 msgid "Minimum number of notes to show in menu"
 msgstr "メニューに表示するメモの最小数"
 
-#: ../data/tomboy.schemas.in.h:23
+#: ../data/tomboy.schemas.in.h:21
 msgid "Open Recent Changes"
 msgstr "\"現在の変更\" を開く"
 
-#: ../data/tomboy.schemas.in.h:24
+#: ../data/tomboy.schemas.in.h:22
 msgid "Open Search Dialog"
 msgstr "\"検索ダイアログ\" を開く"
 
-#: ../data/tomboy.schemas.in.h:25
+#: ../data/tomboy.schemas.in.h:23
 msgid "Open Start Here"
 msgstr "\"ここから開始\" を開く"
 
-#: ../data/tomboy.schemas.in.h:26
+#: ../data/tomboy.schemas.in.h:24
 msgid "Set to TRUE to activate"
 msgstr "有効にする場合は TRUE にする"
 
-#: ../data/tomboy.schemas.in.h:27
+#: ../data/tomboy.schemas.in.h:25
 msgid "Show applet menu"
 msgstr "アプレット・メニューの表示"
 
-#: ../data/tomboy.schemas.in.h:28
+#: ../data/tomboy.schemas.in.h:26
 msgid "Start Here Note"
 msgstr "ここから開始のメモ"
 
-#: ../data/tomboy.schemas.in.h:29
+#: ../data/tomboy.schemas.in.h:27
 msgid "Sticky Note Importer First Run"
 msgstr "初回起動時に付箋紙アプレットのインポートを行う"
 
-#: ../data/tomboy.schemas.in.h:30
+#: ../data/tomboy.schemas.in.h:28
 msgid ""
 "The global keybinding for creating and displaying a new Note. The format "
 "looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The "
@@ -215,7 +207,7 @@ msgstr ""
 "て特殊な文字列 \"disabled\" を指定すると、このアクションに対するキーの割り当"
 "ては行われません。"
 
-#: ../data/tomboy.schemas.in.h:31
+#: ../data/tomboy.schemas.in.h:29
 msgid ""
 "The global keybinding for opening the \"Start Here\" note. The format looks "
 "like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
@@ -231,7 +223,7 @@ msgstr ""
 "て特殊な文字列 \"disabled\" を指定すると、このアクションに対するキーの割り当"
 "ては行われません。"
 
-#: ../data/tomboy.schemas.in.h:32
+#: ../data/tomboy.schemas.in.h:30
 msgid ""
 "The global keybinding for opening the Note Search dialog. The format looks "
 "like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
@@ -247,7 +239,7 @@ msgstr ""
 "として特殊な文字列 \"disabled\" を指定すると、このアクションに対するキーの割"
 "り当ては行われません。"
 
-#: ../data/tomboy.schemas.in.h:33
+#: ../data/tomboy.schemas.in.h:31
 msgid ""
 "The global keybinding for opening the Recent Changes dialog. The format "
 "looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The "
@@ -263,7 +255,7 @@ msgstr ""
 "として特殊な文字列 \"disabled\" を指定すると、このアクションに対するキーの割"
 "り当ては行われません"
 
-#: ../data/tomboy.schemas.in.h:34
+#: ../data/tomboy.schemas.in.h:32
 msgid ""
 "The global keybinding for showing the Tomboy applet's menu. The format looks "
 "like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
@@ -279,18 +271,18 @@ msgstr ""
 "す。オプションとして特殊な文字列 \"disabled\" を指定すると、このアクションに"
 "対するキーの割り当ては行われません"
 
-#: ../data/tomboy.schemas.in.h:35
+#: ../data/tomboy.schemas.in.h:33
 msgid "The handler for \"note://\" URLs"
 msgstr "URI \"note://\" で使用するハンドラ"
 
-#: ../data/tomboy.schemas.in.h:36
+#: ../data/tomboy.schemas.in.h:34
 msgid ""
 "The last directory a note was exported to using the Export To HTML plugin."
 msgstr ""
 "\"HTMLのエキスポート\" プラグインを使って、最後にエキスポートしたメモの HTML "
 "を格納したフォルダです。"
 
-#: ../data/tomboy.schemas.in.h:37
+#: ../data/tomboy.schemas.in.h:35
 msgid ""
 "The last setting for the 'Export linked notes' checkbox in the Export to "
 "HTML plugin."
@@ -298,7 +290,7 @@ msgstr ""
 "\"HTML へエキスポート\" プラグインの \"メモのエキスポート\" で最後に設定した"
 "チェックボックスの状態です。"
 
-#: ../data/tomboy.schemas.in.h:38
+#: ../data/tomboy.schemas.in.h:36
 msgid ""
 "The last setting for the 'Include all other linked notes' checkbox in the "
 "Export to HTML plugin. This setting is used in conjunction with the 'HTML "
@@ -310,7 +302,7 @@ msgstr ""
 "HTML にエキスポートする\" 設定と連動して、(再帰的に検出した) メモを全て HTML "
 "形式にエキスポートするかどうかを指定する際に使用します。"
 
-#: ../data/tomboy.schemas.in.h:39
+#: ../data/tomboy.schemas.in.h:37
 msgid ""
 "The note URI of the note that should be considered the \"Start Here\" note, "
 "which is always placed at the bottom of the Tomboy note menu and also "
@@ -320,7 +312,7 @@ msgstr ""
 "ニューの最下位に表示されるようになっており、ホットキーでアクセスできるように"
 "なっています。"
 
-#: ../data/tomboy.schemas.in.h:40
+#: ../data/tomboy.schemas.in.h:38
 msgid ""
 "Whitespace-separated list of note URIs for notes that should always appear "
 "in the Tomboy note menu."
@@ -328,7 +320,8 @@ msgstr ""
 "ホワイトスペース (空白) で区切ったメモの URI の一覧を Tomboy のメニューの中に"
 "常に表示します。"
 
-#: ../libtomboy/gedit-print.c:142 ../Tomboy/Plugins/PrintNotes.cs:22
+#: ../libtomboy/gedit-print.c:142
+#: ../Tomboy/Addins/PrintNotes/PrintNotesNoteAddin.cs:18
 msgid "Print"
 msgstr "印刷"
 
@@ -359,7 +352,19 @@ msgstr "%N / %Q ページ"
 msgid "%A %x, %X"
 msgstr "%A %x %X"
 
-#: ../Tomboy/ActionManager.cs:63
+#: ../Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinTreeWidget.cs:91
+msgid "Add-in"
+msgstr "拡張機能"
+
+#: ../Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinTreeWidget.cs:112
+msgid "Version"
+msgstr "バージョン"
+
+#: ../Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinTreeWidget.cs:168
+msgid "Other"
+msgstr "その他"
+
+#: ../Tomboy/ActionManager.cs:63 ../Tomboy/Addins/Tasks/TaskListWindow.cs:79
 msgid "_File"
 msgstr "ファイル(_F)"
 
@@ -379,7 +384,7 @@ msgstr "開く(_O)..."
 msgid "Open the selected note"
 msgstr "選択したメモを開きます"
 
-#: ../Tomboy/ActionManager.cs:74
+#: ../Tomboy/ActionManager.cs:74 ../Tomboy/Addins/Tasks/TaskListWindow.cs:97
 msgid "_Delete"
 msgstr "削除(_D)"
 
@@ -387,11 +392,12 @@ msgstr "削除(_D)"
 msgid "Delete the selected note"
 msgstr "選択したメモを削除します"
 
-#: ../Tomboy/ActionManager.cs:78 ../Tomboy/NoteWindow.cs:374
+#: ../Tomboy/ActionManager.cs:78 ../Tomboy/Addins/Tasks/TaskListWindow.cs:90
+#: ../Tomboy/NoteWindow.cs:374
 msgid "_Close"
 msgstr "閉じる(_C)"
 
-#: ../Tomboy/ActionManager.cs:79
+#: ../Tomboy/ActionManager.cs:79 ../Tomboy/Addins/Tasks/TaskListWindow.cs:91
 msgid "Close this window"
 msgstr "このウィンドウを閉じます"
 
@@ -403,15 +409,15 @@ msgstr "終了(_Q)"
 msgid "Quit Tomboy"
 msgstr "Tomboy を終了します"
 
-#: ../Tomboy/ActionManager.cs:86
+#: ../Tomboy/ActionManager.cs:86 ../Tomboy/Addins/Tasks/TaskListWindow.cs:94
 msgid "_Edit"
 msgstr "編集(_E)"
 
-#: ../Tomboy/ActionManager.cs:90
+#: ../Tomboy/ActionManager.cs:90 ../Tomboy/PreferencesDialog.cs:51
 msgid "Tomboy Preferences"
 msgstr "Tomboy の設定"
 
-#: ../Tomboy/ActionManager.cs:96
+#: ../Tomboy/ActionManager.cs:96 ../Tomboy/Addins/Tasks/TaskListWindow.cs:108
 msgid "_Contents"
 msgstr "目次(_C)"
 
@@ -439,19 +445,389 @@ msgstr "全てのメモの検索(_S)"
 msgid "Open the Search All Notes window"
 msgstr "\"全てのメモの検索\" ウィンドウを開きます"
 
+#: ../Tomboy/Addins/Backlinks/BacklinksNoteAddin.cs:25
+msgid "What links here?"
+msgstr "ここにあるリンク"
+
+#: ../Tomboy/Addins/Backlinks/BacklinksNoteAddin.cs:83
+msgid "(none)"
+msgstr " (なし)"
+
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:31
+msgid ""
+"You can use any bugzilla just by dragging links into notes.  If you want a "
+"special icon for certain hosts, add them here."
+msgstr ""
+"メモの中にリンクをドラッグすることで Bugzilla を利用できるようになります。特"
+"定のホストに対して特別なアイコンを用意したい場合は、ここでアイコンを追加して"
+"おいて下さい。"
+
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:49
+msgid "Host Name"
+msgstr "ホスト名"
+
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:66
+msgid "Icon"
+msgstr "アイコン"
+
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:184
+msgid "Select an icon..."
+msgstr "アイコンの選択..."
+
+#. Extra Widget
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:199
+msgid "_Host name:"
+msgstr "ホスト名(_H):"
+
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:228
+msgid "No host name specified"
+msgstr "ホスト名が指定されていません"
+
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:229
+msgid "You must specify the Bugzilla host name to use with this icon."
+msgstr "このアイコンと一緒に利用する Bugzilla のホスト名を指定して下さい。"
+
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:255
+msgid "Error saving icon"
+msgstr "アイコンを保存する際にエラー"
+
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:256
+msgid "Could not save the icon file.  "
+msgstr "アイコン・ファイルを保存できませんでした。"
+
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:309
+msgid "Really remove this icon?"
+msgstr "このアイコンを削除しますか？"
+
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:310
+msgid "If you remove an icon it is permanently lost."
+msgstr "アイコンを削除すると、設定情報を完全に失うことになります。"
+
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:50
+msgid "Export to HTML"
+msgstr "HTML へエキスポート"
+
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:109
+#, csharp-format
+msgid "Your note was exported to \"{0}\"."
+msgstr "メモを \"{0}\" にエキスポートしました。"
+
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:120
+msgid "Note exported successfully"
+msgstr "メモのエキスポートが完了しました"
+
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:126
+msgid "Access denied."
+msgstr "アクセスが拒否されました。"
+
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:128
+msgid "Folder does not exist."
+msgstr "フォルダがありません。"
+
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:143
+#, csharp-format
+msgid "Could not save the file \"{0}\""
+msgstr "\"{0}\" というファイルを保存できませんでした"
+
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlDialog.cs:13
+msgid "Destination for HTML Export"
+msgstr "HTML のエキスポート先"
+
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlDialog.cs:23
+msgid "Export linked notes"
+msgstr "メモをエキスポートする"
+
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlDialog.cs:28
+msgid "Include all other linked notes"
+msgstr "その他のリンク付きメモを全て含める"
+
+#: ../Tomboy/Addins/Evolution/EvolutionNoteAddin.cs:269
+msgid "Cannot open email"
+msgstr "E-メールを開けません"
+
+#: ../Tomboy/Addins/FixedWidth/FixedWidthMenuItem.cs:14
+msgid "_Fixed Width"
+msgstr "固定幅(_F)"
+
+#: ../Tomboy/Addins/GalagoPresence/GalagoPresenceNoteAddin.cs:239
+#, csharp-format
+msgid "Cannot contact '{0}'"
+msgstr "'{0}' に接続できません"
+
+#: ../Tomboy/Addins/GalagoPresence/GalagoPresenceNoteAddin.cs:242
+#, csharp-format
+msgid "Error running gaim-remote: {0}"
+msgstr "gaim-remote を起動する際にエラー: {0}"
+
+#: ../Tomboy/Addins/NoteOfTheDay/NoteOfTheDay.cs:10
+msgid "Today: Template"
+msgstr "今日: テンプレート"
+
+#: ../Tomboy/Addins/NoteOfTheDay/NoteOfTheDay.cs:12
+msgid "Today: "
+msgstr "今日: "
+
+#. Format: "Today: Friday, July 01 2005"
+#: ../Tomboy/Addins/NoteOfTheDay/NoteOfTheDay.cs:17
+msgid "dddd, MMMM d yyyy"
+msgstr "MMMM d日 (dddd) tth:mm"
+
+#: ../Tomboy/Addins/NoteOfTheDay/NoteOfTheDay.cs:43
+msgid "Tasks"
+msgstr "タスク"
+
+#: ../Tomboy/Addins/NoteOfTheDay/NoteOfTheDay.cs:44
+msgid "Appointments"
+msgstr "予定"
+
+#: ../Tomboy/Addins/NoteOfTheDay/NoteOfTheDay.cs:67
+msgid "Note of the Day"
+msgstr "今日のメモ"
+
+#: ../Tomboy/Addins/NoteOfTheDay/NoteOfTheDayPreferences.cs:16
+msgid ""
+"Change the <span weight=\"bold\">Today: Template</span> note to customize "
+"the text that new Today notes have."
+msgstr ""
+"<span weight=\"bold\">今日: テンプレート</span>のメモを変更して、新しい今日の"
+"メモに表示する項目をカスタマイズしてみて下さい。"
+
+#: ../Tomboy/Addins/NoteOfTheDay/NoteOfTheDayPreferences.cs:24
+msgid "_Open Today: Template"
+msgstr "今日: テンプレートを開く(_O)"
+
+#: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:50
+msgid "Import from Sticky Notes"
+msgstr "付箋紙のインポート"
+
+#: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:132
+msgid "No Sticky Notes found"
+msgstr "付箋紙アプレットが見つかりません"
+
+#: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:133
+#, csharp-format
+msgid "No suitable Sticky Notes file was found at \"{0}\"."
+msgstr "\"{0}\" には付箋紙アプレットのファイルはありません。"
+
+#: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:142
+msgid "Sticky Notes import completed"
+msgstr "付箋紙のインポートが完了しました"
+
+#: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:143
+#, csharp-format
+msgid "<b>{0}</b> of <b>{1}</b> Sticky Notes were successfully imported."
+msgstr ""
+"<b>{0}</b>/<b>{1}</b> 個の付箋紙アプレットのファイルをインポートしました。"
+
+#: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:155
+msgid "Untitled"
+msgstr "タイトルなし"
+
+#: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:183
+msgid "Sticky Note: "
+msgstr "付箋紙: "
+
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:65
+#: ../Tomboy/Addins/Tasks/TasksApplicationAddin.cs:55
+msgid "To Do List"
+msgstr "ToDo の一覧"
+
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:82
+msgid "New _Task"
+msgstr "新しいタスク(_T)"
+
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:83
+msgid "Create a new task"
+msgstr "新しいタスクを作成します"
+
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:86
+msgid "_Options..."
+msgstr "オプション(_O)..."
+
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:87
+msgid "Open the selected task"
+msgstr "選択したタスクを開きます"
+
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:98
+msgid "Delete the selected task"
+msgstr "選択したタスクを削除します"
+
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:101
+msgid "Open Associated _Note"
+msgstr "関連するメモを開く(_N)"
+
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:102
+msgid "Open the note containing the task"
+msgstr "タスクにリンクしているメモを開きます"
+
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:109
+msgid "Tasks Help"
+msgstr "タスクのヘルプ"
+
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:244
+msgid "Summary"
+msgstr "概要"
+
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:268
+msgid "Due Date"
+msgstr "期日"
+
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:290
+msgid "Completion Date"
+msgstr "完了日"
+
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:311
+msgid "Priority"
+msgstr "優先度"
+
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:324
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:416
+#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:164
+msgid "None"
+msgstr "なし"
+
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:325
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:407
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:902
+#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:165
+msgid "Low"
+msgstr "低い"
+
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:326
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:410
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:904
+#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:166
+msgid "Normal"
+msgstr "ふつう"
+
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:327
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:413
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:906
+#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:167
+msgid "High"
+msgstr "高い"
+
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:433
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:442
+#, csharp-format
+msgid "Total: {0} task"
+msgid_plural "Total: {0} tasks"
+msgstr[0] "合計: {0}個のタスク"
+msgstr[1] "合計: {0}個のタスク"
+
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:601
+#, csharp-format
+msgid "New Task {0}"
+msgstr "新しいタスク {0}"
+
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:826
+msgid "Really delete this task?"
+msgstr "このタスクを本当に削除してもよろしいですか？"
+
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:827
+msgid "If you delete a task it is permanently lost."
+msgstr "タスクを削除すると、その内容が完全に無くなります。"
+
+#: ../Tomboy/Addins/Tasks/TaskManager.cs:216
+msgid "Learn About Tomboy"
+msgstr "Tomboy について学ぶ"
+
+#: ../Tomboy/Addins/Tasks/TaskManager.cs:219
+msgid ""
+"Click on the Tomboy icon in your panel and select \"Start Here\".  You'll "
+"see more instructions on how to use Tomboy inside the \"Start Here\" note.\n"
+"\n"
+"When you've opened the \"Start Here\" note, mark this task as being complete."
+msgstr ""
+"パネルの中にある Tomboy のアイコンをクリックして \"ここから開始\" というアイ"
+"テムを選択して下さい。この \"ここから開始\" というメモの中には Tomboy の使い"
+"方の説明があります。\n"
+"\n"
+"\"ここから開始\" というメモを開くことができたら、このタスクは完了です。"
+
+#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:34
+msgid "Task Options"
+msgstr "タスクのオプション"
+
+#. Gtk.Label l = new Gtk.Label (
+#. string.Format (
+#. "<span weight=\"bold\">{0}</span>",
+#. Catalog.GetString ("Task Options")));
+#. l.UseMarkup = true;
+#. l.Show ();
+#. vbox.PackStart (l, false, false, 0);
+#. /
+#. / Summary
+#. /
+#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:70
+msgid "_Summary:"
+msgstr "概要(_S):"
+
+#. /
+#. / Details
+#. /
+#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:84
+msgid "_Details:"
+msgstr "詳細(_D):"
+
+#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:108
+#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:272
+msgid "_Completed:"
+msgstr "完了日(_C):"
+
+#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:109
+#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:275
+msgid "_Complete"
+msgstr "完了した(_C)"
+
+#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:132
+msgid "Due Date:"
+msgstr "期日:"
+
+#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:156
+msgid "Priority:"
+msgstr "優先度:"
+
+#: ../Tomboy/Addins/Tasks/TasksApplicationAddin.cs:53
+msgid "_Tools"
+msgstr "ツール(_T)"
+
+#: ../Tomboy/Addins/Tasks/TasksNoteAddin.cs:37
+#: ../Tomboy/Addins/Tasks/TasksNoteAddin.cs:170
+#: ../Tomboy/Addins/Tasks/TasksNoteAddin.cs:247
+#: ../Tomboy/Addins/Tasks/TasksNoteAddin.cs:351
+msgid "todo"
+msgstr "todo"
+
+#: ../Tomboy/Addins/Tasks/TasksNoteAddin.cs:453
+msgid "Open To Do List"
+msgstr "ToDO の一覧を開く"
+
+#: ../Tomboy/Addins/Tasks/TasksNoteAddin.cs:458
+msgid "To Do Options"
+msgstr "ToDo のオプション"
+
+#: ../Tomboy/Addins/Tasks/TasksNoteAddin.cs:466
+msgid "Mark Undone"
+msgstr "未完マークを付与する"
+
+#: ../Tomboy/Addins/Tasks/TasksNoteAddin.cs:467
+msgid "Mark Complete"
+msgstr "完了マークを付与する"
+
 #: ../Tomboy/Applet.cs:191
 msgid "_About Tomboy"
 msgstr "Tomboy について(_A)"
 
-#: ../Tomboy/Note.cs:1018
+#: ../Tomboy/Note.cs:1143
 msgid "Really delete this note?"
 msgstr "このメモを本当に削除してもよろしいですか？"
 
-#: ../Tomboy/Note.cs:1019
+#: ../Tomboy/Note.cs:1144
 msgid "If you delete a note it is permanently lost."
 msgstr "メモを削除すると、メモの内容を完全に失うことになります。"
 
-#: ../Tomboy/NoteManager.cs:144
+#: ../Tomboy/NoteManager.cs:132
 msgid ""
 "<note-content>Start Here\n"
 "\n"
@@ -489,7 +865,7 @@ msgstr ""
 "internal> と入力する度に下線が自動的に付与されることに気づきましたか？ リンク"
 "をクリックしてメモを開いてみて下さい。</note-content>"
 
-#: ../Tomboy/NoteManager.cs:163
+#: ../Tomboy/NoteManager.cs:151
 msgid ""
 "<note-content>Using Links in Tomboy\n"
 "\n"
@@ -517,22 +893,26 @@ msgstr ""
 "す。</note-content>"
 
 #. Attempt to find an existing Start Here note
-#: ../Tomboy/NoteManager.cs:178 ../Tomboy/NoteManager.cs:241
+#: ../Tomboy/NoteManager.cs:166 ../Tomboy/NoteManager.cs:229
 msgid "Start Here"
 msgstr "ここから開始"
 
-#: ../Tomboy/NoteManager.cs:183
+#: ../Tomboy/NoteManager.cs:171
 msgid "Using Links in Tomboy"
 msgstr "Tomboy でリンクを利用する"
 
-#: ../Tomboy/NoteManager.cs:301
+#: ../Tomboy/NoteManager.cs:299
 #, csharp-format
 msgid "New Note {0}"
 msgstr "新しいメモ {0}"
 
-#: ../Tomboy/NoteManager.cs:347
+#: ../Tomboy/NoteManager.cs:345
 msgid "Describe your new note here."
 msgstr "新しいメモをここに記述して下さい。"
+
+#: ../Tomboy/NoteManager.cs:360
+msgid "New Note"
+msgstr "新しいメモ"
 
 #: ../Tomboy/NoteWindow.cs:55
 msgid "Find in This Note"
@@ -578,7 +958,7 @@ msgstr "文字の種類(_T)"
 msgid "Set properties of text"
 msgstr "文字のプロパティを変更します"
 
-#: ../Tomboy/NoteWindow.cs:444 ../Tomboy/RecentChanges.cs:250
+#: ../Tomboy/NoteWindow.cs:444 ../Tomboy/RecentChanges.cs:243
 msgid "Tags"
 msgstr "タグ"
 
@@ -674,119 +1054,185 @@ msgstr "小さい(_M)"
 msgid "Bullets"
 msgstr "箇条書き"
 
-#: ../Tomboy/PluginManager.cs:60
-msgid "Tomboy Project"
-msgstr "Tomboy プロジェクト"
+#: ../Tomboy/PreferencesDialog.cs:69
+msgid "Editing"
+msgstr "編集"
 
-#: ../Tomboy/PluginManager.cs:574
-#, csharp-format
-msgid "Cannot fully disable {0}."
-msgstr "{0} を完全に無効にできません"
+#: ../Tomboy/PreferencesDialog.cs:71
+msgid "Hotkeys"
+msgstr "ホットキー"
 
-#: ../Tomboy/PluginManager.cs:577
-#, csharp-format
+#: ../Tomboy/PreferencesDialog.cs:73
+msgid "Add-ins"
+msgstr "プラグイン"
+
+#: ../Tomboy/PreferencesDialog.cs:116
+msgid "_Spell check while typing"
+msgstr "入力中にスペルをチェックする(_S)"
+
+#: ../Tomboy/PreferencesDialog.cs:125
 msgid ""
-"Cannot fully disable {0} as there still are at least {1} reference to this "
-"plugin. This indicates a programming error. Contact the plugin's author and "
-"report this problem.\n"
-"\n"
-"<b>Developer Information:</b> This problem usually occurs when the plugin's "
-"Dispose method fails to disconnect all event handlers. The heap-shot "
-"profiler ({2}) can help to identify leaking references."
+"Misspellings will be underlined in red, with correct spelling suggestions "
+"shown in the context menu."
 msgstr ""
-"このプラグインを利用しているメモが少なくとも {1} 個あるので {0} を完全に無効"
-"にできません。これはプラグイン側の問題です。プラグインの作者に連絡して問題を"
-"報告して下さい。\n"
-"\n"
-"<b>開発者向けの情報:</b> (原文のまま) This problem usually occurs when the "
-"plugin's Dispose method fails to disconnect all event handlers. The heap-"
-"shot profiler ({2}) can help to identify leaking references."
+"スペル違いの文字には赤色の下線がつき、コンテキスト・メニューの中に妥当なスペ"
+"ルを提示します。"
 
-#: ../Tomboy/RecentChanges.cs:70
+#. WikiWords...
+#: ../Tomboy/PreferencesDialog.cs:136
+msgid "Highlight _WikiWords"
+msgstr "WikiWord (予約語) を強調表示する(_W)"
+
+#: ../Tomboy/PreferencesDialog.cs:144
+msgid ""
+"Enable this option to highlight words <b>ThatLookLikeThis</b>. Clicking the "
+"word will create a note with that name."
+msgstr ""
+"このオプションを有効にすると<b>こんな感じ</b>で単語を強調表示します。その単語"
+"をクリックすると、その単語をタイトルにした新しいメモを作成します。"
+
+#. Custom font...
+#: ../Tomboy/PreferencesDialog.cs:153
+msgid "Use custom _font"
+msgstr "フォントを指定する(_F)"
+
+#. Hotkeys...
+#: ../Tomboy/PreferencesDialog.cs:223
+msgid "Listen for _Hotkeys"
+msgstr "ホットキーを監視する(_H)"
+
+#: ../Tomboy/PreferencesDialog.cs:232
+msgid ""
+"Hotkeys allow you to quickly access your notes from anywhere with a "
+"keypress. Example Hotkeys: <b>&lt;Control&gt;&lt;Shift&gt;F11</b>, <b>&lt;"
+"Alt&gt;N</b>"
+msgstr ""
+"ホットキーを使うと、どこからでも素早くメモにアクセスできるようになります。"
+"ホットキーの例: <b>&lt;Control&gt;&lt;Shift&gt;F11</b>、<b>&lt;Alt&gt;N</b>"
+
+#. Show notes menu keybinding...
+#: ../Tomboy/PreferencesDialog.cs:252
+msgid "Show notes _menu"
+msgstr "メモのメニューを表示する(_M)"
+
+#. Open Start Here keybinding...
+#: ../Tomboy/PreferencesDialog.cs:269
+msgid "Open \"_Start Here\""
+msgstr "\"ここから開始\" を開く(_S)"
+
+#. Create new note keybinding...
+#: ../Tomboy/PreferencesDialog.cs:286
+msgid "Create _new note"
+msgstr "新しいメモを作成する(_N)"
+
+#. Open Search All Notes window keybinding...
+#: ../Tomboy/PreferencesDialog.cs:303
+msgid "Open \"Search _All Notes\""
+msgstr "\"全てのメモの検索\" を開く(_A)"
+
+#: ../Tomboy/PreferencesDialog.cs:329
+msgid "The following add-ins are installed"
+msgstr "次のプラグインが拡張機能としてインストールされています"
+
+#: ../Tomboy/PreferencesDialog.cs:360
+msgid "_Enable"
+msgstr "有効にする(_E)"
+
+#: ../Tomboy/PreferencesDialog.cs:366
+msgid "_Disable"
+msgstr "無効にする(_D)"
+
+#: ../Tomboy/PreferencesDialog.cs:497
+msgid "Not Implemented"
+msgstr "実装されていません"
+
+#: ../Tomboy/PreferencesDialog.cs:511
+#, csharp-format
+msgid "{0} Preferences"
+msgstr "{0} の設定"
+
+#: ../Tomboy/PreferencesDialog.cs:650
+msgid "Choose Note Font"
+msgstr "メモで使用するフォントの選択"
+
+#: ../Tomboy/PreferencesDialog.cs:743
+msgid "Version:"
+msgstr "バージョン:"
+
+#: ../Tomboy/PreferencesDialog.cs:750
+msgid "Author:"
+msgstr "作者:"
+
+#: ../Tomboy/PreferencesDialog.cs:757
+msgid "Copyright:"
+msgstr "著作権:"
+
+#: ../Tomboy/PreferencesDialog.cs:763
+msgid "Add-in Dependencies:"
+msgstr "プラグインの依存関係:"
+
+#: ../Tomboy/RecentChanges.cs:68
 msgid "Search All Notes"
 msgstr "全てのメモの検索"
 
-#: ../Tomboy/RecentChanges.cs:85
+#: ../Tomboy/RecentChanges.cs:83
 msgid "_Search:"
 msgstr "検索(_S):"
 
-#: ../Tomboy/RecentChanges.cs:106
+#: ../Tomboy/RecentChanges.cs:104
 msgid "C_ase Sensitive"
 msgstr "大/小文字を区別する(_A)"
 
-#: ../Tomboy/RecentChanges.cs:300
+#: ../Tomboy/RecentChanges.cs:293
 msgid "Note"
 msgstr "メモ"
 
-#: ../Tomboy/RecentChanges.cs:319
+#: ../Tomboy/RecentChanges.cs:312
 msgid "Last Changed"
 msgstr "変更日時"
 
-#: ../Tomboy/RecentChanges.cs:376 ../Tomboy/RecentChanges.cs:532
+#: ../Tomboy/RecentChanges.cs:370 ../Tomboy/RecentChanges.cs:526
 #, csharp-format
 msgid "Total: {0} note"
 msgid_plural "Total: {0} notes"
 msgstr[0] "メモの総数: {0}個"
 msgstr[1] "メモの総数: {0}個"
 
-#: ../Tomboy/RecentChanges.cs:466
+#: ../Tomboy/RecentChanges.cs:460
 msgid "Matches"
 msgstr "検索結果"
 
-#: ../Tomboy/RecentChanges.cs:518 ../Tomboy/RecentChanges.cs:538
+#: ../Tomboy/RecentChanges.cs:512 ../Tomboy/RecentChanges.cs:532
 #, csharp-format
 msgid "{0} match"
 msgid_plural "{0} matches"
 msgstr[0] "({0}個見つかりました)"
 msgstr[1] "({0}個見つかりました)"
 
-#: ../Tomboy/RecentChanges.cs:829
-#, csharp-format
-msgid "Today, {0}"
-msgstr "今日の{0}"
-
-#: ../Tomboy/RecentChanges.cs:832
-#, csharp-format
-msgid "Yesterday, {0}"
-msgstr "昨日の{0}"
-
-#: ../Tomboy/RecentChanges.cs:836
-#, csharp-format
-msgid "{0} days ago, {1}"
-msgstr "{0}日前の{1}"
-
-#: ../Tomboy/RecentChanges.cs:841
-msgid "MMMM d, h:mm tt"
-msgstr "MMMM d日 tth:mm"
-
-#: ../Tomboy/RecentChanges.cs:843
-msgid "MMMM d yyyy, h:mm tt"
-msgstr "yyyy年 MMMM d日 yyyy tth:mm"
-
-#: ../Tomboy/Tomboy.cs:181
+#: ../Tomboy/Tomboy.cs:188
 msgid "Cannot create new note"
 msgstr "新しいメモを作成できません"
 
-#: ../Tomboy/Tomboy.cs:236
+#: ../Tomboy/Tomboy.cs:243
 msgid "translator-credits"
 msgstr ""
 "相花 毅 <takeshi.aihana@gmail.com>\n"
 "佐藤 暁 <ss@gnome.gr.jp>\n"
 "日本GNOMEユーザー会 http://www.gnome.gr.jp"
 
-#: ../Tomboy/Tomboy.cs:245
+#: ../Tomboy/Tomboy.cs:252
 msgid "Copyright © 2004-2007 Alex Graveley"
 msgstr "Copyright © 2004-2007 Alex Graveley"
 
-#: ../Tomboy/Tomboy.cs:246
+#: ../Tomboy/Tomboy.cs:253
 msgid "A simple and easy to use desktop note-taking application."
 msgstr "シンプルで使いやすいデスクトップ・メモです。"
 
-#: ../Tomboy/Tomboy.cs:249
+#: ../Tomboy/Tomboy.cs:256
 msgid "Homepage"
 msgstr "ホームページ"
 
-#: ../Tomboy/Tomboy.cs:333
+#: ../Tomboy/Tomboy.cs:342
 msgid ""
 "Tomboy: A simple, easy to use desktop note-taking application.\n"
 "Copyright (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
@@ -796,7 +1242,7 @@ msgstr ""
 "Copyright (C) 2004-2007 Alex Graveley <alex@beatniksoftware.com>\n"
 "\n"
 
-#: ../Tomboy/Tomboy.cs:345
+#: ../Tomboy/Tomboy.cs:354
 msgid ""
 "Usage:\n"
 "  --version\t\t\tPrint version information.\n"
@@ -811,7 +1257,7 @@ msgstr ""
 "  --search [text]\t\t検索ウィンドウを開いて指定した文字列を全てのメモから検索"
 "する\n"
 
-#: ../Tomboy/Tomboy.cs:356
+#: ../Tomboy/Tomboy.cs:365
 msgid ""
 "  --new-note\t\t\tCreate and display a new note.\n"
 "  --new-note [title]\t\tCreate and display a new note, with a title.\n"
@@ -825,21 +1271,21 @@ msgstr ""
 "  --start-here\t\t\t\"ここから開始\" メモを表示する\n"
 "  --highlight-search [text]\t開いたメモから text を検索して強調表示する\n"
 
-#: ../Tomboy/Tomboy.cs:368
-msgid "  --check-plugin-unloading\tCheck if plugins are unloaded properly.\n"
-msgstr ""
-"  --check-plugin-unloading\tプラグインが正しくアンロードされたか確認する\n"
-
-#: ../Tomboy/Tomboy.cs:372
+#. TODO: Restore this functionality with addins
+#. usage +=
+#. Catalog.GetString (
+#. "  --check-plugin-unloading\tCheck if plugins are " +
+#. "unloaded properly.\n");
+#: ../Tomboy/Tomboy.cs:382
 msgid "D-BUS remote control disabled.\n"
 msgstr "D-BUS によるリモート操作は無効になっています。\n"
 
-#: ../Tomboy/Tomboy.cs:380
+#: ../Tomboy/Tomboy.cs:390
 #, csharp-format
 msgid "Version {0}"
 msgstr "バージョン {0}"
 
-#: ../Tomboy/Tomboy.cs:447
+#: ../Tomboy/Tomboy.cs:460
 #, csharp-format
 msgid ""
 "Tomboy: unsupported option '{0}'\n"
@@ -871,6 +1317,73 @@ msgstr ""
 msgid "Help not found"
 msgstr "ヘルプが見つかりませんでした"
 
+#: ../Tomboy/Utils.cs:151
+#, csharp-format
+msgid "Today, {0}"
+msgstr "今日の{0}"
+
+#: ../Tomboy/Utils.cs:153
+msgid "Today"
+msgstr "今日"
+
+#: ../Tomboy/Utils.cs:157
+#, csharp-format
+msgid "Yesterday, {0}"
+msgstr "昨日の{0}"
+
+#: ../Tomboy/Utils.cs:159
+msgid "Yesterday"
+msgstr "昨日"
+
+#: ../Tomboy/Utils.cs:163
+#, csharp-format
+msgid "{0} days ago, {1}"
+msgstr "{0}日前の{1}"
+
+#: ../Tomboy/Utils.cs:165
+#, csharp-format
+msgid "{0} days ago"
+msgstr "{0}日前"
+
+#: ../Tomboy/Utils.cs:170
+#, csharp-format
+msgid "Tomorrow, {0}"
+msgstr "明日の{0}"
+
+#: ../Tomboy/Utils.cs:172
+msgid "Tomorrow"
+msgstr "明日"
+
+#: ../Tomboy/Utils.cs:176
+#, csharp-format
+msgid "In {0} days, {1}"
+msgstr "{0}日内の{1}"
+
+#: ../Tomboy/Utils.cs:178
+#, csharp-format
+msgid "In {0} days"
+msgstr "{0}日内"
+
+#: ../Tomboy/Utils.cs:182
+msgid "MMMM d, h:mm tt"
+msgstr "MMMM d日 tth:mm"
+
+#: ../Tomboy/Utils.cs:183
+msgid "MMMM d"
+msgstr "MMMM d日"
+
+#: ../Tomboy/Utils.cs:185
+msgid "No Date"
+msgstr "日付なし"
+
+#: ../Tomboy/Utils.cs:188
+msgid "MMMM d yyyy, h:mm tt"
+msgstr "yyyy年 MMMM d日 tth:mm"
+
+#: ../Tomboy/Utils.cs:189
+msgid "MMMM d yyyy"
+msgstr "yyyy年 MMMM d日"
+
 #: ../Tomboy/Watchers.cs:137
 #, csharp-format
 msgid "(Untitled {0})"
@@ -900,185 +1413,3 @@ msgstr "リンク先のアドレスのコピー(_C)"
 #: ../Tomboy/Watchers.cs:523
 msgid "_Open Link"
 msgstr "リンクを開く(_O)"
-
-#: ../Tomboy/Plugins/Backlinks.cs:79
-msgid "What links here?"
-msgstr "ここにあるリンク"
-
-#: ../Tomboy/Plugins/Backlinks.cs:137
-msgid "(none)"
-msgstr " (なし)"
-
-#: ../Tomboy/Plugins/Bugzilla.cs:177
-msgid ""
-"You can use any bugzilla just by dragging links into notes.  If you want a "
-"special icon for certain hosts, add them here."
-msgstr ""
-"メモの中にリンクをドラッグすることで Bugzilla を利用できるようになります。特"
-"定のホストに対して特別なアイコンを用意したい場合は、ここでアイコンを追加して"
-"おいて下さい。"
-
-#: ../Tomboy/Plugins/Bugzilla.cs:195
-msgid "Host Name"
-msgstr "ホスト名"
-
-#: ../Tomboy/Plugins/Bugzilla.cs:212
-msgid "Icon"
-msgstr "アイコン"
-
-#: ../Tomboy/Plugins/Bugzilla.cs:330
-msgid "Select an icon..."
-msgstr "アイコンの選択..."
-
-#. Extra Widget
-#: ../Tomboy/Plugins/Bugzilla.cs:345
-msgid "_Host name:"
-msgstr "ホスト名(_H):"
-
-#: ../Tomboy/Plugins/Bugzilla.cs:374
-msgid "No host name specified"
-msgstr "ホスト名が指定されていません"
-
-#: ../Tomboy/Plugins/Bugzilla.cs:375
-msgid "You must specify the Bugzilla host name to use with this icon."
-msgstr "このアイコンと一緒に利用する Bugzilla のホスト名を指定して下さい。"
-
-#: ../Tomboy/Plugins/Bugzilla.cs:401
-msgid "Error saving icon"
-msgstr "アイコンを保存する際にエラー"
-
-#: ../Tomboy/Plugins/Bugzilla.cs:402
-msgid "Could not save the icon file.  "
-msgstr "アイコン・ファイルを保存できませんでした。"
-
-#: ../Tomboy/Plugins/Bugzilla.cs:455
-msgid "Really remove this icon?"
-msgstr "このアイコンを削除しますか？"
-
-#: ../Tomboy/Plugins/Bugzilla.cs:456
-msgid "If you remove an icon it is permanently lost."
-msgstr "アイコンを削除すると、設定情報を完全に失うことになります。"
-
-#: ../Tomboy/Plugins/Evolution.cs:265
-msgid "Cannot open email"
-msgstr "E-メールを開けません"
-
-#: ../Tomboy/Plugins/ExportToHTML.cs:55
-msgid "Export to HTML"
-msgstr "HTML へエキスポート"
-
-#: ../Tomboy/Plugins/ExportToHTML.cs:114
-#, csharp-format
-msgid "Your note was exported to \"{0}\"."
-msgstr "メモを \"{0}\" にエキスポートしました。"
-
-#: ../Tomboy/Plugins/ExportToHTML.cs:125
-msgid "Note exported successfully"
-msgstr "メモのエキスポートが完了しました"
-
-#: ../Tomboy/Plugins/ExportToHTML.cs:131
-msgid "Access denied."
-msgstr "アクセスが拒否されました。"
-
-#: ../Tomboy/Plugins/ExportToHTML.cs:133
-msgid "Folder does not exist."
-msgstr "フォルダがありません。"
-
-#: ../Tomboy/Plugins/ExportToHTML.cs:148
-#, csharp-format
-msgid "Could not save the file \"{0}\""
-msgstr "\"{0}\" というファイルを保存できませんでした"
-
-#: ../Tomboy/Plugins/ExportToHTML.cs:267
-msgid "Destination for HTML Export"
-msgstr "HTML のエキスポート先"
-
-#: ../Tomboy/Plugins/ExportToHTML.cs:277
-msgid "Export linked notes"
-msgstr "メモをエキスポートする"
-
-#: ../Tomboy/Plugins/ExportToHTML.cs:282
-msgid "Include all other linked notes"
-msgstr "その他のリンク付きメモを全て含める"
-
-#: ../Tomboy/Plugins/FixedWidth.cs:34
-msgid "_Fixed Width"
-msgstr "固定幅(_F)"
-
-#: ../Tomboy/Plugins/GalagoPresence.cs:235
-#, csharp-format
-msgid "Cannot contact '{0}'"
-msgstr "'{0}' に接続できません"
-
-#: ../Tomboy/Plugins/GalagoPresence.cs:238
-#, csharp-format
-msgid "Error running gaim-remote: {0}"
-msgstr "gaim-remote を起動する際にエラー: {0}"
-
-#: ../Tomboy/Plugins/NoteOfTheDay.cs:13
-msgid "Today: Template"
-msgstr "今日: テンプレート"
-
-#: ../Tomboy/Plugins/NoteOfTheDay.cs:15
-msgid "Today: "
-msgstr "今日: "
-
-#. Format: "Today: Friday, July 01 2005"
-#: ../Tomboy/Plugins/NoteOfTheDay.cs:20
-msgid "dddd, MMMM d yyyy"
-msgstr "MMMM d日 (dddd) tth:mm"
-
-#: ../Tomboy/Plugins/NoteOfTheDay.cs:46
-msgid "Tasks"
-msgstr "タスク"
-
-#: ../Tomboy/Plugins/NoteOfTheDay.cs:47
-msgid "Appointments"
-msgstr "予定"
-
-#: ../Tomboy/Plugins/NoteOfTheDay.cs:70
-msgid "Note of the Day"
-msgstr "今日のメモ"
-
-#: ../Tomboy/Plugins/NoteOfTheDay.cs:204
-msgid ""
-"Change the <span weight=\"bold\">Today: Template</span> note to customize "
-"the text that new Today notes have."
-msgstr ""
-"<span weight=\"bold\">今日: テンプレート</span>のメモを変更して、新しい今日の"
-"メモに表示する項目をカスタマイズしてみて下さい。"
-
-#: ../Tomboy/Plugins/NoteOfTheDay.cs:212
-msgid "_Open Today: Template"
-msgstr "今日: テンプレートを開く(_O)"
-
-#: ../Tomboy/Plugins/StickyNoteImport.cs:52
-msgid "Import from Sticky Notes"
-msgstr "付箋紙のインポート"
-
-#: ../Tomboy/Plugins/StickyNoteImport.cs:134
-msgid "No Sticky Notes found"
-msgstr "付箋紙アプレットが見つかりません"
-
-#: ../Tomboy/Plugins/StickyNoteImport.cs:135
-#, csharp-format
-msgid "No suitable Sticky Notes file was found at \"{0}\"."
-msgstr "\"{0}\" には付箋紙アプレットのファイルはありません。"
-
-#: ../Tomboy/Plugins/StickyNoteImport.cs:144
-msgid "Sticky Notes import completed"
-msgstr "付箋紙のインポートが完了しました"
-
-#: ../Tomboy/Plugins/StickyNoteImport.cs:145
-#, csharp-format
-msgid "<b>{0}</b> of <b>{1}</b> Sticky Notes were successfully imported."
-msgstr ""
-"<b>{0}</b>/<b>{1}</b> 個の付箋紙アプレットのファイルをインポートしました。"
-
-#: ../Tomboy/Plugins/StickyNoteImport.cs:157
-msgid "Untitled"
-msgstr "タイトルなし"
-
-#: ../Tomboy/Plugins/StickyNoteImport.cs:185
-msgid "Sticky Note: "
-msgstr "付箋紙: "
