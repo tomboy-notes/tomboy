@@ -7,6 +7,9 @@ SUBDIRS =				\
 	GalagoPresence		\
 	NoteOfTheDay		\
 	PrintNotes			\
-	StickyNoteImport	\
-	Tasks
+	StickyNoteImport
+
+# Commenting out tasks from being built right now since it's
+# not ready for prime-time yet.
+#	Tasks
 
