@@ -4,19 +4,21 @@
 # Isriya Paireepairit <markpeak@gmail.com>, 2006.
 # Roys Hengwatanakul <roysheng@msn.com>, 2006.
 # Theppitak Karoonboonyanan <thep@linux.thai.net>, 2006-2007.
-#
+# aka.ape <aka.ape@gmail.com>, 2007.
+# 
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: Tomboy VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-06-04 15:50+0700\n"
-"PO-Revision-Date: 2007-06-04 15:52+0700\n"
-"Last-Translator: Theppitak Karoonboonyanan <thep@linux.thai.net>\n"
+"POT-Creation-Date: 2007-07-13 03:36+0100\n"
+"PO-Revision-Date: 2007-07-23 15:39+0700\n"
+"Last-Translator: aka.ape <aka.ape@gmail.com>\n"
 "Language-Team: Thai <thai-l10n@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Plural-Forms: nplurals=1; plural=0;"
 
 #: ../data/GNOME_TomboyApplet.server.in.in.h:1
 msgid "Accessories"
@@ -40,7 +42,7 @@ msgid "_About"
 msgstr "เ_กี่ยวกับ"
 
 #: ../data/GNOME_TomboyApplet.xml.h:2 ../Tomboy/ActionManager.cs:93
-#: ../Tomboy/Applet.cs:186
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:105 ../Tomboy/Applet.cs:186
 msgid "_Help"
 msgstr "_วิธีใช้"
 
@@ -58,34 +60,30 @@ msgid "Create a new Note"
 msgstr "สร้างบันทึกใหม่"
 
 #: ../data/tomboy.schemas.in.h:2
-msgid "Currently enabled plugins."
-msgstr "ปลั๊กอินที่เปิดใช้อยู่"
-
-#: ../data/tomboy.schemas.in.h:3
 msgid "Custom Font Face"
 msgstr "แบบอักษรกำหนดเอง"
 
-#: ../data/tomboy.schemas.in.h:4
+#: ../data/tomboy.schemas.in.h:3
 msgid "Enable WikiWord highlighting"
 msgstr "เปิดใช้งานการเน้นข้อความ WikiWord"
 
-#: ../data/tomboy.schemas.in.h:5
+#: ../data/tomboy.schemas.in.h:4
 msgid "Enable custom font"
 msgstr "เปิดใช้งานแบบอักษรที่กำหนดเอง"
 
-#: ../data/tomboy.schemas.in.h:6
+#: ../data/tomboy.schemas.in.h:5
 msgid "Enable global keybindings"
 msgstr "เปิดใช้งานปุ่มลัดที่ใช้ทั่วทั้งเดสก์ท็อป"
 
-#: ../data/tomboy.schemas.in.h:7
+#: ../data/tomboy.schemas.in.h:6
 msgid "Enable spellchecking"
 msgstr "เปิดใช้งานการตรวจตัวสะกด"
 
-#: ../data/tomboy.schemas.in.h:8
+#: ../data/tomboy.schemas.in.h:7
 msgid "Enable startup notes"
 msgstr "เปิดใช้งานการเปิดบันทึกเมื่อเริ่มทำงาน"
 
-#: ../data/tomboy.schemas.in.h:9
+#: ../data/tomboy.schemas.in.h:8
 msgid ""
 "Enable this option to highlight words ThatLookLikeThis. Clicking the word "
 "will create a note with that name."
@@ -93,38 +91,38 @@ msgstr ""
 "เปิดใช้งานตัวเลือกนี้ถ้าต้องการเน้นคำที่อยู่ในรูป WordCapital "
 "และการคลิกที่คำดังกล่าวจะสร้างบันทึกชื่อในชื่อนั้น"
 
-#: ../data/tomboy.schemas.in.h:10
+#: ../data/tomboy.schemas.in.h:9
 msgid "HTML Export All Linked Notes"
 msgstr "HTML ส่งออกบันทึกที่เชื่อมโยงทั้งหมด"
 
-#: ../data/tomboy.schemas.in.h:11
+#: ../data/tomboy.schemas.in.h:10
 msgid "HTML Export Last Directory"
 msgstr "ไดเรกทอรีที่ส่งออก HTML ครั้งล่าสุด"
 
-#: ../data/tomboy.schemas.in.h:12
+#: ../data/tomboy.schemas.in.h:11
 msgid "HTML Export Linked Notes"
 msgstr "HTML ส่งออกบันทึกที่เชื่อมโยง"
 
-#: ../data/tomboy.schemas.in.h:13
+#: ../data/tomboy.schemas.in.h:12
 msgid ""
 "If enable_custom_font is true, the font name set here will be used as the "
 "font when displaying notes."
 msgstr "ถ้า enable_custom_font เป็นจริง แบบอักษรที่ตั้งไว้นี้จะถูกใช้แบบอักษรสำหรับแสดงบันทึก"
 
-#: ../data/tomboy.schemas.in.h:14
+#: ../data/tomboy.schemas.in.h:13
 msgid ""
 "If enabled, all notes that were open when Tomboy quit will automatically be "
 "reopened at startup."
 msgstr ""
 "ถ้าเปิดใช้ บันทึกทั้งหมดที่เปิดไว้ขณะที่ออกจาก Tomboy ครั้งล่าสุด จะถูกเปิดอีกครั้งเมื่อเริ่มทำงาน"
 
-#: ../data/tomboy.schemas.in.h:15
+#: ../data/tomboy.schemas.in.h:14
 msgid ""
 "If true, misspellings will be underlined in red, and correct spelling "
 "suggestions shown in the right-click menu."
 msgstr "ถ้าเป็นจริง คำที่สะกดผิดจะถูกขีดเส้นใต้สีแดง และแนะนำคำที่สะกดถูกในเมนูคลิกขวา"
 
-#: ../data/tomboy.schemas.in.h:16
+#: ../data/tomboy.schemas.in.h:15
 msgid ""
 "If true, the desktop-global keybindings set in /apps/tomboy/"
 "global_keybindings will be enabled, allowing for useful Tomboy actions to be "
@@ -133,7 +131,7 @@ msgstr ""
 "ถ้าเป็นจริง ชุดปุ่มลัดเพื่อใช้ทั่วทั้งเดสก์ท็อปที่กำหนดใน /apps/tomboy/global_keybindings "
 "จะเปิดใช้งาน  ทำให้สามารถเรียกใช้งาน Tomboy จากโปรแกรมอื่นๆ ได้"
 
-#: ../data/tomboy.schemas.in.h:17
+#: ../data/tomboy.schemas.in.h:16
 msgid ""
 "If true, the font name set in custom_font_face will be used as the font when "
 "displaying notes. Otherwise the desktop default font will be used."
@@ -141,7 +139,7 @@ msgstr ""
 "ถ้าเป็นจริง ชื่อแบบอักษรใน custom_font_face จะถูกใช้เป็นแบบอักษรเมื่อแสดงบันทึก มิฉะนั้น "
 "จะใช้แบบอักษรปริยายของเดสก์ท็อป"
 
-#: ../data/tomboy.schemas.in.h:18
+#: ../data/tomboy.schemas.in.h:17
 msgid ""
 "Indicates that the Sticky Note Importer plugin has not been run, so it "
 "should run automatically the next time Tomboy starts."
@@ -149,53 +147,49 @@ msgstr ""
 "ระบุว่าปลั๊กอินนำเข้าบันทึกจากโน้ตติดกาวยังไม่เคยถูกเรียกมาก่อน จึงควรเรียกโดยอัตโนมัติในการใช้ "
 "Tomboy ครั้งต่อไป"
 
-#: ../data/tomboy.schemas.in.h:19
+#: ../data/tomboy.schemas.in.h:18
 msgid ""
 "Integer determining the minimum number of notes to show in the Tomboy note "
 "menu."
 msgstr "เลขจำนวนเต็มระบุจำนวนบันทึกอย่างต่ำที่จะแสดงในเมนูบันทึกของ Tomboy"
 
-#: ../data/tomboy.schemas.in.h:20
-msgid "List containing the names of currently enabled plugins."
-msgstr "รายการของชื่อปลั๊กอินที่เปิดใช้อยู่"
-
-#: ../data/tomboy.schemas.in.h:21
+#: ../data/tomboy.schemas.in.h:19
 msgid "List of pinned notes."
 msgstr "รายการบันทึกปักหมุด"
 
-#: ../data/tomboy.schemas.in.h:22
+#: ../data/tomboy.schemas.in.h:20
 msgid "Minimum number of notes to show in menu"
 msgstr "จำนวนบันทึกอย่างต่ำที่จะแสดงในเมนู"
 
-#: ../data/tomboy.schemas.in.h:23
+#: ../data/tomboy.schemas.in.h:21
 msgid "Open Recent Changes"
 msgstr "เปิดหน้าการเปลี่ยนแปลงล่าสุด"
 
-#: ../data/tomboy.schemas.in.h:24
+#: ../data/tomboy.schemas.in.h:22
 msgid "Open Search Dialog"
 msgstr "เปิดกล่องโต้ตอบค้นหา"
 
-#: ../data/tomboy.schemas.in.h:25
+#: ../data/tomboy.schemas.in.h:23
 msgid "Open Start Here"
 msgstr "เปิดหน้าเริ่มต้นที่นี่"
 
-#: ../data/tomboy.schemas.in.h:26
+#: ../data/tomboy.schemas.in.h:24
 msgid "Set to TRUE to activate"
 msgstr "ตั้งค่าจริงเพื่อใช้งาน"
 
-#: ../data/tomboy.schemas.in.h:27
+#: ../data/tomboy.schemas.in.h:25
 msgid "Show applet menu"
 msgstr "แสดงเมนูแอพเพล็ต"
 
-#: ../data/tomboy.schemas.in.h:28
+#: ../data/tomboy.schemas.in.h:26
 msgid "Start Here Note"
 msgstr "บันทึก \"เริ่มที่นี่\""
 
-#: ../data/tomboy.schemas.in.h:29
+#: ../data/tomboy.schemas.in.h:27
 msgid "Sticky Note Importer First Run"
 msgstr "เรียกเครื่องมือนำเข้าบันทึกจากโน้ตติดกาวครั้งแรก"
 
-#: ../data/tomboy.schemas.in.h:30
+#: ../data/tomboy.schemas.in.h:28
 msgid ""
 "The global keybinding for creating and displaying a new Note. The format "
 "looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The "
@@ -209,7 +203,7 @@ msgstr ""
 "และเข้าใจชื่อย่อ เช่น \"&lt;Ctl&gt;\" และ \"&lt;Ctrl&gt;\"  คุณสามารถตั้งค่าตัวเลือกเป็น "
 "\"disabled\" ได้ ถ้าไม่ต้องการปุ่มลัดสำหรับปฏิบัติการนี้"
 
-#: ../data/tomboy.schemas.in.h:31
+#: ../data/tomboy.schemas.in.h:29
 msgid ""
 "The global keybinding for opening the \"Start Here\" note. The format looks "
 "like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
@@ -223,7 +217,7 @@ msgstr ""
 "และเข้าใจชื่อย่อ เช่น \"&lt;Ctl&gt;\" และ \"&lt;Ctrl&gt;\"  คุณสามารถตั้งค่าตัวเลือกเป็น "
 "\"disabled\" ได้ ถ้าไม่ต้องการปุ่มลัดสำหรับปฏิบัติการนี้"
 
-#: ../data/tomboy.schemas.in.h:32
+#: ../data/tomboy.schemas.in.h:30
 msgid ""
 "The global keybinding for opening the Note Search dialog. The format looks "
 "like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
@@ -237,7 +231,7 @@ msgstr ""
 "และเข้าใจชื่อย่อ เช่น \"&lt;Ctl&gt;\" และ \"&lt;Ctrl&gt;\"  คุณสามารถตั้งค่าตัวเลือกเป็น "
 "\"disabled\" ได้ ถ้าไม่ต้องการปุ่มลัดสำหรับปฏิบัติการนี้"
 
-#: ../data/tomboy.schemas.in.h:33
+#: ../data/tomboy.schemas.in.h:31
 msgid ""
 "The global keybinding for opening the Recent Changes dialog. The format "
 "looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The "
@@ -252,7 +246,7 @@ msgstr ""
 "\"&lt;Ctrl&gt;\"  คุณสามารถตั้งค่าตัวเลือกเป็น \"disabled\" ได้ "
 "ถ้าไม่ต้องการปุ่มลัดสำหรับปฏิบัติการนี้"
 
-#: ../data/tomboy.schemas.in.h:34
+#: ../data/tomboy.schemas.in.h:32
 msgid ""
 "The global keybinding for showing the Tomboy applet's menu. The format looks "
 "like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
@@ -266,23 +260,23 @@ msgstr ""
 "และเข้าใจชื่อย่อ เช่น \"&lt;Ctl&gt;\" และ \"&lt;Ctrl&gt;\"  คุณสามารถตั้งค่าตัวเลือกเป็น "
 "\"disabled\" ได้ ถ้าไม่ต้องการปุ่มลัดสำหรับปฏิบัติการนี้"
 
-#: ../data/tomboy.schemas.in.h:35
+#: ../data/tomboy.schemas.in.h:33
 msgid "The handler for \"note://\" URLs"
 msgstr "คำสั่งสำหรับจัดการ  \"note://\" URLs"
 
-#: ../data/tomboy.schemas.in.h:36
+#: ../data/tomboy.schemas.in.h:34
 msgid ""
 "The last directory a note was exported to using the Export To HTML plugin."
 msgstr "ไดเรกทอรีล่าสุดที่ส่งออกบันทึกด้วยปลั๊กอิน \"ส่งออกเป็น HTML\""
 
-#: ../data/tomboy.schemas.in.h:37
+#: ../data/tomboy.schemas.in.h:35
 msgid ""
 "The last setting for the 'Export linked notes' checkbox in the Export to "
 "HTML plugin."
 msgstr ""
 "ค่าสุดท้ายที่ตั้งไว้สำหรับกล่องกากบาท 'ส่งออกบันทึกที่เชื่อมโยง' ในปลั๊กอิน \"ส่งออกเป็น HTML\""
 
-#: ../data/tomboy.schemas.in.h:38
+#: ../data/tomboy.schemas.in.h:36
 msgid ""
 "The last setting for the 'Include all other linked notes' checkbox in the "
 "Export to HTML plugin. This setting is used in conjunction with the 'HTML "
@@ -293,7 +287,7 @@ msgstr ""
 "HTML\" ค่านี้ใช้ร่วมกับค่าตั้ง 'HTML ส่งออกบันทึกที่เชื่อมโยง' "
 "โดยใช้ระบุว่าจะรวมโน้ตทั้งหมดที่พบทุกระดับความลึกในหน้า HTML ที่ส่งออกหรือไม่"
 
-#: ../data/tomboy.schemas.in.h:39
+#: ../data/tomboy.schemas.in.h:37
 msgid ""
 "The note URI of the note that should be considered the \"Start Here\" note, "
 "which is always placed at the bottom of the Tomboy note menu and also "
@@ -302,13 +296,14 @@ msgstr ""
 "URI ของบันทึกที่จะถือเป็นบันทึก \"เริ่มที่นี่\" ซึ่งจะวางไว้ที่ท้ายเมนูบันทึกของ Tomboy เสมอ "
 "และสามารถเรียกได้ด้วยปุ่มลัด"
 
-#: ../data/tomboy.schemas.in.h:40
+#: ../data/tomboy.schemas.in.h:38
 msgid ""
 "Whitespace-separated list of note URIs for notes that should always appear "
 "in the Tomboy note menu."
 msgstr "รายการของ URI (คั่นด้วยช่องว่าง) ของบันทึกที่จะแสดงเสมอในเมนูบันทึกของ Tomboy"
 
-#: ../libtomboy/gedit-print.c:142 ../Tomboy/Plugins/PrintNotes.cs:22
+#: ../libtomboy/gedit-print.c:142
+#: ../Tomboy/Addins/PrintNotes/PrintNotesNoteAddin.cs:18
 msgid "Print"
 msgstr "พิมพ์"
 
@@ -339,7 +334,19 @@ msgstr "หน้า %N จาก %Q"
 msgid "%A %x, %X"
 msgstr "%A %x, %X"
 
-#: ../Tomboy/ActionManager.cs:63
+#: ../Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinTreeWidget.cs:91
+msgid "Add-in"
+msgstr "โปรแกรมเสริม"
+
+#: ../Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinTreeWidget.cs:112
+msgid "Version"
+msgstr "รุ่น"
+
+#: ../Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinTreeWidget.cs:168
+msgid "Other"
+msgstr "อื่นๆ"
+
+#: ../Tomboy/ActionManager.cs:63 ../Tomboy/Addins/Tasks/TaskListWindow.cs:79
 msgid "_File"
 msgstr "แ_ฟ้ม"
 
@@ -359,7 +366,7 @@ msgstr "_เปิด..."
 msgid "Open the selected note"
 msgstr "เปิดบันทึกที่เลือก"
 
-#: ../Tomboy/ActionManager.cs:74
+#: ../Tomboy/ActionManager.cs:74 ../Tomboy/Addins/Tasks/TaskListWindow.cs:97
 msgid "_Delete"
 msgstr "_ลบ"
 
@@ -367,11 +374,12 @@ msgstr "_ลบ"
 msgid "Delete the selected note"
 msgstr "ลบบันทึกที่เลือก"
 
-#: ../Tomboy/ActionManager.cs:78 ../Tomboy/NoteWindow.cs:374
+#: ../Tomboy/ActionManager.cs:78 ../Tomboy/Addins/Tasks/TaskListWindow.cs:90
+#: ../Tomboy/NoteWindow.cs:374
 msgid "_Close"
 msgstr "ปิ_ด"
 
-#: ../Tomboy/ActionManager.cs:79
+#: ../Tomboy/ActionManager.cs:79 ../Tomboy/Addins/Tasks/TaskListWindow.cs:91
 msgid "Close this window"
 msgstr "ปิดหน้าต่างนี้"
 
@@ -383,15 +391,15 @@ msgstr "_ออก"
 msgid "Quit Tomboy"
 msgstr "ออกจาก Tomboy"
 
-#: ../Tomboy/ActionManager.cs:86
+#: ../Tomboy/ActionManager.cs:86 ../Tomboy/Addins/Tasks/TaskListWindow.cs:94
 msgid "_Edit"
 msgstr "แ_ก้ไข"
 
-#: ../Tomboy/ActionManager.cs:90
+#: ../Tomboy/ActionManager.cs:90 ../Tomboy/PreferencesDialog.cs:51
 msgid "Tomboy Preferences"
 msgstr "ปรับแต่ง Tomboy"
 
-#: ../Tomboy/ActionManager.cs:96
+#: ../Tomboy/ActionManager.cs:96 ../Tomboy/Addins/Tasks/TaskListWindow.cs:108
 msgid "_Contents"
 msgstr "เนื้อ_หา"
 
@@ -419,19 +427,385 @@ msgstr "_ค้นบันทึกทั้งหมด"
 msgid "Open the Search All Notes window"
 msgstr "เปิดหน้าต่าง \"ค้นบันทึกทั้งหมด\""
 
+#: ../Tomboy/Addins/Backlinks/BacklinksNoteAddin.cs:25
+msgid "What links here?"
+msgstr "ใครเชื่อมโยงมาที่นี่บ้าง?"
+
+#: ../Tomboy/Addins/Backlinks/BacklinksNoteAddin.cs:83
+msgid "(none)"
+msgstr "(ไม่มี)"
+
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:31
+msgid ""
+"You can use any bugzilla just by dragging links into notes.  If you want a "
+"special icon for certain hosts, add them here."
+msgstr ""
+"คุณสามารถใช้ bugzilla ใดก็ตาม ด้วยการลากลิงก์มาที่บันทึก "
+"ถ้าคุณต้องการใช้ไอคอนพิเศษสำหรับแหล่งต่างๆ ก็ให้เพิ่มได้ที่นี่"
+
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:49
+msgid "Host Name"
+msgstr "ชื่อโฮสต์"
+
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:66
+msgid "Icon"
+msgstr "ไอคอน"
+
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:184
+msgid "Select an icon..."
+msgstr "เลือกไอคอน..."
+
+#. Extra Widget
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:199
+msgid "_Host name:"
+msgstr "_ชื่อโฮสต์:"
+
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:228
+msgid "No host name specified"
+msgstr "ไม่ได้ระบุชื่อโฮสต์"
+
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:229
+msgid "You must specify the Bugzilla host name to use with this icon."
+msgstr "คุณต้องระบุชื่อโฮสต์ Bugzilla ที่จะใช้กับไอคอนนี้"
+
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:255
+msgid "Error saving icon"
+msgstr "เกิดข้อผิดพลาดขณะบันทึกไอคอน"
+
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:256
+msgid "Could not save the icon file.  "
+msgstr "ไม่สามารถบันทึกแฟ้มไอคอนได้"
+
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:309
+msgid "Really remove this icon?"
+msgstr "ยืนยันว่าจะลบไอคอนนี้หรือไม่?"
+
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:310
+msgid "If you remove an icon it is permanently lost."
+msgstr "ถ้าเลือกลบ ไอคอนจะถูกลบอย่างถาวร"
+
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:50
+msgid "Export to HTML"
+msgstr "ส่งออกเป็น HTML"
+
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:109
+#, csharp-format
+msgid "Your note was exported to \"{0}\"."
+msgstr "ส่งออกบันทึกของคุณไปที่ \"{0}\""
+
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:120
+msgid "Note exported successfully"
+msgstr "ส่งออกบันทึกสำเร็จแล้ว"
+
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:126
+msgid "Access denied."
+msgstr "ไม่มีสิทธิ์เข้าถึง"
+
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:128
+msgid "Folder does not exist."
+msgstr "ไม่มีโฟลเดอร์อยู่"
+
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:143
+#, csharp-format
+msgid "Could not save the file \"{0}\""
+msgstr "ไม่สามารถบันทึกแฟ้ม \"{0}\""
+
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlDialog.cs:13
+msgid "Destination for HTML Export"
+msgstr "ตำแหน่งที่จะส่งออก HTML"
+
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlDialog.cs:23
+msgid "Export linked notes"
+msgstr "ส่งออกบันทึกที่เชื่อมโยง"
+
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlDialog.cs:28
+msgid "Include all other linked notes"
+msgstr "ส่งออกบันทึกที่เชื่อมโยงอื่นทั้งหมด"
+
+#: ../Tomboy/Addins/Evolution/EvolutionNoteAddin.cs:269
+msgid "Cannot open email"
+msgstr "ไม่สามารถเปิดอีเมล"
+
+#: ../Tomboy/Addins/FixedWidth/FixedWidthMenuItem.cs:14
+msgid "_Fixed Width"
+msgstr "_กว้างคงที่"
+
+#: ../Tomboy/Addins/GalagoPresence/GalagoPresenceNoteAddin.cs:239
+#, csharp-format
+msgid "Cannot contact '{0}'"
+msgstr "ไม่สามารถติดต่อ '{0}'"
+
+#: ../Tomboy/Addins/GalagoPresence/GalagoPresenceNoteAddin.cs:242
+#, csharp-format
+msgid "Error running gaim-remote: {0}"
+msgstr "เกิดข้อผิดพลาดขณะเรียก gaim-remote: {0}"
+
+#: ../Tomboy/Addins/NoteOfTheDay/NoteOfTheDay.cs:10
+msgid "Today: Template"
+msgstr "ต้นแบบบันทึกประจำวัน"
+
+#: ../Tomboy/Addins/NoteOfTheDay/NoteOfTheDay.cs:12
+msgid "Today: "
+msgstr "วันนี้: "
+
+#. Format: "Today: Friday, July 01 2005"
+#: ../Tomboy/Addins/NoteOfTheDay/NoteOfTheDay.cs:17
+msgid "dddd, MMMM d yyyy"
+msgstr "ddddที่ d MMMM yyyy"
+
+#: ../Tomboy/Addins/NoteOfTheDay/NoteOfTheDay.cs:43
+msgid "Tasks"
+msgstr "งาน"
+
+#: ../Tomboy/Addins/NoteOfTheDay/NoteOfTheDay.cs:44
+msgid "Appointments"
+msgstr "นัดหมาย"
+
+#: ../Tomboy/Addins/NoteOfTheDay/NoteOfTheDay.cs:67
+msgid "Note of the Day"
+msgstr "บันทึกประจำวัน"
+
+#: ../Tomboy/Addins/NoteOfTheDay/NoteOfTheDayPreferences.cs:16
+msgid ""
+"Change the <span weight=\"bold\">Today: Template</span> note to customize "
+"the text that new Today notes have."
+msgstr ""
+"เปลี่ยนบันทึก <span weight=\"bold\">ต้นแบบบันทึกประจำวัน</span> "
+"เพื่อปรับข้อความที่จะใช้ในบันทึกประจำวันที่สร้างใหม่"
+
+#: ../Tomboy/Addins/NoteOfTheDay/NoteOfTheDayPreferences.cs:24
+msgid "_Open Today: Template"
+msgstr "_เปิดต้นแบบบันทึกประจำวัน"
+
+#: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:50
+msgid "Import from Sticky Notes"
+msgstr "นำเข้าจากแอพเพล็ตโน้ตติดกาว"
+
+#: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:132
+msgid "No Sticky Notes found"
+msgstr "ไม่พบบันทึกจากโน้ตติดกาว"
+
+#: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:133
+#, csharp-format
+msgid "No suitable Sticky Notes file was found at \"{0}\"."
+msgstr "ไม่พบบันทึกของแอพเพล็ตโน้ตติดกาวที่เหมาะสมที่ \"{0}\""
+
+#: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:142
+msgid "Sticky Notes import completed"
+msgstr "นำเข้าบันทึกจากโน้ตติดกาวสำเร็จแล้ว"
+
+#: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:143
+#, csharp-format
+msgid "<b>{0}</b> of <b>{1}</b> Sticky Notes were successfully imported."
+msgstr "นำเข้าบันทึกของโน้ตติดกาวสำเร็จ <b>{0}</b> รายการ จาก <b>{1}</b> รายการ"
+
+#: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:155
+msgid "Untitled"
+msgstr "ไม่มีหัวข้อ"
+
+#: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:183
+msgid "Sticky Note: "
+msgstr "โน้ตติดกาว: "
+
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:65
+#: ../Tomboy/Addins/Tasks/TasksApplicationAddin.cs:55
+msgid "To Do List"
+msgstr "รายการต้องทำ"
+
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:82
+msgid "New _Task"
+msgstr "_งานใหม่"
+
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:83
+msgid "Create a new task"
+msgstr "สร้างงานใหม่"
+
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:86
+msgid "_Options..."
+msgstr "_ตัวเลือก..."
+
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:87
+msgid "Open the selected task"
+msgstr "เปิดงานที่เลือก"
+
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:98
+msgid "Delete the selected task"
+msgstr "ลบงานที่เลือกออก"
+
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:101
+msgid "Open Associated _Note"
+msgstr "เปิดบัน_ทึกที่เกี่ยวข้อง"
+
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:102
+msgid "Open the note containing the task"
+msgstr "เปิดบันทึกที่บรรยายงานนี้"
+
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:109
+msgid "Tasks Help"
+msgstr "วิธีใช้งาน"
+
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:244
+msgid "Summary"
+msgstr "โดยสรุป"
+
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:268
+msgid "Due Date"
+msgstr "วันครบกำหนด"
+
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:290
+msgid "Completion Date"
+msgstr "วันที่งานเสร็จ"
+
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:311
+msgid "Priority"
+msgstr "ลำดับความสำคัญ"
+
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:324
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:416
+#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:164
+msgid "None"
+msgstr "ไม่มี"
+
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:325
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:407
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:902
+#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:165
+msgid "Low"
+msgstr "ต่ำ"
+
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:326
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:410
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:904
+#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:166
+msgid "Normal"
+msgstr "ปกติ"
+
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:327
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:413
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:906
+#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:167
+msgid "High"
+msgstr "สูง"
+
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:433
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:442
+#, csharp-format
+msgid "Total: {0} task"
+msgid_plural "Total: {0} tasks"
+msgstr[0] "ทั้งหมด: {0} งาน"
+
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:601
+#, csharp-format
+msgid "New Task {0}"
+msgstr "งานใหม่ {0}"
+
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:826
+msgid "Really delete this task?"
+msgstr "ยืนยันว่าลบงานนี้หรือไม่?"
+
+#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:827
+msgid "If you delete a task it is permanently lost."
+msgstr "ถ้าคุณลบ งานจะสูญหายอย่างถาวร"
+
+#: ../Tomboy/Addins/Tasks/TaskManager.cs:216
+msgid "Learn About Tomboy"
+msgstr "เรียนรู้เกี่ยวกับ Tomboy"
+
+#: ../Tomboy/Addins/Tasks/TaskManager.cs:219
+msgid ""
+"Click on the Tomboy icon in your panel and select \"Start Here\".  You'll "
+"see more instructions on how to use Tomboy inside the \"Start Here\" note.\n"
+"\n"
+"When you've opened the \"Start Here\" note, mark this task as being complete."
+msgstr ""
+"คลิกที่ไอคอน Tomboy ในพาเนลของคุณและเลือก \"เริ่มที่นี่\"  คุณจะเห็นคำแนะนำถึง"
+"วิธีใช้ Tomboy อีกมากภายในบันทึก \"เริ่มที่นี่\" \n"
+"\n"
+"เมื่อคุณเปิดบันทึก \"เริ่มที่นี่\" ถือเป็นการทำเครื่องหมายงานชิ้นนี้ว่าเสร็จเรียบร้อย"
+
+#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:34
+msgid "Task Options"
+msgstr "ตัวเลือกสำหรับงาน"
+
+#. Gtk.Label l = new Gtk.Label (
+#. string.Format (
+#. "<span weight=\"bold\">{0}</span>",
+#. Catalog.GetString ("Task Options")));
+#. l.UseMarkup = true;
+#. l.Show ();
+#. vbox.PackStart (l, false, false, 0);
+#. /
+#. / Summary
+#. /
+#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:70
+msgid "_Summary:"
+msgstr "โดย_สรุป:"
+
+#. /
+#. / Details
+#. /
+#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:84
+msgid "_Details:"
+msgstr "ราย_ละเอียด:"
+
+#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:108
+#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:272
+msgid "_Completed:"
+msgstr "_สมบูรณ์:"
+
+#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:109
+#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:275
+msgid "_Complete"
+msgstr "_สมบูรณ์"
+
+#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:132
+msgid "Due Date:"
+msgstr "วันครบกำหนด:"
+
+#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:156
+msgid "Priority:"
+msgstr "ลำดับความสำคัญ:"
+
+#: ../Tomboy/Addins/Tasks/TasksApplicationAddin.cs:53
+msgid "_Tools"
+msgstr "เ_ครื่องมือ"
+
+#: ../Tomboy/Addins/Tasks/TasksNoteAddin.cs:37
+#: ../Tomboy/Addins/Tasks/TasksNoteAddin.cs:170
+#: ../Tomboy/Addins/Tasks/TasksNoteAddin.cs:247
+#: ../Tomboy/Addins/Tasks/TasksNoteAddin.cs:351
+msgid "todo"
+msgstr "ต้องทำ"
+
+#: ../Tomboy/Addins/Tasks/TasksNoteAddin.cs:453
+msgid "Open To Do List"
+msgstr "เปิดรายการงานต้องทำ"
+
+#: ../Tomboy/Addins/Tasks/TasksNoteAddin.cs:458
+msgid "To Do Options"
+msgstr "ต้วเลือกงานต้องทำ"
+
+#: ../Tomboy/Addins/Tasks/TasksNoteAddin.cs:466
+msgid "Mark Undone"
+msgstr "ทำเครื่องหมายว่ายังไม่เสร็จ"
+
+#: ../Tomboy/Addins/Tasks/TasksNoteAddin.cs:467
+msgid "Mark Complete"
+msgstr "ทำเครื่องหมายว่าเสร็จเรียบร้อย"
+
 #: ../Tomboy/Applet.cs:191
 msgid "_About Tomboy"
 msgstr "เ_กี่ยวกับ Tomboy"
 
-#: ../Tomboy/Note.cs:1018
+#: ../Tomboy/Note.cs:1143
 msgid "Really delete this note?"
 msgstr "ยืนยันว่าจะลบหรือไม่?"
 
-#: ../Tomboy/Note.cs:1019
+#: ../Tomboy/Note.cs:1144
 msgid "If you delete a note it is permanently lost."
 msgstr "ถ้าเลือกลบ บันทึกจะถูกลบอย่างถาวร"
 
-#: ../Tomboy/NoteManager.cs:144
+#: ../Tomboy/NoteManager.cs:132
 msgid ""
 "<note-content>Start Here\n"
 "\n"
@@ -466,7 +840,7 @@ msgstr ""
 "ว่าทุกครั้งที่คุณพิมพ์ <link:internal>การใช้ลิงก์ใน Tomboy</link:internal> "
 "ข้อความดังกล่าวจะถูกขีดเส้นใต้โดยอัตโนมัติ? คลิกที่ลิงก์เพื่อเปิดดูบันทึกดังกล่าวได้</note-content>"
 
-#: ../Tomboy/NoteManager.cs:163
+#: ../Tomboy/NoteManager.cs:151
 msgid ""
 "<note-content>Using Links in Tomboy\n"
 "\n"
@@ -494,22 +868,26 @@ msgstr ""
 "content>"
 
 #. Attempt to find an existing Start Here note
-#: ../Tomboy/NoteManager.cs:178 ../Tomboy/NoteManager.cs:241
+#: ../Tomboy/NoteManager.cs:166 ../Tomboy/NoteManager.cs:229
 msgid "Start Here"
 msgstr "เริ่มที่นี่"
 
-#: ../Tomboy/NoteManager.cs:183
+#: ../Tomboy/NoteManager.cs:171
 msgid "Using Links in Tomboy"
 msgstr "การใช้ลิงก์ใน Tomboy"
 
-#: ../Tomboy/NoteManager.cs:301
+#: ../Tomboy/NoteManager.cs:299
 #, csharp-format
 msgid "New Note {0}"
 msgstr "บันทึกใหม่ {0}"
 
-#: ../Tomboy/NoteManager.cs:347
+#: ../Tomboy/NoteManager.cs:345
 msgid "Describe your new note here."
 msgstr "บรรยายบันทึกใหม่ของคุณที่นี่"
+
+#: ../Tomboy/NoteManager.cs:360
+msgid "New Note"
+msgstr "บันทึกใหม่"
 
 #: ../Tomboy/NoteWindow.cs:55
 msgid "Find in This Note"
@@ -555,7 +933,7 @@ msgstr "_ข้อความ"
 msgid "Set properties of text"
 msgstr "ปรับแต่งตัวอักษร"
 
-#: ../Tomboy/NoteWindow.cs:444 ../Tomboy/RecentChanges.cs:244
+#: ../Tomboy/NoteWindow.cs:444 ../Tomboy/RecentChanges.cs:243
 msgid "Tags"
 msgstr "ป้ายกำกับ"
 
@@ -651,50 +1029,138 @@ msgstr "เ_ล็ก"
 msgid "Bullets"
 msgstr "รายการ"
 
-#: ../Tomboy/PluginManager.cs:60
-msgid "Tomboy Project"
-msgstr "โครงการ Tomboy"
+#: ../Tomboy/PreferencesDialog.cs:69
+msgid "Editing"
+msgstr "แก้ไข"
 
-#: ../Tomboy/PluginManager.cs:574
-#, csharp-format
-msgid "Cannot fully disable {0}."
-msgstr "ไม่สามารถปิด {0} ได้อย่างสมบูรณ์"
+#: ../Tomboy/PreferencesDialog.cs:71
+msgid "Hotkeys"
+msgstr "ปุ่มลัด"
 
-#: ../Tomboy/PluginManager.cs:577
-#, csharp-format
+#: ../Tomboy/PreferencesDialog.cs:73
+msgid "Add-ins"
+msgstr "โปรแกรมเสริม"
+
+#: ../Tomboy/PreferencesDialog.cs:116
+msgid "_Spell check while typing"
+msgstr "ตรวจ_สะกดขณะพิมพ์"
+
+#: ../Tomboy/PreferencesDialog.cs:125
 msgid ""
-"Cannot fully disable {0} as there still are at least {1} reference to this "
-"plugin. This indicates a programming error. Contact the plugin's author and "
-"report this problem.\n"
-"\n"
-"<b>Developer Information:</b> This problem usually occurs when the plugin's "
-"Dispose method fails to disconnect all event handlers. The heap-shot "
-"profiler ({2}) can help to identify leaking references."
-msgstr ""
-"ไม่สามารถปิด {0} ได้อย่างสมบูรณ์ เนื่องจากยังมีการอ้างอิงมายังปลั๊กอินนี้อย่างน้อย {1} รายการ "
-"สถานการณ์นี้หมายถึงความผิดพลาดของโปรแกรม กรุณาติดต่อผู้เขียนปลั๊กอินและรายงานปัญหานี้\n"
-"\n"
-"<b>ข้อมูลสำหรับนักพัฒนา:</b> ปัญหานี้มักเกิดขึ้นเมื่อเมธอด Dispose "
-"ของปลั๊กอินไม่สามารถตัดการเชื่อมต่อกับรูทีนจัดการเหตุการณ์ทั้งหมดได้ เนื้อหาฮีปปัจจุบันจากโพรไฟเลอร์ "
-"({2}) สามารถช่วยสืบหาการอ้างอิงที่รั่วไหลได้"
+"Misspellings will be underlined in red, with correct spelling suggestions "
+"shown in the context menu."
+msgstr "คำที่สะกดผิดจะถูกขีดเส้นใต้สีแดง พร้อมคำแนะนำตัวสะกดในเมนูคลิกขวา"
 
-#: ../Tomboy/RecentChanges.cs:69
+#. WikiWords...
+#: ../Tomboy/PreferencesDialog.cs:136
+msgid "Highlight _WikiWords"
+msgstr "เ_น้น WikiWords"
+
+#: ../Tomboy/PreferencesDialog.cs:144
+msgid ""
+"Enable this option to highlight words <b>ThatLookLikeThis</b>. Clicking the "
+"word will create a note with that name."
+msgstr ""
+"เปิดใช้งานตัวเลือกนี้ถ้าต้องการเน้นคำที่อยู่ในรูป <b>WordCapital</b> "
+"และการคลิกที่คำดังกล่าวจะสร้างบันทึกชื่อในชื่อนั้น"
+
+#. Custom font...
+#: ../Tomboy/PreferencesDialog.cs:153
+msgid "Use custom _font"
+msgstr "ใช้แ_บบอักษรที่กำหนด"
+
+#. Hotkeys...
+#: ../Tomboy/PreferencesDialog.cs:223
+msgid "Listen for _Hotkeys"
+msgstr "ใช้งาน_ปุ่มลัด"
+
+#: ../Tomboy/PreferencesDialog.cs:232
+msgid ""
+"Hotkeys allow you to quickly access your notes from anywhere with a "
+"keypress. Example Hotkeys: <b>&lt;Control&gt;&lt;Shift&gt;F11</b>, <b>&lt;"
+"Alt&gt;N</b>"
+msgstr ""
+"ปุ่มลัดช่วยให้คุณเข้าถึงบันทึกได้จากทุกที่ทันทีที่กดปุ่ม ตัวอย่าง: <b>&lt;Control&gt;&lt;Shift&gt;"
+"F11</b>, <b>&lt;Alt&gt;N</b>"
+
+#. Show notes menu keybinding...
+#: ../Tomboy/PreferencesDialog.cs:252
+msgid "Show notes _menu"
+msgstr "แสดงเ_มนูของบันทึก"
+
+#. Open Start Here keybinding...
+#: ../Tomboy/PreferencesDialog.cs:269
+msgid "Open \"_Start Here\""
+msgstr "เปิด \"เ_ริ่มที่นี่\""
+
+#. Create new note keybinding...
+#: ../Tomboy/PreferencesDialog.cs:286
+msgid "Create _new note"
+msgstr "สร้าง_บันทึกใหม่"
+
+#. Open Search All Notes window keybinding...
+#: ../Tomboy/PreferencesDialog.cs:303
+msgid "Open \"Search _All Notes\""
+msgstr "เปิด \"ค้นบันทึก_ทั้งหมด\""
+
+#: ../Tomboy/PreferencesDialog.cs:329
+msgid "The following add-ins are installed"
+msgstr "โปรแกรมเสริมดังต่อไปนี้ติดตั้งแล้ว"
+
+#: ../Tomboy/PreferencesDialog.cs:360
+msgid "_Enable"
+msgstr "เปิดใ_ช้"
+
+#: ../Tomboy/PreferencesDialog.cs:366
+msgid "_Disable"
+msgstr "ไ_ม่ใช้"
+
+#: ../Tomboy/PreferencesDialog.cs:497
+msgid "Not Implemented"
+msgstr "ยังไม่รองรับ"
+
+#: ../Tomboy/PreferencesDialog.cs:511
+#, csharp-format
+msgid "{0} Preferences"
+msgstr "ปรับแต่ง {0}"
+
+#: ../Tomboy/PreferencesDialog.cs:650
+msgid "Choose Note Font"
+msgstr "เลือกขนาดอักษรสำหรับบันทึก"
+
+#: ../Tomboy/PreferencesDialog.cs:743
+msgid "Version:"
+msgstr "รุ่น:"
+
+#: ../Tomboy/PreferencesDialog.cs:750
+msgid "Author:"
+msgstr "ผู้แต่ง:"
+
+#: ../Tomboy/PreferencesDialog.cs:757
+msgid "Copyright:"
+msgstr "สงวนลิขสิทธิ์:"
+
+#: ../Tomboy/PreferencesDialog.cs:763
+msgid "Add-in Dependencies:"
+msgstr "สิ่งที่โปรแกรมเสริมต้องใช้:"
+
+#: ../Tomboy/RecentChanges.cs:68
 msgid "Search All Notes"
 msgstr "ค้นบันทึกทั้งหมด"
 
-#: ../Tomboy/RecentChanges.cs:84
+#: ../Tomboy/RecentChanges.cs:83
 msgid "_Search:"
 msgstr "_ค้นหา:"
 
-#: ../Tomboy/RecentChanges.cs:105
+#: ../Tomboy/RecentChanges.cs:104
 msgid "C_ase Sensitive"
 msgstr "ตัวพิมพ์ใหญ่-เ_ล็กตรงกัน"
 
-#: ../Tomboy/RecentChanges.cs:294
+#: ../Tomboy/RecentChanges.cs:293
 msgid "Note"
 msgstr "บันทึก"
 
-#: ../Tomboy/RecentChanges.cs:313
+#: ../Tomboy/RecentChanges.cs:312
 msgid "Last Changed"
 msgstr "เปลี่ยนแปลงล่าสุด"
 
@@ -714,30 +1180,31 @@ msgid "{0} match"
 msgid_plural "{0} matches"
 msgstr[0] "พบ {0} รายการ"
 
-#: ../Tomboy/Tomboy.cs:181
+#: ../Tomboy/Tomboy.cs:188
 msgid "Cannot create new note"
 msgstr "ไม่สามารถสร้างบันทึกใหม่ได้"
 
-#: ../Tomboy/Tomboy.cs:236
+#: ../Tomboy/Tomboy.cs:243
 msgid "translator-credits"
 msgstr ""
 "Isriya Paireepairit <markpeak@gmail.com>\n"
 "Roys Hengwatanakul <roysheng@msn.com>\n"
-"Theppitak Karoonboonyanan <thep@linux.thai.net>"
+"Theppitak Karoonboonyanan <thep@linux.thai.net>\n"
+"aka.ape <aka.ape@gmail.com>"
 
-#: ../Tomboy/Tomboy.cs:245
+#: ../Tomboy/Tomboy.cs:252
 msgid "Copyright © 2004-2007 Alex Graveley"
 msgstr "สงวนลิขสิทธิ์ © 2004-2007 Alex Graveley"
 
-#: ../Tomboy/Tomboy.cs:246
+#: ../Tomboy/Tomboy.cs:253
 msgid "A simple and easy to use desktop note-taking application."
 msgstr "โปรแกรมบันทึกข้อความที่เรียบง่ายใช้สะดวก"
 
-#: ../Tomboy/Tomboy.cs:249
+#: ../Tomboy/Tomboy.cs:256
 msgid "Homepage"
 msgstr "โฮมเพจ"
 
-#: ../Tomboy/Tomboy.cs:333
+#: ../Tomboy/Tomboy.cs:342
 msgid ""
 "Tomboy: A simple, easy to use desktop note-taking application.\n"
 "Copyright (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
@@ -747,7 +1214,7 @@ msgstr ""
 "Copyright (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
 "\n"
 
-#: ../Tomboy/Tomboy.cs:345
+#: ../Tomboy/Tomboy.cs:354
 msgid ""
 "Usage:\n"
 "  --version\t\t\tPrint version information.\n"
@@ -761,7 +1228,7 @@ msgstr ""
 "  --note-path [path]\t\tเรียก/บันทึกข้อความในไดเรกทอรีนี้\n"
 "  --search [text]\t\tเปิดหน้าต่างค้นบันทึกทั้งหมด พร้อมคำค้น\n"
 
-#: ../Tomboy/Tomboy.cs:356
+#: ../Tomboy/Tomboy.cs:365
 msgid ""
 "  --new-note\t\t\tCreate and display a new note.\n"
 "  --new-note [title]\t\tCreate and display a new note, with a title.\n"
@@ -775,20 +1242,21 @@ msgstr ""
 "  --start-here\t\t\tแสดงบันทึก 'เริ่มที่นี่'\n"
 "  --highlight-search [text]\tค้นหาและเน้นคำในบันทึกที่เปิดอยู่\n"
 
-#: ../Tomboy/Tomboy.cs:368
-msgid "  --check-plugin-unloading\tCheck if plugins are unloaded properly.\n"
-msgstr "  --check-plugin-unloading\tตรวจสอบว่าปลั๊กอินถูกถอดถอนเรียบร้อยดีหรือไม่\n"
-
-#: ../Tomboy/Tomboy.cs:372
+#. TODO: Restore this functionality with addins
+#. usage +=
+#. Catalog.GetString (
+#. "  --check-plugin-unloading\tCheck if plugins are " +
+#. "unloaded properly.\n");
+#: ../Tomboy/Tomboy.cs:382
 msgid "D-BUS remote control disabled.\n"
 msgstr "การควบคุมระยะไกลผ่าน D-BUS ปิดอยู่\n"
 
-#: ../Tomboy/Tomboy.cs:380
+#: ../Tomboy/Tomboy.cs:390
 #, csharp-format
 msgid "Version {0}"
 msgstr "รุ่น {0}"
 
-#: ../Tomboy/Tomboy.cs:447
+#: ../Tomboy/Tomboy.cs:460
 #, csharp-format
 msgid ""
 "Tomboy: unsupported option '{0}'\n"
@@ -818,42 +1286,72 @@ msgstr "ไม่พบ \"คู่มือวิธีใช้บันทึ
 msgid "Help not found"
 msgstr "ไม่พบคู่มือวิธีใช้"
 
-#: ../Tomboy/Utils.cs:146
+#: ../Tomboy/Utils.cs:151
 #, csharp-format
 msgid "Today, {0}"
 msgstr "วันนี้ {0}"
 
-#: ../Tomboy/Utils.cs:150
+#: ../Tomboy/Utils.cs:153
+msgid "Today"
+msgstr "วันนี้"
+
+#: ../Tomboy/Utils.cs:157
 #, csharp-format
 msgid "Yesterday, {0}"
 msgstr "เมื่อวานนี้ {0}"
 
-#: ../Tomboy/Utils.cs:154
+#: ../Tomboy/Utils.cs:159
+msgid "Yesterday"
+msgstr "เมื่อวาน"
+
+#: ../Tomboy/Utils.cs:163
 #, csharp-format
 msgid "{0} days ago, {1}"
 msgstr "{0} วันก่อน {1}"
 
-#: ../Tomboy/Utils.cs:158
+#: ../Tomboy/Utils.cs:165
+#, csharp-format
+msgid "{0} days ago"
+msgstr "{0} วันก่อน"
+
+#: ../Tomboy/Utils.cs:170
 #, csharp-format
 msgid "Tomorrow, {0}"
 msgstr "พรุ่งนี้ {0}"
 
-#: ../Tomboy/Utils.cs:162
+#: ../Tomboy/Utils.cs:172
+msgid "Tomorrow"
+msgstr "พรุ่งนี้"
+
+#: ../Tomboy/Utils.cs:176
 #, csharp-format
 msgid "In {0} days, {1}"
 msgstr "อีก {0} วัน {1}"
 
-#: ../Tomboy/Utils.cs:166
+#: ../Tomboy/Utils.cs:178
+#, csharp-format
+msgid "In {0} days"
+msgstr "อีก {0} วัน"
+
+#: ../Tomboy/Utils.cs:182
 msgid "MMMM d, h:mm tt"
 msgstr "d MMMM, H:mm"
 
-#: ../Tomboy/Utils.cs:168
+#: ../Tomboy/Utils.cs:183
+msgid "MMMM d"
+msgstr "d MMMM"
+
+#: ../Tomboy/Utils.cs:185
 msgid "No Date"
 msgstr "ไม่ระบุวันที่"
 
-#: ../Tomboy/Utils.cs:170
+#: ../Tomboy/Utils.cs:188
 msgid "MMMM d yyyy, h:mm tt"
 msgstr "d MMMM yyyy, H:mm"
+
+#: ../Tomboy/Utils.cs:189
+msgid "MMMM d yyyy"
+msgstr "d MMMM yyyy"
 
 #: ../Tomboy/Watchers.cs:137
 #, csharp-format
@@ -884,185 +1382,37 @@ msgstr "_คัดลอกตำแหน่งลิงก์"
 msgid "_Open Link"
 msgstr "เ_ปิดลิงก์"
 
-#: ../Tomboy/Plugins/Backlinks.cs:79
-msgid "What links here?"
-msgstr "ใครเชื่อมโยงมาที่นี่บ้าง?"
+#~ msgid "Currently enabled plugins."
+#~ msgstr "ปลั๊กอินที่เปิดใช้อยู่"
 
-#: ../Tomboy/Plugins/Backlinks.cs:137
-msgid "(none)"
-msgstr "(ไม่มี)"
+#~ msgid "List containing the names of currently enabled plugins."
+#~ msgstr "รายการของชื่อปลั๊กอินที่เปิดใช้อยู่"
 
-#: ../Tomboy/Plugins/Bugzilla.cs:177
-msgid ""
-"You can use any bugzilla just by dragging links into notes.  If you want a "
-"special icon for certain hosts, add them here."
-msgstr ""
-"คุณสามารถใช้ bugzilla ใดก็ตาม ด้วยการลากลิงก์มาที่บันทึก "
-"ถ้าคุณต้องการใช้ไอคอนพิเศษสำหรับแหล่งต่างๆ ก็ให้เพิ่มได้ที่นี่"
+#~ msgid "Tomboy Project"
+#~ msgstr "โครงการ Tomboy"
 
-#: ../Tomboy/Plugins/Bugzilla.cs:195
-msgid "Host Name"
-msgstr "ชื่อโฮสต์"
+#~ msgid "Cannot fully disable {0}."
+#~ msgstr "ไม่สามารถปิด {0} ได้อย่างสมบูรณ์"
 
-#: ../Tomboy/Plugins/Bugzilla.cs:212
-msgid "Icon"
-msgstr "ไอคอน"
+#~ msgid ""
+#~ "Cannot fully disable {0} as there still are at least {1} reference to "
+#~ "this plugin. This indicates a programming error. Contact the plugin's "
+#~ "author and report this problem.\n"
+#~ "\n"
+#~ "<b>Developer Information:</b> This problem usually occurs when the "
+#~ "plugin's Dispose method fails to disconnect all event handlers. The heap-"
+#~ "shot profiler ({2}) can help to identify leaking references."
+#~ msgstr ""
+#~ "ไม่สามารถปิด {0} ได้อย่างสมบูรณ์ เนื่องจากยังมีการอ้างอิงมายังปลั๊กอินนี้อย่างน้อย {1} รายการ "
+#~ "สถานการณ์นี้หมายถึงความผิดพลาดของโปรแกรม กรุณาติดต่อผู้เขียนปลั๊กอินและรายงานปัญหานี้\n"
+#~ "\n"
+#~ "<b>ข้อมูลสำหรับนักพัฒนา:</b> ปัญหานี้มักเกิดขึ้นเมื่อเมธอด Dispose "
+#~ "ของปลั๊กอินไม่สามารถตัดการเชื่อมต่อกับรูทีนจัดการเหตุการณ์ทั้งหมดได้ "
+#~ "เนื้อหาฮีปปัจจุบันจากโพรไฟเลอร์ ({2}) สามารถช่วยสืบหาการอ้างอิงที่รั่วไหลได้"
 
-#: ../Tomboy/Plugins/Bugzilla.cs:330
-msgid "Select an icon..."
-msgstr "เลือกไอคอน..."
-
-#. Extra Widget
-#: ../Tomboy/Plugins/Bugzilla.cs:345
-msgid "_Host name:"
-msgstr "_ชื่อโฮสต์:"
-
-#: ../Tomboy/Plugins/Bugzilla.cs:374
-msgid "No host name specified"
-msgstr "ไม่ได้ระบุชื่อโฮสต์"
-
-#: ../Tomboy/Plugins/Bugzilla.cs:375
-msgid "You must specify the Bugzilla host name to use with this icon."
-msgstr "คุณต้องระบุชื่อโฮสต์ Bugzilla ที่จะใช้กับไอคอนนี้"
-
-#: ../Tomboy/Plugins/Bugzilla.cs:401
-msgid "Error saving icon"
-msgstr "เกิดข้อผิดพลาดขณะบันทึกไอคอน"
-
-#: ../Tomboy/Plugins/Bugzilla.cs:402
-msgid "Could not save the icon file.  "
-msgstr "ไม่สามารถบันทึกแฟ้มไอคอนได้"
-
-#: ../Tomboy/Plugins/Bugzilla.cs:455
-msgid "Really remove this icon?"
-msgstr "ยืนยันว่าจะลบไอคอนนี้หรือไม่?"
-
-#: ../Tomboy/Plugins/Bugzilla.cs:456
-msgid "If you remove an icon it is permanently lost."
-msgstr "ถ้าเลือกลบ ไอคอนจะถูกลบอย่างถาวร"
-
-#: ../Tomboy/Plugins/Evolution.cs:265
-msgid "Cannot open email"
-msgstr "ไม่สามารถเปิดอีเมล"
-
-#: ../Tomboy/Plugins/ExportToHTML.cs:55
-msgid "Export to HTML"
-msgstr "ส่งออกเป็น HTML"
-
-#: ../Tomboy/Plugins/ExportToHTML.cs:114
-#, csharp-format
-msgid "Your note was exported to \"{0}\"."
-msgstr "ส่งออกบันทึกของคุณไปที่ \"{0}\""
-
-#: ../Tomboy/Plugins/ExportToHTML.cs:125
-msgid "Note exported successfully"
-msgstr "ส่งออกบันทึกสำเร็จแล้ว"
-
-#: ../Tomboy/Plugins/ExportToHTML.cs:131
-msgid "Access denied."
-msgstr "ไม่มีสิทธิ์เข้าถึง"
-
-#: ../Tomboy/Plugins/ExportToHTML.cs:133
-msgid "Folder does not exist."
-msgstr "ไม่มีโฟลเดอร์อยู่"
-
-#: ../Tomboy/Plugins/ExportToHTML.cs:148
-#, csharp-format
-msgid "Could not save the file \"{0}\""
-msgstr "ไม่สามารถบันทึกแฟ้ม \"{0}\""
-
-#: ../Tomboy/Plugins/ExportToHTML.cs:267
-msgid "Destination for HTML Export"
-msgstr "ตำแหน่งที่จะส่งออก HTML"
-
-#: ../Tomboy/Plugins/ExportToHTML.cs:277
-msgid "Export linked notes"
-msgstr "ส่งออกบันทึกที่เชื่อมโยง"
-
-#: ../Tomboy/Plugins/ExportToHTML.cs:282
-msgid "Include all other linked notes"
-msgstr "ส่งออกบันทึกที่เชื่อมโยงอื่นทั้งหมด"
-
-#: ../Tomboy/Plugins/FixedWidth.cs:34
-msgid "_Fixed Width"
-msgstr "_กว้างคงที่"
-
-#: ../Tomboy/Plugins/GalagoPresence.cs:235
-#, csharp-format
-msgid "Cannot contact '{0}'"
-msgstr "ไม่สามารถติดต่อ '{0}'"
-
-#: ../Tomboy/Plugins/GalagoPresence.cs:238
-#, csharp-format
-msgid "Error running gaim-remote: {0}"
-msgstr "เกิดข้อผิดพลาดขณะเรียก gaim-remote: {0}"
-
-#: ../Tomboy/Plugins/NoteOfTheDay.cs:13
-msgid "Today: Template"
-msgstr "ต้นแบบบันทึกประจำวัน"
-
-#: ../Tomboy/Plugins/NoteOfTheDay.cs:15
-msgid "Today: "
-msgstr "วันนี้: "
-
-#. Format: "Today: Friday, July 01 2005"
-#: ../Tomboy/Plugins/NoteOfTheDay.cs:20
-msgid "dddd, MMMM d yyyy"
-msgstr "dddd d MMMM yyyy"
-
-#: ../Tomboy/Plugins/NoteOfTheDay.cs:46
-msgid "Tasks"
-msgstr "งาน"
-
-#: ../Tomboy/Plugins/NoteOfTheDay.cs:47
-msgid "Appointments"
-msgstr "นัดหมาย"
-
-#: ../Tomboy/Plugins/NoteOfTheDay.cs:70
-msgid "Note of the Day"
-msgstr "บันทึกประจำวัน"
-
-#: ../Tomboy/Plugins/NoteOfTheDay.cs:204
-msgid ""
-"Change the <span weight=\"bold\">Today: Template</span> note to customize "
-"the text that new Today notes have."
-msgstr ""
-"เปลี่ยนบันทึก <span weight=\"bold\">ต้นแบบบันทึกประจำวัน</span> "
-"เพื่อปรับข้อความที่จะใช้ในบันทึกประจำวันที่สร้างใหม่"
-
-#: ../Tomboy/Plugins/NoteOfTheDay.cs:212
-msgid "_Open Today: Template"
-msgstr "_เปิดต้นแบบบันทึกประจำวัน"
-
-#: ../Tomboy/Plugins/StickyNoteImport.cs:52
-msgid "Import from Sticky Notes"
-msgstr "นำเข้าจากแอพเพล็ตโน้ตติดกาว"
-
-#: ../Tomboy/Plugins/StickyNoteImport.cs:134
-msgid "No Sticky Notes found"
-msgstr "ไม่พบบันทึกจากโน้ตติดกาว"
-
-#: ../Tomboy/Plugins/StickyNoteImport.cs:135
-#, csharp-format
-msgid "No suitable Sticky Notes file was found at \"{0}\"."
-msgstr "ไม่พบบันทึกของแอพเพล็ตโน้ตติดกาวที่เหมาะสมที่ \"{0}\""
-
-#: ../Tomboy/Plugins/StickyNoteImport.cs:144
-msgid "Sticky Notes import completed"
-msgstr "นำเข้าบันทึกจากโน้ตติดกาวสำเร็จแล้ว"
-
-#: ../Tomboy/Plugins/StickyNoteImport.cs:145
-#, csharp-format
-msgid "<b>{0}</b> of <b>{1}</b> Sticky Notes were successfully imported."
-msgstr "นำเข้าบันทึกของโน้ตติดกาวสำเร็จ <b>{0}</b> รายการ จาก <b>{1}</b> รายการ"
-
-#: ../Tomboy/Plugins/StickyNoteImport.cs:157
-msgid "Untitled"
-msgstr "ไม่มีชื่อ"
-
-#: ../Tomboy/Plugins/StickyNoteImport.cs:185
-msgid "Sticky Note: "
-msgstr "โน้ตติดกาว: "
+#~ msgid ""
+#~ "  --check-plugin-unloading\tCheck if plugins are unloaded properly.\n"
+#~ msgstr "  --check-plugin-unloading\tตรวจสอบว่าปลั๊กอินถูกถอดถอนเรียบร้อยดีหรือไม่\n"
 
 #~ msgid "Default Plugins"
 #~ msgstr "ปลั๊กอินปริยาย"
@@ -1073,58 +1423,8 @@ msgstr "โน้ตติดกาว: "
 #~ msgid "_Open Plugins Folder"
 #~ msgstr "เปิดโ_ฟลเดอร์ปลั๊กอิน"
 
-#~ msgid "Editing"
-#~ msgstr "แก้ไข"
-
-#~ msgid "Hotkeys"
-#~ msgstr "ปุ่มลัด"
-
 #~ msgid "Plugins"
 #~ msgstr "ปลั๊กอิน"
-
-#~ msgid "_Spell check while typing"
-#~ msgstr "ตรวจ_สะกดขณะพิมพ์"
-
-#~ msgid ""
-#~ "Misspellings will be underlined in red, with correct spelling suggestions "
-#~ "shown in the context menu."
-#~ msgstr "คำที่สะกดผิดจะถูกขีดเส้นใต้สีแดง พร้อมคำแนะนำตัวสะกดในเมนูคลิกขวา"
-
-#~ msgid "Highlight _WikiWords"
-#~ msgstr "เ_น้น WikiWords"
-
-#~ msgid ""
-#~ "Enable this option to highlight words <b>ThatLookLikeThis</b>. Clicking "
-#~ "the word will create a note with that name."
-#~ msgstr ""
-#~ "เปิดใช้งานตัวเลือกนี้ถ้าต้องการเน้นคำที่อยู่ในรูป <b>WordCapital</b> "
-#~ "และการคลิกที่คำดังกล่าวจะสร้างบันทึกชื่อในชื่อนั้น"
-
-#~ msgid "Use custom _font"
-#~ msgstr "ใช้แ_บบอักษรที่กำหนด"
-
-#~ msgid "Listen for _Hotkeys"
-#~ msgstr "ใช้งาน_ปุ่มลัด"
-
-#~ msgid ""
-#~ "Hotkeys allow you to quickly access your notes from anywhere with a "
-#~ "keypress. Example Hotkeys: <b>&lt;Control&gt;&lt;Shift&gt;F11</b>, <b>&lt;"
-#~ "Alt&gt;N</b>"
-#~ msgstr ""
-#~ "ปุ่มลัดช่วยให้คุณเข้าถึงบันทึกได้จากทุกที่ทันทีที่กดปุ่ม ตัวอย่าง: <b>&lt;Control&gt;&lt;"
-#~ "Shift&gt;F11</b>, <b>&lt;Alt&gt;N</b>"
-
-#~ msgid "Show notes _menu"
-#~ msgstr "แสดงเ_มนูของบันทึก"
-
-#~ msgid "Open \"_Start Here\""
-#~ msgstr "เปิด \"เ_ริ่มที่นี่\""
-
-#~ msgid "Create _new note"
-#~ msgstr "สร้าง_บันทึกใหม่"
-
-#~ msgid "Open \"Search _All Notes\""
-#~ msgstr "เปิด \"ค้นบันทึก_ทั้งหมด\""
 
 #~ msgid "Not available"
 #~ msgstr "ไม่มี"
@@ -1146,9 +1446,6 @@ msgstr "โน้ตติดกาว: "
 
 #~ msgid "{0} Settings"
 #~ msgstr "ค่าตั้งของ {0}"
-
-#~ msgid "Choose Note Font"
-#~ msgstr "เลือกขนาดอักษรสำหรับบันทึก"
 
 #~ msgid "Homepage & Donations"
 #~ msgstr "โฮมเพจ & การบริจาค"
