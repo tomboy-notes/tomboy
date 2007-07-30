@@ -76,10 +76,13 @@ namespace Tomboy.Sync
 			
 			// bootLocalFile, SUSE: /etc/init.d/boot.local
 			// bootLocalFile, Ubuntu: /etc/modules
+			// bootLocalFile, Arch: /etc/rc.conf
 			if (File.Exists ("/etc/init.d/boot.local") == true)
 				bootLocalFile = "/etc/init.d/boot.local";
 			else if (File.Exists ("/etc/modules") == true)
 				bootLocalFile = "/etc/modules";
+			else if (File.Exists ("/etc/rc.conf") == true)
+				bootLocalFile = "/etc/rc.conf";
 			else
 				Logger.Warn ("No bootLocalFile found");
 			
