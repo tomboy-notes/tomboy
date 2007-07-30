@@ -4,14 +4,12 @@
 # Sergej Kotliar <sigge@hystrix.se>, 2006.
 # Christian Rose <menthos@menthos.com>, 2004, 2005.
 #
-# $Id: sv.po,v 1.11 2006/12/11 06:57:44 dnylande Exp $
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: tomboy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-07-17 13:44+0200\n"
-"PO-Revision-Date: 2007-07-17 14:01+0100\n"
+"POT-Creation-Date: 2007-07-30 20:47+0200\n"
+"PO-Revision-Date: 2007-07-30 21:02+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "MIME-Version: 1.0\n"
@@ -46,7 +44,6 @@ msgstr "_Om"
 
 #: ../data/GNOME_TomboyApplet.xml.h:2
 #: ../Tomboy/ActionManager.cs:93
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:105
 #: ../Tomboy/Applet.cs:186
 msgid "_Help"
 msgstr "_Hjälp"
@@ -258,7 +255,6 @@ msgid "Other"
 msgstr "Annat"
 
 #: ../Tomboy/ActionManager.cs:63
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:79
 msgid "_File"
 msgstr "_Arkiv"
 
@@ -280,7 +276,6 @@ msgid "Open the selected note"
 msgstr "Öppna den valda anteckningen"
 
 #: ../Tomboy/ActionManager.cs:74
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:97
 msgid "_Delete"
 msgstr "_Ta bort"
 
@@ -289,13 +284,11 @@ msgid "Delete the selected note"
 msgstr "Ta bort den valda anteckningen"
 
 #: ../Tomboy/ActionManager.cs:78
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:90
 #: ../Tomboy/NoteWindow.cs:374
 msgid "_Close"
 msgstr "S_täng"
 
 #: ../Tomboy/ActionManager.cs:79
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:91
 msgid "Close this window"
 msgstr "Stäng det här fönstret"
 
@@ -309,17 +302,15 @@ msgid "Quit Tomboy"
 msgstr "Avsluta Tomboy"
 
 #: ../Tomboy/ActionManager.cs:86
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:94
 msgid "_Edit"
 msgstr "R_edigera"
 
 #: ../Tomboy/ActionManager.cs:90
-#: ../Tomboy/PreferencesDialog.cs:51
+#: ../Tomboy/PreferencesDialog.cs:61
 msgid "Tomboy Preferences"
 msgstr "Inställningar för Tomboy"
 
 #: ../Tomboy/ActionManager.cs:96
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:108
 msgid "_Contents"
 msgstr "_Innehåll"
 
@@ -347,6 +338,14 @@ msgstr "_Sök i alla anteckningar"
 #: ../Tomboy/ActionManager.cs:112
 msgid "Open the Search All Notes window"
 msgstr "Öppna \"Sök i alla anteckningar\"-fönstret"
+
+#: ../Tomboy/ActionManager.cs:115
+msgid "S_ynchronize Notes"
+msgstr "S_ynkronisera anteckningar"
+
+#: ../Tomboy/ActionManager.cs:116
+msgid "Start synchronizing notes"
+msgstr "Starta synkronisering av anteckningar"
 
 #: ../Tomboy/Addins/Backlinks/BacklinksNoteAddin.cs:25
 msgid "What links here?"
@@ -443,6 +442,15 @@ msgstr "Inkludera alla andra länkade anteckningar"
 msgid "Cannot open email"
 msgstr "Kan inte öppna e-post"
 
+#. TODO: Use a FileChooserDialog to allow the user to choose a path more easily
+#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:79
+msgid "Path:"
+msgstr "Sökväg:"
+
+#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:158
+msgid "Local File System Path"
+msgstr "Lokal filsystemssökväg"
+
 #: ../Tomboy/Addins/FixedWidth/FixedWidthMenuItem.cs:14
 msgid "_Fixed Width"
 msgstr "_Fixerad bredd"
@@ -490,6 +498,28 @@ msgstr "Ändra anteckningen <span weight=\"bold\">Idag: Mall</span> för att anp
 msgid "_Open Today: Template"
 msgstr "_Öppna Idag: Mall"
 
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:48
+msgid "Server:"
+msgstr "Server:"
+
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:58
+msgid "Folder (optional):"
+msgstr "Mapp (valfritt):"
+
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:68
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:64
+msgid "Username:"
+msgstr "Användarnamn:"
+
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:78
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:74
+msgid "Password:"
+msgstr "Lösenord:"
+
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:150
+msgid "SSH (sshfs FUSE)"
+msgstr "SSH (sshfs FUSE)"
+
 #: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:50
 msgid "Import from Sticky Notes"
 msgstr "Importera från Klisterlappar"
@@ -520,200 +550,23 @@ msgstr "Namnlös"
 msgid "Sticky Note: "
 msgstr "Klisterlapp: "
 
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:65
-#: ../Tomboy/Addins/Tasks/TasksApplicationAddin.cs:55
-msgid "To Do List"
-msgstr "Att göra-lista"
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:54
+msgid "URL:"
+msgstr "URL:"
 
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:82
-msgid "New _Task"
-msgstr "Ny _uppgift"
-
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:83
-msgid "Create a new task"
-msgstr "Skapa en ny uppgift"
-
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:86
-msgid "_Options..."
-msgstr "Al_ternativ..."
-
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:87
-msgid "Open the selected task"
-msgstr "Öppna den valda uppgiften"
-
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:98
-msgid "Delete the selected task"
-msgstr "Ta bort den valda uppgiften"
-
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:101
-msgid "Open Associated _Note"
-msgstr "Öppna associerad ant_eckning"
-
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:102
-msgid "Open the note containing the task"
-msgstr "Öppna anteckning som innehåller uppgiften"
-
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:109
-msgid "Tasks Help"
-msgstr "Uppgiftshjälp"
-
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:244
-msgid "Summary"
-msgstr "Sammanfattning"
-
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:268
-msgid "Due Date"
-msgstr "Slutdatum"
-
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:290
-msgid "Completion Date"
-msgstr "Färdig den"
-
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:311
-msgid "Priority"
-msgstr "Prioritet"
-
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:324
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:416
-#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:164
-msgid "None"
-msgstr "Inget"
-
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:325
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:407
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:902
-#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:165
-msgid "Low"
-msgstr "Låg"
-
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:326
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:410
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:904
-#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:166
-msgid "Normal"
-msgstr "Normal"
-
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:327
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:413
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:906
-#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:167
-msgid "High"
-msgstr "Hög"
-
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:433
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:442
-#, csharp-format
-msgid "Total: {0} task"
-msgid_plural "Total: {0} tasks"
-msgstr[0] "Totalt: {0} uppgift"
-msgstr[1] "Totalt: {0} uppgifter"
-
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:601
-#, csharp-format
-msgid "New Task {0}"
-msgstr "Ny uppgift {0}"
-
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:826
-msgid "Really delete this task?"
-msgstr "Verkligen ta bort denna uppgift?"
-
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:827
-msgid "If you delete a task it is permanently lost."
-msgstr "Om du tar bort en uppgift försvinner den för alltid."
-
-#: ../Tomboy/Addins/Tasks/TaskManager.cs:216
-msgid "Learn About Tomboy"
-msgstr "Läs mer om Tomboy"
-
-#: ../Tomboy/Addins/Tasks/TaskManager.cs:219
-msgid ""
-"Click on the Tomboy icon in your panel and select \"Start Here\".  You'll see more instructions on how to use Tomboy inside the \"Start Here\" note.\n"
-"\n"
-"When you've opened the \"Start Here\" note, mark this task as being complete."
-msgstr ""
-"Klicka på Tomboy-ikonen i din panel och välj \"Börja här\".  Du kommer att se fler instruktioner om hur man använder Tomboy inne i anteckningen \"Börja här\".\n"
-"\n"
-"När du har öppnat anteckningen \"Börja här\" kan du markera den här uppgiften som färdig."
-
-#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:34
-msgid "Task Options"
-msgstr "Alternativ för uppgifter"
-
-#. Gtk.Label l = new Gtk.Label (
-#. string.Format (
-#. "<span weight=\"bold\">{0}</span>",
-#. Catalog.GetString ("Task Options")));
-#. l.UseMarkup = true;
-#. l.Show ();
-#. vbox.PackStart (l, false, false, 0);
-#. /
-#. / Summary
-#. /
-#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:70
-msgid "_Summary:"
-msgstr "_Sammanfattning:"
-
-#. /
-#. / Details
-#. /
-#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:84
-msgid "_Details:"
-msgstr "_Detaljer:"
-
-#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:108
-#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:272
-msgid "_Completed:"
-msgstr "_Färdig:"
-
-#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:109
-#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:275
-msgid "_Complete"
-msgstr "_Färdig"
-
-#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:132
-msgid "Due Date:"
-msgstr "Slutdatum:"
-
-#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:156
-msgid "Priority:"
-msgstr "Prioritet:"
-
-#: ../Tomboy/Addins/Tasks/TasksApplicationAddin.cs:53
-msgid "_Tools"
-msgstr "_Verktyg"
-
-#: ../Tomboy/Addins/Tasks/TasksNoteAddin.cs:37
-#: ../Tomboy/Addins/Tasks/TasksNoteAddin.cs:170
-#: ../Tomboy/Addins/Tasks/TasksNoteAddin.cs:247
-#: ../Tomboy/Addins/Tasks/TasksNoteAddin.cs:351
-msgid "todo"
-msgstr "attgöra"
-
-#: ../Tomboy/Addins/Tasks/TasksNoteAddin.cs:453
-msgid "Open To Do List"
-msgstr "Öppna Att göra-lista"
-
-#: ../Tomboy/Addins/Tasks/TasksNoteAddin.cs:458
-msgid "To Do Options"
-msgstr "Alternativ för Att göra"
-
-#: ../Tomboy/Addins/Tasks/TasksNoteAddin.cs:466
-msgid "Mark Undone"
-msgstr "Markera som ofärdig"
-
-#: ../Tomboy/Addins/Tasks/TasksNoteAddin.cs:467
-msgid "Mark Complete"
-msgstr "Markera som färdig"
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:139
+msgid "WebDAV (wdfs FUSE)"
+msgstr "WebDAV (wdfs FUSE)"
 
 #: ../Tomboy/Applet.cs:191
 msgid "_About Tomboy"
 msgstr "_Om Tomboy"
 
-#: ../Tomboy/Note.cs:1143
+#: ../Tomboy/Note.cs:1193
 msgid "Really delete this note?"
 msgstr "Verkligen ta bort denna anteckning?"
 
-#: ../Tomboy/Note.cs:1144
+#: ../Tomboy/Note.cs:1194
 msgid "If you delete a note it is permanently lost."
 msgstr "Om du tar bort en anteckning försvinner den för alltid."
 
@@ -771,16 +624,16 @@ msgstr "Börja här"
 msgid "Using Links in Tomboy"
 msgstr "Användning av länkar i Tomboy"
 
-#: ../Tomboy/NoteManager.cs:299
+#: ../Tomboy/NoteManager.cs:303
 #, csharp-format
 msgid "New Note {0}"
 msgstr "Ny anteckning {0}"
 
-#: ../Tomboy/NoteManager.cs:345
+#: ../Tomboy/NoteManager.cs:364
 msgid "Describe your new note here."
 msgstr "Beskriv din nya anteckning här."
 
-#: ../Tomboy/NoteManager.cs:360
+#: ../Tomboy/NoteManager.cs:379
 msgid "New Note"
 msgstr "Ny anteckning"
 
@@ -829,15 +682,6 @@ msgstr "_Text"
 msgid "Set properties of text"
 msgstr "Ställ in textegenskaper"
 
-#: ../Tomboy/NoteWindow.cs:444
-#: ../Tomboy/RecentChanges.cs:243
-msgid "Tags"
-msgstr "Taggar"
-
-#: ../Tomboy/NoteWindow.cs:445
-msgid "Add/Remove note tags"
-msgstr "Lägg till/ta bort anteckningstaggar"
-
 #: ../Tomboy/NoteWindow.cs:458
 msgid "T_ools"
 msgstr "_Verktyg"
@@ -854,184 +698,218 @@ msgstr "Ta bort"
 msgid "Delete this note"
 msgstr "Ta bort denna anteckning"
 
-#: ../Tomboy/NoteWindow.cs:510
+#: ../Tomboy/NoteWindow.cs:480
+#: ../Tomboy/Synchronization/SyncManager.cs:158
+msgid "Synchronize Notes"
+msgstr "Synkronisera anteckningar"
+
+#: ../Tomboy/NoteWindow.cs:523
 msgid "_Find..."
 msgstr "_Sök..."
 
-#: ../Tomboy/NoteWindow.cs:521
-#: ../Tomboy/NoteWindow.cs:973
+#: ../Tomboy/NoteWindow.cs:534
+#: ../Tomboy/NoteWindow.cs:988
 msgid "Find _Next"
 msgstr "Sök _nästa"
 
-#: ../Tomboy/NoteWindow.cs:534
+#: ../Tomboy/NoteWindow.cs:547
 msgid "Find _Previous"
 msgstr "Sök _föregående"
 
-#: ../Tomboy/NoteWindow.cs:629
+#: ../Tomboy/NoteWindow.cs:642
 msgid "Cannot create note"
 msgstr "Kan inte skapa anteckning"
 
-#: ../Tomboy/NoteWindow.cs:712
-msgid "Tags:"
-msgstr "Taggar:"
-
-#: ../Tomboy/NoteWindow.cs:953
+#: ../Tomboy/NoteWindow.cs:968
 msgid "_Find:"
 msgstr "_Sök:"
 
-#: ../Tomboy/NoteWindow.cs:964
+#: ../Tomboy/NoteWindow.cs:979
 msgid "_Previous"
 msgstr "_Föregående"
 
-#: ../Tomboy/NoteWindow.cs:983
+#: ../Tomboy/NoteWindow.cs:998
 msgid "Case _sensitive"
 msgstr "Skiftläges_känslig"
 
-#: ../Tomboy/NoteWindow.cs:1459
+#: ../Tomboy/NoteWindow.cs:1474
 msgid "_Bold"
 msgstr "_Fet"
 
-#: ../Tomboy/NoteWindow.cs:1471
+#: ../Tomboy/NoteWindow.cs:1486
 msgid "_Italic"
 msgstr "_Kursiv"
 
-#: ../Tomboy/NoteWindow.cs:1483
+#: ../Tomboy/NoteWindow.cs:1498
 msgid "_Strikeout"
 msgstr "_Genomstruken"
 
-#: ../Tomboy/NoteWindow.cs:1495
+#: ../Tomboy/NoteWindow.cs:1510
 msgid "_Highlight"
 msgstr "_Markera"
 
-#: ../Tomboy/NoteWindow.cs:1508
+#: ../Tomboy/NoteWindow.cs:1523
 msgid "Font Size"
 msgstr "Typsnittsstorlek"
 
-#: ../Tomboy/NoteWindow.cs:1511
+#: ../Tomboy/NoteWindow.cs:1526
 msgid "_Normal"
 msgstr "_Normal"
 
-#: ../Tomboy/NoteWindow.cs:1518
+#: ../Tomboy/NoteWindow.cs:1533
 msgid "Hu_ge"
 msgstr "_Enorm"
 
-#: ../Tomboy/NoteWindow.cs:1526
+#: ../Tomboy/NoteWindow.cs:1541
 msgid "_Large"
 msgstr "_Stor"
 
-#: ../Tomboy/NoteWindow.cs:1534
+#: ../Tomboy/NoteWindow.cs:1549
 msgid "S_mall"
 msgstr "_Liten"
 
-#: ../Tomboy/NoteWindow.cs:1545
+#: ../Tomboy/NoteWindow.cs:1560
 msgid "Bullets"
 msgstr "Punkter"
 
-#: ../Tomboy/PreferencesDialog.cs:69
+#: ../Tomboy/PreferencesDialog.cs:79
 msgid "Editing"
 msgstr "Redigering"
 
-#: ../Tomboy/PreferencesDialog.cs:71
+#: ../Tomboy/PreferencesDialog.cs:81
 msgid "Hotkeys"
 msgstr "Snabbtangenter"
 
-#: ../Tomboy/PreferencesDialog.cs:73
+#: ../Tomboy/PreferencesDialog.cs:83
+msgid "Synchronization"
+msgstr "Synkronisering"
+
+#: ../Tomboy/PreferencesDialog.cs:85
 msgid "Add-ins"
 msgstr "Tillägg"
 
-#: ../Tomboy/PreferencesDialog.cs:116
+#: ../Tomboy/PreferencesDialog.cs:128
 msgid "_Spell check while typing"
 msgstr "_Stavningskontroll när text skrivs in"
 
-#: ../Tomboy/PreferencesDialog.cs:125
+#: ../Tomboy/PreferencesDialog.cs:137
 msgid "Misspellings will be underlined in red, with correct spelling suggestions shown in the context menu."
 msgstr "Felstavningar kommer att strykas under i rött, och korrekta stavningsförslag visas i sammanhangsmenyn."
 
 #. WikiWords...
-#: ../Tomboy/PreferencesDialog.cs:136
+#: ../Tomboy/PreferencesDialog.cs:148
 msgid "Highlight _WikiWords"
 msgstr "Färgmarkera _WikiOrd"
 
-#: ../Tomboy/PreferencesDialog.cs:144
+#: ../Tomboy/PreferencesDialog.cs:156
 msgid "Enable this option to highlight words <b>ThatLookLikeThis</b>. Clicking the word will create a note with that name."
 msgstr "Aktivera detta alternativ för att färgmarkera ord <b>SomSerUtSomDetta</b>. Att klicka på ett sådant kommer att skapa en anteckning med dess namn."
 
 #. Custom font...
-#: ../Tomboy/PreferencesDialog.cs:153
+#: ../Tomboy/PreferencesDialog.cs:165
 msgid "Use custom _font"
 msgstr "Använd anpassat _typsnitt"
 
 #. Hotkeys...
-#: ../Tomboy/PreferencesDialog.cs:223
+#: ../Tomboy/PreferencesDialog.cs:235
 msgid "Listen for _Hotkeys"
 msgstr "Lyssna efter _snabbtangenter"
 
-#: ../Tomboy/PreferencesDialog.cs:232
+#: ../Tomboy/PreferencesDialog.cs:244
 msgid "Hotkeys allow you to quickly access your notes from anywhere with a keypress. Example Hotkeys: <b>&lt;Control&gt;&lt;Shift&gt;F11</b>, <b>&lt;Alt&gt;N</b>"
 msgstr "Snabbtangenter låter dig snabbt få tillgång till dina anteckningar varifrån som helst. Exempel på snabbtangenter: <b>&lt;Control&gt;&lt;Shift&gt;F11</b>, <b>&lt;Alt&gt;N</b>"
 
 #. Show notes menu keybinding...
-#: ../Tomboy/PreferencesDialog.cs:252
+#: ../Tomboy/PreferencesDialog.cs:264
 msgid "Show notes _menu"
 msgstr "Visa antecknings_meny"
 
 #. Open Start Here keybinding...
-#: ../Tomboy/PreferencesDialog.cs:269
+#: ../Tomboy/PreferencesDialog.cs:281
 msgid "Open \"_Start Here\""
 msgstr "Öppna \"_Börja här\""
 
 #. Create new note keybinding...
-#: ../Tomboy/PreferencesDialog.cs:286
+#: ../Tomboy/PreferencesDialog.cs:298
 msgid "Create _new note"
 msgstr "Skapa _ny anteckning"
 
 #. Open Search All Notes window keybinding...
-#: ../Tomboy/PreferencesDialog.cs:303
+#: ../Tomboy/PreferencesDialog.cs:315
 msgid "Open \"Search _All Notes\""
 msgstr "Öppna \"Sök i _alla anteckningar\""
 
-#: ../Tomboy/PreferencesDialog.cs:329
+#: ../Tomboy/PreferencesDialog.cs:342
+msgid "Service:"
+msgstr "Tjänst:"
+
+#: ../Tomboy/PreferencesDialog.cs:393
+#: ../Tomboy/PreferencesDialog.cs:827
+msgid "Not configurable"
+msgstr "Inte konfigurerbar"
+
+#: ../Tomboy/PreferencesDialog.cs:455
 msgid "The following add-ins are installed"
 msgstr "Följande tillägg är installerade"
 
-#: ../Tomboy/PreferencesDialog.cs:360
+#: ../Tomboy/PreferencesDialog.cs:486
 msgid "_Enable"
 msgstr "_Aktivera"
 
-#: ../Tomboy/PreferencesDialog.cs:366
+#: ../Tomboy/PreferencesDialog.cs:492
 msgid "_Disable"
 msgstr "_Inaktivera"
 
-#: ../Tomboy/PreferencesDialog.cs:497
+#: ../Tomboy/PreferencesDialog.cs:623
 msgid "Not Implemented"
 msgstr "Inte implementerad"
 
-#: ../Tomboy/PreferencesDialog.cs:511
+#: ../Tomboy/PreferencesDialog.cs:637
 #, csharp-format
 msgid "{0} Preferences"
 msgstr "Inställningar för {0}"
 
-#: ../Tomboy/PreferencesDialog.cs:650
+#: ../Tomboy/PreferencesDialog.cs:776
 msgid "Choose Note Font"
 msgstr "Välj anteckningstypsnitt"
 
-#: ../Tomboy/PreferencesDialog.cs:743
-#: ../Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinInfoDialog.cs:62
+#: ../Tomboy/PreferencesDialog.cs:853
+msgid "WARNING: Are you sure?"
+msgstr "VARNING: Är du säker?"
+
+#: ../Tomboy/PreferencesDialog.cs:855
+msgid "Clearing your synchronization settings is not recommended.  You may be forced to synchronize all of your notes again when you save new settings."
+msgstr "Tömning av dina synkroniseringsinställningar rekommenderas inte. Du kan tvingas att synkronisera alla dina anteckningar igen när du sparar nya inställningar."
+
+#: ../Tomboy/PreferencesDialog.cs:928
+msgid "Success! You're connected!"
+msgstr "Lyckades! Du är nu ansluten!"
+
+#: ../Tomboy/PreferencesDialog.cs:930
+msgid "Tomboy is ready to synchronize your notes."
+msgstr "Tomboy är redo att synkronisera dina anteckningar."
+
+#: ../Tomboy/PreferencesDialog.cs:953
+msgid "Error connecting :("
+msgstr "Fel vid anslutning :("
+
+#: ../Tomboy/PreferencesDialog.cs:955
+msgid "Sorry, but something went wrong.  Please check your information and try again.  The ~/.tomboy.log might be useful too."
+msgstr "Tyvärr, någonting gick fel.  Kontrollera din information och försök igen.  Filen ~/.tomboy.log kan också vara behjälplig."
+
+#: ../Tomboy/PreferencesDialog.cs:1021
 msgid "Version:"
 msgstr "Version:"
 
-#: ../Tomboy/PreferencesDialog.cs:750
-#: ../Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinInfoDialog.cs:65
+#: ../Tomboy/PreferencesDialog.cs:1028
 msgid "Author:"
 msgstr "Upphovsman:"
 
-#: ../Tomboy/PreferencesDialog.cs:757
-#: ../Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinInfoDialog.cs:68
+#: ../Tomboy/PreferencesDialog.cs:1035
 msgid "Copyright:"
 msgstr "Copyright:"
 
-#: ../Tomboy/PreferencesDialog.cs:763
-#: ../Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinInfoDialog.cs:71
+#: ../Tomboy/PreferencesDialog.cs:1041
 msgid "Add-in Dependencies:"
 msgstr "Tilläggsberoenden:"
 
@@ -1047,39 +925,39 @@ msgstr "_Sök:"
 msgid "C_ase Sensitive"
 msgstr "Skiftlä_geskänslig"
 
-#: ../Tomboy/RecentChanges.cs:293
+#: ../Tomboy/RecentChanges.cs:296
 msgid "Note"
 msgstr "Anteckning"
 
-#: ../Tomboy/RecentChanges.cs:312
+#: ../Tomboy/RecentChanges.cs:315
 msgid "Last Changed"
 msgstr "Senast ändrad"
 
-#: ../Tomboy/RecentChanges.cs:370
-#: ../Tomboy/RecentChanges.cs:526
+#: ../Tomboy/RecentChanges.cs:373
+#: ../Tomboy/RecentChanges.cs:529
 #, csharp-format
 msgid "Total: {0} note"
 msgid_plural "Total: {0} notes"
 msgstr[0] "Totalt: {0} anteckning"
 msgstr[1] "Totalt: {0} anteckningar"
 
-#: ../Tomboy/RecentChanges.cs:460
+#: ../Tomboy/RecentChanges.cs:463
 msgid "Matches"
 msgstr "Träffar"
 
-#: ../Tomboy/RecentChanges.cs:512
-#: ../Tomboy/RecentChanges.cs:532
+#: ../Tomboy/RecentChanges.cs:515
+#: ../Tomboy/RecentChanges.cs:535
 #, csharp-format
 msgid "{0} match"
 msgid_plural "{0} matches"
 msgstr[0] "{0} träff"
 msgstr[1] "{0} träffar"
 
-#: ../Tomboy/Tomboy.cs:188
+#: ../Tomboy/Tomboy.cs:194
 msgid "Cannot create new note"
 msgstr "Kan inte skapa ny anteckning"
 
-#: ../Tomboy/Tomboy.cs:243
+#: ../Tomboy/Tomboy.cs:265
 msgid "translator-credits"
 msgstr ""
 "Daniel Nylander\n"
@@ -1089,19 +967,19 @@ msgstr ""
 "Skicka synpunkter på översättningen till\n"
 "tp-sv@listor.tp-sv.se"
 
-#: ../Tomboy/Tomboy.cs:252
+#: ../Tomboy/Tomboy.cs:274
 msgid "Copyright © 2004-2007 Alex Graveley"
 msgstr "Copyright © 2004-2007 Alex Graveley"
 
-#: ../Tomboy/Tomboy.cs:253
+#: ../Tomboy/Tomboy.cs:275
 msgid "A simple and easy to use desktop note-taking application."
 msgstr "Ett enkelt och lättanvänt program för att ta anteckningar."
 
-#: ../Tomboy/Tomboy.cs:256
+#: ../Tomboy/Tomboy.cs:278
 msgid "Homepage"
 msgstr "Webbplats"
 
-#: ../Tomboy/Tomboy.cs:342
+#: ../Tomboy/Tomboy.cs:369
 msgid ""
 "Tomboy: A simple, easy to use desktop note-taking application.\n"
 "Copyright (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
@@ -1111,7 +989,7 @@ msgstr ""
 "Copyright © 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
 "\n"
 
-#: ../Tomboy/Tomboy.cs:354
+#: ../Tomboy/Tomboy.cs:381
 msgid ""
 "Usage:\n"
 "  --version\t\t\tPrint version information.\n"
@@ -1125,7 +1003,7 @@ msgstr ""
 "  --note-path [sökväg]\t\tLäs in/Spara anteckningsdata i denna katalog\n"
 "  --search [text]\t\tÖppna sökfönster för att anteckningar med angiven text.\n"
 
-#: ../Tomboy/Tomboy.cs:365
+#: ../Tomboy/Tomboy.cs:392
 msgid ""
 "  --new-note\t\t\tCreate and display a new note.\n"
 "  --new-note [title]\t\tCreate and display a new note, with a title.\n"
@@ -1144,16 +1022,16 @@ msgstr ""
 #. Catalog.GetString (
 #. "  --check-plugin-unloading\tCheck if plugins are " +
 #. "unloaded properly.\n");
-#: ../Tomboy/Tomboy.cs:382
+#: ../Tomboy/Tomboy.cs:409
 msgid "D-BUS remote control disabled.\n"
 msgstr "D-BUS-fjärrkontroll inaktiverad.\n"
 
-#: ../Tomboy/Tomboy.cs:390
+#: ../Tomboy/Tomboy.cs:417
 #, csharp-format
 msgid "Version {0}"
 msgstr "Version {0}"
 
-#: ../Tomboy/Tomboy.cs:460
+#: ../Tomboy/Tomboy.cs:487
 #, csharp-format
 msgid ""
 "Tomboy: unsupported option '{0}'\n"
@@ -1248,273 +1126,443 @@ msgstr "yyyy d MMMM, H.mm"
 msgid "MMMM d yyyy"
 msgstr "d MMMM yyyy"
 
-#: ../Tomboy/Watchers.cs:137
+#: ../Tomboy/Watchers.cs:149
 #, csharp-format
 msgid "(Untitled {0})"
 msgstr "(Namnlös {0})"
 
-#: ../Tomboy/Watchers.cs:169
+#: ../Tomboy/Watchers.cs:183
 #, csharp-format
 msgid "A note with the title <b>{0}</b> already exists. Please choose another name for this note before continuing."
 msgstr "En anteckning med titeln <b>{0}</b> finns redan. Välj ett annat namn för denna anteckning innan du fortsätter."
 
-#: ../Tomboy/Watchers.cs:181
+#: ../Tomboy/Watchers.cs:195
 msgid "Note title taken"
 msgstr "Anteckningstiteln är upptagen"
 
-#: ../Tomboy/Watchers.cs:424
+#: ../Tomboy/Watchers.cs:438
 msgid "Cannot open location"
 msgstr "Kan inte öppna plats"
 
-#: ../Tomboy/Watchers.cs:518
+#: ../Tomboy/Watchers.cs:532
 msgid "_Copy Link Address"
 msgstr "_Kopiera länkadress"
 
-#: ../Tomboy/Watchers.cs:523
+#: ../Tomboy/Watchers.cs:537
 msgid "_Open Link"
 msgstr "_Öppna länk"
 
-#: ../Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinInstallDialog.cs:96
-msgid "All registered repositories"
-msgstr "Alla registrerade förråd"
+#: ../Tomboy/Synchronization/SyncDialog.cs:90
+msgid "Note Title"
+msgstr "Anteckningstitel"
 
-#: ../Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinInstallDialog.cs:180
-msgid "Are you sure you want to cancel the installation?"
-msgstr "Är du säker på att du vill avbryta installationen?"
+#: ../Tomboy/Synchronization/SyncDialog.cs:97
+msgid "Status"
+msgstr "Status"
 
-#: ../Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinInstallDialog.cs:303
-msgid "The following packages will be uninstalled:"
-msgstr "Följande paket kommer att avinstalleras:"
-
-#: ../Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinInstallDialog.cs:308
-msgid "There are other add-ins that depend on the previous ones which will also be uninstalled:"
-msgstr "Det finns andra tillägg som är beroende av de föregående tilläggen, vilka också kommer att avinstalleras:"
-
-#: ../Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinInstallDialog.cs:379
-msgid "The selected add-ins can't be installed because there are dependency conflicts."
-msgstr "De valda tilläggen kan inte installeras på grund av att det finns beroendekonflikter."
-
-#: ../Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinInstallDialog.cs:393
-msgid "The following packages will be installed:"
-msgstr "Följande paket kommer att installeras:"
-
-#: ../Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinInstallDialog.cs:397
-msgid " (in user directory)"
-msgstr " (i användarkatalogen)"
-
-#: ../Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinInstallDialog.cs:403
-msgid "The following packages need to be uninstalled:"
-msgstr "Följande paket behöver avinstalleras:"
-
-#: ../Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinInstallDialog.cs:411
-msgid "The following dependencies could not be resolved:"
-msgstr "Följande beroenden kunde inte lösas:"
-
-#: ../Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinInstallDialog.cs:435
-msgid "The installation has been successfully completed."
-msgstr "Installationen lyckades."
-
-#: ../Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinInstallDialog.cs:436
-msgid "The installation failed!"
-msgstr "Installationen misslyckades!"
-
-#: ../Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinInstallDialog.cs:439
-msgid "The uninstallation has been successfully completed."
-msgstr "Avinstallationen lyckades."
-
-#: ../Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinInstallDialog.cs:440
-msgid "The uninstallation failed!"
-msgstr "Avinstallationen misslyckades!"
-
-#: ../Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinInstallDialog.cs:599
-msgid "Repository"
-msgstr "Förråd"
-
-#: ../Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinInstaller.cs:16
-msgid "Installation cancelled"
-msgstr "Installationen avbröts"
-
-#: ../Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinInstallerDialog.cs:159
-msgid "Some of the required add-ins were not found"
-msgstr "Några av de nödvändiga tilläggen kunde inte hittas"
-
-#: ../Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinInstallerDialog.cs:171
-msgid "Installation failed"
-msgstr "Installationen misslyckades"
-
-#: ../Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/ManageSitesDialog.cs:51
-msgid "Name"
-msgstr "Namn"
-
-#: ../Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/ManageSitesDialog.cs:52
-msgid "Url"
-msgstr "Url"
-
-#: ../Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/Services.cs:61
-#: ../Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/Services.cs:70
-#, csharp-format
-msgid "Exception occurred: {0}"
-msgstr "Undantag inträffade: {0}"
-
-#: ../Mono.Addins/Mono.Addins.Gui/gtk-gui/Mono.Addins.Gui.AddinInfoDialog.cs:32
-msgid "MonoDevelop Package"
-msgstr "MonoDevelop-paket"
-
-#: ../Mono.Addins/Mono.Addins.Gui/gtk-gui/Mono.Addins.Gui.AddinInstallDialog.cs:110
-msgid "Add-in Installation"
-msgstr "Tilläggsinstallation"
-
-#: ../Mono.Addins/Mono.Addins.Gui/gtk-gui/Mono.Addins.Gui.AddinInstallDialog.cs:134
-msgid "<b>Select the add-ins to install and click on Next</b>"
-msgstr "<b>Välj tilläggen att installera och klicka på Nästa</b>"
-
-#: ../Mono.Addins/Mono.Addins.Gui/gtk-gui/Mono.Addins.Gui.AddinInstallDialog.cs:148
-msgid "Install from:"
-msgstr "Installera från:"
-
-#: ../Mono.Addins/Mono.Addins.Gui/gtk-gui/Mono.Addins.Gui.AddinInstallDialog.cs:177
-#: ../Mono.Addins/Mono.Addins.Gui/gtk-gui/Mono.Addins.Gui.AddinManagerDialog.cs:181
-msgid "_Repositories..."
-msgstr "_Förråd..."
-
-#: ../Mono.Addins/Mono.Addins.Gui/gtk-gui/Mono.Addins.Gui.AddinInstallDialog.cs:217
-msgid "Show all packages"
-msgstr "Visa alla paket"
-
-#: ../Mono.Addins/Mono.Addins.Gui/gtk-gui/Mono.Addins.Gui.AddinInstallDialog.cs:218
-msgid "Show new versions only"
-msgstr "Visa endast nya versioner"
-
-#: ../Mono.Addins/Mono.Addins.Gui/gtk-gui/Mono.Addins.Gui.AddinInstallDialog.cs:219
-msgid "Show updates only"
-msgstr "Visa endast uppdateringar"
-
-#: ../Mono.Addins/Mono.Addins.Gui/gtk-gui/Mono.Addins.Gui.AddinInstallDialog.cs:244
-msgid "_Unselect All"
-msgstr "A_vmarkera allt"
-
-#: ../Mono.Addins/Mono.Addins.Gui/gtk-gui/Mono.Addins.Gui.AddinInstallDialog.cs:256
-msgid "Select _All"
-msgstr "Markera _allt"
-
-#: ../Mono.Addins/Mono.Addins.Gui/gtk-gui/Mono.Addins.Gui.AddinInstallDialog.cs:331
-msgid "label124"
-msgstr "etikett124"
-
-#: ../Mono.Addins/Mono.Addins.Gui/gtk-gui/Mono.Addins.Gui.AddinInstallDialog.cs:342
-msgid "Overall Progress:"
-msgstr "Totalt förlopp:"
-
-#: ../Mono.Addins/Mono.Addins.Gui/gtk-gui/Mono.Addins.Gui.AddinInstallDialog.cs:370
-msgid "Downloading add-ins..."
-msgstr "Hämtar tillägg..."
-
-#: ../Mono.Addins/Mono.Addins.Gui/gtk-gui/Mono.Addins.Gui.AddinInstallerDialog.cs:36
-msgid "Add-in Manager"
-msgstr "Tilläggshanterare"
-
-#: ../Mono.Addins/Mono.Addins.Gui/gtk-gui/Mono.Addins.Gui.AddinInstallerDialog.cs:52
-msgid "Additional extensions are required to perform this operation."
-msgstr "Ytterligare tillägg är nödvändiga för att genomföra den här åtgärden."
-
-#: ../Mono.Addins/Mono.Addins.Gui/gtk-gui/Mono.Addins.Gui.AddinInstallerDialog.cs:62
-msgid "The following add-ins will be installed:"
-msgstr "Följande tillägg kommer att installeras:"
-
-#: ../Mono.Addins/Mono.Addins.Gui/gtk-gui/Mono.Addins.Gui.AddinManagerDialog.cs:58
-msgid "MonoDevelop Add-in Manager"
-msgstr "Hanterare för MonoDevelop-tillägg"
-
-#: ../Mono.Addins/Mono.Addins.Gui/gtk-gui/Mono.Addins.Gui.AddinManagerDialog.cs:88
-msgid "<big><b>MonoDevelop Add-in Manager</b></big>"
-msgstr "<big><b>Hanterare för MonoDevelop-tillägg</b></big>"
-
-#: ../Mono.Addins/Mono.Addins.Gui/gtk-gui/Mono.Addins.Gui.AddinManagerDialog.cs:108
-msgid "The following add-ins are currently installed:"
-msgstr "Följande tillägg är för närvarande installerade:"
-
-#: ../Mono.Addins/Mono.Addins.Gui/gtk-gui/Mono.Addins.Gui.AddinManagerDialog.cs:166
-msgid "_Install Add-ins..."
-msgstr "_Installera tillägg..."
-
-#: ../Mono.Addins/Mono.Addins.Gui/gtk-gui/Mono.Addins.Gui.AddinManagerDialog.cs:215
-msgid "_Uninstall..."
-msgstr "_Avinstallera..."
-
-#: ../Mono.Addins/Mono.Addins.Gui/gtk-gui/Mono.Addins.Gui.AddinManagerDialog.cs:245
-msgid "Enable"
-msgstr "Aktivera"
-
-#: ../Mono.Addins/Mono.Addins.Gui/gtk-gui/Mono.Addins.Gui.AddinManagerDialog.cs:275
-msgid "Disable"
-msgstr "Inaktivera"
-
-#: ../Mono.Addins/Mono.Addins.Gui/gtk-gui/Mono.Addins.Gui.ErrorDialog.cs:40
-msgid "MonoDevelop"
-msgstr "MonoDevelop"
-
-#: ../Mono.Addins/Mono.Addins.Gui/gtk-gui/Mono.Addins.Gui.ErrorDialog.cs:111
+#. Drop all that into into the Expander
+#: ../Tomboy/Synchronization/SyncDialog.cs:116
 msgid "Details"
 msgstr "Detaljer"
 
-#: ../Mono.Addins/Mono.Addins.Gui/gtk-gui/Mono.Addins.Gui.ManageSitesDialog.cs:34
-msgid "Add-in Repository Management"
-msgstr "Hantering av tilläggsförråd"
+#: ../Tomboy/Synchronization/SyncDialog.cs:234
+msgid "Acquiring sync lock..."
+msgstr "Tar över synkroniseringslås..."
 
-#: ../Mono.Addins/Mono.Addins.Gui/gtk-gui/Mono.Addins.Gui.NewSiteDialog.cs:52
-msgid "Add New Repository"
-msgstr "Lägg till nytt förråd"
+#: ../Tomboy/Synchronization/SyncDialog.cs:237
+msgid "Committing changes..."
+msgstr "Verkställer ändringar..."
 
-#: ../Mono.Addins/Mono.Addins.Gui/gtk-gui/Mono.Addins.Gui.NewSiteDialog.cs:68
-msgid "Select the location of the repository you want to register:"
-msgstr "Välj platsen för förrådet som du vill registrera:"
+#: ../Tomboy/Synchronization/SyncDialog.cs:240
+msgid "Synchronizing Notes"
+msgstr "Synkroniserar anteckningar"
 
-#. Container child vbox89.Gtk.Box+BoxChild
-#: ../Mono.Addins/Mono.Addins.Gui/gtk-gui/Mono.Addins.Gui.NewSiteDialog.cs:75
-msgid "Register an on-line repository"
-msgstr "Registrera ett förråd på nätet"
+#: ../Tomboy/Synchronization/SyncDialog.cs:241
+msgid "Synchronizing your notes..."
+msgstr "Synkroniserar dina anteckningar..."
 
-#: ../Mono.Addins/Mono.Addins.Gui/gtk-gui/Mono.Addins.Gui.NewSiteDialog.cs:104
-msgid "Url:"
-msgstr "Url:"
+#: ../Tomboy/Synchronization/SyncDialog.cs:242
+msgid "This may take a while, kick back and enjoy!"
+msgstr "Det här kan ta en stund, luta dig tillbaka och njut!"
 
-#. Container child vbox89.Gtk.Box+BoxChild
-#: ../Mono.Addins/Mono.Addins.Gui/gtk-gui/Mono.Addins.Gui.NewSiteDialog.cs:125
-msgid "Register a local repository"
-msgstr "Registrera ett lokalt förråd"
+#: ../Tomboy/Synchronization/SyncDialog.cs:244
+msgid "Connecting to the server..."
+msgstr "Ansluter till servern..."
 
-#: ../Mono.Addins/Mono.Addins.Gui/gtk-gui/Mono.Addins.Gui.NewSiteDialog.cs:153
-msgid "Path:"
-msgstr "Sökväg:"
+#: ../Tomboy/Synchronization/SyncDialog.cs:250
+msgid "Deleting notes off of the server..."
+msgstr "Tar bort anteckningar från servern..."
 
-#: ../Mono.Addins/Mono.Addins.Gui/gtk-gui/Mono.Addins.Gui.NewSiteDialog.cs:177
-msgid "Browse..."
-msgstr "Bläddra..."
+#: ../Tomboy/Synchronization/SyncDialog.cs:254
+msgid "Downloading new/updated notes..."
+msgstr "Hämtar nya/uppdaterade anteckningar..."
 
-#: ../Mono.Addins/Mono.Addins/Mono.Addins.Description/AssemblyDependency.cs:79
+#: ../Tomboy/Synchronization/SyncDialog.cs:266
+msgid "Server Locked"
+msgstr "Servern är låst"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:267
+msgid "Server is locked"
+msgstr "Servern är låst"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:268
+msgid "One of your other computers is currently synchronizing.  Please wait and try again."
+msgstr "En av dina andra datorer synkroniserar för tillfället.  Vänta en stund och försök igen."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:272
+msgid "Preparing to download updates from server..."
+msgstr "Förbereder att hämta uppdateringar från servern..."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:275
+msgid "Preparing to upload updates to server..."
+msgstr "Förbereder för att skicka upp uppdateringar till servern..."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:278
+msgid "Uploading notes to server..."
+msgstr "Skickar upp anteckningar till servern..."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:281
+msgid "Synchronization Failed"
+msgstr "Synkronisering misslyckades"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:282
+msgid "Failed to synchronize"
+msgstr "Misslyckades med att synkronisera"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:283
+msgid "Could not synchronize notes.  Check the details below and try again."
+msgstr "Kunde inte synkronisera anteckningar.  Kontrollera detaljerna nedan och försök igen."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:287
+msgid "Synchronization Complete"
+msgstr "Synkroniseringen är färdig"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:288
+msgid "Synchronization is complete"
+msgstr "Synkroniseringen är färdig"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:289
+msgid "Your notes are up to date.  See the details below or close the window."
+msgstr "Dina anteckningar är uppdaterade.  Se detaljerna nedan eller stäng fönstret."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:293
+msgid "Synchronization Canceled"
+msgstr "Synkroniseringen avbröts"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:294
+msgid "Synchronization was canceled"
+msgstr "Synkroniseringen har avbrutits"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:295
+msgid "You canceled the synchronization.  You may close the window now."
+msgstr "Du avbröt synkroniseringen.  Du kan stänga fönstret nu."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:299
+msgid "Synchronization Not Configured"
+msgstr "Synkronisering är inte konfigurerad"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:300
+msgid "Synchronization is not configured"
+msgstr "Synkronisering är inte konfigurerad"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:301
+msgid "Please configure synchronization in the preferences dialog."
+msgstr "Konfigurera synkronisering i inställningsdialogrutan."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:305
+msgid "Synchronization Service Error"
+msgstr "Fel i synkroniseringstjänsten"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:306
+msgid "Service error"
+msgstr "Fel i tjänst"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:307
+msgid "Error connecting to the synchronization service.  Please try again."
+msgstr "Fel vid anslutning till synkroniseringstjänsten.  Försök igen."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:323
+msgid "Deleting from local copy"
+msgstr "Tar bort från lokal kopia"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:326
+msgid "Deleting from server"
+msgstr "Tar bort från servern"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:329
+msgid "Downloading updates from server"
+msgstr "Hämtar uppdateringar från servern"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:332
+msgid "Downloading new note from server"
+msgstr "Hämtar ny anteckning från servern"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:335
+msgid "Uploading changes to server"
+msgstr "Skickar upp ändringar till servern"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:338
+msgid "Uploading new note to server"
+msgstr "Skickar upp ny anteckning till servern"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:470
+msgid "Note Conflict"
+msgstr "Anteckningskonflikt"
+
+#. Suggest renaming note by appending " (old)" to the existing title
+#: ../Tomboy/Synchronization/SyncDialog.cs:474
+msgid " (old)"
+msgstr " (gammal)"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:513
+msgid "Rename local note:"
+msgstr "Byt namn på lokal anteckning:"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:519
+msgid "Update links in referencing notes"
+msgstr "Uppdatera länkar i refererande anteckningar"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:526
+msgid "Overwrite local note"
+msgstr "Skriv över lokal anteckning"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:530
+msgid "Always perform this action"
+msgstr "Genomför alltid den här åtgärden"
+
+#. Set initial dialog text
+#: ../Tomboy/Synchronization/SyncDialog.cs:537
+msgid "Note conflict detected"
+msgstr "Anteckningskonflikt upptäcktes"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:538
 #, csharp-format
-msgid "(provided by {0})"
-msgstr "(tillhandahålls av {0})"
+msgid "The server version of \"{0}\" conflicts with your local note.  What do you want to do with your local note?"
+msgstr "Serverversionen av \"{0}\" står i konflikt med din lokala anteckning.  Vad vill du göra med din lokala anteckning?"
 
-#: ../Mono.Addins/Mono.Addins/Mono.Addins/AddinSessionService.cs:108
-msgid "Disabled add-ins can't be loaded."
-msgstr "Inaktiverade tillägg kan inte läsas in."
+#: ../Tomboy/Synchronization/SyncManager.cs:156
+msgid "_Tools"
+msgstr "_Verktyg"
 
-#: ../Mono.Addins/Mono.Addins/Mono.Addins/AddinSessionService.cs:133
-#, csharp-format
-msgid "Loading {0} add-in"
-msgstr "Läser in tillägget {0}"
+#: ../Tomboy/Synchronization/SyncUtils.cs:151
+msgid "Enable FUSE?"
+msgstr "Aktivera FUSE?"
 
-#: ../Mono.Addins/Mono.Addins/Mono.Addins/AddinSessionService.cs:216
-#, csharp-format
-msgid "The required addin '{0}' is disabled."
-msgstr "Det nödvändiga tillägget \"{0}\" är inaktiverat."
+#: ../Tomboy/Synchronization/SyncUtils.cs:153
+msgid ""
+"The synchronization you've chosen requires the FUSE module to be loaded.\n"
+"\n"
+"To avoid getting this prompt in the future, you should load FUSE at startup.  Add \"modprobe fuse\" to /etc/init.d/boot.local or \"fuse\" to /etc/modules."
+msgstr ""
+"Synkroniseringen som du har valt kräver att FUSE-modulen läses in.\n"
+"\n"
+"För att undvika att få den här prompten i framtiden bör du läsa in FUSE vid uppstart.  Lägg till \"modprobe fuse\" till /etc/init.d/boot.local eller \"fuse\" till /etc/modules."
 
-#: ../Mono.Addins/Mono.Addins/Mono.Addins/AddinSessionService.cs:218
-#, csharp-format
-msgid "The required addin '{0}' is not installed."
-msgstr "Det nödvändiga tillägget \"{0}\" är inte installerat."
-
+#~ msgid "To Do List"
+#~ msgstr "Att göra-lista"
+#~ msgid "New _Task"
+#~ msgstr "Ny _uppgift"
+#~ msgid "Create a new task"
+#~ msgstr "Skapa en ny uppgift"
+#~ msgid "_Options..."
+#~ msgstr "Al_ternativ..."
+#~ msgid "Open the selected task"
+#~ msgstr "Öppna den valda uppgiften"
+#~ msgid "Delete the selected task"
+#~ msgstr "Ta bort den valda uppgiften"
+#~ msgid "Open Associated _Note"
+#~ msgstr "Öppna associerad ant_eckning"
+#~ msgid "Open the note containing the task"
+#~ msgstr "Öppna anteckning som innehåller uppgiften"
+#~ msgid "Tasks Help"
+#~ msgstr "Uppgiftshjälp"
+#~ msgid "Summary"
+#~ msgstr "Sammanfattning"
+#~ msgid "Due Date"
+#~ msgstr "Slutdatum"
+#~ msgid "Completion Date"
+#~ msgstr "Färdig den"
+#~ msgid "Priority"
+#~ msgstr "Prioritet"
+#~ msgid "None"
+#~ msgstr "Inget"
+#~ msgid "Low"
+#~ msgstr "Låg"
+#~ msgid "Normal"
+#~ msgstr "Normal"
+#~ msgid "High"
+#~ msgstr "Hög"
+#~ msgid "Total: {0} task"
+#~ msgid_plural "Total: {0} tasks"
+#~ msgstr[0] "Totalt: {0} uppgift"
+#~ msgstr[1] "Totalt: {0} uppgifter"
+#~ msgid "New Task {0}"
+#~ msgstr "Ny uppgift {0}"
+#~ msgid "Really delete this task?"
+#~ msgstr "Verkligen ta bort denna uppgift?"
+#~ msgid "If you delete a task it is permanently lost."
+#~ msgstr "Om du tar bort en uppgift försvinner den för alltid."
+#~ msgid "Learn About Tomboy"
+#~ msgstr "Läs mer om Tomboy"
+#~ msgid ""
+#~ "Click on the Tomboy icon in your panel and select \"Start Here\".  You'll "
+#~ "see more instructions on how to use Tomboy inside the \"Start Here\" "
+#~ "note.\n"
+#~ "\n"
+#~ "When you've opened the \"Start Here\" note, mark this task as being "
+#~ "complete."
+#~ msgstr ""
+#~ "Klicka på Tomboy-ikonen i din panel och välj \"Börja här\".  Du kommer "
+#~ "att se fler instruktioner om hur man använder Tomboy inne i anteckningen "
+#~ "\"Börja här\".\n"
+#~ "\n"
+#~ "När du har öppnat anteckningen \"Börja här\" kan du markera den här "
+#~ "uppgiften som färdig."
+#~ msgid "Task Options"
+#~ msgstr "Alternativ för uppgifter"
+#~ msgid "_Summary:"
+#~ msgstr "_Sammanfattning:"
+#~ msgid "_Details:"
+#~ msgstr "_Detaljer:"
+#~ msgid "_Completed:"
+#~ msgstr "_Färdig:"
+#~ msgid "_Complete"
+#~ msgstr "_Färdig"
+#~ msgid "Due Date:"
+#~ msgstr "Slutdatum:"
+#~ msgid "Priority:"
+#~ msgstr "Prioritet:"
+#~ msgid "todo"
+#~ msgstr "attgöra"
+#~ msgid "Open To Do List"
+#~ msgstr "Öppna Att göra-lista"
+#~ msgid "To Do Options"
+#~ msgstr "Alternativ för Att göra"
+#~ msgid "Mark Undone"
+#~ msgstr "Markera som ofärdig"
+#~ msgid "Mark Complete"
+#~ msgstr "Markera som färdig"
+#~ msgid "Tags"
+#~ msgstr "Taggar"
+#~ msgid "Add/Remove note tags"
+#~ msgstr "Lägg till/ta bort anteckningstaggar"
+#~ msgid "Tags:"
+#~ msgstr "Taggar:"
+#~ msgid "All registered repositories"
+#~ msgstr "Alla registrerade förråd"
+#~ msgid "Are you sure you want to cancel the installation?"
+#~ msgstr "Är du säker på att du vill avbryta installationen?"
+#~ msgid "The following packages will be uninstalled:"
+#~ msgstr "Följande paket kommer att avinstalleras:"
+#~ msgid ""
+#~ "There are other add-ins that depend on the previous ones which will also "
+#~ "be uninstalled:"
+#~ msgstr ""
+#~ "Det finns andra tillägg som är beroende av de föregående tilläggen, vilka "
+#~ "också kommer att avinstalleras:"
+#~ msgid ""
+#~ "The selected add-ins can't be installed because there are dependency "
+#~ "conflicts."
+#~ msgstr ""
+#~ "De valda tilläggen kan inte installeras på grund av att det finns "
+#~ "beroendekonflikter."
+#~ msgid "The following packages will be installed:"
+#~ msgstr "Följande paket kommer att installeras:"
+#~ msgid " (in user directory)"
+#~ msgstr " (i användarkatalogen)"
+#~ msgid "The following packages need to be uninstalled:"
+#~ msgstr "Följande paket behöver avinstalleras:"
+#~ msgid "The following dependencies could not be resolved:"
+#~ msgstr "Följande beroenden kunde inte lösas:"
+#~ msgid "The installation has been successfully completed."
+#~ msgstr "Installationen lyckades."
+#~ msgid "The installation failed!"
+#~ msgstr "Installationen misslyckades!"
+#~ msgid "The uninstallation has been successfully completed."
+#~ msgstr "Avinstallationen lyckades."
+#~ msgid "The uninstallation failed!"
+#~ msgstr "Avinstallationen misslyckades!"
+#~ msgid "Repository"
+#~ msgstr "Förråd"
+#~ msgid "Some of the required add-ins were not found"
+#~ msgstr "Några av de nödvändiga tilläggen kunde inte hittas"
+#~ msgid "Installation failed"
+#~ msgstr "Installationen misslyckades"
+#~ msgid "Name"
+#~ msgstr "Namn"
+#~ msgid "Url"
+#~ msgstr "Url"
+#~ msgid "Exception occurred: {0}"
+#~ msgstr "Undantag inträffade: {0}"
+#~ msgid "MonoDevelop Package"
+#~ msgstr "MonoDevelop-paket"
+#~ msgid "Add-in Installation"
+#~ msgstr "Tilläggsinstallation"
+#~ msgid "<b>Select the add-ins to install and click on Next</b>"
+#~ msgstr "<b>Välj tilläggen att installera och klicka på Nästa</b>"
+#~ msgid "Install from:"
+#~ msgstr "Installera från:"
+#~ msgid "_Repositories..."
+#~ msgstr "_Förråd..."
+#~ msgid "Show all packages"
+#~ msgstr "Visa alla paket"
+#~ msgid "Show new versions only"
+#~ msgstr "Visa endast nya versioner"
+#~ msgid "Show updates only"
+#~ msgstr "Visa endast uppdateringar"
+#~ msgid "_Unselect All"
+#~ msgstr "A_vmarkera allt"
+#~ msgid "Select _All"
+#~ msgstr "Markera _allt"
+#~ msgid "label124"
+#~ msgstr "etikett124"
+#~ msgid "Overall Progress:"
+#~ msgstr "Totalt förlopp:"
+#~ msgid "Add-in Manager"
+#~ msgstr "Tilläggshanterare"
+#~ msgid "Additional extensions are required to perform this operation."
+#~ msgstr ""
+#~ "Ytterligare tillägg är nödvändiga för att genomföra den här åtgärden."
+#~ msgid "The following add-ins will be installed:"
+#~ msgstr "Följande tillägg kommer att installeras:"
+#~ msgid "MonoDevelop Add-in Manager"
+#~ msgstr "Hanterare för MonoDevelop-tillägg"
+#~ msgid "<big><b>MonoDevelop Add-in Manager</b></big>"
+#~ msgstr "<big><b>Hanterare för MonoDevelop-tillägg</b></big>"
+#~ msgid "The following add-ins are currently installed:"
+#~ msgstr "Följande tillägg är för närvarande installerade:"
+#~ msgid "_Install Add-ins..."
+#~ msgstr "_Installera tillägg..."
+#~ msgid "_Uninstall..."
+#~ msgstr "_Avinstallera..."
+#~ msgid "Disable"
+#~ msgstr "Inaktivera"
+#~ msgid "MonoDevelop"
+#~ msgstr "MonoDevelop"
+#~ msgid "Add-in Repository Management"
+#~ msgstr "Hantering av tilläggsförråd"
+#~ msgid "Add New Repository"
+#~ msgstr "Lägg till nytt förråd"
+#~ msgid "Select the location of the repository you want to register:"
+#~ msgstr "Välj platsen för förrådet som du vill registrera:"
+#~ msgid "Register an on-line repository"
+#~ msgstr "Registrera ett förråd på nätet"
+#~ msgid "Url:"
+#~ msgstr "Url:"
+#~ msgid "Register a local repository"
+#~ msgstr "Registrera ett lokalt förråd"
+#~ msgid "Browse..."
+#~ msgstr "Bläddra..."
+#~ msgid "(provided by {0})"
+#~ msgstr "(tillhandahålls av {0})"
+#~ msgid "Disabled add-ins can't be loaded."
+#~ msgstr "Inaktiverade tillägg kan inte läsas in."
+#~ msgid "Loading {0} add-in"
+#~ msgstr "Läser in tillägget {0}"
+#~ msgid "The required addin '{0}' is disabled."
+#~ msgstr "Det nödvändiga tillägget \"{0}\" är inaktiverat."
+#~ msgid "The required addin '{0}' is not installed."
+#~ msgstr "Det nödvändiga tillägget \"{0}\" är inte installerat."
 #~ msgid "Currently enabled plugins."
 #~ msgstr "För närvarande aktiverade insticksmoduler."
 #~ msgid "List containing the names of currently enabled plugins."
@@ -1564,16 +1612,12 @@ msgstr "Det nödvändiga tillägget \"{0}\" är inte installerat."
 #~ "identifiera läckande referenser."
 #~ msgid "Plugins"
 #~ msgstr "Insticksmoduler"
-#~ msgid "Not available"
-#~ msgstr "Inte tillgänglig"
 #~ msgid "Description:"
 #~ msgstr "Beskrivning:"
 #~ msgid "Written by:"
 #~ msgstr "Skrivet av:"
 #~ msgid "Web site:"
 #~ msgstr "Webbsida:"
-#~ msgid "File name:"
-#~ msgstr "Filnamn:"
 #~ msgid "Settings"
 #~ msgstr "Inställningar"
 #~ msgid "_Open Plugins Folder"
