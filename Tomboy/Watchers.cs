@@ -42,6 +42,8 @@ namespace Tomboy
 			Buffer.MarkSet += OnMarkSet;
 			Buffer.InsertText += OnInsertText;
 			Buffer.DeleteRange += OnDeleteRange;
+			
+			Window.Editor.FocusOutEvent += OnEditorFocusOut;
 
 			// FIXME: Needed because we hide on delete event, and
 			// just hide on accelerator key, so we can't use delete
@@ -52,6 +54,16 @@ namespace Tomboy
 			// Clean up title line
 			Buffer.RemoveAllTags (TitleStart, TitleEnd);
 			Buffer.ApplyTag (title_tag, TitleStart, TitleEnd);
+		}
+		
+		void OnEditorFocusOut (object sender, Gtk.FocusOutEventArgs args)
+		{
+			// TODO: Duplicated from Update(); refactor instead
+			if (editing_title) {
+				Changed ();
+				UpdateNoteTitle ();
+				editing_title = false;
+			}
 		}
 
 		// This only gets called on an explicit move, not when typing
@@ -155,6 +167,8 @@ namespace Tomboy
 				return false;
 			}
 
+			Logger.Debug (string.Format ("Renaming note from {0} to {1}",
+			                             Note.Title, title));
 			Note.Title = title;
 			return true;
 		}
