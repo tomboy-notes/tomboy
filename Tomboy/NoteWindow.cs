@@ -18,7 +18,7 @@ namespace Tomboy
 		Gtk.Menu plugin_menu;
 		Gtk.TextView editor;
 		Gtk.ScrolledWindow editor_window;
-		NoteTagBar tag_bar;
+//		NoteTagBar tag_bar;
 		NoteFindBar find_bar;
 
 		GlobalKeybinder global_keys;
@@ -68,10 +68,10 @@ namespace Tomboy
 			toolbar = MakeToolbar ();
 			toolbar.Show ();
 			
-			tag_bar = new NoteTagBar (note);
-			tag_bar.Visible = false;
-			tag_bar.NoShowAll = true;
-			tag_bar.Hidden += TagBarHidden;
+//			tag_bar = new NoteTagBar (note);
+//			tag_bar.Visible = false;
+//			tag_bar.NoShowAll = true;
+//			tag_bar.Hidden += TagBarHidden;
 			
 			// The main editor widget
 			editor = new NoteEditor (note.Buffer);
@@ -101,7 +101,7 @@ namespace Tomboy
 
 			Gtk.VBox box = new Gtk.VBox (false, 2);
 			box.PackStart (toolbar, false, false, 0);
-			box.PackStart (tag_bar, false, false, 0);
+//			box.PackStart (tag_bar, false, false, 0);
 			box.PackStart (editor_window, true, true, 0);
 			box.PackStart (find_bar, false, false, 0);
 			box.Show ();
@@ -439,18 +439,18 @@ namespace Tomboy
 			
 			// FIXME: Isn't there a better way to load an icon besides having
 			// to specify a size implicitly?  (tomboy-tag, 22)
-			Gtk.Widget tags_button =
-				toolbar.AppendItem (
-					Catalog.GetString ("Tags"),
-					Catalog.GetString ("Add/Remove note tags"),
-					null,
-					new Gtk.Image (GuiUtils.GetIcon ("tomboy-tag", 22)),
-					new Gtk.SignalFunc (TagBarClicked));
-			tags_button.AddAccelerator ("activate",
-						    accel_group,
-						    (uint) Gdk.Key.t, 
-						    Gdk.ModifierType.ControlMask,
-						    Gtk.AccelFlags.Visible);
+//			Gtk.Widget tags_button =
+//				toolbar.AppendItem (
+//					Catalog.GetString ("Tags"),
+//					Catalog.GetString ("Add/Remove note tags"),
+//					null,
+//					new Gtk.Image (GuiUtils.GetIcon ("tomboy-tag", 22)),
+//					new Gtk.SignalFunc (TagBarClicked));
+//			tags_button.AddAccelerator ("activate",
+//						    accel_group,
+//						    (uint) Gdk.Key.t, 
+//						    Gdk.ModifierType.ControlMask,
+//						    Gtk.AccelFlags.Visible);
 
 			ToolMenuButton plugin_button = 
 				new ToolMenuButton (toolbar, 
@@ -596,12 +596,12 @@ namespace Tomboy
 			Find.FindPreviousButton.Click ();
 		}
 		
-		void TagBarHidden (object sender, EventArgs args)
-		{
-			// Reposition the current focus back to the editor so the
-			// cursor will be ready for typing.
-			editor.GrabFocus ();
-		}
+//		void TagBarHidden (object sender, EventArgs args)
+//		{
+//			// Reposition the current focus back to the editor so the
+//			// cursor will be ready for typing.
+//			editor.GrabFocus ();
+//		}
 		
 		void FindBarHidden (object sender, EventArgs args)
 		{
@@ -689,15 +689,16 @@ namespace Tomboy
 			((NoteBuffer)editor.Buffer).ChangeCursorDepthDirectional (false);
 		}
 		
-		void TagBarClicked ()
-		{
-			if (tag_bar.Visible)
-				tag_bar.Hide ();
-			else
-				tag_bar.Show ();
-		}
+//		void TagBarClicked ()
+//		{
+//			if (tag_bar.Visible)
+//				tag_bar.Hide ();
+//			else
+//				tag_bar.Show ();
+//		}
 	}
-	
+
+/*	
 	public class NoteTagBar : Gtk.HBox
 	{
 		private Note note;
@@ -932,6 +933,7 @@ namespace Tomboy
 		#region Properties
 		#endregion
 	}
+*/
 	
 	public class NoteFindBar : Gtk.HBox
 	{
