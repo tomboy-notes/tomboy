@@ -10,6 +10,8 @@ namespace Tomboy.Sync
 		private List<string> updatedNotes;
 		private List<string> deletedNotes;
 		
+		private string serverId;
+		
 		private string serverPath;
 		private string notePath;
 		private string lockPath;
@@ -243,6 +245,7 @@ Logger.Debug ("GetNoteUpdatesSince xpath returned {0} nodes", noteNodes.Count);
 				xml.WriteStartDocument ();
 				xml.WriteStartElement (null, "sync", null);
 				xml.WriteAttributeString ("revision", newRevision.ToString ());
+				xml.WriteAttributeString ("server-id", serverId);
 
 				foreach (XmlNode node in noteNodes) {
 					string id = node.SelectSingleNode ("@id").InnerText;
@@ -446,6 +449,35 @@ Logger.Debug ("GetNoteUpdatesSince xpath returned {0} nodes", noteNodes.Count);
 				fs.Close ();
 				
 				return syncLockInfo;
+			}
+		}
+		
+		public virtual string Id
+		{
+			get
+			{
+				serverId = null;
+				
+				// Attempt to read from manifest file first
+				if (File.Exists (manifestPath)) {
+					FileStream fs = new FileStream (manifestPath, FileMode.Open);
+					XmlDocument doc = new XmlDocument ();
+					try {
+						doc.Load (fs);
+						XmlNode syncNode = doc.SelectSingleNode ("//sync");
+						XmlNode serverIdNode = syncNode.Attributes.GetNamedItem ("server-id");
+						if (serverIdNode != null && !(string.IsNullOrEmpty (serverIdNode.InnerText)))
+							serverId = serverIdNode.InnerText;
+					} finally {
+						fs.Close ();
+					}
+				}
+				
+				// Generate a new ID if there isn't already one
+				if (serverId == null)
+					serverId = System.Guid.NewGuid ().ToString ();
+				
+				return serverId;
 			}
 		}
 		

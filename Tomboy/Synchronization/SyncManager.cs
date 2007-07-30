@@ -260,9 +260,11 @@ Logger.Debug ("8");
 			// for some reason, our local manifest is inaccurate and could misguide
 			// sync into erroneously deleting local notes, etc.  We reset the client
 			// to prevent this situation.
-			// TODO: Server "tamper detection" should actually do some guid checking
-			if (client.LastSynchronizedRevision > server.LatestRevision)
+			string serverId = server.Id;
+			if (client.AssociatedServerId != serverId) {
 				client.Reset ();
+				client.AssociatedServerId = serverId;
+			}
 			
 			SetState (SyncState.PrepareDownload);
 			
@@ -726,6 +728,7 @@ Logger.Debug ("8");
 		void UploadNotes (IList<Note> notes);
 		int LatestRevision { get; }
 		SyncLockInfo CurrentSyncLock { get; }
+		string Id { get; }
 	}
 	
 	public interface SyncClient
@@ -736,5 +739,6 @@ Logger.Debug ("8");
 		void SetRevision (Note note, int revision);
 		IDictionary<string, string> DeletedNoteTitles { get; }
 		void Reset ();
+		string AssociatedServerId { get; set; }
 	}
 }

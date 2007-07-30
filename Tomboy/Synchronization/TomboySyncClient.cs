@@ -11,6 +11,7 @@ namespace Tomboy.Sync
 		
 		private DateTime lastSyncDate;
 		private int lastSyncRev;
+		private string serverId;
 		private string localManifestFilePath;
 		private Dictionary<string, int> fileRevisions;
 		private Dictionary<string, string> deletedNotes;
@@ -86,6 +87,9 @@ namespace Tomboy.Sync
 			foreach (XmlNode node in doc.GetElementsByTagName ("last-sync-rev"))
 				lastSyncRev = int.Parse (node.InnerText);
 
+			foreach (XmlNode node in doc.GetElementsByTagName ("server-id"))
+				serverId = node.InnerText;
+
 			foreach (XmlNode node in doc.GetElementsByTagName ("last-sync-date"))
 				lastSyncDate = XmlConvert.ToDateTime (node.InnerText);
 			
@@ -107,6 +111,10 @@ namespace Tomboy.Sync
 			
 			xml.WriteStartElement (null, "last-sync-rev", null);
 			xml.WriteString (lastSyncRev.ToString ());
+			xml.WriteEndElement ();
+			
+			xml.WriteStartElement (null, "server-id", null);
+			xml.WriteString (serverId);
 			xml.WriteEndElement ();
 			
 			xml.WriteStartElement (null, "note-revisions", null);
@@ -192,6 +200,25 @@ namespace Tomboy.Sync
 			if (File.Exists (localManifestFilePath))
 				File.Delete (localManifestFilePath);
 			Parse (localManifestFilePath);
+		}
+		
+		/// <summary>
+		/// The server ID should be verified before commencing
+		/// sync.  If they do not match, then this client should
+		/// be Reset.
+		public virtual string AssociatedServerId
+		{
+			get
+			{
+				return serverId;
+			}
+			set
+			{
+				if (serverId != value) {
+					serverId = value;
+					Write (localManifestFilePath);
+				}
+			}
 		}
 	}
 }
