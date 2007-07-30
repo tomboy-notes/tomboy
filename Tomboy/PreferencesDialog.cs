@@ -384,9 +384,11 @@ namespace Tomboy
 			vbox.PackStart (hbox, false, false, 0);
 			
 			// Get the preferences GUI for the Sync Addin
-			selectedSyncAddin = syncAddinStore.GetValue (active_iter, 0) as SyncServiceAddin;
+			if (active_iter.Stamp != Gtk.TreeIter.Zero.Stamp)
+				selectedSyncAddin = syncAddinStore.GetValue (active_iter, 0) as SyncServiceAddin;
 			
-			syncAddinPrefsWidget = selectedSyncAddin.CreatePreferencesControl ();
+			if (selectedSyncAddin != null)
+				syncAddinPrefsWidget = selectedSyncAddin.CreatePreferencesControl ();
 			if (syncAddinPrefsWidget == null) {
 				Gtk.Label l = new Gtk.Label (Catalog.GetString ("Not configurable"));
 				l.Yalign = 0.5f;
@@ -414,7 +416,7 @@ namespace Tomboy
 			saveSyncAddinButton.Show ();
 			bbox.PackStart (saveSyncAddinButton, false, false, 0);
 			
-			if (selectedSyncAddin.IsConfigured) {
+			if (selectedSyncAddin != null && selectedSyncAddin.IsConfigured) {
 				saveSyncAddinButton.Sensitive = false;
 				resetSyncAddinButton.Sensitive = true;
 				syncAddinCombo.Sensitive = false;
