@@ -272,7 +272,7 @@ namespace Tomboy.Sync
 					ProgressText = Catalog.GetString ("Preparing to download updates from server...");
 					break;
 				case SyncState.PrepareUpload:
-					ProgressText = Catalog.GetString ("Preparing to upload updates from server...");
+					ProgressText = Catalog.GetString ("Preparing to upload updates to server...");
 					break;
 				case SyncState.Uploading:
 					ProgressText = Catalog.GetString ("Uploading notes to server...");
