@@ -20,10 +20,10 @@ namespace Tomboy
 		Gtk.VBox content_vbox;
 		Gtk.TreeViewColumn matches_column;
 
-		Gtk.TreeView tags_tree;
-		Gtk.TreeModel tags_store;
+//		Gtk.TreeView tags_tree;
+//		Gtk.TreeModel tags_store;
 		// Use the following like a Set
-		Dictionary<Tag, Tag> selected_tags;
+//		Dictionary<Tag, Tag> selected_tags;
 		
 		Gtk.TreeView tree;
 		Gtk.ListStore store;
@@ -72,7 +72,7 @@ namespace Tomboy
 			this.DefaultWidth = 200;
 			this.current_matches = new Hashtable ();
 			
-			selected_tags = new Dictionary<Tag, Tag> ();
+//			selected_tags = new Dictionary<Tag, Tag> ();
 			
 			AddAccelGroup (Tomboy.ActionManager.UI.AccelGroup);
 
@@ -120,24 +120,24 @@ namespace Tomboy
 			hbox.PackStart (table, true, true, 0);
 			hbox.ShowAll ();
 			
-			tags_tree = MakeTagsTree ();
-			tags_store = TagManager.Tags;
-			TagManager.TagRemoved += OnTagRemoved;
-			tags_tree.Model = tags_store;
-			tags_tree.Show ();
+//			tags_tree = MakeTagsTree ();
+//			tags_store = TagManager.Tags;
+//			TagManager.TagRemoved += OnTagRemoved;
+//			tags_tree.Model = tags_store;
+//			tags_tree.Show ();
 
-			Gtk.ScrolledWindow tags_sw = new Gtk.ScrolledWindow ();
-			tags_sw.ShadowType = Gtk.ShadowType.In;
+//			Gtk.ScrolledWindow tags_sw = new Gtk.ScrolledWindow ();
+//			tags_sw.ShadowType = Gtk.ShadowType.In;
 
 			// Reign in the window size if there are tags with long
 			// names, or a lot of tags...
 
-			Gtk.Requisition tags_tree_req = tags_tree.SizeRequest ();
-			if (tags_tree_req.Width > 150)
-				tags_sw.WidthRequest = 150;
+//			Gtk.Requisition tags_tree_req = tags_tree.SizeRequest ();
+//			if (tags_tree_req.Width > 150)
+//				tags_sw.WidthRequest = 150;
 			
-			tags_sw.Add (tags_tree);
-			tags_sw.Show ();
+//			tags_sw.Add (tags_tree);
+//			tags_sw.Show ();
 
 			MakeRecentTree ();
 			tree.Show ();
@@ -175,11 +175,11 @@ namespace Tomboy
 			matches_window.Add (tree);
 			matches_window.Show ();
 			
-			Gtk.HPaned hpaned = new Gtk.HPaned ();
-			hpaned.Position = 150;
-			hpaned.Add1 (tags_sw);
-			hpaned.Add2 (matches_window);
-			hpaned.Show ();
+//			Gtk.HPaned hpaned = new Gtk.HPaned ();
+//			hpaned.Position = 150;
+//			hpaned.Add1 (tags_sw);
+//			hpaned.Add2 (matches_window);
+//			hpaned.Show ();
 
 			Gtk.HBox status_box = new Gtk.HBox (false, 8);
 			status_box.PackStart (note_count, true, true, 0);
@@ -188,7 +188,8 @@ namespace Tomboy
 			Gtk.VBox vbox = new Gtk.VBox (false, 8);
 			vbox.BorderWidth = 6;
 			vbox.PackStart (hbox, false, false, 0);
-			vbox.PackStart (hpaned, true, true, 0);
+//			vbox.PackStart (hpaned, true, true, 0);
+			vbox.PackStart (matches_window, true, true, 0);
 			vbox.PackStart (status_box, false, false, 0);
 			vbox.Show ();
 
@@ -229,6 +230,7 @@ namespace Tomboy
 			return menubar;
 		}
 		
+/*
 		Gtk.TreeView MakeTagsTree ()
 		{
 			Gtk.TreeView t;
@@ -259,6 +261,7 @@ namespace Tomboy
 			
 			return t;
 		}
+*/
 		
 		void MakeRecentTree ()
 		{
@@ -610,10 +613,11 @@ namespace Tomboy
 			if (passes_search_filter == false)
 				return false; // don't waste time checking tags if it's already false
 			
-			bool passes_tag_filter = FilterByTag (note);
+//			bool passes_tag_filter = FilterByTag (note);
 			
-			// Must pass both filters to appear in the list
-			return passes_tag_filter && passes_search_filter;
+//			// Must pass both filters to appear in the list
+//			return passes_tag_filter && passes_search_filter;
+			return true;
 		}
 		
 		// <summary>
@@ -621,20 +625,20 @@ namespace Tomboy
 		// based on the current selection of tags.  If no tags are selected,
 		// all notes should be allowed.
 		// </summary>
-		bool FilterByTag (Note note)
-		{
-			if (selected_tags.Count == 0)
-				return true;
-			
-			// FIXME: Ugh!  NOT an O(1) operation.  Is there a better way?
-			List<Tag> tags = note.Tags;
-			foreach (Tag tag in note.Tags) {
-				if (selected_tags.ContainsKey (tag))
-					return true;
-			}
-			
-			return false;
-		}
+//		bool FilterByTag (Note note)
+//		{
+//			if (selected_tags.Count == 0)
+//				return true;
+//			
+//			// FIXME: Ugh!  NOT an O(1) operation.  Is there a better way?
+//			List<Tag> tags = note.Tags;
+//			foreach (Tag tag in note.Tags) {
+//				if (selected_tags.ContainsKey (tag))
+//					return true;
+//			}
+//			
+//			return false;
+//		}
 		
 		// <summary>
 		// Return true if the specified note should be shown in the list
@@ -1037,6 +1041,7 @@ namespace Tomboy
 			find_combo.Entry.GrabFocus ();
 		}
 		
+/*
 		// <summary>
 		// Pay attention to when tags are removed so selected_tags
 		// remains up-to-date if a selected tag is removed from
@@ -1110,6 +1115,7 @@ namespace Tomboy
 			else
 				crt.Text = tag.Name;
 		}
+*/
 		
 		public string SearchText
 		{
