@@ -27,6 +27,11 @@ namespace Tomboy
 		public const string EXPORTHTML_EXPORT_LINKED_ALL = "/apps/tomboy/export_html/export_linked_all";
 
 		public const string STICKYNOTEIMPORTER_FIRST_RUN = "/apps/tomboy/sticky_note_importer/sticky_importer_first_run";
+		
+		public const string SYNC_CLIENT_ID = "/apps/tomboy/sync_guid"; // TODO: Rename, put in schema, etc.
+		public const string SYNC_LOCAL_PATH = "/apps/tomboy/sync_local_path"; // TODO: Rename, put in schema, etc.
+		public const string SYNC_SELECTED_SERVICE_ADDIN = "/apps/tomboy/sync_selected_service_addin"; // TODO: Rename, put in schema, etc.
+		public const string SYNC_CONFIGURED_CONFLICT_BEHAVIOR = "/apps/tomboy/sync_conflict_behavior"; // TODO: Rename, put in schema, etc.
 
 		static GConf.Client client;
 		static GConf.NotifyEventHandler changed_handler;
@@ -68,7 +73,7 @@ namespace Tomboy
 				return 10;
 
 			case MENU_PINNED_NOTES:
-				return "";
+				return string.Empty;
 
 			case KEYBINDING_SHOW_NOTE_MENU:
 				return "<Alt>F12";
@@ -88,13 +93,23 @@ namespace Tomboy
 				return false;
 
 			case EXPORTHTML_LAST_DIRECTORY:
-				return "";
+				return string.Empty;
 
 			case STICKYNOTEIMPORTER_FIRST_RUN:
 				return true;
 			
 			case ENABLE_STARTUP_NOTES:
 				return true;
+			
+			case SYNC_CLIENT_ID:
+				return System.Guid.NewGuid ().ToString ();
+				break;
+			
+			case SYNC_LOCAL_PATH:
+				return string.Empty;
+
+			case SYNC_CONFIGURED_CONFLICT_BEHAVIOR:
+				return 0;
 			}
 
 			return null;

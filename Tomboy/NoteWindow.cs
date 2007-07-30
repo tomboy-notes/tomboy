@@ -476,9 +476,22 @@ namespace Tomboy
 			if (note.IsSpecial)
 				delete.Sensitive = false;
 
+			Gtk.ImageMenuItem item = 
+				new Gtk.ImageMenuItem (Catalog.GetString ("Synchronize Notes"));
+			item.Image = new Gtk.Image (Gtk.Stock.Convert, Gtk.IconSize.Menu);
+			item.Activated += SyncItemSelected;
+			item.Show ();
+			PluginMenu.Add (item);
+
 			return toolbar;
 		}
-
+		
+		void SyncItemSelected (object sender, EventArgs args)
+		{
+			Tomboy.ActionManager ["NoteSynchronizationAction"].Activate ();
+//			SyncManager.OpenNoteSyncWindow ();
+		}
+ 
 		//
 		// Plugin toolbar menu
 		//

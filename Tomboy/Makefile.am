@@ -40,7 +40,7 @@ CSFILES = 					\
 	$(srcdir)/AbstractAddin.cs		\
 	$(srcdir)/ActionManager.cs		\
 	$(srcdir)/AddinManager.cs		\
-	$(srcdir)/AddinPreferenceFactory.cs \
+	$(srcdir)/AddinPreferenceFactory.cs	\
 	$(srcdir)/Applet.cs 			\
 	$(srcdir)/ApplicationAddin.cs		\
 	$(srcdir)/Logger.cs			\
@@ -54,7 +54,7 @@ CSFILES = 					\
 	$(srcdir)/Preferences.cs		\
 	$(srcdir)/PreferencesDialog.cs		\
 	$(srcdir)/RecentChanges.cs		\
-	$(srcdir)/Tag.cs				\
+	$(srcdir)/Tag.cs			\
 	$(srcdir)/TagButton.cs			\
 	$(srcdir)/TagManager.cs			\
 	$(srcdir)/Tray.cs 			\
@@ -64,8 +64,10 @@ CSFILES = 					\
 	$(srcdir)/Watchers.cs			\
 	$(srcdir)/WrapBox.cs			\
 	$(srcdir)/XKeybinder.cs			\
+	$(srcdir)/Synchronization/*.cs		\
 	\
 	$(srcdir)/panelapplet/*.cs		\
+	$(srcdir)/Gnome.Keyring/*.cs		\
 	\
 	$(DBUS_CSFILES)	
 

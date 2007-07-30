@@ -526,6 +526,11 @@ namespace Tomboy
 		{
 			get { return data.Data.Uri; }
 		}
+		
+		public string Id
+		{
+			get { return data.Data.Uri.Replace ("note://tomboy/",""); }// TODO: Store on Note instantiation
+		}
 
 		public string FilePath 
 		{
@@ -546,7 +551,25 @@ namespace Tomboy
 
 					if (Renamed != null)
 						Renamed (this, old_title);
+					
+					QueueSave (true); // TODO: Right place for this?
 				}
+			}
+		}
+		
+		public void RenameWithoutLinkUpdate (string newTitle)
+		{
+			if (data.Data.Title != newTitle) {
+				if (window != null)
+					window.Title = newTitle;
+				
+				data.Data.Title = newTitle;
+				
+				// HACK: 
+				if (Renamed != null)
+					Renamed (this, newTitle);
+				
+				QueueSave (true); // TODO: Right place for this?
 			}
 		}
 
@@ -559,6 +582,33 @@ namespace Tomboy
 					NoteBufferArchiver.Deserialize (buffer, value);
 				} else
 					data.Text = value; 
+			}
+		}
+		
+		/// <summary>
+		/// Return the complete contents of this note's .note XML file
+		/// In case of any error, null is returned.
+		/// </summary>
+		public string GetCompleteNoteXml ()
+		{
+			if (!File.Exists (filepath))
+				return null;
+			
+			// Make sure file contents are up to date
+			save_needed = true; // HACK: Catches newly created notes
+			Save ();
+
+			StreamReader reader = null;
+			try {
+				reader = new StreamReader (filepath);
+				return reader.ReadToEnd ();
+			} catch (Exception e) {
+				Logger.Error ("Error received while attempting to read " +
+				              filepath + ": " + e.Message);
+				return null;
+			} finally {
+				if (reader != null)
+					reader.Close ();
 			}
 		}
 		
@@ -626,7 +676,7 @@ namespace Tomboy
 			// TODO: Any reason to queue a save here?  Maybe not for sync but for others?
 		}
 		
-		// TODO: NEEDS REFACTORING; CODE DUPLICATION SUCKS
+		// TODO: CODE DUPLICATION SUCKS
 		List<string> ParseTags (XmlNode tagNodes)
 		{
 			List<string> tags = new List<string> ();

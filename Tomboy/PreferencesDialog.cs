@@ -5,10 +5,20 @@ using System.Text;
 using GConf.PropertyEditors;
 using Mono.Unix;
 
+using Tomboy.Sync;
+
 namespace Tomboy
 {
 	public class PreferencesDialog : Gtk.Dialog
 	{
+		Gtk.ListStore syncAddinStore;
+		Dictionary<string, Gtk.TreeIter> syncAddinIters;
+		Gtk.ComboBox syncAddinCombo;
+		SyncServiceAddin selectedSyncAddin;
+		Gtk.VBox syncAddinPrefsContainer;
+		Gtk.Widget syncAddinPrefsWidget;
+		Gtk.Button resetSyncAddinButton;
+		Gtk.Button saveSyncAddinButton;
 		readonly AddinManager addin_manager;
 
 		Type current_extension;
@@ -69,6 +79,8 @@ namespace Tomboy
 				new Gtk.Label (Catalog.GetString ("Editing")));
 			notebook.AppendPage (MakeHotkeysPane (), 
 				new Gtk.Label (Catalog.GetString ("Hotkeys")));
+			notebook.AppendPage (MakeSyncPane (), 
+				new Gtk.Label (Catalog.GetString ("Synchronization")));
 			notebook.AppendPage (MakeAddinsPane (),
 			    new Gtk.Label (Catalog.GetString ("Add-ins")));
 
@@ -317,6 +329,118 @@ namespace Tomboy
 
 
 			return hotkeys_list;
+		}
+		
+		public Gtk.Widget MakeSyncPane ()
+		{
+			Gtk.VBox vbox = new Gtk.VBox (false, 0);
+			vbox.Spacing = 4;
+			vbox.BorderWidth = 8;
+			
+			Gtk.HBox hbox = new Gtk.HBox (false, 4);
+			
+			Gtk.Label label = new Gtk.Label (Catalog.GetString ("Service:"));
+			label.Xalign = 0;
+			label.Show ();
+			hbox.PackStart (label, false, false, 0);
+			
+			// Populate the store with all the available SyncServiceAddins
+			syncAddinStore = new Gtk.ListStore (typeof (SyncServiceAddin));
+			syncAddinIters = new Dictionary<string,Gtk.TreeIter> ();
+			SyncServiceAddin [] addins = Tomboy.DefaultNoteManager.AddinManager.GetSyncServiceAddins ();
+			foreach (SyncServiceAddin addin in addins) {
+				Gtk.TreeIter iter = syncAddinStore.Append ();
+				syncAddinStore.SetValue (iter, 0, addin);
+				syncAddinIters [addin.Id] = iter;
+			}
+			
+			syncAddinCombo = new Gtk.ComboBox (syncAddinStore);
+			Gtk.CellRendererText crt = new Gtk.CellRendererText ();
+			syncAddinCombo.PackStart (crt, true);
+			syncAddinCombo.SetCellDataFunc (crt, 
+					new Gtk.CellLayoutDataFunc (ComboBoxTextDataFunc));
+			
+			// Read from Preferences which service is configured and select it
+			// by default.  Otherwise, just select the first one in the list.
+			string addin_id = Preferences.Get (
+				Preferences.SYNC_SELECTED_SERVICE_ADDIN) as String;
+			
+			Gtk.TreeIter active_iter;
+			if (addin_id != null && syncAddinIters.ContainsKey (addin_id)) {
+				active_iter = syncAddinIters [addin_id];
+				syncAddinCombo.SetActiveIter (active_iter);
+			} else {
+				if (syncAddinStore.GetIterFirst (out active_iter) == true) {
+					syncAddinCombo.SetActiveIter (active_iter);
+				}
+			}
+			
+			syncAddinCombo.Changed += OnSyncAddinComboChanged;
+			
+			syncAddinCombo.Show ();
+			hbox.PackStart (syncAddinCombo, true, true, 0);
+			
+			hbox.Show ();
+			vbox.PackStart (hbox, false, false, 0);
+			
+			// Get the preferences GUI for the Sync Addin
+			selectedSyncAddin = syncAddinStore.GetValue (active_iter, 0) as SyncServiceAddin;
+			
+			syncAddinPrefsWidget = selectedSyncAddin.CreatePreferencesControl ();
+			if (syncAddinPrefsWidget == null) {
+				Gtk.Label l = new Gtk.Label (Catalog.GetString ("Not configurable"));
+				l.Yalign = 0.5f;
+				l.Yalign = 0.5f;
+				syncAddinPrefsWidget = l;
+			}
+			
+			syncAddinPrefsWidget.Show ();
+			syncAddinPrefsContainer = new Gtk.VBox (false, 0);
+			syncAddinPrefsContainer.PackStart (syncAddinPrefsWidget, true, true, 0);
+			syncAddinPrefsContainer.Show ();
+			vbox.PackStart (syncAddinPrefsContainer, true, true, 0);
+			
+			Gtk.HButtonBox bbox = new Gtk.HButtonBox ();
+			bbox.Spacing = 4;
+			bbox.LayoutStyle = Gtk.ButtonBoxStyle.End;
+			
+			resetSyncAddinButton = new Gtk.Button (Gtk.Stock.Clear);
+			resetSyncAddinButton.Clicked += OnResetSyncAddinButton;
+			resetSyncAddinButton.Show ();
+			bbox.PackStart (resetSyncAddinButton, false, false, 0);
+			
+			saveSyncAddinButton = new Gtk.Button (Gtk.Stock.Save);
+			saveSyncAddinButton.Clicked += OnSaveSyncAddinButton;
+			saveSyncAddinButton.Show ();
+			bbox.PackStart (saveSyncAddinButton, false, false, 0);
+			
+			if (selectedSyncAddin.IsConfigured) {
+				saveSyncAddinButton.Sensitive = false;
+				resetSyncAddinButton.Sensitive = true;
+				syncAddinCombo.Sensitive = false;
+			} else {
+				saveSyncAddinButton.Sensitive = true;
+				resetSyncAddinButton.Sensitive = false;
+				syncAddinCombo.Sensitive = true;
+			}
+			
+			bbox.Show ();
+			vbox.PackStart (bbox, false, false, 0);
+
+			vbox.ShowAll ();
+			return vbox;
+		}
+		
+		private void ComboBoxTextDataFunc (Gtk.CellLayout cell_layout, Gtk.CellRenderer cell,
+			Gtk.TreeModel tree_model, Gtk.TreeIter iter)
+		{
+			Gtk.CellRendererText crt = cell as Gtk.CellRendererText;
+			SyncServiceAddin addin = tree_model.GetValue (iter, 0) as SyncServiceAddin;
+			if (addin == null) {
+				crt.Text = string.Empty;
+			} else {
+				crt.Text = addin.Name;
+			}
 		}
 
 		// Page 3
@@ -680,6 +804,157 @@ namespace Tomboy
 							  font_desc,
 							  desc.ToString ());
 		}
+		
+		void OnSyncAddinComboChanged (object sender, EventArgs args)
+		{
+			if (syncAddinPrefsWidget != null) {
+				syncAddinPrefsContainer.Remove (syncAddinPrefsWidget);
+				syncAddinPrefsWidget.Hide ();
+				syncAddinPrefsWidget.Destroy ();
+				syncAddinPrefsWidget = null;
+			}
+			
+			Gtk.TreeIter iter;
+			if (syncAddinCombo.GetActiveIter (out iter)) {
+				SyncServiceAddin newAddin =
+					syncAddinStore.GetValue (iter, 0) as SyncServiceAddin;
+				if (newAddin != null) {
+					selectedSyncAddin = newAddin;
+					syncAddinPrefsWidget = selectedSyncAddin.CreatePreferencesControl ();
+					if (syncAddinPrefsWidget == null) {
+						Gtk.Label l = new Gtk.Label (Catalog.GetString ("Not configurable"));
+						l.Yalign = 0.5f;
+						l.Yalign = 0.5f;
+						syncAddinPrefsWidget = l;
+					}
+			
+					syncAddinPrefsWidget.Show ();
+					syncAddinPrefsContainer.PackStart (syncAddinPrefsWidget, true, true, 0);
+				}
+			}
+		}
+		
+		void OnResetSyncAddinButton (object sender, EventArgs args)
+		{
+			if (selectedSyncAddin == null)
+				return;
+			
+			// Prompt the user about what they're about to do since
+			// it's not really recommended to switch back and forth
+			// between sync services.
+			// Prompt the user first about enabling fuse
+			HIGMessageDialog dialog = 
+				new HIGMessageDialog (null,
+						      Gtk.DialogFlags.Modal,
+						      Gtk.MessageType.Question,
+						      Gtk.ButtonsType.YesNo,
+						      Catalog.GetString ("WARNING: Are you sure?"),
+						      Catalog.GetString (
+					"Clearing your synchronization settings is not recommended.  " +
+					"You may be forced to synchronize all of your notes again " +
+					"when you save new settings."));
+			int response = dialog.Run ();
+			dialog.Destroy ();
+			if (response == (int) Gtk.ResponseType.No)
+				return;
+			
+			try {
+				selectedSyncAddin.ResetConfiguration ();
+			} catch (Exception e) {
+				Logger.Debug ("Error calling {0}.ResetConfiguration: {1}\n{2}",
+					selectedSyncAddin.Id, e.Message, e.StackTrace);
+			}
+
+			Preferences.Set (
+				Preferences.SYNC_SELECTED_SERVICE_ADDIN,
+				String.Empty);
+			
+			// Nuke ~/.tomboy/manifest.xml
+			string clientManifestPath = System.IO.Path.Combine ( 
+					Tomboy.DefaultNoteManager.NoteDirectoryPath,
+					"manifest.xml");
+			if (System.IO.File.Exists (clientManifestPath) == true) {
+				try {
+					System.IO.File.Delete (clientManifestPath);
+				} catch (Exception e) {
+					Logger.Debug ("Error deleting \"{0}\" during reset: {1}",
+						clientManifestPath,
+						e.Message);
+				}
+			}
+				
+			syncAddinCombo.Sensitive = true;
+			syncAddinPrefsWidget.Sensitive = true;
+			resetSyncAddinButton.Sensitive = false;
+			saveSyncAddinButton.Sensitive = true;
+		}
+		
+		/// <summary>
+		/// Attempt to save/test the connection to the sync addin.
+		/// </summary>
+		void OnSaveSyncAddinButton (object sender, EventArgs args)
+		{
+			if (selectedSyncAddin == null)
+				return;
+			
+			bool saved = false;
+			try {
+				saved = selectedSyncAddin.SaveConfiguration ();
+			} catch (Exception e) {
+				Logger.Debug ("Error calling {0}.SaveConfiguration: {1}\n{2}",
+					selectedSyncAddin.Id, e.Message, e.StackTrace);
+			}
+			
+			HIGMessageDialog dialog; 
+			if (saved) {
+				Preferences.Set (
+					Preferences.SYNC_SELECTED_SERVICE_ADDIN,
+					selectedSyncAddin.Id);
+				
+				syncAddinCombo.Sensitive = false;
+				syncAddinPrefsWidget.Sensitive = false;
+				resetSyncAddinButton.Sensitive = true;
+				saveSyncAddinButton.Sensitive = false;
+
+				// Give the user a visual letting them know that connecting
+				// was successful.
+				dialog = 
+					new HIGMessageDialog (this,
+							      Gtk.DialogFlags.Modal,
+							      Gtk.MessageType.Info,
+							      Gtk.ButtonsType.Close,
+							      Catalog.GetString ("Success! You're connected!"),
+							      Catalog.GetString (
+						"Tomboy is ready to synchronize your notes."));
+				dialog.Run ();
+				dialog.Destroy ();
+			} else {
+				// TODO: Change the SyncServiceAddin API so the call to
+				// SaveConfiguration has a way of passing back an exception
+				// or other text so it can be displayed to the user.
+				Preferences.Set (
+					Preferences.SYNC_SELECTED_SERVICE_ADDIN,
+					String.Empty);
+				
+				syncAddinCombo.Sensitive = true;
+				syncAddinPrefsWidget.Sensitive = true;
+				resetSyncAddinButton.Sensitive = false;
+				saveSyncAddinButton.Sensitive = true;
+
+				// Give the user a visual letting them know that connecting
+				// was successful.
+				dialog = 
+					new HIGMessageDialog (this,
+							      Gtk.DialogFlags.Modal,
+							      Gtk.MessageType.Warning,
+							      Gtk.ButtonsType.Close,
+							      Catalog.GetString ("Error connecting :("),
+							      Catalog.GetString (
+						"Sorry, but something went wrong.  Please check your information and try again.  The ~/.tomboy.log might be useful too."));
+				dialog.Run ();
+				dialog.Destroy ();
+			}
+		}
 	}
 	
 	// TODO: Figure out how to use Mono.Addins.Gui.AddinInfoDialog here instead.
@@ -709,6 +984,7 @@ namespace Tomboy
 			info_label.Yalign = 0;
 			info_label.UseMarkup = true;
 			info_label.UseUnderline = false;
+			info_label.Wrap = true;
 			
 			Gtk.HBox hbox = new Gtk.HBox (false, 6);
 			Gtk.VBox vbox = new Gtk.VBox (false, 12);

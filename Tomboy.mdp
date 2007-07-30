@@ -132,6 +132,12 @@
     <File name="./Mono.Addins/Mono.Addins/Mono.Addins.Serialization/BinaryXmlTypeMap.cs" subtype="Code" buildaction="Compile" />
     <File name="./Mono.Addins/Mono.Addins/Mono.Addins.Serialization/BinaryXmlWriter.cs" subtype="Code" buildaction="Compile" />
     <File name="./Mono.Addins/Mono.Addins/Mono.Addins.Serialization/IBinaryXmlElement.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Tomboy/Addins/WebDavSyncService" subtype="Directory" buildaction="Compile" />
+    <File name="./Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Tomboy/Addins/SshSyncService" subtype="Directory" buildaction="Compile" />
+    <File name="./Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Tomboy/Addins/FileSystemSyncService" subtype="Directory" buildaction="Compile" />
+    <File name="./Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs" subtype="Code" buildaction="Compile" />
     <File name="./Tomboy/AddinPreferenceFactory.cs" subtype="Code" buildaction="Compile" />
     <File name="./Tomboy/Addins/Bugzilla/BugzillaNoteAddin.cs" subtype="Code" buildaction="Compile" />
     <File name="./Tomboy/Addins/Bugzilla/InsertBugAction.cs" subtype="Code" buildaction="Compile" />
@@ -152,7 +158,40 @@
     <File name="./Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs" subtype="Code" buildaction="Compile" />
     <File name="./Tomboy/Addins/Evolution/EvolutionNoteAddin.cs" subtype="Code" buildaction="Compile" />
     <File name="./Tomboy/Addins/GalagoPresence" subtype="Directory" buildaction="Compile" />
+    <File name="./Tomboy/Synchronization" subtype="Directory" buildaction="Compile" />
+    <File name="./Tomboy/Synchronization/FuseSyncServiceAddin.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Tomboy/Gnome.Keyring/AccessRights.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Tomboy/Gnome.Keyring/AttributeType.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Tomboy/Gnome.Keyring/GenericItemData.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Tomboy/Gnome.Keyring/ItemACL.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Tomboy/Gnome.Keyring/ItemData.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Tomboy/Gnome.Keyring/ItemType.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Tomboy/Gnome.Keyring/KeyringException.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Tomboy/Gnome.Keyring/KeyringInfo.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Tomboy/Gnome.Keyring/NetItemData.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Tomboy/Gnome.Keyring/NoteItemData.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Tomboy/Gnome.Keyring/Operation.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Tomboy/Gnome.Keyring/RequestMessage.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Tomboy/Gnome.Keyring/ResponseMessage.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Tomboy/Gnome.Keyring/ResultCode.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Tomboy/Gnome.Keyring/Ring.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Tomboy/Synchronization/SyncDialog.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Tomboy/Synchronization/SyncManager.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Tomboy/Synchronization/SyncUtils.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Tomboy/Synchronization/TomboySyncClient.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Tomboy/Synchronization/FileSystemSyncServer.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Tomboy/Synchronization/SyncServiceAddin.cs" subtype="Code" buildaction="Compile" />
   </Contents>
+  <References>
+    <ProjectReference type="Gac" localcopy="True" refto="gdk-sharp, Version=2.8.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
+    <ProjectReference type="Gac" localcopy="True" refto="gtk-sharp, Version=2.8.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
+    <ProjectReference type="Gac" localcopy="True" refto="System.Xml, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+    <ProjectReference type="Gac" localcopy="True" refto="Mono.Security, Version=2.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756" />
+    <ProjectReference type="Gac" localcopy="True" refto="glib-sharp, Version=2.8.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
+    <ProjectReference type="Gac" localcopy="True" refto="gnome-sharp, Version=2.8.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
+    <ProjectReference type="Gac" localcopy="True" refto="System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+    <ProjectReference type="Gac" localcopy="True" refto="Mono.Posix, Version=2.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756" />
+  </References>
   <MonoDevelop.Autotools.MakefileInfo IntegrationEnabled="True" RelativeMakefileName="./Makefile.am" ExecuteTargetName="run">
     <BuildFilesVar />
     <DeployFilesVar />

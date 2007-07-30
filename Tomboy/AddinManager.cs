@@ -8,6 +8,8 @@ using System.IO;
 using Mono.Unix;
 using Mono.Unix.Native;
 
+using Tomboy.Sync;
+
 namespace Tomboy
 {
 	public class AddinManager
@@ -70,6 +72,7 @@ namespace Tomboy
 			Mono.Addins.AddinManager.Registry.Rebuild (null);
 			Mono.Addins.AddinManager.AddExtensionNodeHandler ("/Tomboy/ApplicationAddins", OnApplicationAddinExtensionChanged);
 			Mono.Addins.AddinManager.AddExtensionNodeHandler ("/Tomboy/NoteAddins", OnNoteAddinExtensionChanged);
+			// TODO: Need to call AddExtensionNodeHandler for sync addins?
 		}
 		
 		void OnAddinLoaded (object sender, Mono.Addins.AddinEventArgs args)
@@ -240,9 +243,30 @@ namespace Tomboy
 			
 			return addins;
 		}
+
+		/// <summary>
+		/// Returns an array of SyncServiceAddin objects
+		/// </summary>
+		public SyncServiceAddin [] GetSyncServiceAddins ()
+		{
+			SyncServiceAddin [] addins;
+			
+			try {
+				addins = (SyncServiceAddin [])
+						Mono.Addins.AddinManager.GetExtensionObjects (
+							"/Tomboy/SyncServiceAddins",
+							typeof (SyncServiceAddin));
+			} catch (Exception e) {
+				Logger.Debug ("No SyncServiceAddins found: {0}", e.Message);
+				addins = new SyncServiceAddin [0];
+			}
+			
+			return addins;
+		}
 		
 		/// <summary>
-		/// Return all the Addins available to Tomboy
+		/// Add the addin to the note and save off a reference to the addin that
+		/// will be used when the note is deleted.
 		/// </summary>
 		public List<Mono.Addins.Addin> GetAllAddins ()
 		{

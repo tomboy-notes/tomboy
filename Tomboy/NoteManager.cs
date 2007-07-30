@@ -285,8 +285,12 @@ namespace Tomboy
 
 		string MakeNewFileName ()
 		{
-			Guid guid = Guid.NewGuid ();
-			return Path.Combine (notes_dir, guid.ToString () + ".note");
+			return MakeNewFileName (Guid.NewGuid ().ToString ());
+		}
+		
+		string MakeNewFileName (string guid)
+		{
+			return Path.Combine (notes_dir, guid + ".note");
 		}
 
 		// Create a new note with a generated title
@@ -330,10 +334,25 @@ namespace Tomboy
 
 			return title;
 		}
+		
+		public Note Create (string title)
+		{
+			return CreateNewNote (title, null);
+		}
+		
+		public Note Create (string title, string xml_content)
+		{
+			return CreateNewNote (title, xml_content, null);
+		}
+		
+		public Note CreateWithGuid (string title, string guid)
+		{
+			return CreateNewNote (title, guid);
+		}
 
 		// Create a new note with the specified title, and a simple
 		// "Describe..." body which will be selected for easy overwrite.
-		public Note Create (string title) 
+		private Note CreateNewNote (string title, string guid) 
 		{
 			string body = null;
 
@@ -350,7 +369,7 @@ namespace Tomboy
 					       XmlEncoder.Encode (header),
 					       XmlEncoder.Encode (body));
 
-			Note new_note = Create (title, content);
+			Note new_note = CreateNewNote (title, content, guid);
 
 			// In case the note was created using the "Link" button, Select the inital 
          		// "Describe..." text so typing will overwrite the body text, 
@@ -375,15 +394,19 @@ namespace Tomboy
 		}
 
 		// Create a new note with the specified Xml content
-		public Note Create (string title, string xml_content)
+		private Note CreateNewNote (string title, string xml_content, string guid)
 		{
 			if (title == null || title == string.Empty)
 				throw new Exception ("Invalid title");
 
 			if (Find (title) != null)
-				throw new Exception ("A note with this title already exists");
+				throw new Exception ("A note with this title already exists: " + title);
 
-			string filename = MakeNewFileName ();
+			string filename;
+			if (guid != null)
+				filename = MakeNewFileName (guid);
+			else
+				filename = MakeNewFileName ();
 
 			Note new_note = Note.CreateNewNote (title, filename, this);
 			new_note.XmlContent = xml_content;

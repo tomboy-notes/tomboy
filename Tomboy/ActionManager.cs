@@ -109,7 +109,11 @@ namespace Tomboy
 					
 				new Gtk.ActionEntry ("ShowSearchAllNotesAction", Gtk.Stock.Find,
 					Catalog.GetString ("_Search All Notes"), null,
-					Catalog.GetString ("Open the Search All Notes window"), null)
+					Catalog.GetString ("Open the Search All Notes window"), null),
+				
+				new Gtk.ActionEntry ("NoteSynchronizationAction", null,
+					Catalog.GetString ("S_ynchronize Notes"), null,
+					Catalog.GetString ("Start synchronizing notes"), null)
 			});
 
 			main_window_actions.GetAction ("OpenNoteAction").Sensitive = false;
