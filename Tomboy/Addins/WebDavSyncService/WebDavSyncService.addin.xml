@@ -1,0 +1,21 @@
+<Addin id="WebDavSyncServiceAddin"
+	namespace="Tomboy"
+	name="WebDav Sync Service Add-in"
+	author="Tomboy Project"
+	description="Synchronize Tomboy Notes to a WebDav URL"
+	category="Synchronization"
+	defaultEnabled="true"
+	version="0.1">
+
+	<Runtime>
+		<Import assembly="WebDavSyncService.dll" />
+	</Runtime>
+
+	<Dependencies>
+		<Addin id="Tomboy" version="0.7" />
+	</Dependencies>
+
+	<Extension path="/Tomboy/SyncServiceAddins">
+		<SyncServiceAddin type="Tomboy.Sync.WebDavSyncServiceAddin" />
+	</Extension>
+</Addin>

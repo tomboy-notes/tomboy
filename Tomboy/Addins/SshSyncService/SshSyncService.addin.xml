@@ -1,0 +1,21 @@
+<Addin id="SshSyncServiceAddin"
+	namespace="Tomboy"
+	name="SSH Sync Service Add-in"
+	author="Tomboy Project"
+	description="Synchronize Tomboy Notes to a SSH share"
+	category="Synchronization"
+	defaultEnabled="false"
+	version="0.1">
+
+	<Runtime>
+		<Import assembly="SshSyncServiceAddin.dll" />
+	</Runtime>
+
+	<Dependencies>
+		<Addin id="Tomboy" version="0.7" />
+	</Dependencies>
+
+	<Extension path="/Tomboy/SyncServiceAddins">
+		<SyncServiceAddin type="Tomboy.Sync.SshSyncServiceAddin" />
+	</Extension>
+</Addin>
