@@ -256,6 +256,14 @@ Logger.Debug ("8");
 			int latestServerRevision = server.LatestRevision;
 			int newRevision = latestServerRevision + 1;
 			
+			// If the server has been wiped or reinitialized by another client
+			// for some reason, our local manifest is inaccurate and could misguide
+			// sync into erroneously deleting local notes, etc.  We reset the client
+			// to prevent this situation.
+			// TODO: Server "tamper detection" should actually do some guid checking
+			if (client.LastSynchronizedRevision > server.LatestRevision)
+				client.Reset ();
+			
 			SetState (SyncState.PrepareDownload);
 			
 			// Handle notes modified or added on server
@@ -727,5 +735,6 @@ Logger.Debug ("8");
 		int GetRevision (Note note);
 		void SetRevision (Note note, int revision);
 		IDictionary<string, string> DeletedNoteTitles { get; }
+		void Reset ();
 	}
 }

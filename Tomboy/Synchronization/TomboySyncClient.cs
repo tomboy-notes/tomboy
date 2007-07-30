@@ -183,5 +183,15 @@ namespace Tomboy.Sync
 		{
 			get { return deletedNotes; }
 		}
+		
+		/// <summary>
+		/// Client info is no good, delete manifest and start over.
+		/// </summary>
+		public void Reset ()
+		{
+			if (File.Exists (localManifestFilePath))
+				File.Delete (localManifestFilePath);
+			Parse (localManifestFilePath);
+		}
 	}
 }
