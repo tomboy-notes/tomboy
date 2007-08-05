@@ -1,30 +1,23 @@
-# translation of el.po to Greek
+# Greek translation of Tomboy.
 # Copyright (C) 2006 THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Dimitris Glezos <dimitris@glezos.com>, 2006, 2007.
 # Kostas Papadimas <pkst@gnome.org>, 2006.
+# Athanasios Lefteris <alefteris@gmail.com>, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: el\n"
+"Project-Id-Version: tomboy 0.7.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-02-03 02:37+0000\n"
-"PO-Revision-Date: 2007-02-03 02:58+0000\n"
-"Last-Translator: Dimitris Glezos <dimitris@glezos.com>\n"
+"POT-Creation-Date: 2007-08-05 21:13+0100\n"
+"PO-Revision-Date: 2007-08-05 21:09+0100\n"
+"Last-Translator: Athanasios Lefteris <alefteris@gmail.com>\n"
 "Language-Team: Greek <team@gnome.gr>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms:  nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: KBabel 1.11.4\n"
-
-#: ../data/DefaultPlugins.desktop.in.in.h:1
-msgid "Default Plugins"
-msgstr "Προεπιλεγμένες πρόσθετες λειτουργίες"
-
-#: ../data/DefaultPlugins.desktop.in.in.h:2
-msgid "Directory containing system-installed Plugins"
-msgstr "Κατάλογος με Πρόσθετες λειτουργίες εγκατεστημένες από το σύστημα"
 
 #: ../data/GNOME_TomboyApplet.server.in.in.h:1
 msgid "Accessories"
@@ -39,7 +32,7 @@ msgid "Tomboy Applet Factory"
 msgstr "Εργοστάσιο μικροεφαρμογής Tomboy"
 
 #: ../data/GNOME_TomboyApplet.server.in.in.h:4 ../data/tomboy.desktop.in.h:3
-#: ../Tomboy/Applet.cs:154 ../Tomboy/Tray.cs:147
+#: ../Tomboy/Applet.cs:148 ../Tomboy/Tray.cs:147
 msgid "Tomboy Notes"
 msgstr "Σημειώσεις Tomboy"
 
@@ -48,17 +41,12 @@ msgid "_About"
 msgstr "Πε_ρί"
 
 #: ../data/GNOME_TomboyApplet.xml.h:2 ../Tomboy/ActionManager.cs:93
-#: ../Tomboy/Applet.cs:199
+#: ../Tomboy/Applet.cs:186
 msgid "_Help"
 msgstr "_Βοήθεια"
 
-#: ../data/GNOME_TomboyApplet.xml.h:3 ../Tomboy/Applet.cs:187
-#: ../Tomboy/NoteWindow.cs:629 ../Tomboy/Preferences.cs:644
-msgid "_Open Plugins Folder"
-msgstr "Ά_νοιγμα φακέλου πρόσθετων λειτουργιών"
-
-#: ../data/GNOME_TomboyApplet.xml.h:4 ../Tomboy/ActionManager.cs:89
-#: ../Tomboy/Applet.cs:194
+#: ../data/GNOME_TomboyApplet.xml.h:3 ../Tomboy/ActionManager.cs:89
+#: ../Tomboy/Applet.cs:181
 msgid "_Preferences"
 msgstr "_Προτιμήσεις"
 
@@ -71,28 +59,28 @@ msgid "Create a new Note"
 msgstr "Δημιουργία νέας σημείωσης"
 
 #: ../data/tomboy.schemas.in.h:2
-msgid "Currently enabled plugins."
-msgstr "Ενεργοποιημένες πρόσθετες λειτουργίες."
-
-#: ../data/tomboy.schemas.in.h:3
 msgid "Custom Font Face"
 msgstr "Προσαρμοσμένη γραμματοσειρά"
 
-#: ../data/tomboy.schemas.in.h:4
+#: ../data/tomboy.schemas.in.h:3
 msgid "Enable WikiWord highlighting"
 msgstr "Ενεργοποίηση τονισμού ΒικιΛέξεων"
 
-#: ../data/tomboy.schemas.in.h:5
+#: ../data/tomboy.schemas.in.h:4
 msgid "Enable custom font"
 msgstr "Ενεργοποίηση προσαρμοσμένης γραμματοσειράς"
 
-#: ../data/tomboy.schemas.in.h:6
+#: ../data/tomboy.schemas.in.h:5
 msgid "Enable global keybindings"
 msgstr "Ενεργοποίηση καθολικών πλήκτρων"
 
-#: ../data/tomboy.schemas.in.h:7
+#: ../data/tomboy.schemas.in.h:6
 msgid "Enable spellchecking"
 msgstr "Ενεργοποίηση ορθογραφικού ελέγχου"
+
+#: ../data/tomboy.schemas.in.h:7
+msgid "Enable startup notes"
+msgstr "Ενεργοποίηση σημειώσεων εκκίνησης"
 
 #: ../data/tomboy.schemas.in.h:8
 msgid ""
@@ -124,13 +112,21 @@ msgstr ""
 
 #: ../data/tomboy.schemas.in.h:13
 msgid ""
+"If enabled, all notes that were open when Tomboy quit will automatically be "
+"reopened at startup."
+msgstr ""
+"Εάν ενεργοποιηθεί, όσες σημειώσεις ήταν ανοικτές όταν έκλεισε το Tomboy, θα "
+"ξανανοίξουν κατά την εκκίνησή του."
+
+#: ../data/tomboy.schemas.in.h:14
+msgid ""
 "If true, misspellings will be underlined in red, and correct spelling "
 "suggestions shown in the right-click menu."
 msgstr ""
 "Αν είναι αληθές, τυχόν ορθογραφικά λάθη θα υπογραμμίζονται με κόκκινο και "
 "ορθογραφικά σωστές προτάσεις θα εμφανίζονται στο μενού με δεξί κλικ."
 
-#: ../data/tomboy.schemas.in.h:14
+#: ../data/tomboy.schemas.in.h:15
 msgid ""
 "If true, the desktop-global keybindings set in /apps/tomboy/"
 "global_keybindings will be enabled, allowing for useful Tomboy actions to be "
@@ -140,7 +136,7 @@ msgstr ""
 "έχουν οριστεί στο /apps/tomboy/ global_keybindings θα ενεργοποιηθούν, "
 "ενεργοποιώντας χρήσιμες ενέργειες του Tomboy από οποιαδήποτε εφαρμογή."
 
-#: ../data/tomboy.schemas.in.h:15
+#: ../data/tomboy.schemas.in.h:16
 msgid ""
 "If true, the font name set in custom_font_face will be used as the font when "
 "displaying notes. Otherwise the desktop default font will be used."
@@ -149,61 +145,98 @@ msgstr ""
 "την εμφάνιση σημειώσεων. Αλλιώς, η προεπιλεγμένη γραμματοσειρά της "
 "επιφάνειας εργασίας θα χρησιμοποιηθεί."
 
-#: ../data/tomboy.schemas.in.h:16
+#: ../data/tomboy.schemas.in.h:17
 msgid ""
 "Indicates that the Sticky Note Importer plugin has not been run, so it "
 "should run automatically the next time Tomboy starts."
 msgstr ""
-"Επισημάονει ότι η πρόσθετη λειτουργία ειαγωγής Sticky Note δεν έχει ακόμα "
+"Επισημαίνει ότι η πρόσθετη λειτουργία εισαγωγής Sticky Note δεν έχει ακόμα "
 "εκτελεσθεί, και πρέπει να τρέχει αυτόματα στην επόμενη εκκίνηση του Tomboy."
 
-#: ../data/tomboy.schemas.in.h:17
+#: ../data/tomboy.schemas.in.h:18
 msgid ""
 "Integer determining the minimum number of notes to show in the Tomboy note "
 "menu."
-msgstr "Ακέραιος αριθμός που ορίζει τον ελάχιστο αριθμό σημειώσεων που θα εμφανίζονται στο μενού σημειώσεων Tomboy."
-
-#: ../data/tomboy.schemas.in.h:18
-msgid "List containing the names of currently enabled plugins."
-msgstr "Κατάλογος με τα ονόματα των ενεργοποιημένων πρόσθετων λειτουργιών."
+msgstr ""
+"Ακέραιος αριθμός που ορίζει τον ελάχιστο αριθμό σημειώσεων που θα "
+"εμφανίζονται στο μενού σημειώσεων Tomboy."
 
 #: ../data/tomboy.schemas.in.h:19
+msgid ""
+"Integer value indicating if there is a preference to always perform a "
+"specific behavior when a conflict is detected, instead of prompting the "
+"user. The values map to an internal enumeration. 0 indicates that the user "
+"wishes to be prompted when a conflict occurs, so that they may handle each "
+"conflict situation on a case-by-case basis."
+msgstr ""
+"Ακέραια τιμή που δηλώνει εάν υπάρχει η επιθυμία να εκτελείται πάντοτε μια "
+"συγκεκριμένη συμπεριφορά όταν ανιχνεύεται μια σύγκρουση, αντί να "
+"ειδοποιείται ο χρήστης. Η τιμή δείχνει προς μια εσωτερική απαρίθμηση. Το 0 "
+"προσδιορίζει πως ο χρήστης επιθυμεί να ειδοποιείται όταν συμβαίνει μια "
+"σύγκρουση, έτσι ώστε να μπορεί να επιλύει κάθε περίπτωση σύγκρουσης "
+"ξεχωριστά."
+
+#: ../data/tomboy.schemas.in.h:20
 msgid "List of pinned notes."
 msgstr "Κατάλογος συνδεδεμένων σημειώσεων."
 
-#: ../data/tomboy.schemas.in.h:20
+#: ../data/tomboy.schemas.in.h:21
 msgid "Minimum number of notes to show in menu"
 msgstr "Ελάχιστος αριθμός σημειώσεων στο μενού"
 
-#: ../data/tomboy.schemas.in.h:21
+#: ../data/tomboy.schemas.in.h:22
+msgid "Note Synchronization Conflict Saved Behavior"
+msgstr "Αποθηκευμένη συμπεριφορά σύγκρουσης συγχρονισμού σημείωσης"
+
+#: ../data/tomboy.schemas.in.h:23
 msgid "Open Recent Changes"
 msgstr "Άνοιγμα πρόσφατων αλλαγών"
 
-#: ../data/tomboy.schemas.in.h:22
+#: ../data/tomboy.schemas.in.h:24
 msgid "Open Search Dialog"
 msgstr "Άνοιγμα διάλογου αναζήτησης"
 
-#: ../data/tomboy.schemas.in.h:23
+#: ../data/tomboy.schemas.in.h:25
 msgid "Open Start Here"
-msgstr "Άνοιγμα Έναρξης"
+msgstr "Άνοιγμα Ξεκινήστε εδώ"
 
-#: ../data/tomboy.schemas.in.h:24
+#: ../data/tomboy.schemas.in.h:26
+msgid ""
+"Path to the synchronization server when using the filesystem synchronization "
+"service addin."
+msgstr ""
+"Διαδρομή προς τον εξυπηρετητή συγχρονισμού όταν χρησιμοποιείτε η πρόσθετη "
+"λειτουργία υπηρεσίας συγχρονισμού αρχείων."
+
+#: ../data/tomboy.schemas.in.h:27
+msgid "Selected Synchronization Service Addin"
+msgstr "Επιλεγμένη πρόσθετη λειτουργία υπηρεσίας συγχρονισμού"
+
+#: ../data/tomboy.schemas.in.h:28
 msgid "Set to TRUE to activate"
 msgstr "Ορισμός σε ΑΛΗΘΕΣ για ενεργοποίηση"
 
-#: ../data/tomboy.schemas.in.h:25
+#: ../data/tomboy.schemas.in.h:29
 msgid "Show applet menu"
 msgstr "Εμφάνιση μενού μικροεφαρμογής"
 
-#: ../data/tomboy.schemas.in.h:26
+#: ../data/tomboy.schemas.in.h:30
 msgid "Start Here Note"
-msgstr "Σημείωση Έναρξης"
+msgstr "Σημείωση Ξεκινήστε εδώ"
 
-#: ../data/tomboy.schemas.in.h:27
+#: ../data/tomboy.schemas.in.h:31
 msgid "Sticky Note Importer First Run"
 msgstr "Πρώτη εκτέλεση της εισαγωγή σημειώσεων Sticky "
 
-#: ../data/tomboy.schemas.in.h:28
+#: ../data/tomboy.schemas.in.h:32
+msgid "Synchronization Client ID"
+msgstr "Ταυτότητα πελάτη συγχρονισμού"
+
+#: ../data/tomboy.schemas.in.h:33
+msgid "Synchronization Local Server Path"
+msgstr "Διαδρομή τοπικού εξυπηρετητή συγχρονισμού"
+
+#: ../data/tomboy.schemas.in.h:34
 msgid ""
 "The global keybinding for creating and displaying a new Note. The format "
 "looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The "
@@ -213,13 +246,13 @@ msgid ""
 "for this action."
 msgstr ""
 "Ο καθολικός συνδυασμός πλήκτρων για την εμφάνιση μιας νέας σημείωσης. Η "
-"μορφή μοιάζει ως εξής: \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1"
+"μορφή μοιάζει ως εξής: \"&lt;Control&gt;a\" ή \"&lt;Shift&gt;&lt;Alt&gt;F1"
 "\". Ο αναλυτής είναι αρκετά φιλελεύθερος και επιτρέπει μικρά ή κεφαλαία "
-"γράμματα και επίσης συντομεύσεις όπωςas \"&lt;Ctl&gt;\" and \"&lt;Ctrl&gt;"
-"\". Αν ορίσετε την επιλογή στην ειδικήσυμβολοσειρά \"απενεργοποιημένο\", δε "
-"θα οριστεί συνδιασμός πλήκτρων για αυτή την ενέργεια."
+"γράμματα και επίσης συντομεύσεις όπως \"&lt;Ctl&gt;\" και \"&lt;Ctrl&gt;\". "
+"Αν ορίσετε την επιλογή στην ειδική συμβολοσειρά \"απενεργοποιημένο\", δε θα "
+"οριστεί συνδυασμός πλήκτρων για αυτή την ενέργεια."
 
-#: ../data/tomboy.schemas.in.h:29
+#: ../data/tomboy.schemas.in.h:35
 msgid ""
 "The global keybinding for opening the \"Start Here\" note. The format looks "
 "like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
@@ -228,14 +261,15 @@ msgid ""
 "special string \"disabled\", then there will be no keybinding for this "
 "action."
 msgstr ""
-"Ο καθολικός συνδυασμός πλήκτρων για την εμφάνιση της σημείωσης \"Έναρξη\". Η "
-"μορφή μοιάζει ως εξής: \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1"
-"\". Ο αναλυτής είναι αρκετά φιλελεύθερος και επιτρέπει μικρά ή κεφαλαία "
-"γράμματα και επίσης συντομεύσεις όπωςas \"&lt;Ctl&gt;\" and \"&lt;Ctrl&gt;"
-"\". Αν ορίσετε την επιλογή στην ειδικήσυμβολοσειρά \"απενεργοποιημένο\", δε "
-"θα οριστεί συνδιασμός πλήκτρων για αυτή την ενέργεια."
+"Ο καθολικός συνδυασμός πλήκτρων για την εμφάνιση της σημείωσης \"Ξεκινήστε "
+"εδώ\". Η μορφή μοιάζει ως εξής: \"&lt;Control&gt;a\" ή \"&lt;Shift&gt;&lt;"
+"Alt&gt;F1\". Ο αναλυτής είναι αρκετά φιλελεύθερος και επιτρέπει μικρά ή "
+"κεφαλαία γράμματα και επίσης συντομεύσεις όπως \"&lt;Ctl&gt;\" και \"&lt;"
+"Ctrl&gt;\". Αν ορίσετε την επιλογή στην ειδική συμβολοσειρά "
+"\"απενεργοποιημένο\", δε θα οριστεί συνδυασμός πλήκτρων για αυτή την "
+"ενέργεια."
 
-#: ../data/tomboy.schemas.in.h:30
+#: ../data/tomboy.schemas.in.h:36
 msgid ""
 "The global keybinding for opening the Note Search dialog. The format looks "
 "like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
@@ -245,13 +279,14 @@ msgid ""
 "action."
 msgstr ""
 "Ο καθολικός συνδυασμός πλήκτρων για την εμφάνιση του διαλόγου αναζήτησης "
-"σημείωσης. Η μορφή μοιάζει ως εξής: \"&lt;Control&gt;a\" or \"&lt;Shift&gt;"
+"σημείωσης. Η μορφή μοιάζει ως εξής: \"&lt;Control&gt;a\" ή \"&lt;Shift&gt;"
 "&lt;Alt&gt;F1\". Ο αναλυτής είναι αρκετά φιλελεύθερος και επιτρέπει μικρά ή "
-"κεφαλαία γράμματα και επίσης συντομεύσεις όπωςas \"&lt;Ctl&gt;\" and \"&lt;"
-"Ctrl&gt;\". Αν ορίσετε την επιλογή στην ειδικήσυμβολοσειρά \"απενεργοποιημένο"
-"\", δε θα οριστεί συνδιασμός πλήκτρων για αυτή την ενέργεια."
+"κεφαλαία γράμματα και επίσης συντομεύσεις όπως \"&lt;Ctl&gt;\" και \"&lt;"
+"Ctrl&gt;\". Αν ορίσετε την επιλογή στην ειδική συμβολοσειρά "
+"\"απενεργοποιημένο\", δε θα οριστεί συνδυασμός πλήκτρων για αυτή την "
+"ενέργεια."
 
-#: ../data/tomboy.schemas.in.h:31
+#: ../data/tomboy.schemas.in.h:37
 msgid ""
 "The global keybinding for opening the Recent Changes dialog. The format "
 "looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The "
@@ -261,13 +296,14 @@ msgid ""
 "for this action."
 msgstr ""
 "Ο καθολικός συνδυασμός πλήκτρων για την εμφάνιση του διαλόγου πρόσφατων "
-"αλλαγών. Η μορφή μοιάζει ως εξής: \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;"
+"αλλαγών. Η μορφή μοιάζει ως εξής: \"&lt;Control&gt;a\" ή \"&lt;Shift&gt;&lt;"
 "Alt&gt;F1\". Ο αναλυτής είναι αρκετά φιλελεύθερος και επιτρέπει μικρά ή "
-"κεφαλαία γράμματα και επίσης συντομεύσεις όπωςas \"&lt;Ctl&gt;\" and \"&lt;"
-"Ctrl&gt;\". Αν ορίσετε την επιλογή στην ειδικήσυμβολοσειρά \"απενεργοποιημένο"
-"\", δε θα οριστεί συνδιασμός πλήκτρων για αυτή την ενέργεια."
+"κεφαλαία γράμματα και επίσης συντομεύσεις όπως \"&lt;Ctl&gt;\" και \"&lt;"
+"Ctrl&gt;\". Αν ορίσετε την επιλογή στην ειδική συμβολοσειρά "
+"\"απενεργοποιημένο\", δε θα οριστεί συνδυασμός πλήκτρων για αυτή την "
+"ενέργεια."
 
-#: ../data/tomboy.schemas.in.h:32
+#: ../data/tomboy.schemas.in.h:38
 msgid ""
 "The global keybinding for showing the Tomboy applet's menu. The format looks "
 "like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
@@ -277,24 +313,25 @@ msgid ""
 "action."
 msgstr ""
 "Ο καθολικός συνδυασμός πλήκτρων για την εμφάνιση του μενού της "
-"μικροεφαρμογής Tomboy. Η μορφή μοιάζει ως εξής: \"&lt;Control&gt;a\" or "
-"\"&lt;Shift&gt;&lt;Alt&gt;F1\". Ο αναλυτής είναι αρκετά φιλελεύθερος και "
-"επιτρέπει μικρά ή κεφαλαία γράμματα και επίσης συντομεύσεις όπωςas \"&lt;"
-"Ctl&gt;\" and \"&lt;Ctrl&gt;\". Αν ορίσετε την επιλογή στην "
-"ειδικήσυμβολοσειρά \"απενεργοποιημένο\", δε θα οριστεί συνδιασμός πλήκτρων "
-"για αυτή την ενέργεια."
+"μικροεφαρμογής Tomboy. Η μορφή μοιάζει ως εξής: \"&lt;Control&gt;a\" ή \"&lt;"
+"Shift&gt;&lt;Alt&gt;F1\". Ο αναλυτής είναι αρκετά φιλελεύθερος και επιτρέπει "
+"μικρά ή κεφαλαία γράμματα και επίσης συντομεύσεις όπως \"&lt;Ctl&gt;\" και "
+"\"&lt;Ctrl&gt;\". Αν ορίσετε την επιλογή στην ειδική συμβολοσειρά "
+"\"απενεργοποιημένο\", δε θα οριστεί συνδυασμός πλήκτρων για αυτή την "
+"ενέργεια."
 
-#: ../data/tomboy.schemas.in.h:33
+#: ../data/tomboy.schemas.in.h:39
 msgid "The handler for \"note://\" URLs"
 msgstr "Ο χειριστής για URLs τύπου \"note://\""
 
-#: ../data/tomboy.schemas.in.h:34
-msgid "The last directory a note was exported to using the Export To HTML plugin."
+#: ../data/tomboy.schemas.in.h:40
+msgid ""
+"The last directory a note was exported to using the Export To HTML plugin."
 msgstr ""
-"κατάλογος a σημείωση Εξαγωγή Προς HTML πρόσθετο. Example Hotkeys: <b>&lt;"
-"Control&gt;&lt;Shift&gt;F11</b>, <b>&lt;Alt&gt;N</b>"
+"Ο τελευταίος κατάλογος όπου έγινε εξαγωγή μια σημείωσης χρησιμοποιώντας την "
+"πρόσθετη λειτουργία Εξαγωγή σε HTML."
 
-#: ../data/tomboy.schemas.in.h:35
+#: ../data/tomboy.schemas.in.h:41
 msgid ""
 "The last setting for the 'Export linked notes' checkbox in the Export to "
 "HTML plugin."
@@ -302,31 +339,56 @@ msgstr ""
 "Η τελευταία χρονικά ρύθμιση του κουτιού ελέγχου 'Εξαγωγή συνδεδεμένων "
 "σημειώσεων σε HTML' στην πρόσθετη λειτουργία 'Εξαγωγή σε HTML'."
 
-#: ../data/tomboy.schemas.in.h:36
-#, fuzzy
+#: ../data/tomboy.schemas.in.h:42
 msgid ""
 "The last setting for the 'Include all other linked notes' checkbox in the "
 "Export to HTML plugin. This setting is used in conjunction with the 'HTML "
 "Export Linked Notes' setting and is used to specify whether all notes (found "
 "recursively) should be included during an export to HTML."
-msgstr "για όλα άλλο μέσα Εξαγωγή HTML πρόσθετο είναι σε χρήση μέσα με HTML Εξαγωγή Σημειώσεις και είναι σε χρήση όλα βρέθηκε HTML."
+msgstr ""
+"Η τελευταία επιλογή για το κουτί ελέγχου 'Συμπερίληψη όλων των άλλων "
+"συνδεδεμένων σημειώσεων' στην πρόσθετη λειτουργία Εξαγωγή σε HTML. Αυτή η "
+"επιλογή χρησιμοποιείται σε συνάρτηση με την επιλογή 'Εξαγωγή συνδεδεμένων "
+"σημειώσεων σε HTML' και χρησιμοποιείται για να καθορίσει εάν όλες οι "
+"σημειώσεις (που βρέθηκαν αναδρομικά) θα πρέπει να συμπεριληφθούν κατά την "
+"εξαγωγή σε HTML."
 
-#: ../data/tomboy.schemas.in.h:37
-#, fuzzy
+#: ../data/tomboy.schemas.in.h:43
 msgid ""
 "The note URI of the note that should be considered the \"Start Here\" note, "
 "which is always placed at the bottom of the Tomboy note menu and also "
 "accessible by hotkey."
-msgstr "σημείωση URI από σημείωση σημείωση είναι πάντα σε κάτω από σημείωση και από."
+msgstr ""
+"Το URI της σημείωσης που θα καθορίζεται ως η σημείωση \"Ξεκινήστε εδώ\", η "
+"οποία είναι πάντα τοποθετημένη στο τέλος του μενού με τις σημειώσεις του "
+"Tomboy και είναι επίσης προσβάσιμη από μια συντόμευση πληκτρολογίου."
 
-#: ../data/tomboy.schemas.in.h:38
-#, fuzzy
+#: ../data/tomboy.schemas.in.h:44
+msgid ""
+"Unique identifier for the currently configured note synchronization service "
+"addin."
+msgstr ""
+"Μοναδικό αναγνωριστικό για το τρέχουσα ρυθμισμένη πρόσθετη λειτουργία "
+"υπηρεσίας συγχρονισμού σημειώσεων."
+
+#: ../data/tomboy.schemas.in.h:45
+msgid ""
+"Unique identifier for this Tomboy client, used when communicating with a "
+"sychronization server."
+msgstr ""
+"Μοναδικό αναγνωριστικό για τον πελάτη Tomboy που χρησιμοποιείται κατά την "
+"επικοινωνία με τον εξυπηρετητή συγχρονισμού."
+
+#: ../data/tomboy.schemas.in.h:46
 msgid ""
 "Whitespace-separated list of note URIs for notes that should always appear "
 "in the Tomboy note menu."
-msgstr "Κενό list από σημείωση για πάντα μέσα σημείωση."
+msgstr ""
+"Χωρισμένη με κενά λίστα URI σημειώσεων για σημειώσεις που θα εμφανίζονται "
+"πάντοτε στο μενού σημειώσεων του Tomboy."
 
-#: ../libtomboy/gedit-print.c:142 ../Tomboy/Plugins/PrintNotes.cs:21
+#: ../libtomboy/gedit-print.c:142
+#: ../Tomboy/Addins/PrintNotes/PrintNotesNoteAddin.cs:18
 msgid "Print"
 msgstr "Εκτύπωση"
 
@@ -357,6 +419,18 @@ msgstr "Σελίδα %N από %Q"
 msgid "%A %x, %X"
 msgstr "%A %x, %X"
 
+#: ../Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinTreeWidget.cs:91
+msgid "Add-in"
+msgstr "Πρόσθετη λειτουργία"
+
+#: ../Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinTreeWidget.cs:112
+msgid "Version"
+msgstr "Έκδοση"
+
+#: ../Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinTreeWidget.cs:168
+msgid "Other"
+msgstr "Άλλο"
+
 #: ../Tomboy/ActionManager.cs:63
 msgid "_File"
 msgstr "_Αρχείο"
@@ -385,7 +459,7 @@ msgstr "_Διαγραφή"
 msgid "Delete the selected note"
 msgstr "Διαγραφή της επιλεγμένης σημείωσης"
 
-#: ../Tomboy/ActionManager.cs:78 ../Tomboy/NoteWindow.cs:523
+#: ../Tomboy/ActionManager.cs:78 ../Tomboy/NoteWindow.cs:374
 msgid "_Close"
 msgstr "_Κλείσιμο"
 
@@ -393,7 +467,7 @@ msgstr "_Κλείσιμο"
 msgid "Close this window"
 msgstr "Κλείσιμο αυτού του παραθύρου"
 
-#: ../Tomboy/ActionManager.cs:82 ../Tomboy/Applet.cs:211
+#: ../Tomboy/ActionManager.cs:82 ../Tomboy/Applet.cs:198
 msgid "_Quit"
 msgstr "Έ_ξοδος"
 
@@ -405,7 +479,7 @@ msgstr "Τερματισμός Tomboy"
 msgid "_Edit"
 msgstr "_Επεξεργασία"
 
-#: ../Tomboy/ActionManager.cs:90 ../Tomboy/Preferences.cs:168
+#: ../Tomboy/ActionManager.cs:90 ../Tomboy/PreferencesDialog.cs:61
 msgid "Tomboy Preferences"
 msgstr "Προτιμήσεις Tomboy"
 
@@ -419,7 +493,7 @@ msgstr "Βοήθεια Tomboy"
 
 #: ../Tomboy/ActionManager.cs:101
 msgid "About Tomboy"
-msgstr "Πε_ρί του Tomboy"
+msgstr "Περί Tomboy"
 
 #: ../Tomboy/ActionManager.cs:104
 msgid "TrayIcon"
@@ -429,7 +503,7 @@ msgstr "TrayIcon"
 msgid "Create _New Note"
 msgstr "Δημιουργία _νέας σημείωσης"
 
-#: ../Tomboy/ActionManager.cs:111 ../Tomboy/NoteWindow.cs:466
+#: ../Tomboy/ActionManager.cs:111 ../Tomboy/NoteWindow.cs:317
 msgid "_Search All Notes"
 msgstr "_Αναζήτηση σε όλες τις σημειώσεις"
 
@@ -437,19 +511,249 @@ msgstr "_Αναζήτηση σε όλες τις σημειώσεις"
 msgid "Open the Search All Notes window"
 msgstr "Άνοιγμα παραθύρου αναζήτησης σε όλες τις σημειώσεις"
 
-#: ../Tomboy/Applet.cs:204
+#: ../Tomboy/ActionManager.cs:115
+msgid "S_ynchronize Notes"
+msgstr "Σ_υγχρονισμός σημειώσεων"
+
+#: ../Tomboy/ActionManager.cs:116
+msgid "Start synchronizing notes"
+msgstr "Έναρξη συγχρονισμού σημειώσεων"
+
+#: ../Tomboy/Addins/Backlinks/BacklinksNoteAddin.cs:25
+msgid "What links here?"
+msgstr "Τι συνδέει προς τα εδώ;"
+
+#: ../Tomboy/Addins/Backlinks/BacklinksNoteAddin.cs:83
+msgid "(none)"
+msgstr "(κανένα)"
+
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:31
+msgid ""
+"You can use any bugzilla just by dragging links into notes.  If you want a "
+"special icon for certain hosts, add them here."
+msgstr ""
+"Μπορείτε να χρησιμοποιήσετε όποιο bugzilla θέλετε, απλώς σέρνοντας δεσμούς "
+"στις σημειώσεις. Εάν επιθυμείτε ένα ειδικό εικονίδιο για συγκεκριμένα "
+"συστήματα, προσθέστε τα εδώ."
+
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:49
+msgid "Host Name"
+msgstr "Όνομα συστήματος"
+
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:66
+msgid "Icon"
+msgstr "Εικονίδιο"
+
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:184
+msgid "Select an icon..."
+msgstr "Επιλογή ενός εικονιδίου..."
+
+#. Extra Widget
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:199
+msgid "_Host name:"
+msgstr "Όνομα _συστήματος:"
+
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:228
+msgid "No host name specified"
+msgstr "Δεν έχει οριστεί όνομα συστήματος"
+
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:229
+msgid "You must specify the Bugzilla host name to use with this icon."
+msgstr ""
+"Πρέπει να ορίσετε το όνομα συστήματος Bugzilla το οποίο θα χρησιμοποιηθεί με "
+"αυτό το εικονίδιο."
+
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:255
+msgid "Error saving icon"
+msgstr "Σφάλμα αποθήκευσης εικονιδίου"
+
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:256
+msgid "Could not save the icon file.  "
+msgstr "Αδυναμία αποθήκευσης αρχείου εικονιδίου.  "
+
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:309
+msgid "Really remove this icon?"
+msgstr "Είστε βέβαιος πως θέλετε να απομακρύνετε αυτό το εικονίδιο;"
+
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:310
+msgid "If you remove an icon it is permanently lost."
+msgstr "Αν διαγράψετε ένα εικονίδιο θα χαθεί μόνιμα."
+
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:50
+msgid "Export to HTML"
+msgstr "Εξαγωγή σε HTML"
+
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:109
+#, csharp-format
+msgid "Your note was exported to \"{0}\"."
+msgstr "Έγινε εξαγωγή της σημείωσης σας στο \"{0}\"."
+
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:120
+msgid "Note exported successfully"
+msgstr "Επιτυχής εξαγωγή σημείωσης"
+
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:126
+msgid "Access denied."
+msgstr "Δεν επιτρέπεται η πρόσβαση."
+
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:128
+msgid "Folder does not exist."
+msgstr "Ο φάκελος δεν υπάρχει."
+
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:143
+#, csharp-format
+msgid "Could not save the file \"{0}\""
+msgstr "Αδυναμία αποθήκευσης αρχείου \"{0}\""
+
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlDialog.cs:13
+msgid "Destination for HTML Export"
+msgstr "Προορισμός για εξαγωγή HTML"
+
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlDialog.cs:23
+msgid "Export linked notes"
+msgstr "Εξαγωγή συνδεδεμένων σημειώσεων"
+
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlDialog.cs:28
+msgid "Include all other linked notes"
+msgstr "Συμπερίληψη όλων των άλλων συνδεδεμένων σημειώσεων"
+
+#: ../Tomboy/Addins/Evolution/EvolutionNoteAddin.cs:269
+msgid "Cannot open email"
+msgstr "Αδυναμία ανοίγματος email"
+
+#. TODO: Use a FileChooserDialog to allow the user to choose a path more easily
+#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:79
+msgid "Path:"
+msgstr "Διαδρομή:"
+
+#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:158
+msgid "Local File System Path"
+msgstr "Διαδρομή τοπικού συστήματος αρχείων"
+
+#: ../Tomboy/Addins/FixedWidth/FixedWidthMenuItem.cs:14
+msgid "_Fixed Width"
+msgstr "_Καθορισμένο Πλάτος"
+
+#: ../Tomboy/Addins/GalagoPresence/GalagoPresenceNoteAddin.cs:239
+#, csharp-format
+msgid "Cannot contact '{0}'"
+msgstr "Αδυναμία επικοινωνίας με '{0}'"
+
+#: ../Tomboy/Addins/GalagoPresence/GalagoPresenceNoteAddin.cs:242
+#, csharp-format
+msgid "Error running gaim-remote: {0}"
+msgstr "Σφάλμα εκτέλεσης gaim-remote: {0}"
+
+#: ../Tomboy/Addins/NoteOfTheDay/NoteOfTheDay.cs:10
+msgid "Today: Template"
+msgstr "Σήμερα: Πρότυπο"
+
+#: ../Tomboy/Addins/NoteOfTheDay/NoteOfTheDay.cs:12
+msgid "Today: "
+msgstr "Σήμερα: "
+
+#. Format: "Today: Friday, July 01 2005"
+#: ../Tomboy/Addins/NoteOfTheDay/NoteOfTheDay.cs:17
+msgid "dddd, MMMM d yyyy"
+msgstr "dddd, MMMM d yyyy"
+
+#: ../Tomboy/Addins/NoteOfTheDay/NoteOfTheDay.cs:43
+msgid "Tasks"
+msgstr "Εργασίες"
+
+#: ../Tomboy/Addins/NoteOfTheDay/NoteOfTheDay.cs:44
+msgid "Appointments"
+msgstr "Ραντεβού"
+
+#: ../Tomboy/Addins/NoteOfTheDay/NoteOfTheDay.cs:67
+msgid "Note of the Day"
+msgstr "Σημείωση της ημέρας"
+
+#: ../Tomboy/Addins/NoteOfTheDay/NoteOfTheDayPreferences.cs:16
+msgid ""
+"Change the <span weight=\"bold\">Today: Template</span> note to customize "
+"the text that new Today notes have."
+msgstr ""
+"Αλλάξτε την σημείωση <span weight=\"bold\"> Σήμερα: Πρότυπο</span> για να "
+"προσαρμόσετε το κείμενο που θα περιέχουν οι νέες σημειώσεις Σήμερα."
+
+#: ../Tomboy/Addins/NoteOfTheDay/NoteOfTheDayPreferences.cs:24
+msgid "_Open Today: Template"
+msgstr "Άν_οιγμα Σήμερα: Πρότυπο"
+
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:48
+msgid "Server:"
+msgstr "Εξυπηρετητής:"
+
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:58
+msgid "Folder (optional):"
+msgstr "Φάκελος (προαιρετικό):"
+
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:68
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:64
+msgid "Username:"
+msgstr "Όνομα χρήστη:"
+
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:78
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:74
+msgid "Password:"
+msgstr "Κωδικός:"
+
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:150
+msgid "SSH (sshfs FUSE)"
+msgstr "SSH (sshfs FUSE)"
+
+#: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:50
+msgid "Import from Sticky Notes"
+msgstr "Εισαγωγή από σημειώσεις Sticky"
+
+#: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:132
+msgid "No Sticky Notes found"
+msgstr "Δε βρέθηκαν σημειώσεις Sticky"
+
+#: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:133
+#, csharp-format
+msgid "No suitable Sticky Notes file was found at \"{0}\"."
+msgstr "Δε βρέθηκε κατάλληλο αρχείο σημειώσεων Sticky στο \"{0}\"."
+
+#: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:142
+msgid "Sticky Notes import completed"
+msgstr "Η εισαγωγή σημειώσεων Sticky ολοκληρώθηκε"
+
+#: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:143
+#, csharp-format
+msgid "<b>{0}</b> of <b>{1}</b> Sticky Notes were successfully imported."
+msgstr "<b>{0}</b> από <b>{1}</b> σημειώσεις Sticky εισήχθηκαν με επιτυχία."
+
+#: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:155
+msgid "Untitled"
+msgstr "Χωρίς τίτλο"
+
+#: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:183
+msgid "Sticky Note: "
+msgstr "Sticky Note: "
+
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:54
+msgid "URL:"
+msgstr "URL:"
+
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:139
+msgid "WebDAV (wdfs FUSE)"
+msgstr "WebDAV (wdfs FUSE)"
+
+#: ../Tomboy/Applet.cs:191
 msgid "_About Tomboy"
 msgstr "Πε_ρί του Tomboy"
 
-#: ../Tomboy/Note.cs:879
+#: ../Tomboy/Note.cs:1193
 msgid "Really delete this note?"
-msgstr "Επιβεβαίωση διαγραφής σημείωσης"
+msgstr "Είστε βέβαιος πως θέλετε να διαγράψετε αυτήν την σημείωση;"
 
-#: ../Tomboy/Note.cs:880
+#: ../Tomboy/Note.cs:1194
 msgid "If you delete a note it is permanently lost."
 msgstr "Αν διαγράψετε μία σημείωση θα χαθεί μόνιμα."
 
-#: ../Tomboy/NoteManager.cs:144
+#: ../Tomboy/NoteManager.cs:132
 msgid ""
 "<note-content>Start Here\n"
 "\n"
@@ -458,7 +762,8 @@ msgid ""
 "Use this \"Start Here\" note to begin organizing your ideas and thoughts.\n"
 "\n"
 "You can create new notes to hold your ideas by selecting the \"Create New "
-"Note\" item from the Tomboy Notes menu in your GNOME Panel.\n"
+"Note\" item from the Tomboy Notes menu in your GNOME Panel. Your note will "
+"be saved automatically.\n"
 "\n"
 "Then organize the notes you create by linking related notes and ideas "
 "together!\n"
@@ -468,20 +773,27 @@ msgid ""
 "Tomboy</link:internal> it automatically gets underlined?  Click on the link "
 "to open the note.</note-content>"
 msgstr ""
-"<note-content>Έναρξη\n"
+"<note-content>Ξεκινήστε εδώ\n"
 "\n"
-"<bold>Καλωσήρθατε στο Tomboy!</bold>\n"
+"<bold>Καλώς ήρθατε στο Tomboy!</bold>\n"
 "\n"
-"Χρησιμοποιήστε αυτήν τη σημείωση \"Έναρξη\" για να αρχίσετε να οργανώνετε τις ιδέες και σκέψεις σας.\n"
+"Χρησιμοποιήστε τη σημείωση \"Ξεκινήστε εδώ\" για να αρχίσετε να οργανώνετε "
+"τις ιδέες και σκέψεις σας.\n"
 "\n"
-"Μπορείτε να δημιουργήσετε νέες σημειώσεις για κρατάτε σε αυτές τις σκέψεις σας επιλέγοντας \"Δημιουργία νέας σημείωσης\" από το μενού του Tomboy στο ταμπλώ του GNOME.\n"
+"Μπορείτε να δημιουργήσετε νέες σημειώσεις για να κρατάτε σε αυτές τις ιδέες "
+"σας επιλέγοντας \"Δημιουργία νέας σημείωσης\" από το μενού του Tomboy στο "
+"πίνακα εφαρμογών του GNOME. Οι σημειώσεις σας αποθηκεύονται αυτόματα.\n"
 "\n"
-"Κατόπιν, οργανώστε τις σημειώσεις που δημιουργείτε συνδέοντας σχετικές σημειώσεις και ιδέες μαζί!\n"
+"Κατόπιν, οργανώστε τις σημειώσεις που δημιουργείτε συνδέοντας παρεμφερείς "
+"σημειώσεις και ιδέες μαζί!\n"
 "\n"
-"Έχουμε δημιουργήσει μία σημείωση με όνομα <link:internal>Χρήση συνδέσμων στο Tomboy</link:"
-"internal>.  Είδατε πως κάθε φορά που πληκτρολογούμε <link:internal>Χρήση συνδέσμων στο Tomboy</link:internal>, αυτό αυτόματα υπογραμμίζεται?  Κάντε κλικ στον σύνδεσμο για να ανοίξετε τη σημείωση.</note-content>"
+"Έχει δημιουργηθεί μία σημείωση με όνομα <link:internal>Χρήση συνδέσμων στο "
+"Tomboy</link:internal>.  Παρατηρήσατε πως κάθε φορά που πληκτρολογούμε <link:"
+"internal>Χρήση συνδέσμων στο Tomboy</link:internal>, αυτό αυτόματα "
+"υπογραμμίζεται;  Κάντε κλικ στον σύνδεσμο για να ανοίξετε τη σημείωση.</note-"
+"content>"
 
-#: ../Tomboy/NoteManager.cs:162
+#: ../Tomboy/NoteManager.cs:151
 msgid ""
 "<note-content>Using Links in Tomboy\n"
 "\n"
@@ -498,196 +810,193 @@ msgid ""
 msgstr ""
 "<note-content>Χρήση συνδέσμων στο Tomboy\n"
 "\n"
-"Οι σημειώσεις στο Tomboy μπορούν να συνδεθούν μαζί επιλέγοντας κείμενο στην τρέχουσα"
-"σημείωση και κάνοντας κλικ στο κουμπί <bold>Σύνδεσμος</bold> στη γραμμή εργαλείων.  Με αυτόν τον τρόπο μια νέα σημείωση δημιουργείται και ο τίτλος της υπογραμμίζεται στην τρέχουσα σημείωση.\n"
+"Οι σημειώσεις στο Tomboy μπορούν να συνδεθούν μαζί επιλέγοντας κείμενο στην "
+"τρέχουσασημείωση και κάνοντας κλικ στο κουμπί <bold>Σύνδεσμος</bold> στη "
+"γραμμή εργαλείων.  Με αυτόν τον τρόπο μια νέα σημείωση δημιουργείται και ο "
+"τίτλος της υπογραμμίζεται στην τρέχουσα σημείωση.\n"
 "\n"
-"Αλλάζοντας τον τίτλο μιας σημείωσης ενημερώνονται οι σύνδεσμοι που υπάρχουν στις άλλες σημειώσεις.  Αυτό εμποδίζει τη δημιουργία σπασμένων συνδέσμων όταν μια σημείωση αλλάζει όνομα.\n"
+"Αλλάζοντας τον τίτλο μιας σημείωσης ενημερώνονται οι σύνδεσμοι που υπάρχουν "
+"στις άλλες σημειώσεις.  Αυτό εμποδίζει τη δημιουργία σπασμένων συνδέσμων "
+"όταν μια σημείωση αλλάζει όνομα.\n"
 "\n"
-"Επίσης, αν πληκτρολογήσετε το όνομα μιας άλλης σημείωσης στην τρέχουσα σημείωση σας, θα υπογραμμιστεί αυτόματα για σας.</note-content>"
+"Επίσης, αν πληκτρολογήσετε το όνομα μιας άλλης σημείωσης στην τρέχουσα "
+"σημείωση σας, θα υπογραμμιστεί αυτόματα για σας.</note-content>"
 
 #. Attempt to find an existing Start Here note
-#: ../Tomboy/NoteManager.cs:177 ../Tomboy/NoteManager.cs:227
+#: ../Tomboy/NoteManager.cs:166 ../Tomboy/NoteManager.cs:229
 msgid "Start Here"
-msgstr "Έναρξη"
+msgstr "Ξεκινήστε εδώ"
 
-#: ../Tomboy/NoteManager.cs:182
+#: ../Tomboy/NoteManager.cs:171
 msgid "Using Links in Tomboy"
 msgstr "Χρήση συνδέσμων στο Tomboy"
 
-#: ../Tomboy/NoteManager.cs:282
+#: ../Tomboy/NoteManager.cs:303
 #, csharp-format
 msgid "New Note {0}"
 msgstr "Νέα σημείωση {0}"
 
-#: ../Tomboy/NoteManager.cs:328
+#: ../Tomboy/NoteManager.cs:364
 msgid "Describe your new note here."
 msgstr "Περιγράψτε τη νέα σας σημείωση εδώ."
 
-#: ../Tomboy/NoteWindow.cs:219
+#: ../Tomboy/NoteManager.cs:379
+msgid "New Note"
+msgstr "Νέα σημείωση"
+
+#: ../Tomboy/NoteWindow.cs:55
 msgid "Find in This Note"
 msgstr "Αναζήτηση σε αυτήν τη σημείωση"
 
-#: ../Tomboy/NoteWindow.cs:478
+#: ../Tomboy/NoteWindow.cs:329
 msgid "_Link to New Note"
 msgstr "_Σύνδεση σε μία νέα σημείωση"
 
-#: ../Tomboy/NoteWindow.cs:490
+#: ../Tomboy/NoteWindow.cs:341
 msgid "Te_xt"
 msgstr "_Κείμενο"
 
-#: ../Tomboy/NoteWindow.cs:498
+#: ../Tomboy/NoteWindow.cs:349
 msgid "_Find in This Note"
 msgstr "Α_ναζήτηση σε αυτήν τη σημείωση"
 
-#: ../Tomboy/NoteWindow.cs:513
+#: ../Tomboy/NoteWindow.cs:364
 msgid "Clos_e All Notes"
 msgstr "Κ_λείσιμο όλων των σημειώσεων"
 
-#: ../Tomboy/NoteWindow.cs:551
+#: ../Tomboy/NoteWindow.cs:402
 msgid "Search"
 msgstr "Αναζήτηση"
 
-#: ../Tomboy/NoteWindow.cs:552
+#: ../Tomboy/NoteWindow.cs:403
 msgid "Search your notes (Ctrl-Shift-F)"
 msgstr "Αναζήτηση στις σημειώσεις σας (Ctrl-Shift-F)"
 
-#: ../Tomboy/NoteWindow.cs:565
+#: ../Tomboy/NoteWindow.cs:416
 msgid "Link"
 msgstr "Σύνδεση"
 
-#: ../Tomboy/NoteWindow.cs:567
+#: ../Tomboy/NoteWindow.cs:418
 msgid "Link selected text to a new note (Ctrl-L)"
 msgstr "Σύνδεση του επιλεγμένου κειμένου σε μια νέα σημείωση (Ctrl-L)"
 
-#: ../Tomboy/NoteWindow.cs:581
+#: ../Tomboy/NoteWindow.cs:432
 msgid "_Text"
 msgstr "Κείμε_νο"
 
-#: ../Tomboy/NoteWindow.cs:586
+#: ../Tomboy/NoteWindow.cs:437
 msgid "Set properties of text"
 msgstr "Ορισμός ιδιοτήτων κειμένου"
 
-#: ../Tomboy/NoteWindow.cs:592
+#: ../Tomboy/NoteWindow.cs:458
 msgid "T_ools"
 msgstr "Εργα_λεία"
 
-#: ../Tomboy/NoteWindow.cs:596
+#: ../Tomboy/NoteWindow.cs:462
 msgid "Use tools on this note"
 msgstr "Χρήση εργαλείων σε αυτή τη σημείωση"
 
-#: ../Tomboy/NoteWindow.cs:603
+#: ../Tomboy/NoteWindow.cs:469
 msgid "Delete"
 msgstr "Διαγραφή"
 
-#: ../Tomboy/NoteWindow.cs:604
+#: ../Tomboy/NoteWindow.cs:470
 msgid "Delete this note"
 msgstr "Διαγραφή αυτής της σημείωσης"
 
-#: ../Tomboy/NoteWindow.cs:661
+#: ../Tomboy/NoteWindow.cs:480 ../Tomboy/Synchronization/SyncManager.cs:158
+msgid "Synchronize Notes"
+msgstr "Συγχρονισμός σημειώσεων"
+
+#: ../Tomboy/NoteWindow.cs:523
 msgid "_Find..."
 msgstr "Εύ_ρεση..."
 
-#: ../Tomboy/NoteWindow.cs:672 ../Tomboy/NoteWindow.cs:874
+#: ../Tomboy/NoteWindow.cs:534 ../Tomboy/NoteWindow.cs:988
 msgid "Find _Next"
 msgstr "Εύρεση _επόμενου"
 
-#: ../Tomboy/NoteWindow.cs:685
+#: ../Tomboy/NoteWindow.cs:547
 msgid "Find _Previous"
 msgstr "Εύρεση προη_γούμενου"
 
-#: ../Tomboy/NoteWindow.cs:773
+#: ../Tomboy/NoteWindow.cs:642
 msgid "Cannot create note"
 msgstr "Αδυναμία δημιουργίας σημείωσης"
 
-#: ../Tomboy/NoteWindow.cs:854
+#: ../Tomboy/NoteWindow.cs:968
 msgid "_Find:"
 msgstr "Εύ_ρεση:"
 
-#: ../Tomboy/NoteWindow.cs:865
+#: ../Tomboy/NoteWindow.cs:979
 msgid "_Previous"
 msgstr "_Προηγούμενο"
 
-#: ../Tomboy/NoteWindow.cs:884
+#: ../Tomboy/NoteWindow.cs:998
 msgid "Case _sensitive"
 msgstr "_Διάκριση πεζών/κεφαλαίων"
 
-#: ../Tomboy/NoteWindow.cs:1360
+#: ../Tomboy/NoteWindow.cs:1474
 msgid "_Bold"
 msgstr "Έν_τονα"
 
-#: ../Tomboy/NoteWindow.cs:1372
+#: ../Tomboy/NoteWindow.cs:1486
 msgid "_Italic"
 msgstr "_Πλάγια"
 
-#: ../Tomboy/NoteWindow.cs:1384
+#: ../Tomboy/NoteWindow.cs:1498
 msgid "_Strikeout"
 msgstr "_Διαγραμμένα"
 
-#: ../Tomboy/NoteWindow.cs:1396
+#: ../Tomboy/NoteWindow.cs:1510
 msgid "_Highlight"
 msgstr "Επι_σήμανση"
 
-#: ../Tomboy/NoteWindow.cs:1409
+#: ../Tomboy/NoteWindow.cs:1523
 msgid "Font Size"
 msgstr "Μέγεθος γραμματοσειράς"
 
-#: ../Tomboy/NoteWindow.cs:1412
+#: ../Tomboy/NoteWindow.cs:1526
 msgid "_Normal"
 msgstr "_Κανονικό"
 
-#: ../Tomboy/NoteWindow.cs:1419
+#: ../Tomboy/NoteWindow.cs:1533
 msgid "Hu_ge"
 msgstr "Τε_ράστιο"
 
-#: ../Tomboy/NoteWindow.cs:1427
+#: ../Tomboy/NoteWindow.cs:1541
 msgid "_Large"
 msgstr "Μ_εγάλο"
 
-#: ../Tomboy/NoteWindow.cs:1435
+#: ../Tomboy/NoteWindow.cs:1549
 msgid "S_mall"
 msgstr "Μ_ικρό"
 
-#: ../Tomboy/NoteWindow.cs:1446
+#: ../Tomboy/NoteWindow.cs:1560
 msgid "Bullets"
 msgstr "Κουκκίδες"
 
-#: ../Tomboy/PluginManager.cs:602
-#, csharp-format
-msgid "Cannot fully disable {0}."
-msgstr "Αδυναμία πλήρους απενεργοποίησης του {0}."
-
-#: ../Tomboy/PluginManager.cs:605
-#, csharp-format
-#, fuzzy
-msgid ""
-"Cannot fully disable {0} as there still are at least {1} reference to this "
-"plugin. This indicates a programming error. Contact the plugin's author and "
-"report this problem.\n"
-"\n"
-"<b>Developer Information:</b> This problem usually occurs when the plugin's "
-"Dispose method fails to disconnect all event handlers. The heap-shot "
-"profiler ({2}) can help to identify leaking references."
-msgstr ""
-"απενεργοποίηση σε αναφορά πρόσθετο a σφάλμα Επαφή πρόσθετο συγγραφέας και n\n"
-"<b> Πληροφορίες</b> πρόσθετο Διάθεση μέθοδος όλα γεγονός help."
-
-#: ../Tomboy/Preferences.cs:182
+#: ../Tomboy/PreferencesDialog.cs:79
 msgid "Editing"
 msgstr "Επεξεργασία"
 
-#: ../Tomboy/Preferences.cs:184
+#: ../Tomboy/PreferencesDialog.cs:81
 msgid "Hotkeys"
 msgstr "Hotkeys"
 
-#: ../Tomboy/Preferences.cs:186
-msgid "Plugins"
+#: ../Tomboy/PreferencesDialog.cs:83
+msgid "Synchronization"
+msgstr "Συγχρονισμός"
+
+#: ../Tomboy/PreferencesDialog.cs:85
+msgid "Add-ins"
 msgstr "Πρόσθετες λειτουργίες"
 
-#: ../Tomboy/Preferences.cs:228
+#: ../Tomboy/PreferencesDialog.cs:128
 msgid "_Spell check while typing"
 msgstr "Έ_λεγχος ορθογραφίας κατά την πληκτρολόγηση"
 
-#: ../Tomboy/Preferences.cs:237
+#: ../Tomboy/PreferencesDialog.cs:137
 msgid ""
 "Misspellings will be underlined in red, with correct spelling suggestions "
 "shown in the context menu."
@@ -696,11 +1005,11 @@ msgstr ""
 "προτάσεις θα εμφανίζονται στο μενού με δεξί κλικ."
 
 #. WikiWords...
-#: ../Tomboy/Preferences.cs:247
+#: ../Tomboy/PreferencesDialog.cs:148
 msgid "Highlight _WikiWords"
 msgstr "Έντονες οι _ΒικιΛέξεις"
 
-#: ../Tomboy/Preferences.cs:255
+#: ../Tomboy/PreferencesDialog.cs:156
 msgid ""
 "Enable this option to highlight words <b>ThatLookLikeThis</b>. Clicking the "
 "word will create a note with that name."
@@ -710,16 +1019,16 @@ msgstr ""
 "σημείωση με αυτό το όνομα."
 
 #. Custom font...
-#: ../Tomboy/Preferences.cs:264
+#: ../Tomboy/PreferencesDialog.cs:165
 msgid "Use custom _font"
 msgstr "Χρήση _προσαρμοσμένης γραμματοσειράς"
 
 #. Hotkeys...
-#: ../Tomboy/Preferences.cs:334
+#: ../Tomboy/PreferencesDialog.cs:235
 msgid "Listen for _Hotkeys"
 msgstr "Ακρόαση για _Hotkeys"
 
-#: ../Tomboy/Preferences.cs:343
+#: ../Tomboy/PreferencesDialog.cs:244
 msgid ""
 "Hotkeys allow you to quickly access your notes from anywhere with a "
 "keypress. Example Hotkeys: <b>&lt;Control&gt;&lt;Shift&gt;F11</b>, <b>&lt;"
@@ -730,142 +1039,170 @@ msgstr ""
 "Shift&gt;F11</b>, <b>&lt;Alt&gt;N</b>"
 
 #. Show notes menu keybinding...
-#: ../Tomboy/Preferences.cs:363
+#: ../Tomboy/PreferencesDialog.cs:264
 msgid "Show notes _menu"
 msgstr "Εμφάνιση _μενού σημειώσεων"
 
 #. Open Start Here keybinding...
-#: ../Tomboy/Preferences.cs:380
+#: ../Tomboy/PreferencesDialog.cs:281
 msgid "Open \"_Start Here\""
-msgstr "Άνοιγμα σημείωσης \"Έ_ναρξη\""
+msgstr "Άνοιγμα σημείωσης \"Ξεκινή_στε εδώ\""
 
 #. Create new note keybinding...
-#: ../Tomboy/Preferences.cs:397
+#: ../Tomboy/PreferencesDialog.cs:298
 msgid "Create _new note"
 msgstr "_Δημιουργία νέας σημείωσης"
 
 #. Open Search All Notes window keybinding...
-#: ../Tomboy/Preferences.cs:414
+#: ../Tomboy/PreferencesDialog.cs:315
 msgid "Open \"Search _All Notes\""
 msgstr "Άνοιγμα \"Αναζήτηση σε ό_λες τις σημειώσεις\""
 
-#: ../Tomboy/Preferences.cs:560
-msgid "Not available"
-msgstr "Μη διαθέσιμο"
+#: ../Tomboy/PreferencesDialog.cs:342
+msgid "Service:"
+msgstr "Υπηρεσία:"
 
-#: ../Tomboy/Preferences.cs:618
-msgid "Description:"
-msgstr "Περιγραφή:"
+#: ../Tomboy/PreferencesDialog.cs:393 ../Tomboy/PreferencesDialog.cs:827
+msgid "Not configurable"
+msgstr "Μη προσαρμόσιμο"
 
-#: ../Tomboy/Preferences.cs:620
-msgid "Written by:"
-msgstr "Γράφτηκε από:"
+#: ../Tomboy/PreferencesDialog.cs:455
+msgid "The following add-ins are installed"
+msgstr "Οι ακόλουθες πρόσθετες λειτουργίες είναι εγκατεστημένες"
 
-#: ../Tomboy/Preferences.cs:622
-msgid "Web site:"
-msgstr "Ιστότοπος:"
+#: ../Tomboy/PreferencesDialog.cs:486
+msgid "_Enable"
+msgstr "_Ενεργοποίηση"
 
-#: ../Tomboy/Preferences.cs:624
-msgid "File name:"
-msgstr "Όνομα αρχείου:"
+#: ../Tomboy/PreferencesDialog.cs:492
+msgid "_Disable"
+msgstr "Α_πενεργοποίηση"
 
-#: ../Tomboy/Preferences.cs:638
-msgid "Settings"
-msgstr "Ρυθμίσεις"
+#: ../Tomboy/PreferencesDialog.cs:623
+msgid "Not Implemented"
+msgstr "Δεν έχει υλοποιηθεί"
 
-#: ../Tomboy/Preferences.cs:693
+#: ../Tomboy/PreferencesDialog.cs:637
 #, csharp-format
-msgid "{0} Settings"
-msgstr "Ρυθμίσεις {0}"
+msgid "{0} Preferences"
+msgstr "{0} Προτιμήσεις"
 
-#: ../Tomboy/Preferences.cs:754
+#: ../Tomboy/PreferencesDialog.cs:776
 msgid "Choose Note Font"
 msgstr "Επιλογή γραμματοσειράς σημειώσεων"
 
-#: ../Tomboy/RecentChanges.cs:64
+#: ../Tomboy/PreferencesDialog.cs:853
+msgid "WARNING: Are you sure?"
+msgstr "ΠΡΟΕΙΔΟΠΟΙΗΣΗ: Είστε βέβαιος;"
+
+#: ../Tomboy/PreferencesDialog.cs:855
+msgid ""
+"Clearing your synchronization settings is not recommended.  You may be "
+"forced to synchronize all of your notes again when you save new settings."
+msgstr ""
+"Η εκκαθάριση των ρυθμίσεων συγχρονισμού δεν συνίσταται. Ίσως να "
+"εξαναγκαστείτε να συγχρονίσετε όλες τις σημειώσεις σας ξανά, μόλις "
+"αποθηκεύσετε τις νέες ρυθμίσεις."
+
+#: ../Tomboy/PreferencesDialog.cs:928
+msgid "Success! You're connected!"
+msgstr "Επιτυχία! Έχετε συνδεθεί!"
+
+#: ../Tomboy/PreferencesDialog.cs:930
+msgid "Tomboy is ready to synchronize your notes."
+msgstr "Το Tomboy είναι έτοιμο να συγχρονίσει τις σημειώσεις σας."
+
+#: ../Tomboy/PreferencesDialog.cs:953
+msgid "Error connecting :("
+msgstr "Σφάλμα σύνδεσης :("
+
+#: ../Tomboy/PreferencesDialog.cs:955
+msgid ""
+"Sorry, but something went wrong.  Please check your information and try "
+"again.  The ~/.tomboy.log might be useful too."
+msgstr ""
+"Συγνώμη αλλά κάτι πήγε στραβά. Παρακαλώ ελέγξτε τις πληροφορίες που έχετε "
+"εισάγει και δοκιμάστε ξανά. Το ~/.tomboy.log μπορεί να σας φανεί χρήσιμο."
+
+#: ../Tomboy/PreferencesDialog.cs:1021
+msgid "Version:"
+msgstr "Έκδοση:"
+
+#: ../Tomboy/PreferencesDialog.cs:1028
+msgid "Author:"
+msgstr "Συγγραφέας:"
+
+#: ../Tomboy/PreferencesDialog.cs:1035
+msgid "Copyright:"
+msgstr "Πνευματικά δικαιώματα:"
+
+#: ../Tomboy/PreferencesDialog.cs:1041
+msgid "Add-in Dependencies:"
+msgstr "Εξαρτήσεις πρόσθετων λειτουργιών:"
+
+#: ../Tomboy/RecentChanges.cs:68
 msgid "Search All Notes"
 msgstr "Αναζήτηση σε όλες τις σημειώσεις"
 
-#: ../Tomboy/RecentChanges.cs:77
+#: ../Tomboy/RecentChanges.cs:83
 msgid "_Search:"
 msgstr "Ανα_ζήτηση:"
 
-#: ../Tomboy/RecentChanges.cs:98
+#: ../Tomboy/RecentChanges.cs:104
 msgid "C_ase Sensitive"
 msgstr "_Διάκριση πεζών/κεφαλαίων"
 
-#: ../Tomboy/RecentChanges.cs:236
+#: ../Tomboy/RecentChanges.cs:296
 msgid "Note"
 msgstr "Σημείωση"
 
-#: ../Tomboy/RecentChanges.cs:255
+#: ../Tomboy/RecentChanges.cs:315
 msgid "Last Changed"
 msgstr "Τελευταία τροποποίηση"
 
-#: ../Tomboy/RecentChanges.cs:312 ../Tomboy/RecentChanges.cs:468
+#: ../Tomboy/RecentChanges.cs:373 ../Tomboy/RecentChanges.cs:529
 #, csharp-format
 msgid "Total: {0} note"
 msgid_plural "Total: {0} notes"
 msgstr[0] "Συνολικά: {0} σημείωση"
 msgstr[1] "Συνολικά: {0} σημειώσεις"
 
-#: ../Tomboy/RecentChanges.cs:402
+#: ../Tomboy/RecentChanges.cs:463
 msgid "Matches"
 msgstr "Ταιριάσματα"
 
-#: ../Tomboy/RecentChanges.cs:454 ../Tomboy/RecentChanges.cs:474
+#: ../Tomboy/RecentChanges.cs:515 ../Tomboy/RecentChanges.cs:535
 #, csharp-format
 msgid "{0} match"
 msgid_plural "{0} matches"
 msgstr[0] "{0} ταίριασμα"
 msgstr[1] "{0} ταιριάσματα"
 
-#: ../Tomboy/RecentChanges.cs:724
-#, csharp-format
-msgid "Today, {0}"
-msgstr "Σήμερα, {0}"
-
-#: ../Tomboy/RecentChanges.cs:727
-#, csharp-format
-msgid "Yesterday, {0}"
-msgstr "Χθες, {0}"
-
-#: ../Tomboy/RecentChanges.cs:731
-#, csharp-format
-msgid "{0} days ago, {1}"
-msgstr "{0} ημέρες πριν, {1}"
-
-#: ../Tomboy/RecentChanges.cs:736
-msgid "MMMM d, h:mm tt"
-msgstr "MMMM d, h:mm tt"
-
-#: ../Tomboy/RecentChanges.cs:738
-msgid "MMMM d yyyy, h:mm tt"
-msgstr "MMMM d yyyy, h:mm tt"
-
-#: ../Tomboy/Tomboy.cs:181
+#: ../Tomboy/Tomboy.cs:194
 msgid "Cannot create new note"
 msgstr "Αδυναμία δημιουργίας νέας σημείωσης"
 
-#: ../Tomboy/Tomboy.cs:235
+#: ../Tomboy/Tomboy.cs:265
 msgid "translator-credits"
-msgstr "Δημήτρης Γλέζος <dimitris@glezos.com>"
+msgstr ""
+"Δημήτρης Γλέζος <dimitris@glezos.com>\n"
+"Αθανάσιος Λευτέρης <alefteris@gmail.com>"
 
-#: ../Tomboy/Tomboy.cs:244
+#: ../Tomboy/Tomboy.cs:274
 msgid "Copyright © 2004-2007 Alex Graveley"
 msgstr "Πνευματικά δικαιώματα © 2004-2007 Alex Graveley"
 
-#: ../Tomboy/Tomboy.cs:245
+#: ../Tomboy/Tomboy.cs:275
 msgid "A simple and easy to use desktop note-taking application."
 msgstr ""
 " Μία απλή και εύκολη στη χρήση εφαρμογή λήψης σημειώσεων για την επιφάνεια "
 "εργασίας."
 
-#: ../Tomboy/Tomboy.cs:248
-msgid "Homepage & Donations"
-msgstr "Αρχική σελίδα & Δωρεές"
+#: ../Tomboy/Tomboy.cs:278
+msgid "Homepage"
+msgstr "Αρχική σελίδα"
 
-#: ../Tomboy/Tomboy.cs:332
+#: ../Tomboy/Tomboy.cs:369
 msgid ""
 "Tomboy: A simple, easy to use desktop note-taking application.\n"
 "Copyright (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
@@ -873,10 +1210,11 @@ msgid ""
 msgstr ""
 "Tomboy: Μία απλή, εύκολη στη χρήση εφαρμογή λήψης σημειώσεων για την "
 "επιφάνεια εργασίας.\n"
-"Copyright (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
+"Πνευματικά δικαιώματα (C) 2004-2006 Alex Graveley <alex@beatniksoftware."
+"com>\n"
 "\n"
 
-#: ../Tomboy/Tomboy.cs:344
+#: ../Tomboy/Tomboy.cs:381
 msgid ""
 "Usage:\n"
 "  --version\t\t\tPrint version information.\n"
@@ -887,11 +1225,12 @@ msgstr ""
 "Χρήση:\n"
 "  --version\t\t\tΕκτύπωση πληροφοριών έκδοσης.\n"
 "  --help\t\t\tΕκτύπωση αυτού του μηνύματος χρήσης.\n"
-"  --note-path [κατάλογος]\t\tΦόρτωση/αποθήκευση δεδομένων σημειώσεων σε αυτό τον "
-"κατάλογο.\n"
-"  --search [κείμενο]\t\tΆνοιγμα του παραθύρου \"αναζήτηση σε όλες τις σημειώσεις\" με το κείμενο αναζήτησης.\n"
+"  --note-path [κατάλογος]\t\tΦόρτωση/αποθήκευση δεδομένων σημειώσεων σε αυτό "
+"τον κατάλογο.\n"
+"  --search [κείμενο]\t\tΆνοιγμα του παραθύρου \"αναζήτηση σε όλες τις "
+"σημειώσεις\" με το κείμενο αναζήτησης.\n"
 
-#: ../Tomboy/Tomboy.cs:355
+#: ../Tomboy/Tomboy.cs:392
 msgid ""
 "  --new-note\t\t\tCreate and display a new note.\n"
 "  --new-note [title]\t\tCreate and display a new note, with a title.\n"
@@ -904,24 +1243,25 @@ msgstr ""
 "τίτλο.\n"
 "  --open-note [title/url]\tΕμφάνιση υπάρχουσας σημείωσης που ταιριάζει με "
 "τον τίτλο αυτό.\n"
-"  --start-here\t\t\tΕμφάνιση της σημείωσης 'Έναρξη'.\n"
+"  --start-here\t\t\tΕμφάνιση της σημείωσης 'Ξεκινήστε εδώ'.\n"
 "  --highlight-search [text]\tΑναζήτηση και τονισμός κειμένου στην ανοιγμένη "
 "σημείωση.\n"
 
-#: ../Tomboy/Tomboy.cs:367
-msgid "  --check-plugin-unloading\tCheck if plugins are unloaded properly.\n"
-msgstr "  --check-plugin-unloading\tΈλεγχος αν οι πρόσθετες λειτουργίες έχουν αφαιρεθεί >σωστά.\n"
-
-#: ../Tomboy/Tomboy.cs:371
+#. TODO: Restore this functionality with addins
+#. usage +=
+#. Catalog.GetString (
+#. "  --check-plugin-unloading\tCheck if plugins are " +
+#. "unloaded properly.\n");
+#: ../Tomboy/Tomboy.cs:409
 msgid "D-BUS remote control disabled.\n"
 msgstr "Απενεργοποίηση απομακρυσμένου ελέγχου μέσω D-BUS.\n"
 
-#: ../Tomboy/Tomboy.cs:379
+#: ../Tomboy/Tomboy.cs:417
 #, csharp-format
 msgid "Version {0}"
 msgstr "Έκδοση {0}"
 
-#: ../Tomboy/Tomboy.cs:446
+#: ../Tomboy/Tomboy.cs:487
 #, csharp-format
 msgid ""
 "Tomboy: unsupported option '{0}'\n"
@@ -945,19 +1285,86 @@ msgid ""
 "The \"Tomboy Notes Manual\" could not be found.  Please verify that your "
 "installation has been completed successfully."
 msgstr ""
-"Το \"Εγχειρίδιο σημειώσεων Tomboy\" δε μπόρεσε να βρεθεί.  Παρακαλούμε ελέγξτε "
-"ότι η εγκατάσταση σας έχει ολοκληρωθεί με επιτυχία."
+"Το \"Εγχειρίδιο σημειώσεων Tomboy\" δε μπόρεσε να βρεθεί.  Παρακαλούμε "
+"ελέγξτε ότι η εγκατάσταση σας έχει ολοκληρωθεί με επιτυχία."
 
 #: ../Tomboy/Utils.cs:128
 msgid "Help not found"
 msgstr "Δε βρέθηκε βοήθεια"
 
-#: ../Tomboy/Watchers.cs:137
+#: ../Tomboy/Utils.cs:151
+#, csharp-format
+msgid "Today, {0}"
+msgstr "Σήμερα, {0}"
+
+#: ../Tomboy/Utils.cs:153
+msgid "Today"
+msgstr "Σήμερα"
+
+#: ../Tomboy/Utils.cs:157
+#, csharp-format
+msgid "Yesterday, {0}"
+msgstr "Χθες, {0}"
+
+#: ../Tomboy/Utils.cs:159
+msgid "Yesterday"
+msgstr "Χθες"
+
+#: ../Tomboy/Utils.cs:163
+#, csharp-format
+msgid "{0} days ago, {1}"
+msgstr "{0} ημέρες πριν, {1}"
+
+#: ../Tomboy/Utils.cs:165
+#, csharp-format
+msgid "{0} days ago"
+msgstr "{0} ημέρες πριν"
+
+#: ../Tomboy/Utils.cs:170
+#, csharp-format
+msgid "Tomorrow, {0}"
+msgstr "Αύριο, {0}"
+
+#: ../Tomboy/Utils.cs:172
+msgid "Tomorrow"
+msgstr "Αύριο"
+
+#: ../Tomboy/Utils.cs:176
+#, csharp-format
+msgid "In {0} days, {1}"
+msgstr "Σε {0} ημέρες, {1}"
+
+#: ../Tomboy/Utils.cs:178
+#, csharp-format
+msgid "In {0} days"
+msgstr "Σε {0} ημέρες"
+
+#: ../Tomboy/Utils.cs:182
+msgid "MMMM d, h:mm tt"
+msgstr "MMMM d, h:mm tt"
+
+#: ../Tomboy/Utils.cs:183
+msgid "MMMM d"
+msgstr "MMMM d"
+
+#: ../Tomboy/Utils.cs:185
+msgid "No Date"
+msgstr "Χωρίς ημερομηνία"
+
+#: ../Tomboy/Utils.cs:188
+msgid "MMMM d yyyy, h:mm tt"
+msgstr "MMMM d yyyy, h:mm tt"
+
+#: ../Tomboy/Utils.cs:189
+msgid "MMMM d yyyy"
+msgstr "MMMM d yyyy"
+
+#: ../Tomboy/Watchers.cs:149
 #, csharp-format
 msgid "(Untitled {0})"
 msgstr "(Χωρίς τίτλο {0})"
 
-#: ../Tomboy/Watchers.cs:169
+#: ../Tomboy/Watchers.cs:183
 #, csharp-format
 msgid ""
 "A note with the title <b>{0}</b> already exists. Please choose another name "
@@ -966,179 +1373,240 @@ msgstr ""
 "Υπάρχει ήδη μία σημείωση με τίτλο <b>{0}</b>. Παρακαλώ επιλέξτε ένα άλλο "
 "όνομα για αυτή τη σημείωση πριν συνεχίσετε."
 
-#: ../Tomboy/Watchers.cs:181
+#: ../Tomboy/Watchers.cs:195
 msgid "Note title taken"
 msgstr "Έγινε λήψη τίτλου σημείωσης"
 
-#: ../Tomboy/Watchers.cs:422
+#: ../Tomboy/Watchers.cs:438
 msgid "Cannot open location"
 msgstr "Αδυναμία ανοίγματος τοποθεσίας"
 
-#: ../Tomboy/Watchers.cs:516
+#: ../Tomboy/Watchers.cs:532
 msgid "_Copy Link Address"
 msgstr "_Αντιγραφή διεύθυνσης συνδέσμου"
 
-#: ../Tomboy/Watchers.cs:521
+#: ../Tomboy/Watchers.cs:537
 msgid "_Open Link"
 msgstr "Άν_οιγμα συνδέσμου"
 
-#: ../Tomboy/Plugins/Backlinks.cs:78
-msgid "What links here?"
-msgstr "Τι συνδέει προς τα εδώ;"
+#: ../Tomboy/Synchronization/SyncDialog.cs:90
+msgid "Note Title"
+msgstr "Τίτλος σημείωσης"
 
-#: ../Tomboy/Plugins/Backlinks.cs:136
-msgid "(none)"
-msgstr "(κανένα)"
+#: ../Tomboy/Synchronization/SyncDialog.cs:97
+msgid "Status"
+msgstr "Κατάσταση"
 
-#: ../Tomboy/Plugins/Bugzilla.cs:181
-msgid "Use the following:"
-msgstr "Χρήση του παρακάτω:"
+#. Drop all that into into the Expander
+#: ../Tomboy/Synchronization/SyncDialog.cs:116
+msgid "Details"
+msgstr "Λεπτομέρειες"
 
-#: ../Tomboy/Plugins/Bugzilla.cs:197
-msgid "Host Name"
-msgstr "Όνομα συστήματος"
+#: ../Tomboy/Synchronization/SyncDialog.cs:234
+msgid "Acquiring sync lock..."
+msgstr "Ανάκτηση κλειδώματος συγχρονισμού..."
 
-#: ../Tomboy/Plugins/Bugzilla.cs:214
-msgid "Icon"
-msgstr "Εικονίδιο"
+#: ../Tomboy/Synchronization/SyncDialog.cs:237
+msgid "Committing changes..."
+msgstr "Υποβολή αλλαγών..."
 
-#: ../Tomboy/Plugins/Bugzilla.cs:337
-msgid "Select an icon..."
-msgstr "Επιλογή ενός εικονιδίου..."
+#: ../Tomboy/Synchronization/SyncDialog.cs:240
+msgid "Synchronizing Notes"
+msgstr "Γίνεται συγχρονισμός σημειώσεων"
 
-#. Extra Widget
-#: ../Tomboy/Plugins/Bugzilla.cs:352
-msgid "_Host name:"
-msgstr "Όνομα _συστήματος:"
+#: ../Tomboy/Synchronization/SyncDialog.cs:241
+msgid "Synchronizing your notes..."
+msgstr "Γίνεται συγχρονισμός των σημειώσεών σας..."
 
-#: ../Tomboy/Plugins/Bugzilla.cs:381
-msgid "No host name specified"
-msgstr "Δεν έχει οριστεί όνομα συστήματος"
+#: ../Tomboy/Synchronization/SyncDialog.cs:242
+msgid "This may take a while, kick back and enjoy!"
+msgstr "Αυτό μπορεί να διαρκέσει λίγο χρόνο, παρακαλώ περιμένετε."
 
-#: ../Tomboy/Plugins/Bugzilla.cs:382
-msgid "You must specify the Bugzilla host name to use with this icon."
-msgstr "Πρέπει να ορίσετε το όνομα συστήματος Bugzilla το οποίο θα χρησιμοποιηθεί με αυτό το εικονίδιο."
+#: ../Tomboy/Synchronization/SyncDialog.cs:244
+msgid "Connecting to the server..."
+msgstr "Γίνεται σύνδεση στον εξυπηρετητή..."
 
-#: ../Tomboy/Plugins/Bugzilla.cs:408
-msgid "Error saving icon"
-msgstr "Σφάλμα αποθήκευσης εικονιδίου"
+#: ../Tomboy/Synchronization/SyncDialog.cs:250
+msgid "Deleting notes off of the server..."
+msgstr "Διαγραφή σημειώσεων από τον εξυπηρετητή..."
 
-#: ../Tomboy/Plugins/Bugzilla.cs:409
-msgid "Could not save the icon file.  "
-msgstr "Αδυναμία αποθήκευσης αρχείου εικονιδίου.  "
+#: ../Tomboy/Synchronization/SyncDialog.cs:254
+msgid "Downloading new/updated notes..."
+msgstr "Λήψη νέων/ενημερωμένων σημειώσεων..."
 
-#: ../Tomboy/Plugins/Bugzilla.cs:457
-msgid "Really remove this icon?"
-msgstr "Επιβεβαίωση διαγραφής εικονιδίου"
+#: ../Tomboy/Synchronization/SyncDialog.cs:266
+msgid "Server Locked"
+msgstr "Ο εξυπηρετητής κλειδώθηκε"
 
-#: ../Tomboy/Plugins/Bugzilla.cs:458
-msgid "If you remove an icon it is permanently lost."
-msgstr "Αν διαγράψετε ένα εικονίδιο θα χαθεί μόνιμα."
+#: ../Tomboy/Synchronization/SyncDialog.cs:267
+msgid "Server is locked"
+msgstr "Ο εξυπηρετητής κλειδώθηκε"
 
-#: ../Tomboy/Plugins/Evolution.cs:265
-msgid "Cannot open email"
-msgstr "Αδυναμία ανοίγματος email"
+#: ../Tomboy/Synchronization/SyncDialog.cs:268
+msgid ""
+"One of your other computers is currently synchronizing.  Please wait and try "
+"again."
+msgstr ""
+"Ένας από τους άλλους υπολογιστές σας συγχρονίζεται αυτή τη στιγμή. Παρακαλώ "
+"περιμένετε και δοκιμάστε ξανά."
 
-#: ../Tomboy/Plugins/ExportToHTML.cs:54
-msgid "Export to HTML"
-msgstr "Εξαγωγή σε HTML"
+#: ../Tomboy/Synchronization/SyncDialog.cs:272
+msgid "Preparing to download updates from server..."
+msgstr "Γίνεται προετοιμασία για την λήψη ενημερώσεων από τον εξυπηρετητή..."
 
-#: ../Tomboy/Plugins/ExportToHTML.cs:113
+#: ../Tomboy/Synchronization/SyncDialog.cs:275
+msgid "Preparing to upload updates to server..."
+msgstr "Γίνεται προετοιμασία για την αποστολή ενημερώσεων στον εξυπηρετητή..."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:278
+msgid "Uploading notes to server..."
+msgstr "Γίνεται αποστολή των σημειώσεων στον εξυπηρετητή..."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:281
+msgid "Synchronization Failed"
+msgstr "Ο συγχρονισμός απέτυχε"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:282
+msgid "Failed to synchronize"
+msgstr "Αποτυχία συγχρονισμού"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:283
+msgid "Could not synchronize notes.  Check the details below and try again."
+msgstr ""
+"Δεν είναι δυνατός ο συγχρονισμός των σημειώσεων. Ελέγξτε τις λεπτομέρειες "
+"παρακάτω και δοκιμάστε ξανά."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:287
+msgid "Synchronization Complete"
+msgstr "Ο συγχρονισμός ολοκληρώθηκε"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:288
+msgid "Synchronization is complete"
+msgstr "Ο συγχρονισμός ολοκληρώθηκε"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:289
+msgid "Your notes are up to date.  See the details below or close the window."
+msgstr ""
+"Οι σημειώσεις σας είναι ενημερωμένες. Δείτε τις λεπτομέρειες παρακάτω ή "
+"κλείστε το παράθυρο."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:293
+msgid "Synchronization Canceled"
+msgstr "Ο συγχρονισμός ακυρώθηκε"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:294
+msgid "Synchronization was canceled"
+msgstr "Ο συγχρονισμός ακυρώθηκε"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:295
+msgid "You canceled the synchronization.  You may close the window now."
+msgstr "Ακυρώσατε τον συγχρονισμό. Μπορείτε τώρα να κλείσετε το παράθυρο."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:299
+msgid "Synchronization Not Configured"
+msgstr "Ο συγχρονισμός δεν έχει ρυθμιστεί"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:300
+msgid "Synchronization is not configured"
+msgstr "Ο συγχρονισμός δεν έχει ρυθμιστεί"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:301
+msgid "Please configure synchronization in the preferences dialog."
+msgstr "Παρακαλώ ρυθμίστε τον συγχρονισμό από τον διάλογο προτιμήσεων."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:305
+msgid "Synchronization Service Error"
+msgstr "Σφάλμα υπηρεσίας συγχρονισμού"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:306
+msgid "Service error"
+msgstr "Σφάλμα υπηρεσίας"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:307
+msgid "Error connecting to the synchronization service.  Please try again."
+msgstr "Σφάλμα σύνδεσης στην υπηρεσία συγχρονισμού. Παρακαλώ δοκιμάστε ξανά."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:323
+msgid "Deleting from local copy"
+msgstr "Γίνεται διαγραφή τοπικού αντιγράφου"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:326
+msgid "Deleting from server"
+msgstr "Γίνεται διαγραφή από τον εξυπηρετητή"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:329
+msgid "Downloading updates from server"
+msgstr "Γίνεται λήψη ενημερώσεων από τον εξυπηρετητή"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:332
+msgid "Downloading new note from server"
+msgstr "Γίνεται λήψη νέας σημείωσης από τον εξυπηρετητή"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:335
+msgid "Uploading changes to server"
+msgstr "Γίνεται αποστολή των αλλαγών στον εξυπηρετητή"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:338
+msgid "Uploading new note to server"
+msgstr "Γίνεται αποστολή νέας σημείωσης στον εξυπηρετητή"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:470
+msgid "Note Conflict"
+msgstr "Σύγκρουση σημείωσης"
+
+#. Suggest renaming note by appending " (old)" to the existing title
+#: ../Tomboy/Synchronization/SyncDialog.cs:474
+msgid " (old)"
+msgstr "(παλιό)"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:513
+msgid "Rename local note:"
+msgstr "Μετονομασία τοπικής σημείωσης:"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:519
+msgid "Update links in referencing notes"
+msgstr "Ενημέρωση δεσμών στις αναφερόμενες σημειώσεις"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:526
+msgid "Overwrite local note"
+msgstr "Αντικατάσταση τοπικής σημείωσης"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:530
+msgid "Always perform this action"
+msgstr "Εκτέλεση πάντοτε αυτήν την ενέργεια"
+
+#. Set initial dialog text
+#: ../Tomboy/Synchronization/SyncDialog.cs:537
+msgid "Note conflict detected"
+msgstr "Ανιχνεύτηκε σύγκρουση σημείωσης"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:538
 #, csharp-format
-msgid "Your note was exported to \"{0}\"."
-msgstr "Έγινε εξαγωγή της σημείωσης σας στο \"{0}\"."
+msgid ""
+"The server version of \"{0}\" conflicts with your local note.  What do you "
+"want to do with your local note?"
+msgstr ""
+"Η έκδοση στον εξυπηρετητή του \"{0}\" συγκρούεται με την τοπική σας "
+"σημείωση. Τι θέλετε να κάνετε με την τοπική σας σημείωση;"
 
-#: ../Tomboy/Plugins/ExportToHTML.cs:124
-msgid "Note exported successfully"
-msgstr "Επιτυχής εξαγωγή σημείωσης"
+#: ../Tomboy/Synchronization/SyncManager.cs:156
+msgid "_Tools"
+msgstr "Εργα_λεία"
 
-#: ../Tomboy/Plugins/ExportToHTML.cs:130
-msgid "Access denied."
-msgstr "Δεν επιτρέπεται η πρόσβαση."
+#: ../Tomboy/Synchronization/SyncUtils.cs:151
+msgid "Enable FUSE?"
+msgstr "Ενεργοποίηση FUSE;"
 
-#: ../Tomboy/Plugins/ExportToHTML.cs:132
-msgid "Folder does not exist."
-msgstr "Ο φάκελος δεν υπάρχει."
-
-#: ../Tomboy/Plugins/ExportToHTML.cs:147
-#, csharp-format
-msgid "Could not save the file \"{0}\""
-msgstr "Αδυναμία αποθήκευσης αρχείου \"{0}\""
-
-#: ../Tomboy/Plugins/ExportToHTML.cs:266
-msgid "Destination for HTML Export"
-msgstr "Προορισμός για εξαγωγή HTML"
-
-#: ../Tomboy/Plugins/ExportToHTML.cs:276
-msgid "Export linked notes"
-msgstr "Εξαγωγή συνδεδεμένων σημειώσεων"
-
-#: ../Tomboy/Plugins/ExportToHTML.cs:281
-msgid "Include all other linked notes"
-msgstr "Εισαγωγή όλων των άλλων συνδεδεμένων σημειώσεων"
-
-#: ../Tomboy/Plugins/FixedWidth.cs:34
-msgid "_Fixed Width"
-msgstr "_Καθορισμένο Πλάτος"
-
-#: ../Tomboy/Plugins/GalagoPresence.cs:235
-#, csharp-format
-msgid "Cannot contact '{0}'"
-msgstr "Αδυναμία επικοινωνίας με '{0}'"
-
-#: ../Tomboy/Plugins/GalagoPresence.cs:238
-#, csharp-format
-msgid "Error running gaim-remote: {0}"
-msgstr "Σφάλμα εκτέλεσης gaim-remote: {0}"
-
-#: ../Tomboy/Plugins/NoteOfTheDay.cs:13
-msgid "NotD: "
-msgstr "NotD: "
-
-#: ../Tomboy/Plugins/NoteOfTheDay.cs:14
-msgid "NotD: Template"
-msgstr "NotD: Πρότυπο"
-
-#. Format: "NotD: Friday, July 01 2005"
-#: ../Tomboy/Plugins/NoteOfTheDay.cs:19
-msgid "dddd, MMMM d yyyy"
-msgstr "dddd, MMMM d yyyy"
-
-#: ../Tomboy/Plugins/NoteOfTheDay.cs:40
-msgid "Tasks"
-msgstr "Εργασίες"
-
-#: ../Tomboy/Plugins/NoteOfTheDay.cs:41
-msgid "Appointments"
-msgstr "Ραντεβού"
-
-#: ../Tomboy/Plugins/StickyNoteImport.cs:41
-msgid "Import from Sticky Notes"
-msgstr "Εισαγωγή από σημειώσεις Sticky"
-
-#: ../Tomboy/Plugins/StickyNoteImport.cs:119
-msgid "No Sticky Notes found"
-msgstr "Δε βρέθηκαν σημειώσεις Sticky"
-
-#: ../Tomboy/Plugins/StickyNoteImport.cs:120
-#, csharp-format
-msgid "No suitable Sticky Notes file was found at \"{0}\"."
-msgstr "Δε βρέθηκε κατάλληλο αρχείο σημειώσεων Sticky στο \"{0}\"."
-
-#: ../Tomboy/Plugins/StickyNoteImport.cs:129
-msgid "Sticky Notes import completed"
-msgstr "Η εισαγωγή σημειώσεων Sticky ολοκληρώθηκε"
-
-#: ../Tomboy/Plugins/StickyNoteImport.cs:130
-#, csharp-format
-msgid "<b>{0}</b> of <b>{1}</b> Sticky Notes were successfully imported."
-msgstr "<b>{0}</b> από <b>{1}</b> σημειώσεις Sticky εισήχθηκαν με επιτυχία."
-
-#: ../Tomboy/Plugins/StickyNoteImport.cs:142
-msgid "Untitled"
-msgstr "Χωρίς τίτλο"
-
-#: ../Tomboy/Plugins/StickyNoteImport.cs:170
-msgid "Sticky Note: "
-msgstr "Sticky Note: "
-
+#: ../Tomboy/Synchronization/SyncUtils.cs:153
+msgid ""
+"The synchronization you've chosen requires the FUSE module to be loaded.\n"
+"\n"
+"To avoid getting this prompt in the future, you should load FUSE at "
+"startup.  Add \"modprobe fuse\" to /etc/init.d/boot.local or \"fuse\" to /"
+"etc/modules."
+msgstr ""
+"Ο συγχρονισμός που έχετε επιλέξει απαιτεί την φόρτωση της μονάδας FUSE.\n"
+"\n"
+"Για την αποφυγή προβολής αυτού του διαλόγου στο μέλλον, θα πρέπει να "
+"φορτώνετε το FUSE κατά την εκκίνηση. Προσθέστε \"modprobe fuse\" στο /etc/"
+"init.d/boot.local ή \"fuse\" στο /etc/modules."
