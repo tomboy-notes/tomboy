@@ -66,29 +66,54 @@ namespace Tomboy.Sync
 		/// </summary>
 		public override Gtk.Widget CreatePreferencesControl ()
 		{
-			Gtk.Table table = new Gtk.Table (1, 2, false);
+			Gtk.Table table = new Gtk.Table (1, 3, false);
 			
 			// Read settings out of gconf
 			string syncPath;
 			if (GetConfigSettings (out syncPath) == false)
 				syncPath = string.Empty;
-			
-			bool activeSyncService = syncPath != string.Empty;
-			
-			// TODO: Use a FileChooserDialog to allow the user to choose a path more easily
-			Label l = new Label (Catalog.GetString ("Path:"));
+
+			Label l = new Label (Catalog.GetString ("Folder:"));
 			l.Xalign = 1;
-			l.Show ();
 			table.Attach (l, 0, 1, 0, 1);
 			
 			pathEntry = new Entry ();
 			pathEntry.Text = syncPath;
-			pathEntry.Show ();
 			table.Attach (pathEntry, 1, 2, 0, 1);
 			
-			table.Sensitive = !activeSyncService;
-			table.Show ();
+			Image browseImage = new Image (Stock.Open, IconSize.Button);
+			Label browseLabel = new Label (Catalog.GetString ("Browse..."));
+			
+			HBox browseBox = new HBox (false, 0);
+			browseBox.PackStart (browseImage);
+			browseBox.PackStart (browseLabel);			
+			
+			Button browseButton = new Button ();
+			browseButton.Add (browseBox);
+			browseButton.Clicked += OnBrowseButtonClicked;
+			table.Attach (browseButton, 2, 3, 0, 1, AttachOptions.Shrink, AttachOptions.Expand, 0, 0);
+			
+			table.ShowAll ();
 			return table;
+		}
+		
+		private void OnBrowseButtonClicked (object sender, EventArgs args)
+		{
+			FileChooserDialog chooserDlg =
+				new FileChooserDialog (Catalog.GetString ("Select Synchronization Folder..."),
+				                       null,
+				                       FileChooserAction.SelectFolder,
+				                       Stock.Cancel, ResponseType.Cancel,
+				                       Stock.Ok, ResponseType.Ok);
+			chooserDlg.DefaultResponse = ResponseType.Cancel;
+			chooserDlg.SetFilename (pathEntry.Text);
+			
+			ResponseType response = (ResponseType) chooserDlg.Run ();
+			
+			if (response == ResponseType.Ok)
+				pathEntry.Text = chooserDlg.Filename;
+			
+			chooserDlg.Destroy ();
 		}
 		
 		/// <summary>
@@ -155,7 +180,7 @@ namespace Tomboy.Sync
 		public override string Name
 		{
 			get {
-				return Mono.Unix.Catalog.GetString ("Local File System Path");
+				return Mono.Unix.Catalog.GetString ("Local Folder");
 			}
 		}
 
@@ -184,20 +209,6 @@ namespace Tomboy.Sync
 		}
 		
 		#region Private Methods
-		private void CreateSyncPath ()
-		{
-			if (Directory.Exists (path) == false) {
-				try {
-					Directory.CreateDirectory (path);
-				} catch (Exception e) {
-					throw new Exception (
-						string.Format (
-							"Couldn't create \"{0}\" directory: {1}",
-							path, e.Message));
-				}
-			}
-		}
-		
 		/// <summary>
 		/// Get config settings
 		/// </summary>

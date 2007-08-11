@@ -395,6 +395,9 @@ namespace Tomboy
 				l.Yalign = 0.5f;
 				syncAddinPrefsWidget = l;
 			}
+			if (syncAddinPrefsWidget != null && addin_id != null &&
+			    syncAddinIters.ContainsKey (addin_id))
+				syncAddinPrefsWidget.Sensitive = false;
 			
 			syncAddinPrefsWidget.Show ();
 			syncAddinPrefsContainer = new Gtk.VBox (false, 0);
@@ -901,10 +904,15 @@ namespace Tomboy
 			
 			bool saved = false;
 			try {
+				GdkWindow.Cursor = new Gdk.Cursor (Gdk.CursorType.Watch);
+				GdkWindow.Display.Flush ();
 				saved = selectedSyncAddin.SaveConfiguration ();
 			} catch (Exception e) {
 				Logger.Debug ("Error calling {0}.SaveConfiguration: {1}\n{2}",
 					selectedSyncAddin.Id, e.Message, e.StackTrace);
+			} finally {
+				GdkWindow.Cursor = null;
+				GdkWindow.Display.Flush ();
 			}
 			
 			HIGMessageDialog dialog; 

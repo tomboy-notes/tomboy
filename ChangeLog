@@ -1,5 +1,19 @@
 2007-08-11  Sandy Armstrong <sanfordarmstrong@gmail.com> 
 
+	* Tomboy/PreferencesDialog.cs,
+	  Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:
+	  PreferencesDialog handles sensitivity of sync widgets.  Change
+	  cursor to WAIT when saving sync settings.
+	* Tomboy/Synchronization/FuseSyncServiceAddin.cs: FUSE mount attempt
+	  times out after 10 seconds.
+	* Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:
+	  Add "Browse..." button that presents a FileChooserDialog.
+	* Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs: Removed all
+	  password-related code and UI elements.  Added first attempt at
+	  explaining need for ssh keys/daemon to user.
+
+2007-08-11  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
 	* Tomboy/NoteEditor.cs: Add support for using shift+delete to perform a
 	  "cut" operation.  Should fix bug #437684 (patch provided by Andrew
 	  Fister).

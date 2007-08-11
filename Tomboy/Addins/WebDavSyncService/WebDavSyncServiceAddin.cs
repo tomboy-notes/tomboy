@@ -48,42 +48,32 @@ namespace Tomboy.Sync
 			if (password == null)
 				password = string.Empty;
 			
-			bool activeSyncService = url != string.Empty || username != string.Empty ||
-				password != string.Empty;
-			
 			Label l = new Label (Catalog.GetString ("URL:"));
 			l.Xalign = 1;
-			l.Show ();
 			table.Attach (l, 0, 1, 0, 1);
 			
 			urlEntry = new Entry ();
 			urlEntry.Text = url;
-			urlEntry.Show ();
 			table.Attach (urlEntry, 1, 2, 0, 1);
 			
 			l = new Label (Catalog.GetString ("Username:"));
 			l.Xalign = 1;
-			l.Show ();
 			table.Attach (l, 0, 1, 1, 2);
 			
 			usernameEntry = new Entry ();
 			usernameEntry.Text = username;
-			usernameEntry.Show ();
 			table.Attach (usernameEntry, 1, 2, 1, 2);
 			
 			l = new Label (Catalog.GetString ("Password:"));
 			l.Xalign = 1;
-			l.Show ();
 			table.Attach (l, 0, 1, 2, 3);
 			
 			passwordEntry = new Entry ();
 			passwordEntry.Text = password;
 			passwordEntry.Visibility = false;
-			passwordEntry.Show ();
 			table.Attach (passwordEntry, 1, 2, 2, 3);
 			
-			table.Sensitive = !activeSyncService;
-			table.Show ();
+			table.ShowAll ();
 			return table;
 		}
 		
