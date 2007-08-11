@@ -133,11 +133,14 @@ namespace Tomboy.Sync
 			p.StartInfo.Arguments = GetFuseMountExeArgs (mountPath, useStoredValues);
 			p.StartInfo.CreateNoWindow = true;
 			p.Start ();
-			p.WaitForExit ();	
-			
-			// TODO: Handle password for sshfs
-			
-			if (p.ExitCode == 1) {
+			int timeoutMs = 10000; // Important to timeout.  Is 10 seconds appropriate?
+			bool exited = p.WaitForExit (timeoutMs);
+
+			if (!exited) {
+				Logger.Debug (string.Format ("Error calling {0}: timed out after {1} seconds",
+				                             fuseMountExePath, timeoutMs / 1000));
+				return false;
+			} else if (p.ExitCode == 1) {
 				Logger.Debug ("Error calling " + fuseMountExePath);
 				return false;
 			}
