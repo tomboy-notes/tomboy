@@ -193,8 +193,10 @@ namespace Tomboy
 				ScrollMarkOnscreen (Buffer.InsertMark);
 				break;
 			case Gdk.Key.Delete:
-				ret_value = ((NoteBuffer) Buffer).DeleteKeyHandler ();
-				ScrollMarkOnscreen (Buffer.InsertMark);
+				if (args.Event.State != Gdk.ModifierType.ShiftMask) {
+					ret_value = ((NoteBuffer) Buffer).DeleteKeyHandler ();
+					ScrollMarkOnscreen (Buffer.InsertMark);
+				}
 				break;
 			case Gdk.Key.BackSpace:
 				ret_value = ((NoteBuffer) Buffer).BackspaceKeyHandler ();
