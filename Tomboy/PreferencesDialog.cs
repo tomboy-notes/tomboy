@@ -85,6 +85,8 @@ namespace Tomboy
 			    new Gtk.Label (Catalog.GetString ("Add-ins")));
 
 			VBox.PackStart (notebook, true, true, 0);
+			
+			addin_manager.ApplicationAddinListChanged += OnAppAddinListChanged;
 
 
 			// Ok button...
@@ -816,6 +818,54 @@ namespace Tomboy
 							  desc.ToString ());
 		}
 		
+		private void OnAppAddinListChanged (object sender, EventArgs args)
+		{
+			SyncServiceAddin [] newAddinsArray = Tomboy.DefaultNoteManager.AddinManager.GetSyncServiceAddins ();
+			Array.Sort (newAddinsArray, CompareSyncAddinsByName);
+			List<SyncServiceAddin> newAddins = new List<SyncServiceAddin> (newAddins);
+			
+			// Build easier-to-navigate list if addins currently in the combo
+			List<SyncServiceAddin> currentAddins = new List<SyncServiceAddin> ();
+			foreach (object [] currentRow in syncAddinStore) {
+				SyncServiceAddin currentAddin = currentRow [0] as SyncServiceAddin;
+				if (currentAddin != null)
+					currentAddins.Add (currentAddin);
+			}
+			
+			// Add new addins
+			// TODO: Would be nice to insert these alphabetically instead
+			foreach (SyncServiceAddin newAddin in newAddins) {
+				if (!currentAddins.Contains (newAddin)) {
+					Gtk.TreeIter iter = syncAddinStore.Append ();
+					syncAddinStore.SetValue (iter, 0, newAddin);
+					syncAddinIters [newAddin.Id] = iter;
+				}
+			}
+			
+			// Remove deleted addins
+			foreach (SyncServiceAddin currentAddin in currentAddins) {
+				if (!newAddins.Contains (currentAddin)) {
+					Gtk.TreeIter iter = syncAddinIters [currentAddin.Id];
+					syncAddinStore.Remove (ref iter);
+					syncAddinIters.Remove (currentAddin.Id);
+
+					// FIXME: Lots of hacky stuff in here...rushing before freeze
+					if (currentAddin == selectedSyncAddin) {
+						if (syncAddinPrefsWidget != null &&
+						    !syncAddinPrefsWidget.Sensitive)
+							OnResetSyncAddinButton (null, null);
+						
+						Gtk.TreeIter active_iter;
+						if (syncAddinStore.GetIterFirst (out active_iter) == true) {
+							syncAddinCombo.SetActiveIter (active_iter);
+						} else {
+							OnSyncAddinComboChanged (null, null);
+						}
+					}
+				}
+			}
+		}
+		
 		void OnSyncAddinComboChanged (object sender, EventArgs args)
 		{
 			if (syncAddinPrefsWidget != null) {
@@ -850,24 +900,41 @@ namespace Tomboy
 			if (selectedSyncAddin == null)
 				return;
 			
-			// Prompt the user about what they're about to do since
-			// it's not really recommended to switch back and forth
-			// between sync services.
-			// Prompt the user first about enabling fuse
-			HIGMessageDialog dialog = 
-				new HIGMessageDialog (null,
-						      Gtk.DialogFlags.Modal,
-						      Gtk.MessageType.Question,
-						      Gtk.ButtonsType.YesNo,
-						      Catalog.GetString ("WARNING: Are you sure?"),
-						      Catalog.GetString (
-					"Clearing your synchronization settings is not recommended.  " +
-					"You may be forced to synchronize all of your notes again " +
-					"when you save new settings."));
-			int response = dialog.Run ();
-			dialog.Destroy ();
-			if (response == (int) Gtk.ResponseType.No)
-				return;
+			// User doesn't get a choice if this is invoked by disabling the addin
+			// FIXME: null sender check is lame!
+			if (sender != null) {
+				// Prompt the user about what they're about to do since
+				// it's not really recommended to switch back and forth
+				// between sync services.
+				HIGMessageDialog dialog = 
+					new HIGMessageDialog (null,
+							      Gtk.DialogFlags.Modal,
+							      Gtk.MessageType.Question,
+							      Gtk.ButtonsType.YesNo,
+							      Catalog.GetString ("WARNING: Are you sure?"),
+							      Catalog.GetString (
+						"Clearing your synchronization settings is not recommended.  " +
+						"You may be forced to synchronize all of your notes again " +
+						"when you save new settings."));
+				int response = dialog.Run ();
+				dialog.Destroy ();
+				if (response == (int) Gtk.ResponseType.No)
+					return;
+			} else { // FIXME: Weird place for this to go.  User should be able to cancel disabling of addin, anyway
+				HIGMessageDialog dialog = 
+					new HIGMessageDialog (null,
+							      Gtk.DialogFlags.Modal,
+							      Gtk.MessageType.Info,
+							      Gtk.ButtonsType.Ok,
+							      Catalog.GetString ("Resetting Synchronization Settings"),
+							      Catalog.GetString (
+					                                         "You have disabled the configured synchronization service.  " +
+					                                         "Your synchronization settings will now be cleared.  " +
+					                                         "You may be forced to synchronize all of your notes again " +
+					                                         "when you save new settings"));
+				dialog.Run ();
+				dialog.Destroy ();
+			}
 			
 			try {
 				selectedSyncAddin.ResetConfiguration ();
@@ -879,6 +946,11 @@ namespace Tomboy
 			Preferences.Set (
 				Preferences.SYNC_SELECTED_SERVICE_ADDIN,
 				String.Empty);
+			
+			// Reset conflict handling behavior
+			Preferences.Set (
+			                 Preferences.SYNC_CONFIGURED_CONFLICT_BEHAVIOR,
+			                 Preferences.GetDefault (Preferences.SYNC_CONFIGURED_CONFLICT_BEHAVIOR));
 			
 			// Nuke ~/.tomboy/manifest.xml
 			string clientManifestPath = System.IO.Path.Combine ( 
@@ -895,9 +967,10 @@ namespace Tomboy
 			}
 				
 			syncAddinCombo.Sensitive = true;
-			syncAddinPrefsWidget.Sensitive = true;
 			resetSyncAddinButton.Sensitive = false;
 			saveSyncAddinButton.Sensitive = true;
+			if (syncAddinPrefsWidget != null)
+				syncAddinPrefsWidget.Sensitive = true;
 		}
 		
 		/// <summary>
