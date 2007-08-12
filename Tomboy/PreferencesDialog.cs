@@ -348,6 +348,7 @@ namespace Tomboy
 			syncAddinStore = new Gtk.ListStore (typeof (SyncServiceAddin));
 			syncAddinIters = new Dictionary<string,Gtk.TreeIter> ();
 			SyncServiceAddin [] addins = Tomboy.DefaultNoteManager.AddinManager.GetSyncServiceAddins ();
+			Array.Sort (addins, CompareSyncAddinsByName);
 			foreach (SyncServiceAddin addin in addins) {
 				Gtk.TreeIter iter = syncAddinStore.Append ();
 				syncAddinStore.SetValue (iter, 0, addin);
@@ -434,6 +435,11 @@ namespace Tomboy
 
 			vbox.ShowAll ();
 			return vbox;
+		}
+			
+		private int CompareSyncAddinsByName (SyncServiceAddin addin1, SyncServiceAddin addin2)
+		{
+			return addin1.Name.CompareTo (addin2.Name);
 		}
 		
 		private void ComboBoxTextDataFunc (Gtk.CellLayout cell_layout, Gtk.CellRenderer cell,
