@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tomboy.HEAD.es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-07-31 20:16+0100\n"
-"PO-Revision-Date: 2007-08-01 21:36+0200\n"
+"POT-Creation-Date: 2007-08-12 03:59+0100\n"
+"PO-Revision-Date: 2007-08-12 19:31+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -612,14 +612,21 @@ msgstr "Incluir todas las notas enlazadas"
 msgid "Cannot open email"
 msgstr "No se puede abrir el correo-e"
 
-#. TODO: Use a FileChooserDialog to allow the user to choose a path more easily
-#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:79
-msgid "Path:"
-msgstr "Ruta:"
+#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:76
+msgid "Folder:"
+msgstr "Carpeta:"
 
-#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:158
-msgid "Local File System Path"
-msgstr "Ruta en el sistema de archivos local"
+#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:85
+msgid "Browse..."
+msgstr "Examinar..."
+
+#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:103
+msgid "Select Synchronization Folder..."
+msgstr "Seleccione la carpeta para sincronizar"
+
+#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:183
+msgid "Local Folder"
+msgstr "Carpeta local"
 
 #: ../Tomboy/Addins/FixedWidth/FixedWidthMenuItem.cs:14
 msgid "_Fixed Width"
@@ -672,25 +679,33 @@ msgstr ""
 msgid "_Open Today: Template"
 msgstr "_Abrir hoy: Plantilla"
 
-#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:48
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:41
 msgid "Server:"
 msgstr "Servidor:"
 
-#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:58
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:49
 msgid "Folder (optional):"
 msgstr "Carpeta (opcional):"
 
-#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:68
-#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:64
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:57
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:59
 msgid "Username:"
 msgstr "Usuario:"
 
-#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:78
-#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:74
-msgid "Password:"
-msgstr "Contraseña:"
+#. Text for label describing setup required for SSH sync addin to work
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:66
+msgid ""
+"SSH synchronization requires an existing SSH key for this server and user.  "
+"That key must be added to a running SSH daemon.  <span weight=\"bold"
+"\">Seahorse</span> is one application that can help you set this up.  You "
+"will receive an error if no key is set up for this server and user."
+msgstr ""
+"La sincronización SSH requiere que exista una clave SSH para este servidor y usuario. "
+"Esa clave debe estar añadida al demonio SSH en ejecución. <span weight=\"bold"
+"\">Seahorse</span> es la palicación que puede ayudarle a realizar esto. Recibirá "
+"un error si no existe una clave configurada para este servidor y usuario."
 
-#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:150
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:136
 msgid "SSH (sshfs FUSE)"
 msgstr "SSH (sshfs FUSE)"
 
@@ -724,11 +739,15 @@ msgstr "Sin título"
 msgid "Sticky Note: "
 msgstr "Nota adhesiva:"
 
-#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:54
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:51
 msgid "URL:"
 msgstr "URL:"
 
-#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:139
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:67
+msgid "Password:"
+msgstr "Contraseña:"
+
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:129
 msgid "WebDAV (wdfs FUSE)"
 msgstr "WebDAV (wdfs FUSE)"
 
@@ -1051,40 +1070,40 @@ msgstr "Abrir «Buscar en _todas las notas»"
 msgid "Service:"
 msgstr "Servicio:"
 
-#: ../Tomboy/PreferencesDialog.cs:393 ../Tomboy/PreferencesDialog.cs:827
+#: ../Tomboy/PreferencesDialog.cs:393 ../Tomboy/PreferencesDialog.cs:830
 msgid "Not configurable"
 msgstr "No configurable"
 
-#: ../Tomboy/PreferencesDialog.cs:455
+#: ../Tomboy/PreferencesDialog.cs:458
 msgid "The following add-ins are installed"
 msgstr "Los siguientes complementos están instalados actualmente"
 
-#: ../Tomboy/PreferencesDialog.cs:486
+#: ../Tomboy/PreferencesDialog.cs:489
 msgid "_Enable"
 msgstr "_Activar"
 
-#: ../Tomboy/PreferencesDialog.cs:492
+#: ../Tomboy/PreferencesDialog.cs:495
 msgid "_Disable"
 msgstr "_Desactivar"
 
-#: ../Tomboy/PreferencesDialog.cs:623
+#: ../Tomboy/PreferencesDialog.cs:626
 msgid "Not Implemented"
 msgstr "No implementado"
 
-#: ../Tomboy/PreferencesDialog.cs:637
+#: ../Tomboy/PreferencesDialog.cs:640
 #, csharp-format
 msgid "{0} Preferences"
 msgstr "{0} Preferencias"
 
-#: ../Tomboy/PreferencesDialog.cs:776
+#: ../Tomboy/PreferencesDialog.cs:779
 msgid "Choose Note Font"
 msgstr "Elegir la tipografía de la nota"
 
-#: ../Tomboy/PreferencesDialog.cs:853
+#: ../Tomboy/PreferencesDialog.cs:856
 msgid "WARNING: Are you sure?"
 msgstr "ADVERTENCIA: ¿Está seguro?"
 
-#: ../Tomboy/PreferencesDialog.cs:855
+#: ../Tomboy/PreferencesDialog.cs:858
 msgid ""
 "Clearing your synchronization settings is not recommended.  You may be "
 "forced to synchronize all of your notes again when you save new settings."
@@ -1092,19 +1111,19 @@ msgstr ""
 "No se recomienda limpiar sus ajustes de sincronización. Quizá se vea forzado "
 "a sincronizar todas sus notas de nuevo cuando guarde los nuevos ajustes."
 
-#: ../Tomboy/PreferencesDialog.cs:928
+#: ../Tomboy/PreferencesDialog.cs:936
 msgid "Success! You're connected!"
 msgstr "Está conectado."
 
-#: ../Tomboy/PreferencesDialog.cs:930
+#: ../Tomboy/PreferencesDialog.cs:938
 msgid "Tomboy is ready to synchronize your notes."
 msgstr "Tomboy está preparado para sincronizar sus notas."
 
-#: ../Tomboy/PreferencesDialog.cs:953
+#: ../Tomboy/PreferencesDialog.cs:961
 msgid "Error connecting :("
 msgstr "Error al conectar"
 
-#: ../Tomboy/PreferencesDialog.cs:955
+#: ../Tomboy/PreferencesDialog.cs:963
 msgid ""
 "Sorry, but something went wrong.  Please check your information and try "
 "again.  The ~/.tomboy.log might be useful too."
@@ -1112,19 +1131,19 @@ msgstr ""
 "Lo siento pero algo fue mal. Compruebe su información e inténtelo de nuevo. "
 "El archivo ~/.tomboy.log puede ser útil."
 
-#: ../Tomboy/PreferencesDialog.cs:1021
+#: ../Tomboy/PreferencesDialog.cs:1029
 msgid "Version:"
 msgstr "Versión:"
 
-#: ../Tomboy/PreferencesDialog.cs:1028
+#: ../Tomboy/PreferencesDialog.cs:1036
 msgid "Author:"
 msgstr "Autor:"
 
-#: ../Tomboy/PreferencesDialog.cs:1035
+#: ../Tomboy/PreferencesDialog.cs:1043
 msgid "Copyright:"
 msgstr "Copyright:"
 
-#: ../Tomboy/PreferencesDialog.cs:1041
+#: ../Tomboy/PreferencesDialog.cs:1049
 msgid "Add-in Dependencies:"
 msgstr "Dependencias de los complementos:"
 
