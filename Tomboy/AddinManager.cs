@@ -30,6 +30,8 @@ namespace Tomboy
 		/// </summary>
 		Dictionary<string, List<NoteAddinInfo>> note_addin_infos;
 		
+		public event System.EventHandler ApplicationAddinListChanged;
+		
 		public AddinManager (string tomboy_conf_dir)
 		{
 			this.tomboy_conf_dir = tomboy_conf_dir;
@@ -71,8 +73,9 @@ namespace Tomboy
 			Mono.Addins.AddinManager.Initialize (tomboy_conf_dir);
 			Mono.Addins.AddinManager.Registry.Rebuild (null);
 			Mono.Addins.AddinManager.AddExtensionNodeHandler ("/Tomboy/ApplicationAddins", OnApplicationAddinExtensionChanged);
+			// NOTE: A SyncServiceAddin is a specialization of an ApplicationAddin
+			Mono.Addins.AddinManager.AddExtensionNodeHandler ("/Tomboy/SyncServiceAddins", OnApplicationAddinExtensionChanged);
 			Mono.Addins.AddinManager.AddExtensionNodeHandler ("/Tomboy/NoteAddins", OnNoteAddinExtensionChanged);
-			// TODO: Need to call AddExtensionNodeHandler for sync addins?
 		}
 		
 		void OnAddinLoaded (object sender, Mono.Addins.AddinEventArgs args)
@@ -140,6 +143,9 @@ namespace Tomboy
 					}
 				}
 			}
+			
+			if (ApplicationAddinListChanged != null)
+				ApplicationAddinListChanged (sender, args);
 		}
 		
 		void OnNoteAddinExtensionChanged (object sender, Mono.Addins.ExtensionNodeEventArgs args)
