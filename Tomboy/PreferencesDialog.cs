@@ -822,7 +822,7 @@ namespace Tomboy
 		{
 			SyncServiceAddin [] newAddinsArray = Tomboy.DefaultNoteManager.AddinManager.GetSyncServiceAddins ();
 			Array.Sort (newAddinsArray, CompareSyncAddinsByName);
-			List<SyncServiceAddin> newAddins = new List<SyncServiceAddin> (newAddins);
+			List<SyncServiceAddin> newAddins = new List<SyncServiceAddin> (newAddinsArray);
 			
 			// Build easier-to-navigate list if addins currently in the combo
 			List<SyncServiceAddin> currentAddins = new List<SyncServiceAddin> ();
