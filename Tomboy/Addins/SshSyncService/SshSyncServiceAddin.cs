@@ -64,10 +64,7 @@ namespace Tomboy.Sync
 			
 			// Text for label describing setup required for SSH sync addin to work
 			string sshInfo = Catalog.GetString ("SSH synchronization requires an existing SSH key for this " +
-			                                  "server and user.  That key must be added to a running " +
-			                                  "SSH daemon.  <span weight=\"bold\">Seahorse</span> is one application that " +
-			                                  "can help you set this up.  You will receive an error " +
-			                                  "if no key is set up for this server and user.");
+			                                    "server and user, added to a running SSH daemon.");
 			l = new Label ();
 			l.UseMarkup = true;
 			l.Markup = string.Format ("<span size=\"small\">{0}</span>",
