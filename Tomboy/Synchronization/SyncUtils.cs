@@ -114,7 +114,7 @@ namespace Tomboy.Sync
 			Process p = new Process ();
 			p.StartInfo.UseShellExecute = false;
 			p.StartInfo.RedirectStandardOutput = true;
-			// TODO: Is calling /sbin/lsmod safe enough?  i.e., can we be guaranteed it's gonna be there?
+			// TODO: Is calling lsmod safe enough?  i.e., can we be guaranteed it's gonna be there?
 			p.StartInfo.FileName = lsmodTool;
 			p.StartInfo.CreateNoWindow = true;
 			p.Start ();
@@ -168,7 +168,18 @@ namespace Tomboy.Sync
 				if (p.ExitCode != 0) {
 					Logger.Warn ("Couldn't enable fuse");
 					
-					// TODO: Figure out a way to let the user know that they don't have FUSE installed on their machine
+					// Let the user know that they don't have FUSE installed on their machine
+					HIGMessageDialog failedDlg =
+						new HIGMessageDialog (null,
+						                      Gtk.DialogFlags.Modal,
+						                      Gtk.MessageType.Error,
+						                      Gtk.ButtonsType.Ok,
+						                      Catalog.GetString ("Could not enable FUSE"),
+						                      Catalog.GetString ("The FUSE module could not be loaded. " +
+						                                         "Please check that it is installed properly " +
+						                                         "and try again."));
+					failedDlg.Run ();
+					failedDlg.Destroy ();
 					return false;
 				}
 				
