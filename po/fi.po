@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tomboy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-08-09 07:52+0300\n"
+"POT-Creation-Date: 2007-08-13 19:05+0300\n"
 "PO-Revision-Date: 2007-02-19 21:33+0300\n"
 "Last-Translator: Ilkka Tuohela <hile@iki.fi>\n"
 "Language-Team: Finnish <gnome-fi-laatu@lists.sourceforge.net>\n"
@@ -469,7 +469,7 @@ msgstr "Lopeta Tomboysta"
 msgid "_Edit"
 msgstr "_Muokkaa"
 
-#: ../Tomboy/ActionManager.cs:90 ../Tomboy/PreferencesDialog.cs:61
+#: ../Tomboy/ActionManager.cs:90 ../Tomboy/PreferencesDialog.cs:65
 msgid "Tomboy Preferences"
 msgstr "Tomboyn asetukset"
 
@@ -608,14 +608,21 @@ msgstr "Sisällytä kaikki muut linkitetyt muistilaput"
 msgid "Cannot open email"
 msgstr "Sähköpostia ei voi avata"
 
-#. TODO: Use a FileChooserDialog to allow the user to choose a path more easily
-#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:79
-msgid "Path:"
-msgstr "Polku:"
+#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:89
+msgid "Folder Path:"
+msgstr "Kansion polku:"
 
-#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:158
-msgid "Local File System Path"
-msgstr "Paikallisen tiedostojärjestelmän polku"
+#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:98
+msgid "Browse..."
+msgstr "Selaa..."
+
+#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:116
+msgid "Select Synchronization Folder..."
+msgstr "Valitse synkronisointikansio..."
+
+#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:196
+msgid "Local Folder"
+msgstr "Paikallinen kansio"
 
 #: ../Tomboy/Addins/FixedWidth/FixedWidthMenuItem.cs:14
 msgid "_Fixed Width"
@@ -668,25 +675,29 @@ msgstr ""
 msgid "_Open Today: Template"
 msgstr "Avaa _Tänään:-pohja"
 
-#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:48
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:41
 msgid "Server:"
 msgstr "Palvelin"
 
-#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:58
-msgid "Folder (optional):"
-msgstr "Kansio (valinnainen):"
-
-#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:68
-#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:64
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:49
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:59
 msgid "Username:"
 msgstr "Käyttäjätunnus:"
 
-#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:78
-#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:74
-msgid "Password:"
-msgstr "Salasana:"
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:57
+msgid "Folder Path (optional):"
+msgstr "Kansion polku (valinnainen):"
 
-#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:150
+#. Text for label describing setup required for SSH sync addin to work
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:66
+msgid ""
+"SSH synchronization requires an existing SSH key for this server and user, "
+"added to a running SSH daemon."
+msgstr ""
+"SSH-synkronointi vaatii olemassaolevan SSH-avaimen palvelimelle ja "
+"käyttäjälle ja että avain on lisätty avainrenkaaseen."
+
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:133
 msgid "SSH (sshfs FUSE)"
 msgstr "SSH (FUSE-sshfs)"
 
@@ -720,11 +731,15 @@ msgstr "Nimeämätön"
 msgid "Sticky Note: "
 msgstr "Muistilappu: "
 
-#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:54
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:51
 msgid "URL:"
 msgstr "URL:"
 
-#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:139
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:67
+msgid "Password:"
+msgstr "Salasana:"
+
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:129
 msgid "WebDAV (wdfs FUSE)"
 msgstr "WebDAV (FUSE-wdfs)"
 
@@ -962,27 +977,27 @@ msgstr "_Pieni"
 msgid "Bullets"
 msgstr "Luodit"
 
-#: ../Tomboy/PreferencesDialog.cs:79
+#: ../Tomboy/PreferencesDialog.cs:83
 msgid "Editing"
 msgstr "Muokkaus"
 
-#: ../Tomboy/PreferencesDialog.cs:81
+#: ../Tomboy/PreferencesDialog.cs:85
 msgid "Hotkeys"
 msgstr "Pikanäppäimet"
 
-#: ../Tomboy/PreferencesDialog.cs:83
+#: ../Tomboy/PreferencesDialog.cs:87
 msgid "Synchronization"
 msgstr "Synkronointi"
 
-#: ../Tomboy/PreferencesDialog.cs:85
+#: ../Tomboy/PreferencesDialog.cs:89
 msgid "Add-ins"
 msgstr "Lisäosat"
 
-#: ../Tomboy/PreferencesDialog.cs:128
+#: ../Tomboy/PreferencesDialog.cs:134
 msgid "_Spell check while typing"
 msgstr "_Oikolue kirjoitettaessa"
 
-#: ../Tomboy/PreferencesDialog.cs:137
+#: ../Tomboy/PreferencesDialog.cs:143
 msgid ""
 "Misspellings will be underlined in red, with correct spelling suggestions "
 "shown in the context menu."
@@ -991,11 +1006,11 @@ msgstr ""
 "ehdotetaan ponnahdusvalikossa."
 
 #. WikiWords...
-#: ../Tomboy/PreferencesDialog.cs:148
+#: ../Tomboy/PreferencesDialog.cs:154
 msgid "Highlight _WikiWords"
 msgstr "Korosta _WikiSanat"
 
-#: ../Tomboy/PreferencesDialog.cs:156
+#: ../Tomboy/PreferencesDialog.cs:162
 msgid ""
 "Enable this option to highlight words <b>ThatLookLikeThis</b>. Clicking the "
 "word will create a note with that name."
@@ -1004,16 +1019,16 @@ msgstr ""
 "napsauttamalla saat luotua uuden muistilapun sanan nimellä."
 
 #. Custom font...
-#: ../Tomboy/PreferencesDialog.cs:165
+#: ../Tomboy/PreferencesDialog.cs:171
 msgid "Use custom _font"
 msgstr "Käytä omaa _kirjasinta"
 
 #. Hotkeys...
-#: ../Tomboy/PreferencesDialog.cs:235
+#: ../Tomboy/PreferencesDialog.cs:241
 msgid "Listen for _Hotkeys"
 msgstr "Käytä _pikanäppäimiä"
 
-#: ../Tomboy/PreferencesDialog.cs:244
+#: ../Tomboy/PreferencesDialog.cs:250
 msgid ""
 "Hotkeys allow you to quickly access your notes from anywhere with a "
 "keypress. Example Hotkeys: <b>&lt;Control&gt;&lt;Shift&gt;F11</b>, <b>&lt;"
@@ -1024,63 +1039,92 @@ msgstr ""
 "Shift&gt;F11</b> ja <b>&lt;Alt&gt;N</b>"
 
 #. Show notes menu keybinding...
-#: ../Tomboy/PreferencesDialog.cs:264
+#: ../Tomboy/PreferencesDialog.cs:270
 msgid "Show notes _menu"
 msgstr "Näytä muistilaput _valikossa"
 
 #. Open Start Here keybinding...
-#: ../Tomboy/PreferencesDialog.cs:281
+#: ../Tomboy/PreferencesDialog.cs:287
 msgid "Open \"_Start Here\""
 msgstr "Avaa \"_Aloita tästä\""
 
 #. Create new note keybinding...
-#: ../Tomboy/PreferencesDialog.cs:298
+#: ../Tomboy/PreferencesDialog.cs:304
 msgid "Create _new note"
 msgstr "Luo _uusi muistilappu"
 
 #. Open Search All Notes window keybinding...
-#: ../Tomboy/PreferencesDialog.cs:315
+#: ../Tomboy/PreferencesDialog.cs:321
 msgid "Open \"Search _All Notes\""
 msgstr "Avaa \"Etsi _kaikista muistilapuista\""
 
-#: ../Tomboy/PreferencesDialog.cs:342
+#: ../Tomboy/PreferencesDialog.cs:348
 msgid "Service:"
 msgstr "Palvelu:"
 
-#: ../Tomboy/PreferencesDialog.cs:393 ../Tomboy/PreferencesDialog.cs:827
+#: ../Tomboy/PreferencesDialog.cs:400 ../Tomboy/PreferencesDialog.cs:978
 msgid "Not configurable"
 msgstr "Ei määriteltävissä"
 
-#: ../Tomboy/PreferencesDialog.cs:455
+#. "Advanced..." button to bring up extra sync config dialog
+#: ../Tomboy/PreferencesDialog.cs:420
+msgid "Advanced..."
+msgstr "Lisäasetukset..."
+
+#: ../Tomboy/PreferencesDialog.cs:481
 msgid "The following add-ins are installed"
 msgstr "Seuraavat lisäosat on asennettu"
 
-#: ../Tomboy/PreferencesDialog.cs:486
+#: ../Tomboy/PreferencesDialog.cs:512
 msgid "_Enable"
 msgstr "_Ota käyttöön"
 
-#: ../Tomboy/PreferencesDialog.cs:492
+#: ../Tomboy/PreferencesDialog.cs:518
 msgid "_Disable"
 msgstr "_Poista käytöstä"
 
-#: ../Tomboy/PreferencesDialog.cs:623
+#: ../Tomboy/PreferencesDialog.cs:649
 msgid "Not Implemented"
 msgstr "Ei toteutettu"
 
-#: ../Tomboy/PreferencesDialog.cs:637
+#: ../Tomboy/PreferencesDialog.cs:663
 #, csharp-format
 msgid "{0} Preferences"
 msgstr "{0}-asetukset"
 
-#: ../Tomboy/PreferencesDialog.cs:776
+#: ../Tomboy/PreferencesDialog.cs:802
 msgid "Choose Note Font"
 msgstr "Valitse muistilapun kirjasin"
 
+#: ../Tomboy/PreferencesDialog.cs:846
+msgid "Other Synchronization Options"
+msgstr "Muut synkronoinnin valitsimet"
+
 #: ../Tomboy/PreferencesDialog.cs:853
+msgid ""
+"When a conflict is detected between a local note and a note on the "
+"configured synchronization server:"
+msgstr ""
+"Havaittaessa ristiriita paikallisen muistilapun ja synkronointi"
+"palvelimen muistilapun välillä:"
+
+#: ../Tomboy/PreferencesDialog.cs:860
+msgid "Always ask me what to do."
+msgstr "Kysy aina mitä tehdään."
+
+#: ../Tomboy/PreferencesDialog.cs:864
+msgid "Rename my local note."
+msgstr "Nimeä paikallinen muistilappu uudestaan."
+
+#: ../Tomboy/PreferencesDialog.cs:868
+msgid "Replace my local note with the server's update."
+msgstr "Korvaa paikallinen muistilappu palvelimen päivityksellä."
+
+#: ../Tomboy/PreferencesDialog.cs:1014
 msgid "WARNING: Are you sure?"
 msgstr "VAROITUS: oletko varma?"
 
-#: ../Tomboy/PreferencesDialog.cs:855
+#: ../Tomboy/PreferencesDialog.cs:1016
 msgid ""
 "Clearing your synchronization settings is not recommended.  You may be "
 "forced to synchronize all of your notes again when you save new settings."
@@ -1089,19 +1133,33 @@ msgstr ""
 "joudut synkronimaan kaikki muistilaput uudestaan tallennettuasi uudet "
 "asetukset."
 
-#: ../Tomboy/PreferencesDialog.cs:928
+#: ../Tomboy/PreferencesDialog.cs:1029
+msgid "Resetting Synchronization Settings"
+msgstr "Nollataan synkronoinnin asetuksia"
+
+#: ../Tomboy/PreferencesDialog.cs:1031
+msgid ""
+"You have disabled the configured synchronization service.  Your "
+"synchronization settings will now be cleared.  You may be forced to "
+"synchronize all of your notes again when you save new settings"
+msgstr ""
+"Määritelty synkronointipalvelu on poistettu käytöstä. Synkronoinnin "
+"asetukset nollataan nyt. Voi olla, että joudut synkronimaan kaikki "
+"muistilaput uudestaan tallennettuasi uudet asetukset."
+
+#: ../Tomboy/PreferencesDialog.cs:1115
 msgid "Success! You're connected!"
 msgstr "Onnistui, yhteys on auki!"
 
-#: ../Tomboy/PreferencesDialog.cs:930
+#: ../Tomboy/PreferencesDialog.cs:1117
 msgid "Tomboy is ready to synchronize your notes."
 msgstr "Tomboy on valmis synkronoimaan muistilappusi."
 
-#: ../Tomboy/PreferencesDialog.cs:953
+#: ../Tomboy/PreferencesDialog.cs:1140
 msgid "Error connecting :("
 msgstr "Virhe otettaessa yhteyttä"
 
-#: ../Tomboy/PreferencesDialog.cs:955
+#: ../Tomboy/PreferencesDialog.cs:1142
 msgid ""
 "Sorry, but something went wrong.  Please check your information and try "
 "again.  The ~/.tomboy.log might be useful too."
@@ -1109,19 +1167,19 @@ msgstr ""
 "Valitettavasti jotain meni pieleen. Tarkista tiedot ja yritä uudestaan. Voit "
 "myös katsoa sisältääkö lokitiedosto ~/.tomboy.log hyödyllisiä tietoja."
 
-#: ../Tomboy/PreferencesDialog.cs:1021
+#: ../Tomboy/PreferencesDialog.cs:1208
 msgid "Version:"
 msgstr "Versio:"
 
-#: ../Tomboy/PreferencesDialog.cs:1028
+#: ../Tomboy/PreferencesDialog.cs:1215
 msgid "Author:"
 msgstr "Tekijä:"
 
-#: ../Tomboy/PreferencesDialog.cs:1035
+#: ../Tomboy/PreferencesDialog.cs:1222
 msgid "Copyright:"
 msgstr "Tekijänoikeudet:"
 
-#: ../Tomboy/PreferencesDialog.cs:1041
+#: ../Tomboy/PreferencesDialog.cs:1228
 msgid "Add-in Dependencies:"
 msgstr "Lisäosan riippuvuudet:"
 
@@ -1369,60 +1427,60 @@ msgstr "Kopioi linkin osoite"
 msgid "_Open Link"
 msgstr "_Avaa linkki"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:90
+#: ../Tomboy/Synchronization/SyncDialog.cs:91
 msgid "Note Title"
 msgstr "Muistilapun otsikko"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:97
+#: ../Tomboy/Synchronization/SyncDialog.cs:98
 msgid "Status"
 msgstr "Tila"
 
 #. Drop all that into into the Expander
-#: ../Tomboy/Synchronization/SyncDialog.cs:116
+#: ../Tomboy/Synchronization/SyncDialog.cs:117
 msgid "Details"
 msgstr "Yksityiskohdat"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:234
+#: ../Tomboy/Synchronization/SyncDialog.cs:235
 msgid "Acquiring sync lock..."
 msgstr "Hankitaan lukitus..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:237
+#: ../Tomboy/Synchronization/SyncDialog.cs:238
 msgid "Committing changes..."
 msgstr "Toteutetaan muutoksia..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:240
+#: ../Tomboy/Synchronization/SyncDialog.cs:241
 msgid "Synchronizing Notes"
 msgstr "Synkronoidaan muistilappuja"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:241
+#: ../Tomboy/Synchronization/SyncDialog.cs:242
 msgid "Synchronizing your notes..."
 msgstr "Muistilappujasi synkronoidaan...."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:242
+#: ../Tomboy/Synchronization/SyncDialog.cs:243
 msgid "This may take a while, kick back and enjoy!"
 msgstr "Tämä saattaa kestää hetken, tee jotain muuta!"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:244
+#: ../Tomboy/Synchronization/SyncDialog.cs:245
 msgid "Connecting to the server..."
 msgstr "Otetaan yhteyttä palvelimeen..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:250
+#: ../Tomboy/Synchronization/SyncDialog.cs:251
 msgid "Deleting notes off of the server..."
 msgstr "Poistetaan muistilappuja palvelimelta..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:254
+#: ../Tomboy/Synchronization/SyncDialog.cs:255
 msgid "Downloading new/updated notes..."
 msgstr "Noudetaan uusia ja muuttuneita muistilappuja..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:266
+#: ../Tomboy/Synchronization/SyncDialog.cs:267
 msgid "Server Locked"
 msgstr "Palvelin lukittu"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:267
+#: ../Tomboy/Synchronization/SyncDialog.cs:268
 msgid "Server is locked"
 msgstr "Palvelin on lukittu"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:268
+#: ../Tomboy/Synchronization/SyncDialog.cs:269
 msgid ""
 "One of your other computers is currently synchronizing.  Please wait and try "
 "again."
@@ -1430,137 +1488,143 @@ msgstr ""
 "Joku muista tietokoneistasi synkronoi juuri nyt. Odota heti ja yritä "
 "uudestaan."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:272
+#: ../Tomboy/Synchronization/SyncDialog.cs:273
 msgid "Preparing to download updates from server..."
 msgstr "Valmistellaan muutosten noutoa palvelimelta..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:275
+#: ../Tomboy/Synchronization/SyncDialog.cs:276
 msgid "Preparing to upload updates to server..."
 msgstr "Valmistellaan muutosten vientiä palvelimelle..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:278
+#: ../Tomboy/Synchronization/SyncDialog.cs:279
 msgid "Uploading notes to server..."
 msgstr "Viedään muistilappuja palvelimelle..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:281
+#: ../Tomboy/Synchronization/SyncDialog.cs:282
 msgid "Synchronization Failed"
 msgstr "Synkronointi epäonnistui"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:282
+#: ../Tomboy/Synchronization/SyncDialog.cs:283
 msgid "Failed to synchronize"
 msgstr "Synkronointia ei voitu suorittaa"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:283
+#: ../Tomboy/Synchronization/SyncDialog.cs:284
 msgid "Could not synchronize notes.  Check the details below and try again."
 msgstr ""
 "Muistilappuja ei voitu synkronoida. Tarkista yksityiskohdat alta ja yritä "
 "uudestaan."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:287
+#: ../Tomboy/Synchronization/SyncDialog.cs:291
 msgid "Synchronization Complete"
 msgstr "Synkronointi valmistui"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:288
+#: ../Tomboy/Synchronization/SyncDialog.cs:292
 msgid "Synchronization is complete"
 msgstr "Muistilappujen synkronointi valmistui"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:289
-msgid "Your notes are up to date.  See the details below or close the window."
-msgstr ""
-"Muistilaput ovat ajan tasalla. Katso yksityiskohdat alta tai sulje ikkuna."
+#: ../Tomboy/Synchronization/SyncDialog.cs:294
+#, csharp-format
+msgid "{0} note updated."
+msgid_plural "{0} notes updated."
+msgstr[0] "{0} muistilappu päivitetty."
+msgstr[1] "{0} muistilappua päivitetty."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:293
+#: ../Tomboy/Synchronization/SyncDialog.cs:299
+msgid "Your notes are now up to date."
+msgstr "Muistilaput ovat nyt ajan tasalla."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:303
 msgid "Synchronization Canceled"
 msgstr "Synkronointi peruttiin"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:294
+#: ../Tomboy/Synchronization/SyncDialog.cs:304
 msgid "Synchronization was canceled"
-msgstr "Synkroninointi peruttiin"
+msgstr "Synkronointi peruttiin"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:295
+#: ../Tomboy/Synchronization/SyncDialog.cs:305
 msgid "You canceled the synchronization.  You may close the window now."
 msgstr "Peruit muistilappujen synkronoinnin. Voit nyt sulkea ikkunan."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:299
+#: ../Tomboy/Synchronization/SyncDialog.cs:309
 msgid "Synchronization Not Configured"
 msgstr "Synkronointia ei ole määritelty"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:300
+#: ../Tomboy/Synchronization/SyncDialog.cs:310
 msgid "Synchronization is not configured"
 msgstr "Muistilappujen synkronointia ei ole määritelty"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:301
+#: ../Tomboy/Synchronization/SyncDialog.cs:311
 msgid "Please configure synchronization in the preferences dialog."
 msgstr "Määrittele synkronoinnin asetukset asetusikkunasta."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:305
+#: ../Tomboy/Synchronization/SyncDialog.cs:315
 msgid "Synchronization Service Error"
 msgstr "Virhe synkronointipalvelussa"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:306
+#: ../Tomboy/Synchronization/SyncDialog.cs:316
 msgid "Service error"
 msgstr "Virhe palvelussa"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:307
+#: ../Tomboy/Synchronization/SyncDialog.cs:317
 msgid "Error connecting to the synchronization service.  Please try again."
 msgstr ""
 "Virhe otettaessa yhteyttä synkronointipalveluun. Yritä myöhemmin uudestaan."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:323
-msgid "Deleting from local copy"
-msgstr "Poistetaan paikallisesta kopiosta"
+#: ../Tomboy/Synchronization/SyncDialog.cs:334
+msgid "Deleted locally"
+msgstr "Poistettu paikallisesti"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:326
+#: ../Tomboy/Synchronization/SyncDialog.cs:337
 msgid "Deleting from server"
 msgstr "Poistetaan palvelimelta"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:329
-msgid "Downloading updates from server"
-msgstr "Noudetaan muutoksia palvelimelta"
+#: ../Tomboy/Synchronization/SyncDialog.cs:340
+msgid "Updated"
+msgstr "Päivitetty"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:332
-msgid "Downloading new note from server"
-msgstr "Noudetaan uutta muistilappua palvelimelta"
+#: ../Tomboy/Synchronization/SyncDialog.cs:343
+msgid "Added"
+msgstr "Lisätty"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:335
+#: ../Tomboy/Synchronization/SyncDialog.cs:346
 msgid "Uploading changes to server"
 msgstr "Viedään muutoksia palvelimelle"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:338
+#: ../Tomboy/Synchronization/SyncDialog.cs:349
 msgid "Uploading new note to server"
 msgstr "Viedään uutta muistilappua palvelimelle"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:470
+#: ../Tomboy/Synchronization/SyncDialog.cs:481
 msgid "Note Conflict"
 msgstr "Ristiriita muistilapuissa"
 
 #. Suggest renaming note by appending " (old)" to the existing title
-#: ../Tomboy/Synchronization/SyncDialog.cs:474
+#: ../Tomboy/Synchronization/SyncDialog.cs:485
 msgid " (old)"
 msgstr " (vanha)"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:513
+#: ../Tomboy/Synchronization/SyncDialog.cs:524
 msgid "Rename local note:"
 msgstr "Nimeä paikallinen muistilappu uudestaan:"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:519
+#: ../Tomboy/Synchronization/SyncDialog.cs:530
 msgid "Update links in referencing notes"
 msgstr "Päivitä linkit viittaavissa muistilapuissa"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:526
+#: ../Tomboy/Synchronization/SyncDialog.cs:537
 msgid "Overwrite local note"
 msgstr "Kirjoita paikallisen muistilapun päälle"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:530
+#: ../Tomboy/Synchronization/SyncDialog.cs:541
 msgid "Always perform this action"
 msgstr "Suorita aina tämä toiminto"
 
 #. Set initial dialog text
-#: ../Tomboy/Synchronization/SyncDialog.cs:537
+#: ../Tomboy/Synchronization/SyncDialog.cs:548
 msgid "Note conflict detected"
 msgstr "Havaittiin ristiriita muistilapuissa"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:538
+#: ../Tomboy/Synchronization/SyncDialog.cs:549
 #, csharp-format
 msgid ""
 "The server version of \"{0}\" conflicts with your local note.  What do you "
@@ -1590,6 +1654,35 @@ msgstr ""
 "Jotta tätä kysymystä ei kysyttäisi jatkossa, tulisi FUSE ladata "
 "käynnistettäessä. Lisää \"modprobe fuse\" tiedostoon /etc/init.d/boot.local "
 "tai rivi \"fuse\" tiedostoon /etc/modules."
+
+#: ../Tomboy/Synchronization/SyncUtils.cs:177
+msgid "Could not enable FUSE"
+msgstr "FUSE:a ei voitu ottaa käyttöön"
+
+#: ../Tomboy/Synchronization/SyncUtils.cs:178
+msgid ""
+"The FUSE module could not be loaded. Please check that it is installed "
+"properly and try again."
+msgstr ""
+"FUSE-moduulia ei voitu ladata. Tarkista, että se on asennettu oikein "
+"ja yritä uudestaan."
+
+#~ msgid "Path:"
+#~ msgstr "Polku:"
+
+#~ msgid "Local File System Path"
+#~ msgstr "Paikallisen tiedostojärjestelmän polku"
+
+#~ msgid ""
+#~ "Your notes are up to date.  See the details below or close the window."
+#~ msgstr ""
+#~ "Muistilaput ovat ajan tasalla. Katso yksityiskohdat alta tai sulje ikkuna."
+
+#~ msgid "Downloading updates from server"
+#~ msgstr "Noudetaan muutoksia palvelimelta"
+
+#~ msgid "Downloading new note from server"
+#~ msgstr "Noudetaan uutta muistilappua palvelimelta"
 
 #~ msgid "To Do List"
 #~ msgstr "Tehtävälista"
