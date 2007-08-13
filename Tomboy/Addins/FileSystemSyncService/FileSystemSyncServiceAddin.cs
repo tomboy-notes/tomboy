@@ -86,7 +86,7 @@ namespace Tomboy.Sync
 			if (GetConfigSettings (out syncPath) == false)
 				syncPath = string.Empty;
 
-			Label l = new Label (Catalog.GetString ("Folder:"));
+			Label l = new Label (Catalog.GetString ("Folder Path:"));
 			l.Xalign = 1;
 			table.Attach (l, 0, 1, 0, 1);
 			
