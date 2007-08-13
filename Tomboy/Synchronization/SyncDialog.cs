@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Mono.Unix;
 
 using Gtk;
@@ -12,6 +13,7 @@ namespace Tomboy.Sync
 		private Gtk.Label messageLabel;
 		private Gtk.ProgressBar progressBar;
 		private Gtk.Label progressLabel;
+		private Label statusLabel;
 		
 		private Gtk.Expander expander;
 		private Gtk.Button closeButton;
@@ -118,6 +120,11 @@ namespace Tomboy.Sync
 			expander.Show ();
 			outerVBox.PackStart (expander, true, true, 5);
 			
+			// Drop status label in the VBox, too
+			statusLabel = new Label ();
+			statusLabel.Xalign = 0;
+			outerVBox.PackStart (statusLabel, false, false, 0);
+			
 			closeButton = (Gtk.Button) AddButton (Gtk.Stock.Close, Gtk.ResponseType.Close);
 			closeButton.Sensitive = false;
 			
@@ -209,6 +216,13 @@ namespace Tomboy.Sync
 		public void AddUpdateItem (string title, string status)
 		{
 			model.AppendValues (title, status);
+			int count = 0;
+			foreach (object [] currentRow in model)
+				count++;
+			statusLabel.Text = string.Format (Catalog.GetPluralString ("{0} note update processed.",
+			                                                           "{0} note updates processed.",
+			                                                           count),
+			                                  count);
 		}
 
 		#region Private Event Handlers
