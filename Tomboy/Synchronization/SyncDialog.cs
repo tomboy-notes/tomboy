@@ -13,7 +13,6 @@ namespace Tomboy.Sync
 		private Gtk.Label messageLabel;
 		private Gtk.ProgressBar progressBar;
 		private Gtk.Label progressLabel;
-		private Label statusLabel;
 		
 		private Gtk.Expander expander;
 		private Gtk.Button closeButton;
@@ -120,11 +119,6 @@ namespace Tomboy.Sync
 			expander.Show ();
 			outerVBox.PackStart (expander, true, true, 5);
 			
-			// Drop status label in the VBox, too
-			statusLabel = new Label ();
-			statusLabel.Xalign = 0;
-			outerVBox.PackStart (statusLabel, false, false, 0);
-			
 			closeButton = (Gtk.Button) AddButton (Gtk.Stock.Close, Gtk.ResponseType.Close);
 			closeButton.Sensitive = false;
 			
@@ -216,13 +210,6 @@ namespace Tomboy.Sync
 		public void AddUpdateItem (string title, string status)
 		{
 			model.AppendValues (title, status);
-			int count = 0;
-			foreach (object [] currentRow in model)
-				count++;
-			statusLabel.Text = string.Format (Catalog.GetPluralString ("{0} note update processed.",
-			                                                           "{0} note updates processed.",
-			                                                           count),
-			                                  count);
 		}
 
 		#region Private Event Handlers
@@ -298,9 +285,18 @@ namespace Tomboy.Sync
 					ProgressText = string.Empty;
 					break;
 				case SyncState.Succeeded:
+					int count = 0;
+					foreach (object [] currentRow in model)
+						count++;
 					Title = Catalog.GetString ("Synchronization Complete");
 					HeaderText = Catalog.GetString ("Synchronization is complete");
-					MessageText = Catalog.GetString ("Your notes are up to date.  See the details below or close the window.");
+					string numNotesUpdated =
+						string.Format (Catalog.GetPluralString ("{0} note updated.",
+						                                        "{0} notes updated.",
+						                                        count),
+						               count);
+					MessageText = numNotesUpdated + "  " +
+						Catalog.GetString ("Your notes are now up to date.");
 					ProgressText = string.Empty;
 					break;
 				case SyncState.UserCancelled:
