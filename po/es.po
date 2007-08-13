@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tomboy.HEAD.es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-08-12 03:59+0100\n"
-"PO-Revision-Date: 2007-08-12 19:31+0200\n"
+"POT-Creation-Date: 2007-08-13 09:02+0100\n"
+"PO-Revision-Date: 2007-08-13 15:09+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -471,7 +471,7 @@ msgstr "Salir de Tomboy"
 msgid "_Edit"
 msgstr "_Editar"
 
-#: ../Tomboy/ActionManager.cs:90 ../Tomboy/PreferencesDialog.cs:61
+#: ../Tomboy/ActionManager.cs:90 ../Tomboy/PreferencesDialog.cs:65
 msgid "Tomboy Preferences"
 msgstr "Preferencias de Tomboy"
 
@@ -612,19 +612,19 @@ msgstr "Incluir todas las notas enlazadas"
 msgid "Cannot open email"
 msgstr "No se puede abrir el correo-e"
 
-#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:76
-msgid "Folder:"
-msgstr "Carpeta:"
+#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:89
+msgid "Folder Path:"
+msgstr "Ruta de la carpeta:"
 
-#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:85
+#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:98
 msgid "Browse..."
 msgstr "Examinar..."
 
-#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:103
+#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:116
 msgid "Select Synchronization Folder..."
 msgstr "Seleccione la carpeta para sincronizar"
 
-#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:183
+#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:196
 msgid "Local Folder"
 msgstr "Carpeta local"
 
@@ -684,28 +684,24 @@ msgid "Server:"
 msgstr "Servidor:"
 
 #: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:49
-msgid "Folder (optional):"
-msgstr "Carpeta (opcional):"
-
-#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:57
 #: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:59
 msgid "Username:"
 msgstr "Usuario:"
 
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:57
+msgid "Folder Path (optional):"
+msgstr "Ruta de la carpeta (opcional):"
+
 #. Text for label describing setup required for SSH sync addin to work
 #: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:66
 msgid ""
-"SSH synchronization requires an existing SSH key for this server and user.  "
-"That key must be added to a running SSH daemon.  <span weight=\"bold"
-"\">Seahorse</span> is one application that can help you set this up.  You "
-"will receive an error if no key is set up for this server and user."
+"SSH synchronization requires an existing SSH key for this server and user, "
+"added to a running SSH daemon."
 msgstr ""
-"La sincronización SSH requiere que exista una clave SSH para este servidor y usuario. "
-"Esa clave debe estar añadida al demonio SSH en ejecución. <span weight=\"bold"
-"\">Seahorse</span> es la palicación que puede ayudarle a realizar esto. Recibirá "
-"un error si no existe una clave configurada para este servidor y usuario."
+"La sincronización SSH requiere una clave SSH existente para este servidor y usuario "
+"que esté añadida al demonio SSH en ejecución."
 
-#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:136
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:133
 msgid "SSH (sshfs FUSE)"
 msgstr "SSH (sshfs FUSE)"
 
@@ -985,27 +981,27 @@ msgstr "_Pequeña"
 msgid "Bullets"
 msgstr "Topos"
 
-#: ../Tomboy/PreferencesDialog.cs:79
+#: ../Tomboy/PreferencesDialog.cs:83
 msgid "Editing"
 msgstr "Editando"
 
-#: ../Tomboy/PreferencesDialog.cs:81
+#: ../Tomboy/PreferencesDialog.cs:85
 msgid "Hotkeys"
 msgstr "Teclas rápidas"
 
-#: ../Tomboy/PreferencesDialog.cs:83
+#: ../Tomboy/PreferencesDialog.cs:87
 msgid "Synchronization"
 msgstr "Sincronización"
 
-#: ../Tomboy/PreferencesDialog.cs:85
+#: ../Tomboy/PreferencesDialog.cs:89
 msgid "Add-ins"
 msgstr "Complementos"
 
-#: ../Tomboy/PreferencesDialog.cs:128
+#: ../Tomboy/PreferencesDialog.cs:134
 msgid "_Spell check while typing"
 msgstr "_Corrección ortográfica al escribir"
 
-#: ../Tomboy/PreferencesDialog.cs:137
+#: ../Tomboy/PreferencesDialog.cs:143
 msgid ""
 "Misspellings will be underlined in red, with correct spelling suggestions "
 "shown in the context menu."
@@ -1014,11 +1010,11 @@ msgstr ""
 "las sugerencias de corrección en el menú contextual."
 
 #. WikiWords...
-#: ../Tomboy/PreferencesDialog.cs:148
+#: ../Tomboy/PreferencesDialog.cs:154
 msgid "Highlight _WikiWords"
 msgstr "Resaltar _wikipalabras"
 
-#: ../Tomboy/PreferencesDialog.cs:156
+#: ../Tomboy/PreferencesDialog.cs:162
 msgid ""
 "Enable this option to highlight words <b>ThatLookLikeThis</b>. Clicking the "
 "word will create a note with that name."
@@ -1027,16 +1023,16 @@ msgstr ""
 "la palabra se creará una nota con ese nombre."
 
 #. Custom font...
-#: ../Tomboy/PreferencesDialog.cs:165
+#: ../Tomboy/PreferencesDialog.cs:171
 msgid "Use custom _font"
 msgstr "Usar _tipografía personalizada"
 
 #. Hotkeys...
-#: ../Tomboy/PreferencesDialog.cs:235
+#: ../Tomboy/PreferencesDialog.cs:241
 msgid "Listen for _Hotkeys"
 msgstr "Escuchar las _teclas rápidas"
 
-#: ../Tomboy/PreferencesDialog.cs:244
+#: ../Tomboy/PreferencesDialog.cs:250
 msgid ""
 "Hotkeys allow you to quickly access your notes from anywhere with a "
 "keypress. Example Hotkeys: <b>&lt;Control&gt;&lt;Shift&gt;F11</b>, <b>&lt;"
@@ -1047,63 +1043,92 @@ msgstr ""
 "<b>&lt;Control&gt;&lt;Mayús&gt;F11</b>, <b>&lt;Alt&gt;N</b>"
 
 #. Show notes menu keybinding...
-#: ../Tomboy/PreferencesDialog.cs:264
+#: ../Tomboy/PreferencesDialog.cs:270
 msgid "Show notes _menu"
 msgstr "Mostrar el _menú de notas"
 
 #. Open Start Here keybinding...
-#: ../Tomboy/PreferencesDialog.cs:281
+#: ../Tomboy/PreferencesDialog.cs:287
 msgid "Open \"_Start Here\""
 msgstr "Abrir «Comenzar aquí»"
 
 #. Create new note keybinding...
-#: ../Tomboy/PreferencesDialog.cs:298
+#: ../Tomboy/PreferencesDialog.cs:304
 msgid "Create _new note"
 msgstr "Crear una nota _nueva"
 
 #. Open Search All Notes window keybinding...
-#: ../Tomboy/PreferencesDialog.cs:315
+#: ../Tomboy/PreferencesDialog.cs:321
 msgid "Open \"Search _All Notes\""
 msgstr "Abrir «Buscar en _todas las notas»"
 
-#: ../Tomboy/PreferencesDialog.cs:342
+#: ../Tomboy/PreferencesDialog.cs:348
 msgid "Service:"
 msgstr "Servicio:"
 
-#: ../Tomboy/PreferencesDialog.cs:393 ../Tomboy/PreferencesDialog.cs:830
+#: ../Tomboy/PreferencesDialog.cs:400 ../Tomboy/PreferencesDialog.cs:978
 msgid "Not configurable"
 msgstr "No configurable"
 
-#: ../Tomboy/PreferencesDialog.cs:458
+#. "Advanced..." button to bring up extra sync config dialog
+#: ../Tomboy/PreferencesDialog.cs:420
+msgid "Advanced..."
+msgstr "Avanzado..."
+
+#: ../Tomboy/PreferencesDialog.cs:481
 msgid "The following add-ins are installed"
 msgstr "Los siguientes complementos están instalados actualmente"
 
-#: ../Tomboy/PreferencesDialog.cs:489
+#: ../Tomboy/PreferencesDialog.cs:512
 msgid "_Enable"
 msgstr "_Activar"
 
-#: ../Tomboy/PreferencesDialog.cs:495
+#: ../Tomboy/PreferencesDialog.cs:518
 msgid "_Disable"
 msgstr "_Desactivar"
 
-#: ../Tomboy/PreferencesDialog.cs:626
+#: ../Tomboy/PreferencesDialog.cs:649
 msgid "Not Implemented"
 msgstr "No implementado"
 
-#: ../Tomboy/PreferencesDialog.cs:640
+#: ../Tomboy/PreferencesDialog.cs:663
 #, csharp-format
 msgid "{0} Preferences"
 msgstr "{0} Preferencias"
 
-#: ../Tomboy/PreferencesDialog.cs:779
+#: ../Tomboy/PreferencesDialog.cs:802
 msgid "Choose Note Font"
 msgstr "Elegir la tipografía de la nota"
 
-#: ../Tomboy/PreferencesDialog.cs:856
+#: ../Tomboy/PreferencesDialog.cs:846
+msgid "Other Synchronization Options"
+msgstr "Otras opciones de sincronización"
+
+#: ../Tomboy/PreferencesDialog.cs:853
+msgid ""
+"When a conflict is detected between a local note and a note on the "
+"configured synchronization server:"
+msgstr ""
+"Cuando se detecta un conflicto entre una nota local y una nota en el "
+"servidor de sincronización configurado:"
+
+#: ../Tomboy/PreferencesDialog.cs:860
+msgid "Always ask me what to do."
+msgstr "Preguntarme siempre qué hacer."
+
+#: ../Tomboy/PreferencesDialog.cs:864
+msgid "Rename my local note."
+msgstr "Renombrar mi nota local."
+
+#: ../Tomboy/PreferencesDialog.cs:868
+msgid "Replace my local note with the server's update."
+msgstr "Reemplazar mi nota local con la actualización del servidor."
+
+#: ../Tomboy/PreferencesDialog.cs:1014
 msgid "WARNING: Are you sure?"
 msgstr "ADVERTENCIA: ¿Está seguro?"
 
-#: ../Tomboy/PreferencesDialog.cs:858
+#: ../Tomboy/PreferencesDialog.cs:1016
 msgid ""
 "Clearing your synchronization settings is not recommended.  You may be "
 "forced to synchronize all of your notes again when you save new settings."
@@ -1111,19 +1136,33 @@ msgstr ""
 "No se recomienda limpiar sus ajustes de sincronización. Quizá se vea forzado "
 "a sincronizar todas sus notas de nuevo cuando guarde los nuevos ajustes."
 
-#: ../Tomboy/PreferencesDialog.cs:936
+#: ../Tomboy/PreferencesDialog.cs:1029
+msgid "Resetting Synchronization Settings"
+msgstr "Reiniciando los ajustes de sincronización"
+
+#: ../Tomboy/PreferencesDialog.cs:1031
+msgid ""
+"You have disabled the configured synchronization service.  Your "
+"synchronization settings will now be cleared.  You may be forced to "
+"synchronize all of your notes again when you save new settings"
+msgstr ""
+"Ha deshabilitado el servicio de configuración sincronizado. Sus ajustes "
+"de sincronización se limpiarán. Quizá se vea forzado a "
+"sincronizar todas sus notas de nuevo cuando guarde los nuevos ajustes."
+
+#: ../Tomboy/PreferencesDialog.cs:1115
 msgid "Success! You're connected!"
 msgstr "Está conectado."
 
-#: ../Tomboy/PreferencesDialog.cs:938
+#: ../Tomboy/PreferencesDialog.cs:1117
 msgid "Tomboy is ready to synchronize your notes."
 msgstr "Tomboy está preparado para sincronizar sus notas."
 
-#: ../Tomboy/PreferencesDialog.cs:961
+#: ../Tomboy/PreferencesDialog.cs:1140
 msgid "Error connecting :("
 msgstr "Error al conectar"
 
-#: ../Tomboy/PreferencesDialog.cs:963
+#: ../Tomboy/PreferencesDialog.cs:1142
 msgid ""
 "Sorry, but something went wrong.  Please check your information and try "
 "again.  The ~/.tomboy.log might be useful too."
@@ -1131,19 +1170,19 @@ msgstr ""
 "Lo siento pero algo fue mal. Compruebe su información e inténtelo de nuevo. "
 "El archivo ~/.tomboy.log puede ser útil."
 
-#: ../Tomboy/PreferencesDialog.cs:1029
+#: ../Tomboy/PreferencesDialog.cs:1208
 msgid "Version:"
 msgstr "Versión:"
 
-#: ../Tomboy/PreferencesDialog.cs:1036
+#: ../Tomboy/PreferencesDialog.cs:1215
 msgid "Author:"
 msgstr "Autor:"
 
-#: ../Tomboy/PreferencesDialog.cs:1043
+#: ../Tomboy/PreferencesDialog.cs:1222
 msgid "Copyright:"
 msgstr "Copyright:"
 
-#: ../Tomboy/PreferencesDialog.cs:1049
+#: ../Tomboy/PreferencesDialog.cs:1228
 msgid "Add-in Dependencies:"
 msgstr "Dependencias de los complementos:"
 
@@ -1391,60 +1430,60 @@ msgstr "_Copiar la dirección del enlace"
 msgid "_Open Link"
 msgstr "_Abrir enlace"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:90
+#: ../Tomboy/Synchronization/SyncDialog.cs:91
 msgid "Note Title"
 msgstr "Título de la nota"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:97
+#: ../Tomboy/Synchronization/SyncDialog.cs:98
 msgid "Status"
 msgstr "Estado"
 
 #. Drop all that into into the Expander
-#: ../Tomboy/Synchronization/SyncDialog.cs:116
+#: ../Tomboy/Synchronization/SyncDialog.cs:117
 msgid "Details"
 msgstr "Detalles"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:234
+#: ../Tomboy/Synchronization/SyncDialog.cs:235
 msgid "Acquiring sync lock..."
 msgstr "Adquiriendo bloqueo de sincronización..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:237
+#: ../Tomboy/Synchronization/SyncDialog.cs:238
 msgid "Committing changes..."
 msgstr "Efectuando los cambios..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:240
+#: ../Tomboy/Synchronization/SyncDialog.cs:241
 msgid "Synchronizing Notes"
 msgstr "Sincronizar las notas"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:241
+#: ../Tomboy/Synchronization/SyncDialog.cs:242
 msgid "Synchronizing your notes..."
 msgstr "Sincronizando sus notas..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:242
+#: ../Tomboy/Synchronization/SyncDialog.cs:243
 msgid "This may take a while, kick back and enjoy!"
 msgstr "Esto puede llevar un rato así que puede hacer otras cosas mientras tanto."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:244
+#: ../Tomboy/Synchronization/SyncDialog.cs:245
 msgid "Connecting to the server..."
 msgstr "Conectando al servidor..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:250
+#: ../Tomboy/Synchronization/SyncDialog.cs:251
 msgid "Deleting notes off of the server..."
 msgstr "Borrando notas del servidor..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:254
+#: ../Tomboy/Synchronization/SyncDialog.cs:255
 msgid "Downloading new/updated notes..."
 msgstr "Descargando notas nuevas/actualizadas..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:266
+#: ../Tomboy/Synchronization/SyncDialog.cs:267
 msgid "Server Locked"
 msgstr "Servidor bloqueado"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:267
+#: ../Tomboy/Synchronization/SyncDialog.cs:268
 msgid "Server is locked"
 msgstr "El servidor está bloqueado"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:268
+#: ../Tomboy/Synchronization/SyncDialog.cs:269
 msgid ""
 "One of your other computers is currently synchronizing.  Please wait and try "
 "again."
@@ -1452,135 +1491,142 @@ msgstr ""
 "Uno de sus equipos está actualmente sincronizando. Espere e inténtelo de "
 "nuevo."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:272
+#: ../Tomboy/Synchronization/SyncDialog.cs:273
 msgid "Preparing to download updates from server..."
 msgstr "Preparándose para descargar las actualizaciones del servidor..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:275
+#: ../Tomboy/Synchronization/SyncDialog.cs:276
 msgid "Preparing to upload updates to server..."
 msgstr "Preparándose para subir las actualizaciones al servidor..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:278
+#: ../Tomboy/Synchronization/SyncDialog.cs:279
 msgid "Uploading notes to server..."
 msgstr "Subiendo notas al servidor..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:281
+#: ../Tomboy/Synchronization/SyncDialog.cs:282
 msgid "Synchronization Failed"
 msgstr "Falló la sincronización"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:282
+#: ../Tomboy/Synchronization/SyncDialog.cs:283
 msgid "Failed to synchronize"
 msgstr "Falló al sincronizar"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:283
+#: ../Tomboy/Synchronization/SyncDialog.cs:284
 msgid "Could not synchronize notes.  Check the details below and try again."
 msgstr ""
 "No se pudieron sincronizar las notas. Compruebe los detalles de abajo e "
 "inténtelo de nuevo."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:287
+#: ../Tomboy/Synchronization/SyncDialog.cs:291
 msgid "Synchronization Complete"
 msgstr "Sincronización completada"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:288
+#: ../Tomboy/Synchronization/SyncDialog.cs:292
 msgid "Synchronization is complete"
 msgstr "Sincronización completada"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:289
-msgid "Your notes are up to date.  See the details below or close the window."
-msgstr "Sus notas están actualizadas. Vea los detalles más abajo o cierre la ventana."
+#: ../Tomboy/Synchronization/SyncDialog.cs:294
+#, csharp-format
+msgid "{0} note updated."
+msgid_plural "{0} notes updated."
+msgstr[0] "{0} nota actualizada."
+msgstr[1] "{0} notas actualizadas."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:293
+#: ../Tomboy/Synchronization/SyncDialog.cs:299
+msgid "Your notes are now up to date."
+msgstr "Ahora sus notas están actualizadas."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:303
 msgid "Synchronization Canceled"
 msgstr "Se canceló la sincronización"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:294
+#: ../Tomboy/Synchronization/SyncDialog.cs:304
 msgid "Synchronization was canceled"
 msgstr "Se canceló la sincronización"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:295
+#: ../Tomboy/Synchronization/SyncDialog.cs:305
 msgid "You canceled the synchronization.  You may close the window now."
 msgstr "Canceló la sincronización. Debería cerrar la ventana ahora."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:299
+#: ../Tomboy/Synchronization/SyncDialog.cs:309
 msgid "Synchronization Not Configured"
 msgstr "La sincronización no está configurada"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:300
+#: ../Tomboy/Synchronization/SyncDialog.cs:310
 msgid "Synchronization is not configured"
 msgstr "La sincronización no está configurada"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:301
+#: ../Tomboy/Synchronization/SyncDialog.cs:311
 msgid "Please configure synchronization in the preferences dialog."
 msgstr "Configure la sincronización en el diálogo de preferencias."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:305
+#: ../Tomboy/Synchronization/SyncDialog.cs:315
 msgid "Synchronization Service Error"
 msgstr "Error de sincronización en el servicio"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:306
+#: ../Tomboy/Synchronization/SyncDialog.cs:316
 msgid "Service error"
 msgstr "Error del servicio"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:307
+#: ../Tomboy/Synchronization/SyncDialog.cs:317
 msgid "Error connecting to the synchronization service.  Please try again."
 msgstr "Error al conectar con el servicio de sincronización. Inténtelo de nuevo."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:323
+#: ../Tomboy/Synchronization/SyncDialog.cs:333
 msgid "Deleting from local copy"
 msgstr "Borrando la copia local"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:326
+#: ../Tomboy/Synchronization/SyncDialog.cs:336
 msgid "Deleting from server"
 msgstr "Borrando del servidor"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:329
+#: ../Tomboy/Synchronization/SyncDialog.cs:339
 msgid "Downloading updates from server"
 msgstr "Descargando actualizaciones del servidor"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:332
+#: ../Tomboy/Synchronization/SyncDialog.cs:342
 msgid "Downloading new note from server"
 msgstr "Descargando la nueva nota del servidor"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:335
+#: ../Tomboy/Synchronization/SyncDialog.cs:345
 msgid "Uploading changes to server"
 msgstr "Subiendo los cambios al servidor"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:338
+#: ../Tomboy/Synchronization/SyncDialog.cs:348
 msgid "Uploading new note to server"
 msgstr "Subiendo la nueva nota al servidor"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:470
+#: ../Tomboy/Synchronization/SyncDialog.cs:480
 msgid "Note Conflict"
 msgstr "Conflicto entre notas"
 
 #. Suggest renaming note by appending " (old)" to the existing title
-#: ../Tomboy/Synchronization/SyncDialog.cs:474
+#: ../Tomboy/Synchronization/SyncDialog.cs:484
 msgid " (old)"
 msgstr "(vieja)"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:513
+#: ../Tomboy/Synchronization/SyncDialog.cs:523
 msgid "Rename local note:"
 msgstr "Renombrar la nota local:"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:519
+#: ../Tomboy/Synchronization/SyncDialog.cs:529
 msgid "Update links in referencing notes"
 msgstr "Actualizar los enlaces en las notas referenciadas"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:526
+#: ../Tomboy/Synchronization/SyncDialog.cs:536
 msgid "Overwrite local note"
 msgstr "Sobreescribir la nota local"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:530
+#: ../Tomboy/Synchronization/SyncDialog.cs:540
 msgid "Always perform this action"
 msgstr "Siempre realizar esta acción"
 
 #. Set initial dialog text
-#: ../Tomboy/Synchronization/SyncDialog.cs:537
+#: ../Tomboy/Synchronization/SyncDialog.cs:547
 msgid "Note conflict detected"
 msgstr "Se detectó un conflicto en las notas"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:538
+#: ../Tomboy/Synchronization/SyncDialog.cs:548
 #, csharp-format
 msgid ""
 "The server version of \"{0}\" conflicts with your local note.  What do you "
@@ -1610,4 +1656,16 @@ msgstr ""
 "Para evitar que se le muestre este mensaje en el futuro, debería cargar FUSE "
 "al inicio. Añada \"modprobe fuse\" a /etc/init.d/boot.local o \"fuse\" a /"
 "etc/modules."
+
+#: ../Tomboy/Synchronization/SyncUtils.cs:177
+msgid "Could not enable FUSE"
+msgstr "No se pudo activar FUSE"
+
+#: ../Tomboy/Synchronization/SyncUtils.cs:178
+msgid ""
+"The FUSE module could not be loaded. Please check that it is installed "
+"properly and try again."
+msgstr ""
+"No se pudo cargar el módulo FUSE. Compruebe que está instalado "
+"correctamete e inténtelo de nuevo."
 
