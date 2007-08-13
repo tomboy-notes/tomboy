@@ -46,21 +46,21 @@ namespace Tomboy.Sync
 			serverEntry.Text = server;
 			table.Attach (serverEntry, 1, 2, 0, 1);
 			
-			l = new Label (Catalog.GetString ("Folder (optional):"));
+			l = new Label (Catalog.GetString ("Username:"));
 			l.Xalign = 1;
 			table.Attach (l, 0, 1, 1, 2);
 			
-			folderEntry = new Entry ();
-			folderEntry.Text = folder;
-			table.Attach (folderEntry, 1, 2, 1, 2);
+			usernameEntry = new Entry ();
+			usernameEntry.Text = username;
+			table.Attach (usernameEntry, 1, 2, 1, 2);
 			
-			l = new Label (Catalog.GetString ("Username:"));
+			l = new Label (Catalog.GetString ("Folder Path (optional):"));
 			l.Xalign = 1;
 			table.Attach (l, 0, 1, 2, 3);
 			
-			usernameEntry = new Entry ();
-			usernameEntry.Text = username;
-			table.Attach (usernameEntry, 1, 2, 2, 3);
+			folderEntry = new Entry ();
+			folderEntry.Text = folder;
+			table.Attach (folderEntry, 1, 2, 2, 3);
 			
 			// Text for label describing setup required for SSH sync addin to work
 			string sshInfo = Catalog.GetString ("SSH synchronization requires an existing SSH key for this " +
