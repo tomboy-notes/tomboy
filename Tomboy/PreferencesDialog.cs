@@ -432,6 +432,8 @@ namespace Tomboy
 			resetSyncAddinButton.Show ();
 			bbox.PackStart (resetSyncAddinButton, false, false, 0);
 			
+			// TODO: Tabbing should go directly from sync prefs widget to here
+			// TODO: Consider connecting to "Enter" pressed in sync prefs widget
 			saveSyncAddinButton = new Gtk.Button (Gtk.Stock.Save);
 			saveSyncAddinButton.Clicked += OnSaveSyncAddinButton;
 			saveSyncAddinButton.Sensitive =
