@@ -11,14 +11,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tomboy VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-07-31 03:33+0100\n"
-"PO-Revision-Date: 2007-08-03 12:08+0700\n"
+"POT-Creation-Date: 2007-08-13 13:32+0700\n"
+"PO-Revision-Date: 2007-08-13 13:48+0700\n"
 "Last-Translator: Theppitak Karoonboonyanan <thep@linux.thai.net>\n"
 "Language-Team: Thai <thai-l10n@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 #: ../data/GNOME_TomboyApplet.server.in.in.h:1
 msgid "Accessories"
@@ -579,14 +579,21 @@ msgstr "ส่งออกบันทึกที่เชื่อมโยง
 msgid "Cannot open email"
 msgstr "ไม่สามารถเปิดอีเมล"
 
-#. TODO: Use a FileChooserDialog to allow the user to choose a path more easily
-#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:79
-msgid "Path:"
-msgstr "พาธ:"
+#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:89
+msgid "Folder:"
+msgstr "โฟลเดอร์:"
 
-#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:158
-msgid "Local File System Path"
-msgstr "พาธระบบแฟ้มในเครื่อง"
+#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:98
+msgid "Browse..."
+msgstr "ท่องดู..."
+
+#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:116
+msgid "Select Synchronization Folder..."
+msgstr "เลือกโฟลเดอร์ที่จะปรับข้อมูลให้ตรงกัน..."
+
+#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:196
+msgid "Local Folder"
+msgstr "โฟลเดอร์ในเครื่อง"
 
 #: ../Tomboy/Addins/FixedWidth/FixedWidthMenuItem.cs:14
 msgid "_Fixed Width"
@@ -639,25 +646,33 @@ msgstr ""
 msgid "_Open Today: Template"
 msgstr "_เปิดต้นแบบบันทึกประจำวัน"
 
-#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:48
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:41
 msgid "Server:"
 msgstr "เซิร์ฟเวอร์:"
 
-#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:58
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:49
 msgid "Folder (optional):"
 msgstr "โฟลเดอร์ (ระบุหรือไม่ก็ได้):"
 
-#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:68
-#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:64
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:57
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:59
 msgid "Username:"
 msgstr "ชื่อผู้ใช้:"
 
-#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:78
-#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:74
-msgid "Password:"
-msgstr "รหัสผ่าน:"
+#. Text for label describing setup required for SSH sync addin to work
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:66
+msgid ""
+"SSH synchronization requires an existing SSH key for this server and user.  "
+"That key must be added to a running SSH daemon.  <span weight=\"bold"
+"\">Seahorse</span> is one application that can help you set this up.  You "
+"will receive an error if no key is set up for this server and user."
+msgstr ""
+"การปรับข้อมูลให้ตรงกันผ่าน SSH จำเป็นต้องอาศัยกุญแจ SSH สำหรับเซิร์ฟเวอร์และผู้ใช้นี้ "
+"กุญแจดังกล่าว ต้องเพิ่มเข้าในดีมอน SSH ที่กำลังทำงานอยู่ด้วย <span weight=\"bold"
+"\">Seahorse</span> เป็นโปรแกรมหนึ่งที่สามารถช่วยคุณตั้งค่าดังกล่าวได้ "
+"คุณจะพบข้อความแจ้งข้อผิดพลาดถ้าไม่มีการกำหนดกุญแจสำหรับเซิร์ฟเวอร์และผู้ใช้นี้ไว้"
 
-#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:150
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:136
 msgid "SSH (sshfs FUSE)"
 msgstr "SSH (sshfs FUSE)"
 
@@ -691,11 +706,15 @@ msgstr "ไม่มีหัวข้อ"
 msgid "Sticky Note: "
 msgstr "โน้ตติดกาว: "
 
-#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:54
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:51
 msgid "URL:"
 msgstr "URL:"
 
-#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:139
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:67
+msgid "Password:"
+msgstr "รหัสผ่าน:"
+
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:129
 msgid "WebDAV (wdfs FUSE)"
 msgstr "WebDAV (wdfs FUSE)"
 
@@ -943,22 +962,22 @@ msgstr "การปรับข้อมูลให้ตรงกัน"
 msgid "Add-ins"
 msgstr "โปรแกรมเสริม"
 
-#: ../Tomboy/PreferencesDialog.cs:128
+#: ../Tomboy/PreferencesDialog.cs:130
 msgid "_Spell check while typing"
 msgstr "ตรวจ_สะกดขณะพิมพ์"
 
-#: ../Tomboy/PreferencesDialog.cs:137
+#: ../Tomboy/PreferencesDialog.cs:139
 msgid ""
 "Misspellings will be underlined in red, with correct spelling suggestions "
 "shown in the context menu."
 msgstr "คำที่สะกดผิดจะถูกขีดเส้นใต้สีแดง พร้อมคำแนะนำตัวสะกดในเมนูคลิกขวา"
 
 #. WikiWords...
-#: ../Tomboy/PreferencesDialog.cs:148
+#: ../Tomboy/PreferencesDialog.cs:150
 msgid "Highlight _WikiWords"
 msgstr "เ_น้น WikiWords"
 
-#: ../Tomboy/PreferencesDialog.cs:156
+#: ../Tomboy/PreferencesDialog.cs:158
 msgid ""
 "Enable this option to highlight words <b>ThatLookLikeThis</b>. Clicking the "
 "word will create a note with that name."
@@ -967,16 +986,16 @@ msgstr ""
 "และการคลิกที่คำดังกล่าวจะสร้างบันทึกชื่อในชื่อนั้น"
 
 #. Custom font...
-#: ../Tomboy/PreferencesDialog.cs:165
+#: ../Tomboy/PreferencesDialog.cs:167
 msgid "Use custom _font"
 msgstr "ใช้แ_บบอักษรที่กำหนด"
 
 #. Hotkeys...
-#: ../Tomboy/PreferencesDialog.cs:235
+#: ../Tomboy/PreferencesDialog.cs:237
 msgid "Listen for _Hotkeys"
 msgstr "ใช้งาน_ปุ่มลัด"
 
-#: ../Tomboy/PreferencesDialog.cs:244
+#: ../Tomboy/PreferencesDialog.cs:246
 msgid ""
 "Hotkeys allow you to quickly access your notes from anywhere with a "
 "keypress. Example Hotkeys: <b>&lt;Control&gt;&lt;Shift&gt;F11</b>, <b>&lt;"
@@ -986,63 +1005,63 @@ msgstr ""
 "F11</b>, <b>&lt;Alt&gt;N</b>"
 
 #. Show notes menu keybinding...
-#: ../Tomboy/PreferencesDialog.cs:264
+#: ../Tomboy/PreferencesDialog.cs:266
 msgid "Show notes _menu"
 msgstr "แสดงเ_มนูของบันทึก"
 
 #. Open Start Here keybinding...
-#: ../Tomboy/PreferencesDialog.cs:281
+#: ../Tomboy/PreferencesDialog.cs:283
 msgid "Open \"_Start Here\""
 msgstr "เปิด \"เ_ริ่มที่นี่\""
 
 #. Create new note keybinding...
-#: ../Tomboy/PreferencesDialog.cs:298
+#: ../Tomboy/PreferencesDialog.cs:300
 msgid "Create _new note"
 msgstr "สร้าง_บันทึกใหม่"
 
 #. Open Search All Notes window keybinding...
-#: ../Tomboy/PreferencesDialog.cs:315
+#: ../Tomboy/PreferencesDialog.cs:317
 msgid "Open \"Search _All Notes\""
 msgstr "เปิด \"ค้นบันทึก_ทั้งหมด\""
 
-#: ../Tomboy/PreferencesDialog.cs:342
+#: ../Tomboy/PreferencesDialog.cs:344
 msgid "Service:"
 msgstr "บริการ:"
 
-#: ../Tomboy/PreferencesDialog.cs:393 ../Tomboy/PreferencesDialog.cs:827
+#: ../Tomboy/PreferencesDialog.cs:396 ../Tomboy/PreferencesDialog.cs:886
 msgid "Not configurable"
 msgstr "ปรับแต่งไม่ได้"
 
-#: ../Tomboy/PreferencesDialog.cs:455
+#: ../Tomboy/PreferencesDialog.cs:466
 msgid "The following add-ins are installed"
 msgstr "โปรแกรมเสริมดังต่อไปนี้ติดตั้งแล้ว"
 
-#: ../Tomboy/PreferencesDialog.cs:486
+#: ../Tomboy/PreferencesDialog.cs:497
 msgid "_Enable"
 msgstr "เปิดใ_ช้"
 
-#: ../Tomboy/PreferencesDialog.cs:492
+#: ../Tomboy/PreferencesDialog.cs:503
 msgid "_Disable"
 msgstr "ไ_ม่ใช้"
 
-#: ../Tomboy/PreferencesDialog.cs:623
+#: ../Tomboy/PreferencesDialog.cs:634
 msgid "Not Implemented"
 msgstr "ยังไม่รองรับ"
 
-#: ../Tomboy/PreferencesDialog.cs:637
+#: ../Tomboy/PreferencesDialog.cs:648
 #, csharp-format
 msgid "{0} Preferences"
 msgstr "ปรับแต่ง {0}"
 
-#: ../Tomboy/PreferencesDialog.cs:776
+#: ../Tomboy/PreferencesDialog.cs:787
 msgid "Choose Note Font"
 msgstr "เลือกขนาดอักษรสำหรับบันทึก"
 
-#: ../Tomboy/PreferencesDialog.cs:853
+#: ../Tomboy/PreferencesDialog.cs:914
 msgid "WARNING: Are you sure?"
 msgstr "คำเตือน: แน่ใจหรือยัง?"
 
-#: ../Tomboy/PreferencesDialog.cs:855
+#: ../Tomboy/PreferencesDialog.cs:916
 msgid ""
 "Clearing your synchronization settings is not recommended.  You may be "
 "forced to synchronize all of your notes again when you save new settings."
@@ -1050,19 +1069,32 @@ msgstr ""
 "ไม่แนะนำให้ล้างค่าตั้งการปรับข้อมูลให้ตรงกันออก คุณอาจจำเป็นต้องปรับข้อมูลบันทึกของคุณใหม่หมด "
 "เมื่อคุณบันทึกการตั้งค่าชุดใหม่"
 
-#: ../Tomboy/PreferencesDialog.cs:928
+#: ../Tomboy/PreferencesDialog.cs:929
+msgid "Resetting Synchronization Settings"
+msgstr "กำลังล้างค่าตั้งสำหรับการปรับข้อมูลให้ตรงกัน"
+
+#: ../Tomboy/PreferencesDialog.cs:931
+msgid ""
+"You have disabled the configured synchronization service.  Your "
+"synchronization settings will now be cleared.  You may be forced to "
+"synchronize all of your notes again when you save new settings"
+msgstr ""
+"คุณได้ปิดบริการปรับข้อมูลให้ตรงกันที่ได้ตั้งค่าไว้ ค่าตั้งเกี่ยวกับการปรับข้อมูลให้ตรงกันของคุณจะถูกลบทิ้ง "
+"คุณอาจจำเป็นต้องปรับข้อมูลบันทึกของคุณใหม่หมดเมื่อคุณบันทึกการตั้งค่าชุดใหม่"
+
+#: ../Tomboy/PreferencesDialog.cs:1015
 msgid "Success! You're connected!"
 msgstr "สำเร็จ! เชื่อมต่อได้แล้ว"
 
-#: ../Tomboy/PreferencesDialog.cs:930
+#: ../Tomboy/PreferencesDialog.cs:1017
 msgid "Tomboy is ready to synchronize your notes."
 msgstr "Tomboy พร้อมที่จะปรับข้อมูลบันทึกของคุณให้ตรงกันแล้ว"
 
-#: ../Tomboy/PreferencesDialog.cs:953
+#: ../Tomboy/PreferencesDialog.cs:1040
 msgid "Error connecting :("
 msgstr "เกิดข้อผิดพลาดขณะเชื่อมต่อ :("
 
-#: ../Tomboy/PreferencesDialog.cs:955
+#: ../Tomboy/PreferencesDialog.cs:1042
 msgid ""
 "Sorry, but something went wrong.  Please check your information and try "
 "again.  The ~/.tomboy.log might be useful too."
@@ -1070,19 +1102,19 @@ msgstr ""
 "เสียใจด้วย มีบางอย่างผิดพลาด โปรดตรวจสอบข้อมูลของคุณแล้วลองใหม่อีกครั้ง แฟ้ม ~/.tomboy.log "
 "อาจเป็นประโยชน์ในกรณีนี้"
 
-#: ../Tomboy/PreferencesDialog.cs:1021
+#: ../Tomboy/PreferencesDialog.cs:1108
 msgid "Version:"
 msgstr "รุ่น:"
 
-#: ../Tomboy/PreferencesDialog.cs:1028
+#: ../Tomboy/PreferencesDialog.cs:1115
 msgid "Author:"
 msgstr "ผู้แต่ง:"
 
-#: ../Tomboy/PreferencesDialog.cs:1035
+#: ../Tomboy/PreferencesDialog.cs:1122
 msgid "Copyright:"
 msgstr "สงวนลิขสิทธิ์:"
 
-#: ../Tomboy/PreferencesDialog.cs:1041
+#: ../Tomboy/PreferencesDialog.cs:1128
 msgid "Add-in Dependencies:"
 msgstr "สิ่งที่โปรแกรมเสริมต้องใช้:"
 
@@ -1381,8 +1413,7 @@ msgstr "เซิร์ฟเวอร์ถูกล็อคอยู่"
 msgid ""
 "One of your other computers is currently synchronizing.  Please wait and try "
 "again."
-msgstr ""
-"คอมพิวเตอร์เครื่องอื่นกำลังปรับข้อมูลอยู่ โปรดรอสักครู่แล้วลองใหม่อีกครั้ง"
+msgstr "คอมพิวเตอร์เครื่องอื่นกำลังปรับข้อมูลอยู่ โปรดรอสักครู่แล้วลองใหม่อีกครั้ง"
 
 #: ../Tomboy/Synchronization/SyncDialog.cs:272
 msgid "Preparing to download updates from server..."
@@ -1537,9 +1568,14 @@ msgid ""
 msgstr ""
 "การปรับข้อมูลให้ตรงกันที่คุณเลือก ต้องใช้มอดูล FUSE\n"
 "\n"
-"เพื่อหลีกเลี่ยงข้อความเตือนนี้ในครั้งต่อไป คุณควรโหลด FUSE ตั้งแต่เปิดเครื่อง "
-"โดยเพิ่ม \"modprobe fuse\" ใน /etc/init.d/boot.local หรือเพิ่ม \"fuse\" ใน "
-"/etc/modules"
+"เพื่อหลีกเลี่ยงข้อความเตือนนี้ในครั้งต่อไป คุณควรโหลด FUSE ตั้งแต่เปิดเครื่อง โดยเพิ่ม \"modprobe "
+"fuse\" ใน /etc/init.d/boot.local หรือเพิ่ม \"fuse\" ใน /etc/modules"
+
+#~ msgid "Path:"
+#~ msgstr "พาธ:"
+
+#~ msgid "Local File System Path"
+#~ msgstr "พาธระบบแฟ้มในเครื่อง"
 
 #~ msgid "To Do List"
 #~ msgstr "รายการต้องทำ"
