@@ -327,19 +327,20 @@ namespace Tomboy.Sync
 			// so we have to use the delegate here to manipulate the GUI.
 			Gtk.Application.Invoke (delegate {
 				// FIXME: Change these strings to be more user-friendly
+				// TODO: Update status for a note when status changes ("Uploading" -> "Uploaded", etc)
 				string statusText = string.Empty;
 				switch (type) {
 				case NoteSyncType.DeleteFromClient:
-					statusText = Catalog.GetString ("Deleting from local copy");
+					statusText = Catalog.GetString ("Deleted locally");
 					break;
 				case NoteSyncType.DeleteFromServer:
 					statusText = Catalog.GetString ("Deleting from server");
 					break;
 				case NoteSyncType.DownloadModified:
-					statusText = Catalog.GetString ("Downloading updates from server");
+					statusText = Catalog.GetString ("Updated");
 					break;
 				case NoteSyncType.DownloadNew:
-					statusText = Catalog.GetString ("Downloading new note from server");
+					statusText = Catalog.GetString ("Added");
 					break;
 				case NoteSyncType.UploadModified:
 					statusText = Catalog.GetString ("Uploading changes to server");
