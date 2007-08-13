@@ -33,6 +33,10 @@ namespace Tomboy
 		Gtk.Button disable_addin_button;
 		Gtk.Button addin_prefs_button;
 		Gtk.Button addin_info_button;
+		
+		private Gtk.RadioButton promptOnConflictRadio;
+		private Gtk.RadioButton renameOnConflictRadio;
+		private Gtk.RadioButton overwriteOnConflictRadio;
 
 		/// <summary>
 		/// Keep track of the opened addin prefs dialogs so other windows
@@ -411,6 +415,13 @@ namespace Tomboy
 			Gtk.HButtonBox bbox = new Gtk.HButtonBox ();
 			bbox.Spacing = 4;
 			bbox.LayoutStyle = Gtk.ButtonBoxStyle.End;
+			
+			// "Advanced..." button to bring up extra sync config dialog
+			Gtk.Button advancedConfigButton = new Gtk.Button (Catalog.GetString ("Advanced..."));
+			advancedConfigButton.Clicked += OnAdvancedSyncConfigButton;
+			advancedConfigButton.Show ();
+			bbox.PackStart (advancedConfigButton, false, false, 0);
+			bbox.SetChildSecondary (advancedConfigButton, true);
 			
 			resetSyncAddinButton = new Gtk.Button (Gtk.Stock.Clear);
 			resetSyncAddinButton.Clicked += OnResetSyncAddinButton;
@@ -818,6 +829,83 @@ namespace Tomboy
 			font_face.Markup = String.Format ("<span font_desc='{0}'>{1}</span>",
 							  font_desc,
 							  desc.ToString ());
+		}
+		
+		private void OnAdvancedSyncConfigButton (object sender, EventArgs args)
+		{
+			// Get saved behavior
+			SyncTitleConflictResolution savedBehavior = SyncTitleConflictResolution.Cancel;
+			object dlgBehaviorPref = Preferences.Get (Preferences.SYNC_CONFIGURED_CONFLICT_BEHAVIOR);
+			if (dlgBehaviorPref != null && dlgBehaviorPref is int) // TODO: Check range of this int
+				savedBehavior = (SyncTitleConflictResolution)dlgBehaviorPref;
+			
+			// Create dialog
+			Gtk.Dialog advancedDlg =
+				new Gtk.Dialog (Catalog.GetString ("Other Synchronization Options"),
+				                this,
+				                Gtk.DialogFlags.DestroyWithParent | Gtk.DialogFlags.Modal,
+				                Gtk.Stock.Close, Gtk.ResponseType.Close);
+			
+			// Populate dialog
+			Gtk.Label label =
+				new Gtk.Label (Catalog.GetString ("When a conflict is detected between " +
+				                                  "a local note and a note on the configured " +
+				                                  "synchronization server:"));
+			label.Wrap = true;
+			label.Xalign = 0;
+			
+			promptOnConflictRadio =
+				new Gtk.RadioButton (Catalog.GetString ("Always ask me what to do."));
+			promptOnConflictRadio.Toggled += OnConflictOptionToggle;
+			
+			renameOnConflictRadio =
+				new Gtk.RadioButton (promptOnConflictRadio, Catalog.GetString ("Rename my local note."));
+			renameOnConflictRadio.Toggled += OnConflictOptionToggle;
+			
+			overwriteOnConflictRadio =
+				new Gtk.RadioButton (promptOnConflictRadio, Catalog.GetString ("Replace my local note with the server's update."));
+			overwriteOnConflictRadio.Toggled += OnConflictOptionToggle;
+			
+			switch (savedBehavior) {
+			case SyncTitleConflictResolution.RenameExistingNoUpdate:
+				renameOnConflictRadio.Active = true;
+				break;
+			case SyncTitleConflictResolution.OverwriteExisting:
+				overwriteOnConflictRadio.Active = true;
+				break;
+			default:
+				promptOnConflictRadio.Active = true;
+				break;
+			}
+			
+			Gtk.VBox vbox = new Gtk.VBox ();
+			vbox.BorderWidth = 18;
+			
+			vbox.PackStart (promptOnConflictRadio);
+			vbox.PackStart (renameOnConflictRadio);
+			vbox.PackStart (overwriteOnConflictRadio);
+			
+			advancedDlg.VBox.PackStart (label, false, false, 6);
+			advancedDlg.VBox.PackStart (vbox, false, false, 0);
+			
+			advancedDlg.ShowAll ();
+			
+			// Run dialog
+			advancedDlg.Run ();
+			advancedDlg.Destroy ();
+		}
+		
+		private void OnConflictOptionToggle (object sender, EventArgs args)
+		{
+			SyncTitleConflictResolution newBehavior = SyncTitleConflictResolution.Cancel;
+			
+			if (renameOnConflictRadio.Active)
+				newBehavior = SyncTitleConflictResolution.RenameExistingNoUpdate;
+			else if (overwriteOnConflictRadio.Active)
+				newBehavior = SyncTitleConflictResolution.OverwriteExisting;
+			
+			Preferences.Set (Preferences.SYNC_CONFIGURED_CONFLICT_BEHAVIOR,
+			                 (int) newBehavior);
 		}
 		
 		private void OnAppAddinListChanged (object sender, EventArgs args)
