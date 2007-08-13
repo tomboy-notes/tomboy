@@ -14,9 +14,19 @@ namespace Tomboy.Sync
 		private string fuseMountExePath;
 		private string fuseUnmountExePath;
 		private string mountExePath;
+		private bool initialized = false;
 #endregion // Private Data
 
 #region SyncServiceAddin Overrides
+		public override void Shutdown ()
+		{
+			// TODO: Consider replacing TomboyExitHandler with this!
+		}
+		
+		public override bool Initialized {
+			get { return initialized; }
+		}
+		
 		public override void Initialize ()
 		{
 			// TODO: When/how best to handle this?  Okay to install wdfs while Tomboy is running?  When set up mount path, timer, etc, then?
@@ -29,6 +39,7 @@ namespace Tomboy.Sync
 				unmountTimeout.Timeout += UnmountTimeout;
 				Tomboy.ExitingEvent += TomboyExitHandler;
 			}
+			initialized = true;
 		}
 
 		public override SyncServer CreateSyncServer ()

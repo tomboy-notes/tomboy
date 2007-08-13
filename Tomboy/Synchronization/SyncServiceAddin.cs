@@ -6,13 +6,8 @@ namespace Tomboy.Sync
 	/// A SyncServiceAddin provides Tomboy Note Synchronization to a
 	/// service such as WebDav, SSH, FTP, etc.
 	/// <summary>
-	public abstract class SyncServiceAddin : AbstractAddin
+	public abstract class SyncServiceAddin : ApplicationAddin
 	{
-		/// <summary>
-		/// Called as soon as Tomboy needs to do anything with the service
-		/// </summary>
-		public abstract void Initialize ();
-
 		/// <summary>
 		/// Creates a SyncServer instance that the SyncManager can use to
 		/// synchronize with this service.  This method is called during

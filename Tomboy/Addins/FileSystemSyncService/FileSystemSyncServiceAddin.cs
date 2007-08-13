@@ -14,15 +14,28 @@ namespace Tomboy.Sync
 		// that supports a field, a username, and password.  This could be useful
 		// in quickly building SshSyncServiceAddin, FtpSyncServiceAddin, etc.
 		
-		Entry pathEntry;
-		string path;
+		private Entry pathEntry;
+		private string path;
+		private bool initialized = false;
 		
 		/// <summary>
 		/// Called as soon as Tomboy needs to do anything with the service
 		/// </summary>
 		public override void Initialize ()
 		{
+			initialized = true;
 		}
+		
+		public override void Shutdown ()
+		{
+			// Do nothing for now
+		}
+		
+		public override bool Initialized {
+			get { return initialized; }
+		}
+
+
 
 		/// <summary>
 		/// Creates a SyncServer instance that the SyncManager can use to
