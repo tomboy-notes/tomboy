@@ -414,23 +414,25 @@ namespace Tomboy
 			
 			resetSyncAddinButton = new Gtk.Button (Gtk.Stock.Clear);
 			resetSyncAddinButton.Clicked += OnResetSyncAddinButton;
+			resetSyncAddinButton.Sensitive =
+				(selectedSyncAddin != null &&
+				 addin_id == selectedSyncAddin.Id &&
+				 selectedSyncAddin.IsConfigured);
 			resetSyncAddinButton.Show ();
 			bbox.PackStart (resetSyncAddinButton, false, false, 0);
 			
 			saveSyncAddinButton = new Gtk.Button (Gtk.Stock.Save);
 			saveSyncAddinButton.Clicked += OnSaveSyncAddinButton;
+			saveSyncAddinButton.Sensitive =
+				(selectedSyncAddin != null &&
+				 (addin_id != selectedSyncAddin.Id || !selectedSyncAddin.IsConfigured));
 			saveSyncAddinButton.Show ();
 			bbox.PackStart (saveSyncAddinButton, false, false, 0);
 			
-			if (selectedSyncAddin != null && selectedSyncAddin.IsConfigured) {
-				saveSyncAddinButton.Sensitive = false;
-				resetSyncAddinButton.Sensitive = true;
-				syncAddinCombo.Sensitive = false;
-			} else {
-				saveSyncAddinButton.Sensitive = true;
-				resetSyncAddinButton.Sensitive = false;
-				syncAddinCombo.Sensitive = true;
-			}
+			syncAddinCombo.Sensitive =
+				(selectedSyncAddin == null ||
+				 addin_id != selectedSyncAddin.Id ||
+				 !selectedSyncAddin.IsConfigured);
 			
 			bbox.Show ();
 			vbox.PackStart (bbox, false, false, 0);
@@ -891,8 +893,16 @@ namespace Tomboy
 			
 					syncAddinPrefsWidget.Show ();
 					syncAddinPrefsContainer.PackStart (syncAddinPrefsWidget, true, true, 0);
+					
+					resetSyncAddinButton.Sensitive = false;
+					saveSyncAddinButton.Sensitive = true;
 				}
+			} else {
+				selectedSyncAddin = null;
+				resetSyncAddinButton.Sensitive = false;
+				saveSyncAddinButton.Sensitive = false;
 			}
+				
 		}
 		
 		void OnResetSyncAddinButton (object sender, EventArgs args)
