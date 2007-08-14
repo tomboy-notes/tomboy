@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tomboy.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-07-31 03:33+0100\n"
-"PO-Revision-Date: 2007-08-05 17:09+0530\n"
+"POT-Creation-Date: 2007-08-13 16:27+0100\n"
+"PO-Revision-Date: 2007-08-14 12:40+0530\n"
 "Last-Translator: Dr.T.Vasudevan <agnihot3@gmail.com>\n"
 "Language-Team: TAMIL <ubuntu-l10n-tam@lists.ubuntu.com>\n"
 "MIME-Version: 1.0\n"
@@ -166,7 +166,10 @@ msgid ""
 "user. The values map to an internal enumeration. 0 indicates that the user "
 "wishes to be prompted when a conflict occurs, so that they may handle each "
 "conflict situation on a case-by-case basis."
-msgstr "ஒரு முரண்பாடு எழும்போது பயனரை கேட்காமல் ஒரு குறிப்பிட்ட நடத்தையை பின்பற்ற ஒரு தேர்வுக்கான முழு எண். மதிப்புகள் ஒரு உள்ளமை கணக்கெடுத்தில் நிறைவுறும்.0 எனில் முரண்பாடு எழும் போது அந்த அந்த நேரம் பொருத்து சரி செய்ய பயனரை கேட்க வேண்டும்."
+msgstr ""
+"ஒரு முரண்பாடு எழும்போது பயனரை கேட்காமல் ஒரு குறிப்பிட்ட நடத்தையை பின்பற்ற ஒரு "
+"தேர்வுக்கான முழு எண். மதிப்புகள் ஒரு உள்ளமை கணக்கெடுத்தில் நிறைவுறும்.0 எனில் முரண்பாடு "
+"எழும் போது அந்த அந்த நேரம் பொருத்து சரி செய்ய பயனரை கேட்க வேண்டும்."
 
 #: ../data/tomboy.schemas.in.h:20
 msgid "List of pinned notes."
@@ -452,7 +455,7 @@ msgstr "டாம்பாய் ஐ விட்டு வெளிச்செ
 msgid "_Edit"
 msgstr "_த திருத்து"
 
-#: ../Tomboy/ActionManager.cs:90 ../Tomboy/PreferencesDialog.cs:61
+#: ../Tomboy/ActionManager.cs:90 ../Tomboy/PreferencesDialog.cs:65
 msgid "Tomboy Preferences"
 msgstr "Tomboy முன்னுரிமைகள்"
 
@@ -591,14 +594,21 @@ msgstr "மற்ற இணைப்புள்ள குறிப்புக�
 msgid "Cannot open email"
 msgstr "மின்னஞ்சல் திறக்க முடியவில்லை"
 
-#. TODO: Use a FileChooserDialog to allow the user to choose a path more easily
-#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:79
-msgid "Path:"
-msgstr "பாதை:"
+#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:89
+msgid "Folder Path:"
+msgstr "அடைவு பாதை:"
 
-#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:158
-msgid "Local File System Path"
-msgstr "உள்ளமை கோப்பு அமைப்பு பாதை"
+#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:98
+msgid "Browse..."
+msgstr "உலாவு..."
+
+#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:116
+msgid "Select Synchronization Folder..."
+msgstr "ஒத்திசைவு அடைவை தேர்ந்தெடு..."
+
+#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:196
+msgid "Local Folder"
+msgstr "உள் அடைவு"
 
 #: ../Tomboy/Addins/FixedWidth/FixedWidthMenuItem.cs:14
 msgid "_Fixed Width"
@@ -651,25 +661,27 @@ msgstr ""
 msgid "_Open Today: Template"
 msgstr "இன்றைய:வார்ப்புரு ஐ திற "
 
-#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:48
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:41
 msgid "Server:"
 msgstr "சேவையகம்:"
 
-#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:58
-msgid "Folder (optional):"
-msgstr "அடைவு (விருப்ப):"
-
-#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:68
-#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:64
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:49
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:59
 msgid "Username:"
 msgstr "பயனர் பெயர்:"
 
-#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:78
-#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:74
-msgid "Password:"
-msgstr "கடவுச்சொல்:"
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:57
+msgid "Folder Path (optional):"
+msgstr "அடைவு பாதை (விருப்ப):"
 
-#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:150
+#. Text for label describing setup required for SSH sync addin to work
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:66
+msgid ""
+"SSH synchronization requires an existing SSH key for this server and user, "
+"added to a running SSH daemon."
+msgstr "SSH ஒத்திசைவுக்கு இந்த வழங்கன் மற்றும் பயனருக்கு ஒரு இருப்பில் உள்ள SSH விசை இயங்கும் SSH கிங்கரனுக்கு சேர்க்கப்பட வேண்டும்."
+
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:133
 msgid "SSH (sshfs FUSE)"
 msgstr "SSH (sshfs FUSE)"
 
@@ -703,11 +715,15 @@ msgstr "தலைப்பில்லாத"
 msgid "Sticky Note: "
 msgstr "ஒட்டுக் குறிப்பு: "
 
-#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:54
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:51
 msgid "URL:"
 msgstr "யூஆர்எல்(URL):"
 
-#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:139
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:67
+msgid "Password:"
+msgstr "கடவுச்சொல்:"
+
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:129
 msgid "WebDAV (wdfs FUSE)"
 msgstr "WebDAV (wdfs FUSE)"
 
@@ -941,27 +957,27 @@ msgstr "சிறிய (_m)"
 msgid "Bullets"
 msgstr "குண்டு அடையாளக் குறிப்புகள்"
 
-#: ../Tomboy/PreferencesDialog.cs:79
+#: ../Tomboy/PreferencesDialog.cs:83
 msgid "Editing"
 msgstr "திருத்தம்"
 
-#: ../Tomboy/PreferencesDialog.cs:81
+#: ../Tomboy/PreferencesDialog.cs:85
 msgid "Hotkeys"
 msgstr "விரைவு விசைகள்"
 
-#: ../Tomboy/PreferencesDialog.cs:83
+#: ../Tomboy/PreferencesDialog.cs:87
 msgid "Synchronization"
 msgstr "ஒத்திசைவு"
 
-#: ../Tomboy/PreferencesDialog.cs:85
+#: ../Tomboy/PreferencesDialog.cs:89
 msgid "Add-ins"
 msgstr "உள்கூட்டு"
 
-#: ../Tomboy/PreferencesDialog.cs:128
+#: ../Tomboy/PreferencesDialog.cs:134
 msgid "_Spell check while typing"
 msgstr "உள்ளிடுும்போதே_ எழுத்துப்பிழை சோதனை"
 
-#: ../Tomboy/PreferencesDialog.cs:137
+#: ../Tomboy/PreferencesDialog.cs:143
 msgid ""
 "Misspellings will be underlined in red, with correct spelling suggestions "
 "shown in the context menu."
@@ -970,11 +986,11 @@ msgstr ""
 "காணலாம்."
 
 #. WikiWords...
-#: ../Tomboy/PreferencesDialog.cs:148
+#: ../Tomboy/PreferencesDialog.cs:154
 msgid "Highlight _WikiWords"
 msgstr "_வ விகி வார்த்தைகளை சிறப்புச்சுட்டுக"
 
-#: ../Tomboy/PreferencesDialog.cs:156
+#: ../Tomboy/PreferencesDialog.cs:162
 msgid ""
 "Enable this option to highlight words <b>ThatLookLikeThis</b>. Clicking the "
 "word will create a note with that name."
@@ -983,16 +999,16 @@ msgstr ""
 "சொல்லை சொடுக்கினால் அந்த பெயருடன் ஒரு குறிப்பு பக்கம் உருவாகும்."
 
 #. Custom font...
-#: ../Tomboy/PreferencesDialog.cs:165
+#: ../Tomboy/PreferencesDialog.cs:171
 msgid "Use custom _font"
 msgstr "தனிபயன் எழுத்துருவை செயல்படுத்து"
 
 #. Hotkeys...
-#: ../Tomboy/PreferencesDialog.cs:235
+#: ../Tomboy/PreferencesDialog.cs:241
 msgid "Listen for _Hotkeys"
 msgstr "_வ விரைவு விசைகளுக்கு செவி சாய்க்கவும்"
 
-#: ../Tomboy/PreferencesDialog.cs:244
+#: ../Tomboy/PreferencesDialog.cs:250
 msgid ""
 "Hotkeys allow you to quickly access your notes from anywhere with a "
 "keypress. Example Hotkeys: <b>&lt;Control&gt;&lt;Shift&gt;F11</b>, <b>&lt;"
@@ -1002,99 +1018,143 @@ msgstr ""
 "உதவுகிறது. எ-டு: <b>&lt;Control&gt;&lt;Shift&gt;F11</b>, <b>&lt;Alt&gt;N</b>"
 
 #. Show notes menu keybinding...
-#: ../Tomboy/PreferencesDialog.cs:264
+#: ../Tomboy/PreferencesDialog.cs:270
 msgid "Show notes _menu"
 msgstr "குறிப்புகள் பட்டியை காட்டு"
 
 #. Open Start Here keybinding...
-#: ../Tomboy/PreferencesDialog.cs:281
+#: ../Tomboy/PreferencesDialog.cs:287
 msgid "Open \"_Start Here\""
 msgstr "\"_இங்கே தொடங்கு\" ஐ திறக்கவும்."
 
 #. Create new note keybinding...
-#: ../Tomboy/PreferencesDialog.cs:298
+#: ../Tomboy/PreferencesDialog.cs:304
 msgid "Create _new note"
 msgstr "ஒரு புதிய குறிப்பினை உருவாக்கு"
 
 #. Open Search All Notes window keybinding...
-#: ../Tomboy/PreferencesDialog.cs:315
+#: ../Tomboy/PreferencesDialog.cs:321
 msgid "Open \"Search _All Notes\""
 msgstr "\"_அனைத்து குறிப்புகளையும் தேடு\" ஐ திறக்கவும்"
 
-#: ../Tomboy/PreferencesDialog.cs:342
+#: ../Tomboy/PreferencesDialog.cs:348
 msgid "Service:"
 msgstr "சேவை:"
 
-#: ../Tomboy/PreferencesDialog.cs:393 ../Tomboy/PreferencesDialog.cs:827
+#: ../Tomboy/PreferencesDialog.cs:400 ../Tomboy/PreferencesDialog.cs:978
 msgid "Not configurable"
 msgstr "வடிவமைக்க இயலாது"
 
-#: ../Tomboy/PreferencesDialog.cs:455
+#. "Advanced..." button to bring up extra sync config dialog
+#: ../Tomboy/PreferencesDialog.cs:420
+msgid "Advanced..."
+msgstr "மேம்படுத்தப்பட்ட..."
+
+#: ../Tomboy/PreferencesDialog.cs:481
 msgid "The following add-ins are installed"
 msgstr "பின் வரும் உள்கூட்டுகள் நிறுவப்பட்டுள்ளன:"
 
-#: ../Tomboy/PreferencesDialog.cs:486
+#: ../Tomboy/PreferencesDialog.cs:512
 msgid "_Enable"
 msgstr "செயல்படுத்து (_E)"
 
-#: ../Tomboy/PreferencesDialog.cs:492
+#: ../Tomboy/PreferencesDialog.cs:518
 msgid "_Disable"
 msgstr "செயல் _ந நீக்கு"
 
-#: ../Tomboy/PreferencesDialog.cs:623
+#: ../Tomboy/PreferencesDialog.cs:649
 msgid "Not Implemented"
 msgstr "அமுல் படுத்தவில்லை"
 
-#: ../Tomboy/PreferencesDialog.cs:637
+#: ../Tomboy/PreferencesDialog.cs:663
 #, csharp-format
 msgid "{0} Preferences"
 msgstr "{0} முன்னுரிமைகள்"
 
-#: ../Tomboy/PreferencesDialog.cs:776
+#: ../Tomboy/PreferencesDialog.cs:802
 msgid "Choose Note Font"
 msgstr "குறிப்பு எழுத்துருவை தேர்ந்தெடுக்கவும்"
 
+#: ../Tomboy/PreferencesDialog.cs:846
+msgid "Other Synchronization Options"
+msgstr "மற்ற ஒத்திசைவு விருப்பங்கள்"
+
 #: ../Tomboy/PreferencesDialog.cs:853
+msgid ""
+"When a conflict is detected between a local note and a note on the "
+"configured synchronization server:"
+msgstr "உள்ளமை குறிப்பு மற்றும் வடிவமைத்த வழங்கன் குறிப்பு இடையே முரண்பாடு க்ண்டால்:"
+
+#: ../Tomboy/PreferencesDialog.cs:860
+msgid "Always ask me what to do."
+msgstr "என்ன செய்வதென எப்போதும் கேள்"
+
+#: ../Tomboy/PreferencesDialog.cs:864
+msgid "Rename my local note."
+msgstr "என் உள்ளமை குறிப்பை பெயர் மாற்றுக:"
+
+#: ../Tomboy/PreferencesDialog.cs:868
+msgid "Replace my local note with the server's update."
+msgstr "என் உள் குறிப்பு ஐ வழங்கனின் குறிப்பால் இற்றைப்படுத்துக"
+
+#: ../Tomboy/PreferencesDialog.cs:1014
 msgid "WARNING: Are you sure?"
 msgstr "எச்சரிக்கை: நிச்சயமாக?"
 
-#: ../Tomboy/PreferencesDialog.cs:855
+#: ../Tomboy/PreferencesDialog.cs:1016
 msgid ""
 "Clearing your synchronization settings is not recommended.  You may be "
 "forced to synchronize all of your notes again when you save new settings."
-msgstr "உங்கள் ஒத்திசைவு அமைப்பை நீக்குவது பரிந்துரைக்கப்படவில்லை.நீங்கள் புதிய அமைப்பை சேமிக்கும் போது உங்கள் குறிப்புகளனைத்தையும் ஒத்திசைக்க கட்டாயப்படுத்தப்ப்டலாம்."
+msgstr ""
+"உங்கள் ஒத்திசைவு அமைப்பை நீக்குவது பரிந்துரைக்கப்படவில்லை.நீங்கள் புதிய அமைப்பை சேமிக்கும் "
+"போது உங்கள் குறிப்புகளனைத்தையும் ஒத்திசைக்க கட்டாயப்படுத்தப்ப்டலாம்."
 
-#: ../Tomboy/PreferencesDialog.cs:928
+#: ../Tomboy/PreferencesDialog.cs:1029
+msgid "Resetting Synchronization Settings"
+msgstr "ஒத்திசைவு அமைப்பை மறுஅமைப்பு செய்கிறது"
+
+#: ../Tomboy/PreferencesDialog.cs:1031
+msgid ""
+"You have disabled the configured synchronization service.  Your "
+"synchronization settings will now be cleared.  You may be forced to "
+"synchronize all of your notes again when you save new settings"
+msgstr ""
+"நீங்கள் வடிவமைத்த ஒத்திசைவு சேவையை செயல் முடக்கம் செய்துள்ளீர்கள். உங்கள் வடிவமைப்பு இப்போது சுத்தப்படுத்தப்பட்டது. நீங்கள் புதிய அமைப்பை சேமிக்கும் "
+"போது உங்கள் குறிப்புகளனைத்தையும் ஒத்திசைக்க கட்டாயப்படுத்தப்ப்டலாம்."
+
+#: ../Tomboy/PreferencesDialog.cs:1115
 msgid "Success! You're connected!"
 msgstr "வெற்றி! நீங்கள் இணக்கப்பட்டுவிட்டீர்கள்!"
 
-#: ../Tomboy/PreferencesDialog.cs:930
+#: ../Tomboy/PreferencesDialog.cs:1117
 msgid "Tomboy is ready to synchronize your notes."
 msgstr "டாம்பாய் உங்கல் குறிப்புகளை ஒத்திசைக்க தயார்."
 
-#: ../Tomboy/PreferencesDialog.cs:953
+#: ../Tomboy/PreferencesDialog.cs:1140
 msgid "Error connecting :("
 msgstr "இணைப்பதில் பிழை :("
 
-#: ../Tomboy/PreferencesDialog.cs:955
+#: ../Tomboy/PreferencesDialog.cs:1142
 msgid ""
 "Sorry, but something went wrong.  Please check your information and try "
 "again.  The ~/.tomboy.log might be useful too."
-msgstr "மன்னிக்கவும். ஏதோ தவறு நிகழ்ந்துள்ளது. உங்கள் தகவலை சரி பார்த்து மீண்டும் முயற்சி செய்க. ~/.tomboy.log அதற்கு உதவலாம்."
+msgstr ""
+"மன்னிக்கவும். ஏதோ தவறு நிகழ்ந்துள்ளது. உங்கள் தகவலை சரி பார்த்து மீண்டும் முயற்சி செய்க. ~/."
+"tomboy.log அதற்கு உதவலாம்."
 
-#: ../Tomboy/PreferencesDialog.cs:1021
+#: ../Tomboy/PreferencesDialog.cs:1208
 msgid "Version:"
 msgstr "பதிப்பு:"
 
-#: ../Tomboy/PreferencesDialog.cs:1028
+#: ../Tomboy/PreferencesDialog.cs:1215
 msgid "Author:"
 msgstr "ஆசிரியர்:"
 
-#: ../Tomboy/PreferencesDialog.cs:1035
+#: ../Tomboy/PreferencesDialog.cs:1222
 msgid "Copyright:"
 msgstr "காப்புரிமை:"
 
-#: ../Tomboy/PreferencesDialog.cs:1041
+#: ../Tomboy/PreferencesDialog.cs:1228
 msgid "Add-in Dependencies:"
 msgstr "உள்கூட்டு சார்புகள்"
 
@@ -1337,197 +1397,210 @@ msgstr "இணைப்பு முகவரியை நகலெடு (_C)"
 msgid "_Open Link"
 msgstr "இணைப்பினை திற (_O)"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:90
+#: ../Tomboy/Synchronization/SyncDialog.cs:91
 msgid "Note Title"
 msgstr "குறிப்பு தலைப்பு"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:97
+#: ../Tomboy/Synchronization/SyncDialog.cs:98
 msgid "Status"
 msgstr "நிலை"
 
 #. Drop all that into into the Expander
-#: ../Tomboy/Synchronization/SyncDialog.cs:116
+#: ../Tomboy/Synchronization/SyncDialog.cs:117
 msgid "Details"
 msgstr "விவரங்கள்"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:234
+#: ../Tomboy/Synchronization/SyncDialog.cs:235
 msgid "Acquiring sync lock..."
 msgstr "ஒத்திசைவு பூட்டை பெறுகிறது..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:237
+#: ../Tomboy/Synchronization/SyncDialog.cs:238
 msgid "Committing changes..."
 msgstr "மாறுதல்களை பதிக்கிறது."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:240
+#: ../Tomboy/Synchronization/SyncDialog.cs:241
 msgid "Synchronizing Notes"
 msgstr "குறிப்புகளை ஒத்திசைக்கிறது"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:241
+#: ../Tomboy/Synchronization/SyncDialog.cs:242
 msgid "Synchronizing your notes..."
 msgstr "குறிப்புகளை ஒத்திசைக்கிறது..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:242
+#: ../Tomboy/Synchronization/SyncDialog.cs:243
 msgid "This may take a while, kick back and enjoy!"
 msgstr "இதற்கு சற்று நேரம் ஆகும், சற்று ஓய்வெடுங்கள்!"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:244
+#: ../Tomboy/Synchronization/SyncDialog.cs:245
 msgid "Connecting to the server..."
 msgstr "சேவையகத்துடன் இணக்கப்படுகிறது..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:250
+#: ../Tomboy/Synchronization/SyncDialog.cs:251
 msgid "Deleting notes off of the server..."
 msgstr "சேவையகத்திலி இருந்து குறிப்புகளை நீக்குகிறது..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:254
+#: ../Tomboy/Synchronization/SyncDialog.cs:255
 msgid "Downloading new/updated notes..."
 msgstr "புதிய/மேம்படுத்திய குறிப்புகளை தரவிறக்குகிறது..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:266
+#: ../Tomboy/Synchronization/SyncDialog.cs:267
 msgid "Server Locked"
 msgstr "சேவையகம் பூட்டப்பட்டது"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:267
+#: ../Tomboy/Synchronization/SyncDialog.cs:268
 msgid "Server is locked"
 msgstr "சேவையகம் பூட்டப்பட்டது"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:268
+#: ../Tomboy/Synchronization/SyncDialog.cs:269
 msgid ""
 "One of your other computers is currently synchronizing.  Please wait and try "
 "again."
-msgstr "உங்கள் கணினியில் ஒன்று இபோது ஒத்திசைக்கிறது. தயை செய்து சற்று பொறுத்து பின்னர் முயற்சி செய்க."
+msgstr ""
+"உங்கள் கணினியில் ஒன்று இபோது ஒத்திசைக்கிறது. தயை செய்து சற்று பொறுத்து பின்னர் முயற்சி "
+"செய்க."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:272
+#: ../Tomboy/Synchronization/SyncDialog.cs:273
 msgid "Preparing to download updates from server..."
 msgstr "இற்றப்படுத்தலை சேவையகத்திலிருந்து தரவிறக்க தயாராகிறது..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:275
+#: ../Tomboy/Synchronization/SyncDialog.cs:276
 msgid "Preparing to upload updates to server..."
 msgstr "இற்றப்படுத்தலை சேவையகத்துக்கு தரவேற்ற தயாராகிறது..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:278
+#: ../Tomboy/Synchronization/SyncDialog.cs:279
 msgid "Uploading notes to server..."
 msgstr "சேவையகத்துக்கு குறிப்புகளை ஏற்றுகிறது..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:281
+#: ../Tomboy/Synchronization/SyncDialog.cs:282
 msgid "Synchronization Failed"
 msgstr "ஒத்திசைவு தோல்வியடைந்தது"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:282
+#: ../Tomboy/Synchronization/SyncDialog.cs:283
 msgid "Failed to synchronize"
 msgstr "ஒத்திசைவு தோல்வியடைந்தது"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:283
+#: ../Tomboy/Synchronization/SyncDialog.cs:284
 msgid "Could not synchronize notes.  Check the details below and try again."
-msgstr "குறிப்புகளை ஒத்திசைத்தல் தோல்வியடைந்தது. கீழுள்ள விவரங்களை பார்த்து பின் மீண்டும் முயற்சி செய்க."
+msgstr ""
+"குறிப்புகளை ஒத்திசைத்தல் தோல்வியடைந்தது. கீழுள்ள விவரங்களை பார்த்து பின் மீண்டும் முயற்சி "
+"செய்க."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:287
+#: ../Tomboy/Synchronization/SyncDialog.cs:291
 msgid "Synchronization Complete"
 msgstr "ஒத்திசைவு பூர்த்தியானது."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:288
+#: ../Tomboy/Synchronization/SyncDialog.cs:292
 msgid "Synchronization is complete"
 msgstr "ஒத்திசைவு பூர்த்தியானது."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:289
-msgid "Your notes are up to date.  See the details below or close the window."
-msgstr "உங்கள் குறிப்புகள் இற்றைப்படுத்தப்பட்டன. விவரங்களை கீழே பார்க்கவும் அல்லது சாளரத்தை மூடவும்."
+#: ../Tomboy/Synchronization/SyncDialog.cs:294
+#, csharp-format
+msgid "{0} note updated."
+msgid_plural "{0} notes updated."
+msgstr[0] "{0} குறிப்பு இற்றைப்படுத்தப்பட்டது"
+msgstr[1] "{0} குறிப்புகள் இற்றைப்படுத்தப்பட்டன"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:293
+#: ../Tomboy/Synchronization/SyncDialog.cs:299
+msgid "Your notes are now up to date."
+msgstr "இப்போது உங்கள் குறிப்புகள் இற்றைப்படுத்தப்பட்டன."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:303
 msgid "Synchronization Canceled"
 msgstr "ஒத்திசைவு இரத்து செய்யப்பட்டது."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:294
+#: ../Tomboy/Synchronization/SyncDialog.cs:304
 msgid "Synchronization was canceled"
 msgstr "ஒத்திசைவு இரத்து செய்யப்பட்டது."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:295
+#: ../Tomboy/Synchronization/SyncDialog.cs:305
 msgid "You canceled the synchronization.  You may close the window now."
 msgstr "நீங்கள் ஒத்திசைவை இரத்து செய்தீர்கள். சாளரத்தை இப்போது மூடலாம்."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:299
+#: ../Tomboy/Synchronization/SyncDialog.cs:309
 msgid "Synchronization Not Configured"
 msgstr "ஒத்திசைவு வடிவமைக்கப்படவில்லை"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:300
+#: ../Tomboy/Synchronization/SyncDialog.cs:310
 msgid "Synchronization is not configured"
 msgstr "ஒத்திசைவு வடிவமைக்கப்படவில்லை"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:301
+#: ../Tomboy/Synchronization/SyncDialog.cs:311
 msgid "Please configure synchronization in the preferences dialog."
 msgstr "தயை செய்து விருப்பங்கள் உரையாடலில் ஒத்திசைவை வடிவமைக்கவும்."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:305
+#: ../Tomboy/Synchronization/SyncDialog.cs:315
 msgid "Synchronization Service Error"
 msgstr "ஒத்திசைவு சேவை பிழை"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:306
+#: ../Tomboy/Synchronization/SyncDialog.cs:316
 msgid "Service error"
 msgstr "சேவை பிழை"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:307
+#: ../Tomboy/Synchronization/SyncDialog.cs:317
 msgid "Error connecting to the synchronization service.  Please try again."
 msgstr "ஒத்திசைவு சேவையுடன் இணைப்பதில் பிழை. மீண்டும் முயற்சி செய்க."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:323
-msgid "Deleting from local copy"
-msgstr "உள்ளமை பிரதியிலிருந்து நீக்குகிறது"
+#: ../Tomboy/Synchronization/SyncDialog.cs:334
+msgid "Deleted locally"
+msgstr "உள்ளமைப்பிலிருந்து நீக்குகிறது"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:326
+#: ../Tomboy/Synchronization/SyncDialog.cs:337
 msgid "Deleting from server"
 msgstr "சேவையகத்திலிருந்து நீக்குகிறது"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:329
-msgid "Downloading updates from server"
-msgstr "சேவையகத்திலிருந்து மேம்படுத்தலை தரவிறக்குகிறது"
+#: ../Tomboy/Synchronization/SyncDialog.cs:340
+msgid "Updated"
+msgstr "புதுப்பிக்கப்பட்டது"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:332
-msgid "Downloading new note from server"
-msgstr "சேவையகத்திலிருந்து புதிய குறிப்பை தரவிறக்குகிறது"
+#: ../Tomboy/Synchronization/SyncDialog.cs:343
+msgid "Added"
+msgstr "சேர்க்கப்பட்டது"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:335
+#: ../Tomboy/Synchronization/SyncDialog.cs:346
 msgid "Uploading changes to server"
 msgstr "சேவையகத்துக்கு  மாறுதல்களை தரவேற்றுகிறது."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:338
+#: ../Tomboy/Synchronization/SyncDialog.cs:349
 msgid "Uploading new note to server"
 msgstr "சேவையகத்துக்கு புதிய குறிப்பை தரவேற்றுகிறது."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:470
+#: ../Tomboy/Synchronization/SyncDialog.cs:481
 msgid "Note Conflict"
 msgstr "குறிப்பு முரண்பாடு"
 
 #. Suggest renaming note by appending " (old)" to the existing title
-#: ../Tomboy/Synchronization/SyncDialog.cs:474
+#: ../Tomboy/Synchronization/SyncDialog.cs:485
 msgid " (old)"
 msgstr " (பழைய)"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:513
+#: ../Tomboy/Synchronization/SyncDialog.cs:524
 msgid "Rename local note:"
 msgstr "உள்ளமை குறிப்பை பெயர் மாற்றுக:"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:519
+#: ../Tomboy/Synchronization/SyncDialog.cs:530
 msgid "Update links in referencing notes"
 msgstr "ஒப்படக்கும் குறிப்புகளில் இணைப்புகளை இற்றைப்படுத்துக"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:526
+#: ../Tomboy/Synchronization/SyncDialog.cs:537
 msgid "Overwrite local note"
 msgstr "உள்ளமை குறிப்பை மேலெழுதுக"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:530
+#: ../Tomboy/Synchronization/SyncDialog.cs:541
 msgid "Always perform this action"
 msgstr "எப்போதுமே இந்த செயலை செய்க"
 
 #. Set initial dialog text
-#: ../Tomboy/Synchronization/SyncDialog.cs:537
+#: ../Tomboy/Synchronization/SyncDialog.cs:548
 msgid "Note conflict detected"
 msgstr "குறிப்பு முரண்பாடு காணப்படுகிறது"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:538
+#: ../Tomboy/Synchronization/SyncDialog.cs:549
 #, csharp-format
 msgid ""
 "The server version of \"{0}\" conflicts with your local note.  What do you "
 "want to do with your local note?"
-msgstr "\"{0}\"  இன் சேவையக பிரதி உங்கள் உள்ளமை குறிப்புடன் முரண்படுகிறது. உங்கள் உள்ளமை குறிப்பை என்ன செய்ய?"
+msgstr ""
+"\"{0}\"  இன் சேவையக பிரதி உங்கள் உள்ளமை குறிப்புடன் முரண்படுகிறது. உங்கள் உள்ளமை "
+"குறிப்பை என்ன செய்ய?"
 
 #: ../Tomboy/Synchronization/SyncManager.cs:156
 msgid "_Tools"
@@ -1547,5 +1620,17 @@ msgid ""
 msgstr ""
 "நீங்கள் தேர்ந்தெடுத்த ஒத்திசைவுக்கு ப்யூஸ் கூறு ஏற்ற தேவை\n"
 "\n"
-"மீண்டும் இந்த எச்சரிக்கை எழாது தடுக்க நீங்கள் ப்யூஸ் ஐ துவக்கத்தில் ஏற்ற வேண்டும். \"modprobe fuse\" ஐ /etc/init.d/boot.local க்கு அல்லது \"fuse\" ஐ /etc/modules க்கு சேர்கவும்."
+"மீண்டும் இந்த எச்சரிக்கை எழாது தடுக்க நீங்கள் ப்யூஸ் ஐ துவக்கத்தில் ஏற்ற வேண்டும். \"modprobe "
+"fuse\" ஐ /etc/init.d/boot.local க்கு அல்லது \"fuse\" ஐ /etc/modules க்கு "
+"சேர்கவும்."
+
+#: ../Tomboy/Synchronization/SyncUtils.cs:177
+msgid "Could not enable FUSE"
+msgstr "ப்யூஸ்(FUSE) ஐ செயல்படுத்த முடியவில்லை"
+
+#: ../Tomboy/Synchronization/SyncUtils.cs:178
+msgid ""
+"The FUSE module could not be loaded. Please check that it is installed "
+"properly and try again."
+msgstr "ப்யூஸ்(FUSE) ஐ ஏற்ற முடியவில்லை.  தயவு செய்து அது சர்யாக நிறுவப்பட்டுள்ளதா என சோதித்து மீண்டும் முயற்சி செய்யவும்."
 
