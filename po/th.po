@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tomboy VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-08-13 13:32+0700\n"
-"PO-Revision-Date: 2007-08-13 13:48+0700\n"
+"POT-Creation-Date: 2007-08-14 13:12+0700\n"
+"PO-Revision-Date: 2007-08-14 13:26+0700\n"
 "Last-Translator: Theppitak Karoonboonyanan <thep@linux.thai.net>\n"
 "Language-Team: Thai <thai-l10n@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -440,7 +440,7 @@ msgstr "ออกจาก Tomboy"
 msgid "_Edit"
 msgstr "แ_ก้ไข"
 
-#: ../Tomboy/ActionManager.cs:90 ../Tomboy/PreferencesDialog.cs:61
+#: ../Tomboy/ActionManager.cs:90 ../Tomboy/PreferencesDialog.cs:65
 msgid "Tomboy Preferences"
 msgstr "ปรับแต่ง Tomboy"
 
@@ -580,8 +580,8 @@ msgid "Cannot open email"
 msgstr "ไม่สามารถเปิดอีเมล"
 
 #: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:89
-msgid "Folder:"
-msgstr "โฟลเดอร์:"
+msgid "Folder Path:"
+msgstr "พาธของโฟลเดอร์:"
 
 #: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:98
 msgid "Browse..."
@@ -651,28 +651,24 @@ msgid "Server:"
 msgstr "เซิร์ฟเวอร์:"
 
 #: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:49
-msgid "Folder (optional):"
-msgstr "โฟลเดอร์ (ระบุหรือไม่ก็ได้):"
-
-#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:57
 #: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:59
 msgid "Username:"
 msgstr "ชื่อผู้ใช้:"
 
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:57
+msgid "Folder Path (optional):"
+msgstr "พาธของโฟลเดอร์ (ระบุหรือไม่ก็ได้):"
+
 #. Text for label describing setup required for SSH sync addin to work
 #: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:66
 msgid ""
-"SSH synchronization requires an existing SSH key for this server and user.  "
-"That key must be added to a running SSH daemon.  <span weight=\"bold"
-"\">Seahorse</span> is one application that can help you set this up.  You "
-"will receive an error if no key is set up for this server and user."
+"SSH synchronization requires an existing SSH key for this server and user, "
+"added to a running SSH daemon."
 msgstr ""
 "การปรับข้อมูลให้ตรงกันผ่าน SSH จำเป็นต้องอาศัยกุญแจ SSH สำหรับเซิร์ฟเวอร์และผู้ใช้นี้ "
-"กุญแจดังกล่าว ต้องเพิ่มเข้าในดีมอน SSH ที่กำลังทำงานอยู่ด้วย <span weight=\"bold"
-"\">Seahorse</span> เป็นโปรแกรมหนึ่งที่สามารถช่วยคุณตั้งค่าดังกล่าวได้ "
-"คุณจะพบข้อความแจ้งข้อผิดพลาดถ้าไม่มีการกำหนดกุญแจสำหรับเซิร์ฟเวอร์และผู้ใช้นี้ไว้"
+"โดยต้องเพิ่มกุญแจดังกล่าวเข้าในดีมอน SSH ที่กำลังทำงานอยู่ด้วย"
 
-#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:136
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:133
 msgid "SSH (sshfs FUSE)"
 msgstr "SSH (sshfs FUSE)"
 
@@ -946,38 +942,38 @@ msgstr "เ_ล็ก"
 msgid "Bullets"
 msgstr "รายการ"
 
-#: ../Tomboy/PreferencesDialog.cs:79
+#: ../Tomboy/PreferencesDialog.cs:83
 msgid "Editing"
 msgstr "แก้ไข"
 
-#: ../Tomboy/PreferencesDialog.cs:81
+#: ../Tomboy/PreferencesDialog.cs:85
 msgid "Hotkeys"
 msgstr "ปุ่มลัด"
 
-#: ../Tomboy/PreferencesDialog.cs:83
+#: ../Tomboy/PreferencesDialog.cs:87
 msgid "Synchronization"
 msgstr "การปรับข้อมูลให้ตรงกัน"
 
-#: ../Tomboy/PreferencesDialog.cs:85
+#: ../Tomboy/PreferencesDialog.cs:89
 msgid "Add-ins"
 msgstr "โปรแกรมเสริม"
 
-#: ../Tomboy/PreferencesDialog.cs:130
+#: ../Tomboy/PreferencesDialog.cs:134
 msgid "_Spell check while typing"
 msgstr "ตรวจ_สะกดขณะพิมพ์"
 
-#: ../Tomboy/PreferencesDialog.cs:139
+#: ../Tomboy/PreferencesDialog.cs:143
 msgid ""
 "Misspellings will be underlined in red, with correct spelling suggestions "
 "shown in the context menu."
 msgstr "คำที่สะกดผิดจะถูกขีดเส้นใต้สีแดง พร้อมคำแนะนำตัวสะกดในเมนูคลิกขวา"
 
 #. WikiWords...
-#: ../Tomboy/PreferencesDialog.cs:150
+#: ../Tomboy/PreferencesDialog.cs:154
 msgid "Highlight _WikiWords"
 msgstr "เ_น้น WikiWords"
 
-#: ../Tomboy/PreferencesDialog.cs:158
+#: ../Tomboy/PreferencesDialog.cs:162
 msgid ""
 "Enable this option to highlight words <b>ThatLookLikeThis</b>. Clicking the "
 "word will create a note with that name."
@@ -986,16 +982,16 @@ msgstr ""
 "และการคลิกที่คำดังกล่าวจะสร้างบันทึกชื่อในชื่อนั้น"
 
 #. Custom font...
-#: ../Tomboy/PreferencesDialog.cs:167
+#: ../Tomboy/PreferencesDialog.cs:171
 msgid "Use custom _font"
 msgstr "ใช้แ_บบอักษรที่กำหนด"
 
 #. Hotkeys...
-#: ../Tomboy/PreferencesDialog.cs:237
+#: ../Tomboy/PreferencesDialog.cs:241
 msgid "Listen for _Hotkeys"
 msgstr "ใช้งาน_ปุ่มลัด"
 
-#: ../Tomboy/PreferencesDialog.cs:246
+#: ../Tomboy/PreferencesDialog.cs:250
 msgid ""
 "Hotkeys allow you to quickly access your notes from anywhere with a "
 "keypress. Example Hotkeys: <b>&lt;Control&gt;&lt;Shift&gt;F11</b>, <b>&lt;"
@@ -1005,63 +1001,90 @@ msgstr ""
 "F11</b>, <b>&lt;Alt&gt;N</b>"
 
 #. Show notes menu keybinding...
-#: ../Tomboy/PreferencesDialog.cs:266
+#: ../Tomboy/PreferencesDialog.cs:270
 msgid "Show notes _menu"
 msgstr "แสดงเ_มนูของบันทึก"
 
 #. Open Start Here keybinding...
-#: ../Tomboy/PreferencesDialog.cs:283
+#: ../Tomboy/PreferencesDialog.cs:287
 msgid "Open \"_Start Here\""
 msgstr "เปิด \"เ_ริ่มที่นี่\""
 
 #. Create new note keybinding...
-#: ../Tomboy/PreferencesDialog.cs:300
+#: ../Tomboy/PreferencesDialog.cs:304
 msgid "Create _new note"
 msgstr "สร้าง_บันทึกใหม่"
 
 #. Open Search All Notes window keybinding...
-#: ../Tomboy/PreferencesDialog.cs:317
+#: ../Tomboy/PreferencesDialog.cs:321
 msgid "Open \"Search _All Notes\""
 msgstr "เปิด \"ค้นบันทึก_ทั้งหมด\""
 
-#: ../Tomboy/PreferencesDialog.cs:344
+#: ../Tomboy/PreferencesDialog.cs:348
 msgid "Service:"
 msgstr "บริการ:"
 
-#: ../Tomboy/PreferencesDialog.cs:396 ../Tomboy/PreferencesDialog.cs:886
+#: ../Tomboy/PreferencesDialog.cs:400 ../Tomboy/PreferencesDialog.cs:978
 msgid "Not configurable"
 msgstr "ปรับแต่งไม่ได้"
 
-#: ../Tomboy/PreferencesDialog.cs:466
+#. "Advanced..." button to bring up extra sync config dialog
+#: ../Tomboy/PreferencesDialog.cs:420
+msgid "Advanced..."
+msgstr "ขั้นสูง..."
+
+#: ../Tomboy/PreferencesDialog.cs:481
 msgid "The following add-ins are installed"
 msgstr "โปรแกรมเสริมดังต่อไปนี้ติดตั้งแล้ว"
 
-#: ../Tomboy/PreferencesDialog.cs:497
+#: ../Tomboy/PreferencesDialog.cs:512
 msgid "_Enable"
 msgstr "เปิดใ_ช้"
 
-#: ../Tomboy/PreferencesDialog.cs:503
+#: ../Tomboy/PreferencesDialog.cs:518
 msgid "_Disable"
 msgstr "ไ_ม่ใช้"
 
-#: ../Tomboy/PreferencesDialog.cs:634
+#: ../Tomboy/PreferencesDialog.cs:649
 msgid "Not Implemented"
 msgstr "ยังไม่รองรับ"
 
-#: ../Tomboy/PreferencesDialog.cs:648
+#: ../Tomboy/PreferencesDialog.cs:663
 #, csharp-format
 msgid "{0} Preferences"
 msgstr "ปรับแต่ง {0}"
 
-#: ../Tomboy/PreferencesDialog.cs:787
+#: ../Tomboy/PreferencesDialog.cs:802
 msgid "Choose Note Font"
 msgstr "เลือกขนาดอักษรสำหรับบันทึก"
 
-#: ../Tomboy/PreferencesDialog.cs:914
+#: ../Tomboy/PreferencesDialog.cs:846
+msgid "Other Synchronization Options"
+msgstr "ตัวเลือกอื่นสำหรับการปรับข้อมูลให้ตรงกัน"
+
+#: ../Tomboy/PreferencesDialog.cs:853
+msgid ""
+"When a conflict is detected between a local note and a note on the "
+"configured synchronization server:"
+msgstr "เมื่อมีสิ่งขัดแย้งระหว่างบันทึกในเครื่อง กับบันทึกที่อยู่ในเซิร์ฟเวอร์ที่กำหนดไว้สำหรับปรับข้อมูล:"
+
+#: ../Tomboy/PreferencesDialog.cs:860
+msgid "Always ask me what to do."
+msgstr "ถามก่อนว่าจะให้ทำอย่างไร"
+
+#: ../Tomboy/PreferencesDialog.cs:864
+msgid "Rename my local note."
+msgstr "เปลี่ยนชื่อบันทึกในเครื่อง"
+
+#: ../Tomboy/PreferencesDialog.cs:868
+msgid "Replace my local note with the server's update."
+msgstr "เขียนบันทึกใหม่จากเซิร์ฟเวอร์ทับบันทึกในเครื่อง"
+
+#: ../Tomboy/PreferencesDialog.cs:1014
 msgid "WARNING: Are you sure?"
 msgstr "คำเตือน: แน่ใจหรือยัง?"
 
-#: ../Tomboy/PreferencesDialog.cs:916
+#: ../Tomboy/PreferencesDialog.cs:1016
 msgid ""
 "Clearing your synchronization settings is not recommended.  You may be "
 "forced to synchronize all of your notes again when you save new settings."
@@ -1069,11 +1092,11 @@ msgstr ""
 "ไม่แนะนำให้ล้างค่าตั้งการปรับข้อมูลให้ตรงกันออก คุณอาจจำเป็นต้องปรับข้อมูลบันทึกของคุณใหม่หมด "
 "เมื่อคุณบันทึกการตั้งค่าชุดใหม่"
 
-#: ../Tomboy/PreferencesDialog.cs:929
+#: ../Tomboy/PreferencesDialog.cs:1029
 msgid "Resetting Synchronization Settings"
 msgstr "กำลังล้างค่าตั้งสำหรับการปรับข้อมูลให้ตรงกัน"
 
-#: ../Tomboy/PreferencesDialog.cs:931
+#: ../Tomboy/PreferencesDialog.cs:1031
 msgid ""
 "You have disabled the configured synchronization service.  Your "
 "synchronization settings will now be cleared.  You may be forced to "
@@ -1082,19 +1105,19 @@ msgstr ""
 "คุณได้ปิดบริการปรับข้อมูลให้ตรงกันที่ได้ตั้งค่าไว้ ค่าตั้งเกี่ยวกับการปรับข้อมูลให้ตรงกันของคุณจะถูกลบทิ้ง "
 "คุณอาจจำเป็นต้องปรับข้อมูลบันทึกของคุณใหม่หมดเมื่อคุณบันทึกการตั้งค่าชุดใหม่"
 
-#: ../Tomboy/PreferencesDialog.cs:1015
+#: ../Tomboy/PreferencesDialog.cs:1115
 msgid "Success! You're connected!"
 msgstr "สำเร็จ! เชื่อมต่อได้แล้ว"
 
-#: ../Tomboy/PreferencesDialog.cs:1017
+#: ../Tomboy/PreferencesDialog.cs:1117
 msgid "Tomboy is ready to synchronize your notes."
 msgstr "Tomboy พร้อมที่จะปรับข้อมูลบันทึกของคุณให้ตรงกันแล้ว"
 
-#: ../Tomboy/PreferencesDialog.cs:1040
+#: ../Tomboy/PreferencesDialog.cs:1140
 msgid "Error connecting :("
 msgstr "เกิดข้อผิดพลาดขณะเชื่อมต่อ :("
 
-#: ../Tomboy/PreferencesDialog.cs:1042
+#: ../Tomboy/PreferencesDialog.cs:1142
 msgid ""
 "Sorry, but something went wrong.  Please check your information and try "
 "again.  The ~/.tomboy.log might be useful too."
@@ -1102,19 +1125,19 @@ msgstr ""
 "เสียใจด้วย มีบางอย่างผิดพลาด โปรดตรวจสอบข้อมูลของคุณแล้วลองใหม่อีกครั้ง แฟ้ม ~/.tomboy.log "
 "อาจเป็นประโยชน์ในกรณีนี้"
 
-#: ../Tomboy/PreferencesDialog.cs:1108
+#: ../Tomboy/PreferencesDialog.cs:1208
 msgid "Version:"
 msgstr "รุ่น:"
 
-#: ../Tomboy/PreferencesDialog.cs:1115
+#: ../Tomboy/PreferencesDialog.cs:1215
 msgid "Author:"
 msgstr "ผู้แต่ง:"
 
-#: ../Tomboy/PreferencesDialog.cs:1122
+#: ../Tomboy/PreferencesDialog.cs:1222
 msgid "Copyright:"
 msgstr "สงวนลิขสิทธิ์:"
 
-#: ../Tomboy/PreferencesDialog.cs:1128
+#: ../Tomboy/PreferencesDialog.cs:1228
 msgid "Add-in Dependencies:"
 msgstr "สิ่งที่โปรแกรมเสริมต้องใช้:"
 
@@ -1356,192 +1379,198 @@ msgstr "_คัดลอกตำแหน่งลิงก์"
 msgid "_Open Link"
 msgstr "เ_ปิดลิงก์"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:90
+#: ../Tomboy/Synchronization/SyncDialog.cs:91
 msgid "Note Title"
 msgstr "หัวข้อบันทึก"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:97
+#: ../Tomboy/Synchronization/SyncDialog.cs:98
 msgid "Status"
 msgstr "สถานะ"
 
 #. Drop all that into into the Expander
-#: ../Tomboy/Synchronization/SyncDialog.cs:116
+#: ../Tomboy/Synchronization/SyncDialog.cs:117
 msgid "Details"
 msgstr "รายละเอียด"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:234
+#: ../Tomboy/Synchronization/SyncDialog.cs:235
 msgid "Acquiring sync lock..."
 msgstr "กำลังขอล็อคเพื่อปรับข้อมูล..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:237
+#: ../Tomboy/Synchronization/SyncDialog.cs:238
 msgid "Committing changes..."
 msgstr "กำลังบันทึกการเปลี่ยนแปลง..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:240
+#: ../Tomboy/Synchronization/SyncDialog.cs:241
 msgid "Synchronizing Notes"
 msgstr "กำลังปรับข้อมูลบันทึกให้ตรงกัน"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:241
+#: ../Tomboy/Synchronization/SyncDialog.cs:242
 msgid "Synchronizing your notes..."
 msgstr "ปรับข้อมูลบันทึกของคุณ..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:242
+#: ../Tomboy/Synchronization/SyncDialog.cs:243
 msgid "This may take a while, kick back and enjoy!"
 msgstr "อาจใช้เวลาสักครู่ ขอให้สนุก!"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:244
+#: ../Tomboy/Synchronization/SyncDialog.cs:245
 msgid "Connecting to the server..."
 msgstr "กำลังเชื่อมต่อไปยังเซิร์ฟเวอร์..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:250
+#: ../Tomboy/Synchronization/SyncDialog.cs:251
 msgid "Deleting notes off of the server..."
 msgstr "กำลังลบบันทึกออกจากเซิร์ฟเวอร์..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:254
+#: ../Tomboy/Synchronization/SyncDialog.cs:255
 msgid "Downloading new/updated notes..."
 msgstr "กำลังดาวน์โหลด บันทึกใหม่/ปรับปรุง..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:266
+#: ../Tomboy/Synchronization/SyncDialog.cs:267
 msgid "Server Locked"
 msgstr "เซิร์ฟเวอร์ล็อคอยู่"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:267
+#: ../Tomboy/Synchronization/SyncDialog.cs:268
 msgid "Server is locked"
 msgstr "เซิร์ฟเวอร์ถูกล็อคอยู่"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:268
+#: ../Tomboy/Synchronization/SyncDialog.cs:269
 msgid ""
 "One of your other computers is currently synchronizing.  Please wait and try "
 "again."
 msgstr "คอมพิวเตอร์เครื่องอื่นกำลังปรับข้อมูลอยู่ โปรดรอสักครู่แล้วลองใหม่อีกครั้ง"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:272
+#: ../Tomboy/Synchronization/SyncDialog.cs:273
 msgid "Preparing to download updates from server..."
 msgstr "กำลังเตรียมดาวน์โหลดการปรับข้อมูลจากเซิร์ฟเวอร์..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:275
+#: ../Tomboy/Synchronization/SyncDialog.cs:276
 msgid "Preparing to upload updates to server..."
 msgstr "กำลังเตรียมอัปโหลดการปรับข้อมูลไปยังเซิร์ฟเวอร์..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:278
+#: ../Tomboy/Synchronization/SyncDialog.cs:279
 msgid "Uploading notes to server..."
 msgstr "กำลังอัปโหลดบันทึกไปยังเซิร์ฟเวอร์..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:281
+#: ../Tomboy/Synchronization/SyncDialog.cs:282
 msgid "Synchronization Failed"
 msgstr "การปรับข้อมูลให้ตรงกันล้มเหลว"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:282
+#: ../Tomboy/Synchronization/SyncDialog.cs:283
 msgid "Failed to synchronize"
 msgstr "ปรับข้อมูลให้ตรงกันไม่สำเร็จ"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:283
+#: ../Tomboy/Synchronization/SyncDialog.cs:284
 msgid "Could not synchronize notes.  Check the details below and try again."
 msgstr "ไม่สามารถปรับข้อมูลบันทึก โปรดตรวจสอบรายละเอียดด้านล่างแล้วลองใหม่อีกครั้ง"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:287
+#: ../Tomboy/Synchronization/SyncDialog.cs:291
 msgid "Synchronization Complete"
 msgstr "การปรับข้อมูลให้ตรงกันเสร็จสมบูรณ์"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:288
+#: ../Tomboy/Synchronization/SyncDialog.cs:292
 msgid "Synchronization is complete"
 msgstr "การปรับข้อมูลให้ตรงกันเสร็จสมบูรณ์"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:289
-msgid "Your notes are up to date.  See the details below or close the window."
-msgstr "บันทึกของคุณใหม่ล่าสุดแล้ว ดูรายละเอียดด้านล่าง หรือปิดหน้าต่าง"
+#: ../Tomboy/Synchronization/SyncDialog.cs:294
+#, csharp-format
+msgid "{0} note updated."
+msgid_plural "{0} notes updated."
+msgstr[0] "ปรับข้อมูลบันทึกแล้ว {0} ฉบับ"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:293
+#: ../Tomboy/Synchronization/SyncDialog.cs:299
+msgid "Your notes are now up to date."
+msgstr "บันทึกของคุณกลายเป็นฉบับล่าสุดแล้ว"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:303
 msgid "Synchronization Canceled"
 msgstr "การปรับข้อมูลให้ตรงกันถูกยกเลิก"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:294
+#: ../Tomboy/Synchronization/SyncDialog.cs:304
 msgid "Synchronization was canceled"
 msgstr "การปรับข้อมูลให้ตรงกันถูกยกเลิก"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:295
+#: ../Tomboy/Synchronization/SyncDialog.cs:305
 msgid "You canceled the synchronization.  You may close the window now."
 msgstr "คุณยกเลิกการปรับข้อมูลให้ตรงกัน คุณอาจปิดหน้าต่างนี้ได้"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:299
+#: ../Tomboy/Synchronization/SyncDialog.cs:309
 msgid "Synchronization Not Configured"
 msgstr "การปรับข้อมูลให้ตรงกันไม่ได้ตั้งค่าไว้"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:300
+#: ../Tomboy/Synchronization/SyncDialog.cs:310
 msgid "Synchronization is not configured"
 msgstr "การปรับข้อมูลให้ตรงกันไม่ได้ตั้งค่าไว้"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:301
+#: ../Tomboy/Synchronization/SyncDialog.cs:311
 msgid "Please configure synchronization in the preferences dialog."
 msgstr "โปรดตั้งค่าการปรับข้อมูลให้ตรงกันในกล่องโต้ตอบปรับแต่ง"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:305
+#: ../Tomboy/Synchronization/SyncDialog.cs:315
 msgid "Synchronization Service Error"
 msgstr "บริการปรับข้อมูลให้ตรงกันผิดพลาด"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:306
+#: ../Tomboy/Synchronization/SyncDialog.cs:316
 msgid "Service error"
 msgstr "บริการผิดพลาด"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:307
+#: ../Tomboy/Synchronization/SyncDialog.cs:317
 msgid "Error connecting to the synchronization service.  Please try again."
 msgstr "เกิดข้อผิดพลาดขณะเชื่อมต่อไปยังบริการปรับข้อมูลให้ตรงกัน โปรดลองใหม่อีกครั้ง"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:323
-msgid "Deleting from local copy"
-msgstr "กำลังลบออกจากสำเนาในเครื่อง"
+#: ../Tomboy/Synchronization/SyncDialog.cs:334
+msgid "Deleted locally"
+msgstr "ลบบันทึกในเครื่องแล้ว"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:326
+#: ../Tomboy/Synchronization/SyncDialog.cs:337
 msgid "Deleting from server"
 msgstr "กำลังลบออกจากเซิร์ฟเวอร์"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:329
-msgid "Downloading updates from server"
-msgstr "กำลังดาวน์โหลดการปรับข้อมูลจากเซิร์ฟเวอร์"
+#: ../Tomboy/Synchronization/SyncDialog.cs:340
+msgid "Updated"
+msgstr "ปรับข้อมูลแล้ว"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:332
-msgid "Downloading new note from server"
-msgstr "กำลังดาวน์โหลดบันทึกใหม่จากเซิร์ฟเวอร์"
+#: ../Tomboy/Synchronization/SyncDialog.cs:343
+msgid "Added"
+msgstr "เพิ่มแล้ว"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:335
+#: ../Tomboy/Synchronization/SyncDialog.cs:346
 msgid "Uploading changes to server"
 msgstr "กำลังอัปโหลดการเปลี่ยนแปลงไปยังเซิร์ฟเวอร์"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:338
+#: ../Tomboy/Synchronization/SyncDialog.cs:349
 msgid "Uploading new note to server"
 msgstr "กำลังอัปโหลดบันทึกใหม่ไปยังเซิร์ฟเวอร์"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:470
+#: ../Tomboy/Synchronization/SyncDialog.cs:481
 msgid "Note Conflict"
 msgstr "ความขัดแย้งของบันทึก"
 
 #. Suggest renaming note by appending " (old)" to the existing title
-#: ../Tomboy/Synchronization/SyncDialog.cs:474
+#: ../Tomboy/Synchronization/SyncDialog.cs:485
 msgid " (old)"
 msgstr " (เก่า)"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:513
+#: ../Tomboy/Synchronization/SyncDialog.cs:524
 msgid "Rename local note:"
 msgstr "เปลี่ยนชื่อบันทึกในเครื่อง:"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:519
+#: ../Tomboy/Synchronization/SyncDialog.cs:530
 msgid "Update links in referencing notes"
 msgstr "ปรับปรุงลิงก์ในบันทึกที่อ้างถึง"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:526
+#: ../Tomboy/Synchronization/SyncDialog.cs:537
 msgid "Overwrite local note"
 msgstr "เขึยนทับบันทึกในเครื่อง"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:530
+#: ../Tomboy/Synchronization/SyncDialog.cs:541
 msgid "Always perform this action"
 msgstr "เลือกปฎิบัติการนี้เสมอ"
 
 #. Set initial dialog text
-#: ../Tomboy/Synchronization/SyncDialog.cs:537
+#: ../Tomboy/Synchronization/SyncDialog.cs:548
 msgid "Note conflict detected"
 msgstr "ตรวจพบความขัดแย้งของบันทึก"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:538
+#: ../Tomboy/Synchronization/SyncDialog.cs:549
 #, csharp-format
 msgid ""
 "The server version of \"{0}\" conflicts with your local note.  What do you "
@@ -1570,6 +1599,39 @@ msgstr ""
 "\n"
 "เพื่อหลีกเลี่ยงข้อความเตือนนี้ในครั้งต่อไป คุณควรโหลด FUSE ตั้งแต่เปิดเครื่อง โดยเพิ่ม \"modprobe "
 "fuse\" ใน /etc/init.d/boot.local หรือเพิ่ม \"fuse\" ใน /etc/modules"
+
+#: ../Tomboy/Synchronization/SyncUtils.cs:177
+msgid "Could not enable FUSE"
+msgstr "ไม่สามารถเปิดใช้ FUSE"
+
+#: ../Tomboy/Synchronization/SyncUtils.cs:178
+msgid ""
+"The FUSE module could not be loaded. Please check that it is installed "
+"properly and try again."
+msgstr ""
+"ไม่สามารถโหลดมอดูล FUSE ได้ กรุณาตรวจสอบว่าได้ติดตั้งมอดูลดังกล่าวถูกต้องหรือไม่ แล้วลองใหม่"
+
+#~ msgid ""
+#~ "SSH synchronization requires an existing SSH key for this server and "
+#~ "user.  That key must be added to a running SSH daemon.  <span weight="
+#~ "\"bold\">Seahorse</span> is one application that can help you set this "
+#~ "up.  You will receive an error if no key is set up for this server and "
+#~ "user."
+#~ msgstr ""
+#~ "การปรับข้อมูลให้ตรงกันผ่าน SSH จำเป็นต้องอาศัยกุญแจ SSH สำหรับเซิร์ฟเวอร์และผู้ใช้นี้ "
+#~ "กุญแจดังกล่าว ต้องเพิ่มเข้าในดีมอน SSH ที่กำลังทำงานอยู่ด้วย <span weight=\"bold"
+#~ "\">Seahorse</span> เป็นโปรแกรมหนึ่งที่สามารถช่วยคุณตั้งค่าดังกล่าวได้ "
+#~ "คุณจะพบข้อความแจ้งข้อผิดพลาดถ้าไม่มีการกำหนดกุญแจสำหรับเซิร์ฟเวอร์และผู้ใช้นี้ไว้"
+
+#~ msgid ""
+#~ "Your notes are up to date.  See the details below or close the window."
+#~ msgstr "บันทึกของคุณใหม่ล่าสุดแล้ว ดูรายละเอียดด้านล่าง หรือปิดหน้าต่าง"
+
+#~ msgid "Downloading updates from server"
+#~ msgstr "กำลังดาวน์โหลดการปรับข้อมูลจากเซิร์ฟเวอร์"
+
+#~ msgid "Downloading new note from server"
+#~ msgstr "กำลังดาวน์โหลดบันทึกใหม่จากเซิร์ฟเวอร์"
 
 #~ msgid "Path:"
 #~ msgstr "พาธ:"
