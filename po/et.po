@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tomboy HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-07-13 11:24+0100\n"
-"PO-Revision-Date: 2007-07-14 20:23+0300\n"
+"POT-Creation-Date: 2007-07-31 03:33+0100\n"
+"PO-Revision-Date: 2007-08-03 09:39+0300\n"
 "Last-Translator: Ivar Smolin <okul@linux.ee>\n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
 "MIME-Version: 1.0\n"
@@ -41,7 +41,7 @@ msgid "_About"
 msgstr "_Tomboy'st lähemalt"
 
 #: ../data/GNOME_TomboyApplet.xml.h:2 ../Tomboy/ActionManager.cs:93
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:105 ../Tomboy/Applet.cs:186
+#: ../Tomboy/Applet.cs:186
 msgid "_Help"
 msgstr "_Abi"
 
@@ -161,42 +161,73 @@ msgid ""
 msgstr "Täisarv, millega määratakse vähim märgete arv Tomboy märkmemenüüs."
 
 #: ../data/tomboy.schemas.in.h:19
+msgid ""
+"Integer value indicating if there is a preference to always perform a "
+"specific behavior when a conflict is detected, instead of prompting the "
+"user. The values map to an internal enumeration. 0 indicates that the user "
+"wishes to be prompted when a conflict occurs, so that they may handle each "
+"conflict situation on a case-by-case basis."
+msgstr ""
+
+#: ../data/tomboy.schemas.in.h:20
 msgid "List of pinned notes."
 msgstr "Laualolevate märkmete nimekiri."
 
-#: ../data/tomboy.schemas.in.h:20
+#: ../data/tomboy.schemas.in.h:21
 msgid "Minimum number of notes to show in menu"
 msgstr "Vähim menüüs näidatavate märgete arv"
 
-#: ../data/tomboy.schemas.in.h:21
+#: ../data/tomboy.schemas.in.h:22
+msgid "Note Synchronization Conflict Saved Behavior"
+msgstr ""
+
+#: ../data/tomboy.schemas.in.h:23
 msgid "Open Recent Changes"
 msgstr "Viimaste muudatuste avamine"
 
-#: ../data/tomboy.schemas.in.h:22
+#: ../data/tomboy.schemas.in.h:24
 msgid "Open Search Dialog"
 msgstr "Otsimisdialoogi avamine"
 
-#: ../data/tomboy.schemas.in.h:23
+#: ../data/tomboy.schemas.in.h:25
 msgid "Open Start Here"
 msgstr "\"Alusta siit\" avamine"
 
-#: ../data/tomboy.schemas.in.h:24
+#: ../data/tomboy.schemas.in.h:26
+msgid ""
+"Path to the synchronization server when using the filesystem synchronization "
+"service addin."
+msgstr ""
+
+#: ../data/tomboy.schemas.in.h:27
+msgid "Selected Synchronization Service Addin"
+msgstr ""
+
+#: ../data/tomboy.schemas.in.h:28
 msgid "Set to TRUE to activate"
 msgstr "Aktiveerimiseks tuleb see märkida"
 
-#: ../data/tomboy.schemas.in.h:25
+#: ../data/tomboy.schemas.in.h:29
 msgid "Show applet menu"
 msgstr "Rakendimenüü näitamine"
 
-#: ../data/tomboy.schemas.in.h:26
+#: ../data/tomboy.schemas.in.h:30
 msgid "Start Here Note"
 msgstr "\"Alusta siit\" märge"
 
-#: ../data/tomboy.schemas.in.h:27
+#: ../data/tomboy.schemas.in.h:31
 msgid "Sticky Note Importer First Run"
 msgstr "Märkmepaberite importeri esimene töökord"
 
-#: ../data/tomboy.schemas.in.h:28
+#: ../data/tomboy.schemas.in.h:32
+msgid "Synchronization Client ID"
+msgstr "Sünkroniseerimiskliendi ID"
+
+#: ../data/tomboy.schemas.in.h:33
+msgid "Synchronization Local Server Path"
+msgstr "Sünkroniseerimise kohaliku serveri rada"
+
+#: ../data/tomboy.schemas.in.h:34
 msgid ""
 "The global keybinding for creating and displaying a new Note. The format "
 "looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The "
@@ -212,7 +243,7 @@ msgstr ""
 "väärtuseks määrata eristring \"disabled\", siis on selle toimingu jaoks "
 "klahvikombinatsioon keelatud."
 
-#: ../data/tomboy.schemas.in.h:29
+#: ../data/tomboy.schemas.in.h:35
 msgid ""
 "The global keybinding for opening the \"Start Here\" note. The format looks "
 "like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
@@ -228,7 +259,7 @@ msgstr ""
 "väärtuseks määrata eristring \"disabled\", siis on selle toimingu jaoks "
 "klahvikombinatsioon keelatud."
 
-#: ../data/tomboy.schemas.in.h:30
+#: ../data/tomboy.schemas.in.h:36
 msgid ""
 "The global keybinding for opening the Note Search dialog. The format looks "
 "like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
@@ -244,7 +275,7 @@ msgstr ""
 "väärtuseks määrata eristring \"disabled\", siis on selle toimingu jaoks "
 "klahvikombinatsioon keelatud."
 
-#: ../data/tomboy.schemas.in.h:31
+#: ../data/tomboy.schemas.in.h:37
 msgid ""
 "The global keybinding for opening the Recent Changes dialog. The format "
 "looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The "
@@ -260,7 +291,7 @@ msgstr ""
 "Kui väärtuseks määrata eristring \"disabled\", siis on selle toimingu jaoks "
 "klahvikombinatsioon keelatud."
 
-#: ../data/tomboy.schemas.in.h:32
+#: ../data/tomboy.schemas.in.h:38
 msgid ""
 "The global keybinding for showing the Tomboy applet's menu. The format looks "
 "like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
@@ -276,16 +307,16 @@ msgstr ""
 "väärtuseks määrata eristring \"disabled\", siis on selle toimingu jaoks "
 "klahvikombinatsioon keelatud."
 
-#: ../data/tomboy.schemas.in.h:33
+#: ../data/tomboy.schemas.in.h:39
 msgid "The handler for \"note://\" URLs"
 msgstr "\"note://\" URL-ide käsitleja"
 
-#: ../data/tomboy.schemas.in.h:34
+#: ../data/tomboy.schemas.in.h:40
 msgid ""
 "The last directory a note was exported to using the Export To HTML plugin."
 msgstr "Viimane kataloog, kuhu HTML-iks eksportimise plugin märkme salvestas."
 
-#: ../data/tomboy.schemas.in.h:35
+#: ../data/tomboy.schemas.in.h:41
 msgid ""
 "The last setting for the 'Export linked notes' checkbox in the Export to "
 "HTML plugin."
@@ -293,7 +324,7 @@ msgstr ""
 "HTML-iks eksportimise plugina märkeruudu \"Viidatud märkmete eksport\" "
 "viimane olek."
 
-#: ../data/tomboy.schemas.in.h:36
+#: ../data/tomboy.schemas.in.h:42
 msgid ""
 "The last setting for the 'Include all other linked notes' checkbox in the "
 "Export to HTML plugin. This setting is used in conjunction with the 'HTML "
@@ -306,7 +337,7 @@ msgstr ""
 "kõik eksporditava märkme poolt viidatud märkmed, mis leitakse rekursiivse "
 "otsingu abil."
 
-#: ../data/tomboy.schemas.in.h:37
+#: ../data/tomboy.schemas.in.h:43
 msgid ""
 "The note URI of the note that should be considered the \"Start Here\" note, "
 "which is always placed at the bottom of the Tomboy note menu and also "
@@ -315,7 +346,19 @@ msgstr ""
 "\"Alusta siit\" märkme URI. See märge on alati nähtav Tomboy märkmete menüü "
 "allosas ja seda on võimalik kiirklahvi abil avada."
 
-#: ../data/tomboy.schemas.in.h:38
+#: ../data/tomboy.schemas.in.h:44
+msgid ""
+"Unique identifier for the currently configured note synchronization service "
+"addin."
+msgstr ""
+
+#: ../data/tomboy.schemas.in.h:45
+msgid ""
+"Unique identifier for this Tomboy client, used when communicating with a "
+"sychronization server."
+msgstr ""
+
+#: ../data/tomboy.schemas.in.h:46
 msgid ""
 "Whitespace-separated list of note URIs for notes that should always appear "
 "in the Tomboy note menu."
@@ -367,7 +410,7 @@ msgstr "Versioon"
 msgid "Other"
 msgstr "Muu"
 
-#: ../Tomboy/ActionManager.cs:63 ../Tomboy/Addins/Tasks/TaskListWindow.cs:79
+#: ../Tomboy/ActionManager.cs:63
 msgid "_File"
 msgstr "_Fail"
 
@@ -387,7 +430,7 @@ msgstr "_Ava..."
 msgid "Open the selected note"
 msgstr "Valitud märkme avamine"
 
-#: ../Tomboy/ActionManager.cs:74 ../Tomboy/Addins/Tasks/TaskListWindow.cs:97
+#: ../Tomboy/ActionManager.cs:74
 msgid "_Delete"
 msgstr "_Kustuta"
 
@@ -395,12 +438,11 @@ msgstr "_Kustuta"
 msgid "Delete the selected note"
 msgstr "Valitud märkme kustutamine"
 
-#: ../Tomboy/ActionManager.cs:78 ../Tomboy/Addins/Tasks/TaskListWindow.cs:90
-#: ../Tomboy/NoteWindow.cs:374
+#: ../Tomboy/ActionManager.cs:78 ../Tomboy/NoteWindow.cs:374
 msgid "_Close"
 msgstr "_Sulge"
 
-#: ../Tomboy/ActionManager.cs:79 ../Tomboy/Addins/Tasks/TaskListWindow.cs:91
+#: ../Tomboy/ActionManager.cs:79
 msgid "Close this window"
 msgstr "Selle akna sulgemine"
 
@@ -412,15 +454,15 @@ msgstr "_Lõpeta"
 msgid "Quit Tomboy"
 msgstr "Tomboy töö lõpetamine"
 
-#: ../Tomboy/ActionManager.cs:86 ../Tomboy/Addins/Tasks/TaskListWindow.cs:94
+#: ../Tomboy/ActionManager.cs:86
 msgid "_Edit"
 msgstr "_Redaktor"
 
-#: ../Tomboy/ActionManager.cs:90 ../Tomboy/PreferencesDialog.cs:51
+#: ../Tomboy/ActionManager.cs:90 ../Tomboy/PreferencesDialog.cs:61
 msgid "Tomboy Preferences"
 msgstr "Tomboy eelistused"
 
-#: ../Tomboy/ActionManager.cs:96 ../Tomboy/Addins/Tasks/TaskListWindow.cs:108
+#: ../Tomboy/ActionManager.cs:96
 msgid "_Contents"
 msgstr "_Sisukord"
 
@@ -447,6 +489,14 @@ msgstr "_Otsi kõikide märkmete hulgast"
 #: ../Tomboy/ActionManager.cs:112
 msgid "Open the Search All Notes window"
 msgstr "Otsing kõikide märkmete hulgast"
+
+#: ../Tomboy/ActionManager.cs:115
+msgid "S_ynchronize Notes"
+msgstr ""
+
+#: ../Tomboy/ActionManager.cs:116
+msgid "Start synchronizing notes"
+msgstr ""
 
 #: ../Tomboy/Addins/Backlinks/BacklinksNoteAddin.cs:25
 msgid "What links here?"
@@ -547,6 +597,15 @@ msgstr "Kõigi viidatud märkmete kaasamine"
 msgid "Cannot open email"
 msgstr "E-posti pole võimalik avada"
 
+#. TODO: Use a FileChooserDialog to allow the user to choose a path more easily
+#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:79
+msgid "Path:"
+msgstr "Rada:"
+
+#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:158
+msgid "Local File System Path"
+msgstr "Kohaliku failisüsteemi rada"
+
 #: ../Tomboy/Addins/FixedWidth/FixedWidthMenuItem.cs:14
 msgid "_Fixed Width"
 msgstr "_Määratud laiusega"
@@ -598,6 +657,28 @@ msgstr ""
 msgid "_Open Today: Template"
 msgstr "_Ava Täna: Mall"
 
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:48
+msgid "Server:"
+msgstr "Server:"
+
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:58
+msgid "Folder (optional):"
+msgstr "Kataloog (valikuline):"
+
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:68
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:64
+msgid "Username:"
+msgstr "Kasutajanimi:"
+
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:78
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:74
+msgid "Password:"
+msgstr "Parool:"
+
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:150
+msgid "SSH (sshfs FUSE)"
+msgstr "SSH (sshfs FUSE)"
+
 #: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:50
 msgid "Import from Sticky Notes"
 msgstr "Impordi Märkmepaberid"
@@ -628,198 +709,23 @@ msgstr "Pealkirjata"
 msgid "Sticky Note: "
 msgstr "Märkmepaber: "
 
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:65
-#: ../Tomboy/Addins/Tasks/TasksApplicationAddin.cs:55
-msgid "To Do List"
-msgstr "Tehaolevate asjade nimekiri"
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:54
+msgid "URL:"
+msgstr "URL:"
 
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:82
-msgid "New _Task"
-msgstr "Uus ü_lesanne"
-
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:83
-msgid "Create a new task"
-msgstr "Uue ülesande loomine"
-
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:86
-msgid "_Options..."
-msgstr "_Valikud..."
-
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:87
-msgid "Open the selected task"
-msgstr "Valitud ülesande avamine"
-
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:98
-msgid "Delete the selected task"
-msgstr "Valitud ülesande kustutamine"
-
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:101
-msgid "Open Associated _Note"
-msgstr "Ava _seotud märge"
-
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:102
-msgid "Open the note containing the task"
-msgstr "Ülesannet sisaldava märkme avamine"
-
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:109
-msgid "Tasks Help"
-msgstr ""
-
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:244
-msgid "Summary"
-msgstr "Kokkuvõte"
-
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:268
-msgid "Due Date"
-msgstr "Tähtaeg"
-
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:290
-msgid "Completion Date"
-msgstr "Valmimise aeg"
-
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:311
-msgid "Priority"
-msgstr "Tähtus"
-
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:324
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:416
-#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:164
-msgid "None"
-msgstr "Puudub"
-
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:325
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:407
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:902
-#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:165
-msgid "Low"
-msgstr "Madal"
-
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:326
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:410
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:904
-#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:166
-msgid "Normal"
-msgstr "Tavaline"
-
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:327
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:413
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:906
-#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:167
-msgid "High"
-msgstr "Kõrge"
-
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:433
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:442
-#, csharp-format
-msgid "Total: {0} task"
-msgid_plural "Total: {0} tasks"
-msgstr[0] "Kokku: {0} ülesanne"
-msgstr[1] "Kokku: {0} ülesannet"
-
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:601
-#, csharp-format
-msgid "New Task {0}"
-msgstr "Uus ülesanne {0}"
-
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:826
-msgid "Really delete this task?"
-msgstr "Kas kustutada see ülesanne?"
-
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:827
-msgid "If you delete a task it is permanently lost."
-msgstr "Kui sa ülesande kustutad, siis on see jäädavalt kadunud."
-
-#: ../Tomboy/Addins/Tasks/TaskManager.cs:216
-msgid "Learn About Tomboy"
-msgstr ""
-
-#: ../Tomboy/Addins/Tasks/TaskManager.cs:219
-msgid ""
-"Click on the Tomboy icon in your panel and select \"Start Here\".  You'll "
-"see more instructions on how to use Tomboy inside the \"Start Here\" note.\n"
-"\n"
-"When you've opened the \"Start Here\" note, mark this task as being complete."
-msgstr ""
-
-#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:34
-msgid "Task Options"
-msgstr "Ülesande valikud"
-
-#. Gtk.Label l = new Gtk.Label (
-#. string.Format (
-#. "<span weight=\"bold\">{0}</span>",
-#. Catalog.GetString ("Task Options")));
-#. l.UseMarkup = true;
-#. l.Show ();
-#. vbox.PackStart (l, false, false, 0);
-#. /
-#. / Summary
-#. /
-#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:70
-msgid "_Summary:"
-msgstr "_Kokkuvõte:"
-
-#. /
-#. / Details
-#. /
-#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:84
-msgid "_Details:"
-msgstr "Ü_ksikasjad:"
-
-#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:108
-#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:272
-msgid "_Completed:"
-msgstr ""
-
-#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:109
-#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:275
-msgid "_Complete"
-msgstr ""
-
-#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:132
-msgid "Due Date:"
-msgstr "Tähtaeg:"
-
-#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:156
-msgid "Priority:"
-msgstr "Tähtsus:"
-
-#: ../Tomboy/Addins/Tasks/TasksApplicationAddin.cs:53
-msgid "_Tools"
-msgstr "_Tööriistad"
-
-#: ../Tomboy/Addins/Tasks/TasksNoteAddin.cs:37
-#: ../Tomboy/Addins/Tasks/TasksNoteAddin.cs:170
-#: ../Tomboy/Addins/Tasks/TasksNoteAddin.cs:247
-#: ../Tomboy/Addins/Tasks/TasksNoteAddin.cs:351
-msgid "todo"
-msgstr ""
-
-#: ../Tomboy/Addins/Tasks/TasksNoteAddin.cs:453
-msgid "Open To Do List"
-msgstr "Tehaolevate asjade nimekirja avamine"
-
-#: ../Tomboy/Addins/Tasks/TasksNoteAddin.cs:458
-msgid "To Do Options"
-msgstr "Tehaolevate asjade valikud"
-
-#: ../Tomboy/Addins/Tasks/TasksNoteAddin.cs:466
-msgid "Mark Undone"
-msgstr ""
-
-#: ../Tomboy/Addins/Tasks/TasksNoteAddin.cs:467
-msgid "Mark Complete"
-msgstr ""
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:139
+msgid "WebDAV (wdfs FUSE)"
+msgstr "WebDAV (wdfs FUSE)"
 
 #: ../Tomboy/Applet.cs:191
 msgid "_About Tomboy"
 msgstr "_Tomboy'st lähemalt"
 
-#: ../Tomboy/Note.cs:1143
+#: ../Tomboy/Note.cs:1193
 msgid "Really delete this note?"
 msgstr "Kas kustutada see märge?"
 
-#: ../Tomboy/Note.cs:1144
+#: ../Tomboy/Note.cs:1194
 msgid "If you delete a note it is permanently lost."
 msgstr "Kui sa märkme kustutad, siis on see jäädavalt kadunud."
 
@@ -899,16 +805,16 @@ msgstr "Alusta siit"
 msgid "Using Links in Tomboy"
 msgstr "Viitade kasutamine Tomboy's"
 
-#: ../Tomboy/NoteManager.cs:299
+#: ../Tomboy/NoteManager.cs:303
 #, csharp-format
 msgid "New Note {0}"
 msgstr "Uus märge {0}"
 
-#: ../Tomboy/NoteManager.cs:345
+#: ../Tomboy/NoteManager.cs:364
 msgid "Describe your new note here."
 msgstr "Siia saad uue märkme kirjutada."
 
-#: ../Tomboy/NoteManager.cs:360
+#: ../Tomboy/NoteManager.cs:379
 msgid "New Note"
 msgstr "Uus märge"
 
@@ -956,14 +862,6 @@ msgstr "_Tekst"
 msgid "Set properties of text"
 msgstr "Teksti omaduste määramine"
 
-#: ../Tomboy/NoteWindow.cs:444 ../Tomboy/RecentChanges.cs:243
-msgid "Tags"
-msgstr "Sildid"
-
-#: ../Tomboy/NoteWindow.cs:445
-msgid "Add/Remove note tags"
-msgstr "Märkmetele siltide lisamine või eemaldamine"
-
 #: ../Tomboy/NoteWindow.cs:458
 msgid "T_ools"
 msgstr "Töö_riistad"
@@ -980,95 +878,99 @@ msgstr "Kustutamine"
 msgid "Delete this note"
 msgstr "Selle märkme kustutamine"
 
-#: ../Tomboy/NoteWindow.cs:510
+#: ../Tomboy/NoteWindow.cs:480 ../Tomboy/Synchronization/SyncManager.cs:158
+msgid "Synchronize Notes"
+msgstr ""
+
+#: ../Tomboy/NoteWindow.cs:523
 msgid "_Find..."
 msgstr "_Leia..."
 
-#: ../Tomboy/NoteWindow.cs:521 ../Tomboy/NoteWindow.cs:973
+#: ../Tomboy/NoteWindow.cs:534 ../Tomboy/NoteWindow.cs:988
 msgid "Find _Next"
 msgstr "Leia _järgmine"
 
-#: ../Tomboy/NoteWindow.cs:534
+#: ../Tomboy/NoteWindow.cs:547
 msgid "Find _Previous"
 msgstr "Leia _eelmine"
 
-#: ../Tomboy/NoteWindow.cs:629
+#: ../Tomboy/NoteWindow.cs:642
 msgid "Cannot create note"
 msgstr "Märget pole võimalik luua"
 
-#: ../Tomboy/NoteWindow.cs:712
-msgid "Tags:"
-msgstr "Sildid:"
-
-#: ../Tomboy/NoteWindow.cs:953
+#: ../Tomboy/NoteWindow.cs:968
 msgid "_Find:"
 msgstr "_Otsing:"
 
-#: ../Tomboy/NoteWindow.cs:964
+#: ../Tomboy/NoteWindow.cs:979
 msgid "_Previous"
 msgstr "_Eelmine"
 
-#: ../Tomboy/NoteWindow.cs:983
+#: ../Tomboy/NoteWindow.cs:998
 msgid "Case _sensitive"
 msgstr "_Tõstutundlik"
 
-#: ../Tomboy/NoteWindow.cs:1459
+#: ../Tomboy/NoteWindow.cs:1474
 msgid "_Bold"
 msgstr "_Rasvane"
 
-#: ../Tomboy/NoteWindow.cs:1471
+#: ../Tomboy/NoteWindow.cs:1486
 msgid "_Italic"
 msgstr "_Kursiiv"
 
-#: ../Tomboy/NoteWindow.cs:1483
+#: ../Tomboy/NoteWindow.cs:1498
 msgid "_Strikeout"
 msgstr "_Läbijoonitud"
 
-#: ../Tomboy/NoteWindow.cs:1495
+#: ../Tomboy/NoteWindow.cs:1510
 msgid "_Highlight"
 msgstr "_Esiletõstetud"
 
-#: ../Tomboy/NoteWindow.cs:1508
+#: ../Tomboy/NoteWindow.cs:1523
 msgid "Font Size"
 msgstr "Kirjatüübi suurus"
 
-#: ../Tomboy/NoteWindow.cs:1511
+#: ../Tomboy/NoteWindow.cs:1526
 msgid "_Normal"
 msgstr "_Tavaline"
 
-#: ../Tomboy/NoteWindow.cs:1518
+#: ../Tomboy/NoteWindow.cs:1533
 msgid "Hu_ge"
 msgstr "Vä_ga suur"
 
-#: ../Tomboy/NoteWindow.cs:1526
+#: ../Tomboy/NoteWindow.cs:1541
 msgid "_Large"
 msgstr "_Suur"
 
-#: ../Tomboy/NoteWindow.cs:1534
+#: ../Tomboy/NoteWindow.cs:1549
 msgid "S_mall"
 msgstr "_Väike"
 
-#: ../Tomboy/NoteWindow.cs:1545
+#: ../Tomboy/NoteWindow.cs:1560
 msgid "Bullets"
 msgstr "Mummud"
 
-#: ../Tomboy/PreferencesDialog.cs:69
+#: ../Tomboy/PreferencesDialog.cs:79
 msgid "Editing"
 msgstr "Redigeerimine"
 
-#: ../Tomboy/PreferencesDialog.cs:71
+#: ../Tomboy/PreferencesDialog.cs:81
 msgid "Hotkeys"
 msgstr "Kuumad klahvid"
 
-#: ../Tomboy/PreferencesDialog.cs:73
+#: ../Tomboy/PreferencesDialog.cs:83
+msgid "Synchronization"
+msgstr ""
+
+#: ../Tomboy/PreferencesDialog.cs:85
 msgid "Add-ins"
 msgstr "Lisad"
 
-#: ../Tomboy/PreferencesDialog.cs:116
+#: ../Tomboy/PreferencesDialog.cs:128
 msgid "_Spell check while typing"
 msgstr "Õi_gekirjakontroll sisestamise ajal"
 
-#: ../Tomboy/PreferencesDialog.cs:125
+#: ../Tomboy/PreferencesDialog.cs:137
 msgid ""
 "Misspellings will be underlined in red, with correct spelling suggestions "
 "shown in the context menu."
@@ -1077,11 +979,11 @@ msgstr ""
 "ja sõna kontekstimenüü sisaldab õigekirjakontrolli soovitusi."
 
 #. WikiWords...
-#: ../Tomboy/PreferencesDialog.cs:136
+#: ../Tomboy/PreferencesDialog.cs:148
 msgid "Highlight _WikiWords"
 msgstr "_WikiSõnad tõstetakse esile"
 
-#: ../Tomboy/PreferencesDialog.cs:144
+#: ../Tomboy/PreferencesDialog.cs:156
 msgid ""
 "Enable this option to highlight words <b>ThatLookLikeThis</b>. Clicking the "
 "word will create a note with that name."
@@ -1091,83 +993,119 @@ msgstr ""
 "pealkirjaks on klõpsatud sõna."
 
 #. Custom font...
-#: ../Tomboy/PreferencesDialog.cs:153
+#: ../Tomboy/PreferencesDialog.cs:165
 msgid "Use custom _font"
 msgstr ""
 
 #. Hotkeys...
-#: ../Tomboy/PreferencesDialog.cs:223
+#: ../Tomboy/PreferencesDialog.cs:235
 msgid "Listen for _Hotkeys"
 msgstr ""
 
-#: ../Tomboy/PreferencesDialog.cs:232
+#: ../Tomboy/PreferencesDialog.cs:244
 msgid ""
 "Hotkeys allow you to quickly access your notes from anywhere with a "
 "keypress. Example Hotkeys: <b>&lt;Control&gt;&lt;Shift&gt;F11</b>, <b>&lt;"
 "Alt&gt;N</b>"
 msgstr ""
 "Kuumad klavhid võimvaldavad sul enamikes olukordades märkmeid klahvivajutuse "
-"abil kärmelt avada. Näidie: <b>&lt;Control&gt;&lt;Shift&gt;F11</b>, "
-"<b>&lt;Alt&gt;N</b>"
+"abil kärmelt avada. Näidie: <b>&lt;Control&gt;&lt;Shift&gt;F11</b>, <b>&lt;"
+"Alt&gt;N</b>"
 
 #. Show notes menu keybinding...
-#: ../Tomboy/PreferencesDialog.cs:252
+#: ../Tomboy/PreferencesDialog.cs:264
 msgid "Show notes _menu"
 msgstr "Näite _märgete menüüd"
 
 #. Open Start Here keybinding...
-#: ../Tomboy/PreferencesDialog.cs:269
+#: ../Tomboy/PreferencesDialog.cs:281
 msgid "Open \"_Start Here\""
 msgstr "_Ava \"Alusta siit\""
 
 #. Create new note keybinding...
-#: ../Tomboy/PreferencesDialog.cs:286
+#: ../Tomboy/PreferencesDialog.cs:298
 msgid "Create _new note"
 msgstr "Loo uus _märge"
 
 #. Open Search All Notes window keybinding...
-#: ../Tomboy/PreferencesDialog.cs:303
+#: ../Tomboy/PreferencesDialog.cs:315
 msgid "Open \"Search _All Notes\""
 msgstr ""
 
-#: ../Tomboy/PreferencesDialog.cs:329
+#: ../Tomboy/PreferencesDialog.cs:342
+msgid "Service:"
+msgstr "Teenus:"
+
+#: ../Tomboy/PreferencesDialog.cs:393 ../Tomboy/PreferencesDialog.cs:827
+msgid "Not configurable"
+msgstr "Pole seadistatav"
+
+#: ../Tomboy/PreferencesDialog.cs:455
 msgid "The following add-ins are installed"
 msgstr "Need lisad on paigaldatud"
 
-#: ../Tomboy/PreferencesDialog.cs:360
+#: ../Tomboy/PreferencesDialog.cs:486
 msgid "_Enable"
 msgstr "_Luba"
 
-#: ../Tomboy/PreferencesDialog.cs:366
+#: ../Tomboy/PreferencesDialog.cs:492
 msgid "_Disable"
 msgstr "_Keela"
 
-#: ../Tomboy/PreferencesDialog.cs:497
+#: ../Tomboy/PreferencesDialog.cs:623
 msgid "Not Implemented"
 msgstr "Pole teostatud"
 
-#: ../Tomboy/PreferencesDialog.cs:511
+#: ../Tomboy/PreferencesDialog.cs:637
 #, csharp-format
 msgid "{0} Preferences"
 msgstr "{0} - eelistused"
 
-#: ../Tomboy/PreferencesDialog.cs:650
+#: ../Tomboy/PreferencesDialog.cs:776
 msgid "Choose Note Font"
 msgstr "Märkme kirjatüübi valimine"
 
-#: ../Tomboy/PreferencesDialog.cs:743
+#: ../Tomboy/PreferencesDialog.cs:853
+msgid "WARNING: Are you sure?"
+msgstr "HOIATUS: Oled sa kindel?"
+
+#: ../Tomboy/PreferencesDialog.cs:855
+msgid ""
+"Clearing your synchronization settings is not recommended.  You may be "
+"forced to synchronize all of your notes again when you save new settings."
+msgstr ""
+
+#: ../Tomboy/PreferencesDialog.cs:928
+msgid "Success! You're connected!"
+msgstr "Ühendus edukalt loodud!"
+
+#: ../Tomboy/PreferencesDialog.cs:930
+msgid "Tomboy is ready to synchronize your notes."
+msgstr "Tomboy on valmis Sinu märkmeid sünkroniseerima."
+
+#: ../Tomboy/PreferencesDialog.cs:953
+msgid "Error connecting :("
+msgstr "Viga ühendumisel :("
+
+#: ../Tomboy/PreferencesDialog.cs:955
+msgid ""
+"Sorry, but something went wrong.  Please check your information and try "
+"again.  The ~/.tomboy.log might be useful too."
+msgstr ""
+
+#: ../Tomboy/PreferencesDialog.cs:1021
 msgid "Version:"
 msgstr "Versioon:"
 
-#: ../Tomboy/PreferencesDialog.cs:750
+#: ../Tomboy/PreferencesDialog.cs:1028
 msgid "Author:"
 msgstr "Autor:"
 
-#: ../Tomboy/PreferencesDialog.cs:757
+#: ../Tomboy/PreferencesDialog.cs:1035
 msgid "Copyright:"
 msgstr "Autoriõigus:"
 
-#: ../Tomboy/PreferencesDialog.cs:763
+#: ../Tomboy/PreferencesDialog.cs:1041
 msgid "Add-in Dependencies:"
 msgstr "Lisa sõltuvused:"
 
@@ -1183,53 +1121,53 @@ msgstr "_Otsing:"
 msgid "C_ase Sensitive"
 msgstr "_Tõstutundlik"
 
-#: ../Tomboy/RecentChanges.cs:293
+#: ../Tomboy/RecentChanges.cs:296
 msgid "Note"
 msgstr "Märge"
 
-#: ../Tomboy/RecentChanges.cs:312
+#: ../Tomboy/RecentChanges.cs:315
 msgid "Last Changed"
 msgstr "Viimati muudetud"
 
-#: ../Tomboy/RecentChanges.cs:370 ../Tomboy/RecentChanges.cs:526
+#: ../Tomboy/RecentChanges.cs:373 ../Tomboy/RecentChanges.cs:529
 #, csharp-format
 msgid "Total: {0} note"
 msgid_plural "Total: {0} notes"
 msgstr[0] "Kokku: {0} märge"
 msgstr[1] "Kokku: {0} märget"
 
-#: ../Tomboy/RecentChanges.cs:460
+#: ../Tomboy/RecentChanges.cs:463
 msgid "Matches"
 msgstr "Vastavused"
 
-#: ../Tomboy/RecentChanges.cs:512 ../Tomboy/RecentChanges.cs:532
+#: ../Tomboy/RecentChanges.cs:515 ../Tomboy/RecentChanges.cs:535
 #, csharp-format
 msgid "{0} match"
 msgid_plural "{0} matches"
 msgstr[0] "{0} vastavus"
 msgstr[1] "{0} vastavust"
 
-#: ../Tomboy/Tomboy.cs:188
+#: ../Tomboy/Tomboy.cs:194
 msgid "Cannot create new note"
 msgstr "Uut märget pole võimalik luua"
 
-#: ../Tomboy/Tomboy.cs:243
+#: ../Tomboy/Tomboy.cs:265
 msgid "translator-credits"
 msgstr "Ivar Smolin <okul@linux.ee>, 2006, 2007."
 
-#: ../Tomboy/Tomboy.cs:252
+#: ../Tomboy/Tomboy.cs:274
 msgid "Copyright © 2004-2007 Alex Graveley"
 msgstr "Autoriõigused © 2004-2007 Alex Graveley"
 
-#: ../Tomboy/Tomboy.cs:253
+#: ../Tomboy/Tomboy.cs:275
 msgid "A simple and easy to use desktop note-taking application."
 msgstr "Lihtne ja kergestikasutatav märkmete tegemise programm."
 
-#: ../Tomboy/Tomboy.cs:256
+#: ../Tomboy/Tomboy.cs:278
 msgid "Homepage"
 msgstr "Koduleht"
 
-#: ../Tomboy/Tomboy.cs:342
+#: ../Tomboy/Tomboy.cs:369
 msgid ""
 "Tomboy: A simple, easy to use desktop note-taking application.\n"
 "Copyright (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
@@ -1239,7 +1177,7 @@ msgstr ""
 "Autoriõigused (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
 "\n"
 
-#: ../Tomboy/Tomboy.cs:354
+#: ../Tomboy/Tomboy.cs:381
 msgid ""
 "Usage:\n"
 "  --version\t\t\tPrint version information.\n"
@@ -1255,7 +1193,7 @@ msgstr ""
 "  --search [tekst]\t\tKõikidest märkmetest otsimise akna avamine koos "
 "määratud otsingutekstiga.\n"
 
-#: ../Tomboy/Tomboy.cs:365
+#: ../Tomboy/Tomboy.cs:392
 msgid ""
 "  --new-note\t\t\tCreate and display a new note.\n"
 "  --new-note [title]\t\tCreate and display a new note, with a title.\n"
@@ -1277,16 +1215,16 @@ msgstr ""
 #. Catalog.GetString (
 #. "  --check-plugin-unloading\tCheck if plugins are " +
 #. "unloaded properly.\n");
-#: ../Tomboy/Tomboy.cs:382
+#: ../Tomboy/Tomboy.cs:409
 msgid "D-BUS remote control disabled.\n"
 msgstr "D-BUS kaugjuhtimine on keelatud.\n"
 
-#: ../Tomboy/Tomboy.cs:390
+#: ../Tomboy/Tomboy.cs:417
 #, csharp-format
 msgid "Version {0}"
 msgstr "Versioon {0}"
 
-#: ../Tomboy/Tomboy.cs:460
+#: ../Tomboy/Tomboy.cs:487
 #, csharp-format
 msgid ""
 "Tomboy: unsupported option '{0}'\n"
@@ -1385,12 +1323,12 @@ msgstr "d. MMMM yyyy, h:mm tt"
 msgid "MMMM d yyyy"
 msgstr "d. MMMM yyyy"
 
-#: ../Tomboy/Watchers.cs:137
+#: ../Tomboy/Watchers.cs:149
 #, csharp-format
 msgid "(Untitled {0})"
 msgstr "(Pealkirjata {0})"
 
-#: ../Tomboy/Watchers.cs:169
+#: ../Tomboy/Watchers.cs:183
 #, csharp-format
 msgid ""
 "A note with the title <b>{0}</b> already exists. Please choose another name "
@@ -1399,18 +1337,318 @@ msgstr ""
 "Märge pealkirjaga <b>{0}</b> on juba olemas. Enne jätkamist vali sellele "
 "märkmele mõni muu pealkiri."
 
-#: ../Tomboy/Watchers.cs:181
+#: ../Tomboy/Watchers.cs:195
 msgid "Note title taken"
 msgstr "Pealkiri on juba kasutusel"
 
-#: ../Tomboy/Watchers.cs:424
+#: ../Tomboy/Watchers.cs:438
 msgid "Cannot open location"
 msgstr "Asukohta pole võimalik avada"
 
-#: ../Tomboy/Watchers.cs:518
+#: ../Tomboy/Watchers.cs:532
 msgid "_Copy Link Address"
 msgstr "_Kopeeri viida aadress"
 
-#: ../Tomboy/Watchers.cs:523
+#: ../Tomboy/Watchers.cs:537
 msgid "_Open Link"
 msgstr "_Ava viit"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:90
+msgid "Note Title"
+msgstr "Märkme pealkiri"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:97
+msgid "Status"
+msgstr "Olek"
+
+#. Drop all that into into the Expander
+#: ../Tomboy/Synchronization/SyncDialog.cs:116
+msgid "Details"
+msgstr "Üksikasjad"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:234
+msgid "Acquiring sync lock..."
+msgstr ""
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:237
+msgid "Committing changes..."
+msgstr "Muudatuste rakendamine..."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:240
+msgid "Synchronizing Notes"
+msgstr ""
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:241
+msgid "Synchronizing your notes..."
+msgstr "Märkmete sünkroniseerimine..."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:242
+msgid "This may take a while, kick back and enjoy!"
+msgstr ""
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:244
+msgid "Connecting to the server..."
+msgstr "Ühendumine serverisse..."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:250
+msgid "Deleting notes off of the server..."
+msgstr "Märkmete kustutamine serverist..."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:254
+msgid "Downloading new/updated notes..."
+msgstr "Uute või värskendatud märkmete allalaadimine..."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:266
+msgid "Server Locked"
+msgstr "Server on lukus"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:267
+msgid "Server is locked"
+msgstr "Server on lukus"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:268
+msgid ""
+"One of your other computers is currently synchronizing.  Please wait and try "
+"again."
+msgstr ""
+"Üks sinu arvutitest tegeleb parasjagu sünkroniseerimisega.  Palun oota veidi "
+"ja proovi siis uuesti."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:272
+msgid "Preparing to download updates from server..."
+msgstr "Ettevalmistused uuenduste serverist allalaadimiseks..."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:275
+msgid "Preparing to upload updates to server..."
+msgstr "Ettevalmistused uuenduste serverisse üleslaadimiseks..."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:278
+msgid "Uploading notes to server..."
+msgstr "Märkmete üleslaadimine serverisse..."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:281
+msgid "Synchronization Failed"
+msgstr ""
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:282
+msgid "Failed to synchronize"
+msgstr ""
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:283
+msgid "Could not synchronize notes.  Check the details below and try again."
+msgstr ""
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:287
+msgid "Synchronization Complete"
+msgstr ""
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:288
+msgid "Synchronization is complete"
+msgstr ""
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:289
+msgid "Your notes are up to date.  See the details below or close the window."
+msgstr ""
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:293
+msgid "Synchronization Canceled"
+msgstr ""
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:294
+msgid "Synchronization was canceled"
+msgstr "Sünkroniseerimine katkestati"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:295
+msgid "You canceled the synchronization.  You may close the window now."
+msgstr ""
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:299
+msgid "Synchronization Not Configured"
+msgstr ""
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:300
+msgid "Synchronization is not configured"
+msgstr ""
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:301
+msgid "Please configure synchronization in the preferences dialog."
+msgstr ""
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:305
+msgid "Synchronization Service Error"
+msgstr "Sünkroniseerimisteenuse viga"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:306
+msgid "Service error"
+msgstr "Teenuse viga"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:307
+msgid "Error connecting to the synchronization service.  Please try again."
+msgstr "Viga sünkroniseerimisteenusega ühendumisel.  Palun proovi uuesti."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:323
+msgid "Deleting from local copy"
+msgstr ""
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:326
+msgid "Deleting from server"
+msgstr ""
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:329
+msgid "Downloading updates from server"
+msgstr "Uuenduste serverist allalaadimine"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:332
+msgid "Downloading new note from server"
+msgstr "Uue märkme serverist allalaadimine"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:335
+msgid "Uploading changes to server"
+msgstr "Muudatuste serverisse üleslaadimine"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:338
+msgid "Uploading new note to server"
+msgstr "Uue märkme serverisse üleslaadimine"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:470
+msgid "Note Conflict"
+msgstr "Märkmete vastuolu"
+
+#. Suggest renaming note by appending " (old)" to the existing title
+#: ../Tomboy/Synchronization/SyncDialog.cs:474
+msgid " (old)"
+msgstr " (vana)"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:513
+msgid "Rename local note:"
+msgstr ""
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:519
+msgid "Update links in referencing notes"
+msgstr ""
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:526
+msgid "Overwrite local note"
+msgstr ""
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:530
+msgid "Always perform this action"
+msgstr ""
+
+#. Set initial dialog text
+#: ../Tomboy/Synchronization/SyncDialog.cs:537
+msgid "Note conflict detected"
+msgstr ""
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:538
+#, csharp-format
+msgid ""
+"The server version of \"{0}\" conflicts with your local note.  What do you "
+"want to do with your local note?"
+msgstr ""
+
+#: ../Tomboy/Synchronization/SyncManager.cs:156
+msgid "_Tools"
+msgstr "_Tööriistad"
+
+#: ../Tomboy/Synchronization/SyncUtils.cs:151
+msgid "Enable FUSE?"
+msgstr "Kas lubada FUSE?"
+
+#: ../Tomboy/Synchronization/SyncUtils.cs:153
+msgid ""
+"The synchronization you've chosen requires the FUSE module to be loaded.\n"
+"\n"
+"To avoid getting this prompt in the future, you should load FUSE at "
+"startup.  Add \"modprobe fuse\" to /etc/init.d/boot.local or \"fuse\" to /"
+"etc/modules."
+msgstr ""
+
+#~ msgid "To Do List"
+#~ msgstr "Tehaolevate asjade nimekiri"
+
+#~ msgid "New _Task"
+#~ msgstr "Uus ü_lesanne"
+
+#~ msgid "Create a new task"
+#~ msgstr "Uue ülesande loomine"
+
+#~ msgid "_Options..."
+#~ msgstr "_Valikud..."
+
+#~ msgid "Open the selected task"
+#~ msgstr "Valitud ülesande avamine"
+
+#~ msgid "Delete the selected task"
+#~ msgstr "Valitud ülesande kustutamine"
+
+#~ msgid "Open Associated _Note"
+#~ msgstr "Ava _seotud märge"
+
+#~ msgid "Open the note containing the task"
+#~ msgstr "Ülesannet sisaldava märkme avamine"
+
+#~ msgid "Summary"
+#~ msgstr "Kokkuvõte"
+
+#~ msgid "Due Date"
+#~ msgstr "Tähtaeg"
+
+#~ msgid "Completion Date"
+#~ msgstr "Valmimise aeg"
+
+#~ msgid "Priority"
+#~ msgstr "Tähtus"
+
+#~ msgid "None"
+#~ msgstr "Puudub"
+
+#~ msgid "Low"
+#~ msgstr "Madal"
+
+#~ msgid "Normal"
+#~ msgstr "Tavaline"
+
+#~ msgid "High"
+#~ msgstr "Kõrge"
+
+#~ msgid "Total: {0} task"
+#~ msgid_plural "Total: {0} tasks"
+#~ msgstr[0] "Kokku: {0} ülesanne"
+#~ msgstr[1] "Kokku: {0} ülesannet"
+
+#~ msgid "New Task {0}"
+#~ msgstr "Uus ülesanne {0}"
+
+#~ msgid "Really delete this task?"
+#~ msgstr "Kas kustutada see ülesanne?"
+
+#~ msgid "If you delete a task it is permanently lost."
+#~ msgstr "Kui sa ülesande kustutad, siis on see jäädavalt kadunud."
+
+#~ msgid "Task Options"
+#~ msgstr "Ülesande valikud"
+
+#~ msgid "_Summary:"
+#~ msgstr "_Kokkuvõte:"
+
+#~ msgid "Due Date:"
+#~ msgstr "Tähtaeg:"
+
+#~ msgid "Priority:"
+#~ msgstr "Tähtsus:"
+
+#~ msgid "Open To Do List"
+#~ msgstr "Tehaolevate asjade nimekirja avamine"
+
+#~ msgid "To Do Options"
+#~ msgstr "Tehaolevate asjade valikud"
+
+#~ msgid "Tags"
+#~ msgstr "Sildid"
+
+#~ msgid "Add/Remove note tags"
+#~ msgstr "Märkmetele siltide lisamine või eemaldamine"
+
+#~ msgid "Tags:"
+#~ msgstr "Sildid:"
