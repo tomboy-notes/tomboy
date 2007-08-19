@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tomboy trunk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-07-20 23:19+0900\n"
-"PO-Revision-Date: 2007-07-20 23:18+0900\n"
+"POT-Creation-Date: 2007-08-19 22:53+0900\n"
+"PO-Revision-Date: 2007-08-19 21:52+0900\n"
 "Last-Translator: Takeshi AIHANA <takeshi.aihana@gmail.com>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
 "MIME-Version: 1.0\n"
@@ -39,7 +39,7 @@ msgid "_About"
 msgstr "情報(_A)"
 
 #: ../data/GNOME_TomboyApplet.xml.h:2 ../Tomboy/ActionManager.cs:93
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:105 ../Tomboy/Applet.cs:186
+#: ../Tomboy/Applet.cs:186
 msgid "_Help"
 msgstr "ヘルプ(_H)"
 
@@ -105,8 +105,8 @@ msgid ""
 "If enable_custom_font is true, the font name set here will be used as the "
 "font when displaying notes."
 msgstr ""
-"enable_custom_font が TRUE の場合、メモを表示するときに、ここにセットしたフォ"
-"ント名を使用します。"
+"enable_custom_font が TRUE の場合、メモを表示する際に、ここで指定したフォント"
+"を使用します。"
 
 #: ../data/tomboy.schemas.in.h:13
 msgid ""
@@ -156,42 +156,75 @@ msgid ""
 msgstr "Tomboy のメニューの中に表示するメモの個数 (最小値) を表す整数値です。"
 
 #: ../data/tomboy.schemas.in.h:19
-msgid "List of pinned notes."
-msgstr "画びょう付きのメモの一覧"
+msgid ""
+"Integer value indicating if there is a preference to always perform a "
+"specific behavior when a conflict is detected, instead of prompting the "
+"user. The values map to an internal enumeration. 0 indicates that the user "
+"wishes to be prompted when a conflict occurs, so that they may handle each "
+"conflict situation on a case-by-case basis."
+msgstr ""
+"メモの内容に矛盾が発生した際に実施する対応法を表した整数値です。0 は矛盾が発"
+"生した時にユーザに問い合わせを行います。"
 
 #: ../data/tomboy.schemas.in.h:20
+msgid "List of pinned notes."
+msgstr "画鋲付きのメモの一覧"
+
+#: ../data/tomboy.schemas.in.h:21
 msgid "Minimum number of notes to show in menu"
 msgstr "メニューに表示するメモの最小数"
 
-#: ../data/tomboy.schemas.in.h:21
+#: ../data/tomboy.schemas.in.h:22
+msgid "Note Synchronization Conflict Saved Behavior"
+msgstr "メモの同期で矛盾が発生した時の対応"
+
+#: ../data/tomboy.schemas.in.h:23
 msgid "Open Recent Changes"
 msgstr "\"現在の変更\" を開く"
 
-#: ../data/tomboy.schemas.in.h:22
+#: ../data/tomboy.schemas.in.h:24
 msgid "Open Search Dialog"
 msgstr "\"検索ダイアログ\" を開く"
 
-#: ../data/tomboy.schemas.in.h:23
+#: ../data/tomboy.schemas.in.h:25
 msgid "Open Start Here"
 msgstr "\"ここから開始\" を開く"
 
-#: ../data/tomboy.schemas.in.h:24
+#: ../data/tomboy.schemas.in.h:26
+msgid ""
+"Path to the synchronization server when using the filesystem synchronization "
+"service addin."
+msgstr "ファイルシステムの同期サービスで使用するサーバのパスです。"
+
+#: ../data/tomboy.schemas.in.h:27
+msgid "Selected Synchronization Service Addin"
+msgstr "選択した同期サービスのプラグイン"
+
+#: ../data/tomboy.schemas.in.h:28
 msgid "Set to TRUE to activate"
 msgstr "有効にする場合は TRUE にする"
 
-#: ../data/tomboy.schemas.in.h:25
+#: ../data/tomboy.schemas.in.h:29
 msgid "Show applet menu"
 msgstr "アプレット・メニューの表示"
 
-#: ../data/tomboy.schemas.in.h:26
+#: ../data/tomboy.schemas.in.h:30
 msgid "Start Here Note"
 msgstr "ここから開始のメモ"
 
-#: ../data/tomboy.schemas.in.h:27
+#: ../data/tomboy.schemas.in.h:31
 msgid "Sticky Note Importer First Run"
 msgstr "初回起動時に付箋紙アプレットのインポートを行う"
 
-#: ../data/tomboy.schemas.in.h:28
+#: ../data/tomboy.schemas.in.h:32
+msgid "Synchronization Client ID"
+msgstr "同期クライアントの ID"
+
+#: ../data/tomboy.schemas.in.h:33
+msgid "Synchronization Local Server Path"
+msgstr "同期するローカルのサーバへのパス"
+
+#: ../data/tomboy.schemas.in.h:34
 msgid ""
 "The global keybinding for creating and displaying a new Note. The format "
 "looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The "
@@ -207,7 +240,7 @@ msgstr ""
 "て特殊な文字列 \"disabled\" を指定すると、このアクションに対するキーの割り当"
 "ては行われません。"
 
-#: ../data/tomboy.schemas.in.h:29
+#: ../data/tomboy.schemas.in.h:35
 msgid ""
 "The global keybinding for opening the \"Start Here\" note. The format looks "
 "like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
@@ -223,7 +256,7 @@ msgstr ""
 "て特殊な文字列 \"disabled\" を指定すると、このアクションに対するキーの割り当"
 "ては行われません。"
 
-#: ../data/tomboy.schemas.in.h:30
+#: ../data/tomboy.schemas.in.h:36
 msgid ""
 "The global keybinding for opening the Note Search dialog. The format looks "
 "like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
@@ -239,7 +272,7 @@ msgstr ""
 "として特殊な文字列 \"disabled\" を指定すると、このアクションに対するキーの割"
 "り当ては行われません。"
 
-#: ../data/tomboy.schemas.in.h:31
+#: ../data/tomboy.schemas.in.h:37
 msgid ""
 "The global keybinding for opening the Recent Changes dialog. The format "
 "looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The "
@@ -255,7 +288,7 @@ msgstr ""
 "として特殊な文字列 \"disabled\" を指定すると、このアクションに対するキーの割"
 "り当ては行われません"
 
-#: ../data/tomboy.schemas.in.h:32
+#: ../data/tomboy.schemas.in.h:38
 msgid ""
 "The global keybinding for showing the Tomboy applet's menu. The format looks "
 "like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
@@ -271,18 +304,18 @@ msgstr ""
 "す。オプションとして特殊な文字列 \"disabled\" を指定すると、このアクションに"
 "対するキーの割り当ては行われません"
 
-#: ../data/tomboy.schemas.in.h:33
+#: ../data/tomboy.schemas.in.h:39
 msgid "The handler for \"note://\" URLs"
 msgstr "URI \"note://\" で使用するハンドラ"
 
-#: ../data/tomboy.schemas.in.h:34
+#: ../data/tomboy.schemas.in.h:40
 msgid ""
 "The last directory a note was exported to using the Export To HTML plugin."
 msgstr ""
 "\"HTMLのエキスポート\" プラグインを使って、最後にエキスポートしたメモの HTML "
 "を格納したフォルダです。"
 
-#: ../data/tomboy.schemas.in.h:35
+#: ../data/tomboy.schemas.in.h:41
 msgid ""
 "The last setting for the 'Export linked notes' checkbox in the Export to "
 "HTML plugin."
@@ -290,7 +323,7 @@ msgstr ""
 "\"HTML へエキスポート\" プラグインの \"メモのエキスポート\" で最後に設定した"
 "チェックボックスの状態です。"
 
-#: ../data/tomboy.schemas.in.h:36
+#: ../data/tomboy.schemas.in.h:42
 msgid ""
 "The last setting for the 'Include all other linked notes' checkbox in the "
 "Export to HTML plugin. This setting is used in conjunction with the 'HTML "
@@ -302,7 +335,7 @@ msgstr ""
 "HTML にエキスポートする\" 設定と連動して、(再帰的に検出した) メモを全て HTML "
 "形式にエキスポートするかどうかを指定する際に使用します。"
 
-#: ../data/tomboy.schemas.in.h:37
+#: ../data/tomboy.schemas.in.h:43
 msgid ""
 "The note URI of the note that should be considered the \"Start Here\" note, "
 "which is always placed at the bottom of the Tomboy note menu and also "
@@ -312,7 +345,21 @@ msgstr ""
 "ニューの最下位に表示されるようになっており、ホットキーでアクセスできるように"
 "なっています。"
 
-#: ../data/tomboy.schemas.in.h:38
+#: ../data/tomboy.schemas.in.h:44
+msgid ""
+"Unique identifier for the currently configured note synchronization service "
+"addin."
+msgstr "メモの同期サービス・プラグインで現在設定している重複しない識別子です。"
+
+#: ../data/tomboy.schemas.in.h:45
+msgid ""
+"Unique identifier for this Tomboy client, used when communicating with a "
+"sychronization server."
+msgstr ""
+"Tomboy クライアントを識別する重複しない ID です (サーバと同期する際に使用しま"
+"す)。"
+
+#: ../data/tomboy.schemas.in.h:46
 msgid ""
 "Whitespace-separated list of note URIs for notes that should always appear "
 "in the Tomboy note menu."
@@ -364,7 +411,7 @@ msgstr "バージョン"
 msgid "Other"
 msgstr "その他"
 
-#: ../Tomboy/ActionManager.cs:63 ../Tomboy/Addins/Tasks/TaskListWindow.cs:79
+#: ../Tomboy/ActionManager.cs:63
 msgid "_File"
 msgstr "ファイル(_F)"
 
@@ -384,7 +431,7 @@ msgstr "開く(_O)..."
 msgid "Open the selected note"
 msgstr "選択したメモを開きます"
 
-#: ../Tomboy/ActionManager.cs:74 ../Tomboy/Addins/Tasks/TaskListWindow.cs:97
+#: ../Tomboy/ActionManager.cs:74
 msgid "_Delete"
 msgstr "削除(_D)"
 
@@ -392,12 +439,11 @@ msgstr "削除(_D)"
 msgid "Delete the selected note"
 msgstr "選択したメモを削除します"
 
-#: ../Tomboy/ActionManager.cs:78 ../Tomboy/Addins/Tasks/TaskListWindow.cs:90
-#: ../Tomboy/NoteWindow.cs:374
+#: ../Tomboy/ActionManager.cs:78 ../Tomboy/NoteWindow.cs:374
 msgid "_Close"
 msgstr "閉じる(_C)"
 
-#: ../Tomboy/ActionManager.cs:79 ../Tomboy/Addins/Tasks/TaskListWindow.cs:91
+#: ../Tomboy/ActionManager.cs:79
 msgid "Close this window"
 msgstr "このウィンドウを閉じます"
 
@@ -409,15 +455,15 @@ msgstr "終了(_Q)"
 msgid "Quit Tomboy"
 msgstr "Tomboy を終了します"
 
-#: ../Tomboy/ActionManager.cs:86 ../Tomboy/Addins/Tasks/TaskListWindow.cs:94
+#: ../Tomboy/ActionManager.cs:86
 msgid "_Edit"
 msgstr "編集(_E)"
 
-#: ../Tomboy/ActionManager.cs:90 ../Tomboy/PreferencesDialog.cs:51
+#: ../Tomboy/ActionManager.cs:90 ../Tomboy/PreferencesDialog.cs:65
 msgid "Tomboy Preferences"
 msgstr "Tomboy の設定"
 
-#: ../Tomboy/ActionManager.cs:96 ../Tomboy/Addins/Tasks/TaskListWindow.cs:108
+#: ../Tomboy/ActionManager.cs:96
 msgid "_Contents"
 msgstr "目次(_C)"
 
@@ -445,9 +491,17 @@ msgstr "全てのメモの検索(_S)"
 msgid "Open the Search All Notes window"
 msgstr "\"全てのメモの検索\" ウィンドウを開きます"
 
+#: ../Tomboy/ActionManager.cs:115
+msgid "S_ynchronize Notes"
+msgstr "メモの同期(_Y)"
+
+#: ../Tomboy/ActionManager.cs:116
+msgid "Start synchronizing notes"
+msgstr "メモの同期を開始します"
+
 #: ../Tomboy/Addins/Backlinks/BacklinksNoteAddin.cs:25
 msgid "What links here?"
-msgstr "ここにあるリンク"
+msgstr "このメモのリンク元"
 
 #: ../Tomboy/Addins/Backlinks/BacklinksNoteAddin.cs:83
 msgid "(none)"
@@ -545,6 +599,22 @@ msgstr "その他のリンク付きメモを全て含める"
 msgid "Cannot open email"
 msgstr "E-メールを開けません"
 
+#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:89
+msgid "Folder Path:"
+msgstr "フォルダのパス: "
+
+#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:98
+msgid "Browse..."
+msgstr "参照..."
+
+#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:116
+msgid "Select Synchronization Folder..."
+msgstr "同期するフォルダの選択..."
+
+#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:196
+msgid "Local Folder"
+msgstr "ローカルのフォルダ"
+
 #: ../Tomboy/Addins/FixedWidth/FixedWidthMenuItem.cs:14
 msgid "_Fixed Width"
 msgstr "固定幅(_F)"
@@ -596,6 +666,32 @@ msgstr ""
 msgid "_Open Today: Template"
 msgstr "今日: テンプレートを開く(_O)"
 
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:41
+msgid "Server:"
+msgstr "サーバ: "
+
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:49
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:59
+msgid "Username:"
+msgstr "ユーザ名: "
+
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:57
+msgid "Folder Path (optional):"
+msgstr "フォルダ (オプション): "
+
+#. Text for label describing setup required for SSH sync addin to work
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:66
+msgid ""
+"SSH synchronization requires an existing SSH key for this server and user, "
+"added to a running SSH daemon."
+msgstr ""
+"SSH による同期を行うには、予め実行中の SSH デーモンに追加しておいたユーザ名と"
+"鍵が必要です。"
+
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:133
+msgid "SSH (sshfs FUSE)"
+msgstr "SSH (sshfs FUSE)"
+
 #: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:50
 msgid "Import from Sticky Notes"
 msgstr "付箋紙のインポート"
@@ -627,203 +723,27 @@ msgstr "タイトルなし"
 msgid "Sticky Note: "
 msgstr "付箋紙: "
 
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:65
-#: ../Tomboy/Addins/Tasks/TasksApplicationAddin.cs:55
-msgid "To Do List"
-msgstr "ToDo の一覧"
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:51
+msgid "URL:"
+msgstr "URL: "
 
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:82
-msgid "New _Task"
-msgstr "新しいタスク(_T)"
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:67
+msgid "Password:"
+msgstr "パスワード: "
 
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:83
-msgid "Create a new task"
-msgstr "新しいタスクを作成します"
-
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:86
-msgid "_Options..."
-msgstr "オプション(_O)..."
-
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:87
-msgid "Open the selected task"
-msgstr "選択したタスクを開きます"
-
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:98
-msgid "Delete the selected task"
-msgstr "選択したタスクを削除します"
-
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:101
-msgid "Open Associated _Note"
-msgstr "関連するメモを開く(_N)"
-
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:102
-msgid "Open the note containing the task"
-msgstr "タスクにリンクしているメモを開きます"
-
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:109
-msgid "Tasks Help"
-msgstr "タスクのヘルプ"
-
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:244
-msgid "Summary"
-msgstr "概要"
-
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:268
-msgid "Due Date"
-msgstr "期日"
-
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:290
-msgid "Completion Date"
-msgstr "完了日"
-
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:311
-msgid "Priority"
-msgstr "優先度"
-
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:324
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:416
-#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:164
-msgid "None"
-msgstr "なし"
-
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:325
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:407
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:902
-#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:165
-msgid "Low"
-msgstr "低い"
-
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:326
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:410
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:904
-#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:166
-msgid "Normal"
-msgstr "ふつう"
-
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:327
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:413
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:906
-#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:167
-msgid "High"
-msgstr "高い"
-
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:433
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:442
-#, csharp-format
-msgid "Total: {0} task"
-msgid_plural "Total: {0} tasks"
-msgstr[0] "合計: {0}個のタスク"
-msgstr[1] "合計: {0}個のタスク"
-
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:601
-#, csharp-format
-msgid "New Task {0}"
-msgstr "新しいタスク {0}"
-
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:826
-msgid "Really delete this task?"
-msgstr "このタスクを本当に削除してもよろしいですか？"
-
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:827
-msgid "If you delete a task it is permanently lost."
-msgstr "タスクを削除すると、その内容が完全に無くなります。"
-
-#: ../Tomboy/Addins/Tasks/TaskManager.cs:216
-msgid "Learn About Tomboy"
-msgstr "Tomboy について学ぶ"
-
-#: ../Tomboy/Addins/Tasks/TaskManager.cs:219
-msgid ""
-"Click on the Tomboy icon in your panel and select \"Start Here\".  You'll "
-"see more instructions on how to use Tomboy inside the \"Start Here\" note.\n"
-"\n"
-"When you've opened the \"Start Here\" note, mark this task as being complete."
-msgstr ""
-"パネルの中にある Tomboy のアイコンをクリックして \"ここから開始\" というアイ"
-"テムを選択して下さい。この \"ここから開始\" というメモの中には Tomboy の使い"
-"方の説明があります。\n"
-"\n"
-"\"ここから開始\" というメモを開くことができたら、このタスクは完了です。"
-
-#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:34
-msgid "Task Options"
-msgstr "タスクのオプション"
-
-#. Gtk.Label l = new Gtk.Label (
-#. string.Format (
-#. "<span weight=\"bold\">{0}</span>",
-#. Catalog.GetString ("Task Options")));
-#. l.UseMarkup = true;
-#. l.Show ();
-#. vbox.PackStart (l, false, false, 0);
-#. /
-#. / Summary
-#. /
-#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:70
-msgid "_Summary:"
-msgstr "概要(_S):"
-
-#. /
-#. / Details
-#. /
-#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:84
-msgid "_Details:"
-msgstr "詳細(_D):"
-
-#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:108
-#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:272
-msgid "_Completed:"
-msgstr "完了日(_C):"
-
-#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:109
-#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:275
-msgid "_Complete"
-msgstr "完了した(_C)"
-
-#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:132
-msgid "Due Date:"
-msgstr "期日:"
-
-#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:156
-msgid "Priority:"
-msgstr "優先度:"
-
-#: ../Tomboy/Addins/Tasks/TasksApplicationAddin.cs:53
-msgid "_Tools"
-msgstr "ツール(_T)"
-
-#: ../Tomboy/Addins/Tasks/TasksNoteAddin.cs:37
-#: ../Tomboy/Addins/Tasks/TasksNoteAddin.cs:170
-#: ../Tomboy/Addins/Tasks/TasksNoteAddin.cs:247
-#: ../Tomboy/Addins/Tasks/TasksNoteAddin.cs:351
-msgid "todo"
-msgstr "todo"
-
-#: ../Tomboy/Addins/Tasks/TasksNoteAddin.cs:453
-msgid "Open To Do List"
-msgstr "ToDO の一覧を開く"
-
-#: ../Tomboy/Addins/Tasks/TasksNoteAddin.cs:458
-msgid "To Do Options"
-msgstr "ToDo のオプション"
-
-#: ../Tomboy/Addins/Tasks/TasksNoteAddin.cs:466
-msgid "Mark Undone"
-msgstr "未完マークを付与する"
-
-#: ../Tomboy/Addins/Tasks/TasksNoteAddin.cs:467
-msgid "Mark Complete"
-msgstr "完了マークを付与する"
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:129
+msgid "WebDAV (wdfs FUSE)"
+msgstr "WebDAV (wdfs FUSE)"
 
 #: ../Tomboy/Applet.cs:191
 msgid "_About Tomboy"
 msgstr "Tomboy について(_A)"
 
-#: ../Tomboy/Note.cs:1143
+#: ../Tomboy/Note.cs:1193
 msgid "Really delete this note?"
 msgstr "このメモを本当に削除してもよろしいですか？"
 
-#: ../Tomboy/Note.cs:1144
+#: ../Tomboy/Note.cs:1194
 msgid "If you delete a note it is permanently lost."
 msgstr "メモを削除すると、メモの内容を完全に失うことになります。"
 
@@ -901,16 +821,16 @@ msgstr "ここから開始"
 msgid "Using Links in Tomboy"
 msgstr "Tomboy でリンクを利用する"
 
-#: ../Tomboy/NoteManager.cs:299
+#: ../Tomboy/NoteManager.cs:303
 #, csharp-format
 msgid "New Note {0}"
 msgstr "新しいメモ {0}"
 
-#: ../Tomboy/NoteManager.cs:345
+#: ../Tomboy/NoteManager.cs:364
 msgid "Describe your new note here."
 msgstr "新しいメモをここに記述して下さい。"
 
-#: ../Tomboy/NoteManager.cs:360
+#: ../Tomboy/NoteManager.cs:379
 msgid "New Note"
 msgstr "新しいメモ"
 
@@ -958,14 +878,6 @@ msgstr "文字の種類(_T)"
 msgid "Set properties of text"
 msgstr "文字のプロパティを変更します"
 
-#: ../Tomboy/NoteWindow.cs:444 ../Tomboy/RecentChanges.cs:243
-msgid "Tags"
-msgstr "タグ"
-
-#: ../Tomboy/NoteWindow.cs:445
-msgid "Add/Remove note tags"
-msgstr "メモにタグを追加したり削除します"
-
 #: ../Tomboy/NoteWindow.cs:458
 msgid "T_ools"
 msgstr "ツール(_O)"
@@ -982,95 +894,99 @@ msgstr "削除"
 msgid "Delete this note"
 msgstr "このメモを削除します"
 
-#: ../Tomboy/NoteWindow.cs:510
+#: ../Tomboy/NoteWindow.cs:480 ../Tomboy/Synchronization/SyncManager.cs:158
+msgid "Synchronize Notes"
+msgstr "メモの同期"
+
+#: ../Tomboy/NoteWindow.cs:523
 msgid "_Find..."
 msgstr "検索(_F)..."
 
-#: ../Tomboy/NoteWindow.cs:521 ../Tomboy/NoteWindow.cs:973
+#: ../Tomboy/NoteWindow.cs:534 ../Tomboy/NoteWindow.cs:988
 msgid "Find _Next"
 msgstr "前方検索(_N)"
 
-#: ../Tomboy/NoteWindow.cs:534
+#: ../Tomboy/NoteWindow.cs:547
 msgid "Find _Previous"
 msgstr "後方検索(_P)"
 
-#: ../Tomboy/NoteWindow.cs:629
+#: ../Tomboy/NoteWindow.cs:642
 msgid "Cannot create note"
 msgstr "メモを作成できません"
 
-#: ../Tomboy/NoteWindow.cs:712
-msgid "Tags:"
-msgstr "タグ:"
-
-#: ../Tomboy/NoteWindow.cs:953
+#: ../Tomboy/NoteWindow.cs:968
 msgid "_Find:"
 msgstr "検索(_F):"
 
-#: ../Tomboy/NoteWindow.cs:964
+#: ../Tomboy/NoteWindow.cs:979
 msgid "_Previous"
 msgstr "前の検索(_P)"
 
-#: ../Tomboy/NoteWindow.cs:983
+#: ../Tomboy/NoteWindow.cs:998
 msgid "Case _sensitive"
 msgstr "大/小文字を区別する(_S)"
 
-#: ../Tomboy/NoteWindow.cs:1459
+#: ../Tomboy/NoteWindow.cs:1474
 msgid "_Bold"
 msgstr "太字(_B)"
 
-#: ../Tomboy/NoteWindow.cs:1471
+#: ../Tomboy/NoteWindow.cs:1486
 msgid "_Italic"
 msgstr "イタリック(_I)"
 
-#: ../Tomboy/NoteWindow.cs:1483
+#: ../Tomboy/NoteWindow.cs:1498
 msgid "_Strikeout"
 msgstr "打ち消し線(_S)"
 
-#: ../Tomboy/NoteWindow.cs:1495
+#: ../Tomboy/NoteWindow.cs:1510
 msgid "_Highlight"
 msgstr "強調(_H)"
 
-#: ../Tomboy/NoteWindow.cs:1508
+#: ../Tomboy/NoteWindow.cs:1523
 msgid "Font Size"
 msgstr "フォント"
 
-#: ../Tomboy/NoteWindow.cs:1511
+#: ../Tomboy/NoteWindow.cs:1526
 msgid "_Normal"
 msgstr "標準(_N)"
 
-#: ../Tomboy/NoteWindow.cs:1518
+#: ../Tomboy/NoteWindow.cs:1533
 msgid "Hu_ge"
 msgstr "巨大(_G)"
 
-#: ../Tomboy/NoteWindow.cs:1526
+#: ../Tomboy/NoteWindow.cs:1541
 msgid "_Large"
 msgstr "大きい(_L)"
 
-#: ../Tomboy/NoteWindow.cs:1534
+#: ../Tomboy/NoteWindow.cs:1549
 msgid "S_mall"
 msgstr "小さい(_M)"
 
-#: ../Tomboy/NoteWindow.cs:1545
+#: ../Tomboy/NoteWindow.cs:1560
 msgid "Bullets"
 msgstr "箇条書き"
 
-#: ../Tomboy/PreferencesDialog.cs:69
+#: ../Tomboy/PreferencesDialog.cs:83
 msgid "Editing"
 msgstr "編集"
 
-#: ../Tomboy/PreferencesDialog.cs:71
+#: ../Tomboy/PreferencesDialog.cs:85
 msgid "Hotkeys"
 msgstr "ホットキー"
 
-#: ../Tomboy/PreferencesDialog.cs:73
+#: ../Tomboy/PreferencesDialog.cs:87
+msgid "Synchronization"
+msgstr "同期"
+
+#: ../Tomboy/PreferencesDialog.cs:89
 msgid "Add-ins"
 msgstr "プラグイン"
 
-#: ../Tomboy/PreferencesDialog.cs:116
+#: ../Tomboy/PreferencesDialog.cs:134
 msgid "_Spell check while typing"
 msgstr "入力中にスペルをチェックする(_S)"
 
-#: ../Tomboy/PreferencesDialog.cs:125
+#: ../Tomboy/PreferencesDialog.cs:143
 msgid ""
 "Misspellings will be underlined in red, with correct spelling suggestions "
 "shown in the context menu."
@@ -1079,11 +995,11 @@ msgstr ""
 "ルを提示します。"
 
 #. WikiWords...
-#: ../Tomboy/PreferencesDialog.cs:136
+#: ../Tomboy/PreferencesDialog.cs:154
 msgid "Highlight _WikiWords"
 msgstr "WikiWord (予約語) を強調表示する(_W)"
 
-#: ../Tomboy/PreferencesDialog.cs:144
+#: ../Tomboy/PreferencesDialog.cs:162
 msgid ""
 "Enable this option to highlight words <b>ThatLookLikeThis</b>. Clicking the "
 "word will create a note with that name."
@@ -1092,16 +1008,16 @@ msgstr ""
 "をクリックすると、その単語をタイトルにした新しいメモを作成します。"
 
 #. Custom font...
-#: ../Tomboy/PreferencesDialog.cs:153
+#: ../Tomboy/PreferencesDialog.cs:171
 msgid "Use custom _font"
 msgstr "フォントを指定する(_F)"
 
 #. Hotkeys...
-#: ../Tomboy/PreferencesDialog.cs:223
+#: ../Tomboy/PreferencesDialog.cs:241
 msgid "Listen for _Hotkeys"
 msgstr "ホットキーを監視する(_H)"
 
-#: ../Tomboy/PreferencesDialog.cs:232
+#: ../Tomboy/PreferencesDialog.cs:250
 msgid ""
 "Hotkeys allow you to quickly access your notes from anywhere with a "
 "keypress. Example Hotkeys: <b>&lt;Control&gt;&lt;Shift&gt;F11</b>, <b>&lt;"
@@ -1111,63 +1027,144 @@ msgstr ""
 "ホットキーの例: <b>&lt;Control&gt;&lt;Shift&gt;F11</b>、<b>&lt;Alt&gt;N</b>"
 
 #. Show notes menu keybinding...
-#: ../Tomboy/PreferencesDialog.cs:252
+#: ../Tomboy/PreferencesDialog.cs:270
 msgid "Show notes _menu"
 msgstr "メモのメニューを表示する(_M)"
 
 #. Open Start Here keybinding...
-#: ../Tomboy/PreferencesDialog.cs:269
+#: ../Tomboy/PreferencesDialog.cs:287
 msgid "Open \"_Start Here\""
 msgstr "\"ここから開始\" を開く(_S)"
 
 #. Create new note keybinding...
-#: ../Tomboy/PreferencesDialog.cs:286
+#: ../Tomboy/PreferencesDialog.cs:304
 msgid "Create _new note"
 msgstr "新しいメモを作成する(_N)"
 
 #. Open Search All Notes window keybinding...
-#: ../Tomboy/PreferencesDialog.cs:303
+#: ../Tomboy/PreferencesDialog.cs:321
 msgid "Open \"Search _All Notes\""
 msgstr "\"全てのメモの検索\" を開く(_A)"
 
-#: ../Tomboy/PreferencesDialog.cs:329
+#: ../Tomboy/PreferencesDialog.cs:348
+msgid "Service:"
+msgstr "サービス:"
+
+#: ../Tomboy/PreferencesDialog.cs:400 ../Tomboy/PreferencesDialog.cs:978
+msgid "Not configurable"
+msgstr "設定できません"
+
+#. "Advanced..." button to bring up extra sync config dialog
+#: ../Tomboy/PreferencesDialog.cs:420
+msgid "Advanced..."
+msgstr "拡張..."
+
+#: ../Tomboy/PreferencesDialog.cs:481
 msgid "The following add-ins are installed"
 msgstr "次のプラグインが拡張機能としてインストールされています"
 
-#: ../Tomboy/PreferencesDialog.cs:360
+#: ../Tomboy/PreferencesDialog.cs:512
 msgid "_Enable"
 msgstr "有効にする(_E)"
 
-#: ../Tomboy/PreferencesDialog.cs:366
+#: ../Tomboy/PreferencesDialog.cs:518
 msgid "_Disable"
 msgstr "無効にする(_D)"
 
-#: ../Tomboy/PreferencesDialog.cs:497
+#: ../Tomboy/PreferencesDialog.cs:649
 msgid "Not Implemented"
 msgstr "実装されていません"
 
-#: ../Tomboy/PreferencesDialog.cs:511
+#: ../Tomboy/PreferencesDialog.cs:663
 #, csharp-format
 msgid "{0} Preferences"
 msgstr "{0} の設定"
 
-#: ../Tomboy/PreferencesDialog.cs:650
+#: ../Tomboy/PreferencesDialog.cs:802
 msgid "Choose Note Font"
 msgstr "メモで使用するフォントの選択"
 
-#: ../Tomboy/PreferencesDialog.cs:743
+#: ../Tomboy/PreferencesDialog.cs:846
+msgid "Other Synchronization Options"
+msgstr "その他の同期オプション"
+
+#: ../Tomboy/PreferencesDialog.cs:853
+msgid ""
+"When a conflict is detected between a local note and a note on the "
+"configured synchronization server:"
+msgstr "ローカルのメモと同期先のサーバにあるメモとの間に矛盾が生じている場合:"
+
+#: ../Tomboy/PreferencesDialog.cs:860
+msgid "Always ask me what to do."
+msgstr "どう対処するか常に問い合わせる"
+
+#: ../Tomboy/PreferencesDialog.cs:864
+msgid "Rename my local note."
+msgstr "ローカルのメモの名前を変更する"
+
+#: ../Tomboy/PreferencesDialog.cs:868
+msgid "Replace my local note with the server's update."
+msgstr "サーバ側のメモでローカルのメモを置き換える"
+
+#: ../Tomboy/PreferencesDialog.cs:1014
+msgid "WARNING: Are you sure?"
+msgstr "警告: 本当によろしいですか？"
+
+#: ../Tomboy/PreferencesDialog.cs:1016
+msgid ""
+"Clearing your synchronization settings is not recommended.  You may be "
+"forced to synchronize all of your notes again when you save new settings."
+msgstr ""
+"同期の設定をクリアするのはお奨めしません。新しい設定を保存する際に再びメモを"
+"強制的に同期できるからです。"
+
+#: ../Tomboy/PreferencesDialog.cs:1029
+msgid "Resetting Synchronization Settings"
+msgstr "同期の設定を再構成しました"
+
+#: ../Tomboy/PreferencesDialog.cs:1031
+msgid ""
+"You have disabled the configured synchronization service.  Your "
+"synchronization settings will now be cleared.  You may be forced to "
+"synchronize all of your notes again when you save new settings"
+msgstr ""
+"同期サービスの設定を無効にしました。お使いの設定がクリアされます。新しい設定"
+"を保存すると再びメモを強制的に同期できるようになります。"
+
+#: ../Tomboy/PreferencesDialog.cs:1115
+msgid "Success! You're connected!"
+msgstr "接続が完了しました！"
+
+#: ../Tomboy/PreferencesDialog.cs:1117
+msgid "Tomboy is ready to synchronize your notes."
+msgstr "メモの同期を行う準備が整いました。"
+
+#: ../Tomboy/PreferencesDialog.cs:1140
+msgid "Error connecting :("
+msgstr "接続でエラーが発生しました :("
+
+#: ../Tomboy/PreferencesDialog.cs:1142
+msgid ""
+"Sorry, but something went wrong.  Please check your information and try "
+"again.  The ~/.tomboy.log might be useful too."
+msgstr ""
+"申し訳ありませんが、原因不明の問題が発生しています。表示されている情報を確認"
+"して、もう一度実施してみて下さい。$HOME/.tomboy.log のログが原因究明に役立つ"
+"かもしれません。"
+
+#: ../Tomboy/PreferencesDialog.cs:1208
 msgid "Version:"
 msgstr "バージョン:"
 
-#: ../Tomboy/PreferencesDialog.cs:750
+#: ../Tomboy/PreferencesDialog.cs:1215
 msgid "Author:"
 msgstr "作者:"
 
-#: ../Tomboy/PreferencesDialog.cs:757
+#: ../Tomboy/PreferencesDialog.cs:1222
 msgid "Copyright:"
 msgstr "著作権:"
 
-#: ../Tomboy/PreferencesDialog.cs:763
+#: ../Tomboy/PreferencesDialog.cs:1228
 msgid "Add-in Dependencies:"
 msgstr "プラグインの依存関係:"
 
@@ -1183,56 +1180,56 @@ msgstr "検索(_S):"
 msgid "C_ase Sensitive"
 msgstr "大/小文字を区別する(_A)"
 
-#: ../Tomboy/RecentChanges.cs:293
+#: ../Tomboy/RecentChanges.cs:296
 msgid "Note"
 msgstr "メモ"
 
-#: ../Tomboy/RecentChanges.cs:312
+#: ../Tomboy/RecentChanges.cs:315
 msgid "Last Changed"
 msgstr "変更日時"
 
-#: ../Tomboy/RecentChanges.cs:370 ../Tomboy/RecentChanges.cs:526
+#: ../Tomboy/RecentChanges.cs:373 ../Tomboy/RecentChanges.cs:529
 #, csharp-format
 msgid "Total: {0} note"
 msgid_plural "Total: {0} notes"
 msgstr[0] "メモの総数: {0}個"
 msgstr[1] "メモの総数: {0}個"
 
-#: ../Tomboy/RecentChanges.cs:460
+#: ../Tomboy/RecentChanges.cs:463
 msgid "Matches"
 msgstr "検索結果"
 
-#: ../Tomboy/RecentChanges.cs:512 ../Tomboy/RecentChanges.cs:532
+#: ../Tomboy/RecentChanges.cs:515 ../Tomboy/RecentChanges.cs:535
 #, csharp-format
 msgid "{0} match"
 msgid_plural "{0} matches"
 msgstr[0] "({0}個見つかりました)"
 msgstr[1] "({0}個見つかりました)"
 
-#: ../Tomboy/Tomboy.cs:188
+#: ../Tomboy/Tomboy.cs:194
 msgid "Cannot create new note"
 msgstr "新しいメモを作成できません"
 
-#: ../Tomboy/Tomboy.cs:243
+#: ../Tomboy/Tomboy.cs:265
 msgid "translator-credits"
 msgstr ""
 "相花 毅 <takeshi.aihana@gmail.com>\n"
 "佐藤 暁 <ss@gnome.gr.jp>\n"
 "日本GNOMEユーザー会 http://www.gnome.gr.jp"
 
-#: ../Tomboy/Tomboy.cs:252
+#: ../Tomboy/Tomboy.cs:274
 msgid "Copyright © 2004-2007 Alex Graveley"
 msgstr "Copyright © 2004-2007 Alex Graveley"
 
-#: ../Tomboy/Tomboy.cs:253
+#: ../Tomboy/Tomboy.cs:275
 msgid "A simple and easy to use desktop note-taking application."
 msgstr "シンプルで使いやすいデスクトップ・メモです。"
 
-#: ../Tomboy/Tomboy.cs:256
+#: ../Tomboy/Tomboy.cs:278
 msgid "Homepage"
 msgstr "ホームページ"
 
-#: ../Tomboy/Tomboy.cs:342
+#: ../Tomboy/Tomboy.cs:369
 msgid ""
 "Tomboy: A simple, easy to use desktop note-taking application.\n"
 "Copyright (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
@@ -1242,7 +1239,7 @@ msgstr ""
 "Copyright (C) 2004-2007 Alex Graveley <alex@beatniksoftware.com>\n"
 "\n"
 
-#: ../Tomboy/Tomboy.cs:354
+#: ../Tomboy/Tomboy.cs:381
 msgid ""
 "Usage:\n"
 "  --version\t\t\tPrint version information.\n"
@@ -1257,7 +1254,7 @@ msgstr ""
 "  --search [text]\t\t検索ウィンドウを開いて指定した文字列を全てのメモから検索"
 "する\n"
 
-#: ../Tomboy/Tomboy.cs:365
+#: ../Tomboy/Tomboy.cs:392
 msgid ""
 "  --new-note\t\t\tCreate and display a new note.\n"
 "  --new-note [title]\t\tCreate and display a new note, with a title.\n"
@@ -1276,16 +1273,16 @@ msgstr ""
 #. Catalog.GetString (
 #. "  --check-plugin-unloading\tCheck if plugins are " +
 #. "unloaded properly.\n");
-#: ../Tomboy/Tomboy.cs:382
+#: ../Tomboy/Tomboy.cs:409
 msgid "D-BUS remote control disabled.\n"
 msgstr "D-BUS によるリモート操作は無効になっています。\n"
 
-#: ../Tomboy/Tomboy.cs:390
+#: ../Tomboy/Tomboy.cs:417
 #, csharp-format
 msgid "Version {0}"
 msgstr "バージョン {0}"
 
-#: ../Tomboy/Tomboy.cs:460
+#: ../Tomboy/Tomboy.cs:487
 #, csharp-format
 msgid ""
 "Tomboy: unsupported option '{0}'\n"
@@ -1384,12 +1381,12 @@ msgstr "yyyy年 MMMM d日 tth:mm"
 msgid "MMMM d yyyy"
 msgstr "yyyy年 MMMM d日"
 
-#: ../Tomboy/Watchers.cs:137
+#: ../Tomboy/Watchers.cs:149
 #, csharp-format
 msgid "(Untitled {0})"
 msgstr "(タイトルなし {0})"
 
-#: ../Tomboy/Watchers.cs:169
+#: ../Tomboy/Watchers.cs:183
 #, csharp-format
 msgid ""
 "A note with the title <b>{0}</b> already exists. Please choose another name "
@@ -1398,18 +1395,257 @@ msgstr ""
 "タイトル <b>{0}</b> が付いたメモが既に存在します。続行する前に別のタイトルを"
 "選択して下さい。"
 
-#: ../Tomboy/Watchers.cs:181
+#: ../Tomboy/Watchers.cs:195
 msgid "Note title taken"
 msgstr "メモのタイトル"
 
-#: ../Tomboy/Watchers.cs:424
+#: ../Tomboy/Watchers.cs:438
 msgid "Cannot open location"
 msgstr "指定した場所を開けません"
 
-#: ../Tomboy/Watchers.cs:518
+#: ../Tomboy/Watchers.cs:532
 msgid "_Copy Link Address"
 msgstr "リンク先のアドレスのコピー(_C)"
 
-#: ../Tomboy/Watchers.cs:523
+#: ../Tomboy/Watchers.cs:537
 msgid "_Open Link"
 msgstr "リンクを開く(_O)"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:91
+msgid "Note Title"
+msgstr "メモのタイトル"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:98
+msgid "Status"
+msgstr "状態"
+
+#. Drop all that into into the Expander
+#: ../Tomboy/Synchronization/SyncDialog.cs:117
+msgid "Details"
+msgstr "詳細"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:235
+msgid "Acquiring sync lock..."
+msgstr "同期用のロックの取得中です..."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:238
+msgid "Committing changes..."
+msgstr "変更点の転送中です..."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:241
+msgid "Synchronizing Notes"
+msgstr "メモの同期中"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:242
+msgid "Synchronizing your notes..."
+msgstr "メモを同期しています..."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:243
+msgid "This may take a while, kick back and enjoy!"
+msgstr "少々時間がかかると思われます。ゆっくりくつろいで下さい！"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:245
+msgid "Connecting to the server..."
+msgstr "サーバへ接続中です..."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:251
+msgid "Deleting notes off of the server..."
+msgstr "サーバのメモを削除しています..."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:255
+msgid "Downloading new/updated notes..."
+msgstr "新規/更新されたメモをダウンロードしています..."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:267
+msgid "Server Locked"
+msgstr "サーバがロックされています"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:268
+msgid "Server is locked"
+msgstr "サーバがロックされています"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:269
+msgid ""
+"One of your other computers is currently synchronizing.  Please wait and try "
+"again."
+msgstr ""
+"現在、他のコンピュータで同期を行っています。少し待ってからもう一度実施してみ"
+"て下さい。"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:273
+msgid "Preparing to download updates from server..."
+msgstr "サーバから更新内容をダウンロードする準備をしています..."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:276
+msgid "Preparing to upload updates to server..."
+msgstr "サーバへ更新内容をアップロードする準備をしています..."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:279
+msgid "Uploading notes to server..."
+msgstr "サーバへメモをアップロード中..."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:282
+msgid "Synchronization Failed"
+msgstr "同期の失敗"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:283
+msgid "Failed to synchronize"
+msgstr "同期に失敗しました"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:284
+msgid "Could not synchronize notes.  Check the details below and try again."
+msgstr "メモを同期できませんでした。詳細を確認してもう一度実施してみて下さい。"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:291
+msgid "Synchronization Complete"
+msgstr "同期の完了"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:292
+msgid "Synchronization is complete"
+msgstr "同期が完了しました"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:294
+#, csharp-format
+msgid "{0} note updated."
+msgid_plural "{0} notes updated."
+msgstr[0] "{0}個のメモを同期しました"
+msgstr[1] "{0}個のメモを同期しました"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:299
+msgid "Your notes are now up to date."
+msgstr "(メモが更新されました)。"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:303
+msgid "Synchronization Canceled"
+msgstr "同期のキャンセル"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:304
+msgid "Synchronization was canceled"
+msgstr "同期がキャンセルされました"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:305
+msgid "You canceled the synchronization.  You may close the window now."
+msgstr "同期をキャンセルしました。ウィンドウを閉じることができます。"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:309
+msgid "Synchronization Not Configured"
+msgstr "未設定"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:310
+msgid "Synchronization is not configured"
+msgstr "同期の設定が行われていません"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:311
+msgid "Please configure synchronization in the preferences dialog."
+msgstr "設定ダイアログで同期の設定を行って下さい。"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:315
+msgid "Synchronization Service Error"
+msgstr "同期サービスのエラー"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:316
+msgid "Service error"
+msgstr "サービスのエラー"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:317
+msgid "Error connecting to the synchronization service.  Please try again."
+msgstr ""
+"同期サービスとの接続でエラーが発生しました。もう一度実施してみて下さい。"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:334
+msgid "Deleted locally"
+msgstr "ローカルのメモを削除しました"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:337
+msgid "Deleting from server"
+msgstr "サーバ上のメモを削除しました"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:340
+msgid "Updated"
+msgstr "更新しました"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:343
+msgid "Added"
+msgstr "追加しました"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:346
+msgid "Uploading changes to server"
+msgstr "変更点をサーバにアップロードしました"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:349
+msgid "Uploading new note to server"
+msgstr "新しいメモをサーバにアップロードしました"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:481
+msgid "Note Conflict"
+msgstr "メモに矛盾が生じました"
+
+#. Suggest renaming note by appending " (old)" to the existing title
+#: ../Tomboy/Synchronization/SyncDialog.cs:485
+msgid " (old)"
+msgstr " (古い版)"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:524
+msgid "Rename local note:"
+msgstr "ローカルのメモを次の名前に変更する:"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:530
+msgid "Update links in referencing notes"
+msgstr "メモを参照しているリンクを更新する"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:537
+msgid "Overwrite local note"
+msgstr "ローカルのメモに上書きする"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:541
+msgid "Always perform this action"
+msgstr "常にこの対処を施す"
+
+#. Set initial dialog text
+#: ../Tomboy/Synchronization/SyncDialog.cs:548
+msgid "Note conflict detected"
+msgstr "メモの矛盾を検出しました"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:549
+#, csharp-format
+msgid ""
+"The server version of \"{0}\" conflicts with your local note.  What do you "
+"want to do with your local note?"
+msgstr ""
+"サーバにある \"{0}\" のメモがローカルのメモと矛盾が生じました。どのように対処"
+"しますか？"
+
+#: ../Tomboy/Synchronization/SyncManager.cs:156
+msgid "_Tools"
+msgstr "ツール(_T)"
+
+#: ../Tomboy/Synchronization/SyncUtils.cs:151
+msgid "Enable FUSE?"
+msgstr "FUSE を有効にしますか？"
+
+#: ../Tomboy/Synchronization/SyncUtils.cs:153
+msgid ""
+"The synchronization you've chosen requires the FUSE module to be loaded.\n"
+"\n"
+"To avoid getting this prompt in the future, you should load FUSE at "
+"startup.  Add \"modprobe fuse\" to /etc/init.d/boot.local or \"fuse\" to /"
+"etc/modules."
+msgstr ""
+"指定した同期には FUSE モジュールが必要です。\n"
+"\n"
+"この問題を解決するには、システムの起動時に FUSE カーネル・モジュールをロード"
+"しておく必要があります。\"modprobe fuse\" 文を /etc/init.d/boot.local ファイ"
+"ルに追加するか、または \"fuse\" 文を /etc/modules ファイルに追加しておいて下"
+"さい。"
+
+#: ../Tomboy/Synchronization/SyncUtils.cs:177
+msgid "Could not enable FUSE"
+msgstr "FUSE を有効にできませんでした"
+
+#: ../Tomboy/Synchronization/SyncUtils.cs:178
+msgid ""
+"The FUSE module could not be loaded. Please check that it is installed "
+"properly and try again."
+msgstr ""
+"FUSE モジュールをロードできませんでした。モジュールが正しくインストールされて"
+"いるか確認し、もう一度試してみて下さい。"
