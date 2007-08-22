@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tomboy 0.7.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-08-01 15:19+0200\n"
-"PO-Revision-Date: 2007-08-01 13:00+0200\n"
+"POT-Creation-Date: 2007-08-22 19:29+0200\n"
+"PO-Revision-Date: 2007-08-14 13:00+0200\n"
 "Last-Translator: Jordi Mas <jmas@softcatala.org>\n"
 "Language-Team: Catalan <tradgnome@softcatala.net>\n"
 "MIME-Version: 1.0\n"
@@ -39,7 +39,7 @@ msgid "_About"
 msgstr "_Quant a"
 
 #: ../data/GNOME_TomboyApplet.xml.h:2 ../Tomboy/ActionManager.cs:93
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:105 ../Tomboy/Applet.cs:186
+#: ../Tomboy/Applet.cs:186
 msgid "_Help"
 msgstr "A_juda"
 
@@ -163,48 +163,80 @@ msgstr ""
 "Enter que determina el nombre mínim de notes a mostrar al menú de notes del "
 "Tomboy."
 
-#
-#
 #: ../data/tomboy.schemas.in.h:19
+msgid ""
+"Integer value indicating if there is a preference to always perform a "
+"specific behavior when a conflict is detected, instead of prompting the "
+"user. The values map to an internal enumeration. 0 indicates that the user "
+"wishes to be prompted when a conflict occurs, so that they may handle each "
+"conflict situation on a case-by-case basis."
+msgstr ""
+
+#
+#
+#: ../data/tomboy.schemas.in.h:20
 msgid "List of pinned notes."
 msgstr "Llista de notes recordatòries"
 
-#: ../data/tomboy.schemas.in.h:20
+#: ../data/tomboy.schemas.in.h:21
 msgid "Minimum number of notes to show in menu"
 msgstr "Nombre mínim de notes a mostrar al menú"
 
-#: ../data/tomboy.schemas.in.h:21
+#: ../data/tomboy.schemas.in.h:22
+msgid "Note Synchronization Conflict Saved Behavior"
+msgstr "Comportament predeterminat per a conflictes de sincronització de notes"
+
+#: ../data/tomboy.schemas.in.h:23
 msgid "Open Recent Changes"
 msgstr "Obre els canvis recents"
 
-#: ../data/tomboy.schemas.in.h:22
+#: ../data/tomboy.schemas.in.h:24
 msgid "Open Search Dialog"
 msgstr "Obre el diàleg de cerca"
 
-#: ../data/tomboy.schemas.in.h:23
+#: ../data/tomboy.schemas.in.h:25
 msgid "Open Start Here"
 msgstr "Obre Comenceu aquí"
 
-# Hem fet servir "cert" més amunt
-#: ../data/tomboy.schemas.in.h:24
+#: ../data/tomboy.schemas.in.h:26
+msgid ""
+"Path to the synchronization server when using the filesystem synchronization "
+"service addin."
+msgstr ""
+"Camí al servidor de sincronització quan s'utilitzi el complement de servei "
+"de sincronització del sistema de fitxers."
+
+#: ../data/tomboy.schemas.in.h:27
+msgid "Selected Synchronization Service Addin"
+msgstr "Complement de servei de sincronització seleccionat"
+
+#: ../data/tomboy.schemas.in.h:28
 msgid "Set to TRUE to activate"
 msgstr "Establiu-ho a CERT per a activar"
 
-#: ../data/tomboy.schemas.in.h:25
+#: ../data/tomboy.schemas.in.h:29
 msgid "Show applet menu"
 msgstr "Mostra el menú de la miniaplicació"
 
 #
-#: ../data/tomboy.schemas.in.h:26
+#: ../data/tomboy.schemas.in.h:30
 msgid "Start Here Note"
 msgstr "Nota Comenceu aquí"
 
 #
-#: ../data/tomboy.schemas.in.h:27
+#: ../data/tomboy.schemas.in.h:31
 msgid "Sticky Note Importer First Run"
 msgstr "Primera execució de la importació de les notes enganxoses"
 
-#: ../data/tomboy.schemas.in.h:28
+#: ../data/tomboy.schemas.in.h:32
+msgid "Synchronization Client ID"
+msgstr "Identificador del client de sincronització"
+
+#: ../data/tomboy.schemas.in.h:33
+msgid "Synchronization Local Server Path"
+msgstr "Camí del servidor local de sincronització"
+
+#: ../data/tomboy.schemas.in.h:34
 msgid ""
 "The global keybinding for creating and displaying a new Note. The format "
 "looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The "
@@ -220,7 +252,7 @@ msgstr ""
 "la cadena especial «disabled», no hi haurà cap vinculació per a aquesta "
 "acció."
 
-#: ../data/tomboy.schemas.in.h:29
+#: ../data/tomboy.schemas.in.h:35
 msgid ""
 "The global keybinding for opening the \"Start Here\" note. The format looks "
 "like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
@@ -236,7 +268,7 @@ msgstr ""
 "la cadena especial «disabled», no hi haurà cap vinculació per a aquesta "
 "acció."
 
-#: ../data/tomboy.schemas.in.h:30
+#: ../data/tomboy.schemas.in.h:36
 msgid ""
 "The global keybinding for opening the Note Search dialog. The format looks "
 "like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
@@ -252,7 +284,7 @@ msgstr ""
 "la cadena especial «disabled», no hi haurà cap vinculació per a aquesta "
 "acció."
 
-#: ../data/tomboy.schemas.in.h:31
+#: ../data/tomboy.schemas.in.h:37
 msgid ""
 "The global keybinding for opening the Recent Changes dialog. The format "
 "looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The "
@@ -268,7 +300,7 @@ msgstr ""
 "la cadena especial «disabled», no hi haurà cap vinculació per a aquesta "
 "acció."
 
-#: ../data/tomboy.schemas.in.h:32
+#: ../data/tomboy.schemas.in.h:38
 msgid ""
 "The global keybinding for showing the Tomboy applet's menu. The format looks "
 "like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
@@ -284,18 +316,18 @@ msgstr ""
 "l'opció a la cadena especial «disabled», no hi haurà cap vinculació per a "
 "aquesta acció."
 
-#: ../data/tomboy.schemas.in.h:33
+#: ../data/tomboy.schemas.in.h:39
 msgid "The handler for \"note://\" URLs"
 msgstr "El gestor per als URL «note://»"
 
-#: ../data/tomboy.schemas.in.h:34
+#: ../data/tomboy.schemas.in.h:40
 msgid ""
 "The last directory a note was exported to using the Export To HTML plugin."
 msgstr ""
 "El darrer directori on s'hi ha exportat una nota amb el connector "
 "d'exportació HTML"
 
-#: ../data/tomboy.schemas.in.h:35
+#: ../data/tomboy.schemas.in.h:41
 msgid ""
 "The last setting for the 'Export linked notes' checkbox in the Export to "
 "HTML plugin."
@@ -303,7 +335,7 @@ msgstr ""
 "La darrera configuració per al quadre de verificació «Exporta les notes "
 "enllaçades» al connector d'exportació HTML."
 
-#: ../data/tomboy.schemas.in.h:36
+#: ../data/tomboy.schemas.in.h:42
 msgid ""
 "The last setting for the 'Include all other linked notes' checkbox in the "
 "Export to HTML plugin. This setting is used in conjunction with the 'HTML "
@@ -316,7 +348,7 @@ msgstr ""
 "exportades» per a especificar si totes les notes (trobades recursivament) "
 "haurien de ser incloses durant l'exportació a HTML."
 
-#: ../data/tomboy.schemas.in.h:37
+#: ../data/tomboy.schemas.in.h:43
 msgid ""
 "The note URI of the note that should be considered the \"Start Here\" note, "
 "which is always placed at the bottom of the Tomboy note menu and also "
@@ -325,7 +357,23 @@ msgstr ""
 "L'URI de la nota que ha de considerar-se la nota «Comenceu aquí», ubicada a "
 "dalt del menú de notes del Tomboy, accessible mitjançant una drecera."
 
-#: ../data/tomboy.schemas.in.h:38
+#: ../data/tomboy.schemas.in.h:44
+msgid ""
+"Unique identifier for the currently configured note synchronization service "
+"addin."
+msgstr ""
+"Identificador únic per al complement de servei de sincronització de notes "
+"actualment configurat"
+
+#: ../data/tomboy.schemas.in.h:45
+msgid ""
+"Unique identifier for this Tomboy client, used when communicating with a "
+"sychronization server."
+msgstr ""
+"Identificador únic per a aquest client Tomboy, utilitzat en comunicar amb el "
+"servidor de sincronització."
+
+#: ../data/tomboy.schemas.in.h:46
 msgid ""
 "Whitespace-separated list of note URIs for notes that should always appear "
 "in the Tomboy note menu."
@@ -378,7 +426,7 @@ msgstr "Versió"
 msgid "Other"
 msgstr "Altres"
 
-#: ../Tomboy/ActionManager.cs:63 ../Tomboy/Addins/Tasks/TaskListWindow.cs:79
+#: ../Tomboy/ActionManager.cs:63
 msgid "_File"
 msgstr "_Fitxer"
 
@@ -400,7 +448,7 @@ msgid "Open the selected note"
 msgstr "Obre la nota seleccionada"
 
 #
-#: ../Tomboy/ActionManager.cs:74 ../Tomboy/Addins/Tasks/TaskListWindow.cs:97
+#: ../Tomboy/ActionManager.cs:74
 msgid "_Delete"
 msgstr "_Suprimeix"
 
@@ -410,13 +458,12 @@ msgid "Delete the selected note"
 msgstr "Suprimeix la nota seleccionada"
 
 #
-#: ../Tomboy/ActionManager.cs:78 ../Tomboy/Addins/Tasks/TaskListWindow.cs:90
-#: ../Tomboy/NoteWindow.cs:374
+#: ../Tomboy/ActionManager.cs:78 ../Tomboy/NoteWindow.cs:374
 msgid "_Close"
 msgstr "_Tanca"
 
 #
-#: ../Tomboy/ActionManager.cs:79 ../Tomboy/Addins/Tasks/TaskListWindow.cs:91
+#: ../Tomboy/ActionManager.cs:79
 msgid "Close this window"
 msgstr "Tanca aquesta finestra"
 
@@ -431,17 +478,17 @@ msgid "Quit Tomboy"
 msgstr "_Tanca el Tomboy"
 
 #
-#: ../Tomboy/ActionManager.cs:86 ../Tomboy/Addins/Tasks/TaskListWindow.cs:94
+#: ../Tomboy/ActionManager.cs:86
 msgid "_Edit"
 msgstr "_Edita"
 
 #
-#: ../Tomboy/ActionManager.cs:90 ../Tomboy/PreferencesDialog.cs:51
+#: ../Tomboy/ActionManager.cs:90 ../Tomboy/PreferencesDialog.cs:65
 msgid "Tomboy Preferences"
 msgstr "Preferències del Tomboy"
 
 #
-#: ../Tomboy/ActionManager.cs:96 ../Tomboy/Addins/Tasks/TaskListWindow.cs:108
+#: ../Tomboy/ActionManager.cs:96
 msgid "_Contents"
 msgstr "_Continguts"
 
@@ -473,6 +520,14 @@ msgstr "Ce_rca totes les notes"
 #: ../Tomboy/ActionManager.cs:112
 msgid "Open the Search All Notes window"
 msgstr "Obre la finestra Cerca totes les notes"
+
+#: ../Tomboy/ActionManager.cs:115
+msgid "S_ynchronize Notes"
+msgstr "S_incronitza les notes"
+
+#: ../Tomboy/ActionManager.cs:116
+msgid "Start synchronizing notes"
+msgstr "Inicia la sincronització de les notes"
 
 #: ../Tomboy/Addins/Backlinks/BacklinksNoteAddin.cs:25
 msgid "What links here?"
@@ -586,6 +641,24 @@ msgstr "Inclou totes les altres notes enllaçades"
 msgid "Cannot open email"
 msgstr "No es pot obrir el correu electrònic"
 
+#
+#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:89
+msgid "Folder Path:"
+msgstr "Camí de la carpeta:"
+
+#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:98
+msgid "Browse..."
+msgstr "Navega..."
+
+#
+#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:116
+msgid "Select Synchronization Folder..."
+msgstr "Seleccioneu la carpeta de sincronització..."
+
+#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:196
+msgid "Local Folder"
+msgstr "Carpeta local"
+
 #: ../Tomboy/Addins/FixedWidth/FixedWidthMenuItem.cs:14
 msgid "_Fixed Width"
 msgstr "A_mplada fixa"
@@ -646,6 +719,34 @@ msgstr ""
 msgid "_Open Today: Template"
 msgstr "_Obre Avui: plantilla"
 
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:41
+msgid "Server:"
+msgstr "Servidor:"
+
+#
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:49
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:59
+msgid "Username:"
+msgstr "Nom d'usuari:"
+
+#
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:57
+msgid "Folder Path (optional):"
+msgstr "Camí de la carpeta: (opcional):"
+
+#. Text for label describing setup required for SSH sync addin to work
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:66
+msgid ""
+"SSH synchronization requires an existing SSH key for this server and user, "
+"added to a running SSH daemon."
+msgstr ""
+"La sincronització SSH necessita una clau SSH existent per a aquest servidori "
+"usuari registrada al dimoni SSH en execució."
+
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:133
+msgid "SSH (sshfs FUSE)"
+msgstr "SSH (sshfs FUSE)"
+
 #: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:50
 msgid "Import from Sticky Notes"
 msgstr "Importa des de les notes enganxoses"
@@ -677,224 +778,28 @@ msgstr "Sense títol"
 msgid "Sticky Note: "
 msgstr "Nota enganxosa: "
 
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:65
-#: ../Tomboy/Addins/Tasks/TasksApplicationAddin.cs:55
-msgid "To Do List"
-msgstr "Llista de coses a fer"
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:51
+msgid "URL:"
+msgstr "URL:"
 
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:82
-msgid "New _Task"
-msgstr "Tasca _nova"
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:67
+msgid "Password:"
+msgstr "Contransenya:"
 
-#
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:83
-msgid "Create a new task"
-msgstr "Crea una tasca nova"
-
-#
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:86
-msgid "_Options..."
-msgstr "_Opcions..."
-
-#
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:87
-msgid "Open the selected task"
-msgstr "Obre la tasca seleccionada"
-
-#
-#
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:98
-msgid "Delete the selected task"
-msgstr "Suprimeix la tasca seleccionada"
-
-#
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:101
-msgid "Open Associated _Note"
-msgstr "O_bre la nota seleccionada"
-
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:102
-msgid "Open the note containing the task"
-msgstr "Obre la nota que conté la tasca"
-
-#
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:109
-msgid "Tasks Help"
-msgstr "Ajuda de les tasques"
-
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:244
-msgid "Summary"
-msgstr "Resum"
-
-#
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:268
-msgid "Due Date"
-msgstr "Data de venciment"
-
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:290
-msgid "Completion Date"
-msgstr "Data de finalització"
-
-#
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:311
-msgid "Priority"
-msgstr "Prioritat"
-
-#
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:324
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:416
-#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:164
-msgid "None"
-msgstr "Cap"
-
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:325
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:407
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:902
-#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:165
-msgid "Low"
-msgstr "Baixa"
-
-#
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:326
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:410
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:904
-#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:166
-msgid "Normal"
-msgstr "Normal"
-
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:327
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:413
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:906
-#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:167
-msgid "High"
-msgstr "Alta"
-
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:433
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:442
-#, csharp-format
-msgid "Total: {0} task"
-msgid_plural "Total: {0} tasks"
-msgstr[0] "Total: {0} tasca"
-msgstr[1] "Total: {0} tasques"
-
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:601
-#, csharp-format
-msgid "New Task {0}"
-msgstr "Tasca nova {0}"
-
-#
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:826
-msgid "Really delete this task?"
-msgstr "Esteu segur que voleu suprimir aquesta tasca?"
-
-#
-#: ../Tomboy/Addins/Tasks/TaskListWindow.cs:827
-msgid "If you delete a task it is permanently lost."
-msgstr "Si suprimiu una tasca la perdreu definitivament."
-
-#
-#
-#
-#: ../Tomboy/Addins/Tasks/TaskManager.cs:216
-msgid "Learn About Tomboy"
-msgstr "Apreneu a fer anar el Tomboy"
-
-#: ../Tomboy/Addins/Tasks/TaskManager.cs:219
-msgid ""
-"Click on the Tomboy icon in your panel and select \"Start Here\".  You'll "
-"see more instructions on how to use Tomboy inside the \"Start Here\" note.\n"
-"\n"
-"When you've opened the \"Start Here\" note, mark this task as being complete."
-msgstr ""
-"Feu clic a la icona del Tomboy al quadre i seleccioneu la nota «Comenceu "
-"aquí». Trobareu més instruccions sobre com utilitzar el Tomboy dins de la "
-"nota «Comenceu aquí».\n"
-"\n"
-"Quan ja hagueu obert, marqueu aquesta tasca com a finalitzada."
-
-#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:34
-msgid "Task Options"
-msgstr "Opcions de la tasca"
-
-#. Gtk.Label l = new Gtk.Label (
-#. string.Format (
-#. "<span weight=\"bold\">{0}</span>",
-#. Catalog.GetString ("Task Options")));
-#. l.UseMarkup = true;
-#. l.Show ();
-#. vbox.PackStart (l, false, false, 0);
-#. /
-#. / Summary
-#. /
-#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:70
-msgid "_Summary:"
-msgstr "_Resum:"
-
-#. /
-#. / Details
-#. /
-#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:84
-msgid "_Details:"
-msgstr "_Detalls:"
-
-#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:108
-#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:272
-msgid "_Completed:"
-msgstr "_Completat:"
-
-#
-#
-#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:109
-#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:275
-msgid "_Complete"
-msgstr "_Completa"
-
-#
-#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:132
-msgid "Due Date:"
-msgstr "Data de venciment"
-
-#: ../Tomboy/Addins/Tasks/TaskOptionsDialog.cs:156
-msgid "Priority:"
-msgstr "Prioritat:"
-
-#
-#: ../Tomboy/Addins/Tasks/TasksApplicationAddin.cs:53
-msgid "_Tools"
-msgstr "E_ines"
-
-#: ../Tomboy/Addins/Tasks/TasksNoteAddin.cs:37
-#: ../Tomboy/Addins/Tasks/TasksNoteAddin.cs:170
-#: ../Tomboy/Addins/Tasks/TasksNoteAddin.cs:247
-#: ../Tomboy/Addins/Tasks/TasksNoteAddin.cs:351
-msgid "todo"
-msgstr "per fer"
-
-#: ../Tomboy/Addins/Tasks/TasksNoteAddin.cs:453
-msgid "Open To Do List"
-msgstr "Obre la llista de coses a fer"
-
-#: ../Tomboy/Addins/Tasks/TasksNoteAddin.cs:458
-msgid "To Do Options"
-msgstr "Opcions de les coses a fer"
-
-#: ../Tomboy/Addins/Tasks/TasksNoteAddin.cs:466
-msgid "Mark Undone"
-msgstr "Marca com a per fer"
-
-#: ../Tomboy/Addins/Tasks/TasksNoteAddin.cs:467
-msgid "Mark Complete"
-msgstr "Marca com a complet"
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:129
+msgid "WebDAV (wdfs FUSE)"
+msgstr "WebDAV (wdfs FUSE)"
 
 #
 #: ../Tomboy/Applet.cs:191
 msgid "_About Tomboy"
 msgstr "_Quant al Tomboy"
 
-#: ../Tomboy/Note.cs:1143
+#: ../Tomboy/Note.cs:1193
 msgid "Really delete this note?"
 msgstr "Esteu segur que voleu suprimir aquesta nota?"
 
-#: ../Tomboy/Note.cs:1144
+#: ../Tomboy/Note.cs:1194
 msgid "If you delete a note it is permanently lost."
 msgstr "Si suprimiu una nota la perdreu definitivament."
 
@@ -975,17 +880,17 @@ msgstr "Comenceu aquí"
 msgid "Using Links in Tomboy"
 msgstr "Utilització dels enllaços al Tomboy"
 
-#: ../Tomboy/NoteManager.cs:299
+#: ../Tomboy/NoteManager.cs:303
 #, csharp-format
 msgid "New Note {0}"
 msgstr "Nota nova {0}"
 
-#: ../Tomboy/NoteManager.cs:345
+#: ../Tomboy/NoteManager.cs:364
 msgid "Describe your new note here."
 msgstr "Descriviu la vostra nota nova aquí."
 
 #
-#: ../Tomboy/NoteManager.cs:360
+#: ../Tomboy/NoteManager.cs:379
 msgid "New Note"
 msgstr "Nota nova"
 
@@ -1036,15 +941,6 @@ msgstr "_Text"
 msgid "Set properties of text"
 msgstr "Estableix les propietats del text"
 
-#
-#: ../Tomboy/NoteWindow.cs:444 ../Tomboy/RecentChanges.cs:243
-msgid "Tags"
-msgstr "Etiquetes"
-
-#: ../Tomboy/NoteWindow.cs:445
-msgid "Add/Remove note tags"
-msgstr "Afegeix o suprimeix etiquetes a les notes"
-
 #: ../Tomboy/NoteWindow.cs:458
 msgid "T_ools"
 msgstr "E_ines"
@@ -1062,109 +958,112 @@ msgstr "Suprimeix"
 msgid "Delete this note"
 msgstr "Suprimeix aquesta nota"
 
+#: ../Tomboy/NoteWindow.cs:480 ../Tomboy/Synchronization/SyncManager.cs:158
+msgid "Synchronize Notes"
+msgstr "Sincronitza les notes"
+
 #
 #
-#: ../Tomboy/NoteWindow.cs:510
+#: ../Tomboy/NoteWindow.cs:523
 msgid "_Find..."
 msgstr "_Cerca..."
 
-#: ../Tomboy/NoteWindow.cs:521 ../Tomboy/NoteWindow.cs:973
+#: ../Tomboy/NoteWindow.cs:534 ../Tomboy/NoteWindow.cs:988
 msgid "Find _Next"
 msgstr "Cerca la s_egüent"
 
-#: ../Tomboy/NoteWindow.cs:534
+#: ../Tomboy/NoteWindow.cs:547
 msgid "Find _Previous"
 msgstr "Cerca l'_anterior"
 
 #
 #
-#: ../Tomboy/NoteWindow.cs:629
+#: ../Tomboy/NoteWindow.cs:642
 msgid "Cannot create note"
 msgstr "No es pot crear una nota nova"
 
 #
-#: ../Tomboy/NoteWindow.cs:712
-msgid "Tags:"
-msgstr "Etiquetes:"
-
-#
-#: ../Tomboy/NoteWindow.cs:953
+#: ../Tomboy/NoteWindow.cs:968
 msgid "_Find:"
 msgstr "_Cerca:"
 
-#: ../Tomboy/NoteWindow.cs:964
+#: ../Tomboy/NoteWindow.cs:979
 msgid "_Previous"
 msgstr "_Anterior"
 
 #
 #
-#: ../Tomboy/NoteWindow.cs:983
+#: ../Tomboy/NoteWindow.cs:998
 msgid "Case _sensitive"
 msgstr "_Diferencia entre majúscules i minúscules"
 
-#: ../Tomboy/NoteWindow.cs:1459
+#: ../Tomboy/NoteWindow.cs:1474
 msgid "_Bold"
 msgstr "_Negreta"
 
 #
-#: ../Tomboy/NoteWindow.cs:1471
+#: ../Tomboy/NoteWindow.cs:1486
 msgid "_Italic"
 msgstr "_Cursiva"
 
 #
-#: ../Tomboy/NoteWindow.cs:1483
+#: ../Tomboy/NoteWindow.cs:1498
 msgid "_Strikeout"
 msgstr "_Barrat"
 
-#: ../Tomboy/NoteWindow.cs:1495
+#: ../Tomboy/NoteWindow.cs:1510
 msgid "_Highlight"
 msgstr "_Ressaltat"
 
-#: ../Tomboy/NoteWindow.cs:1508
+#: ../Tomboy/NoteWindow.cs:1523
 msgid "Font Size"
 msgstr "Mida de la lletra"
 
-#: ../Tomboy/NoteWindow.cs:1511
+#: ../Tomboy/NoteWindow.cs:1526
 msgid "_Normal"
 msgstr "_Normal"
 
 #
-#: ../Tomboy/NoteWindow.cs:1518
+#: ../Tomboy/NoteWindow.cs:1533
 msgid "Hu_ge"
 msgstr "_Molt gran"
 
-#: ../Tomboy/NoteWindow.cs:1526
+#: ../Tomboy/NoteWindow.cs:1541
 msgid "_Large"
 msgstr "_Gran"
 
-#: ../Tomboy/NoteWindow.cs:1534
+#: ../Tomboy/NoteWindow.cs:1549
 msgid "S_mall"
 msgstr "_Petita"
 
-#: ../Tomboy/NoteWindow.cs:1545
+#: ../Tomboy/NoteWindow.cs:1560
 msgid "Bullets"
 msgstr "Pics"
 
-#: ../Tomboy/PreferencesDialog.cs:69
+#: ../Tomboy/PreferencesDialog.cs:83
 msgid "Editing"
 msgstr "Edició"
 
-#: ../Tomboy/PreferencesDialog.cs:71
+#: ../Tomboy/PreferencesDialog.cs:85
 msgid "Hotkeys"
 msgstr "Dreceres"
 
-#: ../Tomboy/PreferencesDialog.cs:73
+#: ../Tomboy/PreferencesDialog.cs:87
+msgid "Synchronization"
+msgstr "Sincronització"
+
+#: ../Tomboy/PreferencesDialog.cs:89
 msgid "Add-ins"
 msgstr "Complements"
 
 #
-#: ../Tomboy/PreferencesDialog.cs:116
+#: ../Tomboy/PreferencesDialog.cs:134
 msgid "_Spell check while typing"
 msgstr "_Verifica l'ortografia a mesura que escric"
 
 #
 #
-#: ../Tomboy/PreferencesDialog.cs:125
+#: ../Tomboy/PreferencesDialog.cs:143
 msgid ""
 "Misspellings will be underlined in red, with correct spelling suggestions "
 "shown in the context menu."
@@ -1174,11 +1073,11 @@ msgstr ""
 
 # ViquiParaules ? (josep)
 #. WikiWords...
-#: ../Tomboy/PreferencesDialog.cs:136
+#: ../Tomboy/PreferencesDialog.cs:154
 msgid "Highlight _WikiWords"
 msgstr "_Ressalta les WikiWords"
 
-#: ../Tomboy/PreferencesDialog.cs:144
+#: ../Tomboy/PreferencesDialog.cs:162
 msgid ""
 "Enable this option to highlight words <b>ThatLookLikeThis</b>. Clicking the "
 "word will create a note with that name."
@@ -1188,16 +1087,16 @@ msgstr ""
 
 #
 #. Custom font...
-#: ../Tomboy/PreferencesDialog.cs:153
+#: ../Tomboy/PreferencesDialog.cs:171
 msgid "Use custom _font"
 msgstr "_Usa el tipus de lletra personalitzat"
 
 #. Hotkeys...
-#: ../Tomboy/PreferencesDialog.cs:223
+#: ../Tomboy/PreferencesDialog.cs:241
 msgid "Listen for _Hotkeys"
 msgstr "Presta atenció a les _dreceres"
 
-#: ../Tomboy/PreferencesDialog.cs:232
+#: ../Tomboy/PreferencesDialog.cs:250
 msgid ""
 "Hotkeys allow you to quickly access your notes from anywhere with a "
 "keypress. Example Hotkeys: <b>&lt;Control&gt;&lt;Shift&gt;F11</b>, <b>&lt;"
@@ -1209,69 +1108,159 @@ msgstr ""
 
 #
 #. Show notes menu keybinding...
-#: ../Tomboy/PreferencesDialog.cs:252
+#: ../Tomboy/PreferencesDialog.cs:270
 msgid "Show notes _menu"
 msgstr "Mo_stra el menú de les notes"
 
 #
 #. Open Start Here keybinding...
-#: ../Tomboy/PreferencesDialog.cs:269
+#: ../Tomboy/PreferencesDialog.cs:287
 msgid "Open \"_Start Here\""
 msgstr "Obre «_Comenceu aquí»"
 
 #
 #. Create new note keybinding...
-#: ../Tomboy/PreferencesDialog.cs:286
+#: ../Tomboy/PreferencesDialog.cs:304
 msgid "Create _new note"
 msgstr "Crea una _nota nova"
 
 #
 #. Open Search All Notes window keybinding...
-#: ../Tomboy/PreferencesDialog.cs:303
+#: ../Tomboy/PreferencesDialog.cs:321
 msgid "Open \"Search _All Notes\""
 msgstr "Obr_e «Cerca totes les notes»"
 
-#: ../Tomboy/PreferencesDialog.cs:329
-msgid "The following add-ins are installed"
-msgstr "Els components següents estan instal·lats"
+#
+#
+#: ../Tomboy/PreferencesDialog.cs:348
+msgid "Service:"
+msgstr "Servei:"
 
-#: ../Tomboy/PreferencesDialog.cs:360
+#
+#: ../Tomboy/PreferencesDialog.cs:400 ../Tomboy/PreferencesDialog.cs:978
+msgid "Not configurable"
+msgstr "No configurable"
+
+#. "Advanced..." button to bring up extra sync config dialog
+#: ../Tomboy/PreferencesDialog.cs:420
+msgid "Advanced..."
+msgstr "Avançat..."
+
+#: ../Tomboy/PreferencesDialog.cs:481
+msgid "The following add-ins are installed"
+msgstr "Els complements següents estan instal·lats"
+
+#: ../Tomboy/PreferencesDialog.cs:512
 msgid "_Enable"
 msgstr "_Habilita"
 
 #
-#: ../Tomboy/PreferencesDialog.cs:366
+#: ../Tomboy/PreferencesDialog.cs:518
 msgid "_Disable"
 msgstr "_Inhabilita"
 
-#: ../Tomboy/PreferencesDialog.cs:497
+#: ../Tomboy/PreferencesDialog.cs:649
 msgid "Not Implemented"
 msgstr "Encara no està implementat"
 
 #
-#: ../Tomboy/PreferencesDialog.cs:511
+#: ../Tomboy/PreferencesDialog.cs:663
 #, csharp-format
 msgid "{0} Preferences"
 msgstr "{0} Preferències"
 
-#: ../Tomboy/PreferencesDialog.cs:650
+#: ../Tomboy/PreferencesDialog.cs:802
 msgid "Choose Note Font"
 msgstr "Seleccioneu el tipus de lletra de la nota"
 
 #
-#: ../Tomboy/PreferencesDialog.cs:743
+#: ../Tomboy/PreferencesDialog.cs:846
+msgid "Other Synchronization Options"
+msgstr "Altres opcions de sincronització"
+
+#: ../Tomboy/PreferencesDialog.cs:853
+msgid ""
+"When a conflict is detected between a local note and a note on the "
+"configured synchronization server:"
+msgstr ""
+"Quan es detecta un conflicte entre una nota local i una nota al servidor de "
+"sincronització configurat:"
+
+#: ../Tomboy/PreferencesDialog.cs:860
+msgid "Always ask me what to do."
+msgstr "Demana'm sempre que vull fer."
+
+#
+#: ../Tomboy/PreferencesDialog.cs:864
+msgid "Rename my local note."
+msgstr "Reanomena la nota local."
+
+#: ../Tomboy/PreferencesDialog.cs:868
+msgid "Replace my local note with the server's update."
+msgstr "Reemplaça la nota local amb l'actualització del servidor."
+
+#: ../Tomboy/PreferencesDialog.cs:1014
+msgid "WARNING: Are you sure?"
+msgstr "Avís: n'esteu segur?"
+
+#: ../Tomboy/PreferencesDialog.cs:1016
+msgid ""
+"Clearing your synchronization settings is not recommended.  You may be "
+"forced to synchronize all of your notes again when you save new settings."
+msgstr ""
+"No es recomana netejar els paràmeteres de sincronització. Potser us vegeu "
+"forçats a sincronitzar de nou totes les notes al desar els paràmeteres nous."
+
+#
+#: ../Tomboy/PreferencesDialog.cs:1029
+msgid "Resetting Synchronization Settings"
+msgstr "S'estan reiniciant els paràmetres de sincronització"
+
+#
+#: ../Tomboy/PreferencesDialog.cs:1031
+msgid ""
+"You have disabled the configured synchronization service.  Your "
+"synchronization settings will now be cleared.  You may be forced to "
+"synchronize all of your notes again when you save new settings"
+msgstr ""
+"Heu inhabilitat el servei de sincronització configurat. Es netejaran els "
+"paràmeteres de sincronització. Potser us vegeu forçats a sincronitzar de nou "
+"totes les notes al desar els paràmeteres nous"
+
+#: ../Tomboy/PreferencesDialog.cs:1115
+msgid "Success! You're connected!"
+msgstr "S'ha establert la connexió"
+
+#: ../Tomboy/PreferencesDialog.cs:1117
+msgid "Tomboy is ready to synchronize your notes."
+msgstr "El Tomboy està preparat per a sincronitzar les notes."
+
+#: ../Tomboy/PreferencesDialog.cs:1140
+msgid "Error connecting :("
+msgstr "S'ha produït un error en connectar: ("
+
+#: ../Tomboy/PreferencesDialog.cs:1142
+msgid ""
+"Sorry, but something went wrong.  Please check your information and try "
+"again.  The ~/.tomboy.log might be useful too."
+msgstr ""
+"S'ha produït un error. Reviseu la informació i torneu-ho a provar. El fitxer "
+"~/.tomboy.log us pot ser útil."
+
+#
+#: ../Tomboy/PreferencesDialog.cs:1208
 msgid "Version:"
 msgstr "Versió:"
 
-#: ../Tomboy/PreferencesDialog.cs:750
+#: ../Tomboy/PreferencesDialog.cs:1215
 msgid "Author:"
 msgstr "Autor:"
 
-#: ../Tomboy/PreferencesDialog.cs:757
+#: ../Tomboy/PreferencesDialog.cs:1222
 msgid "Copyright:"
 msgstr "Copyright:"
 
-#: ../Tomboy/PreferencesDialog.cs:763
+#: ../Tomboy/PreferencesDialog.cs:1228
 msgid "Add-in Dependencies:"
 msgstr "Dependències del complement:"
 
@@ -1290,71 +1279,72 @@ msgstr "_Cerca:"
 msgid "C_ase Sensitive"
 msgstr "_Diferencia entre majúscules i minúscules"
 
-#: ../Tomboy/RecentChanges.cs:293
+#: ../Tomboy/RecentChanges.cs:296
 msgid "Note"
 msgstr "Nota"
 
-#: ../Tomboy/RecentChanges.cs:312
+#: ../Tomboy/RecentChanges.cs:315
 msgid "Last Changed"
 msgstr "Darrer canvi"
 
-#: ../Tomboy/RecentChanges.cs:370 ../Tomboy/RecentChanges.cs:526
+#: ../Tomboy/RecentChanges.cs:373 ../Tomboy/RecentChanges.cs:529
 #, csharp-format
 msgid "Total: {0} note"
 msgid_plural "Total: {0} notes"
 msgstr[0] "Total: {0} nota"
 msgstr[1] "Total: {0} notes"
 
-#: ../Tomboy/RecentChanges.cs:460
+#: ../Tomboy/RecentChanges.cs:463
 msgid "Matches"
 msgstr "Coincidències"
 
 # csharp-format
-#: ../Tomboy/RecentChanges.cs:512 ../Tomboy/RecentChanges.cs:532
+#: ../Tomboy/RecentChanges.cs:515 ../Tomboy/RecentChanges.cs:535
 #, csharp-format
 msgid "{0} match"
 msgid_plural "{0} matches"
 msgstr[0] "{0} coincidència"
 msgstr[1] "{0} coincidències"
 
-#: ../Tomboy/Tomboy.cs:188
+#: ../Tomboy/Tomboy.cs:194
 msgid "Cannot create new note"
 msgstr "No es pot crear una nota nova"
 
-#: ../Tomboy/Tomboy.cs:243
+#: ../Tomboy/Tomboy.cs:265
 msgid "translator-credits"
 msgstr "Jordi Mas i Hernàndez <jmas@softcatala.org>"
 
 #
 #
-#: ../Tomboy/Tomboy.cs:252
+#: ../Tomboy/Tomboy.cs:274
 msgid "Copyright © 2004-2007 Alex Graveley"
 msgstr "Copyright © 2004-2007 Alex Graveley"
 
-#: ../Tomboy/Tomboy.cs:253
+#: ../Tomboy/Tomboy.cs:275
 msgid "A simple and easy to use desktop note-taking application."
 msgstr ""
 "Una senzilla aplicació d'escriptori, fàcil d'usar, per a prendre notes."
 
-#: ../Tomboy/Tomboy.cs:256
+#: ../Tomboy/Tomboy.cs:278
 msgid "Homepage"
 msgstr "Pàgina inicial"
 
 #
 #
-#: ../Tomboy/Tomboy.cs:342
+#: ../Tomboy/Tomboy.cs:369
 msgid ""
 "Tomboy: A simple, easy to use desktop note-taking application.\n"
 "Copyright (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
 "\n"
 msgstr ""
-"Tomboy: Una simple i senzilla aplicació per a prendre notes.\n"
+"Tomboy: Una senzilla aplicació d'escriptori, fàcil d'usar, per a prendre "
+"notes.\n"
 "Copyright (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
 "\n"
 
 #
 #
-#: ../Tomboy/Tomboy.cs:354
+#: ../Tomboy/Tomboy.cs:381
 msgid ""
 "Usage:\n"
 "  --version\t\t\tPrint version information.\n"
@@ -1372,7 +1362,7 @@ msgstr ""
 
 #
 #
-#: ../Tomboy/Tomboy.cs:365
+#: ../Tomboy/Tomboy.cs:392
 msgid ""
 "  --new-note\t\t\tCreate and display a new note.\n"
 "  --new-note [title]\t\tCreate and display a new note, with a title.\n"
@@ -1391,16 +1381,16 @@ msgstr ""
 #. Catalog.GetString (
 #. "  --check-plugin-unloading\tCheck if plugins are " +
 #. "unloaded properly.\n");
-#: ../Tomboy/Tomboy.cs:382
+#: ../Tomboy/Tomboy.cs:409
 msgid "D-BUS remote control disabled.\n"
 msgstr "El control remot D-BUS és inhabilitat.\n"
 
-#: ../Tomboy/Tomboy.cs:390
+#: ../Tomboy/Tomboy.cs:417
 #, csharp-format
 msgid "Version {0}"
 msgstr "Versió {0}"
 
-#: ../Tomboy/Tomboy.cs:460
+#: ../Tomboy/Tomboy.cs:487
 #, csharp-format
 msgid ""
 "Tomboy: unsupported option '{0}'\n"
@@ -1508,12 +1498,12 @@ msgstr "MMMM d yyyy, h:mm tt"
 msgid "MMMM d yyyy"
 msgstr "d MMMM yyyy"
 
-#: ../Tomboy/Watchers.cs:137
+#: ../Tomboy/Watchers.cs:149
 #, csharp-format
 msgid "(Untitled {0})"
 msgstr "(Sense títol {0})"
 
-#: ../Tomboy/Watchers.cs:169
+#: ../Tomboy/Watchers.cs:183
 #, csharp-format
 msgid ""
 "A note with the title <b>{0}</b> already exists. Please choose another name "
@@ -1522,21 +1512,427 @@ msgstr ""
 "Ja existeix una nota amb el títol <b>{0}</b>. Escolliu un altre nom per a "
 "aquesta nota abans de continuar."
 
-#: ../Tomboy/Watchers.cs:181
+#: ../Tomboy/Watchers.cs:195
 msgid "Note title taken"
 msgstr "El títol de la nota ja és en ús"
 
-#: ../Tomboy/Watchers.cs:424
+#: ../Tomboy/Watchers.cs:438
 msgid "Cannot open location"
 msgstr "No es pot obrir la ubicació"
 
-#: ../Tomboy/Watchers.cs:518
+#: ../Tomboy/Watchers.cs:532
 msgid "_Copy Link Address"
 msgstr "_Copia l'adreça de l'enllaç"
 
-#: ../Tomboy/Watchers.cs:523
+#: ../Tomboy/Watchers.cs:537
 msgid "_Open Link"
 msgstr "_Obre l'enllaç"
+
+#
+#: ../Tomboy/Synchronization/SyncDialog.cs:91
+msgid "Note Title"
+msgstr "Títol de la nota"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:98
+msgid "Status"
+msgstr "Estat"
+
+#
+#. Drop all that into into the Expander
+#: ../Tomboy/Synchronization/SyncDialog.cs:117
+msgid "Details"
+msgstr "_Detalls:"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:235
+msgid "Acquiring sync lock..."
+msgstr "S'està obtenint un bloqueig de sincronització..."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:238
+msgid "Committing changes..."
+msgstr "S'estan confirmant els canvis..."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:241
+msgid "Synchronizing Notes"
+msgstr "S'estan sincronitzant les notes"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:242
+msgid "Synchronizing your notes..."
+msgstr "S'estan sincronitzant les notes..."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:243
+msgid "This may take a while, kick back and enjoy!"
+msgstr "Aquesta operació pot trigar una estona"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:245
+msgid "Connecting to the server..."
+msgstr "S'està connectant al servidor..."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:251
+msgid "Deleting notes off of the server..."
+msgstr "S'estan suprimint les notes del servidor..."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:255
+msgid "Downloading new/updated notes..."
+msgstr "S'estan baixant les notes noves o actualitzades..."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:267
+msgid "Server Locked"
+msgstr "Servidor bloquejat"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:268
+msgid "Server is locked"
+msgstr "El servidor està bloquejat"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:269
+msgid ""
+"One of your other computers is currently synchronizing.  Please wait and try "
+"again."
+msgstr ""
+"Un dels vostres altres ordinadors s'està sincronitzant actualment. Espereu i "
+"torneu-ho a provar de nou."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:273
+msgid "Preparing to download updates from server..."
+msgstr "S'està preparant la baixada d'actualitzacions des del servidor..."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:276
+msgid "Preparing to upload updates to server..."
+msgstr "S'està preparant la pujada d'actualitzacions al servidor..."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:279
+msgid "Uploading notes to server..."
+msgstr "S'estan pujant les notes al servidor..."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:282
+msgid "Synchronization Failed"
+msgstr "S'ha produït un error en sincronitzar"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:283
+msgid "Failed to synchronize"
+msgstr "No s'ha pogut sincronitzar"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:284
+msgid "Could not synchronize notes.  Check the details below and try again."
+msgstr ""
+"No s'han pogut sincronitzar les notes. Comproveu els detalls a sota i torneu-"
+"ho a provar de nou."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:291
+msgid "Synchronization Complete"
+msgstr "S'ha completat la sincronització"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:292
+msgid "Synchronization is complete"
+msgstr "La sincronització s'ha completat"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:294
+#, csharp-format
+msgid "{0} note updated."
+msgid_plural "{0} notes updated."
+msgstr[0] "S'ha actualitzat {0} nota."
+msgstr[1] "S'han actualitzat {0} nota."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:299
+msgid "Your notes are now up to date."
+msgstr "Les notes es troben actualitzades."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:303
+msgid "Synchronization Canceled"
+msgstr "S'ha cancel·lat la sincronització"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:304
+msgid "Synchronization was canceled"
+msgstr "S'ha cancel·lat la sincronització"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:305
+msgid "You canceled the synchronization.  You may close the window now."
+msgstr "Heu cancel·lat la sincronització. Podeu tancar ara la finestra."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:309
+msgid "Synchronization Not Configured"
+msgstr "No s'ha configurat la sincronització"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:310
+msgid "Synchronization is not configured"
+msgstr "La sincronització no està configurada"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:311
+msgid "Please configure synchronization in the preferences dialog."
+msgstr "Configureu la sincronització al diàleg de preferències."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:315
+msgid "Synchronization Service Error"
+msgstr "S'ha produït un error en el servei de sincronització"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:316
+msgid "Service error"
+msgstr "S'ha produït un error al servei"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:317
+msgid "Error connecting to the synchronization service.  Please try again."
+msgstr ""
+"S'ha produït un error connectant al servei de sincronització. Torneu-ho a "
+"provar de nou."
+
+#
+#: ../Tomboy/Synchronization/SyncDialog.cs:334
+msgid "Deleted locally"
+msgstr "S'ha suprimit localment"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:337
+msgid "Deleting from server"
+msgstr "S'està suprimint des del servidor"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:340
+msgid "Updated"
+msgstr "Actualitzat"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:343
+msgid "Added"
+msgstr "Afegit"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:346
+msgid "Uploading changes to server"
+msgstr "S'estan pujant els canvis al servidor"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:349
+msgid "Uploading new note to server"
+msgstr "S'esta pujant la nota nova al servidor"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:481
+msgid "Note Conflict"
+msgstr "S'ha produït un conflicte amb la nota"
+
+#. Suggest renaming note by appending " (old)" to the existing title
+#: ../Tomboy/Synchronization/SyncDialog.cs:485
+msgid " (old)"
+msgstr " (antiga)"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:524
+msgid "Rename local note:"
+msgstr "Reanomena la nota local:"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:530
+msgid "Update links in referencing notes"
+msgstr "Actualitza els enllaços en les notes referènciades"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:537
+msgid "Overwrite local note"
+msgstr "Sobreescriviu la nota local"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:541
+msgid "Always perform this action"
+msgstr "Realitza sempre aquesta acció"
+
+#. Set initial dialog text
+#: ../Tomboy/Synchronization/SyncDialog.cs:548
+msgid "Note conflict detected"
+msgstr "S'ha detectat un conflicte amb les notes"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:549
+#, csharp-format
+msgid ""
+"The server version of \"{0}\" conflicts with your local note.  What do you "
+"want to do with your local note?"
+msgstr ""
+"La versió del servidor de «{0}» està en conflicte amb la nota local. Què "
+"voleu fer amb la nota local?"
+
+#
+#: ../Tomboy/Synchronization/SyncManager.cs:156
+msgid "_Tools"
+msgstr "E_ines"
+
+#
+#: ../Tomboy/Synchronization/SyncUtils.cs:151
+msgid "Enable FUSE?"
+msgstr "_Habilita el FUSE?"
+
+#: ../Tomboy/Synchronization/SyncUtils.cs:153
+msgid ""
+"The synchronization you've chosen requires the FUSE module to be loaded.\n"
+"\n"
+"To avoid getting this prompt in the future, you should load FUSE at "
+"startup.  Add \"modprobe fuse\" to /etc/init.d/boot.local or \"fuse\" to /"
+"etc/modules."
+msgstr ""
+
+#
+#
+#: ../Tomboy/Synchronization/SyncUtils.cs:177
+msgid "Could not enable FUSE"
+msgstr "No s'ha pogut habilitat el FUSE"
+
+#: ../Tomboy/Synchronization/SyncUtils.cs:178
+msgid ""
+"The FUSE module could not be loaded. Please check that it is installed "
+"properly and try again."
+msgstr ""
+"No s'ha pogut carrega el mòdul FUSE. Comproveu que es troba instal·lat  "
+"correctament i torneu-ho a provar de nou."
+
+#~ msgid "Path:"
+#~ msgstr "Camí:"
+
+#~ msgid "Local File System Path"
+#~ msgstr "Camí del sistema local de fitxers"
+
+#~ msgid ""
+#~ "Your notes are up to date.  See the details below or close the window."
+#~ msgstr ""
+#~ "Les notes estan actualitzades. Vegeu els detalls a sota o tanqueu la "
+#~ "finestra."
+
+#~ msgid "Downloading updates from server"
+#~ msgstr "S'estan baixant actualitzacions des del servidor"
+
+#~ msgid "Downloading new note from server"
+#~ msgstr "S'estan baixant notes noves des del servidor"
+
+#~ msgid "To Do List"
+#~ msgstr "Llista de coses a fer"
+
+#~ msgid "New _Task"
+#~ msgstr "Tasca _nova"
+
+#
+#~ msgid "Create a new task"
+#~ msgstr "Crea una tasca nova"
+
+#
+#~ msgid "_Options..."
+#~ msgstr "_Opcions..."
+
+#
+#~ msgid "Open the selected task"
+#~ msgstr "Obre la tasca seleccionada"
+
+#
+#
+#~ msgid "Delete the selected task"
+#~ msgstr "Suprimeix la tasca seleccionada"
+
+#
+#~ msgid "Open Associated _Note"
+#~ msgstr "O_bre la nota seleccionada"
+
+#~ msgid "Open the note containing the task"
+#~ msgstr "Obre la nota que conté la tasca"
+
+#
+#~ msgid "Tasks Help"
+#~ msgstr "Ajuda de les tasques"
+
+#~ msgid "Summary"
+#~ msgstr "Resum"
+
+#
+#~ msgid "Due Date"
+#~ msgstr "Data de venciment"
+
+#~ msgid "Completion Date"
+#~ msgstr "Data de finalització"
+
+#
+#~ msgid "Priority"
+#~ msgstr "Prioritat"
+
+#
+#~ msgid "None"
+#~ msgstr "Cap"
+
+#~ msgid "Low"
+#~ msgstr "Baixa"
+
+#
+#~ msgid "Normal"
+#~ msgstr "Normal"
+
+#~ msgid "High"
+#~ msgstr "Alta"
+
+#~ msgid "Total: {0} task"
+#~ msgid_plural "Total: {0} tasks"
+#~ msgstr[0] "Total: {0} tasca"
+#~ msgstr[1] "Total: {0} tasques"
+
+#~ msgid "New Task {0}"
+#~ msgstr "Tasca nova {0}"
+
+#
+#~ msgid "Really delete this task?"
+#~ msgstr "Esteu segur que voleu suprimir aquesta tasca?"
+
+#
+#~ msgid "If you delete a task it is permanently lost."
+#~ msgstr "Si suprimiu una tasca la perdreu definitivament."
+
+#
+#
+#
+#~ msgid "Learn About Tomboy"
+#~ msgstr "Apreneu a fer anar el Tomboy"
+
+#~ msgid ""
+#~ "Click on the Tomboy icon in your panel and select \"Start Here\".  You'll "
+#~ "see more instructions on how to use Tomboy inside the \"Start Here\" "
+#~ "note.\n"
+#~ "\n"
+#~ "When you've opened the \"Start Here\" note, mark this task as being "
+#~ "complete."
+#~ msgstr ""
+#~ "Feu clic a la icona del Tomboy al quadre i seleccioneu la nota «Comenceu "
+#~ "aquí». Trobareu més instruccions sobre com utilitzar el Tomboy dins de la "
+#~ "nota «Comenceu aquí».\n"
+#~ "\n"
+#~ "Quan ja hagueu obert, marqueu aquesta tasca com a finalitzada."
+
+#~ msgid "Task Options"
+#~ msgstr "Opcions de la tasca"
+
+#~ msgid "_Summary:"
+#~ msgstr "_Resum:"
+
+#~ msgid "_Completed:"
+#~ msgstr "_Completat:"
+
+#
+#
+#~ msgid "_Complete"
+#~ msgstr "_Completa"
+
+#
+#~ msgid "Due Date:"
+#~ msgstr "Data de venciment"
+
+#~ msgid "Priority:"
+#~ msgstr "Prioritat:"
+
+#~ msgid "todo"
+#~ msgstr "per fer"
+
+#~ msgid "Open To Do List"
+#~ msgstr "Obre la llista de coses a fer"
+
+#~ msgid "To Do Options"
+#~ msgstr "Opcions de les coses a fer"
+
+#~ msgid "Mark Undone"
+#~ msgstr "Marca com a per fer"
+
+#~ msgid "Mark Complete"
+#~ msgstr "Marca com a complet"
+
+#
+#~ msgid "Tags"
+#~ msgstr "Etiquetes"
+
+#~ msgid "Add/Remove note tags"
+#~ msgstr "Afegeix o suprimeix etiquetes a les notes"
+
+#
+#~ msgid "Tags:"
+#~ msgstr "Etiquetes:"
 
 #~ msgid "Currently enabled plugins."
 #~ msgstr "Connectors habilitats."
@@ -1552,9 +1948,6 @@ msgstr "_Obre l'enllaç"
 #~ msgid "Plugins"
 #~ msgstr "Connectors"
 
-#~ msgid "Not available"
-#~ msgstr "No disponible"
-
 #~ msgid "Description:"
 #~ msgstr "Descripció:"
 
@@ -1563,9 +1956,6 @@ msgstr "_Obre l'enllaç"
 
 #~ msgid "Web site:"
 #~ msgstr "Lloc web:"
-
-#~ msgid "File name:"
-#~ msgstr "Nom del fitxer:"
 
 #~ msgid "Settings"
 #~ msgstr "Paràmetres"
