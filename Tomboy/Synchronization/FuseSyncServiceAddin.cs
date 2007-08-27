@@ -88,7 +88,9 @@ namespace Tomboy.Sync
 		{
 			// TODO: When/how best to handle this?
 			if (!IsSupported)
-				return false;
+				throw new TomboySyncException (string.Format (Catalog.GetString ("This synchronization addin is not supported on your computer. " +
+				                                                                 "Please make sure you have FUSE and {0} correctly installed and configured"),
+				                                              FuseMountExeName));
 
 			if (!VerifyConfiguration ())
 				return false;
