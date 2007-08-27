@@ -7,6 +7,10 @@ using org.freedesktop.DBus;
 
 namespace Tomboy
 {
+	public delegate void RemoteDeletedHandler (string uri, string title);
+	public delegate void RemoteAddedHandler (string uri);
+	public delegate void RemoteSavedHandler (string uri);
+
 	[Interface ("org.gnome.Tomboy.RemoteControl")]
 	public class RemoteControl : MarshalByRefObject
 	{
@@ -15,6 +19,9 @@ namespace Tomboy
 		public RemoteControl (NoteManager mgr)
 		{
 			note_manager = mgr;
+			note_manager.NoteDeleted += OnNoteDeleted;
+			note_manager.NoteAdded += OnNoteAdded;
+			note_manager.NoteSaved += OnNoteSaved;
 		}
 
 		//Convert System.DateTime to unix timestamp
@@ -268,5 +275,27 @@ namespace Tomboy
 				tagged_note_uris [i] = tag.Notes [i].Uri;
 			return tagged_note_uris;
 		}
+
+		private void OnNoteDeleted (object sender, Note note)
+		{
+			if (NoteDeleted != null)
+				NoteDeleted (note.Uri, note.Title);
+		}
+
+		private void OnNoteAdded (object sender, Note note)
+		{
+			if (NoteAdded != null)
+				NoteAdded (note.Uri);
+		}
+
+		private void OnNoteSaved (Note note)
+		{
+			if (NoteSaved != null)
+				NoteSaved (note.Uri);
+		}
+
+		public event RemoteDeletedHandler NoteDeleted;
+		public event RemoteAddedHandler NoteAdded;
+		public event RemoteSavedHandler NoteSaved;
 	}
 }
