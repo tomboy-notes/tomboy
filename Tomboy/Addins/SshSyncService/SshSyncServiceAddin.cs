@@ -86,7 +86,7 @@ namespace Tomboy.Sync
 			if (!GetPrefWidgetSettings (out server, out folder, out username)) {
 				// TODO: Figure out a way to send the error back to the client
 				Logger.Debug ("One of url, username was empty");
-				return false;
+				throw new TomboySyncException (Catalog.GetString ("Server or username field is empty."));
 			}
 			
 			return true;
@@ -160,9 +160,21 @@ namespace Tomboy.Sync
 					mountPath);
 		}
 
-		protected override string FuseMountExeName {
+		protected override string FuseMountExeName
+		{
 			get { return "sshfs"; }
 		}
+		
+		public override string FuseMountTimeoutError
+		{
+			get
+			{
+				return Catalog.GetString ("Timeout connecting to server. " +
+				                          "Please ensure that your SSH key has been " +
+				                          "added to a running SSH daemon.");
+			}
+		}
+
 		
 		#region Private Methods
 		/// <summary>

@@ -1,5 +1,24 @@
 2007-08-26  Sandy Armstrong <sanfordarmstrong@gmail.com> 
 
+	* Tomboy/PreferencesDialog.cs: Check for TomboySyncException when
+	  saving sync configuration.  Use exception message in error dialog
+	  content.
+	* Tomboy/Synchronization/FuseSyncServiceAddin.cs: Adding
+	  FuseMountTimeoutError and FuseMountDirectoryError members, to be
+	  overriden by child classes that need to customize these error
+	  messages.  MountFuse method throws TomboySyncException instead of
+	  just returning false.  Check for existence of mountPath directory
+	  after mounting...wdfs with incorrect user/pass credentials will
+	  appear to mount correctly but Directory.Exists will return false.
+	* Tomboy/Synchronization/SyncManager.cs: Added TomboySyncException
+	  type, an extension of System.ApplicationException.
+	* Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs,
+	  Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs,
+	  Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs: Throw
+	  TomboySyncException when configuration is incorrect.
+
+2007-08-26  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
 	* test/DBusClientTest.py: Test driver for Tomboy's DBus interface. 
 	  Currently provides coverage of note save/add/delete events.
 	* Tomboy/RemoteControl.cs: Expose events for note save/add/delete over

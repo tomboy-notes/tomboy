@@ -741,4 +741,12 @@ Logger.Debug ("8");
 		void Reset ();
 		string AssociatedServerId { get; set; }
 	}
+			
+	public class TomboySyncException : ApplicationException
+	{
+		public TomboySyncException (string message) :
+			base (message) {}
+		public TomboySyncException (string message, Exception innerException) :
+			base (message, innerException) {}
+	}
 }
