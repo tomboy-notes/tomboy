@@ -240,7 +240,9 @@ namespace Tomboy.Sync
 				// Save configuration into GConf
 				//Preferences.Set ("/apps/tomboy/sync_wdfs_url", url ?? string.Empty);
 				//Preferences.Set ("/apps/tomboy/sync_wdfs_username", username ?? string.Empty);
-				//throw;
+				throw new TomboySyncException (Catalog.GetString ("Saving configuration to the GNOME keyring " +
+				                                                  "failed with the following message:") +
+				                               "\n\n" + ke.Message);
 			}
 		}
 		

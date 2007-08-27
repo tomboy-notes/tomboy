@@ -1,5 +1,15 @@
 2007-08-26  Sandy Armstrong <sanfordarmstrong@gmail.com> 
 
+	* Tomboy/Synchronization/FuseSyncServiceAddin.cs: Rename
+	  CreateMountPath method to PrepareMountPath, and add a call to make
+	  sure there is no existing FUSE mount at that path.
+	* Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs: Pass
+	  gnome-keyring-sharp exception messages along in
+	  TomboySyncException.  Short on time to implement non-keyring
+	  credential storage solution.
+
+2007-08-26  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
 	* Tomboy/PreferencesDialog.cs: Check for TomboySyncException when
 	  saving sync configuration.  Use exception message in error dialog
 	  content.
