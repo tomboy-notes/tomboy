@@ -155,7 +155,7 @@ namespace Tomboy.Sync
 				}
 			}
 			
-			CreateMountPath ();
+			PrepareMountPath ();
 
 			Process p = new Process ();
 			
@@ -181,8 +181,8 @@ namespace Tomboy.Sync
 			} else if (p.ExitCode == 1) {
 				UnmountTimeout (null, null); // TODO: This is awfully ugly
 				Logger.Debug ("Error calling " + fuseMountExePath);
-				throw new TomboySyncException (Catalog.GetString ("An error ocurred while connecting to the specified server:\n\n") +
-				                               p.StandardError.ReadToEnd ());
+				throw new TomboySyncException (Catalog.GetString ("An error ocurred while connecting to the specified server:") +
+				                               "\n\n" + p.StandardError.ReadToEnd ());
 			}
 			
 			// For wdfs, incorrect user credentials will cause the mountPath to
@@ -208,7 +208,7 @@ namespace Tomboy.Sync
 			mountPath = Path.Combine (notesPath, "sync-" + Id); // TODO: Best mount path name?
 		}
 		
-		private void CreateMountPath ()
+		private void PrepareMountPath ()
 		{
 			if (Directory.Exists (mountPath) == false) {
 				try {
@@ -219,7 +219,10 @@ namespace Tomboy.Sync
 							"Couldn't create \"{0}\" directory: {1}",
 							mountPath, e.Message));
 				}
-			}
+			} else
+				// Just in case, make sure there is no
+				// existing FUSE mount at mountPath.
+				UnmountTimeout (null, null);
 		}
 		
 		//private bool 
