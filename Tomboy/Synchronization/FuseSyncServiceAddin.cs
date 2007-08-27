@@ -3,6 +3,8 @@ using System.IO;
 using System.Diagnostics;
 using System.Collections.Generic;
 
+using Mono.Unix;
+
 namespace Tomboy.Sync
 {
 	public abstract class FuseSyncServiceAddin : SyncServiceAddin
@@ -51,7 +53,7 @@ namespace Tomboy.Sync
 			
 			// Mount if necessary
 			if (IsConfigured) {
-				if (!IsMounted && !MountFuse (true))
+				if (!IsMounted && !MountFuse (true)) // MountFuse may throw TomboySyncException!
 					throw new Exception ("Could not mount " + mountPath);
 				server = new FileSystemSyncServer (mountPath);
 			} else
@@ -121,7 +123,25 @@ namespace Tomboy.Sync
 		
 		protected abstract string GetFuseMountExeArgs (string mountPath, bool fromStoredValues);
 #endregion // Abstract Members
+
+#region Public Virtual Members
+		public virtual string FuseMountTimeoutError
+		{
+			get
+			{
+				return Catalog.GetString ("Timeout connecting to server.");
+			}
+		}
 		
+		public virtual string FuseMountDirectoryError
+		{
+			get
+			{
+				return Catalog.GetString ("Error connecting to server.");
+			}
+		}
+#endregion
+
 #region Private Methods
 		private bool MountFuse (bool useStoredValues)
 		{
@@ -131,15 +151,21 @@ namespace Tomboy.Sync
 			if (SyncUtils.IsFuseEnabled () == false) {
 				if (SyncUtils.EnableFuse () == false) {
 					Logger.Debug ("User canceled or something went wrong enabling FUSE");
-					return false;
+					throw new TomboySyncException (Catalog.GetString ("FUSE could not be enabled."));
 				}
 			}
 			
 			CreateMountPath ();
 
 			Process p = new Process ();
-			p.StartInfo.UseShellExecute = false;
+			
+			// Need to redirect stderr for displaying errors to user,
+			// but we can't use stdout and by not redirecting it, it
+			// should appear in the console Tomboy is started from.
 			p.StartInfo.RedirectStandardOutput = false;
+			p.StartInfo.RedirectStandardError = true;
+			
+			p.StartInfo.UseShellExecute = false;
 			p.StartInfo.FileName = fuseMountExePath;
 			p.StartInfo.Arguments = GetFuseMountExeArgs (mountPath, useStoredValues);
 			p.StartInfo.CreateNoWindow = true;
@@ -148,13 +174,31 @@ namespace Tomboy.Sync
 			bool exited = p.WaitForExit (timeoutMs);
 
 			if (!exited) {
+				UnmountTimeout (null, null); // TODO: This is awfully ugly
 				Logger.Debug (string.Format ("Error calling {0}: timed out after {1} seconds",
 				                             fuseMountExePath, timeoutMs / 1000));
-				return false;
+				throw new TomboySyncException (FuseMountTimeoutError);
 			} else if (p.ExitCode == 1) {
+				UnmountTimeout (null, null); // TODO: This is awfully ugly
 				Logger.Debug ("Error calling " + fuseMountExePath);
-				return false;
+				throw new TomboySyncException (Catalog.GetString ("An error ocurred while connecting to the specified server:\n\n") +
+				                               p.StandardError.ReadToEnd ());
 			}
+			
+			// For wdfs, incorrect user credentials will cause the mountPath to
+			// be messed up, and not recognized as a directory.  This is the only
+			// way I can find to report that the username/password may be incorrect (for wdfs).
+			if (!Directory.Exists (mountPath)) {
+				Logger.Debug ("FUSE mount call succeeded, but mount path does not exist. " +
+				              "This may be an indication that incorrect user credentials were " +
+				              "provided, but it may also represent any number of error states " +
+				              "not properly handled by the FUSE filesystem.");
+				// Even though the mountPath is screwed up, it is still (apparently)
+				// a valid FUSE mount and must be unmounted.
+				UnmountTimeout (null, null); // TODO: This is awfully ugly
+				throw new TomboySyncException (FuseMountDirectoryError);
+			}
+			
 			return true;
 		}
 		

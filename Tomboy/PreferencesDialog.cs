@@ -1082,12 +1082,15 @@ namespace Tomboy
 				return;
 			
 			bool saved = false;
+			string errorMsg = null;
 			try {
 				GdkWindow.Cursor = new Gdk.Cursor (Gdk.CursorType.Watch);
 				GdkWindow.Display.Flush ();
 				saved = selectedSyncAddin.SaveConfiguration ();
+			} catch (TomboySyncException syncEx) {
+				errorMsg = syncEx.Message;
 			} catch (Exception e) {
-				Logger.Debug ("Error calling {0}.SaveConfiguration: {1}\n{2}",
+				Logger.Debug ("Unexpected error calling {0}.SaveConfiguration: {1}\n{2}",
 					selectedSyncAddin.Id, e.Message, e.StackTrace);
 			} finally {
 				GdkWindow.Cursor = null;
@@ -1132,14 +1135,18 @@ namespace Tomboy
 
 				// Give the user a visual letting them know that connecting
 				// was successful.
+				if (errorMsg == null)
+					errorMsg = Catalog.GetString ("Sorry, but something went wrong.  " +
+					                              "Please check your information and " +
+					                              "try again.  The ~/.tomboy.log might " +
+					                              "be useful too.");
 				dialog = 
 					new HIGMessageDialog (this,
 							      Gtk.DialogFlags.Modal,
 							      Gtk.MessageType.Warning,
 							      Gtk.ButtonsType.Close,
 							      Catalog.GetString ("Error connecting :("),
-							      Catalog.GetString (
-						"Sorry, but something went wrong.  Please check your information and try again.  The ~/.tomboy.log might be useful too."));
+							      errorMsg);
 				dialog.Run ();
 				dialog.Destroy ();
 			}

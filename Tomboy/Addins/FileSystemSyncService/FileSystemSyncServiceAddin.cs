@@ -141,7 +141,7 @@ namespace Tomboy.Sync
 			if (syncPath == string.Empty) {
 				// TODO: Figure out a way to send the error back to the client
 				Logger.Debug ("The path is empty");
-				return false;
+				throw new TomboySyncException (Catalog.GetString ("Folder path field is empty."));
 			}
 			
 			// Attempt to create the path and fail if we can't
@@ -150,7 +150,8 @@ namespace Tomboy.Sync
 					Directory.CreateDirectory (syncPath);
 				} catch (Exception e) {
 					Logger.Debug ("Could not create \"{0}\": {1}", path, e.Message);
-					return false;
+					throw new TomboySyncException (Catalog.GetString ("Specified folder path does not exist, " +
+					                                                  "and Tomboy was unable to create it."));
 				}
 			}
 			

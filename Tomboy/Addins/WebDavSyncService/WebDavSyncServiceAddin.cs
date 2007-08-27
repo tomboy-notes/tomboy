@@ -84,7 +84,7 @@ namespace Tomboy.Sync
 			if (!GetPrefWidgetSettings (out url, out username, out password)) {
 				// TODO: Figure out a way to send the error back to the client
 				Logger.Debug ("One of url, username, or password was empty");
-				return false;
+				throw new TomboySyncException (Catalog.GetString ("URL, username, or password field is empty."));
 			}
 			
 			return true;
@@ -155,9 +155,21 @@ namespace Tomboy.Sync
 			                      password);
 		}
 
-		protected override string FuseMountExeName {
+		protected override string FuseMountExeName
+		{
 			get { return "wdfs"; }
 		}
+		
+		public override string FuseMountDirectoryError
+		{
+			get
+			{
+				return Catalog.GetString ("There was an error connecting to the server.  " +
+				                          "This may be caused by using an " +
+				                          "incorrect user name and/or password.");
+			}
+		}
+
 		
 		#region Private Methods
 		/// <summary>
