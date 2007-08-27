@@ -403,7 +403,7 @@ namespace Tomboy
 				syncAddinPrefsWidget = l;
 			}
 			if (syncAddinPrefsWidget != null && addin_id != null &&
-			    syncAddinIters.ContainsKey (addin_id))
+			    syncAddinIters.ContainsKey (addin_id) && selectedSyncAddin.IsConfigured)
 				syncAddinPrefsWidget.Sensitive = false;
 			
 			syncAddinPrefsWidget.Show ();
@@ -1052,6 +1052,20 @@ namespace Tomboy
 			                 Preferences.SYNC_CONFIGURED_CONFLICT_BEHAVIOR,
 			                 Preferences.GetDefault (Preferences.SYNC_CONFIGURED_CONFLICT_BEHAVIOR));
 			
+			NukeSyncClientManifest ();
+				
+			syncAddinCombo.Sensitive = true;
+			resetSyncAddinButton.Sensitive = false;
+			saveSyncAddinButton.Sensitive = true;
+			if (syncAddinPrefsWidget != null)
+				syncAddinPrefsWidget.Sensitive = true;
+		}
+		
+		// TODO: This class shouldn't know about the manifest.
+		//       Abstract this out somehow (ie, SyncManager.ResetClient()
+		//       or something like that).
+		void NukeSyncClientManifest ()
+		{
 			// Nuke ~/.tomboy/manifest.xml
 			string clientManifestPath = System.IO.Path.Combine ( 
 					Tomboy.DefaultNoteManager.NoteDirectoryPath,
@@ -1065,12 +1079,6 @@ namespace Tomboy
 						e.Message);
 				}
 			}
-				
-			syncAddinCombo.Sensitive = true;
-			resetSyncAddinButton.Sensitive = false;
-			saveSyncAddinButton.Sensitive = true;
-			if (syncAddinPrefsWidget != null)
-				syncAddinPrefsWidget.Sensitive = true;
 		}
 		
 		/// <summary>
@@ -1107,6 +1115,8 @@ namespace Tomboy
 				syncAddinPrefsWidget.Sensitive = false;
 				resetSyncAddinButton.Sensitive = true;
 				saveSyncAddinButton.Sensitive = false;
+			
+				NukeSyncClientManifest ();
 
 				// Give the user a visual letting them know that connecting
 				// was successful.
