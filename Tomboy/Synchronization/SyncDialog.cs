@@ -266,7 +266,7 @@ namespace Tomboy.Sync
 				case SyncState.Locked:
 					Title = Catalog.GetString ("Server Locked");
 					HeaderText = Catalog.GetString ("Server is locked");
-					MessageText = Catalog.GetString ("One of your other computers is currently synchronizing.  Please wait and try again.");
+					MessageText = Catalog.GetString ("One of your other computers is currently synchronizing.  Please wait 2 minutes and try again.");
 					ProgressText = string.Empty;
 					break;
 				case SyncState.PrepareDownload:
@@ -334,7 +334,7 @@ namespace Tomboy.Sync
 					statusText = Catalog.GetString ("Deleted locally");
 					break;
 				case NoteSyncType.DeleteFromServer:
-					statusText = Catalog.GetString ("Deleting from server");
+					statusText = Catalog.GetString ("Deleted from server");
 					break;
 				case NoteSyncType.DownloadModified:
 					statusText = Catalog.GetString ("Updated");
@@ -343,10 +343,10 @@ namespace Tomboy.Sync
 					statusText = Catalog.GetString ("Added");
 					break;
 				case NoteSyncType.UploadModified:
-					statusText = Catalog.GetString ("Uploading changes to server");
+					statusText = Catalog.GetString ("Uploaded changes to server");
 					break;
 				case NoteSyncType.UploadNew:
-					statusText = Catalog.GetString ("Uploading new note to server");
+					statusText = Catalog.GetString ("Uploaded new note to server");
 					break;
 				}
 				AddUpdateItem (noteTitle, statusText);
