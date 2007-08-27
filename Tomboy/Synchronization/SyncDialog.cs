@@ -18,7 +18,7 @@ namespace Tomboy.Sync
 		private Gtk.Button closeButton;
 		private uint progressBarTimeoutId;
 		
-		private Gtk.ListStore model;
+		private Gtk.TreeStore model;
 		
 		// TODO: Possible to make Tomboy not crash if quit while dialog is up?
 		public SyncDialog ()
@@ -80,10 +80,10 @@ namespace Tomboy.Sync
 			outerVBox.PackStart (progressLabel, false, false, 0);
 			
 			// Create model for TreeView
-			model = new Gtk.ListStore (typeof (string), typeof (string));
+			model = new Gtk.TreeStore (typeof (string), typeof (string));
 			
 			// Create TreeView, attach model
-			Gtk.TreeView treeView = new Gtk.TreeView (model);
+			Gtk.TreeView treeView = new Gtk.TreeView ();
 			treeView.Model = model;
 			
 			// Set up TreeViewColumns
@@ -286,8 +286,7 @@ namespace Tomboy.Sync
 					break;
 				case SyncState.Succeeded:
 					int count = 0;
-					foreach (object [] currentRow in model)
-						count++;
+					count += model.IterNChildren ();
 					Title = Catalog.GetString ("Synchronization Complete");
 					HeaderText = Catalog.GetString ("Synchronization is complete");
 					string numNotesUpdated =
