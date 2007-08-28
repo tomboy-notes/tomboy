@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tomboy.HEAD.es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-08-13 16:27+0100\n"
-"PO-Revision-Date: 2007-08-13 18:11+0200\n"
+"POT-Creation-Date: 2007-08-28 04:08+0100\n"
+"PO-Revision-Date: 2007-08-28 14:27+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -624,7 +624,15 @@ msgstr "Examinar..."
 msgid "Select Synchronization Folder..."
 msgstr "Seleccione la carpeta para sincronizar"
 
-#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:196
+#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:144
+msgid "Folder path field is empty."
+msgstr "El campo de la ruta de la carpeta está vacío."
+
+#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:153
+msgid "Specified folder path does not exist, and Tomboy was unable to create it."
+msgstr "La ruta de la carpeta especificada no existe y Tomboy no pudo crearla."
+
+#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:197
 msgid "Local Folder"
 msgstr "Carpeta local"
 
@@ -701,9 +709,21 @@ msgstr ""
 "La sincronización SSH requiere una clave SSH existente para este servidor y "
 "usuario que esté añadida al demonio SSH en ejecución."
 
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:89
+msgid "Server or username field is empty."
+msgstr "El campo del usuario o del servidor está vacío."
+
 #: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:133
 msgid "SSH (sshfs FUSE)"
 msgstr "SSH (sshfs FUSE)"
+
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:172
+msgid ""
+"Timeout connecting to server. Please ensure that your SSH key has been added "
+"to a running SSH daemon."
+msgstr ""
+"Se superó el tiempo de espera máximo al conectar con el servidor. Asegúrese de que su clave SSH se ha "
+"añadido al demonio SSH en ejecución."
 
 #: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:50
 msgid "Import from Sticky Notes"
@@ -743,9 +763,30 @@ msgstr "URL:"
 msgid "Password:"
 msgstr "Contraseña:"
 
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:87
+msgid "URL, username, or password field is empty."
+msgstr "El campo URL, usuario o contraseña está vacío."
+
 #: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:129
 msgid "WebDAV (wdfs FUSE)"
 msgstr "WebDAV (wdfs FUSE)"
+
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:167
+msgid ""
+"There was an error connecting to the server.  This may be caused by using an "
+"incorrect user name and/or password."
+msgstr ""
+"Ocurrió un error al conectar con el servidor. Esto pudo ocurrir por usar un "
+"nombre de usuario y/o contraseña incorrectos."
+
+#. TODO: If the above fails (no keyring daemon), save all but password
+#. to GConf, and notify user.
+#. Save configuration into GConf
+#. Preferences.Set ("/apps/tomboy/sync_wdfs_url", url ?? string.Empty);
+#. Preferences.Set ("/apps/tomboy/sync_wdfs_username", username ?? string.Empty);
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:243
+msgid "Saving configuration to the GNOME keyring failed with the following message:"
+msgstr "Falló al guardar la configuración al depósito de claves con el siguiente mensaje:"
 
 #: ../Tomboy/Applet.cs:191
 msgid "_About Tomboy"
@@ -1150,19 +1191,15 @@ msgstr ""
 "sincronización se limpiarán. Quizá se vea forzado a sincronizar todas sus "
 "notas de nuevo cuando guarde los nuevos ajustes."
 
-#: ../Tomboy/PreferencesDialog.cs:1115
+#: ../Tomboy/PreferencesDialog.cs:1128
 msgid "Success! You're connected!"
 msgstr "Está conectado."
 
-#: ../Tomboy/PreferencesDialog.cs:1117
+#: ../Tomboy/PreferencesDialog.cs:1130
 msgid "Tomboy is ready to synchronize your notes."
 msgstr "Tomboy está preparado para sincronizar sus notas."
 
-#: ../Tomboy/PreferencesDialog.cs:1140
-msgid "Error connecting :("
-msgstr "Error al conectar"
-
-#: ../Tomboy/PreferencesDialog.cs:1142
+#: ../Tomboy/PreferencesDialog.cs:1149
 msgid ""
 "Sorry, but something went wrong.  Please check your information and try "
 "again.  The ~/.tomboy.log might be useful too."
@@ -1170,19 +1207,23 @@ msgstr ""
 "Lo siento pero algo fue mal. Compruebe su información e inténtelo de nuevo. "
 "El archivo ~/.tomboy.log puede ser útil."
 
-#: ../Tomboy/PreferencesDialog.cs:1208
+#: ../Tomboy/PreferencesDialog.cs:1158
+msgid "Error connecting :("
+msgstr "Error al conectar"
+
+#: ../Tomboy/PreferencesDialog.cs:1225
 msgid "Version:"
 msgstr "Versión:"
 
-#: ../Tomboy/PreferencesDialog.cs:1215
+#: ../Tomboy/PreferencesDialog.cs:1232
 msgid "Author:"
 msgstr "Autor:"
 
-#: ../Tomboy/PreferencesDialog.cs:1222
+#: ../Tomboy/PreferencesDialog.cs:1239
 msgid "Copyright:"
 msgstr "Copyright:"
 
-#: ../Tomboy/PreferencesDialog.cs:1228
+#: ../Tomboy/PreferencesDialog.cs:1245
 msgid "Add-in Dependencies:"
 msgstr "Dependencias de los complementos:"
 
@@ -1485,11 +1526,11 @@ msgstr "El servidor está bloqueado"
 
 #: ../Tomboy/Synchronization/SyncDialog.cs:269
 msgid ""
-"One of your other computers is currently synchronizing.  Please wait and try "
-"again."
+"One of your other computers is currently synchronizing.  Please wait 2 "
+"minutes and try again."
 msgstr ""
-"Uno de sus equipos está actualmente sincronizando. Espere e inténtelo de "
-"nuevo."
+"Uno de sus equipos está actualmente sincronizando. Espere 2 "
+"minutos e inténtelo de nuevo."
 
 #: ../Tomboy/Synchronization/SyncDialog.cs:273
 msgid "Preparing to download updates from server..."
@@ -1517,116 +1558,116 @@ msgstr ""
 "No se pudieron sincronizar las notas. Compruebe los detalles de abajo e "
 "inténtelo de nuevo."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:291
+#: ../Tomboy/Synchronization/SyncDialog.cs:290
 msgid "Synchronization Complete"
 msgstr "Sincronización completada"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:292
+#: ../Tomboy/Synchronization/SyncDialog.cs:291
 msgid "Synchronization is complete"
 msgstr "Sincronización completada"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:294
+#: ../Tomboy/Synchronization/SyncDialog.cs:293
 #, csharp-format
 msgid "{0} note updated."
 msgid_plural "{0} notes updated."
 msgstr[0] "{0} nota actualizada."
 msgstr[1] "{0} notas actualizadas."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:299
+#: ../Tomboy/Synchronization/SyncDialog.cs:298
 msgid "Your notes are now up to date."
 msgstr "Ahora sus notas están actualizadas."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:303
+#: ../Tomboy/Synchronization/SyncDialog.cs:302
 msgid "Synchronization Canceled"
 msgstr "Se canceló la sincronización"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:304
+#: ../Tomboy/Synchronization/SyncDialog.cs:303
 msgid "Synchronization was canceled"
 msgstr "Se canceló la sincronización"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:305
+#: ../Tomboy/Synchronization/SyncDialog.cs:304
 msgid "You canceled the synchronization.  You may close the window now."
 msgstr "Canceló la sincronización. Debería cerrar la ventana ahora."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:309
+#: ../Tomboy/Synchronization/SyncDialog.cs:308
 msgid "Synchronization Not Configured"
 msgstr "La sincronización no está configurada"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:310
+#: ../Tomboy/Synchronization/SyncDialog.cs:309
 msgid "Synchronization is not configured"
 msgstr "La sincronización no está configurada"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:311
+#: ../Tomboy/Synchronization/SyncDialog.cs:310
 msgid "Please configure synchronization in the preferences dialog."
 msgstr "Configure la sincronización en el diálogo de preferencias."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:315
+#: ../Tomboy/Synchronization/SyncDialog.cs:314
 msgid "Synchronization Service Error"
 msgstr "Error de sincronización en el servicio"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:316
+#: ../Tomboy/Synchronization/SyncDialog.cs:315
 msgid "Service error"
 msgstr "Error del servicio"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:317
+#: ../Tomboy/Synchronization/SyncDialog.cs:316
 msgid "Error connecting to the synchronization service.  Please try again."
 msgstr "Error al conectar con el servicio de sincronización. Inténtelo de nuevo."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:334
+#: ../Tomboy/Synchronization/SyncDialog.cs:333
 msgid "Deleted locally"
 msgstr "Se borró la copia local"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:337
-msgid "Deleting from server"
-msgstr "Borrando del servidor"
+#: ../Tomboy/Synchronization/SyncDialog.cs:336
+msgid "Deleted from server"
+msgstr "Borradas del servidor"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:340
+#: ../Tomboy/Synchronization/SyncDialog.cs:339
 msgid "Updated"
 msgstr "Actualizada"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:343
+#: ../Tomboy/Synchronization/SyncDialog.cs:342
 msgid "Added"
 msgstr "Añadida"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:346
-msgid "Uploading changes to server"
-msgstr "Subiendo los cambios al servidor"
+#: ../Tomboy/Synchronization/SyncDialog.cs:345
+msgid "Uploaded changes to server"
+msgstr "Se subieron al servidor los cambios"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:349
-msgid "Uploading new note to server"
-msgstr "Subiendo la nueva nota al servidor"
+#: ../Tomboy/Synchronization/SyncDialog.cs:348
+msgid "Uploaded new note to server"
+msgstr "Se subió la nota nueva al servidor"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:481
+#: ../Tomboy/Synchronization/SyncDialog.cs:480
 msgid "Note Conflict"
 msgstr "Conflicto entre notas"
 
 #. Suggest renaming note by appending " (old)" to the existing title
-#: ../Tomboy/Synchronization/SyncDialog.cs:485
+#: ../Tomboy/Synchronization/SyncDialog.cs:484
 msgid " (old)"
 msgstr "(vieja)"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:524
+#: ../Tomboy/Synchronization/SyncDialog.cs:523
 msgid "Rename local note:"
 msgstr "Renombrar la nota local:"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:530
+#: ../Tomboy/Synchronization/SyncDialog.cs:529
 msgid "Update links in referencing notes"
 msgstr "Actualizar los enlaces en las notas referenciadas"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:537
+#: ../Tomboy/Synchronization/SyncDialog.cs:536
 msgid "Overwrite local note"
 msgstr "Sobreescribir la nota local"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:541
+#: ../Tomboy/Synchronization/SyncDialog.cs:540
 msgid "Always perform this action"
 msgstr "Siempre realizar esta acción"
 
 #. Set initial dialog text
-#: ../Tomboy/Synchronization/SyncDialog.cs:548
+#: ../Tomboy/Synchronization/SyncDialog.cs:547
 msgid "Note conflict detected"
 msgstr "Se detectó un conflicto en las notas"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:549
+#: ../Tomboy/Synchronization/SyncDialog.cs:548
 #, csharp-format
 msgid ""
 "The server version of \"{0}\" conflicts with your local note.  What do you "
