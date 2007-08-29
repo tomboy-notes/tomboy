@@ -8,14 +8,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tomboy.HEAD.gu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-08-13 16:27+0100\n"
-"PO-Revision-Date: 2007-08-16 13:33+0530\n"
+"POT-Creation-Date: 2007-08-29 08:17+0100\n"
+"PO-Revision-Date: 2007-08-29 14:18+0530\n"
 "Last-Translator: Ankit Patel <ankit@redhat.com>\n"
 "Language-Team: Gujarati <fedora-trans-gu@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms:  nplurals=2; plural=(n!=1);\n\n"
+"\n"
 "\n"
 "\n"
 "\n"
@@ -613,7 +614,15 @@ msgstr "બ્રાઉઝ કરો..."
 msgid "Select Synchronization Folder..."
 msgstr "સુમેળ ફોલ્ડર પસંદ કરો..."
 
-#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:196
+#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:144
+msgid "Folder path field is empty."
+msgstr "ફોલ્ડર પાથ ક્ષેત્ર ખાલી છે."
+
+#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:153
+msgid "Specified folder path does not exist, and Tomboy was unable to create it."
+msgstr "સ્પષ્ટ કરેલ ફોલ્ડર પાથ અસ્તિત્વમાં નથી, અને Tomboy તેને બનાવવામાં અસમર્થ હતું."
+
+#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:197
 msgid "Local Folder"
 msgstr "સ્થાનિક ફોલ્ડર"
 
@@ -686,11 +695,23 @@ msgstr "ફોલ્ડર પાથ (વૈકલ્પિક):"
 msgid ""
 "SSH synchronization requires an existing SSH key for this server and user, "
 "added to a running SSH daemon."
-msgstr "SSH સુમેળ માટે આ સર્વર અને વપરાશકર્તા માટે હાલની SSH કી જરૂરી છે, ચાલી રહેલ SSH ડિમનમાં ઉમેરાયેલ છે."
+msgstr ""
+"SSH સુમેળ માટે આ સર્વર અને વપરાશકર્તા માટે હાલની SSH કી જરૂરી છે, ચાલી રહેલ SSH ડિમનમાં "
+"ઉમેરાયેલ છે."
+
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:89
+msgid "Server or username field is empty."
+msgstr "સર્વર અથવા વપરાશકર્તાનામ ક્ષેત્ર ખાલી છે."
 
 #: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:133
 msgid "SSH (sshfs FUSE)"
 msgstr "SSH (sshfs FUSE)"
+
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:172
+msgid ""
+"Timeout connecting to server. Please ensure that your SSH key has been added "
+"to a running SSH daemon."
+msgstr "સર્વર સાથે જોડાવાનો સમયસમાપ્ત. મહેરબાની કરીને ખાતરી કરો કે તમારી SSH કી ચાલી રહેલ SSH ડિમનમાં ઉમેરાઈ ગયેલ છે."
 
 #: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:50
 msgid "Import from Sticky Notes"
@@ -730,9 +751,28 @@ msgstr "URL:"
 msgid "Password:"
 msgstr "પાસવર્ડ:"
 
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:87
+msgid "URL, username, or password field is empty."
+msgstr "URL, વપરાશકર્તાનામ, અથવા પાસવર્ડ ક્ષેત્ર ખાલી છે."
+
 #: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:129
 msgid "WebDAV (wdfs FUSE)"
 msgstr "WebDAV (wdfs FUSE)"
+
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:167
+msgid ""
+"There was an error connecting to the server.  This may be caused by using an "
+"incorrect user name and/or password."
+msgstr "સર્વર સાથે જોડાણ કરતી વખતે ભૂલ હતી.  આ અયોગ્ય વપરાશકર્તા નામ અને/અથવા પાસવર્ડને કારણે હશે."
+
+#. TODO: If the above fails (no keyring daemon), save all but password
+#. to GConf, and notify user.
+#. Save configuration into GConf
+#. Preferences.Set ("/apps/tomboy/sync_wdfs_url", url ?? string.Empty);
+#. Preferences.Set ("/apps/tomboy/sync_wdfs_username", username ?? string.Empty);
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:243
+msgid "Saving configuration to the GNOME keyring failed with the following message:"
+msgstr "જીનોમ કીરીંગમાં રૂપરેખાંકન સંગ્રહવાનું નીચેના સંદેશા સાથે નિષ્ફળ ગયું:"
 
 #: ../Tomboy/Applet.cs:191
 msgid "_About Tomboy"
@@ -1123,21 +1163,19 @@ msgid ""
 "You have disabled the configured synchronization service.  Your "
 "synchronization settings will now be cleared.  You may be forced to "
 "synchronize all of your notes again when you save new settings"
-msgstr "તમે રૂપરેખાંકિત સુમેળ સેવા નિષ્ક્રિય કરેલ છે.  તમારા સુમેળ સુયોજનો હવે સાફ થઈ જશે.  તમે તમારી નોંધોના સુમેળ માટે દબાણ કરવામાં આવશો જ્યારે તમે નવા સુયોજનો સંગ્રહો"
+msgstr ""
+"તમે રૂપરેખાંકિત સુમેળ સેવા નિષ્ક્રિય કરેલ છે.  તમારા સુમેળ સુયોજનો હવે સાફ થઈ જશે.  તમે તમારી "
+"નોંધોના સુમેળ માટે દબાણ કરવામાં આવશો જ્યારે તમે નવા સુયોજનો સંગ્રહો"
 
-#: ../Tomboy/PreferencesDialog.cs:1115
+#: ../Tomboy/PreferencesDialog.cs:1128
 msgid "Success! You're connected!"
 msgstr "સફળ! તમે જોડાઈ ગયા!"
 
-#: ../Tomboy/PreferencesDialog.cs:1117
+#: ../Tomboy/PreferencesDialog.cs:1130
 msgid "Tomboy is ready to synchronize your notes."
 msgstr "Tomboy તમારી નોંધો સુમેળ કરવા માટે તૈયાર છે."
 
-#: ../Tomboy/PreferencesDialog.cs:1140
-msgid "Error connecting :("
-msgstr "જોડાવામાં ભૂલ :("
-
-#: ../Tomboy/PreferencesDialog.cs:1142
+#: ../Tomboy/PreferencesDialog.cs:1149
 msgid ""
 "Sorry, but something went wrong.  Please check your information and try "
 "again.  The ~/.tomboy.log might be useful too."
@@ -1145,19 +1183,23 @@ msgstr ""
 "માફ કરજો, પરંતુ કંઈક ખોટું ગયું.  મહેરબાની કરીને તમારી જાણકારી ચકાસો અને ફરીથી પ્રયાસ "
 "કરો.  ~/.tomboy.log પણ કદાચ ઉપયોગી હોઈ શકે."
 
-#: ../Tomboy/PreferencesDialog.cs:1208
+#: ../Tomboy/PreferencesDialog.cs:1158
+msgid "Error connecting :("
+msgstr "જોડાવામાં ભૂલ :("
+
+#: ../Tomboy/PreferencesDialog.cs:1225
 msgid "Version:"
 msgstr "આવૃત્તિ:"
 
-#: ../Tomboy/PreferencesDialog.cs:1215
+#: ../Tomboy/PreferencesDialog.cs:1232
 msgid "Author:"
 msgstr "લેખક:"
 
-#: ../Tomboy/PreferencesDialog.cs:1222
+#: ../Tomboy/PreferencesDialog.cs:1239
 msgid "Copyright:"
 msgstr "કોપીરાઈટ:"
 
-#: ../Tomboy/PreferencesDialog.cs:1228
+#: ../Tomboy/PreferencesDialog.cs:1245
 msgid "Add-in Dependencies:"
 msgstr "વધારાના આધારભૂતપણાઓ:"
 
@@ -1400,6 +1442,29 @@ msgstr "કડી સરનામાની નકલ કરો (_C)"
 msgid "_Open Link"
 msgstr "કડી ખોલો (_O)"
 
+#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:91
+#, csharp-format
+msgid ""
+"This synchronization addin is not supported on your computer. Please make "
+"sure you have FUSE and {0} correctly installed and configured"
+msgstr "સુમેળ ઉમેરો એ તમારા કમ્પ્યૂટર પર આધારભૂત નથી. મહેરબાની કરીને ખાતરી કરો કે તમારી પાસે FUSE અને {0} યોગ્ય રીતે સ્થાપિત થયેલ અને રૂપરેખાંકિત થયેલ છે"
+
+#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:134
+msgid "Timeout connecting to server."
+msgstr "સર્વર સાથે જોડાવાના સમયસમાપ્ત થયો."
+
+#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:142
+msgid "Error connecting to server."
+msgstr "સર્વર સાથે જોડાવામાં ભૂલ."
+
+#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:156
+msgid "FUSE could not be enabled."
+msgstr "FUSE સક્રિય કરી શક્યા નહિં."
+
+#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:186
+msgid "An error ocurred while connecting to the specified server:"
+msgstr "સ્પષ્ટ થયેલ સર્વર સાથે જોડાણ કરતી વખતે ભૂલ ઉદ્ભવી:"
+
 #: ../Tomboy/Synchronization/SyncDialog.cs:91
 msgid "Note Title"
 msgstr "નોંધ શીર્ષક"
@@ -1455,11 +1520,9 @@ msgstr "સર્વરને તાળું મરાયેલ છે"
 
 #: ../Tomboy/Synchronization/SyncDialog.cs:269
 msgid ""
-"One of your other computers is currently synchronizing.  Please wait and try "
-"again."
-msgstr ""
-"તમારા અન્ય કમ્પ્યૂટરોમાંનુ એક વર્તમાનમાં સુમેળ કરી રહ્યું છે.  મહેરબાની કરીને રાહ જુઓ અને ફરી "
-"પ્રયાસ કરો."
+"One of your other computers is currently synchronizing.  Please wait 2 "
+"minutes and try again."
+msgstr "તમારા કમ્પ્યૂટરોમાંનુ કોઈ એક વર્તમાનમાં સુમેળ થઈ રહ્યું છે.  મહેરબાની કરીને ૨ મિનિટો રાહ જુઓ અને ફરીથી પ્રયાસ કરો."
 
 #: ../Tomboy/Synchronization/SyncDialog.cs:273
 msgid "Preparing to download updates from server..."
@@ -1485,116 +1548,116 @@ msgstr "સુમેળ કરવામાં નિષ્ફળ"
 msgid "Could not synchronize notes.  Check the details below and try again."
 msgstr "નોંધો સુમેળ કરી શક્યા નહિં.  નીચે વિગતો ચકાસો અને ફરી પ્રયાસ કરો."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:291
+#: ../Tomboy/Synchronization/SyncDialog.cs:290
 msgid "Synchronization Complete"
 msgstr "સુમેળ સમાપ્ત"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:292
+#: ../Tomboy/Synchronization/SyncDialog.cs:291
 msgid "Synchronization is complete"
 msgstr "સુમેળ સમાપ્ત થયું"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:294
+#: ../Tomboy/Synchronization/SyncDialog.cs:293
 #, csharp-format
 msgid "{0} note updated."
 msgid_plural "{0} notes updated."
 msgstr[0] "{0} નોંધ સુધારાઈ."
 msgstr[1] "{0} નોંધો સુધારાઈ."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:299
+#: ../Tomboy/Synchronization/SyncDialog.cs:298
 msgid "Your notes are now up to date."
 msgstr "તમારી નોંધો હવે એકદમ પરિપૂર્ણ છે."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:303
+#: ../Tomboy/Synchronization/SyncDialog.cs:302
 msgid "Synchronization Canceled"
 msgstr "સુમેળ રદ થયું"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:304
+#: ../Tomboy/Synchronization/SyncDialog.cs:303
 msgid "Synchronization was canceled"
 msgstr "સુમેળ રદ થયું હતું"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:305
+#: ../Tomboy/Synchronization/SyncDialog.cs:304
 msgid "You canceled the synchronization.  You may close the window now."
 msgstr "તમે સુમેળ રદ કર્યું હતું.  તમે હવે વિન્ડો બંધ કરી શકશો."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:309
+#: ../Tomboy/Synchronization/SyncDialog.cs:308
 msgid "Synchronization Not Configured"
 msgstr "સુમેળ રૂપરેખાંકિત નથી"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:310
+#: ../Tomboy/Synchronization/SyncDialog.cs:309
 msgid "Synchronization is not configured"
 msgstr "સુમેળ રૂપરેખાંકિત નથી"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:311
+#: ../Tomboy/Synchronization/SyncDialog.cs:310
 msgid "Please configure synchronization in the preferences dialog."
 msgstr "મહેરબાની કરીને પસંદગીઓ સંવાદમાં સુમેળ રૂપરેખાંકિત કરો."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:315
+#: ../Tomboy/Synchronization/SyncDialog.cs:314
 msgid "Synchronization Service Error"
 msgstr "સુમેળ સેવા ભૂલ"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:316
+#: ../Tomboy/Synchronization/SyncDialog.cs:315
 msgid "Service error"
 msgstr "સેવા ભૂલ"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:317
+#: ../Tomboy/Synchronization/SyncDialog.cs:316
 msgid "Error connecting to the synchronization service.  Please try again."
 msgstr "સુમેળ સેવા સાથે જોડાવામાં ભૂલ.  મહેરબાની કરીને ફરીથી પ્રયાસ કરો."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:334
+#: ../Tomboy/Synchronization/SyncDialog.cs:333
 msgid "Deleted locally"
 msgstr "સ્થાનિક રીતે કાઢેલ"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:337
-msgid "Deleting from server"
-msgstr "સર્વરમાંથી કાઢી રહ્યા છીએ"
+#: ../Tomboy/Synchronization/SyncDialog.cs:336
+msgid "Deleted from server"
+msgstr "સર્વરમાંથી કાઢી નાંખ્યુ"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:340
+#: ../Tomboy/Synchronization/SyncDialog.cs:339
 msgid "Updated"
 msgstr "સુધારાયેલ"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:343
+#: ../Tomboy/Synchronization/SyncDialog.cs:342
 msgid "Added"
 msgstr "ઉમેરાયેલ"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:346
-msgid "Uploading changes to server"
-msgstr "સર્વરમાં ફેરફારો અપલોડ કરી રહ્યા છીએ"
+#: ../Tomboy/Synchronization/SyncDialog.cs:345
+msgid "Uploaded changes to server"
+msgstr "ફેરફારો સર્વરમાં અપલોડ થઈ ગયા"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:349
-msgid "Uploading new note to server"
-msgstr "સર્વરમાં નવી નોંધ અપલોડ કરી રહ્યા છીએ"
+#: ../Tomboy/Synchronization/SyncDialog.cs:348
+msgid "Uploaded new note to server"
+msgstr "નવી નોંધ સર્વરમાં અપલોડ થઈ ગઈ"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:481
+#: ../Tomboy/Synchronization/SyncDialog.cs:480
 msgid "Note Conflict"
 msgstr "નોંધ તકરાર"
 
 #. Suggest renaming note by appending " (old)" to the existing title
-#: ../Tomboy/Synchronization/SyncDialog.cs:485
+#: ../Tomboy/Synchronization/SyncDialog.cs:484
 msgid " (old)"
 msgstr " (જૂનું)"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:524
+#: ../Tomboy/Synchronization/SyncDialog.cs:523
 msgid "Rename local note:"
 msgstr "સ્થાનિક નોંધનું નામ બદલો:"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:530
+#: ../Tomboy/Synchronization/SyncDialog.cs:529
 msgid "Update links in referencing notes"
 msgstr "સંદર્ભી નોંધમાં કડીઓ સુધારો"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:537
+#: ../Tomboy/Synchronization/SyncDialog.cs:536
 msgid "Overwrite local note"
 msgstr "સ્થાનિક નોંધ પર ફરીથી લખો"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:541
+#: ../Tomboy/Synchronization/SyncDialog.cs:540
 msgid "Always perform this action"
 msgstr "હંમેશા આ ક્રિયા કરો"
 
 #. Set initial dialog text
-#: ../Tomboy/Synchronization/SyncDialog.cs:548
+#: ../Tomboy/Synchronization/SyncDialog.cs:547
 msgid "Note conflict detected"
 msgstr "નોંધ તકરાર મળી"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:549
+#: ../Tomboy/Synchronization/SyncDialog.cs:548
 #, csharp-format
 msgid ""
 "The server version of \"{0}\" conflicts with your local note.  What do you "
@@ -1633,5 +1696,7 @@ msgstr "FUSE સક્રિય કરી શક્યા નહિં"
 msgid ""
 "The FUSE module could not be loaded. Please check that it is installed "
 "properly and try again."
-msgstr "FUSE મોડ્યુલ લાવી શક્યા નહિં. મહેરબાની કરીને ચકાસો કે તે યોગ્ય રીતે સ્થાપિત થયેલ છે અને ફરીથી પ્રયાસ કરો."
+msgstr ""
+"FUSE મોડ્યુલ લાવી શક્યા નહિં. મહેરબાની કરીને ચકાસો કે તે યોગ્ય રીતે સ્થાપિત થયેલ છે અને "
+"ફરીથી પ્રયાસ કરો."
 
