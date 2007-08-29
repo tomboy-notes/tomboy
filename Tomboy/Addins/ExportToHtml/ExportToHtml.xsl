@@ -23,11 +23,9 @@
 	body { <xsl:value-of select="$font" /> }
 	h1 { font-size: xx-large;
      	     font-weight: bold;
-     	     color: #204A87;
-     	     text-decoration: underline; }
+     	     border-bottom: 1px solid black; }
 	div.note { overflow: auto;
 		   position: relative;
-		   border: 1px solid black;
 		   display: block;
 		   padding: 5pt;
 		   margin: 5pt; 
