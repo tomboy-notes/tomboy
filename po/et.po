@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tomboy HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-08-16 11:06+0100\n"
-"PO-Revision-Date: 2007-08-17 09:37+0300\n"
+"POT-Creation-Date: 2007-08-28 04:08+0100\n"
+"PO-Revision-Date: 2007-08-29 14:34+0300\n"
 "Last-Translator: Ivar Smolin <okul@linux.ee>\n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
 "MIME-Version: 1.0\n"
@@ -179,7 +179,7 @@ msgstr "Vähim menüüs näidatavate märgete arv"
 
 #: ../data/tomboy.schemas.in.h:22
 msgid "Note Synchronization Conflict Saved Behavior"
-msgstr ""
+msgstr "Salvestatud käitumine märkmete sünkroniseerimise vastuolu tarbeks"
 
 #: ../data/tomboy.schemas.in.h:23
 msgid "Open Recent Changes"
@@ -323,8 +323,8 @@ msgid ""
 "The last setting for the 'Export linked notes' checkbox in the Export to "
 "HTML plugin."
 msgstr ""
-"HTML-iks eksportimise plugina märkeruudu \"Viidatud märkmete eksport\" "
-"viimane olek."
+"HTML-iks eksportimise plugina märkeruudu \"Eksporditakse ka viidatud "
+"märkmed\" viimane olek."
 
 #: ../data/tomboy.schemas.in.h:42
 msgid ""
@@ -333,11 +333,11 @@ msgid ""
 "Export Linked Notes' setting and is used to specify whether all notes (found "
 "recursively) should be included during an export to HTML."
 msgstr ""
-"HTML-iks eksportimise plugina märkeruudu \"Kõigi viidatud märkmete kaasamine"
-"\" viimane olek. Seda sätet kasutatakse koos sättega 'Viidatud märkmete HTML-"
-"eksport' ja selle abil määratakse, kas HTML-iks eksportimise ajal kaasatakse "
-"kõik eksporditava märkme poolt viidatud märkmed, mis leitakse rekursiivse "
-"otsingu abil."
+"HTML-iks eksportimise plugina märkeruudu \"Kaasa arvatud kõik ülejäänud "
+"viidatud märkmed\" viimane olek. Seda sätet kasutatakse koos sättega "
+"'Viidatud märkmete HTML-eksport' ja selle abil määratakse, kas HTML-iks "
+"eksportimise ajal kaasatakse kõik eksporditava märkme poolt viidatud "
+"märkmed, mis leitakse rekursiivse otsingu abil."
 
 #: ../data/tomboy.schemas.in.h:43
 msgid ""
@@ -353,12 +353,15 @@ msgid ""
 "Unique identifier for the currently configured note synchronization service "
 "addin."
 msgstr ""
+"Hetkel seadistatud sünkroniseerimisteenuse lisa unikaalne identifikaator."
 
 #: ../data/tomboy.schemas.in.h:45
 msgid ""
 "Unique identifier for this Tomboy client, used when communicating with a "
 "sychronization server."
 msgstr ""
+"Sünkroniseerimisserveriga suhtlemiseks kasutatava Tomboy kliendi unikaalne "
+"identifikaator."
 
 #: ../data/tomboy.schemas.in.h:46
 msgid ""
@@ -589,11 +592,11 @@ msgstr "HTML-ekspordi sihtkoht"
 
 #: ../Tomboy/Addins/ExportToHtml/ExportToHtmlDialog.cs:23
 msgid "Export linked notes"
-msgstr "Viidatud märkmete eksportimine"
+msgstr "Eksporditakse ka viidatud märkmed"
 
 #: ../Tomboy/Addins/ExportToHtml/ExportToHtmlDialog.cs:28
 msgid "Include all other linked notes"
-msgstr "Kõigi viidatud märkmete kaasamine"
+msgstr "Kaasa arvatud kõik ülejäänud viidatud märkmed"
 
 #: ../Tomboy/Addins/Evolution/EvolutionNoteAddin.cs:269
 msgid "Cannot open email"
@@ -611,7 +614,18 @@ msgstr "Sirvi..."
 msgid "Select Synchronization Folder..."
 msgstr "Sünkroniseerimiskataloogi valimine..."
 
-#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:196
+#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:144
+msgid "Folder path field is empty."
+msgstr "Kataloogi raja väli on tühi."
+
+#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:153
+msgid ""
+"Specified folder path does not exist, and Tomboy was unable to create it."
+msgstr ""
+"Kataloogile määratud rada pole polemas ja Tomboy'l pole võimalik ka seda "
+"luua."
+
+#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:197
 msgid "Local Folder"
 msgstr "Kohalik kataloog"
 
@@ -685,10 +699,24 @@ msgid ""
 "SSH synchronization requires an existing SSH key for this server and user, "
 "added to a running SSH daemon."
 msgstr ""
+"SSH-sünkroniseerimine vajab selle serveri jaoks olemasolevat SSH-võtit ning "
+"SSH-deemoni poolt aktsepteeritavat kasutajakontot."
+
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:89
+msgid "Server or username field is empty."
+msgstr "Serveri või kasutajanime väli on tühi."
 
 #: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:133
 msgid "SSH (sshfs FUSE)"
 msgstr "SSH (sshfs FUSE)"
+
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:172
+msgid ""
+"Timeout connecting to server. Please ensure that your SSH key has been added "
+"to a running SSH daemon."
+msgstr ""
+"Serveriga ühenduse võtmine ületas ajapiirangu. Palun veendu, et sinu "
+"SSH-võti on SSH-deemonile selgeks õpetatud."
 
 #: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:50
 msgid "Import from Sticky Notes"
@@ -728,9 +756,31 @@ msgstr "URL:"
 msgid "Password:"
 msgstr "Parool:"
 
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:87
+msgid "URL, username, or password field is empty."
+msgstr "URL-i, kasutajanime või parooliväli on tühi."
+
 #: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:129
 msgid "WebDAV (wdfs FUSE)"
 msgstr "WebDAV (wdfs FUSE)"
+
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:167
+msgid ""
+"There was an error connecting to the server.  This may be caused by using an "
+"incorrect user name and/or password."
+msgstr ""
+"Serveriga ühenduse võtmisel tekkis viga.  See võib olla põhjustatud valest "
+"kasutajanimest või paroolist."
+
+#. TODO: If the above fails (no keyring daemon), save all but password
+#. to GConf, and notify user.
+#. Save configuration into GConf
+#. Preferences.Set ("/apps/tomboy/sync_wdfs_url", url ?? string.Empty);
+#. Preferences.Set ("/apps/tomboy/sync_wdfs_username", username ?? string.Empty);
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:243
+msgid ""
+"Saving configuration to the GNOME keyring failed with the following message:"
+msgstr "Seadistuste salvestamine GNOME võtmerõngasse lõppes järgneva veaga:"
 
 #: ../Tomboy/Applet.cs:191
 msgid "_About Tomboy"
@@ -895,7 +945,7 @@ msgstr "Selle märkme kustutamine"
 
 #: ../Tomboy/NoteWindow.cs:480 ../Tomboy/Synchronization/SyncManager.cs:158
 msgid "Synchronize Notes"
-msgstr ""
+msgstr "Sünkroniseeri märkmeid"
 
 #: ../Tomboy/NoteWindow.cs:523
 msgid "_Find..."
@@ -1010,12 +1060,12 @@ msgstr ""
 #. Custom font...
 #: ../Tomboy/PreferencesDialog.cs:171
 msgid "Use custom _font"
-msgstr ""
+msgstr "_Kasutatakse kohandatud kirjatüüpi"
 
 #. Hotkeys...
 #: ../Tomboy/PreferencesDialog.cs:241
 msgid "Listen for _Hotkeys"
-msgstr ""
+msgstr "Kiirklahve _jälgitakse"
 
 #: ../Tomboy/PreferencesDialog.cs:250
 msgid ""
@@ -1094,18 +1144,20 @@ msgid ""
 "When a conflict is detected between a local note and a note on the "
 "configured synchronization server:"
 msgstr ""
+"Kui kohaliku märkme ja sünkroniseerimisserveri märkme vahel avastatakse "
+"vastuolu, siis:"
 
 #: ../Tomboy/PreferencesDialog.cs:860
 msgid "Always ask me what to do."
-msgstr ""
+msgstr "Küsitakse alati, mida teha."
 
 #: ../Tomboy/PreferencesDialog.cs:864
 msgid "Rename my local note."
-msgstr ""
+msgstr "Muudetakse kohalik märkme nime."
 
 #: ../Tomboy/PreferencesDialog.cs:868
 msgid "Replace my local note with the server's update."
-msgstr ""
+msgstr "Asendatakse kohalik märge serverist tuleva märkmega."
 
 #: ../Tomboy/PreferencesDialog.cs:1014
 msgid "WARNING: Are you sure?"
@@ -1116,6 +1168,9 @@ msgid ""
 "Clearing your synchronization settings is not recommended.  You may be "
 "forced to synchronize all of your notes again when you save new settings."
 msgstr ""
+"Sünkroniseerimissätete tühjendamine pole soovitatav.  Pärast uute sätete "
+"salvestamist võib tekkida olukord, kus sa pead kõik oma märkmed uuesti "
+"sünkroniseerima."
 
 #: ../Tomboy/PreferencesDialog.cs:1029
 msgid "Resetting Synchronization Settings"
@@ -1128,37 +1183,39 @@ msgid ""
 "synchronize all of your notes again when you save new settings"
 msgstr ""
 
-#: ../Tomboy/PreferencesDialog.cs:1115
+#: ../Tomboy/PreferencesDialog.cs:1128
 msgid "Success! You're connected!"
 msgstr "Ühendus edukalt loodud!"
 
-#: ../Tomboy/PreferencesDialog.cs:1117
+#: ../Tomboy/PreferencesDialog.cs:1130
 msgid "Tomboy is ready to synchronize your notes."
 msgstr "Tomboy on valmis Sinu märkmeid sünkroniseerima."
 
-#: ../Tomboy/PreferencesDialog.cs:1140
-msgid "Error connecting :("
-msgstr "Viga ühendumisel :("
-
-#: ../Tomboy/PreferencesDialog.cs:1142
+#: ../Tomboy/PreferencesDialog.cs:1149
 msgid ""
 "Sorry, but something went wrong.  Please check your information and try "
 "again.  The ~/.tomboy.log might be useful too."
 msgstr ""
+"Vabandust, midagi läks viltu.  Palun kontrolli oma andmeid ja proovi uuesti. "
+"Võib-olla aitab sind logifaili ~/.tomboy.log uurimine."
 
-#: ../Tomboy/PreferencesDialog.cs:1208
+#: ../Tomboy/PreferencesDialog.cs:1158
+msgid "Error connecting :("
+msgstr "Viga ühendumisel :("
+
+#: ../Tomboy/PreferencesDialog.cs:1225
 msgid "Version:"
 msgstr "Versioon:"
 
-#: ../Tomboy/PreferencesDialog.cs:1215
+#: ../Tomboy/PreferencesDialog.cs:1232
 msgid "Author:"
 msgstr "Autor:"
 
-#: ../Tomboy/PreferencesDialog.cs:1222
+#: ../Tomboy/PreferencesDialog.cs:1239
 msgid "Copyright:"
 msgstr "Autoriõigus:"
 
-#: ../Tomboy/PreferencesDialog.cs:1228
+#: ../Tomboy/PreferencesDialog.cs:1245
 msgid "Add-in Dependencies:"
 msgstr "Lisa sõltuvused:"
 
@@ -1421,7 +1478,7 @@ msgstr "Üksikasjad"
 
 #: ../Tomboy/Synchronization/SyncDialog.cs:235
 msgid "Acquiring sync lock..."
-msgstr ""
+msgstr "Sünkroniseerimisluku seadmine..."
 
 #: ../Tomboy/Synchronization/SyncDialog.cs:238
 msgid "Committing changes..."
@@ -1461,19 +1518,19 @@ msgstr "Server on lukus"
 
 #: ../Tomboy/Synchronization/SyncDialog.cs:269
 msgid ""
-"One of your other computers is currently synchronizing.  Please wait and try "
-"again."
+"One of your other computers is currently synchronizing.  Please wait 2 "
+"minutes and try again."
 msgstr ""
-"Üks sinu arvutitest tegeleb parasjagu sünkroniseerimisega.  Palun oota veidi "
-"ja proovi siis uuesti."
+"Üks sinu muudest arvutitest tegeleb parasjagu sünkroniseerimisega.  Palun "
+"oota 2 minutit ja proovi siis uuesti."
 
 #: ../Tomboy/Synchronization/SyncDialog.cs:273
 msgid "Preparing to download updates from server..."
-msgstr "Ettevalmistused uuenduste serverist allalaadimiseks..."
+msgstr "Ettevalmistused serverist uuenduste allalaadimiseks..."
 
 #: ../Tomboy/Synchronization/SyncDialog.cs:276
 msgid "Preparing to upload updates to server..."
-msgstr "Ettevalmistused uuenduste serverisse üleslaadimiseks..."
+msgstr "Ettevalmistused serverisse uuenduste üleslaadimiseks..."
 
 #: ../Tomboy/Synchronization/SyncDialog.cs:279
 msgid "Uploading notes to server..."
@@ -1493,121 +1550,123 @@ msgstr ""
 "Märkmeid pole võimalik sünkroniseerida.  Kontrolli allpoolasuvaid üksikasju "
 "ja proovi uuesti."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:291
+#: ../Tomboy/Synchronization/SyncDialog.cs:290
 msgid "Synchronization Complete"
 msgstr "Sünkroniseerimine on valmis"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:292
+#: ../Tomboy/Synchronization/SyncDialog.cs:291
 msgid "Synchronization is complete"
 msgstr "Sünkroniseerimine on valmis"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:294
+#: ../Tomboy/Synchronization/SyncDialog.cs:293
 #, csharp-format
 msgid "{0} note updated."
 msgid_plural "{0} notes updated."
 msgstr[0] "Uuendatud {0} märge."
 msgstr[1] "Uuendatud {0} märget."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:299
+#: ../Tomboy/Synchronization/SyncDialog.cs:298
 msgid "Your notes are now up to date."
 msgstr "Sinu märkmed on nüüd ajakohased."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:303
+#: ../Tomboy/Synchronization/SyncDialog.cs:302
 msgid "Synchronization Canceled"
 msgstr "Sünkroniseerimine katkestati"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:304
+#: ../Tomboy/Synchronization/SyncDialog.cs:303
 msgid "Synchronization was canceled"
 msgstr "Sünkroniseerimine katkestati"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:305
+#: ../Tomboy/Synchronization/SyncDialog.cs:304
 msgid "You canceled the synchronization.  You may close the window now."
-msgstr ""
+msgstr "Sa tühistasid sünkroniseerimise.  Akna võib nüüd kinni panna."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:308
+msgid "Synchronization Not Configured"
+msgstr "Sünkroniseerimise sätted on määramata"
 
 #: ../Tomboy/Synchronization/SyncDialog.cs:309
-msgid "Synchronization Not Configured"
-msgstr ""
-
-#: ../Tomboy/Synchronization/SyncDialog.cs:310
 msgid "Synchronization is not configured"
 msgstr "Sünkroniseerimissätted on määramata"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:311
+#: ../Tomboy/Synchronization/SyncDialog.cs:310
 msgid "Please configure synchronization in the preferences dialog."
 msgstr "Palun määra sünkroniseerimissätted eelistuste dialoogist."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:315
+#: ../Tomboy/Synchronization/SyncDialog.cs:314
 msgid "Synchronization Service Error"
 msgstr "Sünkroniseerimisteenuse viga"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:316
+#: ../Tomboy/Synchronization/SyncDialog.cs:315
 msgid "Service error"
 msgstr "Teenuse viga"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:317
+#: ../Tomboy/Synchronization/SyncDialog.cs:316
 msgid "Error connecting to the synchronization service.  Please try again."
 msgstr "Viga sünkroniseerimisteenusega ühendumisel.  Palun proovi uuesti."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:334
+#: ../Tomboy/Synchronization/SyncDialog.cs:333
 msgid "Deleted locally"
 msgstr "Kohapeal kustutatud"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:337
-msgid "Deleting from server"
-msgstr "Serverist kustutamine"
+#: ../Tomboy/Synchronization/SyncDialog.cs:336
+msgid "Deleted from server"
+msgstr "Serverist kustutatud"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:340
+#: ../Tomboy/Synchronization/SyncDialog.cs:339
 msgid "Updated"
 msgstr "Uuendatud"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:343
+#: ../Tomboy/Synchronization/SyncDialog.cs:342
 msgid "Added"
 msgstr "Lisatud"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:346
-msgid "Uploading changes to server"
-msgstr "Muudatuste serverisse üleslaadimine"
+#: ../Tomboy/Synchronization/SyncDialog.cs:345
+msgid "Uploaded changes to server"
+msgstr "Muudatused serverisse üles laaditud"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:349
-msgid "Uploading new note to server"
-msgstr "Uue märkme serverisse üleslaadimine"
+#: ../Tomboy/Synchronization/SyncDialog.cs:348
+msgid "Uploaded new note to server"
+msgstr "Uus märge serverisse üles laaditud"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:481
+#: ../Tomboy/Synchronization/SyncDialog.cs:480
 msgid "Note Conflict"
 msgstr "Märkmete vastuolu"
 
 #. Suggest renaming note by appending " (old)" to the existing title
-#: ../Tomboy/Synchronization/SyncDialog.cs:485
+#: ../Tomboy/Synchronization/SyncDialog.cs:484
 msgid " (old)"
 msgstr " (vana)"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:524
+#: ../Tomboy/Synchronization/SyncDialog.cs:523
 msgid "Rename local note:"
 msgstr "Kohaliku märkme nime muutmine:"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:530
+#: ../Tomboy/Synchronization/SyncDialog.cs:529
 msgid "Update links in referencing notes"
 msgstr "Viitade uuendamine viitavates märkmetes"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:537
+#: ../Tomboy/Synchronization/SyncDialog.cs:536
 msgid "Overwrite local note"
-msgstr ""
+msgstr "Kohaliku märkme ülekirjutamine"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:541
+#: ../Tomboy/Synchronization/SyncDialog.cs:540
 msgid "Always perform this action"
-msgstr ""
+msgstr "Tulevikus tuleb alati nii teha"
 
 #. Set initial dialog text
-#: ../Tomboy/Synchronization/SyncDialog.cs:548
+#: ../Tomboy/Synchronization/SyncDialog.cs:547
 msgid "Note conflict detected"
 msgstr "Tuvastati märkmete vastuolu"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:549
+#: ../Tomboy/Synchronization/SyncDialog.cs:548
 #, csharp-format
 msgid ""
 "The server version of \"{0}\" conflicts with your local note.  What do you "
 "want to do with your local note?"
 msgstr ""
+"Serveris olev \"{0}\" versioon on vastuolus sinu kohaliku märkmega.  Mida sa "
+"soovid kohaliku märkmega ette võtta?"
 
 #: ../Tomboy/Synchronization/SyncManager.cs:156
 msgid "_Tools"
