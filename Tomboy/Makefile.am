@@ -4,6 +4,7 @@ SUBDIRS = . Addins
 
 TARGET = Tomboy.exe
 WRAPPER = tomboy
+PANEL_WRAPPER = tomboy-panel
 
 DBUS_SHARP_CSFILES = \
 	$(srcdir)/dbus-sharp/dbus-sharp/src/*.cs	\
@@ -97,7 +98,7 @@ tomboylibdir = $(pkglibdir)
 tomboylib_DATA = $(TARGET) $(TARGET).config
 
 
-bin_SCRIPTS = $(WRAPPER)
+bin_SCRIPTS = $(WRAPPER) $(PANEL_WRAPPER)
 
 $(WRAPPER): $(srcdir)/$(WRAPPER).in Makefile
 	sed -e "s|\@prefix\@|$(prefix)|g" 		\
@@ -109,6 +110,17 @@ $(WRAPPER): $(srcdir)/$(WRAPPER).in Makefile
 	    -e "s|\@srcdir\@|$(PWD)|g"	\
 	    < $< > $@
 	chmod +x $(WRAPPER)
+
+$(PANEL_WRAPPER): $(srcdir)/$(PANEL_WRAPPER).in Makefile
+	sed -e "s|\@prefix\@|$(prefix)|g" 		\
+	    -e "s|\@pkglibdir\@|$(pkglibdir)|g" 	\
+	    -e "s|\@bindir\@|$(bindir)|g"		\
+	    -e "s|\@target\@|$(TARGET)|g" 		\
+	    -e "s|\@wrapper\@|$(WRAPPER)|g"		\
+	    -e "s|\@extragac\@|$(EXTRA_GAC_PREFIX)|g"	\
+	    -e "s|\@srcdir\@|$(PWD)|g"	\
+	    < $< > $@
+	chmod +x $(PANEL_WRAPPER)
 
 $(TARGET).config: $(srcdir)/$(TARGET).config.in Makefile
 	sed -e "s|\@pkglibdir\@|$(pkglibdir)|" \
@@ -124,6 +136,7 @@ EXTRA_DIST =            		\
 	$(CSFILES)      		\
 	$(DBUS_SHARP_CSFILES)		\
 	$(WRAPPER).in			\
+	$(PANEL_WRAPPER).in		\
 	$(TARGET).config.in		\
 	$(srcdir)/Defines.cs.in		\
 	$(srcdir)/Tomboy.addin.xml
@@ -133,5 +146,6 @@ CLEANFILES =			\
 	$(TARGET).config	\
 	$(TARGET).mdb 		\
 	$(WRAPPER)		\
+	$(PANEL_WRAPPER)	\
 	Defines.cs
 
