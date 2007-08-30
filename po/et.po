@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tomboy HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-08-28 04:08+0100\n"
-"PO-Revision-Date: 2007-08-29 14:34+0300\n"
+"POT-Creation-Date: 2007-08-30 05:52+0100\n"
+"PO-Revision-Date: 2007-08-30 10:32+0300\n"
 "Last-Translator: Ivar Smolin <okul@linux.ee>\n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
 "MIME-Version: 1.0\n"
@@ -168,6 +168,10 @@ msgid ""
 "wishes to be prompted when a conflict occurs, so that they may handle each "
 "conflict situation on a case-by-case basis."
 msgstr ""
+"Täisarvuline väärtus meetodi kohta, mille kasutaja on määranud vastuolude "
+"lahendamiseks. Väärtus 0 määrab, et iga vastuolu leidmisel küsitakse "
+"kasutajalt lahendamiseks kinnitust ja kasutaja peab iga juhtumi eraldi "
+"lahendama."
 
 #: ../data/tomboy.schemas.in.h:20
 msgid "List of pinned notes."
@@ -203,7 +207,7 @@ msgstr ""
 
 #: ../data/tomboy.schemas.in.h:27
 msgid "Selected Synchronization Service Addin"
-msgstr ""
+msgstr "Sünkroniseerimisteenuseks valitud lisa"
 
 #: ../data/tomboy.schemas.in.h:28
 msgid "Set to TRUE to activate"
@@ -323,8 +327,8 @@ msgid ""
 "The last setting for the 'Export linked notes' checkbox in the Export to "
 "HTML plugin."
 msgstr ""
-"HTML-iks eksportimise plugina märkeruudu \"Eksporditakse ka viidatud "
-"märkmed\" viimane olek."
+"HTML-iks eksportimise plugina märkeruudu \"Eksporditakse ka viidatud märkmed"
+"\" viimane olek."
 
 #: ../data/tomboy.schemas.in.h:42
 msgid ""
@@ -715,8 +719,8 @@ msgid ""
 "Timeout connecting to server. Please ensure that your SSH key has been added "
 "to a running SSH daemon."
 msgstr ""
-"Serveriga ühenduse võtmine ületas ajapiirangu. Palun veendu, et sinu "
-"SSH-võti on SSH-deemonile selgeks õpetatud."
+"Serveriga ühenduse võtmine ületas ajapiirangu. Palun veendu, et sinu SSH-"
+"võti on SSH-deemonile selgeks õpetatud."
 
 #: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:50
 msgid "Import from Sticky Notes"
@@ -1095,7 +1099,7 @@ msgstr "Loo uus _märge"
 #. Open Search All Notes window keybinding...
 #: ../Tomboy/PreferencesDialog.cs:321
 msgid "Open \"Search _All Notes\""
-msgstr ""
+msgstr "_Kõikide märkmete hulgast otsimise avamine"
 
 #: ../Tomboy/PreferencesDialog.cs:348
 msgid "Service:"
@@ -1182,6 +1186,9 @@ msgid ""
 "synchronization settings will now be cleared.  You may be forced to "
 "synchronize all of your notes again when you save new settings"
 msgstr ""
+"Sa keelasid seadistatud sünkroniseerimsteenuse. Sinu sünkroniseerimissätted "
+"puhastatakse. Uut sünkroniseerimist on võimalik läbi viia alles pärast uute "
+"sätete salvestamist."
 
 #: ../Tomboy/PreferencesDialog.cs:1128
 msgid "Success! You're connected!"
@@ -1463,6 +1470,31 @@ msgstr "_Kopeeri viida aadress"
 msgid "_Open Link"
 msgstr "_Ava viit"
 
+#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:91
+#, csharp-format
+msgid ""
+"This synchronization addin is not supported on your computer. Please make "
+"sure you have FUSE and {0} correctly installed and configured"
+msgstr ""
+"See sünkroniseerimislisa pole sinu arvuti poolt toetatud. Palun veendu, et "
+"FUSE ja {0} on korrektselt paigaldatud ja seadistatud."
+
+#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:134
+msgid "Timeout connecting to server."
+msgstr "Serveriga ühenduse võtmine ületas ajapiirangu."
+
+#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:142
+msgid "Error connecting to server."
+msgstr "Viga serveriga ühendusmisel."
+
+#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:156
+msgid "FUSE could not be enabled."
+msgstr "FUSE-t pole võimalik lubada."
+
+#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:186
+msgid "An error ocurred while connecting to the specified server:"
+msgstr "Määratud serveriga ühenduse võtmisel tekkis viga:"
+
 #: ../Tomboy/Synchronization/SyncDialog.cs:91
 msgid "Note Title"
 msgstr "Märkme pealkiri"
@@ -1494,11 +1526,11 @@ msgstr "Märkmete sünkroniseerimine..."
 
 #: ../Tomboy/Synchronization/SyncDialog.cs:243
 msgid "This may take a while, kick back and enjoy!"
-msgstr ""
+msgstr "See võib veidi aega võtta!"
 
 #: ../Tomboy/Synchronization/SyncDialog.cs:245
 msgid "Connecting to the server..."
-msgstr "Ühendumine serverisse..."
+msgstr "Serveriga ühenduse võtmine..."
 
 #: ../Tomboy/Synchronization/SyncDialog.cs:251
 msgid "Deleting notes off of the server..."
@@ -1684,6 +1716,12 @@ msgid ""
 "startup.  Add \"modprobe fuse\" to /etc/init.d/boot.local or \"fuse\" to /"
 "etc/modules."
 msgstr ""
+"Sinu poolt valitud sünkroniseerimise jaoks on tarvis, et FUSE moodulid oleks "
+"laaditud.\n"
+"\n"
+"Et tulevikus seda teatet vältida, peaks FUSE moodulid laaditama arvuti "
+"üleslaadimise ajal.  Lisa oma /etc/init.d/boot.local skripti rida \"modprobe "
+"fuse\" või faili /etc/modules rida \"fuse\"."
 
 #: ../Tomboy/Synchronization/SyncUtils.cs:177
 msgid "Could not enable FUSE"
