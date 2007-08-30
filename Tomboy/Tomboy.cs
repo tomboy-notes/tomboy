@@ -12,6 +12,7 @@ namespace Tomboy
 	{
 		static NoteManager manager;
 		static TomboyTrayIcon tray_icon;
+		static TomboyTray tomboy_tray = null;
 		static bool tray_icon_showing = false;
 		static bool is_panel_applet = false;
 		static PreferencesDialog prefs_dlg;
@@ -306,7 +307,13 @@ namespace Tomboy
 		
 		public static TomboyTray Tray
 		{
-			get { return tray_icon.TomboyTray; }
+			get {
+				if (tray_icon != null)
+					return tray_icon.TomboyTray;
+				else
+					return tomboy_tray;
+			}
+			set { tomboy_tray = value; }
 		}
 		
 		public static SyncDialog SyncDialog

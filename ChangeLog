@@ -1,5 +1,22 @@
 2007-08-30  Boyd Timothy <btimothy@gmail.com> 
 
+	Fixes bug #393249:
+	
+	* data/GNOME_TomboyApplet.server.in.in: Removed "--panel-applet"
+	  command-line option to avoid deprecation warning.
+	* data/Makefile.am: When launching as the panel applet, use the
+	  tomboy-panel script instead of the tomboy script.
+	* Tomboy/Applet.cs: Set the Tomboy.Tray once the panel applet is up and
+	  running so other code can know about it.
+	* Tomboy/Makefile.am: Process the tomboy-panel script.
+	* Tomboy/Tomboy.cs: Allow the panel applet to set the tomboy tray
+	  statically so other parts of the code/addins can access the tray
+	  regardless of panel applet or tray icon mode.
+	* Tomboy/tomboy-panel.in: New script that allows the panel applet to be
+	  started without deprecation warnings from bonobo.
+
+2007-08-30  Boyd Timothy <btimothy@gmail.com> 
+
 	Fixes bug #459697:
 	
 	* COPYING, Tomboy/Addins/PrintNotes/COPYING: Added a blurb mentioning

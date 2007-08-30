@@ -1,0 +1,13 @@
+#!/bin/sh
+
+export LD_LIBRARY_PATH="@pkglibdir@:$LD_LIBRARY_PATH"
+export MONO_PATH=$MONO_PATH:@pkglibdir@:@pkglibdir@/addins
+export TOMBOY_WRAPPER_PATH="@bindir@/@wrapper@"
+
+THIS_EXE="@pkglibdir@/@target@"
+
+if [ -n "@extragac@" ]; then
+    export MONO_GAC_PREFIX="@extragac@:$MONO_GAC_PREFIX"
+fi
+
+exec mono $MONO_EXTRA_ARGS $THIS_EXE --panel-applet "$@"

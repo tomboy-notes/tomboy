@@ -46,7 +46,7 @@ server_DATA     = $(server_in_files:.server.in=.server)
 
 $(server_in_files): $(server_in_files:.server.in=.server.in.in) Makefile
 	sed -e "s|\@bindir\@|$(bindir)|g"	\
-	    -e "s|\@wrapper\@|tomboy|g"		\
+	    -e "s|\@wrapper\@|tomboy-panel|g"		\
 	    < $< > $@
 
 @INTLTOOL_SERVER_RULE@

@@ -46,6 +46,7 @@ namespace Tomboy
 			Flags |= PanelAppletFlags.ExpandMinor;
 
 			Add (tray);
+			Tomboy.Tray = tray;
 			OnChangeSize (Size);
 			ShowAll ();
 
