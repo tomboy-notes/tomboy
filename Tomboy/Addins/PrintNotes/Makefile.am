@@ -28,7 +28,8 @@ addins_DATA = 			\
 
 EXTRA_DIST =            	\
 	$(CSFILES) \
-	$(srcdir)/$(ADDIN_NAME).addin.xml
+	$(srcdir)/$(ADDIN_NAME).addin.xml \
+	COPYING
 
 CLEANFILES =				\
 	$(TARGET).mdb \
