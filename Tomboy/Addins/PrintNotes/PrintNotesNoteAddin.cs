@@ -34,7 +34,7 @@ namespace Tomboy.PrintNotes
 			// Do nothing.
 		}
 
-		[DllImport("libtomboy")]
+		[DllImport("libprintnotes")]
 		static extern void gedit_print (IntPtr text_view_handle);
 
 		//

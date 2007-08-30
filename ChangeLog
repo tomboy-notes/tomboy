@@ -1,3 +1,22 @@
+2007-08-30  Boyd Timothy <btimothy@gmail.com> 
+
+	Fix for bug #459697:
+	
+	* libtomboy/gtksourceprintjob.c, libtomboy/gtksourceprintjob.h,
+	  libtomboy/gedit-print.c, libtomboy/gedit-print.h,
+	  Tomboy/Addins/PrintNotes/gtksourceprintjob.c,
+	  Tomboy/Addins/PrintNotes/gtksourceprintjob.h,
+	  Tomboy/Addins/PrintNotes/gedit-print.c,
+	  Tomboy/Addins/PrintNotes/gedit-print.h: Move gedit-print and
+	  gtksourceprintjob from libtomboy to Addins/PrintNotes/ so that it
+	  can be built & distributed separately from tomboy's main
+	  executable.
+	* Tomboy/Addins/PrintNotes/PrintNotesNoteAddin.cs: Use libprintnotes
+	  instead of libtomboy.
+	* Tomboy/Addins/PrintNotes/Makefile.am: Build libprintnotes.so.
+	* Tomboy/tomboy.in: Include the right path for libprintnotes when
+	  running in the uninstalled directory.
+
 2007-08-29  Boyd Timothy <btimothy@gmail.com>
 
         * Tomboy/Addins/ExportToHtml/ExportToHtml.xsl: Modify the CSS

@@ -12,10 +12,6 @@ tomboylibdir = $(pkglibdir)
 tomboylib_LTLIBRARIES = libtomboy.la
 
 libtomboy_la_SOURCES =		\
-	gedit-print.h		\
-	gedit-print.c		\
-	gtksourceprintjob.h	\
-	gtksourceprintjob.c	\
 	tomboykeybinder.h	\
 	tomboykeybinder.c	\
 	tomboyutil.h		\

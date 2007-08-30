@@ -3,7 +3,7 @@
 if [ "x$PWD" = "x@srcdir@" ] ; then
     echo "*** Running uninstalled @target@ ***"
 
-    export LD_LIBRARY_PATH="../libtomboy/.libs:$LD_LIBRARY_PATH"
+    export LD_LIBRARY_PATH="../libtomboy/.libs:$LD_LIBRARY_PATH:./Addins/PrintNotes/.libs"
     export TOMBOY_WRAPPER_PATH="$PWD/@wrapper@"
     export MONO_PATH=$MONO_PATH:./Addins:../Mono.Addins/Mono.Addins:../Mono.Addins/Mono.Addins.Setup:../Mono.Addins/Mono.Addins.Gui
 
