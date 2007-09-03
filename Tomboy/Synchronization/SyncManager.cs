@@ -110,7 +110,10 @@ namespace Tomboy.Sync
 	/// <summary>
 	/// Handle a note conflict
 	/// </summary>
-	public delegate void NoteConflictHandler (NoteManager manager, Note localConflictNote, NoteUpdate remoteNote);
+	public delegate void NoteConflictHandler (NoteManager manager,
+	                                          Note localConflictNote,
+	                                          NoteUpdate remoteNote,
+	                                          IList<string> noteUpdateTitles);
 	
 	public class SyncManager
 	{
@@ -276,6 +279,13 @@ Logger.Debug ("8");
 				server.GetNoteUpdatesSince (client.LastSynchronizedRevision);
 			Logger.Debug ("Sync: " + noteUpdates.Count + " updates since rev " + client.LastSynchronizedRevision.ToString ());
 
+					// Gather list of new/updated note titles
+					// for title conflict handling purposes.
+					List<string> noteUpdateTitles = new List<string> ();
+					foreach (NoteUpdate noteUpdate in noteUpdates.Values)
+						if (!string.IsNullOrEmpty (noteUpdate.Title))
+							noteUpdateTitles.Add (noteUpdate.Title);
+					
 			// First, check for new local notes that might have title conflicts
 			// with the updates coming from the server.  Prompt the user if necessary.
 			// TODO: Lots of searching here and in the next foreach...
@@ -287,7 +297,7 @@ Logger.Debug ("8");
 					Note existingNote = NoteMgr.Find (noteUpdate.Title);
 					if (existingNote != null) {
 						if (NoteConflictDetected != null) {
-							NoteConflictDetected (NoteMgr, existingNote, noteUpdate);
+							NoteConflictDetected (NoteMgr, existingNote, noteUpdate, noteUpdateTitles);
 							
 							// Suspend this thread while the GUI is presented to
 							// the user.
@@ -329,7 +339,7 @@ Logger.Debug ("8");
 				        noteUpdate.Title));
 					// Note already exists locally, but has been modified since last sync; prompt user
 					if (NoteConflictDetected != null) {
-						NoteConflictDetected (NoteMgr, existingNote, noteUpdate);
+						NoteConflictDetected (NoteMgr, existingNote, noteUpdate, noteUpdateTitles);
 						
 						// Suspend this thread while the GUI is presented to
 						// the user.
