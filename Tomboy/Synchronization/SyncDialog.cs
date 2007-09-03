@@ -500,7 +500,6 @@ namespace Tomboy.Sync
 			this.noteUpdateTitles = noteUpdateTitles;
 			
 			// Suggest renaming note by appending " (old)" to the existing title
-			// TODO: Handle conflicts names of new notes on server, too!
 			string suggestedRenameBase = existingNote.Title + Catalog.GetString (" (old)");
 			string suggestedRename = suggestedRenameBase;
 			for (int i = 1; !IsNoteTitleAvailable (suggestedRename); i++)
