@@ -59,89 +59,131 @@ namespace Tomboy.Sync
 			}			
 			
 			XmlDocument doc = new XmlDocument ();
+			// TODO: File permission errors?
 			FileStream fs = new FileStream (manifestPath, FileMode.Open);
-			doc.Load (fs);
-			
-			// TODO: Error checking
-			foreach (XmlNode revisionsNode in doc.GetElementsByTagName ("note-revisions")) {
-				foreach (XmlNode noteNode in revisionsNode.ChildNodes) {
-					string guid = noteNode.Attributes ["guid"].InnerXml;
-					int revision = -1;
-					try {
-						revision = int.Parse (noteNode.Attributes ["latest-revision"].InnerXml);
-					} catch { }
+			try {
+				try {
+					doc.Load (fs);
+				} catch (Exception e) {
+					Logger.Warn ("Invalid XML in " + manifestPath + ".  Recreating from scratch.  Exception was: " +
+					             e.Message);
+					lastSyncDate = DateTime.MinValue;
 					
-					fileRevisions [guid] = revision;
+					// Try again
+					fs.Close ();
+					Write (manifestPath);
+					fs = new FileStream (manifestPath, FileMode.Open);
+					doc.Load (fs); // TODO: Could throw if Write method messed up?
 				}
-			}
-
-			foreach (XmlNode deletionsNode in doc.GetElementsByTagName ("note-deletions")) {
-				foreach (XmlNode noteNode in deletionsNode.ChildNodes) {
-					string guid = noteNode.Attributes ["guid"].InnerXml;
-					string title = noteNode.Attributes ["title"].InnerXml;
-
-					deletedNotes [guid] = title;
+				
+				// TODO: Error checking
+				foreach (XmlNode revisionsNode in doc.GetElementsByTagName ("note-revisions")) {
+					foreach (XmlNode noteNode in revisionsNode.ChildNodes) {
+						try {
+							string guid = noteNode.Attributes ["guid"].InnerXml;
+							int revision = -1;
+							try {
+								revision = int.Parse (noteNode.Attributes ["latest-revision"].InnerXml);
+							} catch { }
+							
+							fileRevisions [guid] = revision;
+						} catch {
+							// Any errors in XML will be ignored as long as
+							// bad data doesn't end up in fileRevisions.
+							// Perhaps in the future we will check against a schema?
+							Logger.Warn ("Ignoring bad data in " + manifestPath);
+						}
+					}
 				}
+
+				foreach (XmlNode deletionsNode in doc.GetElementsByTagName ("note-deletions")) {
+					foreach (XmlNode noteNode in deletionsNode.ChildNodes) {
+						try {
+							string guid = noteNode.Attributes ["guid"].InnerXml;
+							string title = noteNode.Attributes ["title"].InnerXml;
+
+							deletedNotes [guid] = title;
+						} catch {
+							// Any errors in XML will be ignored as long as
+							// bad data doesn't end up in deletedNotes.
+							// Perhaps in the future we will check against a schema?
+							Logger.Warn ("Ignoring bad data in " + manifestPath);
+						}
+					}
+				}
+
+				foreach (XmlNode node in doc.GetElementsByTagName ("last-sync-rev")) {
+					try {
+						lastSyncRev = int.Parse (node.InnerText);
+					} catch {
+						Logger.Error ("Unparsable last-sync-rev element in " + manifestPath);
+					}
+				}
+
+				foreach (XmlNode node in doc.GetElementsByTagName ("server-id"))
+					serverId = node.InnerText;
+
+				foreach (XmlNode node in doc.GetElementsByTagName ("last-sync-date")) {
+					try {
+						lastSyncDate = XmlConvert.ToDateTime (node.InnerText);
+					} catch {
+						Logger.Error ("Unparsable last-sync-date element in " + manifestPath);
+					}
+				}
+			} finally {
+				fs.Close ();
 			}
-
-			foreach (XmlNode node in doc.GetElementsByTagName ("last-sync-rev"))
-				lastSyncRev = int.Parse (node.InnerText);
-
-			foreach (XmlNode node in doc.GetElementsByTagName ("server-id"))
-				serverId = node.InnerText;
-
-			foreach (XmlNode node in doc.GetElementsByTagName ("last-sync-date"))
-				lastSyncDate = XmlConvert.ToDateTime (node.InnerText);
-			
-			fs.Close ();
 		}
 		
 		private void Write (string manifestPath)
 		{
+			// TODO: Handle file permission errors
 			XmlTextWriter xml = new XmlTextWriter (manifestPath, System.Text.Encoding.UTF8);
 			
-			xml.Formatting = Formatting.Indented;
+			try {
+				xml.Formatting = Formatting.Indented;
 
-			xml.WriteStartDocument ();
-			xml.WriteStartElement (null, "manifest", "http://beatniksoftware.com/tomboy");
-			
-			xml.WriteStartElement (null, "last-sync-date", null);
-			xml.WriteString (XmlConvert.ToString (lastSyncDate, NoteArchiver.DATE_TIME_FORMAT));
-			xml.WriteEndElement ();
-			
-			xml.WriteStartElement (null, "last-sync-rev", null);
-			xml.WriteString (lastSyncRev.ToString ());
-			xml.WriteEndElement ();
-			
-			xml.WriteStartElement (null, "server-id", null);
-			xml.WriteString (serverId);
-			xml.WriteEndElement ();
-			
-			xml.WriteStartElement (null, "note-revisions", null);
-			
-			foreach (string noteGuid in fileRevisions.Keys) {
-				xml.WriteStartElement (null, "note", null);
-				xml.WriteAttributeString (null, "guid", null, noteGuid);
-				xml.WriteAttributeString (null, "latest-revision", null, fileRevisions [noteGuid].ToString ());
+				xml.WriteStartDocument ();
+				xml.WriteStartElement (null, "manifest", "http://beatniksoftware.com/tomboy");
+				
+				xml.WriteStartElement (null, "last-sync-date", null);
+				xml.WriteString (XmlConvert.ToString (lastSyncDate, NoteArchiver.DATE_TIME_FORMAT));
 				xml.WriteEndElement ();
-			}
-			
-			xml.WriteEndElement (); // </note-revisons>
-			
-			xml.WriteStartElement (null, "note-deletions", null);
-			
-			foreach (string noteGuid in deletedNotes.Keys) {
-				xml.WriteStartElement (null, "note", null);
-				xml.WriteAttributeString (null, "guid", null, noteGuid);
-				xml.WriteAttributeString (null, "title", null, deletedNotes [noteGuid]);
+				
+				xml.WriteStartElement (null, "last-sync-rev", null);
+				xml.WriteString (lastSyncRev.ToString ());
 				xml.WriteEndElement ();
+				
+				xml.WriteStartElement (null, "server-id", null);
+				xml.WriteString (serverId);
+				xml.WriteEndElement ();
+				
+				xml.WriteStartElement (null, "note-revisions", null);
+				
+				foreach (string noteGuid in fileRevisions.Keys) {
+					xml.WriteStartElement (null, "note", null);
+					xml.WriteAttributeString (null, "guid", null, noteGuid);
+					xml.WriteAttributeString (null, "latest-revision", null, fileRevisions [noteGuid].ToString ());
+					xml.WriteEndElement ();
+				}
+				
+				xml.WriteEndElement (); // </note-revisons>
+				
+				xml.WriteStartElement (null, "note-deletions", null);
+				
+				foreach (string noteGuid in deletedNotes.Keys) {
+					xml.WriteStartElement (null, "note", null);
+					xml.WriteAttributeString (null, "guid", null, noteGuid);
+					xml.WriteAttributeString (null, "title", null, deletedNotes [noteGuid]);
+					xml.WriteEndElement ();
+				}
+				
+				xml.WriteEndElement (); // </note-deletions>
+				
+				xml.WriteEndElement (); // </manifest>
+			} finally {
+				xml.Close ();
 			}
-			
-			xml.WriteEndElement (); // </note-deletions>
-			
-			xml.WriteEndElement (); // </manifest>
-			
-			xml.Close ();
 		}
 		
 		public virtual DateTime LastSyncDate

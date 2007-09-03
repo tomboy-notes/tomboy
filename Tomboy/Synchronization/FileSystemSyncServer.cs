@@ -79,18 +79,18 @@ namespace Tomboy.Sync
 		{
 			List<string> noteUUIDs = new List<string> ();
 			
-			if (File.Exists (manifestPath)) {
-				FileStream fs = new FileStream (manifestPath, FileMode.Open);
-				XmlDocument doc = new XmlDocument ();
-				doc.Load (fs);
-				
-				XmlNodeList noteIds = doc.SelectNodes ("//note/@id");
-				Logger.Debug ("GetAllNoteUUIDs has {0} notes", noteIds.Count);
-				foreach (XmlNode idNode in noteIds) {
-					noteUUIDs.Add (idNode.InnerText);
+			if (IsValidXmlFile (manifestPath)) {
+				// TODO: Permission errors
+				using (FileStream fs = new FileStream (manifestPath, FileMode.Open)) {
+					XmlDocument doc = new XmlDocument ();
+					doc.Load (fs);
+					
+					XmlNodeList noteIds = doc.SelectNodes ("//note/@id");
+					Logger.Debug ("GetAllNoteUUIDs has {0} notes", noteIds.Count);
+					foreach (XmlNode idNode in noteIds) {
+						noteUUIDs.Add (idNode.InnerText);
+					}
 				}
-				
-				fs.Close ();
 			}
 			
 			return noteUUIDs;
@@ -112,36 +112,37 @@ namespace Tomboy.Sync
 				} catch {}
 			}
 			
-			if (File.Exists (manifestPath)) {
-				FileStream fs = new FileStream (manifestPath, FileMode.Open);
-				XmlDocument doc = new XmlDocument ();
-				doc.Load (fs);
-				
-				string xpath =
-					string.Format ("//note[@rev > {0}]", revision.ToString ());
-				XmlNodeList noteNodes = doc.SelectNodes (xpath);
-Logger.Debug ("GetNoteUpdatesSince xpath returned {0} nodes", noteNodes.Count);
-				foreach (XmlNode node in noteNodes) {
-					string id = node.SelectSingleNode ("@id").InnerText;
-					int rev = Int32.Parse (node.SelectSingleNode ("@rev").InnerText);
-					if (noteUpdates.ContainsKey (id) == false) {
-						// Copy the file from the server to the temp directory
-						string revDir = GetRevisionDirPath (rev);
-						string serverNotePath = Path.Combine (revDir, id + ".note");
-						string noteTempPath = Path.Combine (tempPath, id + ".note");
-						File.Copy (serverNotePath, noteTempPath, true);
-						
-						// Get the title, contents, etc.
-						string noteTitle = string.Empty;
-						StreamReader reader = new StreamReader (noteTempPath);
-						string noteXml = reader.ReadToEnd ();
-						reader.Close ();
-						NoteUpdate update = new NoteUpdate (noteXml, noteTitle, id, rev);
-						noteUpdates [id] = update;
+			if (IsValidXmlFile (manifestPath)) {
+				// TODO: Permissions errors
+				using (FileStream fs = new FileStream (manifestPath, FileMode.Open)) {
+					XmlDocument doc = new XmlDocument ();
+					doc.Load (fs);
+					
+					string xpath =
+						string.Format ("//note[@rev > {0}]", revision.ToString ());
+					XmlNodeList noteNodes = doc.SelectNodes (xpath);
+	Logger.Debug ("GetNoteUpdatesSince xpath returned {0} nodes", noteNodes.Count);
+					foreach (XmlNode node in noteNodes) {
+						string id = node.SelectSingleNode ("@id").InnerText;
+						int rev = Int32.Parse (node.SelectSingleNode ("@rev").InnerText);
+						if (noteUpdates.ContainsKey (id) == false) {
+							// Copy the file from the server to the temp directory
+							string revDir = GetRevisionDirPath (rev);
+							string serverNotePath = Path.Combine (revDir, id + ".note");
+							string noteTempPath = Path.Combine (tempPath, id + ".note");
+							File.Copy (serverNotePath, noteTempPath, true);
+							
+							// Get the title, contents, etc.
+							string noteTitle = string.Empty;
+							string noteXml = null;
+							using (StreamReader reader = new StreamReader (noteTempPath)) {
+								noteXml = reader.ReadToEnd ();
+							}
+							NoteUpdate update = new NoteUpdate (noteXml, noteTitle, id, rev);
+							noteUpdates [id] = update;
+						}
 					}
 				}
-				
-				fs.Close ();
 			}
 			
 			Logger.Debug ("GetNoteUpdatesSince ({0}) returning: {1}", revision, noteUpdates.Count);
@@ -220,26 +221,24 @@ Logger.Debug ("GetNoteUpdatesSince xpath returned {0} nodes", noteNodes.Count);
 					AdjustPermissions (newRevisionPath);
 				}
 				
-				XmlDocument doc = new XmlDocument ();
 				XmlNodeList noteNodes = null;
-				if (File.Exists (manifestPath) == true) {
-					FileStream fs = new FileStream (manifestPath, FileMode.Open);
-					try {
+				if (IsValidXmlFile (manifestPath) == true) {
+					using (FileStream fs = new FileStream (manifestPath, FileMode.Open)) {
+						XmlDocument doc = new XmlDocument ();
 						doc.Load (fs);
 						noteNodes = doc.SelectNodes ("//note");
-					} finally {
-						fs.Close ();
 					}
 				} else {
-					StringReader sr = new StringReader ("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<sync>\n</sync>");
-					doc.Load (sr);
-					sr.Close ();
-					noteNodes = doc.SelectNodes ("//note");
+					using (StringReader sr = new StringReader ("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<sync>\n</sync>")) {
+						XmlDocument doc = new XmlDocument ();
+						doc.Load (sr);
+						noteNodes = doc.SelectNodes ("//note");
+					}
 				}
 				
 				// Write out the new manifest file
 				XmlTextWriter xml = new XmlTextWriter (manifestFilePath, System.Text.Encoding.UTF8);
-				
+				try {
 				xml.Formatting = Formatting.Indented;
 
 				xml.WriteStartDocument ();
@@ -275,8 +274,9 @@ Logger.Debug ("GetNoteUpdatesSince xpath returned {0} nodes", noteNodes.Count);
 				
 				xml.WriteEndElement ();
 				xml.WriteEndDocument ();
-				
-				xml.Close ();
+				} finally {
+					xml.Close ();
+				}
 				
 				AdjustPermissions (manifestFilePath);
 
@@ -347,17 +347,14 @@ Logger.Debug ("GetNoteUpdatesSince xpath returned {0} nodes", noteNodes.Count);
 			{
 				int latestRev = -1;
 				int latestRevDir = -1;
-				if (File.Exists (manifestPath) == true) {
-					FileStream fs = new FileStream (manifestPath, FileMode.Open);
-					XmlDocument doc = new XmlDocument ();
-					try {
+				if (IsValidXmlFile (manifestPath) == true) {
+					using (FileStream fs = new FileStream (manifestPath, FileMode.Open)) {
+						XmlDocument doc = new XmlDocument ();
 						doc.Load (fs);
 						XmlNode syncNode = doc.SelectSingleNode ("//sync");
 						string latestRevStr = syncNode.Attributes.GetNamedItem ("revision").InnerText;
 						if (latestRevStr != null && latestRevStr != string.Empty)
 							latestRev = Int32.Parse (latestRevStr);
-					} finally {
-						fs.Close ();
 					}
 				}
 				
@@ -412,41 +409,44 @@ Logger.Debug ("GetNoteUpdatesSince xpath returned {0} nodes", noteNodes.Count);
 			get {
 				SyncLockInfo syncLockInfo = new SyncLockInfo ();
 				
-				XmlDocument doc = new XmlDocument ();
-				FileStream fs = new FileStream (lockPath, FileMode.Open);
-				doc.Load (fs);
+				if (IsValidXmlFile (lockPath)) {
+					// TODO: Permissions errors
+					using (FileStream fs = new FileStream (lockPath, FileMode.Open)) {
+						XmlDocument doc = new XmlDocument ();
+						// TODO: Handle invalid XML
+						doc.Load (fs);
 
-				XmlNode node = doc.SelectSingleNode ("//transaction-id/text ()");
-				if (node != null) {
-					string transaction_id_txt = node.InnerText;
-					syncLockInfo.TransactionId = transaction_id_txt;
+						XmlNode node = doc.SelectSingleNode ("//transaction-id/text ()");
+						if (node != null) {
+							string transaction_id_txt = node.InnerText;
+							syncLockInfo.TransactionId = transaction_id_txt;
+						}
+						
+						node = doc.SelectSingleNode ("//client-id/text ()");
+						if (node != null) {
+							string client_id_txt = node.InnerText;
+							syncLockInfo.ClientId = client_id_txt;
+						}
+						
+						node = doc.SelectSingleNode ("//renew-count/text ()");
+						if (node != null) {
+							string renew_txt = node.InnerText;
+							syncLockInfo.RenewCount = Int32.Parse (renew_txt);
+						}
+						
+						node = doc.SelectSingleNode ("//lock-expiration-duration/text ()");
+						if (node != null) {
+							string span_txt = node.InnerText;
+							syncLockInfo.Duration = TimeSpan.Parse (span_txt);
+						}
+						
+						node = doc.SelectSingleNode ("//revision/text ()");
+						if (node != null) {
+							string revision_txt = node.InnerText;
+							syncLockInfo.Revision = Int32.Parse (revision_txt);
+						}
+					}
 				}
-				
-				node = doc.SelectSingleNode ("//client-id/text ()");
-				if (node != null) {
-					string client_id_txt = node.InnerText;
-					syncLockInfo.ClientId = client_id_txt;
-				}
-				
-				node = doc.SelectSingleNode ("//renew-count/text ()");
-				if (node != null) {
-					string renew_txt = node.InnerText;
-					syncLockInfo.RenewCount = Int32.Parse (renew_txt);
-				}
-				
-				node = doc.SelectSingleNode ("//lock-expiration-duration/text ()");
-				if (node != null) {
-					string span_txt = node.InnerText;
-					syncLockInfo.Duration = TimeSpan.Parse (span_txt);
-				}
-				
-				node = doc.SelectSingleNode ("//revision/text ()");
-				if (node != null) {
-					string revision_txt = node.InnerText;
-					syncLockInfo.Revision = Int32.Parse (revision_txt);
-				}
-				
-				fs.Close ();
 				
 				return syncLockInfo;
 			}
@@ -459,17 +459,14 @@ Logger.Debug ("GetNoteUpdatesSince xpath returned {0} nodes", noteNodes.Count);
 				serverId = null;
 				
 				// Attempt to read from manifest file first
-				if (File.Exists (manifestPath)) {
-					FileStream fs = new FileStream (manifestPath, FileMode.Open);
-					XmlDocument doc = new XmlDocument ();
-					try {
+				if (IsValidXmlFile (manifestPath)) {
+					using (FileStream fs = new FileStream (manifestPath, FileMode.Open)) {
+						XmlDocument doc = new XmlDocument ();
 						doc.Load (fs);
 						XmlNode syncNode = doc.SelectSingleNode ("//sync");
 						XmlNode serverIdNode = syncNode.Attributes.GetNamedItem ("server-id");
 						if (serverIdNode != null && !(string.IsNullOrEmpty (serverIdNode.InnerText)))
 							serverId = serverIdNode.InnerText;
-					} finally {
-						fs.Close ();
 					}
 				}
 				
@@ -494,7 +491,7 @@ Logger.Debug ("GetNoteUpdatesSince xpath returned {0} nodes", noteNodes.Count);
 		private void UpdateLockFile (SyncLockInfo syncLockInfo)
 		{
 			XmlTextWriter xml = new XmlTextWriter (lockPath, System.Text.Encoding.UTF8);
-			
+			try {
 			xml.Formatting = Formatting.Indented;
 
 			xml.WriteStartDocument ();
@@ -522,8 +519,9 @@ Logger.Debug ("GetNoteUpdatesSince xpath returned {0} nodes", noteNodes.Count);
 			
 			xml.WriteEndElement ();
 			xml.WriteEndDocument ();
-			
-			xml.Close ();
+			} finally {
+				xml.Close ();
+			}
 			
 			AdjustPermissions (lockPath);
 		}
@@ -537,8 +535,7 @@ Logger.Debug ("GetNoteUpdatesSince xpath returned {0} nodes", noteNodes.Count);
 		{
 			Logger.Debug ("Sync: Cleaning up a previous failed sync transaction");
 			int rev = LatestRevision;
-			if (rev >= 0 && (File.Exists (manifestPath) == false
-						|| IsValidXmlFile (manifestPath) == false)) {
+			if (rev >= 0 && !IsValidXmlFile (manifestPath)) {
 				// Time to discover the latest valid revision
 				// If no manifest.xml file exists, that means we've got to
 				// figure out if there are any previous revisions with valid
@@ -546,8 +543,6 @@ Logger.Debug ("GetNoteUpdatesSince xpath returned {0} nodes", noteNodes.Count);
 				for (; rev >= 0; rev--) {
 					string revParentPath = GetRevisionDirPath (rev);
 					string manPath = Path.Combine (revParentPath, "manifest.xml");
-					if (File.Exists (manPath) == false)
-						continue;
 					
 					if (IsValidXmlFile (manPath) == false)
 						continue;
@@ -567,18 +562,27 @@ Logger.Debug ("GetNoteUpdatesSince xpath returned {0} nodes", noteNodes.Count);
 			}
 		}
 		
+		/// <summary>
+		/// Check that xmlFilePath points to an existing valid XML file.
+		/// This is done by ensuring that an XmlDocument can be created from
+		/// its contents.
+		///</summary>
 		private bool IsValidXmlFile (string xmlFilePath)
 		{
-			// Attempt to load the file and parse it as XML
-			FileStream fs = new FileStream (xmlFilePath, FileMode.Open);
-			XmlDocument doc = new XmlDocument ();
-			try {
-				// TODO: Make this be a validating XML reader.  Not sure if it's validating yet.
-				doc.Load (fs);
-			} catch {
+			// Check that file exists
+			if (!File.Exists (xmlFilePath))
 				return false;
-			} finally {
-				fs.Close ();
+			
+			// TODO: Permissions errors
+			// Attempt to load the file and parse it as XML
+			using (FileStream fs = new FileStream (xmlFilePath, FileMode.Open)) {
+				XmlDocument doc = new XmlDocument ();
+				try {
+					// TODO: Make this be a validating XML reader.  Not sure if it's validating yet.
+					doc.Load (fs);
+				} catch {
+					return false;
+				}
 			}
 			
 			return true;
