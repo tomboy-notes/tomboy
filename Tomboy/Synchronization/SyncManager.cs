@@ -377,6 +377,7 @@ Logger.Debug ("8");
 			foreach (Note note in NoteMgr.Notes) {
 				if (client.GetRevision (note) == -1) {
 					// This is a new note that has never been synchronized to the server
+					// TODO: *OR* this is a note that we lost revision info for!!!
 					note.Save ();
 					newOrModifiedNotes.Add (note);
 					if (NoteSynchronized != null)
@@ -481,7 +482,9 @@ Logger.Debug ("8");
 		private static void UpdateLocalNote (Note localNote, NoteUpdate serverNote, NoteSyncType syncType)
 		{
 			// In each case, update existingNote's content and revision
-			localNote.LoadForeignNoteXml (serverNote.XmlContent);
+			try {
+				localNote.LoadForeignNoteXml (serverNote.XmlContent);
+			} catch {} // TODO: Handle exception in case that serverNote.XmlContent is invalid XML
 			client.SetRevision (localNote, serverNote.LatestRevision);
 
 			// Update dialog's sync status

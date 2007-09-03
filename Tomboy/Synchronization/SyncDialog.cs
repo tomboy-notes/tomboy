@@ -451,8 +451,11 @@ namespace Tomboy.Sync
 			// Create note with old XmlContent just in case GetCompleteNoteXml failed
 			Logger.Debug ("RenameNote: about to create " + newTitle);
 			Note renamedNote = Tomboy.DefaultNoteManager.Create (newTitle, newContent);
-			if (newCompleteContent != null) // TODO: Anything to do if it is null?
-				renamedNote.LoadForeignNoteXml (newCompleteContent);
+			if (newCompleteContent != null) {// TODO: Anything to do if it is null?
+				try {
+					renamedNote.LoadForeignNoteXml (newCompleteContent);
+				} catch {} // TODO: Handle exception in case that newCompleteContent is invalid XML 
+			}
 			if (noteOpen)
 				renamedNote.Window.Present ();
 		}
