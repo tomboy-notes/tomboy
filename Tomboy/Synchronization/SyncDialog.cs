@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using Mono.Unix;
 
 using Gtk;
@@ -352,7 +353,10 @@ namespace Tomboy.Sync
 			});
 		}
 		
-		void OnNoteConflictDetected (NoteManager manager, Note localConflictNote, NoteUpdate remoteNote)
+		void OnNoteConflictDetected (NoteManager manager,
+		                             Note localConflictNote,
+		                             NoteUpdate remoteNote,
+		                             IList<string> noteUpdateTitles)
 		{
 			SyncTitleConflictResolution savedBehavior = SyncTitleConflictResolution.Cancel;
 			object dlgBehaviorPref = Preferences.Get (Preferences.SYNC_CONFIGURED_CONFLICT_BEHAVIOR);
@@ -368,7 +372,7 @@ namespace Tomboy.Sync
 			Gtk.Application.Invoke (delegate {
 				try {
 				SyncTitleConflictDialog conflictDlg =
-					new SyncTitleConflictDialog (localConflictNote);
+					new SyncTitleConflictDialog (localConflictNote, noteUpdateTitles);
 				Gtk.ResponseType reponse = Gtk.ResponseType.Ok;
 				
 				bool noteSyncBitsMatch =
@@ -476,6 +480,7 @@ namespace Tomboy.Sync
 	public class SyncTitleConflictDialog : Gtk.Dialog
 	{
 		private Note existingNote;
+		private IList<string> noteUpdateTitles;
 		
 		private Gtk.Button continueButton;
 		
@@ -488,14 +493,17 @@ namespace Tomboy.Sync
 		private Gtk.Label headerLabel;
 		private Gtk.Label messageLabel;
 
-		public SyncTitleConflictDialog (Note existingNote) :
+		public SyncTitleConflictDialog (Note existingNote, IList<string> noteUpdateTitles) :
 			base (Catalog.GetString ("Note Conflict"), null, Gtk.DialogFlags.Modal)
 		{
 			this.existingNote = existingNote;
+			this.noteUpdateTitles = noteUpdateTitles;
+			
 			// Suggest renaming note by appending " (old)" to the existing title
+			// TODO: Handle conflicts names of new notes on server, too!
 			string suggestedRenameBase = existingNote.Title + Catalog.GetString (" (old)");
 			string suggestedRename = suggestedRenameBase;
-			for (int i = 1; existingNote.Manager.Find (suggestedRename) != null; i++)
+			for (int i = 1; !IsNoteTitleAvailable (suggestedRename); i++)
 				suggestedRename = suggestedRenameBase + " " + i.ToString();
 			
 			VBox outerVBox = new VBox (false, 12);
@@ -567,10 +575,16 @@ namespace Tomboy.Sync
 		private void renameEntry_Changed (object sender, System.EventArgs e)
 		{
 			if (renameRadio.Active &&
-			    existingNote.Manager.Find (RenamedTitle) != null)
+			    !IsNoteTitleAvailable (RenamedTitle))
 				continueButton.Sensitive = false;
 			else
 				continueButton.Sensitive = true;
+		}
+		
+		private bool IsNoteTitleAvailable (string renamedTitle)
+		{
+			return !noteUpdateTitles.Contains (renamedTitle) &&
+				existingNote.Manager.Find (renamedTitle) == null;
 		}
 		
 		// Handler for each radio button's Toggled event
