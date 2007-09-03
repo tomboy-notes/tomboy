@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tomboy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-08-29 18:09+0300\n"
+"POT-Creation-Date: 2007-09-03 18:58+0300\n"
 "PO-Revision-Date: 2007-02-19 21:33+0300\n"
 "Last-Translator: Ilkka Tuohela <hile@iki.fi>\n"
 "Language-Team: Finnish <gnome-fi-laatu@lists.sourceforge.net>\n"
@@ -30,7 +30,7 @@ msgid "Tomboy Applet Factory"
 msgstr "Tomboy-sovelman tehdas"
 
 #: ../data/GNOME_TomboyApplet.server.in.in.h:4 ../data/tomboy.desktop.in.h:3
-#: ../Tomboy/Applet.cs:148 ../Tomboy/Tray.cs:147
+#: ../Tomboy/Applet.cs:149 ../Tomboy/Tray.cs:147
 msgid "Tomboy Notes"
 msgstr "Tomboy -muistilaput"
 
@@ -39,12 +39,12 @@ msgid "_About"
 msgstr "_Tietoja"
 
 #: ../data/GNOME_TomboyApplet.xml.h:2 ../Tomboy/ActionManager.cs:93
-#: ../Tomboy/Applet.cs:186
+#: ../Tomboy/Applet.cs:187
 msgid "_Help"
 msgstr "O_hje"
 
 #: ../data/GNOME_TomboyApplet.xml.h:3 ../Tomboy/ActionManager.cs:89
-#: ../Tomboy/Applet.cs:181
+#: ../Tomboy/Applet.cs:182
 msgid "_Preferences"
 msgstr "_Asetukset"
 
@@ -377,38 +377,6 @@ msgstr ""
 "Välilyönneillä eroteltu URI-lista muistilapuista, jotka näytetään aina "
 "Tomboyn muistilappulistassa."
 
-#: ../libtomboy/gedit-print.c:142
-#: ../Tomboy/Addins/PrintNotes/PrintNotesNoteAddin.cs:18
-msgid "Print"
-msgstr "Tulosta"
-
-#: ../libtomboy/gedit-print.c:240
-msgid "Preparing pages..."
-msgstr "Valmistellaan sivuja..."
-
-#: ../libtomboy/gedit-print.c:267
-#, c-format
-msgid "Rendering page %d of %d..."
-msgstr "Piirretään sivua %d/%d"
-
-#: ../libtomboy/gedit-print.c:269
-#, c-format
-msgid "Printing page %d of %d..."
-msgstr "Tulostetaan sivua %d/%d"
-
-#: ../libtomboy/gedit-print.c:291
-msgid "Print preview"
-msgstr "Tulostuksen esikatselu"
-
-#: ../libtomboy/gedit-print.c:442
-msgid "Page %N of %Q"
-msgstr "Sivu %N/%Q"
-
-#: ../libtomboy/gedit-print.c:445
-#, no-c-format
-msgid "%A %x, %X"
-msgstr "%A %x, %X"
-
 #: ../Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinTreeWidget.cs:91
 msgid "Add-in"
 msgstr "Lisäosa"
@@ -457,7 +425,7 @@ msgstr "_Sulje"
 msgid "Close this window"
 msgstr "Sulje tämä ikkuna"
 
-#: ../Tomboy/ActionManager.cs:82 ../Tomboy/Applet.cs:198
+#: ../Tomboy/ActionManager.cs:82 ../Tomboy/Applet.cs:199
 msgid "_Quit"
 msgstr "_Lopeta"
 
@@ -627,8 +595,7 @@ msgstr "Kansion polku -kenttä on tyhjä."
 #: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:153
 msgid ""
 "Specified folder path does not exist, and Tomboy was unable to create it."
-msgstr ""
-"Annettua kansion polkua ei löydy ja tomboy ei voinut luoda sitä."
+msgstr "Annettua kansion polkua ei löydy ja tomboy ei voinut luoda sitä."
 
 #: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:197
 msgid "Local Folder"
@@ -685,6 +652,147 @@ msgstr ""
 msgid "_Open Today: Template"
 msgstr "Avaa _Tänään:-pohja"
 
+#: ../Tomboy/Addins/PrintNotes/PrintNotesNoteAddin.cs:18
+#: ../Tomboy/Addins/PrintNotes/gedit-print.c:142
+msgid "Print"
+msgstr "Tulosta"
+
+#: ../Tomboy/Addins/PrintNotes/gedit-print.c:240
+msgid "Preparing pages..."
+msgstr "Valmistellaan sivuja..."
+
+#: ../Tomboy/Addins/PrintNotes/gedit-print.c:267
+#, c-format
+msgid "Rendering page %d of %d..."
+msgstr "Piirretään sivua %d/%d"
+
+#: ../Tomboy/Addins/PrintNotes/gedit-print.c:269
+#, c-format
+msgid "Printing page %d of %d..."
+msgstr "Tulostetaan sivua %d/%d"
+
+#: ../Tomboy/Addins/PrintNotes/gedit-print.c:291
+msgid "Print preview"
+msgstr "Tulostuksen esikatselu"
+
+#: ../Tomboy/Addins/PrintNotes/gedit-print.c:442
+msgid "Page %N of %Q"
+msgstr "Sivu %N/%Q"
+
+#: ../Tomboy/Addins/PrintNotes/gedit-print.c:445
+#, no-c-format
+msgid "%A %x, %X"
+msgstr "%A %x, %X"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:268
+msgid "Configuration"
+msgstr "Tulostusasetukset"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:269
+msgid "Configuration options for the print job"
+msgstr "Tulostustyöhön liittyvät asetukset"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:276
+msgid "Source Buffer"
+msgstr "Lähdepuskuri"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:277
+msgid "GtkTextBuffer object to print"
+msgstr "Tulostettava GtkTextBuffer-olio"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:283
+msgid "Tabs Width"
+msgstr "Sarkainten leveys"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:284
+msgid "Width in equivalent space characters of tabs"
+msgstr "Sarkaimen leveys välilyönteinä"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:291
+msgid "Wrap Mode"
+msgstr "Rivitystapa"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:292
+msgid "Word wrapping mode"
+msgstr "Sanojen rivitystapa"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:299
+msgid "Highlight"
+msgstr "Korostus"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:300
+msgid "Whether to print the document with highlighted syntax"
+msgstr "Tulostetaanko asiakirja synkaksin korustuksen kanssa"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:308
+msgid "Font"
+msgstr "Kirjasin"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:309
+msgid "GnomeFont name to use for the document text (deprecated)"
+msgstr "Asiakirjan tekstille käytettävä GnomeFont-nimi (vanhentunut)"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:316
+msgid "Font Description"
+msgstr "Kirjasimen kuvaus"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:317
+msgid "Font to use for the document text (e.g. \"Monospace 10\")"
+msgstr "Tekstille käytettävä kirjasin (esim. \"Monospace 10\")"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:324
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:332
+msgid "Numbers Font"
+msgstr "Numeroiden kirjasin"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:325
+msgid "GnomeFont name to use for the line numbers (deprecated)"
+msgstr "Asiakirjan rivinumeroille käytettävä GnomeFont-nimi (vanhentunut)"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:333
+msgid "Font description to use for the line numbers"
+msgstr "Rivinumeroille käytettävän kirjasimen kuvaus"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:340
+msgid "Print Line Numbers"
+msgstr "Tulosta rivinumerot"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:341
+msgid "Interval of printed line numbers (0 means no numbers)"
+msgstr "Tulostettujen rivinumeroiden väli (0 tarkoittaa ei rivinumeroita)"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:348
+msgid "Print Header"
+msgstr "Tulosta otsake"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:349
+msgid "Whether to print a header in each page"
+msgstr "Tulostetaanko joka sivulle otsake"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:356
+msgid "Print Footer"
+msgstr "Tulosta alaotsake"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:357
+msgid "Whether to print a footer in each page"
+msgstr "Tulostetaanko joka sivulle alaotsake"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:364
+msgid "Header and Footer Font"
+msgstr "Otsakkeiden kirjasin"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:365
+msgid "GnomeFont name to use for the header and footer (deprecated)"
+msgstr "Asiakirjan otsakkeille käytettävä GnomeFont-nimi (vanhentunut)"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:372
+msgid "Header and Footer Font Description"
+msgstr "Otsakkeille käytettävän kirjasimen kuvaus"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:373
+msgid "Font to use for headers and footers (e.g. \"Monospace 10\")"
+msgstr "Otsakkeille käytettävä kirjasin (esim. \"Monospace 10\")"
+
 #: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:41
 msgid "Server:"
 msgstr "Palvelin"
@@ -720,8 +828,8 @@ msgid ""
 "Timeout connecting to server. Please ensure that your SSH key has been added "
 "to a running SSH daemon."
 msgstr ""
-"Aikakatkaisu otettaessa yhteyttä palvelimelle. Varmista, että SSH-avain "
-"on lisätty käynnissä olevaan SSH-avaintenhallintaan."
+"Aikakatkaisu otettaessa yhteyttä palvelimelle. Varmista, että SSH-avain on "
+"lisätty käynnissä olevaan SSH-avaintenhallintaan."
 
 #: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:50
 msgid "Import from Sticky Notes"
@@ -789,7 +897,7 @@ msgstr ""
 "Asetusten tallennus Gnomen avainrenkaasen epäonnistui seuraavan virheviestin "
 "kera:"
 
-#: ../Tomboy/Applet.cs:191
+#: ../Tomboy/Applet.cs:192
 msgid "_About Tomboy"
 msgstr "_Tietoja Tomboysta"
 
@@ -951,7 +1059,7 @@ msgstr "Poista"
 msgid "Delete this note"
 msgstr "Poista tämä muistilappu"
 
-#: ../Tomboy/NoteWindow.cs:480 ../Tomboy/Synchronization/SyncManager.cs:158
+#: ../Tomboy/NoteWindow.cs:480 ../Tomboy/Synchronization/SyncManager.cs:161
 msgid "Synchronize Notes"
 msgstr "Synkronoi muistilaput"
 
@@ -1267,30 +1375,30 @@ msgid_plural "{0} matches"
 msgstr[0] "{0} osuma"
 msgstr[1] "{0} osumaa"
 
-#: ../Tomboy/Tomboy.cs:194
+#: ../Tomboy/Tomboy.cs:195
 msgid "Cannot create new note"
 msgstr "Uutta muistilappua ei voi luoda"
 
-#: ../Tomboy/Tomboy.cs:265
+#: ../Tomboy/Tomboy.cs:266
 msgid "translator-credits"
 msgstr ""
 "Ilkka Tuohela, 2005\n"
 "\n"
 "http://www.gnome.fi/"
 
-#: ../Tomboy/Tomboy.cs:274
+#: ../Tomboy/Tomboy.cs:275
 msgid "Copyright © 2004-2007 Alex Graveley"
 msgstr "Copyright © 2004-2007 Alex Graveley"
 
-#: ../Tomboy/Tomboy.cs:275
+#: ../Tomboy/Tomboy.cs:276
 msgid "A simple and easy to use desktop note-taking application."
 msgstr "Yksinkertainen ja helppokäyttöinen muistilappusovellus."
 
-#: ../Tomboy/Tomboy.cs:278
+#: ../Tomboy/Tomboy.cs:279
 msgid "Homepage"
 msgstr "Kotisivu"
 
-#: ../Tomboy/Tomboy.cs:369
+#: ../Tomboy/Tomboy.cs:376
 msgid ""
 "Tomboy: A simple, easy to use desktop note-taking application.\n"
 "Copyright (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
@@ -1300,7 +1408,7 @@ msgstr ""
 "työpöydänmuistilapuille.\n"
 "Copyright (©) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
 
-#: ../Tomboy/Tomboy.cs:381
+#: ../Tomboy/Tomboy.cs:388
 msgid ""
 "Usage:\n"
 "  --version\t\t\tPrint version information.\n"
@@ -1315,7 +1423,7 @@ msgstr ""
 "  --search [teksti]\t\tAvaa hakuikkunan teksti kaikkien muistilappujen "
 "hakuun.\n"
 
-#: ../Tomboy/Tomboy.cs:392
+#: ../Tomboy/Tomboy.cs:399
 msgid ""
 "  --new-note\t\t\tCreate and display a new note.\n"
 "  --new-note [title]\t\tCreate and display a new note, with a title.\n"
@@ -1335,16 +1443,16 @@ msgstr ""
 #. Catalog.GetString (
 #. "  --check-plugin-unloading\tCheck if plugins are " +
 #. "unloaded properly.\n");
-#: ../Tomboy/Tomboy.cs:409
+#: ../Tomboy/Tomboy.cs:416
 msgid "D-BUS remote control disabled.\n"
 msgstr "D-BUS-etäohjaus ei käytössä.\n"
 
-#: ../Tomboy/Tomboy.cs:417
+#: ../Tomboy/Tomboy.cs:424
 #, csharp-format
 msgid "Version {0}"
 msgstr "Versio {0}"
 
-#: ../Tomboy/Tomboy.cs:487
+#: ../Tomboy/Tomboy.cs:494
 #, csharp-format
 msgid ""
 "Tomboy: unsupported option '{0}'\n"
@@ -1498,204 +1606,204 @@ msgstr "FUSE:a ei voitu ottaa käyttöön."
 msgid "An error ocurred while connecting to the specified server:"
 msgstr "Tapahtui virhe otettaessa yhteyttä määriteltyyn palvelimeen:"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:91
+#: ../Tomboy/Synchronization/SyncDialog.cs:92
 msgid "Note Title"
 msgstr "Muistilapun otsikko"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:98
+#: ../Tomboy/Synchronization/SyncDialog.cs:99
 msgid "Status"
 msgstr "Tila"
 
 #. Drop all that into into the Expander
-#: ../Tomboy/Synchronization/SyncDialog.cs:117
+#: ../Tomboy/Synchronization/SyncDialog.cs:118
 msgid "Details"
 msgstr "Yksityiskohdat"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:235
+#: ../Tomboy/Synchronization/SyncDialog.cs:236
 msgid "Acquiring sync lock..."
 msgstr "Hankitaan lukitus..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:238
+#: ../Tomboy/Synchronization/SyncDialog.cs:239
 msgid "Committing changes..."
 msgstr "Toteutetaan muutoksia..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:241
+#: ../Tomboy/Synchronization/SyncDialog.cs:242
 msgid "Synchronizing Notes"
 msgstr "Synkronoidaan muistilappuja"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:242
+#: ../Tomboy/Synchronization/SyncDialog.cs:243
 msgid "Synchronizing your notes..."
 msgstr "Muistilappujasi synkronoidaan...."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:243
+#: ../Tomboy/Synchronization/SyncDialog.cs:244
 msgid "This may take a while, kick back and enjoy!"
 msgstr "Tämä saattaa kestää hetken, tee jotain muuta!"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:245
+#: ../Tomboy/Synchronization/SyncDialog.cs:246
 msgid "Connecting to the server..."
 msgstr "Otetaan yhteyttä palvelimeen..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:251
+#: ../Tomboy/Synchronization/SyncDialog.cs:252
 msgid "Deleting notes off of the server..."
 msgstr "Poistetaan muistilappuja palvelimelta..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:255
+#: ../Tomboy/Synchronization/SyncDialog.cs:256
 msgid "Downloading new/updated notes..."
 msgstr "Noudetaan uusia ja muuttuneita muistilappuja..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:267
+#: ../Tomboy/Synchronization/SyncDialog.cs:268
 msgid "Server Locked"
 msgstr "Palvelin lukittu"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:268
+#: ../Tomboy/Synchronization/SyncDialog.cs:269
 msgid "Server is locked"
 msgstr "Palvelin on lukittu"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:269
+#: ../Tomboy/Synchronization/SyncDialog.cs:270
 msgid ""
 "One of your other computers is currently synchronizing.  Please wait 2 "
 "minutes and try again."
 msgstr ""
-"Joku tietokoneistasi on juuri synkronoimassa. Odota kaksi minuuttia ja "
-"yritä uudestaan."
+"Joku tietokoneistasi on juuri synkronoimassa. Odota kaksi minuuttia ja yritä "
+"uudestaan."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:273
+#: ../Tomboy/Synchronization/SyncDialog.cs:274
 msgid "Preparing to download updates from server..."
 msgstr "Valmistellaan muutosten noutoa palvelimelta..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:276
+#: ../Tomboy/Synchronization/SyncDialog.cs:277
 msgid "Preparing to upload updates to server..."
 msgstr "Valmistellaan muutosten vientiä palvelimelle..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:279
+#: ../Tomboy/Synchronization/SyncDialog.cs:280
 msgid "Uploading notes to server..."
 msgstr "Viedään muistilappuja palvelimelle..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:282
+#: ../Tomboy/Synchronization/SyncDialog.cs:283
 msgid "Synchronization Failed"
 msgstr "Synkronointi epäonnistui"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:283
+#: ../Tomboy/Synchronization/SyncDialog.cs:284
 msgid "Failed to synchronize"
 msgstr "Synkronointia ei voitu suorittaa"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:284
+#: ../Tomboy/Synchronization/SyncDialog.cs:285
 msgid "Could not synchronize notes.  Check the details below and try again."
 msgstr ""
 "Muistilappuja ei voitu synkronoida. Tarkista yksityiskohdat alta ja yritä "
 "uudestaan."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:290
+#: ../Tomboy/Synchronization/SyncDialog.cs:291
 msgid "Synchronization Complete"
 msgstr "Synkronointi valmistui"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:291
+#: ../Tomboy/Synchronization/SyncDialog.cs:292
 msgid "Synchronization is complete"
 msgstr "Muistilappujen synkronointi valmistui"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:293
+#: ../Tomboy/Synchronization/SyncDialog.cs:294
 #, csharp-format
 msgid "{0} note updated."
 msgid_plural "{0} notes updated."
 msgstr[0] "{0} muistilappu päivitetty."
 msgstr[1] "{0} muistilappua päivitetty."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:298
+#: ../Tomboy/Synchronization/SyncDialog.cs:299
 msgid "Your notes are now up to date."
 msgstr "Muistilaput ovat nyt ajan tasalla."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:302
+#: ../Tomboy/Synchronization/SyncDialog.cs:303
 msgid "Synchronization Canceled"
 msgstr "Synkronointi peruttiin"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:303
+#: ../Tomboy/Synchronization/SyncDialog.cs:304
 msgid "Synchronization was canceled"
 msgstr "Synkronointi peruttiin"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:304
+#: ../Tomboy/Synchronization/SyncDialog.cs:305
 msgid "You canceled the synchronization.  You may close the window now."
 msgstr "Peruit muistilappujen synkronoinnin. Voit nyt sulkea ikkunan."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:308
+#: ../Tomboy/Synchronization/SyncDialog.cs:309
 msgid "Synchronization Not Configured"
 msgstr "Synkronointia ei ole määritelty"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:309
+#: ../Tomboy/Synchronization/SyncDialog.cs:310
 msgid "Synchronization is not configured"
 msgstr "Muistilappujen synkronointia ei ole määritelty"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:310
+#: ../Tomboy/Synchronization/SyncDialog.cs:311
 msgid "Please configure synchronization in the preferences dialog."
 msgstr "Määrittele synkronoinnin asetukset asetusikkunasta."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:314
+#: ../Tomboy/Synchronization/SyncDialog.cs:315
 msgid "Synchronization Service Error"
 msgstr "Virhe synkronointipalvelussa"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:315
+#: ../Tomboy/Synchronization/SyncDialog.cs:316
 msgid "Service error"
 msgstr "Virhe palvelussa"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:316
+#: ../Tomboy/Synchronization/SyncDialog.cs:317
 msgid "Error connecting to the synchronization service.  Please try again."
 msgstr ""
 "Virhe otettaessa yhteyttä synkronointipalveluun. Yritä myöhemmin uudestaan."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:333
+#: ../Tomboy/Synchronization/SyncDialog.cs:334
 msgid "Deleted locally"
 msgstr "Poistettu paikallisesti"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:336
+#: ../Tomboy/Synchronization/SyncDialog.cs:337
 msgid "Deleted from server"
 msgstr "Poistettu palvelimelta"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:339
+#: ../Tomboy/Synchronization/SyncDialog.cs:340
 msgid "Updated"
 msgstr "Päivitetty"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:342
+#: ../Tomboy/Synchronization/SyncDialog.cs:343
 msgid "Added"
 msgstr "Lisätty"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:345
+#: ../Tomboy/Synchronization/SyncDialog.cs:346
 msgid "Uploaded changes to server"
 msgstr "Vietiin muutokset palvelimelle"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:348
+#: ../Tomboy/Synchronization/SyncDialog.cs:349
 msgid "Uploaded new note to server"
 msgstr "Vietiin uusi muistilappu palvelimelle"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:480
+#: ../Tomboy/Synchronization/SyncDialog.cs:497
 msgid "Note Conflict"
 msgstr "Ristiriita muistilapuissa"
 
 #. Suggest renaming note by appending " (old)" to the existing title
-#: ../Tomboy/Synchronization/SyncDialog.cs:484
+#: ../Tomboy/Synchronization/SyncDialog.cs:503
 msgid " (old)"
 msgstr " (vanha)"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:523
+#: ../Tomboy/Synchronization/SyncDialog.cs:542
 msgid "Rename local note:"
 msgstr "Nimeä paikallinen muistilappu uudestaan:"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:529
+#: ../Tomboy/Synchronization/SyncDialog.cs:548
 msgid "Update links in referencing notes"
 msgstr "Päivitä linkit viittaavissa muistilapuissa"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:536
+#: ../Tomboy/Synchronization/SyncDialog.cs:555
 msgid "Overwrite local note"
 msgstr "Kirjoita paikallisen muistilapun päälle"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:540
+#: ../Tomboy/Synchronization/SyncDialog.cs:559
 msgid "Always perform this action"
 msgstr "Suorita aina tämä toiminto"
 
 #. Set initial dialog text
-#: ../Tomboy/Synchronization/SyncDialog.cs:547
+#: ../Tomboy/Synchronization/SyncDialog.cs:566
 msgid "Note conflict detected"
 msgstr "Havaittiin ristiriita muistilapuissa"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:548
+#: ../Tomboy/Synchronization/SyncDialog.cs:567
 #, csharp-format
 msgid ""
 "The server version of \"{0}\" conflicts with your local note.  What do you "
@@ -1704,7 +1812,7 @@ msgstr ""
 "Palvelimen versio \"{0}\" on ristiriidassa paikallisen muistilapun kanssa. "
 "Mitä haluat tehdä paikalliselle muistilapulle?"
 
-#: ../Tomboy/Synchronization/SyncManager.cs:156
+#: ../Tomboy/Synchronization/SyncManager.cs:159
 msgid "_Tools"
 msgstr "_Työkalut"
 
@@ -1917,9 +2025,6 @@ msgstr ""
 
 #~ msgid "Plugins"
 #~ msgstr "Liitännäiset"
-
-#~ msgid "Description:"
-#~ msgstr "Kuvaus:"
 
 #~ msgid "Written by:"
 #~ msgstr "Toteuttanut:"
