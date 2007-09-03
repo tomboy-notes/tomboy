@@ -223,6 +223,10 @@ namespace Tomboy
 			return true;
 		}
 		
+		/// <summary>
+		/// Reset the entire XML data for the given note.
+		/// NOTE: Throws exception if xml_contents is invalid.
+		/// </summary>
 		public bool SetNoteCompleteXml (string uri, string xml_contents)
 		{
 			Note note;
