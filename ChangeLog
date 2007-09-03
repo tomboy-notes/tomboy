@@ -1,5 +1,15 @@
 2007-09-02  Sandy Armstrong <sanfordarmstrong@gmail.com> 
 
+	* Tomboy/Synchronization/SyncDialog.cs,
+	  Tomboy/Synchronization/SyncManager.cs: Better handling of
+	  exceptions during synchronization.  Entire sync thread is
+	  surrounded in try/catch/finally, and when invoking the main gtk
+	  thread, any exceptions are temporarily caught, and then rethrown in
+	  the sync thread for consistency.  This should fix most sync-related
+	  crashes.
+
+2007-09-02  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
 	* Tomboy/RemoteControl.cs, Tomboy/Synchronization/SyncDialog.cs,
 	  Tomboy/Synchronization/SyncManager.cs: Handle potential for
 	  LoadForeignNoteXml exceptions.

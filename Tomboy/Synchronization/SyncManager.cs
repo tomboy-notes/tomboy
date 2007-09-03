@@ -211,8 +211,10 @@ namespace Tomboy.Sync
 		public static void SynchronizationThread ()
 		{
 			// TODO: Try/finally this entire method so GUI doesn't hang?
+			SyncServiceAddin addin = null;
+			try {
 
-			SyncServiceAddin addin = GetConfiguredSyncService ();
+			addin = GetConfiguredSyncService ();
 			if (addin == null) {
 				SetState (SyncState.NoConfiguredSyncService);
 				Logger.Debug ("GetConfiguredSyncService is null");
@@ -311,7 +313,7 @@ Logger.Debug ("8");
 				SetState (SyncState.Downloading);
 
 			// TODO: Figure out why GUI doesn't always update smoothly
-
+			
 			// Process updates from the server; the bread and butter of sync!
 			foreach (NoteUpdate noteUpdate in noteUpdates.Values) {
 				Note existingNote = FindNoteByUUID (noteUpdate.UUID);
@@ -343,8 +345,14 @@ Logger.Debug ("8");
 				}
 			}
 
+			// Note deletion may affect the GUI, so we have to use the
+			// delegate to run in the main gtk thread.
+			// To be consistent, any exceptions in the delgate will be caught
+			// and then rethrown in the synchronization thread.
+			Exception mainThreadException = null;
 			AutoResetEvent evt = new AutoResetEvent (false);
 			Gtk.Application.Invoke (delegate {
+				try {
 				// Make list of all local notes
 				List<Note> localNotes = new List<Note> ();
 				foreach (Note note in NoteMgr.Notes)
@@ -363,10 +371,15 @@ Logger.Debug ("8");
 						NoteMgr.Delete (note);
 					}
 				}
-			evt.Set ();
+				evt.Set ();
+				} catch (Exception e) {
+					mainThreadException = e;
+				}
 			});
 			
 			evt.WaitOne ();
+			if (mainThreadException != null)
+				throw mainThreadException;
 			
 			// TODO: Add following updates to syncDialog treeview
 			
@@ -437,8 +450,26 @@ Logger.Debug ("8");
 			Logger.Debug ("Sync: New revision: {0}", client.LastSynchronizedRevision);
 			
 			SetState (SyncState.Idle);
-			syncThread = null;
-			addin.PostSyncCleanup (); // TODO: try/finally this?
+			
+			} catch (Exception e) { // top-level try
+				Logger.Error ("Synchronization failed with the following exception: " +
+					      e.Message + "\n" +
+					      e.StackTrace);
+				// TODO: Report graphically to user
+				try {
+					SetState (SyncState.Idle); // stop progress
+					SetState (SyncState.Failed);
+				} catch {}
+			} finally {
+				syncThread = null;
+				try {
+					addin.PostSyncCleanup ();
+				} catch (Exception e) {
+					Logger.Error ("Error cleaning up addin after sync: " +
+						      e.Message + "\n" +
+						      e.StackTrace);
+				}
+			}
 		}
 		
 		/// <summary>
@@ -456,27 +487,49 @@ Logger.Debug ("8");
 			
 		private static void CreateNoteInMainThread (NoteUpdate noteUpdate)
 		{
+			// Note creation may affect the GUI, so we have to use the
+			// delegate to run in the main gtk thread.
+			// To be consistent, any exceptions in the delgate will be caught
+			// and then rethrown in the synchronization thread.
+			Exception mainThreadException = null;
 			AutoResetEvent evt = new AutoResetEvent (false);
 			Gtk.Application.Invoke (delegate {
-				Note existingNote = NoteMgr.CreateWithGuid (noteUpdate.Title, noteUpdate.UUID);
-				UpdateLocalNote (existingNote, noteUpdate, NoteSyncType.DownloadNew);
+				try {
+					Note existingNote = NoteMgr.CreateWithGuid (noteUpdate.Title, noteUpdate.UUID);
+					UpdateLocalNote (existingNote, noteUpdate, NoteSyncType.DownloadNew);
+				} catch (Exception e) {
+					mainThreadException = e;
+				}
 						
 				evt.Set ();
 			});
 			
 			evt.WaitOne ();
+			if (mainThreadException != null)
+				throw mainThreadException;
 		}
 		
 		private static void UpdateNoteInMainThread (Note existingNote, NoteUpdate noteUpdate)
 		{
+			// Note update may affect the GUI, so we have to use the
+			// delegate to run in the main gtk thread.
+			// To be consistent, any exceptions in the delgate will be caught
+			// and then rethrown in the synchronization thread.
+			Exception mainThreadException = null;
 			AutoResetEvent evt = new AutoResetEvent (false);
 			Gtk.Application.Invoke (delegate {
-				UpdateLocalNote (existingNote, noteUpdate, NoteSyncType.DownloadModified);
-
+				try {
+					UpdateLocalNote (existingNote, noteUpdate, NoteSyncType.DownloadModified);
+				} catch (Exception e) {
+					mainThreadException = e;
+				}
+						
 				evt.Set ();
 			});
 			
-			evt.WaitOne ();				
+			evt.WaitOne ();
+			if (mainThreadException != null)
+				throw mainThreadException;			
 		}
 		
 		private static void UpdateLocalNote (Note localNote, NoteUpdate serverNote, NoteSyncType syncType)

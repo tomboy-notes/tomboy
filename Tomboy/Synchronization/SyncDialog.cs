@@ -362,7 +362,11 @@ namespace Tomboy.Sync
 			SyncTitleConflictResolution resolution = SyncTitleConflictResolution.OverwriteExisting;
 			// This event handler will be called by the synchronization thread
 			// so we have to use the delegate here to manipulate the GUI.
+			// To be consistent, any exceptions in the delgate will be caught
+			// and then rethrown in the synchronization thread.
+			Exception mainThreadException = null;
 			Gtk.Application.Invoke (delegate {
+				try {
 				SyncTitleConflictDialog conflictDlg =
 					new SyncTitleConflictDialog (localConflictNote);
 				Gtk.ResponseType reponse = Gtk.ResponseType.Ok;
@@ -416,7 +420,12 @@ namespace Tomboy.Sync
 			
 				// Let the SyncManager continue
 				SyncManager.ResolveConflict (/*localConflictNote, */resolution);
+				} catch (Exception e) {
+					mainThreadException = e;
+				}
 			});
+			if (mainThreadException != null)
+				throw mainThreadException;
 		}
 
 		#endregion // Private Event Handlers
@@ -442,8 +451,8 @@ namespace Tomboy.Sync
 				NoteArchiver.Instance.GetRenamedNoteXml (note.XmlContent, oldTitle, newTitle);
 			string newCompleteContent = //note.GetCompleteNoteXml ();
 				NoteArchiver.Instance.GetRenamedNoteXml (note.GetCompleteNoteXml (), oldTitle, newTitle);
-			Logger.Debug ("RenameNote: newContent: " + newContent);
-			Logger.Debug ("RenameNote: newCompleteContent: " + newCompleteContent);
+			//Logger.Debug ("RenameNote: newContent: " + newContent);
+			//Logger.Debug ("RenameNote: newCompleteContent: " + newCompleteContent);
 			
 			// We delete and recreate the note to simplify content conflict handling
 			Tomboy.DefaultNoteManager.Delete (note);
