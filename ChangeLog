@@ -1,5 +1,15 @@
 2007-09-02  Sandy Armstrong <sanfordarmstrong@gmail.com> 
 
+	* Tomboy/Synchronization/FileSystemSyncServer.cs: IsValidXmlFile now
+	  includes check for file existence.  Stream/Writer usage managed by
+	  'using' blocks, non-disposable objects closed using try/finally
+	  blocks.
+	* Tomboy/Synchronization/TomboySyncClient.cs: Stream/Writer usage
+	  managed by 'using' blocks, non-disposable objects closed using
+	  try/finally blocks.
+
+2007-09-02  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
 	* Tomboy/Synchronization/SyncDialog.cs,
 	  Tomboy/Synchronization/SyncManager.cs: Better handling of
 	  exceptions during synchronization.  Entire sync thread is
