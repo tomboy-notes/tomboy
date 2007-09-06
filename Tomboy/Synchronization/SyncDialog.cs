@@ -559,7 +559,6 @@ namespace Tomboy.Sync
 			alwaysDoThisCheck = new Gtk.CheckButton (Catalog.GetString ("Always perform this action"));
 			VBox.PackStart (alwaysDoThisCheck);
 			
-			//AddButton (Gtk.Stock.Cancel, Gtk.ResponseType.Cancel); // Simplifying...user doesn't need cancel option
 			continueButton = (Gtk.Button) AddButton (Gtk.Stock.GoForward, Gtk.ResponseType.Accept);
 			
 			// Set initial dialog text
