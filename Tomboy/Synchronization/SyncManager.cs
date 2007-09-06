@@ -239,7 +239,7 @@ namespace Tomboy.Sync
 				Logger.Log ("Exception while creating SyncServer: {0}\n{1}", e.Message, e.StackTrace);
 				SetState (SyncState.Idle);
 				syncThread = null;
-					addin.PostSyncCleanup ();// TODO: Needed?
+				addin.PostSyncCleanup ();// TODO: Needed?
 				return;
 				// TODO: Figure out a clever way to get the specific error up to the GUI
 			}
@@ -302,18 +302,6 @@ Logger.Debug ("8");
 							// Suspend this thread while the GUI is presented to
 							// the user.
 							syncThread.Suspend ();
-							
-							// The user has responded to the conflict.  Read what
-							// they've said to do.
-							if (conflictResolution == SyncTitleConflictResolution.Cancel) {
-								if (server.CancelSyncTransaction ()) {
-									SetState (SyncState.UserCancelled);
-									SetState (SyncState.Idle);
-									syncThread = null;
-									addin.PostSyncCleanup ();
-									return;
-								}
-							}
 						}
 					}
 				}
@@ -401,6 +389,7 @@ Logger.Debug ("8");
 				if (client.GetRevision (note) == -1) {
 					// This is a new note that has never been synchronized to the server
 					// TODO: *OR* this is a note that we lost revision info for!!!
+						// TODO: Do the above NOW!!! (don't commit this dummy)
 					note.Save ();
 					newOrModifiedNotes.Add (note);
 					if (NoteSynchronized != null)
@@ -469,6 +458,7 @@ Logger.Debug ("8");
 				try {
 					SetState (SyncState.Idle); // stop progress
 					SetState (SyncState.Failed);
+					SetState (SyncState.Idle); // required to allow user to sync again
 				} catch {}
 			} finally {
 				syncThread = null;
