@@ -14,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tomboy 0.3.10\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-08-30 00:33+0200\n"
-"PO-Revision-Date: 2007-08-30 09:43+0200\n"
-"Last-Translator: Stéphane Raimbault <stephane.raimbault@gmail.com>\n"
+"POT-Creation-Date: 2007-09-06 09:29+0200\n"
+"PO-Revision-Date: 2007-09-06 09:36+0200\n"
+"Last-Translator: Jonathan Ernst <jonathan@ernstfamily.ch>\n"
 "Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -36,7 +36,7 @@ msgid "Tomboy Applet Factory"
 msgstr "Fabrique d'applet Tomboy"
 
 #: ../data/GNOME_TomboyApplet.server.in.in.h:4 ../data/tomboy.desktop.in.h:3
-#: ../Tomboy/Applet.cs:148 ../Tomboy/Tray.cs:147
+#: ../Tomboy/Applet.cs:149 ../Tomboy/Tray.cs:147
 msgid "Tomboy Notes"
 msgstr "Notes Tomboy"
 
@@ -45,12 +45,12 @@ msgid "_About"
 msgstr "À _propos"
 
 #: ../data/GNOME_TomboyApplet.xml.h:2 ../Tomboy/ActionManager.cs:93
-#: ../Tomboy/Applet.cs:186
+#: ../Tomboy/Applet.cs:187
 msgid "_Help"
 msgstr "Aid_e"
 
 #: ../data/GNOME_TomboyApplet.xml.h:3 ../Tomboy/ActionManager.cs:89
-#: ../Tomboy/Applet.cs:181
+#: ../Tomboy/Applet.cs:182
 msgid "_Preferences"
 msgstr "_Préférences"
 
@@ -389,38 +389,6 @@ msgstr ""
 "Liste des URI des notes, séparées par des espaces, qui doivent toujours être "
 "affichées dans le menu de notes Tomboy."
 
-#: ../libtomboy/gedit-print.c:142
-#: ../Tomboy/Addins/PrintNotes/PrintNotesNoteAddin.cs:18
-msgid "Print"
-msgstr "Imprimer"
-
-#: ../libtomboy/gedit-print.c:240
-msgid "Preparing pages..."
-msgstr "Préparation des pages..."
-
-#: ../libtomboy/gedit-print.c:267
-#, c-format
-msgid "Rendering page %d of %d..."
-msgstr "Rendu de la page %d sur %d..."
-
-#: ../libtomboy/gedit-print.c:269
-#, c-format
-msgid "Printing page %d of %d..."
-msgstr "Impression de la page %d sur %d..."
-
-#: ../libtomboy/gedit-print.c:291
-msgid "Print preview"
-msgstr "Aperçu de l'impression"
-
-#: ../libtomboy/gedit-print.c:442
-msgid "Page %N of %Q"
-msgstr "Page %N sur %Q"
-
-#: ../libtomboy/gedit-print.c:445
-#, no-c-format
-msgid "%A %x, %X"
-msgstr "%A %x, %X"
-
 #: ../Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinTreeWidget.cs:91
 msgid "Add-in"
 msgstr "Greffons"
@@ -469,7 +437,7 @@ msgstr "_Fermer"
 msgid "Close this window"
 msgstr "Ferme cette fenêtre"
 
-#: ../Tomboy/ActionManager.cs:82 ../Tomboy/Applet.cs:198
+#: ../Tomboy/ActionManager.cs:82 ../Tomboy/Applet.cs:199
 msgid "_Quit"
 msgstr "_Quitter"
 
@@ -699,6 +667,154 @@ msgstr ""
 msgid "_Open Today: Template"
 msgstr "_Ouvrir « Aujourd'hui : modèle »"
 
+#: ../Tomboy/Addins/PrintNotes/PrintNotesNoteAddin.cs:18
+#: ../Tomboy/Addins/PrintNotes/gedit-print.c:142
+msgid "Print"
+msgstr "Imprimer"
+
+#: ../Tomboy/Addins/PrintNotes/gedit-print.c:240
+msgid "Preparing pages..."
+msgstr "Préparation des pages..."
+
+#: ../Tomboy/Addins/PrintNotes/gedit-print.c:267
+#, c-format
+msgid "Rendering page %d of %d..."
+msgstr "Rendu de la page %d sur %d..."
+
+#: ../Tomboy/Addins/PrintNotes/gedit-print.c:269
+#, c-format
+msgid "Printing page %d of %d..."
+msgstr "Impression de la page %d sur %d..."
+
+#: ../Tomboy/Addins/PrintNotes/gedit-print.c:291
+msgid "Print preview"
+msgstr "Aperçu de l'impression"
+
+#: ../Tomboy/Addins/PrintNotes/gedit-print.c:442
+msgid "Page %N of %Q"
+msgstr "Page %N sur %Q"
+
+#: ../Tomboy/Addins/PrintNotes/gedit-print.c:445
+#, no-c-format
+msgid "%A %x, %X"
+msgstr "%A %x, %X"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:268
+msgid "Configuration"
+msgstr "Configuration"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:269
+msgid "Configuration options for the print job"
+msgstr "Options de configuration pour l'impression"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:276
+msgid "Source Buffer"
+msgstr "Tampon source"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:277
+msgid "GtkTextBuffer object to print"
+msgstr "Objet GtkTextBuffer à imprimer"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:283
+msgid "Tabs Width"
+msgstr "Largeur des tabulations"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:284
+msgid "Width in equivalent space characters of tabs"
+msgstr "Largeur des tabulations en nombre d'espaces"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:291
+msgid "Wrap Mode"
+msgstr "Mode d'adaptation du texte"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:292
+msgid "Word wrapping mode"
+msgstr "Mode d'adaptation du texte"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:299
+msgid "Highlight"
+msgstr "Surligner"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:300
+msgid "Whether to print the document with highlighted syntax"
+msgstr "Indique s'il faut imprimer le document avec le surlignage syntaxique"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:308
+msgid "Font"
+msgstr "Police"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:309
+msgid "GnomeFont name to use for the document text (deprecated)"
+msgstr ""
+"Nom de la police GnomeFont à utiliser pour le texte du document (désapprouvé)"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:316
+msgid "Font Description"
+msgstr "Description de la police"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:317
+msgid "Font to use for the document text (e.g. \"Monospace 10\")"
+msgstr "Police à utiliser pour le texte du document (par ex. « Monospace 10 »)"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:324
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:332
+msgid "Numbers Font"
+msgstr "Police pour les nombres"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:325
+msgid "GnomeFont name to use for the line numbers (deprecated)"
+msgstr ""
+"Nom de la police GnomeFont à utiliser pour les numéros de lignes "
+"(désapprouvé)"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:333
+msgid "Font description to use for the line numbers"
+msgstr "Description de la police à utiliser pour les numéros de lignes"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:340
+msgid "Print Line Numbers"
+msgstr "Imprimer les numéros de lignes"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:341
+msgid "Interval of printed line numbers (0 means no numbers)"
+msgstr "Intervalle entre deux numéros de lignes imprimés (0 signifie pas de numéro)"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:348
+msgid "Print Header"
+msgstr "Imprimer l'en-tête"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:349
+msgid "Whether to print a header in each page"
+msgstr "Indique s'il faut imprimer un en-tête pour chaque page"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:356
+msgid "Print Footer"
+msgstr "Imprimer le pied de page"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:357
+msgid "Whether to print a footer in each page"
+msgstr "Indique s'il faut imprimer un pied de page pour chaque page"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:364
+msgid "Header and Footer Font"
+msgstr "Police pour l'en-tête et le pied de page"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:365
+msgid "GnomeFont name to use for the header and footer (deprecated)"
+msgstr ""
+"Nom de la police GnomeFont à utiliser pour l'en-tête et le pied de page "
+"(désapprouvé)"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:372
+msgid "Header and Footer Font Description"
+msgstr "Description de la police pour l'en-tête et le pied de page"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:373
+msgid "Font to use for headers and footers (e.g. \"Monospace 10\")"
+msgstr ""
+"Police à utiliser pour l'en-tête et le pied de page (par ex. « Monospace "
+"10 »)"
+
 #: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:41
 msgid "Server:"
 msgstr "Serveur :"
@@ -804,7 +920,7 @@ msgstr ""
 "La sauvegarde de la configuration vers le trousseau de clés GNOME a échoué "
 "avec le message suivant :"
 
-#: ../Tomboy/Applet.cs:191
+#: ../Tomboy/Applet.cs:192
 msgid "_About Tomboy"
 msgstr "À _propos de Tomboy"
 
@@ -967,7 +1083,7 @@ msgstr "Supprimer"
 msgid "Delete this note"
 msgstr "Supprime cette note"
 
-#: ../Tomboy/NoteWindow.cs:480 ../Tomboy/Synchronization/SyncManager.cs:158
+#: ../Tomboy/NoteWindow.cs:480 ../Tomboy/Synchronization/SyncManager.cs:161
 msgid "Synchronize Notes"
 msgstr "Synchroniser les notes"
 
@@ -1285,32 +1401,33 @@ msgid_plural "{0} matches"
 msgstr[0] "{0} occurrence"
 msgstr[1] "{0} occurrences"
 
-#: ../Tomboy/Tomboy.cs:194
+#: ../Tomboy/Tomboy.cs:195
 msgid "Cannot create new note"
 msgstr "Impossible de créer une nouvelle note"
 
-#: ../Tomboy/Tomboy.cs:265
+#: ../Tomboy/Tomboy.cs:266
 msgid "translator-credits"
 msgstr ""
 "Benoît Dejean <benoit@placenet.org>\n"
 "Stéphane Raimbault <stephane.raimbault@gmail.com>\n"
 "Cyprien Le Pannérer <cyplp@free.fr>\n"
-"Robert-André Mauchin <zebob.m@gmail.com>"
+"Robert-André Mauchin <zebob.m@gmail.com>\n"
+"Jonathan Ernst <jonathan@ernstfamily.ch>"
 
-#: ../Tomboy/Tomboy.cs:274
+#: ../Tomboy/Tomboy.cs:275
 msgid "Copyright © 2004-2007 Alex Graveley"
 msgstr "Copyright © 2004-2007 Alex Graveley"
 
-#: ../Tomboy/Tomboy.cs:275
+#: ../Tomboy/Tomboy.cs:276
 msgid "A simple and easy to use desktop note-taking application."
 msgstr ""
 "Une application de prise de notes de bureau simple et facile à utiliser."
 
-#: ../Tomboy/Tomboy.cs:278
+#: ../Tomboy/Tomboy.cs:279
 msgid "Homepage"
 msgstr "Page d'accueil"
 
-#: ../Tomboy/Tomboy.cs:369
+#: ../Tomboy/Tomboy.cs:376
 msgid ""
 "Tomboy: A simple, easy to use desktop note-taking application.\n"
 "Copyright (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
@@ -1320,7 +1437,7 @@ msgstr ""
 "Copyright (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
 "\n"
 
-#: ../Tomboy/Tomboy.cs:381
+#: ../Tomboy/Tomboy.cs:388
 msgid ""
 "Usage:\n"
 "  --version\t\t\tPrint version information.\n"
@@ -1336,7 +1453,7 @@ msgstr ""
 "  --search [texte]\t\tOuvre la fenêtre de recherche dans toutes les notes "
 "avec le texte recherché.\n"
 
-#: ../Tomboy/Tomboy.cs:392
+#: ../Tomboy/Tomboy.cs:399
 msgid ""
 "  --new-note\t\t\tCreate and display a new note.\n"
 "  --new-note [title]\t\tCreate and display a new note, with a title.\n"
@@ -1357,16 +1474,16 @@ msgstr ""
 #. Catalog.GetString (
 #. "  --check-plugin-unloading\tCheck if plugins are " +
 #. "unloaded properly.\n");
-#: ../Tomboy/Tomboy.cs:409
+#: ../Tomboy/Tomboy.cs:416
 msgid "D-BUS remote control disabled.\n"
 msgstr "Le contrôle distant via D-BUS est désactivé.\n"
 
-#: ../Tomboy/Tomboy.cs:417
+#: ../Tomboy/Tomboy.cs:424
 #, csharp-format
 msgid "Version {0}"
 msgstr "Version {0}"
 
-#: ../Tomboy/Tomboy.cs:487
+#: ../Tomboy/Tomboy.cs:494
 #, csharp-format
 msgid ""
 "Tomboy: unsupported option '{0}'\n"
@@ -1522,60 +1639,60 @@ msgstr "FUSE n'a pas pu être activé."
 msgid "An error ocurred while connecting to the specified server:"
 msgstr "Une erreur est survenu lors de la connexion au serveur indiqué :"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:91
+#: ../Tomboy/Synchronization/SyncDialog.cs:92
 msgid "Note Title"
 msgstr "Titre de note"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:98
+#: ../Tomboy/Synchronization/SyncDialog.cs:99
 msgid "Status"
 msgstr "Statut"
 
 #. Drop all that into into the Expander
-#: ../Tomboy/Synchronization/SyncDialog.cs:117
+#: ../Tomboy/Synchronization/SyncDialog.cs:118
 msgid "Details"
 msgstr "Détails"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:235
+#: ../Tomboy/Synchronization/SyncDialog.cs:236
 msgid "Acquiring sync lock..."
 msgstr "Acquisition d'un verrou de synchronisation..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:238
+#: ../Tomboy/Synchronization/SyncDialog.cs:239
 msgid "Committing changes..."
 msgstr "Envoi des changements..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:241
+#: ../Tomboy/Synchronization/SyncDialog.cs:242
 msgid "Synchronizing Notes"
 msgstr "Synchronisation des notes"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:242
+#: ../Tomboy/Synchronization/SyncDialog.cs:243
 msgid "Synchronizing your notes..."
 msgstr "Synchronisation de vos notes..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:243
+#: ../Tomboy/Synchronization/SyncDialog.cs:244
 msgid "This may take a while, kick back and enjoy!"
 msgstr "Cela peut durer un moment, prenez du recul et savourez !"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:245
+#: ../Tomboy/Synchronization/SyncDialog.cs:246
 msgid "Connecting to the server..."
 msgstr "Connexion au serveur..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:251
+#: ../Tomboy/Synchronization/SyncDialog.cs:252
 msgid "Deleting notes off of the server..."
 msgstr "Effacement des notes closes sur le serveur..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:255
+#: ../Tomboy/Synchronization/SyncDialog.cs:256
 msgid "Downloading new/updated notes..."
 msgstr "Téléchargement des notes nouvelles ou mises à jour..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:267
+#: ../Tomboy/Synchronization/SyncDialog.cs:268
 msgid "Server Locked"
 msgstr "Serveur verrouillé"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:268
+#: ../Tomboy/Synchronization/SyncDialog.cs:269
 msgid "Server is locked"
 msgstr "Le serveur est verrouillé"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:269
+#: ../Tomboy/Synchronization/SyncDialog.cs:270
 msgid ""
 "One of your other computers is currently synchronizing.  Please wait 2 "
 "minutes and try again."
@@ -1583,148 +1700,148 @@ msgstr ""
 "Un de vos autres ordinateurs est en train de se synchroniser. Veuillez "
 "patienter quelques minutes et essayer à nouveau."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:273
+#: ../Tomboy/Synchronization/SyncDialog.cs:274
 msgid "Preparing to download updates from server..."
 msgstr "Préparation au téléchargement des mises à jour du serveur..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:276
+#: ../Tomboy/Synchronization/SyncDialog.cs:277
 msgid "Preparing to upload updates to server..."
 msgstr "Préparation à l'envoi des mises à jour vers le serveur..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:279
+#: ../Tomboy/Synchronization/SyncDialog.cs:280
 msgid "Uploading notes to server..."
 msgstr "Envoi des notes vers le serveur..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:282
+#: ../Tomboy/Synchronization/SyncDialog.cs:283
 msgid "Synchronization Failed"
 msgstr "La synchronisation a échoué"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:283
+#: ../Tomboy/Synchronization/SyncDialog.cs:284
 msgid "Failed to synchronize"
 msgstr "Impossible de synchroniser"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:284
+#: ../Tomboy/Synchronization/SyncDialog.cs:285
 msgid "Could not synchronize notes.  Check the details below and try again."
 msgstr ""
 "La synchronisation des notes n'a pas pu se faire. Examinez les détails ci-"
 "dessous et essayer à nouveau."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:290
+#: ../Tomboy/Synchronization/SyncDialog.cs:291
 msgid "Synchronization Complete"
 msgstr "Synchronisation terminée"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:291
+#: ../Tomboy/Synchronization/SyncDialog.cs:292
 msgid "Synchronization is complete"
 msgstr "La synchronisation est terminée"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:293
+#: ../Tomboy/Synchronization/SyncDialog.cs:294
 #, csharp-format
 msgid "{0} note updated."
 msgid_plural "{0} notes updated."
 msgstr[0] "{0} note mise à jour."
 msgstr[1] "{0} notes mises à jour."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:298
+#: ../Tomboy/Synchronization/SyncDialog.cs:299
 msgid "Your notes are now up to date."
 msgstr "Vos notes sont maintenant à jour."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:302
+#: ../Tomboy/Synchronization/SyncDialog.cs:303
 msgid "Synchronization Canceled"
 msgstr "Synchronisation annulée"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:303
+#: ../Tomboy/Synchronization/SyncDialog.cs:304
 msgid "Synchronization was canceled"
 msgstr "La synchronisation a été annulée"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:304
+#: ../Tomboy/Synchronization/SyncDialog.cs:305
 msgid "You canceled the synchronization.  You may close the window now."
 msgstr ""
 "Vous avez annulé la synchronisation. Vous pouvez maintenant fermer la "
 "fenêtre."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:308
+#: ../Tomboy/Synchronization/SyncDialog.cs:309
 msgid "Synchronization Not Configured"
 msgstr "Synchronisation non configurée"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:309
+#: ../Tomboy/Synchronization/SyncDialog.cs:310
 msgid "Synchronization is not configured"
 msgstr "La synchronisation n'est pas configurée"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:310
+#: ../Tomboy/Synchronization/SyncDialog.cs:311
 msgid "Please configure synchronization in the preferences dialog."
 msgstr ""
 "Veuillez configurer la synchronisation dans la boîte de dialogue des "
 "préférences."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:314
+#: ../Tomboy/Synchronization/SyncDialog.cs:315
 msgid "Synchronization Service Error"
 msgstr "Erreur dans le service de synchronisation"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:315
+#: ../Tomboy/Synchronization/SyncDialog.cs:316
 msgid "Service error"
 msgstr "Erreur dans le service"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:316
+#: ../Tomboy/Synchronization/SyncDialog.cs:317
 msgid "Error connecting to the synchronization service.  Please try again."
 msgstr ""
 "Impossible de se connecter au service de synchronisation. Essayez à nouveau."
 
 # Féminin car il s'agit de notes
-#: ../Tomboy/Synchronization/SyncDialog.cs:333
+#: ../Tomboy/Synchronization/SyncDialog.cs:334
 msgid "Deleted locally"
 msgstr "Effacée localement"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:336
+#: ../Tomboy/Synchronization/SyncDialog.cs:337
 msgid "Deleted from server"
 msgstr "Effacée du serveur"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:339
+#: ../Tomboy/Synchronization/SyncDialog.cs:340
 msgid "Updated"
 msgstr "Mise à jour"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:342
+#: ../Tomboy/Synchronization/SyncDialog.cs:343
 msgid "Added"
 msgstr "Ajoutée"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:345
+#: ../Tomboy/Synchronization/SyncDialog.cs:346
 msgid "Uploaded changes to server"
 msgstr "Envoi des changements vers le serveur"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:348
+#: ../Tomboy/Synchronization/SyncDialog.cs:349
 msgid "Uploaded new note to server"
 msgstr "Envoi d'une nouvelle note vers le serveur"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:480
+#: ../Tomboy/Synchronization/SyncDialog.cs:497
 msgid "Note Conflict"
 msgstr "Conflit de note"
 
 #. Suggest renaming note by appending " (old)" to the existing title
-#: ../Tomboy/Synchronization/SyncDialog.cs:484
+#: ../Tomboy/Synchronization/SyncDialog.cs:503
 msgid " (old)"
 msgstr " (ancien)"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:523
+#: ../Tomboy/Synchronization/SyncDialog.cs:542
 msgid "Rename local note:"
 msgstr "Renommer la note locale :"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:529
+#: ../Tomboy/Synchronization/SyncDialog.cs:548
 msgid "Update links in referencing notes"
 msgstr "Mise à jour des liens dans les notes y faisant référence"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:536
+#: ../Tomboy/Synchronization/SyncDialog.cs:555
 msgid "Overwrite local note"
 msgstr "Écrasement d'une note locale"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:540
+#: ../Tomboy/Synchronization/SyncDialog.cs:559
 msgid "Always perform this action"
 msgstr "Toujours effectuer cette action"
 
 #. Set initial dialog text
-#: ../Tomboy/Synchronization/SyncDialog.cs:547
+#: ../Tomboy/Synchronization/SyncDialog.cs:565
 msgid "Note conflict detected"
 msgstr "Conflit de note détecté"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:548
+#: ../Tomboy/Synchronization/SyncDialog.cs:566
 #, csharp-format
 msgid ""
 "The server version of \"{0}\" conflicts with your local note.  What do you "
@@ -1733,7 +1850,7 @@ msgstr ""
 "La version serveur de « {0} » présente des conflits avec votre note locale. "
 "Que voulez-vous faire avec votre note locale ?"
 
-#: ../Tomboy/Synchronization/SyncManager.cs:156
+#: ../Tomboy/Synchronization/SyncManager.cs:159
 msgid "_Tools"
 msgstr "_Outils"
 
