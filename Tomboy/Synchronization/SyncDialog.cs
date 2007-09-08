@@ -28,49 +28,54 @@ namespace Tomboy.Sync
 					Gtk.DialogFlags.DestroyWithParent)
 		{
 			progressBarTimeoutId = 0;
-			
+
 			SetSizeRequest (400, -1);
-			
+			HasSeparator = false;
+
+			// Outer box. Surrounds all of our content.
 			VBox outerVBox = new VBox (false, 12);
-			outerVBox.BorderWidth = 12;
-			outerVBox.Spacing = 8;
-			
-			HBox hbox = new HBox (false, 8);
-			
+			outerVBox.BorderWidth = 6;
+			outerVBox.Show ();
+			VBox.PackStart (outerVBox, true, true, 0);
+
+			// Top image and label
+			HBox hbox = new HBox (false, 12);
+			hbox.Show ();
+			outerVBox.PackStart (hbox, false, false, 0);
+
 			image = new Image (GuiUtils.GetIcon ("tomboy", 48));
+			image.Xalign = 0;
+			image.Yalign = 0;
 			image.Show ();
 			hbox.PackStart (image, false, false, 0);
-			
-			VBox vbox = new VBox (false, 8);
-			
+
+			// Label header and message
+			VBox vbox = new VBox (false, 6);
+			vbox.Show ();
+			hbox.PackStart (vbox, true, true, 0);
+
 			headerLabel = new Label ();
 			headerLabel.UseMarkup = true;
 			headerLabel.Xalign = 0;
 			headerLabel.UseUnderline = false;
+			headerLabel.LineWrap = true;
 			headerLabel.Show ();
 			vbox.PackStart (headerLabel, false, false, 0);
-			
+
 			messageLabel = new Label ();
 			messageLabel.Xalign = 0;
 			messageLabel.UseUnderline = false;
 			messageLabel.LineWrap = true;
-			messageLabel.Wrap = true;
 			messageLabel.Show ();
 			vbox.PackStart (messageLabel, false, false, 0);
-			
-			vbox.Show ();
-			hbox.PackStart (vbox, true, true, 0);
-			
-			hbox.Show ();
-			outerVBox.PackStart (hbox, false, false, 0);
-			
+
 			progressBar = new Gtk.ProgressBar ();
 			progressBar.Orientation = Gtk.ProgressBarOrientation.LeftToRight;
 			progressBar.BarStyle = ProgressBarStyle.Continuous;
 			progressBar.ActivityBlocks = 30;
 			progressBar.Show ();
 			outerVBox.PackStart (progressBar, false, false, 0);
-			
+
 			progressLabel = new Label ();
 			progressLabel.UseMarkup = true;
 			progressLabel.Xalign = 0;
@@ -79,58 +84,54 @@ namespace Tomboy.Sync
 			progressLabel.Wrap = true;
 			progressLabel.Show ();
 			outerVBox.PackStart (progressLabel, false, false, 0);
-			
+
+			// Expander containing TreeView
+			expander = new Gtk.Expander (Catalog.GetString ("Details"));
+			expander.Spacing = 6;
+			expander.Activated += OnExpanderActivated;
+			expander.Show ();
+			outerVBox.PackStart (expander, true, true, 0);			
+
+			// Contents of expander
+			Gtk.VBox expandVBox = new Gtk.VBox ();
+			expandVBox.Show ();
+			expander.Add (expandVBox);
+
+			// Scrolled window around TreeView
+			Gtk.ScrolledWindow scrolledWindow = new Gtk.ScrolledWindow ();
+			scrolledWindow.ShadowType = Gtk.ShadowType.In;
+			scrolledWindow.SetSizeRequest (-1, 200);
+			scrolledWindow.Show ();
+			expandVBox.PackStart (scrolledWindow, true, true, 0);
+
 			// Create model for TreeView
 			model = new Gtk.TreeStore (typeof (string), typeof (string));
-			
+
 			// Create TreeView, attach model
 			Gtk.TreeView treeView = new Gtk.TreeView ();
 			treeView.Model = model;
-			
+			treeView.RowActivated += OnRowActivated;
+			treeView.Show ();
+			scrolledWindow.Add (treeView);
+
 			// Set up TreeViewColumns
 			Gtk.TreeViewColumn column = new Gtk.TreeViewColumn (
-					Catalog.GetString ("Note Title"),
-					new Gtk.CellRendererText (), "text", 0);
+			Catalog.GetString ("Note Title"),
+			new Gtk.CellRendererText (), "text", 0);
 			column.SortColumnId = 0;
 			column.Resizable = true;
 			treeView.AppendColumn (column);
-			
+
 			column = new Gtk.TreeViewColumn (
-					Catalog.GetString ("Status"),
-					new Gtk.CellRendererText (), "text", 1);
+			Catalog.GetString ("Status"),
+			new Gtk.CellRendererText (), "text", 1);
 			column.SortColumnId = 1;
 			column.Resizable = true;
 			treeView.AppendColumn (column);
-			
-			treeView.RowActivated += OnRowActivated;
-			
-			treeView.Show ();
-			
-			// Drop TreeView into a ScrolledWindow into a VBox
-			Gtk.ScrolledWindow scrolledWindow = new Gtk.ScrolledWindow ();
-			scrolledWindow.SetSizeRequest (-1, 200);
-			scrolledWindow.Add (treeView);
-			scrolledWindow.Show ();
-			Gtk.VBox expandVBox = new Gtk.VBox ();
-			expandVBox.PackStart (scrolledWindow, true, true, 5);
-			
-			// Drop all that into into the Expander
-			expander = new Gtk.Expander (Catalog.GetString ("Details"));
-			expander.Add (expandVBox);
-			expander.Show ();
-			outerVBox.PackStart (expander, true, true, 5);
-			
+
+			// Button to close dialog.
 			closeButton = (Gtk.Button) AddButton (Gtk.Stock.Close, Gtk.ResponseType.Close);
 			closeButton.Sensitive = false;
-			
-			HasSeparator = false;
-			
-			expander.Activated += OnExpanderActivated;
-			
-			outerVBox.Show ();
-			VBox.PackStart (outerVBox, true, true, 0);
-
-			VBox.ShowAll ();
 		}
 		
 		public override void Destroy ()
