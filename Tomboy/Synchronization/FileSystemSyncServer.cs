@@ -292,37 +292,43 @@ namespace Tomboy.Sync
 				
 				// * * * Begin Cleanup Code * * *
 				// TODO: Consider completely discarding cleanup code, in favor
-				//       of period thorough server consistency checks (say every 30 revs)
+				//       of periodic thorough server consistency checks (say every 30 revs).
 				//       Even if we do continue providing some cleanup, consistency
 				//       checks should be implemented.
-				// TODO: If this cleanup fails, transaction should not be considered a failure!
 				
 				// Copy the /${parent}/${rev}/manifest.xml -> /manifest.xml
 				File.Copy (manifestFilePath, manifestPath);
 				AdjustPermissions (manifestPath);
 				
-				// Delete /manifest.xml.old
-				if (File.Exists (oldManifestPath))
-					File.Delete (oldManifestPath);
-				
-				string oldManifestFilePath = Path.Combine (GetRevisionDirPath (newRevision - 1),
-				                                           "manifest.xml");
-				if (File.Exists (oldManifestFilePath)) {
-					// TODO: Do step #8 as described in http://bugzilla.gnome.org/show_bug.cgi?id=321037#c17
-					// Like this?
-					FileInfo oldManifestFilePathInfo = new FileInfo (oldManifestFilePath);
-					foreach (FileInfo file in oldManifestFilePathInfo.Directory.GetFiles ()) {
-						string fileGuid = Path.GetFileNameWithoutExtension (file.Name);
-						if (deletedNotes.Contains (fileGuid) ||
-						    updatedNotes.Contains (fileGuid))
-							File.Delete (file.FullName);
-						// TODO: Need to check *all* revision dirs, not just previous (duh)
-						//       Should be a way to cache this from checking earlier.
-					}
+				try {
+					// Delete /manifest.xml.old
+					if (File.Exists (oldManifestPath))
+						File.Delete (oldManifestPath);
 					
-					// TODO: Leaving old empty dir for now.  Some stuff is probably easier
-					//       when you can guarantee the existence of each intermediate directory?
-	
+					string oldManifestFilePath = Path.Combine (GetRevisionDirPath (newRevision - 1),
+					                                           "manifest.xml");
+					if (File.Exists (oldManifestFilePath)) {
+						// TODO: Do step #8 as described in http://bugzilla.gnome.org/show_bug.cgi?id=321037#c17
+						// Like this?
+						FileInfo oldManifestFilePathInfo = new FileInfo (oldManifestFilePath);
+						foreach (FileInfo file in oldManifestFilePathInfo.Directory.GetFiles ()) {
+							string fileGuid = Path.GetFileNameWithoutExtension (file.Name);
+							if (deletedNotes.Contains (fileGuid) ||
+							    updatedNotes.Contains (fileGuid))
+								File.Delete (file.FullName);
+							// TODO: Need to check *all* revision dirs, not just previous (duh)
+							//       Should be a way to cache this from checking earlier.
+						}
+						
+						// TODO: Leaving old empty dir for now.  Some stuff is probably easier
+						//       when you can guarantee the existence of each intermediate directory?
+		
+					}
+				} catch (Exception e) {
+					Logger.Error ("Exception during server cleanup while committing. " +
+					              "Server integrity is OK, but there may be some excess " +
+					              "files floating around.  Here's the error:\n" +
+					              e.Message);
 				}
 				// * * * End Cleanup Code * * *
 			}
