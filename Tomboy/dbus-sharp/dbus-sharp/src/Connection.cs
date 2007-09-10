@@ -363,10 +363,15 @@ namespace NDesk.DBus
 		{
 			Signal signal = new Signal (msg);
 
-			string matchRule = MessageFilter.CreateMatchRule (MessageType.Signal, signal.Path, signal.Interface, signal.Member);
+			//TODO: this is a hack, not necessary when MatchRule is complete
+			MatchRule rule = new MatchRule ();
+			rule.MessageType = MessageType.Signal;
+			rule.Interface = signal.Interface;
+			rule.Member = signal.Member;
+			rule.Path = signal.Path;
 
-			if (Handlers.ContainsKey (matchRule)) {
-				Delegate dlg = Handlers[matchRule];
+			Delegate dlg;
+			if (Handlers.TryGetValue (rule, out dlg)) {
 				//dlg.DynamicInvoke (GetDynamicValues (msg));
 
 				MethodInfo mi = dlg.Method;
@@ -380,36 +385,14 @@ namespace NDesk.DBus
 			}
 		}
 
-		internal Dictionary<string,Delegate> Handlers = new Dictionary<string,Delegate> ();
+		internal Dictionary<MatchRule,Delegate> Handlers = new Dictionary<MatchRule,Delegate> ();
 
 		//very messy
-		void MaybeSendUnknownMethodError (MethodCall method_call)
+		internal void MaybeSendUnknownMethodError (MethodCall method_call)
 		{
-			string errMsg = String.Format ("Method \"{0}\" with signature \"{1}\" on interface \"{2}\" doesn't exist", method_call.Member, method_call.Signature.Value, method_call.Interface);
-
-			if (!method_call.message.ReplyExpected) {
-				if (!Protocol.Verbose)
-					return;
-
-				Console.Error.WriteLine ();
-				Console.Error.WriteLine ("Warning: Not sending Error message (" + errMsg + ") as reply because no reply was expected");
-				Console.Error.WriteLine ();
-				return;
-			}
-
-			Error error = new Error ("org.freedesktop.DBus.Error.UnknownMethod", method_call.message.Header.Serial);
-			error.message.Signature = new Signature (DType.String);
-
-			MessageWriter writer = new MessageWriter (Connection.NativeEndianness);
-			writer.connection = this;
-			writer.Write (errMsg);
-			error.message.Body = writer.ToArray ();
-
-			//TODO: we should be more strict here, but this fallback was added as a quick fix for p2p
-			if (method_call.Sender != null)
-				error.message.Header.Fields[FieldCode.Destination] = method_call.Sender;
-
-			Send (error.message);
+			Message msg = MessageHelper.CreateUnknownMethodError (method_call);
+			if (msg != null)
+				Send (msg);
 		}
 
 		//not particularly efficient and needs to be generalized
@@ -417,6 +400,7 @@ namespace NDesk.DBus
 		{
 			//TODO: Ping and Introspect need to be abstracted and moved somewhere more appropriate once message filter infrastructure is complete
 
+			//FIXME: these special cases are slightly broken for the case where the member but not the interface is specified in the message
 			if (method_call.Interface == "org.freedesktop.DBus.Peer" && method_call.Member == "Ping") {
 				object[] pingRet = new object[0];
 				Message reply = MessageHelper.ConstructReplyFor (method_call, pingRet);
@@ -435,9 +419,10 @@ namespace NDesk.DBus
 				int depth = method_call.Path.Decomposed.Length;
 				foreach (ObjectPath pth in RegisteredObjects.Keys) {
 					if (pth.Value == (method_call.Path.Value)) {
-						intro.WriteType (RegisteredObjects[pth].GetType ());
+						ExportObject exo = (ExportObject)RegisteredObjects[pth];
+						intro.WriteType (exo.obj.GetType ());
 					} else {
-						for (ObjectPath cur = pth ; cur.Value != null ; cur = cur.Parent) {
+						for (ObjectPath cur = pth ; cur != null ; cur = cur.Parent) {
 							if (cur.Value == method_call.Path.Value) {
 								string linkNode = pth.Decomposed[depth];
 								if (!linkNodes.Contains (linkNode)) {
@@ -458,76 +443,16 @@ namespace NDesk.DBus
 				return;
 			}
 
-			if (!RegisteredObjects.ContainsKey (method_call.Path)) {
+			BusObject bo;
+			if (RegisteredObjects.TryGetValue (method_call.Path, out bo)) {
+				ExportObject eo = (ExportObject)bo;
+				eo.HandleMethodCall (method_call);
+			} else {
 				MaybeSendUnknownMethodError (method_call);
-				return;
-			}
-
-			object obj = RegisteredObjects[method_call.Path];
-			Type type = obj.GetType ();
-			//object retObj = type.InvokeMember (msg.Member, BindingFlags.InvokeMethod, null, obj, MessageHelper.GetDynamicValues (msg));
-
-			//TODO: there is no member name mapping for properties etc. yet
-			MethodInfo mi = Mapper.GetMethod (type, method_call);
-
-			if (mi == null) {
-				MaybeSendUnknownMethodError (method_call);
-				return;
-			}
-
-			object retObj = null;
-			try {
-				object[] inArgs = MessageHelper.GetDynamicValues (method_call.message, mi.GetParameters ());
-				retObj = mi.Invoke (obj, inArgs);
-			} catch (TargetInvocationException e) {
-				Exception ie = e.InnerException;
-				//TODO: complete exception sending support
-
-				if (!method_call.message.ReplyExpected) {
-					if (!Protocol.Verbose)
-						return;
-
-					Console.Error.WriteLine ();
-					Console.Error.WriteLine ("Warning: Not sending Error message (" + ie.GetType ().Name + ") as reply because no reply was expected by call to '" + (method_call.Interface + "." + method_call.Member) + "'");
-					Console.Error.WriteLine ();
-					return;
-				}
-
-				Error error = new Error (Mapper.GetInterfaceName (ie.GetType ()), method_call.message.Header.Serial);
-				error.message.Signature = new Signature (DType.String);
-
-				MessageWriter writer = new MessageWriter (Connection.NativeEndianness);
-				writer.connection = this;
-				writer.Write (ie.Message);
-				error.message.Body = writer.ToArray ();
-
-				//TODO: we should be more strict here, but this fallback was added as a quick fix for p2p
-				if (method_call.Sender != null)
-					error.message.Header.Fields[FieldCode.Destination] = method_call.Sender;
-
-				Send (error.message);
-				return;
-			}
-
-			if (method_call.message.ReplyExpected) {
-				/*
-				object[] retObjs;
-
-				if (retObj == null) {
-					retObjs = new object[0];
-				} else {
-					retObjs = new object[1];
-					retObjs[0] = retObj;
-				}
-
-				Message reply = ConstructReplyFor (method_call, retObjs);
-				*/
-				Message reply = MessageHelper.ConstructReplyFor (method_call, mi.ReturnType, retObj);
-				Send (reply);
 			}
 		}
 
-		Dictionary<ObjectPath,object> RegisteredObjects = new Dictionary<ObjectPath,object> ();
+		Dictionary<ObjectPath,BusObject> RegisteredObjects = new Dictionary<ObjectPath,BusObject> ();
 
 		//FIXME: this shouldn't be part of the core API
 		//that also applies to much of the other object mapping code
@@ -558,37 +483,28 @@ namespace NDesk.DBus
 
 		public void Register (string bus_name, ObjectPath path, object obj)
 		{
-			Type type = obj.GetType ();
-
-			BusObject busObject = new BusObject (this, bus_name, path);
-
-			foreach (MemberInfo mi in Mapper.GetPublicMembers (type)) {
-				EventInfo ei = mi as EventInfo;
-
-				if (ei == null)
-					continue;
-
-				Delegate dlg = busObject.GetHookupDelegate (ei);
-				ei.AddEventHandler (obj, dlg);
-			}
+			ExportObject eo = new ExportObject (this, bus_name, path, obj);
+			eo.Registered = true;
 
 			//TODO: implement some kind of tree data structure or internal object hierarchy. right now we are ignoring the name and putting all object paths in one namespace, which is bad
-			RegisteredObjects[path] = obj;
+			RegisteredObjects[path] = eo;
 		}
 
 		public object Unregister (string bus_name, ObjectPath path)
 		{
 			//TODO: make use of bus_name
 
-			if (!RegisteredObjects.ContainsKey (path))
+			BusObject bo;
+
+			if (!RegisteredObjects.TryGetValue (path, out bo))
 				throw new Exception ("Cannot unregister " + path + " as it isn't registered");
-			object obj = RegisteredObjects[path];
 
 			RegisteredObjects.Remove (path);
 
-			//FIXME: complete unregistering including the handlers we added etc.
+			ExportObject eo = (ExportObject)bo;
+			eo.Registered = false;
 
-			return obj;
+			return eo.obj;
 		}
 
 		//these look out of place, but are useful

@@ -2,9 +2,6 @@
 // This software is made available under the MIT License
 // See COPYING for details
 
-//defined by default, since this is not a controversial extension
-#define PROTO_TYPE_SINGLE
-
 using System;
 using System.Collections.Generic;
 
@@ -123,7 +120,7 @@ namespace NDesk.DBus
 		NoAutoStart = 0x2,
 	}
 
-	public class ObjectPath //: IComparable, IComparable<ObjectPath>, IEquatable<ObjectPath>
+	public sealed class ObjectPath //: IComparable, IComparable<ObjectPath>, IEquatable<ObjectPath>
 	{
 		public static readonly ObjectPath Root = new ObjectPath ("/");
 
@@ -131,6 +128,9 @@ namespace NDesk.DBus
 
 		public ObjectPath (string value)
 		{
+			if (value == null)
+				throw new ArgumentNullException ("value");
+
 			this.Value = value;
 		}
 
@@ -170,7 +170,7 @@ namespace NDesk.DBus
 		{
 			get {
 				if (Value == Root.Value)
-					return new ObjectPath (null);
+					return null;
 
 				string par = Value.Substring (0, Value.LastIndexOf ('/'));
 				if (par == String.Empty)
@@ -238,7 +238,7 @@ namespace NDesk.DBus
 				case DType.Int64:
 				case DType.UInt64:
 					return 8;
-#if PROTO_TYPE_SINGLE
+#if !DISABLE_SINGLE
 				case DType.Single: //Not yet supported!
 					return 4;
 #endif

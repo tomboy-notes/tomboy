@@ -284,7 +284,7 @@ namespace NDesk.DBus
 			int pos = 0;
 			Type ret = ToType (ref pos);
 			if (pos != data.Length)
-				throw new Exception ("Sig parse error: at " + pos + " but should be at " + data.Length);
+				throw new Exception ("Signature '" + Value + "' is not a single complete type");
 			return ret;
 		}
 
@@ -355,7 +355,7 @@ namespace NDesk.DBus
 				return TypeCodeToDType (Type.GetTypeCode (type));
 
 			if (type.IsEnum)
-				return TypeToDType (type.GetElementType ());
+				return TypeToDType (Enum.GetUnderlyingType (type));
 
 			//needs work
 			if (type.IsArray)
@@ -451,7 +451,9 @@ namespace NDesk.DBus
 						Type valueType = ToType (ref pos);
 						//skip over the }
 						pos++;
-						return typeof (IDictionary<,>).MakeGenericType (new Type[] {keyType, valueType});
+						//return typeof (IDictionary<,>).MakeGenericType (new Type[] {keyType, valueType});
+						//workaround for Mono bug #81035 (memory leak)
+						return Mapper.GetGenericType (typeof (IDictionary<,>), new Type[] {keyType, valueType});
 					} else {
 						return ToType (ref pos).MakeArrayType ();
 					}

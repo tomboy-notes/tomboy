@@ -30,21 +30,29 @@ namespace NDesk.DBus
 			}
 		}
 
+		public static MessageType StringToMessageType (string text)
+		{
+			switch (text)
+			{
+				case "method_call":
+					return MessageType.MethodCall;
+				case "method_return":
+					return MessageType.MethodReturn;
+				case "error":
+					return MessageType.Error;
+				case "signal":
+					return MessageType.Signal;
+				case "invalid":
+					return MessageType.Invalid;
+				default:
+					throw new Exception ("Bad MessageType: " + text);
+			}
+		}
+
+		//TODO: remove this -- left here for the benefit of the monitor tool for now
 		public static string CreateMatchRule (MessageType mtype)
 		{
 			return "type='" + MessageTypeToString (mtype) + "'";
-		}
-
-		public static string CreateMatchRule (MessageType type, ObjectPath path, string @interface, string member)
-		{
-			return "type='" + MessageTypeToString (type) + "',path='" + path.Value + "',interface='" + @interface + "',member='" + member + "'";
-		}
-
-		//TODO
-		//this is useful as a Predicate<Message> delegate
-		public bool Match (Message message)
-		{
-			return false;
 		}
 	}
 }
