@@ -159,12 +159,33 @@ namespace Tomboy.Sync
 				string testPathBase = Path.Combine (syncPath, "test");
 				string testPath = testPathBase;
 				int count = 0;
+				
+				// Get unique new file name
 				while (File.Exists (testPath))
 					testPath = testPathBase + (++count).ToString ();
+				
+				// Test ability to create and write
+				string testLine = "Testing write capabilities.";
 				using (FileStream fs = File.Create (testPath)) {
 					StreamWriter writer = new StreamWriter (fs);
-					writer.WriteLine ("Testing write capabilities.");
+					writer.WriteLine (testLine);
 				}
+				
+				// Test ability to read
+				bool testFileFound = false;
+				foreach (string filePath in Directory.GetFiles (syncPath))
+					if (filePath == testPath) {
+						testFileFound = true;
+						break;
+					}
+				if (!testFileFound)
+					; // TODO: Throw TomboySyncException
+				using (StreamReader reader = new StreamReader (testPath)) {
+					if (reader.ReadLine () != testLine)
+						; // TODO: Throw TomboySyncException
+				}
+				
+				// Test ability to delete
 				File.Delete (testPath);
 			}
 			
