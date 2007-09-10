@@ -2,9 +2,6 @@
 // This software is made available under the MIT License
 // See COPYING for details
 
-//defined by default, since this is not a controversial extension
-#define PROTO_TYPE_SINGLE
-
 using System;
 using System.Text;
 using System.Collections.Generic;
@@ -65,7 +62,9 @@ namespace NDesk.DBus
 				val = valStr;
 			} else if (type.IsGenericType && type.GetGenericTypeDefinition () == typeof (IDictionary<,>)) {
 				Type[] genArgs = type.GetGenericArguments ();
-				Type dictType = typeof (Dictionary<,>).MakeGenericType (genArgs);
+				//Type dictType = typeof (Dictionary<,>).MakeGenericType (genArgs);
+				//workaround for Mono bug #81035 (memory leak)
+				Type dictType = Mapper.GetGenericType (typeof (Dictionary<,>), genArgs);
 				val = Activator.CreateInstance(dictType, new object[0]);
 				System.Collections.IDictionary idict = (System.Collections.IDictionary)val;
 				GetValueToDict (genArgs[0], genArgs[1], idict);
@@ -143,7 +142,7 @@ namespace NDesk.DBus
 					val = vval;
 				}
 				break;
-#if PROTO_TYPE_SINGLE
+#if !DISABLE_SINGLE
 				case DType.Single:
 				{
 					float vval;
@@ -307,7 +306,7 @@ namespace NDesk.DBus
 				MarshalULong ((byte*)ret);
 		}
 
-#if PROTO_TYPE_SINGLE
+#if !DISABLE_SINGLE
 		unsafe public void GetValue (out float val)
 		{
 			fixed (float* ret = &val)
@@ -402,6 +401,15 @@ namespace NDesk.DBus
 
 			uint ln;
 			GetValue (out ln);
+
+			//TODO: more fast paths for primitive arrays
+			if (elemType == typeof (byte)) {
+				byte[] valb = new byte[ln];
+				Array.Copy (data, pos, valb, 0, (int)ln);
+				val = valb;
+				pos += (int)ln;
+				return;
+			}
 
 			//advance to the alignment of the element
 			ReadPad (Protocol.GetAlignment (Signature.TypeToDType (elemType)));

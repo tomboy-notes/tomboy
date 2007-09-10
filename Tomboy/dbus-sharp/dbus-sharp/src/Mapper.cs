@@ -32,40 +32,68 @@ namespace NDesk.DBus
 			return argName;
 		}
 
-		//this will be inefficient for larger interfaces, could be easily rewritten
-		public static MemberInfo[] GetPublicMembers (Type type)
+		//TODO: these two methods are quite messy and need review
+		public static IEnumerable<MemberInfo> GetPublicMembers (Type type)
 		{
-			List<MemberInfo> mis = new List<MemberInfo> ();
-
+			//note that Type.GetInterfaces() returns all interfaces with flattened hierarchy
 			foreach (Type ifType in type.GetInterfaces ())
-				mis.AddRange (GetPublicMembers (ifType));
+				foreach (MemberInfo mi in GetDeclaredPublicMembers (ifType))
+					yield return mi;
 
-			//TODO: will DeclaredOnly for inherited members? inheritance support isn't widely used or tested in other places though
+			if (IsPublic (type))
+				foreach (MemberInfo mi in GetDeclaredPublicMembers (type))
+					yield return mi;
+		}
+
+		static IEnumerable<MemberInfo> GetDeclaredPublicMembers (Type type)
+		{
 			if (IsPublic (type))
 				foreach (MemberInfo mi in type.GetMembers (BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly))
-					mis.Add (mi);
-
-			return mis.ToArray ();
+					yield return mi;
 		}
 
 		//this method walks the interface tree in an undefined manner and returns the first match, or if no matches are found, null
+		//the logic needs review and cleanup
+		//TODO: unify member name mapping as is already done with interfaces and args
 		public static MethodInfo GetMethod (Type type, MethodCall method_call)
 		{
 			foreach (MemberInfo member in Mapper.GetPublicMembers (type)) {
-				MethodInfo meth = member as MethodInfo;
-
-				if (meth == null)
-					continue;
-
-				if (meth.Name != method_call.Member)
-					continue;
-
 				//this could be made more efficient by using the given interface name earlier and avoiding walking through all public interfaces
 				if (method_call.Interface != null)
-					if (GetInterfaceName (meth) != method_call.Interface)
+					if (GetInterfaceName (member) != method_call.Interface)
 						continue;
 
-				Type[] inTypes = Mapper.GetTypes (ArgDirection.In, meth.GetParameters ());
+				MethodInfo meth = null;
+				Type[] inTypes = null;
+
+				if (member is PropertyInfo) {
+					PropertyInfo prop = member as PropertyInfo;
+
+					MethodInfo getter = prop.GetGetMethod (false);
+					MethodInfo setter = prop.GetSetMethod (false);
+
+					if (getter != null && "Get" + prop.Name == method_call.Member) {
+						meth = getter;
+						inTypes = Type.EmptyTypes;
+					} else if (setter != null && "Set" + prop.Name == method_call.Member) {
+						meth = setter;
+						inTypes = new Type[] {prop.PropertyType};
+					}
+				} else {
+					meth = member as MethodInfo;
+
+					if (meth == null)
+						continue;
+
+					if (meth.Name != method_call.Member)
+						continue;
+
+					inTypes = Mapper.GetTypes (ArgDirection.In, meth.GetParameters ());
+				}
+
+				if (meth == null || inTypes == null)
+					continue;
+
 				Signature inSig = Signature.GetSig (inTypes);
 
 				if (inSig != method_call.Signature)
@@ -145,11 +173,65 @@ namespace NDesk.DBus
 		{
 			return attrProvider.IsDefined (typeof (ObsoleteAttribute), true);
 		}
+
+		static bool AreEqual (Type[] a, Type[] b)
+		{
+			if (a.Length != b.Length)
+				return false;
+
+			for (int i = 0 ; i != a.Length ; i++)
+				if (a[i] != b[i])
+					return false;
+
+			return true;
+		}
+
+		//workaround for Mono bug #81035 (memory leak)
+		static List<Type> genTypes = new List<Type> ();
+		internal static Type GetGenericType (Type defType, Type[] parms)
+		{
+			foreach (Type genType in genTypes) {
+				if (genType.GetGenericTypeDefinition () != defType)
+					continue;
+
+				Type[] genParms = genType.GetGenericArguments ();
+
+				if (!AreEqual (genParms, parms))
+					continue;
+
+				return genType;
+			}
+
+			Type type = defType.MakeGenericType (parms);
+			genTypes.Add (type);
+			return type;
+		}
 	}
 
 	//TODO: this class is messy, move the methods somewhere more appropriate
 	static class MessageHelper
 	{
+		public static Message CreateUnknownMethodError (MethodCall method_call)
+		{
+			if (!method_call.message.ReplyExpected)
+				return null;
+
+			string errMsg = String.Format ("Method \"{0}\" with signature \"{1}\" on interface \"{2}\" doesn't exist", method_call.Member, method_call.Signature.Value, method_call.Interface);
+
+			Error error = new Error ("org.freedesktop.DBus.Error.UnknownMethod", method_call.message.Header.Serial);
+			error.message.Signature = new Signature (DType.String);
+
+			MessageWriter writer = new MessageWriter (Connection.NativeEndianness);
+			writer.Write (errMsg);
+			error.message.Body = writer.ToArray ();
+
+			//TODO: we should be more strict here, but this fallback was added as a quick fix for p2p
+			if (method_call.Sender != null)
+				error.message.Header.Fields[FieldCode.Destination] = method_call.Sender;
+
+			return error.message;
+		}
+
 		//GetDynamicValues() should probably use yield eventually
 
 		public static object[] GetDynamicValues (Message msg, ParameterInfo[] parms)

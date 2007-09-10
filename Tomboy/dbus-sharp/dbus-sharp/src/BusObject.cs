@@ -5,6 +5,7 @@
 using System;
 using System.Reflection;
 using System.Reflection.Emit;
+using System.Collections.Generic;
 
 namespace NDesk.DBus
 {
@@ -12,7 +13,7 @@ namespace NDesk.DBus
 	//it probably needs to be made into a base and import/export subclasses
 	internal class BusObject
 	{
-		Connection conn;
+		protected Connection conn;
 		string bus_name;
 		ObjectPath object_path;
 
@@ -94,20 +95,25 @@ namespace NDesk.DBus
 				string[] parts = methodName.Split (new char[]{'_'}, 2);
 				string ename = parts[1];
 				Delegate dlg = (Delegate)inArgs[0];
-				string matchRule = MessageFilter.CreateMatchRule (MessageType.Signal, object_path, Mapper.GetInterfaceName (mi), ename);
+
+				MatchRule rule = new MatchRule ();
+				rule.MessageType = MessageType.Signal;
+				rule.Interface = Mapper.GetInterfaceName (mi);
+				rule.Member = ename;
+				rule.Path = object_path;
 
 				if (parts[0] == "add") {
-					if (conn.Handlers.ContainsKey (matchRule))
-						conn.Handlers[matchRule] = Delegate.Combine (conn.Handlers[matchRule], dlg);
+					if (conn.Handlers.ContainsKey (rule))
+						conn.Handlers[rule] = Delegate.Combine (conn.Handlers[rule], dlg);
 					else {
-						conn.Handlers[matchRule] = dlg;
-						conn.AddMatch (matchRule);
+						conn.Handlers[rule] = dlg;
+						conn.AddMatch (rule.ToString ());
 					}
 				} else if (parts[0] == "remove") {
-					conn.Handlers[matchRule] = Delegate.Remove (conn.Handlers[matchRule], dlg);
-					if (conn.Handlers[matchRule] == null) {
-						conn.RemoveMatch (matchRule);
-						conn.Handlers.Remove (matchRule);
+					conn.Handlers[rule] = Delegate.Remove (conn.Handlers[rule], dlg);
+					if (conn.Handlers[rule] == null) {
+						conn.RemoveMatch (rule.ToString ());
+						conn.Handlers.Remove (rule);
 					}
 				}
 				return;
@@ -283,16 +289,28 @@ namespace NDesk.DBus
 
 		public Delegate GetHookupDelegate (EventInfo ei)
 		{
+			DynamicMethod hookupMethod = GetHookupMethod (ei);
+			Delegate d = hookupMethod.CreateDelegate (ei.EventHandlerType, this);
+			return d;
+		}
+
+		static Dictionary<EventInfo,DynamicMethod> hookup_methods = new Dictionary<EventInfo,DynamicMethod> ();
+		public static DynamicMethod GetHookupMethod (EventInfo ei)
+		{
+			DynamicMethod hookupMethod;
+			if (hookup_methods.TryGetValue (ei, out hookupMethod))
+				return hookupMethod;
+
 			if (ei.EventHandlerType.IsAssignableFrom (typeof (System.EventHandler)))
 				Console.Error.WriteLine ("Warning: Cannot yet fully expose EventHandler and its subclasses: " + ei.EventHandlerType);
 
 			MethodInfo declMethod = ei.EventHandlerType.GetMethod ("Invoke");
 
-			DynamicMethod hookupMethod = GetHookupMethod (declMethod, sendSignalMethod, Mapper.GetInterfaceName (ei), ei.Name);
+			hookupMethod = GetHookupMethod (declMethod, sendSignalMethod, Mapper.GetInterfaceName (ei), ei.Name);
 
-			Delegate d = hookupMethod.CreateDelegate (ei.EventHandlerType, this);
+			hookup_methods[ei] = hookupMethod;
 
-			return d;
+			return hookupMethod;
 		}
 
 		public static DynamicMethod GetHookupMethod (MethodInfo declMethod, MethodInfo invokeMethod, string @interface, string member)
@@ -312,6 +330,8 @@ namespace NDesk.DBus
 			return hookupMethod;
 		}
 
+		static MethodInfo getMethodFromHandleMethod = typeof (MethodBase).GetMethod ("GetMethodFromHandle", new Type[] {typeof (RuntimeMethodHandle)});
+
 		public static void GenHookupMethod (ILGenerator ilg, MethodInfo declMethod, MethodInfo invokeMethod, string @interface, string member, Type[] hookupParms)
 		{
 			Type retType = declMethod.ReturnType;
@@ -321,7 +341,7 @@ namespace NDesk.DBus
 
 			//MethodInfo
 			ilg.Emit (OpCodes.Ldtoken, declMethod);
-			ilg.Emit (OpCodes.Call, typeof (MethodBase).GetMethod ("GetMethodFromHandle"));
+			ilg.Emit (OpCodes.Call, getMethodFromHandleMethod);
 
 			//interface
 			ilg.Emit (OpCodes.Ldstr, @interface);
