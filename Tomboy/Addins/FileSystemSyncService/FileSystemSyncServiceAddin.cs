@@ -153,6 +153,19 @@ namespace Tomboy.Sync
 					throw new TomboySyncException (Catalog.GetString ("Specified folder path does not exist, " +
 					                                                  "and Tomboy was unable to create it."));
 				}
+			} else {
+				// Test creating/writing/deleting a file
+				// FIXME: Should throw TomboySyncException once string changes are OK again
+				string testPathBase = Path.Combine (syncPath, "test");
+				string testPath = testPathBase;
+				int count = 0;
+				while (File.Exists (testPath))
+					testPath = testPathBase + (++count).ToString ();
+				using (FileStream fs = File.Create (testPath)) {
+					StreamWriter writer = new StreamWriter (fs);
+					writer.WriteLine ("Testing write capabilities.");
+				}
+				File.Delete (testPath);
 			}
 			
 			path = syncPath;

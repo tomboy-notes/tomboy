@@ -99,7 +99,25 @@ namespace Tomboy.Sync
 			bool mounted = MountFuse (false);
 			
 			if (mounted) {
-				PostSyncCleanup ();
+				try {
+					// Test creating/writing/deleting a file
+					// FIXME: Should throw TomboySyncException once string changes are OK again
+					string testPathBase = Path.Combine (mountPath, "test");
+					string testPath = testPathBase;
+					int count = 0;
+					while (File.Exists (testPath))
+						testPath = testPathBase + (++count).ToString ();
+					using (FileStream fs = File.Create (testPath)) {
+						StreamWriter writer = new StreamWriter (fs);
+						writer.WriteLine ("Testing write capabilities.");
+					}
+					File.Delete (testPath);
+				} finally {
+					// Clean up
+					PostSyncCleanup ();
+				}
+					
+				// Finish save process
 				SaveConfigurationValues ();
 			}
 			

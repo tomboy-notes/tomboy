@@ -165,6 +165,7 @@ namespace Mono.Addins.Gui
 			addinData [info] = dataItem;
 			TreeIter piter = TreeIter.Zero;
 			if (info.Category == "") {
+				// Default category name to use if no category is specified for this addin
 				string otherCat = Catalog.GetString ("Other");
 				piter = FindCategory (otherCat);
 			} else {
