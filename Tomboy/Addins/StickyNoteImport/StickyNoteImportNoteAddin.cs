@@ -91,7 +91,8 @@ namespace Tomboy.StickyNoteImport
 
 				XmlDocument xmlDoc = GetStickyXmlDoc ();		
 				if (xmlDoc != null)
-					ImportNotes (xmlDoc);
+					// Don't show dialog when automatically importing
+					ImportNotes (xmlDoc, false);
 			}
 		}
 
@@ -119,7 +120,7 @@ namespace Tomboy.StickyNoteImport
 			XmlDocument xmlDoc = GetStickyXmlDoc ();
 			
 			if (xmlDoc != null)
-				ImportNotes (xmlDoc);
+				ImportNotes (xmlDoc, true);
 			else
 				ShowNoStickyXMLDialog (sticky_xml_path);
 		}
@@ -147,7 +148,7 @@ namespace Tomboy.StickyNoteImport
 				Gtk.MessageType.Info);
 		}
 		
-		void ImportNotes (XmlDocument xmlDoc)
+		void ImportNotes (XmlDocument xmlDoc, bool showResultsDialog)
 		{
 			XmlNodeList nodes = xmlDoc.SelectNodes (sticky_note_query);
 			
@@ -165,7 +166,8 @@ namespace Tomboy.StickyNoteImport
 					numSuccessful++;
 			}
 			
-			ShowResultsDialog (numSuccessful, nodes.Count);
+			if (showResultsDialog)
+				ShowResultsDialog (numSuccessful, nodes.Count);
 		}
 		
 		bool CreateNoteFromSticky (string stickyTitle, string content)
