@@ -242,7 +242,7 @@
     </itemizedlist>
 
     <para>Tomboy is accessed through the GNOME panel. To startup Tomboy
-    automatically when you log into GNOME, see the section <xref
+    automatically when you log into GNOME, see <xref
     linkend="add-to-panel" />.</para>
   </sect1>
 
@@ -325,8 +325,8 @@
       start editing the note without the need to click on the content area
       with the mouse.</para>
 
-      <para>Using the toolbar available on each note is discussed in the
-      section <xref linkend="working-with-notes" />.</para>
+      <para>Using the toolbar available on each note is discussed in
+      <xref linkend="working-with-notes" />.</para>
 
       <figure id="new-note">
         <title>The default window for a New Note</title>
@@ -869,34 +869,80 @@
     <para>Tomboy can now keep your notes synchronized between multiple
     computers by relying on a central server.</para>
 
-    <sect2 id="bullet-configure-webdav">
+    <sect2 id="sync-configure-webdav">
       <title>Configure note synchronization (WebDAV)</title>
         
-      <para>TODO</para>
+      <para>In order to synchronize your notes with a WebDAV server, you will need
+      the wdfs FUSE filesystem installed.  Follow the documentation for your operating
+      system to set up FUSE for your user.  You will also need the GNOME Keyring installed.</para>
+      
+      <para>In the <interface>Tomboy Preferences</interface> dialog, switch to the
+      <guilabel>Synchronization</guilabel> tab.  Choose <guimenuitem>WebDAV</guimenuitem> from the
+      <guilabel>Service</guilabel> dropdown menu.</para>
+      
+      <para>Fill in the information for your server, and then select the
+      <guibutton>Save</guibutton> button.  You are now ready to synchronize your notes.</para>
     </sect2>
 
-    <sect2 id="bullet-configure-ssh">
+    <sect2 id="sync-configure-ssh">
       <title>Configure note synchronization (SSH)</title>
         
-      <para>TODO</para>
+      <para>In order to synchronize your notes with an SSH server, you will need
+      the sshfs FUSE filesystem installed.  Follow the documentation for your operating
+      system to set up FUSE for your user.  You will also need an SSH key for your
+      SSH server account, which should be added to a running SSH daemon.  This can be
+      done using GNOME's <application>Seahorse</application> application.</para>
+      
+      <para>In the <interface>Tomboy Preferences</interface> dialog, switch to the
+      <guilabel>Synchronization</guilabel> tab.  Choose <guimenuitem>SSH</guimenuitem> from the
+      <guilabel>Service</guilabel> dropdown menu.</para>
+      
+      <para>Fill in the information for your server, and then select the
+      <guibutton>Save</guibutton> button.  You are now ready to synchronize your notes.</para>
+      
+      <para></para>
     </sect2>
 
-    <sect2 id="bullet-configure-localfolder">
+    <sect2 id="sync-configure-localfolder">
       <title>Configure note synchronization (Local Folder)</title>
         
-      <para>TODO</para>
+      <para>You may want to synchronize your notes to a local folder if that folder
+      is available to your other systems, or if that folder represents a local mount
+      of a remote server.</para>
+      
+      <para>In the <interface>Tomboy Preferences</interface> dialog, switch to the
+      <guilabel>Synchronization</guilabel> tab.  Choose <guimenuitem>Local Folder</guimenuitem> from the
+      <guilabel>Service</guilabel> dropdown menu.</para>
+      
+      <para>Fill in the information for your server, and then select the
+      <guibutton>Save</guibutton> button.  You are now ready to synchronize your notes.</para>
     </sect2>
 
-    <sect2 id="bullet-sync-fromnote">
+    <sect2 id="sync-fromnote">
       <title>Synchronize your notes from any open note</title>
         
-      <para>TODO</para>
+      <para></para>
     </sect2>
 
-    <sect2 id="bullet-sync-fromsearch">
+    <sect2 id="sync-fromsearch">
       <title>Synchronize your notes from the <interface>Search All Notes</interface> dialog</title>
         
       <para>TODO</para>
+    </sect2>
+    
+    <sect2 id="sync-conflicts">
+      <title>Handling synchronization conflicts</title>
+      
+      <para>When synchronizing notes between multiple computers, conflicts may occur.
+      Usually this is the result of not synchronizing regulary when switching between
+      systems.  Tomboy will detect conflicts in the content of your notes and help
+      you to avoid loss of important data.</para>
+      
+      <para>If a confilct is detected during note synchronization, the
+      <interface>Note Conflict</interface> dialog will appear.  If you don't need the
+      changes you made in your local note, you can select
+      <guilabel>Overwrite local note</guilabel>.  If you would like to keep your local
+      changes in a new note, select <guilabel>Rename local note</guilabel>.</para>
     </sect2>
   </sect1>
 
@@ -909,13 +955,13 @@
       </menuchoice> from the menu. You will see a dialog similar to the one
     displayed in <xref linkend="pref-editing" />. There are two categories of
     preferences, <guilabel>Editing</guilabel> and
-    <guilabel>Hotkeys</guilabel>. Preferences for each section will be
+    <guilabel>Hotkeys</guilabel>. Preferences for each tab will be
     described below.</para>
 
     <sect2>
       <title>Editing</title>
 
-      <para>The editing section will allow you to set preferences related to
+      <para>The editing tab will allow you to set preferences related to
       editing notes. There are three checkboxes on this tab, which can either
       be turned on or off.</para>
 
@@ -987,7 +1033,7 @@
     <sect2>
       <title>Hotkeys</title>
 
-      <para>The hotkeys section allows you to set global key combinations to
+      <para>The hotkeys tab allows you to set global key combinations to
       perform different functions in Tomboy. In order to set key combinations,
       you must have the <guibutton>Listen for Hotkeys</guibutton> checkbox
       enabled. Use <keycombo>
@@ -1046,23 +1092,23 @@
     <sect2 id="prefs-synchronization">
       <title>Synchronization</title>
       
-      <para>Please see the <xref linkend="synchronization" /> section
+      <para>Please see <xref linkend="synchronization" />
       for more details.</para>
     </sect2>
 
     <sect2 id="prefs-plugins">
       <title>Add-ins</title>
 
-      <para>The add-ins section allows you to enable and configure Tomboy
+      <para>The add-ins tab allows you to enable and configure Tomboy
       Add-ins.</para>
       
       <para>The list of installed add-ins shows on the left.  An add-in is
       enabled by selecting it from the list and then selecting
-      <guimenuitem>Enable</guimenuitem>.
+      <guibutton>Enable</guibutton>.
       Disable an add-in by selecting it from the list and then
-      selecting <guimenuitem>Disable</guimenuitem>.</para>
+      selecting <guibutton>Disable</guibutton>.</para>
       
-      <para>Please see the <xref linkend="plugins" /> section for more
+      <para>Please see <xref linkend="plugins" /> for more
       information about the add-ins that are installed with Tomboy.</para>
 
       <figure>
@@ -1131,9 +1177,9 @@
           browser.</para>
           
           <para>Customize the icons that are used by editing the add-in's
-          settings in the <link linkend="prefs-plugins">Preferences
+          preferences in the <link linkend="prefs-plugins">Preferences
           Dialog</link>.  After highlighting the Bugzilla Add-in, click
-          <guibutton>Settings</guibutton> to open the
+          <guibutton>Preferences</guibutton> to open the
           <interface>Bugzilla Add-in Settings</interface> dialog.  To add a new
           icon, click <guibutton>Add</guibutton>, select an icon on your
           computer, provide a Bugzilla host name (e.g., bugzilla.gnome.org),
