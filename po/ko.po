@@ -8,22 +8,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tomboy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-03 16:39+0900\n"
-"PO-Revision-Date: 2007-03-26 07:45+0900\n"
-"Last-Translator: Changwoo Ryu <cwryu@debian.org>\n"
+"POT-Creation-Date: 2007-09-08 13:45+0900\n"
+"PO-Revision-Date: 2007-09-08 16:03+0900\n"
+"Last-Translator: Young-Ho Cha <ganadist@gmail.com>\n"
 "Language-Team: GNOME Korea <gnome-kr-hackers@lists.kldp.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-
-#: ../data/DefaultPlugins.desktop.in.in.h:1
-msgid "Default Plugins"
-msgstr "기본 플러그인"
-
-#: ../data/DefaultPlugins.desktop.in.in.h:2
-msgid "Directory containing system-installed Plugins"
-msgstr "시스템에 설치된 플러그인이 있는 디렉토리"
 
 #: ../data/GNOME_TomboyApplet.server.in.in.h:1
 msgid "Accessories"
@@ -38,7 +30,7 @@ msgid "Tomboy Applet Factory"
 msgstr "톰보이 애플릿 팩토리"
 
 #: ../data/GNOME_TomboyApplet.server.in.in.h:4 ../data/tomboy.desktop.in.h:3
-#: ../Tomboy/Applet.cs:154 ../Tomboy/Tray.cs:147
+#: ../Tomboy/Applet.cs:149 ../Tomboy/Tray.cs:147
 msgid "Tomboy Notes"
 msgstr "톰보이 쪽지"
 
@@ -47,17 +39,12 @@ msgid "_About"
 msgstr "정보(_A)"
 
 #: ../data/GNOME_TomboyApplet.xml.h:2 ../Tomboy/ActionManager.cs:93
-#: ../Tomboy/Applet.cs:199
+#: ../Tomboy/Applet.cs:187
 msgid "_Help"
 msgstr "도움말(_H)"
 
-#: ../data/GNOME_TomboyApplet.xml.h:3 ../Tomboy/Applet.cs:187
-#: ../Tomboy/NoteWindow.cs:652 ../Tomboy/Preferences.cs:645
-msgid "_Open Plugins Folder"
-msgstr "플러그인 폴더 열기(_O)"
-
-#: ../data/GNOME_TomboyApplet.xml.h:4 ../Tomboy/ActionManager.cs:89
-#: ../Tomboy/Applet.cs:194
+#: ../data/GNOME_TomboyApplet.xml.h:3 ../Tomboy/ActionManager.cs:89
+#: ../Tomboy/Applet.cs:182
 msgid "_Preferences"
 msgstr "기본 설정(_P)"
 
@@ -70,28 +57,28 @@ msgid "Create a new Note"
 msgstr "새 쪽지 만들기"
 
 #: ../data/tomboy.schemas.in.h:2
-msgid "Currently enabled plugins."
-msgstr "현재 사용하는 플러그인."
-
-#: ../data/tomboy.schemas.in.h:3
 msgid "Custom Font Face"
 msgstr "사용자 글꼴"
 
-#: ../data/tomboy.schemas.in.h:4
+#: ../data/tomboy.schemas.in.h:3
 msgid "Enable WikiWord highlighting"
 msgstr "위키문법 강조 쓰기"
 
-#: ../data/tomboy.schemas.in.h:5
+#: ../data/tomboy.schemas.in.h:4
 msgid "Enable custom font"
 msgstr "사용자 글꼴 쓰기"
 
-#: ../data/tomboy.schemas.in.h:6
+#: ../data/tomboy.schemas.in.h:5
 msgid "Enable global keybindings"
 msgstr "전체 키보드 바로가기 쓰기"
 
-#: ../data/tomboy.schemas.in.h:7
+#: ../data/tomboy.schemas.in.h:6
 msgid "Enable spellchecking"
 msgstr "맞춤법검사 켜기"
+
+#: ../data/tomboy.schemas.in.h:7
+msgid "Enable startup notes"
+msgstr "시작 쪽지 쓰기"
 
 #: ../data/tomboy.schemas.in.h:8
 msgid ""
@@ -121,13 +108,21 @@ msgstr "enable_custom_font이 참이면 여기에 설정된 글꼴로 쪽지를 
 
 #: ../data/tomboy.schemas.in.h:13
 msgid ""
+"If enabled, all notes that were open when Tomboy quit will automatically be "
+"reopened at startup."
+msgstr ""
+"참이면, 톰보이가 끝날때 열려있던 모든 쪽지가 다음에 시작할 때 자동으로 "
+"모두 열립니다."
+
+#: ../data/tomboy.schemas.in.h:14
+msgid ""
 "If true, misspellings will be underlined in red, and correct spelling "
 "suggestions shown in the right-click menu."
 msgstr ""
 "참이면 맞춤법이 틀릴 때 빨간색으로 보이고, 오른쪽 마우스 단추를 누르면 올바"
 "른 맞춤법으로 된 단어가 보입니다."
 
-#: ../data/tomboy.schemas.in.h:14
+#: ../data/tomboy.schemas.in.h:15
 msgid ""
 "If true, the desktop-global keybindings set in /apps/tomboy/"
 "global_keybindings will be enabled, allowing for useful Tomboy actions to be "
@@ -136,7 +131,7 @@ msgstr ""
 "참이면 /apps/tomboy/global_keybindings이 바탕화면 전체 바로가기 키로 설정되"
 "며 모든 응용프로그램에서 톰보이를 사용할 수 있게됩니다."
 
-#: ../data/tomboy.schemas.in.h:15
+#: ../data/tomboy.schemas.in.h:16
 msgid ""
 "If true, the font name set in custom_font_face will be used as the font when "
 "displaying notes. Otherwise the desktop default font will be used."
@@ -144,7 +139,7 @@ msgstr ""
 "참이면 custom_font_face에 설정된 글꼴이름이 쪽지를 보이는 기본 글꼴로 됩니"
 "다. 그렇지 않으면 바탕화면 기본 글꼴로 쪽지를 보여줍니다."
 
-#: ../data/tomboy.schemas.in.h:16
+#: ../data/tomboy.schemas.in.h:17
 msgid ""
 "Indicates that the Sticky Note Importer plugin has not been run, so it "
 "should run automatically the next time Tomboy starts."
@@ -152,53 +147,85 @@ msgstr ""
 "쪽지 가져오기 플러그인을 아직 실행하지 않았다는 뜻입니다. 즉 톰보이가 다음 번"
 "에 시작할 때 가져오기 플러그인을 실행해야 한다는 뜻입니다."
 
-#: ../data/tomboy.schemas.in.h:17
+#: ../data/tomboy.schemas.in.h:18
 msgid ""
 "Integer determining the minimum number of notes to show in the Tomboy note "
 "menu."
 msgstr "톰보이 쪽지 메뉴에 표시할 쪽지의 최소 개수를 결정하는 숫자."
 
-#: ../data/tomboy.schemas.in.h:18
-msgid "List containing the names of currently enabled plugins."
-msgstr "현재 사용하는 플러그인의 이름 목록."
-
 #: ../data/tomboy.schemas.in.h:19
+msgid ""
+"Integer value indicating if there is a preference to always perform a "
+"specific behavior when a conflict is detected, instead of prompting the "
+"user. The values map to an internal enumeration. 0 indicates that the user "
+"wishes to be prompted when a conflict occurs, so that they may handle each "
+"conflict situation on a case-by-case basis."
+msgstr ""
+"정수값은 충돌이 감지되었을 때 사용자에게 확인하지 않고 항상 지정한 방식대로 "
+"수행하도록 나타냅니다. 각각의 값은 내부의 열거형과 관계됩니다. " 
+"0은 충돌이 발생했을 때 사용자에게 알려줘서 각각의 충돌 상황에 처리할 수 "
+"있도록 합니다."
+
+#: ../data/tomboy.schemas.in.h:20
 msgid "List of pinned notes."
 msgstr "고정한 쪽지 목록."
 
-#: ../data/tomboy.schemas.in.h:20
+#: ../data/tomboy.schemas.in.h:21
 msgid "Minimum number of notes to show in menu"
 msgstr "메뉴에서 표시할 쪽지 최대 개수"
 
-#: ../data/tomboy.schemas.in.h:21
+#: ../data/tomboy.schemas.in.h:22
+msgid "Note Synchronization Conflict Saved Behavior"
+msgstr "쪽지 동기화 충돌 저장 방식"
+
+#: ../data/tomboy.schemas.in.h:23
 msgid "Open Recent Changes"
 msgstr "마지막으로 바뀐 것 열기"
 
-#: ../data/tomboy.schemas.in.h:22
+#: ../data/tomboy.schemas.in.h:24
 msgid "Open Search Dialog"
 msgstr "찾기 대화상자 열기"
 
-#: ../data/tomboy.schemas.in.h:23
+#: ../data/tomboy.schemas.in.h:25
 msgid "Open Start Here"
 msgstr "'여기서 시작' 열기"
 
-#: ../data/tomboy.schemas.in.h:24
+#: ../data/tomboy.schemas.in.h:26
+msgid ""
+"Path to the synchronization server when using the filesystem synchronization "
+"service addin."
+msgstr ""
+"파일시스템 동기화 서비스 추가기능을 사용할 때 동기화 서버의 경로."
+
+#: ../data/tomboy.schemas.in.h:27
+msgid "Selected Synchronization Service Addin"
+msgstr "선택한 동기화 서비스 추가기능"
+
+#: ../data/tomboy.schemas.in.h:28
 msgid "Set to TRUE to activate"
 msgstr "활성시키려면 참으로 설정"
 
-#: ../data/tomboy.schemas.in.h:25
+#: ../data/tomboy.schemas.in.h:29
 msgid "Show applet menu"
 msgstr "애플릿 메뉴 보이기"
 
-#: ../data/tomboy.schemas.in.h:26
+#: ../data/tomboy.schemas.in.h:30
 msgid "Start Here Note"
 msgstr "여기서 시작 쪽지"
 
-#: ../data/tomboy.schemas.in.h:27
+#: ../data/tomboy.schemas.in.h:31
 msgid "Sticky Note Importer First Run"
 msgstr "메모비 가져오기 처음 실행"
 
-#: ../data/tomboy.schemas.in.h:28
+#: ../data/tomboy.schemas.in.h:32
+msgid "Synchronization Client ID"
+msgstr "동기화 클라이언트 ID"
+
+#: ../data/tomboy.schemas.in.h:33
+msgid "Synchronization Local Server Path"
+msgstr "동기화 로컬 서버 경로"
+
+#: ../data/tomboy.schemas.in.h:34
 msgid ""
 "The global keybinding for creating and displaying a new Note. The format "
 "looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The "
@@ -212,7 +239,7 @@ msgstr ""
 "\"&lt;Ctl&gt;\"와 \"&lt;Ctrl&gt;\"같은 약어를 쓸 수도 있습니다.\"disabled\"라"
 "고 설정하면 바로가기 키를 쓰지 않습니다."
 
-#: ../data/tomboy.schemas.in.h:29
+#: ../data/tomboy.schemas.in.h:35
 msgid ""
 "The global keybinding for opening the \"Start Here\" note. The format looks "
 "like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
@@ -226,7 +253,7 @@ msgstr ""
 "Ctl&gt;\"와 \"&lt;Ctrl&gt;\"같은 약어를 쓸 수도 있습니다.\"disabled\"라고 설"
 "정하면 바로가기 키를 쓰지 않습니다."
 
-#: ../data/tomboy.schemas.in.h:30
+#: ../data/tomboy.schemas.in.h:36
 msgid ""
 "The global keybinding for opening the Note Search dialog. The format looks "
 "like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
@@ -240,7 +267,7 @@ msgstr ""
 "\"&lt;Ctl&gt;\"와 \"&lt;Ctrl&gt;\"같은 약어를 쓸 수도 있습니다.\"disabled\"라"
 "고 설정하면 바로가기 키를 쓰지 않습니다."
 
-#: ../data/tomboy.schemas.in.h:31
+#: ../data/tomboy.schemas.in.h:37
 msgid ""
 "The global keybinding for opening the Recent Changes dialog. The format "
 "looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The "
@@ -254,7 +281,7 @@ msgstr ""
 "\"&lt;Ctl&gt;\"와 \"&lt;Ctrl&gt;\"같은 약어를 쓸 수도 있습니다.\"disabled\"라"
 "고 설정하면 바로가기 키를 쓰지 않습니다."
 
-#: ../data/tomboy.schemas.in.h:32
+#: ../data/tomboy.schemas.in.h:38
 msgid ""
 "The global keybinding for showing the Tomboy applet's menu. The format looks "
 "like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
@@ -268,23 +295,23 @@ msgstr ""
 "\"&lt;Ctl&gt;\"와 \"&lt;Ctrl&gt;\"같은 약어를 쓸 수도 있습니다.\"disabled\"라"
 "고 설정하면 바로가기 키를 쓰지 않습니다."
 
-#: ../data/tomboy.schemas.in.h:33
+#: ../data/tomboy.schemas.in.h:39
 msgid "The handler for \"note://\" URLs"
 msgstr "\"note://\" URL의 처리 프로그램"
 
-#: ../data/tomboy.schemas.in.h:34
+#: ../data/tomboy.schemas.in.h:40
 msgid ""
 "The last directory a note was exported to using the Export To HTML plugin."
 msgstr "HTML 내보내기 플러그인으로 쪽지를 내보낸 마지막 디렉토리."
 
-#: ../data/tomboy.schemas.in.h:35
+#: ../data/tomboy.schemas.in.h:41
 msgid ""
 "The last setting for the 'Export linked notes' checkbox in the Export to "
 "HTML plugin."
 msgstr ""
 "HTML 내보내기 플러그인에서 '연결된 쪽지 내보내기' 체크박스의 마지막 설정."
 
-#: ../data/tomboy.schemas.in.h:36
+#: ../data/tomboy.schemas.in.h:42
 msgid ""
 "The last setting for the 'Include all other linked notes' checkbox in the "
 "Export to HTML plugin. This setting is used in conjunction with the 'HTML "
@@ -295,7 +322,7 @@ msgstr ""
 "정. 이 설정은 'HTML 내보내기 - 연결된 쪽지' 설정과 함께 사용해서 (재귀적으로 "
 "발견되는) 모든 쪽지를 HTML로 내보낼 때 포함할 지 여부를 지정합니다."
 
-#: ../data/tomboy.schemas.in.h:37
+#: ../data/tomboy.schemas.in.h:43
 msgid ""
 "The note URI of the note that should be considered the \"Start Here\" note, "
 "which is always placed at the bottom of the Tomboy note menu and also "
@@ -304,42 +331,37 @@ msgstr ""
 "\"여기서 시작\" 쪽지로 취급할 쪽지의 URI. 이 쪽지는 항상 톰보이 쪽지 메뉴의 "
 "맨 아래에 있고 단축 키로도 접근할 수 있습니다."
 
-#: ../data/tomboy.schemas.in.h:38
+#: ../data/tomboy.schemas.in.h:44
+msgid ""
+"Unique identifier for the currently configured note synchronization service "
+"addin."
+msgstr ""
+"동기화 서비스 추가기능에 설정된 유일한 인식자."
+
+#: ../data/tomboy.schemas.in.h:45
+msgid ""
+"Unique identifier for this Tomboy client, used when communicating with a "
+"sychronization server."
+msgstr ""
+"동기화 서버와 통신할 때 사용되는 톰보이 클라이언트의 유일한 인식자."
+
+#: ../data/tomboy.schemas.in.h:46
 msgid ""
 "Whitespace-separated list of note URIs for notes that should always appear "
 "in the Tomboy note menu."
 msgstr "톰보이 쪽지 메뉴에 항상 나타날 쪽지의 URI 목록, 공백으로 구분."
 
-#: ../libtomboy/gedit-print.c:142 ../Tomboy/Plugins/PrintNotes.cs:22
-msgid "Print"
-msgstr "인쇄"
+#: ../Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinTreeWidget.cs:91
+msgid "Add-in"
+msgstr "추가 기능"
 
-#: ../libtomboy/gedit-print.c:240
-msgid "Preparing pages..."
-msgstr "쪽 준비중..."
+#: ../Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinTreeWidget.cs:112
+msgid "Version"
+msgstr "버전"
 
-#: ../libtomboy/gedit-print.c:267
-#, c-format
-msgid "Rendering page %d of %d..."
-msgstr "%2$d페이지 중 %1$d페이지 그리는 중..."
-
-#: ../libtomboy/gedit-print.c:269
-#, c-format
-msgid "Printing page %d of %d..."
-msgstr "%2$d페이지 중 %1$d페이지 인쇄 중..."
-
-#: ../libtomboy/gedit-print.c:291
-msgid "Print preview"
-msgstr "인쇄 미리보기"
-
-#: ../libtomboy/gedit-print.c:442
-msgid "Page %N of %Q"
-msgstr "%Q페이지 중 %N페이지"
-
-#: ../libtomboy/gedit-print.c:445
-#, no-c-format
-msgid "%A %x, %X"
-msgstr "%x %A %X"
+#: ../Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinTreeWidget.cs:168
+msgid "Other"
+msgstr "기타"
 
 #: ../Tomboy/ActionManager.cs:63
 msgid "_File"
@@ -369,7 +391,7 @@ msgstr "지우기(_D)"
 msgid "Delete the selected note"
 msgstr "선택한 쪽지를 지웁니다"
 
-#: ../Tomboy/ActionManager.cs:78 ../Tomboy/NoteWindow.cs:546
+#: ../Tomboy/ActionManager.cs:78 ../Tomboy/NoteWindow.cs:374
 msgid "_Close"
 msgstr "닫기(_C)"
 
@@ -377,7 +399,7 @@ msgstr "닫기(_C)"
 msgid "Close this window"
 msgstr "이 창을 닫습니다"
 
-#: ../Tomboy/ActionManager.cs:82 ../Tomboy/Applet.cs:211
+#: ../Tomboy/ActionManager.cs:82 ../Tomboy/Applet.cs:199
 msgid "_Quit"
 msgstr "끝내기(_Q)"
 
@@ -389,7 +411,7 @@ msgstr "톰보이 끝내기"
 msgid "_Edit"
 msgstr "편집(_E)"
 
-#: ../Tomboy/ActionManager.cs:90 ../Tomboy/Preferences.cs:169
+#: ../Tomboy/ActionManager.cs:90 ../Tomboy/PreferencesDialog.cs:65
 msgid "Tomboy Preferences"
 msgstr "톰보이 기본 설정"
 
@@ -413,7 +435,7 @@ msgstr "트레이 아이콘"
 msgid "Create _New Note"
 msgstr "새 쪽지 만들기(_N)"
 
-#: ../Tomboy/ActionManager.cs:111 ../Tomboy/NoteWindow.cs:489
+#: ../Tomboy/ActionManager.cs:111 ../Tomboy/NoteWindow.cs:317
 msgid "_Search All Notes"
 msgstr "모든 쪽지 찾기(_S)"
 
@@ -421,19 +443,445 @@ msgstr "모든 쪽지 찾기(_S)"
 msgid "Open the Search All Notes window"
 msgstr "모든 쪽지 찾기 창을 엽니다"
 
-#: ../Tomboy/Applet.cs:204
+#: ../Tomboy/ActionManager.cs:115
+msgid "S_ynchronize Notes"
+msgstr "쪽지 동기화(_Y)"
+
+#: ../Tomboy/ActionManager.cs:116
+msgid "Start synchronizing notes"
+msgstr "쪽지 동기화를 시작합니다"
+
+#: ../Tomboy/Addins/Backlinks/BacklinksNoteAddin.cs:25
+msgid "What links here?"
+msgstr "여기로 연결되는 쪽지?"
+
+#: ../Tomboy/Addins/Backlinks/BacklinksNoteAddin.cs:83
+msgid "(none)"
+msgstr "(없음)"
+
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:31
+msgid ""
+"You can use any bugzilla just by dragging links into notes.  If you want a "
+"special icon for certain hosts, add them here."
+msgstr ""
+"노트에 버그질라 링크를 끌어놓아서 사용할 수 있습니다. 특정 호스트에 대해 "
+"아이콘을 넣고 싶다면 여기서 더하십시오."
+
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:49
+msgid "Host Name"
+msgstr "호스트 이름"
+
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:66
+msgid "Icon"
+msgstr "아이콘"
+
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:184
+msgid "Select an icon..."
+msgstr "아이콘 선택..."
+
+#. Extra Widget
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:199
+msgid "_Host name:"
+msgstr "호스트 이름(_H):"
+
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:228
+msgid "No host name specified"
+msgstr "호스트 이름을 지정하지 않았습니다"
+
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:229
+msgid "You must specify the Bugzilla host name to use with this icon."
+msgstr "이 아이콘을 사용하려면 버그질라 호스트 이름을 지정해야 합니다."
+
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:255
+msgid "Error saving icon"
+msgstr "아이콘 저장에 오류"
+
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:256
+msgid "Could not save the icon file.  "
+msgstr "아이콘 파일을 저장할 수 없습니다.  "
+
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:309
+msgid "Really remove this icon?"
+msgstr "이 아이콘을 정말로 지우겠습니까?"
+
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:310
+msgid "If you remove an icon it is permanently lost."
+msgstr "아이콘을 지우면 되살릴 수 없습니다."
+
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:50
+msgid "Export to HTML"
+msgstr "HTML로 내보내기"
+
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:109
+#, csharp-format
+msgid "Your note was exported to \"{0}\"."
+msgstr "쪽지를 \"{0}\"에 내보냈습니다."
+
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:120
+msgid "Note exported successfully"
+msgstr "쪽지를 성공적으로 내보냈습니다."
+
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:126
+msgid "Access denied."
+msgstr "접근이 거부되었습니다."
+
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:128
+msgid "Folder does not exist."
+msgstr "폴더가 없습니다."
+
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:143
+#, csharp-format
+msgid "Could not save the file \"{0}\""
+msgstr "\"{0}\" 파일을 저장할 수 없습니다"
+
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlDialog.cs:13
+msgid "Destination for HTML Export"
+msgstr "HTML로 보낼 위치"
+
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlDialog.cs:23
+msgid "Export linked notes"
+msgstr "연결된 쪽지 내보내기"
+
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlDialog.cs:28
+msgid "Include all other linked notes"
+msgstr "기타 연결된 쪽지 모두 포함"
+
+#: ../Tomboy/Addins/Evolution/EvolutionNoteAddin.cs:269
+msgid "Cannot open email"
+msgstr "email 열 수 없음"
+
+#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:89
+msgid "Folder Path:"
+msgstr "폴더 경로:"
+
+#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:98
+msgid "Browse..."
+msgstr "찾아보기..."
+
+#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:116
+msgid "Select Synchronization Folder..."
+msgstr "동기화 폴더 선택..."
+
+#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:144
+msgid "Folder path field is empty."
+msgstr "폴더 경로가 비어있습니다."
+
+#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:153
+msgid ""
+"Specified folder path does not exist, and Tomboy was unable to create it."
+msgstr ""
+"지정한 폴더 경로가 없습니다, 또한 톰보이가 폴더를 만들 수 없습니다."
+
+#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:197
+msgid "Local Folder"
+msgstr "로컬 폴더"
+
+#: ../Tomboy/Addins/FixedWidth/FixedWidthMenuItem.cs:14
+msgid "_Fixed Width"
+msgstr "고정폭(_F)"
+
+#: ../Tomboy/Addins/GalagoPresence/GalagoPresenceNoteAddin.cs:239
+#, csharp-format
+msgid "Cannot contact '{0}'"
+msgstr "'{0}' 연결할 수 없습니다"
+
+#: ../Tomboy/Addins/GalagoPresence/GalagoPresenceNoteAddin.cs:242
+#, csharp-format
+msgid "Error running gaim-remote: {0}"
+msgstr "gaim-remote 실행 오류: {0}"
+
+#: ../Tomboy/Addins/NoteOfTheDay/NoteOfTheDay.cs:10
+msgid "Today: Template"
+msgstr "오늘: 템플리트"
+
+#: ../Tomboy/Addins/NoteOfTheDay/NoteOfTheDay.cs:12
+msgid "Today: "
+msgstr "오늘: "
+
+#. Format: "Today: Friday, July 01 2005"
+#: ../Tomboy/Addins/NoteOfTheDay/NoteOfTheDay.cs:17
+msgid "dddd, MMMM d yyyy"
+msgstr "yyyy MMMM d dddd"
+
+#: ../Tomboy/Addins/NoteOfTheDay/NoteOfTheDay.cs:43
+msgid "Tasks"
+msgstr "작업"
+
+#: ../Tomboy/Addins/NoteOfTheDay/NoteOfTheDay.cs:44
+msgid "Appointments"
+msgstr "약속"
+
+#: ../Tomboy/Addins/NoteOfTheDay/NoteOfTheDay.cs:67
+msgid "Note of the Day"
+msgstr "오늘의 쪽지"
+
+#: ../Tomboy/Addins/NoteOfTheDay/NoteOfTheDayPreferences.cs:16
+msgid ""
+"Change the <span weight=\"bold\">Today: Template</span> note to customize "
+"the text that new Today notes have."
+msgstr ""
+"오늘의 쪽지에 있는 내용을 고치려면 <span weight=\"bold\">오늘: 템플리트</span>""쪽지를 바꾸십시오."
+
+#: ../Tomboy/Addins/NoteOfTheDay/NoteOfTheDayPreferences.cs:24
+msgid "_Open Today: Template"
+msgstr "오늘: 템플리트 열기(_O)"
+
+#: ../Tomboy/Addins/PrintNotes/PrintNotesNoteAddin.cs:18
+#: ../Tomboy/Addins/PrintNotes/gedit-print.c:142
+msgid "Print"
+msgstr "인쇄"
+
+#: ../Tomboy/Addins/PrintNotes/gedit-print.c:240
+msgid "Preparing pages..."
+msgstr "쪽 준비중..."
+
+#: ../Tomboy/Addins/PrintNotes/gedit-print.c:267
+#, c-format
+msgid "Rendering page %d of %d..."
+msgstr "%2$d페이지 중 %1$d페이지 그리는 중..."
+
+#: ../Tomboy/Addins/PrintNotes/gedit-print.c:269
+#, c-format
+msgid "Printing page %d of %d..."
+msgstr "%2$d페이지 중 %1$d페이지 인쇄 중..."
+
+#: ../Tomboy/Addins/PrintNotes/gedit-print.c:291
+msgid "Print preview"
+msgstr "인쇄 미리보기"
+
+#: ../Tomboy/Addins/PrintNotes/gedit-print.c:442
+msgid "Page %N of %Q"
+msgstr "%Q페이지 중 %N페이지"
+
+#: ../Tomboy/Addins/PrintNotes/gedit-print.c:445
+#, no-c-format
+msgid "%A %x, %X"
+msgstr "%x %A %X"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:268
+msgid "Configuration"
+msgstr "설정"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:269
+msgid "Configuration options for the print job"
+msgstr "인쇄에 대한 설정 옵션"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:276
+msgid "Source Buffer"
+msgstr "소스 버퍼"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:277
+msgid "GtkTextBuffer object to print"
+msgstr "인쇄할 GtkTextBuffer 개체"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:283
+msgid "Tabs Width"
+msgstr "탭 너비"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:284
+msgid "Width in equivalent space characters of tabs"
+msgstr "탭 너비에 해당하는 스페이스 개수"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:291
+msgid "Wrap Mode"
+msgstr "줄 바꾸기 모드"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:292
+msgid "Word wrapping mode"
+msgstr "단어 줄바꿈 모드"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:299
+msgid "Highlight"
+msgstr "강조"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:300
+msgid "Whether to print the document with highlighted syntax"
+msgstr "구문 강조된 문서를 인쇄할 지 여부"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:308
+msgid "Font"
+msgstr "글꼴"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:309
+msgid "GnomeFont name to use for the document text (deprecated)"
+msgstr "문서 글자에 쓰일 GnomeFont 이름(없어질 예정)"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:316
+msgid "Font Description"
+msgstr "글꼴 설명"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:317
+msgid "Font to use for the document text (e.g. \"Monospace 10\")"
+msgstr "문서 글자에 쓰일 글꼴(예: \"Monospace 10\")"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:324
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:332
+msgid "Numbers Font"
+msgstr "번호 글꼴"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:325
+msgid "GnomeFont name to use for the line numbers (deprecated)"
+msgstr "줄 번호에 쓰일 GnomeFont 이름 (없어질 예정)"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:333
+msgid "Font description to use for the line numbers"
+msgstr "줄 번호에 쓰일 글꼴 설명"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:340
+msgid "Print Line Numbers"
+msgstr "줄 번호 인쇄"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:341
+msgid "Interval of printed line numbers (0 means no numbers)"
+msgstr "줄번호 인쇄 간격 (0는 번호 없음)"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:348
+msgid "Print Header"
+msgstr "글머리 인쇄"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:349
+msgid "Whether to print a header in each page"
+msgstr "각 페이지에 글머리를 인쇄할 지 여부"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:356
+msgid "Print Footer"
+msgstr "글꼬리 인쇄"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:357
+msgid "Whether to print a footer in each page"
+msgstr "각 페이지에 글꼬리를 인쇄할 지 여부"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:364
+msgid "Header and Footer Font"
+msgstr "글머리 및 꼬리 글꼴"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:365
+msgid "GnomeFont name to use for the header and footer (deprecated)"
+msgstr "글머리와 꼬리에 쓰일 GnomeFont 이름 (없어질 예정)"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:372
+msgid "Header and Footer Font Description"
+msgstr "글머리 및 꼬리 글꼴 설명"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:373
+msgid "Font to use for headers and footers (e.g. \"Monospace 10\")"
+msgstr "글머리와 꼬리에 쓰일 글꼴 (예를 들어 \"Monospace 10\")"
+
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:41
+msgid "Server:"
+msgstr "서버:"
+
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:49
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:59
+msgid "Username:"
+msgstr "사용자 이름:"
+
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:57
+msgid "Folder Path (optional):"
+msgstr "폴더 경로 (선택사항):"
+
+#. Text for label describing setup required for SSH sync addin to work
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:66
+msgid ""
+"SSH synchronization requires an existing SSH key for this server and user, "
+"added to a running SSH daemon."
+msgstr ""
+"실행중인 SSH데몬에 서버와 사용자의 SSH키가 더해져야 SSH 동기화가 동작합니다."
+
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:89
+msgid "Server or username field is empty."
+msgstr "서버 또는 사용자 이름 필드가 비었습니다."
+
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:133
+msgid "SSH (sshfs FUSE)"
+msgstr "SSH (sshfs FUSE)"
+
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:172
+msgid ""
+"Timeout connecting to server. Please ensure that your SSH key has been added "
+"to a running SSH daemon."
+msgstr ""
+"서버에 연결하는데 시간제한이 지났습니다. SSH키가 실행중인 SSH데몬에 더해졌는 "
+"지 확인하시기 바랍니다."
+
+#: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:50
+msgid "Import from Sticky Notes"
+msgstr "메모지에서 가져오기"
+
+#: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:132
+msgid "No Sticky Notes found"
+msgstr "메모를 찾지 못했습니다"
+
+#: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:133
+#, csharp-format
+msgid "No suitable Sticky Notes file was found at \"{0}\"."
+msgstr "\"{0}\"에서 알맞는 메모지 파일을 찾지 못했습니다."
+
+#: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:142
+msgid "Sticky Notes import completed"
+msgstr "메모지에서 모두 가져왔습니다"
+
+#: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:143
+#, csharp-format
+msgid "<b>{0}</b> of <b>{1}</b> Sticky Notes were successfully imported."
+msgstr "<b>{1}</b>개중 <b>{0}</b>개의 메모지를 가져왔습니다."
+
+#: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:155
+msgid "Untitled"
+msgstr "제목 없음"
+
+#: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:183
+msgid "Sticky Note: "
+msgstr "메모지:"
+
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:51
+msgid "URL:"
+msgstr "URL:"
+
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:67
+msgid "Password:"
+msgstr "열쇠글:"
+
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:87
+msgid "URL, username, or password field is empty."
+msgstr "URL, 사용자 이름 또는 열쇠글 필드가 비어있습니다."
+
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:129
+msgid "WebDAV (wdfs FUSE)"
+msgstr "WebDAV (wdfs FUSE)"
+
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:167
+msgid ""
+"There was an error connecting to the server.  This may be caused by using an "
+"incorrect user name and/or password."
+msgstr ""
+"서버에 연결하는데 오류가 생겼습니다. 사용자 이름이나 열쇠글이 잘못되었을 "
+"것입니다."
+
+#. TODO: If the above fails (no keyring daemon), save all but password
+#. to GConf, and notify user.
+#. Save configuration into GConf
+#. Preferences.Set ("/apps/tomboy/sync_wdfs_url", url ?? string.Empty);
+#. Preferences.Set ("/apps/tomboy/sync_wdfs_username", username ?? string.Empty);
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:243
+msgid ""
+"Saving configuration to the GNOME keyring failed with the following message:"
+msgstr ""
+"그놈 키링에 설정을 저장하는데 다음과 같은 오류가 생겼습니다:"
+
+#: ../Tomboy/Applet.cs:192
 msgid "_About Tomboy"
 msgstr "톰보이 정보(_A)"
 
-#: ../Tomboy/Note.cs:879
+#: ../Tomboy/Note.cs:1193
 msgid "Really delete this note?"
 msgstr "이 쪽지를 정말로 지우겠습니까?"
 
-#: ../Tomboy/Note.cs:880
+#: ../Tomboy/Note.cs:1194
 msgid "If you delete a note it is permanently lost."
 msgstr "쪽지를 지우면 되살릴 수 없습니다."
 
-#: ../Tomboy/NoteManager.cs:144
+#: ../Tomboy/NoteManager.cs:132
 msgid ""
 "<note-content>Start Here\n"
 "\n"
@@ -471,7 +919,7 @@ msgstr ""
 "밑줄이 만들어지는 것을 보셨나요?  이 쪽지를 열려면 해당 연결을 누르십시오.</"
 "note-content>"
 
-#: ../Tomboy/NoteManager.cs:163
+#: ../Tomboy/NoteManager.cs:151
 msgid ""
 "<note-content>Using Links in Tomboy\n"
 "\n"
@@ -499,196 +947,180 @@ msgstr ""
 "</note-content>"
 
 #. Attempt to find an existing Start Here note
-#: ../Tomboy/NoteManager.cs:178 ../Tomboy/NoteManager.cs:229
+#: ../Tomboy/NoteManager.cs:166 ../Tomboy/NoteManager.cs:229
 msgid "Start Here"
 msgstr "여기서 시작"
 
-#: ../Tomboy/NoteManager.cs:183
+#: ../Tomboy/NoteManager.cs:171
 msgid "Using Links in Tomboy"
 msgstr "톰보이에서 연결 사용하기"
 
-#: ../Tomboy/NoteManager.cs:284
+#: ../Tomboy/NoteManager.cs:303
 #, csharp-format
 msgid "New Note {0}"
 msgstr "새 쪽지 {0}"
 
-#: ../Tomboy/NoteManager.cs:330
+#: ../Tomboy/NoteManager.cs:364
 msgid "Describe your new note here."
 msgstr "새 쪽지를 적으십시오."
 
-#: ../Tomboy/NoteWindow.cs:233
+#: ../Tomboy/NoteManager.cs:379
+msgid "New Note"
+msgstr "새 쪽지"
+
+#: ../Tomboy/NoteWindow.cs:55
 msgid "Find in This Note"
 msgstr "이 쪽지에서 찾기"
 
-#: ../Tomboy/NoteWindow.cs:501
+#: ../Tomboy/NoteWindow.cs:329
 msgid "_Link to New Note"
 msgstr "새 쪽지로 연결(_L)"
 
-#: ../Tomboy/NoteWindow.cs:513
+#: ../Tomboy/NoteWindow.cs:341
 msgid "Te_xt"
 msgstr "텍스트(_X)"
 
-#: ../Tomboy/NoteWindow.cs:521
+#: ../Tomboy/NoteWindow.cs:349
 msgid "_Find in This Note"
 msgstr "이 쪽지에서 찾기(_F)"
 
-#: ../Tomboy/NoteWindow.cs:536
+#: ../Tomboy/NoteWindow.cs:364
 msgid "Clos_e All Notes"
 msgstr "모든 쪽지 닫기(_E)"
 
-#: ../Tomboy/NoteWindow.cs:574
+#: ../Tomboy/NoteWindow.cs:402
 msgid "Search"
 msgstr "찾기"
 
-#: ../Tomboy/NoteWindow.cs:575
+#: ../Tomboy/NoteWindow.cs:403
 msgid "Search your notes (Ctrl-Shift-F)"
 msgstr "쪽지에서 찾습니다 (Ctrl-Shift-F)"
 
-#: ../Tomboy/NoteWindow.cs:588
+#: ../Tomboy/NoteWindow.cs:416
 msgid "Link"
 msgstr "연결"
 
-#: ../Tomboy/NoteWindow.cs:590
+#: ../Tomboy/NoteWindow.cs:418
 msgid "Link selected text to a new note (Ctrl-L)"
 msgstr "선택한 텍스트를 새 쪽지로 연결합니다 (Ctrl-L)"
 
-#: ../Tomboy/NoteWindow.cs:604
+#: ../Tomboy/NoteWindow.cs:432
 msgid "_Text"
 msgstr "텍스트(_T)"
 
-#: ../Tomboy/NoteWindow.cs:609
+#: ../Tomboy/NoteWindow.cs:437
 msgid "Set properties of text"
 msgstr "텍스트 등록정보 설정"
 
-#: ../Tomboy/NoteWindow.cs:615
+#: ../Tomboy/NoteWindow.cs:458
 msgid "T_ools"
 msgstr "도구(_O)"
 
-#: ../Tomboy/NoteWindow.cs:619
+#: ../Tomboy/NoteWindow.cs:462
 msgid "Use tools on this note"
 msgstr "이 쪽지에 도구를 씁니다"
 
-#: ../Tomboy/NoteWindow.cs:626
+#: ../Tomboy/NoteWindow.cs:469
 msgid "Delete"
 msgstr "지우기"
 
-#: ../Tomboy/NoteWindow.cs:627
+#: ../Tomboy/NoteWindow.cs:470
 msgid "Delete this note"
 msgstr "이 쪽지를 지웁니다"
 
-#: ../Tomboy/NoteWindow.cs:684
+#: ../Tomboy/NoteWindow.cs:480 ../Tomboy/Synchronization/SyncManager.cs:161
+msgid "Synchronize Notes"
+msgstr "쪽지 동기화"
+
+#: ../Tomboy/NoteWindow.cs:523
 msgid "_Find..."
 msgstr "찾기(_F)..."
 
-#: ../Tomboy/NoteWindow.cs:695 ../Tomboy/NoteWindow.cs:897
+#: ../Tomboy/NoteWindow.cs:534 ../Tomboy/NoteWindow.cs:988
 msgid "Find _Next"
 msgstr "다음 찾기(_N)"
 
-#: ../Tomboy/NoteWindow.cs:708
+#: ../Tomboy/NoteWindow.cs:547
 msgid "Find _Previous"
 msgstr "이전 찾기(_P)"
 
-#: ../Tomboy/NoteWindow.cs:796
+#: ../Tomboy/NoteWindow.cs:642
 msgid "Cannot create note"
 msgstr "새 쪽지 만들 수 없음"
 
-#: ../Tomboy/NoteWindow.cs:877
+#: ../Tomboy/NoteWindow.cs:968
 msgid "_Find:"
 msgstr "찾기(_F):"
 
-#: ../Tomboy/NoteWindow.cs:888
+#: ../Tomboy/NoteWindow.cs:979
 msgid "_Previous"
 msgstr "이전(_P)"
 
-#: ../Tomboy/NoteWindow.cs:907
+#: ../Tomboy/NoteWindow.cs:998
 msgid "Case _sensitive"
 msgstr "대소문자 구별(_S)"
 
-#: ../Tomboy/NoteWindow.cs:1383
+#: ../Tomboy/NoteWindow.cs:1474
 msgid "_Bold"
 msgstr "굵게(_B)"
 
-#: ../Tomboy/NoteWindow.cs:1395
+#: ../Tomboy/NoteWindow.cs:1486
 msgid "_Italic"
 msgstr "기울임(_I)"
 
-#: ../Tomboy/NoteWindow.cs:1407
+#: ../Tomboy/NoteWindow.cs:1498
 msgid "_Strikeout"
 msgstr "취소선(_S)"
 
-#: ../Tomboy/NoteWindow.cs:1419
+#: ../Tomboy/NoteWindow.cs:1510
 msgid "_Highlight"
 msgstr "강조(_H)"
 
-#: ../Tomboy/NoteWindow.cs:1432
+#: ../Tomboy/NoteWindow.cs:1523
 msgid "Font Size"
 msgstr "글꼴 크기"
 
-#: ../Tomboy/NoteWindow.cs:1435
+#: ../Tomboy/NoteWindow.cs:1526
 msgid "_Normal"
 msgstr "보통(_N)"
 
-#: ../Tomboy/NoteWindow.cs:1442
+#: ../Tomboy/NoteWindow.cs:1533
 msgid "Hu_ge"
 msgstr "아주 크게(_G)"
 
-#: ../Tomboy/NoteWindow.cs:1450
+#: ../Tomboy/NoteWindow.cs:1541
 msgid "_Large"
 msgstr "크게(_L)"
 
-#: ../Tomboy/NoteWindow.cs:1458
+#: ../Tomboy/NoteWindow.cs:1549
 msgid "S_mall"
 msgstr "작게(_M)"
 
-#: ../Tomboy/NoteWindow.cs:1469
+#: ../Tomboy/NoteWindow.cs:1560
 msgid "Bullets"
 msgstr "목록 표시"
 
-#: ../Tomboy/PluginManager.cs:60
-msgid "Tomboy Project"
-msgstr "톰보이 프로젝트"
-
-#: ../Tomboy/PluginManager.cs:607
-#, csharp-format
-msgid "Cannot fully disable {0}."
-msgstr "{0}을(를) 완전히 사용 해제할 수 없습니다."
-
-#: ../Tomboy/PluginManager.cs:610
-#, csharp-format
-msgid ""
-"Cannot fully disable {0} as there still are at least {1} reference to this "
-"plugin. This indicates a programming error. Contact the plugin's author and "
-"report this problem.\n"
-"\n"
-"<b>Developer Information:</b> This problem usually occurs when the plugin's "
-"Dispose method fails to disconnect all event handlers. The heap-shot "
-"profiler ({2}) can help to identify leaking references."
-msgstr ""
-"{0}을(를) 완전히 사용 해제할 수 없습니다. 이 플러그인을 아직도 최소 {1}개가 "
-"참조하고 있습니다. 즉 프로그래밍에 오류가 있습니다. 플러그인의 개발자에게 연"
-"락해서 이 문제를 알려 주십시오.\n"
-"\n"
-"<b>개발자 정보:</b> 이 문제는 플러그인의 dispose 메소드가 모든 이벤트 핸들러"
-"와 연결을 끊는데 실패해서 발생합니다. 힙샷 프로파일러를 ({2}) 이용하면 메모"
-"리 손실 정보를 알아내는 데 도움이 됩니다."
-
-#: ../Tomboy/Preferences.cs:183
+#: ../Tomboy/PreferencesDialog.cs:83
 msgid "Editing"
 msgstr "편집하기"
 
-#: ../Tomboy/Preferences.cs:185
+#: ../Tomboy/PreferencesDialog.cs:85
 msgid "Hotkeys"
 msgstr "단축키"
 
-#: ../Tomboy/Preferences.cs:187
-msgid "Plugins"
-msgstr "플러그인"
+#: ../Tomboy/PreferencesDialog.cs:87
+msgid "Synchronization"
+msgstr "동기화"
 
-#: ../Tomboy/Preferences.cs:229
+#: ../Tomboy/PreferencesDialog.cs:89
+msgid "Add-ins"
+msgstr "추가 기능"
+
+#: ../Tomboy/PreferencesDialog.cs:134
 msgid "_Spell check while typing"
 msgstr "입력할 때 맞춤법 검사(_S)"
 
-#: ../Tomboy/Preferences.cs:238
+#: ../Tomboy/PreferencesDialog.cs:143
 msgid ""
 "Misspellings will be underlined in red, with correct spelling suggestions "
 "shown in the context menu."
@@ -697,11 +1129,11 @@ msgstr ""
 "에 올바른 단어 목록이 나옵니다."
 
 #. WikiWords...
-#: ../Tomboy/Preferences.cs:248
+#: ../Tomboy/PreferencesDialog.cs:154
 msgid "Highlight _WikiWords"
 msgstr "위키문법 강조(_W)"
 
-#: ../Tomboy/Preferences.cs:256
+#: ../Tomboy/PreferencesDialog.cs:162
 msgid ""
 "Enable this option to highlight words <b>ThatLookLikeThis</b>. Clicking the "
 "word will create a note with that name."
@@ -710,16 +1142,16 @@ msgstr ""
 "그 이름에 해당하는 쪽지를 만들어 줍니다."
 
 #. Custom font...
-#: ../Tomboy/Preferences.cs:265
+#: ../Tomboy/PreferencesDialog.cs:171
 msgid "Use custom _font"
 msgstr "사용자 글꼴 쓰기(_F)"
 
 #. Hotkeys...
-#: ../Tomboy/Preferences.cs:335
+#: ../Tomboy/PreferencesDialog.cs:241
 msgid "Listen for _Hotkeys"
 msgstr "단축키 쓰기(_H)"
 
-#: ../Tomboy/Preferences.cs:344
+#: ../Tomboy/PreferencesDialog.cs:250
 msgid ""
 "Hotkeys allow you to quickly access your notes from anywhere with a "
 "keypress. Example Hotkeys: <b>&lt;Control&gt;&lt;Shift&gt;F11</b>, <b>&lt;"
@@ -729,139 +1161,205 @@ msgstr ""
 "축키: <b>&lt;Control&gt;&lt;Shift&gt;F11</b>, <b>&lt;Alt&gt;N</b>"
 
 #. Show notes menu keybinding...
-#: ../Tomboy/Preferences.cs:364
+#: ../Tomboy/PreferencesDialog.cs:270
 msgid "Show notes _menu"
 msgstr "쪽지 메뉴 보기(_M)"
 
 #. Open Start Here keybinding...
-#: ../Tomboy/Preferences.cs:381
+#: ../Tomboy/PreferencesDialog.cs:287
 msgid "Open \"_Start Here\""
 msgstr "\"여기서 시작\" 열기(_S)"
 
 #. Create new note keybinding...
-#: ../Tomboy/Preferences.cs:398
+#: ../Tomboy/PreferencesDialog.cs:304
 msgid "Create _new note"
 msgstr "새 쪽지 만들기(_N)"
 
 #. Open Search All Notes window keybinding...
-#: ../Tomboy/Preferences.cs:415
+#: ../Tomboy/PreferencesDialog.cs:321
 msgid "Open \"Search _All Notes\""
 msgstr "\"모든 쪽지 찾기\" 열기(_A)"
 
-#: ../Tomboy/Preferences.cs:561
-msgid "Not available"
-msgstr "없음"
+#: ../Tomboy/PreferencesDialog.cs:348
+msgid "Service:"
+msgstr "서비스:"
 
-#: ../Tomboy/Preferences.cs:619
-msgid "Description:"
-msgstr "설명:"
+#: ../Tomboy/PreferencesDialog.cs:400 ../Tomboy/PreferencesDialog.cs:978
+msgid "Not configurable"
+msgstr "설정 없음"
 
-#: ../Tomboy/Preferences.cs:621
-msgid "Written by:"
-msgstr "작성한 사람:"
+#. "Advanced..." button to bring up extra sync config dialog
+#: ../Tomboy/PreferencesDialog.cs:420
+msgid "Advanced..."
+msgstr "고급..."
 
-#: ../Tomboy/Preferences.cs:623
-msgid "Web site:"
-msgstr "웹사이트:"
+#: ../Tomboy/PreferencesDialog.cs:481
+msgid "The following add-ins are installed"
+msgstr "아래와 같은 추가 기능이 설치되었습니다"
 
-#: ../Tomboy/Preferences.cs:625
-msgid "File name:"
-msgstr "파일 이름:"
+#: ../Tomboy/PreferencesDialog.cs:512
+msgid "_Enable"
+msgstr "사용(_E)"
 
-#: ../Tomboy/Preferences.cs:639
-msgid "Settings"
-msgstr "설정"
+#: ../Tomboy/PreferencesDialog.cs:518
+msgid "_Disable"
+msgstr "사용하지 않음(_D)"
 
-#: ../Tomboy/Preferences.cs:694
+#: ../Tomboy/PreferencesDialog.cs:649
+msgid "Not Implemented"
+msgstr "구현되지 않음"
+
+#: ../Tomboy/PreferencesDialog.cs:663
 #, csharp-format
-msgid "{0} Settings"
-msgstr "{0} 설정"
+msgid "{0} Preferences"
+msgstr "{0} 기본 설정"
 
-#: ../Tomboy/Preferences.cs:755
+#: ../Tomboy/PreferencesDialog.cs:802
 msgid "Choose Note Font"
 msgstr "쪽지 글꼴 고르기"
 
-#: ../Tomboy/RecentChanges.cs:64
+#: ../Tomboy/PreferencesDialog.cs:846
+msgid "Other Synchronization Options"
+msgstr "기타 동기화 옵션"
+
+#: ../Tomboy/PreferencesDialog.cs:853
+msgid ""
+"When a conflict is detected between a local note and a note on the "
+"configured synchronization server:"
+msgstr ""
+"로컬의 쪽지와 설정된 동기화 서버의 쪽지가 충돌났을때:"
+
+#: ../Tomboy/PreferencesDialog.cs:860
+msgid "Always ask me what to do."
+msgstr "어떻게 할것인지 물어봅니다."
+
+#: ../Tomboy/PreferencesDialog.cs:864
+msgid "Rename my local note."
+msgstr "로컬 쪽지의 이름을 바꿉니다."
+
+#: ../Tomboy/PreferencesDialog.cs:868
+msgid "Replace my local note with the server's update."
+msgstr "로컬 쪽지를 서버에 있는 쪽지로 업데이트합니다."
+
+#: ../Tomboy/PreferencesDialog.cs:1014
+msgid "WARNING: Are you sure?"
+msgstr "WARNING: 정말입니까?"
+
+#: ../Tomboy/PreferencesDialog.cs:1016
+msgid ""
+"Clearing your synchronization settings is not recommended.  You may be "
+"forced to synchronize all of your notes again when you save new settings."
+msgstr ""
+"동기화 설정을 초기화 하는 것은 바람직하지 않습니다. 새 설정을 저장할 때 "
+"모든 쪽지를 다시 강제로 동기화 해야 합니다."
+
+#: ../Tomboy/PreferencesDialog.cs:1029
+msgid "Resetting Synchronization Settings"
+msgstr "동기화 설정 초기화중"
+
+#: ../Tomboy/PreferencesDialog.cs:1031
+msgid ""
+"You have disabled the configured synchronization service.  Your "
+"synchronization settings will now be cleared.  You may be forced to "
+"synchronize all of your notes again when you save new settings"
+msgstr ""
+"설정한 동기화 서비스를 사용하지 않도록 했습니다. 동기화 설정이 초기화 "
+"될것입니다.  새 설정을 저장할 때 모든 쪽지를 다시 강제로 동기화 해야 합니다."
+
+#: ../Tomboy/PreferencesDialog.cs:1128
+msgid "Success! You're connected!"
+msgstr "성공! 연결되었습니다!"
+
+#: ../Tomboy/PreferencesDialog.cs:1130
+msgid "Tomboy is ready to synchronize your notes."
+msgstr "쪽지를 동기화할 준비가 되었습니다."
+
+#: ../Tomboy/PreferencesDialog.cs:1149
+msgid ""
+"Sorry, but something went wrong.  Please check your information and try "
+"again.  The ~/.tomboy.log might be useful too."
+msgstr ""
+"뭔가 잘못되고 있습니다. 정보를 확인하고 다시 시도하십시오. ~/.tomboy.log를 "
+"확인하면 유용할것입니다."
+
+#: ../Tomboy/PreferencesDialog.cs:1158
+msgid "Error connecting :("
+msgstr "연결 실패"
+
+#: ../Tomboy/PreferencesDialog.cs:1225
+msgid "Version:"
+msgstr "버전:"
+
+#: ../Tomboy/PreferencesDialog.cs:1232
+msgid "Author:"
+msgstr "만든이:"
+
+#: ../Tomboy/PreferencesDialog.cs:1239
+msgid "Copyright:"
+msgstr "저작권:"
+
+#: ../Tomboy/PreferencesDialog.cs:1245
+msgid "Add-in Dependencies:"
+msgstr "추가기능 의존성:"
+
+#: ../Tomboy/RecentChanges.cs:68
 msgid "Search All Notes"
 msgstr "모든 쪽지 찾기"
 
-#: ../Tomboy/RecentChanges.cs:77
+#: ../Tomboy/RecentChanges.cs:83
 msgid "_Search:"
 msgstr "찾기(_S):"
 
-#: ../Tomboy/RecentChanges.cs:98
+#: ../Tomboy/RecentChanges.cs:104
 msgid "C_ase Sensitive"
 msgstr "대소문자 구별(_A)"
 
-#: ../Tomboy/RecentChanges.cs:236
+#: ../Tomboy/RecentChanges.cs:296
 msgid "Note"
 msgstr "쪽지"
 
 # 최근 바뀐 날짜를 표시하는 데 쓰인다
-#: ../Tomboy/RecentChanges.cs:255
+#: ../Tomboy/RecentChanges.cs:315
 msgid "Last Changed"
 msgstr "최근 바뀜"
 
-#: ../Tomboy/RecentChanges.cs:312 ../Tomboy/RecentChanges.cs:468
+#: ../Tomboy/RecentChanges.cs:373 ../Tomboy/RecentChanges.cs:529
 #, csharp-format
 msgid "Total: {0} note"
 msgid_plural "Total: {0} notes"
 msgstr[0] "모두: {0}개 쪽지"
 
-#: ../Tomboy/RecentChanges.cs:402
+#: ../Tomboy/RecentChanges.cs:463
 msgid "Matches"
 msgstr "일치"
 
-#: ../Tomboy/RecentChanges.cs:454 ../Tomboy/RecentChanges.cs:474
+#: ../Tomboy/RecentChanges.cs:515 ../Tomboy/RecentChanges.cs:535
 #, csharp-format
 msgid "{0} match"
 msgid_plural "{0} matches"
 msgstr[0] "{0}개 일치"
 
-#: ../Tomboy/RecentChanges.cs:724
-#, csharp-format
-msgid "Today, {0}"
-msgstr "오늘, {0}"
-
-#: ../Tomboy/RecentChanges.cs:727
-#, csharp-format
-msgid "Yesterday, {0}"
-msgstr "어제, {0}"
-
-#: ../Tomboy/RecentChanges.cs:731
-#, csharp-format
-msgid "{0} days ago, {1}"
-msgstr "{0}일전, {1}"
-
-#: ../Tomboy/RecentChanges.cs:736
-msgid "MMMM d, h:mm tt"
-msgstr "MMMM d일, tt h:mm"
-
-#: ../Tomboy/RecentChanges.cs:738
-msgid "MMMM d yyyy, h:mm tt"
-msgstr "yyyy MMMM d일, tt h:mm"
-
-#: ../Tomboy/Tomboy.cs:181
+#: ../Tomboy/Tomboy.cs:195
 msgid "Cannot create new note"
 msgstr "새 쪽지를 만들 수 없습니다"
 
-#: ../Tomboy/Tomboy.cs:236
+#: ../Tomboy/Tomboy.cs:266
 msgid "translator-credits"
-msgstr "차영호 <ganadist@gmail.com> 2005-2006"
+msgstr "차영호 <ganadist@gmail.com> 2005-2007"
 
-#: ../Tomboy/Tomboy.cs:245
+#: ../Tomboy/Tomboy.cs:275
 msgid "Copyright © 2004-2007 Alex Graveley"
 msgstr "Copyright © 2004-2007 Alex Graveley"
 
-#: ../Tomboy/Tomboy.cs:246
+#: ../Tomboy/Tomboy.cs:276
 msgid "A simple and easy to use desktop note-taking application."
 msgstr "간단하고 쓰기 쉬운 바탕화면 쪽지 프로그램."
 
-#: ../Tomboy/Tomboy.cs:249
-msgid "Homepage & Donations"
-msgstr "홈페이지 및 기부"
+#: ../Tomboy/Tomboy.cs:279
+msgid "Homepage"
+msgstr "홈페이지"
 
-#: ../Tomboy/Tomboy.cs:333
+#: ../Tomboy/Tomboy.cs:376
 msgid ""
 "Tomboy: A simple, easy to use desktop note-taking application.\n"
 "Copyright (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
@@ -871,7 +1369,7 @@ msgstr ""
 "Copyright (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
 "\n"
 
-#: ../Tomboy/Tomboy.cs:345
+#: ../Tomboy/Tomboy.cs:388
 msgid ""
 "Usage:\n"
 "  --version\t\t\tPrint version information.\n"
@@ -885,7 +1383,7 @@ msgstr ""
 "  --note-path [경로]\t\t이 디렉토리에 쪽지 데이터를 읽고 저장합니다.\n"
 "  --search [텍스트]\t\t해당 텍스트에 대한 모든 쪽지 찾기 창을 엽니다.\n"
 
-#: ../Tomboy/Tomboy.cs:356
+#: ../Tomboy/Tomboy.cs:399
 msgid ""
 "  --new-note\t\t\tCreate and display a new note.\n"
 "  --new-note [title]\t\tCreate and display a new note, with a title.\n"
@@ -901,20 +1399,21 @@ msgstr ""
 "  --highlight-search [텍스트]\t열린 쪽지에서 해당 텍스트를 찾아서 강조합니"
 "다.\n"
 
-#: ../Tomboy/Tomboy.cs:368
-msgid "  --check-plugin-unloading\tCheck if plugins are unloaded properly.\n"
-msgstr "  --check-plugin-unloading\t플러그인을 올바르게 내렸는지 확인합니다.\n"
-
-#: ../Tomboy/Tomboy.cs:372
+#. TODO: Restore this functionality with addins
+#. usage +=
+#. Catalog.GetString (
+#. "  --check-plugin-unloading\tCheck if plugins are " +
+#. "unloaded properly.\n");
+#: ../Tomboy/Tomboy.cs:416
 msgid "D-BUS remote control disabled.\n"
 msgstr "D-BUS 원격 제어를 쓸 수 없습니다.\n"
 
-#: ../Tomboy/Tomboy.cs:380
+#: ../Tomboy/Tomboy.cs:424
 #, csharp-format
 msgid "Version {0}"
 msgstr "버전 {0}"
 
-#: ../Tomboy/Tomboy.cs:447
+#: ../Tomboy/Tomboy.cs:494
 #, csharp-format
 msgid ""
 "Tomboy: unsupported option '{0}'\n"
@@ -946,12 +1445,79 @@ msgstr ""
 msgid "Help not found"
 msgstr "도움말을 찾지 못했습니다"
 
-#: ../Tomboy/Watchers.cs:137
+#: ../Tomboy/Utils.cs:151
+#, csharp-format
+msgid "Today, {0}"
+msgstr "오늘, {0}"
+
+#: ../Tomboy/Utils.cs:153
+msgid "Today"
+msgstr "오늘"
+
+#: ../Tomboy/Utils.cs:157
+#, csharp-format
+msgid "Yesterday, {0}"
+msgstr "어제, {0}"
+
+#: ../Tomboy/Utils.cs:159
+msgid "Yesterday"
+msgstr "어제"
+
+#: ../Tomboy/Utils.cs:163
+#, csharp-format
+msgid "{0} days ago, {1}"
+msgstr "{0}일전, {1}"
+
+#: ../Tomboy/Utils.cs:165
+#, csharp-format
+msgid "{0} days ago"
+msgstr "{0}일전"
+
+#: ../Tomboy/Utils.cs:170
+#, csharp-format
+msgid "Tomorrow, {0}"
+msgstr "내일, {0}"
+
+#: ../Tomboy/Utils.cs:172
+msgid "Tomorrow"
+msgstr "내일"
+
+#: ../Tomboy/Utils.cs:176
+#, csharp-format
+msgid "In {0} days, {1}"
+msgstr "{0}일내, {1}"
+
+#: ../Tomboy/Utils.cs:178
+#, csharp-format
+msgid "In {0} days"
+msgstr "{0}일내"
+
+#: ../Tomboy/Utils.cs:182
+msgid "MMMM d, h:mm tt"
+msgstr "MMMM d일, tt h:mm"
+
+#: ../Tomboy/Utils.cs:183
+msgid "MMMM d"
+msgstr "MMMM d일"
+
+#: ../Tomboy/Utils.cs:185
+msgid "No Date"
+msgstr "날짜 없음"
+
+#: ../Tomboy/Utils.cs:188
+msgid "MMMM d yyyy, h:mm tt"
+msgstr "yyyy MMMM d일, tt h:mm"
+
+#: ../Tomboy/Utils.cs:189
+msgid "MMMM d yyyy"
+msgstr "yyyy MMMM d"
+
+#: ../Tomboy/Watchers.cs:149
 #, csharp-format
 msgid "(Untitled {0})"
 msgstr "(제목 없음 {0})"
 
-#: ../Tomboy/Watchers.cs:169
+#: ../Tomboy/Watchers.cs:183
 #, csharp-format
 msgid ""
 "A note with the title <b>{0}</b> already exists. Please choose another name "
@@ -960,178 +1526,279 @@ msgstr ""
 "제목이 <b>{0}</b>인 쪽지가 이미 있습니다. 계속하려면 쪽지의 이름을 다르게 해"
 "주십시오."
 
-#: ../Tomboy/Watchers.cs:181
+#: ../Tomboy/Watchers.cs:195
 msgid "Note title taken"
 msgstr "가져온 쪽지 제목"
 
-#: ../Tomboy/Watchers.cs:422
+#: ../Tomboy/Watchers.cs:438
 msgid "Cannot open location"
 msgstr "위치를 열 수 없음"
 
-#: ../Tomboy/Watchers.cs:516
+#: ../Tomboy/Watchers.cs:532
 msgid "_Copy Link Address"
 msgstr "연결 주소 복사(_C)"
 
-#: ../Tomboy/Watchers.cs:521
+#: ../Tomboy/Watchers.cs:537
 msgid "_Open Link"
 msgstr "연결 열기(_O)"
 
-#: ../Tomboy/Plugins/Backlinks.cs:79
-msgid "What links here?"
-msgstr "여기로 연결되는 쪽지?"
-
-#: ../Tomboy/Plugins/Backlinks.cs:137
-msgid "(none)"
-msgstr "(없음)"
-
-#: ../Tomboy/Plugins/Bugzilla.cs:181
-msgid "Use the following:"
-msgstr "다음을 사용합니다:"
-
-#: ../Tomboy/Plugins/Bugzilla.cs:197
-msgid "Host Name"
-msgstr "호스트 이름"
-
-#: ../Tomboy/Plugins/Bugzilla.cs:214
-msgid "Icon"
-msgstr "아이콘"
-
-#: ../Tomboy/Plugins/Bugzilla.cs:337
-msgid "Select an icon..."
-msgstr "아이콘 선택..."
-
-#. Extra Widget
-#: ../Tomboy/Plugins/Bugzilla.cs:352
-msgid "_Host name:"
-msgstr "호스트 이름(_H):"
-
-#: ../Tomboy/Plugins/Bugzilla.cs:381
-msgid "No host name specified"
-msgstr "호스트 이름을 지정하지 않았습니다"
-
-#: ../Tomboy/Plugins/Bugzilla.cs:382
-msgid "You must specify the Bugzilla host name to use with this icon."
-msgstr "이 아이콘을 사용하려면 버그질라 호스트 이름을 지정해야 합니다."
-
-#: ../Tomboy/Plugins/Bugzilla.cs:408
-msgid "Error saving icon"
-msgstr "아이콘 저장에 오류"
-
-#: ../Tomboy/Plugins/Bugzilla.cs:409
-msgid "Could not save the icon file.  "
-msgstr "아이콘 파일을 저장할 수 없습니다.  "
-
-#: ../Tomboy/Plugins/Bugzilla.cs:457
-msgid "Really remove this icon?"
-msgstr "이 아이콘을 정말로 지우겠습니까?"
-
-#: ../Tomboy/Plugins/Bugzilla.cs:458
-msgid "If you remove an icon it is permanently lost."
-msgstr "아이콘을 지우면 되살릴 수 없습니다."
-
-#: ../Tomboy/Plugins/Evolution.cs:265
-msgid "Cannot open email"
-msgstr "email 열 수 없음"
-
-#: ../Tomboy/Plugins/ExportToHTML.cs:55
-msgid "Export to HTML"
-msgstr "HTML로 내보내기"
-
-#: ../Tomboy/Plugins/ExportToHTML.cs:114
+#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:91
 #, csharp-format
-msgid "Your note was exported to \"{0}\"."
-msgstr "쪽지를 \"{0}\"에 내보냈습니다."
+msgid ""
+"This synchronization addin is not supported on your computer. Please make "
+"sure you have FUSE and {0} correctly installed and configured"
+msgstr ""
+"이 동기화 추가기능은 이 시스템에서 동작하지 못합니다. FUSE와 {0}(을)를 "
+"올바르게 설치하고 설정해주시기 바립니다."
 
-#: ../Tomboy/Plugins/ExportToHTML.cs:125
-msgid "Note exported successfully"
-msgstr "쪽지를 성공적으로 내보냈습니다."
+#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:134
+msgid "Timeout connecting to server."
+msgstr "서버에 연결중 시간제한 지남."
 
-#: ../Tomboy/Plugins/ExportToHTML.cs:131
-msgid "Access denied."
-msgstr "접근이 거부되었습니다."
+#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:142
+msgid "Error connecting to server."
+msgstr "서버에 연결중 오류."
 
-#: ../Tomboy/Plugins/ExportToHTML.cs:133
-msgid "Folder does not exist."
-msgstr "폴더가 없습니다."
+#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:156
+msgid "FUSE could not be enabled."
+msgstr "FUSE를 사용할 수 없습니다."
 
-#: ../Tomboy/Plugins/ExportToHTML.cs:148
+#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:186
+msgid "An error ocurred while connecting to the specified server:"
+msgstr "지정한 서버에 연결하는 중 오류가 발생했습니다:"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:92
+msgid "Note Title"
+msgstr "쪽지 제목"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:99
+msgid "Status"
+msgstr "상태"
+
+#. Drop all that into into the Expander
+#: ../Tomboy/Synchronization/SyncDialog.cs:118
+msgid "Details"
+msgstr "상세 정보"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:236
+msgid "Acquiring sync lock..."
+msgstr "동기화 잠금 얻어오는 중..."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:239
+msgid "Committing changes..."
+msgstr "변경사항 적용중..."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:242
+msgid "Synchronizing Notes"
+msgstr "쪽지 동기중"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:243
+msgid "Synchronizing your notes..."
+msgstr "쪽지 동기화 중..."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:244
+msgid "This may take a while, kick back and enjoy!"
+msgstr "시간이 걸립니다. 기다려주십시오!"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:246
+msgid "Connecting to the server..."
+msgstr "서버에 연결중..."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:252
+msgid "Deleting notes off of the server..."
+msgstr "서버에서 쪽지를 지우는 중..."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:256
+msgid "Downloading new/updated notes..."
+msgstr "새로운/바뀐 쪽지 내려받는 중..."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:268
+msgid "Server Locked"
+msgstr "서버 잠김"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:269
+msgid "Server is locked"
+msgstr "서버가 잠겼습니다"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:270
+msgid ""
+"One of your other computers is currently synchronizing.  Please wait 2 "
+"minutes and try again."
+msgstr ""
+"다른 컴퓨터가 동기화 중입니다. 2분 정도 지난 후에 다시 시도하시기 바랍니다."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:274
+msgid "Preparing to download updates from server..."
+msgstr "서버에서 바뀐점을 받을 준비 중..."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:277
+msgid "Preparing to upload updates to server..."
+msgstr "서버에 바뀐점을 올리는 준비 중..."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:280
+msgid "Uploading notes to server..."
+msgstr "쪽지를 서버에 업로드 중..."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:283
+msgid "Synchronization Failed"
+msgstr "동기화 실패"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:284
+msgid "Failed to synchronize"
+msgstr "동기화 실패"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:285
+msgid "Could not synchronize notes.  Check the details below and try again."
+msgstr ""
+"쪽지 동기화가 실패했습니다. 아래의 상세정보를 확인하고 다시 시도하십시오."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:291
+msgid "Synchronization Complete"
+msgstr "동기화 완료"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:292
+msgid "Synchronization is complete"
+msgstr "동기화가 완료되었습니다"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:294
 #, csharp-format
-msgid "Could not save the file \"{0}\""
-msgstr "\"{0}\" 파일을 저장할 수 없습니다"
+msgid "{0} note updated."
+msgid_plural "{0} notes updated."
+msgstr[0] "{0}개의 쪽지가 바뀌었습니다."
 
-#: ../Tomboy/Plugins/ExportToHTML.cs:267
-msgid "Destination for HTML Export"
-msgstr "HTML로 보낼 위치"
+#: ../Tomboy/Synchronization/SyncDialog.cs:299
+msgid "Your notes are now up to date."
+msgstr "쪽지가 최신상태입니다."
 
-#: ../Tomboy/Plugins/ExportToHTML.cs:277
-msgid "Export linked notes"
-msgstr "연결된 쪽지 내보내기"
+#: ../Tomboy/Synchronization/SyncDialog.cs:303
+msgid "Synchronization Canceled"
+msgstr "동기화 취소"
 
-#: ../Tomboy/Plugins/ExportToHTML.cs:282
-msgid "Include all other linked notes"
-msgstr "기타 연결된 쪽지 모두 포함"
+#: ../Tomboy/Synchronization/SyncDialog.cs:304
+msgid "Synchronization was canceled"
+msgstr "동기화가 취소되었습니다"
 
-#: ../Tomboy/Plugins/FixedWidth.cs:34
-msgid "_Fixed Width"
-msgstr "고정폭(_F)"
+#: ../Tomboy/Synchronization/SyncDialog.cs:305
+msgid "You canceled the synchronization.  You may close the window now."
+msgstr "동기화를 취소했습니다. 창을 닫아도 됩니다."
 
-#: ../Tomboy/Plugins/GalagoPresence.cs:235
+#: ../Tomboy/Synchronization/SyncDialog.cs:309
+msgid "Synchronization Not Configured"
+msgstr "동기화 설정되지 않음"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:310
+msgid "Synchronization is not configured"
+msgstr "동기화가 설정되지 않았습니다"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:311
+msgid "Please configure synchronization in the preferences dialog."
+msgstr "기본 설정 창에서 동기화 설정을 하시기 바랍니다."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:315
+msgid "Synchronization Service Error"
+msgstr "동기화 서비스 오류"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:316
+msgid "Service error"
+msgstr "서비스 오류"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:317
+msgid "Error connecting to the synchronization service.  Please try again."
+msgstr "동기화 서비스에 연결 실패. 다시 시도하시기 바랍니다."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:334
+msgid "Deleted locally"
+msgstr "로컬에서 지움"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:337
+msgid "Deleted from server"
+msgstr "서버에서 지움"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:340
+msgid "Updated"
+msgstr "바꿈"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:343
+msgid "Added"
+msgstr "더함"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:346
+msgid "Uploaded changes to server"
+msgstr "서버에 바뀐점 업로드 됨"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:349
+msgid "Uploaded new note to server"
+msgstr "서버에 새 쪽지 업로드 됨"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:497
+msgid "Note Conflict"
+msgstr "쪽지 충돌"
+
+#. Suggest renaming note by appending " (old)" to the existing title
+#: ../Tomboy/Synchronization/SyncDialog.cs:503
+msgid " (old)"
+msgstr " (오래됨)"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:542
+msgid "Rename local note:"
+msgstr "로컬쪽지 이름 바꾸기:"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:548
+msgid "Update links in referencing notes"
+msgstr "참조하는 쪽지의 연결 업데이트"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:555
+msgid "Overwrite local note"
+msgstr "로컬 쪽지 덮어쓰기"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:559
+msgid "Always perform this action"
+msgstr "항상 이 동작을 수행"
+
+#. Set initial dialog text
+#: ../Tomboy/Synchronization/SyncDialog.cs:565
+msgid "Note conflict detected"
+msgstr "쪽지 충돌 감지"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:566
 #, csharp-format
-msgid "Cannot contact '{0}'"
-msgstr "'{0}' 연결할 수 없습니다"
+msgid ""
+"The server version of \"{0}\" conflicts with your local note.  What do you "
+"want to do with your local note?"
+msgstr ""
+"\"{0}\"의 서버 버젼이 로컬의 쪽지와 충돌납니다. 로컬 쪽지를 어떻게 "
+"하시겠습니까?"
 
-#: ../Tomboy/Plugins/GalagoPresence.cs:238
-#, csharp-format
-msgid "Error running gaim-remote: {0}"
-msgstr "gaim-remote 실행 오류: {0}"
+#: ../Tomboy/Synchronization/SyncManager.cs:159
+msgid "_Tools"
+msgstr "도구(_T)"
 
-#: ../Tomboy/Plugins/NoteOfTheDay.cs:13
-msgid "Today: "
-msgstr "오늘: "
+#: ../Tomboy/Synchronization/SyncUtils.cs:151
+msgid "Enable FUSE?"
+msgstr "FUSE 사용?"
 
-#: ../Tomboy/Plugins/NoteOfTheDay.cs:14
-msgid "Today: Template"
-msgstr "오늘: 템플리트"
+#: ../Tomboy/Synchronization/SyncUtils.cs:153
+msgid ""
+"The synchronization you've chosen requires the FUSE module to be loaded.\n"
+"\n"
+"To avoid getting this prompt in the future, you should load FUSE at "
+"startup.  Add \"modprobe fuse\" to /etc/init.d/boot.local or \"fuse\" to /"
+"etc/modules."
+msgstr ""
+"선택한 동기화 서비스는 FUSE모듈이 적재되야 합니다.\n"
+"\n"
+"다음에 이 화면을 보지 않으려면, 시스템이 시작할 때 FUSE를 적재하도록 "
+"하시기 바랍니다. /etc/init.d/boot.local에 \"modprobe fuse\"를 추가하던 지, "
+"/etc/modules에 \"fuse\"를 추가하십시오."
 
-#. Format: "Today: Friday, July 01 2005"
-#: ../Tomboy/Plugins/NoteOfTheDay.cs:19
-msgid "dddd, MMMM d yyyy"
-msgstr "yyyy MMMM d dddd"
+#: ../Tomboy/Synchronization/SyncUtils.cs:177
+msgid "Could not enable FUSE"
+msgstr "FUSE를 사용할 수 없습니다"
 
-#: ../Tomboy/Plugins/NoteOfTheDay.cs:40
-msgid "Tasks"
-msgstr "작업"
-
-#: ../Tomboy/Plugins/NoteOfTheDay.cs:41
-msgid "Appointments"
-msgstr "약속"
-
-#: ../Tomboy/Plugins/StickyNoteImport.cs:52
-msgid "Import from Sticky Notes"
-msgstr "메모지에서 가져오기"
-
-#: ../Tomboy/Plugins/StickyNoteImport.cs:134
-msgid "No Sticky Notes found"
-msgstr "메모를 찾지 못했습니다"
-
-#: ../Tomboy/Plugins/StickyNoteImport.cs:135
-#, csharp-format
-msgid "No suitable Sticky Notes file was found at \"{0}\"."
-msgstr "\"{0}\"에서 알맞는 메모지 파일을 찾지 못했습니다."
-
-#: ../Tomboy/Plugins/StickyNoteImport.cs:144
-msgid "Sticky Notes import completed"
-msgstr "메모지에서 모두 가져왔습니다"
-
-#: ../Tomboy/Plugins/StickyNoteImport.cs:145
-#, csharp-format
-msgid "<b>{0}</b> of <b>{1}</b> Sticky Notes were successfully imported."
-msgstr "<b>{1}</b>개중 <b>{0}</b>개의 메모지를 가져왔습니다."
-
-#: ../Tomboy/Plugins/StickyNoteImport.cs:157
-msgid "Untitled"
-msgstr "제목 없음"
-
-#: ../Tomboy/Plugins/StickyNoteImport.cs:185
-msgid "Sticky Note: "
-msgstr "메모지:"
+#: ../Tomboy/Synchronization/SyncUtils.cs:178
+msgid ""
+"The FUSE module could not be loaded. Please check that it is installed "
+"properly and try again."
+msgstr ""
+"FUSE 모듈을 적재할 수 없습니다. 올바르게 설치되었는지 확인하고 다시 "
+"시도하시기 바랍니다."
