@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tomboy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-09-03 21:51+0200\n"
-"PO-Revision-Date: 2007-09-03 22:14+0100\n"
+"POT-Creation-Date: 2007-09-15 16:16+0200\n"
+"PO-Revision-Date: 2007-09-15 16:31+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "MIME-Version: 1.0\n"
@@ -144,7 +144,7 @@ msgstr "Minimal antal anteckningar att visa i menyn"
 
 #: ../data/tomboy.schemas.in.h:22
 msgid "Note Synchronization Conflict Saved Behavior"
-msgstr "Sparat synkroniseringsbeteende för anteckningskonflikt"
+msgstr "Sparat beteende för synkroniseringskonflikter för anteckningar"
 
 #: ../data/tomboy.schemas.in.h:23
 msgid "Open Recent Changes"
@@ -220,11 +220,11 @@ msgstr "Senaste katalogen som en anteckning exporterades till med insticksmodule
 
 #: ../data/tomboy.schemas.in.h:41
 msgid "The last setting for the 'Export linked notes' checkbox in the Export to HTML plugin."
-msgstr "Senaste inställningen för \"Exportera länkade anteckningar\" i insticksmodulen\"Exportera till HTML\""
+msgstr "Senaste inställningen för kryssrutan \"Exportera länkade anteckningar\" i insticksmodulen \"Exportera till HTML\"."
 
 #: ../data/tomboy.schemas.in.h:42
 msgid "The last setting for the 'Include all other linked notes' checkbox in the Export to HTML plugin. This setting is used in conjunction with the 'HTML Export Linked Notes' setting and is used to specify whether all notes (found recursively) should be included during an export to HTML."
-msgstr "Den senaste inställningen för kryssrutan \"Inkludera alla andra länkade anteckningar\" i insticksmodulen Exportera till HTML. Den här inställningen används i kombination med inställningen för \"HTML-exportera länkade anteckningar\" och används för att ange huruvida alla anteckningar (rekursivt hittade) ska inkluderas vid en HTML-exportering."
+msgstr "Den senaste inställningen för kryssrutan \"Inkludera alla andra länkade anteckningar\" i insticksmodulen \"Exportera till HTML\". Den här inställningen används i kombination med inställningen för \"HTML-exportera länkade anteckningar\" och används för att ange huruvida alla anteckningar (rekursivt hittade) ska inkluderas vid en HTML-exportering."
 
 #: ../data/tomboy.schemas.in.h:43
 msgid "The note URI of the note that should be considered the \"Start Here\" note, which is always placed at the bottom of the Tomboy note menu and also accessible by hotkey."
@@ -250,7 +250,8 @@ msgstr "Tillägg"
 msgid "Version"
 msgstr "Version"
 
-#: ../Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinTreeWidget.cs:168
+#. Default category name to use if no category is specified for this addin
+#: ../Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinTreeWidget.cs:169
 msgid "Other"
 msgstr "Annat"
 
@@ -462,13 +463,13 @@ msgstr "Fältet för mappsökväg är tomt."
 msgid "Specified folder path does not exist, and Tomboy was unable to create it."
 msgstr "Angiven mappsökväg finns inte och Tomboy kunde inte skapa den."
 
-#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:197
+#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:231
 msgid "Local Folder"
 msgstr "Lokal mapp"
 
 #: ../Tomboy/Addins/FixedWidth/FixedWidthMenuItem.cs:14
 msgid "_Fixed Width"
-msgstr "_Fixerad bredd"
+msgstr "_Fast bredd"
 
 #: ../Tomboy/Addins/GalagoPresence/GalagoPresenceNoteAddin.cs:239
 #, csharp-format
@@ -688,29 +689,29 @@ msgstr "\"Tidsgränsen överstegs vid anslutning till server. Försäkra dig om 
 msgid "Import from Sticky Notes"
 msgstr "Importera från Klisterlappar"
 
-#: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:132
+#: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:133
 msgid "No Sticky Notes found"
 msgstr "Inga klisterlappar hittades"
 
-#: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:133
+#: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:134
 #, csharp-format
 msgid "No suitable Sticky Notes file was found at \"{0}\"."
 msgstr "Ingen lämplig Klisterlappar-fil hittades i \"{0}\"."
 
-#: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:142
+#: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:143
 msgid "Sticky Notes import completed"
 msgstr "Importeringen från Klisterlappar är färdig"
 
-#: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:143
+#: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:144
 #, csharp-format
 msgid "<b>{0}</b> of <b>{1}</b> Sticky Notes were successfully imported."
 msgstr "<b>{0}</b> av <b>{1}</b> klisterlappar har importerats."
 
-#: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:155
+#: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:156
 msgid "Untitled"
 msgstr "Namnlös"
 
-#: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:183
+#: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:185
 msgid "Sticky Note: "
 msgstr "Klisterlapp: "
 
@@ -1375,204 +1376,204 @@ msgstr "_Öppna länk"
 msgid "This synchronization addin is not supported on your computer. Please make sure you have FUSE and {0} correctly installed and configured"
 msgstr "Det här synkroniseringstillägget stöds inte på din dator. Försäkra dig om att du har FUSE och {0} korrekt installerade och konfigurerade"
 
-#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:134
+#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:173
 msgid "Timeout connecting to server."
 msgstr "Tidsgränsen överstegs vid anslutning till server."
 
-#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:142
+#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:181
 msgid "Error connecting to server."
 msgstr "Fel vid anslutning till servern."
 
-#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:156
+#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:195
 msgid "FUSE could not be enabled."
 msgstr "FUSE kunde inte aktiveras."
 
-#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:186
+#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:225
 msgid "An error ocurred while connecting to the specified server:"
 msgstr "Ett fel inträffade vid anslutning till den angivna servern:"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:92
-msgid "Note Title"
-msgstr "Anteckningstitel"
-
-#: ../Tomboy/Synchronization/SyncDialog.cs:99
-msgid "Status"
-msgstr "Status"
-
-#. Drop all that into into the Expander
-#: ../Tomboy/Synchronization/SyncDialog.cs:118
+#. Expander containing TreeView
+#: ../Tomboy/Synchronization/SyncDialog.cs:89
 msgid "Details"
 msgstr "Detaljer"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:236
+#: ../Tomboy/Synchronization/SyncDialog.cs:119
+msgid "Note Title"
+msgstr "Anteckningstitel"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:126
+msgid "Status"
+msgstr "Status"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:237
 msgid "Acquiring sync lock..."
 msgstr "Tar över synkroniseringslås..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:239
+#: ../Tomboy/Synchronization/SyncDialog.cs:240
 msgid "Committing changes..."
 msgstr "Verkställer ändringar..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:242
+#: ../Tomboy/Synchronization/SyncDialog.cs:243
 msgid "Synchronizing Notes"
 msgstr "Synkroniserar anteckningar"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:243
+#: ../Tomboy/Synchronization/SyncDialog.cs:244
 msgid "Synchronizing your notes..."
 msgstr "Synkroniserar dina anteckningar..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:244
+#: ../Tomboy/Synchronization/SyncDialog.cs:245
 msgid "This may take a while, kick back and enjoy!"
 msgstr "Det här kan ta en stund, luta dig tillbaka och njut!"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:246
+#: ../Tomboy/Synchronization/SyncDialog.cs:247
 msgid "Connecting to the server..."
 msgstr "Ansluter till servern..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:252
+#: ../Tomboy/Synchronization/SyncDialog.cs:253
 msgid "Deleting notes off of the server..."
 msgstr "Tar bort anteckningar från servern..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:256
+#: ../Tomboy/Synchronization/SyncDialog.cs:257
 msgid "Downloading new/updated notes..."
 msgstr "Hämtar nya/uppdaterade anteckningar..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:268
+#: ../Tomboy/Synchronization/SyncDialog.cs:269
 msgid "Server Locked"
 msgstr "Servern är låst"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:269
+#: ../Tomboy/Synchronization/SyncDialog.cs:270
 msgid "Server is locked"
 msgstr "Servern är låst"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:270
+#: ../Tomboy/Synchronization/SyncDialog.cs:271
 msgid "One of your other computers is currently synchronizing.  Please wait 2 minutes and try again."
 msgstr "En av dina andra datorer synkroniserar för tillfället.  Vänta 2 minuter och försök igen."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:274
+#: ../Tomboy/Synchronization/SyncDialog.cs:275
 msgid "Preparing to download updates from server..."
 msgstr "Förbereder att hämta uppdateringar från servern..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:277
+#: ../Tomboy/Synchronization/SyncDialog.cs:278
 msgid "Preparing to upload updates to server..."
 msgstr "Förbereder för att skicka upp uppdateringar till servern..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:280
+#: ../Tomboy/Synchronization/SyncDialog.cs:281
 msgid "Uploading notes to server..."
 msgstr "Skickar upp anteckningar till servern..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:283
-msgid "Synchronization Failed"
-msgstr "Synkronisering misslyckades"
-
 #: ../Tomboy/Synchronization/SyncDialog.cs:284
+msgid "Synchronization Failed"
+msgstr "Synkroniseringen misslyckades"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:285
 msgid "Failed to synchronize"
 msgstr "Misslyckades med att synkronisera"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:285
+#: ../Tomboy/Synchronization/SyncDialog.cs:286
 msgid "Could not synchronize notes.  Check the details below and try again."
 msgstr "Kunde inte synkronisera anteckningar.  Kontrollera detaljerna nedan och försök igen."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:291
+#: ../Tomboy/Synchronization/SyncDialog.cs:292
 msgid "Synchronization Complete"
 msgstr "Synkroniseringen är färdig"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:292
+#: ../Tomboy/Synchronization/SyncDialog.cs:293
 msgid "Synchronization is complete"
 msgstr "Synkroniseringen är färdig"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:294
+#: ../Tomboy/Synchronization/SyncDialog.cs:295
 #, csharp-format
 msgid "{0} note updated."
 msgid_plural "{0} notes updated."
 msgstr[0] "{0} anteckning uppdaterad."
 msgstr[1] "{0} anteckningar uppdaterade."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:299
+#: ../Tomboy/Synchronization/SyncDialog.cs:300
 msgid "Your notes are now up to date."
 msgstr "Dina anteckningar är nu uppdaterade."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:303
+#: ../Tomboy/Synchronization/SyncDialog.cs:304
 msgid "Synchronization Canceled"
 msgstr "Synkroniseringen avbröts"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:304
+#: ../Tomboy/Synchronization/SyncDialog.cs:305
 msgid "Synchronization was canceled"
 msgstr "Synkroniseringen har avbrutits"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:305
+#: ../Tomboy/Synchronization/SyncDialog.cs:306
 msgid "You canceled the synchronization.  You may close the window now."
 msgstr "Du avbröt synkroniseringen.  Du kan stänga fönstret nu."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:309
+#: ../Tomboy/Synchronization/SyncDialog.cs:310
 msgid "Synchronization Not Configured"
 msgstr "Synkronisering är inte konfigurerad"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:310
+#: ../Tomboy/Synchronization/SyncDialog.cs:311
 msgid "Synchronization is not configured"
 msgstr "Synkronisering är inte konfigurerad"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:311
+#: ../Tomboy/Synchronization/SyncDialog.cs:312
 msgid "Please configure synchronization in the preferences dialog."
 msgstr "Konfigurera synkronisering i inställningsdialogrutan."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:315
+#: ../Tomboy/Synchronization/SyncDialog.cs:316
 msgid "Synchronization Service Error"
 msgstr "Fel i synkroniseringstjänsten"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:316
+#: ../Tomboy/Synchronization/SyncDialog.cs:317
 msgid "Service error"
 msgstr "Fel i tjänst"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:317
+#: ../Tomboy/Synchronization/SyncDialog.cs:318
 msgid "Error connecting to the synchronization service.  Please try again."
 msgstr "Fel vid anslutning till synkroniseringstjänsten.  Försök igen."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:334
+#: ../Tomboy/Synchronization/SyncDialog.cs:335
 msgid "Deleted locally"
 msgstr "Tar bort lokalt"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:337
+#: ../Tomboy/Synchronization/SyncDialog.cs:338
 msgid "Deleted from server"
 msgstr "Borttagen från servern"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:340
+#: ../Tomboy/Synchronization/SyncDialog.cs:341
 msgid "Updated"
 msgstr "Uppdaterad"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:343
+#: ../Tomboy/Synchronization/SyncDialog.cs:344
 msgid "Added"
 msgstr "Tillagd"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:346
+#: ../Tomboy/Synchronization/SyncDialog.cs:347
 msgid "Uploaded changes to server"
 msgstr "Skickade upp ändringar till servern"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:349
+#: ../Tomboy/Synchronization/SyncDialog.cs:350
 msgid "Uploaded new note to server"
 msgstr "Skickade upp ny anteckning till servern"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:497
+#: ../Tomboy/Synchronization/SyncDialog.cs:498
 msgid "Note Conflict"
 msgstr "Anteckningskonflikt"
 
 #. Suggest renaming note by appending " (old)" to the existing title
-#: ../Tomboy/Synchronization/SyncDialog.cs:503
+#: ../Tomboy/Synchronization/SyncDialog.cs:504
 msgid " (old)"
 msgstr " (gammal)"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:542
+#: ../Tomboy/Synchronization/SyncDialog.cs:543
 msgid "Rename local note:"
 msgstr "Byt namn på lokal anteckning:"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:548
+#: ../Tomboy/Synchronization/SyncDialog.cs:549
 msgid "Update links in referencing notes"
 msgstr "Uppdatera länkar i refererande anteckningar"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:555
+#: ../Tomboy/Synchronization/SyncDialog.cs:556
 msgid "Overwrite local note"
 msgstr "Skriv över lokal anteckning"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:559
+#: ../Tomboy/Synchronization/SyncDialog.cs:560
 msgid "Always perform this action"
 msgstr "Genomför alltid den här åtgärden"
 
