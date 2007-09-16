@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lt\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-08-13 18:43+0300\n"
-"PO-Revision-Date: 2007-08-13 18:43+0300\n"
+"POT-Creation-Date: 2007-09-16 13:48+0300\n"
+"PO-Revision-Date: 2007-09-16 13:47+0300\n"
 "Last-Translator: Žygimantas Beručka <zygis@gnome.org>\n"
 "Language-Team: Lithuanian <gnome-lt@lists.akl.lt>\n"
 "MIME-Version: 1.0\n"
@@ -19,6 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%"
 "100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: KBabel 1.11.4\n"
 
 #: ../data/GNOME_TomboyApplet.server.in.in.h:1
 msgid "Accessories"
@@ -33,7 +34,7 @@ msgid "Tomboy Applet Factory"
 msgstr "Tomboy įtaiso gamykla"
 
 #: ../data/GNOME_TomboyApplet.server.in.in.h:4 ../data/tomboy.desktop.in.h:3
-#: ../Tomboy/Applet.cs:148 ../Tomboy/Tray.cs:147
+#: ../Tomboy/Applet.cs:149 ../Tomboy/Tray.cs:147
 msgid "Tomboy Notes"
 msgstr "Tomboy užrašai"
 
@@ -42,12 +43,12 @@ msgid "_About"
 msgstr "_Apie"
 
 #: ../data/GNOME_TomboyApplet.xml.h:2 ../Tomboy/ActionManager.cs:93
-#: ../Tomboy/Applet.cs:186
+#: ../Tomboy/Applet.cs:187
 msgid "_Help"
 msgstr "_Žinynas"
 
 #: ../data/GNOME_TomboyApplet.xml.h:3 ../Tomboy/ActionManager.cs:89
-#: ../Tomboy/Applet.cs:181
+#: ../Tomboy/Applet.cs:182
 msgid "_Preferences"
 msgstr "_Nustatymai"
 
@@ -380,38 +381,6 @@ msgstr ""
 "Tarpais atskirtų raštelių, kurie turėtų būti visada rodomi Tomboy raštelių "
 "meniu, URI sąrašas."
 
-#: ../libtomboy/gedit-print.c:142
-#: ../Tomboy/Addins/PrintNotes/PrintNotesNoteAddin.cs:18
-msgid "Print"
-msgstr "Spausdinti"
-
-#: ../libtomboy/gedit-print.c:240
-msgid "Preparing pages..."
-msgstr "Ruošiami puslapiai..."
-
-#: ../libtomboy/gedit-print.c:267
-#, c-format
-msgid "Rendering page %d of %d..."
-msgstr "Atvaizduojamas puslapis %d iš %d..."
-
-#: ../libtomboy/gedit-print.c:269
-#, c-format
-msgid "Printing page %d of %d..."
-msgstr "Spausdinamas puslapis %d iš %d..."
-
-#: ../libtomboy/gedit-print.c:291
-msgid "Print preview"
-msgstr "Spaudinio peržiūra"
-
-#: ../libtomboy/gedit-print.c:442
-msgid "Page %N of %Q"
-msgstr "Puslapis %N iš %Q"
-
-#: ../libtomboy/gedit-print.c:445
-#, no-c-format
-msgid "%A %x, %X"
-msgstr "%A %x, %X"
-
 #: ../Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinTreeWidget.cs:91
 msgid "Add-in"
 msgstr "Priedas"
@@ -420,7 +389,8 @@ msgstr "Priedas"
 msgid "Version"
 msgstr "Versija"
 
-#: ../Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinTreeWidget.cs:168
+#. Default category name to use if no category is specified for this addin
+#: ../Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinTreeWidget.cs:169
 msgid "Other"
 msgstr "Kita"
 
@@ -460,7 +430,7 @@ msgstr "_Užverti"
 msgid "Close this window"
 msgstr "Užverti šį langą"
 
-#: ../Tomboy/ActionManager.cs:82 ../Tomboy/Applet.cs:198
+#: ../Tomboy/ActionManager.cs:82 ../Tomboy/Applet.cs:199
 msgid "_Quit"
 msgstr "Iš_eiti"
 
@@ -624,7 +594,16 @@ msgstr "Naršyti..."
 msgid "Select Synchronization Folder..."
 msgstr "Pasirinkite sinchronizavimo aplanką..."
 
-#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:196
+#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:144
+msgid "Folder path field is empty."
+msgstr "Aplanko kelio laukas tuščias."
+
+#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:153
+msgid ""
+"Specified folder path does not exist, and Tomboy was unable to create it."
+msgstr "Nurodytas aplanko kelias neegzistuoja, ir Tomboy nepavyko jo sukurti."
+
+#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:231
 msgid "Local Folder"
 msgstr "Vietinis aplankas"
 
@@ -679,6 +658,149 @@ msgstr ""
 msgid "_Open Today: Template"
 msgstr "_Atverti Šiandien: šablonas"
 
+#: ../Tomboy/Addins/PrintNotes/PrintNotesNoteAddin.cs:18
+#: ../Tomboy/Addins/PrintNotes/gedit-print.c:142
+msgid "Print"
+msgstr "Spausdinti"
+
+#: ../Tomboy/Addins/PrintNotes/gedit-print.c:240
+msgid "Preparing pages..."
+msgstr "Ruošiami puslapiai..."
+
+#: ../Tomboy/Addins/PrintNotes/gedit-print.c:267
+#, c-format
+msgid "Rendering page %d of %d..."
+msgstr "Atvaizduojamas puslapis %d iš %d..."
+
+#: ../Tomboy/Addins/PrintNotes/gedit-print.c:269
+#, c-format
+msgid "Printing page %d of %d..."
+msgstr "Spausdinamas puslapis %d iš %d..."
+
+#: ../Tomboy/Addins/PrintNotes/gedit-print.c:291
+msgid "Print preview"
+msgstr "Spaudinio peržiūra"
+
+#: ../Tomboy/Addins/PrintNotes/gedit-print.c:442
+msgid "Page %N of %Q"
+msgstr "Puslapis %N iš %Q"
+
+#: ../Tomboy/Addins/PrintNotes/gedit-print.c:445
+#, no-c-format
+msgid "%A %x, %X"
+msgstr "%A %x, %X"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:268
+msgid "Configuration"
+msgstr "Nustatymai"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:269
+msgid "Configuration options for the print job"
+msgstr "Nustatymai spausdinimo užduočiai"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:276
+msgid "Source Buffer"
+msgstr "Išeities teksto buferis"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:277
+msgid "GtkTextBuffer object to print"
+msgstr "Spausdintinas GtkTextBuffer objektas"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:283
+msgid "Tabs Width"
+msgstr "Tabuliatoriaus plotis"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:284
+msgid "Width in equivalent space characters of tabs"
+msgstr "Tabuliatoriaus plotis tarpelio simboliais"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:291
+msgid "Wrap Mode"
+msgstr "Teksto laužymas"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:292
+msgid "Word wrapping mode"
+msgstr "Teksto laužymo veiksena"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:299
+msgid "Highlight"
+msgstr "Paryškinti"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:300
+msgid "Whether to print the document with highlighted syntax"
+msgstr "Ar spausdinti dokumentą paryškinus sintaksę"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:308
+msgid "Font"
+msgstr "Šriftas"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:309
+msgid "GnomeFont name to use for the document text (deprecated)"
+msgstr "GnomeFont pavadinimas dokumento teksto šriftui (nebenaudotina)"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:316
+msgid "Font Description"
+msgstr "Šrifto aprašymas"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:317
+msgid "Font to use for the document text (e.g. \"Monospace 10\")"
+msgstr "Dokumento teksto šriftas (pvz., „Monospace 10“)"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:324
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:332
+msgid "Numbers Font"
+msgstr "Skaičių šriftas"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:325
+msgid "GnomeFont name to use for the line numbers (deprecated)"
+msgstr "GnomeFont vardas eilučių numeriams (nebenaudotina)"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:333
+msgid "Font description to use for the line numbers"
+msgstr "Šrifto eilučių numeriams aprašymas"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:340
+msgid "Print Line Numbers"
+msgstr "Spausdinti eilučių numerius"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:341
+msgid "Interval of printed line numbers (0 means no numbers)"
+msgstr ""
+"Eilučių numerių spausdinimo intervalas (0 reiškia nespausdinti eilučių "
+"numerių)"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:348
+msgid "Print Header"
+msgstr "Spausdinti antraštę"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:349
+msgid "Whether to print a header in each page"
+msgstr "Ar spausdinti antraštę kiekviename puslapyje"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:356
+msgid "Print Footer"
+msgstr "Spausdinti poraštę"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:357
+msgid "Whether to print a footer in each page"
+msgstr "Ar spausdinti poraštę kiekviename puslapyje"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:364
+msgid "Header and Footer Font"
+msgstr "Antraštės ir poraštės šriftas"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:365
+msgid "GnomeFont name to use for the header and footer (deprecated)"
+msgstr "GnomeFont vardas antraštei ir poraštei (nebenaudotina)"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:372
+msgid "Header and Footer Font Description"
+msgstr "Antraštės ir poraštės šrifto aprašymas"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:373
+msgid "Font to use for headers and footers (e.g. \"Monospace 10\")"
+msgstr "Šriftas antraštėms ir poraštėms (pvz., „Monospace 10“)"
+
 #: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:41
 msgid "Server:"
 msgstr "Serveris:"
@@ -701,37 +823,49 @@ msgstr ""
 "SSH sinchronizavimui reikalingas egzistuojantis šio serverio ir naudotojo "
 "SSH raktas, nurodytas SSH tarnybai."
 
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:89
+msgid "Server or username field is empty."
+msgstr "Serverio ar naudotojo vardo laukas tuščias."
+
 #: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:133
 msgid "SSH (sshfs FUSE)"
 msgstr "SSH (sshfs FUSE)"
+
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:172
+msgid ""
+"Timeout connecting to server. Please ensure that your SSH key has been added "
+"to a running SSH daemon."
+msgstr ""
+"Jungiantis prie serverio viršytas laiko limitas. Įsitikinkite, kad Jūsų SSH "
+"raktas pridėtas veikiančioje SSH tarnyboje."
 
 #: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:50
 msgid "Import from Sticky Notes"
 msgstr "Importuoti iš Lipnių raštelių"
 
-#: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:132
+#: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:133
 msgid "No Sticky Notes found"
 msgstr "Lipnių raštelių nerasta"
 
-#: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:133
+#: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:134
 #, csharp-format
 msgid "No suitable Sticky Notes file was found at \"{0}\"."
 msgstr "„{0}“ nerasta tinkamo lipnių raštelių failo."
 
-#: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:142
+#: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:143
 msgid "Sticky Notes import completed"
 msgstr "Lipnūs rašteliai importuoti"
 
-#: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:143
+#: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:144
 #, csharp-format
 msgid "<b>{0}</b> of <b>{1}</b> Sticky Notes were successfully imported."
 msgstr "<b>{0}</b> iš <b>{1}</b> lipnių raštelių sėkmingai importuota."
 
-#: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:155
+#: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:156
 msgid "Untitled"
 msgstr "Nepavadinta"
 
-#: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:183
+#: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:185
 msgid "Sticky Note: "
 msgstr "Lipnus raštelis: "
 
@@ -743,11 +877,33 @@ msgstr "URL:"
 msgid "Password:"
 msgstr "Slaptažodis:"
 
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:87
+msgid "URL, username, or password field is empty."
+msgstr "URL, naudotojo vardo arba slaptažodžio laukas tuščias."
+
 #: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:129
 msgid "WebDAV (wdfs FUSE)"
 msgstr "WebDAV (wdfs FUSE)"
 
-#: ../Tomboy/Applet.cs:191
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:167
+msgid ""
+"There was an error connecting to the server.  This may be caused by using an "
+"incorrect user name and/or password."
+msgstr ""
+"Jungiantis prie serverio įvyko klaida. Ji galėjo įvykti dėl neteisingo "
+"naudotojo vardo ir/arba slaptažodžio."
+
+#. TODO: If the above fails (no keyring daemon), save all but password
+#. to GConf, and notify user.
+#. Save configuration into GConf
+#. Preferences.Set ("/apps/tomboy/sync_wdfs_url", url ?? string.Empty);
+#. Preferences.Set ("/apps/tomboy/sync_wdfs_username", username ?? string.Empty);
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:243
+msgid ""
+"Saving configuration to the GNOME keyring failed with the following message:"
+msgstr "Nustatymų įrašymas į GNOME raktų žiedą nepavyko. Klaidos pranešimas:"
+
+#: ../Tomboy/Applet.cs:192
 msgid "_About Tomboy"
 msgstr "_Apie Tomboy"
 
@@ -907,7 +1063,7 @@ msgstr "Ištrinti"
 msgid "Delete this note"
 msgstr "Ištrinti šį raštelį"
 
-#: ../Tomboy/NoteWindow.cs:480 ../Tomboy/Synchronization/SyncManager.cs:158
+#: ../Tomboy/NoteWindow.cs:480 ../Tomboy/Synchronization/SyncManager.cs:161
 msgid "Synchronize Notes"
 msgstr "Sinchronizoti raštelius"
 
@@ -1149,19 +1305,15 @@ msgstr ""
 "parametrai dabar bus išvalyti. Išsaugoję naujus parametrus galite būti "
 "priversti sinchronizuoti visus savo raštelius dar kartą."
 
-#: ../Tomboy/PreferencesDialog.cs:1115
+#: ../Tomboy/PreferencesDialog.cs:1128
 msgid "Success! You're connected!"
 msgstr "Jūs sėkmingai prisijungėte!"
 
-#: ../Tomboy/PreferencesDialog.cs:1117
+#: ../Tomboy/PreferencesDialog.cs:1130
 msgid "Tomboy is ready to synchronize your notes."
 msgstr "Tomboy paruošta sinchronizuoti jūsų raštelius."
 
-#: ../Tomboy/PreferencesDialog.cs:1140
-msgid "Error connecting :("
-msgstr "Klaida jungiantis :("
-
-#: ../Tomboy/PreferencesDialog.cs:1142
+#: ../Tomboy/PreferencesDialog.cs:1149
 msgid ""
 "Sorry, but something went wrong.  Please check your information and try "
 "again.  The ~/.tomboy.log might be useful too."
@@ -1169,19 +1321,23 @@ msgstr ""
 "Atsiprašome, tačiau kažkas negerai. Patikrinkite savo informaciją ir "
 "bandykite dar kartą. Taip pat gali būti naudingas failas ~/.tomboy.log."
 
-#: ../Tomboy/PreferencesDialog.cs:1208
+#: ../Tomboy/PreferencesDialog.cs:1158
+msgid "Error connecting :("
+msgstr "Klaida jungiantis :("
+
+#: ../Tomboy/PreferencesDialog.cs:1225
 msgid "Version:"
 msgstr "Versija:"
 
-#: ../Tomboy/PreferencesDialog.cs:1215
+#: ../Tomboy/PreferencesDialog.cs:1232
 msgid "Author:"
 msgstr "Autorius:"
 
-#: ../Tomboy/PreferencesDialog.cs:1222
+#: ../Tomboy/PreferencesDialog.cs:1239
 msgid "Copyright:"
 msgstr "Autorinės teisės:"
 
-#: ../Tomboy/PreferencesDialog.cs:1228
+#: ../Tomboy/PreferencesDialog.cs:1245
 msgid "Add-in Dependencies:"
 msgstr "Priedo priklausomybės:"
 
@@ -1225,27 +1381,27 @@ msgstr[0] "{0} atitikmuo"
 msgstr[1] "{0} atitikmenys"
 msgstr[2] "{0} atitkmenų"
 
-#: ../Tomboy/Tomboy.cs:194
+#: ../Tomboy/Tomboy.cs:195
 msgid "Cannot create new note"
 msgstr "Nepavyko sukurti naujo raštelio"
 
-#: ../Tomboy/Tomboy.cs:265
+#: ../Tomboy/Tomboy.cs:266
 msgid "translator-credits"
 msgstr "Žygimantas Beručka <zygis@gnome.org>"
 
-#: ../Tomboy/Tomboy.cs:274
+#: ../Tomboy/Tomboy.cs:275
 msgid "Copyright © 2004-2007 Alex Graveley"
 msgstr "Autorinės teisės priklauso © 2004-2007 Alex Graveley"
 
-#: ../Tomboy/Tomboy.cs:275
+#: ../Tomboy/Tomboy.cs:276
 msgid "A simple and easy to use desktop note-taking application."
 msgstr "Paprasta ir lengva naudoti aplinkos užrašinė."
 
-#: ../Tomboy/Tomboy.cs:278
+#: ../Tomboy/Tomboy.cs:279
 msgid "Homepage"
 msgstr "Tinklalapis"
 
-#: ../Tomboy/Tomboy.cs:369
+#: ../Tomboy/Tomboy.cs:376
 msgid ""
 "Tomboy: A simple, easy to use desktop note-taking application.\n"
 "Copyright (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
@@ -1255,7 +1411,7 @@ msgstr ""
 "Autorinės teisės (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
 "\n"
 
-#: ../Tomboy/Tomboy.cs:381
+#: ../Tomboy/Tomboy.cs:388
 msgid ""
 "Usage:\n"
 "  --version\t\t\tPrint version information.\n"
@@ -1270,7 +1426,7 @@ msgstr ""
 "  --search [tekstas]\t\tAtverti paieškos visuose rašteliuose langą su "
 "paieškos tekstu.\n"
 
-#: ../Tomboy/Tomboy.cs:392
+#: ../Tomboy/Tomboy.cs:399
 msgid ""
 "  --new-note\t\t\tCreate and display a new note.\n"
 "  --new-note [title]\t\tCreate and display a new note, with a title.\n"
@@ -1293,16 +1449,16 @@ msgstr ""
 #. Catalog.GetString (
 #. "  --check-plugin-unloading\tCheck if plugins are " +
 #. "unloaded properly.\n");
-#: ../Tomboy/Tomboy.cs:409
+#: ../Tomboy/Tomboy.cs:416
 msgid "D-BUS remote control disabled.\n"
 msgstr "D-BUS nutolęs valdymas išjungtas.\n"
 
-#: ../Tomboy/Tomboy.cs:417
+#: ../Tomboy/Tomboy.cs:424
 #, csharp-format
 msgid "Version {0}"
 msgstr "Versija {0}"
 
-#: ../Tomboy/Tomboy.cs:487
+#: ../Tomboy/Tomboy.cs:494
 #, csharp-format
 msgid ""
 "Tomboy: unsupported option '{0}'\n"
@@ -1431,102 +1587,127 @@ msgstr "_Kopijuoti nuorodos adresą"
 msgid "_Open Link"
 msgstr "_Atverti nuorodą"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:91
-msgid "Note Title"
-msgstr "Raštelio pavadinimas"
+#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:91
+#, csharp-format
+msgid ""
+"This synchronization addin is not supported on your computer. Please make "
+"sure you have FUSE and {0} correctly installed and configured"
+msgstr ""
+"Šis sinchronizacijos įskiepis Jūsų kompiuteryje nepalaikomas. Įsitikinkite, "
+"kad FUSE ir {0} įdiegti ir sukonfigūruoti"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:98
-msgid "Status"
-msgstr "Būsena"
+#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:173
+msgid "Timeout connecting to server."
+msgstr "Jungiantis prie serverio viršytas laiko limitas."
 
-#. Drop all that into into the Expander
-#: ../Tomboy/Synchronization/SyncDialog.cs:117
+#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:181
+msgid "Error connecting to server."
+msgstr "Klaida jungiantis prie serverio."
+
+#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:195
+msgid "FUSE could not be enabled."
+msgstr "Nepavyko įjungti FUSE."
+
+#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:225
+msgid "An error ocurred while connecting to the specified server:"
+msgstr "Jungiantis prie nurodyto serverio įvyko klaida:"
+
+#. Expander containing TreeView
+#: ../Tomboy/Synchronization/SyncDialog.cs:89
 msgid "Details"
 msgstr "Išsami informacija"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:235
+#: ../Tomboy/Synchronization/SyncDialog.cs:119
+msgid "Note Title"
+msgstr "Raštelio pavadinimas"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:126
+msgid "Status"
+msgstr "Būsena"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:237
 msgid "Acquiring sync lock..."
 msgstr "Gaunamas sinchronizavimo užraktas..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:238
+#: ../Tomboy/Synchronization/SyncDialog.cs:240
 msgid "Committing changes..."
 msgstr "Perduodami pakeitimai..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:241
+#: ../Tomboy/Synchronization/SyncDialog.cs:243
 msgid "Synchronizing Notes"
 msgstr "Sinchronizuojami rašteliai"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:242
+#: ../Tomboy/Synchronization/SyncDialog.cs:244
 msgid "Synchronizing your notes..."
 msgstr "Sinchronizuojami jūsų rašteliai..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:243
+#: ../Tomboy/Synchronization/SyncDialog.cs:245
 msgid "This may take a while, kick back and enjoy!"
 msgstr "Tai gali šiek tiek užtrukti."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:245
+#: ../Tomboy/Synchronization/SyncDialog.cs:247
 msgid "Connecting to the server..."
 msgstr "Jungiamasi prie serverio..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:251
+#: ../Tomboy/Synchronization/SyncDialog.cs:253
 msgid "Deleting notes off of the server..."
 msgstr "Trinami rašteliai iš serverio..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:255
+#: ../Tomboy/Synchronization/SyncDialog.cs:257
 msgid "Downloading new/updated notes..."
 msgstr "Atsiunčiami nauji / atnaujinti rašteliai..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:267
+#: ../Tomboy/Synchronization/SyncDialog.cs:269
 msgid "Server Locked"
 msgstr "Serveris užrakintas"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:268
+#: ../Tomboy/Synchronization/SyncDialog.cs:270
 msgid "Server is locked"
 msgstr "Serveris užrakintas"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:269
+#: ../Tomboy/Synchronization/SyncDialog.cs:271
 msgid ""
-"One of your other computers is currently synchronizing.  Please wait and try "
-"again."
+"One of your other computers is currently synchronizing.  Please wait 2 "
+"minutes and try again."
 msgstr ""
-"Vienas iš kitų jūsų kompiuterių dabar sinchronizuoja. Palaukite ir bandykite "
-"dar kartą."
+"Vienas iš kitų Jūsų kompiuterių dabar vykdo sinchronizavimą. Palaukite porą "
+"minučių ir bandykite dar kartą."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:273
+#: ../Tomboy/Synchronization/SyncDialog.cs:275
 msgid "Preparing to download updates from server..."
 msgstr "Ruošiamasi iš serverio atsiųsti atnaujinimus..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:276
+#: ../Tomboy/Synchronization/SyncDialog.cs:278
 msgid "Preparing to upload updates to server..."
 msgstr "Ruošiamasi į serverį siųsti atnaujinimus..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:279
+#: ../Tomboy/Synchronization/SyncDialog.cs:281
 msgid "Uploading notes to server..."
 msgstr "Rašteliai siunčiami į serverį..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:282
+#: ../Tomboy/Synchronization/SyncDialog.cs:284
 msgid "Synchronization Failed"
 msgstr "Sinchronizavimas nesėkmingas"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:283
+#: ../Tomboy/Synchronization/SyncDialog.cs:285
 msgid "Failed to synchronize"
 msgstr "Sinchronizuoti nepavyko"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:284
+#: ../Tomboy/Synchronization/SyncDialog.cs:286
 msgid "Could not synchronize notes.  Check the details below and try again."
 msgstr ""
 "Nepavyko sinchronizuoti raštelių. Žiūrėkite žemiau esančią informaciją ir "
 "bandykite dar kartą."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:291
+#: ../Tomboy/Synchronization/SyncDialog.cs:292
 msgid "Synchronization Complete"
 msgstr "Sinchronizavimas baigtas"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:292
+#: ../Tomboy/Synchronization/SyncDialog.cs:293
 msgid "Synchronization is complete"
 msgstr "Sinchronizavimas baigtas"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:294
+#: ../Tomboy/Synchronization/SyncDialog.cs:295
 #, csharp-format
 msgid "{0} note updated."
 msgid_plural "{0} notes updated."
@@ -1534,101 +1715,101 @@ msgstr[0] "Atnaujintas {0} raštelis."
 msgstr[1] "Atnaujinti {0} rašteliai."
 msgstr[2] "Atnaujinta {0} raštelių."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:299
+#: ../Tomboy/Synchronization/SyncDialog.cs:300
 msgid "Your notes are now up to date."
 msgstr "Jūsų rašteliai yra naujausi."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:303
+#: ../Tomboy/Synchronization/SyncDialog.cs:304
 msgid "Synchronization Canceled"
 msgstr "Sinchronizavimas atšauktas"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:304
+#: ../Tomboy/Synchronization/SyncDialog.cs:305
 msgid "Synchronization was canceled"
 msgstr "Sinchronizavimas buvo atšauktas"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:305
+#: ../Tomboy/Synchronization/SyncDialog.cs:306
 msgid "You canceled the synchronization.  You may close the window now."
 msgstr "Jūs atšaukėte sinchronizavimą. Dabar galite užverti šį langą."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:309
+#: ../Tomboy/Synchronization/SyncDialog.cs:310
 msgid "Synchronization Not Configured"
 msgstr "Sinchronizavimas nesukonfigūruotas"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:310
+#: ../Tomboy/Synchronization/SyncDialog.cs:311
 msgid "Synchronization is not configured"
 msgstr "Sinchronizavimas nesukonfigūruotas"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:311
+#: ../Tomboy/Synchronization/SyncDialog.cs:312
 msgid "Please configure synchronization in the preferences dialog."
 msgstr "Sukonfigūruokite sinchronizavimą nustatymų lange."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:315
+#: ../Tomboy/Synchronization/SyncDialog.cs:316
 msgid "Synchronization Service Error"
 msgstr "Sinchronizavimo tarnybos klaida"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:316
+#: ../Tomboy/Synchronization/SyncDialog.cs:317
 msgid "Service error"
 msgstr "Tarnybos klaida"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:317
+#: ../Tomboy/Synchronization/SyncDialog.cs:318
 msgid "Error connecting to the synchronization service.  Please try again."
 msgstr "Klaida jungiantis prie sinchronizavimo tarnybos. Bandykite dar kartą."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:334
+#: ../Tomboy/Synchronization/SyncDialog.cs:335
 msgid "Deleted locally"
 msgstr "Ištrinta vietiniame kompiuteryje"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:337
-msgid "Deleting from server"
-msgstr "Trinama iš serverio"
+#: ../Tomboy/Synchronization/SyncDialog.cs:338
+msgid "Deleted from server"
+msgstr "Ištrinta iš serverio"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:340
+#: ../Tomboy/Synchronization/SyncDialog.cs:341
 msgid "Updated"
 msgstr "Atnaujinta"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:343
+#: ../Tomboy/Synchronization/SyncDialog.cs:344
 msgid "Added"
 msgstr "Pridėta"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:346
-msgid "Uploading changes to server"
-msgstr "Į serverį siunčiami pakeitimai"
+#: ../Tomboy/Synchronization/SyncDialog.cs:347
+msgid "Uploaded changes to server"
+msgstr "Į serverį nusiųsti pakeitimai"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:349
-msgid "Uploading new note to server"
-msgstr "Į serverį siunčiamas naujas raštelis"
+#: ../Tomboy/Synchronization/SyncDialog.cs:350
+msgid "Uploaded new note to server"
+msgstr "Į serverį nusiųstas naujas raštelis"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:481
+#: ../Tomboy/Synchronization/SyncDialog.cs:498
 msgid "Note Conflict"
 msgstr "Raštelių konfliktas"
 
 #. Suggest renaming note by appending " (old)" to the existing title
-#: ../Tomboy/Synchronization/SyncDialog.cs:485
+#: ../Tomboy/Synchronization/SyncDialog.cs:504
 msgid " (old)"
 msgstr " (senas)"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:524
+#: ../Tomboy/Synchronization/SyncDialog.cs:543
 msgid "Rename local note:"
 msgstr "Pervadinti vietinį raštelį:"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:530
+#: ../Tomboy/Synchronization/SyncDialog.cs:549
 msgid "Update links in referencing notes"
 msgstr "Atnaujinti nuorodas į nurodų raštelius"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:537
+#: ../Tomboy/Synchronization/SyncDialog.cs:556
 msgid "Overwrite local note"
 msgstr "Perrašyti vietinį raštelį"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:541
+#: ../Tomboy/Synchronization/SyncDialog.cs:560
 msgid "Always perform this action"
 msgstr "Visada atlikti šį veiksmą"
 
 #. Set initial dialog text
-#: ../Tomboy/Synchronization/SyncDialog.cs:548
+#: ../Tomboy/Synchronization/SyncDialog.cs:566
 msgid "Note conflict detected"
 msgstr "Aptiktas raštelių konfliktas"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:549
+#: ../Tomboy/Synchronization/SyncDialog.cs:567
 #, csharp-format
 msgid ""
 "The server version of \"{0}\" conflicts with your local note.  What do you "
@@ -1637,7 +1818,7 @@ msgstr ""
 "Serveryje esanti „{0}“ versija konfliktuoja su jūsų vietiniu rašteliu. Ką "
 "daryti su jūsų vietiniu rašteliu?"
 
-#: ../Tomboy/Synchronization/SyncManager.cs:156
+#: ../Tomboy/Synchronization/SyncManager.cs:159
 msgid "_Tools"
 msgstr "Į_rankiai"
 
@@ -1670,9 +1851,3 @@ msgid ""
 msgstr ""
 "Nepavyko įkelti FUSE modulio. Patikrinkite, ar jis tinkamai įdiegtas ir "
 "bandykite dar kartą."
-
-#~ msgid "Downloading updates from server"
-#~ msgstr "Iš serverio atsiunčiami atnaujinimai"
-
-#~ msgid "Downloading new note from server"
-#~ msgstr "Iš serverio atsiunčiamas naujas raštelis"
