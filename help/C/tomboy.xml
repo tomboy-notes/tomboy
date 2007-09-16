@@ -869,53 +869,51 @@
     <para>Tomboy can now keep your notes synchronized between multiple
     computers by relying on a central server.</para>
 
-    <sect2 id="sync-configure-webdav">
-      <title>Configure note synchronization (WebDAV)</title>
+    <sect2 id="sync-configure">
+      <title>Configure note synchronization</title>
+
+      <para>You can configure your note synchronization preferences in the
+      <guilabel>Synchronization</guilabel> tab of the <interface>Tomboy Preferences</interface>
+      dialog. Default conflict handling behavior can be configured by selecting the
+      <guibutton>Advanced...</guibutton> button.</para>
+
+    <sect3 id="sync-configure-webdav">
+      <title>Configure note synchronization service (WebDAV)</title>
         
       <para>In order to synchronize your notes with a WebDAV server, you will need
-      the wdfs FUSE filesystem installed.  Follow the documentation for your operating
+      the wdfs FUSE file system installed.  Follow the documentation for your operating
       system to set up FUSE for your user.  You will also need the GNOME Keyring installed.</para>
       
-      <para>In the <interface>Tomboy Preferences</interface> dialog, switch to the
-      <guilabel>Synchronization</guilabel> tab.  Choose <guimenuitem>WebDAV</guimenuitem> from the
-      <guilabel>Service</guilabel> dropdown menu.</para>
-      
-      <para>Fill in the information for your server, and then select the
+      <para>Choose <guimenuitem>WebDAV</guimenuitem> from the <guilabel>Service</guilabel>
+      dropdown menu. Fill in the connection information for your server, and then select the
       <guibutton>Save</guibutton> button.  You are now ready to synchronize your notes.</para>
-    </sect2>
+    </sect3>
 
-    <sect2 id="sync-configure-ssh">
-      <title>Configure note synchronization (SSH)</title>
+    <sect3 id="sync-configure-ssh">
+      <title>Configure note synchronization service (SSH)</title>
         
       <para>In order to synchronize your notes with an SSH server, you will need
-      the sshfs FUSE filesystem installed.  Follow the documentation for your operating
+      the sshfs FUSE file system installed.  Follow the documentation for your operating
       system to set up FUSE for your user.  You will also need an SSH key for your
       SSH server account, which should be added to a running SSH daemon.  This can be
       done using GNOME's <application>Seahorse</application> application.</para>
       
-      <para>In the <interface>Tomboy Preferences</interface> dialog, switch to the
-      <guilabel>Synchronization</guilabel> tab.  Choose <guimenuitem>SSH</guimenuitem> from the
-      <guilabel>Service</guilabel> dropdown menu.</para>
-      
-      <para>Fill in the information for your server, and then select the
+      <para>Choose <guimenuitem>SSH</guimenuitem> from the <guilabel>Service</guilabel>
+      dropdown menu. Fill in the connection information for your server, and then select the
       <guibutton>Save</guibutton> button.  You are now ready to synchronize your notes.</para>
-      
-      <para></para>
-    </sect2>
+    </sect3>
 
-    <sect2 id="sync-configure-localfolder">
-      <title>Configure note synchronization (Local Folder)</title>
+    <sect3 id="sync-configure-localfolder">
+      <title>Configure note synchronization service (Local Folder)</title>
         
       <para>You may want to synchronize your notes to a local folder if that folder
       is available to your other systems, or if that folder represents a local mount
       of a remote server.</para>
       
-      <para>In the <interface>Tomboy Preferences</interface> dialog, switch to the
-      <guilabel>Synchronization</guilabel> tab.  Choose <guimenuitem>Local Folder</guimenuitem> from the
-      <guilabel>Service</guilabel> dropdown menu.</para>
-      
-      <para>Fill in the information for your server, and then select the
+      <para>Choose <guimenuitem>Local Folder</guimenuitem> from the <guilabel>Service</guilabel>
+      dropdown menu. Choose the desired synchronization <guilabel>Folder Path</guilabel>, and then select the
       <guibutton>Save</guibutton> button.  You are now ready to synchronize your notes.</para>
+    </sect3>
     </sect2>
 
     <sect2 id="sync-initiate">
@@ -934,12 +932,12 @@
       <title>Handling synchronization conflicts</title>
       
       <para>When synchronizing notes between multiple computers, conflicts may occur.
-      Usually this is the result of not synchronizing regulary when switching between
+      Usually this is the result of not synchronizing regularly when switching between
       systems.  Tomboy will detect conflicts in the content of your notes and help
       you to avoid loss of important data.</para>
       
-      <para>If a confilct is detected during note synchronization, the
-      <interface>Note Conflict</interface> dialog will appear.  If you don't need the
+      <para>If a conflict is detected during note synchronization, the
+      <interface>Note Conflict</interface> dialog will appear.  If you do not need the
       changes you made in your local note, you can select
       <guilabel>Overwrite local note</guilabel>.  If you would like to keep your local
       changes in a new note, select <guilabel>Rename local note</guilabel>.</para>
