@@ -10,7 +10,6 @@ namespace Tomboy.Tasks
 	public class TasksNoteAddin : NoteAddin
 	{
 #region Members
-//		TaskManager task_mgr;
 		TaskTag last_removed_tag;
 		
 		// Each time the mouse is clicked in the TextView, update the click_mark
@@ -19,9 +18,6 @@ namespace Tomboy.Tasks
 		Gtk.TextMark click_mark;
 		
 		Dictionary<Task, TaskOptionsDialog> options_dialogs;
-		
-		// Use this variable to track the GLib.Idle.Add call to ProcessNewline
-		uint prev_line_handler;
 		
 		const string TASK_REGEX = 
 			@"(^\s*{0}:.*$)";
@@ -36,7 +32,6 @@ namespace Tomboy.Tasks
 					string.Format (TASK_REGEX,
 					Catalog.GetString ("todo")),
 					RegexOptions.IgnoreCase | RegexOptions.Compiled
-//					   | RegexOptions.Multiline);
 					   | RegexOptions.Singleline);
 		}
 #endregion // Constructors
@@ -53,8 +48,6 @@ namespace Tomboy.Tasks
 			TaskManager.TaskStatusChanged += OnTaskStatusChanged;
 			
 			options_dialogs = new Dictionary<Task, TaskOptionsDialog> ();
-			
-			prev_line_handler = 0;
 		}
 		
 		public override void Shutdown ()
@@ -66,6 +59,7 @@ namespace Tomboy.Tasks
 			if (Note.HasBuffer) {
 				Buffer.InsertText -= OnInsertText;
 				Buffer.DeleteRange -= OnDeleteRange;
+				Buffer.DeleteRange -= OnDeleteRangeConnectBefore;
 				Buffer.TagRemoved -= OnTagRemoved;
 			}
 			
@@ -80,6 +74,7 @@ namespace Tomboy.Tasks
 		{
 			Buffer.InsertText += OnInsertText;
 			Buffer.DeleteRange += OnDeleteRange;
+			Buffer.DeleteRange += OnDeleteRangeConnectBefore;
 			Buffer.TagRemoved += OnTagRemoved;
 
 			Window.Editor.ButtonPressEvent += OnButtonPress;
@@ -114,7 +109,15 @@ namespace Tomboy.Tasks
 		void ApplyTaskTagToBlock (ref Gtk.TextIter start, Gtk.TextIter end)
 		{
 			Gtk.TextIter line_end = start;
-			line_end.ForwardToLineEnd ();
+			while (line_end.EndsLine () == false) {
+				line_end.ForwardChar ();
+			}
+			// For some reason, the above code behaves like it should (i.e.,
+			// without advancing to the next line).  The line below that's
+			// commented out doesn't work.  It ends up advancing the iter to
+			// the end of the next line.  Very strange!
+//			line_end.ForwardToLineEnd ();
+
 			
 			TaskTag task_tag = GetTaskTagFromLineIter (ref start);
 			
@@ -155,10 +158,9 @@ namespace Tomboy.Tasks
 				task = task_mgr.FindByUri (task_tag.Uri);
 				if (task != null) {
 					task_mgr.Delete (task);
-					last_removed_tag = null;
-				} else {
-					last_removed_tag = null;
 				}
+
+				last_removed_tag = null;
 			}
 		}
 		
@@ -212,8 +214,6 @@ namespace Tomboy.Tasks
 		/// </summary>
 		bool ProcessNewline ()
 		{
-			prev_line_handler = 0;
-			
 			Gtk.TextIter iter = Buffer.GetIterAtMark (Buffer.InsertMark);
 			Gtk.TextIter prev_line = iter;
 			if (prev_line.BackwardLine () == false)
@@ -242,43 +242,160 @@ namespace Tomboy.Tasks
 				// If the previous line's task summary is not empty, create a new
 				// task on the current line.
 				
-				Buffer.InsertAtCursor (
-						string.Format ("{0}: ",
-								Catalog.GetString ("todo")));
+				// I'm disabling the following code for now.  It automatically
+				// starts up a new task on the newline.  But since this modifies
+				// the buffer, it sometimes causes problems.
+				// TODO: Make the auto-newline work
+//				Buffer.InsertAtCursor (
+//						string.Format ("{0}: ",
+//								Catalog.GetString ("todo")));
 			}
 			
-			return false;
+			return true; // The buffer was modified
 		}
 		
 		/// <summary>
-		/// Delete the task tag on the line specified by the TextIter.
+		/// Remove the task from the line specified by the TextIter.  This
+		/// will remove the TextTag and also the "todo:" portion of the line
+		/// so it will no longer be a task.  The task summary text will be
+		/// left on the line.
 		/// <param name="iter">The TextIter specifying the line where the
-		/// TaskTag should be removed.</param>
-		/// <returns>True if a TaskTag was removed, otherwise False.</returns>
+		/// task should be removed.</param>
+		/// <returns>True if a task was removed, otherwise False.</returns>
 		/// </summary>
-		bool RemoveTaskTagFromLine (ref Gtk.TextIter iter)
+		bool RemoveTaskFromLine (ref Gtk.TextIter iter)
 		{
-			TaskTag task_tag = GetTaskTagFromLineIter (ref iter);
-			if (task_tag == null)
+			if (RemoveTaskTagFromLine (iter) == false)
 				return false;
-
+			
 			while (iter.StartsLine () == false) {
 				iter.BackwardChar ();
 			}
 			
 			Gtk.TextIter line_end = iter;
-			line_end.ForwardToLineEnd ();
+			while (line_end.EndsLine () == false) {
+				line_end.ForwardChar ();
+			}
+//			line_end.ForwardToLineEnd ();
 			
 			string text = iter.GetText (line_end);
 			
 			Buffer.Delete (ref iter, ref line_end);
-			last_removed_tag = null;
-			Buffer.RemoveTag (task_tag, iter, line_end);
 			
 			text = GetTaskSummaryFromLine (text);
 			if (text.Length > 0)
 				Buffer.Insert (ref iter, text);
 			return true;
+		}
+		
+		/// <summary>
+		/// Remove the task tag on the line specified by the TextIter.  This
+		/// will not remove the "todo:" text (i.e., it will not modify the
+		/// actual characters of the TextBuffer.
+		/// <param name="iter">The TextIter specifying the line where the
+		/// TaskTag should be removed.</param>
+		/// <returns>True if a TaskTag was removed, otherwise False.</returns>
+		/// </summary>
+		bool RemoveTaskTagFromLine (Gtk.TextIter iter)
+		{
+			Gtk.TextIter start = iter;
+			Gtk.TextIter end = iter;
+			TaskTag task_tag = GetTaskTagFromLineIter (ref start);
+			if (task_tag == null)
+				return false;
+
+			while (start.StartsLine () == false) {
+				start.BackwardChar ();
+			}
+			
+			while (end.EndsLine () == false) {
+				end.ForwardChar ();
+			}
+//			end.ForwardToLineEnd ();
+			last_removed_tag = null;
+			Buffer.RemoveTag (task_tag, start, end);
+			return true;
+		}
+		
+		/// <summary>
+		/// This method should be called during a large deletion of a
+		/// range of text so it can properly remove all the task tags.
+		/// </summary>
+		void RemoveTaskTagsFromRange (Gtk.TextIter start, Gtk.TextIter end)
+		{
+			TaskTag task_tag;
+			Gtk.TextIter line;
+			Gtk.TextIter line_start;
+			Gtk.TextIter line_end;
+			if (start.Line == end.Line) {
+				// The iters are on the same line.
+				
+				// If there's only one character being deleted, don't do
+				// anything here.  This condition will be taken care of
+				// in ApplyTaskTagToBlock ().
+				if (end.LineOffset - start.LineOffset == 1) {
+					return;
+				}
+				
+				// Determine whether this line contains a TaskTag.  If it
+				// does, determine whether deleting the range will delete
+				// the todo.
+				line = start;
+				task_tag = GetTaskTagFromLineIter (ref line);
+				if (task_tag != null) {
+					if (start.LineIndex == 0) {
+						// Start iter is at beginning of line
+						if (end.LineOffset >= Catalog.GetString ("todo:").Length) {
+							RemoveTaskTagFromLine (start);
+						}
+					} else if (start.LineIndex < Catalog.GetString ("todo:").Length) {
+						// The start of the range is inside the "todo:" area,
+						// so the TaskTag needs to be removed.
+						RemoveTaskTagFromLine (start);
+					} else {
+						// Do nothing.  The deletion is just inside the
+						// summary of the task.
+					}
+				}
+			} else {
+				// The iters are on different lines
+				
+				line = start;
+				do {
+					task_tag = GetTaskTagFromLineIter (ref line);
+					if (task_tag != null) {
+						// Handle the first and last lines special since their
+						// range may not span the entire line.
+						if (line.Line == start.Line) {
+							// This is the first line
+							line_end = line;
+							while (line_end.EndsLine () == false) {
+								line_end.ForwardChar ();
+							}
+//							line_end.ForwardToLineEnd ();
+							RemoveTaskTagsFromRange (start, line_end);
+						} else if (line.Line == end.Line) {
+							// This is the last line
+							line_start = line;
+							while (line_start.StartsLine () == false) {
+								line_start.BackwardChar ();
+							}
+							RemoveTaskTagsFromRange (line_start, end);
+						} else {
+							// This line is in the middle of the range
+							// so it's completely safe to remove the TaskTag
+							RemoveTaskTagFromLine (line);
+						}
+
+						// Delete the task
+						TaskManager task_mgr = TasksApplicationAddin.DefaultTaskManager;
+						Task task = task_mgr.FindByUri (task_tag.Uri);
+						if (task != null) {
+							task_mgr.Delete (task);
+						}
+					}
+				} while (line.ForwardLine () && line.Line <= end.Line);
+			}
 		}
 #endregion // Private Methods
 
@@ -306,7 +423,7 @@ namespace Tomboy.Tasks
 					if (task_tag.Uri != task.Uri)
 						continue;
 					
-					RemoveTaskTagFromLine (ref iter);
+					RemoveTaskFromLine (ref iter);
 					break;
 				}
 			} while (iter.ForwardLine());
@@ -342,7 +459,10 @@ namespace Tomboy.Tasks
 					while (line_start.StartsLine () == false)
 						line_start.BackwardChar ();
 					Gtk.TextIter line_end = iter;
-					line_end.ForwardToLineEnd ();
+					while (line_end.EndsLine () == false) {
+						line_end.ForwardChar ();
+					}
+//					line_end.ForwardToLineEnd ();
 					
 					Buffer.Delete (ref line_start, ref line_end);
 					last_removed_tag = task_tag;
@@ -383,7 +503,13 @@ namespace Tomboy.Tasks
 				}
 			} while (iter.ForwardLine());
 		}
-
+		
+		[GLib.ConnectBeforeAttribute]
+		void OnDeleteRangeConnectBefore (object sender, Gtk.DeleteRangeArgs args)
+		{
+			RemoveTaskTagsFromRange (args.Start, args.End);
+		}
+		
 		void OnDeleteRange (object sender, Gtk.DeleteRangeArgs args)
 		{
 			Gtk.TextIter start = args.Start;
@@ -402,18 +528,50 @@ namespace Tomboy.Tasks
 //				args.Pos.Line);
 
 			if (args.Length == 1 && args.Text == "\n") {
+				Gtk.TextIter curr_line = args.Pos;
+				TaskTag task_tag = GetTaskTagFromLineIter (ref curr_line);
+
 				Gtk.TextIter prev_line = args.Pos;
 				prev_line.BackwardLine ();
-				TaskTag task_tag = GetTaskTagFromLineIter (ref prev_line);
+				/*TaskTag*/ task_tag = GetTaskTagFromLineIter (ref prev_line);
 				if (task_tag != null) {
 					// If the user just entered a newline and the previous
 					// line was a task, do some special processing...but
 					// we have to do it on idle since there are other
 					// Buffer.InsertText handlers that we'll screw up if
 					// we modify anything here.
-					if (prev_line_handler != 0)
-						GLib.Source.Remove (prev_line_handler);
-					prev_line_handler = GLib.Idle.Add (ProcessNewline);
+					args.RetVal = ProcessNewline ();
+				} else {
+					// Check to see if the previous line is a todo: line
+					while (prev_line.StartsLine () == false) {
+						prev_line.BackwardChar ();
+					}
+					
+					Gtk.TextIter prev_line_end = prev_line;
+					while (prev_line_end.EndsLine () == false) {
+						prev_line_end.ForwardChar ();
+					}
+					
+					string prev_line_text = prev_line.GetText (prev_line_end);
+					
+					Match match = regex.Match (prev_line_text);
+					if (match.Success && last_removed_tag != null) {
+						TaskManager task_mgr = TasksApplicationAddin.DefaultTaskManager;
+						Task task;
+
+						task = task_mgr.FindByUri (last_removed_tag.Uri);
+						if (task != null) {
+							// Update the task's summary and make sure that
+							// the previous line is appropriately tagged.
+							string summary = GetTaskSummaryFromLine (prev_line_text);
+							task.Summary = summary;
+							Buffer.ApplyTag (last_removed_tag, prev_line, prev_line_end);
+						} else {
+							Logger.Debug ("Shouldn't ever hit this code (hopefully)");
+						}
+					}
+					
+					last_removed_tag = null;
 				}
 			} else {
 				ApplyTaskTagToBlock (ref start, args.Pos);
