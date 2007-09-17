@@ -18,6 +18,7 @@ ASSEMBLIES = 					\
 TASKS_TARGET = Tasks.dll
 TASKS_CSFILES = \
 	$(srcdir)/CellRendererDate.cs \
+	$(srcdir)/ComplexMenuItem.cs \
 	$(srcdir)/DateButton.cs \
 	$(srcdir)/Task.cs \
 	$(srcdir)/TasksApplicationAddin.cs \

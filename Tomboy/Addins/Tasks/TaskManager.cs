@@ -168,6 +168,26 @@ namespace Tomboy.Tasks
 				} while (tasks.IterNext (ref iter));
 			}
 		}
+		
+		/// <summary>
+		/// Return a list of tasks whose origin note is the note specified.
+		/// </summary>
+		public List<Task> GetTasksForNote (Note note)
+		{
+			List<Task> list = new List<Task> ();
+			
+			Gtk.TreeIter iter;
+			if (tasks.GetIterFirst (out iter)) {
+				do {
+					Task task = tasks.GetValue (iter, 0) as Task;
+					if (task.OriginNoteUri != null &&
+							task.OriginNoteUri.CompareTo (note.Uri) == 0)
+						list.Add (task);
+				} while (tasks.IterNext (ref iter));
+			}
+			
+			return list;
+		}
 	#endregion // Public Methods
 
 	#region Events

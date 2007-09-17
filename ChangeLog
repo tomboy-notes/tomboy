@@ -1,3 +1,34 @@
+2007-09-17  Boyd Timothy <btimothy@gmail.com>
+
+	These changes come from the Tasks Addin fixups patch from
+	bug #462626:
+
+	* configure.in: Re-enabled Tomboy/Addins/Tasks/Makefile.
+	* Tomboy/Addins/Tasks/ComplexMenuItem.cs: New file that allows
+	  proper checkbuttons to appear in Tomboy's main tray icon menu.
+	* Tomboy/Addins/Tasks/TasksNoteAddin.cs: Changed the code to attempt
+	  to not modify the buffer mid-stream during events so it wouldn't
+	  corrupt the TextIter.  Added code to handle deleting tasks when
+	  the user highlights a range of text that incapsulates multiple
+	  tasks.
+	* Tomboy/Addins/Tasks/TaskListWindow.cs: Allow the due date and
+	  priority columns in the Todo list window to be turned off (they
+	  are off by default).  Also have an option to show completed tasks.
+	  Completed tasks are not shown by default.
+	* Tomboy/Addins/Tasks/TaskManager.cs: Added GetTasksForNote (Note note)
+	  for easy task lookup by note.
+	* Tomboy/Addins/Tasks/Tasks.addin.xml: Change the addin category to
+	  'Tools' and enable by default.
+	* Tomboy/Addins/Tasks/Makefile.am: Add ComplexMenuItem.cs.
+	* Tomboy/Addins/Tasks/TasksUIManagerLayout.xml: Added menu items for
+	  showing completed tasks, showing the due date and showing the
+	  priority in the todo list window.
+	* Tomboy/Addins/Tasks/TasksApplicationAddin.cs: Add the top five open
+	  tasks to Tomboy's tray icon menu.
+	* Tomboy/Addins/Makefile.am: Build the Tasks addin.
+	* data/UIManagerLayout.xml: Add placeholder items into tomboy's main
+	  trayicon menu so that addins can easily add extra items.
+
 2007-09-17  Sandy Armstrong <sanfordarmstrong@gmail.com> 
 
 	* configure.in: Bumping trunk version to 0.9.0.  Start your engines!

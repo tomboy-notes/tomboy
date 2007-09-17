@@ -1,5 +1,6 @@
 
 using System;
+using System.Collections.Generic;
 using Gtk;
 using Mono.Unix;
 using Tomboy;
@@ -14,9 +15,13 @@ namespace Tomboy.Tasks
 			DueDate,
 			CompletionDate,
 			Priority,
-			OriginNote
+//			OriginNote
 		};
-		
+
+		public const string ShowCompletedTasksPreference = "/apps/tomboy/tasks/show_completed_tasks";
+		public const string ShowDueDateColumnPreference = "/apps/tomboy/tasks/show_due_date_column";
+		public const string ShowPriorityColumnPreference = "/apps/tomboy/tasks/show_priority_column";
+
 		TaskManager manager;
 		
 		Gtk.ActionGroup action_group;
@@ -28,12 +33,13 @@ namespace Tomboy.Tasks
 		Gtk.VBox content_vbox;
 
 		Gtk.TreeView tree;
+		Gtk.TreeModelFilter store_filter;
 		Gtk.TreeModelSort store_sort;
 		SortColumn sort_column;
 		Gtk.TreeViewColumn note_column;
 		Gtk.TreeViewColumn summary_column;
 		Gtk.TreeViewColumn due_date_column;
-		Gtk.TreeViewColumn completion_column;
+//		Gtk.TreeViewColumn completion_column;
 		Gtk.TreeViewColumn priority_column;
 		
 		Gtk.Menu ctx_menu;
@@ -41,6 +47,12 @@ namespace Tomboy.Tasks
 		// Use this to select the task that was created inside
 		// this window.
 		bool expecting_newly_created_task;
+		
+		Gtk.ToggleAction show_completed_tasks_toggle_action;
+		Gtk.ToggleAction show_due_date_column_toggle_action;
+		Gtk.ToggleAction show_priority_column_toggle_action;
+		
+		bool show_completed_tasks;
 
 		static TaskListWindow instance;
 		
@@ -100,13 +112,30 @@ namespace Tomboy.Tasks
 				new Gtk.ActionEntry ("OpenOriginNoteAction", null,
 					Catalog.GetString ("Open Associated _Note"), null,
 					Catalog.GetString ("Open the note containing the task"), null),
-
+				
+				new Gtk.ActionEntry ("TaskListViewMenuAction", null,
+					Catalog.GetString ("_View"), null, null, null),
+				
 				new Gtk.ActionEntry ("TaskListHelpMenuAction", null,
 					Catalog.GetString ("_Help"), null, null, null),
 					
 				new Gtk.ActionEntry ("ShowTaskHelpAction", Gtk.Stock.Help,
 					Catalog.GetString ("_Contents"), "F1",
 					Catalog.GetString ("Tasks Help"), null)
+			});
+			
+			action_group.Add (new Gtk.ToggleActionEntry [] {
+				new Gtk.ToggleActionEntry ("ShowCompletedTasksAction", null,
+					Catalog.GetString ("Show _Completed Tasks"), null,
+					Catalog.GetString ("Show completed tasks in the list"), null, true),
+
+				new Gtk.ToggleActionEntry ("ShowDueDateColumnAction", null,
+					Catalog.GetString ("Show _Due Date Column"), null,
+					Catalog.GetString ("Show the due date column in the list"), null, true),
+
+				new Gtk.ToggleActionEntry ("ShowPriorityColumnAction", null,
+					Catalog.GetString ("Show _Priority Column"), null,
+					Catalog.GetString ("Show the priority column in the list"), null, true)
 			});
 			
 			Tomboy.ActionManager.UI.InsertActionGroup (action_group, 0);
@@ -184,7 +213,37 @@ namespace Tomboy.Tasks
 			am ["DeleteTaskAction"].Activated += OnDeleteTask;
 			am ["ShowTaskHelpAction"].Activated += OnShowHelp;
 			
+			// View Options
+			bool pref_val;
+			
+			show_completed_tasks_toggle_action = am ["ShowCompletedTasksAction"] as Gtk.ToggleAction;
+			pref_val = GetPref (TaskListWindow.ShowCompletedTasksPreference);
+			show_completed_tasks_toggle_action.Active = pref_val;
+			show_completed_tasks_toggle_action.Activated += OnShowCompletedTasks;
+			show_completed_tasks = pref_val;
+
+			show_due_date_column_toggle_action = am ["ShowDueDateColumnAction"] as Gtk.ToggleAction;
+			pref_val = GetPref (TaskListWindow.ShowDueDateColumnPreference);
+			show_due_date_column_toggle_action.Active = pref_val;
+			show_due_date_column_toggle_action.Activated += OnShowDueDateColumn;
+			
+			show_priority_column_toggle_action = am ["ShowPriorityColumnAction"] as Gtk.ToggleAction;
+			pref_val = GetPref (TaskListWindow.ShowPriorityColumnPreference);
+			show_priority_column_toggle_action.Active = pref_val;
+			show_priority_column_toggle_action.Activated += OnShowPriorityColumn;
+			
 			return menubar;
+		}
+		
+		bool GetPref (string pref)
+		{
+			bool val;
+			try {
+				val = (bool) Preferences.Get (pref);
+				return val;
+			} catch {}
+			
+			return false;
 		}
 		
 		void MakeTasksTree ()
@@ -196,27 +255,29 @@ namespace Tomboy.Tasks
 			tree.Selection.Changed += OnSelectionChanged;
 			tree.ButtonPressEvent += OnButtonPressed;
 			
-			// Columns: OriginNote, Completion Status Summary, Due Date (No Date/Date), Completed (No Date/Date), Priority
-
+			tree.Selection.Mode = Gtk.SelectionMode.Multiple;
+			
+			LoadColumns ();
+		}
+		
+		void RefreshColumns ()
+		{
+			ClearColumns ();
+			LoadColumns ();
+		}
+		
+		void ClearColumns ()
+		{
+			Gtk.TreeViewColumn [] columns = tree.Columns;
+			foreach (Gtk.TreeViewColumn col in columns) {
+				tree.RemoveColumn (col);
+			}
+		}
+		
+		void LoadColumns ()
+		{
+			bool pref_val;
 			Gtk.CellRenderer renderer;
-			
-			///
-			/// OriginNote
-			///
-			note_column = new Gtk.TreeViewColumn ();
-			note_column.Title = string.Empty;
-			note_column.Sizing = Gtk.TreeViewColumnSizing.Autosize;
-			note_column.Resizable = false;
-			note_column.Clickable = true;
-			note_column.Clicked += OnNoteColumnClicked;
-			note_column.Reorderable = true;
-			note_column.SortIndicator = true;
-			
-			renderer = new Gtk.CellRendererPixbuf ();
-			note_column.PackStart (renderer, false);
-			note_column.SetCellDataFunc (renderer,
-					new Gtk.TreeCellDataFunc (NoteIconCellDataFunc));
-			tree.AppendColumn (note_column);
 			
 			///
 			/// Completion Status
@@ -260,91 +321,74 @@ namespace Tomboy.Tasks
 			summary_column.SetCellDataFunc (renderer,
 					new Gtk.TreeCellDataFunc (SummaryCellDataFunc));
 			tree.AppendColumn (summary_column);
+
+			// Due Date Column
+			pref_val = GetPref (TaskListWindow.ShowDueDateColumnPreference);
+			if (pref_val == true) {
+				// Show the Due Date Column
+				due_date_column = new Gtk.TreeViewColumn ();
+				due_date_column.Title = Catalog.GetString ("Due Date");
+				due_date_column.Sizing = Gtk.TreeViewColumnSizing.Autosize;
+				due_date_column.Resizable = false;
+				due_date_column.Clickable = true;
+				due_date_column.Clicked += OnDueDateColumnClicked;
+				due_date_column.Reorderable = true;
+				due_date_column.SortIndicator = true;
+				
+				renderer = new Gtk.Extras.CellRendererDate ();
+				(renderer as Gtk.Extras.CellRendererDate).Editable = true;
+				(renderer as Gtk.Extras.CellRendererDate).Edited += OnDueDateEdited;
+				(renderer as Gtk.Extras.CellRendererDate).ShowTime = false;
+				renderer.Xalign = 0.0f;
+				due_date_column.PackStart (renderer, true);
+				due_date_column.SetCellDataFunc (renderer,
+						new Gtk.TreeCellDataFunc (DueDateCellDataFunc));
+				tree.AppendColumn (due_date_column);
+			}
 			
-			///
-			/// Due Date
-			///
-			due_date_column = new Gtk.TreeViewColumn ();
-			due_date_column.Title = Catalog.GetString ("Due Date");
-			due_date_column.Sizing = Gtk.TreeViewColumnSizing.Autosize;
-			due_date_column.Resizable = false;
-			due_date_column.Clickable = true;
-			due_date_column.Clicked += OnDueDateColumnClicked;
-			due_date_column.Reorderable = true;
-			due_date_column.SortIndicator = true;
-			
-			renderer = new Gtk.Extras.CellRendererDate ();
-			(renderer as Gtk.Extras.CellRendererDate).Editable = true;
-			(renderer as Gtk.Extras.CellRendererDate).Edited += OnDueDateEdited;
-			(renderer as Gtk.Extras.CellRendererDate).ShowTime = false;
-			renderer.Xalign = 0.0f;
-			due_date_column.PackStart (renderer, true);
-			due_date_column.SetCellDataFunc (renderer,
-					new Gtk.TreeCellDataFunc (DueDateCellDataFunc));
-			tree.AppendColumn (due_date_column);
-			
-			///
-			/// Completion Date
-			///
-			completion_column = new Gtk.TreeViewColumn ();
-			completion_column.Title = Catalog.GetString ("Completion Date");
-			completion_column.Sizing = Gtk.TreeViewColumnSizing.Autosize;
-			completion_column.Resizable = false;
-			completion_column.Clickable = true;
-			completion_column.Clicked += OnCompletionColumnClicked;
-			completion_column.Reorderable = true;
-			completion_column.SortIndicator = true;
-			
-			renderer = new Gtk.Extras.CellRendererDate ();
-			(renderer as Gtk.Extras.CellRendererDate).Editable = false;
-			(renderer as Gtk.Extras.CellRendererDate).ShowTime = true;
-			renderer.Xalign = 0.0f;
-			completion_column.PackStart (renderer, true);
-			completion_column.SetCellDataFunc (renderer,
-					new Gtk.TreeCellDataFunc (CompletionDateCellDataFunc));
-			tree.AppendColumn (completion_column);
-			
-			///
-			/// Priority
-			///
-			priority_column = new Gtk.TreeViewColumn ();
-			priority_column.Title = Catalog.GetString ("Priority");
-			priority_column.Sizing = Gtk.TreeViewColumnSizing.Autosize;
-			priority_column.Resizable = false;
-			priority_column.Clickable = true;
-			priority_column.Clicked += OnPriorityColumnClicked;
-			priority_column.Reorderable = true;
-			priority_column.SortIndicator = true;
-			
-			renderer = new Gtk.CellRendererCombo ();
-			(renderer as Gtk.CellRendererCombo).Editable = true;
-			(renderer as Gtk.CellRendererCombo).HasEntry = false;
-			(renderer as Gtk.CellRendererCombo).Edited += OnTaskPriorityEdited;
-			Gtk.ListStore priority_store = new Gtk.ListStore (typeof (string));
-			priority_store.AppendValues (Catalog.GetString ("None"));
-			priority_store.AppendValues (Catalog.GetString ("Low"));
-			priority_store.AppendValues (Catalog.GetString ("Normal"));
-			priority_store.AppendValues (Catalog.GetString ("High"));
-			(renderer as Gtk.CellRendererCombo).Model = priority_store;
-			(renderer as Gtk.CellRendererCombo).TextColumn = 0;
-			renderer.Xalign = 0.0f;
-			priority_column.PackStart (renderer, true);
-			priority_column.SetCellDataFunc (renderer,
-					new Gtk.TreeCellDataFunc (PriorityCellDataFunc));
-			tree.AppendColumn (priority_column);
+			// Priority Column
+			pref_val = GetPref (TaskListWindow.ShowPriorityColumnPreference);
+			if (pref_val == true) {
+				// Show the Priority Column
+				priority_column = new Gtk.TreeViewColumn ();
+				priority_column.Title = Catalog.GetString ("Priority");
+				priority_column.Sizing = Gtk.TreeViewColumnSizing.Autosize;
+				priority_column.Resizable = false;
+				priority_column.Clickable = true;
+				priority_column.Clicked += OnPriorityColumnClicked;
+				priority_column.Reorderable = true;
+				priority_column.SortIndicator = true;
+				
+				renderer = new Gtk.CellRendererCombo ();
+				(renderer as Gtk.CellRendererCombo).Editable = true;
+				(renderer as Gtk.CellRendererCombo).HasEntry = false;
+				(renderer as Gtk.CellRendererCombo).Edited += OnTaskPriorityEdited;
+				Gtk.ListStore priority_store = new Gtk.ListStore (typeof (string));
+				priority_store.AppendValues (Catalog.GetString ("None"));
+				priority_store.AppendValues (Catalog.GetString ("Low"));
+				priority_store.AppendValues (Catalog.GetString ("Normal"));
+				priority_store.AppendValues (Catalog.GetString ("High"));
+				(renderer as Gtk.CellRendererCombo).Model = priority_store;
+				(renderer as Gtk.CellRendererCombo).TextColumn = 0;
+				renderer.Xalign = 0.0f;
+				priority_column.PackStart (renderer, true);
+				priority_column.SetCellDataFunc (renderer,
+						new Gtk.TreeCellDataFunc (PriorityCellDataFunc));
+				tree.AppendColumn (priority_column);
+			}
 		}
 		
-		void NoteIconCellDataFunc (Gtk.TreeViewColumn tree_column,
-				Gtk.CellRenderer cell, Gtk.TreeModel tree_model,
-				Gtk.TreeIter iter)
-		{
-			Gtk.CellRendererPixbuf crp = cell as Gtk.CellRendererPixbuf;
-			Task task = tree_model.GetValue (iter, 0) as Task;
-			if (task != null && task.OriginNoteUri != string.Empty)
-				crp.Pixbuf = note_pixbuf;
-			else
-				crp.Pixbuf = null;
-		}
+//		void NoteIconCellDataFunc (Gtk.TreeViewColumn tree_column,
+//				Gtk.CellRenderer cell, Gtk.TreeModel tree_model,
+//				Gtk.TreeIter iter)
+//		{
+//			Gtk.CellRendererPixbuf crp = cell as Gtk.CellRendererPixbuf;
+//			Task task = tree_model.GetValue (iter, 0) as Task;
+//			if (task != null && task.OriginNoteUri != string.Empty)
+//				crp.Pixbuf = note_pixbuf;
+//			else
+//				crp.Pixbuf = null;
+//		}
 
 		void ToggleCellDataFunc (Gtk.TreeViewColumn tree_column,
 				Gtk.CellRenderer cell, Gtk.TreeModel tree_model,
@@ -383,17 +427,17 @@ namespace Tomboy.Tasks
 				crd.Date = task.DueDate;
 		}
 		
-		void CompletionDateCellDataFunc (Gtk.TreeViewColumn tree_column,
-				Gtk.CellRenderer cell, Gtk.TreeModel tree_model,
-				Gtk.TreeIter iter)
-		{
-			Gtk.Extras.CellRendererDate crd = cell as Gtk.Extras.CellRendererDate;
-			Task task = tree_model.GetValue (iter, 0) as Task;
-			if (task == null)
-				crd.Date = DateTime.MinValue;
-			else
-				crd.Date = task.CompletionDate;
-		}
+//		void CompletionDateCellDataFunc (Gtk.TreeViewColumn tree_column,
+//				Gtk.CellRenderer cell, Gtk.TreeModel tree_model,
+//				Gtk.TreeIter iter)
+//		{
+//			Gtk.Extras.CellRendererDate crd = cell as Gtk.Extras.CellRendererDate;
+//			Task task = tree_model.GetValue (iter, 0) as Task;
+//			if (task == null)
+//				crd.Date = DateTime.MinValue;
+//			else
+//				crd.Date = task.CompletionDate;
+//		}
 		
 		void PriorityCellDataFunc (Gtk.TreeViewColumn tree_column,
 				Gtk.CellRenderer cell, Gtk.TreeModel tree_model,
@@ -420,8 +464,9 @@ namespace Tomboy.Tasks
 
 		void SetUpTreeModel ()
 		{
-			store_sort = new Gtk.TreeModelSort (manager.Tasks);
-Logger.Debug ("store_sort has {0} columns", store_sort.NColumns);
+			store_filter = new Gtk.TreeModelFilter (manager.Tasks, null);
+			store_filter.VisibleFunc = FilterTasks;
+			store_sort = new Gtk.TreeModelSort (store_filter);
 			store_sort.DefaultSortFunc = 
 				new Gtk.TreeIterCompareFunc (TaskSortFunc);
 				
@@ -434,6 +479,23 @@ Logger.Debug ("store_sort has {0} columns", store_sort.NColumns);
 							"Total: {0} tasks",
 							cnt),
 				cnt);
+		}
+		
+		/// <summary>
+		/// Filter out the tasks based on whether they're complete.
+		/// </summary>
+		bool FilterTasks (Gtk.TreeModel model, Gtk.TreeIter iter)
+		{
+			Task task = model.GetValue (iter, 0) as Task;
+			if (task == null)
+				return false;
+			
+			if (show_completed_tasks)
+				return true; // Show all tasks
+			else if (task.CompletionDate == DateTime.MinValue)
+				return true; // No completion date set
+			
+			return false;
 		}
 		
 		void UpdateTaskCount (int total)
@@ -449,12 +511,18 @@ Logger.Debug ("store_sort has {0} columns", store_sort.NColumns);
 		
 		void OnSelectionChanged (object sender, EventArgs args)
 		{
-			Task task = GetSelectedTask ();
-			if (task != null) {
-				Tomboy.ActionManager ["OpenTaskAction"].Sensitive = true;
+			List<Task> tasks = GetSelectedTasks ();
+//			Task task = GetSelectedTask ();
+			if (tasks != null && tasks.Count > 0) {
+				if (tasks.Count == 1) {
+					Tomboy.ActionManager ["OpenTaskAction"].Sensitive = true;
+				} else {
+					Tomboy.ActionManager ["OpenTaskAction"].Sensitive = false;
+				}
+				
 				Tomboy.ActionManager ["DeleteTaskAction"].Sensitive = true;
 				
-				if (task.OriginNoteUri != string.Empty)
+				if (tasks.Count == 1 && tasks [0].OriginNoteUri != string.Empty)
 					Tomboy.ActionManager ["OpenOriginNoteAction"].Sensitive = true;
 				else
 					Tomboy.ActionManager ["OpenOriginNoteAction"].Sensitive = false;
@@ -472,33 +540,28 @@ Logger.Debug ("store_sort has {0} columns", store_sort.NColumns);
 				Gtk.TreePath path = null;
 				Gtk.TreeViewColumn column = null;
 				
-				if (tree.GetPathAtPos ((int) args.Event.X,
-						(int) args.Event.Y,
-						out path,
-						out column) == false)
-					break;
+				if (tree.Selection.CountSelectedRows () == 0) {
+					if (tree.GetPathAtPos ((int) args.Event.X,
+							(int) args.Event.Y,
+							out path,
+							out column) == false)
+						break;
+
+					Gtk.TreeIter iter;
+					if (store_sort.GetIter (out iter, path) == false)
+						break;
 				
-				Gtk.TreeIter iter;
-				if (store_sort.GetIter (out iter, path) == false)
-					break;
+					tree.Selection.SelectIter (iter);
+				}
 				
-				tree.Selection.SelectIter (iter);
-				
-				Task task = store_sort.GetValue (iter, 0) as Task;
-				if (task == null)
-					break;
-				
-				PopupContextMenuAtLocation (task, (int) args.Event.X,
+				PopupContextMenuAtLocation ((int) args.Event.X,
 						(int) args.Event.Y);
 
 				break;
 			}
 		}
 		
-		/// <summary>
-		/// <param name="task">The selected task</param>
-		/// </summary>
-		void PopupContextMenuAtLocation (Task task, int x, int y)
+		void PopupContextMenuAtLocation (int x, int y)
 		{
 			if (ctx_menu == null) {
 				ctx_menu = Tomboy.ActionManager.GetWidget (
@@ -534,8 +597,13 @@ Logger.Debug ("store_sort has {0} columns", store_sort.NColumns);
 			y = 0;
 			
 			selection = tree.Selection;
-			if (!selection.GetSelected (out iter))
-				return;
+			if (selection.CountSelectedRows () > 1) {
+				Gtk.TreePath [] paths = selection.GetSelectedRows ();
+				store_sort.GetIter (out iter, paths [0]);
+			} else {
+				if (!selection.GetSelected (out iter))
+					return;
+			}
 			
 			path = store_sort.GetPath (iter);
 			
@@ -578,15 +646,32 @@ Logger.Debug ("store_sort has {0} columns", store_sort.NColumns);
 			y += widget_y;
 		}
 
+		List<Task> GetSelectedTasks ()
+		{
+			List<Task> list = new List<Task> ();
+			Gtk.TreeModel model;
+			Gtk.TreePath [] paths = tree.Selection.GetSelectedRows (out model);
+			if (paths != null && paths.Length > 0) {
+				foreach (Gtk.TreePath path in paths) {
+					Gtk.TreeIter iter; 
+					if (model.GetIter (out iter, path)) {
+						Task task = model.GetValue (iter, 0) as Task;
+						if (task != null)
+							list.Add (task);
+					}
+				}
+			}
+			
+			return list;
+		}
+		
 		Task GetSelectedTask ()
 		{
-			Gtk.TreeModel model;
-			Gtk.TreeIter iter;
-
-			if (!tree.Selection.GetSelected (out model, out iter))
+			List<Task> list = GetSelectedTasks ();
+			if (list == null || list.Count == 0)
 				return null;
-
-			return (Task) model.GetValue (iter, 0);
+			
+			return list [0];
 		}
 
 		/// <summary>
@@ -627,11 +712,50 @@ Logger.Debug ("store_sort has {0} columns", store_sort.NColumns);
 		
 		void OnDeleteTask (object sender, EventArgs args)
 		{
-			Task task = GetSelectedTask ();
-			if (task == null)
+			List<Task> tasks = GetSelectedTasks ();
+			if (tasks == null || tasks.Count == 0)
 				return;
 			
-			ShowDeletionDialog (task);
+			ShowDeletionDialog (tasks);
+		}
+		
+		/// <summary>
+		/// Called when the user selects the "Show Completed Columns"
+		/// menuitem in the View menu.
+		/// </summary>
+		void OnShowCompletedTasks (object sender, EventArgs args)
+		{
+			ActionManager am = Tomboy.ActionManager;
+			bool active = show_completed_tasks_toggle_action.Active;
+			Preferences.Set (
+				TaskListWindow.ShowCompletedTasksPreference,
+				active);
+			show_completed_tasks = active;
+			
+			// Refilter the TreeModel to show/hide the completed tasks
+			store_filter.Refilter ();
+		}
+		
+		void OnShowDueDateColumn (object sender, EventArgs args)
+		{
+			ActionManager am = Tomboy.ActionManager;
+			bool active = show_due_date_column_toggle_action.Active;
+			Preferences.Set (
+				TaskListWindow.ShowDueDateColumnPreference,
+				active);
+			
+			RefreshColumns ();
+		}
+		
+		void OnShowPriorityColumn (object sender, EventArgs args)
+		{
+			ActionManager am = Tomboy.ActionManager;
+			bool active = show_priority_column_toggle_action.Active;
+			Preferences.Set (
+				TaskListWindow.ShowPriorityColumnPreference,
+				active);
+			
+			RefreshColumns ();
 		}
 		
 		void OnShowHelp (object sender, EventArgs args)
@@ -681,9 +805,8 @@ Logger.Debug ("store_sort has {0} columns", store_sort.NColumns);
 				break;
 			case Gdk.Key.Menu:
 				// Pop up the context menu if a note is selected
-				Task task = GetSelectedTask ();
-				if (task != null)
-					PopupContextMenuAtLocation (task, 0, 0);
+				if (tree.Selection.CountSelectedRows () > 0)
+					PopupContextMenuAtLocation (0, 0);
 
 				break;
 			}
@@ -692,13 +815,12 @@ Logger.Debug ("store_sort has {0} columns", store_sort.NColumns);
 		void OnOpenOriginNote (object sender, EventArgs args)
 		{
 			Gtk.TreeSelection selection;
-			Gtk.TreeIter iter;
 			
 			selection = tree.Selection;
-			if (!selection.GetSelected (out iter))
+			if (selection.CountSelectedRows () != 1)
 				return;
 			
-			Task task = store_sort.GetValue (iter, 0) as Task;
+			Task task = GetSelectedTask ();
 			if (task == null || task.OriginNoteUri == string.Empty)
 				return;
 			
@@ -729,8 +851,8 @@ Logger.Debug ("store_sort has {0} columns", store_sort.NColumns);
 					result = CompareTasks (task_a, task_b, SortColumn.Priority);
 				if (result == 0)
 					result = CompareTasks (task_a, task_b, SortColumn.Summary);
-				if (completion_column.SortOrder == Gtk.SortType.Descending)
-					result = result * -1;
+//				if (completion_column.SortOrder == Gtk.SortType.Descending)
+//					result = result * -1;
 				break;
 			case SortColumn.DueDate:
 				result = CompareTasks (task_a, task_b, SortColumn.DueDate);
@@ -743,17 +865,17 @@ Logger.Debug ("store_sort has {0} columns", store_sort.NColumns);
 				if (due_date_column.SortOrder == Gtk.SortType.Descending)
 					result = result * -1;
 				break;
-			case SortColumn.OriginNote:
-				result = CompareTasks (task_a, task_b, SortColumn.OriginNote);
-				if (result == 0)
-					result = CompareTasks (task_a, task_b, SortColumn.CompletionDate);
-				if (result == 0)
-					result = CompareTasks (task_a, task_b, SortColumn.Priority);
-				if (result == 0)
-					result = CompareTasks (task_a, task_b, SortColumn.Summary);
-				if (note_column.SortOrder == Gtk.SortType.Descending)
-					result = result * -1;
-				break;
+//			case SortColumn.OriginNote:
+//				result = CompareTasks (task_a, task_b, SortColumn.OriginNote);
+//				if (result == 0)
+//					result = CompareTasks (task_a, task_b, SortColumn.CompletionDate);
+//				if (result == 0)
+//					result = CompareTasks (task_a, task_b, SortColumn.Priority);
+//				if (result == 0)
+//					result = CompareTasks (task_a, task_b, SortColumn.Summary);
+//				if (note_column.SortOrder == Gtk.SortType.Descending)
+//					result = result * -1;
+//				break;
 			case SortColumn.Priority:
 				result = CompareTasks (task_a, task_b, SortColumn.Priority);
 				if (result == 0)
@@ -795,8 +917,8 @@ Logger.Debug ("store_sort has {0} columns", store_sort.NColumns);
 					return DateTime.Compare (a.CompletionDate, b.CompletionDate);
 				case SortColumn.DueDate:
 					return DateTime.Compare (a.DueDate, b.DueDate);
-				case SortColumn.OriginNote:
-					return a.OriginNoteUri.CompareTo (b.OriginNoteUri);
+//				case SortColumn.OriginNote:
+//					return a.OriginNoteUri.CompareTo (b.OriginNoteUri);
 				case SortColumn.Priority:
 					return (int) a.Priority - (int) b.Priority;
 				case SortColumn.Summary:
@@ -815,7 +937,7 @@ Logger.Debug ("store_sort has {0} columns", store_sort.NColumns);
 			Tomboy.ActionManager ["OpenTaskAction"].Activate ();
 		}
 		
-		void ShowDeletionDialog (Task task)
+		void ShowDeletionDialog (List<Task> tasks)
 		{
 			HIGMessageDialog dialog = 
 				new HIGMessageDialog (
@@ -823,7 +945,9 @@ Logger.Debug ("store_sort has {0} columns", store_sort.NColumns);
 					Gtk.DialogFlags.DestroyWithParent,
 					Gtk.MessageType.Question,
 					Gtk.ButtonsType.None,
-					Catalog.GetString ("Really delete this task?"),
+					tasks.Count > 1 ?
+						Catalog.GetString ("Really delete these tasks?") :
+						Catalog.GetString ("Really delete this task?"),
 					Catalog.GetString ("If you delete a task it is " +
 							   "permanently lost."));
 
@@ -842,7 +966,14 @@ Logger.Debug ("store_sort has {0} columns", store_sort.NColumns);
 
 			int result = dialog.Run ();
 			if (result == 666) {
-				task.Manager.Delete (task);
+				// Disable the selection changed handler while we nuke tasks
+				tree.Selection.Changed -= OnSelectionChanged;
+				
+				foreach (Task task in tasks) {
+					task.Manager.Delete (task);
+				}
+				
+				tree.Selection.Changed += OnSelectionChanged;
 			}
 
 			dialog.Destroy();
@@ -867,8 +998,6 @@ Logger.Debug ("store_sort has {0} columns", store_sort.NColumns);
 		
 		void OnTaskSummaryEdited (object sender, Gtk.EditedArgs args)
 		{
-	Logger.Debug ("TaskListWindow.OnTaskSummaryEdited");
-			
 			Gtk.TreeIter iter;
 			Gtk.TreePath path = new TreePath (args.Path);
 			if (store_sort.GetIter (out iter, path) == false)
@@ -880,8 +1009,6 @@ Logger.Debug ("store_sort has {0} columns", store_sort.NColumns);
 		
 		void OnDueDateEdited (Gtk.Extras.CellRendererDate renderer, string path)
 		{
-			Logger.Debug ("OnDueDateEdited");
-			
 			Gtk.TreeIter iter;
 			Gtk.TreePath tree_path = new TreePath (path);
 			if (store_sort.GetIter (out iter, tree_path) == false)
@@ -920,6 +1047,8 @@ Logger.Debug ("store_sort has {0} columns", store_sort.NColumns);
 				// A user just created this task inside this window
 				expecting_newly_created_task = false;
 				
+				tree.Selection.UnselectAll ();
+				
 				SelectTask (task);
 			}
 			
@@ -956,33 +1085,29 @@ Logger.Debug ("store_sort has {0} columns", store_sort.NColumns);
 			} while (store_sort.IterNext (ref iter));
 		}
 		
-		void OnNoteColumnClicked (object sender, EventArgs args)
-		{
-			Logger.Debug ("TaskListWindow.OnNoteColumnClicked");
-			OnColumnClicked (note_column, SortColumn.OriginNote);
-		}
+//		void OnNoteColumnClicked (object sender, EventArgs args)
+//		{
+//			Logger.Debug ("TaskListWindow.OnNoteColumnClicked");
+//			OnColumnClicked (note_column, SortColumn.OriginNote);
+//		}
 		
 		void OnSummaryColumnClicked (object sender, EventArgs args)
 		{
-			Logger.Debug ("TaskListWindow.OnSummaryColumnClicked");
 			OnColumnClicked (summary_column, SortColumn.Summary);
 		}
 		
 		void OnDueDateColumnClicked (object sender, EventArgs args)
 		{
-			Logger.Debug ("TaskListWindow.OnDueDateColumnClicked");
 			OnColumnClicked (due_date_column, SortColumn.DueDate);
 		}
 		
 		void OnCompletionColumnClicked (object sender, EventArgs args)
 		{
-			Logger.Debug ("TaskListWindow.OnCompletionColumnClicked");
-			OnColumnClicked (completion_column, SortColumn.CompletionDate);
+//			OnColumnClicked (completion_column, SortColumn.CompletionDate);
 		}
 		
 		void OnPriorityColumnClicked (object sender, EventArgs args)
 		{
-			Logger.Debug ("TaskListWindow.OnPriorityColumnClicked");
 			OnColumnClicked (priority_column, SortColumn.Priority);
 		}
 		
