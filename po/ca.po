@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tomboy 0.7.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-08-22 19:29+0200\n"
-"PO-Revision-Date: 2007-08-23 12:35+0200\n"
+"POT-Creation-Date: 2007-09-17 10:54+0200\n"
+"PO-Revision-Date: 2007-09-16 12:35+0200\n"
 "Last-Translator: Jordi Mas <jmas@softcatala.org>\n"
 "Language-Team: Catalan <tradgnome@softcatala.net>\n"
 "MIME-Version: 1.0\n"
@@ -30,7 +30,7 @@ msgid "Tomboy Applet Factory"
 msgstr "Factoria de miniaplicacions Tomboy"
 
 #: ../data/GNOME_TomboyApplet.server.in.in.h:4 ../data/tomboy.desktop.in.h:3
-#: ../Tomboy/Applet.cs:148 ../Tomboy/Tray.cs:147
+#: ../Tomboy/Applet.cs:149 ../Tomboy/Tray.cs:147
 msgid "Tomboy Notes"
 msgstr "Notes del Tomboy"
 
@@ -41,13 +41,13 @@ msgid "_About"
 msgstr "_Quant a"
 
 #: ../data/GNOME_TomboyApplet.xml.h:2 ../Tomboy/ActionManager.cs:93
-#: ../Tomboy/Applet.cs:186
+#: ../Tomboy/Applet.cs:187
 msgid "_Help"
 msgstr "A_juda"
 
 #
 #: ../data/GNOME_TomboyApplet.xml.h:3 ../Tomboy/ActionManager.cs:89
-#: ../Tomboy/Applet.cs:181
+#: ../Tomboy/Applet.cs:182
 msgid "_Preferences"
 msgstr "_Preferències"
 
@@ -326,8 +326,8 @@ msgstr "El gestor per als URL «note://»"
 msgid ""
 "The last directory a note was exported to using the Export To HTML plugin."
 msgstr ""
-"El darrer directori on s'ha exportat una nota amb el connector "
-"d'exportació HTML."
+"El darrer directori on s'ha exportat una nota amb el connector d'exportació "
+"HTML."
 
 #: ../data/tomboy.schemas.in.h:41
 msgid ""
@@ -383,39 +383,6 @@ msgstr ""
 "Llista separada per espais en blanc de URI de les notes que sempre han "
 "d'aparèixer en el menú de notes del Tomboy."
 
-#: ../libtomboy/gedit-print.c:142
-#: ../Tomboy/Addins/PrintNotes/PrintNotesNoteAddin.cs:18
-msgid "Print"
-msgstr "Imprimeix"
-
-#
-#: ../libtomboy/gedit-print.c:240
-msgid "Preparing pages..."
-msgstr "S'estan preparant les pàgines..."
-
-#: ../libtomboy/gedit-print.c:267
-#, c-format
-msgid "Rendering page %d of %d..."
-msgstr "S'està representant la pàgina %d de %d..."
-
-#: ../libtomboy/gedit-print.c:269
-#, c-format
-msgid "Printing page %d of %d..."
-msgstr "S'està imprimint la pàgina %d de %d..."
-
-#: ../libtomboy/gedit-print.c:291
-msgid "Print preview"
-msgstr "Exemple d'impressió"
-
-#: ../libtomboy/gedit-print.c:442
-msgid "Page %N of %Q"
-msgstr "Pàgina %N de %Q"
-
-#: ../libtomboy/gedit-print.c:445
-#, no-c-format
-msgid "%A %x, %X"
-msgstr "%A %x, %X"
-
 #: ../Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinTreeWidget.cs:91
 msgid "Add-in"
 msgstr "Complement"
@@ -424,7 +391,8 @@ msgstr "Complement"
 msgid "Version"
 msgstr "Versió"
 
-#: ../Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinTreeWidget.cs:168
+#. Default category name to use if no category is specified for this addin
+#: ../Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinTreeWidget.cs:169
 msgid "Other"
 msgstr "Altres"
 
@@ -469,7 +437,7 @@ msgstr "_Tanca"
 msgid "Close this window"
 msgstr "Tanca aquesta finestra"
 
-#: ../Tomboy/ActionManager.cs:82 ../Tomboy/Applet.cs:198
+#: ../Tomboy/ActionManager.cs:82 ../Tomboy/Applet.cs:199
 msgid "_Quit"
 msgstr "_Surt"
 
@@ -657,7 +625,18 @@ msgstr "Navega..."
 msgid "Select Synchronization Folder..."
 msgstr "Seleccioneu la carpeta de sincronització..."
 
-#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:196
+#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:144
+msgid "Folder path field is empty."
+msgstr "El camp del camí de la carpeta és buit."
+
+#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:153
+msgid ""
+"Specified folder path does not exist, and Tomboy was unable to create it."
+msgstr ""
+"El camí de la carpeta especificat no existeix, i el Tomboy no ha pogut crear-"
+"lo."
+
+#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:231
 msgid "Local Folder"
 msgstr "Carpeta local"
 
@@ -721,6 +700,162 @@ msgstr ""
 msgid "_Open Today: Template"
 msgstr "_Obre Avui: plantilla"
 
+#: ../Tomboy/Addins/PrintNotes/PrintNotesNoteAddin.cs:18
+#: ../Tomboy/Addins/PrintNotes/gedit-print.c:142
+msgid "Print"
+msgstr "Imprimeix"
+
+#
+#: ../Tomboy/Addins/PrintNotes/gedit-print.c:240
+msgid "Preparing pages..."
+msgstr "S'estan preparant les pàgines..."
+
+#: ../Tomboy/Addins/PrintNotes/gedit-print.c:267
+#, c-format
+msgid "Rendering page %d of %d..."
+msgstr "S'està representant la pàgina %d de %d..."
+
+#: ../Tomboy/Addins/PrintNotes/gedit-print.c:269
+#, c-format
+msgid "Printing page %d of %d..."
+msgstr "S'està imprimint la pàgina %d de %d..."
+
+#: ../Tomboy/Addins/PrintNotes/gedit-print.c:291
+msgid "Print preview"
+msgstr "Exemple d'impressió"
+
+#: ../Tomboy/Addins/PrintNotes/gedit-print.c:442
+msgid "Page %N of %Q"
+msgstr "Pàgina %N de %Q"
+
+#: ../Tomboy/Addins/PrintNotes/gedit-print.c:445
+#, no-c-format
+msgid "%A %x, %X"
+msgstr "%A %x, %X"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:268
+msgid "Configuration"
+msgstr "Configuració"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:269
+msgid "Configuration options for the print job"
+msgstr "Opcions de configuració del treball d'impressió"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:276
+msgid "Source Buffer"
+msgstr "Memòria intermèdia font"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:277
+msgid "GtkTextBuffer object to print"
+msgstr "Objecte GtkTextBuffer a imprimir"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:283
+msgid "Tabs Width"
+msgstr "Amplada de les tabulacions"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:284
+msgid "Width in equivalent space characters of tabs"
+msgstr "Amplada equivalent de les tabulacions en caràcters d'espai"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:291
+msgid "Wrap Mode"
+msgstr "Mode d'ajustament"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:292
+msgid "Word wrapping mode"
+msgstr "Mode d'ajustament de paraula"
+
+#
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:299
+msgid "Highlight"
+msgstr "Ressaltat"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:300
+msgid "Whether to print the document with highlighted syntax"
+msgstr "Si s'ha d'imprimir el document amb la sintaxi ressaltada"
+
+#
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:308
+msgid "Font"
+msgstr "Tipus lletra"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:309
+msgid "GnomeFont name to use for the document text (deprecated)"
+msgstr "El tipus de lletra que s'utilitzarà en el document (desaconsellat)"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:316
+msgid "Font Description"
+msgstr "Descripció del tipus de lletra"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:317
+msgid "Font to use for the document text (e.g. \"Monospace 10\")"
+msgstr ""
+"Tipus de lletra que es farà servir pel text del document (p.ex. «Monospace "
+"10»)"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:324
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:332
+msgid "Numbers Font"
+msgstr "Tipus de lletra dels números"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:325
+msgid "GnomeFont name to use for the line numbers (deprecated)"
+msgstr ""
+"Nom de la GnomeFont que es farà servir en els números de línia "
+"(desaconsellat)"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:333
+msgid "Font description to use for the line numbers"
+msgstr ""
+"Descripció del tipus de lletra que es farà servir en els números de línia"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:340
+msgid "Print Line Numbers"
+msgstr "Imprimeix els números de línia"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:341
+msgid "Interval of printed line numbers (0 means no numbers)"
+msgstr ""
+"Interval dels números de línia en l'impressió (el 0 indica no imprimir el "
+"número de línia)"
+
+#
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:348
+msgid "Print Header"
+msgstr "Imprimeix la capçalera"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:349
+msgid "Whether to print a header in each page"
+msgstr "Si s'ha d'imprimir la capçalera en cada pàgina"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:356
+msgid "Print Footer"
+msgstr "Imprimeix el peu de pàgina"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:357
+msgid "Whether to print a footer in each page"
+msgstr "Si s'ha d'imprimir el peu de pàgina en cada pàgina"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:364
+msgid "Header and Footer Font"
+msgstr "Tipus de lletra de la capçalera i del peu de pàgina"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:365
+msgid "GnomeFont name to use for the header and footer (deprecated)"
+msgstr ""
+"Nom del GnomeFont que s'utilitzarà per a la capçalera i el peu de pàgina "
+"(desaconsellat)"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:372
+msgid "Header and Footer Font Description"
+msgstr "Descripció del tipus de lletra de la capçalera i del peu de pàgina"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:373
+msgid "Font to use for headers and footers (e.g. \"Monospace 10\")"
+msgstr ""
+"Tipus de lletra a utilitzar per a la capçalera i del peu de pàgina (p.ex. "
+"«Monospace 10»)"
+
 #: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:41
 msgid "Server:"
 msgstr "Servidor:"
@@ -742,41 +877,54 @@ msgid ""
 "SSH synchronization requires an existing SSH key for this server and user, "
 "added to a running SSH daemon."
 msgstr ""
-"La sincronització SSH necessita una clau SSH existent per a aquest servidori "
-"usuari registrada al dimoni SSH en execució."
+"La sincronització SSH necessita una clau SSH existent per a aquest servidor "
+"i usuari registrada al dimoni SSH en execució."
+
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:89
+msgid "Server or username field is empty."
+msgstr "El camp servidor o nom d'usuari és buit."
 
 #: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:133
 msgid "SSH (sshfs FUSE)"
 msgstr "SSH (sshfs FUSE)"
 
+#
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:172
+msgid ""
+"Timeout connecting to server. Please ensure that your SSH key has been added "
+"to a running SSH daemon."
+msgstr ""
+"S'ha excedit el temps màxim en connectar al servidor. Assegureu-vos que la "
+"clau SSH s'ha afegit al dimoni SSH en execució."
+
 #: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:50
 msgid "Import from Sticky Notes"
 msgstr "Importa des de les notes enganxoses"
 
-#: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:132
+#: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:133
 msgid "No Sticky Notes found"
 msgstr "No s'ha trobat cap nota enganxosa"
 
-#: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:133
+#: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:134
 #, csharp-format
 msgid "No suitable Sticky Notes file was found at \"{0}\"."
 msgstr "No s'ha pogut trobar cap fitxer de notes enganxoses adient a «{0}»."
 
-#: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:142
+#: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:143
 msgid "Sticky Notes import completed"
 msgstr "S'ha completat la importació de les notes enganxoses"
 
-#: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:143
+#: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:144
 #, csharp-format
 msgid "<b>{0}</b> of <b>{1}</b> Sticky Notes were successfully imported."
 msgstr "S'han importat correctament <b>{0}</b> de <b>{1}</b> notes enganxoses."
 
 #
-#: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:155
+#: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:156
 msgid "Untitled"
 msgstr "Sense títol"
 
-#: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:183
+#: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:185
 msgid "Sticky Note: "
 msgstr "Nota enganxosa: "
 
@@ -788,12 +936,36 @@ msgstr "URL:"
 msgid "Password:"
 msgstr "Contransenya:"
 
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:87
+msgid "URL, username, or password field is empty."
+msgstr "El camp URL, nom d'usuari o contrasenya és buit."
+
 #: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:129
 msgid "WebDAV (wdfs FUSE)"
 msgstr "WebDAV (wdfs FUSE)"
 
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:167
+msgid ""
+"There was an error connecting to the server.  This may be caused by using an "
+"incorrect user name and/or password."
+msgstr ""
+"S'ha produït un error en connectar al servidor. Potser perquè s'està "
+"utilitzant un nom d'usuari i/o contrasenya incorrecta."
+
+#. TODO: If the above fails (no keyring daemon), save all but password
+#. to GConf, and notify user.
+#. Save configuration into GConf
+#. Preferences.Set ("/apps/tomboy/sync_wdfs_url", url ?? string.Empty);
+#. Preferences.Set ("/apps/tomboy/sync_wdfs_username", username ?? string.Empty);
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:243
+msgid ""
+"Saving configuration to the GNOME keyring failed with the following message:"
+msgstr ""
+"S'ha produït l'error següent en desar la configuració a l'anell de claus "
+"del GNOME: "
+
 #
-#: ../Tomboy/Applet.cs:191
+#: ../Tomboy/Applet.cs:192
 msgid "_About Tomboy"
 msgstr "_Quant al Tomboy"
 
@@ -960,7 +1132,7 @@ msgstr "Suprimeix"
 msgid "Delete this note"
 msgstr "Suprimeix aquesta nota"
 
-#: ../Tomboy/NoteWindow.cs:480 ../Tomboy/Synchronization/SyncManager.cs:158
+#: ../Tomboy/NoteWindow.cs:480 ../Tomboy/Synchronization/SyncManager.cs:161
 msgid "Synchronize Notes"
 msgstr "Sincronitza les notes"
 
@@ -1226,22 +1398,18 @@ msgid ""
 "synchronize all of your notes again when you save new settings"
 msgstr ""
 "Heu inhabilitat el servei de sincronització configurat. Es netejaran els "
-"paràmeteres de sincronització. Potser us vegeu forçats a sincronitzar de nou "
-"totes les notes al desar els paràmeteres nous"
+"paràmetres de sincronització. Potser us vegeu forçats a sincronitzar de nou "
+"totes les notes al desar els paràmetres nous"
 
-#: ../Tomboy/PreferencesDialog.cs:1115
+#: ../Tomboy/PreferencesDialog.cs:1128
 msgid "Success! You're connected!"
 msgstr "S'ha establert la connexió"
 
-#: ../Tomboy/PreferencesDialog.cs:1117
+#: ../Tomboy/PreferencesDialog.cs:1130
 msgid "Tomboy is ready to synchronize your notes."
 msgstr "El Tomboy està preparat per a sincronitzar les notes."
 
-#: ../Tomboy/PreferencesDialog.cs:1140
-msgid "Error connecting :("
-msgstr "S'ha produït un error en connectar: ("
-
-#: ../Tomboy/PreferencesDialog.cs:1142
+#: ../Tomboy/PreferencesDialog.cs:1149
 msgid ""
 "Sorry, but something went wrong.  Please check your information and try "
 "again.  The ~/.tomboy.log might be useful too."
@@ -1249,20 +1417,24 @@ msgstr ""
 "S'ha produït un error. Reviseu la informació i torneu-ho a provar. El fitxer "
 "~/.tomboy.log us pot ser útil."
 
+#: ../Tomboy/PreferencesDialog.cs:1158
+msgid "Error connecting :("
+msgstr "S'ha produït un error en connectar: ("
+
 #
-#: ../Tomboy/PreferencesDialog.cs:1208
+#: ../Tomboy/PreferencesDialog.cs:1225
 msgid "Version:"
 msgstr "Versió:"
 
-#: ../Tomboy/PreferencesDialog.cs:1215
+#: ../Tomboy/PreferencesDialog.cs:1232
 msgid "Author:"
 msgstr "Autor:"
 
-#: ../Tomboy/PreferencesDialog.cs:1222
+#: ../Tomboy/PreferencesDialog.cs:1239
 msgid "Copyright:"
 msgstr "Copyright:"
 
-#: ../Tomboy/PreferencesDialog.cs:1228
+#: ../Tomboy/PreferencesDialog.cs:1245
 msgid "Add-in Dependencies:"
 msgstr "Dependències del complement:"
 
@@ -1308,32 +1480,32 @@ msgid_plural "{0} matches"
 msgstr[0] "{0} coincidència"
 msgstr[1] "{0} coincidències"
 
-#: ../Tomboy/Tomboy.cs:194
+#: ../Tomboy/Tomboy.cs:195
 msgid "Cannot create new note"
 msgstr "No es pot crear una nota nova"
 
-#: ../Tomboy/Tomboy.cs:265
+#: ../Tomboy/Tomboy.cs:266
 msgid "translator-credits"
 msgstr "Jordi Mas i Hernàndez <jmas@softcatala.org>"
 
 #
 #
-#: ../Tomboy/Tomboy.cs:274
+#: ../Tomboy/Tomboy.cs:275
 msgid "Copyright © 2004-2007 Alex Graveley"
 msgstr "Copyright © 2004-2007 Alex Graveley"
 
-#: ../Tomboy/Tomboy.cs:275
+#: ../Tomboy/Tomboy.cs:276
 msgid "A simple and easy to use desktop note-taking application."
 msgstr ""
 "Una senzilla aplicació d'escriptori, fàcil d'usar, per a prendre notes."
 
-#: ../Tomboy/Tomboy.cs:278
+#: ../Tomboy/Tomboy.cs:279
 msgid "Homepage"
 msgstr "Pàgina inicial"
 
 #
 #
-#: ../Tomboy/Tomboy.cs:369
+#: ../Tomboy/Tomboy.cs:376
 msgid ""
 "Tomboy: A simple, easy to use desktop note-taking application.\n"
 "Copyright (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
@@ -1346,7 +1518,7 @@ msgstr ""
 
 #
 #
-#: ../Tomboy/Tomboy.cs:381
+#: ../Tomboy/Tomboy.cs:388
 msgid ""
 "Usage:\n"
 "  --version\t\t\tPrint version information.\n"
@@ -1364,7 +1536,7 @@ msgstr ""
 
 #
 #
-#: ../Tomboy/Tomboy.cs:392
+#: ../Tomboy/Tomboy.cs:399
 msgid ""
 "  --new-note\t\t\tCreate and display a new note.\n"
 "  --new-note [title]\t\tCreate and display a new note, with a title.\n"
@@ -1383,16 +1555,16 @@ msgstr ""
 #. Catalog.GetString (
 #. "  --check-plugin-unloading\tCheck if plugins are " +
 #. "unloaded properly.\n");
-#: ../Tomboy/Tomboy.cs:409
+#: ../Tomboy/Tomboy.cs:416
 msgid "D-BUS remote control disabled.\n"
 msgstr "El control remot D-BUS és inhabilitat.\n"
 
-#: ../Tomboy/Tomboy.cs:417
+#: ../Tomboy/Tomboy.cs:424
 #, csharp-format
 msgid "Version {0}"
 msgstr "Versió {0}"
 
-#: ../Tomboy/Tomboy.cs:487
+#: ../Tomboy/Tomboy.cs:494
 #, csharp-format
 msgid ""
 "Tomboy: unsupported option '{0}'\n"
@@ -1530,208 +1702,240 @@ msgstr "_Copia l'adreça de l'enllaç"
 msgid "_Open Link"
 msgstr "_Obre l'enllaç"
 
+#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:91
+#, csharp-format
+msgid ""
+"This synchronization addin is not supported on your computer. Please make "
+"sure you have FUSE and {0} correctly installed and configured"
+msgstr ""
+
 #
-#: ../Tomboy/Synchronization/SyncDialog.cs:91
+#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:173
+msgid "Timeout connecting to server."
+msgstr "Temps d'espera en connectar al servidor."
+
+#
+#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:181
+msgid "Error connecting to server."
+msgstr "S'ha produït un error en connectar al servidor."
+
+#
+#
+#
+#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:195
+msgid "FUSE could not be enabled."
+msgstr "No s'ha pogut habilitar el FUSE"
+
+#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:225
+msgid "An error ocurred while connecting to the specified server:"
+msgstr "S'ha produït un error mentre es connectava al servidor:"
+
+#
+#. Expander containing TreeView
+#: ../Tomboy/Synchronization/SyncDialog.cs:89
+msgid "Details"
+msgstr "Detalls:"
+
+#
+#: ../Tomboy/Synchronization/SyncDialog.cs:119
 msgid "Note Title"
 msgstr "Títol de la nota"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:98
+#: ../Tomboy/Synchronization/SyncDialog.cs:126
 msgid "Status"
 msgstr "Estat"
 
-#
-#. Drop all that into into the Expander
-#: ../Tomboy/Synchronization/SyncDialog.cs:117
-msgid "Details"
-msgstr "_Detalls:"
-
-#: ../Tomboy/Synchronization/SyncDialog.cs:235
+#: ../Tomboy/Synchronization/SyncDialog.cs:237
 msgid "Acquiring sync lock..."
 msgstr "S'està obtenint un bloqueig de sincronització..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:238
+#: ../Tomboy/Synchronization/SyncDialog.cs:240
 msgid "Committing changes..."
 msgstr "S'estan confirmant els canvis..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:241
+#: ../Tomboy/Synchronization/SyncDialog.cs:243
 msgid "Synchronizing Notes"
 msgstr "S'estan sincronitzant les notes"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:242
+#: ../Tomboy/Synchronization/SyncDialog.cs:244
 msgid "Synchronizing your notes..."
 msgstr "S'estan sincronitzant les notes..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:243
+#: ../Tomboy/Synchronization/SyncDialog.cs:245
 msgid "This may take a while, kick back and enjoy!"
 msgstr "Aquesta operació pot trigar una estona"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:245
+#: ../Tomboy/Synchronization/SyncDialog.cs:247
 msgid "Connecting to the server..."
 msgstr "S'està connectant al servidor..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:251
+#: ../Tomboy/Synchronization/SyncDialog.cs:253
 msgid "Deleting notes off of the server..."
 msgstr "S'estan suprimint les notes del servidor..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:255
+#: ../Tomboy/Synchronization/SyncDialog.cs:257
 msgid "Downloading new/updated notes..."
 msgstr "S'estan baixant les notes noves o actualitzades..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:267
+#: ../Tomboy/Synchronization/SyncDialog.cs:269
 msgid "Server Locked"
 msgstr "Servidor bloquejat"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:268
+#: ../Tomboy/Synchronization/SyncDialog.cs:270
 msgid "Server is locked"
 msgstr "El servidor està bloquejat"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:269
+#
+#: ../Tomboy/Synchronization/SyncDialog.cs:271
 msgid ""
-"One of your other computers is currently synchronizing.  Please wait and try "
-"again."
+"One of your other computers is currently synchronizing.  Please wait 2 "
+"minutes and try again."
 msgstr ""
-"Un dels vostres altres ordinadors s'està sincronitzant actualment. Espereu i "
-"torneu-ho a provar de nou."
+"Un dels vostres altres ordinadors s'està sincronitzant actualment. Espereu "
+"dos minuts i torneu-ho a provar."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:273
+#: ../Tomboy/Synchronization/SyncDialog.cs:275
 msgid "Preparing to download updates from server..."
 msgstr "S'està preparant la baixada d'actualitzacions des del servidor..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:276
+#: ../Tomboy/Synchronization/SyncDialog.cs:278
 msgid "Preparing to upload updates to server..."
 msgstr "S'està preparant la pujada d'actualitzacions al servidor..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:279
+#: ../Tomboy/Synchronization/SyncDialog.cs:281
 msgid "Uploading notes to server..."
 msgstr "S'estan pujant les notes al servidor..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:282
+#: ../Tomboy/Synchronization/SyncDialog.cs:284
 msgid "Synchronization Failed"
 msgstr "S'ha produït un error en sincronitzar"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:283
+#: ../Tomboy/Synchronization/SyncDialog.cs:285
 msgid "Failed to synchronize"
 msgstr "No s'ha pogut sincronitzar"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:284
+#: ../Tomboy/Synchronization/SyncDialog.cs:286
 msgid "Could not synchronize notes.  Check the details below and try again."
 msgstr ""
 "No s'han pogut sincronitzar les notes. Comproveu els detalls a sota i torneu-"
 "ho a provar de nou."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:291
+#: ../Tomboy/Synchronization/SyncDialog.cs:292
 msgid "Synchronization Complete"
 msgstr "S'ha completat la sincronització"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:292
+#: ../Tomboy/Synchronization/SyncDialog.cs:293
 msgid "Synchronization is complete"
 msgstr "La sincronització s'ha completat"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:294
+#: ../Tomboy/Synchronization/SyncDialog.cs:295
 #, csharp-format
 msgid "{0} note updated."
 msgid_plural "{0} notes updated."
 msgstr[0] "S'ha actualitzat {0} nota."
 msgstr[1] "S'han actualitzat {0} notes."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:299
+#: ../Tomboy/Synchronization/SyncDialog.cs:300
 msgid "Your notes are now up to date."
 msgstr "Les notes estan actualitzades."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:303
+#: ../Tomboy/Synchronization/SyncDialog.cs:304
 msgid "Synchronization Canceled"
 msgstr "S'ha cancel·lat la sincronització"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:304
+#: ../Tomboy/Synchronization/SyncDialog.cs:305
 msgid "Synchronization was canceled"
 msgstr "S'ha cancel·lat la sincronització"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:305
+#: ../Tomboy/Synchronization/SyncDialog.cs:306
 msgid "You canceled the synchronization.  You may close the window now."
 msgstr "Heu cancel·lat la sincronització. Podeu tancar ara la finestra."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:309
+#: ../Tomboy/Synchronization/SyncDialog.cs:310
 msgid "Synchronization Not Configured"
 msgstr "No s'ha configurat la sincronització"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:310
+#: ../Tomboy/Synchronization/SyncDialog.cs:311
 msgid "Synchronization is not configured"
 msgstr "La sincronització no està configurada"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:311
+#: ../Tomboy/Synchronization/SyncDialog.cs:312
 msgid "Please configure synchronization in the preferences dialog."
 msgstr "Configureu la sincronització al diàleg de preferències."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:315
+#: ../Tomboy/Synchronization/SyncDialog.cs:316
 msgid "Synchronization Service Error"
 msgstr "S'ha produït un error en el servei de sincronització"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:316
+#: ../Tomboy/Synchronization/SyncDialog.cs:317
 msgid "Service error"
 msgstr "S'ha produït un error al servei"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:317
+#: ../Tomboy/Synchronization/SyncDialog.cs:318
 msgid "Error connecting to the synchronization service.  Please try again."
 msgstr ""
 "S'ha produït un error en connectar al servei de sincronització. Torneu-ho a "
 "provar de nou."
 
 #
-#: ../Tomboy/Synchronization/SyncDialog.cs:334
+#: ../Tomboy/Synchronization/SyncDialog.cs:335
 msgid "Deleted locally"
 msgstr "S'ha suprimit localment"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:337
-msgid "Deleting from server"
-msgstr "S'està suprimint des del servidor"
+#
+#: ../Tomboy/Synchronization/SyncDialog.cs:338
+msgid "Deleted from server"
+msgstr "S'ha suprimit des del servidor"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:340
+#: ../Tomboy/Synchronization/SyncDialog.cs:341
 msgid "Updated"
 msgstr "Actualitzat"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:343
+#: ../Tomboy/Synchronization/SyncDialog.cs:344
 msgid "Added"
 msgstr "Afegit"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:346
-msgid "Uploading changes to server"
-msgstr "S'estan pujant els canvis al servidor"
+#
+#: ../Tomboy/Synchronization/SyncDialog.cs:347
+msgid "Uploaded changes to server"
+msgstr "S'han pujat els canvis al servidor"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:349
-msgid "Uploading new note to server"
-msgstr "S'esta pujant la nota nova al servidor"
+#
+#: ../Tomboy/Synchronization/SyncDialog.cs:350
+msgid "Uploaded new note to server"
+msgstr "S'ha pujat la nota nova al servidor"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:481
+#: ../Tomboy/Synchronization/SyncDialog.cs:498
 msgid "Note Conflict"
 msgstr "S'ha produït un conflicte amb la nota"
 
 #. Suggest renaming note by appending " (old)" to the existing title
-#: ../Tomboy/Synchronization/SyncDialog.cs:485
+#: ../Tomboy/Synchronization/SyncDialog.cs:504
 msgid " (old)"
 msgstr " (antiga)"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:524
+#: ../Tomboy/Synchronization/SyncDialog.cs:543
 msgid "Rename local note:"
 msgstr "Reanomena la nota local:"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:530
+#: ../Tomboy/Synchronization/SyncDialog.cs:549
 msgid "Update links in referencing notes"
 msgstr "Actualitza els enllaços en les notes a les quals es fa referència"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:537
+#: ../Tomboy/Synchronization/SyncDialog.cs:556
 msgid "Overwrite local note"
 msgstr "Sobreescriu la nota local"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:541
+#: ../Tomboy/Synchronization/SyncDialog.cs:560
 msgid "Always perform this action"
 msgstr "Realitza sempre aquesta acció"
 
 #. Set initial dialog text
-#: ../Tomboy/Synchronization/SyncDialog.cs:548
+#: ../Tomboy/Synchronization/SyncDialog.cs:566
 msgid "Note conflict detected"
 msgstr "S'ha detectat un conflicte amb les notes"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:549
+#: ../Tomboy/Synchronization/SyncDialog.cs:567
 #, csharp-format
 msgid ""
 "The server version of \"{0}\" conflicts with your local note.  What do you "
@@ -1741,7 +1945,7 @@ msgstr ""
 "voleu fer amb la nota local?"
 
 #
-#: ../Tomboy/Synchronization/SyncManager.cs:156
+#: ../Tomboy/Synchronization/SyncManager.cs:159
 msgid "_Tools"
 msgstr "E_ines"
 
@@ -1758,6 +1962,11 @@ msgid ""
 "startup.  Add \"modprobe fuse\" to /etc/init.d/boot.local or \"fuse\" to /"
 "etc/modules."
 msgstr ""
+"La sincronització que heu escollit requereix tenir el mòdul FUSE carregat.\n"
+"\n"
+"Per a evitar aquest missatge en el futur, heu de carregar el mòdul FUSE a "
+"l'inici. Afegiu «modprobe fuse» to /etc/init.d/boot.local or «fuse» to etc/"
+"modules."
 
 #
 #
@@ -1770,7 +1979,5 @@ msgid ""
 "The FUSE module could not be loaded. Please check that it is installed "
 "properly and try again."
 msgstr ""
-"No s'ha pogut carrega el mòdul FUSE. Comproveu que es troba instal·lat  "
-"correctament i torneu-ho a provar de nou."
-
-
+"No s'ha pogut carregar el mòdul FUSE. Comproveu que està instal·lat  "
+"correctament i torneu-ho a provar."
