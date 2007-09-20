@@ -193,7 +193,8 @@ namespace Tomboy
 				ScrollMarkOnscreen (Buffer.InsertMark);
 				break;
 			case Gdk.Key.Delete:
-				if (args.Event.State != Gdk.ModifierType.ShiftMask) {
+				if (Gdk.ModifierType.ShiftMask != (args.Event.State &
+				                                   Gdk.ModifierType.ShiftMask)) {
 					ret_value = ((NoteBuffer) Buffer).DeleteKeyHandler ();
 					ScrollMarkOnscreen (Buffer.InsertMark);
 				}
