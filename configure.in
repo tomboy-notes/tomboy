@@ -126,6 +126,22 @@ AM_CONDITIONAL(EXTERNAL_DBUS, test "x$have_external_dbus" = "xyes")
 AC_SUBST(DBUS_LIBS)
 
 #
+# Check for external Mono.Addins
+#
+AC_ARG_WITH(mono-addins, [  --with-mono-addins[[=internal/system]]],[mono_addins_v="$withval"],[mono_addins_v=internal])
+if test "x$mono_addins_v" = "xsystem"; then
+	PKG_CHECK_MODULES(MONO_ADDINS, mono-addins > 0.2 \
+		mono-addins-gui > 0.2 \
+		mono-addins-setup > 0.2)
+	AM_CONDITIONAL(EXTERNAL_MONO_ADDINS, true)
+	AC_SUBST(MONO_ADDINS_LIBS)
+else
+	MONO_ADDINS_LIBS=
+	AM_CONDITIONAL(EXTERNAL_MONO_ADDINS, false)
+	AC_SUBST(MONO_ADDINS_LIBS)
+fi
+
+#
 # Tomboy.exe needs Gtk# Gnome# GConf#
 #
 GTKSHARP2_MINIMUM_VERSION=$GTK20_MINIMUM_VERSION

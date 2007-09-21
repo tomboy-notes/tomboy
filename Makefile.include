@@ -10,10 +10,15 @@ DIR_ADDINS_SETUP = $(top_builddir)/Mono.Addins/Mono.Addins.Setup
 
 LINK_TOMBOY_EXE =					\
 	-r:$(top_builddir)/Tomboy/Tomboy.exe
+
+if EXTERNAL_MONO_ADDINS
+LINK_MONO_ADDINS = $(MONO_ADDINS_LIBS)
+else
 LINK_MONO_ADDINS =					\
 	-r:$(DIR_ADDINS_ADDINS)/Mono.Addins.dll		\
 	-r:$(DIR_ADDINS_SETUP)/Mono.Addins.Setup.dll	\
 	-r:$(DIR_ADDINS_GUI)/Mono.Addins.Gui.dll
+endif
 
 ## Build
 
