@@ -44,6 +44,7 @@ CSC_EXTRA_FLAGS =  -langversion:ISO-1 -noconfig -codepage:utf8 -warn:4 -debug -d
 
 ASSEMBLY = $(ASSEMBLY_NAME).dll
 
+if !EXTERNAL_MONO_ADDINS
 all: $(ASSEMBLY)
 
 $(ASSEMBLY): $(ASSEMBLY_SOURCES)
@@ -52,6 +53,7 @@ $(ASSEMBLY): $(ASSEMBLY_SOURCES)
 assemblydir = $(pkglibdir)
 assembly_DATA =			\
 	$(ASSEMBLY)		
+endif
 
 EXTRA_DIST = 			\
 	$(ASSEMBLY_SOURCES)
