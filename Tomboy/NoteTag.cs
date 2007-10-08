@@ -14,8 +14,8 @@ namespace Tomboy
 	public class NoteTag : Gtk.TextTag
 	{
 		string element_name;
-		Gdk.Pixbuf image;
-		Gtk.TextMark imageLocation;
+		Gtk.TextMark widgetLocation;
+		Gtk.Widget widget;
 
 		[Flags]
 		enum TagFlags {
@@ -235,9 +235,31 @@ namespace Tomboy
 
 		public virtual Gdk.Pixbuf Image
 		{
-			get { return image; }
+			get {
+				Gtk.Image image = widget as Gtk.Image;
+				if (image == null) return null;
+
+				return image.Pixbuf;
+			}
 			set {
-				image = value;
+				if(value == null) {
+					if(Widget != null) {
+						Widget.Destroy();
+						Widget = null;
+					}
+					return;
+				}
+
+				Gtk.Image image = new Gtk.Image (value);
+				Widget = image;
+			}
+		}
+
+		public virtual Gtk.Widget Widget
+		{
+			get { return widget; }
+			set {
+				widget = value;
 
 				if (Changed != null) {
 					Gtk.TagChangedArgs args = new Gtk.TagChangedArgs ();
@@ -248,10 +270,10 @@ namespace Tomboy
 			}
 		}
 
-		public virtual Gtk.TextMark ImageLocation
+		public virtual Gtk.TextMark WidgetLocation
 		{
-			get { return imageLocation; }
-			set { imageLocation = value; }
+			get { return widgetLocation; }
+			set { widgetLocation = value; }
 		}
 
 		public event Gtk.TagChangedHandler Changed;

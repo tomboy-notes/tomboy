@@ -1,4 +1,3 @@
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -283,6 +282,14 @@ namespace Tomboy
 
 		InterruptableTimeout save_timeout;
 
+		struct ChildWidgetData
+		{
+			public Gtk.TextChildAnchor anchor;
+			public Gtk.Widget widget;
+		};
+
+		Queue <ChildWidgetData> childWidgetQueue;
+
 		[System.Diagnostics.Conditional ("DEBUG_SAVE")]
 		static void DebugSave (string format, params object[] args)
 		{
@@ -303,6 +310,8 @@ namespace Tomboy
 			
 			save_timeout = new InterruptableTimeout ();
 			save_timeout.Timeout += SaveTimeout;
+
+			childWidgetQueue = new Queue <ChildWidgetData> ();
 		}
 
 		static string UrlFromPath (string filepath)
@@ -520,6 +529,32 @@ namespace Tomboy
 
 			DebugSave ("Tag removed, queueing save");
 			QueueSave (true);
+		}
+
+		public void AddChildWidget (Gtk.TextChildAnchor childAnchor, Gtk.Widget widget)
+		{
+			ChildWidgetData data = new ChildWidgetData ();
+			data.anchor = childAnchor;
+			data.widget = widget;
+
+			childWidgetQueue.Enqueue (data);
+
+			if (HasWindow)
+				ProcessChildWidgetQueue ();
+		}
+
+		private void ProcessChildWidgetQueue ()
+		{
+			// Insert widgets in the childWidgetQueue into the NoteEditor
+			if (!HasWindow)
+				return; // can't do anything without a window
+
+			foreach (ChildWidgetData data in childWidgetQueue) {
+				data.widget.Show();
+				Window.Editor.AddChildAtAnchor (data.widget, data.anchor);
+			}
+
+			childWidgetQueue.Clear ();
 		}
 
 		public string Uri
@@ -763,7 +798,7 @@ namespace Tomboy
 					Logger.Log ("Creating Buffer for '{0}'...", 
 						    data.Data.Title);
 
-					buffer = new NoteBuffer (TagTable);
+					buffer = new NoteBuffer (TagTable, this);
 					data.Buffer = buffer;
 
 					// Listen for further changed signals
@@ -800,6 +835,10 @@ namespace Tomboy
 					// OnRealized causes segfaults.
 					if (Opened != null)
 						Opened (this, new EventArgs ());
+
+					// Add any child widgets if any exist now that
+					// the window is showing.
+					ProcessChildWidgetQueue ();
 				}
 				return window; 
 			}

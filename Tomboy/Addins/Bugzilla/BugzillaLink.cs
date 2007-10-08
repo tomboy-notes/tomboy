@@ -10,6 +10,7 @@ namespace Tomboy.Bugzilla
 		public BugzillaLink ()
 			: base ()
 		{
+			Image = new Gdk.Pixbuf(null, "stock_bug.png");
 		}
 
 		public override void Initialize (string element_name)
@@ -39,30 +40,5 @@ namespace Tomboy.Bugzilla
 			return true;
 		}
 
-		public override Gdk.Pixbuf Image
-		{
-			get
-			{
-				if (Icon != null)
-					return Icon;
-
-				System.Uri uri = new System.Uri(BugUrl);
-				if (uri == null)
-					return null;
-
-				string host = uri.Host;
-				string imageDir = "~/.tomboy/BugzillaIcons/";
-
-				string imagePath = imageDir.Replace ("~", Environment.GetEnvironmentVariable ("HOME")) + host + ".png";
-
-				try {
-					Icon = new Gdk.Pixbuf (imagePath);
-				} catch (GLib.GException) {
-					Icon = new Gdk.Pixbuf(null, "stock_bug.png");
-				}
-
-				return Icon;
-			}
-		}
 	}
 }
