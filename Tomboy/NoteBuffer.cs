@@ -1,6 +1,7 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.Xml;
 
@@ -16,22 +17,25 @@ namespace Tomboy
 		char[] indent_bullets = {'\u2022', '\u2218', '\u2023'};
 
 		// GODDAMN Gtk.TextBuffer. I hate you. Hate Hate Hate.
-		struct ImageInsertData
+		struct WidgetInsertData
 		{
 			public bool adding;
 			public Gtk.TextBuffer buffer;
 			public Gtk.TextMark position;
-			public Gdk.Pixbuf image;
+			public Gtk.Widget widget;
 			public NoteTag tag;
 		};
-		ArrayList imageQueue;
-		uint imageQueueTimeout;
+		Queue <WidgetInsertData> widgetQueue;
+		uint widgetQueueTimeout;
 		// HATE.
 
 		// list of Gtk.TextTags to apply on insert
 		ArrayList active_tags;
 
-		public NoteBuffer (Gtk.TextTagTable tags) 
+		// The note that owns this buffer
+		private Note note;
+
+		public NoteBuffer (Gtk.TextTagTable tags, Note note) 
 			: base (tags)
 		{
 			active_tags = new ArrayList ();
@@ -45,8 +49,10 @@ namespace Tomboy
 
 			tags.TagChanged += OnTagChanged;
 
-			imageQueue = new ArrayList();
-			imageQueueTimeout = 0;
+			widgetQueue = new Queue <WidgetInsertData> ();
+			widgetQueueTimeout = 0;
+
+			this.note = note;
 		}
 
 		// Signal that text has been inserted, and any active tags have
@@ -565,47 +571,44 @@ namespace Tomboy
 			}
 		}
 
-		void ImageSwap (NoteTag tag, 
+		void WidgetSwap (NoteTag tag, 
 				Gtk.TextIter start, 
 				Gtk.TextIter end,
 				bool adding) 
 		{
-			if (tag.Image == null)
+			if (tag.Widget == null)
 				return;
 
 			Gtk.TextIter prev = start;
 			prev.BackwardChar ();
 
-			if ((adding == true  && tag.Image != prev.Pixbuf) ||
-			    (adding == false && tag.Image == prev.Pixbuf)) {
-				ImageInsertData data = new ImageInsertData ();
-				data.buffer = start.Buffer;
-				data.tag = tag;
-				data.image = tag.Image;
-				data.adding = adding;
+			WidgetInsertData data = new WidgetInsertData ();
+			data.buffer = start.Buffer;
+			data.tag = tag;
+			data.widget = tag.Widget;
+			data.adding = adding;
 
-				if (adding) {
-					data.position = start.Buffer.CreateMark (null, start, true);
-				} else {
-					data.position = tag.ImageLocation;
-				}
+			if (adding) {
+				data.position = start.Buffer.CreateMark (null, start, true);
+			} else {
+				data.position = tag.WidgetLocation;
+			}
 
-				imageQueue.Add(data);
+			widgetQueue.Enqueue (data);
 
-				if (imageQueueTimeout == 0) {
-					imageQueueTimeout = GLib.Idle.Add(RunImageQueue);
-				}
+			if (widgetQueueTimeout == 0) {
+				widgetQueueTimeout = GLib.Idle.Add(RunWidgetQueue);
 			}
 		}
 
-		public bool RunImageQueue ()
+		public bool RunWidgetQueue ()
 		{
-			foreach (ImageInsertData data in imageQueue) {
+			foreach (WidgetInsertData data in widgetQueue) {
 				NoteBuffer buffer = data.buffer as NoteBuffer;
 				Gtk.TextIter iter = buffer.GetIterAtMark (data.position);
 				Gtk.TextMark location = data.position;
 				
-				// Prevent the image from being inserted before a bullet
+				// Prevent the widget from being inserted before a bullet
 				if (FindDepthTag (iter) != null) {
 					iter.LineOffset = 2;
 					location = CreateMark(data.position.Name, iter, data.position.LeftGravity);
@@ -613,23 +616,24 @@ namespace Tomboy
 
 				buffer.Undoer.FreezeUndo();
 
-				if (data.adding && data.tag.ImageLocation == null) {
-					buffer.InsertPixbuf (ref iter, data.image);
-					data.tag.ImageLocation = location;
-				} else if (!data.adding && data.tag.ImageLocation != null) {
+				if (data.adding && data.tag.WidgetLocation == null) {
+					Gtk.TextChildAnchor childAnchor = buffer.CreateChildAnchor (ref iter);
+					data.tag.WidgetLocation = location;
+					note.AddChildWidget (childAnchor, data.widget);
+				} else if (!data.adding && data.tag.WidgetLocation != null) {
 					Gtk.TextIter end = iter;
 					end.ForwardChar();
 					buffer.Delete (ref iter, ref end);
 					buffer.DeleteMark (location);
-					data.tag.ImageLocation = null;
+					data.tag.WidgetLocation = null;
 				}
 
 				buffer.Undoer.ThawUndo ();
 			}
 
-			imageQueue.Clear ();
+			widgetQueue.Clear ();
 
-			imageQueueTimeout = 0;
+			widgetQueueTimeout = 0;
 			return false;
 		}
 
@@ -640,7 +644,7 @@ namespace Tomboy
 				TextTagEnumerator enumerator = 
 					new TextTagEnumerator (this, note_tag);
 				foreach (TextRange range in enumerator) {
-					ImageSwap (note_tag, range.Start, range.End, true);
+					WidgetSwap (note_tag, range.Start, range.End, true);
 				}
 			}
 		}
@@ -653,7 +657,7 @@ namespace Tomboy
 
 			NoteTag note_tag = tag as NoteTag;
 			if (note_tag != null) {
-				ImageSwap (note_tag, start, end, true);
+				WidgetSwap (note_tag, start, end, true);
 			}
 		}
 
@@ -663,7 +667,7 @@ namespace Tomboy
 		{
 			NoteTag note_tag = tag as NoteTag;
 			if (note_tag != null) {
-				ImageSwap (note_tag, start, end, false);
+				WidgetSwap (note_tag, start, end, false);
 			}
 
 			base.OnTagRemoved (tag, start, end);

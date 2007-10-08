@@ -28,7 +28,7 @@ namespace Tomboy.Bugzilla
 			buffer.MoveMark (buffer.InsertMark, buffer.GetIterAtOffset (Offset));
 			buffer.MoveMark (buffer.SelectionBound, buffer.GetIterAtOffset (Offset));
 
-			Tag.ImageLocation = null;
+			Tag.WidgetLocation = null;
 
 			ApplySplitTags (buffer);
 		}

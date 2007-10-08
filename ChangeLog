@@ -1,5 +1,27 @@
 2007-10-08  Boyd Timothy <btimothy@gmail.com>
 
+	Patch from Jeff Tickle to allow TextTags in Tomboy to insert
+	widgets instead of just Gdk.Pixbufs (from bug #484537).
+
+	* Tomboy/Addins/Bugzilla/InsertBugAction.cs: Set WidgetLocation
+	  to null.
+	* Tomboy/Addins/Bugzilla/BugzillaLink.cs: Remove override for
+	  TextTag Image property since it's now handled in the super
+	  class and wraps the Gdk.Pixbuf in a Gtk.Image.
+	* Tomboy/NoteBuffer.cs: Replace the image queue with stuff
+	  to deal with widget queue.
+	* Tomboy/NoteTag.cs: Add a Widget property and convert the
+	  Image property to use a Gtk.Image.
+	* Tomboy/Note.cs: Handle the work of processing NoteTag
+	  widgets.  There's now an AddChildWidget () call that can
+	  be called during TextInsert events.  If a note has never
+	  been displayed, the widget is added to the queue or
+	  otherwise added immediately.  As soon as the note window
+	  is instantiated, all widgets that have not been processed
+	  are then inserted.
+
+2007-10-08  Boyd Timothy <btimothy@gmail.com>
+
 	Patch from Jeff Tickle to fix the highlighting problems.
 	Fixes bug #392907.
 
