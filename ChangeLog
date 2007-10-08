@@ -1,5 +1,13 @@
 2007-10-08  Boyd Timothy <btimothy@gmail.com>
 
+	* Tomboy/NoteTag.cs: Move the null checking from Image
+	  property into the Widget property.  Also create a new
+	  object [] for TagChangedArgs to prevent a null exception.
+	  And finally, wrap the Changed handler in a try/catch just
+	  in case a handler pukes.  This will prevent a crash.
+
+2007-10-08  Boyd Timothy <btimothy@gmail.com>
+
 	Patch from Jeff Tickle to allow TextTags in Tomboy to insert
 	widgets instead of just Gdk.Pixbufs (from bug #484537).
 

@@ -243,10 +243,7 @@ namespace Tomboy
 			}
 			set {
 				if(value == null) {
-					if(Widget != null) {
-						Widget.Destroy();
-						Widget = null;
-					}
+					Widget = null;
 					return;
 				}
 
@@ -259,13 +256,23 @@ namespace Tomboy
 		{
 			get { return widget; }
 			set {
+				if (value == null && widget != null) {
+					widget.Destroy ();
+					widget = null;
+				}
+
 				widget = value;
 
 				if (Changed != null) {
 					Gtk.TagChangedArgs args = new Gtk.TagChangedArgs ();
+					args.Args = new object [2];
 					args.Args [0] = false; // SizeChanged
 					args.Args [1] = this;  // Tag
-					Changed (this, args);
+					try {
+						Changed (this, args);
+					} catch (Exception e) {
+						Logger.Warn ("Exception calling TagChanged from NoteTag.set_Widget: {0}", e.Message);
+					}
 				}
 			}
 		}
