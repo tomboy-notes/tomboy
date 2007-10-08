@@ -1,3 +1,13 @@
+2007-10-08  Boyd Timothy <btimothy@gmail.com>
+
+	Patch from Jeff Tickle to fix the highlighting problems.
+	Fixes bug #392907.
+
+	* Tomboy/Watchers.cs, Tomboy/NoteWindow.cs: Use
+	  Buffer.GetSlice () instead of Buffer.GetText () because the
+	  GetSlice call accounts for non-character items in the buffer
+	  such as pixbufs and widgets.
+
 2007-09-21  Sebastian Dröge  <slomo@circular-chaos.org>
 
 	* Makefile.include:

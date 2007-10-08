@@ -119,7 +119,7 @@ namespace Tomboy
 			Buffer.ApplyTag (title_tag, TitleStart, TitleEnd);
 
 			// NOTE: Use "(Untitled #)" for empty first lines...
-			string title = TitleStart.GetText (TitleEnd).Trim ();
+			string title = TitleStart.GetSlice (TitleEnd).Trim ();
 			if (title == string.Empty)
 				title = GetUniqueUntitled ();
 
@@ -392,7 +392,7 @@ namespace Tomboy
 
 		string GetUrl (Gtk.TextIter start, Gtk.TextIter end)
 		{
-			string url = start.GetText (end);
+			string url = start.GetSlice (end);
 
 			// FIXME: Needed because the file match is greedy and
 			// eats a leading space.
@@ -466,7 +466,7 @@ namespace Tomboy
 
 			Buffer.RemoveTag (url_tag, start, end);
 
-			for (Match match = regex.Match (start.GetText (end)); 
+			for (Match match = regex.Match (start.GetSlice (end)); 
 			     match.Success; 
 			     match = match.NextMatch ()) {
 				System.Text.RegularExpressions.Group group = match.Groups [1];
@@ -749,7 +749,7 @@ namespace Tomboy
 
 		void HighlightInBlock (Gtk.TextIter start, Gtk.TextIter end) 
 		{
-			ArrayList hits = Manager.TitleTrie.FindMatches (start.GetText (end));
+			ArrayList hits = Manager.TitleTrie.FindMatches (start.GetSlice (end));
 			foreach (TrieHit hit in hits) {
 				DoHighlight (hit, start, end);
 			}

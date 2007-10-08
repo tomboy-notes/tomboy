@@ -1340,7 +1340,7 @@ namespace Tomboy
 		{
 			ArrayList matches = new ArrayList ();
 
-			string note_text = buffer.GetText (buffer.StartIter, 
+			string note_text = buffer.GetSlice (buffer.StartIter, 
 							   buffer.EndIter, 
 							   false /* hidden_chars */);
 			if (!match_case)
