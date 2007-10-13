@@ -586,7 +586,6 @@ namespace Tomboy
 				
 				tag.PixelsBelowLines = 4;
 				tag.Scale = Pango.Scale.Medium;
-				tag.SizePoints = 12;
 				Add (tag);
 			}
 
