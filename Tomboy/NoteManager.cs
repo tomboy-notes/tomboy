@@ -371,24 +371,12 @@ namespace Tomboy
 
 			Note new_note = CreateNewNote (title, content, guid);
 
-			// In case the note was created using the "Link" button, Select the inital 
-         		// "Describe..." text so typing will overwrite the body text, 
-			// otherwise select the title 
+			// Select the inital 
+         		// "Describe..." text so typing will overwrite the body text,
 			NoteBuffer buffer = new_note.Buffer;	
-         		Gtk.TextIter iter;
-			bool linkedNote = !title.StartsWith (Catalog.GetString ("New Note"));
-			
-         		if (linkedNote)
-            			iter = buffer.GetIterAtOffset (header.Length);
-			else
-				iter = buffer.GetIterAtOffset (0);
-
-         		buffer.MoveMark (buffer.SelectionBound, iter);
-
-         		if (linkedNote)
-				buffer.MoveMark (buffer.InsertMark, buffer.EndIter);
-		   	else
-				buffer.MoveMark (buffer.InsertMark, buffer.GetIterAtOffset (title.Length));
+         		Gtk.TextIter iter = buffer.GetIterAtOffset (header.Length);
+                        buffer.MoveMark (buffer.SelectionBound, iter);
+                        buffer.MoveMark (buffer.InsertMark, buffer.EndIter);
 
 			return new_note;
 		}

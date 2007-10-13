@@ -1,5 +1,12 @@
 2007-10-13  Sandy Armstrong <sanfordarmstrong@gmail.com> 
 
+	* Tomboy/NoteManager.cs: Backing out fix for bug #449478.  Now the body of
+	  the note content is always selected when creating a new note (title is
+	  never automatically selected).  This restores the original behavior that
+	  people seem to prefer.
+
+2007-10-13  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
 	* Tomboy/Watchers.cs, Tomboy/NoteWindow.cs: Use Buffer.GetSlice () instead
 	  of Buffer.GetText () because the GetSlice call accounts for
 	  non-character items in the buffer such as pixbufs and widgets.
