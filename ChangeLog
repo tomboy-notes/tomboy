@@ -1,3 +1,9 @@
+2007-10-13  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/Watchers.cs, Tomboy/NoteWindow.cs: Use Buffer.GetSlice () instead
+	  of Buffer.GetText () because the GetSlice call accounts for
+	  non-character items in the buffer such as pixbufs and widgets.
+
 2007-09-16  Sandy Armstrong <sanfordarmstrong@gmail.com> 
 
 	* help/C/figures/tomboy-preferences-synchronization.png: Forgot to add
