@@ -28,12 +28,10 @@ namespace Tomboy.Bugzilla
 
 		public override void Shutdown ()
 		{
-Logger.Debug ("Bugzilla.Shutdown");
 		}
 
 		public override void OnNoteOpened ()
 		{
-Logger.Debug ("Bugzilla.OnNoteOpened");
 			Window.Editor.DragDataReceived += OnDragDataReceived;
 		}
 
@@ -43,7 +41,6 @@ Logger.Debug ("Bugzilla.OnNoteOpened");
 		[GLib.ConnectBefore]
 		void OnDragDataReceived (object sender, Gtk.DragDataReceivedArgs args)
 		{
-Logger.Debug ("Bugzilla.OnDragDataReceived");
 			foreach (Gdk.Atom atom in args.Context.Targets) {
 				if (atom.Name == "text/uri-list" ||
 				    atom.Name == "_NETSCAPE_URL") {
@@ -55,7 +52,6 @@ Logger.Debug ("Bugzilla.OnDragDataReceived");
 
 		void DropUriList (Gtk.DragDataReceivedArgs args)
 		{
-Logger.Debug ("Bugzilla.DropUriList");
 			if (args.SelectionData.Length > 0) {
 				string uriString = Encoding.UTF8.GetString (args.SelectionData.Data);
 
@@ -71,7 +67,6 @@ Logger.Debug ("Bugzilla.DropUriList");
 
 		bool InsertBug (int x, int y, string uri)
 		{
-Logger.Debug ("Bugzilla.InsertBug");
 			try {
 				string bug = uri.Substring (uri.IndexOf ("show_bug.cgi?id=") + 16);
 				int id = int.Parse (bug);
@@ -98,10 +93,8 @@ Logger.Debug ("Bugzilla.InsertBug");
 
 				Gtk.TextTag[] tags = {link_tag};
 				Buffer.InsertWithTags (ref cursor, bug, tags);
-Logger.Debug ("\tReturning true");
 				return true;
 			} catch {
-Logger.Debug ("\tReturning false");
 				return false;
 			}
 		}
