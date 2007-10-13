@@ -21,7 +21,6 @@ namespace Tomboy.Bugzilla
 
 		public override void Initialize ()
 		{
-Logger.Debug ("Bugzilla.Initialize");
 			if (!Note.TagTable.IsDynamicTagRegistered ("link:bugzilla")) {
 				Note.TagTable.RegisterDynamicTag ("link:bugzilla", typeof (BugzillaLink));
 			}
