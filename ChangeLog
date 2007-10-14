@@ -1,3 +1,15 @@
+2007-10-14  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/Synchronization/SyncUtils.cs: Stop looking for bootLocalFile and
+	  echoTool; we do not use them (previously used to try to set FUSE to
+	  always load).  FindFirstExecutableInPath now searches a few common paths
+	  in addition to those found in a user's $PATH.  For now those common
+	  paths are /sbin, /bin, and /usr/bin.  This is the first step in fixing
+	  bug #484644 and bug #479748.  More work still needs to be done.  For
+	  example, if FUSE is enabled it doesn't matter if we can find modprobe or
+	  a GUI sudo tool.  Also, the behavior when a GUI sudo tool is not found
+	  needs to be tweaked/tested.
+
 2007-10-13  Sandy Armstrong <sanfordarmstrong@gmail.com> 
 
 	* Tomboy.mdp: Added internal dbus-sharp files to MD solution, mostly just
