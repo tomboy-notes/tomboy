@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using Mono.Unix;
@@ -22,16 +23,12 @@ namespace Tomboy.Sync
 		/// Tool used to enable a kernel module
 		/// </summary>
 		static string modprobeTool = null;
-		
-		/// <summary>
-		/// Tool used to echo text
-		/// </summary>
-		static string echoTool = null;
-		
-		/// <summary>
-		/// Path to the file to append kernel modules that should be enabled
-		/// </summary>
-		static string bootLocalFile = null;
+                
+                /// <summary>
+                /// Common places where tools might be found, in case
+                /// $PATH is not set up as expected.
+                /// </summary>
+                static string[] commonPaths = {"/sbin", "/bin", "/usr/bin"};
 		
 		static bool toolsFound = false;
 		
@@ -70,25 +67,8 @@ namespace Tomboy.Sync
 			else
 				Logger.Warn ("No GUI 'su' tool found");
 			
-			echoTool = FindFirstExecutableInPath ("echo");
-			if (echoTool == null)
-				Logger.Warn ("echo tool not found");
-			
-			// bootLocalFile, SUSE: /etc/init.d/boot.local
-			// bootLocalFile, Ubuntu: /etc/modules
-			// bootLocalFile, Arch: /etc/rc.conf
-			if (File.Exists ("/etc/init.d/boot.local") == true)
-				bootLocalFile = "/etc/init.d/boot.local";
-			else if (File.Exists ("/etc/modules") == true)
-				bootLocalFile = "/etc/modules";
-			else if (File.Exists ("/etc/rc.conf") == true)
-				bootLocalFile = "/etc/rc.conf";
-			else
-				Logger.Warn ("No bootLocalFile found");
-			
 			if (lsmodTool == null || modprobeTool == null
-					|| guisuTool == null || echoTool == null
-					|| bootLocalFile == null)
+                            || guisuTool == null)
 				return false;
 			
 			return true;
@@ -150,6 +130,8 @@ namespace Tomboy.Sync
 						      Gtk.ButtonsType.YesNo,
 						      Catalog.GetString ("Enable FUSE?"),
 						      Catalog.GetString (
+                                                                         // TODO: This message isn't entirely accurate.
+                                                                         //       We should fix it.
 					"The synchronization you've chosen requires the FUSE module to be loaded.\n\n" +
 					"To avoid getting this prompt in the future, you should load FUSE at startup.  " +
 					"Add \"modprobe fuse\" to /etc/init.d/boot.local or \"fuse\" to /etc/modules."));
@@ -207,21 +189,28 @@ namespace Tomboy.Sync
 		}
 		
 		/// <summary>
-		/// Search in $PATH for the given executables.  Return full executable path
+		/// Search in $PATH and a few other common locations for the
+                /// given executables.  Return full executable path
 		/// of first executable found.  If none found, return null.
 		/// </summary>
 		public static string FindFirstExecutableInPath (params string[] executableNames)
 		{
 			foreach (string executableName in executableNames) {
 				string pathVar = System.Environment.GetEnvironmentVariable ("PATH");
-				foreach (string path in pathVar.Split (Path.PathSeparator)) {
+                                List<string> paths = new List<string> (pathVar.Split (Path.PathSeparator));
+
+                                foreach (string commonPath in commonPaths)
+                                        if (!paths.Contains (commonPath))
+                                                paths.Add (commonPath);
+                                
+				foreach (string path in paths) {
 					string testExecutablePath = Path.Combine (path, executableName);
 					if (File.Exists (testExecutablePath))
 						return testExecutablePath;
 				}
 				Logger.Debug ("Unable to locate '" + executableName + "' in your PATH");
 			}
-			// TODO: Any reason to extend search outside of $PATH?
+
 			return null;
 		}
 	}
