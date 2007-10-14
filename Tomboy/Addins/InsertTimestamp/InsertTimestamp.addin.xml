@@ -1,0 +1,21 @@
+<Addin id="InsertTimestampAddin"
+	namespace="Tomboy"
+	name="Insert Timestamp"
+	author="Tomboy Project"
+	description="Inserts current date and time at the cursor position."
+	category="Tools"
+	defaultEnabled="false"
+	version="0.1">
+
+	<Runtime>
+		<Import assembly="InsertTimestamp.dll" />
+	</Runtime>
+
+	<Dependencies>
+		<Addin id="Tomboy" version="0.7" />
+	</Dependencies>
+
+	<Extension path="/Tomboy/NoteAddins">
+		<NoteAddin type="Tomboy.InsertTimestamp.InsertTimestampNoteAddin" />
+	</Extension>
++</Addin>

@@ -5,6 +5,7 @@ SUBDIRS =				\
 	Evolution		\
 	FixedWidth			\
 	GalagoPresence		\
+	InsertTimestamp		\
 	NoteOfTheDay		\
 	PrintNotes			\
 	StickyNoteImport	\
