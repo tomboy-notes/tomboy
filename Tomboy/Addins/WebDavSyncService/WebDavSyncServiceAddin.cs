@@ -193,8 +193,8 @@ namespace Tomboy.Sync
 				}
 			} catch (KeyringException ke) {
 				Logger.Warn ("Getting configuration from the GNOME " +
-				              "keyring failed with the following message: " +
-				              ke.Message);
+				              "keyring failed with the following exception: " +
+				              ke.ToString ());
 				// TODO: If the following fails, retrieve all but password from GConf,
 				//       and prompt user for password. (some password caching would be nice, too)
 				// Retrieve configuration from GConf
@@ -233,8 +233,8 @@ namespace Tomboy.Sync
 				}
 			} catch (KeyringException ke) {
 				Logger.Warn ("Saving configuration to the GNOME " +
-				              "keyring failed with the following message: " +
-				              ke.Message);
+				              "keyring failed with the following exception: " +
+				              ke.ToString ());
 				// TODO: If the above fails (no keyring daemon), save all but password
 				//       to GConf, and notify user.
 				// Save configuration into GConf
