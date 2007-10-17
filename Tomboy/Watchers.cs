@@ -167,8 +167,7 @@ namespace Tomboy
 				return false;
 			}
 
-			Logger.Debug (string.Format ("Renaming note from {0} to {1}",
-			                             Note.Title, title));
+			Logger.Debug ("Renaming note from {0} to {1}", Note.Title, title);
 			Note.Title = title;
 			return true;
 		}
