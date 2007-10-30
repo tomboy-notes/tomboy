@@ -12,6 +12,7 @@ namespace Tomboy
 	{
 		bool editing_title;
 		Gtk.TextTag title_tag;
+		HIGMessageDialog title_taken_dialog = null; 
 
 		public override void Initialize ()
 		{
@@ -185,17 +186,26 @@ namespace Tomboy
 								  "for this note before " +
 								  "continuing."),
 					       title);
-
-			HIGMessageDialog dialog = 
-				new HIGMessageDialog (Window,
+			
+			/// Only pop open a warning dialog when one isn't already present
+			/// Had to add this check because this method is being called twice.
+			if (title_taken_dialog == null) {
+				title_taken_dialog =
+					new HIGMessageDialog (Window,
 						      Gtk.DialogFlags.DestroyWithParent,
 						      Gtk.MessageType.Warning,
 						      Gtk.ButtonsType.Ok,
 						      Catalog.GetString ("Note title taken"),
 						      message);
-
-			dialog.Run ();
-			dialog.Destroy ();
+				title_taken_dialog.Modal = true;
+				title_taken_dialog.Response +=
+					delegate (object sender, Gtk.ResponseArgs args) {
+						title_taken_dialog.Destroy ();
+						title_taken_dialog = null;
+					};
+			}
+			
+			title_taken_dialog.Present ();
 		}
 	}
 
