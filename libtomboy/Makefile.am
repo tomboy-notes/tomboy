@@ -12,6 +12,8 @@ tomboylibdir = $(pkglibdir)
 tomboylib_LTLIBRARIES = libtomboy.la
 
 libtomboy_la_SOURCES =		\
+	contrast.h              \
+	contrast.c              \
 	tomboykeybinder.h	\
 	tomboykeybinder.c	\
 	tomboyutil.h		\
