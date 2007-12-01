@@ -393,6 +393,7 @@ namespace Tomboy
 						xml.ReadAttributeValue();
 						Attributes [name] = xml.Value;
 
+                                                OnAttributeRead (name);
 						Logger.Log (
 							"NoteTag: {0} read attribute {1}='{2}'",
 							ElementName,
@@ -402,6 +403,16 @@ namespace Tomboy
 				}
 			}
 		}
+                
+                /// <summary>
+                /// Derived classes should override this if they desire
+                /// to be notified when a tag attribute is read in.
+                /// </summary>
+                /// <param name="attributeName">
+                /// A <see cref="System.String"/> that is the name of the
+                /// newly read attribute.
+                /// </param>
+                protected virtual void OnAttributeRead (string attributeName) {}
 	}
 	
 	public class DepthNoteTag : NoteTag

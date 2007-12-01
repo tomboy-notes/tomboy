@@ -19,6 +19,7 @@ namespace Tomboy.Bugzilla
 
 		static BugzillaPreferences ()
 		{
+                        // TODO: Get this in a safer way
 			image_dir = IMAGE_DIR.Replace ("~", Environment.GetEnvironmentVariable ("HOME"));
 		}
 
