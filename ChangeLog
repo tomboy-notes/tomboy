@@ -1,3 +1,12 @@
+2007-12-01  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/Synchronization/SyncUtils.cs: Only require lsmod for IsFuseEnabled,
+	  and gksu/etc and modprobe for EnableFuse.  Provide appropriate user
+	  feedback when these tools are not available when needed.  Note that on
+	  Fedora and other distros that don't ship a GUI 'su' tool by default, the
+	  user will always receive a "Could not enable FUSE" error dialog until
+	  they set the FUSE module up manually.
+
 2007-11-12  Boyd Timothy <btimothy@gmail.com> 
 
 	* configure.in: Bump version to 0.9.2.
