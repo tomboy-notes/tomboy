@@ -36,12 +36,16 @@ namespace Tomboy.Sync
 		{
 			toolsFound = SetUpTools (); 
 			if (toolsFound) {
-				Logger.Debug ("Successfully found system tools");
+				Logger.Debug ("Successfully found all system tools");
 			} else {
-				Logger.Debug ("Failed to find necessary system tools for SyncUtils");
+				Logger.Debug ("Failed to find all system tools for SyncUtils");
 			}
 		}
 		
+                /// <summary>
+                /// Indicates that all tools needed by this class were found.
+                /// Not all methods require all tools, though.
+                /// </summary>
 		public static bool ToolsValid
 		{
 			get { return toolsFound; }
@@ -73,16 +77,6 @@ namespace Tomboy.Sync
 			
 			return true;
 		}
-		
-		/// <summary>
-		/// Throws an exception if the tools required by this utility class are
-		/// not set up properly
-		/// </summary>
-		private static void CheckToolsValid ()
-		{
-			if (toolsFound == false)
-				throw new InvalidOperationException ("SyncUtils cannot be used because one or more of the required system tools could not be found.");
-		} 
 
 
 		/// <summary>
@@ -90,7 +84,9 @@ namespace Tomboy.Sync
 		/// </summary>
 		public static bool IsFuseEnabled ()
 		{
-			CheckToolsValid ();
+			if (string.IsNullOrEmpty (lsmodTool))
+                                throw new InvalidOperationException ("Unable to check if FUSE is enabled without a valid lsmod tool.");
+
 			Process p = new Process ();
 			p.StartInfo.UseShellExecute = false;
 			p.StartInfo.RedirectStandardOutput = true;
@@ -107,7 +103,7 @@ namespace Tomboy.Sync
 			}
 			
 			if (output.IndexOf ("fuse") == -1) {
-				Logger.Debug ("Could not find fuse in lsmod output");
+				Logger.Debug ("Could not find 'fuse' in lsmod output");
 				return false;
 			}
 			
@@ -121,6 +117,26 @@ namespace Tomboy.Sync
 		{
 			if (IsFuseEnabled () == true)
 				return true; // nothing to do
+                        
+                        if (string.IsNullOrEmpty (guisuTool) ||
+                            string.IsNullOrEmpty (modprobeTool)) {
+                                Logger.Warn ("Couldn't enable fuse; missing either GUI 'su' tool or modprobe");
+					
+                               // Let the user know that FUSE could not be enabled
+                               HIGMessageDialog cannotEnableDlg =
+                                      new HIGMessageDialog (null,
+                                              Gtk.DialogFlags.Modal,
+                                              Gtk.MessageType.Error,
+                                              Gtk.ButtonsType.Ok,
+                                              Catalog.GetString ("Could not enable FUSE"),
+                                              Catalog.GetString ("The FUSE module could not be loaded. " +
+                                              "Please check that it is installed properly " +
+                                              "and try again."));
+                                
+                                cannotEnableDlg.Run ();
+                                cannotEnableDlg.Destroy ();
+                                return false;
+                        }
 			
 			// Prompt the user first about enabling fuse
 			HIGMessageDialog dialog = 
