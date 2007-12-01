@@ -1,5 +1,16 @@
 2007-12-01  Sandy Armstrong <sanfordarmstrong@gmail.com> 
 
+	* Tomboy/Addins/Bugzilla/BugzillaPreferences.cs: Made a note to get the
+	  BugzillaIcons directory in a more safe manner in the future.
+	* Tomboy/Addins/Bugzilla/BugzillaLink.cs: Set bugzilla icon whenever the
+	  "uri" attribute is set or initially read in.  This should fix bug
+	  #429413.
+	* Tomboy/NoteTag.cs: Added OnAttributeRead method to DynamicNoteTag, which
+	  derived classes shoudl override if they need to take action as soon as a
+	  particular attribute is read in.
+
+2007-12-01  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
 	* Tomboy/Synchronization/SyncUtils.cs: Only require lsmod for IsFuseEnabled,
 	  and gksu/etc and modprobe for EnableFuse.  Provide appropriate user
 	  feedback when these tools are not available when needed.  Note that on
