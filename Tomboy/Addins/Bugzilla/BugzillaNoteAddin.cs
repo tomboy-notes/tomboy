@@ -2,6 +2,7 @@
 using System;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Xml;
 
 //using Mono.Unix;
@@ -13,6 +14,8 @@ namespace Tomboy.Bugzilla
 	public class BugzillaNoteAddin : NoteAddin
 	{
 		static int last_bug;
+                
+                public const string BugzillaLinkTagName = "link:bugzilla";
 
 		static BugzillaNoteAddin ()
 		{
@@ -21,8 +24,8 @@ namespace Tomboy.Bugzilla
 
 		public override void Initialize ()
 		{
-			if (!Note.TagTable.IsDynamicTagRegistered ("link:bugzilla")) {
-				Note.TagTable.RegisterDynamicTag ("link:bugzilla", typeof (BugzillaLink));
+			if (!Note.TagTable.IsDynamicTagRegistered (BugzillaLinkTagName)) {
+				Note.TagTable.RegisterDynamicTag (BugzillaLinkTagName, typeof (BugzillaLink));
 			}
 		}
 
@@ -55,23 +58,27 @@ Logger.Debug ("Bugzilla.OnDragDataReceived");
 		{
 			if (args.SelectionData.Length > 0) {
 				string uriString = Encoding.UTF8.GetString (args.SelectionData.Data);
-
-				if (uriString.IndexOf ("show_bug.cgi?id=") != -1) {
-					if (InsertBug (args.X, args.Y, uriString)) {
-						Gtk.Drag.Finish (args.Context, true, false, args.Time);
-						g_signal_stop_emission_by_name(Window.Editor.Handle,
-						                               "drag_data_received");
-					}
-				}
+                                
+                                string bugIdGroup = "bugid";
+                                string regexString =
+                                        @"show_bug\.cgi\?(\S+\&){0,1}id=(?<" + bugIdGroup + @">\d{5,})";
+                                
+                                Match match = Regex.Match (uriString, regexString);
+                                if (match.Success) {
+                                        int bugId = int.Parse (match.Groups [bugIdGroup].Value);
+                                        if (InsertBug (args.X, args.Y, uriString, bugId)) {
+                                                Gtk.Drag.Finish (args.Context, true, false, args.Time);
+        					g_signal_stop_emission_by_name(Window.Editor.Handle,
+                                                                               "drag_data_received");
+        				}
+                                }
 			}
 		}
 
-		bool InsertBug (int x, int y, string uri)
+		bool InsertBug (int x, int y, string uri, int id)
 		{
 			try {
-				string bug = uri.Substring (uri.IndexOf ("show_bug.cgi?id=") + 16);
-				int id = int.Parse (bug);
-				// Debounce.  I'm not sure why this is necessary :(
+                                // Debounce.  I'm not sure why this is necessary :(
 				if (id == last_bug) {
 					last_bug = -1;
 					return true;
@@ -79,7 +86,7 @@ Logger.Debug ("Bugzilla.OnDragDataReceived");
 				last_bug = id;
 
 				BugzillaLink link_tag = (BugzillaLink)
-					Note.TagTable.CreateDynamicTag ("link:bugzilla");
+					Note.TagTable.CreateDynamicTag (BugzillaLinkTagName);
 				link_tag.BugUrl = uri;
 
 				// Place the cursor in the position where the uri was
@@ -90,10 +97,10 @@ Logger.Debug ("Bugzilla.OnDragDataReceived");
 				Gtk.TextIter cursor = Window.Editor.GetIterAtLocation (x, y);
 				Buffer.PlaceCursor (cursor);
 
-				Buffer.Undoer.AddUndoAction (new InsertBugAction (cursor, bug, Buffer, link_tag));
+				Buffer.Undoer.AddUndoAction (new InsertBugAction (cursor, id.ToString (), Buffer, link_tag));
 
 				Gtk.TextTag[] tags = {link_tag};
-				Buffer.InsertWithTags (ref cursor, bug, tags);
+				Buffer.InsertWithTags (ref cursor, id.ToString (), tags);
 				return true;
 			} catch {
 				return false;
