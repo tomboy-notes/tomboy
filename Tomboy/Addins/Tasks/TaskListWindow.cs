@@ -691,7 +691,8 @@ namespace Tomboy.Tasks
 			
 			try {
 				expecting_newly_created_task = true;
-				manager.Create (summary);
+ 				Task newTask = manager.Create (summary);
+ 				tree.SetCursor(manager.GetTreePathFromTask(newTask), summary_column, true);
 			} catch (Exception e) {
 				expecting_newly_created_task = false;
 				Logger.Error ("Could not create a new task with summary: {0}:{1}", summary, e.Message);

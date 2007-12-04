@@ -55,6 +55,18 @@ namespace Tomboy.Tasks
 	#endregion // Public Properties
 
 	#region Public Methods
+
+		/// <summary>
+		/// Gets a Gtk.TreePath for the passed task.
+		/// </summary>
+		public Gtk.TreePath GetTreePathFromTask(Task task)
+		{
+			if (!task_iters.ContainsKey(task.Uri))
+				throw new Exception("Cannot find task in tree");
+
+			return tasks.GetPath(task_iters[task.Uri]);
+		}
+
 		/// <summary>
 		/// Delete the specified task from the system.
 		/// </summary>
