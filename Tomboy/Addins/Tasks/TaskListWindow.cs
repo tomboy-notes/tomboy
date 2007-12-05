@@ -81,8 +81,6 @@ namespace Tomboy.Tasks
 			this.SetDefaultSize (500, 300);
 			this.sort_column = SortColumn.CompletionDate;
 			
-			expecting_newly_created_task = false;
-			
 			AddAccelGroup (Tomboy.ActionManager.UI.AccelGroup);
 
 			action_group = new Gtk.ActionGroup ("TaskList");
@@ -690,11 +688,9 @@ namespace Tomboy.Tasks
 			}
 			
 			try {
-				expecting_newly_created_task = true;
  				Task newTask = manager.Create (summary);
  				tree.SetCursor(manager.GetTreePathFromTask(newTask), summary_column, true);
 			} catch (Exception e) {
-				expecting_newly_created_task = false;
 				Logger.Error ("Could not create a new task with summary: {0}:{1}", summary, e.Message);
 			}
 		}
@@ -1044,15 +1040,6 @@ namespace Tomboy.Tasks
 		
 		void OnTaskAdded (TaskManager manager, Task task)
 		{
-			if (expecting_newly_created_task) {
-				// A user just created this task inside this window
-				expecting_newly_created_task = false;
-				
-				tree.Selection.UnselectAll ();
-				
-				SelectTask (task);
-			}
-			
 			int cnt = manager.Tasks.IterNChildren ();
 			UpdateTaskCount (cnt);
 		}
@@ -1066,24 +1053,6 @@ namespace Tomboy.Tasks
 		void OnTaskStatusChanged (Task task)
 		{
 			// FIXME: Eventually update the status bar to include the number of completed notes
-		}
-		
-		void SelectTask (Task task)
-		{
-			// FIXME: YUCK!  TaskListWindow.SelectTask is pretty ugly (brute force).  Is there a better way to do this?
-			Gtk.TreeIter iter;
-			
-			if (store_sort.IterChildren (out iter) == false)
-				return;
-			
-			do {
-				Task iter_task = store_sort.GetValue (iter, 0) as Task;
-				if (iter_task == task) {
-					// Found it!
-					tree.Selection.SelectIter (iter);
-					break;
-				}
-			} while (store_sort.IterNext (ref iter));
 		}
 		
 //		void OnNoteColumnClicked (object sender, EventArgs args)
