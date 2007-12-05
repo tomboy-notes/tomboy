@@ -130,8 +130,6 @@ namespace Tomboy.Tasks
 			if (TaskAdded != null)
 				TaskAdded (this, new_task);
 			
-			new_task.QueueSave (true);
-
 			return new_task;
 		}
 

@@ -138,6 +138,7 @@ namespace Tomboy.Tasks
 				string summary = GetTaskSummaryFromLine (text);
 				if (task_tag == null) {
 					task = task_mgr.Create (summary);
+					task.QueueSave (true);
 					task.OriginNoteUri = Note.Uri;
 					task_tag = (TaskTag)
 						Note.TagTable.CreateDynamicTag ("task");
