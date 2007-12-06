@@ -3,8 +3,8 @@
 
 namespace _Gnome {
 
-	using System;
+        using System;
 
-	public delegate bool PanelAppletFactoryCallback(_Gnome.PanelApplet applet, string iid);
+        public delegate bool PanelAppletFactoryCallback(_Gnome.PanelApplet applet, string iid);
 
 }

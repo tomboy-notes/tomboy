@@ -6,285 +6,285 @@ using Mono.Unix;
 
 namespace Tomboy
 {
-	public class XKeybinder 
-	{
-		[DllImport("libtomboy")]
-		static extern void tomboy_keybinder_init ();
+        public class XKeybinder
+        {
+                [DllImport("libtomboy")]
+                static extern void tomboy_keybinder_init ();
 
-		[DllImport("libtomboy")]
-		static extern void tomboy_keybinder_bind (string keystring,
-							  BindkeyHandler handler);
+                [DllImport("libtomboy")]
+                static extern void tomboy_keybinder_bind (string keystring,
+                                        BindkeyHandler handler);
 
-		[DllImport("libtomboy")]
-		static extern void tomboy_keybinder_unbind (string keystring,
-							    BindkeyHandler handler);
+                [DllImport("libtomboy")]
+                static extern void tomboy_keybinder_unbind (string keystring,
+                                        BindkeyHandler handler);
 
-		public delegate void BindkeyHandler (string key, IntPtr user_data);
+                public delegate void BindkeyHandler (string key, IntPtr user_data);
 
-		ArrayList      bindings;
-		BindkeyHandler key_handler;
+                ArrayList      bindings;
+                BindkeyHandler key_handler;
 
-		struct Binding {
-			internal string       keystring;
-			internal EventHandler handler;
-		}
+                struct Binding {
+                        internal string       keystring;
+                        internal EventHandler handler;
+                }
 
-		public XKeybinder ()
-			: base ()
-		{
-			bindings = new ArrayList ();
-			key_handler = new BindkeyHandler (KeybindingPressed);
-			
-			tomboy_keybinder_init ();
-		}
+                public XKeybinder ()
+: base ()
+                {
+                        bindings = new ArrayList ();
+                        key_handler = new BindkeyHandler (KeybindingPressed);
 
-		void KeybindingPressed (string keystring, IntPtr user_data)
-		{
-			foreach (Binding bind in bindings) {
-				if (bind.keystring == keystring) {
-					bind.handler (this, new EventArgs ());
-				}
-			}
-		}
+                        tomboy_keybinder_init ();
+                }
 
-		public void Bind (string       keystring, 
-				  EventHandler handler)
-		{
-			Binding bind = new Binding ();
-			bind.keystring = keystring;
-			bind.handler = handler;
-			bindings.Add (bind);
-			
-			tomboy_keybinder_bind (bind.keystring, key_handler);
-		}
+                void KeybindingPressed (string keystring, IntPtr user_data)
+                {
+                        foreach (Binding bind in bindings) {
+                                if (bind.keystring == keystring) {
+                                        bind.handler (this, new EventArgs ());
+                                }
+                        }
+                }
 
-		public void Unbind (string keystring)
-		{
-			foreach (Binding bind in bindings) {
-				if (bind.keystring == keystring) {
-					tomboy_keybinder_unbind (bind.keystring,
-								 key_handler);
+                public void Bind (string       keystring,
+                                  EventHandler handler)
+                {
+                        Binding bind = new Binding ();
+                        bind.keystring = keystring;
+                        bind.handler = handler;
+                        bindings.Add (bind);
 
-					bindings.Remove (bind);
-					break;
-				}
-			}
-		}
+                        tomboy_keybinder_bind (bind.keystring, key_handler);
+                }
 
-		public virtual void UnbindAll ()
-		{
-			foreach (Binding bind in bindings) {
-				tomboy_keybinder_unbind (bind.keystring, key_handler);
-			}
+                public void Unbind (string keystring)
+                {
+                        foreach (Binding bind in bindings) {
+                                if (bind.keystring == keystring) {
+                                        tomboy_keybinder_unbind (bind.keystring,
+                                                                 key_handler);
 
-			bindings.Clear ();
-		}
-	}
+                                        bindings.Remove (bind);
+                                        break;
+                                }
+                        }
+                }
 
-	public class GConfXKeybinder : XKeybinder
-	{
-		GConf.Client client;
-		ArrayList bindings;
-		
-		public GConfXKeybinder ()
-		{
-			client = new GConf.Client ();
-			bindings = new ArrayList ();
-		}
+                public virtual void UnbindAll ()
+                {
+                        foreach (Binding bind in bindings) {
+                                tomboy_keybinder_unbind (bind.keystring, key_handler);
+                        }
 
-		public void Bind (string       gconf_path, 
-				  string       default_binding, 
-				  EventHandler handler)
-		{
-			try {
-				Binding binding = new Binding (gconf_path, 
-							       default_binding,
-							       handler,
-							       this);
-				bindings.Add (binding);
-			} catch (Exception e) {
-				Logger.Log ("Error Adding global keybinding:");
-				Logger.Log (e.ToString ());
-			}
-		}
+                        bindings.Clear ();
+                }
+        }
 
-		public override void UnbindAll ()
-		{
-			try {
-				bindings.Clear ();
-				base.UnbindAll ();
-			} catch (Exception e) {
-				Logger.Log ("Error Removing global keybinding:");
-				Logger.Log (e.ToString ());
-			}
-		}
+        public class GConfXKeybinder : XKeybinder
+        {
+                GConf.Client client;
+                ArrayList bindings;
 
-		class Binding 
-		{
-			public string   gconf_path;
-			public string   key_sequence;
-			EventHandler    handler;
-			GConfXKeybinder parent;
+                public GConfXKeybinder ()
+                {
+                        client = new GConf.Client ();
+                        bindings = new ArrayList ();
+                }
 
-			public Binding (string          gconf_path, 
-					string          default_binding,
-					EventHandler    handler,
-					GConfXKeybinder parent)
-			{
-				this.gconf_path = gconf_path;
-				this.key_sequence = default_binding;
-				this.handler = handler;
-				this.parent = parent;
+                public void Bind (string       gconf_path,
+                                  string       default_binding,
+                                  EventHandler handler)
+                {
+                        try {
+                                Binding binding = new Binding (gconf_path,
+                                                               default_binding,
+                                                               handler,
+                                                               this);
+                                bindings.Add (binding);
+                        } catch (Exception e) {
+                                Logger.Log ("Error Adding global keybinding:");
+                                Logger.Log (e.ToString ());
+                        }
+                }
 
-				try {
-					key_sequence = (string) parent.client.Get (gconf_path);
-				} catch {
-					Logger.Log ("GConf key '{0}' does not exist, using default.", 
-							   gconf_path);
-				}
+                public override void UnbindAll ()
+                {
+                        try {
+                                bindings.Clear ();
+                                base.UnbindAll ();
+                        } catch (Exception e) {
+                                Logger.Log ("Error Removing global keybinding:");
+                                Logger.Log (e.ToString ());
+                        }
+                }
 
-				SetBinding ();
+                class Binding
+                {
+                        public string   gconf_path;
+                        public string   key_sequence;
+                        EventHandler    handler;
+                        GConfXKeybinder parent;
 
-				parent.client.AddNotify (
-					gconf_path, 
-					new GConf.NotifyEventHandler (BindingChanged));
-			}
+                        public Binding (string          gconf_path,
+                                        string          default_binding,
+                                        EventHandler    handler,
+                                        GConfXKeybinder parent)
+                        {
+                                this.gconf_path = gconf_path;
+                                this.key_sequence = default_binding;
+                                this.handler = handler;
+                                this.parent = parent;
 
-			void BindingChanged (object sender, GConf.NotifyEventArgs args)
-			{
-				if (args.Key == gconf_path) {
-					Logger.Log ("Binding for '{0}' changed to '{1}'!",
-							   gconf_path,
-							   args.Value);
+                                try {
+                                        key_sequence = (string) parent.client.Get (gconf_path);
+                                } catch {
+                                Logger.Log ("GConf key '{0}' does not exist, using default.",
+                                gconf_path);
+                                }
 
-					UnsetBinding ();
+                                SetBinding ();
 
-					key_sequence = (string) args.Value;
-					SetBinding ();
-				}
-			}
+                                parent.client.AddNotify (
+                                        gconf_path,
+                                        new GConf.NotifyEventHandler (BindingChanged));
+                        }
 
-			public void SetBinding ()
-			{
-				if (key_sequence == null || 
-				    key_sequence == String.Empty || 
-				    key_sequence == "disabled")
-					return;
+                        void BindingChanged (object sender, GConf.NotifyEventArgs args)
+                        {
+                                if (args.Key == gconf_path) {
+                                        Logger.Log ("Binding for '{0}' changed to '{1}'!",
+                                                    gconf_path,
+                                                    args.Value);
 
-				Logger.Log ("Binding key '{0}' for '{1}'",
-						   key_sequence,
-						   gconf_path);
+                                        UnsetBinding ();
 
-				parent.Bind (key_sequence, handler);
-			}
+                                        key_sequence = (string) args.Value;
+                                        SetBinding ();
+                                }
+                        }
 
-			public void UnsetBinding ()
-			{
-				if (key_sequence == null)
-					return;
+                        public void SetBinding ()
+                        {
+                                if (key_sequence == null ||
+                                                key_sequence == String.Empty ||
+                                                key_sequence == "disabled")
+                                        return;
 
-				Logger.Log ("Unbinding key '{0}' for '{1}'",
-						   key_sequence,
-						   gconf_path);
+                                Logger.Log ("Binding key '{0}' for '{1}'",
+                                            key_sequence,
+                                            gconf_path);
 
-				parent.Unbind (key_sequence);
-			}
-		}
-	}
+                                parent.Bind (key_sequence, handler);
+                        }
 
-	public class TomboyGConfXKeybinder : GConfXKeybinder
-	{
-		NoteManager manager;
-		TomboyTray  tray;
+                        public void UnsetBinding ()
+                        {
+                                if (key_sequence == null)
+                                        return;
 
-		public TomboyGConfXKeybinder (NoteManager manager, TomboyTray tray)
-			: base ()
-		{
-			this.manager = manager;
-			this.tray = tray;
+                                Logger.Log ("Unbinding key '{0}' for '{1}'",
+                                            key_sequence,
+                                            gconf_path);
 
-			EnableDisable ((bool) Preferences.Get (Preferences.ENABLE_KEYBINDINGS));
+                                parent.Unbind (key_sequence);
+                        }
+                }
+        }
 
-			Preferences.SettingChanged += EnableKeybindingsChanged;
-		}
+        public class TomboyGConfXKeybinder : GConfXKeybinder
+        {
+                NoteManager manager;
+                TomboyTray  tray;
 
-		void EnableKeybindingsChanged (object sender, GConf.NotifyEventArgs args)
-		{
-			if (args.Key == Preferences.ENABLE_KEYBINDINGS) {
-				bool enabled = (bool) args.Value;
-				EnableDisable (enabled);
-			}
-		}
+                public TomboyGConfXKeybinder (NoteManager manager, TomboyTray tray)
+: base ()
+                {
+                        this.manager = manager;
+                        this.tray = tray;
 
-		void EnableDisable (bool enable)
-		{
-			Logger.Log ("EnableDisable Called: enabling... {0}", enable);
-			if (enable) {
-				BindPreference (Preferences.KEYBINDING_SHOW_NOTE_MENU,
-						new EventHandler (KeyShowMenu));
+                        EnableDisable ((bool) Preferences.Get (Preferences.ENABLE_KEYBINDINGS));
 
-				BindPreference (Preferences.KEYBINDING_OPEN_START_HERE,
-						new EventHandler (KeyOpenStartHere));
+                        Preferences.SettingChanged += EnableKeybindingsChanged;
+                }
 
-				BindPreference (Preferences.KEYBINDING_CREATE_NEW_NOTE,
-						new EventHandler (KeyCreateNewNote));
+                void EnableKeybindingsChanged (object sender, GConf.NotifyEventArgs args)
+                {
+                        if (args.Key == Preferences.ENABLE_KEYBINDINGS) {
+                                bool enabled = (bool) args.Value;
+                                EnableDisable (enabled);
+                        }
+                }
 
-				BindPreference (Preferences.KEYBINDING_OPEN_SEARCH,
-						new EventHandler (KeyOpenSearch));
+                void EnableDisable (bool enable)
+                {
+                        Logger.Log ("EnableDisable Called: enabling... {0}", enable);
+                        if (enable) {
+                                BindPreference (Preferences.KEYBINDING_SHOW_NOTE_MENU,
+                                                new EventHandler (KeyShowMenu));
 
-				BindPreference (Preferences.KEYBINDING_OPEN_RECENT_CHANGES,
-						new EventHandler (KeyOpenRecentChanges));
-			} else {
-				UnbindAll ();
-			}
-		}
+                                BindPreference (Preferences.KEYBINDING_OPEN_START_HERE,
+                                                new EventHandler (KeyOpenStartHere));
 
-		void BindPreference (string gconf_path, EventHandler handler)
-		{
-			Bind (gconf_path,  
-			      (string) Preferences.GetDefault (gconf_path),
-			      handler);
-		}
+                                BindPreference (Preferences.KEYBINDING_CREATE_NEW_NOTE,
+                                                new EventHandler (KeyCreateNewNote));
 
-		void KeyShowMenu (object sender, EventArgs args)
-		{
-			// Show the notes menu, highlighting the first item.
-			// This matches the behavior of GTK for
-			// accelerator-shown menus.
-			tray.ShowMenu (true);
-		}
+                                BindPreference (Preferences.KEYBINDING_OPEN_SEARCH,
+                                                new EventHandler (KeyOpenSearch));
 
-		void KeyOpenStartHere (object sender, EventArgs args)
-		{
-			Note note = manager.FindByUri (NoteManager.StartNoteUri);
-			if (note != null)
-				note.Window.Present ();
-		}
+                                BindPreference (Preferences.KEYBINDING_OPEN_RECENT_CHANGES,
+                                                new EventHandler (KeyOpenRecentChanges));
+                        } else {
+                                UnbindAll ();
+                        }
+                }
 
-		void KeyCreateNewNote (object sender, EventArgs args)
-		{
-			try {
-				Note new_note = manager.Create ();
-				new_note.Window.Show ();
-			} catch {
-				// Fail silently.
-			}
-		}
+                void BindPreference (string gconf_path, EventHandler handler)
+                {
+                        Bind (gconf_path,
+                              (string) Preferences.GetDefault (gconf_path),
+                              handler);
+                }
 
-		void KeyOpenSearch (object sender, EventArgs args)
-		{
-			/* Find dialog is deprecated in favor of searcable ToC */
-			/*
-			NoteFindDialog find_dialog = NoteFindDialog.GetInstance (manager);
-			find_dialog.Present ();
-			*/
-			KeyOpenRecentChanges (sender, args);
-		}
+                void KeyShowMenu (object sender, EventArgs args)
+                {
+                        // Show the notes menu, highlighting the first item.
+                        // This matches the behavior of GTK for
+                        // accelerator-shown menus.
+                        tray.ShowMenu (true);
+                }
 
-		void KeyOpenRecentChanges (object sender, EventArgs args)
-		{
-			NoteRecentChanges recent = NoteRecentChanges.GetInstance (manager);
-			recent.Present ();
-		}
-	}
+                void KeyOpenStartHere (object sender, EventArgs args)
+                {
+                        Note note = manager.FindByUri (NoteManager.StartNoteUri);
+                        if (note != null)
+                                note.Window.Present ();
+                }
+
+                void KeyCreateNewNote (object sender, EventArgs args)
+                {
+                        try {
+                                Note new_note = manager.Create ();
+                                new_note.Window.Show ();
+                        } catch {
+                        // Fail silently.
+                }
+        }
+
+        void KeyOpenSearch (object sender, EventArgs args)
+                {
+                        /* Find dialog is deprecated in favor of searcable ToC */
+                        /*
+                        NoteFindDialog find_dialog = NoteFindDialog.GetInstance (manager);
+                        find_dialog.Present ();
+                        */
+                        KeyOpenRecentChanges (sender, args);
+                }
+
+                void KeyOpenRecentChanges (object sender, EventArgs args)
+                {
+                        NoteRecentChanges recent = NoteRecentChanges.GetInstance (manager);
+                        recent.Present ();
+                }
+        }
 }

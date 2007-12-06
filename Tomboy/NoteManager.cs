@@ -6,524 +6,534 @@ using Mono.Unix;
 
 namespace Tomboy
 {
-	public delegate void NotesChangedHandler (object sender, Note changed);
+        public delegate void NotesChangedHandler (object sender, Note changed);
 
-	public class NoteManager 
-	{
-		string notes_dir;
-		string backup_dir;
-		ArrayList notes;
-		AddinManager addin_mgr;
-		TrieController trie_controller;
-		
-		static string start_note_uri = String.Empty;
+        public class NoteManager
+        {
+                string notes_dir;
+                string backup_dir;
+                ArrayList notes;
+                AddinManager addin_mgr;
+                TrieController trie_controller;
 
-		static NoteManager ()
-		{
-			// Watch the START_NOTE_URI setting and update it so that the
-			// StartNoteUri property doesn't generate a call to
-			// Preferences.Get () each time it's accessed.
-			start_note_uri =
-				Preferences.Get (Preferences.START_NOTE_URI) as string;
-			Preferences.SettingChanged += OnSettingChanged;
-		}
-		
-		static void OnSettingChanged (object sender, GConf.NotifyEventArgs args)
-		{
-			switch (args.Key) {
-			case Preferences.START_NOTE_URI:
-				start_note_uri = args.Value as string;
-				break;
-			}
-		}
+                static string start_note_uri = String.Empty;
 
-		public NoteManager (string directory) : 
-			this (directory, Path.Combine (directory, "Backup")) 
-		{
-		}
+                static NoteManager ()
+                {
+                        // Watch the START_NOTE_URI setting and update it so that the
+                        // StartNoteUri property doesn't generate a call to
+                        // Preferences.Get () each time it's accessed.
+                        start_note_uri =
+                                Preferences.Get (Preferences.START_NOTE_URI) as string;
+                        Preferences.SettingChanged += OnSettingChanged;
+                }
 
-		public NoteManager (string directory, string backup_directory) 
-		{
-			Logger.Log ("NoteManager created with note path \"{0}\".", directory);
+                static void OnSettingChanged (object sender, GConf.NotifyEventArgs args)
+                {
+                        switch (args.Key) {
+                        case Preferences.START_NOTE_URI:
+                                start_note_uri = args.Value as string;
+                                break;
+                        }
+                }
 
-			notes_dir = directory;
-			backup_dir = backup_directory;
-			notes = new ArrayList ();
+public NoteManager (string directory) :
+                this (directory, Path.Combine (directory, "Backup"))
+                {
+                }
 
-			bool first_run = FirstRun ();
-			CreateNotesDir ();
+                public NoteManager (string directory, string backup_directory)
+                {
+                        Logger.Log ("NoteManager created with note path \"{0}\".", directory);
 
-			trie_controller = CreateTrieController ();
-			addin_mgr = CreateAddinManager ();
+                        notes_dir = directory;
+                        backup_dir = backup_directory;
+                        notes = new ArrayList ();
 
-			if (first_run) {
-				// First run. Create "Start Here" notes.
-				CreateStartNotes ();
-			} else {
-				LoadNotes ();
-			}
+                        bool first_run = FirstRun ();
+                        CreateNotesDir ();
 
-			Tomboy.ExitingEvent += OnExitingEvent;
-		}
+                        trie_controller = CreateTrieController ();
+                        addin_mgr = CreateAddinManager ();
 
-		// Create the TrieController. For overriding in test methods.
-		protected virtual TrieController CreateTrieController ()
-		{
-			return new TrieController (this);
-		}
-		
-		protected virtual AddinManager CreateAddinManager ()
-		{
-			string tomboy_conf_dir =
-				Path.Combine (Environment.GetEnvironmentVariable ("HOME"),
-							".tomboy");
-			
-			return new AddinManager (tomboy_conf_dir);
-		}
+                        if (first_run) {
+                                // First run. Create "Start Here" notes.
+                                CreateStartNotes ();
+                        } else {
+                                LoadNotes ();
+                        }
 
-		// For overriding in test methods.
-		protected virtual bool DirectoryExists (string directory)
-		{
-			return Directory.Exists (directory);
-		}
+                        Tomboy.ExitingEvent += OnExitingEvent;
+                }
 
-		// For overriding in test methods.
-		protected virtual DirectoryInfo CreateDirectory (string directory)
-		{
-			return Directory.CreateDirectory (directory);
-		}
+                // Create the TrieController. For overriding in test methods.
+                protected virtual TrieController CreateTrieController ()
+                {
+                        return new TrieController (this);
+                }
 
-		protected virtual bool FirstRun ()
-		{
-			return !DirectoryExists (notes_dir);
-		}
+                protected virtual AddinManager CreateAddinManager ()
+                {
+                        string tomboy_conf_dir =
+                                Path.Combine (Environment.GetEnvironmentVariable ("HOME"),
+                                              ".tomboy");
 
-		// Create the notes directory if it doesn't exist yet.
-		void CreateNotesDir ()
-		{
-			if (!DirectoryExists (notes_dir)) {
-				// First run. Create storage directory.
-				CreateDirectory (notes_dir);
-			}
-		}
+                        return new AddinManager (tomboy_conf_dir);
+                }
 
-		void OnNoteRename (Note note, string old_title)
-		{
-			if (NoteRenamed != null)
-				NoteRenamed (note, old_title);
-		}
-		
-		void OnNoteSave (Note note)
-		{
-			if (NoteSaved != null)
-				NoteSaved (note);
-		}
+                // For overriding in test methods.
+                protected virtual bool DirectoryExists (string directory)
+                {
+                        return Directory.Exists (directory);
+                }
 
-		protected virtual void CreateStartNotes () 
-		{
-			// FIXME: Delay the creation of the start notes so the panel/tray
-			// icon has enough time to appear so that Tomboy.TrayIconShowing
-			// is valid.  Then, we'll be able to instruct the user where to
-			// find the Tomboy icon.
-			//string icon_str = Tomboy.TrayIconShowing ?
-			//					Catalog.GetString ("System Tray Icon area") :
-			//					Catalog.GetString ("GNOME Panel");
-			string start_note_content = 
-				Catalog.GetString ("<note-content>" +
-						"Start Here\n\n" +
-						"<bold>Welcome to Tomboy!</bold>\n\n" +
-						"Use this \"Start Here\" note to begin organizing " +
-						"your ideas and thoughts.\n\n" +
-						"You can create new notes to hold your ideas by " +
-						"selecting the \"Create New Note\" item from the " +
-						"Tomboy Notes menu in your GNOME Panel. " +
-						"Your note will be saved automatically.\n\n" +
-						"Then organize the notes you create by linking " +
-						"related notes and ideas together!\n\n" +
-						"We've created a note called " +
-						"<link:internal>Using Links in Tomboy</link:internal>.  " +
-						"Notice how each time we type <link:internal>Using " +
-						"Links in Tomboy</link:internal> it automatically " +
-						"gets underlined?  Click on the link to open the note." +
-						"</note-content>");
+                // For overriding in test methods.
+                protected virtual DirectoryInfo CreateDirectory (string directory)
+                {
+                        return Directory.CreateDirectory (directory);
+                }
 
-			string links_note_content =
-				Catalog.GetString ("<note-content>" +
-						"Using Links in Tomboy\n\n" +
-						"Notes in Tomboy can be linked together by " +
-						"highlighting text in the current note and clicking" +
-						" the <bold>Link</bold> button above in the toolbar.  " +
-						"Doing so will create a new note and also underline " +
-						"the note's title in the current note.\n\n" +
-						"Changing the title of a note will update links " +
-						"present in other notes.  This prevents broken links " +
-						"from occurring when a note is renamed.\n\n" +
-						"Also, if you type the name of another note in your " +
-						"current note, it will automatically be linked for you." +
-						"</note-content>");
+                protected virtual bool FirstRun ()
+                {
+                        return !DirectoryExists (notes_dir);
+                }
 
-			try {
-				Note start_note = Create (Catalog.GetString ("Start Here"),
-								start_note_content);
-				start_note.QueueSave (true);
-				Preferences.Set (Preferences.START_NOTE_URI, start_note.Uri);
+                // Create the notes directory if it doesn't exist yet.
+                void CreateNotesDir ()
+                {
+                        if (!DirectoryExists (notes_dir)) {
+                                // First run. Create storage directory.
+                                CreateDirectory (notes_dir);
+                        }
+                }
 
-				Note links_note = Create (Catalog.GetString ("Using Links in Tomboy"),
-								links_note_content);
-				links_note.QueueSave (true);
-				
-				start_note.Window.Show ();
-			} catch (Exception e) {
-				Logger.Warn ("Error creating start notes: {0}\n{1}",
-						e.Message, e.StackTrace);
-			}
-		}
+                void OnNoteRename (Note note, string old_title)
+                {
+                        if (NoteRenamed != null)
+                                NoteRenamed (note, old_title);
+                }
 
-		protected virtual void LoadNotes ()
-		{
-			string [] files = Directory.GetFiles (notes_dir, "*.note");
+                void OnNoteSave (Note note)
+                {
+                        if (NoteSaved != null)
+                                NoteSaved (note);
+                }
 
-			foreach (string file_path in files) {
-				try {
-					Note note = Note.Load (file_path, this);
-					if (note != null) {
-						note.Renamed += OnNoteRename;
-						note.Saved += OnNoteSave;
-						notes.Add (note);
-					}
-				} catch (System.Xml.XmlException e) {
-					Logger.Log ("Error parsing note XML, skipping \"{0}\": {1}",
-						    file_path,
-						    e.Message);
-				}
-			}
+                protected virtual void CreateStartNotes ()
+                {
+                        // FIXME: Delay the creation of the start notes so the panel/tray
+                        // icon has enough time to appear so that Tomboy.TrayIconShowing
+                        // is valid.  Then, we'll be able to instruct the user where to
+                        // find the Tomboy icon.
+                        //string icon_str = Tomboy.TrayIconShowing ?
+                        //     Catalog.GetString ("System Tray Icon area") :
+                        //     Catalog.GetString ("GNOME Panel");
+                        string start_note_content =
+                                Catalog.GetString ("<note-content>" +
+                                                   "Start Here\n\n" +
+                                                   "<bold>Welcome to Tomboy!</bold>\n\n" +
+                                                   "Use this \"Start Here\" note to begin organizing " +
+                                                   "your ideas and thoughts.\n\n" +
+                                                   "You can create new notes to hold your ideas by " +
+                                                   "selecting the \"Create New Note\" item from the " +
+                                                   "Tomboy Notes menu in your GNOME Panel. " +
+                                                   "Your note will be saved automatically.\n\n" +
+                                                   "Then organize the notes you create by linking " +
+                                                   "related notes and ideas together!\n\n" +
+                                                   "We've created a note called " +
+                                                   "<link:internal>Using Links in Tomboy</link:internal>.  " +
+                                                   "Notice how each time we type <link:internal>Using " +
+                                                   "Links in Tomboy</link:internal> it automatically " +
+                                                   "gets underlined?  Click on the link to open the note." +
+                                                   "</note-content>");
 
-			// Update the trie so addins can access it, if they want.
-			trie_controller.Update ();
-			
-			bool startup_notes_enabled = (bool)
-					Preferences.Get (Preferences.ENABLE_STARTUP_NOTES);
+                        string links_note_content =
+                                Catalog.GetString ("<note-content>" +
+                                                   "Using Links in Tomboy\n\n" +
+                                                   "Notes in Tomboy can be linked together by " +
+                                                   "highlighting text in the current note and clicking" +
+                                                   " the <bold>Link</bold> button above in the toolbar.  " +
+                                                   "Doing so will create a new note and also underline " +
+                                                   "the note's title in the current note.\n\n" +
+                                                   "Changing the title of a note will update links " +
+                                                   "present in other notes.  This prevents broken links " +
+                                                   "from occurring when a note is renamed.\n\n" +
+                                                   "Also, if you type the name of another note in your " +
+                                                   "current note, it will automatically be linked for you." +
+                                                   "</note-content>");
 
-			// Load all the addins for our notes.
-			// Iterating through copy of notes list, because list may be
-			// changed when loading addins.
-			ArrayList notesCopy = new ArrayList (notes);
-			foreach (Note note in notesCopy) {
-				addin_mgr.LoadAddinsForNote (note);
+                        try {
+                                Note start_note = Create (Catalog.GetString ("Start Here"),
+                                                          start_note_content);
+                                start_note.QueueSave (true);
+                                Preferences.Set (Preferences.START_NOTE_URI, start_note.Uri);
 
-				// Show all notes that were visible when tomboy was shut down
-				if (note.IsOpenOnStartup) {
-					if (startup_notes_enabled)
-						note.Window.Show ();
-					
-					note.IsOpenOnStartup = false;
-					note.QueueSave (false);
-				}
-			}
-			
-			// Make sure that a Start Note Uri is set in the preferences.  This
-			// has to be done here for long-time Tomboy users who won't go
-			// through the CreateStartNotes () process.
-			if (StartNoteUri == String.Empty) {
-				// Attempt to find an existing Start Here note
-				Note start_note = Find (Catalog.GetString ("Start Here"));
-				if (start_note != null)
-					Preferences.Set (Preferences.START_NOTE_URI, start_note.Uri);
-			}
-		}
+                                Note links_note = Create (Catalog.GetString ("Using Links in Tomboy"),
+                                                          links_note_content);
+                                links_note.QueueSave (true);
 
-		void OnExitingEvent (object sender, EventArgs args)
-		{
-			// Call ApplicationAddin.Shutdown () on all the known ApplicationAddins
-			foreach (ApplicationAddin addin in addin_mgr.GetApplicationAddins ()) {
-				try {
-					addin.Shutdown ();
-				} catch (Exception e) {
-					Logger.Warn ("Error calling {0}.Shutdown (): {1}",
-							addin.GetType ().ToString (), e.Message);
-				}
-			}
+                                start_note.Window.Show ();
+                        } catch (Exception e) {
+                                Logger.Warn ("Error creating start notes: {0}\n{1}",
+                                             e.Message, e.StackTrace);
+                        }
+                }
 
-			Logger.Log ("Saving unsaved notes...");
+                protected virtual void LoadNotes ()
+                {
+                        string [] files = Directory.GetFiles (notes_dir, "*.note");
 
-			foreach (Note note in notes) {
-				// If the note is visible, it will be shown automatically on
-				// next startup
-				if (note.HasWindow && note.Window.Visible)
-					note.IsOpenOnStartup = true;
-				
-				note.Save ();
-			}
-		}
+                        foreach (string file_path in files) {
+                                try {
+                                        Note note = Note.Load (file_path, this);
+                                        if (note != null) {
+                                                note.Renamed += OnNoteRename;
+                                                note.Saved += OnNoteSave;
+                                                notes.Add (note);
+                                        }
+                                } catch (System.Xml.XmlException e) {
+                                        Logger.Log ("Error parsing note XML, skipping \"{0}\": {1}",
+                                                    file_path,
+                                                    e.Message);
+                                }
+                        }
 
-		public void Delete (Note note) 
-		{
-			if (File.Exists (note.FilePath)) {
-				if (backup_dir != null) {
-					if (!Directory.Exists (backup_dir))
-						Directory.CreateDirectory (backup_dir);
+                        // Update the trie so addins can access it, if they want.
+                        trie_controller.Update ();
 
-					string backup_path = 
-						Path.Combine (backup_dir, 
-							      Path.GetFileName (note.FilePath));
-					if (File.Exists (backup_path))
-						File.Delete (backup_path);
+                        bool startup_notes_enabled = (bool)
+                                                     Preferences.Get (Preferences.ENABLE_STARTUP_NOTES);
 
-					File.Move (note.FilePath, backup_path);
-				} else 
-					File.Delete (note.FilePath);
-			}
+                        // Load all the addins for our notes.
+                        // Iterating through copy of notes list, because list may be
+                        // changed when loading addins.
+                        ArrayList notesCopy = new ArrayList (notes);
+                        foreach (Note note in notesCopy) {
+                                addin_mgr.LoadAddinsForNote (note);
 
-			notes.Remove (note);
-			note.Delete ();
+                                // Show all notes that were visible when tomboy was shut down
+                                if (note.IsOpenOnStartup) {
+                                        if (startup_notes_enabled)
+                                                note.Window.Show ();
 
-			Logger.Log ("Deleting note '{0}'.", note.Title);
+                                        note.IsOpenOnStartup = false;
+                                        note.QueueSave (false);
+                                }
+                        }
 
-			if (NoteDeleted != null)
-				NoteDeleted (this, note);
-		}
+                        // Make sure that a Start Note Uri is set in the preferences.  This
+                        // has to be done here for long-time Tomboy users who won't go
+                        // through the CreateStartNotes () process.
+                        if (StartNoteUri == String.Empty) {
+                                // Attempt to find an existing Start Here note
+                                Note start_note = Find (Catalog.GetString ("Start Here"));
+                                if (start_note != null)
+                                        Preferences.Set (Preferences.START_NOTE_URI, start_note.Uri);
+                        }
+                }
 
-		string MakeNewFileName ()
-		{
-			return MakeNewFileName (Guid.NewGuid ().ToString ());
-		}
-		
-		string MakeNewFileName (string guid)
-		{
-			return Path.Combine (notes_dir, guid + ".note");
-		}
+                void OnExitingEvent (object sender, EventArgs args)
+                {
+                        // Call ApplicationAddin.Shutdown () on all the known ApplicationAddins
+                        foreach (ApplicationAddin addin in addin_mgr.GetApplicationAddins ()) {
+                                try {
+                                        addin.Shutdown ();
+                                } catch (Exception e) {
+                                        Logger.Warn ("Error calling {0}.Shutdown (): {1}",
+                                                     addin.GetType ().ToString (), e.Message);
+                                }
+                        }
 
-		// Create a new note with a generated title
-		public Note Create ()
-		{
-			int new_num = notes.Count;
-			string temp_title;
+                        Logger.Log ("Saving unsaved notes...");
 
-			while (true) {
-				temp_title = String.Format (Catalog.GetString ("New Note {0}"), 
-							    ++new_num);
-				if (Find (temp_title) == null)
-					break;
-			}
+                        foreach (Note note in notes) {
+                                // If the note is visible, it will be shown automatically on
+                                // next startup
+                                if (note.HasWindow && note.Window.Visible)
+                                        note.IsOpenOnStartup = true;
 
-			return Create (temp_title);
-		}
+                                note.Save ();
+                        }
+                }
 
-		public static string SplitTitleFromContent (string title, out string body)
-		{
-			body = null;
+                public void Delete (Note note)
+                {
+                        if (File.Exists (note.FilePath)) {
+                                if (backup_dir != null) {
+                                        if (!Directory.Exists (backup_dir))
+                                                Directory.CreateDirectory (backup_dir);
 
-			if (title == null)
-				return null;
+                                        string backup_path =
+                                                Path.Combine (backup_dir,
+                                                              Path.GetFileName (note.FilePath));
+                                        if (File.Exists (backup_path))
+                                                File.Delete (backup_path);
 
-			title = title.Trim();
-			if (title == string.Empty)
-				return null;
+                                        File.Move (note.FilePath, backup_path);
+                                } else
+                                        File.Delete (note.FilePath);
+                        }
 
-			string[] lines = title.Split (new char[] { '\n', '\r' }, 2);
-			if (lines.Length > 0) {
-				title = lines [0];
-				title = title.Trim ();
-				title = title.TrimEnd ('.', ',', ';');
-				if (title == string.Empty)
-					return null;
-			}
+                        notes.Remove (note);
+                        note.Delete ();
 
-			if (lines.Length > 1)
-				body = lines [1];
+                        Logger.Log ("Deleting note '{0}'.", note.Title);
 
-			return title;
-		}
-		
-		public Note Create (string title)
-		{
-			return CreateNewNote (title, null);
-		}
-		
-		public Note Create (string title, string xml_content)
-		{
-			return CreateNewNote (title, xml_content, null);
-		}
-		
-		public Note CreateWithGuid (string title, string guid)
-		{
-			return CreateNewNote (title, guid);
-		}
+                        if (NoteDeleted != null)
+                                NoteDeleted (this, note);
+                }
 
-		// Create a new note with the specified title, and a simple
-		// "Describe..." body which will be selected for easy overwrite.
-		private Note CreateNewNote (string title, string guid) 
-		{
-			string body = null;
+                string MakeNewFileName ()
+                {
+                        return MakeNewFileName (Guid.NewGuid ().ToString ());
+                }
 
-			title = SplitTitleFromContent (title, out body);
-			if (title == null)
-				return null;
+                string MakeNewFileName (string guid)
+                {
+                        return Path.Combine (notes_dir, guid + ".note");
+                }
 
-			if (body == null)
-				body = Catalog.GetString ("Describe your new note here.");
+                // Create a new note with a generated title
+                public Note Create ()
+                {
+                        int new_num = notes.Count;
+                        string temp_title;
 
-			string header = title + "\n\n";
-			string content = 
-				String.Format ("<note-content>{0}{1}</note-content>",
-					       XmlEncoder.Encode (header),
-					       XmlEncoder.Encode (body));
+                        while (true) {
+                                temp_title = String.Format (Catalog.GetString ("New Note {0}"),
+                                                            ++new_num);
+                                if (Find (temp_title) == null)
+                                        break;
+                        }
 
-			Note new_note = CreateNewNote (title, content, guid);
+                        return Create (temp_title);
+                }
 
-			// Select the inital 
-         		// "Describe..." text so typing will overwrite the body text,
-			NoteBuffer buffer = new_note.Buffer;	
+                public static string SplitTitleFromContent (string title, out string body)
+                {
+                        body = null;
+
+                        if (title == null)
+                                return null;
+
+                        title = title.Trim();
+                        if (title == string.Empty)
+                                return null;
+
+                        string[] lines = title.Split (new char[] { '\n', '\r' }, 2);
+                        if (lines.Length > 0) {
+                                title = lines [0];
+                                title = title.Trim ();
+                                title = title.TrimEnd ('.', ',', ';');
+                                if (title == string.Empty)
+                                        return null;
+                        }
+
+                        if (lines.Length > 1)
+                                body = lines [1];
+
+                        return title;
+                }
+
+                public Note Create (string title)
+                {
+                        return CreateNewNote (title, null);
+                }
+
+                public Note Create (string title, string xml_content)
+                {
+                        return CreateNewNote (title, xml_content, null);
+                }
+
+                public Note CreateWithGuid (string title, string guid)
+                {
+                        return CreateNewNote (title, guid);
+                }
+
+                // Create a new note with the specified title, and a simple
+                // "Describe..." body which will be selected for easy overwrite.
+                private Note CreateNewNote (string title, string guid)
+                {
+                        string body = null;
+
+                        title = SplitTitleFromContent (title, out body);
+                        if (title == null)
+                                return null;
+
+                        if (body == null)
+                                body = Catalog.GetString ("Describe your new note here.");
+
+                        string header = title + "\n\n";
+                        string content =
+                                String.Format ("<note-content>{0}{1}</note-content>",
+                                               XmlEncoder.Encode (header),
+                                               XmlEncoder.Encode (body));
+
+                        Note new_note = CreateNewNote (title, content, guid);
+
+                        // Select the inital
+                        // "Describe..." text so typing will overwrite the body text,
+                        NoteBuffer buffer = new_note.Buffer;
                         Gtk.TextIter iter = buffer.GetIterAtOffset (header.Length);
                         buffer.MoveMark (buffer.SelectionBound, iter);
                         buffer.MoveMark (buffer.InsertMark, buffer.EndIter);
 
-			return new_note;
-		}
+                        return new_note;
+                }
 
-		// Create a new note with the specified Xml content
-		private Note CreateNewNote (string title, string xml_content, string guid)
-		{
-			if (title == null || title == string.Empty)
-				throw new Exception ("Invalid title");
+                // Create a new note with the specified Xml content
+                private Note CreateNewNote (string title, string xml_content, string guid)
+                {
+                        if (title == null || title == string.Empty)
+                                throw new Exception ("Invalid title");
 
-			if (Find (title) != null)
-				throw new Exception ("A note with this title already exists: " + title);
+                        if (Find (title) != null)
+                                throw new Exception ("A note with this title already exists: " + title);
 
-			string filename;
-			if (guid != null)
-				filename = MakeNewFileName (guid);
-			else
-				filename = MakeNewFileName ();
+                        string filename;
+                        if (guid != null)
+                                filename = MakeNewFileName (guid);
+                        else
+                                filename = MakeNewFileName ();
 
-			Note new_note = Note.CreateNewNote (title, filename, this);
-			new_note.XmlContent = xml_content;
-			new_note.Renamed += OnNoteRename;
-			new_note.Saved += OnNoteSave;
+                        Note new_note = Note.CreateNewNote (title, filename, this);
+                        new_note.XmlContent = xml_content;
+                        new_note.Renamed += OnNoteRename;
+                        new_note.Saved += OnNoteSave;
 
-			notes.Add (new_note);
+                        notes.Add (new_note);
 
-			// Load all the addins for the new note
-			addin_mgr.LoadAddinsForNote (new_note);
+                        // Load all the addins for the new note
+                        addin_mgr.LoadAddinsForNote (new_note);
 
-			if (NoteAdded != null)
-				NoteAdded (this, new_note);
+                        if (NoteAdded != null)
+                                NoteAdded (this, new_note);
 
-			return new_note;
-		}
+                        return new_note;
+                }
 
-		public Note Find (string linked_title) 
-		{
-			foreach (Note note in notes) {
-				if (note.Title.ToLower () == linked_title.ToLower ())
-					return note;
-			}
-			return null;
-		}
+                public Note Find (string linked_title)
+                {
+                        foreach (Note note in notes) {
+                                if (note.Title.ToLower () == linked_title.ToLower ())
+                                        return note;
+                        }
+                        return null;
+                }
 
-		public Note FindByUri (string uri)
-		{
-			foreach (Note note in notes) {
-				if (note.Uri == uri)
-					return note;
-			}
-			return null;
-		}
+                public Note FindByUri (string uri)
+                {
+                        foreach (Note note in notes) {
+                                if (note.Uri == uri)
+                                        return note;
+                        }
+                        return null;
+                }
 
-		class CompareDates : IComparer
-		{
-			public int Compare (object a, object b)
-			{
-				Note note_a = a as Note;
-				Note note_b = b as Note;
+                class CompareDates : IComparer
+                {
+                        public int Compare (object a, object b)
+                        {
+                                Note note_a = a as Note;
+                                Note note_b = b as Note;
 
-				// Sort in reverse chrono order...
-				if (note_a == null || note_b == null)
-					return -1;
-				else
-					return DateTime.Compare (note_b.ChangeDate, 
-								 note_a.ChangeDate);
-			}
-		}
-		
-		public static string StartNoteUri
-		{
-			get { return start_note_uri; }
-		}
+                                // Sort in reverse chrono order...
+                                if (note_a == null || note_b == null)
+                                        return -1;
+                                else
+                                        return DateTime.Compare (note_b.ChangeDate,
+                                                                 note_a.ChangeDate);
+                        }
+                }
 
-		public ArrayList Notes 
-		{
-			get {
-				// FIXME: Only sort on change by listening to
-				//        Note.Saved or Note.Buffer.Changed
-				notes.Sort (new CompareDates ());
-				return notes; 
-			}
-		}
+                public static string StartNoteUri
+                {
+                        get {
+                                return start_note_uri;
+                        }
+                }
 
-		public TrieTree TitleTrie
-		{
-			get { return trie_controller.TitleTrie; }
-		}
-		
-		public AddinManager AddinManager
-		{
-			get { return addin_mgr; }
-		}
-		
-		public string NoteDirectoryPath
-		{
-			get { return notes_dir; }
-		}
+                public ArrayList Notes
+                {
+                        get {
+                                // FIXME: Only sort on change by listening to
+                                //        Note.Saved or Note.Buffer.Changed
+                                notes.Sort (new CompareDates ());
+                                return notes;
+                        }
+                }
 
-		public event NotesChangedHandler NoteDeleted;
-		public event NotesChangedHandler NoteAdded;
-		public event NoteRenameHandler NoteRenamed;
-		public event NoteSavedHandler NoteSaved;
-	}
+                public TrieTree TitleTrie
+                {
+                        get {
+                                return trie_controller.TitleTrie;
+                        }
+                }
 
-	public class TrieController
-	{
-		TrieTree title_trie;
-		NoteManager manager;
+                public AddinManager AddinManager
+                {
+                        get {
+                                return addin_mgr;
+                        }
+                }
 
-		public TrieController (NoteManager manager)
-		{
-			this.manager = manager;
-			manager.NoteDeleted += OnNoteDeleted;
-			manager.NoteAdded += OnNoteAdded;
-			manager.NoteRenamed += OnNoteRenamed;
+                public string NoteDirectoryPath
+                {
+                        get {
+                                return notes_dir;
+                        }
+                }
 
-			Update ();
-		}
+                public event NotesChangedHandler NoteDeleted;
+                public event NotesChangedHandler NoteAdded;
+                public event NoteRenameHandler NoteRenamed;
+                public event NoteSavedHandler NoteSaved;
+        }
 
-		void OnNoteAdded (object sender, Note added)
-		{
-			Update ();
-		}
+        public class TrieController
+        {
+                TrieTree title_trie;
+                NoteManager manager;
 
-		void OnNoteDeleted (object sender, Note deleted)
-		{
-			Update ();
-		}
+                public TrieController (NoteManager manager)
+                {
+                        this.manager = manager;
+                        manager.NoteDeleted += OnNoteDeleted;
+                        manager.NoteAdded += OnNoteAdded;
+                        manager.NoteRenamed += OnNoteRenamed;
 
-		void OnNoteRenamed (Note renamed, string old_title)
-		{
-			Update ();
-		}
+                        Update ();
+                }
 
-		public void Update ()
-		{
-			title_trie = new TrieTree (false /* !case_sensitive */);
+                void OnNoteAdded (object sender, Note added)
+                {
+                        Update ();
+                }
 
-			foreach (Note note in manager.Notes) {
-				title_trie.AddKeyword (note.Title, note);
-			}
-		}
+                void OnNoteDeleted (object sender, Note deleted)
+                {
+                        Update ();
+                }
 
-		public TrieTree TitleTrie 
-		{
-			get { return title_trie; }
-		}
-	}
+                void OnNoteRenamed (Note renamed, string old_title)
+                {
+                        Update ();
+                }
+
+                public void Update ()
+                {
+                        title_trie = new TrieTree (false /* !case_sensitive */);
+
+                        foreach (Note note in manager.Notes) {
+                                title_trie.AddKeyword (note.Title, note);
+                        }
+                }
+
+                public TrieTree TitleTrie
+                {
+                        get {
+                                return title_trie;
+                        }
+                }
+        }
 }
