@@ -3,32 +3,34 @@ using Tomboy;
 
 namespace Tomboy.Bugzilla
 {
-	public class BugzillaLink : DynamicNoteTag
-	{
+        public class BugzillaLink : DynamicNoteTag
+        {
                 private const string UriAttributeName = "uri";
                 private const string StockIconFilename = "stock_bug.png";
-                
-		public override void Initialize (string element_name)
-		{
-			base.Initialize (element_name);
 
-			Underline = Pango.Underline.Single;
-			Foreground = "blue";
-			CanActivate = true;
-			CanGrow = true;
-			CanSpellCheck = false;
-			CanSplit = false;
-		}
+                public override void Initialize (string element_name)
+                {
+                        base.Initialize (element_name);
 
-		public string BugUrl
-		{
-			get { return (string) Attributes [UriAttributeName]; }
-			set {
+                        Underline = Pango.Underline.Single;
+                        Foreground = "blue";
+                        CanActivate = true;
+                        CanGrow = true;
+                        CanSpellCheck = false;
+                        CanSplit = false;
+                }
+
+                public string BugUrl
+                {
+                        get {
+                                return (string) Attributes [UriAttributeName];
+                        }
+                        set {
                                 Attributes [UriAttributeName] = value;
                                 SetImage ();
                         }
-		}
-                
+                }
+
                 private void SetImage()
                 {
                         System.Uri uri = null;
@@ -37,9 +39,9 @@ namespace Tomboy.Bugzilla
                         } catch {}
 
                         if (uri == null) {
-                                Image = new Gdk.Pixbuf(null, StockIconFilename);
-                                return;
-                        }
+                                        Image = new Gdk.Pixbuf(null, StockIconFilename);
+                                        return;
+                                }
 
                         string host = uri.Host;
                         // TODO: Get this in a safer way
@@ -51,24 +53,24 @@ namespace Tomboy.Bugzilla
                         } catch (GLib.GException) {
                                 Image = new Gdk.Pixbuf(null, StockIconFilename);
                         }
-               }
+                }
 
-		protected override bool OnActivate (NoteEditor editor, Gtk.TextIter start, Gtk.TextIter end)
-		{
-			if (BugUrl != string.Empty) {
-				Logger.Log ("Opening url '{0}'...", BugUrl);
-				Gnome.Url.Show (BugUrl);
-			}
-			return true;
-		}
+                protected override bool OnActivate (NoteEditor editor, Gtk.TextIter start, Gtk.TextIter end)
+                {
+                        if (BugUrl != string.Empty) {
+                                Logger.Log ("Opening url '{0}'...", BugUrl);
+                                Gnome.Url.Show (BugUrl);
+                        }
+                        return true;
+                }
 
                 protected override void OnAttributeRead (string attributeName)
                 {
                         base.OnAttributeRead (attributeName);
-                        
+
                         if (attributeName == UriAttributeName)
                                 SetImage ();
                 }
 
-	}
+        }
 }

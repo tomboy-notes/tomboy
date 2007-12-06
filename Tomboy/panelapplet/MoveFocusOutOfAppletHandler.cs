@@ -3,16 +3,16 @@
 
 namespace _Gnome {
 
-	using System;
+        using System;
 
-	public delegate void MoveFocusOutOfAppletHandler(object o, MoveFocusOutOfAppletArgs args);
+        public delegate void MoveFocusOutOfAppletHandler(object o, MoveFocusOutOfAppletArgs args);
 
-	public class MoveFocusOutOfAppletArgs : GLib.SignalArgs {
-		public Gtk.DirectionType Direction{
-			get {
-				return (Gtk.DirectionType) Args[0];
-			}
-		}
+        public class MoveFocusOutOfAppletArgs : GLib.SignalArgs {
+                public Gtk.DirectionType Direction{
+                        get {
+                                return (Gtk.DirectionType) Args[0];
+                        }
+                }
 
-	}
+        }
 }

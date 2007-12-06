@@ -4,157 +4,165 @@ using System.Collections.Generic;
 
 namespace Tomboy
 {
-	/// <summary>
-	/// A NoteAddin extends the functionality of a note and a NoteWindow.
-	/// If you wish to extend Tomboy in a more broad sense, perhaps you
-	/// should create an ApplicationAddin.
-	/// <summary>
-	public abstract class NoteAddin : AbstractAddin
-	{
-		Note note;
+        /// <summary>
+        /// A NoteAddin extends the functionality of a note and a NoteWindow.
+        /// If you wish to extend Tomboy in a more broad sense, perhaps you
+        /// should create an ApplicationAddin.
+        /// <summary>
+        public abstract class NoteAddin : AbstractAddin
+        {
+                Note note;
 
-		List<Gtk.MenuItem> tools_menu_items;
-		List<Gtk.MenuItem> text_menu_items;
+                List<Gtk.MenuItem> tools_menu_items;
+                List<Gtk.MenuItem> text_menu_items;
 
-		public void Initialize (Note note)
-		{
-			this.note = note;
-			this.note.Opened += OnNoteOpenedEvent;
+                public void Initialize (Note note)
+                {
+                        this.note = note;
+                        this.note.Opened += OnNoteOpenedEvent;
 
-			Initialize ();
+                        Initialize ();
 
-			if (note.IsOpened)
-				OnNoteOpened ();
-		}
+                        if (note.IsOpened)
+                                OnNoteOpened ();
+                }
 
-		protected override void Dispose (bool disposing)
-		{
-			if (disposing) {
-				if (tools_menu_items != null) {
-					foreach (Gtk.Widget item in tools_menu_items)
-						item.Destroy ();
-				}
+                protected override void Dispose (bool disposing)
+                {
+                        if (disposing) {
+                                if (tools_menu_items != null) {
+                                        foreach (Gtk.Widget item in tools_menu_items)
+                                        item.Destroy ();
+                                }
 
-				if (text_menu_items != null) {
-					foreach (Gtk.Widget item in text_menu_items)
-						item.Destroy ();
-				}
+                                if (text_menu_items != null) {
+                                        foreach (Gtk.Widget item in text_menu_items)
+                                        item.Destroy ();
+                                }
 
-				Shutdown ();
-			}
+                                Shutdown ();
+                        }
 
-			note.Opened -= OnNoteOpenedEvent;
-		}
-		
-		/// <summary>
-		/// Called when the NoteAddin is attached to a Note
-		/// </summary>
-		public abstract void Initialize ();
-		
-		/// <summary>
-		/// Called when a note is deleted and also when
-		/// the addin is disabled.
-		/// </summary>
-		public abstract void Shutdown ();
-		
-		/// <summary>
-		/// Called when the note is opened.
-		/// </summary>
-		public abstract void OnNoteOpened ();
+                        note.Opened -= OnNoteOpenedEvent;
+                }
 
-		public Note Note
-		{
-			get { return note; }
-		}
+                /// <summary>
+                /// Called when the NoteAddin is attached to a Note
+                /// </summary>
+                public abstract void Initialize ();
 
-		public bool HasBuffer
-		{
-			get { return note.HasBuffer; }
-		}
+                /// <summary>
+                /// Called when a note is deleted and also when
+                /// the addin is disabled.
+                /// </summary>
+                public abstract void Shutdown ();
 
-		public NoteBuffer Buffer
-		{
-			get
-			{
-				if (IsDisposing && !HasBuffer)
-					throw new InvalidOperationException ("Plugin is disposing already");
+                /// <summary>
+                /// Called when the note is opened.
+                /// </summary>
+                public abstract void OnNoteOpened ();
 
-				return note.Buffer; 
-			}
-		}
+                public Note Note
+                {
+                        get {
+                                return note;
+                        }
+                }
 
-		public bool HasWindow
-		{
-			get { return note.HasWindow; }
-		}
+                public bool HasBuffer
+                {
+                        get {
+                                return note.HasBuffer;
+                        }
+                }
 
-		public NoteWindow Window
-		{
-			get
-			{
-				if (IsDisposing && !HasWindow)
-					throw new InvalidOperationException ("Plugin is disposing already");
+                public NoteBuffer Buffer
+                {
+                        get
+                        {
+                                if (IsDisposing && !HasBuffer)
+                                        throw new InvalidOperationException ("Plugin is disposing already");
 
-				return note.Window; 
-			}
-		}
+                                return note.Buffer;
+                        }
+                }
 
-		public NoteManager Manager
-		{
-			get { return note.Manager; }
-		}
+                public bool HasWindow
+                {
+                        get {
+                                return note.HasWindow;
+                        }
+                }
 
-		void OnNoteOpenedEvent (object sender, EventArgs args)
-		{
-			OnNoteOpened ();
+                public NoteWindow Window
+                {
+                        get
+                        {
+                                if (IsDisposing && !HasWindow)
+                                        throw new InvalidOperationException ("Plugin is disposing already");
 
-			if (tools_menu_items != null) {
-				foreach (Gtk.Widget item in tools_menu_items) {
-					if (item.Parent == null || 
-					    item.Parent != Window.PluginMenu)
-						Window.PluginMenu.Add (item);
-				}
-			}
+                                return note.Window;
+                        }
+                }
 
-			if (text_menu_items != null) {
-				foreach (Gtk.Widget item in text_menu_items) {
-					if (item.Parent == null || 
-					    item.Parent != Window.TextMenu) {
-						Window.TextMenu.Add (item);
-						Window.TextMenu.ReorderChild (item, 7);
-					}
-				}
-			}
-		}
+                public NoteManager Manager
+                {
+                        get {
+                                return note.Manager;
+                        }
+                }
 
-		public void AddPluginMenuItem (Gtk.MenuItem item)
-		{
-			if (IsDisposing)
-				throw new InvalidOperationException ("Plugin is disposing already");
+                void OnNoteOpenedEvent (object sender, EventArgs args)
+                {
+                        OnNoteOpened ();
 
-			if (tools_menu_items == null)
-				tools_menu_items = new List<Gtk.MenuItem> ();
+                        if (tools_menu_items != null) {
+                                foreach (Gtk.Widget item in tools_menu_items) {
+                                        if (item.Parent == null ||
+                                                        item.Parent != Window.PluginMenu)
+                                                Window.PluginMenu.Add (item);
+                                }
+                        }
 
-			tools_menu_items.Add (item);
+                        if (text_menu_items != null) {
+                                foreach (Gtk.Widget item in text_menu_items) {
+                                        if (item.Parent == null ||
+                                                        item.Parent != Window.TextMenu) {
+                                                Window.TextMenu.Add (item);
+                                                Window.TextMenu.ReorderChild (item, 7);
+                                        }
+                                }
+                        }
+                }
 
-			if (note.IsOpened)
-				Window.PluginMenu.Add (item);
-		}
+                public void AddPluginMenuItem (Gtk.MenuItem item)
+                {
+                        if (IsDisposing)
+                                throw new InvalidOperationException ("Plugin is disposing already");
 
-		public void AddTextMenuItem (Gtk.MenuItem item)
-		{
-			if (IsDisposing)
-				throw new InvalidOperationException ("Plugin is disposing already");
+                        if (tools_menu_items == null)
+                                tools_menu_items = new List<Gtk.MenuItem> ();
 
-			if (text_menu_items == null)
-				text_menu_items = new List<Gtk.MenuItem> ();
+                        tools_menu_items.Add (item);
 
-			text_menu_items.Add (item);
+                        if (note.IsOpened)
+                                Window.PluginMenu.Add (item);
+                }
 
-			if (note.IsOpened) {
-				Window.TextMenu.Add (item);
-				Window.TextMenu.ReorderChild (item, 7);
-			}
-		}
-	}
+                public void AddTextMenuItem (Gtk.MenuItem item)
+                {
+                        if (IsDisposing)
+                                throw new InvalidOperationException ("Plugin is disposing already");
+
+                        if (text_menu_items == null)
+                                text_menu_items = new List<Gtk.MenuItem> ();
+
+                        text_menu_items.Add (item);
+
+                        if (note.IsOpened) {
+                                Window.TextMenu.Add (item);
+                                Window.TextMenu.ReorderChild (item, 7);
+                        }
+                }
+        }
 }

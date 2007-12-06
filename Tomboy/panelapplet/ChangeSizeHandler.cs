@@ -3,16 +3,16 @@
 
 namespace _Gnome {
 
-	using System;
+        using System;
 
-	public delegate void ChangeSizeHandler(object o, ChangeSizeArgs args);
+        public delegate void ChangeSizeHandler(object o, ChangeSizeArgs args);
 
-	public class ChangeSizeArgs : GLib.SignalArgs {
-		public uint Size{
-			get {
-				return (uint) Args[0];
-			}
-		}
+        public class ChangeSizeArgs : GLib.SignalArgs {
+                public uint Size{
+                        get {
+                                return (uint) Args[0];
+                        }
+                }
 
-	}
+        }
 }
