@@ -110,6 +110,9 @@ namespace Tomboy.Tasks
                                 Tomboy.ActionManager.UI.RemoveUi (tools_menu_ui);
                         } catch {}
 
+                        tomboy_tray_menu.Shown -= OnTomboyTrayMenuShown;
+                        tomboy_tray_menu.Hidden -= OnTomboyTrayMenuHidden;
+
                         initialized = false;
                 }
 
