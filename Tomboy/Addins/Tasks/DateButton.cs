@@ -32,184 +32,184 @@ using Gtk;
 
 namespace Gtk.Extras
 {
-        public class DateButton : ToggleButton
-        {
-                private Window popup;
-                private DateTime date;
-                private Calendar cal;
-                private bool show_time;
+	public class DateButton : ToggleButton
+	{
+		private Window popup;
+		private DateTime date;
+		private Calendar cal;
+		private bool show_time;
 
-                private const uint CURRENT_TIME = 0;
+		private const uint CURRENT_TIME = 0;
 
-                // FIXME: If this is ever moved to its own library
-                // this reference to Tomboy will obviously have to
-                // be removed.
-                public DateButton(DateTime date_time, bool show_time)
+		// FIXME: If this is ever moved to its own library
+		// this reference to Tomboy will obviously have to
+		// be removed.
+		public DateButton(DateTime date_time, bool show_time)
 : base(Tomboy.GuiUtils.GetPrettyPrintDate (date_time, show_time))
-                {
-                        Toggled += OnToggled;
-                        popup = null;
-                        date = date_time;
-                        this.show_time = show_time;
-                }
+		{
+			Toggled += OnToggled;
+			popup = null;
+			date = date_time;
+			this.show_time = show_time;
+		}
 
-                private void ShowCalendar()
-                {
-                        popup = new Window(WindowType.Popup);
-                        popup.Screen = this.Screen;
+		private void ShowCalendar()
+		{
+			popup = new Window(WindowType.Popup);
+			popup.Screen = this.Screen;
 
-                        Frame frame = new Frame();
-                        frame.Shadow = ShadowType.Out;
-                        frame.Show();
+			Frame frame = new Frame();
+			frame.Shadow = ShadowType.Out;
+			frame.Show();
 
-                        popup.Add(frame);
+			popup.Add(frame);
 
-                        VBox box = new VBox(false, 0);
-                        box.Show();
-                        frame.Add(box);
+			VBox box = new VBox(false, 0);
+			box.Show();
+			frame.Add(box);
 
-                        cal = new Calendar();
-                        cal.DisplayOptions = CalendarDisplayOptions.ShowHeading
-                                             | CalendarDisplayOptions.ShowDayNames
-                                             | CalendarDisplayOptions.ShowWeekNumbers;
+			cal = new Calendar();
+			cal.DisplayOptions = CalendarDisplayOptions.ShowHeading
+			                     | CalendarDisplayOptions.ShowDayNames
+			                     | CalendarDisplayOptions.ShowWeekNumbers;
 
-                        cal.KeyPressEvent += OnCalendarKeyPressed;
-                        popup.ButtonPressEvent += OnButtonPressed;
+			cal.KeyPressEvent += OnCalendarKeyPressed;
+			popup.ButtonPressEvent += OnButtonPressed;
 
-                        cal.Show();
+			cal.Show();
 
-                        Alignment calAlignment = new Alignment(0.0f, 0.0f, 1.0f, 1.0f);
-                        calAlignment.Show();
-                        calAlignment.SetPadding(4, 4, 4, 4);
-                        calAlignment.Add(cal);
+			Alignment calAlignment = new Alignment(0.0f, 0.0f, 1.0f, 1.0f);
+			calAlignment.Show();
+			calAlignment.SetPadding(4, 4, 4, 4);
+			calAlignment.Add(cal);
 
-                        box.PackStart(calAlignment, false, false, 0);
+			box.PackStart(calAlignment, false, false, 0);
 
-                        Requisition req = SizeRequest();
-                        int x = 0, y = 0;
-                        GdkWindow.GetOrigin(out x, out y);
-                        popup.Move(x + Allocation.X, y + Allocation.Y + req.Height + 3);
-                        popup.Show();
-                        popup.GrabFocus();
+			Requisition req = SizeRequest();
+			int x = 0, y = 0;
+			GdkWindow.GetOrigin(out x, out y);
+			popup.Move(x + Allocation.X, y + Allocation.Y + req.Height + 3);
+			popup.Show();
+			popup.GrabFocus();
 
-                        Grab.Add(popup);
+			Grab.Add(popup);
 
-                        Gdk.GrabStatus grabbed = Gdk.Pointer.Grab(popup.GdkWindow, true,
-                                                 Gdk.EventMask.ButtonPressMask
-                                                 | Gdk.EventMask.ButtonReleaseMask
-                                                 | Gdk.EventMask.PointerMotionMask, null, null, CURRENT_TIME);
+			Gdk.GrabStatus grabbed = Gdk.Pointer.Grab(popup.GdkWindow, true,
+			                         Gdk.EventMask.ButtonPressMask
+			                         | Gdk.EventMask.ButtonReleaseMask
+			                         | Gdk.EventMask.PointerMotionMask, null, null, CURRENT_TIME);
 
-                        if (grabbed == Gdk.GrabStatus.Success) {
-                                grabbed = Gdk.Keyboard.Grab(popup.GdkWindow,
-                                                            true, CURRENT_TIME);
+			if (grabbed == Gdk.GrabStatus.Success) {
+				grabbed = Gdk.Keyboard.Grab(popup.GdkWindow,
+				                            true, CURRENT_TIME);
 
-                                if (grabbed != Gdk.GrabStatus.Success) {
-                                        Grab.Remove(popup);
-                                        popup.Destroy();
-                                        popup = null;
-                                }
-                        } else {
-                                Grab.Remove(popup);
-                                popup.Destroy();
-                                popup = null;
-                        }
+				if (grabbed != Gdk.GrabStatus.Success) {
+					Grab.Remove(popup);
+					popup.Destroy();
+					popup = null;
+				}
+			} else {
+				Grab.Remove(popup);
+				popup.Destroy();
+				popup = null;
+			}
 
-                        cal.DaySelectedDoubleClick += OnCalendarDaySelected;
-                        cal.ButtonPressEvent += OnCalendarButtonPressed;
+			cal.DaySelectedDoubleClick += OnCalendarDaySelected;
+			cal.ButtonPressEvent += OnCalendarButtonPressed;
 
-                        cal.Date = date;
-                }
+			cal.Date = date;
+		}
 
-                public void HideCalendar(bool update)
-                {
-                        if (popup != null) {
-                                Grab.Remove(popup);
-                                Gdk.Pointer.Ungrab(CURRENT_TIME);
-                                Gdk.Keyboard.Ungrab(CURRENT_TIME);
+		public void HideCalendar(bool update)
+		{
+			if (popup != null) {
+				Grab.Remove(popup);
+				Gdk.Pointer.Ungrab(CURRENT_TIME);
+				Gdk.Keyboard.Ungrab(CURRENT_TIME);
 
-                                popup.Destroy();
-                                popup = null;
-                        }
+				popup.Destroy();
+				popup = null;
+			}
 
-                        if (update) {
-                                date = cal.GetDate();
-                                // FIXME: If this is ever moved to its own library
-                                // this reference to Tomboy will obviously have to
-                                // be removed.
-                                Label = Tomboy.GuiUtils.GetPrettyPrintDate (date, show_time);
-                        }
+			if (update) {
+				date = cal.GetDate();
+				// FIXME: If this is ever moved to its own library
+				// this reference to Tomboy will obviously have to
+				// be removed.
+				Label = Tomboy.GuiUtils.GetPrettyPrintDate (date, show_time);
+			}
 
-                        Active = false;
-                }
+			Active = false;
+		}
 
-                private void OnToggled(object o, EventArgs args)
-                {
-                        if (Active) {
-                                ShowCalendar();
-                        } else {
-                                HideCalendar(false);
-                        }
-                }
+		private void OnToggled(object o, EventArgs args)
+		{
+			if (Active) {
+				ShowCalendar();
+			} else {
+				HideCalendar(false);
+			}
+		}
 
-                private void OnButtonPressed(object o, ButtonPressEventArgs args)
-                {
-                        if (popup != null)
-                                HideCalendar(false);
-                }
+		private void OnButtonPressed(object o, ButtonPressEventArgs args)
+		{
+			if (popup != null)
+				HideCalendar(false);
+		}
 
-                private void OnCalendarDaySelected(object o, EventArgs args)
-                {
-                        HideCalendar(true);
-                }
+		private void OnCalendarDaySelected(object o, EventArgs args)
+		{
+			HideCalendar(true);
+		}
 
-                private void OnCalendarButtonPressed(object o,
-                                                     ButtonPressEventArgs args)
-                {
-                        args.RetVal = true;
-                }
+		private void OnCalendarButtonPressed(object o,
+		                                     ButtonPressEventArgs args)
+		{
+			args.RetVal = true;
+		}
 
-                private void OnCalendarKeyPressed(object o, KeyPressEventArgs args)
-                {
-                        switch (args.Event.Key) {
-                        case Gdk.Key.Escape:
-                                HideCalendar(false);
-                                break;
-                        case Gdk.Key.KP_Enter:
-                        case Gdk.Key.ISO_Enter:
-                        case Gdk.Key.Key_3270_Enter:
-                        case Gdk.Key.Return:
-                        case Gdk.Key.space:
-                        case Gdk.Key.KP_Space:
-                                HideCalendar(true);
-                                break;
-                        default:
-                                break;
-                        }
-                }
+		private void OnCalendarKeyPressed(object o, KeyPressEventArgs args)
+		{
+			switch (args.Event.Key) {
+			case Gdk.Key.Escape:
+				HideCalendar(false);
+				break;
+			case Gdk.Key.KP_Enter:
+			case Gdk.Key.ISO_Enter:
+			case Gdk.Key.Key_3270_Enter:
+			case Gdk.Key.Return:
+			case Gdk.Key.space:
+			case Gdk.Key.KP_Space:
+				HideCalendar(true);
+				break;
+			default:
+				break;
+			}
+		}
 
-                public DateTime Date
-                {
-                        get {
-                                return date;
-                        }
-                        set {
-                                date = value;
-                                Label = Tomboy.GuiUtils.GetPrettyPrintDate (date, show_time);
-                        }
-                }
+		public DateTime Date
+		{
+			get {
+				return date;
+			}
+			set {
+				date = value;
+				Label = Tomboy.GuiUtils.GetPrettyPrintDate (date, show_time);
+			}
+		}
 
-                /// <summary>
-                /// If true, both the date and time will be shown.  If false, the time
-                /// will be omitted.
-                /// </summary>
-                public bool ShowTime
-                {
-                        get {
-                                return show_time;
-                        }
-                        set {
-                                show_time = value;
-                        }
-                }
-        }
+		/// <summary>
+		/// If true, both the date and time will be shown.  If false, the time
+		/// will be omitted.
+		/// </summary>
+		public bool ShowTime
+		{
+			get {
+				return show_time;
+			}
+			set {
+				show_time = value;
+			}
+		}
+	}
 }

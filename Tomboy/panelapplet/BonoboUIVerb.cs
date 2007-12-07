@@ -7,22 +7,22 @@ using System.Runtime.InteropServices;
 namespace _Gnome
 {
 
-        public delegate void ContextMenuItemCallback ();
+	public delegate void ContextMenuItemCallback ();
 
-        [StructLayout (LayoutKind.Sequential)]
-        public struct BonoboUIVerb
-        {
-                string verb;
-                ContextMenuItemCallback callback;
-                IntPtr user_data;
-                IntPtr dummy;
+	[StructLayout (LayoutKind.Sequential)]
+	public struct BonoboUIVerb
+	{
+		string verb;
+		ContextMenuItemCallback callback;
+		IntPtr user_data;
+		IntPtr dummy;
 
-                public BonoboUIVerb (string name, ContextMenuItemCallback cb)
-                {
-                        verb = name;
-                        callback = cb;
-                        user_data = IntPtr.Zero;
-                        dummy = IntPtr.Zero;
-                }
-        }
+		public BonoboUIVerb (string name, ContextMenuItemCallback cb)
+		{
+			verb = name;
+			callback = cb;
+			user_data = IntPtr.Zero;
+			dummy = IntPtr.Zero;
+		}
+	}
 }

@@ -3,17 +3,17 @@
 
 namespace _GtkSharp.GnomeSharp {
 
-        public class ObjectManager {
+	public class ObjectManager {
 
-                static bool initialized = false;
-                // Call this method from the appropriate module init function.
-                public static void Initialize ()
-                {
-                        if (initialized)
-                                return;
+		static bool initialized = false;
+		// Call this method from the appropriate module init function.
+		public static void Initialize ()
+		{
+			if (initialized)
+				return;
 
-                        initialized = true;
-                        GLib.GType.Register (_Gnome.PanelApplet.GType, typeof (_Gnome.PanelApplet));
-                }
-        }
+			initialized = true;
+			GLib.GType.Register (_Gnome.PanelApplet.GType, typeof (_Gnome.PanelApplet));
+		}
+	}
 }
