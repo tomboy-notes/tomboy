@@ -48,7 +48,7 @@ namespace Tomboy.Tasks
                                 lock (locker) {
                                         if (manager == null) {
                                                 manager = new TaskManager (
-                                                        Path.Combine (Tomboy.DefaultNoteManager.NoteDirectoryPath, "Tasks"));
+                                                                Path.Combine (Tomboy.DefaultNoteManager.NoteDirectoryPath, "Tasks"));
                                         }
                                 }
 
@@ -57,20 +57,20 @@ namespace Tomboy.Tasks
                                 ///
                                 action_group = new Gtk.ActionGroup ("Tasks");
                                 action_group.Add (new Gtk.ActionEntry [] {
-                                        new Gtk.ActionEntry ("ToolsMenuAction", null,
-                                        Catalog.GetString ("_Tools"), null, null, null),
-                                        new Gtk.ActionEntry ("OpenToDoListAction", null,
-                                        Catalog.GetString ("To Do List"), null, null,
-                                        delegate { OnOpenToDoListAction (); })
-                                });
+                                                new Gtk.ActionEntry ("ToolsMenuAction", null,
+                                                        Catalog.GetString ("_Tools"), null, null, null),
+                                                new Gtk.ActionEntry ("OpenToDoListAction", null,
+                                                        Catalog.GetString ("To Do List"), null, null,
+                                                        delegate { OnOpenToDoListAction (); })
+                                                });
 
-//    tray_icon_ui = Tomboy.ActionManager.UI.AddUiFromString (@"
-//     <ui>
-//      <popup name='TrayIconMenu' action='TrayIconMenuAction'>
-//       <menuitem name='OpenToDoList' action='OpenToDoListAction' />
-//      </popup>
-//     </ui>
-//    ");
+                                //    tray_icon_ui = Tomboy.ActionManager.UI.AddUiFromString (@"
+                                //     <ui>
+                                //      <popup name='TrayIconMenu' action='TrayIconMenuAction'>
+                                //       <menuitem name='OpenToDoList' action='OpenToDoListAction' />
+                                //      </popup>
+                                //     </ui>
+                                //    ");
 
                                 tools_menu_ui = Tomboy.ActionManager.UI.AddUiFromString (@"
                                                 <ui>
@@ -107,13 +107,13 @@ namespace Tomboy.Tasks
                         } catch {}
                         try {
                                 Tomboy.ActionManager.UI.RemoveUi (tray_icon_ui);
-                                        Tomboy.ActionManager.UI.RemoveUi (tools_menu_ui);
-                                } catch {}
+                                Tomboy.ActionManager.UI.RemoveUi (tools_menu_ui);
+                        } catch {}
 
-                                initialized = false;
-        }
+                        initialized = false;
+                }
 
-        private void OnTomboyTrayMenuShown (object sender, EventArgs args)
+                private void OnTomboyTrayMenuShown (object sender, EventArgs args)
                 {
                         // Add in the top tasks
                         // TODO: Read the number of todo items to show from Preferences
@@ -127,19 +127,19 @@ namespace Tomboy.Tasks
                         store_filter.VisibleFunc = FilterTasks;
 
                         // TODO: Sort the tasks to order by due date and priority
-//   store_sort = new Gtk.TreeModelSort (store_filter);
-//   store_sort.DefaultSortFunc =
-//    new Gtk.TreeIterCompareFunc (TaskSortFunc);
+                        //   store_sort = new Gtk.TreeModelSort (store_filter);
+                        //   store_sort.DefaultSortFunc =
+                        //    new Gtk.TreeIterCompareFunc (TaskSortFunc);
 
-//   tree.Model = store_sort;
+                        //   tree.Model = store_sort;
 
-//   int cnt = tree.Model.IterNChildren ();
+                        //   int cnt = tree.Model.IterNChildren ();
 
-//   task_count.Text = string.Format (
-//    Catalog.GetPluralString("Total: {0} task",
-//       "Total: {0} tasks",
-//       cnt),
-//    cnt);
+                        //   task_count.Text = string.Format (
+                        //    Catalog.GetPluralString("Total: {0} task",
+                        //       "Total: {0} tasks",
+                        //       cnt),
+                        //    cnt);
 
 
                         // List the top "max_size" tasks
@@ -243,7 +243,7 @@ namespace Tomboy.Tasks
         }
 
         public class TomboyTaskMenuItem : Gtk.ImageMenuItem
-// public class TomboyTaskMenuItem : ComplexMenuItem
+                                          // public class TomboyTaskMenuItem : ComplexMenuItem
         {
                 Task task;
                 BetterCheckButton check_button;
@@ -255,7 +255,7 @@ namespace Tomboy.Tasks
                         new Dictionary<Task, TaskOptionsDialog> ();
 
                 public TomboyTaskMenuItem (Task task)
-: base ()
+                        : base ()
                 {
                         this.task = task;
 
@@ -328,9 +328,9 @@ namespace Tomboy.Tasks
                                 } else {
                                         dialog =
                                                 new TaskOptionsDialog (
-                                                null,
-                                                Gtk.DialogFlags.DestroyWithParent,
-                                                task);
+                                                                null,
+                                                                Gtk.DialogFlags.DestroyWithParent,
+                                                                task);
                                         dialog.WindowPosition = Gtk.WindowPosition.CenterOnParent;
                                         dialog.DeleteEvent += OnOptionsDialogDeleted;
                                         options_dialogs [task] = dialog;
@@ -359,15 +359,15 @@ namespace Tomboy.Tasks
                                 task.Complete ();
                                 summary.Markup =
                                         String.Format (
-                                                "<span strikethrough='true'>{0}</span>",
-                                                GetDisplayText (task.Summary));
+                                                        "<span strikethrough='true'>{0}</span>",
+                                                        GetDisplayText (task.Summary));
                                 summary.Sensitive = false;
                         } else {
                                 task.ReOpen ();
                                 summary.Markup =
                                         String.Format (
-                                                "<span strikethrough='false'>{0}</span>",
-                                                GetDisplayText (task.Summary));
+                                                        "<span strikethrough='false'>{0}</span>",
+                                                        GetDisplayText (task.Summary));
                                 summary.Sensitive = true;
                         }
                 }
@@ -389,16 +389,16 @@ namespace Tomboy.Tasks
                 static int indicator_size = 13;
                 static int indicator_spacing = 2;
 
-                #region Constructors
-public BetterCheckButton () : base ()
+#region Constructors
+                public BetterCheckButton () : base ()
                 {
                         active = false;
                         SetSizeRequest (indicator_size + indicator_spacing,
                                         indicator_size + indicator_spacing);
                 }
-                #endregion // Constructors
+#endregion // Constructors
 
-                #region Properties
+#region Properties
                 public bool Active
                 {
                         get {
@@ -408,9 +408,9 @@ public BetterCheckButton () : base ()
                                 this.Toggle ();
                         }
                 }
-                #endregion // Properties
+#endregion // Properties
 
-                #region Private Methods
+#region Private Methods
                 void Paint (Gdk.Rectangle area)
                 {
                         int x;
@@ -433,9 +433,9 @@ public BetterCheckButton () : base ()
                         }
 
                         Gtk.Style.PaintCheck (Style, GdkWindow,
-                                              state_type, shadow_type,
-                                              area, this, "checkbutton",
-                                              x, y, indicator_size, indicator_size);
+                                        state_type, shadow_type,
+                                        area, this, "checkbutton",
+                                        x, y, indicator_size, indicator_size);
                 }
 
                 protected override bool OnExposeEvent (Gdk.EventExpose evnt)
@@ -450,6 +450,6 @@ public BetterCheckButton () : base ()
                         active = !active;
                 }
 
-                #endregion // Private Methods
+#endregion // Private Methods
         }
 }
