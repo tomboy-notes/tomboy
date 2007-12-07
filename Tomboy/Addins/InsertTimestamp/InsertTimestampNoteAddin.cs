@@ -7,35 +7,35 @@ using System;
 using Mono.Unix;
 
 namespace Tomboy.InsertTimestamp {
-        public class InsertTimestampNoteAddin : NoteAddin {
+	public class InsertTimestampNoteAddin : NoteAddin {
 
-                Gtk.MenuItem item;
+		Gtk.MenuItem item;
 
-                public override void Initialize ()
-                {
-                        item = new Gtk.MenuItem (
-                                Catalog.GetString ("Insert Timestamp"));
-                        item.Activated += OnMenuItemActivated;
-                        item.Show ();
-                        AddPluginMenuItem (item);
-                }
+		public override void Initialize ()
+		{
+			item = new Gtk.MenuItem (
+			        Catalog.GetString ("Insert Timestamp"));
+			item.Activated += OnMenuItemActivated;
+			item.Show ();
+			AddPluginMenuItem (item);
+		}
 
-                public override void Shutdown ()
-                {
-                        item.Activated -= OnMenuItemActivated;
-                }
+		public override void Shutdown ()
+		{
+			item.Activated -= OnMenuItemActivated;
+		}
 
-                public override void OnNoteOpened ()
-                {
-                }
+		public override void OnNoteOpened ()
+		{
+		}
 
-                void OnMenuItemActivated (object sender, EventArgs args)
-                {
-                        string format = Catalog.GetString ("dddd, MMMM d, h:mm tt");
-                        string text = DateTime.Now.ToString (format);
+		void OnMenuItemActivated (object sender, EventArgs args)
+		{
+			string format = Catalog.GetString ("dddd, MMMM d, h:mm tt");
+			string text = DateTime.Now.ToString (format);
 
-                        Gtk.TextIter cursor = Buffer.GetIterAtMark (Buffer.InsertMark);
-                        Buffer.InsertWithTagsByName (ref cursor, text, "datetime");
-                }
-        }
+			Gtk.TextIter cursor = Buffer.GetIterAtMark (Buffer.InsertMark);
+			Buffer.InsertWithTagsByName (ref cursor, text, "datetime");
+		}
+	}
 }
