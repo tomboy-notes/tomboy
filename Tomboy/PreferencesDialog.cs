@@ -119,7 +119,7 @@ namespace Tomboy
                         Gtk.Label label;
                         Gtk.CheckButton check;
                         Gtk.Alignment align;
-                        PropertyEditorBool peditor, font_peditor;
+                        PropertyEditorBool peditor, font_peditor, bullet_peditor;
 
                         Gtk.VBox options_list = new Gtk.VBox (false, 12);
                         options_list.BorderWidth = 12;
@@ -165,7 +165,14 @@ namespace Tomboy
                                                            "note with that name."));
                         options_list.PackStart (label, false, false, 0);
 
-
+                        // Auto bulleted list
+                        check = MakeCheckButton (Catalog.GetString ("Enable auto-_bulleted lists"));
+                        options_list.PackStart (check, false, false, 0);
+                        bullet_peditor = 
+                                new PropertyEditorToggleButton (Preferences.ENABLE_AUTO_BULLETED_LISTS,
+                                        check);
+                        SetupPropertyEditor (bullet_peditor);
+                        
                         // Custom font...
 
                         check = MakeCheckButton (Catalog.GetString ("Use custom _font"));

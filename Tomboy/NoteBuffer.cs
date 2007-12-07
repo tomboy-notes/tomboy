@@ -34,7 +34,16 @@ namespace Tomboy
 
                 // The note that owns this buffer
                 private Note note;
-
+                
+                public bool EnableAutoBulletedLists
+                {
+                    get
+                    {
+                        string key = Preferences.ENABLE_AUTO_BULLETED_LISTS;
+                        return Convert.ToBoolean (Preferences.Get (key));
+                    }
+                }
+                
                 public NoteBuffer (Gtk.TextTagTable tags, Note note)
 : base (tags)
                 {
@@ -269,7 +278,7 @@ namespace Tomboy
 
                 public bool AddNewline()
                 {
-                        if (!CanMakeBulletedList())
+                        if (!CanMakeBulletedList() || !EnableAutoBulletedLists)
                                 return false;
 
                         Gtk.TextMark insert_mark = InsertMark;
