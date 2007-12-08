@@ -498,8 +498,8 @@ namespace Tomboy.Tasks
 				if (task_tag != null) {
 					if (task_tag.Uri != task.Uri)
 						continue;
-
-					task_tag.Completed = task.IsComplete;
+					
+					task_tag.CompletionDate = task.CompletionDate;
 					break;
 				}
 			} while (iter.ForwardLine());
@@ -622,9 +622,9 @@ namespace Tomboy.Tasks
 
 			item = new TaskMenuItem (
 			        task_tag.Uri,
-			        task_tag.Completed ?
-			        Catalog.GetString ("Mark Undone") :
-			        Catalog.GetString ("Mark Complete"));
+			        task_tag.CompletionDate == DateTime.MinValue ?
+			        Catalog.GetString ("Mark Complete") :
+			        Catalog.GetString ("Mark Undone"));
 			item.Activated += OnToggleCompletionStatus;
 			item.ShowAll ();
 			args.Menu.Prepend (item);
