@@ -2,6 +2,7 @@
 using System;
 using System.IO;
 using System.Collections;
+using System.Collections.Generic;
 using Mono.Unix;
 
 namespace Tomboy
@@ -12,7 +13,7 @@ namespace Tomboy
 	{
 		string notes_dir;
 		string backup_dir;
-		ArrayList notes;
+		List<Note> notes;
 		AddinManager addin_mgr;
 		TrieController trie_controller;
 
@@ -48,7 +49,7 @@ public NoteManager (string directory) :
 
 			notes_dir = directory;
 			backup_dir = backup_directory;
-			notes = new ArrayList ();
+			notes = new List<Note> ();
 
 			bool first_run = FirstRun ();
 			CreateNotesDir ();
@@ -207,7 +208,7 @@ public NoteManager (string directory) :
 			// Load all the addins for our notes.
 			// Iterating through copy of notes list, because list may be
 			// changed when loading addins.
-			ArrayList notesCopy = new ArrayList (notes);
+			List<Note> notesCopy = new List<Note> (notes);
 			foreach (Note note in notesCopy) {
 				addin_mgr.LoadAddinsForNote (note);
 
@@ -430,19 +431,16 @@ public NoteManager (string directory) :
 			return null;
 		}
 
-		class CompareDates : IComparer
+		class CompareDates : IComparer<Note>
 		{
-			public int Compare (object a, object b)
+			public int Compare (Note a, Note b)
 			{
-				Note note_a = a as Note;
-				Note note_b = b as Note;
-
 				// Sort in reverse chrono order...
-				if (note_a == null || note_b == null)
+				if (a == null || b == null)
 					return -1;
 				else
-					return DateTime.Compare (note_b.ChangeDate,
-					                         note_a.ChangeDate);
+					return DateTime.Compare (b.ChangeDate,
+					                         a.ChangeDate);
 			}
 		}
 
@@ -453,7 +451,7 @@ public NoteManager (string directory) :
 			}
 		}
 
-		public ArrayList Notes
+		public List<Note> Notes
 		{
 			get {
 				// FIXME: Only sort on change by listening to
