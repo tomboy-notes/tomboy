@@ -8,6 +8,8 @@ namespace Tomboy
 	{
 		string name;
 		string normalized_name;
+		bool issystem = false;
+		bool isproperty = false;
 
 		// <summary>
 		// Used to track which notes are currently tagged by this tag.  The
@@ -20,6 +22,10 @@ namespace Tomboy
 		{
 			Name = tag_name;
 			notes = new Dictionary<string,Note> ();
+			if(tag_name.StartsWith("system:"))
+				issystem = true;
+			if(tag_name.Split(':').Length >= 3)
+				isproperty = true;
 		}
 		#endregion
 
@@ -53,7 +59,7 @@ namespace Tomboy
 		public string Name
 		{
 			get {
-				return name;
+					return name;
 			}
 			set {
 				if (value != null) {
@@ -61,6 +67,10 @@ namespace Tomboy
 					if (trimmed_name != String.Empty) {
 						name = trimmed_name;
 						normalized_name = trimmed_name.ToLower ();
+					if(value.StartsWith("system:"))
+							issystem = true;
+					if(value.Split(':').Length >= 3)
+							isproperty = true;
 					}
 				}
 			}
@@ -75,7 +85,22 @@ namespace Tomboy
 				return normalized_name;
 			}
 		}
-
+		/// <value>
+		/// Is Tag a System Value
+		/// </value>
+		public bool IsSystem
+		{
+			get{
+				return issystem;
+			}
+		}
+		/// <value>
+		/// Is Tag a Property?
+		/// </value>
+		public bool IsProperty
+		{
+			get { return isproperty;  }
+		}
 		// <summary>
 		// Returns a list of all the notes that this tag is associated with.
 		// </summary>
@@ -85,6 +110,8 @@ namespace Tomboy
 				return new List<Note> (notes.Values);
 			}
 		}
+		
+
 
 		// <summary>
 		// Returns the number of notes this is currently tagging.
@@ -97,4 +124,5 @@ namespace Tomboy
 		}
 		#endregion
 	}
+	
 }

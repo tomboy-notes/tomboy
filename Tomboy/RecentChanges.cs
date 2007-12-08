@@ -20,10 +20,11 @@ namespace Tomboy
                 Gtk.VBox content_vbox;
                 Gtk.TreeViewColumn matches_column;
 
-  Gtk.TreeView tags_tree;
-  Gtk.TreeModel tags_store;
+		Gtk.TreeView tags_tree;
+		Gtk.TreeModel tags_store;
+		Gtk.TreeModelFilter tags_filter;
                 // Use the following like a Set
-  Dictionary<Tag, Tag> selected_tags;
+		Dictionary<Tag, Tag> selected_tags;
 
                 Gtk.TreeView tree;
                 Gtk.ListStore store;
@@ -122,7 +123,11 @@ namespace Tomboy
 
    tags_tree = MakeTagsTree ();
    tags_store = TagManager.Tags;
-   TagManager.TagRemoved += OnTagRemoved;
+tags_filter = new Gtk.TreeModelFilter(tags_store,null);
+			tags_filter.VisibleFunc = FilterTags;
+			
+			TagManager.TagRemoved += OnTagRemoved;
+			
    tags_tree.Model = tags_store;
    tags_tree.Show ();
 
@@ -618,6 +623,19 @@ namespace Tomboy
 //   // Must pass both filters to appear in the list
    return passes_tag_filter && passes_search_filter;
                        // return true;
+                }
+		
+		bool FilterTags (Gtk.TreeModel model, Gtk.TreeIter iter)
+                {
+                        Tag t = model.GetValue (iter, 0 /* note */) as Tag;
+			if(t.IsProperty || t.IsSystem)
+				return false;
+			if(t.Name.StartsWith("system:"))
+				return false;
+			if(t.NormalizedName.StartsWith("system:"))
+				return false;
+			return true;
+            
                 }
 
                 // <summary>
