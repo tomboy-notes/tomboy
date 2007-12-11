@@ -5,13 +5,13 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;
 using Mono.Unix;
-
+using Gtk;
 namespace Tomboy
 {
 	public class NoteWindow : ForcedPresentWindow
 	{
 		Note note;
-
+		
 		Gtk.AccelGroup accel_group;
 		Gtk.Toolbar toolbar;
 		Gtk.Widget link_button;
@@ -179,6 +179,7 @@ public NoteWindow (Note note) :
 			                            Gtk.AccelFlags.Visible);
 
 			this.Add (box);
+			
 		}
 
 		protected override bool OnDeleteEvent (Gdk.Event evnt)
@@ -711,6 +712,7 @@ public NoteWindow (Note note) :
 
 	public class NoteTagBar : Gtk.HBox
 	{
+		LinkCompleter complete;
 		private Note note;
 		//Gtk.Expander expander;
 		//WrapBox tag_cloud;
@@ -721,10 +723,12 @@ public NoteWindow (Note note) :
 		Gtk.TextTag tt;
 		Gtk.TextTagTable tag_table;
 		List<string> tag_str_cache;
+		List<string> autooptions;
 		#region Constructors
 public NoteTagBar (Note note) : base (false, 4)
 		{
 			this.note = note;
+			
 			tag_str_cache = new List<string>();
 			BorderWidth = 2;
 
@@ -777,6 +781,7 @@ public NoteTagBar (Note note) : base (false, 4)
 			tag_buffer.InsertText += TagTextHandler;
 			//tag_view.DeleteFromCursor += TagBackspaceHandler;
 			tag_buffer.Changed += OnBufferChanged;
+			tag_view.KeyPressEvent += OnKeyPress;
 			
 //			Gtk.EntryCompletion entry_completion = new Gtk.EntryCompletion ();
 //			entry_completion.InlineCompletion = true;
@@ -807,6 +812,7 @@ public NoteTagBar (Note note) : base (false, 4)
 
 			note.TagAdded += TagAddedHandler;
 			note.TagRemoved += TagRemovedHandler;
+			
 		}
 		#endregion
 
@@ -823,7 +829,7 @@ public NoteTagBar (Note note) : base (false, 4)
 		{
 			tag_view.GrabFocus ();
 			//tag_entry.GrabFocus ();
-
+			complete = new LinkCompleter(note.Window);
 			base.OnShown ();
 		}
 
@@ -837,8 +843,11 @@ public NoteTagBar (Note note) : base (false, 4)
 //				Tag t = TagManager.GetOrCreateTag(s);
 //				note.Tags.Add(t);
 //			}
+			complete.Hide();
 			base.OnHidden ();
 		}
+		
+		
 
 		#endregion
 
@@ -860,8 +869,47 @@ public NoteTagBar (Note note) : base (false, 4)
 //
 		
 
-
+		void OnKeyPress (object sender, Gtk.KeyPressEventArgs args){
+			Logger.Debug("In OnKeyPress");
+			if(args.Event.Key == Gdk.Key.Alt_L){
+				Gtk.TextIter iter_sofar = tag_buffer.EndIter;
+			while(iter_sofar.Char != "," && !iter_sofar.IsStart){
+				iter_sofar.BackwardChar();
+			}
+			tag_buffer.Delete(iter_sofar,tag_buffer.EndIter);
+			tag_buffer.Insert(tag_buffer.EndIter,", " +autooptions[complete.Selection]+ ", ");
+			complete.Hide();
+		}
+			else if( args.Event.Key == Gdk.Key.Control_L){
+				complete.SelectNext();
+			}
+		}
 		void TagTextHandler (object sender, Gtk.InsertTextArgs args){
+			Logger.Debug("In TagTextHandler");
+			Gtk.TextIter iter_sofar = tag_buffer.EndIter;
+			while(iter_sofar.Char != "," && !iter_sofar.IsStart)
+				iter_sofar.BackwardChar();
+			iter_sofar.ForwardChar();
+			string text = tag_buffer.GetText(iter_sofar,tag_buffer.EndIter,false);
+			text = text.Trim();
+			Logger.Debug(text);
+			autooptions = new List<string>();
+			foreach(Tag t in TagManager.AllTags){
+				if(t.Name.ToLower().StartsWith(text.ToLower()))
+					autooptions.Add(t.Name);
+			}
+			if(autooptions.Count > 0){
+			complete.SetCompletions(autooptions.ToArray());
+			int x =0,y=0, x2=0,y2=0;
+			Gdk.Rectangle rect = tag_view.GetIterLocation(tag_buffer.EndIter);
+			note.Window.GdkWindow.GetPosition(out x,out y);
+			note.Window.GetDefaultSize(out x2,out y2);
+			complete.Move(rect.X+x2,rect.Y+y+y2);
+			complete.ShowAll();
+			}else{
+				complete.Hide();}
+			
+			
 			Gtk.TextIter iter = args.Pos;
 			if(args.Text.Contains(",")){
 				iter.BackwardToTagToggle(tt);
@@ -876,22 +924,10 @@ public NoteTagBar (Note note) : base (false, 4)
 				//note.AddTag( TagManager.GetOrCreateTag(tag_buffer.GetText(iter,iter2,false).Trim().Replace(",",String.Empty)));                    
 			}
 		}
-		
-//		void TagBackspaceHandler (object sender, Gtk.DeleteFromCursorArgs args){
-//			Gtk.TextIter iter1 = tag_buffer.GetIterAtOffset(tag_buffer.CursorPosition);
-//			while(iter1.Char != "," && !iter1.IsEnd)
-//				iter1.ForwardChar();
-//			Gtk.TextIter iter2 = tag_buffer.GetIterAtOffset(tag_buffer.CursorPosition);
-//				while(iter2.Char != "," && !iter2.IsStart)
-//				iter2.BackwardChar();
-//			string tag_name = tag_buffer.GetText(iter2,iter1,false);
-//			tag_buffer.Delete(iter2,iter1);
-//			tag_name = tag_name.Replace(",","");
-//			//note.RemoveTag(TagManager.GetTag(tag_name));
-//			//Logger.Debug("Tag: {0} was removed from note {1}",tag_name,note.Title);
-//		}
+
 		void OnBufferChanged (object sender, EventArgs args)
 		{
+			Logger.Debug("In OnBufferChanged");
 			if(tag_buffer.Text.Trim().EndsWith(",")){
 			List<string> temp2 = new List<string>(tag_buffer.Text.Split(','));
 			if(temp2.Count > 0){
@@ -910,8 +946,10 @@ public NoteTagBar (Note note) : base (false, 4)
 			if(tag_str_cache != null && tag_str_cache.Count > 0){
 				foreach(string s in tag_str_cache){
 					if(!temp2.Contains(s.Trim())){
-						if(!String.IsNullOrEmpty(s)){
-						note.RemoveTag(TagManager.GetTag(s.Trim()));
+						if(!String.IsNullOrEmpty(s.Trim())){
+								Tag t = TagManager.GetTag(s.Trim());
+								if(t != null)
+									note.RemoveTag(t);
 								//TagManager.GetTag(s.Trim()).RemoveNote(note);
 						}
 					}
@@ -921,112 +959,24 @@ public NoteTagBar (Note note) : base (false, 4)
 			tag_str_cache.AddRange(tag_buffer.Text.Split(','));
 			}
 		}
-//		void TagEntryChanged (object sender, EventArgs args)
-//		{
-//			string text = tag_entry.Text.Trim ();
-//			if (text.Length == 0) {
-//				add_tag_button.Sensitive = false;
-//			} else {
-//				add_tag_button.Sensitive = true;
-//			}
-//		}
-//
-//		void AddTagButtonClicked (object sender, EventArgs args)
-//		{
-//			string text = tag_entry.Text.Trim ();
-//			if (text.Length > 0) {
-//				Tag tag = TagManager.GetOrCreateTag (text);
-//				if (!note.Data.Tags.ContainsKey (tag.NormalizedName)) {
-//					note.AddTag (tag);
-//				}
-//			}
-//
-//			// Clear out the entry and grab the cursor focus so it's ready to
-//			// have another tag typed and added.
-//			tag_entry.Text = String.Empty;
-//		}
-//
-//		void TagButtonClicked (object sender, EventArgs args)
-//		{
-//			TagButton button = sender as TagButton;
-//
-//			note.RemoveTag (button.Tag);
-//		}
+
 
 		void TagAddedHandler (Note note, Tag tag)
 		{
 			tag.AddNote(note);
-//			Gtk.Button button = MakeTagButton (tag);
-//			button.Show ();
-//			tag_cloud.Insert (button);
 		}
 
 		void TagRemovedHandler (Note note, string tag_name)
 		{
+			note.RemoveTag(new Tag(tag_name));
 			
-			
-			// Remove the button from the list
-//			TagButton button_to_remove = null;
-//
-//			foreach (Gtk.Widget w in tag_cloud.Children) {
-//				if (w is TagButton) {
-//					TagButton button = w as TagButton;
-//
-//					if (string.Compare (button.Tag.NormalizedName, tag_name) == 0) {
-//						button_to_remove = button;
-//						button.Hide ();
-//						break;
-//					}
-//				}
-//			}
-//
-//			if (button_to_remove != null)
-//				tag_cloud.Remove (button_to_remove);
-//			else
-//				Logger.Debug ("\tDid not remove a tag button");
 		}
-
-//		void TagEntryCompletionDataFunc (Gtk.CellLayout cell_layout, Gtk.CellRenderer cell,
-//		                                 Gtk.TreeModel tree_model, Gtk.TreeIter iter)
-//		{
-//			Gtk.CellRendererText crt = cell as Gtk.CellRendererText;
-//			Tag tag = tree_model.GetValue (iter, 0) as Tag;
-//			crt.Text = tag.Name;
-//		}
-//
-//		bool TagEntryCompletionMatchFunc (Gtk.EntryCompletion completion, string key, Gtk.TreeIter iter)
-//		{
-//			if (key.Length == 0)
-//				return true;
-//
-//			Tag tag = completion.Model.GetValue (iter, 0) as Tag;
-//			if (tag == null)
-//				return false;
-//
-//			string lower_cased_key = key.ToLower ();
-//
-//			if (tag.NormalizedName.StartsWith (lower_cased_key))
-//				return true;
-//
-//			return false;
-//		}
-//
-//		[GLib.ConnectBefore]
-//		void TagEntryCompletionMatchSelected (object sender, Gtk.MatchSelectedArgs args)
-//		{
-//			Tag tag = args.Model.GetValue (args.Iter, 0) as Tag;
-//			if (tag != null) {
-//				tag_entry.Text = tag.Name;
-//				args.RetVal = true;
-//
-//				// Press the add button for the user
-//				AddTagButtonClicked (sender, EventArgs.Empty);
-//			}
-//		}
+			
 
 		void HideTagBar (object sender, EventArgs args)
 		{
 			Hide ();
+			complete.Hide();
 		}
 
 		void KeyPressed (object sender, Gtk.KeyPressEventArgs args)
@@ -1052,7 +1002,100 @@ public NoteTagBar (Note note) : base (false, 4)
 		#region Properties
 		#endregion
 	}
+	
+	public class LinkCompleter : Gtk.Window
+	{
+		ScrolledWindow scroller; 
+		ListStore store;
+		TreeView view;
+		CellRenderer renderer;
+		TreeViewColumn column;
+		TreeSelection selection;
+		Frame frame;
+		public LinkCompleter(Window parent):base(Gtk.WindowType.Popup)
+		{
+			this.TransientFor= parent;
+			this.BorderWidth = 1;
+			store = new ListStore(typeof(string));
+			
+			view = new TreeView(store);
+			scroller = new ScrolledWindow();
+			renderer = new CellRendererText();
+			
+			column = new TreeViewColumn();
+			column.Title = "";
+			column.PackStart(renderer,true);
+			column.AddAttribute(renderer,"text",0);
+			view.AppendColumn(column);
+			view.EnableSearch = false;
+			view.HeadersVisible = false;
+			view.RulesHint = true;
+			
+			selection = view.Selection;
+			selection.Mode = SelectionMode.Single;
+			scroller.SetPolicy(PolicyType.Never,PolicyType.Never);
+			scroller.Add(view);
+			frame = new Frame();
+			frame.ShadowType = ShadowType.Out;
+			frame.Add(scroller);
+			this.Add(frame);
+			
+		}
+		
+		public int Selection{
+			get { 
+				selection = view.Selection;
+				if(selection.GetSelectedRows().Length > 0){
+				return selection.GetSelectedRows()[0].Indices[0];
+				}else{
+					return 0;
+				}
+				}	
+		}
+		
 
+		public void SelectNext() {
+			
+			int row = Selection+1;
+			int count = 0;
+			foreach(object o in store){
+				count++;
+			}
+			if(count-1 < row)
+				row = count;
+			
+			//selection = view.Selection;
+			view.Selection.UnselectAll();
+			//selection.UnselectAll();
+			
+			view.Selection.SelectPath(new TreePath(new int[]{row}));
+		
+			view.ScrollToCell(new TreePath(new int[]{row}),column,false,0,0);
+			
+			
+		}
+		
+		public void SelectPrevious(){
+			int i=Selection-1;
+			if(i >= 0){
+				selection = view.Selection;
+				selection.UnselectAll();
+				selection.SelectPath(new TreePath(i.ToString()));
+				view.ScrollToCell(new TreePath(i.ToString()),column, false,0,0);
+				
+			
+			}
+		}
+		public void SetCompletions(string[] comps){
+			this.Resize(1,1);
+			store.Clear();
+			foreach(string s in comps){
+				store.AppendValues(s);
+			}
+			view.ColumnsAutosize();
+			view.Selection.SelectPath(new TreePath("0"));
+		}
+}
 
 	public class NoteFindBar : Gtk.HBox
 	{
