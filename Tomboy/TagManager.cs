@@ -182,7 +182,16 @@ namespace Tomboy
 			}
 		}
 		#endregion
-
+		public static List<Tag> AllTags
+		{
+			get {
+				List<Tag> temp = new List<Tag>();
+				foreach(Gtk.TreeIter iter in tag_map.Values){
+					temp.Add(tags.GetValue (iter, 0) as Tag);
+				}
+				return temp;
+			}
+		}
 		#region Events
 		public static event TagAddedEventHandler TagAdded;
 		public static event TagRemovedEventHandler TagRemoved;
