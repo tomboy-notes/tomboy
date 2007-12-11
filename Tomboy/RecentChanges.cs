@@ -596,14 +596,6 @@ namespace Tomboy
                         return matches;
                 }
 
-                class Match
-                {
-                        public NoteBuffer   Buffer;
-                        public Gtk.TextMark StartMark;
-                        public Gtk.TextMark EndMark;
-                        public bool         Highlighting;
-                }
-
                 /// <summary>
                 /// Filter out notes based on the current search string
                 /// and selected tags.
