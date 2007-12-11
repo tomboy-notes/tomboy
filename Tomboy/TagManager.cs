@@ -17,7 +17,7 @@ namespace Tomboy
 		static Gtk.TreeModelSort sorted_tags;
 		static Dictionary<string, Gtk.TreeIter> tag_map;
 		static object locker = new object ();
-
+		static Dictionary<string,Tag> internal_tags;
 		#region Constructors
 		static TagManager ()
 		{
@@ -31,6 +31,7 @@ namespace Tomboy
 			// The key for this dictionary is Tag.Name.ToLower ().
 			// </summary>
 			tag_map = new Dictionary<string, Gtk.TreeIter> ();
+			internal_tags = new Dictionary<string,Tag> ();
 		}
 
 		private TagManager ()
@@ -65,6 +66,13 @@ namespace Tomboy
 			if (normalized_tag_name == String.Empty)
 				throw new ArgumentException ("TagManager.GetTag () called with an empty tag name.");
 
+			if (normalized_tag_name.StartsWith("system:") || normalized_tag_name.Split(':').Length > 2){
+				lock (locker) {
+				if(internal_tags.ContainsKey(normalized_tag_name))
+					return internal_tags[normalized_tag_name];
+				return null;
+				}
+			}
 			if (tag_map.ContainsKey (normalized_tag_name)) {
 				Gtk.TreeIter iter = tag_map [normalized_tag_name];
 				return tags.GetValue (iter, 0) as Tag;
@@ -85,6 +93,18 @@ namespace Tomboy
 			if (normalized_tag_name == String.Empty)
 				throw new ArgumentException ("TagManager.GetOrCreateTag () called with an empty tag name.");
 
+			if (normalized_tag_name.StartsWith("system:") || normalized_tag_name.Split(':').Length > 2){
+				lock (locker) {
+				if(internal_tags.ContainsKey(normalized_tag_name))
+					return internal_tags[normalized_tag_name];
+				else{
+					Tag t = new Tag(tag_name);
+					internal_tags [ t.NormalizedName] = t;
+					return t;
+				}
+				return null;
+				}
+			}
 			Gtk.TreeIter iter = Gtk.TreeIter.Zero;
 			bool tag_added = false;
 			Tag tag = GetTag (normalized_tag_name);
@@ -117,6 +137,11 @@ namespace Tomboy
 			if (tag == null)
 				throw new ArgumentNullException ("TagManager.RemoveTag () called with a null tag");
 
+			if(tag.IsProperty || tag.IsSystem){
+				lock (locker) {
+					internal_tags.Remove(tag.NormalizedName);
+				}
+			}
 			bool tag_removed = false;
 			if (tag_map.ContainsKey (tag.NormalizedName)) {
 				lock (locker) {
@@ -124,7 +149,7 @@ namespace Tomboy
 						Gtk.TreeIter iter = tag_map [tag.NormalizedName];
 						if (!tags.Remove (ref iter)) {
 							Logger.Debug ("TagManager: Removed tag: {0}", tag.NormalizedName);
-						} else {
+						} else { 
 							// FIXME: For some really weird reason, this block actually gets called sometimes!
 							Logger.Warn ("TagManager: Call to remove tag from ListStore failed: {0}", tag.NormalizedName);
 						}

@@ -24,7 +24,7 @@ namespace Tomboy
 			notes = new Dictionary<string,Note> ();
 			if(tag_name.StartsWith("system:"))
 				issystem = true;
-			if(tag_name.Split(':').Length >= 3)
+			if(tag_name.Split(':').Length > 2)
 				isproperty = true;
 		}
 		#endregion
