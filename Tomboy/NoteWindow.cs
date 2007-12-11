@@ -777,7 +777,7 @@ public NoteTagBar (Note note) : base (false, 4)
 			tag_buffer.InsertText += TagTextHandler;
 			//tag_view.DeleteFromCursor += TagBackspaceHandler;
 			tag_buffer.Changed += OnBufferChanged;
-
+			
 //			Gtk.EntryCompletion entry_completion = new Gtk.EntryCompletion ();
 //			entry_completion.InlineCompletion = true;
 //			entry_completion.PopupSingleMatch = true;
@@ -858,10 +858,15 @@ public NoteTagBar (Note note) : base (false, 4)
 //			AddTagButtonClicked (sender, args);
 //		}
 //
+		
+
+
 		void TagTextHandler (object sender, Gtk.InsertTextArgs args){
 			Gtk.TextIter iter = args.Pos;
 			if(args.Text.Contains(",")){
 				iter.BackwardToTagToggle(tt);
+				while(iter.Char == " " || iter.Char == ",")
+					iter.ForwardChar();
 				//iter.ForwardChar();
 				Gtk.TextIter iter2 = tag_buffer.EndIter;
 				while(iter2.Char != ",")

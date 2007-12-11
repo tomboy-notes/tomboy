@@ -22,7 +22,7 @@ namespace Tomboy
 
 		Gtk.TreeView tags_tree;
 		Gtk.TreeModel tags_store;
-		Gtk.TreeModelFilter tags_filter;
+		//Gtk.TreeModelFilter tags_filter;
                 // Use the following like a Set
 		Dictionary<Tag, Tag> selected_tags;
 
@@ -123,8 +123,8 @@ namespace Tomboy
 
    tags_tree = MakeTagsTree ();
    tags_store = TagManager.Tags;
-tags_filter = new Gtk.TreeModelFilter(tags_store,null);
-			tags_filter.VisibleFunc = FilterTags;
+//tags_filter = new Gtk.TreeModelFilter(tags_store,null);
+		//	tags_filter.VisibleFunc = FilterTags;
 			
 			TagManager.TagRemoved += OnTagRemoved;
 			
