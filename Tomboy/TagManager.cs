@@ -181,7 +181,11 @@ namespace Tomboy
 				return sorted_tags;
 			}
 		}
-		#endregion
+		
+		
+		/// <value>
+		/// All tags (including system and property tags)
+		/// </value>
 		public static List<Tag> AllTags
 		{
 			get {
@@ -192,6 +196,8 @@ namespace Tomboy
 				return temp;
 			}
 		}
+		
+		#endregion
 		#region Events
 		public static event TagAddedEventHandler TagAdded;
 		public static event TagRemovedEventHandler TagRemoved;

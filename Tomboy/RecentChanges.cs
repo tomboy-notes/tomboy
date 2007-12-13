@@ -20,11 +20,11 @@ namespace Tomboy
                 Gtk.VBox content_vbox;
                 Gtk.TreeViewColumn matches_column;
 
-		Gtk.TreeView tags_tree;
-		Gtk.TreeModel tags_store;
-		//Gtk.TreeModelFilter tags_filter;
+		        Gtk.TreeView tags_tree;
+		        Gtk.TreeModel tags_store;
+		
                 // Use the following like a Set
-		Dictionary<Tag, Tag> selected_tags;
+		        Dictionary<Tag, Tag> selected_tags;
 
                 Gtk.TreeView tree;
                 Gtk.ListStore store;
@@ -73,7 +73,7 @@ namespace Tomboy
                         this.DefaultWidth = 200;
                         this.current_matches = new Hashtable ();
 
-   selected_tags = new Dictionary<Tag, Tag> ();
+                        selected_tags = new Dictionary<Tag, Tag> ();
 
                         AddAccelGroup (Tomboy.ActionManager.UI.AccelGroup);
 
@@ -121,28 +121,27 @@ namespace Tomboy
                         hbox.PackStart (table, true, true, 0);
                         hbox.ShowAll ();
 
-   tags_tree = MakeTagsTree ();
-   tags_store = TagManager.Tags;
-//tags_filter = new Gtk.TreeModelFilter(tags_store,null);
-		//	tags_filter.VisibleFunc = FilterTags;
-			
-			TagManager.TagRemoved += OnTagRemoved;
-			
-   tags_tree.Model = tags_store;
-   tags_tree.Show ();
+					   tags_tree = MakeTagsTree ();
+					   tags_store = TagManager.Tags;
 
-   Gtk.ScrolledWindow tags_sw = new Gtk.ScrolledWindow ();
-   tags_sw.ShadowType = Gtk.ShadowType.In;
+								
+			           TagManager.TagRemoved += OnTagRemoved;
+								
+					   tags_tree.Model = tags_store;
+					   tags_tree.Show ();
+
+					   Gtk.ScrolledWindow tags_sw = new Gtk.ScrolledWindow ();
+					   tags_sw.ShadowType = Gtk.ShadowType.In;
 //
 //                         Reign in the window size if there are tags with long
 //                         names, or a lot of tags...
 
-   Gtk.Requisition tags_tree_req = tags_tree.SizeRequest ();
-   if (tags_tree_req.Width > 150)
-    tags_sw.WidthRequest = 150;
+					   Gtk.Requisition tags_tree_req = tags_tree.SizeRequest ();
+					   if (tags_tree_req.Width > 150)
+					    tags_sw.WidthRequest = 150;
 
-   tags_sw.Add (tags_tree);
-   tags_sw.Show ();
+					   tags_sw.Add (tags_tree);
+					   tags_sw.Show ();
 
                         MakeRecentTree ();
                         tree.Show ();
@@ -180,11 +179,11 @@ namespace Tomboy
                         matches_window.Add (tree);
                         matches_window.Show ();
 
-   Gtk.HPaned hpaned = new Gtk.HPaned ();
-   hpaned.Position = 150;
-   hpaned.Add1 (tags_sw);
-   hpaned.Add2 (matches_window);
-   hpaned.Show ();
+					   Gtk.HPaned hpaned = new Gtk.HPaned ();
+					   hpaned.Position = 150;
+					   hpaned.Add1 (tags_sw);
+					   hpaned.Add2 (matches_window);
+					   hpaned.Show ();
 
                         Gtk.HBox status_box = new Gtk.HBox (false, 8);
                         status_box.PackStart (note_count, true, true, 0);
@@ -193,7 +192,7 @@ namespace Tomboy
                         Gtk.VBox vbox = new Gtk.VBox (false, 8);
                         vbox.BorderWidth = 6;
                         vbox.PackStart (hbox, false, false, 0);
-   vbox.PackStart (hpaned, true, true, 0);
+                        vbox.PackStart (hpaned, true, true, 0);
                         vbox.PackStart (matches_window, true, true, 0);
                         vbox.PackStart (status_box, false, false, 0);
                         vbox.Show ();
@@ -610,23 +609,23 @@ namespace Tomboy
                         if (passes_search_filter == false)
                                 return false; // don't waste time checking tags if it's already false
 
-   bool passes_tag_filter = FilterByTag (note);
+			            bool passes_tag_filter = FilterByTag (note);
 
-//   // Must pass both filters to appear in the list
-   return passes_tag_filter && passes_search_filter;
+                        // Must pass both filters to appear in the list
+                        return passes_tag_filter && passes_search_filter;
                        // return true;
                 }
 		
-		bool FilterTags (Gtk.TreeModel model, Gtk.TreeIter iter)
+		        bool FilterTags (Gtk.TreeModel model, Gtk.TreeIter iter)
                 {
                         Tag t = model.GetValue (iter, 0 /* note */) as Tag;
-			if(t.IsProperty || t.IsSystem)
-				return false;
-			if(t.Name.StartsWith("system:"))
-				return false;
-			if(t.NormalizedName.StartsWith("system:"))
-				return false;
-			return true;
+			             if(t.IsProperty || t.IsSystem)
+				             return false;
+			             if(t.Name.StartsWith("system:"))
+				             return false;
+			             if(t.NormalizedName.StartsWith("system:"))
+				             return false;
+			             return true;
             
                 }
 
@@ -635,20 +634,20 @@ namespace Tomboy
                 // based on the current selection of tags.  If no tags are selected,
                 // all notes should be allowed.
                 // </summary>
-  bool FilterByTag (Note note)
-  {
-   if (selected_tags.Count == 0)
-    return true;
+				  bool FilterByTag (Note note)
+				  {
+				   if (selected_tags.Count == 0)
+				    return true;
 
-//   // FIXME: Ugh!  NOT an O(1) operation.  Is there a better way?
-   List<Tag> tags = note.Tags;
-   foreach (Tag tag in note.Tags) {
-    if (selected_tags.ContainsKey (tag))
-     return true;
-   }
+				//   // FIXME: Ugh!  NOT an O(1) operation.  Is there a better way?
+				   List<Tag> tags = note.Tags;
+				   foreach (Tag tag in note.Tags) {
+				    if (selected_tags.ContainsKey (tag))
+				     return true;
+				   }
 
-   return false;
-  }
+				   return false;
+				  }
 
                 // <summary>
                 // Return true if the specified note should be shown in the list
@@ -1078,18 +1077,18 @@ namespace Tomboy
 
                   void OnTagToggled (object sender, Gtk.ToggledArgs args)
                   {
-			Console.WriteLine("Tag was toggled!{0}");
+			//Console.WriteLine("Tag was toggled!{0}");
                    Gtk.CellRendererToggle crt = sender as Gtk.CellRendererToggle;
 
                    Gtk.TreePath path = new Gtk.TreePath (args.Path);
                    Gtk.TreeIter iter;
                    if (tags_store.GetIter (out iter, path) == false)
                     return;
-			Console.WriteLine("iter is true");
+			//Console.WriteLine("iter is true");
                    Tag tag = tags_store.GetValue (iter, 0) as Tag;
                    if (tag == null)
                     return;
-			Console.WriteLine("tag isn't null ");
+			//Console.WriteLine("tag isn't null ");
                    if (crt.Active) {
                     // Uncheck the tag (remove the tag from selected_tags)
                     if (selected_tags.ContainsKey (tag))

@@ -54,7 +54,7 @@ namespace Tomboy
 		#region Properties
 		// <summary>
 		// The name of the tag.  This is what the user types in as the tag and
-		// what's used to show the tag to the user.
+		// what's used to show the tag to the user. This includes any 'system:' prefixes
 		// </summary>
 		public string Name
 		{
