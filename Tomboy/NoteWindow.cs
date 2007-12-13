@@ -916,7 +916,7 @@ public NoteTagBar (Note note) : base (false, 4)
 				Gdk.Rectangle rect = tag_view.GetIterLocation(tag_buffer.EndIter);
 				note.Window.GdkWindow.GetPosition(out x,out y);
 				note.Window.GetSize(out x2,out y2);
-				complete.Move(rect.X+x+x2,rect.Y+y+y2);
+				complete.Move(rect.X+x,rect.Y+y+y2);
 				complete.ShowAll();
 			}else{
 				complete.Hide();
