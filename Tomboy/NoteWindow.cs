@@ -844,6 +844,14 @@ public NoteTagBar (Note note) : base (false, 4)
 //				note.Tags.Add(t);
 //			}
 			complete.Hide();
+			foreach(Tag t in note.Tags){
+				note.RemoveTag(t);
+			}
+			List<string> temp2 = new List<string>(tag_buffer.Text.Split(','));
+			foreach(string s in temp2){
+				if( !String.IsNullOrEmpty(s) && s.Trim() != "")
+					note.AddTag(TagManager.GetOrCreateTag(s.Trim()));
+			}
 			base.OnHidden ();
 		}
 		
@@ -935,10 +943,10 @@ public NoteTagBar (Note note) : base (false, 4)
 				if(!String.IsNullOrEmpty(s.Trim())){
 				Tag temp = TagManager.GetOrCreateTag(s.Trim());
 				if(!note.Tags.Contains(temp)){
-					if(!tag_str_cache.Contains(s.Trim())){
+					//if(!tag_str_cache.Contains(s.Trim())){
 						note.AddTag(temp);
 								//	temp.AddNote(note);
-					}
+					//}
 				}
 					}
 			}
