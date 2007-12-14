@@ -764,6 +764,7 @@ public NoteTagBar (Note note) : base (false, 4)
 			
 			tag_entry.Show();
 			PackStart (tag_entry, true,true, 0);
+			
 			//note.Window.Destroyed += OnDestroyed;
 //			 tag_table= new Gtk.TextTagTable();
 //			 tt= new Gtk.TextTag("completetag");
@@ -846,6 +847,7 @@ public NoteTagBar (Note note) : base (false, 4)
 	
 		protected override void OnShown ()
 		{
+			tag_entry.GrabFocus();
 			//tag_view.GrabFocus ();
 			//tag_entry.GrabFocus ();
 			//complete = new LinkCompleter(note.Window);
