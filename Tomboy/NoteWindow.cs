@@ -848,6 +848,7 @@ public NoteTagBar (Note note) : base (false, 4)
 		protected override void OnShown ()
 		{
 			tag_entry.GrabFocus();
+			tag_entry.SelectRegion(-1,-1);
 			//tag_view.GrabFocus ();
 			//tag_entry.GrabFocus ();
 			//complete = new LinkCompleter(note.Window);
