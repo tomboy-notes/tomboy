@@ -1043,93 +1043,93 @@ public NoteTagBar (Note note) : base (false, 4)
 		#endregion
 	}
 	
-	public class LinkCompleter : Gtk.Window
-	{
-		ScrolledWindow scroller; 
-		ListStore store;
-		TreeView view;
-		CellRenderer renderer;
-		TreeViewColumn column;
-		TreeSelection selection;
-		Frame frame;
-		public LinkCompleter(Window parent):base(Gtk.WindowType.Popup)
-		{
-			this.TransientFor= parent;
-			this.BorderWidth = 1;
-			store = new ListStore(typeof(string));
-			
-			view = new TreeView(store);
-			scroller = new ScrolledWindow();
-			renderer = new CellRendererText();
-			
-			column = new TreeViewColumn();
-			column.Title = "";
-			column.PackStart(renderer,true);
-			column.AddAttribute(renderer,"text",0);
-			view.AppendColumn(column);
-			view.EnableSearch = false;
-			view.HeadersVisible = false;
-			view.RulesHint = true;
-			
-			selection = view.Selection;
-			selection.Mode = SelectionMode.Single;
-			scroller.SetPolicy(PolicyType.Never,PolicyType.Never);
-			scroller.Add(view);
-			frame = new Frame();
-			frame.ShadowType = ShadowType.Out;
-			frame.Add(scroller);
-			this.Add(frame);
-			
-		}
-		
-		public int Selection{
-			get { 
-				selection = view.Selection;
-				if(selection.GetSelectedRows().Length > 0){
-				return selection.GetSelectedRows()[0].Indices[0];
-				}else{
-					return 0;
-				}
-				}	
-		}
-		
-
-		public void SelectNext() {
-			
-			int row = Selection+1;
-			int count = 0;
-			foreach(object o in store){
-				count++;
-			}
-			if(count-1 < row)
-				row = count;
-			
-			view.Selection.UnselectAll();
-			view.Selection.SelectPath(new TreePath(new int[]{row}));
-			view.ScrollToCell(new TreePath(new int[]{row}),column,false,0,0);
-			
-			
-		}
-		
-		public void SelectPrevious(){
-			int i=Selection-1;
-			if(i >= 0){
-				selection = view.Selection;
-				selection.UnselectAll();
-				selection.SelectPath(new TreePath(i.ToString()));
-				view.ScrollToCell(new TreePath(i.ToString()),column, false,0,0);
-			}
-		}
-		public void SetCompletions(string[] comps){
-			this.Resize(1,1);
-			store.Clear();
-			foreach(string s in comps){
-				store.AppendValues(s);
-			}
-			view.ColumnsAutosize();
-			view.Selection.SelectPath(new TreePath("0"));
-		}
-}
+//	public class LinkCompleter : Gtk.Window
+//	{
+//		ScrolledWindow scroller; 
+//		ListStore store;
+//		TreeView view;
+//		CellRenderer renderer;
+//		TreeViewColumn column;
+//		TreeSelection selection;
+//		Frame frame;
+//		public LinkCompleter(Window parent):base(Gtk.WindowType.Popup)
+//		{
+//			this.TransientFor= parent;
+//			this.BorderWidth = 1;
+//			store = new ListStore(typeof(string));
+//			
+//			view = new TreeView(store);
+//			scroller = new ScrolledWindow();
+//			renderer = new CellRendererText();
+//			
+//			column = new TreeViewColumn();
+//			column.Title = "";
+//			column.PackStart(renderer,true);
+//			column.AddAttribute(renderer,"text",0);
+//			view.AppendColumn(column);
+//			view.EnableSearch = false;
+//			view.HeadersVisible = false;
+//			view.RulesHint = true;
+//			
+//			selection = view.Selection;
+//			selection.Mode = SelectionMode.Single;
+//			scroller.SetPolicy(PolicyType.Never,PolicyType.Never);
+//			scroller.Add(view);
+//			frame = new Frame();
+//			frame.ShadowType = ShadowType.Out;
+//			frame.Add(scroller);
+//			this.Add(frame);
+//			
+//		}
+//		
+//		public int Selection{
+//			get { 
+//				selection = view.Selection;
+//				if(selection.GetSelectedRows().Length > 0){
+//				return selection.GetSelectedRows()[0].Indices[0];
+//				}else{
+//					return 0;
+//				}
+//				}	
+//		}
+//		
+//
+//		public void SelectNext() {
+//			
+//			int row = Selection+1;
+//			int count = 0;
+//			foreach(object o in store){
+//				count++;
+//			}
+//			if(count-1 < row)
+//				row = count;
+//			
+//			view.Selection.UnselectAll();
+//			view.Selection.SelectPath(new TreePath(new int[]{row}));
+//			view.ScrollToCell(new TreePath(new int[]{row}),column,false,0,0);
+//			
+//			
+//		}
+//		
+//		public void SelectPrevious(){
+//			int i=Selection-1;
+//			if(i >= 0){
+//				selection = view.Selection;
+//				selection.UnselectAll();
+//				selection.SelectPath(new TreePath(i.ToString()));
+//				view.ScrollToCell(new TreePath(i.ToString()),column, false,0,0);
+//			}
+//		}
+//		public void SetCompletions(string[] comps){
+//			this.Resize(1,1);
+//			store.Clear();
+//			foreach(string s in comps){
+//				store.AppendValues(s);
+//			}
+//			view.ColumnsAutosize();
+//			view.Selection.SelectPath(new TreePath("0"));
+//		}
+//}
 
 	public class NoteFindBar : Gtk.HBox
 	{

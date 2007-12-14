@@ -162,6 +162,15 @@ public NoteManager (string directory) :
 			                           "Also, if you type the name of another note in your " +
 			                           "current note, it will automatically be linked for you." +
 			                           "</note-content>");
+			
+			string tags_note_content = Catalog.GetString ("<note-content>"+
+			                                              "Tagging In Tomboy\n\n"+
+			                                              "Notes can be tagged with the tag bar "+
+			                                              "at the bottom of the note screen. "+
+			                                              "Pressing <bold>Tab</bold> in the tag bar will "+
+			                                              "autocomplete the nearest tag. To confirm the displayed tag "+
+			                                              "press <bold>Enter</bold>."+
+			                                              "</note-content>");
 
 			try {
 				Note start_note = Create (Catalog.GetString ("Start Here"),
@@ -172,7 +181,9 @@ public NoteManager (string directory) :
 				Note links_note = Create (Catalog.GetString ("Using Links in Tomboy"),
 				                          links_note_content);
 				links_note.QueueSave (true);
-
+				
+				Note tag_note = Create (Catalog.GetString ("Tags in Tomboy"),tags_note_content);
+				tag_note.QueueSave(true);
 				start_note.Window.Show ();
 			} catch (Exception e) {
 				Logger.Warn ("Error creating start notes: {0}\n{1}",

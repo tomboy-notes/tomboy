@@ -256,7 +256,8 @@ namespace Tomboy
 				"David Trowbridge <trowbrds@gmail.com>",
 				"Ryan Lortie <desrt@desrt.ca>",
 				"Sandy Armstrong <sanfordarmstrong@gmail.com>",
-				"Sebastian Rittau <srittau@jroger.in-berlin.de>"
+				"Sebastian Rittau <srittau@jroger.in-berlin.de>",
+				"Kevin Kubasik <kevin@kubasik.net>"
 			};
 
 			string [] documenters = new string [] {
