@@ -233,7 +233,7 @@ namespace Tomboy
 			}
 
 			//Send event
-			if (new_tags.Count != 0 && TagsAttached != null)
+			if (new_tags.Count != 0 )
 				foreach(Tag t2 in new_tags)
 					note.AddTag(t2);
 				//TagsAttached (this, new_tags.ToArray ());
@@ -248,7 +248,7 @@ namespace Tomboy
 			}
 
 			//Send event
-			if (remove_tags.Count != 0 && TagsRemoved != null)
+			if (remove_tags.Count != 0 )
 				foreach(Tag t3 in remove_tags)
 					note.RemoveTag(t3);
 				//TagsRemoved (this, (Tag []) remove_tags.ToArray (typeof (Tag)));
