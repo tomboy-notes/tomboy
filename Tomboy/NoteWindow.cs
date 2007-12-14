@@ -712,7 +712,7 @@ public NoteWindow (Note note) :
 
 	public class NoteTagBar : Gtk.HBox
 	{
-		LinkCompleter complete;
+		//LinkCompleter complete;
 		private Note note;
 		//Gtk.Expander expander;
 		//WrapBox tag_cloud;
@@ -755,8 +755,8 @@ public NoteTagBar (Note note) : base (false, 4)
 			}
 			tag_entry.UpdateFromTagNames(str.ToArray());
 			
-			tag_entry.TagsAttached += OnTagAttached;
-			tag_entry.TagsRemoved += OnTagRemoved;
+			//tag_entry.TagsAttached += OnTagAttached;
+			//tag_entry.TagsRemoved += OnTagRemoved;
 			//tag_entry.Destroyed += OnDestroyed;
 			//note.Window.DestroyEvent += OnDestroyed;
 			//note.Window.DeleteEvent += OnDestroyed;
