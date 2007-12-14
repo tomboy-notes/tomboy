@@ -410,53 +410,38 @@ namespace Tomboy
                         } while (store_sort.IterNext (ref iter));
                 }
 
-                void PerformSearch ()
-                {
-                        // For some reason, the matches column must be rebuilt
-                        // every time because otherwise, it's not sortable.
-                        RemoveMatchesColumn ();
+		void PerformSearch()
+		{
+			// For some reason, the matches column must be rebuilt
+			// every time because otherwise, it's not sortable.
+			RemoveMatchesColumn ();
+			Search search = new Search(manager);
 
-                        string text = SearchText;
-                        if (text == null) {
-                                current_matches.Clear ();
-                                store_filter.Refilter ();
-                                UpdateNoteCount (store.IterNChildren (), -1);
-                                if (tree.IsRealized)
-                                        tree.ScrollToPoint (0, 0);
-                                return;
-                        }
+			string text = SearchText;
+			if (text == null) {
+				current_matches.Clear ();
+				store_filter.Refilter ();
+				UpdateNoteCount (store.IterNChildren (), -1);
+				if (tree.IsRealized)
+					tree.ScrollToPoint (0, 0);
+				return;
+			}
+			if (!case_sensitive.Active)
+				text = text.ToLower ();
 
-                        if (!case_sensitive.Active)
-                                text = text.ToLower ();
+			current_matches.Clear ();
 
-                        string [] words = text.Split (' ', '\t', '\n');
-
-                        // Used for matching in the raw note XML
-                        string [] encoded_words = XmlEncoder.Encode (text).Split (' ', '\t', '\n');
-
-                        current_matches.Clear ();
-
-                        foreach (Note note in manager.Notes) {
-                                // Check the note's raw XML for at least one
-                                // match, to avoid deserializing Buffers
-                                // unnecessarily.
-                                if (CheckNoteHasMatch (note,
-                                                       encoded_words,
-                                                       case_sensitive.Active)) {
-                                        int match_count =
-                                                FindMatchCountInNote (note.TextContent,
-                                                                      words,
-                                                                      case_sensitive.Active);
-                                        if (match_count > 0)
-                                                current_matches [note.Uri] = match_count;
-                                }
-                        }
-
-                        UpdateNoteCount (store.IterNChildren (), current_matches.Count);
-                        AddMatchesColumn ();
-                        store_filter.Refilter ();
-                        tree.ScrollToPoint (0, 0);
-                }
+			IDictionary<Note,int> results =
+				search.SearchNotes(text, case_sensitive.Active);
+			foreach (Note note in results.Keys){
+				current_matches.Add(note.Uri, results[note]);
+			}
+			
+			UpdateNoteCount (store.IterNChildren (), current_matches.Count);
+			AddMatchesColumn ();
+			store_filter.Refilter ();
+			tree.ScrollToPoint (0, 0);
+		}
 
                 void AddMatchesColumn ()
                 {
@@ -542,57 +527,6 @@ namespace Tomboy
                                                matches);
                         }
                         note_count.Text = cnt;
-                }
-
-                bool CheckNoteHasMatch (Note note, string [] encoded_words, bool match_case)
-                {
-                        string note_text = note.XmlContent;
-                        if (!match_case)
-                                note_text = note_text.ToLower ();
-
-                        foreach (string word in encoded_words) {
-                                if (note_text.IndexOf (word) > -1)
-                                        continue;
-                                else
-                                        return false;
-                        }
-
-                        return true;
-                }
-
-                int FindMatchCountInNote (string note_text, string [] words, bool match_case)
-                {
-                        int matches = 0;
-
-                        if (!match_case)
-                                note_text = note_text.ToLower ();
-
-                        foreach (string word in words) {
-                                int idx = 0;
-                                bool this_word_found = false;
-
-                                if (word == String.Empty)
-                                        continue;
-
-                                while (true) {
-                                        idx = note_text.IndexOf (word, idx);
-
-                                        if (idx == -1) {
-                                                if (this_word_found)
-                                                        break;
-                                                else
-                                                        return 0;
-                                        }
-
-                                        this_word_found = true;
-
-                                        matches++;
-
-                                        idx += word.Length;
-                                }
-                        }
-
-                        return matches;
                 }
 
                 /// <summary>
@@ -1125,7 +1059,6 @@ namespace Tomboy
                    else
                     crt.Text = tag.Name;
                   }
-                
 
                 public string SearchText
                 {

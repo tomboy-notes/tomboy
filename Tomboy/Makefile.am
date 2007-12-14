@@ -38,6 +38,7 @@ CSFLAGS = 				\
 
 CSFILES = 					\
 	$(srcdir)/Tomboy.cs 			\
+	$(srcdir)/Search.cs 			\
 	$(srcdir)/AbstractAddin.cs		\
 	$(srcdir)/ActionManager.cs		\
 	$(srcdir)/AddinManager.cs		\

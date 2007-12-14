@@ -1,6 +1,7 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 using NDesk.DBus;
 using org.freedesktop.DBus;
@@ -296,6 +297,21 @@ namespace Tomboy
 		{
 			if (NoteSaved != null)
 				NoteSaved (note.Uri);
+		}
+
+		public string[] SearchNotes (string query, bool case_sensitive)
+		{
+			if (query == null)
+				return null;
+
+			Search search =  new Search(note_manager);
+			List<string> list = new List<string>();
+			IDictionary<Note,int> results =
+				search.SearchNotes(query, case_sensitive);
+			foreach (Note note in results.Keys) {
+				list.Add (note.Uri);
+			}
+			return list.ToArray ();
 		}
 
 		public event RemoteDeletedHandler NoteDeleted;
