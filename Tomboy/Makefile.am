@@ -58,6 +58,7 @@ CSFILES = 					\
 	$(srcdir)/Tag.cs			\
 	$(srcdir)/TagButton.cs			\
 	$(srcdir)/TagManager.cs			\
+	$(srcdir)/TagEntry.cs	\
 	$(srcdir)/Tray.cs 			\
 	$(srcdir)/Trie.cs			\
 	$(srcdir)/Undo.cs 			\

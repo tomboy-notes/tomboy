@@ -224,7 +224,7 @@ public NoteWindow (Note note) :
 			// pseudo-maximized
 			if ((GdkWindow.State & Gdk.WindowState.Maximized) > 0)
 				Unmaximize ();
-
+			tag_bar.Hide();
 			Hide ();
 		}
 
@@ -717,11 +717,12 @@ public NoteWindow (Note note) :
 		//Gtk.Expander expander;
 		//WrapBox tag_cloud;
 		//Gtk.Entry tag_entry;
-		public Gtk.TextView tag_view;
+		//public Gtk.TextView tag_view;
 		public Gtk.Button add_tag_button;
-		public Gtk.TextBuffer tag_buffer;
-		Gtk.TextTag tt;
-		Gtk.TextTagTable tag_table;
+		public TagEntry tag_entry;
+		//public Gtk.TextBuffer tag_buffer;
+		//Gtk.TextTag tt;
+		//Gtk.TextTagTable tag_table;
 		List<string> tag_str_cache;
 		List<string> autooptions;
 		#region Constructors
@@ -747,41 +748,58 @@ public NoteTagBar (Note note) : base (false, 4)
 			label.Show ();
 
 			PackStart (label, false, false, 0);
-			 tag_table= new Gtk.TextTagTable();
-			 tt= new Gtk.TextTag("completetag");
+			tag_entry = new TagEntry(note,false);
+			List<string> str = new List<string>();
+			foreach(Tag t in note.Tags){
+				str.Add(t.Name);
+			}
+			tag_entry.UpdateFromTagNames(str.ToArray());
 			
-			tt.Underline = Pango.Underline.Single;
+			tag_entry.TagsAttached += OnTagAttached;
+			tag_entry.TagsRemoved += OnTagRemoved;
+			//tag_entry.Destroyed += OnDestroyed;
+			//note.Window.DestroyEvent += OnDestroyed;
+			//note.Window.DeleteEvent += OnDestroyed;
+			//tag_entry.DeleteEvent += OnDestroyed;
 			
+			tag_entry.Show();
+			PackStart (tag_entry, true,true, 0);
+			//note.Window.Destroyed += OnDestroyed;
+//			 tag_table= new Gtk.TextTagTable();
+//			 tt= new Gtk.TextTag("completetag");
+//			
+//			tt.Underline = Pango.Underline.Single;
+//			
 			
-			tag_table.Add(tt);
+			//tag_table.Add(tt);
 //			tag_cloud = new WrapBox ();
 //			tag_cloud.Show ();
 //			
-			tag_buffer = new Gtk.TextBuffer(tag_table);
-			tag_view = new Gtk.TextView(tag_buffer);
+//			tag_buffer = new Gtk.TextBuffer(tag_table);
+//			tag_view = new Gtk.TextView(tag_buffer);
 			//StringBuilder sb = new StringBuilder();
 			
-			foreach (Tag tag in note.Tags) {
-				if(tag.IsProperty || tag.IsSystem)
-					continue;
-				tag_buffer.InsertWithTags(tag_buffer.EndIter,tag.Name,tt);
-				tag_buffer.Insert(tag_buffer.EndIter,", ");
-				//tag_buffer.Insert();
+//			foreach (Tag tag in note.Tags) {
+//				if(tag.IsProperty || tag.IsSystem)
+//					continue;
+//				tag_buffer.InsertWithTags(tag_buffer.EndIter,tag.Name,tt);
+//				tag_buffer.Insert(tag_buffer.EndIter,", ");
+//				//tag_buffer.Insert();
 				
 //				sb.Append("");
 //				sb.Append(tag.Name);
 //				sb.Append("</completetag>");
 //				sb.Append(" ,");
-			}
-			tag_str_cache.AddRange( tag_buffer.Text.Split(','));
+		//	}
+			//tag_str_cache.AddRange( tag_buffer.Text.Split(','));
 			//tag_buffer.Text = sb.ToString();
 			//tag_buffer.
-			PackStart (tag_view, true, true, 0);
-			tag_view.Show();
-			tag_buffer.InsertText += TagTextHandler;
+			//PackStart (tag_view, true, true, 0);
+			//tag_view.Show();
+			//tag_buffer.InsertText += TagTextHandler;
 			//tag_view.DeleteFromCursor += TagBackspaceHandler;
-			tag_buffer.Changed += OnBufferChanged;
-			tag_view.KeyPressEvent += OnKeyPress;
+			//tag_buffer.Changed += OnBufferChanged;
+			//tag_view.KeyPressEvent += OnKeyPress;
 			
 //			Gtk.EntryCompletion entry_completion = new Gtk.EntryCompletion ();
 //			entry_completion.InlineCompletion = true;
@@ -825,11 +843,12 @@ public NoteTagBar (Note note) : base (false, 4)
 //			return button;
 //		}
 
+	
 		protected override void OnShown ()
 		{
-			tag_view.GrabFocus ();
+			//tag_view.GrabFocus ();
 			//tag_entry.GrabFocus ();
-			complete = new LinkCompleter(note.Window);
+			//complete = new LinkCompleter(note.Window);
 			base.OnShown ();
 		}
 
@@ -843,15 +862,16 @@ public NoteTagBar (Note note) : base (false, 4)
 //				Tag t = TagManager.GetOrCreateTag(s);
 //				note.Tags.Add(t);
 //			}
-			complete.Hide();
-			foreach(Tag t in note.Tags){
-				note.RemoveTag(t);
-			}
-			List<string> temp2 = new List<string>(tag_buffer.Text.Split(','));
-			foreach(string s in temp2){
-				if( !String.IsNullOrEmpty(s) && s.Trim() != "")
-					note.AddTag(TagManager.GetOrCreateTag(s.Trim()));
-			}
+//			complete.Hide();
+//			foreach(Tag t in note.Tags){
+//				note.RemoveTag(t);
+//			}
+//			List<string> temp2 = new List<string>(tag_buffer.Text.Split(','));
+//			foreach(string s in temp2){
+//				if( !String.IsNullOrEmpty(s) && s.Trim() != "")
+//					note.AddTag(TagManager.GetOrCreateTag(s.Trim()));
+//			}
+			tag_entry.Activate();
 			base.OnHidden ();
 		}
 		
@@ -877,98 +897,110 @@ public NoteTagBar (Note note) : base (false, 4)
 //
 		
 
-		void OnKeyPress (object sender, Gtk.KeyPressEventArgs args){
-			Logger.Debug("In OnKeyPress");
-			if(args.Event.Key == Gdk.Key.Alt_L){
-				Gtk.TextIter iter_sofar = tag_buffer.EndIter;
-			while(iter_sofar.Char != "," && !iter_sofar.IsStart){
-				iter_sofar.BackwardChar();
-			}
-			tag_buffer.Delete(iter_sofar,tag_buffer.EndIter);
-			tag_buffer.Insert(tag_buffer.EndIter,", " +autooptions[complete.Selection]+ ", ");
-			complete.Hide();
-		}
-			else if( args.Event.Key == Gdk.Key.Control_L){
-				complete.SelectNext();
-			}
-		}
-		void TagTextHandler (object sender, Gtk.InsertTextArgs args){
-			Logger.Debug("In TagTextHandler");
-			
-			Gtk.TextIter iter_sofar = tag_buffer.EndIter;
-			while(iter_sofar.Char != "," && !iter_sofar.IsStart)
-				iter_sofar.BackwardChar();
-			iter_sofar.ForwardChar();
-			string text = tag_buffer.GetText(iter_sofar,tag_buffer.EndIter,false);
-			text = text.Trim();
-			
-			Logger.Debug(text);
-			
-			autooptions = new List<string>();
-			foreach(Tag t in TagManager.AllTags){
-				if(t.Name.ToLower().StartsWith(text.ToLower()))
-					autooptions.Add(t.Name);
-			}
-			
-			if(autooptions.Count > 0){
-				complete.SetCompletions(autooptions.ToArray());
-				int x =0,y=0, x2=0,y2=0;
-				Gdk.Rectangle rect = tag_view.GetIterLocation(tag_buffer.EndIter);
-				note.Window.GdkWindow.GetPosition(out x,out y);
-				note.Window.GetSize(out x2,out y2);
-				complete.Move(rect.X+x,rect.Y+y+y2);
-				complete.ShowAll();
-			}else{
-				complete.Hide();
-			}
-			
-			
-			Gtk.TextIter iter = args.Pos;
-			if(args.Text.Contains(",")){
-				iter.BackwardToTagToggle(tt);
-				while(iter.Char == " " || iter.Char == ",")
-					iter.ForwardChar();
-				//iter.ForwardChar();
-				Gtk.TextIter iter2 = tag_buffer.EndIter;
-				while(iter2.Char != ",")
-				      iter2.BackwardChar();
-				//iter2.BackwardChar();
-				tag_buffer.ApplyTag(tt,iter,iter2);
-				//note.AddTag( TagManager.GetOrCreateTag(tag_buffer.GetText(iter,iter2,false).Trim().Replace(",",String.Empty)));                    
-			}
-		}
+//		void OnKeyPress (object sender, Gtk.KeyPressEventArgs args){
+//			Logger.Debug("In OnKeyPress");
+//			if(args.Event.Key == Gdk.Key.Alt_L){
+//				Gtk.TextIter iter_sofar = tag_buffer.EndIter;
+//			while(iter_sofar.Char != "," && !iter_sofar.IsStart){
+//				iter_sofar.BackwardChar();
+//			}
+//			tag_buffer.Delete(iter_sofar,tag_buffer.EndIter);
+//			tag_buffer.Insert(tag_buffer.EndIter,", " +autooptions[complete.Selection]+ ", ");
+//			complete.Hide();
+//		}
+//			else if( args.Event.Key == Gdk.Key.Control_L){
+//				complete.SelectNext();
+//			}
+//		}
+//		void TagTextHandler (object sender, Gtk.InsertTextArgs args){
+//			Logger.Debug("In TagTextHandler");
+//			
+//			Gtk.TextIter iter_sofar = tag_buffer.EndIter;
+//			while(iter_sofar.Char != "," && !iter_sofar.IsStart)
+//				iter_sofar.BackwardChar();
+//			iter_sofar.ForwardChar();
+//			string text = tag_buffer.GetText(iter_sofar,tag_buffer.EndIter,false);
+//			text = text.Trim();
+//			
+//			Logger.Debug(text);
+//			
+//			autooptions = new List<string>();
+//			foreach(Tag t in TagManager.AllTags){
+//				if(t.Name.ToLower().StartsWith(text.ToLower()))
+//					autooptions.Add(t.Name);
+//			}
+//			
+//			if(autooptions.Count > 0){
+//				complete.SetCompletions(autooptions.ToArray());
+//				int x =0,y=0, x2=0,y2=0;
+//				Gdk.Rectangle rect = tag_view.GetIterLocation(tag_buffer.EndIter);
+//				note.Window.GdkWindow.GetPosition(out x,out y);
+//				note.Window.GetSize(out x2,out y2);
+//				complete.Move(rect.X+x,rect.Y+y+y2);
+//				complete.ShowAll();
+//			}else{
+//				complete.Hide();
+//			}
+//			
+//			
+//			Gtk.TextIter iter = args.Pos;
+//			if(args.Text.Contains(",")){
+//				iter.BackwardToTagToggle(tt);
+//				while(iter.Char == " " || iter.Char == ",")
+//					iter.ForwardChar();
+//				//iter.ForwardChar();
+//				Gtk.TextIter iter2 = tag_buffer.EndIter;
+//				while(iter2.Char != "," && !iter2.IsStart)
+//				      iter2.BackwardChar();
+//				//iter2.BackwardChar();
+//				tag_buffer.ApplyTag(tt,iter,iter2);
+//				//note.AddTag( TagManager.GetOrCreateTag(tag_buffer.GetText(iter,iter2,false).Trim().Replace(",",String.Empty)));                    
+//			}
+//		}
+//
+//		void OnBufferChanged (object sender, EventArgs args)
+//		{
+//			Logger.Debug("In OnBufferChanged");
+//			if(tag_buffer.Text.Trim().EndsWith(",")){
+//			List<string> temp2 = new List<string>(tag_buffer.Text.Split(','));
+//			if(temp2.Count > 0){
+//				foreach(string s in temp2){
+//					if(!String.IsNullOrEmpty(s.Trim())){
+//					Tag temp = TagManager.GetOrCreateTag(s.Trim());
+//						if(!note.Tags.Contains(temp))
+//							note.AddTag(temp);
+//					}
+//				}
+//			}
+//			if(tag_str_cache != null && tag_str_cache.Count > 0){
+//				foreach(string s in tag_str_cache){
+//					if(!temp2.Contains(s.Trim())){
+//						if(!String.IsNullOrEmpty(s.Trim())){
+//								Tag t = TagManager.GetTag(s.Trim());
+//								if(t != null)
+//									note.RemoveTag(t);
+//						}
+//					}
+//				}
+//			}
+//			tag_str_cache.Clear();
+//			tag_str_cache.AddRange(tag_buffer.Text.Split(','));
+//			}
+//		}
 
-		void OnBufferChanged (object sender, EventArgs args)
-		{
-			Logger.Debug("In OnBufferChanged");
-			if(tag_buffer.Text.Trim().EndsWith(",")){
-			List<string> temp2 = new List<string>(tag_buffer.Text.Split(','));
-			if(temp2.Count > 0){
-				foreach(string s in temp2){
-					if(!String.IsNullOrEmpty(s.Trim())){
-					Tag temp = TagManager.GetOrCreateTag(s.Trim());
-						if(!note.Tags.Contains(temp))
-							note.AddTag(temp);
-					}
-				}
-			}
-			if(tag_str_cache != null && tag_str_cache.Count > 0){
-				foreach(string s in tag_str_cache){
-					if(!temp2.Contains(s.Trim())){
-						if(!String.IsNullOrEmpty(s.Trim())){
-								Tag t = TagManager.GetTag(s.Trim());
-								if(t != null)
-									note.RemoveTag(t);
-						}
-					}
-				}
-			}
-			tag_str_cache.Clear();
-			tag_str_cache.AddRange(tag_buffer.Text.Split(','));
+		void OnTagAttached (object sender, string [] tags){
+			foreach(string s in tags){
+				note.AddTag(TagManager.GetOrCreateTag(s));
+				
 			}
 		}
-
-
+		
+		void OnTagRemoved (object sender, Tag [] tags){
+			foreach(Tag t in tags){
+				note.RemoveTag(t);
+			}
+			
+		}
 		void TagAddedHandler (Note note, Tag tag)
 		{
 			tag.AddNote(note);
@@ -983,7 +1015,7 @@ public NoteTagBar (Note note) : base (false, 4)
 		void HideTagBar (object sender, EventArgs args)
 		{
 			Hide ();
-			complete.Hide();
+			//complete.Hide();
 		}
 
 		//Probably obsoleted by OnKeyPress method at line 880
