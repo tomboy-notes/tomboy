@@ -9,24 +9,11 @@ using System.Text;
 namespace Tomboy
 {
 	
-	
-	public delegate void TagsAttachedHandler (object sender, string [] tags);
-	public delegate void TagsRemovedHandler (object sender, Tag [] tags);
-
 	public class TagEntry : Gtk.Entry {
 
-		public event TagsAttachedHandler TagsAttached;
-		public event TagsRemovedHandler TagsRemoved;
-
 		List<Tag> tag_store;
-		Note note;
-		
-		
-		
-		protected TagEntry (System.IntPtr raw)
-		{
-			Raw = raw;
-		}
+		Note note;		
+	
 
 		public TagEntry (Note note, bool update_on_focus_out) 
 		{
@@ -68,6 +55,12 @@ namespace Tomboy
 //			Update ();
 //		}
 
+		/// <summary>
+		/// Updates the visible tags from the array of strings.
+		/// </summary>
+		/// <param name="tagnames">
+		/// A <see cref="System.String"/>
+		/// </param>
 		public void UpdateFromTagNames (string [] tagnames)
 		{
 			selected_photos_tagnames = new List<string> ();
@@ -99,6 +92,12 @@ namespace Tomboy
 				AppendText (", ");	
 		}
 
+		/// <summary>
+		/// Returns an array of tag names based on user input.
+		/// </summary>
+		/// <returns>
+		/// A <see cref="System.String"/>
+		/// </returns>
 		public string [] GetTypedTagNames ()
 		{
 			string [] tagnames = Text.Split (new char [] {','});
@@ -111,12 +110,15 @@ namespace Tomboy
 					list.Add (s);
 			}
 	
-			return (string []) (list.ToArray ());
+			return  list.ToArray ();
 		}
 
 		int tag_completion_index = -1;
 		Tag [] tag_completions;
 
+		/// <summary>
+		/// Clears the completions to show
+		/// </summary>
 		public void ClearTagCompletions ()
 		{
 			tag_completion_index = -1;
