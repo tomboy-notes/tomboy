@@ -206,11 +206,11 @@ namespace Tomboy
 			align = new Gtk.Alignment (0.5f, 0.5f, 0.4f, 1.0f);
 			align.Show ();
 			options_list.PackStart (align, false, false, 0);
+			
+			Gtk.LinkButton open_template_button = new Gtk.LinkButton (
+				String.Empty,
+				Catalog.GetString ("Open New Note Template"));
 
-			Gtk.Button open_template_button;
-			open_template_button = new Gtk.Button (
-			        Catalog.GetString ("_Open New Note Template..."));
-			open_template_button.UseUnderline = true;
 			open_template_button.Clicked += OpenTemplateButtonClicked;
 			open_template_button.Show ();
 			align.Add (open_template_button);
