@@ -552,15 +552,11 @@ namespace Tomboy
 		
 		        bool FilterTags (Gtk.TreeModel model, Gtk.TreeIter iter)
                 {
-                        Tag t = model.GetValue (iter, 0 /* note */) as Tag;
-			             if(t.IsProperty || t.IsSystem)
-				             return false;
-			             if(t.Name.StartsWith("system:"))
-				             return false;
-			             if(t.NormalizedName.StartsWith("system:"))
-				             return false;
-			             return true;
-            
+						Tag t = model.GetValue (iter, 0 /* note */) as Tag;
+						if(t.IsProperty || t.IsSystem)
+							return false;
+						
+						return true;
                 }
 
                 // <summary>

@@ -66,7 +66,7 @@ namespace Tomboy
 			if (normalized_tag_name == String.Empty)
 				throw new ArgumentException ("TagManager.GetTag () called with an empty tag name.");
 
-			if (normalized_tag_name.StartsWith("system:") || normalized_tag_name.Split(':').Length > 2){
+			if (normalized_tag_name.StartsWith(Tag.SYSTEM_TAG_PREFIX) || normalized_tag_name.Split(':').Length > 2){
 				lock (locker) {
 				if(internal_tags.ContainsKey(normalized_tag_name))
 					return internal_tags[normalized_tag_name];
@@ -93,7 +93,7 @@ namespace Tomboy
 			if (normalized_tag_name == String.Empty)
 				throw new ArgumentException ("TagManager.GetOrCreateTag () called with an empty tag name.");
 
-			if (normalized_tag_name.StartsWith("system:") || normalized_tag_name.Split(':').Length > 2){
+			if (normalized_tag_name.StartsWith(Tag.SYSTEM_TAG_PREFIX) || normalized_tag_name.Split(':').Length > 2){
 				lock (locker) {
 				if(internal_tags.ContainsKey(normalized_tag_name))
 					return internal_tags[normalized_tag_name];
@@ -127,7 +127,37 @@ namespace Tomboy
 
 			return tag;
 		}
-
+		
+		/// <summary>
+		/// Same as GetTag(), but for a system tag.
+		/// </summary>
+		/// <param name="tag_name">
+		/// A <see cref="System.String"/>.  This method will handle adding
+		/// any needed "system:" or identifier needed.
+		/// </param>
+		/// <returns>
+		/// A <see cref="Tag"/>
+		/// </returns>
+		public static Tag GetSystemTag (string tag_name)
+		{
+			return GetTag (Tag.SYSTEM_TAG_PREFIX + tag_name);
+		}
+		
+		/// <summary>
+		/// Same as <see cref="Tomboy.TagManager.GetSystemTag"/> except that
+		/// a new tag will be created if the specified one doesn't exist.
+		/// </summary>
+		/// <param name="tag_name">
+		/// A <see cref="System.String"/>
+		/// </param>
+		/// <returns>
+		/// A <see cref="Tag"/>
+		/// </returns>
+		public static Tag GetOrCreateSystemTag (string tag_name)
+		{
+			return GetOrCreateTag (Tag.SYSTEM_TAG_PREFIX + tag_name);
+		}
+		
 		// <summary>
 		// This will remove the tag from every note that is currently tagged
 		// and from the main list of tags.
@@ -169,9 +199,7 @@ namespace Tomboy
 				TagRemoved (tag.NormalizedName);
 			}
 		}
-
-		// <summary>
-		// </summary>
+		
 		#endregion
 
 		#region Properties

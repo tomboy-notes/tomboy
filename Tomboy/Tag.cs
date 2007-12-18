@@ -6,6 +6,8 @@ namespace Tomboy
 {
 	public class Tag
 	{
+		public static string SYSTEM_TAG_PREFIX = "system:";
+		
 		string name;
 		string normalized_name;
 		bool issystem = false;
@@ -22,10 +24,6 @@ namespace Tomboy
 		{
 			Name = tag_name;
 			notes = new Dictionary<string,Note> ();
-			if(tag_name.StartsWith("system:"))
-				issystem = true;
-			if(tag_name.Split(':').Length > 2)
-				isproperty = true;
 		}
 		#endregion
 
@@ -67,10 +65,10 @@ namespace Tomboy
 					if (trimmed_name != String.Empty) {
 						name = trimmed_name;
 						normalized_name = trimmed_name.ToLower ();
-					if(value.StartsWith("system:"))
-							issystem = true;
-					if(value.Split(':').Length >= 3)
-							isproperty = true;
+						if(normalized_name.StartsWith(SYSTEM_TAG_PREFIX))
+								issystem = true;
+						if(value.Split(':').Length >= 3)
+								isproperty = true;
 					}
 				}
 			}
