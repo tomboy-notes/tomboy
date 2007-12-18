@@ -192,7 +192,28 @@ namespace Tomboy
 			align.Add (font_button);
 
 			font_peditor.AddGuard (font_button);
+			
+			// New Note Template
+			
+			label = MakeLabel (Catalog.GetString ("New Note Template"));
+			options_list.PackStart (label, false, false, 0);
 
+			label = MakeTipLabel (
+				Catalog.GetString ("Use the new note template to specify the text " +
+								   "that should be used when creating a new note."));
+			options_list.PackStart (label, false, false, 0);
+			
+			align = new Gtk.Alignment (0.5f, 0.5f, 0.4f, 1.0f);
+			align.Show ();
+			options_list.PackStart (align, false, false, 0);
+
+			Gtk.Button open_template_button;
+			open_template_button = new Gtk.Button (
+			        Catalog.GetString ("_Open New Note Template..."));
+			open_template_button.UseUnderline = true;
+			open_template_button.Clicked += OpenTemplateButtonClicked;
+			open_template_button.Show ();
+			align.Add (open_template_button);
 
 			return options_list;
 		}
@@ -1167,6 +1188,15 @@ namespace Tomboy
 				dialog.Run ();
 				dialog.Destroy ();
 			}
+		}
+
+		void OpenTemplateButtonClicked (object sender, EventArgs args)
+		{
+			NoteManager manager = Tomboy.DefaultNoteManager;
+			Note template_note = manager.GetOrCreateTemplateNote ();
+
+			// Open the template note
+			template_note.Window.Show ();
 		}
 	}
 

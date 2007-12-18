@@ -17,6 +17,8 @@ namespace Tomboy
 		AddinManager addin_mgr;
 		TrieController trie_controller;
 
+		public static string NoteTemplateTitle = Catalog.GetString ("New Note Template");
+
 		static string start_note_uri = String.Empty;
 
 		static NoteManager ()
@@ -363,7 +365,9 @@ public NoteManager (string directory) :
 		}
 
 		// Create a new note with the specified title, and a simple
-		// "Describe..." body which will be selected for easy overwrite.
+		// "Describe..." body or the body from the "New Note Template"
+		// note if it exists.  If the "New Note Template" body is found
+		// the text will not automatically be highlighted.
 		private Note CreateNewNote (string title, string guid)
 		{
 			string body = null;
@@ -371,9 +375,18 @@ public NoteManager (string directory) :
 			title = SplitTitleFromContent (title, out body);
 			if (title == null)
 				return null;
-
-			if (body == null)
-				body = Catalog.GetString ("Describe your new note here.");
+			
+			Note note_template = Find (NoteTemplateTitle);
+			if (note_template != null) {
+				// Use the body from the "New Note Template" note
+				string xml_content =
+					note_template.XmlContent.Replace (NoteTemplateTitle, title);
+				return CreateNewNote (title, xml_content, guid);
+			}
+			
+			// Use a simple "Describe..." body and highlight
+			// it so it can be easily overwritten
+			body = Catalog.GetString ("Describe your new note here.");
 
 			string header = title + "\n\n";
 			string content =
@@ -422,6 +435,46 @@ public NoteManager (string directory) :
 				NoteAdded (this, new_note);
 
 			return new_note;
+		}
+		
+		/// <summary>
+		/// Get the existing template note or create a new one
+		/// if it doesn't already exist.
+		/// </summary>
+		/// <returns>
+		/// A <see cref="Note"/>
+		/// </returns>
+		public Note GetOrCreateTemplateNote ()
+		{
+			Note template_note = Find (NoteTemplateTitle);
+			if (template_note == null) {
+				template_note =
+					Create (NoteTemplateTitle,
+							GetNoteTemplateContent (NoteTemplateTitle));
+					
+				// Select the initial text
+				NoteBuffer buffer = template_note.Buffer;
+				Gtk.TextIter iter = buffer.GetIterAtLineOffset (2, 0);
+				buffer.MoveMark (buffer.SelectionBound, iter);
+				buffer.MoveMark (buffer.InsertMark, buffer.EndIter);
+
+				template_note.QueueSave (true);
+			}
+			
+			return template_note;
+		}
+		
+		private string GetNoteTemplateContent (string title)
+		{
+			const string base_xml =
+			        "<note-content>" +
+			        "<note-title>{0}</note-title>\n\n" +
+			        "{1}" +
+			        "</note-content>";
+
+			return string.Format (base_xml,
+			                      title,
+			                      Catalog.GetString ("Describe your new note here."));
 		}
 
 		public Note Find (string linked_title)
