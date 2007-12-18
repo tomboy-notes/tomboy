@@ -102,9 +102,9 @@ public NoteWindow (Note note) :
 
 			Gtk.VBox box = new Gtk.VBox (false, 2);
 			box.PackStart (toolbar, false, false, 0);
-			box.PackStart (find_bar, false, false, 0);
 			box.PackStart (editor_window, true, true, 0);
 			box.PackStart (tag_bar, false, false, 0);
+			box.PackStart (find_bar, false, false, 0);
 
 			box.Show ();
 
@@ -726,7 +726,7 @@ public NoteWindow (Note note) :
 		List<string> tag_str_cache;
 		List<string> autooptions;
 		#region Constructors
-public NoteTagBar (Note note) : base (false, 4)
+		public NoteTagBar (Note note) : base (false, 4)
 		{
 			this.note = note;
 			
@@ -739,15 +739,15 @@ public NoteTagBar (Note note) : base (false, 4)
 			button.Clicked += HideTagBar;
 			button.Show ();
 			PackStart (button, false, false, 4);
-
+			
 			Gtk.Label label = new Gtk.Label (
 			        string.Format ("<span weight=\"bold\">{0}</span>",
 			                       Catalog.GetString ("Tags:")));
 			label.Xalign = 0;
 			label.UseMarkup = true;
 			label.Show ();
-
 			PackStart (label, false, false, 0);
+			
 			tag_entry = new TagEntry(note,false);
 			List<string> str = new List<string>();
 			foreach(Tag t in note.Tags){
