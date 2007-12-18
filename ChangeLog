@@ -1,3 +1,15 @@
+2007-12-18  Boyd Timothy <btimothy@gmail.com> 
+
+	* Tomboy/TagManager.cs: Added methods for getting and creating system
+	  tags directly.
+	* Tomboy/RecentChanges.cs: Use IsProperty and IsSystem directly from Tag
+	  instead of parsing for "system:".
+	* Tomboy/Tag.cs: Add static SYSTEM_TAG_PREFIX = "system:" so the string
+	  doesn't have to be hardcoded everywhere.  Also adjusted the constructor
+	  to not have to parse for "system:" twice.
+	* Tomboy/Addins/NoteOfTheDay/NoteOfTheDay.cs: Use
+	  TagManager.GetOrCreateSystemTag() instead of hardcoding "system:".
+
 2007-12-17  Boyd Timothy <btimothy@gmail.com> 
 
 	* configure.in: Bump version to 0.9.3.
