@@ -55,6 +55,7 @@ CSFILES = 					\
 	$(srcdir)/NoteTag.cs 			\
 	$(srcdir)/Preferences.cs		\
 	$(srcdir)/PreferencesDialog.cs		\
+	$(srcdir)/PreferenceTabAddin.cs		\
 	$(srcdir)/RecentChanges.cs		\
 	$(srcdir)/Tag.cs			\
 	$(srcdir)/TagButton.cs			\

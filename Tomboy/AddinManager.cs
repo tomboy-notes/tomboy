@@ -200,7 +200,7 @@ namespace Tomboy
 					// Keep track of the addins added to each note
 					AttachAddin (type_node.Id, note, n_addin);
 				} catch (Exception e) {
-					Logger.Debug ("Couldn't create a NoteAddin instance: {0}", e.Message);
+					Logger.Warn ("Couldn't create a NoteAddin instance: {0}", e.Message);
 				}
 			}
 
@@ -222,7 +222,7 @@ namespace Tomboy
 				                     typeof (ApplicationAddin),
 				                     true);
 			} catch (Exception e) {
-				Logger.Debug ("No ApplicationAddins found: {0}", e.Message);
+				Logger.Warn ("No ApplicationAddins found: {0}", e.Message);
 				app_addins = new ApplicationAddin [0];
 			}
 
@@ -243,10 +243,33 @@ namespace Tomboy
 				                 "/Tomboy/NoteAddins",
 				                 typeof (NoteAddin));
 			} catch (Exception e) {
-				Logger.Debug ("No NoteAddins found: {0}", e.Message);
+				Logger.Warn ("No NoteAddins found: {0}", e.Message);
 				addins = new NoteAddin [0];
 			}
 
+			return addins;
+		}
+		
+		/// <summary>
+		/// Returns an array of PreferenceTabAddin objects.
+		/// </summary>
+		/// <returns>
+		/// A <see cref="PreferenceTabAddin"/>
+		/// </returns>
+		public PreferenceTabAddin [] GetPreferenceTabAddins ()
+		{
+			PreferenceTabAddin [] addins;
+			
+			try {
+				addins = (PreferenceTabAddin [])
+							Mono.Addins.AddinManager.GetExtensionObjects (
+								"/Tomboy/PreferenceTabAddins",
+								typeof (PreferenceTabAddin));
+			} catch (Exception e) {
+				Logger.Warn ("No PreferenceTabAddins found: {0}", e.Message);
+				addins = new PreferenceTabAddin [0];
+			}
+			
 			return addins;
 		}
 

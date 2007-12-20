@@ -21,12 +21,6 @@ namespace Tomboy
 		Gtk.Button saveSyncAddinButton;
 		readonly AddinManager addin_manager;
 		
-		Gtk.TreeView notebooksTree;
-		Gtk.TreeViewColumn notebookNameColumn;
-		Gtk.Button openTemplateNoteButton;
-		Gtk.Button addNotebookButton;
-		Gtk.Button removeNotebookButton;
-
 		Gtk.Button font_button;
 		Gtk.Label font_face;
 		Gtk.Label font_size;
@@ -83,8 +77,6 @@ namespace Tomboy
 			notebook.BorderWidth = 5;
 			notebook.Show ();
 
-			notebook.AppendPage (MakeNotebooksPane (),
-			                     new Gtk.Label (Catalog.GetString ("Notebooks")));
 			notebook.AppendPage (MakeEditingPane (),
 			                     new Gtk.Label (Catalog.GetString ("Editing")));
 			notebook.AppendPage (MakeHotkeysPane (),
@@ -93,6 +85,20 @@ namespace Tomboy
 			                     new Gtk.Label (Catalog.GetString ("Synchronization")));
 			notebook.AppendPage (MakeAddinsPane (),
 			                     new Gtk.Label (Catalog.GetString ("Add-ins")));
+			
+			// TODO: Figure out a way to have these be placed in a specific order
+			foreach (PreferenceTabAddin tabAddin in addin_manager.GetPreferenceTabAddins ()) {
+				Logger.Debug ("Adding preference tab addin: {0}", tabAddin.GetType ().Name);
+				try {
+					string tabName;
+					Gtk.Widget tabWidget;
+					if (tabAddin.GetPreferenceTabWidget (this, out tabName, out tabWidget) == true) {
+						notebook.AppendPage (tabWidget, new Gtk.Label (tabName));
+					}
+				} catch {
+					Logger.Warn ("Problems adding preferences tab addin: {0}", tabAddin.GetType ().Name);
+				}
+			}
 
 			VBox.PackStart (notebook, true, true, 0);
 
@@ -118,68 +124,6 @@ namespace Tomboy
 			DefaultResponse = Gtk.ResponseType.Close;
 		}
 		
-		// Page 0
-		// Notebooks
-		public Gtk.Widget MakeNotebooksPane ()
-		{
-			Gtk.VBox vbox = new Gtk.VBox (false, 6);
-			vbox.BorderWidth = 12;
-			vbox.Show ();
-			
-			notebooksTree = new Gtk.TreeView (Notebooks.NotebookManager.Notebooks);
-			notebooksTree.Selection.Changed += OnNotebooksTreeSelectionChanged;
-			notebooksTree.RowActivated += OnNotebookRowActivated;
-			notebooksTree.Model.RowInserted += OnNotebookAdded;
-			notebooksTree.Show ();
-			
-			Gtk.CellRenderer renderer;
-			notebookNameColumn = new Gtk.TreeViewColumn ();
-			notebookNameColumn.Title = Catalog.GetString ("Name");
-			notebookNameColumn.Sizing = Gtk.TreeViewColumnSizing.Autosize;
-			notebookNameColumn.Resizable = true;
-			
-			renderer = new Gtk.CellRendererText ();
-			notebookNameColumn.PackStart (renderer, true);
-			notebookNameColumn.SetCellDataFunc (renderer,
-									new Gtk.TreeCellDataFunc (NotebookNameColumnDataFunc));
-			notebooksTree.AppendColumn (notebookNameColumn);
-			
-			Gtk.ScrolledWindow sw  = new Gtk.ScrolledWindow ();
-			sw.HscrollbarPolicy = Gtk.PolicyType.Automatic;
-			sw.VscrollbarPolicy = Gtk.PolicyType.Automatic;
-			sw.ShadowType = Gtk.ShadowType.In;
-			sw.Add (notebooksTree);
-			sw.Show ();
-
-			vbox.PackStart (sw, true, true, 0);
-			
-			Gtk.HButtonBox hButtonBox = new Gtk.HButtonBox ();
-			hButtonBox.Layout = Gtk.ButtonBoxStyle.Edge;
-			hButtonBox.Show ();
-			
-			openTemplateNoteButton = new Gtk.Button (Catalog.GetString ("_Template Note"));
-			openTemplateNoteButton.UseUnderline = true;
-			openTemplateNoteButton.Sensitive = false;
-			openTemplateNoteButton.Clicked += OnOpenTemplateNoteButtonClicked;
-			openTemplateNoteButton.Show ();
-			hButtonBox.PackStart (openTemplateNoteButton, false, false, 0);
-			
-			addNotebookButton = new Gtk.Button (Gtk.Stock.Add);
-			addNotebookButton.Clicked += OnAddNotebookButtonClicked;
-			addNotebookButton.Show ();
-			hButtonBox.PackStart (addNotebookButton, false, false, 0);
-			
-			removeNotebookButton = new Gtk.Button (Gtk.Stock.Remove);
-			removeNotebookButton.Clicked += OnRemoveNotebookButtonClicked;
-			removeNotebookButton.Sensitive = false;
-			removeNotebookButton.Show ();
-			hButtonBox.PackStart (removeNotebookButton, false, false, 0);
-
-			vbox.PackStart (hButtonBox, false, false, 0);
-			
-			return vbox;
-		}
-
 		// Page 1
 		// List of editing options
 		public Gtk.Widget MakeEditingPane ()
@@ -1265,156 +1209,6 @@ namespace Tomboy
 
 			// Open the template note
 			template_note.Window.Show ();
-		}
-		
-		void OnOpenTemplateNoteButtonClicked (object sender, EventArgs args)
-		{
-			Notebooks.Notebook notebook = GetSelectedNotebook ();
-			if (notebook == null)
-				return;
-			
-			Note templateNote = notebook.GetTemplateNote ();
-			if (templateNote == null)
-				return; // something seriously went wrong
-			
-			templateNote.Window.Show ();
-		}
-		
-		void OnAddNotebookButtonClicked (object sender, EventArgs args)
-		{
-			// Prompt the user for the name of a new notebook
-			Notebooks.CreateNotebookDialog dialog =
-				new Notebooks.CreateNotebookDialog (this,
-							Gtk.DialogFlags.Modal
-								| Gtk.DialogFlags.DestroyWithParent
-								| Gtk.DialogFlags.NoSeparator);
-			
-			
-			int response = dialog.Run ();
-			string notebookName = dialog.NotebookName;
-			dialog.Destroy ();
-			if (response != (int) Gtk.ResponseType.Ok)
-				return;
-			
-			Notebooks.Notebook notebook = Notebooks.NotebookManager.GetOrCreateNotebook (notebookName);
-			if (notebook == null) {
-				Logger.Warn ("Could not create notebook: {0}", notebookName);
-			} else {
-				Logger.Debug ("Created the notebook: {0} ({1})", notebook.Name, notebook.NormalizedName);
-			}
-		}
-		
-		// Select the specified notebook in the TreeView
-//		void SelectNotebook (Notebooks.Notebook notebook)
-//		{
-//			Gtk.TreeIter iter;
-//			if (Notebooks.NotebookManager.GetNotebookIter (notebook, out iter) == false)
-//				return; // notebook not found
-//			
-//			notebooksTree.Selection.SelectIter (iter);
-//		}
-
-		void OnRemoveNotebookButtonClicked (object sender, EventArgs args)
-		{
-			Notebooks.Notebook notebook = GetSelectedNotebook ();
-			if (notebook == null)
-				return;
-			
-			// Confirmation Dialog
-			HIGMessageDialog dialog =
-				new HIGMessageDialog (null,
-									  Gtk.DialogFlags.Modal,
-									  Gtk.MessageType.Question,
-									  Gtk.ButtonsType.YesNo,
-									  Catalog.GetString ("Really remove this notebook?"),
-									  Catalog.GetString (
-									  	"The notes that belong to this notebook will note be " +
-									  	"removed, but they will no longer be associated with " +
-									  	"this notebook.  This action cannot be undone."));
-			Gtk.CheckButton removeTemplateNoteButton =
-				new Gtk.CheckButton (Catalog.GetString ("Also _delete notebook's template note"));
-			removeTemplateNoteButton.Show ();
-			dialog.ExtraWidget = removeTemplateNoteButton;
-			int response = dialog.Run ();
-			bool removeTemplateNote = removeTemplateNoteButton.Active;
-			dialog.Destroy ();
-			if (response != (int) Gtk.ResponseType.Yes)
-				return;
-			
-			Notebooks.NotebookManager.RemoveNotebook (notebook);
-			if (removeTemplateNote) {
-				Note templateNote = notebook.GetTemplateNote ();
-				if (templateNote != null) {
-					NoteManager noteManager = Tomboy.DefaultNoteManager;
-					noteManager.Delete (templateNote);
-				}
-			}
-		}
-
-		private void OnNotebooksTreeSelectionChanged (object sender, EventArgs args)
-		{
-			Notebooks.Notebook notebook = GetSelectedNotebook ();
-			
-			if (notebook == null) {
-				openTemplateNoteButton.Sensitive = false;
-				removeNotebookButton.Sensitive = false;
-			} else {
-				openTemplateNoteButton.Sensitive = true;
-				removeNotebookButton.Sensitive = true;
-			}
-		}
-		
-		// Open the notebook's note template when activated
-		private void OnNotebookRowActivated (object sender, Gtk.RowActivatedArgs args)
-		{
-			OnOpenTemplateNoteButtonClicked (sender, EventArgs.Empty);
-		}
-		
-		// Select the inserted notebook
-		private void OnNotebookAdded (object sender, Gtk.RowInsertedArgs args)
-		{
-			notebooksTree.Selection.SelectIter (args.Iter);
-			
-			// TODO: Figure out why we have to include the following
-			// lines instead of the SelectionChanged event taking care of this
-			openTemplateNoteButton.Sensitive = true;
-			removeNotebookButton.Sensitive = true;
-		}
-		
-		protected override void OnHidden ()
-		{
-			// Unregister the RowInserted handler so that
-			// it can't be called when there's no preferences
-			// dialog.
-			notebooksTree.Model.RowInserted -= OnNotebookAdded;
-			base.OnHidden ();
-		}
-
-		private Notebooks.Notebook GetSelectedNotebook ()
-		{
-			Gtk.TreeModel model;
-			Gtk.TreeIter iter;
-			
-			if (notebooksTree.Selection.GetSelected (out model, out iter) == false)
-				return null; // Nothing selected
-			
-			return model.GetValue (iter, 0) as Notebooks.Notebook;
-		}
-
-		private void NotebookNameColumnDataFunc (Gtk.TreeViewColumn column,
-												 Gtk.CellRenderer cell,
-												 Gtk.TreeModel model,
-												 Gtk.TreeIter iter)
-		{
-			Gtk.CellRendererText crt = cell as Gtk.CellRendererText;
-			if (crt == null)
-				return;
-			
-			Notebooks.Notebook notebook = model.GetValue (iter, 0) as Notebooks.Notebook;
-			if (notebook == null)
-				return;
-			
-			crt.Text = notebook.Name;
 		}
 	}
 

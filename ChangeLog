@@ -1,9 +1,28 @@
+2007-12-20  Boyd Timothy <btimothy@gmail.com> 
+
+	* Tomboy.mdp: Added Tomboy/PreferenceTabAddin.cs and
+	  Tomboy/Notebooks/NotebookPreferenceTabAddin.cs.
+	* Tomboy/PreferencesDialog.cs: Add in tabs from all the
+	  PreferenceTabAddins.  Removed the "Notebooks" tab since
+	  it now exists in its own file as an add-in.
+	* Tomboy/AddinManager.cs: Added GetPreferenceTabAddins ().
+	* Tomboy/Tomboy.addin.xml: Define a new PreferenceTabAddin
+	  extension point and add NotebookPreferenceTabAddin.
+	* Tomboy/Notebooks/NotebookPreferenceTabAddin.cs: This is
+	  all the code that used to be in PreferencesDialog.cs.
+	* Tomboy/Makefile.am: Added PreferencesTabAddin.cs.
+	* Tomboy/PreferenceTabAddin.cs: A new extension point that
+	  allows us to add tabs in the preferences dialog using
+	  Mono.Addins.
+
 2007-12-20 Chris Scobell <chris@thescobells.com>
+
 	* Tomboy/Notebooks/CreateNotebookDialog.cs: Move the pango 
 	markup into a separate string to make the translators 
 	jobs easier.
 	
 2007-12-20 Chris Scobell <chris@thescobells.com>
+
 	* Tomboy/Notebooks/CreateNotebookDialog.cs: Prevent the user
 	  from continuing when they have entered the name of an
 	  already exiting Notebook and display an error message if so.
