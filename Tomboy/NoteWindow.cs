@@ -751,7 +751,8 @@ public NoteWindow (Note note) :
 			tag_entry = new TagEntry(note,false);
 			List<string> str = new List<string>();
 			foreach(Tag t in note.Tags){
-				str.Add(t.Name);
+				if (t.IsSystem == false)
+					str.Add(t.Name);
 			}
 			tag_entry.UpdateFromTagNames(str.ToArray());
 			
