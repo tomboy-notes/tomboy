@@ -1,7 +1,9 @@
 <ui>
     <menubar name="MainWindowMenubar">
         <menu name="FileMenu" action="FileMenuAction">
-            <menuitem name="NewNote" action="NewNoteAction" />
+			<placeholder name="FileMenuNewNotePlaceholder">
+				<menuitem name="NewNote" action="NewNoteAction" />
+			</placeholder>
             <menuitem name="OpenNote" action="OpenNoteAction" />
             <separator />
             <menuitem name="CloseWindow" action="CloseWindowAction" />
@@ -25,7 +27,9 @@
     </popup>
     <popup name="TrayIconMenu" action="TrayIconMenuAction">
     	<placeholder name="TrayIconMenuPlaceholder0" />
-        <menuitem name="TrayNewNote" action="TrayNewNoteAction" />
+    	<placeholder name="TrayNewNotePlaceholder">
+        	<menuitem name="TrayNewNote" action="TrayNewNoteAction" />
+        </placeholder>
         <menuitem name="ShowSearchAllNotes" action="ShowSearchAllNotesAction" />
         <placeholder name="TrayIconMenuPlaceholder1" />
     </popup>

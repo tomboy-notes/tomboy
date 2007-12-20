@@ -464,7 +464,7 @@ public NoteManager (string directory) :
 			return template_note;
 		}
 		
-		private string GetNoteTemplateContent (string title)
+		public static string GetNoteTemplateContent (string title)
 		{
 			const string base_xml =
 			        "<note-content>" +

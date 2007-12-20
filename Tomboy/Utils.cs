@@ -226,6 +226,8 @@ namespace Tomboy
 	public class HIGMessageDialog : Gtk.Dialog
 	{
 		Gtk.AccelGroup accel_group;
+		Gtk.VBox extra_widget_vbox;
+		Gtk.Widget extra_widget;
 
 		public HIGMessageDialog (Gtk.Window parent,
 		                         Gtk.DialogFlags flags,
@@ -272,9 +274,11 @@ namespace Tomboy
 				break;
 			}
 
-			image.Show ();
-			image.Yalign = 0;
-			hbox.PackStart (image, false, false, 0);
+			if (image != null) {
+				image.Show ();
+				image.Yalign = 0;
+				hbox.PackStart (image, false, false, 0);
+			}
 
 			Gtk.VBox label_vbox = new Gtk.VBox (false, 0);
 			label_vbox.Show ();
@@ -301,6 +305,10 @@ namespace Tomboy
 			label.SetAlignment (0.0f, 0.5f);
 			label.Show ();
 			label_vbox.PackStart (label, false, false, 0);
+			
+			extra_widget_vbox = new Gtk.VBox (false, 0);
+			extra_widget_vbox.Show();
+			label_vbox.PackStart (extra_widget_vbox, true, true, 12);
 
 			switch (buttons) {
 			case Gtk.ButtonsType.None:
@@ -334,7 +342,7 @@ namespace Tomboy
 				DestroyWithParent = true;
 		}
 
-		void AddButton (string stock_id, Gtk.ResponseType response, bool is_default)
+		protected void AddButton (string stock_id, Gtk.ResponseType response, bool is_default)
 		{
 			Gtk.Button button = new Gtk.Button (stock_id);
 			button.CanDefault = true;
@@ -349,6 +357,22 @@ namespace Tomboy
 				                       (uint) Gdk.Key.Escape,
 				                       0,
 				                       Gtk.AccelFlags.Visible);
+			}
+		}
+		
+		public Gtk.Widget ExtraWidget
+		{
+			get {
+				return extra_widget;
+			}
+			set {
+				if (extra_widget != null) {
+					extra_widget_vbox.Remove (extra_widget);
+				}
+				
+				extra_widget = value;
+				extra_widget.ShowAll ();
+				extra_widget_vbox.PackStart (extra_widget, true, true, 0);
 			}
 		}
 	}
