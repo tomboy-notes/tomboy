@@ -254,7 +254,7 @@ namespace Tomboy
 				// Create New Note Keybinding
 				Gtk.MenuItem item =
 				        Tomboy.ActionManager.GetWidget (
-				                "/TrayIconMenu/NewNote") as Gtk.MenuItem;
+				                "/TrayIconMenu/TrayNewNotePlaceholder/TrayNewNote") as Gtk.MenuItem;
 				if (item != null)
 					GConfKeybindingToAccel.AddAccelerator (
 					        item,

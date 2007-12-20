@@ -218,9 +218,15 @@ namespace Tomboy
 		{
 			get {
 				List<Tag> temp = new List<Tag>();
-				foreach(Gtk.TreeIter iter in tag_map.Values){
+				
+				// Add in the system tags first
+				temp.AddRange (internal_tags.Values);
+				
+				// Now all the other tags
+				foreach (Gtk.TreeIter iter in tag_map.Values){
 					temp.Add(tags.GetValue (iter, 0) as Tag);
 				}
+				
 				return temp;
 			}
 		}

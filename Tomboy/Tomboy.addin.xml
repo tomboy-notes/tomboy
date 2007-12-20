@@ -6,7 +6,7 @@
 	<ExtensionPoint path="/Tomboy/ApplicationAddins">
 		<ExtensionNode name="ApplicationAddin" objectType="Tomboy.ApplicationAddin" />
 	</ExtensionPoint>
-
+	
 	<ExtensionPoint path="/Tomboy/NoteAddins">
 		<ExtensionNode name="NoteAddin" objectType="Tomboy.NoteAddin" />
 	</ExtensionPoint>
@@ -46,5 +46,14 @@
 
 	<Extension path="/Tomboy/NoteAddins">
 		<NoteAddin type="Tomboy.NoteTagsWatcher" />
+	</Extension>
+	
+	<!-- Other built-in Addins that are not note watchers -->
+	<Extension path="/Tomboy/ApplicationAddins">
+		<ApplicationAddin type="Tomboy.Notebooks.NotebookApplicationAddin" />
+	</Extension>
+	
+	<Extension path="/Tomboy/NoteAddins">
+		<NoteAddin type="Tomboy.Notebooks.NotebookNoteAddin" />
 	</Extension>
 </Addin>

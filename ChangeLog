@@ -1,3 +1,30 @@
+2007-12-19  Boyd Timothy <btimothy@gmail.com> 
+
+	* Tomboy.mdp: Added all the new Tomboy/Notebooks/*.cs files.
+	* Tomboy.mds: Guess monodevelop now wants the "./" removed when
+	  specifying Tomboy.mdp.
+	* Tomboy/PreferencesDialog.cs: Added a Notebooks page to allow
+	  the user to define notebooks and open their template notes.
+	* Tomboy/Utils.cs: Modified HIGMessageDialog to provide an
+	  ExtraWidget property so that we don't have to rewrite so much
+	  code when doing simple dialog boxes.
+	* Tomboy/TagManager.cs: Fix the AllTags property to really
+	  return system tags like the comment says so we can access
+	  system tags.
+	* Tomboy/Tray.cs: Reference the TrayNewNote UI action with the
+	  correct path so the accelerator works properly.
+	* Tomboy/Tomboy.addin.xml: Add references for the built-in
+	  Notebook add-ins.
+	* Tomboy/Notebooks/*.cs: The new built-in addin to support
+	  notebooks in Tomboy.
+	* Tomboy/NoteManager.cs: Expose GetNoteTemplateContent () so
+	  that initial notebook templates can share the same text as
+	  is used during a NoteManager.Create ().
+	* Tomboy/Makefile.am: Compile Tomboy/Notebooks/*.cs.
+	* data/UIManagerLayout.csml: Added some <placeholders> around
+	  the new note menuitems so that the Notebook addin has more
+	  control of where its menu item gets placed.
+
 2007-12-18  Boyd Timothy <btimothy@gmail.com> 
 
 	* Tomboy/PreferencesDialog.cs: Use a Gtk.LinkButton for the Open
