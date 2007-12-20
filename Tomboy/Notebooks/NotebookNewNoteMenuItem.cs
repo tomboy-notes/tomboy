@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Mono.Unix;
 using Tomboy;
 
 namespace Tomboy.Notebooks
@@ -17,7 +18,14 @@ namespace Tomboy.Notebooks
 		//	noteIcon = GuiUtils.GetIcon ("tomboy-note", 22);
 		//}
 		
-		public NotebookNewNoteMenuItem(Notebook notebook) : base (notebook.Name)
+		public NotebookNewNoteMenuItem(Notebook notebook)
+			: base (
+				// Translators should preserve the "{0}" in the following
+				// string.  After being formatted for a notebook named,
+				// "Meetings", for example, the resultant string would be:
+				//		New "Meetings" Note
+				String.Format (Catalog.GetString ("New \"{0}\" Note"),
+							   notebook.Name))
 		{
 			this.notebook = notebook;
 			//this.Image = new Gtk.Image (noteIcon);
