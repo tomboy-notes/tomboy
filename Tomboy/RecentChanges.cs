@@ -19,10 +19,9 @@ namespace Tomboy
                 Gtk.ScrolledWindow matches_window;
                 Gtk.VBox content_vbox;
                 Gtk.TreeViewColumn matches_column;
-
-		        Gtk.TreeView tags_tree;
-		        Gtk.TreeModel tags_store;
-		
+				
+				Gtk.TreeView notebooksTree;
+				
                 // Use the following like a Set
 		        Dictionary<Tag, Tag> selected_tags;
 
@@ -120,29 +119,16 @@ namespace Tomboy
                         hbox.PackStart (image, false, false, 4);
                         hbox.PackStart (table, true, true, 0);
                         hbox.ShowAll ();
-
-					   tags_tree = MakeTagsTree ();
-					   tags_store = TagManager.Tags;
-
-								
-			           TagManager.TagRemoved += OnTagRemoved;
-								
-					   tags_tree.Model = tags_store;
-					   tags_tree.Show ();
-
-					   Gtk.ScrolledWindow tags_sw = new Gtk.ScrolledWindow ();
-					   tags_sw.ShadowType = Gtk.ShadowType.In;
-//
-//                         Reign in the window size if there are tags with long
-//                         names, or a lot of tags...
-
-					   Gtk.Requisition tags_tree_req = tags_tree.SizeRequest ();
-					   if (tags_tree_req.Width > 150)
-					    tags_sw.WidthRequest = 150;
-
-					   tags_sw.Add (tags_tree);
-					   tags_sw.Show ();
-
+						
+						notebooksTree = MakeNotebooksTree ();
+						notebooksTree.Show ();
+						Gtk.ScrolledWindow sw = new Gtk.ScrolledWindow ();
+						sw.HscrollbarPolicy = Gtk.PolicyType.Automatic;
+						sw.VscrollbarPolicy = Gtk.PolicyType.Automatic;
+						sw.ShadowType = Gtk.ShadowType.In;
+						sw.Add (notebooksTree);
+						sw.Show ();
+                        
                         MakeRecentTree ();
                         tree.Show ();
 
@@ -181,7 +167,7 @@ namespace Tomboy
 
 					   Gtk.HPaned hpaned = new Gtk.HPaned ();
 					   hpaned.Position = 150;
-					   hpaned.Add1 (tags_sw);
+						hpaned.Add1 (sw);
 					   hpaned.Add2 (matches_window);
 					   hpaned.Show ();
 
@@ -234,38 +220,34 @@ namespace Tomboy
                         return menubar;
                 }
 
-                
-                  Gtk.TreeView MakeTagsTree ()
-                  {
-                   Gtk.TreeView t;
-
-                   t = new Gtk.TreeView ();
-                   t.HeadersVisible = true;
-                   t.RulesHint = true;
-
-                   Gtk.CellRenderer renderer;
-
-                   Gtk.TreeViewColumn tags_column = new Gtk.TreeViewColumn ();
-                   tags_column.Title = Catalog.GetString ("Tags");
-                   tags_column.Sizing = Gtk.TreeViewColumnSizing.Autosize;
-                   tags_column.Resizable = false;
-
-                   renderer = new Gtk.CellRendererToggle ();
-                   (renderer as Gtk.CellRendererToggle).Toggled += OnTagToggled;
-                   tags_column.PackStart (renderer, false);
-                   tags_column.SetCellDataFunc (renderer,
-                     new Gtk.TreeCellDataFunc (TagsToggleCellDataFunc));
-
-                   renderer = new Gtk.CellRendererText ();
-                   tags_column.PackStart (renderer, true);
-                   tags_column.SetCellDataFunc (renderer,
-                     new Gtk.TreeCellDataFunc (TagsNameCellDataFunc));
-
-                   t.AppendColumn (tags_column);
-
-                   return t;
-                  }
-                
+		Gtk.TreeView MakeNotebooksTree ()
+		{
+			Gtk.TreeView t = new Gtk.TreeView (Notebooks.NotebookManager.Notebooks);
+			t.HeadersVisible = true;
+			t.RulesHint = true;
+			
+			Gtk.CellRenderer renderer;
+			
+			Gtk.TreeViewColumn column = new Gtk.TreeViewColumn ();
+			column.Title = Catalog.GetString ("Notebooks");
+			column.Sizing = Gtk.TreeViewColumnSizing.Autosize;
+			
+			renderer = new Gtk.CellRendererPixbuf ();
+			column.PackStart (renderer, false);
+			column.SetCellDataFunc (renderer,
+				new Gtk.TreeCellDataFunc (NotebookPixbufCellDataFunc));
+			
+			renderer = new Gtk.CellRendererText ();
+			column.PackStart (renderer, true);
+			column.SetCellDataFunc (renderer,
+				new Gtk.TreeCellDataFunc (NotebookTextCellDataFunc));
+			
+			t.AppendColumn (column);
+			
+			t.Selection.Changed += OnNotebookSelectionChanged;
+			
+			return t;
+		}
 
                 void MakeRecentTree ()
                 {
@@ -980,82 +962,43 @@ namespace Tomboy
                         find_combo.Entry.GrabFocus ();
                 }
 
-                
-                  // <summary>
-                  // Pay attention to when tags are removed so selected_tags
-                  // remains up-to-date if a selected tag is removed from
-                  // the system.
-                  // </summary>
-                  void OnTagRemoved (string tag_name)
-                  {
-                   if (selected_tags.Count == 0)
-                    return;
-
-                   Tag tag_to_remove = null;
-                   foreach (Tag tag in selected_tags.Keys) {
-                    if (string.Compare (tag.NormalizedName, tag_name) == 0) {
-                     tag_to_remove = tag;
-                     break;
-                    }
-                   }
-
-                   if (tag_to_remove != null) {
-                    selected_tags.Remove (tag_to_remove);
-                    UpdateResults ();
-                   }
-                  }
-
-                  void OnTagToggled (object sender, Gtk.ToggledArgs args)
-                  {
-			//Console.WriteLine("Tag was toggled!{0}");
-                   Gtk.CellRendererToggle crt = sender as Gtk.CellRendererToggle;
-
-                   Gtk.TreePath path = new Gtk.TreePath (args.Path);
-                   Gtk.TreeIter iter;
-                   if (tags_store.GetIter (out iter, path) == false)
-                    return;
-			//Console.WriteLine("iter is true");
-                   Tag tag = tags_store.GetValue (iter, 0) as Tag;
-                   if (tag == null)
-                    return;
-			//Console.WriteLine("tag isn't null ");
-                   if (crt.Active) {
-                    // Uncheck the tag (remove the tag from selected_tags)
-                    if (selected_tags.ContainsKey (tag))
-                     selected_tags.Remove (tag);
-                   } else {
-                    // Check the tag (add it to selected_tags)
-                    selected_tags [tag] = tag;
-                   }
-
-                   UpdateResults ();
-                  }
-
-                  void TagsToggleCellDataFunc (Gtk.TreeViewColumn tree_column,
-                    Gtk.CellRenderer cell, Gtk.TreeModel tree_model,
-                    Gtk.TreeIter iter)
-                  {
-                   Gtk.CellRendererToggle crt = cell as Gtk.CellRendererToggle;
-                   Tag tag = tree_model.GetValue (iter, 0) as Tag;
-                   if (tag == null)
-                    crt.Active = false;
-                   else {
-                    crt.Active = selected_tags.ContainsKey (tag);
-                   }
-                  }
-
-                  void TagsNameCellDataFunc (Gtk.TreeViewColumn tree_column,
-                    Gtk.CellRenderer cell, Gtk.TreeModel tree_model,
-                    Gtk.TreeIter iter)
-                  {
-                   Gtk.CellRendererText crt = cell as Gtk.CellRendererText;
-                   Tag tag = tree_model.GetValue (iter, 0) as Tag;
-                   if (tag == null)
-                    crt.Text = String.Empty;
-                   else
-                    crt.Text = tag.Name;
-                  }
-
+		private void NotebookPixbufCellDataFunc (Gtk.TreeViewColumn treeColumn,
+				Gtk.CellRenderer renderer, Gtk.TreeModel model,
+				Gtk.TreeIter iter)
+		{
+			Gtk.CellRendererPixbuf crp = renderer as Gtk.CellRendererPixbuf;
+			crp.Pixbuf = note_icon;  // TODO: Get a tomboy-notebook icon
+		}
+		
+		private void NotebookTextCellDataFunc (Gtk.TreeViewColumn treeColumn,
+				Gtk.CellRenderer renderer, Gtk.TreeModel model,
+				Gtk.TreeIter iter)
+		{
+			Gtk.CellRendererText crt = renderer as Gtk.CellRendererText;
+			Notebooks.Notebook notebook = model.GetValue (iter, 0) as Notebooks.Notebook;
+			if (notebook == null)
+				crt.Text = String.Empty;
+			else
+				crt.Text = notebook.Name;
+		}
+		
+		private void OnNotebookSelectionChanged (object sender, EventArgs args)
+		{
+			Gtk.TreeModel model;
+			Gtk.TreeIter iter;
+			
+			if (notebooksTree.Selection.GetSelected (out model, out iter) == false) {
+				// Clear out the currently selected tags so that no notebook is selected
+				selected_tags.Clear ();
+			} else {
+				Notebooks.Notebook notebook = model.GetValue (iter, 0) as Notebooks.Notebook;
+				selected_tags.Clear ();
+				selected_tags.Add (notebook.Tag, notebook.Tag);
+			}
+			
+			UpdateResults ();
+		}
+		
                 public string SearchText
                 {
                         get {

@@ -1,5 +1,22 @@
 2007-12-20  Boyd Timothy <btimothy@gmail.com> 
 
+	Removing the tagging UI again in favor of notebooking:
+
+	* Tomboy/RecentChanges.cs: Removed the tagging TreeView and
+	  stubbed in a TreeView for displaying the Notebooks.  Added
+	  handlers so that selecting a notebook filters the list of
+	  notes to the ones only in the selected notebook.  TODO: still
+	  need to add in code to add a "All Notes" item that appears at
+	  the top of the list (use Ctrl+Click for now to deselect all
+	  notebooks).
+	* Tomboy/NoteWindow.cs: Removing the NoteTagBar from NoteWindow.
+	  If we come up with a good way to implement tags, we can put
+	  it back in (again).
+	* Tomboy/Notebooks/NotebookNewNoteMenuItem.cs: Make the
+	  Notebooks submenu show something like: New "Meetings" Note.
+
+2007-12-20  Boyd Timothy <btimothy@gmail.com> 
+
 	* Tomboy/Notebooks/NotebookPreferenceTabAddin.cs: Fixed a
 	  typo in the remove confirmation dialog.  "note" -> "not".
 
