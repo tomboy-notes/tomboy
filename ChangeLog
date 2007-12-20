@@ -1,5 +1,18 @@
 2007-12-20  Boyd Timothy <btimothy@gmail.com> 
 
+	* Tomboy/Notebooks/NotebookManager.cs: Added
+	  PromptCreateNewNotebook () here so creating a notebook
+	  can be used from multiple areas in Tomboy.
+	* Tomboy/Notebooks/NotebookApplicationAddin.cs: Renamed the
+	  "New Notebook Note" menu item to be just "Notebooks".  Added
+	  a "New Notebook..." menu item to the Notebooks menu list
+	  with a separator.
+	* Tomboy/Notebooks/NotebookPreferenceTabAddin.cs: Moved the
+	  code to prompt the user for a new notebook name to
+	  NotebookManager.cs.
+
+2007-12-20  Boyd Timothy <btimothy@gmail.com> 
+
 	* Tomboy/Notebooks/NotebookPrefrenceTabAddin.cs: Use
 	  Window.Present () when opening a notebook's template note
 	  so it gets forced to the front if it's already open.

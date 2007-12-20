@@ -109,26 +109,7 @@ namespace Tomboy.Notebooks
 		
 		void OnAddNotebookButtonClicked (object sender, EventArgs args)
 		{
-			// Prompt the user for the name of a new notebook
-			Notebooks.CreateNotebookDialog dialog =
-				new Notebooks.CreateNotebookDialog (preferencesDialog,
-							Gtk.DialogFlags.Modal
-								| Gtk.DialogFlags.DestroyWithParent
-								| Gtk.DialogFlags.NoSeparator);
-			
-			
-			int response = dialog.Run ();
-			string notebookName = dialog.NotebookName;
-			dialog.Destroy ();
-			if (response != (int) Gtk.ResponseType.Ok)
-				return;
-			
-			Notebooks.Notebook notebook = Notebooks.NotebookManager.GetOrCreateNotebook (notebookName);
-			if (notebook == null) {
-				Logger.Warn ("Could not create notebook: {0}", notebookName);
-			} else {
-				Logger.Debug ("Created the notebook: {0} ({1})", notebook.Name, notebook.NormalizedName);
-			}
+			NotebookManager.PromptCreateNewNotebook (preferencesDialog);
 		}
 		
 		// Select the specified notebook in the TreeView

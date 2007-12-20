@@ -25,11 +25,11 @@ namespace Tomboy.Notebooks
 			actionGroup = new Gtk.ActionGroup ("Notebooks");
 			actionGroup.Add (new Gtk.ActionEntry [] {
 				new Gtk.ActionEntry ("NewNotebookMenuAction", Gtk.Stock.New,
-					Catalog.GetString ("New Note_book Note"), null,
+					Catalog.GetString ("Note_books"), null,
 					Catalog.GetString ("Create a new note in a notebook"), null),
 					
 				new Gtk.ActionEntry ("TrayNewNotebookMenuAction", Gtk.Stock.New,
-					Catalog.GetString ("New Notebook Note"), null,
+					Catalog.GetString ("Notebooks"), null,
 					Catalog.GetString ("Create a new note in a notebook"), null)
 			});
 			
@@ -129,13 +129,28 @@ namespace Tomboy.Notebooks
 			Gtk.TreeModel model = NotebookManager.Notebooks;
 			Gtk.TreeIter iter;
 			
-			if (model.GetIterFirst (out iter) == true) {
-				do {
-					Notebook notebook = model.GetValue (iter, 0) as Notebook;
-					item = new NotebookNewNoteMenuItem (notebook);
-					item.ShowAll ();
-					menu.Append (item);
-				} while (model.IterNext (ref iter) == true);
+			// Add in the "New Notebook..." menu item
+			Gtk.ImageMenuItem newNotebookMenuItem =
+				new Gtk.ImageMenuItem (Catalog.GetString ("New Note_book..."));
+			// TODO: Replace this new stock icon with a tomboy-new-notebook icon
+			newNotebookMenuItem.Image = new Gtk.Image (Gtk.Stock.New, Gtk.IconSize.Menu);
+			newNotebookMenuItem.Activated += OnNewNotebookMenuItem;
+			newNotebookMenuItem.ShowAll ();
+			menu.Append (newNotebookMenuItem);
+			
+			if (model.IterNChildren () > 0) {
+				Gtk.SeparatorMenuItem separator = new Gtk.SeparatorMenuItem ();
+				separator.ShowAll ();
+				menu.Append (separator);
+				
+				if (model.GetIterFirst (out iter) == true) {
+					do {
+						Notebook notebook = model.GetValue (iter, 0) as Notebook;
+						item = new NotebookNewNoteMenuItem (notebook);
+						item.ShowAll ();
+						menu.Append (item);
+					} while (model.IterNext (ref iter) == true);
+				}
 			}
 		}
 		
@@ -143,6 +158,15 @@ namespace Tomboy.Notebooks
 		{
 			foreach (Gtk.MenuItem child in menu.Children) {
 				menu.Remove (child);
+			}
+		}
+		
+		private void OnNewNotebookMenuItem (object sender, EventArgs args)
+		{
+			Notebook notebook = NotebookManager.PromptCreateNewNotebook (null);
+			if (notebook != null) {
+				// Open the template note
+				notebook.GetTemplateNote ().Window.Present ();
 			}
 		}
 	}
