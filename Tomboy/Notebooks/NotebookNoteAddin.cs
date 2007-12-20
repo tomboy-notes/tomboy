@@ -18,6 +18,10 @@ namespace Tomboy.Notebooks
 			menu = new Gtk.Menu ();
 			menu.Hidden += OnMenuHidden;
 			menu.ShowAll ();
+			// Note to translators.  "Place" in the following string is
+			// the verb.  When a user opens the submenu here, it will
+			// open a list of notebooks they can place the current note
+			// into.
 			menuItem = new Gtk.ImageMenuItem (
 			        Catalog.GetString ("Place in notebook"));
 			menuItem.Image = new Gtk.Image (Gtk.Stock.Paste, Gtk.IconSize.Menu);
