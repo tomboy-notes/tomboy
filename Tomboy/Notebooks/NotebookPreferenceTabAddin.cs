@@ -104,7 +104,7 @@ namespace Tomboy.Notebooks
 			if (templateNote == null)
 				return; // something seriously went wrong
 			
-			templateNote.Window.Show ();
+			templateNote.Window.Present ();
 		}
 		
 		void OnAddNotebookButtonClicked (object sender, EventArgs args)
