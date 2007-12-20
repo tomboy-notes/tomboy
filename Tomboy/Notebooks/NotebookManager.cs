@@ -163,6 +163,69 @@ namespace Tomboy.Notebooks
 			iter = Gtk.TreeIter.Zero;
 			return false;
 		}
+		
+		/// <summary>
+		/// Returns the Notebook associated with this note or null
+		/// if no notebook exists.
+		/// </summary>
+		/// <param name="note">
+		/// A <see cref="Note"/>
+		/// </param>
+		/// <returns>
+		/// A <see cref="Notebook"/>
+		/// </returns>
+		public static Notebook GetNotebookFromNote (Note note)
+		{
+			foreach (Tag tag in note.Tags) {
+				Notebook notebook = GetNotebookFromTag (tag);
+				if (notebook != null)
+					return notebook;
+			}
+			
+			return null;
+		}
+		
+		/// <summary>
+		/// Returns the Notebook associated with the specified tag
+		/// or null if the Tag does not represent a notebook.
+		/// </summary>
+		/// <param name="tag">
+		/// A <see cref="Tag"/>
+		/// </param>
+		/// <returns>
+		/// A <see cref="Notebook"/>
+		/// </returns>
+		public static Notebook GetNotebookFromTag (Tag tag)
+		{
+			if (IsNotebookTag (tag) == false)
+				return null;
+			
+			// Parse off the system and notebook prefix to get
+			// the name of the notebook and then look it up.
+			string systemNotebookPrefix = Tag.SYSTEM_TAG_PREFIX + Notebook.NotebookTagPrefix;
+			string notebookName = tag.Name.Substring (systemNotebookPrefix.Length);
+			
+			return GetNotebook (notebookName);
+		}
+		
+		/// <summary>
+		/// Evaluates the specified tag and returns <value>true</value>
+		/// if it's a tag which represents a notebook.
+		/// </summary>
+		/// <param name="tag">
+		/// A <see cref="Tag"/>
+		/// </param>
+		/// <returns>
+		/// A <see cref="System.Boolean"/>
+		/// </returns>
+		public static bool IsNotebookTag (Tag tag)
+		{
+			string fullTagName = tag.Name;
+			if (fullTagName.StartsWith (Tag.SYSTEM_TAG_PREFIX + Notebook.NotebookTagPrefix) == true)
+				return true;
+			
+			return false;
+		}
 		#endregion // Public Methods
 		
 		#region Private Methods

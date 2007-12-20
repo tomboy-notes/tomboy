@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Mono.Unix;
 using Tomboy;
 
 namespace Tomboy.Notebooks
@@ -9,20 +10,30 @@ namespace Tomboy.Notebooks
 		Note note;
 		Notebook notebook;
 
-		public NotebookMenuItem (Note note, Notebook notebook) : base (notebook.Name)
+		public NotebookMenuItem (Note note, Notebook notebook) :
+			base (notebook == null ? Catalog.GetString ("No notebook") : notebook.Name)
 		{
 			this.note = note;
 			this.notebook = notebook;
 			
-			if (notebook.ContainsNote (note))
+			if (notebook == null) {
+				// This is for the "No notebook" menu item
+				
+				// Check to see if the specified note belongs
+				// to a notebook.  If so, don't activate the
+				// radio button.
+				if (NotebookManager.GetNotebookFromNote (note) == null)
+					Active = true;
+			} else if (notebook.ContainsNote (note)) {
 				Active = true;
+			}
 			
 			Activated += OnActivated;
 		}
 		
 		protected void OnActivated (object sender, EventArgs args)
 		{
-			if (note == null || notebook == null)
+			if (note == null)
 				return;
 			
 			// TODO: In the future we may want to allow notes
@@ -39,7 +50,11 @@ namespace Tomboy.Notebooks
 				note.RemoveTag (tag);
 			}
 			
-			note.AddTag (notebook.Tag);
+			// Only attempt to add the notebook tag when this
+			// menu item is not the "No notebook" menu item.
+			if (notebook != null) {
+				note.AddTag (notebook.Tag);
+			}
 		}
 
 		public Note Note
@@ -55,6 +70,12 @@ namespace Tomboy.Notebooks
 		// IComparable interface
 		public int CompareTo (NotebookMenuItem other)
 		{
+			// Always have the "No notebook" item at the top
+			// of the list if it ever gets compared to another
+			// item.
+			if (notebook == null)
+				return -1;
+			
 			return notebook.Name.CompareTo (other.Notebook.Name);
 		}
 	}

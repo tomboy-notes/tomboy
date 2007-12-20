@@ -73,19 +73,25 @@ namespace Tomboy.Notebooks
 			}
 
 			//
-			// Build a new list
+			// Build a new menu
 			//
-			foreach (NotebookMenuItem item in GetNotebookMenuItems ()) {
-				item.ShowAll ();
-				menu.Append (item);
-			}
-
-			// If nothing was found, add in a "dummy" item
-			if (menu.Children.Length == 0) {
-				Gtk.MenuItem blankItem = new Gtk.MenuItem (Catalog.GetString ("(none)"));
-				blankItem.Sensitive = false;
-				blankItem.ShowAll ();
-				menu.Append (blankItem);
+			
+			// Add the "(no notebook)" item at the top of the list
+			NotebookMenuItem noNotebookMenuItem = new NotebookMenuItem (Note, null);
+			noNotebookMenuItem.ShowAll ();
+			menu.Append (noNotebookMenuItem);
+			
+			// Add in all the real notebooks
+			List<NotebookMenuItem> notebookMenuItems = GetNotebookMenuItems ();
+			if (notebookMenuItems.Count > 0) {
+				Gtk.SeparatorMenuItem separator = new Gtk.SeparatorMenuItem ();
+				separator.ShowAll ();
+				menu.Append (separator);
+				
+				foreach (NotebookMenuItem item in GetNotebookMenuItems ()) {
+					item.ShowAll ();
+					menu.Append (item);
+				}
 			}
 
 			submenuBuilt = true;
