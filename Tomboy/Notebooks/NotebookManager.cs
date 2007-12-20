@@ -226,6 +226,40 @@ namespace Tomboy.Notebooks
 			
 			return false;
 		}
+		
+		/// <summary>
+		/// Prompt the user to create a new notebook
+		/// </summary>
+		/// <param name="parent">
+		/// A <see cref="Gtk.Window"/> that will be used in the child dialog or
+		/// null if none is available.
+		/// </param>
+		/// <returns>If successful, returns the newly created notebook.</returns>
+		public static Notebook PromptCreateNewNotebook (Gtk.Window parent)
+		{
+			// Prompt the user for the name of a new notebook
+			Notebooks.CreateNotebookDialog dialog =
+				new Notebooks.CreateNotebookDialog (parent,
+							Gtk.DialogFlags.Modal
+								| Gtk.DialogFlags.DestroyWithParent
+								| Gtk.DialogFlags.NoSeparator);
+			
+			
+			int response = dialog.Run ();
+			string notebookName = dialog.NotebookName;
+			dialog.Destroy ();
+			if (response != (int) Gtk.ResponseType.Ok)
+				return null;
+			
+			Notebooks.Notebook notebook = GetOrCreateNotebook (notebookName);
+			if (notebook == null) {
+				Logger.Warn ("Could not create notebook: {0}", notebookName);
+			} else {
+				Logger.Debug ("Created the notebook: {0} ({1})", notebook.Name, notebook.NormalizedName);
+			}
+			
+			return notebook;
+		}
 		#endregion // Public Methods
 		
 		#region Private Methods
