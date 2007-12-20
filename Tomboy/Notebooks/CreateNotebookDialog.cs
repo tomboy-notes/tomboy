@@ -31,8 +31,8 @@ namespace Tomboy.Notebooks
 			
 			errorLabel = new Gtk.Label ();
 			errorLabel.Xalign = 0;
-			errorLabel.Markup = Catalog.GetString ("<span foreground='red' style='italic'>" +
-			                                       "Name already taken</span>");
+			errorLabel.Markup = string.Format("<span foreground='red' style='italic'>{0}</span>",
+			                                  Catalog.GetString ("Name already taken"));
 			
 			table.Attach (label, 0, 1, 0, 1);
 			table.Attach (nameEntry, 1, 2, 0, 1);
