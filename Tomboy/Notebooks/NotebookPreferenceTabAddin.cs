@@ -136,7 +136,7 @@ namespace Tomboy.Notebooks
 									  Gtk.ButtonsType.YesNo,
 									  Catalog.GetString ("Really remove this notebook?"),
 									  Catalog.GetString (
-									  	"The notes that belong to this notebook will note be " +
+									  	"The notes that belong to this notebook will not be " +
 									  	"removed, but they will no longer be associated with " +
 									  	"this notebook.  This action cannot be undone."));
 			Gtk.CheckButton removeTemplateNoteButton =
