@@ -61,6 +61,15 @@ namespace Tomboy.Notebooks
 			return null;
 		}
 		
+		public static bool NotebookExists (string notebookName)
+		{
+			string normalizedName = notebookName.Trim ().ToLower ();
+			if (notebookMap.ContainsKey (normalizedName)) {
+				return true;
+			}
+			return false;
+		}
+		
 		public static Notebook GetOrCreateNotebook (string notebookName)
 		{
 			if (notebookName == null)

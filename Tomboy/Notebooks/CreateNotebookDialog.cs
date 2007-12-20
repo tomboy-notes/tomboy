@@ -7,6 +7,7 @@ namespace Tomboy.Notebooks
 	public class CreateNotebookDialog : HIGMessageDialog
 	{
 		Gtk.Entry nameEntry;
+		Gtk.Label errorLabel;
 		
 		public CreateNotebookDialog(Gtk.Window parent,
 									Gtk.DialogFlags flags)
@@ -15,7 +16,7 @@ namespace Tomboy.Notebooks
 						Catalog.GetString ("Create a new notebook"),
 						Catalog.GetString ("Type the name of the notebook you'd like to create."))
 		{
-			Gtk.HBox hbox = new Gtk.HBox (false, 6);
+			Gtk.Table table = new Gtk.Table (2, 2, false);
 			
 			Gtk.Label label = new Gtk.Label (Catalog.GetString ("N_otebook name:"));
 			label.Xalign = 0;
@@ -28,11 +29,17 @@ namespace Tomboy.Notebooks
 			nameEntry.Show ();
 			label.MnemonicWidget = nameEntry;
 			
-			hbox.PackStart (label, false, false, 0);
-			hbox.PackStart (nameEntry, true, true, 0);
-			hbox.Show ();
+			errorLabel = new Gtk.Label ();
+			errorLabel.Xalign = 0;
+			errorLabel.Markup = Catalog.GetString ("<span foreground='red' style='italic'>" +
+			                                       "Name already taken</span>");
 			
-			ExtraWidget = hbox;
+			table.Attach (label, 0, 1, 0, 1);
+			table.Attach (nameEntry, 1, 2, 0, 1);
+			table.Attach (errorLabel, 1, 2, 1, 2);
+			table.Show ();
+			
+			ExtraWidget = table;
 			
 			AddButton (Gtk.Stock.Cancel, Gtk.ResponseType.Cancel, false);
 			AddButton (Gtk.Stock.New, Gtk.ResponseType.Ok, true);
@@ -40,6 +47,7 @@ namespace Tomboy.Notebooks
 			// Only let the Ok response be sensitive when
 			// there's something in nameEntry
 			SetResponseSensitive (Gtk.ResponseType.Ok, false);
+			errorLabel.Hide ();
 		}
 		
 		public string NotebookName
@@ -58,11 +66,20 @@ namespace Tomboy.Notebooks
 		}
 		
 		// Enable the Ok response only if there's text in the nameEntry
+		// and the Notebook's name hasn't already been taken
 		private void OnNameEntryChanged (object sender, EventArgs args)
 		{
+			bool nameTaken = false;
+			if (Notebooks.NotebookManager.NotebookExists (NotebookName)) {
+				errorLabel.Show ();
+				nameTaken = true;
+			} else {
+				errorLabel.Hide ();
+			}
+			
 			SetResponseSensitive (
 					Gtk.ResponseType.Ok,
-					NotebookName == string.Empty ? false : true);
+					NotebookName == string.Empty || nameTaken ? false : true);
 		}
 	}
 }
