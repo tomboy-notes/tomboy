@@ -222,7 +222,7 @@ namespace Tomboy
 
 		Gtk.TreeView MakeNotebooksTree ()
 		{
-			Gtk.TreeView t = new Gtk.TreeView (Notebooks.NotebookManager.Notebooks);
+			Gtk.TreeView t = new Gtk.TreeView (Notebooks.NotebookManager.NotebooksWithAllNotesItem);
 			t.HeadersVisible = true;
 			t.RulesHint = true;
 			
@@ -966,6 +966,7 @@ namespace Tomboy
 				Gtk.CellRenderer renderer, Gtk.TreeModel model,
 				Gtk.TreeIter iter)
 		{
+			// TODO: Use a different icon if it's the AllNotesNotebook
 			Gtk.CellRendererPixbuf crp = renderer as Gtk.CellRendererPixbuf;
 			crp.Pixbuf = note_icon;  // TODO: Get a tomboy-notebook icon
 		}
@@ -974,6 +975,7 @@ namespace Tomboy
 				Gtk.CellRenderer renderer, Gtk.TreeModel model,
 				Gtk.TreeIter iter)
 		{
+			// TODO: Make the text bold if this is the AllNotesNotebook
 			Gtk.CellRendererText crt = renderer as Gtk.CellRendererText;
 			Notebooks.Notebook notebook = model.GetValue (iter, 0) as Notebooks.Notebook;
 			if (notebook == null)
@@ -993,7 +995,8 @@ namespace Tomboy
 			} else {
 				Notebooks.Notebook notebook = model.GetValue (iter, 0) as Notebooks.Notebook;
 				selected_tags.Clear ();
-				selected_tags.Add (notebook.Tag, notebook.Tag);
+				if (notebook.Tag != null)
+					selected_tags.Add (notebook.Tag, notebook.Tag);
 			}
 			
 			UpdateResults ();

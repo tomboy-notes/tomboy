@@ -50,14 +50,14 @@ namespace Tomboy.Notebooks
 		/// <summary>
 		/// Default constructor not used
 		/// </summary>
-		private Notebook ()
+		protected Notebook ()
 		{
 		}
 		
 		#endregion // Constructors
 		
 		#region Properties
-		public string Name
+		public virtual string Name
 		{
 			get {
 				return name;
@@ -83,14 +83,14 @@ namespace Tomboy.Notebooks
 			}
 		}
 		
-		public string NormalizedName
+		public virtual string NormalizedName
 		{
 			get {
 				return normalizedName;
 			}
 		}
 		
-		public Tag Tag
+		public virtual Tag Tag
 		{
 			get {
 				return tag;
