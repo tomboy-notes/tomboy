@@ -287,6 +287,48 @@ namespace Tomboy.Notebooks
 			
 			return notebook;
 		}
+		
+		/// <summary>
+		/// Prompt the user and remove the notebok (if they say so).
+		/// </summary>
+		/// <param name="parent">
+		/// A <see cref="Gtk.Window"/>
+		/// </param>
+		/// <param name="notebook">
+		/// A <see cref="Notebook"/>
+		/// </param>
+		public static void PromptRemoveNotebook (Gtk.Window parent, Notebook notebook)
+		{
+			// Confirmation Dialog
+			HIGMessageDialog dialog =
+				new HIGMessageDialog (parent,
+									  Gtk.DialogFlags.Modal,
+									  Gtk.MessageType.Question,
+									  Gtk.ButtonsType.YesNo,
+									  Catalog.GetString ("Really remove this notebook?"),
+									  Catalog.GetString (
+									  	"The notes that belong to this notebook will not be " +
+									  	"removed, but they will no longer be associated with " +
+									  	"this notebook.  This action cannot be undone."));
+			Gtk.CheckButton removeTemplateNoteButton =
+				new Gtk.CheckButton (Catalog.GetString ("Also _delete notebook's template note"));
+			removeTemplateNoteButton.Show ();
+			dialog.ExtraWidget = removeTemplateNoteButton;
+			int response = dialog.Run ();
+			bool removeTemplateNote = removeTemplateNoteButton.Active;
+			dialog.Destroy ();
+			if (response != (int) Gtk.ResponseType.Yes)
+				return;
+			
+			RemoveNotebook (notebook);
+			if (removeTemplateNote) {
+				Note templateNote = notebook.GetTemplateNote ();
+				if (templateNote != null) {
+					NoteManager noteManager = Tomboy.DefaultNoteManager;
+					noteManager.Delete (templateNote);
+				}
+			}
+		}
 		#endregion // Public Methods
 		
 		#region Private Methods
@@ -339,29 +381,5 @@ namespace Tomboy.Notebooks
         	return true;
         }
 		#endregion // Private Methods
-		
-		#region Internal Classes
-		class AllNotesNotebook : Notebook
-		{
-			public AllNotesNotebook () : base ()
-			{
-			}
-			
-			public override string Name
-			{
-				get { return Catalog.GetString ("All Notes"); }
-			}
-			
-			public override string NormalizedName
-			{
-				get { return "___NotebookManager___AllNotes__Notebook___"; }
-			}
-			
-			public override Tag Tag
-			{
-				get { return null; }
-			}
-		}
-		#endregion
 	}
 }
