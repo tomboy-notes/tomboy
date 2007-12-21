@@ -1,5 +1,19 @@
 2007-12-20  Boyd Timothy <btimothy@gmail.com> 
 
+	* Tomboy/RecentChanges.cs: Use NotebooksWithAllNotesItem from
+	  NotebookManager to allow the "All Notebooks" item to be at
+	  the top of the notebooks TreeView.  Make sure no tags are
+	  added to selected_tags when "All Notebooks" is selected.
+	* Tomboy/Notebooks/NotebookManager.cs: Add in an AllNotesNotebook
+	  and filter it out in most cases.  Provide this for the
+	  Search All Notes window so that it can automatically be
+	  part of the TreeView without extra fiddling.
+	* Tomboy/Notebooks/Notebook.cs: Add 'virtual' keyword onto
+	  the properties so this class can be overridden by the
+	  AllNotesNotebook class.
+
+2007-12-20  Boyd Timothy <btimothy@gmail.com> 
+
 	Removing the tagging UI again in favor of notebooking:
 
 	* Tomboy/RecentChanges.cs: Removed the tagging TreeView and

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Mono.Unix;
 using Tomboy;
 
 namespace Tomboy.Notebooks
@@ -12,6 +13,7 @@ namespace Tomboy.Notebooks
 		#region Fields
 		static Gtk.ListStore notebooks;
 		static Gtk.TreeModelSort sortedNotebooks;
+		static Gtk.TreeModelFilter filteredNotebooks;
 		static Dictionary<string, Gtk.TreeIter> notebookMap;
 		static object locker = new object ();
 		#endregion // Fields
@@ -24,6 +26,13 @@ namespace Tomboy.Notebooks
 			sortedNotebooks = new Gtk.TreeModelSort (notebooks);
 			sortedNotebooks.SetSortFunc (0, new Gtk.TreeIterCompareFunc (CompareNotebooksSortFunc));
 			sortedNotebooks.SetSortColumnId (0, Gtk.SortType.Ascending);
+			
+			filteredNotebooks = new Gtk.TreeModelFilter (sortedNotebooks, null);
+			filteredNotebooks.VisibleFunc = FilterNotebooks;
+			
+			AllNotesNotebook allNotesNotebook = new AllNotesNotebook ();
+			Gtk.TreeIter iter = notebooks.Append ();
+			notebooks.SetValue (iter, 0, allNotesNotebook);
 
 			// <summary>
 			// The key for this dictionary is Notebook.Name.ToLower ().
@@ -36,6 +45,24 @@ namespace Tomboy.Notebooks
 		
 		#region Properties
 		public static Gtk.TreeModel Notebooks
+		{
+			get {
+				return filteredNotebooks;
+			}
+		}
+		
+		/// <summary>
+		/// A Gtk.TreeModel that contains all of the items in the
+		/// NotebookManager TreeStore including the "All Notes"
+		/// item which is used in the "Search All Notes" window.
+		/// </summary>
+		/// <param name="notebookName">
+		/// A <see cref="System.String"/>
+		/// </param>
+		/// <returns>
+		/// A <see cref="Notebook"/>
+		/// </returns>
+		public static Gtk.TreeModel NotebooksWithAllNotesItem
 		{
 			get {
 				return sortedNotebooks;
@@ -272,6 +299,11 @@ namespace Tomboy.Notebooks
 
 			if (notebook_a == null || notebook_b == null)
 				return 0;
+			
+			if (notebook_a is AllNotesNotebook)
+				return -1;
+			else if (notebook_b is AllNotesNotebook)
+				return 1;
 
 			return string.Compare (notebook_a.Name, notebook_b.Name);
 		}
@@ -294,6 +326,42 @@ namespace Tomboy.Notebooks
 				notebookMap [notebook.NormalizedName] = iter;
 			}
 		}
+
+        /// <summary>
+        /// Filter out the "All Notes" item from the model
+        /// </summary>
+        static bool FilterNotebooks (Gtk.TreeModel model, Gtk.TreeIter iter)
+        {
+        	Notebook notebook = model.GetValue (iter, 0) as Notebook;
+        	if (notebook == null || notebook is AllNotesNotebook)
+        		return false;
+        	
+        	return true;
+        }
 		#endregion // Private Methods
+		
+		#region Internal Classes
+		class AllNotesNotebook : Notebook
+		{
+			public AllNotesNotebook () : base ()
+			{
+			}
+			
+			public override string Name
+			{
+				get { return Catalog.GetString ("All Notes"); }
+			}
+			
+			public override string NormalizedName
+			{
+				get { return "___NotebookManager___AllNotes__Notebook___"; }
+			}
+			
+			public override Tag Tag
+			{
+				get { return null; }
+			}
+		}
+		#endregion
 	}
 }
