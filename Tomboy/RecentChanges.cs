@@ -21,6 +21,8 @@ namespace Tomboy
                 Gtk.TreeViewColumn matches_column;
 				
 				Gtk.TreeView notebooksTree;
+				Gtk.Button addNotebookButton;
+				Gtk.Button removeNotebookButton;
 				
                 // Use the following like a Set
 		        Dictionary<Tag, Tag> selected_tags;
@@ -46,12 +48,16 @@ namespace Tomboy
                 };
 
                 static Gdk.Pixbuf note_icon;
+                static Gdk.Pixbuf all_notes_icon;
+                static Gdk.Pixbuf notebook_icon;
                 static ArrayList previous_searches;
                 static NoteRecentChanges instance;
 
                 static NoteRecentChanges ()
                 {
                         note_icon = GuiUtils.GetIcon ("tomboy-note", 22);
+                        all_notes_icon = GuiUtils.GetIcon ("tomboy-all-notes", 22);
+                        notebook_icon = GuiUtils.GetIcon ("tomboy-notebook", 22);
                 }
 
                 public static NoteRecentChanges GetInstance (NoteManager manager)
@@ -120,14 +126,9 @@ namespace Tomboy
                         hbox.PackStart (table, true, true, 0);
                         hbox.ShowAll ();
 						
-						notebooksTree = MakeNotebooksTree ();
-						notebooksTree.Show ();
-						Gtk.ScrolledWindow sw = new Gtk.ScrolledWindow ();
-						sw.HscrollbarPolicy = Gtk.PolicyType.Automatic;
-						sw.VscrollbarPolicy = Gtk.PolicyType.Automatic;
-						sw.ShadowType = Gtk.ShadowType.In;
-						sw.Add (notebooksTree);
-						sw.Show ();
+						// Notebooks Pane
+						Gtk.Widget notebooksPane = MakeNotebooksPane ();
+						notebooksPane.Show ();
                         
                         MakeRecentTree ();
                         tree.Show ();
@@ -167,7 +168,7 @@ namespace Tomboy
 
 					   Gtk.HPaned hpaned = new Gtk.HPaned ();
 					   hpaned.Position = 150;
-						hpaned.Add1 (sw);
+						hpaned.Add1 (notebooksPane);
 					   hpaned.Add2 (matches_window);
 					   hpaned.Show ();
 
@@ -220,17 +221,21 @@ namespace Tomboy
                         return menubar;
                 }
 
-		Gtk.TreeView MakeNotebooksTree ()
+		Gtk.Widget MakeNotebooksPane ()
 		{
-			Gtk.TreeView t = new Gtk.TreeView (Notebooks.NotebookManager.NotebooksWithAllNotesItem);
-			t.HeadersVisible = true;
-			t.RulesHint = true;
+			Gtk.VBox vbox = new Gtk.VBox (false, 0);
+
+			notebooksTree = new Gtk.TreeView (Notebooks.NotebookManager.NotebooksWithAllNotesItem);
+			notebooksTree.Selection.Mode = Gtk.SelectionMode.Single;
+			notebooksTree.HeadersVisible = true;
+			notebooksTree.RulesHint = false;
 			
 			Gtk.CellRenderer renderer;
 			
 			Gtk.TreeViewColumn column = new Gtk.TreeViewColumn ();
 			column.Title = Catalog.GetString ("Notebooks");
 			column.Sizing = Gtk.TreeViewColumnSizing.Autosize;
+			column.Resizable = false;
 			
 			renderer = new Gtk.CellRendererPixbuf ();
 			column.PackStart (renderer, false);
@@ -242,11 +247,38 @@ namespace Tomboy
 			column.SetCellDataFunc (renderer,
 				new Gtk.TreeCellDataFunc (NotebookTextCellDataFunc));
 			
-			t.AppendColumn (column);
+			notebooksTree.AppendColumn (column);
 			
-			t.Selection.Changed += OnNotebookSelectionChanged;
+			notebooksTree.RowActivated += OnNotebookRowActivated;
+			notebooksTree.Selection.Changed += OnNotebookSelectionChanged;
 			
-			return t;
+			notebooksTree.Show ();
+			Gtk.ScrolledWindow sw = new Gtk.ScrolledWindow ();
+			sw.HscrollbarPolicy = Gtk.PolicyType.Automatic;
+			sw.VscrollbarPolicy = Gtk.PolicyType.Automatic;
+			sw.ShadowType = Gtk.ShadowType.In;
+			sw.Add (notebooksTree);
+			sw.Show ();
+			
+			Gtk.HButtonBox hButtonBox = new Gtk.HButtonBox ();
+			hButtonBox.Layout = Gtk.ButtonBoxStyle.End;
+			hButtonBox.Show ();
+			
+			removeNotebookButton = new Gtk.Button (Gtk.Stock.Remove);
+			removeNotebookButton.Clicked += OnRemoveNotebookButtonClicked;
+			removeNotebookButton.Sensitive = false;
+			removeNotebookButton.Show ();
+			hButtonBox.PackStart (removeNotebookButton, false, false, 0);
+
+			addNotebookButton = new Gtk.Button (Gtk.Stock.Add);
+			addNotebookButton.Clicked += OnAddNotebookButtonClicked;
+			addNotebookButton.Show ();
+			hButtonBox.PackStart (addNotebookButton, false, false, 0);
+			
+			vbox.PackStart (sw, true, true, 0);
+			vbox.PackStart (hButtonBox, false, false, 0);
+			
+			return vbox;
 		}
 
                 void MakeRecentTree ()
@@ -805,11 +837,14 @@ namespace Tomboy
                         }
                 }
 
-                protected override void OnShown ()
-                {
-                        find_combo.Entry.GrabFocus ();
-                        base.OnShown ();
-                }
+		protected override void OnShown ()
+		{
+			// Select "All Notes" in the notebooks list
+			SelectAllNotesNotebook ();
+			
+			find_combo.Entry.GrabFocus ();
+			base.OnShown ();
+		}
 
                 int CompareTitles (Gtk.TreeModel model, Gtk.TreeIter a, Gtk.TreeIter b)
                 {
@@ -966,9 +1001,16 @@ namespace Tomboy
 				Gtk.CellRenderer renderer, Gtk.TreeModel model,
 				Gtk.TreeIter iter)
 		{
-			// TODO: Use a different icon if it's the AllNotesNotebook
+			Notebooks.Notebook notebook = model.GetValue (iter, 0) as Notebooks.Notebook;
+			if (notebook == null)
+				return;
+			
 			Gtk.CellRendererPixbuf crp = renderer as Gtk.CellRendererPixbuf;
-			crp.Pixbuf = note_icon;  // TODO: Get a tomboy-notebook icon
+			if (notebook is Notebooks.AllNotesNotebook) {
+				crp.Pixbuf = all_notes_icon;
+			} else {
+				crp.Pixbuf = notebook_icon;
+			}
 		}
 		
 		private void NotebookTextCellDataFunc (Gtk.TreeViewColumn treeColumn,
@@ -978,28 +1020,92 @@ namespace Tomboy
 			// TODO: Make the text bold if this is the AllNotesNotebook
 			Gtk.CellRendererText crt = renderer as Gtk.CellRendererText;
 			Notebooks.Notebook notebook = model.GetValue (iter, 0) as Notebooks.Notebook;
-			if (notebook == null)
+			if (notebook == null) {
 				crt.Text = String.Empty;
-			else
+				return;
+			}
+			
+			crt.Text = notebook.Name;
+
+			if (notebook is Notebooks.AllNotesNotebook) {
+				// Bold the All Notes item
+				crt.Markup = string.Format ("<span weight=\"bold\">{0}</span>", notebook.Name);
+			} else {
 				crt.Text = notebook.Name;
+			}
 		}
 		
 		private void OnNotebookSelectionChanged (object sender, EventArgs args)
 		{
-			Gtk.TreeModel model;
-			Gtk.TreeIter iter;
-			
-			if (notebooksTree.Selection.GetSelected (out model, out iter) == false) {
+			Notebooks.Notebook notebook = GetSelectedNotebook ();
+			if (notebook == null) {
 				// Clear out the currently selected tags so that no notebook is selected
 				selected_tags.Clear ();
+				removeNotebookButton.Sensitive = false;
+				
+				// Select the "All Notes" item without causing
+				// this handler to be called again
+				notebooksTree.Selection.Changed -= OnNotebookSelectionChanged;
+				SelectAllNotesNotebook ();
+				notebooksTree.Selection.Changed += OnNotebookSelectionChanged;
 			} else {
-				Notebooks.Notebook notebook = model.GetValue (iter, 0) as Notebooks.Notebook;
 				selected_tags.Clear ();
 				if (notebook.Tag != null)
 					selected_tags.Add (notebook.Tag, notebook.Tag);
+				if (notebook is Notebooks.AllNotesNotebook)
+					removeNotebookButton.Sensitive = false;
+				else
+					removeNotebookButton.Sensitive = true;
 			}
 			
 			UpdateResults ();
+		}
+		
+		void OnAddNotebookButtonClicked (object sender, EventArgs args)
+		{
+			Notebooks.NotebookManager.PromptCreateNewNotebook (this);
+		}
+		
+		void OnRemoveNotebookButtonClicked (object sender, EventArgs args)
+		{
+			Notebooks.Notebook notebook = GetSelectedNotebook ();
+			if (notebook == null)
+				return;
+			
+			Notebooks.NotebookManager.PromptRemoveNotebook (this, notebook);
+		}
+
+		// Open the notebook's note template when activated
+		private void OnNotebookRowActivated (object sender, Gtk.RowActivatedArgs args)
+		{
+			Notebooks.Notebook notebook = GetSelectedNotebook ();
+			if (notebook == null || notebook is Notebooks.AllNotesNotebook)
+				return;
+			
+			Note templateNote = notebook.GetTemplateNote ();
+			if (templateNote == null)
+				return; // something seriously went wrong
+			
+			templateNote.Window.Present ();
+		}
+		
+		private Notebooks.Notebook GetSelectedNotebook ()
+		{
+			Gtk.TreeModel model;
+			Gtk.TreeIter iter;
+			
+			if (notebooksTree.Selection.GetSelected (out model, out iter) == false)
+				return null; // Nothing selected
+			
+			return model.GetValue (iter, 0) as Notebooks.Notebook;
+		}
+		
+		private void SelectAllNotesNotebook ()
+		{
+			Gtk.TreeIter iter;
+			if (notebooksTree.Model.GetIterFirst (out iter) == true) {
+				notebooksTree.Selection.SelectIter (iter);
+			}
 		}
 		
                 public string SearchText

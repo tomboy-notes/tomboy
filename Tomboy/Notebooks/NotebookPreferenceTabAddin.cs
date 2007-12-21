@@ -68,7 +68,7 @@ namespace Tomboy.Notebooks
 			vbox.PackStart (sw, true, true, 0);
 			
 			Gtk.HButtonBox hButtonBox = new Gtk.HButtonBox ();
-			hButtonBox.Layout = Gtk.ButtonBoxStyle.Edge;
+			hButtonBox.Layout = Gtk.ButtonBoxStyle.End;
 			hButtonBox.Show ();
 			
 			openTemplateNoteButton = new Gtk.Button (Catalog.GetString ("_Template Note"));

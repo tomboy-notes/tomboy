@@ -157,4 +157,32 @@ namespace Tomboy.Notebooks
 		#region Private Methods
 		#endregion // Private Methods
 	}
+
+	/// <summary>
+	/// A special notebook that represents really "no notebook" as
+	/// being selected.  This notebook is used in the Search All
+	/// Notes Window to allow users to select it at the top of the
+	/// list so that all notes are shown.
+	/// </summary>
+	public class AllNotesNotebook : Notebook
+	{
+		public AllNotesNotebook () : base ()
+		{
+		}
+		
+		public override string Name
+		{
+			get { return Catalog.GetString ("All Notes"); }
+		}
+		
+		public override string NormalizedName
+		{
+			get { return "___NotebookManager___AllNotes__Notebook___"; }
+		}
+		
+		public override Tag Tag
+		{
+			get { return null; }
+		}
+	}
 }

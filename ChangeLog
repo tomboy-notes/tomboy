@@ -1,5 +1,29 @@
 2007-12-20  Boyd Timothy <btimothy@gmail.com> 
 
+	* Tomboy/RecentChanges.cs: Add add/remove buttons so users
+	  can add/remove notebooks directly in this window.  Stubbed-out
+	  tomboy-all-notes.png and tomboy-notebook.png.  Added event
+	  handlers for all the notebook list interaction including when
+	  you activate a row, it will open the template note.
+	* Tomboy/Notebooks/NotebookManager.cs: Add PromptRemoveNotebook()
+	  so any code can ask the user to remove a notebook.  Moved
+	  the AllNotesNotebook class into Notebook.cs.
+	* Tomboy/Notebooks/Notebook.cs: Added AllNotesNotebook class to
+	  this file.
+	* Tomboy/Notebooks/NotebookApplicationAddin.cs: Don't open the
+	  template note directly after creating a notebook.
+	* Tomboy/Notebooks/NotebookPreferenceTabAddin.cs: Use end-style
+	  in HButtonBox.
+	* Tomboy/Makefile.am: Add tomboy-all-notes-22.png and
+	  tomboy-notebook-22.png as resources.
+	* data/images/Makefile.am: Install tomboy-all-notes-22.png and
+	  tomboy-notebook-22.png.
+	* data/images/tomboy-all-notes-22.png: Stubbed an icon (needs
+	  some artist help!).
+	* data/images/tomboy-notebook-22.png: Ditto.
+
+2007-12-20  Boyd Timothy <btimothy@gmail.com> 
+
 	* Tomboy/RecentChanges.cs: Use NotebooksWithAllNotesItem from
 	  NotebookManager to allow the "All Notebooks" item to be at
 	  the top of the notebooks TreeView.  Make sure no tags are

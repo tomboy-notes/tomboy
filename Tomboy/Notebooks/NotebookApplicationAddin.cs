@@ -163,11 +163,7 @@ namespace Tomboy.Notebooks
 		
 		private void OnNewNotebookMenuItem (object sender, EventArgs args)
 		{
-			Notebook notebook = NotebookManager.PromptCreateNewNotebook (null);
-			if (notebook != null) {
-				// Open the template note
-				notebook.GetTemplateNote ().Window.Present ();
-			}
+			NotebookManager.PromptCreateNewNotebook (null);
 		}
 	}
 }

@@ -88,6 +88,8 @@ RESOURCES = 										\
 	-resource:$(top_srcdir)/data/UIManagerLayout.xml	\
 	-resource:$(top_srcdir)/data/images/tomboy.png,tomboy.png			\
 	-resource:$(top_srcdir)/data/images/tomboy-note-16.png,tomboy-note.png		\
+	-resource:$(top_srcdir)/data/images/tomboy-all-notes-22.png,tomboy-all-notes.png		\
+	-resource:$(top_srcdir)/data/images/tomboy-notebook-22.png,tomboy-notebook.png		\
 	-resource:$(top_srcdir)/data/images/gnome-searchtool.png,gnome-searchtool.png	\
 	-resource:$(top_srcdir)/data/images/pinup.png,pinup.png				\
 	-resource:$(top_srcdir)/data/images/pinup-active.png,pinup-active.png		\
