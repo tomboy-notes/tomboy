@@ -1,3 +1,28 @@
+2007-12-22  Boyd Timothy <btimothy@gmail.com> 
+
+	* Tomboy.mdp: NotebookPreferenceTabAddin.cs.
+
+	* Tomboy/RecentChanges.cs: Removed the add/remove notebooks
+	  buttons that were under the TreeView and moved the functionality
+	  into the File/Edit and context menu.
+
+	* Tomboy/Tomboy.addin.xml: Removed the NotebookPreferenceTabAddin.
+
+	* Tomboy/Notebooks/NotebookManager.cs: Renamed RemoveNotebook items
+	  to DeleteNotebook*.
+
+	* Tomboy/Notebooks/NotebookApplicationAddin.cs: Added code so the
+	  Open Notebook Template Note and Delete Notebook actions will be
+	  available.
+
+	* Tomboy/Notebooks/NotebookPreferenceTabAddin.cs: Deleted this
+	  file/feature now that users can manipulate notebooks from the
+	  Search All Notes window.
+
+	* data/UIManagerLayout.xml: Added a placeholder surrounding the
+	  DeleteNoteAction so that the DeleteNotebookAction could be
+	  placed directly underneath it.
+
 2007-12-21  Boyd Timothy <btimothy@gmail.com> 
 
 	* Tomboy/Notebooks/NotebookNoteAddin.cs: Adjusted a GetString
