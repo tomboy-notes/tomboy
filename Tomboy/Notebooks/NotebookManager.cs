@@ -133,15 +133,15 @@ namespace Tomboy.Notebooks
 		}
 		
 		/// <summary>
-		/// Remove the specified notebook from the system
+		/// Delete the specified notebook from the system
 		/// </summary>
 		/// <param name="notebook">
 		/// A <see cref="Notebook"/>
 		/// </param>
-		public static void RemoveNotebook (Notebook notebook)
+		public static void DeleteNotebook (Notebook notebook)
 		{
 			if (notebook == null)
-				throw new ArgumentNullException ("NotebookManager.RemoveNotebook () called with a null argument.");
+				throw new ArgumentNullException ("NotebookManager.DeleteNotebook () called with a null argument.");
 			
 			if (notebookMap.ContainsKey (notebook.NormalizedName) == false)
 				return;
@@ -289,7 +289,7 @@ namespace Tomboy.Notebooks
 		}
 		
 		/// <summary>
-		/// Prompt the user and remove the notebok (if they say so).
+		/// Prompt the user and delete the notebok (if they say so).
 		/// </summary>
 		/// <param name="parent">
 		/// A <see cref="Gtk.Window"/>
@@ -297,7 +297,7 @@ namespace Tomboy.Notebooks
 		/// <param name="notebook">
 		/// A <see cref="Notebook"/>
 		/// </param>
-		public static void PromptRemoveNotebook (Gtk.Window parent, Notebook notebook)
+		public static void PromptDeleteNotebook (Gtk.Window parent, Notebook notebook)
 		{
 			// Confirmation Dialog
 			HIGMessageDialog dialog =
@@ -305,23 +305,23 @@ namespace Tomboy.Notebooks
 									  Gtk.DialogFlags.Modal,
 									  Gtk.MessageType.Question,
 									  Gtk.ButtonsType.YesNo,
-									  Catalog.GetString ("Really remove this notebook?"),
+									  Catalog.GetString ("Really delete this notebook?"),
 									  Catalog.GetString (
 									  	"The notes that belong to this notebook will not be " +
-									  	"removed, but they will no longer be associated with " +
+									  	"deleted, but they will no longer be associated with " +
 									  	"this notebook.  This action cannot be undone."));
-			Gtk.CheckButton removeTemplateNoteButton =
+			Gtk.CheckButton deleteTemplateNoteButton =
 				new Gtk.CheckButton (Catalog.GetString ("Also _delete notebook's template note"));
-			removeTemplateNoteButton.Show ();
-			dialog.ExtraWidget = removeTemplateNoteButton;
+			deleteTemplateNoteButton.Show ();
+			dialog.ExtraWidget = deleteTemplateNoteButton;
 			int response = dialog.Run ();
-			bool removeTemplateNote = removeTemplateNoteButton.Active;
+			bool deleteTemplateNote = deleteTemplateNoteButton.Active;
 			dialog.Destroy ();
 			if (response != (int) Gtk.ResponseType.Yes)
 				return;
 			
-			RemoveNotebook (notebook);
-			if (removeTemplateNote) {
+			DeleteNotebook (notebook);
+			if (deleteTemplateNote) {
 				Note templateNote = notebook.GetTemplateNote ();
 				if (templateNote != null) {
 					NoteManager noteManager = Tomboy.DefaultNoteManager;
