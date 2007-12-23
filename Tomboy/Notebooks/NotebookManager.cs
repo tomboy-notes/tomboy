@@ -17,6 +17,13 @@ namespace Tomboy.Notebooks
 		static Dictionary<string, Gtk.TreeIter> notebookMap;
 		static object locker = new object ();
 		#endregion // Fields
+		
+		public delegate void NotebookEventHandler (Note note, Notebook notebook);
+		
+		#region Events
+		public static event NotebookEventHandler NoteAddedToNotebook;
+		public static event NotebookEventHandler NoteRemovedFromNotebook;
+		#endregion // Events
 
 		#region Constructors
 		static NotebookManager ()
@@ -127,6 +134,8 @@ namespace Tomboy.Notebooks
 				// Since it's possible for the template note to already
 				// exist, we need to make sure it gets tagged.
 				templateNote.AddTag (notebook.Tag);
+				if (NoteAddedToNotebook != null)
+					NoteAddedToNotebook (templateNote, notebook);
 			}
 
 			return notebook;
@@ -162,6 +171,8 @@ namespace Tomboy.Notebooks
 				// Remove the notebook tag from every note that's in the notebook
 				foreach (Note note in notebook.Tag.Notes) {
 					note.RemoveTag (notebook.Tag);
+					if (NoteRemovedFromNotebook != null)
+						NoteRemovedFromNotebook (note, notebook);
 				}
 			}
 		}
@@ -358,11 +369,15 @@ namespace Tomboy.Notebooks
 				return true; // It's already there.
 			
 			note.RemoveTag (currentNotebook.Tag);
+			if (NoteRemovedFromNotebook != null)
+				NoteRemovedFromNotebook (note, currentNotebook);
 			
 			// Only attempt to add the notebook tag when this
 			// menu item is not the "No notebook" menu item.
 			if (notebook != null && (notebook is AllNotesNotebook) == false) {
 				note.AddTag (notebook.Tag);
+				if (NoteAddedToNotebook != null)
+					NoteAddedToNotebook (note, notebook);
 			}
 			
 			return true;

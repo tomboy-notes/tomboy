@@ -192,6 +192,12 @@ namespace Tomboy
                         this.Add (content_vbox);
                         this.DeleteEvent += OnDelete;
                         this.KeyPressEvent += OnKeyPressed; // For Escape
+                        
+                        // Watch when notes are added to notebooks so the search
+                        // results will be updated immediately instead of waiting
+                        // until the note's QueueSave () kicks in.
+                        Notebooks.NotebookManager.NoteAddedToNotebook += OnNoteAddedToNotebook;
+                        Notebooks.NotebookManager.NoteRemovedFromNotebook += OnNoteRemovedFromNotebook;
                 }
 
                 Gtk.MenuBar CreateMenuBar ()
@@ -778,6 +784,9 @@ namespace Tomboy
                         manager.NoteAdded -= OnNotesChanged;
                         manager.NoteRenamed -= OnNoteRenamed;
                         manager.NoteSaved -= OnNoteSaved;
+                        
+                        Notebooks.NotebookManager.NoteAddedToNotebook -= OnNoteAddedToNotebook;
+                        Notebooks.NotebookManager.NoteRemovedFromNotebook -= OnNoteRemovedFromNotebook;
 
                         // The following code has to be done for the MenuBar to
                         // appear properly the next time this window is opened.
@@ -1156,6 +1165,16 @@ namespace Tomboy
 			}
 		}
 		
+		private void OnNoteAddedToNotebook (Note note, Notebooks.Notebook notebook)
+		{
+			UpdateResults ();
+		}
+		
+		private void OnNoteRemovedFromNotebook (Note note, Notebooks.Notebook notebook)
+		{
+			UpdateResults ();
+		}
+
                 public string SearchText
                 {
                         get {
