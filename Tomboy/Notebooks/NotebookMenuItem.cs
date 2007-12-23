@@ -36,25 +36,7 @@ namespace Tomboy.Notebooks
 			if (note == null)
 				return;
 			
-			// TODO: In the future we may want to allow notes
-			// to exist in multiple notebooks.  For now, to
-			// alleviate the confusion, only allow a note to
-			// exist in one notebook at a time.
-			List<Tag> tagsToRemove = new List<Tag> ();
-			foreach (Tag tag in note.Tags) {
-				if (tag.NormalizedName.StartsWith (Tag.SYSTEM_TAG_PREFIX + Notebooks.Notebook.NotebookTagPrefix))
-					tagsToRemove.Add (tag);
-			}
-			
-			foreach (Tag tag in tagsToRemove) {
-				note.RemoveTag (tag);
-			}
-			
-			// Only attempt to add the notebook tag when this
-			// menu item is not the "No notebook" menu item.
-			if (notebook != null) {
-				note.AddTag (notebook.Tag);
-			}
+			NotebookManager.MoveNoteToNotebook (note, notebook);
 		}
 
 		public Note Note
