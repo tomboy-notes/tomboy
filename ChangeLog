@@ -1,6 +1,25 @@
 2007-12-22  Boyd Timothy <btimothy@gmail.com> 
 
-	* Tomboy.mdp: NotebookPreferenceTabAddin.cs.
+	Introduce drag and drop so users can drag a note into a notebook
+	in the Search All Notes Window:
+
+	* Tomboy.mdp: Added NotebooksTreeView.cs.
+
+	* Tomboy/RecentChanges.cs: Use NotebooksTreeView so drag and drop
+	  will work.
+
+	* Tomboy/Notebooks/NotebookManager.cs: Added MoveNoteToNotebook ().
+
+	* Tomboy/Notebooks/NotebooksTreeView.cs: New TreeView used to
+	  set up drag and drop.
+
+	* Tomboy/Notebooks/NotebookMenuItem.cs: Moved the move to notebook
+	  functionality out of this file and into
+	  NotebookManager.MoveToNotebook ().
+
+2007-12-22  Boyd Timothy <btimothy@gmail.com> 
+
+	* Tomboy.mdp: Removed NotebookPreferenceTabAddin.cs.
 
 	* Tomboy/RecentChanges.cs: Removed the add/remove notebooks
 	  buttons that were under the TreeView and moved the functionality

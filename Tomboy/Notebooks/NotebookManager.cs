@@ -329,6 +329,44 @@ namespace Tomboy.Notebooks
 				}
 			}
 		}
+		
+		/// <summary>
+		/// Place the specified note into the specified notebook.  If the
+		/// note already belongs to a notebook, it will be removed from that
+		/// notebook first.
+		/// </summary>
+		/// <param name="note">
+		/// A <see cref="Note"/>
+		/// </param>
+		/// <param name="notebook">
+		/// A <see cref="Notebook"/>.  If Notebook is null, the note will
+		/// be removed from its current notebook.
+		/// </param>
+		/// <returns>True if the note was successfully moved.</returns>
+		public static bool MoveNoteToNotebook (Note note, Notebook notebook)
+		{
+			if (note == null)
+				return false;
+			
+			// TODO: In the future we may want to allow notes
+			// to exist in multiple notebooks.  For now, to
+			// alleviate the confusion, only allow a note to
+			// exist in one notebook at a time.
+			
+			Notebook currentNotebook = GetNotebookFromNote (note);
+			if (currentNotebook == notebook)
+				return true; // It's already there.
+			
+			note.RemoveTag (currentNotebook.Tag);
+			
+			// Only attempt to add the notebook tag when this
+			// menu item is not the "No notebook" menu item.
+			if (notebook != null && (notebook is AllNotesNotebook) == false) {
+				note.AddTag (notebook.Tag);
+			}
+			
+			return true;
+		}
 		#endregion // Public Methods
 		
 		#region Private Methods

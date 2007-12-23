@@ -20,7 +20,7 @@ namespace Tomboy
                 Gtk.VBox content_vbox;
                 Gtk.TreeViewColumn matches_column;
 				
-				Gtk.TreeView notebooksTree;
+				Notebooks.NotebooksTreeView notebooksTree;
 				
                 // Use the following like a Set
 		        Dictionary<Tag, Tag> selected_tags;
@@ -223,7 +223,7 @@ namespace Tomboy
 
 		Gtk.Widget MakeNotebooksPane ()
 		{
-			notebooksTree = new Gtk.TreeView (Notebooks.NotebookManager.NotebooksWithAllNotesItem);
+			notebooksTree = new Notebooks.NotebooksTreeView (Notebooks.NotebookManager.NotebooksWithAllNotesItem);
 			notebooksTree.Selection.Mode = Gtk.SelectionMode.Single;
 			notebooksTree.HeadersVisible = true;
 			notebooksTree.RulesHint = false;
@@ -1155,7 +1155,6 @@ namespace Tomboy
 					break;
 			}
 		}
-
 		
                 public string SearchText
                 {
