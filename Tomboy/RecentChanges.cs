@@ -209,6 +209,7 @@ namespace Tomboy
                         am ["OpenNoteAction"].Activated += OnOpenNote;
                         am ["DeleteNoteAction"].Activated += OnDeleteNote;
                         am ["OpenNotebookTemplateNoteAction"].Activated += OnOpenNotebookTemplateNote;
+			am ["NewNotebookAction"].Activated += OnNewNotebook;
                         am ["DeleteNotebookAction"].Activated += OnDeleteNotebook;
                         am ["CloseWindowAction"].Activated += OnCloseWindow;
                         if (Tomboy.TrayIconShowing == false)
@@ -795,8 +796,9 @@ namespace Tomboy
                                 ActionManager am = Tomboy.ActionManager;
                                 am ["OpenNoteAction"].Activated -= OnOpenNote;
                                 am ["DeleteNoteAction"].Activated -= OnDeleteNote;
-		                        am ["DeleteNotebookAction"].Activated -= OnDeleteNotebook;
-		                        am ["OpenNotebookTemplateNoteAction"].Activated -= OnOpenNotebookTemplateNote;
+				am ["NewNotebookAction"].Activated -= OnNewNotebook;
+				am ["DeleteNotebookAction"].Activated -= OnDeleteNotebook;
+				am ["OpenNotebookTemplateNoteAction"].Activated -= OnOpenNotebookTemplateNote;
                                 am ["CloseWindowAction"].Activated -= OnCloseWindow;
                         }
 
@@ -1051,7 +1053,7 @@ namespace Tomboy
 				if (notebook.Tag != null)
 					selected_tags.Add (notebook.Tag, notebook.Tag);
 				if (notebook is Notebooks.AllNotesNotebook) {
-	                Tomboy.ActionManager ["OpenNotebookTemplateNoteAction"].Sensitive = false;
+	                Tomboy.ActionManager ["OpenNotebookTemplateNoteAction"].Sensitive = true;
 					Tomboy.ActionManager ["DeleteNotebookAction"].Sensitive = false;
 				} else {
 	                Tomboy.ActionManager ["OpenNotebookTemplateNoteAction"].Sensitive = true;
@@ -1062,10 +1064,10 @@ namespace Tomboy
 			UpdateResults ();
 		}
 		
-//		void OnAddNotebookButtonClicked (object sender, EventArgs args)
-//		{
-//			Notebooks.NotebookManager.PromptCreateNewNotebook (this);
-//		}
+		void OnNewNotebook (object sender, EventArgs args)
+		{
+			Notebooks.NotebookManager.PromptCreateNewNotebook (this);
+		}
 		
 		void OnDeleteNotebook (object sender, EventArgs args)
 		{
@@ -1085,7 +1087,7 @@ namespace Tomboy
 		private void OnOpenNotebookTemplateNote (object sender, EventArgs args)
 		{
 			Notebooks.Notebook notebook = GetSelectedNotebook ();
-			if (notebook == null || notebook is Notebooks.AllNotesNotebook)
+			if (notebook == null)
 				return;
 			
 			Note templateNote = notebook.GetTemplateNote ();
@@ -1120,22 +1122,30 @@ namespace Tomboy
 			switch (args.Event.Button) {
 				case 3: // third mouse button (right-click)
 					Notebooks.Notebook notebook = GetSelectedNotebook ();
-					if (notebook == null || notebook is Notebooks.AllNotesNotebook)
+					if (notebook == null)
 						return; // Don't pop open a submenu
 					
 					Gtk.TreePath path = null;
 					Gtk.TreeViewColumn column = null;
 
+					bool rowClicked = true;
+
 					if (notebooksTree.GetPathAtPos ((int) args.Event.X,
-							(int) args.Event.Y,	out path, out column) == false)
-						break;
+							(int) args.Event.Y, out path, out column) == false)
+						rowClicked = false;
 
 					Gtk.TreeSelection selection = notebooksTree.Selection;
 					if (selection.CountSelectedRows () == 0)
-						break;
+						rowClicked = false;
 
-					Gtk.Menu menu = Tomboy.ActionManager.GetWidget (
-						"/NotebooksTreeContextMenu") as Gtk.Menu;
+					Gtk.Menu menu = null;
+					if (rowClicked)
+						menu = Tomboy.ActionManager.GetWidget (
+							"/NotebooksTreeContextMenu") as Gtk.Menu;
+					else
+						menu = Tomboy.ActionManager.GetWidget (
+							"/NotebooksTreeNoRowContextMenu") as Gtk.Menu;
+					
 					PopupContextMenuAtLocation (menu,
 												(int) args.Event.X,
 												(int) args.Event.Y);

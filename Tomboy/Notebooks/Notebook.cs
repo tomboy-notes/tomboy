@@ -106,7 +106,7 @@ namespace Tomboy.Notebooks
 		/// <returns>
 		/// A <see cref="Note"/>
 		/// </returns>
-		public Note GetTemplateNote ()
+		public virtual Note GetTemplateNote ()
 		{
 			NoteManager noteManager = Tomboy.DefaultNoteManager;
 			Note note = noteManager.Find (templateNoteTitle);
@@ -183,6 +183,11 @@ namespace Tomboy.Notebooks
 		public override Tag Tag
 		{
 			get { return null; }
+		}
+		
+		public override Note GetTemplateNote ()
+		{
+			return Tomboy.DefaultNoteManager.GetOrCreateTemplateNote ();
 		}
 	}
 }
