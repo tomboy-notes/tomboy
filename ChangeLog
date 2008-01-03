@@ -1,3 +1,28 @@
+2008-01-03  Boyd Timothy <btimothy@gmail.com> 
+
+	Modified our Gtk.Toolbar usage to not use the deprecated Append () calls
+	anymore.  Also add a Notebook tool item in the NoteWindow:
+
+	* Tomboy/Utils.cs: Extend Gtk.ToggleToolButton instead of
+	  Gtk.ToggleButton to implement the ToolMenuButton class.  Removed the
+	  seemingly unnecessary vert/horiz/is_important code.
+
+	* Tomboy/RecentChanges: Ellipsize the name of the notebooks in the
+	  notebooks column.
+
+	* Tomboy/NoteWindow.cs: Modified the toolbar to use the non-deprecated
+	  methods.
+
+	* Tomboy/Notebooks/NotebookNoteAddin.cs: Use a ToolMenuButton to expose
+	  a Notebook button in the NoteWindow that will show the name of the
+	  notebook the note is in.  The user can also quickly change which
+	  notebook the note is in by clicking the button and selecting a new
+	  notebook from the submenu.  This replaces the "Place in notebook"
+	  item that was previously in the "Tools" menu.
+
+	* Tomboy/NoteAddin.cs: Allow add-ins to add a new Gtk.ToolItem to the
+	  NoteWindow.  These will be placed after the Delete button.
+
 2008-01-03  Sandy Armstrong <sanfordarmstrong@gmail.com> 
 
 	* Tomboy/Notebooks/NotebookManager.cs: Check that previous notebook isn't

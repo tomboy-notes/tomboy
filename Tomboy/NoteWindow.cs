@@ -14,7 +14,8 @@ namespace Tomboy
 		
 		Gtk.AccelGroup accel_group;
 		Gtk.Toolbar toolbar;
-		Gtk.Widget link_button;
+		Gtk.Tooltips toolbar_tips;
+		Gtk.ToolButton link_button;
 		NoteTextMenu text_menu;
 		Gtk.Menu plugin_menu;
 		Gtk.TextView editor;
@@ -244,7 +245,7 @@ public NoteWindow (Note note) :
 		// Delete this Note.
 		//
 
-		void DeleteButtonClicked ()
+		void OnDeleteButtonClicked (object sender, EventArgs args)
 		{
 			// Prompt for note deletion
 			NoteUtils.ShowDeletionDialog (note, this);
@@ -397,105 +398,81 @@ public NoteWindow (Note note) :
 
 		Gtk.Toolbar MakeToolbar ()
 		{
-			Gtk.Toolbar toolbar = new Gtk.Toolbar ();
-			toolbar.Tooltips = true;
-
-			Gtk.Widget search =
-			        toolbar.AppendItem (
-			                Catalog.GetString ("Search"),
-			                Catalog.GetString ("Search your notes (Ctrl-Shift-F)"),
-			                null,
-			                new Gtk.Image (Gtk.Stock.Find, toolbar.IconSize),
-			                new Gtk.SignalFunc (SearchButtonClicked));
+			Gtk.Toolbar tb = new Gtk.Toolbar ();
+			tb.Tooltips = true;
+			
+			toolbar_tips = new Gtk.Tooltips ();
+			
+			Gtk.ToolButton search = new Gtk.ToolButton (new Gtk.Image (Gtk.Stock.Find, tb.IconSize), Catalog.GetString ("Search"));
+			search.Clicked += SearchActivate;
+			toolbar_tips.SetTip (search, Catalog.GetString ("Search your notes (Ctrl-Shift-F)"), null);
 			search.AddAccelerator ("activate",
 			                       accel_group,
 			                       (uint) Gdk.Key.f,
 			                       (Gdk.ModifierType.ControlMask |
 			                        Gdk.ModifierType.ShiftMask),
 			                       Gtk.AccelFlags.Visible);
-
-			link_button =
-			        toolbar.AppendItem (
-			                Catalog.GetString ("Link"),
-			                Catalog.GetString (
-			                        "Link selected text to a new note (Ctrl-L)"),
-			                null,
-			                new Gtk.Image (Gtk.Stock.JumpTo, toolbar.IconSize),
-			                new Gtk.SignalFunc (LinkButtonClicked));
+			search.ShowAll ();
+			tb.Insert (search, -1);
+			
+			link_button = new Gtk.ToolButton (new Gtk.Image (Gtk.Stock.JumpTo, tb.IconSize), Catalog.GetString ("Link"));
 			link_button.Sensitive = (note.Buffer.Selection != null);
+			link_button.Clicked += LinkToNoteActivate;
+			toolbar_tips.SetTip (link_button, Catalog.GetString ("Link selected text to a new note (Ctrl-L)"), null);
 			link_button.AddAccelerator ("activate",
 			                            accel_group,
 			                            (uint) Gdk.Key.l,
 			                            Gdk.ModifierType.ControlMask,
 			                            Gtk.AccelFlags.Visible);
-
+			link_button.ShowAll ();
+			tb.Insert (link_button, -1);
+			
 			ToolMenuButton text_button =
-			        new ToolMenuButton (toolbar,
+			        new ToolMenuButton (tb,
 			                            Gtk.Stock.SelectFont,
 			                            Catalog.GetString ("_Text"),
 			                            text_menu);
-			text_button.IsImportant = true;
-			text_button.Show ();
-			toolbar.AppendWidget (text_button,
-			                      Catalog.GetString ("Set properties of text"),
-			                      null);
+			text_button.ShowAll ();
+			tb.Insert (text_button, -1);
+			toolbar_tips.SetTip (text_button, Catalog.GetString ("Set properties of text"), null);
 			
-			// TODO: Move the "Place in notebook" menu item be a toolbar
-			// menu item where the "Tags" button used to be
-			
-			// FIXME: Isn't there a better way to load an icon besides having
-			// to specify a size implicitly?  (tomboy-tag, 22)
-//			Gtk.Widget tags_button =
-//			        toolbar.AppendItem (
-//			                Catalog.GetString ("Tags"),
-//			                Catalog.GetString ("Add/Remove note tags"),
-//			                null,
-//			                new Gtk.Image (GuiUtils.GetIcon ("tomboy-tag", 22)),
-//			                new Gtk.SignalFunc (TagBarClicked));
-//			tags_button.AddAccelerator ("activate",
-//			                            accel_group,
-//			                            (uint) Gdk.Key.t,
-//			                            Gdk.ModifierType.ControlMask,
-//			                            Gtk.AccelFlags.Visible);
-
 			ToolMenuButton plugin_button =
-			        new ToolMenuButton (toolbar,
+			        new ToolMenuButton (tb,
 			                            Gtk.Stock.Execute,
 			                            Catalog.GetString ("T_ools"),
 			                            plugin_menu);
-			plugin_button.Show ();
-			toolbar.AppendWidget (plugin_button,
-			                      Catalog.GetString ("Use tools on this note"),
-			                      null);
-
-			toolbar.AppendSpace ();
-
-			Gtk.Widget delete =
-			        toolbar.AppendItem (
-			                Catalog.GetString ("Delete"),
-			                Catalog.GetString ("Delete this note"),
-			                null,
-			                new Gtk.Image (Gtk.Stock.Delete, toolbar.IconSize),
-			                new Gtk.SignalFunc (DeleteButtonClicked));
-
+			plugin_button.ShowAll ();
+			tb.Insert (plugin_button, -1);
+			toolbar_tips.SetTip (plugin_button, Catalog.GetString ("Use tools on this note"), null);
+			
+			tb.Insert (new Gtk.SeparatorToolItem (), -1);
+			
+			Gtk.ToolButton delete = new Gtk.ToolButton (Gtk.Stock.Delete);
+			delete.Clicked += OnDeleteButtonClicked;
+			delete.ShowAll ();
+			tb.Insert (delete, -1);
+			toolbar_tips.SetTip (delete, Catalog.GetString ("Delete this note"), null);
+			
 			// Don't allow deleting the "Start Here" note...
 			if (note.IsSpecial)
 				delete.Sensitive = false;
 
+			tb.Insert (new Gtk.SeparatorToolItem (), -1);
+			
 			Gtk.ImageMenuItem item =
 			        new Gtk.ImageMenuItem (Catalog.GetString ("Synchronize Notes"));
 			item.Image = new Gtk.Image (Gtk.Stock.Convert, Gtk.IconSize.Menu);
 			item.Activated += SyncItemSelected;
 			item.Show ();
 			PluginMenu.Add (item);
-
-			return toolbar;
+			
+			tb.ShowAll ();
+			return tb;
 		}
 
 		void SyncItemSelected (object sender, EventArgs args)
 		{
 			Tomboy.ActionManager ["NoteSynchronizationAction"].Activate ();
-//   SyncManager.OpenNoteSyncWindow ();
 		}
 
 		//
@@ -687,14 +664,6 @@ public NoteWindow (Note note) :
 		{
 			((NoteBuffer)editor.Buffer).ChangeCursorDepthDirectional (false);
 		}
-
-//		void TagBarClicked ()
-//		{
-//			if (tag_bar.Visible)
-//				tag_bar.Hide ();
-//			else
-//				tag_bar.Show ();
-//		}
 	}
 
 	public class NoteFindBar : Gtk.HBox

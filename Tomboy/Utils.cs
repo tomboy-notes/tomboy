@@ -18,6 +18,14 @@ namespace Tomboy
 		                             out int  y,
 		                             out bool push_in)
 		{
+			if (menu.AttachWidget == null) {
+				// Prevent null exception in weird cases
+				x = 0;
+				y = 0;
+				push_in = true;
+				return;
+			}
+			
 			menu.AttachWidget.GdkWindow.GetOrigin (out x, out y);
 			x += menu.AttachWidget.Allocation.X;
 
@@ -734,22 +742,16 @@ namespace Tomboy
 		}
 	}
 
-	class ToolMenuButton : Gtk.ToggleButton
+	class ToolMenuButton : Gtk.ToggleToolButton
 	{
-		bool is_important;
 		Gtk.Menu menu;
 		Gtk.Image image;
-		Gtk.Label label_horiz;
-		Gtk.Label label_vert;
-		Gtk.Arrow arrow;
-		Gtk.VBox box_vert;
-		Gtk.HBox box_horiz;
 
 		public ToolMenuButton (Gtk.Toolbar toolbar,
 		                       string stock_image,
 		                       string label,
 		                       Gtk.Menu menu)
-: this (toolbar,
+			: this (toolbar,
 		        new Gtk.Image (stock_image, toolbar.IconSize),
 		        label,
 		        menu)
@@ -759,50 +761,31 @@ namespace Tomboy
 		public ToolMenuButton (Gtk.Toolbar toolbar,
 		                       Gtk.Image image,
 		                       string label,
-		                       Gtk.Menu menu)
+		                       Gtk.Menu menu) : base ()
 		{
+			this.IconWidget = image;
+			Gtk.Label l = new Gtk.Label (label);
+			l.UseUnderline = true;
+			this.LabelWidget = l;
 			this.CanFocus = true;
-			this.Relief = toolbar.ReliefStyle;
-			this.FocusOnClick = false;
-
-			this.is_important = false;
-
+//			this.FocusOnClick = false; // TODO: Not supported anymore?
 			this.menu = menu;
-			this.menu.AttachToWidget (this, GuiUtils.DetachMenu);
-			this.menu.Deactivated += ReleaseButton;
+			menu.AttachToWidget (this,GuiUtils.DetachMenu);
+			menu.Deactivated += ReleaseButton;
 
-			this.image = image;
-			label_horiz = new Gtk.Label (label);
-			label_vert = new Gtk.Label (label);
-			arrow = new Gtk.Arrow (Gtk.ArrowType.Down, Gtk.ShadowType.In);
-
-			box_vert = new Gtk.VBox (false, 0);
-			box_vert.PackStart (image, true, true, 0);
-			box_vert.PackStart (label_vert, false, true, 0);
-
-			box_horiz = new Gtk.HBox (false, 0);
-			box_horiz.PackStart (box_vert, true, true, 0);
-			box_horiz.PackEnd (arrow, false, true, 0);
-
-			this.Add (box_horiz);
 			this.ShowAll ();
-			ShowForToolbarStyle (toolbar.ToolbarStyle);
-
-			toolbar.StyleChanged += OnToolbarStyleChanged;
 		}
 
 		protected override bool OnButtonPressEvent (Gdk.EventButton ev)
 		{
 			GuiUtils.PopupMenu (menu, ev);
-			Active = true;
 			return true;
 		}
 
-		protected override void OnActivated ()
+		protected override void OnClicked ()
 		{
 			menu.SelectFirst (true);
 			GuiUtils.PopupMenu (menu, null);
-			Active = true;
 		}
 
 		protected override bool OnMnemonicActivated (bool group_cycling)
@@ -823,53 +806,6 @@ namespace Tomboy
 		{
 			// Release the state when the menu closes
 			Active = false;
-			Release ();
-		}
-
-		public bool IsImportant
-		{
-			get {
-				return is_important;
-			}
-			set {
-				if (value && !is_important) {
-					box_horiz.PackStart (label_horiz, true, true, 2);
-				} else if (!value && is_important) {
-					box_horiz.Remove (label_horiz);
-				}
-				is_important = value;
-			}
-		}
-
-		void ShowForToolbarStyle (Gtk.ToolbarStyle style)
-		{
-			switch (style) {
-			case Gtk.ToolbarStyle.Icons:
-				label_horiz.Hide ();
-				label_vert.Hide ();
-				image.Show ();
-				break;
-			case Gtk.ToolbarStyle.Text:
-				label_vert.Hide ();
-				image.Hide ();
-				label_horiz.Show ();
-				break;
-			case Gtk.ToolbarStyle.Both:
-				label_horiz.Hide ();
-				image.Show ();
-				label_vert.Show ();
-				break;
-			case Gtk.ToolbarStyle.BothHoriz:
-				label_vert.Hide ();
-				image.Show ();
-				label_horiz.Show ();
-				break;
-			}
-		}
-
-		void OnToolbarStyleChanged (object sender, Gtk.StyleChangedArgs args)
-		{
-			ShowForToolbarStyle (args.Style);
 		}
 	}
 

@@ -1016,8 +1016,8 @@ namespace Tomboy
 				Gtk.CellRenderer renderer, Gtk.TreeModel model,
 				Gtk.TreeIter iter)
 		{
-			// TODO: Make the text bold if this is the AllNotesNotebook
 			Gtk.CellRendererText crt = renderer as Gtk.CellRendererText;
+			crt.Ellipsize = Pango.EllipsizeMode.End;
 			Notebooks.Notebook notebook = model.GetValue (iter, 0) as Notebooks.Notebook;
 			if (notebook == null) {
 				crt.Text = String.Empty;

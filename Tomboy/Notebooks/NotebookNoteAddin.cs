@@ -7,59 +7,92 @@ namespace Tomboy.Notebooks
 {
 	public class NotebookNoteAddin : NoteAddin
 	{
+		ToolMenuButton toolButton;
 		Gtk.ImageMenuItem menuItem;
 		Gtk.Menu menu;
-		bool submenuBuilt;
+		static Gdk.Pixbuf notebookIcon;
+		
+		static NotebookNoteAddin ()
+		{
+			notebookIcon = GuiUtils.GetIcon ("tomboy-notebook", 22);
+		}
 
 		public override void Initialize ()
 		{
-			submenuBuilt = false;
-
 			menu = new Gtk.Menu ();
-			menu.Hidden += OnMenuHidden;
 			menu.ShowAll ();
-			// Note to translators.  "Place" in the following string is
-			// the verb.  When a user opens the submenu here, it will
-			// open a list of notebooks they can place the current note
-			// into.
-			menuItem = new Gtk.ImageMenuItem (Catalog.GetString ("Place in notebook"));
-			menuItem.Image = new Gtk.Image (Gtk.Stock.Paste, Gtk.IconSize.Menu);
-			menuItem.Submenu = menu;
-			menuItem.Activated += OnMenuItemActivated;
-			menuItem.Show ();
-			AddPluginMenuItem (menuItem);
+
+
+			toolButton =
+					new ToolMenuButton (Note.Window.Toolbar,
+										new Gtk.Image (notebookIcon),
+										string.Empty, menu);
+			Gtk.Tooltips toolbarTips = new Gtk.Tooltips ();
+			toolbarTips.SetTip (toolButton, Catalog.GetString ("Place this note into a notebook"), null);
+
+			// Set the notebook submenu
+			menu.Shown += OnMenuShown;
+			toolButton.ShowAll ();
+			AddToolItem (toolButton, -1);
+			UpdateNotebookButtonLabel ();
+			
+			NotebookManager.NoteAddedToNotebook += OnNoteAddedToNotebook;
+			NotebookManager.NoteRemovedFromNotebook += OnNoteRemovedFromNotebook;
 		}
 
 		public override void Shutdown ()
 		{
 			// Disconnect the event handlers so
 			// there aren't any memory leaks.
-			menu.Hidden -= OnMenuHidden;
-			menuItem.Activated -= OnMenuItemActivated;
+			menu.Shown -= OnMenuShown;
+			NotebookManager.NoteAddedToNotebook -= OnNoteAddedToNotebook;
+			NotebookManager.NoteRemovedFromNotebook -= OnNoteRemovedFromNotebook;
 		}
 
 		public override void OnNoteOpened ()
 		{
 			// Do nothing.
 		}
-
-		void OnMenuItemActivated (object sender, EventArgs args)
+		
+		void OnMenuShown (object sender, EventArgs args)
 		{
-			if (submenuBuilt == true)
-				return; // submenu already built.  do nothing.
-
 			UpdateMenu ();
 		}
-
-		void OnMenuHidden (object sender, EventArgs args)
+		
+		void OnNoteAddedToNotebook (Note note, Notebook notebook)
 		{
-			// FIXME: Figure out how to have this function be called only when
-			// the whole Tools menu is collapsed so that if a user keeps
-			// toggling over the menu item, it doesn't
-			// keep forcing the submenu to rebuild.
-
-			// Force the submenu to rebuild next time it's supposed to show
-			submenuBuilt = false;
+			if (note == Note)
+				UpdateNotebookButtonLabel (notebook);
+		}
+		
+		void OnNoteRemovedFromNotebook (Note note, Notebook notebook)
+		{
+			if (note == Note)
+				UpdateNotebookButtonLabel (null);
+		}
+		
+		void UpdateNotebookButtonLabel ()
+		{
+			Notebook currentNotebook = NotebookManager.GetNotebookFromNote (Note);
+			UpdateNotebookButtonLabel (currentNotebook);
+		}
+		
+		void UpdateNotebookButtonLabel (Notebook notebook)
+		{
+			string labelText =
+				notebook == null ?
+					Catalog.GetString ("Notebook") :
+					notebook.Name;
+			
+			// Ellipsize names longer than 12 chars in length
+			// TODO: Should we hardcode the ellipsized notebook name to 12 chars?
+			Gtk.Label l = toolButton.LabelWidget as Gtk.Label;
+			if (l != null) {
+				l.Text = labelText;
+				l.MaxWidthChars = 12;
+				l.Ellipsize = Pango.EllipsizeMode.End;
+				l.ShowAll ();
+			}
 		}
 
 		void UpdateMenu ()
@@ -92,8 +125,6 @@ namespace Tomboy.Notebooks
 					menu.Append (item);
 				}
 			}
-
-			submenuBuilt = true;
 		}
 		
 		List<NotebookMenuItem> GetNotebookMenuItems ()
