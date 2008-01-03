@@ -1,5 +1,18 @@
 2008-01-03  Boyd Timothy <btimothy@gmail.com> 
 
+	We're planning to implement a tasks interface in the future.
+	This will allow developers to write relatively simple task
+	add-ins to create tasks in a separate task management system
+	(like EDS).  Until then, the current Tasks Add-in is pretty
+	unstable and shouldn't be released as such.  This commit
+	comments it out from being built/packaged.
+
+	* Tomboy/configure.in: Removed Tomboy/Addins/Tasks/Makefile.
+
+	* Tomboy/Addins/Makefile.am: Removed Tasks from SUBDIRS.
+
+2008-01-03  Boyd Timothy <btimothy@gmail.com> 
+
 	* Tomboy/NoteWindow.cs: Fixed the accelerators for the Search and
 	  Link buttons (prevents weird Gtk-WARNING messages too).
 
