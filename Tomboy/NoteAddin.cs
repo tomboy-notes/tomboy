@@ -15,6 +15,7 @@ namespace Tomboy
 
 		List<Gtk.MenuItem> tools_menu_items;
 		List<Gtk.MenuItem> text_menu_items;
+		Dictionary<Gtk.ToolItem, int> toolbar_items;
 
 		public void Initialize (Note note)
 		{
@@ -38,6 +39,11 @@ namespace Tomboy
 				if (text_menu_items != null) {
 					foreach (Gtk.Widget item in text_menu_items)
 					item.Destroy ();
+				}
+				
+				if (toolbar_items != null) {
+					foreach (Gtk.ToolItem item in toolbar_items.Keys)
+						item.Destroy ();
 				}
 
 				Shutdown ();
@@ -133,6 +139,15 @@ namespace Tomboy
 					}
 				}
 			}
+			
+			if (toolbar_items != null) {
+				foreach (Gtk.ToolItem item in toolbar_items.Keys) {
+					if (item.Parent == null ||
+									item.Parent != Window.Toolbar) {
+						Window.Toolbar.Insert (item, (int) toolbar_items [item]);
+					}
+				}
+			}
 		}
 
 		public void AddPluginMenuItem (Gtk.MenuItem item)
@@ -147,6 +162,21 @@ namespace Tomboy
 
 			if (note.IsOpened)
 				Window.PluginMenu.Add (item);
+		}
+		
+		public void AddToolItem (Gtk.ToolItem item, int position)
+		{
+			if (IsDisposing)
+				throw new InvalidOperationException ("Add-in is disposing already");
+				
+			if (toolbar_items == null)
+				toolbar_items = new Dictionary<Gtk.ToolItem, int> ();
+			
+			toolbar_items [item] = position;
+			
+			if (note.IsOpened) {
+				Window.Toolbar.Insert (item, position);
+			}
 		}
 
 		public void AddTextMenuItem (Gtk.MenuItem item)
