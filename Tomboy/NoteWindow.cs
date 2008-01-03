@@ -406,7 +406,7 @@ public NoteWindow (Note note) :
 			Gtk.ToolButton search = new Gtk.ToolButton (new Gtk.Image (Gtk.Stock.Find, tb.IconSize), Catalog.GetString ("Search"));
 			search.Clicked += SearchActivate;
 			toolbar_tips.SetTip (search, Catalog.GetString ("Search your notes (Ctrl-Shift-F)"), null);
-			search.AddAccelerator ("activate",
+			search.AddAccelerator ("clicked",
 			                       accel_group,
 			                       (uint) Gdk.Key.f,
 			                       (Gdk.ModifierType.ControlMask |
@@ -419,7 +419,7 @@ public NoteWindow (Note note) :
 			link_button.Sensitive = (note.Buffer.Selection != null);
 			link_button.Clicked += LinkToNoteActivate;
 			toolbar_tips.SetTip (link_button, Catalog.GetString ("Link selected text to a new note (Ctrl-L)"), null);
-			link_button.AddAccelerator ("activate",
+			link_button.AddAccelerator ("clicked",
 			                            accel_group,
 			                            (uint) Gdk.Key.l,
 			                            Gdk.ModifierType.ControlMask,
