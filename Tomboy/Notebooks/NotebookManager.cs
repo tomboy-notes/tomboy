@@ -368,9 +368,11 @@ namespace Tomboy.Notebooks
 			if (currentNotebook == notebook)
 				return true; // It's already there.
 			
-			note.RemoveTag (currentNotebook.Tag);
-			if (NoteRemovedFromNotebook != null)
-				NoteRemovedFromNotebook (note, currentNotebook);
+			if (currentNotebook != null) {
+				note.RemoveTag (currentNotebook.Tag);
+				if (NoteRemovedFromNotebook != null)
+					NoteRemovedFromNotebook (note, currentNotebook);
+			}
 			
 			// Only attempt to add the notebook tag when this
 			// menu item is not the "No notebook" menu item.
