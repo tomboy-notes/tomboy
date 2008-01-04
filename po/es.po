@@ -1,6 +1,6 @@
 # translation of tomboy.HEAD.po to Español
 # Francisco Javier F. Serrador <serrador@cvs.gnome.org>, 2004, 2006.
-# Jorge González <jorgegonz@svn.gnome.org>, 2004, 2005, 2006, 2007.
+# Jorge González <jorgegonz@svn.gnome.org>, 2004, 2005, 2006, 2007, 2008.
 # Traducción al español de tomboy
 # Spanish translation for tomboy
 # Copyright (C) 2004 Adam Weinberger and the GNOME Foundation
@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tomboy.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-12-20 23:30+0000\n"
-"PO-Revision-Date: 2007-12-23 13:49+0100\n"
+"POT-Creation-Date: 2008-01-03 21:49+0000\n"
+"PO-Revision-Date: 2008-01-04 20:08+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <<gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -433,7 +433,7 @@ msgstr "_Borrar"
 msgid "Delete the selected note"
 msgstr "Borrar la nota seleccionada"
 
-#: ../Tomboy/ActionManager.cs:78 ../Tomboy/NoteWindow.cs:377
+#: ../Tomboy/ActionManager.cs:78 ../Tomboy/NoteWindow.cs:378
 msgid "_Close"
 msgstr "_Cerrar"
 
@@ -477,7 +477,7 @@ msgstr "Icono del área de notificación"
 msgid "Create _New Note"
 msgstr "Crear una nota _nueva"
 
-#: ../Tomboy/ActionManager.cs:111 ../Tomboy/NoteWindow.cs:320
+#: ../Tomboy/ActionManager.cs:111 ../Tomboy/NoteWindow.cs:321
 msgid "_Search All Notes"
 msgstr "_Buscar en todas las notas"
 
@@ -929,6 +929,111 @@ msgstr ""
 msgid "_About Tomboy"
 msgstr "_Acerca de Tomboy"
 
+#: ../Tomboy/Notebooks/CreateNotebookDialog.cs:16
+#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:33
+msgid "Create a new notebook"
+msgstr "Crear un nuevo cuaderno de notas"
+
+#: ../Tomboy/Notebooks/CreateNotebookDialog.cs:17
+msgid "Type the name of the notebook you'd like to create."
+msgstr "Escriba el nombre del cuaderno de notas que desea crear."
+
+#: ../Tomboy/Notebooks/CreateNotebookDialog.cs:21
+msgid "N_otebook name:"
+msgstr "Nombre del cuaderno de n_otas:"
+
+#: ../Tomboy/Notebooks/CreateNotebookDialog.cs:35
+msgid "Name already taken"
+msgstr "El nombre ya existe"
+
+#. The templateNoteTite should show the name of the
+#. notebook.  For example, if the name of the notebooks
+#. "Meetings", the templateNoteTitle should be "Meetings
+#. Notebook Template".  Translators should place the
+#. name of the notebook accordingly using "{0}".
+#. TODO: Figure out how to make this note for
+#. translators appear properly.
+#: ../Tomboy/Notebooks/Notebook.cs:79
+#, csharp-format
+msgid "{0} Notebook Template"
+msgstr "Plantilla del cuaderno de notas de {0}"
+
+#: ../Tomboy/Notebooks/Notebook.cs:175
+msgid "All Notes"
+msgstr "Todas las notas"
+
+#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:28
+msgid "Note_books"
+msgstr "Cua_dernos de notas"
+
+#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:29
+#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:45
+msgid "Create a new note in a notebook"
+msgstr "Crear una nota nueva en un cuaderno de notas"
+
+#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:32
+#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:158
+msgid "New Note_book..."
+msgstr "Nuevo cua_derno de notas..."
+
+#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:36
+msgid "_Open Template Note"
+msgstr "_Abrir la nota de plantilla"
+
+#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:37
+msgid "Open this notebook's template note"
+msgstr "Abrir la nota de plantilla de este cuaderno de notas"
+
+#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:40
+msgid "Delete Note_book"
+msgstr "Borrar cua_derno de notas"
+
+#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:41
+msgid "Delete the selected notebook"
+msgstr "Borrar el cuaderno de notas seleccionado"
+
+#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:44
+#: ../Tomboy/RecentChanges.cs:241
+msgid "Notebooks"
+msgstr "Cuadernos de notas"
+
+#: ../Tomboy/Notebooks/NotebookManager.cs:319
+msgid "Really delete this notebook?"
+msgstr "¿Desea borrar este cuaderno de notas?"
+
+#: ../Tomboy/Notebooks/NotebookManager.cs:321
+msgid ""
+"The notes that belong to this notebook will not be deleted, but they will no "
+"longer be associated with this notebook.  This action cannot be undone."
+msgstr ""
+"Las notas que pertenecen a este cuaderno de notas no se borrarán, pero ya no estarán "
+"asociadas a este cuaderno de notas. Esta acción no se puede deshacer."
+
+#: ../Tomboy/Notebooks/NotebookManager.cs:325
+msgid "Also _delete notebook's template note"
+msgstr "_Borrar también la nota de plantilla del cuaderno de notas"
+
+#: ../Tomboy/Notebooks/NotebookMenuItem.cs:14
+msgid "No notebook"
+msgstr "Sin cuadernos de notas"
+
+#. Translators should preserve the "{0}" in the following
+#. string.  After being formatted for a notebook named,
+#. "Meetings", for example, the resultant string would be:
+#. New "Meetings" Note
+#: ../Tomboy/Notebooks/NotebookNewNoteMenuItem.cs:27
+#, csharp-format
+msgid "New \"{0}\" Note"
+msgstr "Nota nueva de «{0}»"
+
+#: ../Tomboy/Notebooks/NotebookNoteAddin.cs:31
+msgid "Place this note into a notebook"
+msgstr "Meter esta nota en un cuaderno de notas"
+
+#: ../Tomboy/Notebooks/NotebookNoteAddin.cs:84
+msgid "Notebook"
+msgstr "Cuaderno de notas"
+
 #: ../Tomboy/Note.cs:1316
 msgid "Really delete this note?"
 msgstr "¿Desea borrar esta nota?"
@@ -1049,35 +1154,35 @@ msgstr "Nota nueva {0}"
 msgid "Describe your new note here."
 msgstr "Describa aquí su nota nueva."
 
-#: ../Tomboy/NoteWindow.cs:55
+#: ../Tomboy/NoteWindow.cs:56
 msgid "Find in This Note"
 msgstr "Buscar en esta nota"
 
-#: ../Tomboy/NoteWindow.cs:332
+#: ../Tomboy/NoteWindow.cs:333
 msgid "_Link to New Note"
 msgstr "_Enlazar a una nota nueva"
 
-#: ../Tomboy/NoteWindow.cs:344
+#: ../Tomboy/NoteWindow.cs:345
 msgid "Te_xt"
 msgstr "_Texto"
 
-#: ../Tomboy/NoteWindow.cs:352
+#: ../Tomboy/NoteWindow.cs:353
 msgid "_Find in This Note"
 msgstr "_Buscar en esta nota"
 
-#: ../Tomboy/NoteWindow.cs:367
+#: ../Tomboy/NoteWindow.cs:368
 msgid "Clos_e All Notes"
 msgstr "C_errar todas las notas"
 
-#: ../Tomboy/NoteWindow.cs:405
+#: ../Tomboy/NoteWindow.cs:406
 msgid "Search"
 msgstr "Buscar"
 
-#: ../Tomboy/NoteWindow.cs:406
+#: ../Tomboy/NoteWindow.cs:408
 msgid "Search your notes (Ctrl-Shift-F)"
 msgstr "Buscar en sus notas  (Ctrl-Mayús-F)"
 
-#: ../Tomboy/NoteWindow.cs:419
+#: ../Tomboy/NoteWindow.cs:418
 msgid "Link"
 msgstr "Enlazar"
 
@@ -1085,99 +1190,95 @@ msgstr "Enlazar"
 msgid "Link selected text to a new note (Ctrl-L)"
 msgstr "Enlazar el texto seleccionado a una nota nueva (Ctrl-L)"
 
-#: ../Tomboy/NoteWindow.cs:435
+#: ../Tomboy/NoteWindow.cs:433
 msgid "_Text"
 msgstr "_Texto"
 
-#: ../Tomboy/NoteWindow.cs:440
+#: ../Tomboy/NoteWindow.cs:437
 msgid "Set properties of text"
 msgstr "Establecer las propiedades del texto"
 
-#: ../Tomboy/NoteWindow.cs:464
+#: ../Tomboy/NoteWindow.cs:442
 msgid "T_ools"
 msgstr "_Herramientas"
 
-#: ../Tomboy/NoteWindow.cs:468
+#: ../Tomboy/NoteWindow.cs:446
 msgid "Use tools on this note"
 msgstr "Usar las herramientas en esta nota"
 
-#: ../Tomboy/NoteWindow.cs:475
-msgid "Delete"
-msgstr "Borrar"
-
-#: ../Tomboy/NoteWindow.cs:476
+#: ../Tomboy/NoteWindow.cs:454
 msgid "Delete this note"
 msgstr "Borrar esta nota"
 
-#: ../Tomboy/NoteWindow.cs:486 ../Tomboy/Synchronization/SyncManager.cs:161
+#: ../Tomboy/NoteWindow.cs:463 ../Tomboy/Synchronization/SyncManager.cs:161
 msgid "Synchronize Notes"
 msgstr "Sincronizar las notas"
 
-#: ../Tomboy/NoteWindow.cs:529
+#: ../Tomboy/NoteWindow.cs:506
 msgid "_Find..."
 msgstr "_Buscar…"
 
-#: ../Tomboy/NoteWindow.cs:540 ../Tomboy/NoteWindow.cs:750
+#: ../Tomboy/NoteWindow.cs:517 ../Tomboy/NoteWindow.cs:719
 msgid "Find _Next"
 msgstr "Buscar _siguiente"
 
-#: ../Tomboy/NoteWindow.cs:553
+#: ../Tomboy/NoteWindow.cs:530
 msgid "Find _Previous"
 msgstr "Buscar _anterior"
 
-#: ../Tomboy/NoteWindow.cs:641
+#: ../Tomboy/NoteWindow.cs:618
 msgid "Cannot create note"
 msgstr "No se puede crear la nota"
 
-#: ../Tomboy/NoteWindow.cs:730
+#: ../Tomboy/NoteWindow.cs:699
 msgid "_Find:"
 msgstr "_Buscar:"
 
-#: ../Tomboy/NoteWindow.cs:741
+#: ../Tomboy/NoteWindow.cs:710
 msgid "_Previous"
 msgstr "_Anterior"
 
-#: ../Tomboy/NoteWindow.cs:760
+#: ../Tomboy/NoteWindow.cs:729
 msgid "Case _sensitive"
 msgstr "Sensible a _mayúsculas"
 
-#: ../Tomboy/NoteWindow.cs:1240
+#: ../Tomboy/NoteWindow.cs:1209
 msgid "_Bold"
 msgstr "_Negrita"
 
-#: ../Tomboy/NoteWindow.cs:1252
+#: ../Tomboy/NoteWindow.cs:1221
 msgid "_Italic"
 msgstr "_Cursiva"
 
-#: ../Tomboy/NoteWindow.cs:1264
+#: ../Tomboy/NoteWindow.cs:1233
 msgid "_Strikeout"
 msgstr "_Tachado"
 
-#: ../Tomboy/NoteWindow.cs:1276
+#: ../Tomboy/NoteWindow.cs:1245
 msgid "_Highlight"
 msgstr "_Resaltado"
 
-#: ../Tomboy/NoteWindow.cs:1289
+#: ../Tomboy/NoteWindow.cs:1258
 msgid "Font Size"
 msgstr "Tamaño de la tipografía"
 
-#: ../Tomboy/NoteWindow.cs:1292
+#: ../Tomboy/NoteWindow.cs:1261
 msgid "_Normal"
 msgstr "_Normal"
 
-#: ../Tomboy/NoteWindow.cs:1299
+#: ../Tomboy/NoteWindow.cs:1268
 msgid "Hu_ge"
 msgstr "_Enorme"
 
-#: ../Tomboy/NoteWindow.cs:1307
+#: ../Tomboy/NoteWindow.cs:1276
 msgid "_Large"
 msgstr "_Grande"
 
-#: ../Tomboy/NoteWindow.cs:1315
+#: ../Tomboy/NoteWindow.cs:1284
 msgid "S_mall"
 msgstr "_Pequeña"
 
-#: ../Tomboy/NoteWindow.cs:1326
+#: ../Tomboy/NoteWindow.cs:1295
 msgid "Bullets"
 msgstr "Topos"
 
@@ -1403,42 +1504,38 @@ msgstr "Copyright:"
 msgid "Add-in Dependencies:"
 msgstr "Dependencias de los complementos:"
 
-#: ../Tomboy/RecentChanges.cs:68
+#: ../Tomboy/RecentChanges.cs:72
 msgid "Search All Notes"
 msgstr "Buscar en todas las notas"
 
-#: ../Tomboy/RecentChanges.cs:83
+#: ../Tomboy/RecentChanges.cs:87
 msgid "_Search:"
 msgstr "_Buscar:"
 
-#: ../Tomboy/RecentChanges.cs:104
+#: ../Tomboy/RecentChanges.cs:108
 msgid "C_ase Sensitive"
 msgstr "Sensible a _mayúsculas"
 
-#: ../Tomboy/RecentChanges.cs:232
-msgid "Notebooks"
-msgstr "Cuadernos de notas"
-
-#: ../Tomboy/RecentChanges.cs:282
+#: ../Tomboy/RecentChanges.cs:303
 msgid "Note"
 msgstr "Nota"
 
-#: ../Tomboy/RecentChanges.cs:301
+#: ../Tomboy/RecentChanges.cs:322
 msgid "Last Changed"
 msgstr "Último cambio"
 
-#: ../Tomboy/RecentChanges.cs:359 ../Tomboy/RecentChanges.cs:500
+#: ../Tomboy/RecentChanges.cs:380 ../Tomboy/RecentChanges.cs:521
 #, csharp-format
 msgid "Total: {0} note"
 msgid_plural "Total: {0} notes"
 msgstr[0] "Total: {0} nota"
 msgstr[1] "Total: {0} notas"
 
-#: ../Tomboy/RecentChanges.cs:434
+#: ../Tomboy/RecentChanges.cs:455
 msgid "Matches"
 msgstr "Coincidencias"
 
-#: ../Tomboy/RecentChanges.cs:486 ../Tomboy/RecentChanges.cs:506
+#: ../Tomboy/RecentChanges.cs:507 ../Tomboy/RecentChanges.cs:527
 #, csharp-format
 msgid "{0} match"
 msgid_plural "{0} matches"
@@ -1451,7 +1548,7 @@ msgstr "No se puede crear una nota nueva"
 
 #: ../Tomboy/Tomboy.cs:267
 msgid "translator-credits"
-msgstr "Jorge González <jorgegonz@svn.gnome.org>, 2004 - 2007"
+msgstr "Jorge González <jorgegonz@svn.gnome.org>, 2004 - 2008."
 
 #: ../Tomboy/Tomboy.cs:276
 msgid "Copyright © 2004-2007 Alex Graveley"
@@ -1532,7 +1629,7 @@ msgstr ""
 msgid " (new)"
 msgstr " (nueva)"
 
-#: ../Tomboy/Utils.cs:119
+#: ../Tomboy/Utils.cs:127
 msgid ""
 "The \"Tomboy Notes Manual\" could not be found.  Please verify that your "
 "installation has been completed successfully."
@@ -1540,74 +1637,74 @@ msgstr ""
 "El «Manual de Tomboy Notas» no se pudo encontrar. Compruebe que su "
 "instalación terminó con éxito."
 
-#: ../Tomboy/Utils.cs:128
+#: ../Tomboy/Utils.cs:136
 msgid "Help not found"
 msgstr "No se encontró la ayuda"
 
-#: ../Tomboy/Utils.cs:151
+#: ../Tomboy/Utils.cs:159
 #, csharp-format
 msgid "Today, {0}"
 msgstr "Hoy, {0}"
 
-#: ../Tomboy/Utils.cs:153
+#: ../Tomboy/Utils.cs:161
 msgid "Today"
 msgstr "Hoy"
 
-#: ../Tomboy/Utils.cs:157
+#: ../Tomboy/Utils.cs:165
 #, csharp-format
 msgid "Yesterday, {0}"
 msgstr "Ayer, {0}"
 
-#: ../Tomboy/Utils.cs:159
+#: ../Tomboy/Utils.cs:167
 msgid "Yesterday"
 msgstr "Ayer"
 
-#: ../Tomboy/Utils.cs:163
+#: ../Tomboy/Utils.cs:171
 #, csharp-format
 msgid "{0} days ago, {1}"
 msgstr "Hace {0} días, {1}"
 
-#: ../Tomboy/Utils.cs:165
+#: ../Tomboy/Utils.cs:173
 #, csharp-format
 msgid "{0} days ago"
 msgstr "Hace {0} días"
 
-#: ../Tomboy/Utils.cs:170
+#: ../Tomboy/Utils.cs:178
 #, csharp-format
 msgid "Tomorrow, {0}"
 msgstr "Mañana, {0}"
 
-#: ../Tomboy/Utils.cs:172
+#: ../Tomboy/Utils.cs:180
 msgid "Tomorrow"
 msgstr "Mañana"
 
-#: ../Tomboy/Utils.cs:176
+#: ../Tomboy/Utils.cs:184
 #, csharp-format
 msgid "In {0} days, {1}"
 msgstr "Dentro de {0} días, {1}"
 
-#: ../Tomboy/Utils.cs:178
+#: ../Tomboy/Utils.cs:186
 #, csharp-format
 msgid "In {0} days"
 msgstr "Dentro de {0} días"
 
-#: ../Tomboy/Utils.cs:182
+#: ../Tomboy/Utils.cs:190
 msgid "MMMM d, h:mm tt"
 msgstr "d MMMM, HH:mm"
 
-#: ../Tomboy/Utils.cs:183
+#: ../Tomboy/Utils.cs:191
 msgid "MMMM d"
 msgstr "d MMMM"
 
-#: ../Tomboy/Utils.cs:185
+#: ../Tomboy/Utils.cs:193
 msgid "No Date"
 msgstr "Sin fecha"
 
-#: ../Tomboy/Utils.cs:188
+#: ../Tomboy/Utils.cs:196
 msgid "MMMM d yyyy, h:mm tt"
 msgstr "d MMMM yyyy, HH:mm"
 
-#: ../Tomboy/Utils.cs:189
+#: ../Tomboy/Utils.cs:197
 msgid "MMMM d yyyy"
 msgstr "d MMMM yyyy"
 
