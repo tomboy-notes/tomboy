@@ -8,14 +8,24 @@ namespace Tomboy.Notebooks
 	{
 		Gtk.Entry nameEntry;
 		Gtk.Label errorLabel;
+		static Gdk.Pixbuf newNotebookIcon;
+		static Gdk.Pixbuf newNotebookIconDialog;
+
+		static CreateNotebookDialog ()
+		{
+			newNotebookIcon = GuiUtils.GetIcon ("tomboy-new-notebook", 22);
+			newNotebookIconDialog = GuiUtils.GetIcon ("tomboy-new-notebook-dialog", 48);
+		}
 		
 		public CreateNotebookDialog(Gtk.Window parent,
 									Gtk.DialogFlags flags)
-				: base (parent, flags, Gtk.MessageType.Other,
+				: base (parent, flags, Gtk.MessageType.Info,
 						Gtk.ButtonsType.None,
 						Catalog.GetString ("Create a new notebook"),
 						Catalog.GetString ("Type the name of the notebook you'd like to create."))
 		{
+			this.Pixbuf = newNotebookIconDialog;
+			
 			Gtk.Table table = new Gtk.Table (2, 2, false);
 			
 			Gtk.Label label = new Gtk.Label (Catalog.GetString ("N_otebook name:"));
@@ -42,7 +52,13 @@ namespace Tomboy.Notebooks
 			ExtraWidget = table;
 			
 			AddButton (Gtk.Stock.Cancel, Gtk.ResponseType.Cancel, false);
-			AddButton (Gtk.Stock.New, Gtk.ResponseType.Ok, true);
+			AddButton (
+				newNotebookIcon,
+				// Translation note: This is the Create button in the Create
+				// New Note Dialog.
+				Catalog.GetString ("C_reate"),
+				Gtk.ResponseType.Ok,
+				true);
 			
 			// Only let the Ok response be sensitive when
 			// there's something in nameEntry

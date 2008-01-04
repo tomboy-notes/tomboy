@@ -236,6 +236,7 @@ namespace Tomboy
 		Gtk.AccelGroup accel_group;
 		Gtk.VBox extra_widget_vbox;
 		Gtk.Widget extra_widget;
+		Gtk.Image image;
 
 		public HIGMessageDialog (Gtk.Window parent,
 		                         Gtk.DialogFlags flags,
@@ -261,8 +262,6 @@ namespace Tomboy
 			hbox.Show ();
 			VBox.PackStart (hbox, false, false, 0);
 
-			Gtk.Image image = null;
-
 			switch (type) {
 			case Gtk.MessageType.Error:
 				image = new Gtk.Image (Gtk.Stock.DialogError,
@@ -279,6 +278,9 @@ namespace Tomboy
 			case Gtk.MessageType.Warning:
 				image = new Gtk.Image (Gtk.Stock.DialogWarning,
 				                       Gtk.IconSize.Dialog);
+				break;
+			default:
+				image = new Gtk.Image ();
 				break;
 			}
 
@@ -354,6 +356,25 @@ namespace Tomboy
 		{
 			Gtk.Button button = new Gtk.Button (stock_id);
 			button.CanDefault = true;
+			
+			AddButton (button, response, is_default);
+		}
+		
+		protected void AddButton (Gdk.Pixbuf pixbuf, string label_text, Gtk.ResponseType response, bool is_default)
+		{
+			Gtk.Button button = new Gtk.Button ();
+			Gtk.Image image = new Gtk.Image (pixbuf);
+			button.ImagePosition = Gtk.PositionType.Left;
+			button.Image = image;
+			button.Label = label_text;
+			button.UseUnderline = true;
+			button.CanDefault = true;
+			
+			AddButton (button, response, is_default);
+		}
+		
+		private void AddButton (Gtk.Button button, Gtk.ResponseType response, bool is_default)
+		{
 			button.Show ();
 
 			AddActionWidget (button, response);
@@ -381,6 +402,16 @@ namespace Tomboy
 				extra_widget = value;
 				extra_widget.ShowAll ();
 				extra_widget_vbox.PackStart (extra_widget, true, true, 0);
+			}
+		}
+		
+		/// <value>
+		/// This allows you to set the Gdk.Pixbuf for the dialog's Gtk.Image.
+		/// </value>
+		public Gdk.Pixbuf Pixbuf
+		{
+			set {
+				image.Pixbuf = value;
 			}
 		}
 	}

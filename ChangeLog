@@ -1,3 +1,35 @@
+2008-01-04  Boyd Timothy <btimothy@gmail.com> 
+
+	* configure.in: Define CSC_DEFINES="-d:GTK_2_10" when the
+	  system has Gtk+ 2.10 or newer so that we can safely
+	  use the Gtk.LinkButton and use Gtk.Button when building
+	  on older platforms.
+
+	* Tomboy/PreferencesDialog.cs: Conditionally use
+	  Gtk.LinkButton.
+
+	* Tomboy/Utils.cs: Add a convenience AddButton () method
+	  to allow a non-stock button with custom pixbuf.  Also
+	  allow a custom pixbuf to be used for the main dialog
+	  image.
+
+	* Tomboy/Notebooks/CreateNotebookDialog.cs: Don't use
+	  Gtk.MessageType.Other since that doesn't build on older
+	  versions of Gtk.  Instead, specify a custom pixbuf in
+	  the constructor so the dialog looks nicer.
+
+	* Tomboy/Makefile.am: Compile in tomboy-new-notebook.png
+	  and tomboy-new-notebook-dialog.png icons as resources.
+
+	* data/images/tomboy-new-notebook-22.png: Stubbing this
+	  out so it's easier for an artist to provide proper icons
+	  later.
+
+	* data/images/tomboy-new-notebook-48.png: Ditto.
+
+	* data/images/Makefile.am: Install the tomboy-new-notebook
+	  icons in their proper locations.
+
 2008-01-03  Boyd Timothy <btimothy@gmail.com> 
 
 	We're planning to implement a tasks interface in the future.
