@@ -177,6 +177,15 @@ AC_SUBST(NUNIT_LIBS)
 AC_PATH_PROG(NUNIT, nunit-console)
 
 #
+# DEFINES uses for #if statements
+#
+CSC_DEFINES=""
+if pkg-config --atleast-version=2.10 gtk-sharp-2.0; then
+	CSC_DEFINES="-d:GTK_2_10"
+fi
+AC_SUBST(CSC_DEFINES)
+
+#
 # Replace xgettext by our PluginInfo aware wrapper script
 #
 XGETTEXT_XCOMMENT=`echo 'Test("1")' |\

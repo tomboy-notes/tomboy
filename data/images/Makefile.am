@@ -33,11 +33,13 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/tomboy-note-22.png $(DESTDIR)$(hicolordir)/22x22/apps/tomboy-note.png
 	$(INSTALL_DATA) $(srcdir)/tomboy-all-notes-22.png $(DESTDIR)$(hicolordir)/22x22/apps/tomboy-all-notes.png
 	$(INSTALL_DATA) $(srcdir)/tomboy-notebook-22.png $(DESTDIR)$(hicolordir)/22x22/apps/tomboy-notebook.png
+	$(INSTALL_DATA) $(srcdir)/tomboy-new-notebook-22.png $(DESTDIR)$(hicolordir)/22x22/apps/tomboy-new-notebook.png
 	@-$(mkinstalldirs) $(DESTDIR)$(hicolordir)/32x32/apps
 	$(INSTALL_DATA) $(srcdir)/tag-32.png $(DESTDIR)$(hicolordir)/32x32/apps/tomboy-tag.png
 	$(INSTALL_DATA) $(srcdir)/tomboy-32.png $(DESTDIR)$(hicolordir)/32x32/apps/tomboy.png
 	@-$(mkinstalldirs) $(DESTDIR)$(hicolordir)/48x48/apps
 	$(INSTALL_DATA) $(srcdir)/tomboy.png $(DESTDIR)$(hicolordir)/48x48/apps/tomboy.png
+	$(INSTALL_DATA) $(srcdir)/tomboy-new-notebook-48.png $(DESTDIR)$(hicolordir)/48x48/apps/tomboy-new-notebook.png
 
 gtk_update_icon_cache = gtk-update-icon-cache -f -t $(datadir)/icons/hicolor
 
@@ -62,8 +64,10 @@ uninstall-hook:
 	rm -f $(DESTDIR)$(hicolordir)/22x22/apps/tomboy-note.png
 	rm -f $(DESTDIR)$(hicolordir)/22x22/apps/tomboy-all-notes.png
 	rm -f $(DESTDIR)$(hicolordir)/22x22/apps/tomboy-notebook.png
+	rm -f $(DESTDIR)$(hicolordir)/22x22/apps/tomboy-new-notebook.png
 	rm -f $(DESTDIR)$(hicolordir)/32x32/apps/tomboy.png
 	rm -f $(DESTDIR)$(hicolordir)/48x48/apps/tomboy.png
+	rm -f $(DESTDIR)$(hicolordir)/48x48/apps/tomboy-new-notebook.png
 
 
 noinst_DATA = 			\
