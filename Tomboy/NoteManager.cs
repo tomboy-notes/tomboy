@@ -458,6 +458,10 @@ public NoteManager (string directory) :
 				buffer.MoveMark (buffer.SelectionBound, iter);
 				buffer.MoveMark (buffer.InsertMark, buffer.EndIter);
 
+				// Flag this as a template note
+				Tag tag = TagManager.GetOrCreateSystemTag (TagManager.TemplateNoteSystemTag);
+				template_note.AddTag (tag);
+
 				template_note.QueueSave (true);
 			}
 			

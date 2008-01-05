@@ -1,5 +1,41 @@
 2008-01-04  Boyd Timothy <btimothy@gmail.com> 
 
+	* Tomboy/TagManager.cs: Add a static string for a
+	  template system tag.
+
+	* Tomboy/RecentChanges.cs: Filter out template notes from
+	  the list of notes.  Still need to update the status bar
+	  at the bottom of the window to also reflect template
+	  notes.
+
+	* Tomboy/Tray.cs: Prevent template notes from appearing
+	  in the main menu.
+
+	* Tomboy/NoteWindow.cs: Expose the Delete button so that
+	  other modules can disable it (in this case, a notebook
+	  template note shouldn't be able to be deleted).
+
+	* Tomboy/Notebooks/NotebookManager.cs: Don't give the
+	  user an option to delete the template note when
+	  deleting a notebook, they will be deleted.
+
+	* Tomboy/Notebooks/Notebook.cs: Tag the notebook's
+	  template note with the system template tag.
+
+	* Tomboy/Notebooks/NotebookNoteAddin.cs: Disable the
+	  Notebook and Delete Toolbar Buttons when the note is a
+	  template note.
+
+	* Tomboy/NoteManager.cs: Tag the default template note
+	  with the system template tag.
+
+	* Tomboy/Note.cs: Added ContainsTag (Tag):bool so that
+	  other modules can quickly (O(1) operation) check whether
+	  a note has the specified tag (the system template tag
+	  in this case).
+
+2008-01-04  Boyd Timothy <btimothy@gmail.com> 
+
 	* configure.in: Define CSC_DEFINES="-d:GTK_2_10" when the
 	  system has Gtk+ 2.10 or newer so that we can safely
 	  use the Gtk.LinkButton and use Gtk.Button when building

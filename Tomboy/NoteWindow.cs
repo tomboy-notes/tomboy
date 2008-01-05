@@ -21,6 +21,7 @@ namespace Tomboy
 		Gtk.TextView editor;
 		Gtk.ScrolledWindow editor_window;
 		NoteFindBar find_bar;
+		Gtk.ToolButton delete;
 
 		GlobalKeybinder global_keys;
 		InterruptableTimeout mark_set_timeout;
@@ -266,6 +267,16 @@ public NoteWindow (Note note) :
 				return toolbar;
 			}
 		}
+		
+		/// <summary>
+		/// The Delete Toolbar Button
+		/// </summary>
+		public Gtk.ToolButton DeleteButton
+		{
+			get {
+				return delete;
+			}
+		}
 
 		public Gtk.Menu PluginMenu {
 			get {
@@ -447,7 +458,7 @@ public NoteWindow (Note note) :
 			
 			tb.Insert (new Gtk.SeparatorToolItem (), -1);
 			
-			Gtk.ToolButton delete = new Gtk.ToolButton (Gtk.Stock.Delete);
+			delete = new Gtk.ToolButton (Gtk.Stock.Delete);
 			delete.Clicked += OnDeleteButtonClicked;
 			delete.ShowAll ();
 			tb.Insert (delete, -1);

@@ -18,6 +18,14 @@ namespace Tomboy
 		static Dictionary<string, Gtk.TreeIter> tag_map;
 		static object locker = new object ();
 		static Dictionary<string,Tag> internal_tags;
+		
+		/// <summary>
+		/// This is the system tag that is added to all template notes.  Various
+		/// UI modules in Tomboy should filter template notes from appearing in
+		/// certain places such as, Search All Notes Window, Main Menu, etc.
+		/// </summary>
+		public static string TemplateNoteSystemTag = "template";
+		
 		#region Constructors
 		static TagManager ()
 		{

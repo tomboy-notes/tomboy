@@ -121,12 +121,16 @@ namespace Tomboy.Notebooks
 				buffer.MoveMark (buffer.SelectionBound, iter);
 				buffer.MoveMark (buffer.InsertMark, buffer.EndIter);
 
+				// Flag this as a template note
+				Tag tag = TagManager.GetOrCreateSystemTag (TagManager.TemplateNoteSystemTag);
+				note.AddTag (tag);
+
 				// Add on the notebook system tag so Tomboy
 				// will persist the tag/notebook across sessions
 				// if no other notes are added to the notebook.
-				Tag tag = TagManager.GetOrCreateSystemTag (NotebookTagPrefix + Name);
+				tag = TagManager.GetOrCreateSystemTag (NotebookTagPrefix + Name);
 				note.AddTag (tag);
-
+				
 				note.QueueSave (true);
 			}
 			
