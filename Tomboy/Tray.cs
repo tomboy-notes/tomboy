@@ -298,7 +298,7 @@ namespace Tomboy
 
 			// Assume menu opens downward, move common items to top of menu
 			Gtk.MenuItem newNoteItem = Tomboy.ActionManager.GetWidget (
-			                                   "/TrayIconMenu/TrayNewNote") as Gtk.MenuItem;
+			                                   "/TrayIconMenu/TrayNewNotePlaceholder/TrayNewNote") as Gtk.MenuItem;
 			Gtk.MenuItem searchNotesItem = Tomboy.ActionManager.GetWidget (
 			                                       "/TrayIconMenu/ShowSearchAllNotes") as Gtk.MenuItem;
 			recent_menu.ReorderChild (newNoteItem, 0);
