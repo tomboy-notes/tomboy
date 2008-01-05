@@ -1,5 +1,11 @@
 2008-01-05  Sandy Armstrong <sanfordarmstrong@gmail.com> 
 
+	* Tomboy/Notebooks/NotebookNoteAddin.cs: Move toolButton initialization from
+	  Initalize method to OnNoteOpened method, since accessing Note.Window
+	  causes the buffer to be created (for each note on startup!).
+
+2008-01-05  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
 	* Tomboy/Tray.cs: Fix path in ActionManager.GetWidget call for the "Create
 	  New Note" menu item.  Fixes the recent notes menu, except that Notebook
 	  menu item placement isn't dynamic (always at bottom, yuck).
