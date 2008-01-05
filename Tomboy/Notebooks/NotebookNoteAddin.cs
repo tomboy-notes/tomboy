@@ -27,6 +27,7 @@ namespace Tomboy.Notebooks
 					new ToolMenuButton (Note.Window.Toolbar,
 										new Gtk.Image (notebookIcon),
 										string.Empty, menu);
+			toolButton.Homogeneous = false;
 			Gtk.Tooltips toolbarTips = new Gtk.Tooltips ();
 			toolbarTips.SetTip (toolButton, Catalog.GetString ("Place this note into a notebook"), null);
 			
