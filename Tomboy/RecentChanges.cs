@@ -534,13 +534,19 @@ namespace Tomboy
 
                 /// <summary>
                 /// Filter out notes based on the current search string
-                /// and selected tags.
+                /// and selected tags.  Also prevent template notes from
+                /// appearing.
                 /// </summary>
                 bool FilterNotes (Gtk.TreeModel model, Gtk.TreeIter iter)
                 {
                         Note note = model.GetValue (iter, 3 /* note */) as Note;
                         if (note == null)
                                 return false;
+                        
+                        // Don't show the template notes in the list
+                        Tag template_tag = TagManager.GetOrCreateSystemTag (TagManager.TemplateNoteSystemTag);
+                        if (note.ContainsTag (template_tag))
+                        	return false;
 
                         bool passes_search_filter = FilterBySearch (note);
                         if (passes_search_filter == false)

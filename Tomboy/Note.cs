@@ -578,6 +578,14 @@ namespace Tomboy
 			DebugSave ("Tag removed, queueing save");
 			QueueSave (true);
 		}
+		
+		public bool ContainsTag (Tag tag)
+		{
+			if (data.Data.Tags.ContainsKey (tag.NormalizedName) == true)
+				return true;
+			
+			return false;
+		}
 
 		public void AddChildWidget (Gtk.TextChildAnchor childAnchor, Gtk.Widget widget)
 		{

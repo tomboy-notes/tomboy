@@ -321,23 +321,18 @@ namespace Tomboy.Notebooks
 									  	"The notes that belong to this notebook will not be " +
 									  	"deleted, but they will no longer be associated with " +
 									  	"this notebook.  This action cannot be undone."));
-			Gtk.CheckButton deleteTemplateNoteButton =
-				new Gtk.CheckButton (Catalog.GetString ("Also _delete notebook's template note"));
-			deleteTemplateNoteButton.Show ();
-			dialog.ExtraWidget = deleteTemplateNoteButton;
 			int response = dialog.Run ();
-			bool deleteTemplateNote = deleteTemplateNoteButton.Active;
 			dialog.Destroy ();
 			if (response != (int) Gtk.ResponseType.Yes)
 				return;
 			
 			DeleteNotebook (notebook);
-			if (deleteTemplateNote) {
-				Note templateNote = notebook.GetTemplateNote ();
-				if (templateNote != null) {
-					NoteManager noteManager = Tomboy.DefaultNoteManager;
-					noteManager.Delete (templateNote);
-				}
+
+			// Delete the template note
+			Note templateNote = notebook.GetTemplateNote ();
+			if (templateNote != null) {
+				NoteManager noteManager = Tomboy.DefaultNoteManager;
+				noteManager.Delete (templateNote);
 			}
 		}
 		

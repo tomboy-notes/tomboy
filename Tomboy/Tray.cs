@@ -305,11 +305,18 @@ namespace Tomboy
 			recent_menu.ReorderChild (searchNotesItem, 1);
 
 			DateTime days_ago = DateTime.Today.AddDays (-3);
+			
+			// Prevent template notes from appearing in the menu
+			Tag template_tag = TagManager.GetOrCreateSystemTag (TagManager.TemplateNoteSystemTag);
 
 			// List the i most recently changed notes, any currently
 			// opened notes, and any pinned notes...
 			foreach (Note note in manager.Notes) {
 				if (note.IsSpecial)
+					continue;
+				
+				// Skip template notes
+				if (note.ContainsTag (template_tag))
 					continue;
 
 				bool show = false;
