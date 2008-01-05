@@ -21,8 +21,10 @@ namespace Tomboy.Notebooks
 		{
 			menu = new Gtk.Menu ();
 			menu.ShowAll ();
+		}
 
-
+		private void InitializeToolButton ()
+		{
 			toolButton =
 					new ToolMenuButton (Note.Window.Toolbar,
 										new Gtk.Image (notebookIcon),
@@ -47,15 +49,20 @@ namespace Tomboy.Notebooks
 		{
 			// Disconnect the event handlers so
 			// there aren't any memory leaks.
-			Note.Window.Shown -= OnNoteWindowShown;
-			menu.Shown -= OnMenuShown;
-			NotebookManager.NoteAddedToNotebook -= OnNoteAddedToNotebook;
-			NotebookManager.NoteRemovedFromNotebook -= OnNoteRemovedFromNotebook;
+			if (toolButton != null) {
+				Note.Window.Shown -= OnNoteWindowShown;
+				menu.Shown -= OnMenuShown;
+				NotebookManager.NoteAddedToNotebook -=
+					OnNoteAddedToNotebook;
+				NotebookManager.NoteRemovedFromNotebook -=
+					OnNoteRemovedFromNotebook;
+			}
 		}
 
 		public override void OnNoteOpened ()
 		{
-			// Do nothing.
+			if (toolButton == null)
+				InitializeToolButton ();
 		}
 		
 		void OnMenuShown (object sender, EventArgs args)
