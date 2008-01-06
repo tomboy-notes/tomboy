@@ -15,6 +15,8 @@ tango_icons = 				\
 	tomboy-note-22.png		\
 	tomboy-all-notes-22.png		\
 	tomboy-notebook-22.png		\
+	tomboy-new-notebook-22.png	\
+	tomboy-new-notebook-48.png	\
 	tomboy-32.png			\
 	tomboy.png			\
 	tomboy.svg
