@@ -50,12 +50,6 @@ namespace Tomboy
 			RegisterRemoteControl (manager);
 
 			SetupGlobalActions ();
-
-			#if !ENABLE_DBUS
-			if (cmd_line.NeedsExecute) {
-				cmd_line.Execute ();
-			}
-			#endif
 			ActionManager am = Tomboy.ActionManager;
 
 			ApplicationAddin [] addins =
@@ -63,6 +57,12 @@ namespace Tomboy
 			foreach (ApplicationAddin addin in addins) {
 				addin.Initialize ();
 			}
+
+			#if !ENABLE_DBUS
+			if (cmd_line.NeedsExecute) {
+				cmd_line.Execute ();
+			}
+			#endif
 
 			if (cmd_line.UsePanelApplet) {
 				tray_icon_showing = true;
