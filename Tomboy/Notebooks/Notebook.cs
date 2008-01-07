@@ -148,13 +148,7 @@ namespace Tomboy.Notebooks
 		/// </returns>
 		public bool ContainsNote (Note note)
 		{
-			// Check the specified note to see if it contains the notebook tag
-			foreach (Tag noteTag in note.Tags) {
-				if (noteTag == tag)
-					return true;
-			}
-			
-			return false;
+			return note.ContainsTag (tag);
 		}
 		#endregion // Public Methods
 		

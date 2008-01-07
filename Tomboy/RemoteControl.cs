@@ -307,7 +307,7 @@ namespace Tomboy
 			Search search =  new Search(note_manager);
 			List<string> list = new List<string>();
 			IDictionary<Note,int> results =
-				search.SearchNotes(query, case_sensitive);
+				search.SearchNotes(query, case_sensitive, null);
 			foreach (Note note in results.Keys) {
 				list.Add (note.Uri);
 			}

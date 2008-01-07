@@ -1,5 +1,24 @@
 2008-01-07  Boyd Timothy <btimothy@gmail.com> 
 
+	* Tomboy/Search.cs: Added selected_notebook on the SearchNotes
+	  method so that the search count is accurate and notes not
+	  belonging to a notebook can be skipped.
+
+	* Tomboy/RecentChanges.cs: Adjusted the status text so it will
+	  show "Total: {0} note/s" or "Matches: {0} note/s" depending
+	  on whether there's a current search or not.  This helps with
+	  simplicity and also allows the count for searching with a
+	  notebook selected to have proper counts.
+
+	* Tomboy/RemoteControl.cs: Pass null in for selected_noteboook
+	  when calling SearchNotes.
+
+	* Tomboy/Notebooks/Notebook.cs:  Use the new Note.ContainsTag ()
+	  for Notebook.ContainsNote () instead of iterating through all
+	  a note's tags.  This changes this operation to O(1) time.
+
+2008-01-07  Boyd Timothy <btimothy@gmail.com> 
+
 	* Tomboy/Note.cs: Added a boolean to track when we're
 	  deleting a note.  Use this boolean in the Save ()
 	  method from preventing any other condition from
