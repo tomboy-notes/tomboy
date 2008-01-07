@@ -322,6 +322,7 @@ namespace Tomboy
 		string filepath;
 
 		bool save_needed;
+		bool is_deleting;
 
 		NoteManager manager;
 		NoteWindow window;
@@ -360,6 +361,8 @@ namespace Tomboy
 			save_timeout.Timeout += SaveTimeout;
 
 			childWidgetQueue = new Queue <ChildWidgetData> ();
+			
+			is_deleting = false;
 		}
 
 		static string UrlFromPath (string filepath)
@@ -392,6 +395,7 @@ namespace Tomboy
 
 		public void Delete ()
 		{
+			is_deleting = true;
 			save_timeout.Cancel ();
 
 			// Remove the note from all the tags
@@ -419,6 +423,11 @@ namespace Tomboy
 
 		public void Save ()
 		{
+			// Prevent any other condition forcing a save on the note
+			// if Delete has been called.
+			if (is_deleting)
+				return;
+			
 			// Do nothing if we don't need to save.  Avoids unneccessary saves
 			// e.g on forced quit when we call save for every note.
 			if (!save_needed)
