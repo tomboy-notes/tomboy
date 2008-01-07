@@ -14,8 +14,28 @@ namespace Tomboy
 		{
 			this.manager = manager;
 		}
-
-		public IDictionary<Note,int> SearchNotes (string query, bool case_sensitive)
+		
+		/// <summary>
+		/// Search the notes!
+		/// </summary>
+		/// <param name="query">
+		/// A <see cref="System.String"/>
+		/// </param>
+		/// <param name="case_sensitive">
+		/// A <see cref="System.Boolean"/>
+		/// </param>
+		/// <param name="selected_notebook">
+		/// A <see cref="Notebooks.Notebook"/>.  If this is not
+		/// null, only the notes of the specified notebook will
+		/// be searched.
+		/// </param>
+		/// <returns>
+		/// A <see cref="IDictionary`2"/>
+		/// </returns>
+		public IDictionary<Note,int> SearchNotes (
+				string query,
+				bool case_sensitive,
+				Notebooks.Notebook selected_notebook)
 		{
 			string text = query;
 			string [] words = text.Split (' ', '\t', '\n');
@@ -23,8 +43,21 @@ namespace Tomboy
 			// Used for matching in the raw note XML
                         string [] encoded_words = XmlEncoder.Encode (text).Split (' ', '\t', '\n');
 			Dictionary<Note,int> temp_matches = new Dictionary<Note,int>();
+			
+			// Skip over notes that are template notes
+			Tag template_tag = TagManager.GetOrCreateSystemTag (TagManager.TemplateNoteSystemTag);
 
 			foreach (Note note in manager.Notes) {
+				// Skip template notes
+				if (note.ContainsTag (template_tag))
+					continue;
+				
+				// Skip notes that are not in the
+				// selected notebook
+				if (selected_notebook != null
+						&& selected_notebook.ContainsNote (note) == false)
+					continue;
+				
 				// Check the note's raw XML for at least one
 				// match, to avoid deserializing Buffers
 				// unnecessarily.

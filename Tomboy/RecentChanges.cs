@@ -376,12 +376,6 @@ namespace Tomboy
 
                         tree.Model = store_sort;
 
-                        note_count.Text = string.Format (
-                                                  Catalog.GetPluralString("Total: {0} note",
-                                                                          "Total: {0} notes",
-                                                                          cnt),
-                                                  cnt);
-
                         PerformSearch ();
 
                         if (sort_column >= 0) {
@@ -424,7 +418,7 @@ namespace Tomboy
 			if (text == null) {
 				current_matches.Clear ();
 				store_filter.Refilter ();
-				UpdateNoteCount (store.IterNChildren (), -1);
+				UpdateTotalNoteCount (store_sort.IterNChildren ());
 				if (tree.IsRealized)
 					tree.ScrollToPoint (0, 0);
 				return;
@@ -433,17 +427,22 @@ namespace Tomboy
 				text = text.ToLower ();
 
 			current_matches.Clear ();
-
+			
+			// Search using the currently selected notebook
+			Notebooks.Notebook selected_notebook = GetSelectedNotebook ();
+			if (selected_notebook is Notebooks.AllNotesNotebook)
+				selected_notebook = null;
+			
 			IDictionary<Note,int> results =
-				search.SearchNotes(text, case_sensitive.Active);
+				search.SearchNotes(text, case_sensitive.Active, selected_notebook);
 			foreach (Note note in results.Keys){
 				current_matches.Add(note.Uri, results[note]);
 			}
 			
-			UpdateNoteCount (store.IterNChildren (), current_matches.Count);
 			AddMatchesColumn ();
 			store_filter.Refilter ();
 			tree.ScrollToPoint (0, 0);
+			UpdateMatchNoteCount (current_matches.Count);
 		}
 
                 void AddMatchesColumn ()
@@ -514,24 +513,27 @@ namespace Tomboy
 
                         crt.Text = match_str;
                 }
-
-                void UpdateNoteCount (int total, int matches)
+                
+                void UpdateTotalNoteCount (int total)
                 {
-                        string cnt = string.Format (
-                                             Catalog.GetPluralString("Total: {0} note",
-                                                                     "Total: {0} notes",
-                                                                     total),
-                                             total);
-                        if (matches >= 0) {
-                                cnt += ", " + string.Format (
-                                               Catalog.GetPluralString ("{0} match",
-                                                                        "{0} matches",
-                                                                        matches),
-                                               matches);
-                        }
-                        note_count.Text = cnt;
+                	string status = string.Format (
+                			Catalog.GetPluralString ("Total: {0} note",
+                									 "Total: {0} notes",
+                									 total),
+                			total);
+                	note_count.Text = status;
                 }
-
+                
+                void UpdateMatchNoteCount (int matches)
+                {
+                	string status = string.Format (
+                			Catalog.GetPluralString ("Matches: {0} note",
+                									 "Matches: {0} notes",
+                									 matches),
+                			matches);
+                	note_count.Text = status;
+                }
+                
                 /// <summary>
                 /// Filter out notes based on the current search string
                 /// and selected tags.  Also prevent template notes from
