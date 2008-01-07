@@ -221,11 +221,12 @@ namespace Tomboy
 			
 			#if GTK_2_10
 			Gtk.LinkButton open_template_button = new Gtk.LinkButton (
-			#else
-			Gtk.Button open_template_button = new Gtk.Button (
-			#endif
 				String.Empty,
 				Catalog.GetString ("Open New Note Template"));
+			#else
+			Gtk.Button open_template_button = new Gtk.Button (
+				Catalog.GetString ("_Open New Note Template..."));
+			#endif
 
 			open_template_button.Clicked += OpenTemplateButtonClicked;
 			open_template_button.Show ();
