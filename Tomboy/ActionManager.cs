@@ -30,7 +30,11 @@
  */
 
 using System;
+using System.IO;
+using System.Text;
+using System.Xml;
 using System.Collections;
+using System.Collections.Generic;
 using Mono.Unix;
 
 namespace Tomboy
@@ -51,6 +55,47 @@ namespace Tomboy
 		{
 			ui.AddUiFromResource ("UIManagerLayout.xml");
 			Gtk.Window.DefaultIconName = "tomboy";
+		}
+		
+		/// <summary>
+		/// Get all widgets represents by XML elements that are children
+		/// of the placeholder element specified by path.
+		/// </summary>
+		/// <param name="path">
+		/// A <see cref="System.String"/> representing the path to
+		/// the placeholder of interest.
+		/// </param>
+		/// <returns>
+		/// A <see cref="IList`1"/> of Gtk.Widget objects corresponding
+		/// to the XML child elements of the placeholder element.
+		/// </returns>
+		public IList<Gtk.Widget> GetPlaceholderChildren (string path)
+		{
+			List<Gtk.Widget> children = new List<Gtk.Widget> ();
+			// Wrap the UIManager XML in a root element
+			// so that it's real parseable XML.
+			string xml = "<root>" + ui.Ui + "</root>";
+			
+			using (StringReader reader = new StringReader (xml)) {
+				XmlDocument doc = new XmlDocument ();
+				doc.Load (reader);
+				
+				// Get the element name
+				string placeholderName = path.Substring (path.LastIndexOf ("/") + 1);
+				
+				// Find the placeholder specified in the path
+				foreach (XmlNode placeholderNode in doc.GetElementsByTagName ("placeholder")) {
+					if (placeholderNode.Attributes ["name"].InnerXml == placeholderName) {
+						// Return each child element's widget
+						foreach (XmlNode widgetNode in placeholderNode.ChildNodes) {
+							string widgetName = widgetNode.Attributes ["name"].InnerXml;
+							children.Add (GetWidget (path + "/" + widgetName));
+						}
+					}
+				}
+			}
+			
+			return children;
 		}
 
 		private void PopulateActionGroups ()
