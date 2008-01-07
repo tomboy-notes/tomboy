@@ -1,5 +1,12 @@
 2008-01-07  Sandy Armstrong <sanfordarmstrong@gmail.com> 
 
+	* Tomboy/Tomboy.cs: If dbus is disabled, execute command line options
+	  *after* initializing the ActionManager and ApplicationAddins.  Opening
+	  the search UI before this is done causes Tomboy to hit null reference
+	  exceptions while acessing the ActionManager, and crash.
+
+2008-01-07  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
 	* Tomboy/Utils.cs: Commenting out use of Gtk.Button.ImagePosition, which is
 	  new to GTK+ 2.10.  We were just setting it to the default value, anyway.
 
