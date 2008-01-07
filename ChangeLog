@@ -1,5 +1,16 @@
 2008-01-07  Sandy Armstrong <sanfordarmstrong@gmail.com> 
 
+	* Tomboy/ActionManager.cs: Add ActionManager.GetPlaceholderChildren method,
+	  which retrieves the widgets for all child elements under the specified
+	  placeholder XML element in the UIManager XML.
+	* Tomboy/Tray.cs: Fix reordering of menu items placed in the
+	  TrayNewNotePlaceholder element in the UIManager XML.  Fixes bug #507798.
+	   Does not account for menu items added under other placeholders, or menu
+	  items added in other fashions (so it doesn't work with the Tasks addin
+	  which adds items programatically).
+
+2008-01-07  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
 	* Tomboy/Tomboy.cs: If dbus is disabled, execute command line options
 	  *after* initializing the ActionManager and ApplicationAddins.  Opening
 	  the search UI before this is done causes Tomboy to hit null reference

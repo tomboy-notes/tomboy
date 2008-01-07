@@ -302,7 +302,25 @@ namespace Tomboy
 			Gtk.MenuItem searchNotesItem = Tomboy.ActionManager.GetWidget (
 			                                       "/TrayIconMenu/ShowSearchAllNotes") as Gtk.MenuItem;
 			recent_menu.ReorderChild (newNoteItem, 0);
-			recent_menu.ReorderChild (searchNotesItem, 1);
+			int insertion_point = 1; // If menu opens downward
+			
+			// Find all child widgets under the TrayNewNotePlaceholder
+			// element.  Make sure those added by add-ins are
+			// properly accounted for and reordered.
+			List<Gtk.Widget> newNotePlaceholderWidgets = new List<Gtk.Widget> ();
+			IList<Gtk.Widget> allChildWidgets =
+				Tomboy.ActionManager.GetPlaceholderChildren ("/TrayIconMenu/TrayNewNotePlaceholder");
+			foreach (Gtk.Widget child in allChildWidgets) {
+				if (child is Gtk.MenuItem &&
+				    child != newNoteItem) {
+					newNotePlaceholderWidgets.Add (child);
+					recent_menu.ReorderChild (child, insertion_point);
+					insertion_point++;
+				}
+			}
+			
+			recent_menu.ReorderChild (searchNotesItem, insertion_point);
+			insertion_point++;
 
 			DateTime days_ago = DateTime.Today.AddDays (-3);
 			
@@ -335,8 +353,8 @@ namespace Tomboy
 
 				if (show) {
 					item = new NoteMenuItem (note, true);
-					// Add this widget to the menu (+2 to add after new+search)
-					recent_menu.Insert (item, list_size + 2);
+					// Add this widget to the menu (+insertion_point to add after new+search+...)
+					recent_menu.Insert (item, list_size + insertion_point);
 					// Keep track of this item so we can remove it later
 					recent_notes.Add (item);
 
@@ -348,9 +366,9 @@ namespace Tomboy
 			if (start != null) {
 				item = new NoteMenuItem (start, false);
 				if (menuOpensUpward)
-					recent_menu.Insert (item, list_size + 2);
+					recent_menu.Insert (item, list_size + insertion_point);
 				else
-					recent_menu.Insert (item, 2);
+					recent_menu.Insert (item, insertion_point);
 				recent_notes.Add (item);
 
 				list_size++;
@@ -363,13 +381,15 @@ namespace Tomboy
 					        Preferences.KEYBINDING_OPEN_START_HERE);
 			}
 
-			int insertion_point = 2; // If menu opens downard
 
 			// FIXME: Rearrange this stuff to have less wasteful reordering
 			if (menuOpensUpward) {
 				// Relocate common items to bottom of menu
-				recent_menu.ReorderChild (searchNotesItem, list_size + 1);
-				recent_menu.ReorderChild (newNoteItem, list_size + 1);
+				insertion_point -= 1;
+				recent_menu.ReorderChild (searchNotesItem, list_size + insertion_point);
+				foreach (Gtk.Widget widget in newNotePlaceholderWidgets)
+					recent_menu.ReorderChild (widget, list_size + insertion_point);
+				recent_menu.ReorderChild (newNoteItem, list_size + insertion_point);
 				insertion_point = list_size;
 			}
 
