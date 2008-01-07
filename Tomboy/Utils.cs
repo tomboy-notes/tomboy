@@ -364,7 +364,10 @@ namespace Tomboy
 		{
 			Gtk.Button button = new Gtk.Button ();
 			Gtk.Image image = new Gtk.Image (pixbuf);
-			button.ImagePosition = Gtk.PositionType.Left;
+			// NOTE: This property is new to GTK+ 2.10, but we don't
+			//       really need the line because we're just setting
+			//       it to the default value anyway.
+			//button.ImagePosition = Gtk.PositionType.Left;
 			button.Image = image;
 			button.Label = label_text;
 			button.UseUnderline = true;
