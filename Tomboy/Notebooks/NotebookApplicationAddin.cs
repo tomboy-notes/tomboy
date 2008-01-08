@@ -32,6 +32,10 @@ namespace Tomboy.Notebooks
 				        Catalog.GetString ("New Note_book..."), null,
 				        Catalog.GetString ("Create a new notebook"), null),
 					
+				new Gtk.ActionEntry ("NewNotebookNoteAction", Gtk.Stock.New,
+					Catalog.GetString ("_New Note"), null,
+					Catalog.GetString ("Create a new note in this notebook"), null),
+					
 				new Gtk.ActionEntry ("OpenNotebookTemplateNoteAction", Gtk.Stock.Open,
 					Catalog.GetString ("_Open Template Note"), null,
 					Catalog.GetString ("Open this notebook's template note"), null),
@@ -60,6 +64,8 @@ namespace Tomboy.Notebooks
 							</menu>
 						</menubar>
 						<popup name='NotebooksTreeContextMenu' action='NotebooksTreeContextMenuAction'>
+							<menuitem name='NewNotebookNote' action='NewNotebookNoteAction' />
+							<separator />
 							<menuitem name='OpenNotebookTemplateNote' action='OpenNotebookTemplateNoteAction' />
 							<menuitem name='DeleteNotebook' action='DeleteNotebookAction' />
 						</popup>
