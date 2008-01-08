@@ -162,12 +162,13 @@ namespace Tomboy.Notebooks
 		{
 			// Disable the notebook button if this note is a template note
 			Tag templateTag = TagManager.GetOrCreateSystemTag (TagManager.TemplateNoteSystemTag);
-			if (Note.ContainsTag (templateTag) == true)
+			if (Note.ContainsTag (templateTag) == true) {
 				toolButton.Sensitive = false;
 			
-			// Also prevent notebook templates from being deleted
-			if (NotebookManager.GetNotebookFromNote (Note) != null)
-				Note.Window.DeleteButton.Sensitive = false;
+				// Also prevent notebook templates from being deleted
+				if (NotebookManager.GetNotebookFromNote (Note) != null)
+					Note.Window.DeleteButton.Sensitive = false;
+			}
 		}
 	}
 }
