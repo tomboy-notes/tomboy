@@ -1,5 +1,13 @@
 2008-01-08  Boyd Timothy <btimothy@gmail.com> 
 
+	* Tomboy/Notebooks/NotebookNoteAddin.cs: Moved the code
+	  that was running on the Note.Window.Shown event into
+	  the overridden OnNoteOpened () method so that we don't
+	  call Note.Window during shutdown (which is called when
+	  a note is deleted).  Fixes bug #508110.
+
+2008-01-08  Boyd Timothy <btimothy@gmail.com> 
+
 	* Tomboy/Notebooks/NotebookManager.cs: Set the default
 	  response to "No" when deleting a notebook (much safer
 	  this way).

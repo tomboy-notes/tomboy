@@ -33,8 +33,6 @@ namespace Tomboy.Notebooks
 			Gtk.Tooltips toolbarTips = new Gtk.Tooltips ();
 			toolbarTips.SetTip (toolButton, Catalog.GetString ("Place this note into a notebook"), null);
 			
-			Note.Window.Shown += OnNoteWindowShown;
-
 			// Set the notebook submenu
 			menu.Shown += OnMenuShown;
 			toolButton.ShowAll ();
@@ -50,7 +48,6 @@ namespace Tomboy.Notebooks
 			// Disconnect the event handlers so
 			// there aren't any memory leaks.
 			if (toolButton != null) {
-				Note.Window.Shown -= OnNoteWindowShown;
 				menu.Shown -= OnMenuShown;
 				NotebookManager.NoteAddedToNotebook -=
 					OnNoteAddedToNotebook;
@@ -61,8 +58,19 @@ namespace Tomboy.Notebooks
 
 		public override void OnNoteOpened ()
 		{
-			if (toolButton == null)
+			if (toolButton == null) {
 				InitializeToolButton ();
+
+				// Disable the notebook button if this note is a template note
+				Tag templateTag = TagManager.GetOrCreateSystemTag (TagManager.TemplateNoteSystemTag);
+				if (Note.ContainsTag (templateTag) == true) {
+					toolButton.Sensitive = false;
+				
+					// Also prevent notebook templates from being deleted
+					if (NotebookManager.GetNotebookFromNote (Note) != null)
+						Note.Window.DeleteButton.Sensitive = false;
+				}
+			}
 		}
 		
 		void OnMenuShown (object sender, EventArgs args)
@@ -156,19 +164,6 @@ namespace Tomboy.Notebooks
 			items.Sort ();
 			
 			return items;
-		}
-		
-		void OnNoteWindowShown (object sender, EventArgs args)
-		{
-			// Disable the notebook button if this note is a template note
-			Tag templateTag = TagManager.GetOrCreateSystemTag (TagManager.TemplateNoteSystemTag);
-			if (Note.ContainsTag (templateTag) == true) {
-				toolButton.Sensitive = false;
-			
-				// Also prevent notebook templates from being deleted
-				if (NotebookManager.GetNotebookFromNote (Note) != null)
-					Note.Window.DeleteButton.Sensitive = false;
-			}
 		}
 	}
 }
