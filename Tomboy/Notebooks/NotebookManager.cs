@@ -321,6 +321,7 @@ namespace Tomboy.Notebooks
 									  	"The notes that belong to this notebook will not be " +
 									  	"deleted, but they will no longer be associated with " +
 									  	"this notebook.  This action cannot be undone."));
+			dialog.DefaultResponse = Gtk.ResponseType.No;
 			int response = dialog.Run ();
 			dialog.Destroy ();
 			if (response != (int) Gtk.ResponseType.Yes)
