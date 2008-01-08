@@ -208,6 +208,7 @@ namespace Tomboy
 
                         am ["OpenNoteAction"].Activated += OnOpenNote;
                         am ["DeleteNoteAction"].Activated += OnDeleteNote;
+                        am ["NewNotebookNoteAction"].Activated += OnNewNotebookNote;
                         am ["OpenNotebookTemplateNoteAction"].Activated += OnOpenNotebookTemplateNote;
 			am ["NewNotebookAction"].Activated += OnNewNotebook;
                         am ["DeleteNotebookAction"].Activated += OnDeleteNotebook;
@@ -806,6 +807,7 @@ namespace Tomboy
                                 am ["DeleteNoteAction"].Activated -= OnDeleteNote;
 				am ["NewNotebookAction"].Activated -= OnNewNotebook;
 				am ["DeleteNotebookAction"].Activated -= OnDeleteNotebook;
+                am ["NewNotebookNoteAction"].Activated -= OnNewNotebookNote;
 				am ["OpenNotebookTemplateNoteAction"].Activated -= OnOpenNotebookTemplateNote;
                                 am ["CloseWindowAction"].Activated -= OnCloseWindow;
                         }
@@ -1049,7 +1051,7 @@ namespace Tomboy
 				// Clear out the currently selected tags so that no notebook is selected
 				selected_tags.Clear ();
                 Tomboy.ActionManager ["OpenNotebookTemplateNoteAction"].Sensitive = false;
-				Tomboy.ActionManager ["DeleteNotebookAction"].Sensitive = false;
+
 				
 				// Select the "All Notes" item without causing
 				// this handler to be called again
@@ -1062,10 +1064,8 @@ namespace Tomboy
 					selected_tags.Add (notebook.Tag, notebook.Tag);
 				if (notebook is Notebooks.AllNotesNotebook) {
 	                Tomboy.ActionManager ["OpenNotebookTemplateNoteAction"].Sensitive = true;
-					Tomboy.ActionManager ["DeleteNotebookAction"].Sensitive = false;
 				} else {
 	                Tomboy.ActionManager ["OpenNotebookTemplateNoteAction"].Sensitive = true;
-					Tomboy.ActionManager ["DeleteNotebookAction"].Sensitive = true;
 				}
 			}
 			
@@ -1090,6 +1090,30 @@ namespace Tomboy
 		private void OnNotebookRowActivated (object sender, Gtk.RowActivatedArgs args)
 		{
 			OnOpenNotebookTemplateNote (sender, EventArgs.Empty);
+		}
+		
+		private void OnNewNotebookNote (object sender, EventArgs args)
+		{
+			Notebooks.Notebook notebook = GetSelectedNotebook ();
+			if (notebook == null || notebook is Notebooks.AllNotesNotebook) {
+				// Just create a standard note (not in a notebook)
+				Tomboy.ActionManager ["NewNoteAction"].Activate ();
+				return;
+			}
+			
+			// Look for the template note and create a new note
+			Note templateNote = notebook.GetTemplateNote ();
+			Note note;
+			
+			note = manager.Create ();
+			if (templateNote != null) {
+				// Use the body from the template note
+				string xmlContent = templateNote.XmlContent.Replace (templateNote.Title, note.Title);
+				note.XmlContent = xmlContent;
+			}
+			
+			note.AddTag (notebook.Tag);
+			note.Window.Show ();
 		}
 		
 		private void OnOpenNotebookTemplateNote (object sender, EventArgs args)
