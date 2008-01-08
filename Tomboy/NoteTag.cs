@@ -346,7 +346,12 @@ namespace Tomboy
 
 			Gtk.Style s = Gtk.Rc.GetStyleByPaths(Gtk.Settings.Default,
 			                                     "GtkTextView", "GtkTextView", Gtk.TextView.GType);
-			return s.Background(Gtk.StateType.Normal);
+			if (s == null) {
+				Logger.Debug ("get_background: Style for GtkTextView came back null! Returning white...");
+				return new Gdk.Color (0xff, 0xff, 0xff); //white, for lack of a better idea
+			}
+			else
+				return s.Background(Gtk.StateType.Normal);
 		}
 
 		Gdk.Color render_foreground(PaletteColor symbol)
