@@ -1,0 +1,21 @@
+<Addin id="SketchingAddin"
+	namespace="Tomboy"
+	name="Sketching"
+	author="Tomboy Project"
+	description="Sketch a drawing directly inside of a note."
+	category="Tools"
+	defaultEnabled="true"
+	version="0.1">
+
+	<Runtime>
+		<Import assembly="Sketching.dll" />
+	</Runtime>
+
+	<Dependencies>
+		<Addin id="Tomboy" version="0.7" />
+	</Dependencies>
+
+	<Extension path="/Tomboy/NoteAddins">
+		<NoteAddin type="Tomboy.Sketching.SketchingNoteAddin" />
+	</Extension>
+</Addin>
