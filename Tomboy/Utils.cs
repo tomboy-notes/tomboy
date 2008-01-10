@@ -778,10 +778,17 @@ namespace Tomboy
 
 	class ToolMenuButton : Gtk.ToggleToolButton
 	{
+		Gtk.Toolbar toolbar;
 		Gtk.Menu menu;
 		Gtk.Image image;
-		Gtk.VBox label_container;
 		Gtk.Label label;
+		
+		Gtk.VBox top_vbox;
+		Gtk.VBox vert_label_box;
+		Gtk.HBox horiz_label_box;
+		Gtk.Arrow arrow;
+		Gtk.VBox box_vert;
+		Gtk.HBox box_horiz;
 
 		public ToolMenuButton (Gtk.Toolbar toolbar,
 		                       string stock_image,
@@ -799,9 +806,9 @@ namespace Tomboy
 		                       string l,
 		                       Gtk.Menu menu) : base ()
 		{
+			this.toolbar = toolbar;
+			this.image = image;
 			Gtk.Arrow arrow;
-			Gtk.VBox vbox;
-			Gtk.HBox hbox;
 			label = new Gtk.Label (l);
 			label.UseUnderline = true;
 			this.CanFocus = true;
@@ -810,20 +817,27 @@ namespace Tomboy
 			menu.AttachToWidget (this,GuiUtils.DetachMenu);
 			menu.Deactivated += ReleaseButton;
 			
-			vbox = new Gtk.VBox (false, 0);
-			vbox.PackStart (image, true, true, 0);
-			
-			label_container = new Gtk.VBox (false, 0);
-			label_container.PackStart (label, true, true, 0);
-			vbox.PackStart (label_container, false, true, 0);
-			
-			hbox = new Gtk.HBox (false, 0);
-			hbox.PackStart (vbox, true, true, 0);
 			arrow = new Gtk.Arrow (Gtk.ArrowType.Down, Gtk.ShadowType.In);
-			hbox.PackEnd (arrow, false, false, 0);
-			base.LabelWidget = hbox;
-
+			
+			box_vert = new Gtk.VBox (false, 0);
+			box_vert.PackStart (image, true, true, 0);
+			vert_label_box = new Gtk.VBox (false, 0);
+			vert_label_box.PackStart (label, true, true, 0);
+			box_vert.PackStart (vert_label_box, false, true, 0);
+			
+			box_horiz = new Gtk.HBox (false, 0);
+			box_horiz.PackStart (box_vert, true, true, 0);
+			horiz_label_box = new Gtk.HBox (false, 0);
+			box_horiz.PackStart (horiz_label_box, false, true, 2);
+			box_horiz.PackEnd (arrow, false, true, 0);
+			
+			top_vbox = new Gtk.VBox (false, 0);
+			top_vbox.PackStart (box_horiz, true, true, 0);
+			base.LabelWidget = top_vbox;
+			
 			this.ShowAll ();
+			ShowForToolbarStyle (toolbar.ToolbarStyle);
+			toolbar.StyleChanged += OnToolbarStyleChanged;
 		}
 
 		protected override bool OnButtonPressEvent (Gdk.EventButton ev)
@@ -870,17 +884,104 @@ namespace Tomboy
 				return label;
 			}
 			set {
-				// Clear out the old label widget
-				foreach (Gtk.Widget w in label_container.Children) {
-					if (w is Gtk.Label) {
-						label_container.Remove (w);
-						break;
-					}
-				}
+				if (value == null)
+					return; // sorry, not gonna let nulls do anything
 				
-				label_container.PackStart (value, true, true, 0);
-				label_container.ShowAll ();
+				Gtk.Label new_label = value as Gtk.Label;
+				if (new_label == null)
+					return; // sorry, we don't support something that's not a Gtk.Label
+				
+				label.Text = new_label.Text;
+				ShowForToolbarStyle (toolbar.ToolbarStyle);
 			}
+		}
+		
+		void ShowForToolbarStyle (Gtk.ToolbarStyle style)
+		{
+			switch (style) {
+			case Gtk.ToolbarStyle.Icons:
+				vert_label_box.Hide ();
+				horiz_label_box.Hide ();
+				image.Show ();
+				
+				if (base.LabelWidget != null)
+					base.LabelWidget = null;
+				base.IconWidget = top_vbox;
+				
+				break;
+			case Gtk.ToolbarStyle.Text:
+				vert_label_box.Hide ();
+				image.Hide ();
+				
+				// Make sure the label widget is not a child of
+				// the vert_label_box and add it to the
+				// horiz_label_box.
+				if (RemoveLabelFromContainer (vert_label_box) == true)
+					horiz_label_box.PackStart (label, true, true, 0);
+				
+				horiz_label_box.ShowAll ();
+
+				if (base.IconWidget != null)
+					base.IconWidget = null;
+				base.LabelWidget = top_vbox;
+				break;
+			case Gtk.ToolbarStyle.Both:
+				horiz_label_box.Hide ();
+				image.Show ();
+				
+				// Make sure the label widget is not a child of
+				// the horiz_label_box and add it to the
+				// vert_label_box.
+				if (RemoveLabelFromContainer (horiz_label_box) == true)
+					vert_label_box.PackStart (label, true, true, 0);
+				vert_label_box.ShowAll ();
+				if (base.IconWidget != null)
+					base.IconWidget = null;
+				base.LabelWidget = top_vbox;
+				break;
+			case Gtk.ToolbarStyle.BothHoriz:
+				vert_label_box.Hide ();
+				image.Show ();
+
+				// Make sure the label widget is not a child of
+				// the vert_label_box and add it to the
+				// horiz_label_box.
+				if (RemoveLabelFromContainer (vert_label_box) == true)
+					horiz_label_box.PackStart (label, true, true, 0);
+				
+				horiz_label_box.ShowAll ();
+				if (base.LabelWidget != null)
+					base.LabelWidget = null;
+				base.IconWidget = top_vbox;
+				break;
+			}
+		}
+		
+		void OnToolbarStyleChanged (object sender, Gtk.StyleChangedArgs args)
+		{
+			ShowForToolbarStyle (args.Style);
+		}
+		
+		/// <summary>
+		/// Removes the Gtk.Label widget inside of the specified container.
+		/// </summary>
+		/// <param name="container">
+		/// A <see cref="Gtk.Container"/>
+		/// </param>
+		/// <returns>
+		/// A <see cref="System.Boolean"/>.  True if a Gtk.Label widget was
+		/// removed.
+		/// </returns>
+		bool RemoveLabelFromContainer (Gtk.Container container)
+		{
+			foreach (Gtk.Widget child in container) {
+				if (child is Gtk.Label) {
+					container.Remove (child);
+					return true;
+				}
+			}
+			
+			return false;
 		}
 	}
 
