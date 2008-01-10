@@ -189,5 +189,10 @@
 	<span style="font-family:monospace"><xsl:apply-templates select="node()"/></span>
 </xsl:template>
 
+<!-- Bugzilla.dll Plugin -->
+<xsl:template match="link:bugzilla">
+	<a href="{@uri}"><xsl:value-of select="node()" /></a>
+</xsl:template>
+
 </xsl:stylesheet>
 
