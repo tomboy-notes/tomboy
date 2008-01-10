@@ -780,32 +780,48 @@ namespace Tomboy
 	{
 		Gtk.Menu menu;
 		Gtk.Image image;
+		Gtk.VBox label_container;
+		Gtk.Label label;
 
 		public ToolMenuButton (Gtk.Toolbar toolbar,
 		                       string stock_image,
-		                       string label,
+		                       string l,
 		                       Gtk.Menu menu)
 			: this (toolbar,
 		        new Gtk.Image (stock_image, toolbar.IconSize),
-		        label,
+		        l,
 		        menu)
 		{
 		}
 
 		public ToolMenuButton (Gtk.Toolbar toolbar,
 		                       Gtk.Image image,
-		                       string label,
+		                       string l,
 		                       Gtk.Menu menu) : base ()
 		{
-			this.IconWidget = image;
-			Gtk.Label l = new Gtk.Label (label);
-			l.UseUnderline = true;
-			this.LabelWidget = l;
+			Gtk.Arrow arrow;
+			Gtk.VBox vbox;
+			Gtk.HBox hbox;
+			label = new Gtk.Label (l);
+			label.UseUnderline = true;
 			this.CanFocus = true;
 //			this.FocusOnClick = false; // TODO: Not supported anymore?
 			this.menu = menu;
 			menu.AttachToWidget (this,GuiUtils.DetachMenu);
 			menu.Deactivated += ReleaseButton;
+			
+			vbox = new Gtk.VBox (false, 0);
+			vbox.PackStart (image, true, true, 0);
+			
+			label_container = new Gtk.VBox (false, 0);
+			label_container.PackStart (label, true, true, 0);
+			vbox.PackStart (label_container, false, true, 0);
+			
+			hbox = new Gtk.HBox (false, 0);
+			hbox.PackStart (vbox, true, true, 0);
+			arrow = new Gtk.Arrow (Gtk.ArrowType.Down, Gtk.ShadowType.In);
+			hbox.PackEnd (arrow, false, false, 0);
+			base.LabelWidget = hbox;
 
 			this.ShowAll ();
 		}
@@ -840,6 +856,31 @@ namespace Tomboy
 		{
 			// Release the state when the menu closes
 			Active = false;
+		}
+		
+		/// <summary>
+		/// Override the default behavior since we've already placed
+		/// an entire widget as the Label widget.  This overridden
+		/// LabelWidget will set the Label widget like the normal
+		/// base class does.
+		/// </summary>
+		public new Gtk.Widget LabelWidget
+		{
+			get {
+				return label;
+			}
+			set {
+				// Clear out the old label widget
+				foreach (Gtk.Widget w in label_container.Children) {
+					if (w is Gtk.Label) {
+						label_container.Remove (w);
+						break;
+					}
+				}
+				
+				label_container.PackStart (value, true, true, 0);
+				label_container.ShowAll ();
+			}
 		}
 	}
 
