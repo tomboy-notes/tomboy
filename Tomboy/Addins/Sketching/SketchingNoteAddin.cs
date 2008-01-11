@@ -14,6 +14,7 @@ namespace Tomboy.Sketching
 		
 		public override void Initialize ()
 		{
+            // Translators: a 'sketch' is a quick drawing
 			menu_item = new Gtk.ImageMenuItem (
 					Catalog.GetString ("Add a sketch"));
 			// FIXME: Use a real Sketching icon instead of the Edit icon
