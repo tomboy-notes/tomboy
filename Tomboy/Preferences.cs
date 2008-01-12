@@ -1,6 +1,8 @@
 
 using System;
 
+using Mono.Unix;
+
 namespace Tomboy
 {
 	public class Preferences
@@ -33,6 +35,8 @@ namespace Tomboy
 		public const string SYNC_LOCAL_PATH = "/apps/tomboy/sync/sync_local_path";
 		public const string SYNC_SELECTED_SERVICE_ADDIN = "/apps/tomboy/sync/sync_selected_service_addin";
 		public const string SYNC_CONFIGURED_CONFLICT_BEHAVIOR = "/apps/tomboy/sync/sync_conflict_behavior";
+
+		public const string INSERT_TIMESTAMP_FORMAT = "/apps/tomboy/insert_timestamp/format";
 
 		static GConf.Client client;
 		static GConf.NotifyEventHandler changed_handler;
@@ -114,6 +118,9 @@ namespace Tomboy
 
 			case SYNC_CONFIGURED_CONFLICT_BEHAVIOR:
 				return 0;
+
+			case INSERT_TIMESTAMP_FORMAT:
+				return Catalog.GetString ("dddd, MMMM d, h:mm tt");
 			}
 
 			return null;

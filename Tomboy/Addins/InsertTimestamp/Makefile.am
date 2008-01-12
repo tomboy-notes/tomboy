@@ -14,7 +14,9 @@ ASSEMBLIES = 					\
 ADDIN_NAME = InsertTimestamp
 TARGET = $(ADDIN_NAME).dll
 CSFILES = \
-	$(srcdir)/InsertTimestampNoteAddin.cs
+	$(srcdir)/InsertTimestampNoteAddin.cs		\
+	$(srcdir)/InsertTimestampPreferences.cs		\
+	$(srcdir)/InsertTimestampPreferencesFactory.cs
 RESOURCES = \
 	-resource:$(srcdir)/$(ADDIN_NAME).addin.xml
 
