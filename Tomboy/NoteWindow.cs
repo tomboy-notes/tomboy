@@ -290,6 +290,12 @@ public NoteWindow (Note note) :
 			}
 		}
 
+		public Gtk.AccelGroup AccelGroup {
+			get {
+				return accel_group;
+			}
+		}
+
 		//
 		// Sensitize the Link toolbar button on text selection
 		//
