@@ -88,16 +88,17 @@ namespace Tomboy.Sync
 			if (GetConfigSettings (out syncPath) == false)
 				syncPath = string.Empty;
 
-			Label l = new Label (Catalog.GetString ("Folder Path:"));
+			Label l = new Label (Catalog.GetString ("_Folder Path:"));
 			l.Xalign = 1;
 			table.Attach (l, 0, 1, 0, 1);
 
 			pathEntry = new Entry ();
 			pathEntry.Text = syncPath;
 			table.Attach (pathEntry, 1, 2, 0, 1);
+			l.MnemonicWidget = pathEntry;
 
 			Image browseImage = new Image (Stock.Open, IconSize.Button);
-			Label browseLabel = new Label (Catalog.GetString ("Browse..."));
+			Label browseLabel = new Label (Catalog.GetString ("_Browse..."));
 
 			HBox browseBox = new HBox (false, 0);
 			browseBox.PackStart (browseImage);
@@ -105,6 +106,7 @@ namespace Tomboy.Sync
 
 			Button browseButton = new Button ();
 			browseButton.Add (browseBox);
+			browseLabel.MnemonicWidget = browseButton;
 			browseButton.Clicked += OnBrowseButtonClicked;
 			table.Attach (browseButton, 2, 3, 0, 1, AttachOptions.Shrink, AttachOptions.Expand, 0, 0);
 

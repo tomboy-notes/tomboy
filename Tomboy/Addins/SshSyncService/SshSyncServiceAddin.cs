@@ -38,27 +38,30 @@ namespace Tomboy.Sync
 			if (username == null)
 				username = string.Empty;
 
-			Label l = new Label (Catalog.GetString ("Server:"));
+			Label l = new Label (Catalog.GetString ("Se_rver:"));
 			l.Xalign = 1;
 			table.Attach (l, 0, 1, 0, 1);
 
 			serverEntry = new Entry ();
+			l.MnemonicWidget = serverEntry;
 			serverEntry.Text = server;
 			table.Attach (serverEntry, 1, 2, 0, 1);
 
-			l = new Label (Catalog.GetString ("Username:"));
+			l = new Label (Catalog.GetString ("User_name:"));
 			l.Xalign = 1;
 			table.Attach (l, 0, 1, 1, 2);
 
 			usernameEntry = new Entry ();
+			l.MnemonicWidget = usernameEntry;
 			usernameEntry.Text = username;
 			table.Attach (usernameEntry, 1, 2, 1, 2);
 
-			l = new Label (Catalog.GetString ("Folder Path (optional):"));
+			l = new Label (Catalog.GetString ("_Folder Path (optional):"));
 			l.Xalign = 1;
 			table.Attach (l, 0, 1, 2, 3);
 
 			folderEntry = new Entry ();
+			l.MnemonicWidget = folderEntry;
 			folderEntry.Text = folder;
 			table.Attach (folderEntry, 1, 2, 2, 3);
 
