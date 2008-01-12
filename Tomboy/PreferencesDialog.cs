@@ -390,7 +390,7 @@ namespace Tomboy
 
 			Gtk.HBox hbox = new Gtk.HBox (false, 4);
 
-			Gtk.Label label = new Gtk.Label (Catalog.GetString ("Service:"));
+			Gtk.Label label = new Gtk.Label (Catalog.GetString ("Ser_vice:"));
 			label.Xalign = 0;
 			label.Show ();
 			hbox.PackStart (label, false, false, 0);
@@ -407,6 +407,7 @@ namespace Tomboy
 			}
 
 			syncAddinCombo = new Gtk.ComboBox (syncAddinStore);
+			label.MnemonicWidget = syncAddinCombo;
 			Gtk.CellRendererText crt = new Gtk.CellRendererText ();
 			syncAddinCombo.PackStart (crt, true);
 			syncAddinCombo.SetCellDataFunc (crt,
@@ -462,7 +463,7 @@ namespace Tomboy
 			bbox.LayoutStyle = Gtk.ButtonBoxStyle.End;
 
 			// "Advanced..." button to bring up extra sync config dialog
-			Gtk.Button advancedConfigButton = new Gtk.Button (Catalog.GetString ("Advanced..."));
+			Gtk.Button advancedConfigButton = new Gtk.Button (Catalog.GetString ("_Advanced..."));
 			advancedConfigButton.Clicked += OnAdvancedSyncConfigButton;
 			advancedConfigButton.Show ();
 			bbox.PackStart (advancedConfigButton, false, false, 0);

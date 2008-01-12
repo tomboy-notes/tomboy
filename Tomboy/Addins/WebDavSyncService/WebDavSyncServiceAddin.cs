@@ -48,27 +48,30 @@ namespace Tomboy.Sync
 			if (password == null)
 				password = string.Empty;
 
-			Label l = new Label (Catalog.GetString ("URL:"));
+			Label l = new Label (Catalog.GetString ("_URL:"));
 			l.Xalign = 1;
 			table.Attach (l, 0, 1, 0, 1);
 
 			urlEntry = new Entry ();
+			l.MnemonicWidget = urlEntry;
 			urlEntry.Text = url;
 			table.Attach (urlEntry, 1, 2, 0, 1);
 
-			l = new Label (Catalog.GetString ("Username:"));
+			l = new Label (Catalog.GetString ("User_name:"));
 			l.Xalign = 1;
 			table.Attach (l, 0, 1, 1, 2);
 
 			usernameEntry = new Entry ();
+			l.MnemonicWidget = usernameEntry;
 			usernameEntry.Text = username;
 			table.Attach (usernameEntry, 1, 2, 1, 2);
 
-			l = new Label (Catalog.GetString ("Password:"));
+			l = new Label (Catalog.GetString ("_Password:"));
 			l.Xalign = 1;
 			table.Attach (l, 0, 1, 2, 3);
 
 			passwordEntry = new Entry ();
+			l.MnemonicWidget = passwordEntry;
 			passwordEntry.Text = password;
 			passwordEntry.Visibility = false;
 			table.Attach (passwordEntry, 1, 2, 2, 3);
