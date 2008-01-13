@@ -276,7 +276,7 @@ namespace Tomboy
 			}
 		}
 
-		public bool AddNewline()
+		public bool AddNewline(bool soft_break)
 		{
 			if (!CanMakeBulletedList() || !EnableAutoBulletedLists)
 				return false;
@@ -286,15 +286,33 @@ namespace Tomboy
 			iter.LineOffset = 0;
 
 			DepthNoteTag prev_depth = FindDepthTag (iter);
+			
+			Gtk.TextIter insert = GetIterAtMark (insert_mark);
+ 
+			// Insert a LINE SEPARATOR character which allows us
+			// to have multiple lines in a single bullet point
+			if (prev_depth != null && soft_break) {
+				bool at_end_of_line = insert.EndsLine ();
+				Insert (ref insert, "\u2028");
+				
+				// Hack so that the user sees that what they type
+				// next will appear on a new line, otherwise the
+				// cursor stays at the end of the previous line.
+				if (at_end_of_line) {
+					Insert (ref insert, " ");
+					Gtk.TextIter bound = insert;
+					bound.BackwardChar ();
+					MoveMark (SelectionBound, bound);
+				}
+				
+				return true;			
 
 			// If the previous line has a bullet point on it we add a bullet
 			// to the new line, unless the previous line was blank (apart from
 			// the bullet), in which case we clear the bullet/indent from the
 			// previous line.
-			if (prev_depth != null) {
+			} else if (prev_depth != null) {
 				iter.ForwardChar ();
-
-				Gtk.TextIter insert = GetIterAtMark (insert_mark);
 
 				// See if the line was left contentless and remove the bullet
 				// if so.
@@ -314,8 +332,16 @@ namespace Tomboy
 					iter = GetIterAtMark (insert_mark);
 					Insert (ref iter, "\n");
 				} else {
-					Undoer.FreezeUndo ();
 					iter = GetIterAtMark (insert_mark);
+					Gtk.TextIter prev = iter;
+					prev.BackwardChar ();
+					
+					// Remove soft breaks
+					if (prev.Char == "\u2028") {
+						Delete (ref prev, ref iter);
+					}
+					
+					Undoer.FreezeUndo ();
 					int offset = iter.Offset;
 					Insert (ref iter, "\n");
 
@@ -489,6 +515,18 @@ namespace Tomboy
 				if (depth != null || prev_depth != null) {
 					DecreaseDepth (ref start);
 					return true;
+				} else {
+					// See if the cursor is before a soft line break
+					// and remove it if it is. Otherwise you have to
+					// press backspace twice before  it will delete
+					// the previous visible character.
+					prev = start;
+					prev.BackwardChars (2);
+					if (prev.Char == "\u2028") {
+						Gtk.TextIter end_break = prev;
+						end_break.ForwardChar ();
+						Delete (ref prev, ref end_break);
+					}
 				}
 			}
 
@@ -744,7 +782,6 @@ namespace Tomboy
 
 			bool toggle_on = true;
 			if (FindDepthTag (start) != null) {
-				Gtk.TextIter bullet_end = GetIterAtLineOffset (start.Line, 2);
 				toggle_on = false;
 			}
 
@@ -1122,8 +1159,6 @@ namespace Tomboy
 			}
 
 			while (!iter.Equal (end) && iter.Char != null) {
-				bool new_list = false;
-
 				DepthNoteTag depth_tag = ((NoteBuffer)buffer).FindDepthTag (iter);
 
 				// If we are at a character with a depth tag we are at the
@@ -1168,7 +1203,6 @@ namespace Tomboy
 							xml.WriteStartElement (null, "list-item", null);
 							xml.WriteStartElement (null, "list", null);
 						}
-						new_list = true;
 					}
 
 					prev_depth = depth_tag.Depth;
@@ -1212,6 +1246,9 @@ namespace Tomboy
 						if (serialize != null)
 							xml.WriteRaw (serialize);
 					}
+				// Line Separator character
+				} else if (iter.Char == "\u2028") {
+					xml.WriteCharEntity ('\u2028');
 				} else if (depth_tag == null) {
 					xml.WriteString (iter.Char);
 				}

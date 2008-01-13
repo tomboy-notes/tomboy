@@ -44,6 +44,27 @@
 	</html>
 </xsl:template>
 
+<xsl:template match="text()">
+   <xsl:call-template name="softbreak"/>
+</xsl:template>
+
+<xsl:template name="softbreak">
+	<xsl:param name="text" select="."/>
+	<xsl:choose>
+		<xsl:when test="contains($text, '&#x2028;')">
+			<xsl:value-of select="substring-before($text, '&#x2028;')"/>
+			<br/>
+			<xsl:call-template name="softbreak">
+				<xsl:with-param name="text" select="substring-after($text, '&#x2028;')"/>
+			</xsl:call-template>
+		</xsl:when>
+		
+		<xsl:otherwise>
+			<xsl:value-of select="$text"/>
+		</xsl:otherwise>
+	</xsl:choose>
+</xsl:template>
+
 <xsl:template match="tomboy:note">
 	<xsl:apply-templates select="tomboy:text"/>
 </xsl:template>
