@@ -159,7 +159,12 @@ public NoteWindow (Note note) :
 				                            Gtk.AccelFlags.Visible);
 
 			// Have Esc key close the note window
-			KeyPressEvent += KeyPressed;
+			if ((bool) Preferences.Get (Preferences.ENABLE_CLOSE_NOTE_ON_ESCAPE))
+				KeyPressEvent += KeyPressed;
+
+			// Watch the escape setting in GConf
+			Preferences.Client.AddNotify (Preferences.ENABLE_CLOSE_NOTE_ON_ESCAPE,
+					OnEscapeSettingChanged);
 
 			// Increase Indent
 			global_keys.AddAccelerator (new EventHandler (ChangeDepthRightHandler),
@@ -193,6 +198,16 @@ public NoteWindow (Note note) :
 			int x, y;
 			GetPosition (out x, out y);
 			Move (x, y);
+		}
+
+		void OnEscapeSettingChanged (object sender, GConf.NotifyEventArgs args)
+		{	
+			// enable escape key
+			if ((bool) args.Value)
+				KeyPressEvent += KeyPressed;
+			// disable escape key
+			else
+				KeyPressEvent -= KeyPressed;
 		}
 
 		void KeyPressed (object sender, Gtk.KeyPressEventArgs args)
