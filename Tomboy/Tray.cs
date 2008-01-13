@@ -176,10 +176,12 @@ namespace Tomboy
 				args.RetVal = true;
 				break;
 			case 2:
-				// Give some visual feedback
-				Gtk.Drag.Highlight (this);
-				args.RetVal = PastePrimaryClipboard ();
-				Gtk.Drag.Unhighlight (this);
+				if ((bool) Preferences.Get (Preferences.ENABLE_ICON_PASTE)) {
+					// Give some visual feedback
+					Gtk.Drag.Highlight (this);
+					args.RetVal = PastePrimaryClipboard ();
+					Gtk.Drag.Unhighlight (this);
+				}
 				break;
 			}
 		}
