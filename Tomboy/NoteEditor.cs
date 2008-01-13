@@ -182,7 +182,11 @@ namespace Tomboy
 			case Gdk.Key.Return:
 				// Allow opening notes with Ctrl + Enter
 				if (args.Event.State != Gdk.ModifierType.ControlMask) {
-					ret_value = ((NoteBuffer) Buffer).AddNewline ();
+					if ((int) (args.Event.State & Gdk.ModifierType.ShiftMask) != 0) {
+						ret_value = ((NoteBuffer) Buffer).AddNewline (true);
+					} else {
+						ret_value = ((NoteBuffer) Buffer).AddNewline (false);
+					}					
 					ScrollMarkOnscreen (Buffer.InsertMark);
 				}
 				break;
