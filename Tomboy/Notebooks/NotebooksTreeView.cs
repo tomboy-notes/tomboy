@@ -52,11 +52,6 @@ namespace Tomboy.Notebooks
 			}
 			
 			Notebook destNotebook = Model.GetValue (iter, 0) as Notebook;
-			if (destNotebook is SpecialNotebook) {
-				Gtk.Drag.Finish (context, false, false, time_);
-				return;
-			}
-			
 			foreach (Uri uri in uriList) {
 				Note note = noteManager.FindByUri (uri.ToString ());
 				if (note == null)
