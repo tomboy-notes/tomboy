@@ -10,6 +10,7 @@ namespace Tomboy.Sync
 	public abstract class FuseSyncServiceAddin : SyncServiceAddin
 	{
 		#region Private Data
+		const int defaultMountTimeoutMs = 10000;
 		private string mountPath;
 		private InterruptableTimeout unmountTimeout;
 
@@ -212,9 +213,13 @@ namespace Tomboy.Sync
 			p.StartInfo.UseShellExecute = false;
 			p.StartInfo.FileName = fuseMountExePath;
 			p.StartInfo.Arguments = GetFuseMountExeArgs (mountPath, useStoredValues);
+			Logger.Debug (string.Format (
+			                             "Mounting sync path with this command: {0} {1}",
+			                             p.StartInfo.FileName,
+			                             p.StartInfo.Arguments));
 			p.StartInfo.CreateNoWindow = true;
 			p.Start ();
-			int timeoutMs = 10000; // Important to timeout.  Is 10 seconds appropriate?
+			int timeoutMs = GetTimeoutMs ();
 			bool exited = p.WaitForExit (timeoutMs);
 
 			if (!exited) {
@@ -244,6 +249,18 @@ namespace Tomboy.Sync
 			}
 
 			return true;
+		}
+		
+		private int GetTimeoutMs ()
+		{
+			try {
+				return (int) Preferences.Get ("/apps/tomboy/sync_fuse_mount_timeout_ms");
+			} catch {
+				try {
+					Preferences.Set ("/apps/tomboy/sync_fuse_mount_timeout_ms", defaultMountTimeoutMs);
+				} catch {}
+				return defaultMountTimeoutMs;
+			}
 		}
 
 		private void SetUpMountPath ()
