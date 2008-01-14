@@ -52,6 +52,11 @@ namespace Tomboy.Notebooks
 			}
 			
 			Notebook destNotebook = Model.GetValue (iter, 0) as Notebook;
+			if (destNotebook is AllNotesNotebook) {
+				Gtk.Drag.Finish (context, false, false, time_);
+				return;
+			}
+			
 			foreach (Uri uri in uriList) {
 				Note note = noteManager.FindByUri (uri.ToString ());
 				if (note == null)
@@ -85,7 +90,7 @@ namespace Tomboy.Notebooks
 			}
 			
 			Notebook destNotebook = Model.GetValue (iter, 0) as Notebook;
-			if (destNotebook is SpecialNotebook) {
+			if (destNotebook is AllNotesNotebook) {
 				SetDragDestRow (null, Gtk.TreeViewDropPosition.IntoOrAfter);
 				return true;
 			}
