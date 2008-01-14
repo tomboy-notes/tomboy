@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tomboy.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-01-13 17:10+0000\n"
-"PO-Revision-Date: 2008-01-14 15:14+0100\n"
+"POT-Creation-Date: 2008-01-14 19:51+0000\n"
+"PO-Revision-Date: 2008-01-14 21:07+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <<gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -461,7 +461,7 @@ msgstr "_Borrar"
 msgid "Delete the selected note"
 msgstr "Borrar la nota seleccionada"
 
-#: ../Tomboy/ActionManager.cs:123 ../Tomboy/NoteWindow.cs:410
+#: ../Tomboy/ActionManager.cs:123 ../Tomboy/NoteWindow.cs:412
 msgid "_Close"
 msgstr "_Cerrar"
 
@@ -505,7 +505,7 @@ msgstr "Icono del área de notificación"
 msgid "Create _New Note"
 msgstr "Crear una nota _nueva"
 
-#: ../Tomboy/ActionManager.cs:156 ../Tomboy/NoteWindow.cs:353
+#: ../Tomboy/ActionManager.cs:156 ../Tomboy/NoteWindow.cs:355
 msgid "_Search All Notes"
 msgstr "_Buscar en todas las notas"
 
@@ -848,21 +848,21 @@ msgstr ""
 msgid "Add a sketch"
 msgstr "Añadir un dibujo"
 
-#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:41
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:43
 msgid "Se_rver:"
 msgstr "Se_rvidor:"
 
-#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:50
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:52
 #: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:60
 msgid "User_name:"
 msgstr "_Usuario:"
 
-#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:59
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:61
 msgid "_Folder Path (optional):"
 msgstr "Ruta de la ca_rpeta (opcional):"
 
 #. Text for label describing setup required for SSH sync addin to work
-#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:69
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:71
 msgid ""
 "SSH synchronization requires an existing SSH key for this server and user, "
 "added to a running SSH daemon."
@@ -870,15 +870,15 @@ msgstr ""
 "La sincronización SSH requiere una clave SSH existente para este servidor y "
 "usuario que esté añadida al demonio SSH en ejecución."
 
-#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:92
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:95
 msgid "Server or username field is empty."
 msgstr "El campo del usuario o del servidor está vacío."
 
-#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:136
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:143
 msgid "SSH (sshfs FUSE)"
 msgstr "SSH (sshfs FUSE)"
 
-#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:177
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:186
 msgid ""
 "Timeout connecting to server. Please ensure that your SSH key has been added "
 "to a running SSH daemon."
@@ -990,9 +990,13 @@ msgstr "C_rear"
 msgid "{0} Notebook Template"
 msgstr "Plantilla del cuaderno de notas de {0}"
 
-#: ../Tomboy/Notebooks/Notebook.cs:173
+#: ../Tomboy/Notebooks/Notebook.cs:183
 msgid "All Notes"
 msgstr "Todas las notas"
+
+#: ../Tomboy/Notebooks/Notebook.cs:215
+msgid "Unfiled Notes"
+msgstr "Notas sin archivar"
 
 #: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:28
 msgid "Note_books"
@@ -1033,15 +1037,15 @@ msgid "Delete the selected notebook"
 msgstr "Borrar el cuaderno de notas seleccionado"
 
 #: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:48
-#: ../Tomboy/RecentChanges.cs:242
+#: ../Tomboy/RecentChanges.cs:244
 msgid "Notebooks"
 msgstr "Cuadernos de notas"
 
-#: ../Tomboy/Notebooks/NotebookManager.cs:319
+#: ../Tomboy/Notebooks/NotebookManager.cs:323
 msgid "Really delete this notebook?"
 msgstr "¿Desea borrar este cuaderno de notas?"
 
-#: ../Tomboy/Notebooks/NotebookManager.cs:321
+#: ../Tomboy/Notebooks/NotebookManager.cs:325
 msgid ""
 "The notes that belong to this notebook will not be deleted, but they will no "
 "longer be associated with this notebook.  This action cannot be undone."
@@ -1070,11 +1074,15 @@ msgstr "Meter esta nota en un cuaderno de notas"
 msgid "Notebook"
 msgstr "Cuaderno de notas"
 
-#: ../Tomboy/Note.cs:1333
+#: ../Tomboy/Note.cs:1330
 msgid "Really delete this note?"
 msgstr "¿Desea borrar esta nota?"
 
-#: ../Tomboy/Note.cs:1334
+#: ../Tomboy/Note.cs:1332
+msgid "Really delete these notes?"
+msgstr "¿Desea borrar estas notas?"
+
+#: ../Tomboy/Note.cs:1341
 msgid "If you delete a note it is permanently lost."
 msgstr "Si borra esta nota se perderá permanentemente."
 
@@ -1175,127 +1183,127 @@ msgstr "Describa aquí su nota nueva."
 msgid "Find in This Note"
 msgstr "Buscar en esta nota"
 
-#: ../Tomboy/NoteWindow.cs:365
+#: ../Tomboy/NoteWindow.cs:367
 msgid "_Link to New Note"
 msgstr "_Enlazar a una nota nueva"
 
-#: ../Tomboy/NoteWindow.cs:377
+#: ../Tomboy/NoteWindow.cs:379
 msgid "Te_xt"
 msgstr "_Texto"
 
-#: ../Tomboy/NoteWindow.cs:385
+#: ../Tomboy/NoteWindow.cs:387
 msgid "_Find in This Note"
 msgstr "_Buscar en esta nota"
 
-#: ../Tomboy/NoteWindow.cs:400
+#: ../Tomboy/NoteWindow.cs:402
 msgid "Clos_e All Notes"
 msgstr "C_errar todas las notas"
 
-#: ../Tomboy/NoteWindow.cs:438
+#: ../Tomboy/NoteWindow.cs:440
 msgid "Search"
 msgstr "Buscar"
 
-#: ../Tomboy/NoteWindow.cs:440
+#: ../Tomboy/NoteWindow.cs:442
 msgid "Search your notes (Ctrl-Shift-F)"
 msgstr "Buscar en sus notas  (Ctrl-Mayús-F)"
 
-#: ../Tomboy/NoteWindow.cs:450
+#: ../Tomboy/NoteWindow.cs:452
 msgid "Link"
 msgstr "Enlazar"
 
-#: ../Tomboy/NoteWindow.cs:453
+#: ../Tomboy/NoteWindow.cs:455
 msgid "Link selected text to a new note (Ctrl-L)"
 msgstr "Enlazar el texto seleccionado a una nota nueva (Ctrl-L)"
 
-#: ../Tomboy/NoteWindow.cs:465
+#: ../Tomboy/NoteWindow.cs:467
 msgid "_Text"
 msgstr "_Texto"
 
-#: ../Tomboy/NoteWindow.cs:469
+#: ../Tomboy/NoteWindow.cs:471
 msgid "Set properties of text"
 msgstr "Establecer las propiedades del texto"
 
-#: ../Tomboy/NoteWindow.cs:474
+#: ../Tomboy/NoteWindow.cs:476
 msgid "T_ools"
 msgstr "_Herramientas"
 
-#: ../Tomboy/NoteWindow.cs:478
+#: ../Tomboy/NoteWindow.cs:480
 msgid "Use tools on this note"
 msgstr "Usar las herramientas en esta nota"
 
-#: ../Tomboy/NoteWindow.cs:486
+#: ../Tomboy/NoteWindow.cs:488
 msgid "Delete this note"
 msgstr "Borrar esta nota"
 
-#: ../Tomboy/NoteWindow.cs:495 ../Tomboy/Synchronization/SyncManager.cs:161
+#: ../Tomboy/NoteWindow.cs:497 ../Tomboy/Synchronization/SyncManager.cs:161
 msgid "Synchronize Notes"
 msgstr "Sincronizar las notas"
 
-#: ../Tomboy/NoteWindow.cs:538
+#: ../Tomboy/NoteWindow.cs:540
 msgid "_Find..."
 msgstr "_Buscar…"
 
-#: ../Tomboy/NoteWindow.cs:549 ../Tomboy/NoteWindow.cs:751
+#: ../Tomboy/NoteWindow.cs:551 ../Tomboy/NoteWindow.cs:753
 msgid "Find _Next"
 msgstr "Buscar _siguiente"
 
-#: ../Tomboy/NoteWindow.cs:562
+#: ../Tomboy/NoteWindow.cs:564
 msgid "Find _Previous"
 msgstr "Buscar _anterior"
 
-#: ../Tomboy/NoteWindow.cs:650
+#: ../Tomboy/NoteWindow.cs:652
 msgid "Cannot create note"
 msgstr "No se puede crear la nota"
 
-#: ../Tomboy/NoteWindow.cs:731
+#: ../Tomboy/NoteWindow.cs:733
 msgid "_Find:"
 msgstr "_Buscar:"
 
-#: ../Tomboy/NoteWindow.cs:742
+#: ../Tomboy/NoteWindow.cs:744
 msgid "_Previous"
 msgstr "_Anterior"
 
-#: ../Tomboy/NoteWindow.cs:761
+#: ../Tomboy/NoteWindow.cs:763
 msgid "Case _sensitive"
 msgstr "Sensible a _mayúsculas"
 
-#: ../Tomboy/NoteWindow.cs:1241
+#: ../Tomboy/NoteWindow.cs:1243
 msgid "_Bold"
 msgstr "_Negrita"
 
-#: ../Tomboy/NoteWindow.cs:1253
+#: ../Tomboy/NoteWindow.cs:1255
 msgid "_Italic"
 msgstr "_Cursiva"
 
-#: ../Tomboy/NoteWindow.cs:1265
+#: ../Tomboy/NoteWindow.cs:1267
 msgid "_Strikeout"
 msgstr "_Tachado"
 
-#: ../Tomboy/NoteWindow.cs:1277
+#: ../Tomboy/NoteWindow.cs:1279
 msgid "_Highlight"
 msgstr "_Resaltado"
 
-#: ../Tomboy/NoteWindow.cs:1290
+#: ../Tomboy/NoteWindow.cs:1292
 msgid "Font Size"
 msgstr "Tamaño de la tipografía"
 
-#: ../Tomboy/NoteWindow.cs:1293
+#: ../Tomboy/NoteWindow.cs:1295
 msgid "_Normal"
 msgstr "_Normal"
 
-#: ../Tomboy/NoteWindow.cs:1300
+#: ../Tomboy/NoteWindow.cs:1302
 msgid "Hu_ge"
 msgstr "_Enorme"
 
-#: ../Tomboy/NoteWindow.cs:1308
+#: ../Tomboy/NoteWindow.cs:1310
 msgid "_Large"
 msgstr "_Grande"
 
-#: ../Tomboy/NoteWindow.cs:1316
+#: ../Tomboy/NoteWindow.cs:1318
 msgid "S_mall"
 msgstr "_Pequeña"
 
-#: ../Tomboy/NoteWindow.cs:1327
+#: ../Tomboy/NoteWindow.cs:1329
 msgid "Bullets"
 msgstr "Topos"
 
@@ -1530,50 +1538,54 @@ msgstr "Copyright:"
 msgid "Add-in Dependencies:"
 msgstr "Dependencias de los complementos:"
 
-#: ../Tomboy/RecentChanges.cs:72
+#: ../Tomboy/RecentChanges.cs:74
 msgid "Search All Notes"
 msgstr "Buscar en todas las notas"
 
-#: ../Tomboy/RecentChanges.cs:87
+#: ../Tomboy/RecentChanges.cs:89
 msgid "_Search:"
 msgstr "_Buscar:"
 
-#: ../Tomboy/RecentChanges.cs:108
+#: ../Tomboy/RecentChanges.cs:110
 msgid "C_ase Sensitive"
 msgstr "Sensible a _mayúsculas"
 
-#: ../Tomboy/RecentChanges.cs:304
+#: ../Tomboy/RecentChanges.cs:307
 msgid "Note"
 msgstr "Nota"
 
-#: ../Tomboy/RecentChanges.cs:323
+#: ../Tomboy/RecentChanges.cs:326
 msgid "Last Changed"
 msgstr "Último cambio"
 
-#: ../Tomboy/RecentChanges.cs:465
+#: ../Tomboy/RecentChanges.cs:459
 msgid "Matches"
 msgstr "Coincidencias"
 
-#: ../Tomboy/RecentChanges.cs:517
+#: ../Tomboy/RecentChanges.cs:511
 #, csharp-format
 msgid "{0} match"
 msgid_plural "{0} matches"
 msgstr[0] "{0} coincidencia"
 msgstr[1] "{0} coincidencias"
 
-#: ../Tomboy/RecentChanges.cs:531
+#: ../Tomboy/RecentChanges.cs:525
 #, csharp-format
 msgid "Total: {0} note"
 msgid_plural "Total: {0} notes"
 msgstr[0] "Total: {0} nota"
 msgstr[1] "Total: {0} notas"
 
-#: ../Tomboy/RecentChanges.cs:541
+#: ../Tomboy/RecentChanges.cs:535
 #, csharp-format
 msgid "Matches: {0} note"
 msgid_plural "Matches: {0} notes"
 msgstr[0] "Coincide con: {0} nota"
 msgstr[1] "Coincide con: {0} notas"
+
+#: ../Tomboy/RecentChanges.cs:666
+msgid "Notes"
+msgstr "Notas"
 
 #: ../Tomboy/Tomboy.cs:195
 msgid "Cannot create new note"
@@ -1771,7 +1783,7 @@ msgstr "_Copiar la dirección del enlace"
 msgid "_Open Link"
 msgstr "_Abrir enlace"
 
-#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:93
+#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:94
 #, csharp-format
 msgid ""
 "This synchronization addin is not supported on your computer. Please make "
@@ -1780,19 +1792,19 @@ msgstr ""
 "Su equipo no soporta este complemento de sincronización. Asegúrese de que "
 "tiene FUSE instalado y {0} correctamente instalado y configurado."
 
-#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:176
+#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:177
 msgid "Timeout connecting to server."
 msgstr "Expiró el tiempo de conexión con el servidor."
 
-#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:184
+#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:185
 msgid "Error connecting to server."
 msgstr "Error al conectar con el servidor."
 
-#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:198
+#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:199
 msgid "FUSE could not be enabled."
 msgstr "No se pudo activar FUSE."
 
-#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:228
+#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:233
 msgid "An error ocurred while connecting to the specified server:"
 msgstr "Ocurrió un error al conectar con el servidor especificado:"
 
