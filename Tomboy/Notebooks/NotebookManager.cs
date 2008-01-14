@@ -40,6 +40,10 @@ namespace Tomboy.Notebooks
 			AllNotesNotebook allNotesNotebook = new AllNotesNotebook ();
 			Gtk.TreeIter iter = notebooks.Append ();
 			notebooks.SetValue (iter, 0, allNotesNotebook);
+			
+			UnfiledNotesNotebook unfiledNotesNotebook = new UnfiledNotesNotebook ();
+			iter = notebooks.Append ();
+			notebooks.SetValue (iter, 0, unfiledNotesNotebook);
 
 			// <summary>
 			// The key for this dictionary is Notebook.Name.ToLower ().
@@ -60,8 +64,8 @@ namespace Tomboy.Notebooks
 		
 		/// <summary>
 		/// A Gtk.TreeModel that contains all of the items in the
-		/// NotebookManager TreeStore including the "All Notes"
-		/// item which is used in the "Search All Notes" window.
+		/// NotebookManager TreeStore including SpecialNotebooks
+		/// which are used in the "Search All Notes" window.
 		/// </summary>
 		/// <param name="notebookName">
 		/// A <see cref="System.String"/>
@@ -69,7 +73,7 @@ namespace Tomboy.Notebooks
 		/// <returns>
 		/// A <see cref="Notebook"/>
 		/// </returns>
-		public static Gtk.TreeModel NotebooksWithAllNotesItem
+		public static Gtk.TreeModel NotebooksWithSpecialItems
 		{
 			get {
 				return sortedNotebooks;
@@ -372,7 +376,7 @@ namespace Tomboy.Notebooks
 			
 			// Only attempt to add the notebook tag when this
 			// menu item is not the "No notebook" menu item.
-			if (notebook != null && (notebook is AllNotesNotebook) == false) {
+			if (notebook != null && (notebook is SpecialNotebook) == false) {
 				note.AddTag (notebook.Tag);
 				if (NoteAddedToNotebook != null)
 					NoteAddedToNotebook (note, notebook);
@@ -393,9 +397,14 @@ namespace Tomboy.Notebooks
 			if (notebook_a == null || notebook_b == null)
 				return 0;
 			
-			if (notebook_a is AllNotesNotebook)
+			if (notebook_a is SpecialNotebook && notebook_b is SpecialNotebook) {
+				if (notebook_a is AllNotesNotebook)
+					return -1;
+				else
+					return 1;
+			} else if (notebook_a is SpecialNotebook)
 				return -1;
-			else if (notebook_b is AllNotesNotebook)
+			else if (notebook_b is SpecialNotebook)
 				return 1;
 
 			return string.Compare (notebook_a.Name, notebook_b.Name);
@@ -421,12 +430,12 @@ namespace Tomboy.Notebooks
 		}
 
         /// <summary>
-        /// Filter out the "All Notes" item from the model
+        /// Filter out SpecialNotebooks from the model
         /// </summary>
         static bool FilterNotebooks (Gtk.TreeModel model, Gtk.TreeIter iter)
         {
         	Notebook notebook = model.GetValue (iter, 0) as Notebook;
-        	if (notebook == null || notebook is AllNotesNotebook)
+        	if (notebook == null || notebook is SpecialNotebook)
         		return false;
         	
         	return true;

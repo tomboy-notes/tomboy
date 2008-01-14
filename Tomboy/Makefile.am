@@ -90,6 +90,7 @@ RESOURCES = 										\
 	-resource:$(top_srcdir)/data/images/tomboy.png,tomboy.png			\
 	-resource:$(top_srcdir)/data/images/tomboy-note-16.png,tomboy-note.png		\
 	-resource:$(top_srcdir)/data/images/tomboy-all-notes-22.png,tomboy-all-notes.png		\
+	-resource:$(top_srcdir)/data/images/tomboy-unfiled-notes-22.png,tomboy-unfiled-notes.png		\
 	-resource:$(top_srcdir)/data/images/tomboy-notebook-22.png,tomboy-notebook.png		\
 	-resource:$(top_srcdir)/data/images/tomboy-new-notebook-22.png,tomboy-new-notebook.png		\
 	-resource:$(top_srcdir)/data/images/tomboy-new-notebook-48.png,tomboy-new-notebook-dialog.png		\

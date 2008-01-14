@@ -47,6 +47,7 @@ namespace Tomboy
 
                 static Gdk.Pixbuf note_icon;
                 static Gdk.Pixbuf all_notes_icon;
+                static Gdk.Pixbuf unfiled_notes_icon;
                 static Gdk.Pixbuf notebook_icon;
                 static ArrayList previous_searches;
                 static NoteRecentChanges instance;
@@ -55,6 +56,7 @@ namespace Tomboy
                 {
                         note_icon = GuiUtils.GetIcon ("tomboy-note", 22);
                         all_notes_icon = GuiUtils.GetIcon ("tomboy-all-notes", 22);
+                        unfiled_notes_icon = GuiUtils.GetIcon ("tomboy-unfiled-notes", 22);
                         notebook_icon = GuiUtils.GetIcon ("tomboy-notebook", 22);
                 }
 
@@ -231,7 +233,7 @@ namespace Tomboy
 
 		Gtk.Widget MakeNotebooksPane ()
 		{
-			notebooksTree = new Notebooks.NotebooksTreeView (Notebooks.NotebookManager.NotebooksWithAllNotesItem);
+			notebooksTree = new Notebooks.NotebooksTreeView (Notebooks.NotebookManager.NotebooksWithSpecialItems);
 			notebooksTree.Selection.Mode = Gtk.SelectionMode.Single;
 			notebooksTree.HeadersVisible = true;
 			notebooksTree.RulesHint = false;
@@ -433,7 +435,7 @@ namespace Tomboy
 			
 			// Search using the currently selected notebook
 			Notebooks.Notebook selected_notebook = GetSelectedNotebook ();
-			if (selected_notebook is Notebooks.AllNotesNotebook)
+			if (selected_notebook is Notebooks.SpecialNotebook)
 				selected_notebook = null;
 			
 			IDictionary<Note,int> results =
@@ -552,6 +554,15 @@ namespace Tomboy
                         Tag template_tag = TagManager.GetOrCreateSystemTag (TagManager.TemplateNoteSystemTag);
                         if (note.ContainsTag (template_tag))
                         	return false;
+                        
+                        Notebooks.Notebook selected_notebook = GetSelectedNotebook ();
+                        if (selected_notebook is Notebooks.UnfiledNotesNotebook) {
+                        	// If the note belongs to a notebook, return false
+                        	// since the only notes that should be shown in this
+                        	// case are notes that are unfiled (not in a notebook).
+                        	if (Notebooks.NotebookManager.GetNotebookFromNote (note) != null)
+                        		return false;
+                        }
 
                         bool passes_search_filter = FilterBySearch (note);
                         if (passes_search_filter == false)
@@ -1044,6 +1055,8 @@ namespace Tomboy
 			Gtk.CellRendererPixbuf crp = renderer as Gtk.CellRendererPixbuf;
 			if (notebook is Notebooks.AllNotesNotebook) {
 				crp.Pixbuf = all_notes_icon;
+			} else if (notebook is Notebooks.UnfiledNotesNotebook) {
+				crp.Pixbuf = unfiled_notes_icon;
 			} else {
 				crp.Pixbuf = notebook_icon;
 			}
@@ -1063,8 +1076,8 @@ namespace Tomboy
 			
 			crt.Text = notebook.Name;
 
-			if (notebook is Notebooks.AllNotesNotebook) {
-				// Bold the All Notes item
+			if (notebook is Notebooks.SpecialNotebook) {
+				// Bold the "Special" Notebooks
 				crt.Markup = string.Format ("<span weight=\"bold\">{0}</span>", notebook.Name);
 			} else {
 				crt.Text = notebook.Name;
@@ -1089,10 +1102,10 @@ namespace Tomboy
 				selected_tags.Clear ();
 				if (notebook.Tag != null)
 					selected_tags.Add (notebook.Tag, notebook.Tag);
-				if (notebook is Notebooks.AllNotesNotebook) {
-	                Tomboy.ActionManager ["OpenNotebookTemplateNoteAction"].Sensitive = true;
+				if (notebook is Notebooks.SpecialNotebook) {
+					Tomboy.ActionManager ["DeleteNotebookAction"].Sensitive = false;
 				} else {
-	                Tomboy.ActionManager ["OpenNotebookTemplateNoteAction"].Sensitive = true;
+					Tomboy.ActionManager ["DeleteNotebookAction"].Sensitive = true;
 				}
 			}
 			
@@ -1122,7 +1135,7 @@ namespace Tomboy
 		private void OnNewNotebookNote (object sender, EventArgs args)
 		{
 			Notebooks.Notebook notebook = GetSelectedNotebook ();
-			if (notebook == null || notebook is Notebooks.AllNotesNotebook) {
+			if (notebook == null || notebook is Notebooks.SpecialNotebook) {
 				// Just create a standard note (not in a notebook)
 				Tomboy.ActionManager ["NewNoteAction"].Activate ();
 				return;
@@ -1223,7 +1236,7 @@ namespace Tomboy
 				case Gdk.Key.Menu:
 					// Pop up the context menu if a notebook is selected
 					Notebooks.Notebook notebook = GetSelectedNotebook ();
-					if (notebook == null || notebook is Notebooks.AllNotesNotebook)
+					if (notebook == null || notebook is Notebooks.SpecialNotebook)
 						return; // Don't pop open a submenu
 					
 					Gtk.Menu menu = Tomboy.ActionManager.GetWidget (
