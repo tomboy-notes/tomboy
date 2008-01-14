@@ -1322,15 +1322,22 @@ namespace Tomboy
 
 	public class NoteUtils
 	{
-		public static void ShowDeletionDialog (Note note, Gtk.Window parent)
+		public static void ShowDeletionDialog (List<Note> notes, Gtk.Window parent)
 		{
+			string message;
+			
+			if (notes.Count == 1)
+				message = Catalog.GetString ("Really delete this note?");
+			else
+				message = Catalog.GetString ("Really delete these notes?");
+			
 			HIGMessageDialog dialog =
 			        new HIGMessageDialog (
 			        parent,
 			        Gtk.DialogFlags.DestroyWithParent,
 			        Gtk.MessageType.Question,
 			        Gtk.ButtonsType.None,
-			        Catalog.GetString ("Really delete this note?"),
+			        message,
 			        Catalog.GetString ("If you delete a note it is " +
 			                           "permanently lost."));
 
@@ -1349,7 +1356,9 @@ namespace Tomboy
 
 			int result = dialog.Run ();
 			if (result == 666) {
-				note.Manager.Delete (note);
+				foreach (Note note in notes) {
+					note.Manager.Delete (note);
+				}
 			}
 
 			dialog.Destroy();

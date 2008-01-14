@@ -264,7 +264,9 @@ public NoteWindow (Note note) :
 		void OnDeleteButtonClicked (object sender, EventArgs args)
 		{
 			// Prompt for note deletion
-			NoteUtils.ShowDeletionDialog (note, this);
+			List<Note> single_note_list = new List<Note> (1);
+			single_note_list.Add (note);
+			NoteUtils.ShowDeletionDialog (single_note_list, this);
 		}
 
 		//
