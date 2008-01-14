@@ -291,6 +291,7 @@ namespace Tomboy
                         tree.RulesHint = true;
                         tree.RowActivated += OnRowActivated;
                         tree.DragDataGet += OnDragDataGet;
+                        tree.Selection.Mode = Gtk.SelectionMode.Multiple;
                         tree.Selection.Changed += OnSelectionChanged;
                         tree.ButtonPressEvent += OnButtonPressed;
 
@@ -338,14 +339,8 @@ namespace Tomboy
 
                 void UpdateResults ()
                 {
-                        // Restore the currently highlighted note
-                        Note selected_note = null;
-                        Gtk.TreeIter selected_iter;
-                        if (store_sort != null &&
-                                        tree.Selection.GetSelected (out selected_iter)) {
-                                selected_note =
-                                        (Note) store_sort.GetValue (selected_iter, 3 /* note */);
-                        }
+                        // Save the currently selected notes
+                        List<Note> selected_notes = GetSelectedNotes ();
 
                         int sort_column = 2; /* change date */
                         Gtk.SortType sort_type = Gtk.SortType.Descending;
@@ -386,12 +381,12 @@ namespace Tomboy
                         }
 
                         // Restore the previous selection
-                        if (selected_note != null) {
-                                SelectNote (selected_note);
+                        if (selected_notes != null && selected_notes.Count > 0) {
+                        	SelectNotes (selected_notes);
                         }
                 }
 
-                void SelectNote (Note note)
+                void SelectNotes (List<Note> notes)
                 {
                         Gtk.TreeIter iter;
 
@@ -399,13 +394,12 @@ namespace Tomboy
                                 return;
 
                         do {
-                                Note iter_note = (Note) store_sort.GetValue (iter, 3 /* note */);
-                                if (iter_note == note) {
-                                        // Found it!
-                                        tree.Selection.SelectIter (iter);
-					ScrollToIter (tree, iter);
-                                        break;
-                                }
+                        	Note iter_note = (Note) store_sort.GetValue (iter, 3 /* note */);
+                        	if (notes.IndexOf (iter_note) >= 0) {
+                        		// Found one
+                        		tree.Selection.SelectIter (iter);
+                        		//ScrollToIter (tree, iter);
+                        	}
                         } while (store_sort.IterNext (ref iter));
                 }
 		
@@ -637,48 +631,61 @@ namespace Tomboy
 
                 void OnDragDataGet (object sender, Gtk.DragDataGetArgs args)
                 {
-                        Note note = GetSelectedNote ();
-                        if (note == null)
-                                return;
-
-                        // FIXME: Gtk.SelectionData has no way to get the
-                        //        requested target.
-
-                        args.SelectionData.Set (Gdk.Atom.Intern ("text/uri-list", false),
-                                                8,
-                                                Encoding.UTF8.GetBytes (note.Uri));
-
-                        args.SelectionData.Text = note.Title;
+                	List<Note> selected_notes = GetSelectedNotes ();
+                	if (selected_notes == null || selected_notes.Count == 0)
+                		return;
+                	
+                	string uris = string.Empty;
+                	foreach (Note note in selected_notes) {
+                		if (uris != string.Empty)
+                			uris += "\n";
+                		uris += note.Uri;
+                	}
+                	
+                	// FIXME: Gtk.SelectionData has no way to get the
+                	//        requested target.
+                	
+                	args.SelectionData.Set (Gdk.Atom.Intern ("text/uri-list", false),
+                							8,
+                							Encoding.UTF8.GetBytes (uris));
+                	
+                	if (selected_notes.Count == 1)
+                		args.SelectionData.Text = selected_notes [0].Title;
+                	else
+                		args.SelectionData.Text = Catalog.GetString ("Notes");
                 }
 
                 void OnSelectionChanged (object sender, EventArgs args)
                 {
-                        Note note = GetSelectedNote ();
-                        if (note != null) {
-                                Tomboy.ActionManager ["OpenNoteAction"].Sensitive = true;
-                                Tomboy.ActionManager ["DeleteNoteAction"].Sensitive = true;
-                        } else {
-                                Tomboy.ActionManager ["OpenNoteAction"].Sensitive = false;
-                                Tomboy.ActionManager ["DeleteNoteAction"].Sensitive = false;
-                        }
+                	List<Note> selected_notes = GetSelectedNotes ();
+                	if (selected_notes == null || selected_notes.Count == 0) {
+						Tomboy.ActionManager ["OpenNoteAction"].Sensitive = false;
+						Tomboy.ActionManager ["DeleteNoteAction"].Sensitive = false;
+                	} else if (selected_notes.Count == 1) {
+						Tomboy.ActionManager ["OpenNoteAction"].Sensitive = true;
+						Tomboy.ActionManager ["DeleteNoteAction"].Sensitive = true;
+                	} else {
+                		// Many notes are selected
+						Tomboy.ActionManager ["OpenNoteAction"].Sensitive = false;
+						Tomboy.ActionManager ["DeleteNoteAction"].Sensitive = true;
+                	}
                 }
 
-                [GLib.ConnectBefore]
+				[GLib.ConnectBefore]
                 void OnButtonPressed (object sender, Gtk.ButtonPressEventArgs args)
                 {
-                        switch (args.Event.Button) {
+                	Gtk.TreePath path = null;
+                	Gtk.TreeViewColumn column = null;
+					Gtk.TreeSelection selection = tree.Selection;
+					if (selection.CountSelectedRows () == 0)
+						return;
+                	
+                	switch (args.Event.Button) {
                         case 3: // third mouse button (right-click)
-                                Gtk.TreePath path = null;
-                                Gtk.TreeViewColumn column = null;
-
                                 if (tree.GetPathAtPos ((int) args.Event.X,
                                                        (int) args.Event.Y,
                                                        out path,
                                                        out column) == false)
-                                        break;
-
-                                Gtk.TreeSelection selection = tree.Selection;
-                                if (selection.CountSelectedRows () == 0)
                                         break;
 
 		                        Gtk.Menu menu = Tomboy.ActionManager.GetWidget (
@@ -686,11 +693,15 @@ namespace Tomboy
                                 PopupContextMenuAtLocation (menu,
                                 							(int) args.Event.X,
                                                             (int) args.Event.Y);
-
+                                
+                                // Return true so that the base handler won't
+                                // run, which causes the selection to change
+                                // to the row that was right-clicked.
+                                args.RetVal = true;
                                 break;
                         }
                 }
-
+                
                 void PopupContextMenuAtLocation (Gtk.Menu menu, int x, int y)
                 {
                         menu.ShowAll ();
@@ -766,33 +777,41 @@ namespace Tomboy
                         y += widget_y;
                 }
 
-                Note GetSelectedNote ()
-                {
-                        Gtk.TreeModel model;
-                        Gtk.TreeIter iter;
-
-                        if (!tree.Selection.GetSelected (out model, out iter))
-                                return null;
-
-                        return (Note) model.GetValue (iter, 3 /* note */);
-                }
+				List<Note> GetSelectedNotes ()
+				{
+					Gtk.TreeModel model;
+					Gtk.TreeIter iter;
+					
+					List<Note> selected_notes = new List<Note> ();
+					
+					Gtk.TreePath [] selected_rows =
+						tree.Selection.GetSelectedRows (out model);
+					foreach (Gtk.TreePath path in selected_rows) {
+						if (model.GetIter (out iter, path)) {
+							Note note = model.GetValue (iter, 3 /* note */) as Note;
+							selected_notes.Add (note);
+						}
+					}
+					
+					return selected_notes;
+				}
 
                 void OnOpenNote (object sender, EventArgs args)
                 {
-                        Note note = GetSelectedNote ();
-                        if (note == null)
-                                return;
-
-                        note.Window.Present ();
+                	List<Note> selected_notes = GetSelectedNotes ();
+                	if (selected_notes == null || selected_notes.Count != 1)
+                		return;
+                	
+                	selected_notes [0].Window.Present ();
                 }
 
                 void OnDeleteNote (object sender, EventArgs args)
                 {
-                        Note note = GetSelectedNote ();
-                        if (note == null)
-                                return;
-
-                        NoteUtils.ShowDeletionDialog (note, this);
+                	List<Note> selected_notes = GetSelectedNotes ();
+                	if (selected_notes == null || selected_notes.Count == 0)
+                		return;
+                	
+               		NoteUtils.ShowDeletionDialog (selected_notes, this);
                 }
 
                 void OnCloseWindow (object sender, EventArgs args)
@@ -843,8 +862,8 @@ namespace Tomboy
                                 break;
                         case Gdk.Key.Menu:
                                 // Pop up the context menu if a note is selected
-                                Note note = GetSelectedNote ();
-                                if (note != null) {
+                                List<Note> selected_notes = GetSelectedNotes ();
+                                if (selected_notes != null && selected_notes.Count > 0) {
 			                        Gtk.Menu menu = Tomboy.ActionManager.GetWidget (
                                                 "/MainWindowContextMenu") as Gtk.Menu;
                                     PopupContextMenuAtLocation (menu, 0, 0);
