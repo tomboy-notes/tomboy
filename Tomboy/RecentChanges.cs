@@ -393,7 +393,6 @@ namespace Tomboy
 
                 void SelectNote (Note note)
                 {
-			Logger.Debug ("SelectNote called");
                         Gtk.TreeIter iter;
 
                         if (store_sort.IterChildren (out iter) == false)
@@ -412,7 +411,6 @@ namespace Tomboy
 		
 		private void ScrollToIter (Gtk.TreeView tree, Gtk.TreeIter iter)
 		{
-			Logger.Debug ("ScrollToIter called");
 			Gtk.TreePath path = tree.Model.GetPath (iter);
 			if (path != null)
 				tree.ScrollToCell (path, null, false, 0, 0);
