@@ -14,6 +14,7 @@ tango_icons = 				\
 	tomboy-22.png			\
 	tomboy-note-22.png		\
 	tomboy-all-notes-22.png		\
+	tomboy-unfiled-notes-22.png		\
 	tomboy-notebook-22.png		\
 	tomboy-new-notebook-22.png	\
 	tomboy-new-notebook-48.png	\
@@ -34,6 +35,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/tomboy-22.png $(DESTDIR)$(hicolordir)/22x22/apps/tomboy.png
 	$(INSTALL_DATA) $(srcdir)/tomboy-note-22.png $(DESTDIR)$(hicolordir)/22x22/apps/tomboy-note.png
 	$(INSTALL_DATA) $(srcdir)/tomboy-all-notes-22.png $(DESTDIR)$(hicolordir)/22x22/apps/tomboy-all-notes.png
+	$(INSTALL_DATA) $(srcdir)/tomboy-unfiled-notes-22.png $(DESTDIR)$(hicolordir)/22x22/apps/tomboy-unfiled-notes.png
 	$(INSTALL_DATA) $(srcdir)/tomboy-notebook-22.png $(DESTDIR)$(hicolordir)/22x22/apps/tomboy-notebook.png
 	$(INSTALL_DATA) $(srcdir)/tomboy-new-notebook-22.png $(DESTDIR)$(hicolordir)/22x22/apps/tomboy-new-notebook.png
 	@-$(mkinstalldirs) $(DESTDIR)$(hicolordir)/32x32/apps
@@ -65,6 +67,7 @@ uninstall-hook:
 	rm -f $(DESTDIR)$(hicolordir)/22x22/apps/tomboy.png
 	rm -f $(DESTDIR)$(hicolordir)/22x22/apps/tomboy-note.png
 	rm -f $(DESTDIR)$(hicolordir)/22x22/apps/tomboy-all-notes.png
+	rm -f $(DESTDIR)$(hicolordir)/22x22/apps/tomboy-unfiled-notes.png
 	rm -f $(DESTDIR)$(hicolordir)/22x22/apps/tomboy-notebook.png
 	rm -f $(DESTDIR)$(hicolordir)/22x22/apps/tomboy-new-notebook.png
 	rm -f $(DESTDIR)$(hicolordir)/32x32/apps/tomboy.png

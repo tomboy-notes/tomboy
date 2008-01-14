@@ -157,12 +157,22 @@ namespace Tomboy.Notebooks
 	}
 
 	/// <summary>
+	/// A notebook of this type is special in the sense that it
+	/// will not normally be displayed to the user as a notebook
+	/// but it's used in the Search All Notes Window for special
+	/// filtering of the notes.
+	/// </summary>
+	public abstract class SpecialNotebook : Notebook
+	{
+	}
+	
+	/// <summary>
 	/// A special notebook that represents really "no notebook" as
 	/// being selected.  This notebook is used in the Search All
 	/// Notes Window to allow users to select it at the top of the
 	/// list so that all notes are shown.
 	/// </summary>
-	public class AllNotesNotebook : Notebook
+	public class AllNotesNotebook : SpecialNotebook
 	{
 		public AllNotesNotebook () : base ()
 		{
@@ -176,6 +186,38 @@ namespace Tomboy.Notebooks
 		public override string NormalizedName
 		{
 			get { return "___NotebookManager___AllNotes__Notebook___"; }
+		}
+		
+		public override Tag Tag
+		{
+			get { return null; }
+		}
+		
+		public override Note GetTemplateNote ()
+		{
+			return Tomboy.DefaultNoteManager.GetOrCreateTemplateNote ();
+		}
+	}
+	
+	/// <summary>
+	/// A special notebook that represents a notebook with notes
+	/// that are not filed.  This is used in the Search All Notes
+	/// Window to filter notes that are not placed in any notebook.
+	/// </summary>
+	public class UnfiledNotesNotebook : SpecialNotebook
+	{
+		public UnfiledNotesNotebook () : base ()
+		{
+		}
+		
+		public override string Name
+		{
+			get { return Catalog.GetString ("Unfiled Notes"); }
+		}
+		
+		public override string NormalizedName
+		{
+			get { return "___NotebookManager___UnfiledNotes__Notebook___"; }
 		}
 		
 		public override Tag Tag

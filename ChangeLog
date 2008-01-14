@@ -1,5 +1,29 @@
 2008-01-14  Boyd Timothy <btimothy@gmail.com> 
 
+	* Tomboy/RecentChanges: Added an "Unfiled Notes" item to the
+	  Notebooks list.
+
+	* Tomboy/Notebooks/NotebookManager.cs: Add UnfiledNotesNotebook
+	  as the second item in the list.
+
+	* Tomboy/Notebooks/NotebooksTreeView.cs: Special case drag/drop
+	  stuff with SpecialNotebook instead of AllNotesNotebook.
+
+	* Tomboy/Notebooks/Notebook.cs: Added a SpecialNotebook abstract
+	  class that both AllNotesNotebook and UnfiledNotesNotebook (new)
+	  extend.
+
+	* Tomboy/Makefile.am: Include tomboy-unfiled-notes.png as a
+	  resource.
+
+	* data/images/tomboy-unfiles-notes-22.png: Stubbed out
+	  this icon.
+
+	* data/images/Makefile.am: Install/uninstall
+	  tomboy-unfiled-notes.png properly.
+
+2008-01-14  Boyd Timothy <btimothy@gmail.com> 
+
 	* Tomboy/RecentChanges: Modified the main TreeView to support
 	  multiple selection.  Partial fix to bug #508307.
 
