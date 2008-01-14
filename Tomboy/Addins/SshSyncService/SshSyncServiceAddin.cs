@@ -28,11 +28,13 @@ namespace Tomboy.Sync
 			Gtk.Table table = new Gtk.Table (3, 2, false);
 
 			// Read settings out of gconf
-			string server = Preferences.Get ("/apps/tomboy/sync_sshfs_server") as String;
-			string folder = Preferences.Get ("/apps/tomboy/sync_sshfs_folder") as String;
-			string username = Preferences.Get ("/apps/tomboy/sync_sshfs_username") as String;
+			string server, folder, username;
+			int port;
+			GetConfigSettings (out server, out folder, out username, out port);
 			if (server == null)
 				server = string.Empty;
+			if (port != 22)
+				server += ":" + port.ToString ();
 			if (folder == null)
 				folder = string.Empty;
 			if (username == null)
@@ -85,8 +87,9 @@ namespace Tomboy.Sync
 		protected override bool VerifyConfiguration ()
 		{
 			string server, folder, username;
+			int port;
 
-			if (!GetPrefWidgetSettings (out server, out folder, out username)) {
+			if (!GetPrefWidgetSettings (out server, out folder, out username, out port)) {
 				// TODO: Figure out a way to send the error back to the client
 				Logger.Debug ("One of url, username was empty");
 				throw new TomboySyncException (Catalog.GetString ("Server or username field is empty."));
@@ -98,9 +101,11 @@ namespace Tomboy.Sync
 		protected override void SaveConfigurationValues ()
 		{
 			string server, folder, username;
-			GetPrefWidgetSettings (out server, out folder, out username);
+			int port;
+			GetPrefWidgetSettings (out server, out folder, out username, out port);
 
 			Preferences.Set ("/apps/tomboy/sync_sshfs_server", server);
+			Preferences.Set ("/apps/tomboy/sync_sshfs_port", port);
 			Preferences.Set ("/apps/tomboy/sync_sshfs_folder", folder);
 			Preferences.Set ("/apps/tomboy/sync_sshfs_username", username);
 		}
@@ -111,6 +116,7 @@ namespace Tomboy.Sync
 		protected override void ResetConfigurationValues ()
 		{
 			Preferences.Set ("/apps/tomboy/sync_sshfs_server", string.Empty);
+			Preferences.Set ("/apps/tomboy/sync_sshfs_port", 22);
 			Preferences.Set ("/apps/tomboy/sync_sshfs_folder", string.Empty);
 			Preferences.Set ("/apps/tomboy/sync_sshfs_username", string.Empty);
 		}
@@ -122,7 +128,8 @@ namespace Tomboy.Sync
 		{
 			get {
 				string server, folder, username;
-				return GetConfigSettings (out server, out folder, out username);
+				int port;
+				return GetConfigSettings (out server, out folder, out username, out port);
 			}
 		}
 
@@ -150,13 +157,15 @@ namespace Tomboy.Sync
 
 		protected override string GetFuseMountExeArgs (string mountPath, bool fromStoredValues)
 		{
+			int port = 22;
 			string server, folder, username;
 			if (fromStoredValues)
-				GetConfigSettings (out server, out folder, out username);
+				GetConfigSettings (out server, out folder, out username, out port);
 			else
-				GetPrefWidgetSettings (out server, out folder, out username);
+				GetPrefWidgetSettings (out server, out folder, out username, out port);
 			return string.Format (
-			               "{0}@{1}:{2} {3}",
+			               "-p {0} {1}@{2}:{3} {4}",
+			               port,
 			               username,
 			               server,
 			               folder,
@@ -185,9 +194,13 @@ namespace Tomboy.Sync
 		/// <summary>
 		/// Get config settings
 		/// </summary>
-		private bool GetConfigSettings (out string server, out string folder, out string username)
+		private bool GetConfigSettings (out string server, out string folder, out string username, out int port)
 		{
 			server = Preferences.Get ("/apps/tomboy/sync_sshfs_server") as String;
+			port = 22;
+			try {
+				port = (int)Preferences.Get ("/apps/tomboy/sync_sshfs_port");
+			} catch {}
 			folder = Preferences.Get ("/apps/tomboy/sync_sshfs_folder") as String;
 			username = Preferences.Get ("/apps/tomboy/sync_sshfs_username") as String;
 
@@ -198,9 +211,17 @@ namespace Tomboy.Sync
 		/// <summary>
 		/// Get config settings
 		/// </summary>
-		private bool GetPrefWidgetSettings (out string server, out string folder, out string username)
+		private bool GetPrefWidgetSettings (out string server, out string folder, out string username, out int port)
 		{
+			port = 22;
 			server = serverEntry.Text.Trim ();
+			int lastColonIndex = server.LastIndexOf(":");
+			if (lastColonIndex > 0) {
+				try {
+					port = int.Parse (server.Substring (lastColonIndex + 1));
+				} catch {}
+				server = server.Substring (0, lastColonIndex);
+			}
 			folder = folderEntry.Text.Trim ();
 			username = usernameEntry.Text.Trim ();
 

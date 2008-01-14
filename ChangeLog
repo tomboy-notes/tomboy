@@ -1,3 +1,14 @@
+2008-01-14  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/Synchronization/FuseSyncServiceAddin.cs: Added ability to set
+	  default fuse mount timeout with /apps/tomboy/sync_fuse_mount_timeout_ms
+	  key in gconf.  Sets timeout time in milliseconds.  Fixes bug #480736. 
+	  Also, for debugging purposes, the exact fuse mount command is printed to
+	  the log.
+	* Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs: Added ability to
+	  choose SSH server port by appending ":22" (for example) to the server
+	  name.  Saves port in /apps/tomboy/sync_sshfs_port.  Fixes bug #488117.
+
 2008-01-14 Chris Scobell <chris@thescobells.com>
 	* Tomboy/NoteBuffer.cs, Tomboy/NoteEditor.cs, 
 	  Tomboy/Addins/ExportToHtml/ExportToHtml.xsl: Implement paragraphs 
