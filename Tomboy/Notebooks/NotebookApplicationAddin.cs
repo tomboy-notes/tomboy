@@ -154,6 +154,8 @@ namespace Tomboy.Notebooks
 		
 		private void AddMenuItems (Gtk.Menu menu)
 		{
+			RemoveMenuItems (menu);			
+
 			NotebookNewNoteMenuItem item;
 
 			Gtk.TreeModel model = NotebookManager.Notebooks;
