@@ -50,6 +50,18 @@ namespace Tomboy
 			return true;
 		}
 
+		public bool HideNote (string uri)
+		{
+			Note note;
+
+			note = note_manager.FindByUri (uri);
+			if (note == null)
+				return false;
+
+			note.Window.Hide ();
+			return true;
+		}
+
 		public bool DisplayNoteWithSearch (string uri, string search)
 		{
 			Note note;
