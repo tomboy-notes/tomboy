@@ -110,7 +110,7 @@ namespace Tomboy.Notebooks
 			if (imageitem != null) {
 				if (imageitem is Gtk.ImageMenuItem) {
 					Gtk.ImageMenuItem imageItem = imageitem as Gtk.ImageMenuItem;
-					(imageItem.Image as Gtk.Image).Pixbuf = newNotebookIcon;
+					(imageItem.Image as Gtk.Image).Pixbuf = notebookIcon;
 				}
 				mainWindowNotebookMenu = new Gtk.Menu ();
 				imageitem.Submenu = mainWindowNotebookMenu;
