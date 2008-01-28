@@ -9,6 +9,14 @@ namespace Tomboy.Notebooks
 	{
 		static Gtk.ActionGroup actionGroup;
 		static uint notebookUi = 0;
+		static Gdk.Pixbuf notebookIcon;
+		static Gdk.Pixbuf newNotebookIcon;
+
+		static NotebookApplicationAddin ()
+		{
+			notebookIcon = GuiUtils.GetIcon ("tomboy-notebook", 22);
+			newNotebookIcon = GuiUtils.GetIcon ("tomboy-new-notebook", 22);
+		}
 
 		bool initialized;
 
@@ -85,6 +93,10 @@ namespace Tomboy.Notebooks
 			Gtk.MenuItem item = Tomboy.ActionManager.GetWidget (
 				"/TrayIconMenu/TrayNewNotePlaceholder/TrayNewNotebookMenu") as Gtk.MenuItem;
 			if (item != null) {
+				if (item is Gtk.ImageMenuItem) {
+					Gtk.ImageMenuItem imageItem = item as Gtk.ImageMenuItem;
+					(imageItem.Image as Gtk.Image).Pixbuf = notebookIcon;
+				}
 				trayNotebookMenu = new Gtk.Menu ();
 				item.Submenu = trayNotebookMenu;
 				trayNotebookMenu.Shown += OnTrayNotebookMenuShown;
@@ -164,8 +176,7 @@ namespace Tomboy.Notebooks
 			// Add in the "New Notebook..." menu item
 			Gtk.ImageMenuItem newNotebookMenuItem =
 				new Gtk.ImageMenuItem (Catalog.GetString ("New Note_book..."));
-			// TODO: Replace this new stock icon with a tomboy-new-notebook icon
-			newNotebookMenuItem.Image = new Gtk.Image(GuiUtils.GetIcon("tomboy-new-notebook",22));
+			newNotebookMenuItem.Image = new Gtk.Image (newNotebookIcon);
 			newNotebookMenuItem.Activated += OnNewNotebookMenuItem;
 			newNotebookMenuItem.ShowAll ();
 			menu.Append (newNotebookMenuItem);
