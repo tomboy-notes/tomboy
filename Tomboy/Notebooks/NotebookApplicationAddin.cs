@@ -11,11 +11,12 @@ namespace Tomboy.Notebooks
 		static uint notebookUi = 0;
 		static Gdk.Pixbuf notebookIcon;
 		static Gdk.Pixbuf newNotebookIcon;
-
+		
 		static NotebookApplicationAddin ()
 		{
 			notebookIcon = GuiUtils.GetIcon ("tomboy-notebook", 22);
 			newNotebookIcon = GuiUtils.GetIcon ("tomboy-new-notebook", 22);
+			
 		}
 
 		bool initialized;
@@ -90,8 +91,8 @@ namespace Tomboy.Notebooks
 			
 			Tomboy.ActionManager.UI.InsertActionGroup (actionGroup, 0);
 			
-			Gtk.MenuItem item = Tomboy.ActionManager.GetWidget (
-				"/TrayIconMenu/TrayNewNotePlaceholder/TrayNewNotebookMenu") as Gtk.MenuItem;
+			Gtk.ImageMenuItem item = Tomboy.ActionManager.GetWidget (
+				"/TrayIconMenu/TrayNewNotePlaceholder/TrayNewNotebookMenu") as Gtk.ImageMenuItem;
 			if (item != null) {
 				if (item is Gtk.ImageMenuItem) {
 					Gtk.ImageMenuItem imageItem = item as Gtk.ImageMenuItem;
@@ -99,19 +100,32 @@ namespace Tomboy.Notebooks
 				}
 				trayNotebookMenu = new Gtk.Menu ();
 				item.Submenu = trayNotebookMenu;
+				
 				trayNotebookMenu.Shown += OnTrayNotebookMenuShown;
 				trayNotebookMenu.Hidden += OnTrayNotebookMenuHidden;
 			}
 			
-			item = Tomboy.ActionManager.GetWidget (
-				"/MainWindowMenubar/FileMenu/FileMenuNewNotePlaceholder/NewNotebookMenu") as Gtk.MenuItem;
-			if (item != null) {
+			Gtk.ImageMenuItem imageitem = Tomboy.ActionManager.GetWidget (
+				"/MainWindowMenubar/FileMenu/FileMenuNewNotePlaceholder/NewNotebookMenu") as Gtk.ImageMenuItem;
+			if (imageitem != null) {
+				if (imageitem is Gtk.ImageMenuItem) {
+					Gtk.ImageMenuItem imageItem = imageitem as Gtk.ImageMenuItem;
+					(imageItem.Image as Gtk.Image).Pixbuf = newNotebookIcon;
+				}
 				mainWindowNotebookMenu = new Gtk.Menu ();
-				item.Submenu = mainWindowNotebookMenu;
+				imageitem.Submenu = mainWindowNotebookMenu;
+				
 				mainWindowNotebookMenu.Shown += OnNewNotebookMenuShown;
 				mainWindowNotebookMenu.Hidden += OnNewNotebookMenuHidden;
 			}
-			
+			 imageitem = Tomboy.ActionManager.GetWidget (
+				"/NotebooksTreeContextMenu/NewNotebookNote") as Gtk.ImageMenuItem;
+			if (imageitem != null) {
+				if (imageitem is Gtk.ImageMenuItem) {
+					Gtk.ImageMenuItem imageItem = imageitem as Gtk.ImageMenuItem;
+					(imageItem.Image as Gtk.Image).Pixbuf = ActionManager.newNote;
+				}
+			}
 			initialized = true;
 		}
 
