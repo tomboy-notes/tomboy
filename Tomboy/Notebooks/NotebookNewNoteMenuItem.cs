@@ -28,7 +28,7 @@ namespace Tomboy.Notebooks
 							   notebook.Name))
 		{
 			this.notebook = notebook;
-			this.Image = new Gtk.Image (GuiUtils.GetIcon ("tomboy-new-notebook", 48));
+			this.Image = new Gtk.Image (GuiUtils.GetIcon ("tomboy-new-notebook", 22));
 			//this.Image = new Gtk.Image (Gtk.Stock.New, Gtk.IconSize.Menu);
 			
 			Activated += OnActivated;
