@@ -165,7 +165,7 @@ namespace Tomboy.Notebooks
 			Gtk.ImageMenuItem newNotebookMenuItem =
 				new Gtk.ImageMenuItem (Catalog.GetString ("New Note_book..."));
 			// TODO: Replace this new stock icon with a tomboy-new-notebook icon
-			newNotebookMenuItem.Image = new Gtk.Image (Gtk.Stock.New, Gtk.IconSize.Menu);
+			newNotebookMenuItem.Image = new Gtk.Image(GuiUtils.GetIcon("tomboy-new-notebook",22));
 			newNotebookMenuItem.Activated += OnNewNotebookMenuItem;
 			newNotebookMenuItem.ShowAll ();
 			menu.Append (newNotebookMenuItem);
