@@ -707,7 +707,6 @@ public NoteWindow (Note note) :
 		Gtk.Entry entry;
 		Gtk.Button next_button;
 		Gtk.Button prev_button;
-		Gtk.CheckButton case_sensitive;
 
 		ArrayList current_matches;
 		string prev_search_text;
@@ -758,12 +757,6 @@ public NoteFindBar (Note note) : base (false, 0)
 			next_button.Clicked += OnNextClicked;
 			next_button.Show ();
 			PackStart (next_button, false, false, 0);
-
-			case_sensitive = new Gtk.CheckButton (
-			        Catalog.GetString ("Case _sensitive"));
-			case_sensitive.Toggled += OnCaseSensitiveToggled;
-			case_sensitive.Show ();
-			PackStart (case_sensitive, true, true, 0);
 
 			// Bind ESC to close the FindBar if it's open and has
 			// focus or the window otherwise.  Also bind Return and
@@ -864,11 +857,6 @@ public NoteFindBar (Note note) : base (false, 0)
 			editor.ScrollMarkOnscreen (buffer.InsertMark);
 		}
 
-		void OnCaseSensitiveToggled (object sender, EventArgs args)
-		{
-			PerformSearch (true);
-		}
-
 		void OnFindEntryActivated (object sender, EventArgs args)
 		{
 			if (entry_changed_timeout != null) {
@@ -918,15 +906,12 @@ public NoteFindBar (Note note) : base (false, 0)
 			if (text == null)
 				return;
 
-			if (!case_sensitive.Active)
-				text = text.ToLower ();
+			text = text.ToLower ();
 
 			string [] words = text.Split (' ', '\t', '\n');
 
 			current_matches =
-			        FindMatchesInBuffer (note.Buffer,
-			                             words,
-			                             case_sensitive.Active);
+			        FindMatchesInBuffer (note.Buffer, words);
 
 			prev_search_text = SearchText;
 
@@ -1105,15 +1090,14 @@ public NoteFindBar (Note note) : base (false, 0)
 			UpdateSensitivity ();
 		}
 
-		ArrayList FindMatchesInBuffer (NoteBuffer buffer, string [] words, bool match_case)
+		ArrayList FindMatchesInBuffer (NoteBuffer buffer, string [] words)
 		{
 			ArrayList matches = new ArrayList ();
 
 			string note_text = buffer.GetSlice (buffer.StartIter,
 			                                    buffer.EndIter,
 			                                    false /* hidden_chars */);
-			if (!match_case)
-				note_text = note_text.ToLower ();
+			note_text = note_text.ToLower ();
 
 			foreach (string word in words) {
 				int idx = 0;
