@@ -46,15 +46,34 @@ namespace Tomboy
 		private Gtk.ActionGroup main_window_actions =
 		        new Gtk.ActionGroup ("MainWindow");
 
+		public static Gdk.Pixbuf newNote;
 		public ActionManager ()
 		{
 			PopulateActionGroups ();
+			newNote  = GuiUtils.GetIcon("tomboy-new-note",22);
 		}
 
 		public void LoadInterface ()
 		{
 			ui.AddUiFromResource ("UIManagerLayout.xml");
 			Gtk.Window.DefaultIconName = "tomboy";
+			Gtk.ImageMenuItem imageitem = Tomboy.ActionManager.GetWidget (
+				"/MainWindowMenubar/FileMenu/FileMenuNewNotePlaceholder/NewNote") as Gtk.ImageMenuItem;
+			if (imageitem != null) {
+				if (imageitem is Gtk.ImageMenuItem) {
+					Gtk.ImageMenuItem imageItem = imageitem as Gtk.ImageMenuItem;
+					(imageItem.Image as Gtk.Image).Pixbuf = newNote;
+				}
+			}
+			
+			imageitem = Tomboy.ActionManager.GetWidget (
+				"/TrayIconMenu/TrayNewNotePlaceholder/TrayNewNote") as Gtk.ImageMenuItem;
+			if (imageitem != null) {
+				if (imageitem is Gtk.ImageMenuItem) {
+					Gtk.ImageMenuItem imageItem = imageitem as Gtk.ImageMenuItem;
+					(imageItem.Image as Gtk.Image).Pixbuf = newNote;
+				}
+			}
 		}
 		
 		/// <summary>
@@ -165,6 +184,8 @@ namespace Tomboy
 			main_window_actions.GetAction ("DeleteNoteAction").Sensitive = false;
 
 			ui.InsertActionGroup (main_window_actions, 0);
+				
+			
 		}
 
 		public Gtk.Action FindActionByName (string action_name)
