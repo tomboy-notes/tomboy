@@ -1,25 +1,25 @@
-# translation of cs.po to Czech
-# translation of cs.po to
 # Czech translation of tomboy.
-# Copyright (C) 2005, 2006 tomboy'S COPYRIGHT HOLDER
-# Copyright (C) 2005, 2006 Miloslav Trmac <mitr@volny.cz>
-# This file is distributed under the same license as the tomboy package.
-#
-# Miloslav Trmac <mitr@volny.cz>, 2005 - 2006.
+# Copyright (C) 2008 Free Software Foundation, Inc.
+# Copyright (C) 2005, 2006 Miloslav Trmac <mitr@volny.cz>.
+# Copyright (C) 2008 Pavel Šefránek <ps@pjoul.cz>.
+# This file is distributed under the same license as the tomboy.
+# Miloslav Trmac <mitr@volny.cz>, 2005, 2006.
 # Jakub Friedl <jfriedl@suse.cz>, 2006, 2007.
+# Pavel Šefránek <ps@pjoul.cz>, 2008.
+# Petr Kovar <pknbe@volny.cz>, 2008.
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: cs\n"
+"Project-Id-Version: tomboy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-04-02 17:36+0200\n"
-"PO-Revision-Date: 2007-04-02 17:35+0200\n"
-"Last-Translator: \n"
+"POT-Creation-Date: 2008-02-09 21:42+0100\n"
+"PO-Revision-Date: 2008-02-09 20:55+0100\n"
+"Last-Translator: Petr Kovar <pknbe@volny.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms:  nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
 #: ../data/GNOME_TomboyApplet.server.in.in.h:1
 msgid "Accessories"
@@ -31,26 +31,26 @@ msgstr "Jednoduché a snadno použitelné psaní poznámek"
 
 #: ../data/GNOME_TomboyApplet.server.in.in.h:3
 msgid "Tomboy Applet Factory"
-msgstr "Generátor apletu Tomboy"
+msgstr "Generátor appletu Tomboy"
 
 #: ../data/GNOME_TomboyApplet.server.in.in.h:4 ../data/tomboy.desktop.in.h:3
-#: ../Tomboy/Applet.cs:148 ../Tomboy/Tray.cs:147
+#: ../Tomboy/Applet.cs:153 ../Tomboy/Tray.cs:147
 msgid "Tomboy Notes"
 msgstr "Poznámky Tomboy"
 
-#: ../data/GNOME_TomboyApplet.xml.h:1 ../Tomboy/ActionManager.cs:100
+#: ../data/GNOME_TomboyApplet.xml.h:1 ../Tomboy/ActionManager.cs:164
 msgid "_About"
 msgstr "O _aplikaci"
 
-#: ../data/GNOME_TomboyApplet.xml.h:2 ../Tomboy/ActionManager.cs:93
-#: ../Tomboy/Applet.cs:186
+#: ../data/GNOME_TomboyApplet.xml.h:2 ../Tomboy/ActionManager.cs:157
+#: ../Tomboy/Applet.cs:191
 msgid "_Help"
-msgstr "_Nápověda"
+msgstr "Nápo_věda"
 
-#: ../data/GNOME_TomboyApplet.xml.h:3 ../Tomboy/ActionManager.cs:89
-#: ../Tomboy/Applet.cs:181
+#: ../data/GNOME_TomboyApplet.xml.h:3 ../Tomboy/ActionManager.cs:153
+#: ../Tomboy/Applet.cs:186
 msgid "_Preferences"
-msgstr "_Předvolby"
+msgstr "_Nastavení"
 
 #: ../data/tomboy.desktop.in.h:1
 msgid "Note-taker"
@@ -61,85 +61,125 @@ msgid "Create a new Note"
 msgstr "Vytvořit novou poznámku"
 
 #: ../data/tomboy.schemas.in.h:2
-msgid "Currently enabled plugins."
-msgstr "Právě povolené moduly."
-
-#: ../data/tomboy.schemas.in.h:3
 msgid "Custom Font Face"
 msgstr "Vlastní řez písma"
 
+#: ../data/tomboy.schemas.in.h:3
+msgid "Enable Auto bulleted lists."
+msgstr "Povolit automatický seznam s odrážkami."
+
 #: ../data/tomboy.schemas.in.h:4
+msgid "Enable Middle-Click Paste On Icon."
+msgstr "Povolit vložení výběru kliknutím prostředního tlačítka na ikonu."
+
+#: ../data/tomboy.schemas.in.h:5
 msgid "Enable WikiWord highlighting"
 msgstr "Povolit zvýrazňování WikiSlov"
 
-#: ../data/tomboy.schemas.in.h:5
+#: ../data/tomboy.schemas.in.h:6
+msgid "Enable closing notes with escape."
+msgstr "Povolit zavírání poznámek klávesou Escape."
+
+#: ../data/tomboy.schemas.in.h:7
 msgid "Enable custom font"
 msgstr "Povolit vlastní písmo"
 
-#: ../data/tomboy.schemas.in.h:6
+#: ../data/tomboy.schemas.in.h:8
 msgid "Enable global keybindings"
 msgstr "Povolit globální klávesové zkratky"
 
-#: ../data/tomboy.schemas.in.h:7
+#: ../data/tomboy.schemas.in.h:9
 msgid "Enable spellchecking"
 msgstr "Povolit hledání překlepů"
 
-#: ../data/tomboy.schemas.in.h:8
+#: ../data/tomboy.schemas.in.h:10
+msgid "Enable startup notes"
+msgstr "Otevřít poznámky při startu"
+
+#: ../data/tomboy.schemas.in.h:11
+msgid ""
+"Enable this option if you want bulleted lists to be automatic when you place "
+"- or * at the beginning of a line."
+msgstr ""
+"Zaškrtněte, jestli chcete automaticky vytvářet seznamy s odrážkami napsáním "
+"- nebo * na začátek řádku."
+
+#: ../data/tomboy.schemas.in.h:12
+msgid ""
+"Enable this option if you want to be able to middle-click the Tomboy icon to "
+"paste timestamped content into the Start Here note."
+msgstr ""
+"Zaškrtněte, jestli chcete povolit vložení aktuálního výběru do poznámky "
+"Začněte zde kliknutím prostředního tlačítka na ikonu Tomboye."
+
+#: ../data/tomboy.schemas.in.h:13
 msgid ""
 "Enable this option to highlight words ThatLookLikeThis. Clicking the word "
 "will create a note with that name."
 msgstr ""
 "Povolením této možnosti zvýrazníte slova, KteráVypadajíTakto. Kliknutí na "
-"slovo vytvoří poznámku a takovým názvem."
+"slovo vytvoří poznámku s takovým názvem."
 
-#: ../data/tomboy.schemas.in.h:9
+#: ../data/tomboy.schemas.in.h:14
 msgid "HTML Export All Linked Notes"
 msgstr "Exportovat všechny související poznámky do HTML"
 
-#: ../data/tomboy.schemas.in.h:10
+#: ../data/tomboy.schemas.in.h:15
 msgid "HTML Export Last Directory"
 msgstr "Poslední adresář exportu do HTML"
 
-#: ../data/tomboy.schemas.in.h:11
+#: ../data/tomboy.schemas.in.h:16
 msgid "HTML Export Linked Notes"
 msgstr "Exportovat související poznámky do HTML"
 
-#: ../data/tomboy.schemas.in.h:12
+#: ../data/tomboy.schemas.in.h:17
 msgid ""
 "If enable_custom_font is true, the font name set here will be used as the "
 "font when displaying notes."
 msgstr ""
-"Je-li enable_custom_font true, bude se zde nastavený název písma používat "
-"jako písmo pro zobrazování poznámek."
+"Je-li enable_custom_font \"true\", bude se zde nastavený název písma "
+"používat jako písmo pro zobrazování poznámek."
 
-#: ../data/tomboy.schemas.in.h:13
+#: ../data/tomboy.schemas.in.h:18
+msgid ""
+"If enabled, all notes that were open when Tomboy quit will automatically be "
+"reopened at startup."
+msgstr ""
+"Je-li povoleno, všechny otevřené poznámky při ukončování aplikace se "
+"automaticky otevřou při příštím spuštění."
+
+#: ../data/tomboy.schemas.in.h:19
+msgid "If enabled, an opened note can be closed by hitting the escape key."
+msgstr "Je-li povoleno, otevřená poznámka může být zavřena klávesou Escape."
+
+#: ../data/tomboy.schemas.in.h:20
 msgid ""
 "If true, misspellings will be underlined in red, and correct spelling "
 "suggestions shown in the right-click menu."
 msgstr ""
-"Je-li true, překlepy budou červeně podtrženy a návrhy správného zápisu budou "
-"zobrazovány v kontextovém menu."
+"Je-li \"true\", překlepy budou červeně podtrženy a návrhy správného zápisu "
+"budou zobrazovány v kontextové nabídce."
 
-#: ../data/tomboy.schemas.in.h:14
+#: ../data/tomboy.schemas.in.h:21
 msgid ""
 "If true, the desktop-global keybindings set in /apps/tomboy/"
 "global_keybindings will be enabled, allowing for useful Tomboy actions to be "
 "available from any application."
 msgstr ""
-"Je-li true, budou povoleny globální klávesové zkratky nastavené v /apps/"
+"Je-li \"true\", budou povoleny globální klávesové zkratky nastavené v /apps/"
 "tomboy/global_keybindings, což zpřístupňuje užitečné akce Tomboy ze všech "
 "aplikací."
 
-#: ../data/tomboy.schemas.in.h:15
+#: ../data/tomboy.schemas.in.h:22
 msgid ""
 "If true, the font name set in custom_font_face will be used as the font when "
 "displaying notes. Otherwise the desktop default font will be used."
 msgstr ""
-"Je-li true, bude se název písma nastavený v custom_font_face používat při "
-"zobrazování poznímek. Jinak se bude používat implicitní písmo prostřední "
+"Je-li \"true\", bude se název písma nastavený v custom_font_face používat "
+"při zobrazování poznámek. Jinak se bude používat implicitní písmo prostřední "
 "pracovní plochy."
 
-#: ../data/tomboy.schemas.in.h:16
+#: ../data/tomboy.schemas.in.h:23
 msgid ""
 "Indicates that the Sticky Note Importer plugin has not been run, so it "
 "should run automatically the next time Tomboy starts."
@@ -147,7 +187,7 @@ msgstr ""
 "Značí, že import lepicích poznámek nebyl spuštěn, takže by měl být spuštěn "
 "automaticky při dalším spuštění aplikace Tomboy."
 
-#: ../data/tomboy.schemas.in.h:17
+#: ../data/tomboy.schemas.in.h:24
 msgid ""
 "Integer determining the minimum number of notes to show in the Tomboy note "
 "menu."
@@ -155,47 +195,84 @@ msgstr ""
 "Celé číslo určující minimální počet poznámek zobrazovaných v nabídce "
 "poznámek Tomboy."
 
-#: ../data/tomboy.schemas.in.h:18
-msgid "List containing the names of currently enabled plugins."
-msgstr "Seznam jmen aktuálně povolených zásuvných modulů."
+#: ../data/tomboy.schemas.in.h:25
+msgid ""
+"Integer value indicating if there is a preference to always perform a "
+"specific behavior when a conflict is detected, instead of prompting the "
+"user. The values map to an internal enumeration. 0 indicates that the user "
+"wishes to be prompted when a conflict occurs, so that they may handle each "
+"conflict situation on a case-by-case basis."
+msgstr ""
+"Číselná hodnota, kterou se nastavuje chování ve chvíli, kdy se vyskytne "
+"konflikt synchronizace mezi poznámkami. Možné hodnoty najdete v dialogu "
+"Nastavení -> Synchronizace -> Pokročilé. Akce jsou analogicky číslovány od 0 "
+"(vždy se zeptat) do 2."
 
-#: ../data/tomboy.schemas.in.h:19
+#: ../data/tomboy.schemas.in.h:26
 msgid "List of pinned notes."
 msgstr "Seznam připíchnutých poznámek."
 
-#: ../data/tomboy.schemas.in.h:20
+#: ../data/tomboy.schemas.in.h:27
 msgid "Minimum number of notes to show in menu"
 msgstr "Minimální počet poznámek zobrazovaných v nabídce"
 
-#: ../data/tomboy.schemas.in.h:21
+#: ../data/tomboy.schemas.in.h:28
+msgid "Note Synchronization Conflict Saved Behavior"
+msgstr "Výchozí akce při konfliktu poznámek"
+
+#: ../data/tomboy.schemas.in.h:29
 msgid "Open Recent Changes"
 msgstr "Otevřít nedávné změny"
 
-#: ../data/tomboy.schemas.in.h:22
+#: ../data/tomboy.schemas.in.h:30
 msgid "Open Search Dialog"
 msgstr "Otevřít dialog hledání"
 
-#: ../data/tomboy.schemas.in.h:23
+#: ../data/tomboy.schemas.in.h:31
 msgid "Open Start Here"
 msgstr "Otevřít Začněte zde"
 
-#: ../data/tomboy.schemas.in.h:24
+#: ../data/tomboy.schemas.in.h:32
+msgid ""
+"Path to the synchronization server when using the filesystem synchronization "
+"service addin."
+msgstr ""
+"Cesta k synchronizačnímu serveru v případě používání rozšíření synchronizace "
+"systému souborů."
+
+#: ../data/tomboy.schemas.in.h:33
+msgid "Selected Synchronization Service Addin"
+msgstr "Nastavené synchronizační rozšíření"
+
+#: ../data/tomboy.schemas.in.h:34
 msgid "Set to TRUE to activate"
 msgstr "Pro aktivaci nastavte na TRUE"
 
-#: ../data/tomboy.schemas.in.h:25
+#: ../data/tomboy.schemas.in.h:35
 msgid "Show applet menu"
-msgstr "Zobrazit menu apletu"
+msgstr "Zobrazit menu appletu"
 
-#: ../data/tomboy.schemas.in.h:26
+#: ../data/tomboy.schemas.in.h:36
 msgid "Start Here Note"
 msgstr "Poznámka Začněte zde"
 
-#: ../data/tomboy.schemas.in.h:27
+#: ../data/tomboy.schemas.in.h:37
 msgid "Sticky Note Importer First Run"
-msgstr "První spuštění importu lepících poznámek"
+msgstr "První spuštění importu lepicích poznámek"
 
-#: ../data/tomboy.schemas.in.h:28
+#: ../data/tomboy.schemas.in.h:38
+msgid "Synchronization Client ID"
+msgstr "ID synchronizačního klienta"
+
+#: ../data/tomboy.schemas.in.h:39
+msgid "Synchronization Local Server Path"
+msgstr "Umístění synchronizace"
+
+#: ../data/tomboy.schemas.in.h:40
+msgid "The date format that is used for the timestamp."
+msgstr "Formát data používaný pro časovou značku."
+
+#: ../data/tomboy.schemas.in.h:41
 msgid ""
 "The global keybinding for creating and displaying a new Note. The format "
 "looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The "
@@ -205,12 +282,12 @@ msgid ""
 "for this action."
 msgstr ""
 "Globální klávesová zkratka pro vytvoření a zobrazení nové poznámky. Formát "
-"vypadá jako \"&lt;Control&gt;a\" nebo \"&lt;Shift&gt;&lt;Alt&gt;F1\". Parser "
-"je poměrně liberální a povoluje velká i malá písmena a zkratky, např. \"&lt;"
-"Ctl&gt;\" a \"&lt;Ctrl&gt;\". Pokud možnost nastavíte na speciální řetězec "
-"\"disabled\", nebude pro tuto akci žádná klávesová zkratka."
+"vypadá jako \"&lt;Control&gt;a\" nebo \"&lt;Shift&gt;&lt;Alt&gt;F1\". "
+"Analyzátor je poměrně velkorysý a povoluje velká i malá písmena a zkratky, "
+"např. \"&lt;Ctl&gt;\" a \"&lt;Ctrl&gt;\". Pokud možnost nastavíte na "
+"speciální řetězec \"disabled\", nebude pro tuto akci žádná klávesová zkratka."
 
-#: ../data/tomboy.schemas.in.h:29
+#: ../data/tomboy.schemas.in.h:42
 msgid ""
 "The global keybinding for opening the \"Start Here\" note. The format looks "
 "like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
@@ -220,12 +297,12 @@ msgid ""
 "action."
 msgstr ""
 "Globální klávesová zkratka pro otevření poznámky \"Začněte zde\". Formát "
-"vypadá jako \"&lt;Control&gt;a\" nebo \"&lt;Shift&gt;&lt;Alt&gt;F1\". Parser "
-"je poměrně liberální a povoluje velká i malá písmena a zkratky, např. \"&lt;"
-"Ctl&gt;\" a \"&lt;Ctrl&gt;\". Pokud možnost nastavíte na speciální řetězec "
-"\"disabled\", nebude pro tuto akci žádná klávesová zkratka."
+"vypadá jako \"&lt;Control&gt;a\" nebo \"&lt;Shift&gt;&lt;Alt&gt;F1\". "
+"Analyzátor je poměrně velkorysý a povoluje velká i malá písmena a zkratky, "
+"např. \"&lt;Ctl&gt;\" a \"&lt;Ctrl&gt;\". Pokud možnost nastavíte na "
+"speciální řetězec \"disabled\", nebude pro tuto akci žádná klávesová zkratka."
 
-#: ../data/tomboy.schemas.in.h:30
+#: ../data/tomboy.schemas.in.h:43
 msgid ""
 "The global keybinding for opening the Note Search dialog. The format looks "
 "like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
@@ -235,12 +312,12 @@ msgid ""
 "action."
 msgstr ""
 "Globální klávesová zkratka pro otevření dialogu pro hledání poznámky. Formát "
-"vypadá jako \"&lt;Control&gt;a\" nebo \"&lt;Shift&gt;&lt;Alt&gt;F1\". Parser "
-"je poměrně liberální a povoluje velká i malá písmena a zkratky, např. \"&lt;"
-"Ctl&gt;\" a \"&lt;Ctrl&gt;\". Pokud možnost nastavíte na speciální řetězec "
-"\"disabled\", nebude pro tuto akci žádná klávesová zkratka."
+"vypadá jako \"&lt;Control&gt;a\" nebo \"&lt;Shift&gt;&lt;Alt&gt;F1\". "
+"Analyzátor je poměrně velkorysý a povoluje velká i malá písmena a zkratky, "
+"např. \"&lt;Ctl&gt;\" a \"&lt;Ctrl&gt;\". Pokud možnost nastavíte na "
+"speciální řetězec \"disabled\", nebude pro tuto akci žádná klávesová zkratka."
 
-#: ../data/tomboy.schemas.in.h:31
+#: ../data/tomboy.schemas.in.h:44
 msgid ""
 "The global keybinding for opening the Recent Changes dialog. The format "
 "looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The "
@@ -250,12 +327,12 @@ msgid ""
 "for this action."
 msgstr ""
 "Globální klávesová zkratka pro otevření dialogu Nedávné změny. Formát vypadá "
-"jako \"&lt;Control&gt;a\" nebo \"&lt;Shift&gt;&lt;Alt&gt;F1\". Parser je "
-"poměrně liberální a povoluje velká i malá písmena a zkratky, např. \"&lt;"
+"jako \"&lt;Control&gt;a\" nebo \"&lt;Shift&gt;&lt;Alt&gt;F1\". Analyzátor je "
+"poměrně velkorysý a povoluje velká i malá písmena a zkratky, např. \"&lt;"
 "Ctl&gt;\" a \"&lt;Ctrl&gt;\". Pokud možnost nastavíte na speciální řetězec "
 "\"disabled\", nebude pro tuto akci žádná klávesová zkratka."
 
-#: ../data/tomboy.schemas.in.h:32
+#: ../data/tomboy.schemas.in.h:45
 msgid ""
 "The global keybinding for showing the Tomboy applet's menu. The format looks "
 "like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
@@ -264,178 +341,765 @@ msgid ""
 "special string \"disabled\", then there will be no keybinding for this "
 "action."
 msgstr ""
-"Globální klávesová zkratka pro zobrazení menu apletu Tomboy. Formát vypadá "
-"jako \"&lt;Control&gt;a\" nebo \"&lt;Shift&gt;&lt;Alt&gt;F1\". Parser je "
-"poměrně liberální a povoluje velká i malá písmena a zkratky, např. \"&lt;"
+"Globální klávesová zkratka pro zobrazení menu appletu Tomboy. Formát vypadá "
+"jako \"&lt;Control&gt;a\" nebo \"&lt;Shift&gt;&lt;Alt&gt;F1\". Analyzátor je "
+"poměrně velkorysý a povoluje velká i malá písmena a zkratky, např. \"&lt;"
 "Ctl&gt;\" a \"&lt;Ctrl&gt;\". Pokud možnost nastavíte na speciální řetězec "
 "\"disabled\", nebude pro tuto akci žádná klávesová zkratka."
 
-#: ../data/tomboy.schemas.in.h:33
+#: ../data/tomboy.schemas.in.h:46
 msgid "The handler for \"note://\" URLs"
 msgstr "Obsluhovač pro URL typu \"note://\""
 
-#: ../data/tomboy.schemas.in.h:34
+#: ../data/tomboy.schemas.in.h:47
 msgid ""
 "The last directory a note was exported to using the Export To HTML plugin."
 msgstr ""
-"Poslední aresář, do kterého byla exportována poznámka pomocí zásuvného "
+"Poslední adresář, do kterého byla exportována poznámka pomocí zásuvného "
 "modulu Exportovat do HTML."
 
-#: ../data/tomboy.schemas.in.h:35
+#: ../data/tomboy.schemas.in.h:48
 msgid ""
 "The last setting for the 'Export linked notes' checkbox in the Export to "
 "HTML plugin."
 msgstr ""
-"Poslední nastavení zaškrtávacího pole 'Exportovat související poznámky' v "
+"Poslední nastavení zaškrtávacího pole \"Exportovat související poznámky\" v "
 "zásuvném modulu Exportovat do HTML."
 
-#: ../data/tomboy.schemas.in.h:36
+#: ../data/tomboy.schemas.in.h:49
 msgid ""
 "The last setting for the 'Include all other linked notes' checkbox in the "
 "Export to HTML plugin. This setting is used in conjunction with the 'HTML "
 "Export Linked Notes' setting and is used to specify whether all notes (found "
 "recursively) should be included during an export to HTML."
 msgstr ""
+"Poslední nastavení zaškrtávacího pole \"Zahrnout všechny související poznámky"
+"\" v zásuvném modulu Exportovat do HTML. Toto nastavení je používáno ve "
+"spolupráci s nastavením \"Exportovat související poznámky do HTML\" a "
+"určuje, zda zahrnout všechny související poznámky při exportu do HTML."
 
-#: ../data/tomboy.schemas.in.h:37
+#: ../data/tomboy.schemas.in.h:50
 msgid ""
 "The note URI of the note that should be considered the \"Start Here\" note, "
 "which is always placed at the bottom of the Tomboy note menu and also "
 "accessible by hotkey."
 msgstr ""
+"URI poznámky \"Začněte zde\", která je vždy první v seznamu poznámek a má "
+"svoji vlastní klávesovou zkratku."
 
-#: ../data/tomboy.schemas.in.h:38
+#: ../data/tomboy.schemas.in.h:51
+msgid "Timestamp format"
+msgstr "Formát časové značky"
+
+#: ../data/tomboy.schemas.in.h:52
+msgid ""
+"Unique identifier for the currently configured note synchronization service "
+"addin."
+msgstr "Jedinečný identifikátor nastaveného rozšíření synchronizace poznámek."
+
+#: ../data/tomboy.schemas.in.h:53
+msgid ""
+"Unique identifier for this Tomboy client, used when communicating with a "
+"sychronization server."
+msgstr ""
+"Jedinečný identifikátor klienta Tomboy používaný při komunikaci se "
+"synchronizačním serverem."
+
+#: ../data/tomboy.schemas.in.h:54
 msgid ""
 "Whitespace-separated list of note URIs for notes that should always appear "
 "in the Tomboy note menu."
 msgstr ""
 "Seznam URI poznámek, které by vždy měly být zobrazeny v nabídce poznámek "
-"Tomboy. Položky seznamu jsou odděleny bílými znaky."
+"Tomboy. Položky seznamu jsou odděleny mezerami."
 
-#: ../libtomboy/gedit-print.c:142 ../Tomboy/Plugins/PrintNotes.cs:22
+#: ../Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinTreeWidget.cs:91
+msgid "Add-in"
+msgstr "Rozšíření"
+
+#: ../Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinTreeWidget.cs:112
+msgid "Version"
+msgstr "Verze"
+
+#. Default category name to use if no category is specified for this addin
+#: ../Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinTreeWidget.cs:169
+msgid "Other"
+msgstr "Ostatní"
+
+#: ../Tomboy/ActionManager.cs:127
+msgid "_File"
+msgstr "_Soubor"
+
+#: ../Tomboy/ActionManager.cs:130
+msgid "_New"
+msgstr "_Nový"
+
+#: ../Tomboy/ActionManager.cs:131 ../Tomboy/ActionManager.cs:172
+msgid "Create a new note"
+msgstr "Vytvořit novou poznámku"
+
+#: ../Tomboy/ActionManager.cs:134
+msgid "_Open..."
+msgstr "_Otevřít..."
+
+#: ../Tomboy/ActionManager.cs:135
+msgid "Open the selected note"
+msgstr "Otevřít vybranou poznámku"
+
+#: ../Tomboy/ActionManager.cs:138
+msgid "_Delete"
+msgstr "_Smazat"
+
+#: ../Tomboy/ActionManager.cs:139
+msgid "Delete the selected note"
+msgstr "Smazat vybranou poznámku"
+
+#: ../Tomboy/ActionManager.cs:142 ../Tomboy/NoteWindow.cs:412
+msgid "_Close"
+msgstr "_Zavřít"
+
+#: ../Tomboy/ActionManager.cs:143
+msgid "Close this window"
+msgstr "Zavřít toto okno"
+
+#: ../Tomboy/ActionManager.cs:146 ../Tomboy/Applet.cs:203
+msgid "_Quit"
+msgstr "U_končit"
+
+#: ../Tomboy/ActionManager.cs:147
+msgid "Quit Tomboy"
+msgstr "Ukončit Tomboy"
+
+#: ../Tomboy/ActionManager.cs:150
+msgid "_Edit"
+msgstr "Ú_pravy"
+
+#: ../Tomboy/ActionManager.cs:154 ../Tomboy/PreferencesDialog.cs:63
+msgid "Tomboy Preferences"
+msgstr "Nastavení Tomboy"
+
+#: ../Tomboy/ActionManager.cs:160
+msgid "_Contents"
+msgstr "_Obsah"
+
+#: ../Tomboy/ActionManager.cs:161
+msgid "Tomboy Help"
+msgstr "Nápověda pro Tomboy"
+
+#: ../Tomboy/ActionManager.cs:165
+msgid "About Tomboy"
+msgstr "O aplikaci Tomboy"
+
+#: ../Tomboy/ActionManager.cs:168
+msgid "TrayIcon"
+msgstr "Ikona v panelu"
+
+#: ../Tomboy/ActionManager.cs:171
+msgid "Create _New Note"
+msgstr "Vytvořit _novou poznámku"
+
+#: ../Tomboy/ActionManager.cs:175 ../Tomboy/NoteWindow.cs:355
+msgid "_Search All Notes"
+msgstr "_Prohledat všechny poznámky"
+
+#: ../Tomboy/ActionManager.cs:176
+msgid "Open the Search All Notes window"
+msgstr "Otevřít okno Prohledat všechny poznámky"
+
+#: ../Tomboy/ActionManager.cs:179
+msgid "S_ynchronize Notes"
+msgstr "S_ynchronizovat poznámky"
+
+#: ../Tomboy/ActionManager.cs:180
+msgid "Start synchronizing notes"
+msgstr "Začít synchronizovat poznámky"
+
+#: ../Tomboy/Addins/Backlinks/BacklinksNoteAddin.cs:25
+msgid "What links here?"
+msgstr "Co sem odkazuje?"
+
+#: ../Tomboy/Addins/Backlinks/BacklinksNoteAddin.cs:83
+msgid "(none)"
+msgstr "(žádná)"
+
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:32
+msgid ""
+"You can use any bugzilla just by dragging links into notes.  If you want a "
+"special icon for certain hosts, add them here."
+msgstr ""
+"Jestli chcete, můžete si nastavit svoji vlastní ikonu pro jakoukoli "
+"Bugzillu. Stačí jenom přidat ji zde do seznamu."
+
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:50
+msgid "Host Name"
+msgstr "Název serveru"
+
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:67
+msgid "Icon"
+msgstr "Ikona"
+
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:185
+msgid "Select an icon..."
+msgstr "Vybrat ikonu..."
+
+#. Extra Widget
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:200
+msgid "_Host name:"
+msgstr "Náze_v počítače:"
+
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:229
+msgid "No host name specified"
+msgstr "Nebyl zadán název serveru"
+
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:230
+msgid "You must specify the Bugzilla host name to use with this icon."
+msgstr "K použití této ikony musíte zadat název serveru s Bugzillou."
+
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:256
+msgid "Error saving icon"
+msgstr "Chyba při ukládání ikony"
+
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:257
+msgid "Could not save the icon file.  "
+msgstr "Nelze uložit soubor ikony.  "
+
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:310
+msgid "Really remove this icon?"
+msgstr "Opravdu odstranit tuto ikonu?"
+
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:311
+msgid "If you remove an icon it is permanently lost."
+msgstr "Pokud odstraníte ikonu, bude navždy ztracena."
+
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:50
+msgid "Export to HTML"
+msgstr "Exportovat do HTML"
+
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:109
+#, csharp-format
+msgid "Your note was exported to \"{0}\"."
+msgstr "Vaše poznámka byla exportována do \"{0}\"."
+
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:120
+msgid "Note exported successfully"
+msgstr "Poznámka úspěšně exportována"
+
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:126
+msgid "Access denied."
+msgstr "Přístup odmítnut."
+
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:128
+msgid "Folder does not exist."
+msgstr "Složka neexistuje."
+
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:143
+#, csharp-format
+msgid "Could not save the file \"{0}\""
+msgstr "Nelze uložit soubor \"{0}\""
+
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlDialog.cs:13
+msgid "Destination for HTML Export"
+msgstr "Cíl exportu do HTML"
+
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlDialog.cs:23
+msgid "Export linked notes"
+msgstr "Exportovat související poznámky"
+
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlDialog.cs:28
+msgid "Include all other linked notes"
+msgstr "Zahrnout všechny související poznámky"
+
+#: ../Tomboy/Addins/Evolution/EvolutionNoteAddin.cs:273
+msgid "Cannot open email"
+msgstr "Nemohu otevřít e-mail"
+
+#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:91
+msgid "_Folder Path:"
+msgstr "_Umístění složky:"
+
+#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:101
+msgid "_Browse..."
+msgstr "_Procházet..."
+
+#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:120
+msgid "Select Synchronization Folder..."
+msgstr "Vyberte synchronizační složku..."
+
+#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:148
+msgid "Folder path field is empty."
+msgstr "Nezadali jste umístění složky."
+
+#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:157
+msgid ""
+"Specified folder path does not exist, and Tomboy was unable to create it."
+msgstr "Zadané umístění složky neexistuje a Tomboy ho nemohl vytvořit."
+
+#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:235
+msgid "Local Folder"
+msgstr "Místní složka"
+
+#: ../Tomboy/Addins/FixedWidth/FixedWidthMenuItem.cs:14
+msgid "_Fixed Width"
+msgstr "_Pevná šířka"
+
+#: ../Tomboy/Addins/GalagoPresence/GalagoPresenceNoteAddin.cs:241
+#, csharp-format
+msgid "Cannot contact '{0}'"
+msgstr "Nemohu kontaktovat \"{0}\""
+
+#: ../Tomboy/Addins/GalagoPresence/GalagoPresenceNoteAddin.cs:244
+#, csharp-format
+msgid "Error running gaim-remote: {0}"
+msgstr "Chyba při spouštění gaim-remote: {0}"
+
+#: ../Tomboy/Addins/InsertTimestamp/InsertTimestampNoteAddin.cs:29
+msgid "Insert Timestamp"
+msgstr "Vložit časovou značku"
+
+#. initial newline
+#: ../Tomboy/Addins/InsertTimestamp/InsertTimestampPreferences.cs:30
+#: ../Tomboy/Preferences.cs:131 ../Tomboy/Tray.cs:195
+msgid "dddd, MMMM d, h:mm tt"
+msgstr "dddd d. MMMM, h:mm tt"
+
+#: ../Tomboy/Addins/InsertTimestamp/InsertTimestampPreferences.cs:55
+msgid "Choose one of the predefined formats or use your own."
+msgstr "Vyberte si jeden z přednastavených formátů, nebo si vytvořte vlastní."
+
+#: ../Tomboy/Addins/InsertTimestamp/InsertTimestampPreferences.cs:63
+msgid "Use _Selected Format"
+msgstr "_Použít vybraný formát"
+
+#: ../Tomboy/Addins/InsertTimestamp/InsertTimestampPreferences.cs:88
+msgid "_Use Custom Format"
+msgstr "Používat vlastní _písmo"
+
+#: ../Tomboy/Addins/NoteOfTheDay/NoteOfTheDay.cs:10
+msgid "Today: Template"
+msgstr "Dnes: Šablona"
+
+#: ../Tomboy/Addins/NoteOfTheDay/NoteOfTheDay.cs:12
+msgid "Today: "
+msgstr "Dnes: "
+
+#. Format: "Today: Friday, July 01 2005"
+#: ../Tomboy/Addins/NoteOfTheDay/NoteOfTheDay.cs:17
+msgid "dddd, MMMM d yyyy"
+msgstr "dddd d. MMMM yyyy"
+
+#: ../Tomboy/Addins/NoteOfTheDay/NoteOfTheDay.cs:43
+msgid "Tasks"
+msgstr "Úkoly"
+
+#: ../Tomboy/Addins/NoteOfTheDay/NoteOfTheDay.cs:44
+msgid "Appointments"
+msgstr "Události"
+
+#: ../Tomboy/Addins/NoteOfTheDay/NoteOfTheDay.cs:67
+msgid "NoteOfTheDay"
+msgstr "PoznámkaDne"
+
+#: ../Tomboy/Addins/NoteOfTheDay/NoteOfTheDayPreferences.cs:16
+msgid ""
+"Change the <span weight=\"bold\">Today: Template</span> note to customize "
+"the text that new Today notes have."
+msgstr ""
+"Změňte poznámku <span weight=\"bold\">Dnes: Šablona</span>, abyste "
+"upřesnili, jaký text se má vložit do nové dnešní poznámky."
+
+#: ../Tomboy/Addins/NoteOfTheDay/NoteOfTheDayPreferences.cs:24
+msgid "_Open Today: Template"
+msgstr "_Otevřít Dnes: Šablona"
+
+#: ../Tomboy/Addins/PrintNotes/PrintNotesNoteAddin.cs:18
+#: ../Tomboy/Addins/PrintNotes/gedit-print.c:142
 msgid "Print"
 msgstr "Vytisknout"
 
-#: ../libtomboy/gedit-print.c:240
+#: ../Tomboy/Addins/PrintNotes/gedit-print.c:240
 msgid "Preparing pages..."
 msgstr "Připravuji stránky..."
 
-#: ../libtomboy/gedit-print.c:267
+#: ../Tomboy/Addins/PrintNotes/gedit-print.c:267
 #, c-format
 msgid "Rendering page %d of %d..."
 msgstr "Vykresluji stránku %d z %d..."
 
-#: ../libtomboy/gedit-print.c:269
+#: ../Tomboy/Addins/PrintNotes/gedit-print.c:269
 #, c-format
 msgid "Printing page %d of %d..."
 msgstr "Tisknu stránku %d z %d..."
 
-#: ../libtomboy/gedit-print.c:291
+#: ../Tomboy/Addins/PrintNotes/gedit-print.c:291
 msgid "Print preview"
 msgstr "Náhled tisku"
 
-#: ../libtomboy/gedit-print.c:442
+#: ../Tomboy/Addins/PrintNotes/gedit-print.c:442
 msgid "Page %N of %Q"
 msgstr "Stránka %N z %Q"
 
-#: ../libtomboy/gedit-print.c:445
+#: ../Tomboy/Addins/PrintNotes/gedit-print.c:445
 #, no-c-format
 msgid "%A %x, %X"
 msgstr "%A %x, %X"
 
-#: ../Tomboy/ActionManager.cs:63
-msgid "_File"
-msgstr "_Soubor"
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:268
+msgid "Configuration"
+msgstr "Nastavení"
 
-#: ../Tomboy/ActionManager.cs:66
-msgid "_New"
-msgstr "_Nový"
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:269
+msgid "Configuration options for the print job"
+msgstr "Možnosti nastavení tiskové úlohy"
 
-#: ../Tomboy/ActionManager.cs:67 ../Tomboy/ActionManager.cs:108
-msgid "Create a new note"
-msgstr "Vytvořit novou poznámku"
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:276
+msgid "Source Buffer"
+msgstr "Zdrojový buffer"
 
-#: ../Tomboy/ActionManager.cs:70
-msgid "_Open..."
-msgstr "_Otevřít..."
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:277
+msgid "GtkTextBuffer object to print"
+msgstr "Objekt GtkSourceBuffer, který vytisknout"
 
-#: ../Tomboy/ActionManager.cs:71
-msgid "Open the selected note"
-msgstr "Otevřít vybranou poznámku"
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:283
+msgid "Tabs Width"
+msgstr "Šířka tabelátorů"
 
-#: ../Tomboy/ActionManager.cs:74
-msgid "_Delete"
-msgstr "_Smazat"
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:284
+msgid "Width in equivalent space characters of tabs"
+msgstr "Šířka tabulátorů (ve znacích mezery)"
 
-#: ../Tomboy/ActionManager.cs:75
-msgid "Delete the selected note"
-msgstr "Smazat vybranou poznámku"
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:291
+msgid "Wrap Mode"
+msgstr "Režim zalamování"
 
-#: ../Tomboy/ActionManager.cs:78 ../Tomboy/NoteWindow.cs:546
-msgid "_Close"
-msgstr "_Zavřít"
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:292
+msgid "Word wrapping mode"
+msgstr "Režim zalamování slov"
 
-#: ../Tomboy/ActionManager.cs:79
-msgid "Close this window"
-msgstr "Zavřít toto okno"
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:299
+msgid "Highlight"
+msgstr "Zvýrazňovat"
 
-#: ../Tomboy/ActionManager.cs:82 ../Tomboy/Applet.cs:198
-msgid "_Quit"
-msgstr "U_končit"
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:300
+msgid "Whether to print the document with highlighted syntax"
+msgstr "Jestli tisknout dokument se zvýrazněnou syntaxí"
 
-#: ../Tomboy/ActionManager.cs:83
-msgid "Quit Tomboy"
-msgstr "Ukončit Tomboy"
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:308
+msgid "Font"
+msgstr "Písmo"
 
-#: ../Tomboy/ActionManager.cs:86
-msgid "_Edit"
-msgstr "Ú_pravy"
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:309
+msgid "GnomeFont name to use for the document text (deprecated)"
+msgstr "Název písma GnomeFont, které používat pro text dokumentu (zastaralé)"
 
-#: ../Tomboy/ActionManager.cs:90 ../Tomboy/Preferences.cs:169
-msgid "Tomboy Preferences"
-msgstr "Nastavení Tomboy"
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:316
+msgid "Font Description"
+msgstr "Popis písma"
 
-#: ../Tomboy/ActionManager.cs:96
-msgid "_Contents"
-msgstr "_Obsah"
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:317
+msgid "Font to use for the document text (e.g. \"Monospace 10\")"
+msgstr "Písmo, které používat pro text dokumentu (např. \"Monospace 10\")"
 
-#: ../Tomboy/ActionManager.cs:97
-msgid "Tomboy Help"
-msgstr "Nápověda pro Tomboy"
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:324
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:332
+msgid "Numbers Font"
+msgstr "Písmo čísel"
 
-#: ../Tomboy/ActionManager.cs:101
-msgid "About Tomboy"
-msgstr "O aplikaci Tomboy"
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:325
+msgid "GnomeFont name to use for the line numbers (deprecated)"
+msgstr "Název písma GnomeFont, které používat pro čísla řádků (zastaralé)"
 
-#: ../Tomboy/ActionManager.cs:104
-msgid "TrayIcon"
-msgstr "Ikona v panelu"
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:333
+msgid "Font description to use for the line numbers"
+msgstr "Popis písma, které používat pro čísla řádků"
 
-#: ../Tomboy/ActionManager.cs:107
-msgid "Create _New Note"
-msgstr "Vytvořit _novou poznámku"
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:340
+msgid "Print Line Numbers"
+msgstr "Tisknout čísla řádků"
 
-#: ../Tomboy/ActionManager.cs:111 ../Tomboy/NoteWindow.cs:489
-msgid "_Search All Notes"
-msgstr "_Prohledat všechny poznámky"
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:341
+msgid "Interval of printed line numbers (0 means no numbers)"
+msgstr "Interval čísel tisknutých řádků (0 znamená žádná čísla)"
 
-#: ../Tomboy/ActionManager.cs:112
-msgid "Open the Search All Notes window"
-msgstr "Otevřít okno Prohledat všechny poznámky"
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:348
+msgid "Print Header"
+msgstr "Tisknout hlavičku"
 
-#: ../Tomboy/Applet.cs:191
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:349
+msgid "Whether to print a header in each page"
+msgstr "Jestli tisknout hlavičku na každé stránce"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:356
+msgid "Print Footer"
+msgstr "Tisknout patičku"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:357
+msgid "Whether to print a footer in each page"
+msgstr "Jestli tisknout patičku na každé stránce"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:364
+msgid "Header and Footer Font"
+msgstr "Písmo hlavičky a patičky"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:365
+msgid "GnomeFont name to use for the header and footer (deprecated)"
+msgstr ""
+"Název písma GnomeFont, které používat pro hlavičku a patičku (zastaralé)"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:372
+msgid "Header and Footer Font Description"
+msgstr "Popis písma hlavičky a patičky"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:373
+msgid "Font to use for headers and footers (e.g. \"Monospace 10\")"
+msgstr "Písmo, které používat pro hlavičky a patičky (např. \"Monospace 10\")"
+
+#: ../Tomboy/Addins/Sketching/SketchingNoteAddin.cs:19
+msgid "Add a sketch"
+msgstr "Kreslit"
+
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:43
+msgid "Se_rver:"
+msgstr "Se_rver:"
+
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:52
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:60
+msgid "User_name:"
+msgstr "Uživatelské jmé_no:"
+
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:61
+msgid "_Folder Path (optional):"
+msgstr "U_místění složky (volitelné):"
+
+#. Text for label describing setup required for SSH sync addin to work
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:71
+msgid ""
+"SSH synchronization requires an existing SSH key for this server and user, "
+"added to a running SSH daemon."
+msgstr ""
+"Synchronizace pomocí SSH vyžaduje existující klíče SSH tohoto serveru a "
+"uživatele přidané do běžícího démona SSH."
+
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:95
+msgid "Server or username field is empty."
+msgstr "Není zadán server nebo uživatelské jméno."
+
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:143
+msgid "SSH (sshfs FUSE)"
+msgstr "SSH (sshfs FUSE)"
+
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:186
+msgid ""
+"Timeout connecting to server. Please ensure that your SSH key has been added "
+"to a running SSH daemon."
+msgstr ""
+"Časový limit pro připojení k serveru vypršel. Ujistěte se, že démon SSH běží "
+"a máte v něm přidán svůj klíč SSH."
+
+#: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:50
+msgid "Import from Sticky Notes"
+msgstr "Importovat z Lepicích poznámek"
+
+#: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:133
+msgid "No Sticky Notes found"
+msgstr "Nenalezeny žádné lepicí poznámky"
+
+#: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:134
+#, csharp-format
+msgid "No suitable Sticky Notes file was found at \"{0}\"."
+msgstr "V \"{0}\" nebyl nalezen vhodný soubor lepicích poznámek."
+
+#: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:143
+msgid "Sticky Notes import completed"
+msgstr "Import lepicích poznámek dokončen"
+
+#: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:144
+#, csharp-format
+msgid "<b>{0}</b> of <b>{1}</b> Sticky Notes were successfully imported."
+msgstr "<b>{0}</b> z <b>{1}</b> lepicích poznámek bylo úspěšně importováno."
+
+#: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:156
+msgid "Untitled"
+msgstr "Beze jména"
+
+#: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:185
+msgid "Sticky Note: "
+msgstr "Lepicí poznámka: "
+
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:51
+msgid "_URL:"
+msgstr "_URL:"
+
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:69
+msgid "_Password:"
+msgstr "_Heslo:"
+
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:90
+msgid "URL, username, or password field is empty."
+msgstr "Položky URL, přihlašovací jméno nebo heslo nejsou vyplněny!"
+
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:132
+msgid "WebDAV (wdfs FUSE)"
+msgstr "WebDAV (pomocí wdfs)"
+
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:172
+msgid ""
+"There was an error connecting to the server.  This may be caused by using an "
+"incorrect user name and/or password."
+msgstr ""
+"Při připojování k serveru došlo k chybě. To může být způsobeno špatně "
+"zadaným uživatelským jménem a/nebo heslem."
+
+#. TODO: If the above fails (no keyring daemon), save all but password
+#. to GConf, and notify user.
+#. Save configuration into GConf
+#. Preferences.Set ("/apps/tomboy/sync_wdfs_url", url ?? string.Empty);
+#. Preferences.Set ("/apps/tomboy/sync_wdfs_username", username ?? string.Empty);
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:248
+msgid ""
+"Saving configuration to the GNOME keyring failed with the following message:"
+msgstr "Ukládání nastavení do klíčenky GNOME nebylo úspěšné:"
+
+#: ../Tomboy/Applet.cs:196
 msgid "_About Tomboy"
 msgstr "O _aplikaci Tomboy"
 
-#: ../Tomboy/Note.cs:879
+#: ../Tomboy/Notebooks/CreateNotebookDialog.cs:24
+#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:42
+msgid "Create a new notebook"
+msgstr "Vytvořit nový sešit"
+
+#: ../Tomboy/Notebooks/CreateNotebookDialog.cs:25
+msgid "Type the name of the notebook you'd like to create."
+msgstr "Napište název sešitu, který chcete vytvořit."
+
+#: ../Tomboy/Notebooks/CreateNotebookDialog.cs:31
+msgid "N_otebook name:"
+msgstr "Náz_ev sešitu:"
+
+#: ../Tomboy/Notebooks/CreateNotebookDialog.cs:45
+msgid "Name already taken"
+msgstr "Název je používán"
+
+#. Translation note: This is the Create button in the Create
+#. New Note Dialog.
+#: ../Tomboy/Notebooks/CreateNotebookDialog.cs:59
+msgid "C_reate"
+msgstr "_Vytvořit"
+
+#. The templateNoteTite should show the name of the
+#. notebook.  For example, if the name of the notebooks
+#. "Meetings", the templateNoteTitle should be "Meetings
+#. Notebook Template".  Translators should place the
+#. name of the notebook accordingly using "{0}".
+#. TODO: Figure out how to make this note for
+#. translators appear properly.
+#: ../Tomboy/Notebooks/Notebook.cs:79
+#, csharp-format
+msgid "{0} Notebook Template"
+msgstr "Šablona sešitu {0}"
+
+#: ../Tomboy/Notebooks/Notebook.cs:183
+msgid "All Notes"
+msgstr "Všechny poznámky"
+
+#: ../Tomboy/Notebooks/Notebook.cs:215
+msgid "Unfiled Notes"
+msgstr "Nezařazené poznámky"
+
+#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:37
+msgid "Note_books"
+msgstr "_Sešity"
+
+#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:38
+#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:58
+msgid "Create a new note in a notebook"
+msgstr "Vytvořit novou poznámku v sešitě"
+
+#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:41
+#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:192
+msgid "New Note_book..."
+msgstr "Nový _sešit..."
+
+#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:45
+msgid "_New Note"
+msgstr "_Nová poznámka"
+
+#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:46
+msgid "Create a new note in this notebook"
+msgstr "Vytvořit novou poznámku v tomto sešitě"
+
+#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:49
+msgid "_Open Template Note"
+msgstr "_Otevřít šablonu"
+
+#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:50
+msgid "Open this notebook's template note"
+msgstr "Otevřít šablonu poznámky sešitu"
+
+#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:53
+msgid "Delete Note_book"
+msgstr "Odstranit _sešit"
+
+#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:54
+msgid "Delete the selected notebook"
+msgstr "Smazat vybraný sešit"
+
+#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:57
+#: ../Tomboy/RecentChanges.cs:244
+msgid "Notebooks"
+msgstr "Sešity"
+
+#: ../Tomboy/Notebooks/NotebookManager.cs:323
+msgid "Really delete this notebook?"
+msgstr "Opravdu odstranit tento sešit?"
+
+#: ../Tomboy/Notebooks/NotebookManager.cs:325
+msgid ""
+"The notes that belong to this notebook will not be deleted, but they will no "
+"longer be associated with this notebook.  This action cannot be undone."
+msgstr ""
+"Poznámky, které patří do tohoto sešitu, nebudou smazány, avšak už do něj "
+"nebudou patřit. Tato akce nemůže být vrácena zpět."
+
+#: ../Tomboy/Notebooks/NotebookMenuItem.cs:14
+msgid "No notebook"
+msgstr "Žádný sešit"
+
+#. Translators should preserve the "{0}" in the following
+#. string.  After being formatted for a notebook named,
+#. "Meetings", for example, the resultant string would be:
+#. New "Meetings" Note
+#: ../Tomboy/Notebooks/NotebookNewNoteMenuItem.cs:27
+#, csharp-format
+msgid "New \"{0}\" Note"
+msgstr "Nová poznámka \"{0}\""
+
+#: ../Tomboy/Notebooks/NotebookNoteAddin.cs:34
+msgid "Place this note into a notebook"
+msgstr "Umístit tuto poznámku do sešitu"
+
+#: ../Tomboy/Notebooks/NotebookNoteAddin.cs:103
+msgid "Notebook"
+msgstr "Sešit"
+
+#: ../Tomboy/Note.cs:1330
 msgid "Really delete this note?"
 msgstr "Opravdu odstranit tuto poznámku?"
 
-#: ../Tomboy/Note.cs:880
-msgid "If you delete a note it is permanently lost."
-msgstr "Pokud odstraníte poznámku, je navždy ztracena."
+#: ../Tomboy/Note.cs:1332
+msgid "Really delete these notes?"
+msgstr "Opravdu odstranit tyto poznámky?"
 
-#: ../Tomboy/NoteManager.cs:144
+#: ../Tomboy/Note.cs:1341
+msgid "If you delete a note it is permanently lost."
+msgstr "Pokud odstraníte poznámku, bude navždy ztracena."
+
+#. New Note Template
+#: ../Tomboy/NoteManager.cs:20 ../Tomboy/PreferencesDialog.cs:210
+msgid "New Note Template"
+msgstr "Nová šablona"
+
+#: ../Tomboy/NoteManager.cs:135
 msgid ""
 "<note-content>Start Here\n"
 "\n"
@@ -455,8 +1119,26 @@ msgid ""
 "Tomboy</link:internal> it automatically gets underlined?  Click on the link "
 "to open the note.</note-content>"
 msgstr ""
+"<note-content>Začněte zde\n"
+"\n"
+"<bold>Vítejte v Tomboyi!</bold>\n"
+"\n"
+"Použijte poznámku \"Začněte zde!\" k organizaci svých nápadů a myšlenek.\n"
+"\n"
+"Další poznámku si můžete vytvořit kliknutím na položku \"Vytvořit novou "
+"poznámku\" v nabídce Tomboy. Poznámka se ukládá automaticky spolu s tím, jak "
+"píšete (či nepíšete). Prostě pořád.\n"
+"\n"
+"Splétejte vaše nápady dohromady pomocí odkazů na relevantní informace v "
+"jednotlivých poznámkách!\n"
+"\n"
+"Vytvořili jsme pro vás poznámku <link:internal>Používání odkazů v Tomboyi</"
+"link:internal>. Všimli jste si, že pokaždé, když napíšeme <link:"
+"internal>Používání odkazů v Tomboyi</link:internal>, tak se podtrhne? "
+"Klikněte na podtržený text (odkaz) a zjistěte, jak se používají odkazy.</"
+"note-content>"
 
-#: ../Tomboy/NoteManager.cs:163
+#: ../Tomboy/NoteManager.cs:154
 msgid ""
 "<note-content>Using Links in Tomboy\n"
 "\n"
@@ -471,198 +1153,183 @@ msgid ""
 "Also, if you type the name of another note in your current note, it will "
 "automatically be linked for you.</note-content>"
 msgstr ""
+"<note-content>Používání odkazů v Tomboyi\n"
+"\n"
+"Poznámky v Tomboyi spolu mohou být propojeny označením textu v aktuální "
+"poznámce a kliknutím na tlačítko <bold>Odkaz</bold> v liště nástrojů. Tímto "
+"vytvoříte novou poznámku s vyznačeným názvem a s tím také odkaz na ni.\n"
+"\n"
+"Změnou názvu poznámky se změní také odkazy na ni. Tímto předcházíme "
+"nefunkčním odkazům.\n"
+"\n"
+"Pokud použijete kdekoliv v poznámce název již existující poznámky, bude "
+"automaticky převeden na odkaz.</note-content>"
 
 #. Attempt to find an existing Start Here note
-#: ../Tomboy/NoteManager.cs:178 ../Tomboy/NoteManager.cs:229
+#: ../Tomboy/NoteManager.cs:169 ../Tomboy/NoteManager.cs:232
 msgid "Start Here"
 msgstr "Začněte zde"
 
-#: ../Tomboy/NoteManager.cs:183
+#: ../Tomboy/NoteManager.cs:174
 msgid "Using Links in Tomboy"
 msgstr "Používání odkazů v Tomboyi"
 
-#: ../Tomboy/NoteManager.cs:284
+#: ../Tomboy/NoteManager.cs:306
 #, csharp-format
 msgid "New Note {0}"
 msgstr "Nová poznámka {0}"
 
-#: ../Tomboy/NoteManager.cs:330
+#. Use a simple "Describe..." body and highlight
+#. it so it can be easily overwritten
+#: ../Tomboy/NoteManager.cs:378 ../Tomboy/NoteManager.cs:470
 msgid "Describe your new note here."
 msgstr "Sem napište svou novou poznámku."
 
-#: ../Tomboy/NoteWindow.cs:233
+#: ../Tomboy/NoteWindow.cs:57
 msgid "Find in This Note"
 msgstr "Najít v této poznámce"
 
-#: ../Tomboy/NoteWindow.cs:501
+#: ../Tomboy/NoteWindow.cs:367
 msgid "_Link to New Note"
 msgstr "_Odkaz na novou poznámku"
 
-#: ../Tomboy/NoteWindow.cs:513
+#: ../Tomboy/NoteWindow.cs:379
 msgid "Te_xt"
 msgstr "_Text"
 
-#: ../Tomboy/NoteWindow.cs:521
+#: ../Tomboy/NoteWindow.cs:387
 msgid "_Find in This Note"
 msgstr "_Najít v této poznámce"
 
-#: ../Tomboy/NoteWindow.cs:536
+#: ../Tomboy/NoteWindow.cs:402
 msgid "Clos_e All Notes"
 msgstr "Z_avřít všechny poznámky"
 
-#: ../Tomboy/NoteWindow.cs:574
+#: ../Tomboy/NoteWindow.cs:440
 msgid "Search"
 msgstr "Hledat"
 
-#: ../Tomboy/NoteWindow.cs:575
+#: ../Tomboy/NoteWindow.cs:442
 msgid "Search your notes (Ctrl-Shift-F)"
 msgstr "Prohledat poznámky (Ctrl-Shift-F)"
 
-#: ../Tomboy/NoteWindow.cs:588
+#: ../Tomboy/NoteWindow.cs:452
 msgid "Link"
 msgstr "Odkaz"
 
-#: ../Tomboy/NoteWindow.cs:590
+#: ../Tomboy/NoteWindow.cs:455
 msgid "Link selected text to a new note (Ctrl-L)"
 msgstr "Propojit vybraný text s novou poznámkou (Ctrl-L)"
 
-#: ../Tomboy/NoteWindow.cs:604
+#: ../Tomboy/NoteWindow.cs:467
 msgid "_Text"
 msgstr "_Text"
 
-#: ../Tomboy/NoteWindow.cs:609
+#: ../Tomboy/NoteWindow.cs:471
 msgid "Set properties of text"
 msgstr "Nastavit vlastnosti textu"
 
-#: ../Tomboy/NoteWindow.cs:615
+#: ../Tomboy/NoteWindow.cs:476
 msgid "T_ools"
 msgstr "_Nástroje"
 
-#: ../Tomboy/NoteWindow.cs:619
+#: ../Tomboy/NoteWindow.cs:480
 msgid "Use tools on this note"
 msgstr "Použít na tuto poznámku nástroje"
 
-#: ../Tomboy/NoteWindow.cs:626
-msgid "Delete"
-msgstr "Odstranit"
-
-#: ../Tomboy/NoteWindow.cs:627
+#: ../Tomboy/NoteWindow.cs:488
 msgid "Delete this note"
 msgstr "Odstranit tuto poznámku"
 
-#: ../Tomboy/NoteWindow.cs:667
+#: ../Tomboy/NoteWindow.cs:497 ../Tomboy/Synchronization/SyncManager.cs:161
+msgid "Synchronize Notes"
+msgstr "Synchronizovat poznámky"
+
+#: ../Tomboy/NoteWindow.cs:540
 msgid "_Find..."
 msgstr "_Najít..."
 
-#: ../Tomboy/NoteWindow.cs:678 ../Tomboy/NoteWindow.cs:880
+#: ../Tomboy/NoteWindow.cs:551 ../Tomboy/NoteWindow.cs:752
 msgid "Find _Next"
 msgstr "Hledat _následující"
 
-#: ../Tomboy/NoteWindow.cs:691
+#: ../Tomboy/NoteWindow.cs:564
 msgid "Find _Previous"
 msgstr "Hledat _předchozí"
 
-#: ../Tomboy/NoteWindow.cs:779
+#: ../Tomboy/NoteWindow.cs:652
 msgid "Cannot create note"
 msgstr "Nemohu vytvořit poznámku"
 
-#: ../Tomboy/NoteWindow.cs:860
+#: ../Tomboy/NoteWindow.cs:732
 msgid "_Find:"
 msgstr "_Hledat:"
 
-#: ../Tomboy/NoteWindow.cs:871
+#: ../Tomboy/NoteWindow.cs:743
 msgid "_Previous"
 msgstr "_Předchozí"
 
-#: ../Tomboy/NoteWindow.cs:890
-msgid "Case _sensitive"
-msgstr "_Rozlišovat velikost písmen"
-
-#: ../Tomboy/NoteWindow.cs:1366
+#: ../Tomboy/NoteWindow.cs:1227
 msgid "_Bold"
 msgstr "_Tučné"
 
-#: ../Tomboy/NoteWindow.cs:1378
+#: ../Tomboy/NoteWindow.cs:1239
 msgid "_Italic"
 msgstr "_Kurzíva"
 
-#: ../Tomboy/NoteWindow.cs:1390
+#: ../Tomboy/NoteWindow.cs:1251
 msgid "_Strikeout"
 msgstr "_Přeškrtunté"
 
-#: ../Tomboy/NoteWindow.cs:1402
+#: ../Tomboy/NoteWindow.cs:1263
 msgid "_Highlight"
 msgstr "_Zvýraznění"
 
-#: ../Tomboy/NoteWindow.cs:1415
+#: ../Tomboy/NoteWindow.cs:1276
 msgid "Font Size"
 msgstr "Velikost písma"
 
-#: ../Tomboy/NoteWindow.cs:1418
+#: ../Tomboy/NoteWindow.cs:1279
 msgid "_Normal"
 msgstr "_Normální"
 
-#: ../Tomboy/NoteWindow.cs:1425
+#: ../Tomboy/NoteWindow.cs:1286
 msgid "Hu_ge"
 msgstr "_Obrovské"
 
-#: ../Tomboy/NoteWindow.cs:1433
+#: ../Tomboy/NoteWindow.cs:1294
 msgid "_Large"
 msgstr "_Velké"
 
-#: ../Tomboy/NoteWindow.cs:1441
+#: ../Tomboy/NoteWindow.cs:1302
 msgid "S_mall"
 msgstr "_Malé"
 
-#: ../Tomboy/NoteWindow.cs:1452
+#: ../Tomboy/NoteWindow.cs:1313
 msgid "Bullets"
 msgstr "Odrážky"
 
-#: ../Tomboy/PluginManager.cs:60
-msgid "Tomboy Project"
-msgstr "Projekt Tomboy"
-
-#: ../Tomboy/PluginManager.cs:571
-#, csharp-format
-msgid "Cannot fully disable {0}."
-msgstr "Nelze zcela zakázat {0}."
-
-#: ../Tomboy/PluginManager.cs:574
-#, csharp-format
-msgid ""
-"Cannot fully disable {0} as there still are at least {1} reference to this "
-"plugin. This indicates a programming error. Contact the plugin's author and "
-"report this problem.\n"
-"\n"
-"<b>Developer Information:</b> This problem usually occurs when the plugin's "
-"Dispose method fails to disconnect all event handlers. The heap-shot "
-"profiler ({2}) can help to identify leaking references."
-msgstr ""
-"Nelze zakázat {0}, protože na tento modul odkazuje nejméně {1} referencí. To "
-"je známkou programátorské chyby. Kontaktujte autora zásuvného modulu a "
-"problém nahlaste.\n"
-"\n"
-"<b>Informace pro vývojáře:</b> K tomuto problému obvykle dochází, pokud "
-"metoda zásuvného modulu Dispose neodpojí všechny handlery událostí. Heap-"
-"shot profiler ({2}) může pomoci při identifikaci takových referncí."
-
-#: ../Tomboy/Preferences.cs:183
+#: ../Tomboy/PreferencesDialog.cs:81
 msgid "Editing"
 msgstr "Úpravy"
 
-#: ../Tomboy/Preferences.cs:185
+#: ../Tomboy/PreferencesDialog.cs:83
 msgid "Hotkeys"
 msgstr "Klávesové zkratky"
 
-#: ../Tomboy/Preferences.cs:187
-msgid "Plugins"
-msgstr "Zásuvné moduly"
+#: ../Tomboy/PreferencesDialog.cs:85
+msgid "Synchronization"
+msgstr "Synchronizace"
 
-#: ../Tomboy/Preferences.cs:229
+#: ../Tomboy/PreferencesDialog.cs:87
+msgid "Add-ins"
+msgstr "Rozšíření"
+
+#: ../Tomboy/PreferencesDialog.cs:146
 msgid "_Spell check while typing"
 msgstr "_Kontrola překlepů během psaní"
 
-#: ../Tomboy/Preferences.cs:238
+#: ../Tomboy/PreferencesDialog.cs:155
 msgid ""
 "Misspellings will be underlined in red, with correct spelling suggestions "
 "shown in the context menu."
@@ -671,128 +1338,226 @@ msgstr ""
 "kontextové nabídce."
 
 #. WikiWords...
-#: ../Tomboy/Preferences.cs:248
+#: ../Tomboy/PreferencesDialog.cs:166
 msgid "Highlight _WikiWords"
 msgstr "Zvýrazňovat _WikiSlova"
 
-#: ../Tomboy/Preferences.cs:256
+#: ../Tomboy/PreferencesDialog.cs:174
 msgid ""
 "Enable this option to highlight words <b>ThatLookLikeThis</b>. Clicking the "
 "word will create a note with that name."
 msgstr ""
-"Povolením této možnosti zvýrazňíte slova, <b>KteráVypadajíTakto</b>. "
+"Povolením této možnosti zvýrazníte slova, <b>KteráVypadajíTakto</b>. "
 "Kliknutí na slovo vytvoří poznámku s takovým názvem."
 
+#. Auto bulleted list
+#: ../Tomboy/PreferencesDialog.cs:181
+msgid "Enable auto-_bulleted lists"
+msgstr "Po_volit automatické seznamy s odrážkami"
+
 #. Custom font...
-#: ../Tomboy/Preferences.cs:265
+#: ../Tomboy/PreferencesDialog.cs:190
 msgid "Use custom _font"
 msgstr "Používat vlastní _písmo"
 
+#: ../Tomboy/PreferencesDialog.cs:214
+msgid ""
+"Use the new note template to specify the text that should be used when "
+"creating a new note."
+msgstr "Použijte šablonu k upřesnění, jaký text se má vložit do nové poznámky."
+
+#: ../Tomboy/PreferencesDialog.cs:225
+msgid "Open New Note Template"
+msgstr "Otevřít šablonu"
+
+#: ../Tomboy/PreferencesDialog.cs:228
+msgid "_Open New Note Template..."
+msgstr "_Otevřít šablonu..."
+
 #. Hotkeys...
-#: ../Tomboy/Preferences.cs:335
+#: ../Tomboy/PreferencesDialog.cs:286
 msgid "Listen for _Hotkeys"
 msgstr "Sledovat _klávesové zkratky"
 
-#: ../Tomboy/Preferences.cs:344
+#: ../Tomboy/PreferencesDialog.cs:295
 msgid ""
 "Hotkeys allow you to quickly access your notes from anywhere with a "
 "keypress. Example Hotkeys: <b>&lt;Control&gt;&lt;Shift&gt;F11</b>, <b>&lt;"
 "Alt&gt;N</b>"
 msgstr ""
-"Klávesové zkratky vám umožňují rychle používat vaše poznámky odkudkoli "
+"Klávesové zkratky vám umožňují rychle používat své poznámky odkudkoliv "
 "stiskem klávesy. Příklady klávesových zkratek: <b>&lt;Control&gt;&lt;"
 "Shift&gt;F11</b>, <b>&lt;Alt&gt;N</b>"
 
 #. Show notes menu keybinding...
-#: ../Tomboy/Preferences.cs:364
+#: ../Tomboy/PreferencesDialog.cs:315
 msgid "Show notes _menu"
-msgstr "Zobrazit _menu poznámek"
+msgstr "Zobrazit nabídku pozná_mek"
 
 #. Open Start Here keybinding...
-#: ../Tomboy/Preferences.cs:381
+#: ../Tomboy/PreferencesDialog.cs:332
 msgid "Open \"_Start Here\""
 msgstr "Otevřít \"_Začněte zde\""
 
 #. Create new note keybinding...
-#: ../Tomboy/Preferences.cs:398
+#: ../Tomboy/PreferencesDialog.cs:349
 msgid "Create _new note"
 msgstr "Vytvořit _novou poznámku"
 
 #. Open Search All Notes window keybinding...
-#: ../Tomboy/Preferences.cs:415
+#: ../Tomboy/PreferencesDialog.cs:366
 msgid "Open \"Search _All Notes\""
 msgstr "Otevřít \"_Prohledat všechny poznámky\""
 
-#: ../Tomboy/Preferences.cs:561
-msgid "Not available"
+#: ../Tomboy/PreferencesDialog.cs:393
+msgid "Ser_vice:"
+msgstr "Služ_ba:"
+
+#: ../Tomboy/PreferencesDialog.cs:446 ../Tomboy/PreferencesDialog.cs:1024
+msgid "Not configurable"
 msgstr "Nedostupné"
 
-#: ../Tomboy/Preferences.cs:619
-msgid "Description:"
-msgstr "Popis:"
+#. "Advanced..." button to bring up extra sync config dialog
+#: ../Tomboy/PreferencesDialog.cs:466
+msgid "_Advanced..."
+msgstr "P_okročilé..."
 
-#: ../Tomboy/Preferences.cs:621
-msgid "Written by:"
-msgstr "Napsal:"
+#: ../Tomboy/PreferencesDialog.cs:527
+msgid "The following add-ins are installed"
+msgstr "Máte nainstalována následující rozšíření"
 
-#: ../Tomboy/Preferences.cs:623
-msgid "Web site:"
-msgstr "Webová stránka:"
+#: ../Tomboy/PreferencesDialog.cs:558
+msgid "_Enable"
+msgstr "_Povolit"
 
-#: ../Tomboy/Preferences.cs:625
-msgid "File name:"
-msgstr "Jméno souboru:"
+#: ../Tomboy/PreferencesDialog.cs:564
+msgid "_Disable"
+msgstr "_Zakázat"
 
-#: ../Tomboy/Preferences.cs:639
-msgid "Settings"
-msgstr "Nastavení"
+#: ../Tomboy/PreferencesDialog.cs:695
+msgid "Not Implemented"
+msgstr "Neimplementováno"
 
-#: ../Tomboy/Preferences.cs:646
-msgid "_Open Plugins Folder"
-msgstr "_Otevřít adresář zásuvných modulů"
-
-#: ../Tomboy/Preferences.cs:698
+#: ../Tomboy/PreferencesDialog.cs:709
 #, csharp-format
-msgid "{0} Settings"
+msgid "{0} Preferences"
 msgstr "{0} Nastavení"
 
-#: ../Tomboy/Preferences.cs:759
+#: ../Tomboy/PreferencesDialog.cs:848
 msgid "Choose Note Font"
 msgstr "Zvolte písmo poznámek"
 
-#: ../Tomboy/RecentChanges.cs:64
+#: ../Tomboy/PreferencesDialog.cs:892
+msgid "Other Synchronization Options"
+msgstr "Další nastavení synchronizace"
+
+#: ../Tomboy/PreferencesDialog.cs:899
+msgid ""
+"When a conflict is detected between a local note and a note on the "
+"configured synchronization server:"
+msgstr ""
+"Když nastane konflikt mezi místní poznámkou a poznámkou na synchronizačním "
+"serveru:"
+
+#: ../Tomboy/PreferencesDialog.cs:906
+msgid "Always ask me what to do."
+msgstr "Vždy se mě zeptat, co dělat."
+
+#: ../Tomboy/PreferencesDialog.cs:910
+msgid "Rename my local note."
+msgstr "Přejmenovat místní poznámku."
+
+#: ../Tomboy/PreferencesDialog.cs:914
+msgid "Replace my local note with the server's update."
+msgstr "Zaměnit místní poznámku s poznámkou na serveru."
+
+#: ../Tomboy/PreferencesDialog.cs:1060
+msgid "WARNING: Are you sure?"
+msgstr "VAROVÁNÍ: Jste si jisti?"
+
+#: ../Tomboy/PreferencesDialog.cs:1062
+msgid ""
+"Clearing your synchronization settings is not recommended.  You may be "
+"forced to synchronize all of your notes again when you save new settings."
+msgstr ""
+"Nedoporučuje se mazat nastavení synchronizace. Při příští synchronizaci "
+"můžete být znovu vyzváni k synchronizaci všech svých poznámek."
+
+#: ../Tomboy/PreferencesDialog.cs:1075
+msgid "Resetting Synchronization Settings"
+msgstr "Obnovuje se nastavení synchronizace"
+
+#: ../Tomboy/PreferencesDialog.cs:1077
+msgid ""
+"You have disabled the configured synchronization service.  Your "
+"synchronization settings will now be cleared.  You may be forced to "
+"synchronize all of your notes again when you save new settings"
+msgstr ""
+"Zakázali jste synchronizační službu. Veškeré její nastavení bude nyní "
+"smazáno. Může se stát, že při další synchronizaci budete muset "
+"synchronizovat všechny své položky znovu."
+
+#: ../Tomboy/PreferencesDialog.cs:1174
+msgid "Success! You're connected!"
+msgstr "Úspěšné! Jste připojeni!"
+
+#: ../Tomboy/PreferencesDialog.cs:1176
+msgid "Tomboy is ready to synchronize your notes."
+msgstr "Tomboy je připraven synchronizovat vaše poznámky."
+
+#: ../Tomboy/PreferencesDialog.cs:1195
+msgid ""
+"Sorry, but something went wrong.  Please check your information and try "
+"again.  The ~/.tomboy.log might be useful too."
+msgstr ""
+"Promiňte, ale něco se stalo špatně. Prosím zkontrolujte zadané informace. "
+"Můžete se také zkusit podívat do souboru ~/.tomboy.log."
+
+#: ../Tomboy/PreferencesDialog.cs:1204
+msgid "Error connecting :("
+msgstr "Nemohu se připojit"
+
+#: ../Tomboy/PreferencesDialog.cs:1280
+msgid "Version:"
+msgstr "Verze:"
+
+#: ../Tomboy/PreferencesDialog.cs:1287
+msgid "Author:"
+msgstr "Autor:"
+
+#: ../Tomboy/PreferencesDialog.cs:1294
+msgid "Copyright:"
+msgstr "Copyright:"
+
+#: ../Tomboy/PreferencesDialog.cs:1300
+msgid "Add-in Dependencies:"
+msgstr "Závislosti rozšíření:"
+
+#: ../Tomboy/RecentChanges.cs:74
 msgid "Search All Notes"
 msgstr "Hledat ve všech poznámkách"
 
-#: ../Tomboy/RecentChanges.cs:77
+#: ../Tomboy/RecentChanges.cs:89
 msgid "_Search:"
 msgstr "_Hledat:"
 
-#: ../Tomboy/RecentChanges.cs:98
+#: ../Tomboy/RecentChanges.cs:110
 msgid "C_ase Sensitive"
 msgstr "_Rozlišovat velikost písmen"
 
-#: ../Tomboy/RecentChanges.cs:236
+#: ../Tomboy/RecentChanges.cs:307
 msgid "Note"
 msgstr "Poznámka"
 
-#: ../Tomboy/RecentChanges.cs:255
+#: ../Tomboy/RecentChanges.cs:326
 msgid "Last Changed"
 msgstr "Naposledy změněno"
 
-#: ../Tomboy/RecentChanges.cs:312 ../Tomboy/RecentChanges.cs:468
-#, csharp-format
-msgid "Total: {0} note"
-msgid_plural "Total: {0} notes"
-msgstr[0] "Celkem: {0} poznámka"
-msgstr[1] "Celkem: {0} poznámky"
-msgstr[2] "Celkem: {0} poznámek"
-
-#: ../Tomboy/RecentChanges.cs:402
+#: ../Tomboy/RecentChanges.cs:459
 msgid "Matches"
 msgstr "Odpovídá"
 
-#: ../Tomboy/RecentChanges.cs:454 ../Tomboy/RecentChanges.cs:474
+#: ../Tomboy/RecentChanges.cs:511
 #, csharp-format
 msgid "{0} match"
 msgid_plural "{0} matches"
@@ -800,51 +1565,52 @@ msgstr[0] "{0} odpovídá"
 msgstr[1] "{0} odpovídají"
 msgstr[2] "{0} odpovídá"
 
-#: ../Tomboy/RecentChanges.cs:724
+#: ../Tomboy/RecentChanges.cs:525
 #, csharp-format
-msgid "Today, {0}"
-msgstr "Dnes, {0}"
+msgid "Total: {0} note"
+msgid_plural "Total: {0} notes"
+msgstr[0] "Celkem: {0} poznámka"
+msgstr[1] "Celkem: {0} poznámky"
+msgstr[2] "Celkem: {0} poznámek"
 
-#: ../Tomboy/RecentChanges.cs:727
+#: ../Tomboy/RecentChanges.cs:535
 #, csharp-format
-msgid "Yesterday, {0}"
-msgstr "Včera, {0}"
+msgid "Matches: {0} note"
+msgid_plural "Matches: {0} notes"
+msgstr[0] "Celkem: {0} poznámka"
+msgstr[1] "Celkem: {0} poznámky"
+msgstr[2] "Celkem: {0} poznámek"
 
-#: ../Tomboy/RecentChanges.cs:731
-#, csharp-format
-msgid "{0} days ago, {1}"
-msgstr "Před {0} dny, {1}"
+#: ../Tomboy/RecentChanges.cs:666
+msgid "Notes"
+msgstr "Poznámky"
 
-#: ../Tomboy/RecentChanges.cs:736
-msgid "MMMM d, h:mm tt"
-msgstr "d. MMMM, h:mm tt"
-
-#: ../Tomboy/RecentChanges.cs:738
-msgid "MMMM d yyyy, h:mm tt"
-msgstr "d. MMMM yyyy, h:mm tt"
-
-#: ../Tomboy/Tomboy.cs:181
+#: ../Tomboy/Tomboy.cs:195
 msgid "Cannot create new note"
 msgstr "Nemohu vytvořit novou poznámku"
 
-#: ../Tomboy/Tomboy.cs:236
+#: ../Tomboy/Tomboy.cs:267
 msgid "translator-credits"
-msgstr "Miloslav Trmač <mitr@volny.cz> Jakub Friedl <jfriedl@suse.cz>"
+msgstr ""
+"Miloslav Trmač <mitr@volny.cz>\n"
+"Jakub Friedl <jfriedl@suse.cz>\n"
+"Pavel Šefránek <ps@pjoul.cz>\n"
+"Petr Kovář <pknbe@volny.cz>"
 
-#: ../Tomboy/Tomboy.cs:245
+#: ../Tomboy/Tomboy.cs:276
 msgid "Copyright © 2004-2007 Alex Graveley"
 msgstr "Copyright © 2004-2007 Alex Graveley"
 
-#: ../Tomboy/Tomboy.cs:246
+#: ../Tomboy/Tomboy.cs:277
 msgid "A simple and easy to use desktop note-taking application."
 msgstr ""
 "Jednoduchá a snadno použitelná aplikace pro poznámky na pracovní ploše."
 
-#: ../Tomboy/Tomboy.cs:249
-msgid "Homepage & Donations"
-msgstr "Domovská stránka a příspěvky"
+#: ../Tomboy/Tomboy.cs:280
+msgid "Homepage"
+msgstr "Domovská stránka"
 
-#: ../Tomboy/Tomboy.cs:333
+#: ../Tomboy/Tomboy.cs:391
 msgid ""
 "Tomboy: A simple, easy to use desktop note-taking application.\n"
 "Copyright (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
@@ -855,7 +1621,7 @@ msgstr ""
 "Copyright © 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
 "\n"
 
-#: ../Tomboy/Tomboy.cs:345
+#: ../Tomboy/Tomboy.cs:403
 msgid ""
 "Usage:\n"
 "  --version\t\t\tPrint version information.\n"
@@ -864,13 +1630,13 @@ msgid ""
 "  --search [text]\t\tOpen the search all notes window with the search text.\n"
 msgstr ""
 "Použití:\n"
-"  --version\t\t\tVypsat informace o verzi.\n"
-"  --help\t\t\tVypsat tuto zprávu o použití.\n"
-"  --note-path [cesta]\t\tNačítat/ukládat data poznámek v tomto adresáři.\n"
-"  --search [text]\t\tOtevřít okno Prohledat všechny poznámky s hledaným "
+"  --version\t\t\tVypíše informace o verzi.\n"
+"  --help\t\t\tVypíše tuto zprávu o použití.\n"
+"  --note-path [cesta]\t\tNačte/uloží data poznámek v tomto adresáři.\n"
+"  --search [text]\t\tOtevře okno Prohledat všechny poznámky s hledaným "
 "textem.\n"
 
-#: ../Tomboy/Tomboy.cs:356
+#: ../Tomboy/Tomboy.cs:414
 msgid ""
 "  --new-note\t\t\tCreate and display a new note.\n"
 "  --new-note [title]\t\tCreate and display a new note, with a title.\n"
@@ -878,65 +1644,121 @@ msgid ""
 "  --start-here\t\t\tDisplay the 'Start Here' note.\n"
 "  --highlight-search [text]\tSearch and highlight text in the opened note.\n"
 msgstr ""
-"  --new-note\t\t\tVytvořit a zobrazit novou poznámku.\n"
-"  --new-note [název]\t\tVytvořit a zobrazit novou poznámku s názvem.\n"
-"  --open-note [název/url]\tZobrazit existující poznámku odpovídající názvu.\n"
-"  --start-here\t\t\tZobrazit poznámku 'Začněte Zde'.\n"
-"  --highlight-search [text]\tHledat a zvýraznit text v otevřené poznámce.\n"
+"  --new-note\t\t\tVytvoří a zobrazí novou poznámku.\n"
+"  --new-note [název]\t\tVytvoří a zobrazí novou poznámku s názvem.\n"
+"  --open-note [název/url]\tZobrazí existující poznámku odpovídající názvu.\n"
+"  --start-here\t\t\tZobrazí poznámku \"Začněte Zde\".\n"
+"  --highlight-search [text]\tVyhledá a zvýrazní text v otevřené poznámce.\n"
 
-#: ../Tomboy/Tomboy.cs:368
-msgid "  --check-plugin-unloading\tCheck if plugins are unloaded properly.\n"
-msgstr ""
-"  --check-plugin-unloading\tZkontrolovat správné uvolňování modulů z "
-"paměti.\n"
-
-#: ../Tomboy/Tomboy.cs:372
+#: ../Tomboy/Tomboy.cs:431
 msgid "D-BUS remote control disabled.\n"
 msgstr "Vzdálené ovládání přes D-BUS zakázáno.\n"
 
-#: ../Tomboy/Tomboy.cs:380
+#: ../Tomboy/Tomboy.cs:439
 #, csharp-format
 msgid "Version {0}"
 msgstr "Verze {0}"
 
-#: ../Tomboy/Tomboy.cs:447
+#: ../Tomboy/Tomboy.cs:509
 #, csharp-format
 msgid ""
 "Tomboy: unsupported option '{0}'\n"
 "Try 'tomboy --help' for more information.\n"
 "D-BUS remote control disabled."
 msgstr ""
-"Tomboy: nepodporovaný přepínač '{0}'\n"
-"Pro více informací zkuste 'tomboy --help'.\n"
+"Tomboy: nepodporovaný přepínač \"{0}\"\n"
+"Více informací viz \"tomboy --help\".\n"
 "Vzdálené ovládání D-BUS zakázáno."
 
 #: ../Tomboy/Tray.cs:64
 msgid " (new)"
 msgstr " (nová)"
 
-#. initial newline
-#: ../Tomboy/Tray.cs:193
-msgid "dddd, MMMM d, h:mm tt"
-msgstr "dddd d. MMMM, h:mm tt"
-
-#: ../Tomboy/Utils.cs:119
+#: ../Tomboy/Utils.cs:127
 msgid ""
 "The \"Tomboy Notes Manual\" could not be found.  Please verify that your "
 "installation has been completed successfully."
 msgstr ""
-"Nelze nalézt \"Příručku poznámek Tomboy\". Ověřte, že instalace byla "
+"Nelze nalézt \"Příručku poznámek Tomboy\". Ověřte prosím, že instalace byla "
 "dokončena v pořádku."
 
-#: ../Tomboy/Utils.cs:128
+#: ../Tomboy/Utils.cs:136
 msgid "Help not found"
 msgstr "Nápověda nenalezena"
 
-#: ../Tomboy/Watchers.cs:137
+#: ../Tomboy/Utils.cs:159
+#, csharp-format
+msgid "Today, {0}"
+msgstr "Dnes, {0}"
+
+#: ../Tomboy/Utils.cs:161
+msgid "Today"
+msgstr "Dnes"
+
+#: ../Tomboy/Utils.cs:165
+#, csharp-format
+msgid "Yesterday, {0}"
+msgstr "Včera, {0}"
+
+#: ../Tomboy/Utils.cs:167
+msgid "Yesterday"
+msgstr "Včera"
+
+#: ../Tomboy/Utils.cs:171
+#, csharp-format
+msgid "{0} days ago, {1}"
+msgstr "Před {0} dny, {1}"
+
+#: ../Tomboy/Utils.cs:173
+#, csharp-format
+msgid "{0} days ago"
+msgstr "Před {0} dny"
+
+#: ../Tomboy/Utils.cs:178
+#, csharp-format
+msgid "Tomorrow, {0}"
+msgstr "Zítra, {0}"
+
+#: ../Tomboy/Utils.cs:180
+msgid "Tomorrow"
+msgstr "Zítra"
+
+#: ../Tomboy/Utils.cs:184
+#, csharp-format
+msgid "In {0} days, {1}"
+msgstr "Za {0} dní, {1}"
+
+#: ../Tomboy/Utils.cs:186
+#, csharp-format
+msgid "In {0} days"
+msgstr "Za {0} dní"
+
+#: ../Tomboy/Utils.cs:190
+msgid "MMMM d, h:mm tt"
+msgstr "d. MMMM, h:mm tt"
+
+#: ../Tomboy/Utils.cs:191
+msgid "MMMM d"
+msgstr "MMMM d"
+
+#: ../Tomboy/Utils.cs:193
+msgid "No Date"
+msgstr "Žádný termín"
+
+#: ../Tomboy/Utils.cs:196
+msgid "MMMM d yyyy, h:mm tt"
+msgstr "d. MMMM yyyy, h:mm tt"
+
+#: ../Tomboy/Utils.cs:197
+msgid "MMMM d yyyy"
+msgstr "MMMM d rrrr"
+
+#: ../Tomboy/Watchers.cs:152
 #, csharp-format
 msgid "(Untitled {0})"
-msgstr "(Nepojmenovaná {0})"
+msgstr "(Bez názvu {0})"
 
-#: ../Tomboy/Watchers.cs:169
+#: ../Tomboy/Watchers.cs:185
 #, csharp-format
 msgid ""
 "A note with the title <b>{0}</b> already exists. Please choose another name "
@@ -945,180 +1767,289 @@ msgstr ""
 "Poznámka s názvem <b>{0}</b> již existuje. Před pokračováním prosím zvolte "
 "jiný název pro tuto poznámku."
 
-#: ../Tomboy/Watchers.cs:181
+#: ../Tomboy/Watchers.cs:200
 msgid "Note title taken"
 msgstr "Název poznámky používán"
 
-#: ../Tomboy/Watchers.cs:422
+#: ../Tomboy/Watchers.cs:449
 msgid "Cannot open location"
 msgstr "Nemohu otevřít umístění"
 
-#: ../Tomboy/Watchers.cs:516
+#: ../Tomboy/Watchers.cs:543
 msgid "_Copy Link Address"
 msgstr "_Kopírovat adresu odkazu"
 
-#: ../Tomboy/Watchers.cs:521
+#: ../Tomboy/Watchers.cs:548
 msgid "_Open Link"
 msgstr "_Otevřít odkaz"
 
-#: ../Tomboy/Plugins/Backlinks.cs:79
-msgid "What links here?"
-msgstr "Co sem odkazuje?"
-
-#: ../Tomboy/Plugins/Backlinks.cs:137
-msgid "(none)"
-msgstr "(žádná)"
-
-#: ../Tomboy/Plugins/Bugzilla.cs:177
+#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:94
+#, csharp-format
 msgid ""
-"You can use any bugzilla just by dragging links into notes.  If you want a "
-"special icon for certain hosts, add them here."
+"This synchronization addin is not supported on your computer. Please make "
+"sure you have FUSE and {0} correctly installed and configured"
 msgstr ""
+"Toto synchronizační rozšíření není podporováno na vašem počítači. Prosím "
+"ujistěte se, že máte nainstalován a správně nastaven FUSE a {0}."
 
-#: ../Tomboy/Plugins/Bugzilla.cs:195
-msgid "Host Name"
-msgstr "Jméno počítače"
+#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:177
+msgid "Timeout connecting to server."
+msgstr "Časový limit pro připojení k serveru vypršel."
 
-#: ../Tomboy/Plugins/Bugzilla.cs:212
-msgid "Icon"
-msgstr "Ikona"
+#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:185
+msgid "Error connecting to server."
+msgstr "Nastala chyba při připojování k serveru."
 
-#: ../Tomboy/Plugins/Bugzilla.cs:330
-msgid "Select an icon..."
-msgstr "Vybrat ikonu..."
+#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:199
+msgid "FUSE could not be enabled."
+msgstr "FUSE nemůže být povoleno."
 
-#. Extra Widget
-#: ../Tomboy/Plugins/Bugzilla.cs:345
-msgid "_Host name:"
-msgstr "_Jméno počítače:"
+#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:233
+msgid "An error ocurred while connecting to the specified server:"
+msgstr "Nastala chyba při připojování k serveru:"
 
-#: ../Tomboy/Plugins/Bugzilla.cs:374
-msgid "No host name specified"
-msgstr "Nebylo zadáno jméno počítače"
+#. Expander containing TreeView
+#: ../Tomboy/Synchronization/SyncDialog.cs:89
+msgid "Details"
+msgstr "Detaily"
 
-#: ../Tomboy/Plugins/Bugzilla.cs:375
-msgid "You must specify the Bugzilla host name to use with this icon."
-msgstr "Pro použití této ikony musíte zadat jméno počítaše s Bugzillou."
+#: ../Tomboy/Synchronization/SyncDialog.cs:119
+msgid "Note Title"
+msgstr "Název poznámky"
 
-#: ../Tomboy/Plugins/Bugzilla.cs:401
-msgid "Error saving icon"
-msgstr "Chyba při ukládání ikony"
+#: ../Tomboy/Synchronization/SyncDialog.cs:126
+msgid "Status"
+msgstr "Stav"
 
-#: ../Tomboy/Plugins/Bugzilla.cs:402
-msgid "Could not save the icon file.  "
-msgstr "Nelze uložit soubor ikony.  "
+#: ../Tomboy/Synchronization/SyncDialog.cs:241
+msgid "Acquiring sync lock..."
+msgstr "Získávám synchronizační zámek..."
 
-#: ../Tomboy/Plugins/Bugzilla.cs:451
-msgid "Really remove this icon?"
-msgstr "Opravdu odstranit tuto ikonu?"
+#: ../Tomboy/Synchronization/SyncDialog.cs:244
+msgid "Committing changes..."
+msgstr "Zapisuji změny..."
 
-#: ../Tomboy/Plugins/Bugzilla.cs:452
-msgid "If you remove an icon it is permanently lost."
-msgstr "Pokud odstraníte ikonu, je navždy ztracena."
+#: ../Tomboy/Synchronization/SyncDialog.cs:247
+msgid "Synchronizing Notes"
+msgstr "Synchronizace poznámek"
 
-#: ../Tomboy/Plugins/Evolution.cs:265
-msgid "Cannot open email"
-msgstr "Nemohu otevřít e-mail"
+#: ../Tomboy/Synchronization/SyncDialog.cs:248
+msgid "Synchronizing your notes..."
+msgstr "Synchronizuji vaše poznámky..."
 
-#: ../Tomboy/Plugins/ExportToHTML.cs:55
-msgid "Export to HTML"
-msgstr "Exportovat do HTML"
+#: ../Tomboy/Synchronization/SyncDialog.cs:249
+msgid "This may take a while, kick back and enjoy!"
+msgstr "Tato operace může chvíli trvat, zkuste to prosím za chvíli!"
 
-#: ../Tomboy/Plugins/ExportToHTML.cs:114
+#: ../Tomboy/Synchronization/SyncDialog.cs:251
+msgid "Connecting to the server..."
+msgstr "Připojuji se k serveru..."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:257
+msgid "Deleting notes off of the server..."
+msgstr "Mažu poznámky ze serveru..."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:261
+msgid "Downloading new/updated notes..."
+msgstr "Stahuji nové/aktualizované poznámky..."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:273
+msgid "Server Locked"
+msgstr "Server zamknut"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:274
+msgid "Server is locked"
+msgstr "Server je zamknutý"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:275
+msgid ""
+"One of your other computers is currently synchronizing.  Please wait 2 "
+"minutes and try again."
+msgstr ""
+"Jeden z vašich počítačů se právě synchronizuje. Prosím počkejte 2 minuty a "
+"poté to zkuste znovu."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:279
+msgid "Preparing to download updates from server..."
+msgstr "Připravuji stažení změn ze serveru..."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:282
+msgid "Preparing to upload updates to server..."
+msgstr "Připravuji nahrání změn na server..."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:285
+msgid "Uploading notes to server..."
+msgstr "Nahrávám poznámky na server..."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:288
+msgid "Synchronization Failed"
+msgstr "Synchronizace selhala"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:289
+msgid "Failed to synchronize"
+msgstr "Nepodařilo se synchronizovat"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:290
+msgid "Could not synchronize notes.  Check the details below and try again."
+msgstr ""
+"Nemohu synchronizovat poznámky. Zkontrolujte podrobnosti a zkuste to znovu."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:296
+msgid "Synchronization Complete"
+msgstr "Synchronizace hotova"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:297
+msgid "Synchronization is complete"
+msgstr "Synchronizace proběhla úspěšně"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:299
 #, csharp-format
-msgid "Your note was exported to \"{0}\"."
-msgstr "Vaše poznámka byla exportována do \"{0}\"."
+msgid "{0} note updated."
+msgid_plural "{0} notes updated."
+msgstr[0] "{0} poznámka byla aktualizována."
+msgstr[1] "{0} poznámky byly aktualizovány."
+msgstr[2] "{0} poznámek bylo aktualizovaných."
 
-#: ../Tomboy/Plugins/ExportToHTML.cs:125
-msgid "Note exported successfully"
-msgstr "Poznámka úspěšně exportována"
+#: ../Tomboy/Synchronization/SyncDialog.cs:304
+msgid "Your notes are now up to date."
+msgstr "Vaše poznámky jsou zaktualizovány."
 
-#: ../Tomboy/Plugins/ExportToHTML.cs:131
-msgid "Access denied."
-msgstr "Přístup odmítnut."
+#: ../Tomboy/Synchronization/SyncDialog.cs:308
+msgid "Synchronization Canceled"
+msgstr "Synchronizace zastavena"
 
-#: ../Tomboy/Plugins/ExportToHTML.cs:133
-msgid "Folder does not exist."
-msgstr "Složka neexistuje."
+#: ../Tomboy/Synchronization/SyncDialog.cs:309
+msgid "Synchronization was canceled"
+msgstr "Synchronizace byla zastavena"
 
-#: ../Tomboy/Plugins/ExportToHTML.cs:148
+#: ../Tomboy/Synchronization/SyncDialog.cs:310
+msgid "You canceled the synchronization.  You may close the window now."
+msgstr "Zastavili jste synchronizaci. Nyní můžete okno zavřít."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:314
+msgid "Synchronization Not Configured"
+msgstr "Synchronizace nenakonfigurována"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:315
+msgid "Synchronization is not configured"
+msgstr "Synchronizace není nastavena"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:316
+msgid "Please configure synchronization in the preferences dialog."
+msgstr "Prosím nastavte synchronizaci v nastavení."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:320
+msgid "Synchronization Service Error"
+msgstr "Chyba synchronizace"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:321
+msgid "Service error"
+msgstr "Chyba služby"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:322
+msgid "Error connecting to the synchronization service.  Please try again."
+msgstr ""
+"Nastala chyba při připojování k synchronizační službě. Prosím zkuste to "
+"znovu."
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:339
+msgid "Deleted locally"
+msgstr "Smazáno z disku"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:342
+msgid "Deleted from server"
+msgstr "Smazáno ze serveru"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:345
+msgid "Updated"
+msgstr "Aktualizováno"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:348
+msgid "Added"
+msgstr "Přidáno"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:351
+msgid "Uploaded changes to server"
+msgstr "Změny byly nahrány na server"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:354
+msgid "Uploaded new note to server"
+msgstr "Nová poznámka byla nahrána na server"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:502
+msgid "Note Conflict"
+msgstr "Konflikt poznámky"
+
+#. Suggest renaming note by appending " (old)" to the existing title
+#: ../Tomboy/Synchronization/SyncDialog.cs:508
+msgid " (old)"
+msgstr " (stará)"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:547
+msgid "Rename local note:"
+msgstr "Přejmenovat místní poznámku:"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:553
+msgid "Update links in referencing notes"
+msgstr "Aktualizovat odkazy v souvisejících poznámkách"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:560
+msgid "Overwrite local note"
+msgstr "Přepsat místní poznámku:"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:564
+msgid "Always perform this action"
+msgstr "Vždy provádět tuto akci"
+
+#. Set initial dialog text
+#: ../Tomboy/Synchronization/SyncDialog.cs:570
+msgid "Note conflict detected"
+msgstr "Nalezen konflikt poznámek"
+
+#: ../Tomboy/Synchronization/SyncDialog.cs:571
 #, csharp-format
-msgid "Could not save the file \"{0}\""
-msgstr "Nelze uložit soubor \"{0}\""
+msgid ""
+"The server version of \"{0}\" conflicts with your local note.  What do you "
+"want to do with your local note?"
+msgstr ""
+"Poznámka na serveru \"{0}\" koliduje s místní. Co chcete udělat s místní "
+"poznámkou?"
 
-#: ../Tomboy/Plugins/ExportToHTML.cs:267
-msgid "Destination for HTML Export"
-msgstr "Cíl exportu do HTML"
+#: ../Tomboy/Synchronization/SyncManager.cs:159
+msgid "_Tools"
+msgstr "Ná_stroje"
 
-#: ../Tomboy/Plugins/ExportToHTML.cs:277
-msgid "Export linked notes"
-msgstr "Exportovat související poznámky"
+#: ../Tomboy/Synchronization/SyncUtils.cs:133
+#: ../Tomboy/Synchronization/SyncUtils.cs:177
+msgid "Could not enable FUSE"
+msgstr "Nemohu povolit FUSE"
 
-#: ../Tomboy/Plugins/ExportToHTML.cs:282
-msgid "Include all other linked notes"
-msgstr "Zahrnout všechny související poznámky"
+#: ../Tomboy/Synchronization/SyncUtils.cs:134
+#: ../Tomboy/Synchronization/SyncUtils.cs:178
+msgid ""
+"The FUSE module could not be loaded. Please check that it is installed "
+"properly and try again."
+msgstr ""
+"Modul FUSE nemohl být načten. Prosím zkontrolujte, zda je správně "
+"nainstalován a zkuste to znovu."
 
-#: ../Tomboy/Plugins/FixedWidth.cs:34
-msgid "_Fixed Width"
-msgstr "_Pevná šířka"
+#: ../Tomboy/Synchronization/SyncUtils.cs:149
+msgid "Enable FUSE?"
+msgstr "Povolit FUSE?"
 
-#: ../Tomboy/Plugins/GalagoPresence.cs:235
-#, csharp-format
-msgid "Cannot contact '{0}'"
-msgstr "Nemohu kontaktovat '{0}'"
-
-#: ../Tomboy/Plugins/GalagoPresence.cs:238
-#, csharp-format
-msgid "Error running gaim-remote: {0}"
-msgstr "Chyba při spouštění gaim-remote: {0}"
-
-#: ../Tomboy/Plugins/NoteOfTheDay.cs:13
-msgid "Today: "
-msgstr "Dnes: "
-
-#: ../Tomboy/Plugins/NoteOfTheDay.cs:14
-msgid "Today: Template"
-msgstr "Dnes: Šablona"
-
-#. Format: "Today: Friday, July 01 2005"
-#: ../Tomboy/Plugins/NoteOfTheDay.cs:19
-msgid "dddd, MMMM d yyyy"
-msgstr "dddd d. MMMM yyyy"
-
-#: ../Tomboy/Plugins/NoteOfTheDay.cs:40
-msgid "Tasks"
-msgstr "Úkoly"
-
-#: ../Tomboy/Plugins/NoteOfTheDay.cs:41
-msgid "Appointments"
-msgstr "Schůzky"
-
-#: ../Tomboy/Plugins/StickyNoteImport.cs:52
-msgid "Import from Sticky Notes"
-msgstr "Importovat z Lepících poznámek"
-
-#: ../Tomboy/Plugins/StickyNoteImport.cs:134
-msgid "No Sticky Notes found"
-msgstr "Nenalezena žádné lepící poznámky"
-
-#: ../Tomboy/Plugins/StickyNoteImport.cs:135
-#, csharp-format
-msgid "No suitable Sticky Notes file was found at \"{0}\"."
-msgstr "V \"{0}\". nebyl nalezen vhodný soubor lepících poznámek"
-
-#: ../Tomboy/Plugins/StickyNoteImport.cs:144
-msgid "Sticky Notes import completed"
-msgstr "Import lepících poznámek dokončen"
-
-#: ../Tomboy/Plugins/StickyNoteImport.cs:145
-#, csharp-format
-msgid "<b>{0}</b> of <b>{1}</b> Sticky Notes were successfully imported."
-msgstr "<b>{0}</b> z <b>{1}</b> lepicích poznámek bylo úspěšně importováno."
-
-#: ../Tomboy/Plugins/StickyNoteImport.cs:157
-msgid "Untitled"
-msgstr "Beze jména"
-
-#: ../Tomboy/Plugins/StickyNoteImport.cs:185
-msgid "Sticky Note: "
-msgstr "Lepící poznámka"
+#. TODO: This message isn't entirely accurate.
+#. We should fix it.
+#: ../Tomboy/Synchronization/SyncUtils.cs:153
+msgid ""
+"The synchronization you've chosen requires the FUSE module to be loaded.\n"
+"\n"
+"To avoid getting this prompt in the future, you should load FUSE at "
+"startup.  Add \"modprobe fuse\" to /etc/init.d/boot.local or \"fuse\" to /"
+"etc/modules."
+msgstr ""
+"Způsob synchronizace, který jste zvolili, vyžaduje, aby byl načten modul "
+"FUSE.\n"
+"\n"
+"Abyste příště zamezili tomuto varování, bylo by vhodné spouštět FUSE při "
+"startu systému. Přidejte prosím řádek \"modprobe fuse\" do souboru /etc/init."
+"d/boot.local nebo \"fuse\" do /etc/modules."
