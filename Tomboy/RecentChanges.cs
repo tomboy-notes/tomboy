@@ -54,10 +54,10 @@ namespace Tomboy
 
                 static NoteRecentChanges ()
                 {
-                        note_icon = GuiUtils.GetIcon ("tomboy-note", 22);
-                        all_notes_icon = GuiUtils.GetIcon ("tomboy-all-notes", 22);
-                        unfiled_notes_icon = GuiUtils.GetIcon ("tomboy-unfiled-notes", 22);
-                        notebook_icon = GuiUtils.GetIcon ("tomboy-notebook", 22);
+                        note_icon = GuiUtils.GetIcon ("note", 22);
+                        all_notes_icon = GuiUtils.GetIcon ("filter-note-all", 22);
+                        unfiled_notes_icon = GuiUtils.GetIcon ("filter-note-unfiled", 22);
+                        notebook_icon = GuiUtils.GetIcon ("notebook", 22);
                 }
 
                 public static NoteRecentChanges GetInstance (NoteManager manager)

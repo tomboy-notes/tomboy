@@ -21,7 +21,7 @@ CSFILES = \
 	$(srcdir)/InsertBugAction.cs
 RESOURCES = \
 	-resource:$(srcdir)/$(ADDIN_NAME).addin.xml \
-	-resource:$(top_srcdir)/data/images/stock_bug.png,stock_bug.png
+	-resource:$(top_srcdir)/data/images/bug.png,bug.png
 
 
 $(TARGET): $(CSFILES) $(top_builddir)/Tomboy/Tomboy.exe

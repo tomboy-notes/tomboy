@@ -6,7 +6,7 @@ namespace Tomboy.Bugzilla
 	public class BugzillaLink : DynamicNoteTag
 	{
 		private const string UriAttributeName = "uri";
-		private const string StockIconFilename = "stock_bug.png";
+		private const string StockIconFilename = "bug.png";
 
 		public override void Initialize (string element_name)
 		{

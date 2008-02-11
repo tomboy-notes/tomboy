@@ -15,7 +15,7 @@ namespace Tomboy.Notebooks
 		//
 		//static NotebookNewNoteMenuItem ()
 		//{
-		//	noteIcon = GuiUtils.GetIcon ("tomboy-note", 22);
+		//	noteIcon = GuiUtils.GetIcon ("note", 22);
 		//}
 		
 		public NotebookNewNoteMenuItem(Notebook notebook)
@@ -28,7 +28,7 @@ namespace Tomboy.Notebooks
 							   notebook.Name))
 		{
 			this.notebook = notebook;
-			this.Image = new Gtk.Image (GuiUtils.GetIcon ("tomboy-new-notebook", 22));
+			this.Image = new Gtk.Image (GuiUtils.GetIcon ("note-new", 16));
 			//this.Image = new Gtk.Image (Gtk.Stock.New, Gtk.IconSize.Menu);
 			
 			Activated += OnActivated;

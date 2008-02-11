@@ -1,3 +1,59 @@
+2008-02-11  Boyd Timothy <btimothy@gmail.com> 
+
+	Applying modified patch from Michael Monreal to fix
+	bug #507239.  This installs properly named icons to
+	the hicolor theme and also references the proper sizes
+	for use in the menus.
+
+	* configure.in: Add data/icons/Makefile.
+
+	* Tomboy/Tomboy.cs: Add tomboy's private icons to the
+	  Gtk.IconTheme.
+
+	* Tomboy/RecentChanges.cs, Tomboy/Tray.cs: Use the
+	  corrected icon names and sizes.
+
+	* Tomboy/Addins/Evolution/Makefile.am,
+	  Tomboy/Addins/Evolution/EvolutionNoteAddin.cs: Use
+	  "mail.png" instead of "stock_mail.png".
+
+	* Tomboy/Addins/Tasks/TaskListWindow.cs: Use "note"
+	  instead of "tomboy-note" icon.
+
+	* Tomboy/Addins/Backlinks/BacklinkMenuItem.cs: Use "note"
+	  instead of "tomboy-note" icon.
+
+	* Tomboy/Addins/Bugzilla/Makefile.am,
+	  Tomboy/Addins/Bugzilla/BugzillaLink.cs: Use "bug.png"
+	  instead of "stock_bug.png" for the icon.
+
+	* Tomboy/Notebooks/CreateNotebookDialog.cs,
+	  Tomboy/Notebooks/NotebookApplicationAddin.cs,
+	  Tomboy/Notebooks/NotebookNewNoteMenuItem.cs: Fix the icons to
+	  use "notebook-new", "note-new", and "notebook" instead of using
+	  "tomboy-new-notebook", "tomboy-new-notebook-dialog",
+	  and "tomboy-notebook" icons.  Also fix the size of icons used
+	  in the menus to be 16x16 instead of 22x22.
+
+	* Tomboy/Makefile.am: Update the icon resources to use the new
+	  icon names.  Installed versions of tomboy will use the icons
+	  from the icon theme.  Adding resources directly here allows
+	  development builds (i.e., running directly out of Tomboy/) to
+	  still function.
+
+	* Tomboy/ActionManager.cs: Use "note-new" instead of
+	  "tomboy-new-note" icon at 16x16 instead of 22x22 in the menu.
+
+	* data/images/Makefile.am: Moved most icons to data/icons/*.
+
+	* data/Makefile.am: Added "icons" to SUBDIRS.
+
+	* data/icons/hicolor*.png/svg: Properly named icons so they'll be
+	  installed into the hicolor theme.
+
+	* data/icons/Makefile.am: Do all the work of installing icons into
+	  the right places.
+
 2008-01-28  Boyd Timothy <btimothy@gmail.com> 
 
 	* configure.in: Bump version to 0.9.6.

@@ -14,7 +14,7 @@ namespace Tomboy.Notebooks
 		
 		static NotebookNoteAddin ()
 		{
-			notebookIcon = GuiUtils.GetIcon ("tomboy-notebook", 22);
+			notebookIcon = GuiUtils.GetIcon ("notebook", 22);
 		}
 
 		public override void Initialize ()

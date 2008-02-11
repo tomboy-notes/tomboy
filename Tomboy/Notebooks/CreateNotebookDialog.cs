@@ -13,8 +13,8 @@ namespace Tomboy.Notebooks
 
 		static CreateNotebookDialog ()
 		{
-			newNotebookIcon = GuiUtils.GetIcon ("tomboy-new-notebook", 22);
-			newNotebookIconDialog = GuiUtils.GetIcon ("tomboy-new-notebook-dialog", 48);
+			newNotebookIcon = GuiUtils.GetIcon ("notebook-new", 16);
+			newNotebookIconDialog = GuiUtils.GetIcon ("notebook-new", 48);
 		}
 		
 		public CreateNotebookDialog(Gtk.Window parent,
