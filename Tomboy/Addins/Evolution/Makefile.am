@@ -21,7 +21,7 @@ if ENABLE_EVOLUTION
 TARGET = $(ADDIN_NAME).dll
 RESOURCES = \
 	-resource:$(srcdir)/$(ADDIN_NAME).addin.xml \
-	-resource:$(top_srcdir)/data/images/stock_mail.png,stock_mail.png
+	-resource:$(top_srcdir)/data/images/mail.png,mail.png
 
 $(TARGET): $(CSFILES) $(top_builddir)/Tomboy/Tomboy.exe
 	$(CSC) -out:$@ $(CSFLAGS) $(ASSEMBLIES) $(CSFILES) $(RESOURCES)

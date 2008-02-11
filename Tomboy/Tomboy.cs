@@ -20,6 +20,7 @@ namespace Tomboy
 		#if ENABLE_DBUS
 		static RemoteControl remote_control;
 		#endif
+        static Gtk.IconTheme icon_theme = null;
 
 		public static void Main (string [] args)
 		{
@@ -37,6 +38,10 @@ namespace Tomboy
 			#endif // ENABLE_DBUS
 
 			Initialize ("tomboy", "Tomboy", "tomboy", args);
+
+            // Add private icon dir to search path
+            icon_theme = Gtk.IconTheme.Default;
+            icon_theme.AppendSearchPath (System.IO.Path.Combine (Defines.DATADIR, "tomboy/icons"));
 
 //   PluginManager.CheckPluginUnloading = cmd_line.CheckPluginUnloading;
 

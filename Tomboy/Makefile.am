@@ -87,18 +87,16 @@ ASSEMBLIES = 		\
 RESOURCES = 										\
 	-resource:$(top_srcdir)/data/GNOME_TomboyApplet.xml,GNOME_TomboyApplet.xml	\
 	-resource:$(top_srcdir)/data/UIManagerLayout.xml	\
-	-resource:$(top_srcdir)/data/images/tomboy.png,tomboy.png			\
-	-resource:$(top_srcdir)/data/images/tomboy-note-16.png,tomboy-note.png		\
-	-resource:$(top_srcdir)/data/images/tomboy-new-note-22.png,tomboy-new-note.png		\
-	-resource:$(top_srcdir)/data/images/tomboy-all-notes-22.png,tomboy-all-notes.png		\
-	-resource:$(top_srcdir)/data/images/tomboy-unfiled-notes-22.png,tomboy-unfiled-notes.png		\
-	-resource:$(top_srcdir)/data/images/tomboy-notebook-22.png,tomboy-notebook.png		\
-	-resource:$(top_srcdir)/data/images/tomboy-new-notebook-22.png,tomboy-new-notebook.png		\
-	-resource:$(top_srcdir)/data/images/tomboy-new-notebook-48.png,tomboy-new-notebook-dialog.png		\
-	-resource:$(top_srcdir)/data/images/gnome-searchtool.png,gnome-searchtool.png	\
-	-resource:$(top_srcdir)/data/images/pinup.png,pinup.png				\
-	-resource:$(top_srcdir)/data/images/pinup-active.png,pinup-active.png		\
-	-resource:$(top_srcdir)/data/images/pindown.png,pindown.png			\
+	-resource:$(top_srcdir)/data/icons/hicolor_apps_48x48_tomboy.png,tomboy.png			\
+	-resource:$(top_srcdir)/data/icons/hicolor_places_22x22_note.png,note.png		\
+	-resource:$(top_srcdir)/data/icons/hicolor_actions_16x16_note-new.png,note-new.png		\
+	-resource:$(top_srcdir)/data/icons/hicolor_actions_22x22_filter-note-all.png,filter-note-all.png		\
+	-resource:$(top_srcdir)/data/icons/hicolor_actions_22x22_filter-note-unfiled.png,filter-note-unfiled.png		\
+	-resource:$(top_srcdir)/data/icons/hicolor_places_22x22_notebook.png,notebook.png		\
+	-resource:$(top_srcdir)/data/icons/hicolor_actions_48x48_notebook-new.png,notebook-new.png		\
+	-resource:$(top_srcdir)/data/icons/hicolor_status_16x16_pin-down.png,pin-down.png				\
+	-resource:$(top_srcdir)/data/icons/hicolor_status_16x16_pin-up.png,pin-up.png		\
+	-resource:$(top_srcdir)/data/icons/hicolor_status_16x16_pin-active.png,pin-active.png			\
 	-resource:$(srcdir)/Tomboy.addin.xml
 
 

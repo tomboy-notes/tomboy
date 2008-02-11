@@ -14,8 +14,8 @@ namespace Tomboy.Notebooks
 		
 		static NotebookApplicationAddin ()
 		{
-			notebookIcon = GuiUtils.GetIcon ("tomboy-notebook", 22);
-			newNotebookIcon = GuiUtils.GetIcon ("tomboy-new-notebook", 22);
+			notebookIcon = GuiUtils.GetIcon ("notebook", 16);
+			newNotebookIcon = GuiUtils.GetIcon ("notebook-new", 16);
 			
 		}
 

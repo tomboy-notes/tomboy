@@ -237,7 +237,7 @@ namespace Tomboy.Evolution
 			Foreground = "blue";
 			CanActivate = true;
 
-			Image = new Gdk.Pixbuf (null, "stock_mail.png");
+			Image = new Gdk.Pixbuf (null, "mail.png");
 		}
 
 		public string EmailUri

@@ -50,7 +50,7 @@ namespace Tomboy
 		public ActionManager ()
 		{
 			PopulateActionGroups ();
-			newNote  = GuiUtils.GetIcon("tomboy-new-note",22);
+			newNote  = GuiUtils.GetIcon("note-new", 16);       // FIXME: no access to icon theme?
 		}
 
 		public void LoadInterface ()

@@ -61,7 +61,7 @@ enum SortColumn :
 
 		static TaskListWindow ()
 		{
-			note_pixbuf = GuiUtils.GetIcon ("tomboy-note", 8);
+			note_pixbuf = GuiUtils.GetIcon ("note", 8);
 		}
 
 		public static TaskListWindow GetInstance (TaskManager manager)

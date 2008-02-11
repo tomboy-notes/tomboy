@@ -13,7 +13,7 @@ namespace Tomboy.Backlinks
 
 		static BacklinkMenuItem ()
 		{
-			note_icon = GuiUtils.GetIcon ("tomboy-note", 22);
+			note_icon = GuiUtils.GetIcon ("note", 16);
 		}
 
 public BacklinkMenuItem (Note note, string title_search) :
