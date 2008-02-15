@@ -272,7 +272,6 @@ namespace Tomboy
 
 		public override void OnNoteOpened ()
 		{
-			Buffer.TagApplied += TagApplied;
 			Preferences.SettingChanged += OnEnableSpellcheckChanged;
 
 			if ((bool) Preferences.Get (Preferences.ENABLE_SPELLCHECKING)) {
@@ -297,10 +296,14 @@ namespace Tomboy
 				                               null,
 				                               IntPtr.Zero);
 			}
+
+			Buffer.TagApplied += TagApplied;
 		}
 
 		void Detach ()
 		{
+			Buffer.TagApplied -= TagApplied;
+
 			if (obj_ptr != IntPtr.Zero) {
 				gtkspell_detach (obj_ptr);
 				obj_ptr = IntPtr.Zero;
