@@ -63,8 +63,7 @@ namespace Tomboy.NoteOfTheDay
 
 			if (notd != null) {
 				// Automatically tag all new Note of the Day notes
-				Tag notd_tag = TagManager.GetOrCreateSystemTag (
-									Catalog.GetString ("NoteOfTheDay"));
+				Tag notd_tag = TagManager.GetOrCreateSystemTag ("NoteOfTheDay");
 				notd.AddTag (notd_tag);
 
 				// notd.AddTag queues a save so the following is no longer necessary
