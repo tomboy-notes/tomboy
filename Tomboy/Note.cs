@@ -166,8 +166,10 @@ namespace Tomboy
 
 		public void SetPositionExtent (int x, int y, int width, int height)
 		{
-			Debug.Assert (x >= 0 && y >= 0);
-			Debug.Assert (width > 0 && height > 0);
+			if (x >= 0 && y >= 0)
+				return;
+			if (width > 0 && height > 0)
+				return;
 
 			this.x = x;
 			this.y = y;
