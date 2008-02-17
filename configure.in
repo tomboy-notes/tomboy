@@ -145,8 +145,13 @@ fi
 # Tomboy.exe needs Gtk# Gnome# GConf#
 #
 GTKSHARP2_MINIMUM_VERSION=$GTK20_MINIMUM_VERSION
-PKG_CHECK_MODULES(TOMBOY, gtk-sharp-2.0 >= $GTKSHARP2_MINIMUM_VERSION gnome-sharp-2.0 gconf-sharp-2.0)
-AC_SUBST(TOMBOY_LIBS)
+if pkg-config --atleast-version=2.19.0 gconf-sharp-2.0; then
+	PKG_CHECK_MODULES(TOMBOY, gtk-sharp-2.0 >= $GTKSHARP2_MINIMUM_VERSION gnome-sharp-2.0 gconf-sharp-2.0 gconf-sharp-peditors-2.0)
+	AC_SUBST(TOMBOY_LIBS)
+else
+	PKG_CHECK_MODULES(TOMBOY, gtk-sharp-2.0 >= $GTKSHARP2_MINIMUM_VERSION gnome-sharp-2.0 gconf-sharp-2.0)
+	AC_SUBST(TOMBOY_LIBS)
+fi
 
 #
 # Evolution.dll needs Gmime#
