@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Xml;
@@ -9,10 +10,23 @@ namespace Tomboy.ExportToHtml
 	public class NoteNameResolver : XmlResolver
 	{
 		NoteManager manager;
+		
+		// Use this dictionary to keep track of notes that have already been
+		// resolved.  The key is the Note.Title:string and the value is the
+		// number of times the specified note has been requested.  ResolveUri
+		// for some reason, gets called twice for each of the notes.  Allow it
+		// to be called twice, but then return null after that.
+		Dictionary<string, int> resolvedNotes;
 
-		public NoteNameResolver (NoteManager manager)
+		public NoteNameResolver (NoteManager manager, Note originNote)
 		{
 			this.manager = manager;
+			
+			resolvedNotes = new Dictionary<string,int> ();
+			
+			// Set the resolved count to 2 for the original note so it won't
+			// be included again.
+			resolvedNotes [originNote.Title.ToLower ()] = 2;
 		}
 
 		public override System.Net.ICredentials Credentials
@@ -31,7 +45,6 @@ namespace Tomboy.ExportToHtml
 			Stream stream = WriterToStream (writer);
 			writer.Close ();
 
-			Logger.Log ("GetEntity: Returning Stream");
 			return stream;
 		}
 
@@ -58,9 +71,21 @@ namespace Tomboy.ExportToHtml
 
 		public override Uri ResolveUri (Uri baseUri, string relativeUri)
 		{
+			string noteTitleLowered = relativeUri.ToLower ();
+			if (resolvedNotes.ContainsKey (noteTitleLowered) == true
+				&& resolvedNotes [noteTitleLowered] > 1) {
+				return null;
+			}
+			
 			Note note = manager.Find (relativeUri);
-			if (note != null)
+			if (note != null) {
+				if (resolvedNotes.ContainsKey (noteTitleLowered) == true) {
+					resolvedNotes [noteTitleLowered] = 2;
+				} else {
+					resolvedNotes [noteTitleLowered] = 1;
+				}
 				return new Uri (note.Uri);
+			}
 
 			return null;
 		}
