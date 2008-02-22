@@ -1,5 +1,11 @@
 2008-02-22  Boyd Timothy <btimothy@gmail.com> 
 
+	* Tomboy/NoteManager.cs: Use a copy of List<Note> when enumerating the notes
+	  to save in OnExitingEvent.  This fixes the crash mentioned in bug
+	  #510442.
+
+2008-02-22  Boyd Timothy <btimothy@gmail.com> 
+
 	* Tomboy/NoteManager.cs: Fixes bug #510003 by XML encoding the notebook name
 	  before storing it in XML.
 
