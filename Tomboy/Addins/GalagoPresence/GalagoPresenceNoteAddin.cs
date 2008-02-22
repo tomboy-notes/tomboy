@@ -10,7 +10,6 @@ using Galago;
 
 using Tomboy;
 
-// TODO: Indent everything in this namespace in a seperate commit
 namespace Tomboy.GalagoPresence
 {
 
@@ -20,8 +19,12 @@ namespace Tomboy.GalagoPresence
 
 		public GalagoManager ()
 		{
-			Galago.Global.Init ("tomboy", Galago.InitFlags.Client);
-
+			try {
+				Galago.Global.Init ("tomboy", Galago.InitFlags.Client);
+			} catch (Exception e) {
+				Logger.Error ("Error initializing Galago: " + e.ToString ());
+				throw e;
+			}
 			/////
 			///// Connecting these cause crashes with the current 0.3.2 bindings...
 			/////

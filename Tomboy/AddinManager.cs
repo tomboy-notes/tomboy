@@ -184,7 +184,11 @@ namespace Tomboy
 			Mono.Addins.TypeExtensionNode type_node =
 			        args.ExtensionNode as Mono.Addins.TypeExtensionNode;
 
-			OnDisabledAddin (type_node.Id);
+			try {
+				OnDisabledAddin (type_node.Id);
+			} catch (Exception e) {
+				Logger.Debug ("Error unloading add-in: " + e.Message);
+			}
 		}
 
 		public void LoadAddinsForNote (Note note)
