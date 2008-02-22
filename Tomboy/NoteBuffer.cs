@@ -363,8 +363,9 @@ namespace Tomboy
 
 				return true;
 			}
-			// Replace lines starting with '*' or '-' with bullets
-			else if (iter.Char.Equals ("*") || iter.Char.Equals ("-")) {
+			// Replace lines starting with '*' or '-' followed by a space with bullets
+			else if ((iter.Char.Equals ("*") || iter.Char.Equals ("-")) && 
+			         GetIterAtLineOffset(iter.Line, 1).Char.Equals(" ")) {
 				Gtk.TextIter start = GetIterAtLineOffset (iter.Line, 0);
 				Gtk.TextIter end = GetIterAtLineOffset (iter.Line, 1);
 
