@@ -60,10 +60,26 @@ namespace Tomboy
 		static string GetDisplayName (Note note)
 		{
 			string display_name = note.Title;
-			if (note.IsNew)
-				display_name += Catalog.GetString (" (new)");
+            int max_length = (int) Preferences.Get (Preferences.MENU_ITEM_MAX_LENGTH);
+
+			if (note.IsNew) {
+                string new_string = Catalog.GetString(" (new)");
+                max_length -= new_string.Length;
+				display_name = Ellipsify (display_name, max_length)
+                    + new_string;
+            } else {
+                display_name = Ellipsify (display_name, max_length);
+            }
+
 			return FormatForLabel (display_name);
 		}
+
+        static string Ellipsify (string str, int max)
+        {
+            if(str.Length > max)
+                return str.Substring(0, max - 1) + Catalog.GetString("...");
+            return str;
+        }
 
 		protected override void OnActivated ()
 		{
