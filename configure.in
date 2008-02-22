@@ -178,7 +178,7 @@ AC_SUBST(SKETCHING_LIBS)
 #
 PKG_CHECK_MODULES(GALAGO, galago-sharp >= 0.5.0, ENABLE_GALAGO="yes", ENABLE_GALAGO="no")
 AC_ARG_ENABLE(galago, 
-	      [  --enable-galago[[=no/yes]]  compile galago addin [[default: no]]],
+	      [  --enable-galago[[=no/yes]]  compile galago addin [[default: yes]]],
 	      ENABLE_GALAGO="$enableval")
 AM_CONDITIONAL(ENABLE_GALAGO, test "$ENABLE_GALAGO" = "yes")
 AC_SUBST(GALAGO_LIBS)
