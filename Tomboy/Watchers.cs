@@ -346,6 +346,23 @@ namespace Tomboy
 			}
 		}
 	}
+	#else
+	// Add in a "dummy" NoteSpellChecker class so that Mono.Addins doesn't
+	// complain at startup.  NoteSpellChecker is specified in Tomboy.addin.xml.
+	public class NoteSpellChecker : NoteAddin
+	{
+		public override void Initialize ()
+		{
+		}
+		
+		public override void Shutdown ()
+		{
+		}
+		
+		public override void OnNoteOpened ()
+		{
+		}
+	}
 	#endif
 
 	public class NoteUrlWatcher : NoteAddin
