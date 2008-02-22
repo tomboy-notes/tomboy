@@ -60,7 +60,7 @@ namespace Tomboy
 		static string GetDisplayName (Note note)
 		{
 			string display_name = note.Title;
-            int max_length = (int) Preferences.Get (Preferences.MENU_ITEM_MAX_LENGTH);
+            int max_length = 40;
 
 			if (note.IsNew) {
                 string new_string = Catalog.GetString(" (new)");
@@ -77,7 +77,7 @@ namespace Tomboy
         static string Ellipsify (string str, int max)
         {
             if(str.Length > max)
-                return str.Substring(0, max - 1) + Catalog.GetString("...");
+                return str.Substring(0, max - 1) + "...";
             return str;
         }
 
