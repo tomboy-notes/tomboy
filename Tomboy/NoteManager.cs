@@ -466,7 +466,7 @@ public NoteManager (string directory) :
 			        "</note-content>";
 
 			return string.Format (base_xml,
-			                      title,
+			                      XmlEncoder.Encode (title),
 			                      Catalog.GetString ("Describe your new note here."));
 		}
 
