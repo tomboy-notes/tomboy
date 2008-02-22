@@ -141,10 +141,13 @@ namespace Tomboy
 				foreach (Uri uri in uri_list) {
 					Logger.Log ("Got Dropped URI: {0}", uri);
 					string insert;
-					if (uri.IsFile)
-						insert = uri.LocalPath;
-					else
+					if (uri.IsFile) {
+						// URL-escape the path in case
+						// there are spaces (bug #303902)
+						insert = System.Uri.EscapeUriString (uri.LocalPath);
+					} else {
 						insert = uri.ToString ();
+					}
 
 					if (insert == null || insert.Trim () == String.Empty)
 						continue;
