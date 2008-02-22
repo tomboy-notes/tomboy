@@ -15,6 +15,13 @@ namespace Tomboy
 	public delegate void TagRemovingHandler (Note note, Tag tag);
 	public delegate void TagRemovedHandler (Note note, string tag_name);
 
+	public enum ChangeType
+	{
+		NoChange,
+		ContentChanged,
+		OtherDataChanged
+	}
+
 	// Contains all pure note data, like the note title and note text.
 	public class NoteData
 	{
@@ -23,6 +30,7 @@ namespace Tomboy
 		string text;
 		DateTime create_date;
 		DateTime change_date;
+		DateTime metadata_change_date;
 
 		int cursor_pos;
 		int width, height;
@@ -44,6 +52,7 @@ namespace Tomboy
 
 			create_date = DateTime.MinValue;
 			change_date = DateTime.MinValue;
+			metadata_change_date = DateTime.MinValue;
 		}
 
 		public string Uri
@@ -83,6 +92,10 @@ namespace Tomboy
 			}
 		}
 
+		/// <summary>
+		/// Indicates the last time note content data changed.
+		/// Does not include tag/notebook changes (see MetadataChangeDate).
+		/// </summary>
 		public DateTime ChangeDate
 		{
 			get {
@@ -90,8 +103,24 @@ namespace Tomboy
 			}
 			set {
 				change_date = value;
+				metadata_change_date = value;
 			}
 		}
+
+		/// <summary>
+		/// Indicates the last time non-content note data changed.
+		/// This currently only applies to tags/notebooks.
+		/// </summary>
+		public DateTime MetadataChangeDate
+		{
+			get {
+				return metadata_change_date;
+			}
+			set {
+				metadata_change_date = value;
+			}
+		}
+		
 
 		// FIXME: the next five attributes don't belong here (the data
 		// model), but belong into the view; for now they are kept here
@@ -451,14 +480,14 @@ namespace Tomboy
 		void BufferChanged (object sender, EventArgs args)
 		{
 			DebugSave ("BufferChanged queueing save");
-			QueueSave (true);
+			QueueSave (ChangeType.ContentChanged);
 		}
 
 		void BufferTagApplied (object sender, Gtk.TagAppliedArgs args)
 		{
 			if (NoteTagTable.TagIsSerializable (args.Tag)) {
 				DebugSave ("BufferTagApplied queueing save: {0}", args.Tag.Name);
-				QueueSave (true);
+				QueueSave (ChangeType.ContentChanged);
 			}
 		}
 
@@ -466,7 +495,7 @@ namespace Tomboy
 		{
 			if (NoteTagTable.TagIsSerializable (args.Tag)) {
 				DebugSave ("BufferTagRemoved queueing save: {0}", args.Tag.Name);
-				QueueSave (true);
+				QueueSave (ChangeType.ContentChanged);
 			}
 		}
 
@@ -478,7 +507,7 @@ namespace Tomboy
 			data.Data.CursorPosition = args.Location.Offset;
 
 			DebugSave ("BufferInsertSetMark queueing save");
-			QueueSave (false);
+			QueueSave (ChangeType.NoChange);
 		}
 
 		//
@@ -508,7 +537,7 @@ namespace Tomboy
 			data.Data.SetPositionExtent (cur_x, cur_y, cur_width, cur_height);
 
 			DebugSave ("WindowConfigureEvent queueing save");
-			QueueSave (false);
+			QueueSave (ChangeType.NoChange);
 		}
 
 		[GLib.ConnectBefore]
@@ -516,7 +545,7 @@ namespace Tomboy
 		{
 			window = null;
 		}
-
+		
 		/// <summary>
 		/// Set a 4 second timeout to execute the save.  Possibly
 		/// invalidate the text, which causes a re-serialize when the
@@ -524,7 +553,7 @@ namespace Tomboy
 		/// </summary>
 		/// <param name="content_changed">Indicates whether or not
 		/// to update the note's last change date</param>
-		public void QueueSave (bool content_changed)
+		public void QueueSave (ChangeType changeType)
 		{
 			DebugSave ("Got QueueSave");
 
@@ -532,9 +561,22 @@ namespace Tomboy
 			// before saving...
 			save_timeout.Reset (4000);
 			save_needed = true;
-
-			if (content_changed) {
+			
+			switch (changeType)
+			{
+			case ChangeType.ContentChanged:
+				// NOTE: Updating ChangeDate automatically updates MetdataChangeDate to match.
 				data.Data.ChangeDate = DateTime.Now;
+				break;
+			case ChangeType.OtherDataChanged:
+				// Only update MetadataChangeDate.  Used by sync/etc
+				// to know when non-content note data has changed,
+				// but order of notes in menu and search UI is
+				// unaffected.
+				data.Data.MetadataChangeDate = DateTime.Now;
+				break;
+			default:
+				break;
 			}
 		}
 
@@ -565,7 +607,7 @@ namespace Tomboy
 					TagAdded (this, tag);
 
 				DebugSave ("Tag added, queueing save");
-				QueueSave (true);
+				QueueSave (ChangeType.OtherDataChanged);
 			}
 		}
 
@@ -587,7 +629,7 @@ namespace Tomboy
 				TagRemoved (this, tag.NormalizedName);
 
 			DebugSave ("Tag removed, queueing save");
-			QueueSave (true);
+			QueueSave (ChangeType.OtherDataChanged);
 		}
 		
 		public bool ContainsTag (Tag tag)
@@ -664,7 +706,7 @@ namespace Tomboy
 					if (Renamed != null)
 						Renamed (this, old_title);
 
-					QueueSave (true); // TODO: Right place for this?
+					QueueSave (ChangeType.ContentChanged); // TODO: Right place for this?
 				}
 			}
 		}
@@ -681,7 +723,7 @@ namespace Tomboy
 				if (Renamed != null)
 					Renamed (this, newTitle);
 
-				QueueSave (true); // TODO: Right place for this?
+				QueueSave (ChangeType.ContentChanged); // TODO: Right place for this?
 			}
 		}
 
@@ -765,6 +807,10 @@ namespace Tomboy
 						data.Data.ChangeDate =
 						        XmlConvert.ToDateTime (xml.ReadString (), NoteArchiver.DATE_TIME_FORMAT);
 						break;
+					case "last-metadata-change-date":
+						data.Data.MetadataChangeDate =
+						        XmlConvert.ToDateTime (xml.ReadString (), NoteArchiver.DATE_TIME_FORMAT);
+						break;
 					case "create-date":
 						data.Data.CreateDate =
 						        XmlConvert.ToDateTime (xml.ReadString (), NoteArchiver.DATE_TIME_FORMAT);
@@ -836,10 +882,25 @@ namespace Tomboy
 			}
 		}
 
+		/// <summary>
+		/// Indicates the last time note content data changed.
+		/// Does not include tag/notebook changes (see MetadataChangeDate).
+		/// </summary>
 		public DateTime ChangeDate
 		{
 			get {
 				return data.Data.ChangeDate;
+			}
+		}
+		
+		/// <summary>
+		/// Indicates the last time non-content note data changed.
+		/// This currently only applies to tags/notebooks.
+		/// </summary>
+		public DateTime MetadataChangeDate
+		{
+			get {
+				return data.Data.MetadataChangeDate;
 			}
 		}
 
@@ -1030,7 +1091,7 @@ namespace Tomboy
 	// since this class is only seldomly used
 	public class NoteArchiver
 	{
-		public const string CURRENT_VERSION = "0.2";
+		public const string CURRENT_VERSION = "0.3";
 
 		public const string DATE_TIME_FORMAT = "yyyy-MM-ddTHH:mm:ss.fffffffzzz";
 
@@ -1092,6 +1153,10 @@ namespace Tomboy
 						break;
 					case "last-change-date":
 						note.ChangeDate =
+						        XmlConvert.ToDateTime (xml.ReadString (), DATE_TIME_FORMAT);
+						break;
+					case "last-metadata-change-date":
+						note.MetadataChangeDate =
 						        XmlConvert.ToDateTime (xml.ReadString (), DATE_TIME_FORMAT);
 						break;
 					case "create-date":
@@ -1217,6 +1282,11 @@ namespace Tomboy
 			xml.WriteStartElement (null, "last-change-date", null);
 			xml.WriteString (
 			        XmlConvert.ToString (note.ChangeDate, DATE_TIME_FORMAT));
+			xml.WriteEndElement ();
+
+			xml.WriteStartElement (null, "last-metadata-change-date", null);
+			xml.WriteString (
+			        XmlConvert.ToString (note.MetadataChangeDate, DATE_TIME_FORMAT));
 			xml.WriteEndElement ();
 
 			if (note.CreateDate != DateTime.MinValue) {

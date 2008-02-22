@@ -1,5 +1,18 @@
 2008-02-22  Sandy Armstrong <sanfordarmstrong@gmail.com> 
 
+	* Tomboy/Synchronization/SyncManager.cs,
+	  Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs,
+	  Tomboy/Addins/NoteOfTheDay/NoteOfTheDayPreferences.cs,
+	  Tomboy/Notebooks/Notebook.cs, Tomboy/NoteManager.cs, Tomboy/Note.cs,
+	  Tomboy/RemoteControl.cs: Added MetadataChangeDate property to Note and
+	  NoteData classes, serialized in XML as last-metadata-change-date. 
+	  Indicates when any note data has changed, including tags (notebooks),
+	  etc, whereas the ChangeDate property only reflects changes to a note's
+	  title and other content.  Our UI generally sorts by ChangeDate, while
+	  sync and dbus clients care about MetadataChangeDate.  Fixes bug #508798.
+
+2008-02-22  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
 	* Tomboy/AddinManager.cs: Catch exceptions generated during OnDisabledAddin,
 	  and print message to log.
 	* Tomboy.mdp: Added GalagoPresence stuff to solution.

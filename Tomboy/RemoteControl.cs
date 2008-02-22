@@ -195,7 +195,7 @@ namespace Tomboy
 			note = note_manager.FindByUri (uri);
 			if (note == null)
 				return -1;
-			return UnixDateTime (note.ChangeDate);
+			return UnixDateTime (note.MetadataChangeDate);
 		}
 
 		public string GetNoteContentsXml (string uri)

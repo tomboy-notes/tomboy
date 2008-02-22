@@ -131,7 +131,7 @@ namespace Tomboy.Notebooks
 				tag = TagManager.GetOrCreateSystemTag (NotebookTagPrefix + Name);
 				note.AddTag (tag);
 				
-				note.QueueSave (true);
+				note.QueueSave (ChangeType.ContentChanged);
 			}
 			
 			return note;

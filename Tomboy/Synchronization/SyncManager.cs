@@ -318,7 +318,7 @@ namespace Tomboy.Sync
 
 					if (existingNote == null) {
 						CreateNoteInMainThread (noteUpdate);
-					} else if (existingNote.ChangeDate.CompareTo (client.LastSyncDate) <= 0) {
+					} else if (existingNote.MetadataChangeDate.CompareTo (client.LastSyncDate) <= 0) {
 						// Existing note hasn't been modified since last sync; simply update it from server
 						UpdateNoteInMainThread (existingNote, noteUpdate);
 					} else {
@@ -395,7 +395,7 @@ namespace Tomboy.Sync
 						if (NoteSynchronized != null)
 							NoteSynchronized (note.Title, NoteSyncType.UploadNew);
 					} else if (client.GetRevision (note) <= client.LastSynchronizedRevision &&
-					                note.ChangeDate > client.LastSyncDate) {
+					                note.MetadataChangeDate > client.LastSyncDate) {
 						note.Save ();
 						newOrModifiedNotes.Add (note);
 						if (NoteSynchronized != null)

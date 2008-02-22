@@ -42,7 +42,7 @@ namespace Tomboy.NoteOfTheDay
 					                        NoteOfTheDay.TemplateTitle,
 					                        NoteOfTheDay.GetTemplateContent (
 					                                NoteOfTheDay.TemplateTitle));
-					template_note.QueueSave (true);
+					template_note.QueueSave (ChangeType.ContentChanged);
 				} catch (Exception e) {
 					Logger.Warn ("Error creating Note of the Day Template note: {0}\n{1}",
 					             e.Message, e.StackTrace);

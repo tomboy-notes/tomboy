@@ -168,12 +168,12 @@ public NoteManager (string directory) :
 			try {
 				Note start_note = Create (Catalog.GetString ("Start Here"),
 				                          start_note_content);
-				start_note.QueueSave (true);
+				start_note.QueueSave (ChangeType.ContentChanged);
 				Preferences.Set (Preferences.START_NOTE_URI, start_note.Uri);
 
 				Note links_note = Create (Catalog.GetString ("Using Links in Tomboy"),
 				                          links_note_content);
-				links_note.QueueSave (true);
+				links_note.QueueSave (ChangeType.ContentChanged);
 
 				start_note.Window.Show ();
 			} catch (Exception e) {
@@ -220,7 +220,7 @@ public NoteManager (string directory) :
 						note.Window.Show ();
 
 					note.IsOpenOnStartup = false;
-					note.QueueSave (false);
+					note.QueueSave (ChangeType.NoChange);
 				}
 			}
 
@@ -451,7 +451,7 @@ public NoteManager (string directory) :
 				Tag tag = TagManager.GetOrCreateSystemTag (TagManager.TemplateNoteSystemTag);
 				template_note.AddTag (tag);
 
-				template_note.QueueSave (true);
+				template_note.QueueSave (ChangeType.ContentChanged);
 			}
 			
 			return template_note;
