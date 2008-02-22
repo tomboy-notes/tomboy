@@ -1090,13 +1090,13 @@ namespace Tomboy
 			if (notebook == null) {
 				// Clear out the currently selected tags so that no notebook is selected
 				selected_tags.Clear ();
-                Tomboy.ActionManager ["OpenNotebookTemplateNoteAction"].Sensitive = false;
 
 				
 				// Select the "All Notes" item without causing
 				// this handler to be called again
 				notebooksTree.Selection.Changed -= OnNotebookSelectionChanged;
 				SelectAllNotesNotebook ();
+				Tomboy.ActionManager ["DeleteNotebookAction"].Sensitive = false;
 				notebooksTree.Selection.Changed += OnNotebookSelectionChanged;
 			} else {
 				selected_tags.Clear ();
