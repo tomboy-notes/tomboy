@@ -1,3 +1,14 @@
+2008-02-22  Jeff Tickle <jeff@jefftickle.com>
+
+	* Tomboy/Preferences.cs, data/tomboy.schemas.in: Added MENU_ITEM_MAX_LENGH
+	preference and new gconf key /apps/tomboy/tray_menu_item_max_length
+
+	* Tomboy/Tray.cs: Added NoteMenuItem::Ellipsify() which truncates a given
+	string and puts three periods on the end.  Also added code in
+	NoteMenuItem::GetDisplayName() that truncates the note title if it is
+	longer than the length specified in the MENU_ITEM_MAX_LENGH preference.
+	Fixes bug #417145.
+
 2008-02-22  Sandy Armstrong <sanfordarmstrong@gmail.com> 
 
 	* configure.in: Galago presence add-in should not be built by default.
