@@ -6,22 +6,11 @@ TARGET = Tomboy.exe
 WRAPPER = tomboy
 PANEL_WRAPPER = tomboy-panel
 
-DBUS_SHARP_CSFILES = \
-	$(srcdir)/dbus-sharp/dbus-sharp/src/*.cs	\
-	$(srcdir)/dbus-sharp/dbus-sharp-glib/glib/*.cs
-
 if ENABLE_DBUS
 DBUS_CSFLAGS = -define:ENABLE_DBUS
-if EXTERNAL_DBUS
 DBUS_CSFILES = 				\
 	$(srcdir)/RemoteControl.cs	\
 	$(srcdir)/RemoteControlProxy.cs
-else
-DBUS_CSFILES = 				\
-	$(DBUS_SHARP_CSFILES)		\
-	$(srcdir)/RemoteControl.cs	\
-	$(srcdir)/RemoteControlProxy.cs
-endif
 endif
 
 if FIXED_GTKSPELL
@@ -143,7 +132,6 @@ Defines.cs: $(srcdir)/Defines.cs.in Makefile
 
 EXTRA_DIST =            		\
 	$(CSFILES)      		\
-	$(DBUS_SHARP_CSFILES)		\
 	$(WRAPPER).in			\
 	$(PANEL_WRAPPER).in		\
 	$(TARGET).config.in		\
