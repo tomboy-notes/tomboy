@@ -71,8 +71,7 @@
 
 <xsl:template match="tomboy:text">
 	<div class="note" 
-	     id="{/tomboy:note/tomboy:title}"
-	     style="width:{/tomboy:note/tomboy:width};">
+	     id="{/tomboy:note/tomboy:title}">
 		<a name="#{/tomboy:note/tomboy:title}" />
 		<xsl:apply-templates select="node()" />
 	</div>

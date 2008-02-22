@@ -188,7 +188,7 @@ namespace Tomboy.ExportToHtml
 				args.AddParam ("font", "", font);
 			}
 
-			NoteNameResolver resolver = new NoteNameResolver (note.Manager);
+			NoteNameResolver resolver = new NoteNameResolver (note.Manager, note);
 			xsl.Transform (doc, args, writer, resolver);
 		}
 	}

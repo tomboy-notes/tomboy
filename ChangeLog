@@ -1,5 +1,19 @@
 2008-02-22  Boyd Timothy <btimothy@gmail.com> 
 
+	* Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs,
+	  Tomboy/Addins/ExportToHtml/NoteNameResolver.cs: Pass in the original
+	  note when constructing NoteNameResolver so the original note is not
+	  included more than once on an export.  Also keep track of how many times
+	  a note is resolved so that notes cannot be included more than once on an
+	  export (regardless of what the ExportToHtml.xsl says).  Fixes bug
+	  #422951.
+	* Tomboy/Addins/ExportToHtml/ExportToHtml.xsl: Don't use the width value
+	  from the tomboy note anymore.  In some cases this isn't being set
+	  properly anyway and it's ending up being width:0, which is note
+	  displaying properly in a browser.
+
+2008-02-22  Boyd Timothy <btimothy@gmail.com> 
+
 	* Tomboy/NoteManager.cs: Use a copy of List<Note> when enumerating the notes
 	  to save in OnExitingEvent.  This fixes the crash mentioned in bug
 	  #510442.
