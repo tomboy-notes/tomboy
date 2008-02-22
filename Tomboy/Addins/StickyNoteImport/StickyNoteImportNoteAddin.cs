@@ -193,7 +193,7 @@ namespace Tomboy.StickyNoteImport
 
 			try {
 				Note newNote = Manager.Create (title, noteXml);
-				newNote.QueueSave (false);
+				newNote.QueueSave (ChangeType.NoChange);
 				newNote.Save ();
 				return true;
 			} catch (Exception e) {
