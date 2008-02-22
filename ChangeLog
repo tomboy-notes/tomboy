@@ -1,5 +1,13 @@
 2008-02-22  Boyd Timothy <btimothy@gmail.com> 
 
+	* Tomboy/RecentChanges.cs: Fix bug #507382 by never disabling the open
+	  template (regardless of the notebook selected, this should always be
+	  enabled).  Also fixed the case where right after a notebook is deleted
+	  and the "All Notes" is selected so the Delete notebook menu option is
+	  not available.
+
+2008-02-22  Boyd Timothy <btimothy@gmail.com> 
+
 	* Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs,
 	  Tomboy/Addins/ExportToHtml/NoteNameResolver.cs: Pass in the original
 	  note when constructing NoteNameResolver so the original note is not
