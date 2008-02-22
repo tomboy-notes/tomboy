@@ -522,17 +522,18 @@ namespace Tomboy
 			// it's a 1x1 pixel.  Prevent against this by returning a
 			// reasonable default.  Setting the icon causes OnSizeAllocated
 			// to be called again anyhow.
-			if (panel_size < 16)
-				panel_size = 16;
+			int icon_size = panel_size;
+			if (icon_size < 16)
+				icon_size = 16;
+
 
 			// Control specifically which icon is used at the smaller sizes
 			// so that no scaling occurs.  In the case of the panel applet,
 			// add a couple extra pixels of padding so it matches the behavior
 			// of the notification area tray icon.  See bug #403500 for more
 			// info.
-			int icon_size = panel_size;
 			if (Tomboy.IsPanelApplet)
-				icon_size = panel_size - 2; // padding
+				icon_size = icon_size - 2; // padding
 			if (icon_size <= 21)
 				icon_size = 16;
 			else if (icon_size <= 31)
