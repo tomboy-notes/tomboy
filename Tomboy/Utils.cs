@@ -302,6 +302,7 @@ namespace Tomboy
 
 			label = new Gtk.Label (title);
 			label.UseMarkup = true;
+			label.UseUnderline = false;
 			label.Justify = Gtk.Justification.Left;
 			label.LineWrap = true;
 			label.SetAlignment (0.0f, 0.5f);
@@ -310,6 +311,7 @@ namespace Tomboy
 
 			label = new Gtk.Label (msg);
 			label.UseMarkup = true;
+			label.UseUnderline = false;
 			label.Justify = Gtk.Justification.Left;
 			label.LineWrap = true;
 			label.SetAlignment (0.0f, 0.5f);
