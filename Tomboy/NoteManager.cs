@@ -248,8 +248,11 @@ public NoteManager (string directory) :
 			}
 
 			Logger.Log ("Saving unsaved notes...");
-
-			foreach (Note note in notes) {
+			
+			// Use a copy of the notes to prevent bug #510442 (crash on exit
+			// when iterating the notes to save them.
+			List<Note> notesCopy = new List<Note> (notes);
+			foreach (Note note in notesCopy) {
 				// If the note is visible, it will be shown automatically on
 				// next startup
 				if (note.HasWindow && note.Window.Visible)
