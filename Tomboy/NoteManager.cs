@@ -68,7 +68,8 @@ public NoteManager (string directory) :
 
 			Tomboy.ExitingEvent += OnExitingEvent;
 		}
-
+		
+		
 		// Create the TrieController. For overriding in test methods.
 		protected virtual TrieController CreateTrieController ()
 		{
@@ -114,12 +115,14 @@ public NoteManager (string directory) :
 		{
 			if (NoteRenamed != null)
 				NoteRenamed (note, old_title);
+			this.notes.Sort (new CompareDates ());
 		}
 
 		void OnNoteSave (Note note)
 		{
 			if (NoteSaved != null)
 				NoteSaved (note);
+			this.notes.Sort (new CompareDates ());
 		}
 
 		protected virtual void CreateStartNotes ()
@@ -516,7 +519,7 @@ public NoteManager (string directory) :
 			get {
 				// FIXME: Only sort on change by listening to
 				//        Note.Saved or Note.Buffer.Changed
-				notes.Sort (new CompareDates ());
+				//notes.Sort (new CompareDates ());
 				return notes;
 			}
 		}
