@@ -86,6 +86,9 @@ namespace Tomboy
 
 			// Avoid lingering note-title after a multi-line insert...
 			Buffer.RemoveTag (title_tag, TitleEnd, end);
+			
+			//In the case of large copy and paste operations, show the end of the block
+			this.Window.Editor.ScrollMarkOnscreen (this.Buffer.InsertMark);
 		}
 
 		void OnDeleteRange (object sender, Gtk.DeleteRangeArgs args)
@@ -956,6 +959,7 @@ namespace Tomboy
 		void OnDeleteRange (object sender, Gtk.DeleteRangeArgs args)
 		{
 			ApplyWikiwordToBlock (args.Start, args.End);
+			
 		}
 
 		void OnInsertText (object sender, Gtk.InsertTextArgs args)
@@ -964,6 +968,7 @@ namespace Tomboy
 			start.BackwardChars (args.Length);
 
 			ApplyWikiwordToBlock (start, args.Pos);
+			
 		}
 	}
 
