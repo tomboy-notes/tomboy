@@ -438,6 +438,8 @@ namespace Tomboy
 				window.Hide ();
 				window.Destroy ();
 			}
+			
+			
 
 			// Remove note URI from GConf entry menu_pinned_notes
 			IsPinned = false;
@@ -560,7 +562,8 @@ namespace Tomboy
 			// Replace the existing save timeout.  Wait 4 seconds
 			// before saving...
 			save_timeout.Reset (4000);
-			save_needed = true;
+			if (!is_deleting)
+				save_needed = true;
 			
 			switch (changeType)
 			{
