@@ -36,6 +36,9 @@ namespace Tomboy
                 Hashtable current_matches;
 
                 InterruptableTimeout entry_changed_timeout;
+                
+                Gtk.TargetEntry [] targets;
+                int clickX, clickY;
 
                 static Type [] column_types =
                 new Type [] {
@@ -155,14 +158,12 @@ namespace Tomboy
                         Gtk.Requisition tree_req = tree.SizeRequest ();
                         if (tree_req.Height > 420)
                                 matches_window.HeightRequest = 420;
-                        else
-                                matches_window.VscrollbarPolicy = Gtk.PolicyType.Never;
 
                         if (tree_req.Width > 480)
                                 matches_window.WidthRequest = 480;
-                        else
-                                matches_window.HscrollbarPolicy = Gtk.PolicyType.Never;
 
+                        matches_window.HscrollbarPolicy = Gtk.PolicyType.Automatic;
+                        matches_window.VscrollbarPolicy = Gtk.PolicyType.Automatic;
                         matches_window.Add (tree);
                         matches_window.Show ();
 
@@ -180,7 +181,6 @@ namespace Tomboy
                         vbox.BorderWidth = 6;
                         vbox.PackStart (hbox, false, false, 0);
                         vbox.PackStart (hpaned, true, true, 0);
-                        vbox.PackStart (matches_window, true, true, 0);
                         vbox.PackStart (status_box, false, false, 0);
                         vbox.Show ();
 
@@ -275,7 +275,7 @@ namespace Tomboy
 
                 void MakeRecentTree ()
                 {
-                        Gtk.TargetEntry [] targets =
+                    targets =
                         new Gtk.TargetEntry [] {
                                 new Gtk.TargetEntry ("STRING",
                                 Gtk.TargetFlags.App,
@@ -288,18 +288,20 @@ namespace Tomboy
                                 1),
                         };
 
-                        tree = new Gtk.TreeView ();
+                        tree = new RecentTreeView ();
                         tree.HeadersVisible = true;
                         tree.RulesHint = true;
                         tree.RowActivated += OnRowActivated;
-                        tree.DragDataGet += OnDragDataGet;
                         tree.Selection.Mode = Gtk.SelectionMode.Multiple;
                         tree.Selection.Changed += OnSelectionChanged;
-                        tree.ButtonPressEvent += OnButtonPressed;
+                        tree.ButtonPressEvent += OnTreeViewButtonPressed;
+                        tree.MotionNotifyEvent += OnTreeViewMotionNotify;
+                        tree.ButtonReleaseEvent += OnTreeViewButtonReleased;
+                        tree.DragDataGet += OnTreeViewDragDataGet;
 
-                        tree.EnableModelDragSource (Gdk.ModifierType.Button1Mask,
+                        tree.EnableModelDragSource (Gdk.ModifierType.Button1Mask | Gdk.ModifierType.Button3Mask,
                                                     targets,
-                                                    Gdk.DragAction.Copy);
+                                                    Gdk.DragAction.Move);
 
                         Gtk.CellRenderer renderer;
 
@@ -364,7 +366,6 @@ namespace Tomboy
                                 string nice_date =
                                         GuiUtils.GetPrettyPrintDate (note.ChangeDate, true);
 
-                                Gtk.TreeIter iter =
                                         store.AppendValues (note_icon,  /* icon */
                                                             note.Title, /* title */
                                                             nice_date,  /* change date */
@@ -596,7 +597,7 @@ namespace Tomboy
 
 				//   // FIXME: Ugh!  NOT an O(1) operation.  Is there a better way?
 				   List<Tag> tags = note.Tags;
-				   foreach (Tag tag in note.Tags) {
+				   foreach (Tag tag in tags) {
 				    if (selected_tags.ContainsKey (tag))
 				     return true;
 				   }
@@ -640,7 +641,7 @@ namespace Tomboy
                         UpdateResults ();
                 }
 
-                void OnDragDataGet (object sender, Gtk.DragDataGetArgs args)
+                void OnTreeViewDragDataGet (object sender, Gtk.DragDataGetArgs args)
                 {
                 	List<Note> selected_notes = GetSelectedNotes ();
                 	if (selected_notes == null || selected_notes.Count == 0)
@@ -683,34 +684,114 @@ namespace Tomboy
                 }
 
 				[GLib.ConnectBefore]
-                void OnButtonPressed (object sender, Gtk.ButtonPressEventArgs args)
+                void OnTreeViewButtonPressed (object sender, Gtk.ButtonPressEventArgs args)
                 {
+                	if (args.Event.Window != this.tree.BinWindow) {
+                		return;
+                	}
+                	
                 	Gtk.TreePath path = null;
                 	Gtk.TreeViewColumn column = null;
-					Gtk.TreeSelection selection = tree.Selection;
-					if (selection.CountSelectedRows () == 0)
-						return;
                 	
-                	switch (args.Event.Button) {
-                        case 3: // third mouse button (right-click)
-                                if (tree.GetPathAtPos ((int) args.Event.X,
-                                                       (int) args.Event.Y,
-                                                       out path,
-                                                       out column) == false)
-                                        break;
-
-		                        Gtk.Menu menu = Tomboy.ActionManager.GetWidget (
-                                            "/MainWindowContextMenu") as Gtk.Menu;
-                                PopupContextMenuAtLocation (menu,
-                                							(int) args.Event.X,
-                                                            (int) args.Event.Y);
-                                
-                                // Return true so that the base handler won't
-                                // run, which causes the selection to change
-                                // to the row that was right-clicked.
-                                args.RetVal = true;
-                                break;
-                        }
+                	tree.GetPathAtPos ((int)args.Event.X, (int)args.Event.Y,
+                					   out path, out column);
+                	if (path == null)
+                		return;
+                	
+                	clickX = (int)args.Event.X;
+                	clickY = (int)args.Event.Y;
+                	
+                	switch (args.Event.Type) {
+                	case Gdk.EventType.TwoButtonPress:
+                		if (args.Event.Button != 1 || (args.Event.State &
+                				(Gdk.ModifierType.ControlMask | Gdk.ModifierType.ShiftMask)) != 0) {
+                			break;
+                		}
+                		
+                		tree.Selection.UnselectAll ();
+                		tree.Selection.SelectPath (path);
+                		tree.ActivateRow (path, column);
+                		break;
+                	case Gdk.EventType.ButtonPress:
+                		if (args.Event.Button == 3) {
+                			Gtk.Menu menu = Tomboy.ActionManager.GetWidget (
+                				"/MainWindowContextMenu") as Gtk.Menu;
+                			PopupContextMenuAtLocation (menu,
+                				(int)args.Event.X,
+                				(int)args.Event.Y);
+                			
+                			// Return true so that the base handler won't
+                			// run, which causes the selection to change to
+                			// the row that was right-clicked.
+                			args.RetVal = true;
+                			break;
+                		}
+                		
+                		if (tree.Selection.PathIsSelected (path) && (args.Event.State &
+                				(Gdk.ModifierType.ControlMask | Gdk.ModifierType.ShiftMask)) == 0) {
+                			if (column != null && args.Event.Button == 1) {
+                				Gtk.CellRenderer renderer = column.CellRenderers [0];
+                				Gdk.Rectangle background_area = tree.GetBackgroundArea (path, column);
+                				Gdk.Rectangle cell_area = tree.GetCellArea (path, column);
+                				
+                				renderer.Activate (args.Event,
+                								   tree,
+                								   path.ToString (),
+                								   background_area,
+                								   cell_area,
+                								   Gtk.CellRendererState.Selected);
+                				
+                				Gtk.TreeIter iter;
+                				if (tree.Model.GetIter (out iter, path)) {
+                					tree.Model.EmitRowChanged (path, iter);
+                				}
+                			}
+                			
+                			args.RetVal = true;
+                		}
+                		
+                		break;
+                	default:
+                		args.RetVal = false;
+                		break;
+                	}
+                }
+                
+                [GLib.ConnectBefore]
+                void OnTreeViewMotionNotify (object sender, Gtk.MotionNotifyEventArgs args)
+                {
+                	if ((args.Event.State & Gdk.ModifierType.Button1Mask) == 0) {
+                		return;
+                	} else if (args.Event.Window != tree.BinWindow) {
+                		return;
+                	}
+                	
+                	args.RetVal = true;
+                	
+                	if (!Gtk.Drag.CheckThreshold (tree, clickX, clickY, (int)args.Event.X, (int)args.Event.Y)) {
+                		return;
+                	}
+                	
+                	Gtk.TreePath path;
+                	if (!tree.GetPathAtPos ((int)args.Event.X, (int)args.Event.Y, out path)) {
+                		return;
+                	}
+                	
+                	Gtk.Drag.Begin (tree, new Gtk.TargetList (targets),
+                					Gdk.DragAction.Move, 1, args.Event);
+                }
+                
+                void OnTreeViewButtonReleased (object sender, Gtk.ButtonReleaseEventArgs args)
+                {
+                	if (!Gtk.Drag.CheckThreshold (tree, clickX, clickY, (int)args.Event.X, (int)args.Event.Y) &&
+                			((args.Event.State & (Gdk.ModifierType.ControlMask | Gdk.ModifierType.ShiftMask)) == 0) &&
+                			tree.Selection.CountSelectedRows () > 1) {
+                		
+                		Gtk.TreePath path;
+                		tree.GetPathAtPos ((int)args.Event.X, (int)args.Event.Y, out path);
+                		tree.Selection.UnselectAll ();
+                		tree.Selection.SelectPath (path);
+                	}
                 }
                 
                 void PopupContextMenuAtLocation (Gtk.Menu menu, int x, int y)
@@ -791,22 +872,38 @@ namespace Tomboy
 				List<Note> GetSelectedNotes ()
 				{
 					Gtk.TreeModel model;
-					Gtk.TreeIter iter;
 					
 					List<Note> selected_notes = new List<Note> ();
 					
 					Gtk.TreePath [] selected_rows =
 						tree.Selection.GetSelectedRows (out model);
 					foreach (Gtk.TreePath path in selected_rows) {
-						if (model.GetIter (out iter, path)) {
-							Note note = model.GetValue (iter, 3 /* note */) as Note;
-							selected_notes.Add (note);
-						}
+						Note note = GetNote (path);
+						if (note == null)
+							continue;
+						
+						selected_notes.Add (note);
 					}
 					
 					return selected_notes;
 				}
 
+        public Note GetNote(Gtk.TreeIter iter)
+        {
+            return tree.Model.GetValue(iter, 3 /* note */) as Note;
+        }
+        
+        public Note GetNote(Gtk.TreePath path)
+        {
+            Gtk.TreeIter iter = Gtk.TreeIter.Zero;
+        
+            if(tree.Model.GetIter(out iter, path)) {
+                return GetNote(iter);
+            }
+        
+            return null;
+        }
+        
                 void OnOpenNote (object sender, EventArgs args)
                 {
                 	List<Note> selected_notes = GetSelectedNotes ();
