@@ -130,7 +130,7 @@ namespace Tomboy
 				Catalog.GetString ("_New"), "<Control>N",
 				Catalog.GetString ("Create a new note"), null),
 
-				new Gtk.ActionEntry ("OpenNoteAction", String.Empty,
+				new Gtk.ActionEntry ("OpenNoteAction", Gtk.Stock.Open,
 				Catalog.GetString ("_Open..."), "<Control>O",
 				Catalog.GetString ("Open the selected note"), null),
 
