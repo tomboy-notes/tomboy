@@ -395,13 +395,40 @@ namespace Tomboy
 			
 			is_deleting = false;
 		}
-
+		/// <summary>
+		/// Returns a Tomboy URL from the given path.
+		/// </summary>
+		/// <param name="filepath">
+		/// A <see cref="System.String"/>
+		/// </param>
+		/// <returns>
+		/// A <see cref="System.String"/>
+		/// </returns>
 		static string UrlFromPath (string filepath)
 		{
 			return "note://tomboy/" +
 			       Path.GetFileNameWithoutExtension (filepath);
 		}
 
+		public override int GetHashCode ()
+		{
+			return this.Title.GetHashCode();
+		}
+		/// <summary>
+		/// Creates a New Note with the given values.
+		/// </summary>
+		/// <param name="title">
+		/// A <see cref="System.String"/>
+		/// </param>
+		/// <param name="filepath">
+		/// A <see cref="System.String"/>
+		/// </param>
+		/// <param name="manager">
+		/// A <see cref="NoteManager"/>
+		/// </param>
+		/// <returns>
+		/// A <see cref="Note"/>
+		/// </returns>
 		public static Note CreateNewNote (string title,
 		                                  string filepath,
 		                                  NoteManager manager)
@@ -423,6 +450,7 @@ namespace Tomboy
 				data.ChangeDate = File.GetLastWriteTime (filepath);
 			return new Note (data, filepath, manager);
 		}
+
 
 		public void Delete ()
 		{
@@ -1196,7 +1224,7 @@ namespace Tomboy
 					break;
 				}
 			}
-
+			reader.Close ();
 			xml.Close ();
 
 			if (version != NoteArchiver.CURRENT_VERSION) {
@@ -1345,8 +1373,7 @@ namespace Tomboy
 			List<string> tags = new List<string> ();
 
 			foreach (XmlNode node in tagNodes.SelectNodes ("//tag")) {
-				string tag = node.InnerText;
-				tags.Add (tag);
+				tags.Add (node.InnerText);
 			}
 
 			return tags;

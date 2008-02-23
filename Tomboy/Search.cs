@@ -9,7 +9,7 @@ namespace Tomboy
 	public class Search
 	{
 		private NoteManager manager;
-
+	
 		public Search (NoteManager manager)
 		{
 			this.manager = manager;
@@ -37,11 +37,10 @@ namespace Tomboy
 				bool case_sensitive,
 				Notebooks.Notebook selected_notebook)
 		{
-			string text = query;
-			string [] words = text.Split (' ', '\t', '\n');
+			string [] words = query.Split (' ', '\t', '\n');
 
 			// Used for matching in the raw note XML
-                        string [] encoded_words = XmlEncoder.Encode (text).Split (' ', '\t', '\n');
+            string [] encoded_words = XmlEncoder.Encode (query).Split (' ', '\t', '\n');
 			Dictionary<Note,int> temp_matches = new Dictionary<Note,int>();
 			
 			// Skip over notes that are template notes
@@ -84,7 +83,7 @@ namespace Tomboy
 				note_text = note_text.ToLower ();
 
 			foreach (string word in encoded_words) {
-				if (note_text.IndexOf (word) > -1)
+				if (note_text.Contains (word) )
 					continue;
 				else
 					return false;
