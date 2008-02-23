@@ -24,7 +24,7 @@ namespace Tomboy.Notebooks
 			Gtk.Drag.DestSet (this,
 							  Gtk.DestDefaults.All,
 							  targets,
-							  Gdk.DragAction.Copy);
+							  Gdk.DragAction.Move);
 		}
 		
 		protected override void OnDragDataReceived (Gdk.DragContext context,

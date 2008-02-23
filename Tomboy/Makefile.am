@@ -47,6 +47,7 @@ CSFILES = 					\
 	$(srcdir)/PreferencesDialog.cs		\
 	$(srcdir)/PreferenceTabAddin.cs		\
 	$(srcdir)/RecentChanges.cs		\
+	$(srcdir)/RecentTreeView.cs		\
 	$(srcdir)/Tag.cs			\
 	$(srcdir)/TagButton.cs			\
 	$(srcdir)/TagManager.cs			\
