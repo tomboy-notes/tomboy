@@ -195,9 +195,9 @@ namespace Tomboy
 
 		public void SetPositionExtent (int x, int y, int width, int height)
 		{
-			if (x >= 0 && y >= 0)
+			if (x < 0 || y < 0)
 				return;
-			if (width > 0 && height > 0)
+			if (width <= 0 || height <= 0)
 				return;
 
 			this.x = x;
