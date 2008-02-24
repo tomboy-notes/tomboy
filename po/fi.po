@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tomboy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-13 13:32+0300\n"
+"POT-Creation-Date: 2008-02-24 06:11+0300\n"
 "PO-Revision-Date: 2007-02-19 21:33+0300\n"
 "Last-Translator: Ilkka Tuohela <hile@iki.fi>\n"
 "Language-Team: Finnish <gnome-fi-laatu@lists.sourceforge.net>\n"
@@ -30,7 +30,7 @@ msgid "Tomboy Applet Factory"
 msgstr "Tomboy-sovelman tehdas"
 
 #: ../data/GNOME_TomboyApplet.server.in.in.h:4 ../data/tomboy.desktop.in.h:3
-#: ../Tomboy/Applet.cs:153 ../Tomboy/Tray.cs:147
+#: ../Tomboy/Applet.cs:153 ../Tomboy/Tray.cs:163
 msgid "Tomboy Notes"
 msgstr "Tomboy-muistilaput"
 
@@ -188,7 +188,7 @@ msgid ""
 "Integer determining the minimum number of notes to show in the Tomboy note "
 "menu."
 msgstr ""
-"Kokonaisuluku, joka määrittää kuinka monta muistilappu Tomboyn valikossa "
+"Kokonaisluku, joka määrittää kuinka monta muistilappu Tomboyn valikossa "
 "näytetään."
 
 #: ../data/tomboy.schemas.in.h:25
@@ -310,12 +310,12 @@ msgid ""
 "special string \"disabled\", then there will be no keybinding for this "
 "action."
 msgstr ""
-"Työpöydän laajuinen pikanäppäin uuden \"Etsi muistilapuista\"-"
-"ikkunalleavaamiseksi. Muoto on esimerkiksi \"&lt;Control&gt;a\" tai \"&lt;"
-"Shift&gt;&lt;Alt&gt;F1\". Merkkijonon tulkinta on melko vapaata ja sallii "
-"pienet ja suuret kirjaimet sekä tietyt lyhenteet, kuten \"&lt;Ctl&gt;\" ja "
-"\"&lt;Ctrl&gt;\". Jos asetat merkkijonon erikoisarvoon \"disabled\", ei "
-"tälle toiminnolle ole pikanäppäintä."
+"Työpöydän laajuinen pikanäppäin uuden \"Etsi muistilapuista\"-ikkunan "
+"avaamiseksi. Muoto on esimerkiksi \"&lt;Control&gt;a\" tai \"&lt;Shift&gt;"
+"&lt;Alt&gt;F1\". Merkkijonon tulkinta on melko vapaata ja sallii pienet ja "
+"suuret kirjaimet sekä tietyt lyhenteet, kuten \"&lt;Ctl&gt;\" ja \"&lt;"
+"Ctrl&gt;\". Jos asetat merkkijonon erikoisarvoon \"disabled\", ei tälle "
+"toiminnolle ole pikanäppäintä."
 
 #: ../data/tomboy.schemas.in.h:44
 msgid ""
@@ -377,7 +377,7 @@ msgid ""
 msgstr ""
 "Viimeisin asetus \"Sisällytä kaikki muut linkitetyt muistilaput\" -"
 "valinnalle Vie HTML-muotoon -liitännäisessä. Tätä asetusta käytetään "
-"linkitettyjen viestien HTML-viennin asetuksetn kanssa ja sillä määritellään, "
+"linkitettyjen viestien HTML-viennin asetuksen kanssa ja sillä määritellään, "
 "tulisiko kaikki linkitetyt muistilaput viedä rekursiivisesti vietäessä HTML-"
 "muotoon."
 
@@ -406,7 +406,7 @@ msgid ""
 "Unique identifier for this Tomboy client, used when communicating with a "
 "sychronization server."
 msgstr ""
-"Yksilöllinen tunniste tälle Tomboy-asiakkalle, tätä käytetään otettaessa "
+"Yksilöllinen tunniste tälle Tomboy-asiakkaalle, tätä käytetään otettaessa "
 "yhteyttä synkronointipalveluun."
 
 #: ../data/tomboy.schemas.in.h:54
@@ -646,12 +646,12 @@ msgstr "Paikallinen kansio"
 msgid "_Fixed Width"
 msgstr "_Tasalevyinen"
 
-#: ../Tomboy/Addins/GalagoPresence/GalagoPresenceNoteAddin.cs:241
+#: ../Tomboy/Addins/GalagoPresence/GalagoPresenceNoteAddin.cs:244
 #, csharp-format
 msgid "Cannot contact '{0}'"
 msgstr "Henkilöön \"{0}\" ei voi ottaa yhteyttä"
 
-#: ../Tomboy/Addins/GalagoPresence/GalagoPresenceNoteAddin.cs:244
+#: ../Tomboy/Addins/GalagoPresence/GalagoPresenceNoteAddin.cs:247
 #, csharp-format
 msgid "Error running gaim-remote: {0}"
 msgstr "Virhe suorittaessa komentoa gaim-remote: {0}"
@@ -662,7 +662,7 @@ msgstr "Lisää aikaleima"
 
 #. initial newline
 #: ../Tomboy/Addins/InsertTimestamp/InsertTimestampPreferences.cs:30
-#: ../Tomboy/Preferences.cs:131 ../Tomboy/Tray.cs:195
+#: ../Tomboy/Preferences.cs:131 ../Tomboy/Tray.cs:211
 msgid "dddd, MMMM d, h:mm tt"
 msgstr "dddd, MMMM d, hh:mm tt"
 
@@ -698,10 +698,6 @@ msgstr "Tehtävät"
 #: ../Tomboy/Addins/NoteOfTheDay/NoteOfTheDay.cs:44
 msgid "Appointments"
 msgstr "Tapaamiset"
-
-#: ../Tomboy/Addins/NoteOfTheDay/NoteOfTheDay.cs:67
-msgid "NoteOfTheDay"
-msgstr "Päivän muistilappu"
 
 #: ../Tomboy/Addins/NoteOfTheDay/NoteOfTheDayPreferences.cs:16
 msgid ""
@@ -785,7 +781,7 @@ msgstr "Korostus"
 
 #: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:300
 msgid "Whether to print the document with highlighted syntax"
-msgstr "Tulostetaanko asiakirja synkaksin korustuksen kanssa"
+msgstr "Tulostetaanko asiakirja syntaksin korostuksen kanssa"
 
 #: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:308
 msgid "Font"
@@ -879,7 +875,7 @@ msgid ""
 "SSH synchronization requires an existing SSH key for this server and user, "
 "added to a running SSH daemon."
 msgstr ""
-"SSH-synkronointi vaatii olemassaolevan SSH-avaimen palvelimelle ja "
+"SSH-synkronointi vaatii olemassa olevan SSH-avaimen palvelimelle ja "
 "käyttäjälle ja että avain on lisätty avainrenkaaseen."
 
 #: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:95
@@ -961,8 +957,8 @@ msgstr ""
 msgid ""
 "Saving configuration to the GNOME keyring failed with the following message:"
 msgstr ""
-"Asetusten tallennus Gnomen avainrenkaasen epäonnistui seuraavan virheviestin "
-"kera:"
+"Asetusten tallennus Gnomen avainrenkaaseen epäonnistui seuraavan "
+"virheviestin kera:"
 
 #: ../Tomboy/Applet.cs:196
 msgid "_About Tomboy"
@@ -1087,15 +1083,15 @@ msgstr "Siirrä tämä muistilappu muistioon"
 msgid "Notebook"
 msgstr "Muistio"
 
-#: ../Tomboy/Note.cs:1330
+#: ../Tomboy/Note.cs:1432
 msgid "Really delete this note?"
 msgstr "Poistetaanko tämä muistilappu?"
 
-#: ../Tomboy/Note.cs:1332
+#: ../Tomboy/Note.cs:1434
 msgid "Really delete these notes?"
 msgstr "Poistetaanko nämä muistilaput?"
 
-#: ../Tomboy/Note.cs:1341
+#: ../Tomboy/Note.cs:1443
 msgid "If you delete a note it is permanently lost."
 msgstr "Jos poistat, hukataan muistilappu pysyvästi."
 
@@ -1104,7 +1100,7 @@ msgstr "Jos poistat, hukataan muistilappu pysyvästi."
 msgid "New Note Template"
 msgstr "Uusi muistilapun malli"
 
-#: ../Tomboy/NoteManager.cs:135
+#: ../Tomboy/NoteManager.cs:138
 msgid ""
 "<note-content>Start Here\n"
 "\n"
@@ -1143,7 +1139,7 @@ msgstr ""
 "käyttö Tomboyssa</link:internal> teksti alleviivataan? Avaa linkki "
 "napsauttamalla tekstiä.</note-content>"
 
-#: ../Tomboy/NoteManager.cs:154
+#: ../Tomboy/NoteManager.cs:157
 msgid ""
 "<note-content>Using Links in Tomboy\n"
 "\n"
@@ -1173,22 +1169,22 @@ msgstr ""
 "automaattisesti nykyiseen muistilappuun.</note-content>"
 
 #. Attempt to find an existing Start Here note
-#: ../Tomboy/NoteManager.cs:169 ../Tomboy/NoteManager.cs:232
+#: ../Tomboy/NoteManager.cs:172 ../Tomboy/NoteManager.cs:235
 msgid "Start Here"
 msgstr "Aloita tästä"
 
-#: ../Tomboy/NoteManager.cs:174
+#: ../Tomboy/NoteManager.cs:177
 msgid "Using Links in Tomboy"
 msgstr "Linkkien käyttö Tomboyssa"
 
-#: ../Tomboy/NoteManager.cs:306
+#: ../Tomboy/NoteManager.cs:312
 #, csharp-format
 msgid "New Note {0}"
 msgstr "Uusi muistilappu {0}"
 
 #. Use a simple "Describe..." body and highlight
 #. it so it can be easily overwritten
-#: ../Tomboy/NoteManager.cs:378 ../Tomboy/NoteManager.cs:470
+#: ../Tomboy/NoteManager.cs:384 ../Tomboy/NoteManager.cs:476
 msgid "Describe your new note here."
 msgstr "Kirjoita tähän uuden muistilapun kuvaus."
 
@@ -1395,7 +1391,7 @@ msgid ""
 "Alt&gt;N</b>"
 msgstr ""
 "Pikanäppäinten avulla pääset nopeasti käsiksi muistilappuihin yhdellä "
-"näppäinyhdistelmällä. Esimerkkejä pikanäppämistä ovat <b>&lt;Control&gt;&lt;"
+"näppäinyhdistelmällä. Esimerkkejä pikanäppäimistä ovat <b>&lt;Control&gt;&lt;"
 "Shift&gt;F11</b> ja <b>&lt;Alt&gt;N</b>"
 
 #. Show notes menu keybinding...
@@ -1490,7 +1486,7 @@ msgid ""
 "forced to synchronize all of your notes again when you save new settings."
 msgstr ""
 "Synkronointiasetusten tyhjentäminen ei ole suositeltavaa. Voi olla, että "
-"joudut synkronimaan kaikki muistilaput uudestaan tallennettuasi uudet "
+"joudut synkronoimaan kaikki muistilaput uudestaan tallennettuasi uudet "
 "asetukset."
 
 #: ../Tomboy/PreferencesDialog.cs:1075
@@ -1504,7 +1500,7 @@ msgid ""
 "synchronize all of your notes again when you save new settings"
 msgstr ""
 "Määritelty synkronointipalvelu on poistettu käytöstä. Synkronoinnin "
-"asetukset nollataan nyt. Voi olla, että joudut synkronimaan kaikki "
+"asetukset nollataan nyt. Voi olla, että joudut synkronoimaan kaikki "
 "muistilaput uudestaan tallennettuasi uudet asetukset."
 
 #: ../Tomboy/PreferencesDialog.cs:1174
@@ -1543,52 +1539,52 @@ msgstr "Tekijänoikeudet:"
 msgid "Add-in Dependencies:"
 msgstr "Lisäosan riippuvuudet:"
 
-#: ../Tomboy/RecentChanges.cs:74
+#: ../Tomboy/RecentChanges.cs:77
 msgid "Search All Notes"
 msgstr "Etsi kaikista muistilapuista"
 
-#: ../Tomboy/RecentChanges.cs:89
+#: ../Tomboy/RecentChanges.cs:92
 msgid "_Search:"
 msgstr "_Etsi:"
 
-#: ../Tomboy/RecentChanges.cs:110
+#: ../Tomboy/RecentChanges.cs:113
 msgid "C_ase Sensitive"
 msgstr "Huomioi _kirjainkoko"
 
-#: ../Tomboy/RecentChanges.cs:307
+#: ../Tomboy/RecentChanges.cs:309
 msgid "Note"
 msgstr "Muistilappu"
 
-#: ../Tomboy/RecentChanges.cs:326
+#: ../Tomboy/RecentChanges.cs:328
 msgid "Last Changed"
 msgstr "Viimeksi muutettu"
 
-#: ../Tomboy/RecentChanges.cs:459
+#: ../Tomboy/RecentChanges.cs:460
 msgid "Matches"
 msgstr "Täsmää"
 
-#: ../Tomboy/RecentChanges.cs:511
+#: ../Tomboy/RecentChanges.cs:512
 #, csharp-format
 msgid "{0} match"
 msgid_plural "{0} matches"
 msgstr[0] "{0} osuma"
 msgstr[1] "{0} osumaa"
 
-#: ../Tomboy/RecentChanges.cs:525
+#: ../Tomboy/RecentChanges.cs:526
 #, csharp-format
 msgid "Total: {0} note"
 msgid_plural "Total: {0} notes"
 msgstr[0] "Yhteensä: {0} muistilappu"
 msgstr[1] "Yhteensä: {0} muistilappua"
 
-#: ../Tomboy/RecentChanges.cs:535
+#: ../Tomboy/RecentChanges.cs:536
 #, csharp-format
 msgid "Matches: {0} note"
 msgid_plural "Matches: {0} notes"
 msgstr[0] "Täsmää: {0} muistilappu"
 msgstr[1] "Täsmää: {0} muistilappua"
 
-#: ../Tomboy/RecentChanges.cs:666
+#: ../Tomboy/RecentChanges.cs:667
 msgid "Notes"
 msgstr "Muistilaput"
 
@@ -1650,7 +1646,7 @@ msgid ""
 msgstr ""
 "  --new-note\t\t\tLuo ja näytä uusi muistilappu.\n"
 "  --new-note [nimi]\t\t Luo ja näytä uusi muistilappu annetulla nimellä.\n"
-"  --open-note [nimi/url\tNäytä olemassaoleva, vastaava muistilappu.\n"
+"  --open-note [nimi/url\tNäytä olemassa oleva, vastaava muistilappu.\n"
 "  --start-here\t\t\tNäytä \"Aloita tästä\"-muistilappu.\n"
 "  --highlight-search [teksti]\tEtsi ja korosta teksti avatussa "
 "muistilapussa.\n"
@@ -1675,7 +1671,7 @@ msgstr ""
 "Katso lisätietoja komennolla \"tomboy --help\".\n"
 "D-BUS-etähallinta poissa käytöstä."
 
-#: ../Tomboy/Tray.cs:64
+#: ../Tomboy/Tray.cs:66
 msgid " (new)"
 msgstr " (uusi)"
 
@@ -1758,12 +1754,12 @@ msgstr "KKKK pv vuosi, hh:mm:tt"
 msgid "MMMM d yyyy"
 msgstr "KKKK p vvvv"
 
-#: ../Tomboy/Watchers.cs:152
+#: ../Tomboy/Watchers.cs:155
 #, csharp-format
 msgid "(Untitled {0})"
 msgstr "(Nimeämätön {0})"
 
-#: ../Tomboy/Watchers.cs:185
+#: ../Tomboy/Watchers.cs:188
 #, csharp-format
 msgid ""
 "A note with the title <b>{0}</b> already exists. Please choose another name "
@@ -1772,19 +1768,19 @@ msgstr ""
 "Muistilappu nimellä <b>{0}</b> on jo olemassa. Valitse tällä muistilapulle "
 "toinen nimi ennen kuin jatkat."
 
-#: ../Tomboy/Watchers.cs:200
+#: ../Tomboy/Watchers.cs:203
 msgid "Note title taken"
 msgstr "Muistilapun nimi käytössä"
 
-#: ../Tomboy/Watchers.cs:449
+#: ../Tomboy/Watchers.cs:472
 msgid "Cannot open location"
 msgstr "Sijaintia ei voi avata"
 
-#: ../Tomboy/Watchers.cs:543
+#: ../Tomboy/Watchers.cs:566
 msgid "_Copy Link Address"
 msgstr "Kopioi linkin osoite"
 
-#: ../Tomboy/Watchers.cs:548
+#: ../Tomboy/Watchers.cs:571
 msgid "_Open Link"
 msgstr "_Avaa linkki"
 
@@ -2056,271 +2052,3 @@ msgstr ""
 "Jotta tätä kysymystä ei kysyttäisi jatkossa, tulisi FUSE ladata "
 "käynnistettäessä. Lisää \"modprobe fuse\" tiedostoon /etc/init.d/boot.local "
 "tai rivi \"fuse\" tiedostoon /etc/modules."
-
-#~ msgid "Delete"
-#~ msgstr "Poista"
-
-#~ msgid "Case _sensitive"
-#~ msgstr "Huomioi _kirjainkoko"
-
-#~ msgid "Path:"
-#~ msgstr "Polku:"
-
-#~ msgid "Local File System Path"
-#~ msgstr "Paikallisen tiedostojärjestelmän polku"
-
-#~ msgid ""
-#~ "Your notes are up to date.  See the details below or close the window."
-#~ msgstr ""
-#~ "Muistilaput ovat ajan tasalla. Katso yksityiskohdat alta tai sulje ikkuna."
-
-#~ msgid "Downloading updates from server"
-#~ msgstr "Noudetaan muutoksia palvelimelta"
-
-#~ msgid "Downloading new note from server"
-#~ msgstr "Noudetaan uutta muistilappua palvelimelta"
-
-#~ msgid "To Do List"
-#~ msgstr "Tehtävälista"
-
-#~ msgid "New _Task"
-#~ msgstr "Uusi _tehtävä"
-
-#~ msgid "Create a new task"
-#~ msgstr "Luo uusi tehtävä"
-
-#~ msgid "_Options..."
-#~ msgstr "_Valinnat..."
-
-#~ msgid "Open the selected task"
-#~ msgstr "Avaa valittu tehtävä"
-
-#~ msgid "Delete the selected task"
-#~ msgstr "Poista valittu tehtävä"
-
-#~ msgid "Open Associated _Note"
-#~ msgstr "Avaa liittyvä _muistilappu"
-
-#~ msgid "Open the note containing the task"
-#~ msgstr "Avaa tehtävän sisältävä muistilappu"
-
-#~ msgid "Tasks Help"
-#~ msgstr "Tehtävien ohje"
-
-#~ msgid "Summary"
-#~ msgstr "Yhteenveto"
-
-#~ msgid "Due Date"
-#~ msgstr "Määräpäivä"
-
-#~ msgid "Completion Date"
-#~ msgstr "Valmistumispäivä"
-
-#~ msgid "Priority"
-#~ msgstr "Tärkeys"
-
-#~ msgid "None"
-#~ msgstr "Ei mitään"
-
-#~ msgid "Low"
-#~ msgstr "Matala"
-
-#~ msgid "Normal"
-#~ msgstr "Tavallinen"
-
-#~ msgid "High"
-#~ msgstr "Korkea"
-
-#~ msgid "Total: {0} task"
-#~ msgid_plural "Total: {0} tasks"
-#~ msgstr[0] "Yhteensä: {0} tehtävä"
-#~ msgstr[1] "Yhteensä: {0} tehtävää"
-
-#~ msgid "New Task {0}"
-#~ msgstr "Uusi tehtävä {0}"
-
-#~ msgid "Really delete this task?"
-#~ msgstr "Poistetaanko tämä tehtävä?"
-
-#~ msgid "If you delete a task it is permanently lost."
-#~ msgstr "Jos poistat, hukataan tehtävä pysyvästi."
-
-#~ msgid "Learn About Tomboy"
-#~ msgstr "Tietoja Tomboysta"
-
-#~ msgid ""
-#~ "Click on the Tomboy icon in your panel and select \"Start Here\".  You'll "
-#~ "see more instructions on how to use Tomboy inside the \"Start Here\" "
-#~ "note.\n"
-#~ "\n"
-#~ "When you've opened the \"Start Here\" note, mark this task as being "
-#~ "complete."
-#~ msgstr ""
-#~ "Napsauta Tomboyn kuvaketta paneelissa ja valitse \"Aloita tästä\". Näet "
-#~ "lisää ohjeita Tomboyn käyttöön liittyen avautuvasta muistilapusta.\n"
-#~ "\n"
-#~ "Kun olet avannut \"Aloita tästä\"-muistilapun, merkitse tämä tehtävä "
-#~ "valmistuneeksi."
-
-#~ msgid "Task Options"
-#~ msgstr "Tehtävän valinnat"
-
-#~ msgid "_Summary:"
-#~ msgstr "_Yhteenveto:"
-
-#~ msgid "_Completed:"
-#~ msgstr "_Valmistui:"
-
-#~ msgid "_Complete"
-#~ msgstr "_Valmis"
-
-#~ msgid "Due Date:"
-#~ msgstr "Määräpäivä:"
-
-#~ msgid "Priority:"
-#~ msgstr "Tärkeys:"
-
-#~ msgid "todo"
-#~ msgstr "todo"
-
-#~ msgid "Open To Do List"
-#~ msgstr "Avaa tehtävälista"
-
-#~ msgid "To Do Options"
-#~ msgstr "Avaa tehtävien valitsimet"
-
-#~ msgid "Mark Undone"
-#~ msgstr "Merkitse tekemättömäksi"
-
-#~ msgid "Mark Complete"
-#~ msgstr "Merkitse tehdyksi"
-
-#~ msgid "Tags"
-#~ msgstr "Merkinnät"
-
-#~ msgid "Add/Remove note tags"
-#~ msgstr "Lisää tai poista muistilapun merkintöjä"
-
-#~ msgid "Tags:"
-#~ msgstr "Merkinnät:"
-
-#~ msgid "Default Plugins"
-#~ msgstr "Oletusliitännäiset"
-
-#~ msgid "Directory containing system-installed Plugins"
-#~ msgstr "Järjestelmään asennettujen liitännäisten hakemisto"
-
-#~ msgid "_Open Plugins Folder"
-#~ msgstr "_Avaa liitännäisten kansio"
-
-#~ msgid "Currently enabled plugins."
-#~ msgstr "Käytössä olevat liitännäiset."
-
-#~ msgid "List containing the names of currently enabled plugins."
-#~ msgstr "Luettelo käytössä olevien liitännäisten nimistä."
-
-#~ msgid "Cannot fully disable {0}."
-#~ msgstr "Osaa {0} ei voi kokonaan poistaa käytöstä."
-
-#~ msgid ""
-#~ "Cannot fully disable {0} as there still are at least {1} reference to "
-#~ "this plugin. This indicates a programming error. Contact the plugin's "
-#~ "author and report this problem.\n"
-#~ "\n"
-#~ "<b>Developer Information:</b> This problem usually occurs when the "
-#~ "plugin's Dispose method fails to disconnect all event handlers. The heap-"
-#~ "shot profiler ({2}) can help to identify leaking references."
-#~ msgstr ""
-#~ "Liitännäistä {0} ei voi poistaa täysin käytöstä, koska siihen on vielä "
-#~ "ainakin {1} viittausta. Tämä tarkoittaa yleensä ohjelmointivirhettä. Ota "
-#~ "yhteyttä liitännäisen tekijään ja kerro tästä ongelmasta.\n"
-#~ "\n"
-#~ "<b>Tietoja kehittäjille:</b> Tämä ongelma tapahtuu yleensä, kun "
-#~ "liitännäisen Dispose-menetelmä ei onnistu katkaisemaan kaikkien "
-#~ "tapahtumakäsittelijöiden yhteyksiä. Heap-shot -profiloija ({2}) voi "
-#~ "auttaa vuotavien viittauksien etsinnässä."
-
-#~ msgid "Plugins"
-#~ msgstr "Liitännäiset"
-
-#~ msgid "Written by:"
-#~ msgstr "Toteuttanut:"
-
-#~ msgid "Web site:"
-#~ msgstr "WWw-sivut:"
-
-#~ msgid "Settings"
-#~ msgstr "Asetukset"
-
-#~ msgid "{0} Settings"
-#~ msgstr "{0} -asetukset"
-
-#~ msgid "Homepage & Donations"
-#~ msgstr "Kotisivu ja lahjoitukset"
-
-#~ msgid ""
-#~ "  --check-plugin-unloading\tCheck if plugins are unloaded properly.\n"
-#~ msgstr ""
-#~ "  --check-plugin-unloading\tTarkista että liitännäisten poisto onnistui.\n"
-
-#~ msgid "Use the following:"
-#~ msgstr "Käytä seuraavaa:"
-
-#~ msgid "Welcome to Tomboy!"
-#~ msgstr "Tervetuloa Tomboyhin!"
-
-#~ msgid ""
-#~ "Use this page as a Start Page for organizing your notes and keeping "
-#~ "unorganized ideas around."
-#~ msgstr ""
-#~ "Käytä tätä sivua aloitussivuna, josta järjestelet muistilappujasi ja "
-#~ "jolla voit pitää luokittelemattomia ajatuksia."
-
-#~ msgid "NotD: "
-#~ msgstr "Tänään: "
-
-#~ msgid "Quick and handy note-taker"
-#~ msgstr "Nopea ja näppärä "
-
-#~ msgid "_Search..."
-#~ msgstr "_Etsi..."
-
-#~ msgid "S_earch notes"
-#~ msgstr "_Etsi muistilapuista"
-
-#~ msgid "Table of Contents"
-#~ msgstr "Sisällysluettelo"
-
-#~ msgid ""
-#~ "<b>Table of Contents</b> lists all your notes.\n"
-#~ "Double click to open a note."
-#~ msgstr ""
-#~ "<b>Sisällysluettelo</b> näyttää kaikki muistilappusi.\n"
-#~ "Avaa muistilappu kaksoisnapsautuksella."
-
-#~ msgid "Search Note"
-#~ msgstr "Etsi muistilapusta"
-
-#~ msgid "Search _Results"
-#~ msgstr "Haun _tulokset"
-
-#~ msgid "_Table of Contents"
-#~ msgstr "_Sisällysluettelo"
-
-#~ msgid "_Search Notes..."
-#~ msgstr "_Etsi muistilapuista..."
-
-#~ msgid "%A %D, %I:%M %p"
-#~ msgstr "%A %D, %I:%M %p"
-
-#~ msgid "_About Tomboy..."
-#~ msgstr "_Tietoja Tomboystä..."
-
-#~ msgid "Run Plugin actions"
-#~ msgstr "Suorita liitännäisten tehtävät"
-
-#~ msgid "Recent Changes"
-#~ msgstr "Viimeisimmät muutokset"
-
-#~ msgid "_Recent Changes"
-#~ msgstr "_Viimeisimmät muutokset"
