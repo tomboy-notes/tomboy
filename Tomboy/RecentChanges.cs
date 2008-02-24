@@ -78,8 +78,10 @@ namespace Tomboy
                 {
                         this.manager = manager;
                         this.IconName = "tomboy";
-                        this.DefaultWidth = 200;
+                        this.DefaultWidth = 450;
+                        this.DefaultHeight = 400;
                         this.current_matches = new Hashtable ();
+                        this.Resizable = true;
 
                         selected_tags = new Dictionary<Tag, Tag> ();
 
@@ -161,6 +163,8 @@ namespace Tomboy
 
                         if (tree_req.Width > 480)
                                 matches_window.WidthRequest = 480;
+                        
+                        RestorePosition ();
 
                         matches_window.HscrollbarPolicy = Gtk.PolicyType.Automatic;
                         matches_window.VscrollbarPolicy = Gtk.PolicyType.Automatic;
@@ -200,6 +204,8 @@ namespace Tomboy
                         // until the note's QueueSave () kicks in.
                         Notebooks.NotebookManager.NoteAddedToNotebook += OnNoteAddedToNotebook;
                         Notebooks.NotebookManager.NoteRemovedFromNotebook += OnNoteRemovedFromNotebook;
+                        
+                        Tomboy.ExitingEvent += OnExitingEvent;
                 }
 
                 Gtk.MenuBar CreateMenuBar ()
@@ -946,6 +952,9 @@ namespace Tomboy
 				am ["OpenNotebookTemplateNoteAction"].Activated -= OnOpenNotebookTemplateNote;
                                 am ["CloseWindowAction"].Activated -= OnCloseWindow;
                         }
+                        
+                        SavePosition ();
+                        Tomboy.ExitingEvent -= OnExitingEvent;
 
                         Hide ();
                         Destroy ();
@@ -1368,5 +1377,46 @@ namespace Tomboy
                                         find_combo.Entry.Text = value;
                         }
                 }
+        /// <summary>
+        /// Save the position and size of the RecentChanges window
+        /// </summary>
+        private void SavePosition ()
+        {
+			int x;
+			int y;
+			int width;
+			int height;
+
+			GetPosition(out x, out y);
+			GetSize(out width, out height);
+			
+			Preferences.Set (Preferences.SEARCH_WINDOW_X_POS, x.ToString ());
+			Preferences.Set (Preferences.SEARCH_WINDOW_Y_POS, y.ToString ());
+			Preferences.Set (Preferences.SEARCH_WINDOW_WIDTH, width.ToString ());
+			Preferences.Set (Preferences.SEARCH_WINDOW_HEIGHT, height.ToString ());
         }
+        
+        private void RestorePosition ()
+        {
+        	string xStr = Preferences.Get (Preferences.SEARCH_WINDOW_X_POS) as string;
+        	string yStr = Preferences.Get (Preferences.SEARCH_WINDOW_Y_POS) as string;
+        	string widthStr = Preferences.Get (Preferences.SEARCH_WINDOW_WIDTH) as string;
+        	string heightStr = Preferences.Get (Preferences.SEARCH_WINDOW_HEIGHT) as string;
+        	
+        	if (xStr == null || xStr == string.Empty
+        			|| yStr == null || yStr == string.Empty
+        			|| widthStr == null || widthStr == string.Empty
+        			|| heightStr == null || heightStr == string.Empty)
+        		return;
+        	
+        	DefaultSize =
+        		new Gdk.Size (int.Parse (widthStr), int.Parse (heightStr));
+        	Move (int.Parse (xStr), int.Parse (yStr));
+        }
+        
+        private void OnExitingEvent (object sender, EventArgs args)
+        {
+        	SavePosition ();
+        }
+	}
 }
