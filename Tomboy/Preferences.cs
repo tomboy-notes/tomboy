@@ -39,6 +39,12 @@ namespace Tomboy
 		public const string SYNC_CONFIGURED_CONFLICT_BEHAVIOR = "/apps/tomboy/sync/sync_conflict_behavior";
 
 		public const string INSERT_TIMESTAMP_FORMAT = "/apps/tomboy/insert_timestamp/format";
+		
+		// TODO: Convert these into properly localized settings in 0.11.x after freeze is lifted
+		public const string SEARCH_WINDOW_X_POS = "/apps/tomboy/search_window_x_pos";
+		public const string SEARCH_WINDOW_Y_POS = "/apps/tomboy/search_window_y_pos";
+		public const string SEARCH_WINDOW_WIDTH = "/apps/tomboy/search_window_width";
+		public const string SEARCH_WINDOW_HEIGHT = "/apps/tomboy/search_window_height";
 
 		static GConf.Client client;
 		static GConf.NotifyEventHandler changed_handler;
