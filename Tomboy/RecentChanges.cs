@@ -314,6 +314,7 @@ namespace Tomboy
                         Gtk.TreeViewColumn title = new Gtk.TreeViewColumn ();
                         title.Title = Catalog.GetString ("Note");
                         title.Sizing = Gtk.TreeViewColumnSizing.Autosize;
+                        title.Expand = true;
                         title.Resizable = true;
 
                         renderer = new Gtk.CellRendererPixbuf ();
@@ -321,6 +322,8 @@ namespace Tomboy
                         title.AddAttribute (renderer, "pixbuf", 0 /* icon */);
 
                         renderer = new Gtk.CellRendererText ();
+                        (renderer as Gtk.CellRendererText).Ellipsize =
+                        	Pango.EllipsizeMode.End;
                         title.PackStart (renderer, true);
                         title.AddAttribute (renderer, "text", 1 /* title */);
                         title.SortColumnId = 1; /* title */
@@ -333,7 +336,7 @@ namespace Tomboy
                         Gtk.TreeViewColumn change = new Gtk.TreeViewColumn ();
                         change.Title = Catalog.GetString ("Last Changed");
                         change.Sizing = Gtk.TreeViewColumnSizing.Autosize;
-                        change.Resizable = true;
+                        change.Resizable = false;
 
                         renderer = new Gtk.CellRendererText ();
                         renderer.Data ["xalign"] = 1.0;
@@ -464,7 +467,7 @@ namespace Tomboy
 
                                 matches_column = new Gtk.TreeViewColumn ();
                                 matches_column.Title = Catalog.GetString ("Matches");
-                                matches_column.Sizing = Gtk.TreeViewColumnSizing.Fixed;
+                                matches_column.Sizing = Gtk.TreeViewColumnSizing.Autosize;
                                 matches_column.Resizable = false;
 
                                 renderer = new Gtk.CellRendererText ();
