@@ -74,12 +74,18 @@ namespace Tomboy
 
 		public static Gdk.Pixbuf GetIcon (string resource_name, int size)
 		{
+			return GetIcon (null, resource_name, size);
+		}
+		
+		public static Gdk.Pixbuf GetIcon (System.Reflection.Assembly asm,
+										  string resource_name, int size)
+		{
 			try {
 				return Gtk.IconTheme.Default.LoadIcon (resource_name, size, 0);
 			} catch (GLib.GException) {}
 
 			try {
-				Gdk.Pixbuf ret = new Gdk.Pixbuf (null, resource_name + ".png");
+				Gdk.Pixbuf ret = new Gdk.Pixbuf (asm, resource_name + ".png");
 				return ret.ScaleSimple (size, size, Gdk.InterpType.Bilinear);
 			} catch (ArgumentException) {}
 
