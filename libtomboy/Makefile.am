@@ -23,8 +23,9 @@ libtomboy_la_SOURCES =		\
 	eggtrayicon.h		\
 	eggtrayicon.c
 
+libtomboy_la_CFLAGS = $(X_CFLAGS)
 libtomboy_la_LDFLAGS = -export-dynamic -module -avoid-version
-libtomboy_la_LIBADD = $(LIBTOMBOY_LIBS) $(LIBM)
+libtomboy_la_LIBADD = $(LIBTOMBOY_LIBS) $(X_LIBS) $(LIBM)
 
 maintainer-clean-local:
 	rm -f Makefile.in
