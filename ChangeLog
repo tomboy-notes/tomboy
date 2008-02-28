@@ -1,3 +1,12 @@
+2008-02-28  Sebastian Dröge  <slomo@circular-chaos.org>
+
+	* configure.in:
+	* libtomboy/Makefile.am: Check for libm and link to it
+	  libtomboy uses math functions.
+	* libtomboy/contrast.c: (lab_to_rgb): Use floor(x + 0.5) instead of
+	  roundf(x) as the latter is C99 and not available (and declared) if
+	  not compiling in C99 mode. Fixes bug #519237.
+
 2008-02-25  Boyd Timothy <btimothy@gmail.com> 
 
 	* Tomboy/Utils.cs: Allow the assembly calling GuiUtils.GetIcon () to specify

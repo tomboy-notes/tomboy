@@ -165,9 +165,9 @@ lab_to_rgb(float L,
 	gs = -0.9692f * x + 1.8760f * y + 0.0416f * z;
 	bs =  0.0556f * x - 0.2040f * y + 1.0570f * z;
 
-	*R = CLAMP((int) roundf(xyz_to_srgb_C(rs) * 65535), 0, 65535);
-	*G = CLAMP((int) roundf(xyz_to_srgb_C(gs) * 65535), 0, 65535);
-	*B = CLAMP((int) roundf(xyz_to_srgb_C(bs) * 65535), 0, 65535);
+	*R = CLAMP((int) floorf(xyz_to_srgb_C(rs) * 65535 + 0.5), 0, 65535);
+	*G = CLAMP((int) floorf(xyz_to_srgb_C(gs) * 65535 + 0.5), 0, 65535);
+	*B = CLAMP((int) floorf(xyz_to_srgb_C(bs) * 65535 + 0.5), 0, 65535);
 }
 
 static inline float
