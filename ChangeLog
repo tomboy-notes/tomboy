@@ -1,6 +1,13 @@
 2008-02-28  Sebastian Dröge  <slomo@circular-chaos.org>
 
 	* configure.in:
+	* libtomboy/Makefile.am: Check for X11 libraries and headers and
+	  actually link with them. This was done only indirectly through Gtk
+	  before. Fixes bug #501524.
+
+2008-02-28  Sebastian Dröge  <slomo@circular-chaos.org>
+
+	* configure.in:
 	* libtomboy/Makefile.am: Check for libm and link to it
 	  libtomboy uses math functions.
 	* libtomboy/contrast.c: (lab_to_rgb): Use floor(x + 0.5) instead of
