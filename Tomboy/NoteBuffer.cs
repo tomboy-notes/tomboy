@@ -652,6 +652,10 @@ namespace Tomboy
 		public bool RunWidgetQueue ()
 		{
 			foreach (WidgetInsertData data in widgetQueue) {
+				// HACK: This is a quick fix for bug #486551
+				if (data.position == null)
+					continue;
+				
 				NoteBuffer buffer = data.buffer as NoteBuffer;
 				Gtk.TextIter iter = buffer.GetIterAtMark (data.position);
 				Gtk.TextMark location = data.position;
