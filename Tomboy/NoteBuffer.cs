@@ -363,16 +363,18 @@ namespace Tomboy
 
 				return true;
 			}
-			// Replace lines starting with '*' or '-' followed by a space with bullets
-			else if ((iter.Char.Equals ("*") || iter.Char.Equals ("-")) && 
-			         GetIterAtLineOffset(iter.Line, 1).Char.Equals(" ")) {
+			// Replace lines starting with any numbers of leading spaces 
+			// followed by '*' or '-' and then by a space with bullets
+			else if (LineNeedsBullet(iter)) {
 				Gtk.TextIter start = GetIterAtLineOffset (iter.Line, 0);
-				Gtk.TextIter end = GetIterAtLineOffset (iter.Line, 1);
+				Gtk.TextIter end = GetIterAtLineOffset (iter.Line, 0);
 
-				// Remove the '*' character and any leading white space
-				if (end.Char == " ")
+				// Remove any leading white space
+				while (end.Char == " ")
 					end.ForwardChar();
-
+				// Remove the '*' or '-' character and the space after
+				end.ForwardChars(2);
+				
 				// Set the direction of the bullet to be the same as
 				// the first character after the '*' or '-'
 				Pango.Direction direction = Pango.Direction.Ltr;
@@ -407,6 +409,29 @@ namespace Tomboy
 			return false;
 		}
 
+		// Returns true if line starts with any numbers of leading spaces
+		// followed by '*' or '-' and then by a space
+		private bool LineNeedsBullet(Gtk.TextIter iter)
+		{
+			while (!iter.EndsLine ()) {
+				switch (iter.Char) {
+				case " ":
+					iter.ForwardChar ();
+					break;
+				case "*":
+				case "-":
+					if (GetIterAtLineOffset(iter.Line, iter.LineOffset + 1).Char.Equals(" ")) {
+						return true;
+					} else {
+						return false;
+					}
+				default:
+					return false;
+				}
+			}
+			return false;
+		}
+		
 		// Returns true if the depth of the line was increased
 		public bool AddTab ()
 		{
