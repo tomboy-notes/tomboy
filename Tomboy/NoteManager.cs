@@ -203,6 +203,8 @@ public NoteManager (string directory) :
 					            e.Message);
 				}
 			}
+			
+			notes.Sort (new CompareDates ());
 
 			// Update the trie so addins can access it, if they want.
 			trie_controller.Update ();
