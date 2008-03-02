@@ -43,7 +43,6 @@ namespace Mono.Addins.Description
 	{
 		XmlDocument configDoc;
 		string configFile;
-		bool fromBinaryFile;
 		AddinDatabase ownerDatabase;
 		
 		string id;
@@ -62,12 +61,15 @@ namespace Mono.Addins.Description
 		bool hasUserId;
 		bool canWrite = true;
 		bool defaultEnabled = true;
+		string domain;
 		
 		ModuleDescription mainModule;
 		ModuleCollection optionalModules;
 		ExtensionNodeSetCollection nodeSets;
 		ConditionTypeDescriptionCollection conditionTypes;
 		ExtensionPointCollection extensionPoints;
+		ExtensionNodeDescription localizer;
+		object[] fileInfo;
 		
 		internal static BinaryXmlTypeMap typeMap;
 		
@@ -86,6 +88,7 @@ namespace Mono.Addins.Description
 			typeMap.RegisterType (typeof(AddinDependency), "AddinDependency");
 			typeMap.RegisterType (typeof(AssemblyDependency), "AssemblyDependency");
 			typeMap.RegisterType (typeof(NodeTypeAttribute), "NodeTypeAttribute");
+			typeMap.RegisterType (typeof(AddinFileInfo), "FileInfo");
 		}
 		
 		internal AddinDatabase OwnerDatabase {
@@ -181,6 +184,12 @@ namespace Mono.Addins.Description
 			set { hasUserId = value; }
 		}
 		
+		internal bool SupportsVersion (string ver)
+		{
+			return Addin.CompareVersions (ver, Version) >= 0 &&
+				   (CompatVersion.Length == 0 || Addin.CompareVersions (ver, CompatVersion) <= 0);
+		}
+		
 		public StringCollection AllFiles {
 			get {
 				StringCollection col = new StringCollection ();
@@ -270,6 +279,11 @@ namespace Mono.Addins.Description
 			}
 		}
 		
+		public ExtensionNodeDescription Localizer {
+			get { return localizer; }
+			set { localizer = value; }
+		}
+		
 		public ExtensionPoint AddExtensionPoint (string path)
 		{
 			ExtensionPoint ep = new ExtensionPoint ();
@@ -307,7 +321,7 @@ namespace Mono.Addins.Description
 			foreach (Dependency dep in MainModule.Dependencies) {
 				AddinDependency adep = dep as AddinDependency;
 				if (adep == null) continue;
-				Addin ad = OwnerDatabase.GetInstalledAddin (adep.FullAddinId);
+				Addin ad = OwnerDatabase.GetInstalledAddin (Domain, adep.FullAddinId);
 				if (ad != null && ad.Description != null) {
 					ExtensionNodeDescription node = ad.Description.FindExtensionNode (path, false);
 					if (node != null)
@@ -329,6 +343,41 @@ namespace Mono.Addins.Description
 		public string FileName {
 			get { return configFile; }
 			set { configFile = value; }
+		}
+		
+		internal string Domain {
+			get { return domain; }
+			set { domain = value; }
+		}
+		
+		internal void StoreFileInfo ()
+		{
+			ArrayList list = new ArrayList ();
+			foreach (string f in AllFiles) {
+				string file = Path.Combine (this.BasePath, f);
+				AddinFileInfo fi = new AddinFileInfo ();
+				fi.FileName = f;
+				fi.Timestamp = File.GetLastWriteTime (file);
+				list.Add (fi);
+			}
+			fileInfo = list.ToArray ();
+		}
+		
+		internal bool FilesChanged ()
+		{
+			// Checks if the files of the add-in have changed.
+			if (fileInfo == null)
+				return true;
+			
+			foreach (AddinFileInfo f in fileInfo) {
+				string file = Path.Combine (this.BasePath, f.FileName);
+				if (!File.Exists (file))
+					return true;
+				if (f.Timestamp != File.GetLastWriteTime (file))
+					return true;
+			}
+			
+			return false;
 		}
 		
 		public void Save (string fileName)
@@ -424,7 +473,16 @@ namespace Mono.Addins.Description
 				elem.SetAttribute ("category", category);
 			else
 				elem.RemoveAttribute ("category");
-				
+			
+			if (localizer == null || localizer.Element == null) {
+				// Remove old element if it exists
+				XmlElement oldLoc = (XmlElement) elem.SelectSingleNode ("Localizer");
+				if (oldLoc != null)
+					elem.RemoveChild (oldLoc);
+			}
+			if (localizer != null)
+				localizer.SaveXml (elem);
+			
 			if (mainModule != null) {
 				mainModule.Element = elem;
 				mainModule.SaveXml (elem);
@@ -459,7 +517,7 @@ namespace Mono.Addins.Description
 				config.configDoc = new XmlDocument ();
 				config.configDoc.Load (stream);
 			} catch (Exception ex) {
-				throw new InvalidOperationException ("The add-in configuration file is invalid.", ex);
+				throw new InvalidOperationException ("The add-in configuration file is invalid: " + ex.Message, ex);
 			}
 			
 			XmlElement elem = config.configDoc.DocumentElement;
@@ -482,6 +540,10 @@ namespace Mono.Addins.Description
 			s = elem.GetAttribute ("defaultEnabled");
 			config.defaultEnabled = s.Length == 0 || s == "true" || s == "yes";
 			
+			XmlElement localizerElem = (XmlElement) elem.SelectSingleNode ("Localizer");
+			if (localizerElem != null)
+				config.localizer = new ExtensionNodeDescription (localizerElem);
+			
 			if (config.id.Length > 0)
 				config.hasUserId = true;
 			
@@ -493,19 +555,6 @@ namespace Mono.Addins.Description
 			AddinDescription description = (AddinDescription) fdb.ReadSharedObject (configFile, typeMap);
 			if (description != null) {
 				description.FileName = configFile;
-				description.fromBinaryFile = true;
-				description.canWrite = !fdb.IgnoreDescriptionData;
-			}
-			return description;
-		}
-		
-		internal static AddinDescription ReadHostBinary (FileDatabase fdb, string basePath, string addinId, string addinFile)
-		{
-			string fileName;
-			AddinDescription description = (AddinDescription) fdb.ReadSharedObject (basePath, addinId, ".mroot", Util.GetFullPath (addinFile), typeMap, out fileName);
-			if (description != null) {
-				description.FileName = fileName;
-				description.fromBinaryFile = true;
 				description.canWrite = !fdb.IgnoreDescriptionData;
 			}
 			return description;
@@ -525,15 +574,6 @@ namespace Mono.Addins.Description
 //			BinaryXmlReader.DumpFile (configFile);
 		}
 		
-		internal void SaveHostBinary (FileDatabase fdb, string basePath)
-		{
-			if (!canWrite)
-				throw new InvalidOperationException ("Can't write incomplete description.");
-			if (!fromBinaryFile)
-				FileName = null;
-			FileName = fdb.WriteSharedObject (basePath, AddinId, ".mroot", AddinFile, FileName, typeMap, this);
-		}
-		
 		public StringCollection Verify ()
 		{
 			StringCollection errors = new StringCollection ();
@@ -541,8 +581,6 @@ namespace Mono.Addins.Description
 			if (IsRoot) {
 				if (OptionalModules.Count > 0)
 					errors.Add ("Root add-in hosts can't have optional modules.");
-				if (MainModule.Dependencies.Count > 0)
-					errors.Add ("Root add-in hosts can't have dependencies.");
 			}
 			
 			if (AddinId.Length == 0 || Version.Length == 0) {
@@ -575,6 +613,10 @@ namespace Mono.Addins.Description
 					if (!File.Exists (asmFile))
 						errors.Add ("The file '" + file + "' referenced in the manifest could not be found.");
 				}
+			}
+			
+			if (localizer != null && localizer.GetAttribute ("type").Length == 0) {
+				errors.Add ("The attribute 'type' in the Location element is required.");
 			}
 			
 			return errors;
@@ -632,11 +674,14 @@ namespace Mono.Addins.Description
 			writer.WriteValue ("basePath", basePath);
 			writer.WriteValue ("sourceAddinFile", sourceAddinFile);
 			writer.WriteValue ("defaultEnabled", defaultEnabled);
+			writer.WriteValue ("domain", domain);
 			writer.WriteValue ("MainModule", MainModule);
 			writer.WriteValue ("OptionalModules", OptionalModules);
 			writer.WriteValue ("NodeSets", ExtensionNodeSets);
 			writer.WriteValue ("ExtensionPoints", ExtensionPoints);
 			writer.WriteValue ("ConditionTypes", ConditionTypes);
+			writer.WriteValue ("FilesInfo", fileInfo);
+			writer.WriteValue ("Localizer", localizer);
 		}
 		
 		void IBinaryXmlElement.Read (BinaryXmlReader reader)
@@ -656,14 +701,54 @@ namespace Mono.Addins.Description
 			basePath = reader.ReadStringValue ("basePath");
 			sourceAddinFile = reader.ReadStringValue ("sourceAddinFile");
 			defaultEnabled = reader.ReadBooleanValue ("defaultEnabled");
+			domain = reader.ReadStringValue ("domain");
 			mainModule = (ModuleDescription) reader.ReadValue ("MainModule");
 			optionalModules = (ModuleCollection) reader.ReadValue ("OptionalModules", new ModuleCollection (this));
 			nodeSets = (ExtensionNodeSetCollection) reader.ReadValue ("NodeSets", new ExtensionNodeSetCollection (this));
 			extensionPoints = (ExtensionPointCollection) reader.ReadValue ("ExtensionPoints", new ExtensionPointCollection (this));
 			conditionTypes = (ConditionTypeDescriptionCollection) reader.ReadValue ("ConditionTypes", new ConditionTypeDescriptionCollection (this));
+			fileInfo = (object[]) reader.ReadValue ("FilesInfo", null);
+			localizer = (ExtensionNodeDescription) reader.ReadValue ("Localizer");
 			
 			if (mainModule != null)
 				mainModule.SetParent (this);
 		}
+	}
+	
+	class AddinFileInfo: IBinaryXmlElement
+	{
+		string fileName;
+		DateTime timestamp;
+		
+		public string FileName {
+			get {
+				return fileName;
+			}
+			set {
+				fileName = value;
+			}
+		}
+
+		public System.DateTime Timestamp {
+			get {
+				return timestamp;
+			}
+			set {
+				timestamp = value;
+			}
+		}
+		
+		public void Read (BinaryXmlReader reader)
+		{
+			fileName = reader.ReadStringValue ("fileName");
+			timestamp = reader.ReadDateTimeValue ("timestamp");
+		}
+
+		public void Write (BinaryXmlWriter writer)
+		{
+			writer.WriteValue ("fileName", fileName);
+			writer.WriteValue ("timestamp", timestamp);
+		}
+
 	}
 }

@@ -39,6 +39,14 @@ ASSEMBLY_SOURCES =								\
 	$(srcdir)/Mono.Addins.Description/NodeTypeAttributeCollection.cs 	\
 	$(srcdir)/Mono.Addins.Description/ObjectDescription.cs 			\
 	$(srcdir)/Mono.Addins.Description/ObjectDescriptionCollection.cs 	\
+	$(srcdir)/Mono.Addins.Localization/GettextDomain.cs \
+	$(srcdir)/Mono.Addins.Localization/GettextLocalizer.cs \
+	$(srcdir)/Mono.Addins.Localization/IAddinLocalizer.cs \
+	$(srcdir)/Mono.Addins.Localization/IAddinLocalizerFactory.cs \
+	$(srcdir)/Mono.Addins.Localization/IPluralAddinLocalizer.cs \
+	$(srcdir)/Mono.Addins.Localization/NullLocalizer.cs \
+	$(srcdir)/Mono.Addins.Localization/StringResourceLocalizer.cs \
+	$(srcdir)/Mono.Addins.Localization/StringTableLocalizer.cs \
 	$(srcdir)/Mono.Addins.Serialization/BinaryXmlReader.cs 			\
 	$(srcdir)/Mono.Addins.Serialization/BinaryXmlTypeMap.cs 		\
 	$(srcdir)/Mono.Addins.Serialization/BinaryXmlWriter.cs 			\
@@ -49,6 +57,7 @@ ASSEMBLY_SOURCES =								\
 	$(srcdir)/Mono.Addins/AddinErrorEventArgs.cs 				\
 	$(srcdir)/Mono.Addins/AddinEventArgs.cs 				\
 	$(srcdir)/Mono.Addins/AddinInfo.cs 					\
+	$(srcdir)/Mono.Addins/AddinLocalizer.cs				\
 	$(srcdir)/Mono.Addins/AddinManager.cs 					\
 	$(srcdir)/Mono.Addins/AddinRegistry.cs 					\
 	$(srcdir)/Mono.Addins/AddinRootAttribute.cs 				\

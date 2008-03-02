@@ -236,12 +236,12 @@ namespace Mono.Addins
 			if (extensionNode != null && extensionNode.AddinId == ad.Addin.Id)
 				extensionNode.OnAddinLoaded ();
 			if (recursive && childrenLoaded) {
-				foreach (TreeNode node in Children)
+				foreach (TreeNode node in Children.Clone ())
 					node.NotifyAddinLoaded (ad, true);
 			}
 		}
 		
-		public ExtensionPoint FindExtensionPoint (string path)
+		public ExtensionPoint FindLoadedExtensionPoint (string path)
 		{
 			if (path.StartsWith ("/"))
 				path = path.Substring (1);
@@ -253,6 +253,8 @@ namespace Mono.Addins
 				int i = curNode.Children.IndexOfNode (part);
 				if (i != -1) {
 					curNode = curNode.Children [i];
+					if (!curNode.ChildrenLoaded)
+						return null;
 					if (curNode.ExtensionPoint != null)
 						return curNode.ExtensionPoint;
 					continue;

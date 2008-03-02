@@ -7,12 +7,15 @@ ASSEMBLY_SOURCES =							\
 	$(srcdir)/gtk-gui/generated.cs 					\
 	$(srcdir)/gtk-gui/Mono.Addins.Gui.AddinInfoDialog.cs 		\
 	$(srcdir)/gtk-gui/Mono.Addins.Gui.AddinInstallDialog.cs 	\
+	$(srcdir)/gtk-gui/Mono.Addins.Gui.AddinInstallerDialog.cs 	\
 	$(srcdir)/gtk-gui/Mono.Addins.Gui.AddinManagerDialog.cs 	\
 	$(srcdir)/gtk-gui/Mono.Addins.Gui.ErrorDialog.cs 		\
 	$(srcdir)/gtk-gui/Mono.Addins.Gui.ManageSitesDialog.cs 		\
 	$(srcdir)/gtk-gui/Mono.Addins.Gui.NewSiteDialog.cs 		\
 	$(srcdir)/Mono.Addins.Gui/AddinInfoDialog.cs 			\
 	$(srcdir)/Mono.Addins.Gui/AddinInstallDialog.cs 		\
+	$(srcdir)/Mono.Addins.Gui/AddinInstaller.cs 		\
+	$(srcdir)/Mono.Addins.Gui/AddinInstallerDialog.cs 		\
 	$(srcdir)/Mono.Addins.Gui/AddinManagerDialog.cs 		\
 	$(srcdir)/Mono.Addins.Gui/AddinManagerWindow.cs 		\
 	$(srcdir)/Mono.Addins.Gui/AddinTreeWidget.cs 			\
@@ -36,6 +39,7 @@ RESOURCES =							\
 	-resource:$(srcdir)/icons/package-x-generic.png 	\
 	-resource:$(srcdir)/icons/package-x-generic_16.png 	\
 	-resource:$(srcdir)/icons/package-x-generic_22.png 	\
+	-resource:$(srcdir)/icons/system-software-update.png \
 	-resource:$(srcdir)/icons/user-package.png 
 
 CSC_EXTRA_FLAGS =  -noconfig -codepage:utf8 -warn:4 -debug -d:DEBUG
@@ -60,6 +64,7 @@ EXTRA_DIST = 						\
 	$(srcdir)/icons/package-x-generic.png 		\
 	$(srcdir)/icons/package-x-generic_16.png 	\
 	$(srcdir)/icons/package-x-generic_22.png 	\
+	$(srcdir)/icons/system-software-update.png 	\
 	$(srcdir)/icons/user-package.png 
 
 CLEANFILES =			\

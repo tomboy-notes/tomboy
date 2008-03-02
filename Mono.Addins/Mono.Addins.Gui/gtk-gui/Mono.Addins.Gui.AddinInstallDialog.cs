@@ -81,6 +81,8 @@ namespace Mono.Addins.Gui {
         
         private Gtk.Image imageError;
         
+        private Gtk.Image imageWarn;
+        
         private Gtk.Image imageInfo;
         
         private Gtk.HBox hbox71;
@@ -101,28 +103,28 @@ namespace Mono.Addins.Gui {
         
         private Gtk.Button btnOk;
         
-        private Gtk.HSeparator hseparator3;
-        
         protected virtual void Build() {
-            Stetic.Gui.Initialize();
+            Stetic.Gui.Initialize(this);
             // Widget Mono.Addins.Gui.AddinInstallDialog
             this.Name = "Mono.Addins.Gui.AddinInstallDialog";
             this.Title = Mono.Unix.Catalog.GetString("Add-in Installation");
             this.TypeHint = ((Gdk.WindowTypeHint)(1));
             this.Modal = true;
+            this.BorderWidth = ((uint)(6));
             this.DefaultWidth = 725;
             this.DefaultHeight = 550;
             // Internal child Mono.Addins.Gui.AddinInstallDialog.VBox
             Gtk.VBox w1 = this.VBox;
             w1.Name = "dialog-vbox9";
+            w1.Spacing = 6;
             w1.BorderWidth = ((uint)(2));
             // Container child dialog-vbox9.Gtk.Box+BoxChild
             this.wizardNotebook = new Gtk.Notebook();
             this.wizardNotebook.CanFocus = true;
             this.wizardNotebook.Name = "wizardNotebook";
-            this.wizardNotebook.CurrentPage = 0;
+            this.wizardNotebook.CurrentPage = 3;
             this.wizardNotebook.ShowBorder = false;
-            this.wizardNotebook.BorderWidth = ((uint)(12));
+            this.wizardNotebook.BorderWidth = ((uint)(6));
             // Container child wizardNotebook.Gtk.Notebook+NotebookChild
             this.vbox82 = new Gtk.VBox();
             this.vbox82.Name = "vbox82";
@@ -204,6 +206,7 @@ namespace Mono.Addins.Gui {
             this.addinTree = new Gtk.TreeView();
             this.addinTree.CanFocus = true;
             this.addinTree.Name = "addinTree";
+            this.addinTree.HeadersClickable = true;
             this.scrolledwindow18.Add(this.addinTree);
             this.vbox92.Add(this.scrolledwindow18);
             Gtk.Box.BoxChild w9 = ((Gtk.Box.BoxChild)(this.vbox92[this.scrolledwindow18]));
@@ -279,6 +282,7 @@ namespace Mono.Addins.Gui {
             this.label108.Name = "label108";
             this.label108.LabelProp = "label108";
             this.wizardNotebook.SetTabLabel(this.vbox82, this.label108);
+            this.label108.ShowAll();
             // Container child wizardNotebook.Gtk.Notebook+NotebookChild
             this.scrolledwindow19 = new Gtk.ScrolledWindow();
             this.scrolledwindow19.CanFocus = true;
@@ -287,7 +291,6 @@ namespace Mono.Addins.Gui {
             this.scrolledwindow19.HscrollbarPolicy = ((Gtk.PolicyType)(1));
             // Container child scrolledwindow19.Gtk.Container+ContainerChild
             Gtk.Viewport w18 = new Gtk.Viewport();
-            w18.Name = "viewport1";
             // Container child viewport1.Gtk.Container+ContainerChild
             this.hbox82 = new Gtk.HBox();
             this.hbox82.Name = "hbox82";
@@ -298,7 +301,7 @@ namespace Mono.Addins.Gui {
             this.imageInstall.Name = "imageInstall";
             this.imageInstall.Xalign = 0F;
             this.imageInstall.Yalign = 0F;
-            this.imageInstall.Pixbuf = Stetic.IconLoader.LoadIcon("gtk-dialog-warning", 48);
+            this.imageInstall.Pixbuf = Stetic.IconLoader.LoadIcon(this, "gtk-dialog-warning", Gtk.IconSize.Dialog, 48);
             this.hbox82.Add(this.imageInstall);
             Gtk.Box.BoxChild w19 = ((Gtk.Box.BoxChild)(this.hbox82[this.imageInstall]));
             w19.Position = 0;
@@ -330,6 +333,7 @@ namespace Mono.Addins.Gui {
             this.label124.Name = "label124";
             this.label124.LabelProp = Mono.Unix.Catalog.GetString("label124");
             this.wizardNotebook.SetTabLabel(this.scrolledwindow19, this.label124);
+            this.label124.ShowAll();
             // Container child wizardNotebook.Gtk.Notebook+NotebookChild
             this.vbox86 = new Gtk.VBox();
             this.vbox86.Name = "vbox86";
@@ -348,7 +352,7 @@ namespace Mono.Addins.Gui {
             // Container child vbox86.Gtk.Box+BoxChild
             this.mainProgressBar = new Gtk.ProgressBar();
             this.mainProgressBar.Name = "mainProgressBar";
-            this.mainProgressBar.PulseStep = 0.10000000149;
+            this.mainProgressBar.PulseStep = 10000000149;
             this.vbox86.Add(this.mainProgressBar);
             Gtk.Box.BoxChild w25 = ((Gtk.Box.BoxChild)(this.vbox86[this.mainProgressBar]));
             w25.Position = 1;
@@ -376,7 +380,7 @@ namespace Mono.Addins.Gui {
             // Container child vbox86.Gtk.Box+BoxChild
             this.progressBar = new Gtk.ProgressBar();
             this.progressBar.Name = "progressBar";
-            this.progressBar.PulseStep = 0.10000000149;
+            this.progressBar.PulseStep = 10000000149;
             this.vbox86.Add(this.progressBar);
             Gtk.Box.BoxChild w28 = ((Gtk.Box.BoxChild)(this.vbox86[this.progressBar]));
             w28.Position = 4;
@@ -391,6 +395,7 @@ namespace Mono.Addins.Gui {
             this.label110.Name = "label110";
             this.label110.LabelProp = "label110";
             this.wizardNotebook.SetTabLabel(this.vbox86, this.label110);
+            this.label110.ShowAll();
             // Container child wizardNotebook.Gtk.Notebook+NotebookChild
             this.scrolledwindow20 = new Gtk.ScrolledWindow();
             this.scrolledwindow20.CanFocus = true;
@@ -399,7 +404,6 @@ namespace Mono.Addins.Gui {
             this.scrolledwindow20.HscrollbarPolicy = ((Gtk.PolicyType)(1));
             // Container child scrolledwindow20.Gtk.Container+ContainerChild
             Gtk.Viewport w30 = new Gtk.Viewport();
-            w30.Name = "viewport3";
             // Container child viewport3.Gtk.Container+ContainerChild
             this.vbox91 = new Gtk.VBox();
             this.vbox91.Name = "vbox91";
@@ -414,7 +418,7 @@ namespace Mono.Addins.Gui {
             this.imageError = new Gtk.Image();
             this.imageError.Name = "imageError";
             this.imageError.Yalign = 1F;
-            this.imageError.Pixbuf = Stetic.IconLoader.LoadIcon("gtk-dialog-error", 48);
+            this.imageError.Pixbuf = Stetic.IconLoader.LoadIcon(this, "gtk-dialog-error", Gtk.IconSize.Dialog, 48);
             this.vbox91.Add(this.imageError);
             Gtk.Box.BoxChild w32 = ((Gtk.Box.BoxChild)(this.vbox91[this.imageError]));
             w32.Position = 1;
@@ -422,15 +426,25 @@ namespace Mono.Addins.Gui {
             w32.Fill = false;
             w32.Padding = ((uint)(5));
             // Container child vbox91.Gtk.Box+BoxChild
-            this.imageInfo = new Gtk.Image();
-            this.imageInfo.Name = "imageInfo";
-            this.imageInfo.Yalign = 1F;
-            this.imageInfo.Pixbuf = Stetic.IconLoader.LoadIcon("gtk-dialog-info", 48);
-            this.vbox91.Add(this.imageInfo);
-            Gtk.Box.BoxChild w33 = ((Gtk.Box.BoxChild)(this.vbox91[this.imageInfo]));
+            this.imageWarn = new Gtk.Image();
+            this.imageWarn.Name = "imageWarn";
+            this.imageWarn.Yalign = 1F;
+            this.imageWarn.Pixbuf = Stetic.IconLoader.LoadIcon(this, "gtk-dialog-warning", Gtk.IconSize.Dialog, 48);
+            this.vbox91.Add(this.imageWarn);
+            Gtk.Box.BoxChild w33 = ((Gtk.Box.BoxChild)(this.vbox91[this.imageWarn]));
             w33.Position = 2;
             w33.Expand = false;
             w33.Fill = false;
+            // Container child vbox91.Gtk.Box+BoxChild
+            this.imageInfo = new Gtk.Image();
+            this.imageInfo.Name = "imageInfo";
+            this.imageInfo.Yalign = 1F;
+            this.imageInfo.Pixbuf = Stetic.IconLoader.LoadIcon(this, "gtk-dialog-info", Gtk.IconSize.Dialog, 48);
+            this.vbox91.Add(this.imageInfo);
+            Gtk.Box.BoxChild w34 = ((Gtk.Box.BoxChild)(this.vbox91[this.imageInfo]));
+            w34.Position = 3;
+            w34.Expand = false;
+            w34.Fill = false;
             // Container child vbox91.Gtk.Box+BoxChild
             this.hbox71 = new Gtk.HBox();
             this.hbox71.Name = "hbox71";
@@ -445,35 +459,36 @@ namespace Mono.Addins.Gui {
             this.labelResult.Wrap = true;
             this.labelResult.Justify = ((Gtk.Justification)(2));
             this.hbox71.Add(this.labelResult);
-            Gtk.Box.BoxChild w34 = ((Gtk.Box.BoxChild)(this.hbox71[this.labelResult]));
-            w34.PackType = ((Gtk.PackType)(1));
-            w34.Position = 0;
+            Gtk.Box.BoxChild w35 = ((Gtk.Box.BoxChild)(this.hbox71[this.labelResult]));
+            w35.PackType = ((Gtk.PackType)(1));
+            w35.Position = 0;
             this.vbox91.Add(this.hbox71);
-            Gtk.Box.BoxChild w35 = ((Gtk.Box.BoxChild)(this.vbox91[this.hbox71]));
-            w35.Position = 3;
-            w35.Expand = false;
-            w35.Fill = false;
+            Gtk.Box.BoxChild w36 = ((Gtk.Box.BoxChild)(this.vbox91[this.hbox71]));
+            w36.Position = 4;
+            w36.Expand = false;
+            w36.Fill = false;
             // Container child vbox91.Gtk.Box+BoxChild
             this.label131 = new Gtk.Label();
             this.label131.Name = "label131";
             this.label131.LabelProp = "";
             this.vbox91.Add(this.label131);
-            Gtk.Box.BoxChild w36 = ((Gtk.Box.BoxChild)(this.vbox91[this.label131]));
-            w36.Position = 4;
+            Gtk.Box.BoxChild w37 = ((Gtk.Box.BoxChild)(this.vbox91[this.label131]));
+            w37.Position = 5;
             w30.Add(this.vbox91);
             this.scrolledwindow20.Add(w30);
             this.wizardNotebook.Add(this.scrolledwindow20);
-            Gtk.Notebook.NotebookChild w39 = ((Gtk.Notebook.NotebookChild)(this.wizardNotebook[this.scrolledwindow20]));
-            w39.Position = 3;
-            w39.TabExpand = false;
+            Gtk.Notebook.NotebookChild w40 = ((Gtk.Notebook.NotebookChild)(this.wizardNotebook[this.scrolledwindow20]));
+            w40.Position = 3;
+            w40.TabExpand = false;
             // Notebook tab
             this.label111 = new Gtk.Label();
             this.label111.Name = "label111";
             this.label111.LabelProp = "label111";
             this.wizardNotebook.SetTabLabel(this.scrolledwindow20, this.label111);
+            this.label111.ShowAll();
             w1.Add(this.wizardNotebook);
-            Gtk.Box.BoxChild w40 = ((Gtk.Box.BoxChild)(w1[this.wizardNotebook]));
-            w40.Position = 0;
+            Gtk.Box.BoxChild w41 = ((Gtk.Box.BoxChild)(w1[this.wizardNotebook]));
+            w41.Position = 0;
             // Container child dialog-vbox9.Gtk.Box+BoxChild
             this.dialog_action_area9 = new Gtk.HButtonBox();
             this.dialog_action_area9.Name = "dialog_action_area9";
@@ -498,8 +513,8 @@ namespace Mono.Addins.Gui {
             this.btnPrev.UseUnderline = true;
             this.btnPrev.Label = "gtk-go-back";
             this.dialog_action_area9.Add(this.btnPrev);
-            Gtk.ButtonBox.ButtonBoxChild w42 = ((Gtk.ButtonBox.ButtonBoxChild)(this.dialog_action_area9[this.btnPrev]));
-            w42.Position = 1;
+            Gtk.ButtonBox.ButtonBoxChild w43 = ((Gtk.ButtonBox.ButtonBoxChild)(this.dialog_action_area9[this.btnPrev]));
+            w43.Position = 1;
             // Container child dialog_action_area9.Gtk.ButtonBox+ButtonBoxChild
             this.btnNext = new Gtk.Button();
             this.btnNext.CanDefault = true;
@@ -509,8 +524,8 @@ namespace Mono.Addins.Gui {
             this.btnNext.UseUnderline = true;
             this.btnNext.Label = "gtk-go-forward";
             this.dialog_action_area9.Add(this.btnNext);
-            Gtk.ButtonBox.ButtonBoxChild w43 = ((Gtk.ButtonBox.ButtonBoxChild)(this.dialog_action_area9[this.btnNext]));
-            w43.Position = 2;
+            Gtk.ButtonBox.ButtonBoxChild w44 = ((Gtk.ButtonBox.ButtonBoxChild)(this.dialog_action_area9[this.btnNext]));
+            w44.Position = 2;
             // Container child dialog_action_area9.Gtk.ButtonBox+ButtonBoxChild
             this.btnOk = new Gtk.Button();
             this.btnOk.CanDefault = true;
@@ -520,21 +535,12 @@ namespace Mono.Addins.Gui {
             this.btnOk.UseUnderline = true;
             this.btnOk.Label = "gtk-ok";
             this.dialog_action_area9.Add(this.btnOk);
-            Gtk.ButtonBox.ButtonBoxChild w44 = ((Gtk.ButtonBox.ButtonBoxChild)(this.dialog_action_area9[this.btnOk]));
-            w44.Position = 3;
+            Gtk.ButtonBox.ButtonBoxChild w45 = ((Gtk.ButtonBox.ButtonBoxChild)(this.dialog_action_area9[this.btnOk]));
+            w45.Position = 3;
             w1.Add(this.dialog_action_area9);
-            Gtk.Box.BoxChild w45 = ((Gtk.Box.BoxChild)(w1[this.dialog_action_area9]));
-            w45.PackType = ((Gtk.PackType)(1));
-            w45.Position = 2;
-            w45.Expand = false;
-            w45.Fill = false;
-            // Container child dialog-vbox9.Gtk.Box+BoxChild
-            this.hseparator3 = new Gtk.HSeparator();
-            this.hseparator3.Name = "hseparator3";
-            w1.Add(this.hseparator3);
-            Gtk.Box.BoxChild w46 = ((Gtk.Box.BoxChild)(w1[this.hseparator3]));
+            Gtk.Box.BoxChild w46 = ((Gtk.Box.BoxChild)(w1[this.dialog_action_area9]));
             w46.PackType = ((Gtk.PackType)(1));
-            w46.Position = 3;
+            w46.Position = 2;
             w46.Expand = false;
             w46.Fill = false;
             // Internal child Mono.Addins.Gui.AddinInstallDialog.ActionArea
@@ -547,6 +553,7 @@ namespace Mono.Addins.Gui {
                 this.Child.ShowAll();
             }
             this.btnOk.Hide();
+            w47.Hide();
             this.Show();
             this.repoCombo.Changed += new System.EventHandler(this.OnRepoChanged);
             this.button1.Clicked += new System.EventHandler(this.OnUpdateRepo);

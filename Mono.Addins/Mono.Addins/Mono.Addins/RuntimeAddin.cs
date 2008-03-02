@@ -33,9 +33,11 @@ using System.Collections;
 using System.IO;
 using System.Reflection;
 using System.Xml;
-using Mono.Addins.Description;
 using System.Resources;
 using System.Globalization;
+
+using Mono.Addins.Description;
+using Mono.Addins.Localization;
 
 namespace Mono.Addins
 {
@@ -49,6 +51,7 @@ namespace Mono.Addins
 		Assembly[] assemblies;
 		RuntimeAddin[] depAddins;
 		ResourceManager[] resourceManagers;
+		AddinLocalizer localizer;
 		
 		internal RuntimeAddin()
 		{
@@ -68,6 +71,11 @@ namespace Mono.Addins
 		
 		internal Addin Addin {
 			get { return ainfo; }
+		}
+		
+		public override string ToString ()
+		{
+			return ainfo.ToString ();
 		}
 
 		void CreateResourceManagers ()
@@ -115,7 +123,7 @@ namespace Mono.Addins
 		{
 			if (resourceManagers == null)
 				CreateResourceManagers ();
-
+			
 			// Look in resources of this add-in
 			foreach (ResourceManager manager in resourceManagers)
 			{
@@ -202,6 +210,11 @@ namespace Mono.Addins
 		
 		public Stream GetResource (string resourceName)
 		{
+			return GetResource (resourceName, false);
+		}
+		
+		public Stream GetResource (string resourceName, bool throwIfNotFound)
+		{
 			// Look in the addin assemblies
 			
 			foreach (Assembly asm in assemblies) {
@@ -217,7 +230,19 @@ namespace Mono.Addins
 					return res;
 			}
 			
+			if (throwIfNotFound)
+				throw new InvalidOperationException ("Resource '" + resourceName + "' not found in add-in '" + id + "'");
+				
 			return null;
+		}
+		
+		public AddinLocalizer Localizer {
+			get {
+				if (localizer != null)
+					return localizer;
+				else
+					return AddinManager.DefaultLocalizer;
+			}
 		}
 		
 		internal AddinDescription Load (Addin iad)
@@ -242,6 +267,20 @@ namespace Mono.Addins
 			
 			depAddins = (RuntimeAddin[]) plugList.ToArray (typeof(RuntimeAddin));
 			assemblies = (Assembly[]) asmList.ToArray (typeof(Assembly));
+			
+			if (description.Localizer != null) {
+				string cls = description.Localizer.GetAttribute ("type");
+				
+				// First try getting one of the stock localizers. If none of found try getting the type.
+				object fob = CreateInstance ("Mono.Addins.Localization." + cls + "Localizer", false);
+				if (fob == null)
+					fob = CreateInstance (cls, true);
+				
+				IAddinLocalizerFactory factory = fob as IAddinLocalizerFactory;
+				if (factory == null)
+					throw new InvalidOperationException ("Localizer factory type '" + cls + "' must implement IAddinLocalizerFactory");
+				localizer = new AddinLocalizer (factory.CreateLocalizer (this, description.Localizer));
+			}
 			
 			return description;
 		}
@@ -278,8 +317,13 @@ namespace Mono.Addins
 			// Collect dependent ids
 			foreach (Dependency dep in module.Dependencies) {
 				AddinDependency pdep = dep as AddinDependency;
-				if (pdep != null)
-					plugList.Add (AddinManager.SessionService.GetAddin (Addin.GetFullId (ns, pdep.AddinId, pdep.Version)));
+				if (pdep != null) {
+					RuntimeAddin adn = AddinManager.SessionService.GetAddin (Addin.GetFullId (ns, pdep.AddinId, pdep.Version));
+					if (adn != null)
+						plugList.Add (adn);
+					else
+						AddinManager.ReportError ("Add-in dependency not loaded: " + pdep.FullAddinId, module.ParentAddinDescription.AddinId, null, false);
+				}
 			}
 		}
 		
