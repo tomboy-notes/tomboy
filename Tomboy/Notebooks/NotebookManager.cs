@@ -15,7 +15,8 @@ namespace Tomboy.Notebooks
 		static Gtk.TreeModelSort sortedNotebooks;
 		static Gtk.TreeModelFilter filteredNotebooks;
 		static Dictionary<string, Gtk.TreeIter> notebookMap;
-		static object locker = new object ();
+		static object locker = new object ();		
+		public static bool AddingNotebook = false;
 		#endregion // Fields
 		
 		public delegate void NotebookEventHandler (Note note, Notebook notebook);
@@ -123,7 +124,12 @@ namespace Tomboy.Notebooks
 				if (notebook != null)
 					return notebook;
 				
-				notebook = new Notebook (notebookName);
+				try {
+					AddingNotebook = true;
+					notebook = new Notebook (notebookName);
+				} finally {
+					AddingNotebook = false;
+				}
 				iter = notebooks.Append ();
 				notebooks.SetValue (iter, 0, notebook);
 				notebookMap [notebook.NormalizedName] = iter;
@@ -384,6 +390,19 @@ namespace Tomboy.Notebooks
 			
 			return true;
 		}
+		
+		public static void FireNoteAddedToNoteBook (Note note, Notebook notebook)
+		{
+			if (NoteAddedToNotebook != null)
+				NoteAddedToNotebook (note, notebook);
+		}
+		
+		public static void FireNoteRemovedFromNoteBook (Note note, Notebook notebook)
+		{
+			if (NoteRemovedFromNotebook != null)
+				NoteRemovedFromNotebook (note, notebook);
+		}
+		
 		#endregion // Public Methods
 		
 		#region Private Methods
@@ -429,17 +448,17 @@ namespace Tomboy.Notebooks
 			}
 		}
 
-        /// <summary>
-        /// Filter out SpecialNotebooks from the model
-        /// </summary>
-        static bool FilterNotebooks (Gtk.TreeModel model, Gtk.TreeIter iter)
-        {
-        	Notebook notebook = model.GetValue (iter, 0) as Notebook;
-        	if (notebook == null || notebook is SpecialNotebook)
-        		return false;
-        	
-        	return true;
-        }
+	        /// <summary>
+	        /// Filter out SpecialNotebooks from the model
+	        /// </summary>
+	        static bool FilterNotebooks (Gtk.TreeModel model, Gtk.TreeIter iter)
+	        {
+	        	Notebook notebook = model.GetValue (iter, 0) as Notebook;
+	        	if (notebook == null || notebook is SpecialNotebook)
+	        		return false;
+	        	
+	        	return true;
+	        }
 		#endregion // Private Methods
 	}
 }

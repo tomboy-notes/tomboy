@@ -126,6 +126,15 @@ namespace Tomboy.Notebooks
 					(imageItem.Image as Gtk.Image).Pixbuf = ActionManager.newNote;
 				}
 			}
+					
+			foreach (Note note in Tomboy.DefaultNoteManager.Notes) {
+				note.TagAdded += OnTagAdded;
+				note.TagRemoved += OnTagRemoved;
+			}
+					
+			Tomboy.DefaultNoteManager.NoteAdded += OnNoteAdded;
+			Tomboy.DefaultNoteManager.NoteDeleted += OnNoteDeleted;
+				
 			initialized = true;
 		}
 
@@ -221,6 +230,61 @@ namespace Tomboy.Notebooks
 		private void OnNewNotebookMenuItem (object sender, EventArgs args)
 		{
 			NotebookManager.PromptCreateNewNotebook (null);
+		}
+		
+		/// <summary>
+		/// Handle the addition of note tags through programmatic means,
+		/// such as note sync or the dbus remote control.
+		/// </summary>
+		private void OnTagAdded (Note note, Tag tag)
+		{
+			if (NotebookManager.AddingNotebook)
+				return;
+			
+			string megaPrefix =
+				Tag.SYSTEM_TAG_PREFIX + Notebook.NotebookTagPrefix;
+			if (tag.IsSystem == false
+			    || tag.Name.StartsWith (megaPrefix) == false) {
+				return;
+			}
+			
+			string notebookName =
+				tag.Name.Substring (megaPrefix.Length);
+			
+			Notebook notebook =
+				NotebookManager.GetOrCreateNotebook (notebookName);
+				
+			NotebookManager.FireNoteAddedToNoteBook (note, notebook);
+		}
+			
+		private void OnTagRemoved (Note note, string normalizedTagName)
+		{
+			string megaPrefix =
+				Tag.SYSTEM_TAG_PREFIX + Notebook.NotebookTagPrefix;
+			if (normalizedTagName.StartsWith (megaPrefix) == false)
+				return;
+			
+			string normalizedNotebookName =
+				normalizedTagName.Substring (megaPrefix.Length);
+			
+			Notebook notebook =
+				NotebookManager.GetNotebook (normalizedNotebookName);
+			if (notebook == null)
+				return;
+			
+			NotebookManager.FireNoteRemovedFromNoteBook (note, notebook);
+		}
+		
+		private void OnNoteAdded (object sender, Note note)
+		{
+			note.TagAdded += OnTagAdded;
+			note.TagRemoved += OnTagRemoved;
+		}
+		
+		private void OnNoteDeleted (object sender, Note note)
+		{
+			note.TagAdded -= OnTagAdded;
+			note.TagRemoved -= OnTagRemoved;
 		}
 	}
 }
