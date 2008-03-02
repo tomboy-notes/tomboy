@@ -13,14 +13,7 @@ namespace Tomboy.Bugzilla
 {
 	public class BugzillaNoteAddin : NoteAddin
 	{
-		static int last_bug;
-
 		public const string BugzillaLinkTagName = "link:bugzilla";
-
-		static BugzillaNoteAddin ()
-		{
-			last_bug = -1;
-		}
 
 		public override void Initialize ()
 		{
@@ -78,13 +71,6 @@ namespace Tomboy.Bugzilla
 		bool InsertBug (int x, int y, string uri, int id)
 		{
 			try {
-				// Debounce.  I'm not sure why this is necessary :(
-				if (id == last_bug) {
-					last_bug = -1;
-					return true;
-				}
-				last_bug = id;
-
 				BugzillaLink link_tag = (BugzillaLink)
 				                        Note.TagTable.CreateDynamicTag (BugzillaLinkTagName);
 				link_tag.BugUrl = uri;
