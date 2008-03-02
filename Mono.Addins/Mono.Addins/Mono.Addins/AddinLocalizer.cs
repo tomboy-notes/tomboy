@@ -1,10 +1,10 @@
 //
-// NativePackage.cs
+// AddinLocalizer.cs
 //
 // Author:
 //   Lluis Sanchez Gual
 //
-// Copyright (C) 2005 Novell, Inc (http://www.novell.com)
+// Copyright (C) 2007 Novell, Inc (http://www.novell.com)
 //
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -27,47 +27,46 @@
 //
 
 using System;
-using Mono.Addins.Description;
+using Mono.Addins.Localization;
 
-namespace Mono.Addins.Setup
+namespace Mono.Addins
 {
-	internal class NativePackage: Package
+	public class AddinLocalizer
 	{
-		public override string Name {
-			get { return "Native package"; }
+		IAddinLocalizer localizer;
+		IPluralAddinLocalizer pluralLocalizer;
+		
+		internal AddinLocalizer (IAddinLocalizer localizer)
+		{
+			this.localizer = localizer;
+			pluralLocalizer = localizer as IPluralAddinLocalizer;
 		}
 		
-		internal override void PrepareInstall (IProgressMonitor monitor, AddinStore service)
+		public string GetString (string msgid)
 		{
+			return localizer.GetString (msgid);
 		}
 		
-		internal override void CommitInstall (IProgressMonitor monitor, AddinStore service)
+		public string GetString (string msgid, params string[] args)
 		{
+			return string.Format (localizer.GetString (msgid), args);
 		}
 		
-		internal override void RollbackInstall (IProgressMonitor monitor, AddinStore service)
+		public string GetPluralString (string msgid, string defaultPlural, int n)
 		{
+			// If the localizer does not support plural forms, just use GetString to
+			// get a translation. It is not correct to check 'n' in this case because
+			// there is no guarantee that 'defaultPlural' will be translated.
+			
+			if (pluralLocalizer != null)
+				return pluralLocalizer.GetPluralString (msgid, defaultPlural, n);
+			else
+				return GetString (msgid);
 		}
 		
-		internal override void Resolve (IProgressMonitor monitor, AddinStore service, PackageCollection toInstall, PackageCollection toUninstall, PackageCollection required, DependencyCollection unresolved)
+		public string GetPluralString (string singular, string defaultPlural, int n, params string[] args)
 		{
-		}
-		
-		internal override void PrepareUninstall (IProgressMonitor monitor, AddinStore service)
-		{
-		}
-		
-		internal override void CommitUninstall (IProgressMonitor monitor, AddinStore service)
-		{
-		}
-		
-		internal override void RollbackUninstall (IProgressMonitor monitor, AddinStore service)
-		{
-		}
-		
-		internal override bool IsUpgradeOf (Package p)
-		{
-			return false;
+			return string.Format (GetPluralString (singular, defaultPlural, n), args);
 		}
 	}
 }

@@ -42,17 +42,30 @@ namespace Mono.Addins
 		AddinDatabase database;
 		StringCollection addinDirs;
 		string basePath;
+		string currentDomain;
+		string startupDirectory;
 		
 		public AddinRegistry (string registryPath): this (registryPath, null)
 		{
 		}
 		
-		internal AddinRegistry (string registryPath, string startupDirectory)
+		public AddinRegistry (string registryPath, string startupDirectory)
 		{
 			basePath = Util.GetFullPath (registryPath);
 			database = new AddinDatabase (this);
+
+			// Look for add-ins in the hosts directory and in the default
+			// addins directory
 			addinDirs = new StringCollection ();
-			addinDirs.Add (Path.Combine (basePath, "addins"));
+			addinDirs.Add (database.HostsPath);
+			addinDirs.Add (DefaultAddinsFolder);
+			
+			// Get the domain corresponding to the startup folder
+			if (startupDirectory != null) {
+				this.startupDirectory = startupDirectory;
+				currentDomain = database.GetFolderDomain (null, startupDirectory);
+			} else
+				currentDomain = AddinDatabase.GlobalDomain;
 		}
 		
 		public static AddinRegistry GetGlobalRegistry ()
@@ -96,23 +109,23 @@ namespace Mono.Addins
 		
 		public Addin GetAddin (string id)
 		{
-			return database.GetInstalledAddin (id);
+			return database.GetInstalledAddin (currentDomain, id);
 		}
 		
 		public Addin GetAddin (string id, bool exactVersionMatch)
 		{
-			return database.GetInstalledAddin (id, exactVersionMatch);
+			return database.GetInstalledAddin (currentDomain, id, exactVersionMatch);
 		}
 		
 		public Addin[] GetAddins ()
 		{
-			ArrayList list = database.GetInstalledAddins ();
+			ArrayList list = database.GetInstalledAddins (currentDomain, AddinType.Addin);
 			return (Addin[]) list.ToArray (typeof(Addin));
 		}
 		
 		public Addin[] GetAddinRoots ()
 		{
-			ArrayList list = database.GetAddinRoots ();
+			ArrayList list = database.GetInstalledAddins (currentDomain, AddinType.Root);
 			return (Addin[]) list.ToArray (typeof(Addin));
 		}
 		
@@ -153,17 +166,17 @@ namespace Mono.Addins
 		
 		public bool IsAddinEnabled (string id)
 		{
-			return database.IsAddinEnabled (id);
+			return database.IsAddinEnabled (currentDomain, id);
 		}
 		
 		public void EnableAddin (string id)
 		{
-			database.EnableAddin (id, true);
+			database.EnableAddin (currentDomain, id, true);
 		}
 		
 		public void DisableAddin (string id)
 		{
-			database.DisableAddin (id);
+			database.DisableAddin (currentDomain, id);
 		}
 		
 		public void DumpFile (string file)
@@ -175,25 +188,31 @@ namespace Mono.Addins
 		{
 			database.ResetConfiguration ();
 		}
+		
+		internal void NotifyDatabaseUpdated ()
+		{
+			if (startupDirectory != null)
+				currentDomain = database.GetFolderDomain (null, startupDirectory);
+		}
 
 		public void Update (IProgressStatus monitor)
 		{
-			database.Update (monitor);
+			database.Update (monitor, currentDomain);
 		}
 
 		public void Rebuild (IProgressStatus monitor)
 		{
-			database.Repair (monitor);
+			database.Repair (monitor, currentDomain);
 		}
 		
 		internal Addin GetAddinForHostAssembly (string filePath)
 		{
-			return database.GetAddinForHostAssembly (filePath);
+			return database.GetAddinForHostAssembly (currentDomain, filePath);
 		}
 		
 		internal bool AddinDependsOn (string id1, string id2)
 		{
-			return database.AddinDependsOn (id1, id2);
+			return database.AddinDependsOn (currentDomain, id1, id2);
 		}
 		
 		internal void ScanFolders (IProgressStatus monitor, string folderToScan, StringCollection filesToIgnore)
@@ -218,10 +237,10 @@ namespace Mono.Addins
 		{
 			hostFile = Util.GetFullPath (hostFile);
 			string baseName = Path.GetFileNameWithoutExtension (hostFile);
-			if (!Directory.Exists (DefaultAddinsFolder))
-				Directory.CreateDirectory (DefaultAddinsFolder);
+			if (!Directory.Exists (database.HostsPath))
+				Directory.CreateDirectory (database.HostsPath);
 			
-			foreach (string s in Directory.GetFiles (DefaultAddinsFolder, baseName + "*.host.addins")) {
+			foreach (string s in Directory.GetFiles (database.HostsPath, baseName + "*.addins")) {
 				try {
 					using (StreamReader sr = new StreamReader (s)) {
 						XmlTextReader tr = new XmlTextReader (sr);
@@ -236,10 +255,10 @@ namespace Mono.Addins
 				}
 			}
 			
-			string file = Path.Combine (DefaultAddinsFolder, baseName) + ".host.addins";
+			string file = Path.Combine (database.HostsPath, baseName) + ".addins";
 			int n=1;
 			while (File.Exists (file)) {
-				file = Path.Combine (DefaultAddinsFolder, baseName) + "_" + n + ".host.addins";
+				file = Path.Combine (database.HostsPath, baseName) + "_" + n + ".addins";
 				n++;
 			}
 			
@@ -248,11 +267,39 @@ namespace Mono.Addins
 				tw.Formatting = Formatting.Indented;
 				tw.WriteStartElement ("Addins");
 				tw.WriteAttributeString ("host-reference", hostFile);
-				tw.WriteElementString ("Directory", Path.GetDirectoryName (hostFile));
+				tw.WriteStartElement ("Directory");
+				tw.WriteAttributeString ("shared", "false");
+				tw.WriteString (Path.GetDirectoryName (hostFile));
 				tw.WriteEndElement ();
 				tw.Close ();
 			}
 			return true;
+		}
+		
+		internal static string[] GetRegisteredStartupFolders (string registryPath)
+		{
+			string dbDir = Path.Combine (registryPath, "addin-db-" + AddinDatabase.VersionTag);
+			dbDir = Path.Combine (dbDir, "hosts");
+			
+			if (!Directory.Exists (dbDir))
+				return new string [0];
+			
+			ArrayList dirs = new ArrayList ();
+			
+			foreach (string s in Directory.GetFiles (dbDir, "*.addins")) {
+				try {
+					using (StreamReader sr = new StreamReader (s)) {
+						XmlTextReader tr = new XmlTextReader (sr);
+						tr.MoveToContent ();
+						string host = tr.GetAttribute ("host-reference");
+						dirs.Add (Path.GetDirectoryName (host));
+					}
+				}
+				catch {
+					// Ignore this file
+				}
+			}
+			return (string[]) dirs.ToArray (typeof(string));
 		}
 	}
 }

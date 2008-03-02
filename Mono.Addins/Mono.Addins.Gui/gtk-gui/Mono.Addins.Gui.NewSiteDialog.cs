@@ -46,21 +46,23 @@ namespace Mono.Addins.Gui {
         private Gtk.Button btnOk;
         
         protected virtual void Build() {
-            Stetic.Gui.Initialize();
+            Stetic.Gui.Initialize(this);
             // Widget Mono.Addins.Gui.NewSiteDialog
             this.Name = "Mono.Addins.Gui.NewSiteDialog";
             this.Title = Mono.Unix.Catalog.GetString("Add New Repository");
             this.TypeHint = ((Gdk.WindowTypeHint)(1));
+            this.BorderWidth = ((uint)(6));
             this.DefaultWidth = 550;
             // Internal child Mono.Addins.Gui.NewSiteDialog.VBox
             Gtk.VBox w1 = this.VBox;
             w1.Name = "dialog-vbox11";
+            w1.Spacing = 6;
             w1.BorderWidth = ((uint)(2));
             // Container child dialog-vbox11.Gtk.Box+BoxChild
             this.vbox89 = new Gtk.VBox();
             this.vbox89.Name = "vbox89";
             this.vbox89.Spacing = 6;
-            this.vbox89.BorderWidth = ((uint)(12));
+            this.vbox89.BorderWidth = ((uint)(6));
             // Container child vbox89.Gtk.Box+BoxChild
             this.label121 = new Gtk.Label();
             this.label121.Name = "label121";
@@ -220,9 +222,10 @@ namespace Mono.Addins.Gui {
             if ((this.Child != null)) {
                 this.Child.ShowAll();
             }
-            this.DefaultHeight = 235;
+            this.DefaultHeight = 249;
             this.Show();
             this.btnOnlineRep.Clicked += new System.EventHandler(this.OnOptionClicked);
+            this.urlText.Changed += new System.EventHandler(this.OnUrlTextChanged);
             this.btnLocalRep.Clicked += new System.EventHandler(this.OnOptionClicked);
             this.pathEntry.Changed += new System.EventHandler(this.OnPathEntryChanged);
             this.buttonBrowse.Clicked += new System.EventHandler(this.OnButtonBrowseClicked);

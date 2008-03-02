@@ -31,7 +31,7 @@ using System.IO;
 using System.Reflection;
 using System.Collections;
 
-using Mono.Addins;
+using Mono.Addins.Localization;
 
 namespace Mono.Addins
 {
@@ -43,7 +43,7 @@ namespace Mono.Addins
 		static string startupDirectory;
 		static bool initialized;
 		static IAddinInstaller installer;
-		
+
 		public static event AddinErrorEventHandler AddinLoadError;
 		public static event AddinEventHandler AddinLoaded;
 		public static event AddinEventHandler AddinUnloaded;
@@ -62,8 +62,11 @@ namespace Mono.Addins
 			if (initialized)
 				return;
 			
-			startupDirectory = new Uri (Assembly.GetCallingAssembly ().CodeBase).LocalPath;
-			startupDirectory = Path.GetDirectoryName (startupDirectory);
+			Assembly asm = Assembly.GetEntryAssembly ();
+			if (asm == null) asm = Assembly.GetCallingAssembly ();
+			string asmFile = new Uri (asm.CodeBase).LocalPath;
+			
+			startupDirectory = Path.GetDirectoryName (asmFile);
 			
 			string customDir = Environment.GetEnvironmentVariable ("MONO_ADDINS_REGISTRY");
 			if (customDir != null && customDir.Length > 0)
@@ -74,9 +77,6 @@ namespace Mono.Addins
 			else
 				registry = new AddinRegistry (configDir, startupDirectory);
 
-			Assembly asm = Assembly.GetEntryAssembly ();
-			if (asm == null) asm = Assembly.GetCallingAssembly ();
-			string asmFile = new Uri (asm.CodeBase).LocalPath;
 			if (registry.CreateHostAddinsFile (asmFile))
 				registry.Update (new ConsoleProgressStatus (false));
 			
@@ -94,6 +94,12 @@ namespace Mono.Addins
 			initialized = false;
 		}
 		
+		public static void InitializeDefaultLocalizer (IAddinLocalizer localizer)
+		{
+			CheckInitialized ();
+			SessionService.InitializeDefaultLocalizer (localizer);
+		}
+		
 		internal static string StartupDirectory {
 			get { return startupDirectory; }
 		}
@@ -105,6 +111,31 @@ namespace Mono.Addins
 		public static IAddinInstaller DefaultInstaller {
 			get { return installer; }
 			set { installer = value; }
+		}
+		
+		public static AddinLocalizer DefaultLocalizer {
+			get {
+				CheckInitialized ();
+				return SessionService.DefaultLocalizer;
+			}
+		}
+		
+		public static AddinLocalizer CurrentLocalizer {
+			get {
+				CheckInitialized ();
+				RuntimeAddin addin = SessionService.GetAddinForAssembly (Assembly.GetCallingAssembly ());
+				if (addin != null)
+					return addin.Localizer;
+				else
+					return SessionService.DefaultLocalizer;
+			}
+		}
+		
+		public static RuntimeAddin CurrentAddin {
+			get {
+				CheckInitialized ();
+				return SessionService.GetAddinForAssembly (Assembly.GetCallingAssembly ());
+			}
 		}
 		
 		internal static AddinSessionService SessionService {
@@ -250,8 +281,11 @@ namespace Mono.Addins
 		{
 			if (AddinLoadError != null)
 				AddinLoadError (null, new AddinErrorEventArgs (message, addinId, exception));
-			else
+			else {
 				Console.WriteLine (message);
+				if (exception != null)
+					Console.WriteLine (exception);
+			}
 		}
 		
 		internal static void ReportAddinLoad (string id)
