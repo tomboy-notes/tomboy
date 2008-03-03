@@ -1,5 +1,15 @@
 2008-03-03  Boyd Timothy <btimothy@gmail.com> 
 
+	* Tomboy/AddinManager.cs: Check for an older config.xml right after
+	  initializing Mono.Addins so we can upgrade from an older version of
+	  Tomboy if necessary to allow previously enabled addins to still be
+	  enabled in the newer Tomboy.  Fixes bug #514931.
+	* Tomboy/Addins/Bugzilla/Bugzilla.addin.xml: Don't update the version. 
+	  Updating the version will prevent the upgrade fix done in
+	  AddinManager.cs from working.
+
+2008-03-03  Boyd Timothy <btimothy@gmail.com> 
+
 	* Tomboy/Addins/Evolution/EvolutionNoteAddin.cs: Patch from Stefan Cosma to
 	  Uri.Unescape and then Uri.Escape the mail path to ensure we've got the
 	  entire string escaped properly.  Fixes bug #367623.
