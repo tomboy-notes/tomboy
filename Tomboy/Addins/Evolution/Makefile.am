@@ -21,7 +21,7 @@ if ENABLE_EVOLUTION
 TARGET = $(ADDIN_NAME).dll
 RESOURCES = \
 	-resource:$(srcdir)/$(ADDIN_NAME).addin.xml \
-	-resource:$(top_srcdir)/data/images/mail.png,mail.png
+	-resource:$(srcdir)/mail.png,mail.png
 
 $(TARGET): $(CSFILES) $(top_builddir)/Tomboy/Tomboy.exe
 	$(CSC) -out:$@ $(CSFLAGS) $(ASSEMBLIES) $(CSFILES) $(RESOURCES)
@@ -32,9 +32,13 @@ addinsdir = $(pkglibdir)/addins
 addins_DATA = 			\
 	$(TARGET)
 
+noinst_DATA = \
+	$(srcdir)/mail.png
+
 EXTRA_DIST =            	\
 	$(CSFILES) \
-	$(srcdir)/$(ADDIN_NAME).addin.xml
+	$(srcdir)/$(ADDIN_NAME).addin.xml \
+	$(srcdir)/mail.png
 
 CLEANFILES =				\
 	$(TARGET).mdb \
