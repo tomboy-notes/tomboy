@@ -77,6 +77,7 @@ namespace Tomboy
 			Mono.Addins.AddinManager.AddinLoaded += OnAddinLoaded;
 			Mono.Addins.AddinManager.AddinUnloaded += OnAddinUnloaded;
 			Mono.Addins.AddinManager.Initialize (tomboy_conf_dir);
+			UpgradeOldAddinConfig ();
 			Mono.Addins.AddinManager.Registry.Rebuild (null);
 			Mono.Addins.AddinManager.AddExtensionNodeHandler ("/Tomboy/ApplicationAddins", OnApplicationAddinExtensionChanged);
 			// NOTE: A SyncServiceAddin is a specialization of an ApplicationAddin
@@ -488,6 +489,53 @@ namespace Tomboy
 			}
 
 			return null;
+		}
+		
+		/// <summary>
+		/// The purpose of this method is to check for an older config.xml file
+		/// in an older addin-db-* directory.  If a config.xml is found in an
+		/// older directory but not in the new addin-db-* directory, config.xml
+		/// will be copied into the new one.  This addresses a problem found
+		/// in bug #514931.  While running an older version of Tomboy, if a user
+		/// enables an addin that's disabled by deafult and then upgrades to a
+		/// newer Tomboy, the addin could be disabled again (which is what this
+		/// method attempts to fix).
+		/// </summary>
+		private void UpgradeOldAddinConfig ()
+		{
+			string registryPath =
+				Mono.Addins.AddinManager.Registry.RegistryPath;
+			
+			// Get the list of addin-db-* directories
+			string[] dirs =
+				Directory.GetDirectories (registryPath, "addin-db-*");
+			if (dirs == null || dirs.Length < 2) {
+				// If there are less than two, this is not an upgrade case
+				return;
+			}
+			
+			string oldAddinsDbPath = dirs [dirs.Length - 2];
+			string newAddinsDbPath = dirs [dirs.Length - 1];
+			// Check the last directory to see if it has a "config.xml" file.
+			// If it does, we can assume that the upgrade has already happened.
+			string oldConfigFile = Path.Combine (oldAddinsDbPath, "config.xml");
+			string newConfigFile = Path.Combine (newAddinsDbPath, "config.xml");
+			if (File.Exists (newConfigFile) == true)
+				return;
+			
+			// If there's no config.xml file in the old directory, there's no
+			// need to do an upgrade because the user must have never changed
+			// anything from the default.
+			if (File.Exists (oldConfigFile) == false)
+				return;
+			
+			Logger.Info ("Upgrading Mono.Addins config.xml: {0}", newConfigFile);
+			try {
+				File.Copy (oldConfigFile, newConfigFile);
+			} catch (Exception e) {
+				Logger.Warn ("Exception when upgrading Mono.Addins config.xml: {0}",
+							 e.Message);
+			}
 		}
 	}
 
