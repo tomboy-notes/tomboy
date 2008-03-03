@@ -262,7 +262,8 @@ namespace Tomboy
 				"Ryan Lortie <desrt@desrt.ca>",
 				"Sandy Armstrong <sanfordarmstrong@gmail.com>",
 				"Sebastian Rittau <srittau@jroger.in-berlin.de>",
-				"Kevin Kubasik <kevin@kubasik.net>"
+				"Kevin Kubasik <kevin@kubasik.net>",
+				"Stefan Schweizer <steve.schweizer@gmail.com>"
 			};
 
 			string [] documenters = new string [] {
