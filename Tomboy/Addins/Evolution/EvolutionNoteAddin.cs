@@ -224,6 +224,17 @@ namespace Tomboy.Evolution
 
 	public class EmailLink : DynamicNoteTag
 	{
+		static Gdk.Pixbuf mail_icon = null;
+		
+		static EmailLink ()
+		{
+			mail_icon =
+				GuiUtils.GetIcon (
+					System.Reflection.Assembly.GetExecutingAssembly (),
+					"mail",
+					16);
+		}
+		
 		public EmailLink ()
 : base ()
 		{
@@ -237,7 +248,7 @@ namespace Tomboy.Evolution
 			Foreground = "blue";
 			CanActivate = true;
 
-			Image = new Gdk.Pixbuf (null, "mail.png");
+			Image = mail_icon;
 		}
 
 		public string EmailUri

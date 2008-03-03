@@ -6,7 +6,16 @@ namespace Tomboy.Bugzilla
 	public class BugzillaLink : DynamicNoteTag
 	{
 		private const string UriAttributeName = "uri";
-		private const string StockIconFilename = "bug.png";
+		//private const string StockIconFilename = "bug.png";
+		private static Gdk.Pixbuf bug_icon;
+
+		static BugzillaLink ()
+		{
+			bug_icon = GuiUtils.GetIcon (
+				System.Reflection.Assembly.GetExecutingAssembly (),
+				"bug",
+				16);
+		}
 
 		public override void Initialize (string element_name)
 		{
@@ -39,9 +48,9 @@ namespace Tomboy.Bugzilla
 			} catch {}
 
 			if (uri == null) {
-					Image = new Gdk.Pixbuf(null, StockIconFilename);
-					return;
-				}
+				Image = bug_icon;
+				return;
+			}
 
 			string host = uri.Host;
 			// TODO: Get this in a safer way
@@ -51,7 +60,7 @@ namespace Tomboy.Bugzilla
 			try {
 				Image = new Gdk.Pixbuf (imagePath);
 			} catch (GLib.GException) {
-				Image = new Gdk.Pixbuf(null, StockIconFilename);
+				Image = bug_icon;
 			}
 		}
 

@@ -1,5 +1,5 @@
 
-SUBDIRS = images icons
+SUBDIRS = icons
 
 @INTLTOOL_DESKTOP_RULE@
 

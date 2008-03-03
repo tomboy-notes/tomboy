@@ -1,3 +1,18 @@
+2008-03-02  Boyd Timothy <btimothy@gmail.com> 
+
+	* configure.in, data/images/Makefile.am, data/Makefile.am: Don't need to
+	  build data/images/Makefile anymore.
+	* Tomboy/Addins/Evolution/mail.png, data/images/mail.png: Moved
+	  data/images/mail.png -> Tomboy/Addins/Evolution/mail.png.
+	* Tomboy/Addins/Evolution/Makefile.am,
+	  Tomboy/Addins/Evolution/EvolutionNoteAddin.cs,
+	  Tomboy/Addins/Bugzilla/Makefile.am,
+	  Tomboy/Addins/Bugzilla/BugzillaLink.cs: Package the mail.png and bug.png
+	  with their respective addins as resources and then call GetIcon properly
+	  to load them at runtime.  This is an additional fix for #518740.
+	* Tomboy/Addins/Bugzilla/bug.png, data/images/bug.png: Move
+	  /data/images/bug.png -> Tomboy/Addins/Bugzilla/bug.png.
+
 2008-03-02  Sandy Armstrong <sanfordarmstrong@gmail.com> 
 
 	* Tomboy/Defines.cs.in: Removing obsolete SYS_PLUGINS_DIR constant.
