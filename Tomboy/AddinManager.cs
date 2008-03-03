@@ -53,19 +53,25 @@ namespace Tomboy
 			// Make sure a Tomboy.addins file exists
 			string addins_file = Path.Combine (addins_dir, "Tomboy.addins");
 
-			if (!File.Exists (addins_file)) {
-				StreamWriter sw = File.CreateText (addins_file);
+			// Always recreate this file.  This means it's
+			// completely hands-off to the user.  This is done to
+			// support upgrades and parallel install scenarios,
+			// ensuring that Tomboy does its best not to load old
+			// versions of addins (which may no longer be compatible
+			// with the new version of Tomboy).
+			// See bug #514931 for details.
+			using (StreamWriter sw = File.CreateText (addins_file)) {
 				string addins_file_contents = String.Format (
 				                                      "<!--\n" +
 				                                      "     This file was automatically generated.  Editing this\n" +
-				                                      "     file by hand is strongly discouraged.\n" +
+				                                      "     file by hand is strongly discouraged and such changes\n" +
+			                                              "     may be reverted at any time.\n" +
 				                                      "-->\n\n" +
 				                                      "<Addins>\n" +
 				                                      "\t<Directory>{0}</Directory>\n" +
 				                                      "</Addins>\n",
 				                                      Defines.SYS_ADDINS_DIR);
 				sw.Write (addins_file_contents);
-				sw.Close ();
 			}
 
 			Mono.Addins.AddinManager.AddinLoaded += OnAddinLoaded;
