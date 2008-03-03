@@ -89,26 +89,6 @@ namespace Tomboy.Evolution
 		}
 
 		//
-		// Duplicates evoluion/camel/camel-url.c:camel_url_encode and
-		// escapes ";?" as well.
-		//
-		static string CamelUrlEncode (string uri_part)
-		{
-			// The characters Camel encodes
-			const string camel_escape_chars = " \"%#<>{}|\\^[]`;?";
-
-			StringBuilder builder = new StringBuilder (null);
-			foreach (char c in uri_part) {
-				if (camel_escape_chars.IndexOf (c) > -1)
-					builder.Append (Uri.HexEscape (c));
-				else
-					builder.Append (c);
-			}
-
-			return builder.ToString ();
-		}
-
-		//
 		// Duplicates
 		// evolution/mail/mail-config.c:mail_config_get_account_by_source_url...
 		//
@@ -205,7 +185,11 @@ namespace Tomboy.Evolution
 			if (path != string.Empty) {
 				// Skip leading '/' or '#'...
 				path = path.Substring (1);
-				path = CamelUrlEncode (path);
+				
+				// Some of the special characters in path are escaped (ex: " ",
+				// "%", ...) but other like ";" and "?" are not. This ensures
+				// that all special characters are escaped.
+				path = Uri.EscapeDataString (Uri.UnescapeDataString (path));
 			}
 
 			return string.Format ("email://{0}/{1}", account_uid, path);
