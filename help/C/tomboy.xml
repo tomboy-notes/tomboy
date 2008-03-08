@@ -6,7 +6,7 @@
 <!ENTITY appname "Tomboy">
 <!ENTITY extappname "Tomboy Notes">
 <!ENTITY manversion "2.0">
-<!ENTITY version "0.6.0">
+<!ENTITY version "0.10.0">
 ]>
 <!-- 
   (Do not remove this comment block.)
@@ -28,33 +28,39 @@
     </abstract>
 
     <copyright>
-      <year>2007</year>
+      <year>2008</year>
 
       <holder>Alex Graveley</holder>
     </copyright>
 
     <copyright>
-      <year>2006</year>
+      <year>2008</year>
 
       <holder>Brent Smith</holder>
     </copyright>
 
     <copyright>
-      <year>2006</year>
+      <year>2008</year>
 
       <holder>Free Software Foundation</holder>
     </copyright>
     
     <copyright>
-      <year>2007</year>
+      <year>2008</year>
       
       <holder>Boyd Timothy</holder>
     </copyright>
     
     <copyright>
-      <year>2007</year>
+      <year>2008</year>
       
       <holder>Sandy Armstrong</holder>
+    </copyright>
+    
+    <copyright>
+      <year>2008</year>
+      
+      <holder>Paul Cutler</holder>
     </copyright>
 
     <!-- translators: uncomment this:
@@ -123,6 +129,18 @@
         </affiliation>
       </author>
 
+      <author>
+        <firstname>Paul</firstname>
+
+        <surname>Cutler</surname>
+
+        <affiliation>
+          <orgname>GNOME Documentation Project</orgname>
+
+          <address><email>pcutler@foresightlinux.org</email></address>
+        </affiliation>
+      </author>
+      
       <!-- This is appropriate place for other contributors: translators,
      maintainers,  etc. Commented out by default.
       <othercredit role="translator">
@@ -143,6 +161,18 @@
     <revhistory>
       <!-- Remember to remove the &manrevision; entity from the revision entries other
    than the current revision. -->
+
+      <revision>
+        <revnumber>Tomboy Manual 4.0</revnumber>
+
+        <date>2008-03-07</date>
+
+        <revdescription>
+          <para role="author">Paul Cutler</para>
+
+          <para role="publisher">GNOME Documentation Project</para>
+        </revdescription>
+      </revision>
 
       <revision>
         <revnumber>Tomboy Manual 3.0</revnumber>
@@ -169,7 +199,7 @@
       </revision>
     </revhistory>
 
-    <releaseinfo>This manual describes version 0.8.0 of Tomboy</releaseinfo>
+    <releaseinfo>This manual describes version 0.10.0 of Tomboy</releaseinfo>
 
     <legalnotice>
       <title>Feedback</title>
@@ -856,7 +886,215 @@
       </itemizedlist>
     </sect2>
   </sect1>
+  
+  <!--=========== Working with Notebooks =========================== -->
+  
+  <sect1 id="notebooks">
+  	<title>Working with Notebooks</title>
+  
+    <para>Notebooks allow you to group related notes together.  
+    You can add a note to a notebook in the Search All Notes window or directly inside of a Note.</para>
+    
+    <sect2 id="creating-noteboks">
+    <title>Creating Notebooks</title>
+    
+    <p>You can create new notebooks using one of the following methods:</p>
+    
+      <orderedlist>
+        <listitem> 
+        <para>Click on the Tomboy note icon present in the GNOME Panel.  
+        A menu will appear</para>   
+        </listitem>
+        <listitem>
+        <para>Select <menuchoice><guimenuitem>Notebooks</guimenuitem> <guimenuitem>New Notebook</guimenuitem></menuchoice>.
+        </para></listitem>
+		<listitem>
+		<para>Enter a name for the new notebook.</para>
+		</listitem>
+	</orderedlist>
+	
+	      <figure id="new-notebook">
+        <title>Create a new notebook from the Tomboy note icon on the GNOME Panel</title>
 
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="figures/new-notebook.png" />
+          </imageobject>
+        </mediaobject>
+      </figure>
+		
+	<para>To create a new notebook from the Search All Notes dialog:
+	</para>
+	<orderedlist>
+		<listitem> 
+	<para>Open <menuchoice>
+              <guimenuitem>Search All Notes</guimenuitem>
+            </menuchoice> by choosing it from the Tomboy icon on the GNOME Panel 
+	or click on Search from an open note.</para>
+	</listitem>
+	<listitem>
+	<para>Using your mouse, right click in the left hand box and choose <menuchoice>
+              <guimenuitem>New Notebook</guimenuitem>
+            </menuchoice>.</para>
+	</listitem>
+	<listitem>
+	<para>Enter a name for the new notebook.</para>
+	</listitem>
+	<listitem>
+	<para>With <guilabel>Search All Notes</guilabel> open, choose 
+		<menuchoice><guimenuitem>File</guimenuitem> <guimenuitem>Notebooks</guimenuitem> 
+		<guimenuitem>New Notebook</guimenuitem> </menuchoice>.</para>
+	</listitem>
+	<listitem>
+	<para>Enter a name for the new notebook.</para>
+	</listitem>
+
+	</orderedlist>
+  	      
+  	      <figure id="create-new-notebook">
+        <title>Create a new notebook from Search All Notes</title>
+         
+         <mediaobject>
+         <imageobject>
+            <imagedata fileref="figures/add-notebook-search.png" />
+          </imageobject>
+        </mediaobject>
+      </figure> 
+  
+  </sect2>
+  
+  <sect2 id="adding-notes-notebook">
+  	<title>Adding Notes to a Notebook</title>
+  	
+  	<para>To add notes to a notebook, you can add a note from the <guilabel>Search All Notes</guilabel>
+  	 dialog or directly within a note.</para>
+
+	<para>To move an existing note from the Search All Notes dialog:
+	</para>
+	<orderedlist>
+		<listitem> 
+	<para>Open <menuchoice><guimenuitem>Search All Notes</guimenuitem></menuchoice>
+	 by choosing it from the Tomboy icon on the GNOME Panel 
+	or click on Search from an open note.</para>
+	</listitem>
+	<listitem>
+	<para>Using your mouse, drag the note(s) onto a notebook on the left.
+	</para>
+	</listitem>
+	</orderedlist>
+
+	<para>As you type a note, you can add the note directly to an existing notebook using the 
+	<guimenu>Notebook</guimenu>	button. 
+	The <guimenu>Notebook</guimenu> button is represented by the
+	<inlinegraphic fileref="figures/notebook-icon.png" /> icon.</para> 
+	
+	  	      <figure id="add-to-notebook">
+        <title>Adding a note to a notebook</title>
+         
+         <mediaobject>
+         <imageobject>
+            <imagedata fileref="figures/add-to-notebook.png" />
+          </imageobject>
+        </mediaobject>
+      </figure> 
+
+
+	</sect2>
+	
+	<sect2 id="notebook-templates">
+	<title>Creating Notebook Templates</title>
+	
+	<para>After you create a notebook, you can create a template for each new note 
+	that you create in a specific notebook.
+	</para>
+
+	<orderedlist>
+	<listitem> 
+	<para>Open <menuchoice><guimenuitem>Search All Notes</guimenuitem></menuchoice>
+	 by choosing it from the Tomboy icon on the GNOME Panel 
+	or click on Search from an open note.</para>
+	</listitem>
+	<listitem>
+	<para>Using your mouse, right click on a Notebook that you have created and choose  
+	<menuchoice><guimenuitem>Open Template Note</guimenuitem></menuchoice>.
+	</para>
+	</listitem>
+	<listitem>
+	<para>This will open a new note that will be used as the template.  Any text typed in this 
+	note will appear in all notes created in this Notebook.  Create a new
+	note in the notebook by using your mouse, right click on a notebook
+	and select <menuchoice><guimenuitem>New Note</guimenuitem></menuchoice>.
+	</para>
+	</listitem>
+	</orderedlist>
+
+	  	      <figure id="notebook-template">
+        <title>Creating a Notebook Template</title>
+         
+         <mediaobject>
+         <imageobject>
+            <imagedata fileref="figures/note-template.png" />
+          </imageobject>
+        </mediaobject>
+      </figure> 
+	
+	</sect2>
+
+	
+	<sect2 id="deleting-notebooks">
+	<title>Deleting a Notebook</title>
+	<para>Deleting a notebook will not delete any of the notes which are
+	currently inside the notebook.  After deleting a notebook, the notes
+	will not be associated with any notebook and can be seen by
+	highlighting <menuchoice><guimenuitem>Unfiled Notes</guimenuitem></menuchoice> in the <menuchoice><guimenuitem>Search All Notes</guimenuitem></menuchoice> window.
+	</para>
+	
+	<para>You can delete a notebook you have created by one of two methods:
+	</para>
+	<para>To delete a notebook using your mouse:</para>
+	<orderedlist>
+	<listitem> 
+	<para>Open <menuchoice><guimenuitem>Search All Notes</guimenuitem></menuchoice>
+	 by choosing it from the Tomboy icon on the GNOME Panel 
+	or click on Search from an open note.</para>
+	</listitem>
+	<listitem>
+	<para>Using your mouse, right click on a Notebook that you have created and choose  
+	<menuchoice><guimenuitem>Delete Notebook</guimenuitem></menuchoice>.
+	</para>
+	</listitem>
+	</orderedlist>
+		  	      <figure id="notebook-delete">
+        <title>Deleting a Notebook</title>
+         
+         <mediaobject>
+         <imageobject>
+            <imagedata fileref="figures/delete-notebook.png" />
+          </imageobject>
+        </mediaobject>
+      </figure> 
+	
+	<para>To delete a Notebook from the <menuchoice><guimenuitem>Search All Notes</guimenuitem></menuchoice>
+	menu, open <menuchoice><guimenuitem>Search All Notes</guimenuitem></menuchoice>
+	 by choosing it from the Tomboy icon on the GNOME Panel.
+	</para>
+	<orderedlist>
+	<listitem>
+	<para>Using your mouse, left click on the Notebook you want to delete.
+	</para>
+	</listitem>
+	<listitem>
+	<para>From the menu, choose <menuchoice><guimenuitem>Edit</guimenuitem> 
+	<guimenuitem>Delete Notebook</guimenuitem></menuchoice>
+	</para>
+	</listitem>
+	</orderedlist>
+
+	
+	</sect2>
+	
+	</sect1>
+	
   <!--=========== Synchronization ================================== -->
 
   <sect1 id="synchronization">
