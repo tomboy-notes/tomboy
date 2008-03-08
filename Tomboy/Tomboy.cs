@@ -267,7 +267,11 @@ namespace Tomboy
 			};
 
 			string [] documenters = new string [] {
-				"Alex Graveley <alex@beatniksoftware.com>"
+				"Alex Graveley <alex@beatniksoftware.com>",
+				"Boyd Timothy <btimothy@gmail.com>",
+				"Brent Smith <gnome@nextreality.net>",
+				"Paul Cutler <pcutler@foresightlinux.org>",
+				"Sandy Armstrong <sanfordarmstrong@gmail.com>"
 			};
 
 			string translators = Catalog.GetString ("translator-credits");
