@@ -1,16 +1,16 @@
 SUBDIRS =				\
 	Backlinks			\
 	Bugzilla			\
-	ExportToHtml			\
 	Evolution		\
+	ExportToHtml			\
+	FileSystemSyncService	\
 	FixedWidth			\
 	GalagoPresence		\
-	Sketching			\
 	InsertTimestamp		\
 	NoteOfTheDay		\
 	PrintNotes			\
+	Sketching			\
+	SshSyncService		\
 	StickyNoteImport	\
-	FileSystemSyncService	\
-	WebDavSyncService	\
-	SshSyncService
+	WebDavSyncService
 
