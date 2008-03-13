@@ -34,7 +34,19 @@ namespace Tomboy.TasqueAddin
 		public override void Initialize ()
 		{
 			submenuBuilt = false;
+		}
 
+		public override void Shutdown ()
+		{
+			// The following two lines are required to prevent the plugin
+			// from leaking references when the plugin is disabled.
+			menu.Hidden -= OnMenuHidden;
+			menuToolButton.Clicked -= OnMenuToolButtonClicked;
+			menuToolButton.ShowMenu -= OnMenuItemActivated;
+		}
+
+		public override void OnNoteOpened ()
+		{
 			menu = new Gtk.Menu ();
 			menu.Hidden += OnMenuHidden;
 			menu.ShowAll ();
@@ -54,19 +66,6 @@ namespace Tomboy.TasqueAddin
 			markSetTimeout = new InterruptableTimeout();
 			markSetTimeout.Timeout += UpdateTaskButtonSensitivity;
 			Note.Buffer.MarkSet += OnSelectionMarkSet;
-		}
-
-		public override void Shutdown ()
-		{
-			// The following two lines are required to prevent the plugin
-			// from leaking references when the plugin is disabled.
-			menu.Hidden -= OnMenuHidden;
-			menuToolButton.Clicked -= OnMenuToolButtonClicked;
-			menuToolButton.ShowMenu -= OnMenuItemActivated;
-		}
-
-		public override void OnNoteOpened ()
-		{
 		}
 		
 		void OnMenuToolButtonClicked (object sender, EventArgs args)
