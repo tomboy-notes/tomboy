@@ -1,0 +1,21 @@
+<Addin id="TasqueAddin"
+	namespace="Tomboy"
+	name="Tasque"
+	author="Tomboy Project"
+	description="Create a task from the current line of text in Tasque."
+	category="Tools"
+	defaultEnabled="false"
+	version="0.1">
+
+	<Runtime>
+		<Import assembly="Tasque.Addin.dll" />
+	</Runtime>
+
+	<Dependencies>
+		<Addin id="Tomboy" version="0.7" />
+	</Dependencies>
+
+	<Extension path="/Tomboy/NoteAddins">
+		<NoteAddin type="Tomboy.TasqueAddin.TasqueNoteAddin" />
+	</Extension>
+</Addin>

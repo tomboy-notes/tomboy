@@ -12,5 +12,6 @@ SUBDIRS =				\
 	Sketching			\
 	SshSyncService		\
 	StickyNoteImport	\
+	Tasque			\
 	WebDavSyncService
 
