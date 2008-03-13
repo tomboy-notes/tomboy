@@ -75,8 +75,11 @@ namespace Tomboy.TasqueAddin
 			if (taskName == null)
 				return;
 			
-Logger.Debug ("\n\n****OnMenuToolButtonClicked****\n\n");
-			CreateTask (string.Empty, taskName);
+			// Note to translators: "All" here must match up with the "All"
+			// category translation in Tasque for this to work properly.  "All"
+			// is used here to allow Tasque to decide which default category
+			// will be used to create the new task.
+			CreateTask (Catalog.GetString ("All"), taskName);
 		}
 
 		void OnMenuItemActivated (object sender, EventArgs args)
