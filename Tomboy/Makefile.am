@@ -35,6 +35,7 @@ CSFILES = 					\
 	$(srcdir)/AddinPreferenceFactory.cs	\
 	$(srcdir)/Applet.cs 			\
 	$(srcdir)/ApplicationAddin.cs		\
+	$(srcdir)/Contrast.cs		\
 	$(srcdir)/Logger.cs			\
 	$(srcdir)/Note.cs 			\
 	$(srcdir)/NoteAddin.cs			\
