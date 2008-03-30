@@ -304,39 +304,6 @@ namespace Tomboy
 			}
 		}
 
-		// From contrast.h
-		public enum PaletteColor {
-			CONTRAST_COLOR_AQUA        =  0,
-			CONTRAST_COLOR_BLACK       =  1,
-			CONTRAST_COLOR_BLUE        =  2,
-			CONTRAST_COLOR_BROWN       =  3,
-			CONTRAST_COLOR_CYAN        =  4,
-			CONTRAST_COLOR_DARK_BLUE   =  5,
-			CONTRAST_COLOR_DARK_GREEN  =  6,
-			CONTRAST_COLOR_DARK_GREY   =  7,
-			CONTRAST_COLOR_DARK_RED    =  8,
-			CONTRAST_COLOR_GREEN       =  9,
-			CONTRAST_COLOR_GREY        = 10,
-			CONTRAST_COLOR_LIGHT_BLUE  = 11,
-			CONTRAST_COLOR_LIGHT_BROWN = 12,
-			CONTRAST_COLOR_LIGHT_GREEN = 13,
-			CONTRAST_COLOR_LIGHT_GREY  = 14,
-			CONTRAST_COLOR_LIGHT_RED   = 15,
-			CONTRAST_COLOR_MAGENTA     = 16,
-			CONTRAST_COLOR_ORANGE      = 17,
-			CONTRAST_COLOR_PURPLE      = 18,
-			CONTRAST_COLOR_RED         = 19,
-			CONTRAST_COLOR_VIOLET      = 20,
-			CONTRAST_COLOR_WHITE       = 21,
-			CONTRAST_COLOR_YELLOW      = 22,
-			CONTRAST_COLOR_LAST        = 23,
-		};
-
-		[DllImport("libtomboy")]
-		static extern Gdk.Color contrast_render_foreground_color(
-			        Gdk.Color background,
-			        PaletteColor symbol);
-
 		Gdk.Color get_background()
 		{
 			/* We can't know the exact background because we're not
@@ -354,13 +321,13 @@ namespace Tomboy
 				return s.Background(Gtk.StateType.Normal);
 		}
 
-		Gdk.Color render_foreground(PaletteColor symbol)
+		Gdk.Color render_foreground(ContrastPaletteColor symbol)
 		{
-			return contrast_render_foreground_color(get_background(), symbol);
+			return Contrast.RenderForegroundColor(get_background(), symbol);
 		}
 
-		private PaletteColor PaletteForeground_;
-		public PaletteColor PaletteForeground {
+		private ContrastPaletteColor PaletteForeground_;
+		public ContrastPaletteColor PaletteForeground {
 			set {
 				PaletteForeground_ = value;
 				// XXX We should also watch theme changes.
@@ -560,7 +527,7 @@ namespace Tomboy
 			tag = new NoteTag ("note-title");
 			tag.Underline = Pango.Underline.Single;
 			tag.PaletteForeground =
-			        NoteTag.PaletteColor.CONTRAST_COLOR_BLUE;
+			        ContrastPaletteColor.Blue;
 			tag.Scale = Pango.Scale.XXLarge;
 			// FiXME: Hack around extra rewrite on open
 			tag.CanSerialize = false;
@@ -577,7 +544,7 @@ namespace Tomboy
 			tag.Scale = Pango.Scale.Small;
 			tag.Style = Pango.Style.Italic;
 			tag.PaletteForeground =
-			        NoteTag.PaletteColor.CONTRAST_COLOR_GREY;
+			        ContrastPaletteColor.Grey;
 			Add (tag);
 
 			// Font sizes
@@ -615,21 +582,21 @@ namespace Tomboy
 			tag = new NoteTag ("link:broken");
 			tag.Underline = Pango.Underline.Single;
 			tag.PaletteForeground =
-			        NoteTag.PaletteColor.CONTRAST_COLOR_GREY;
+			        ContrastPaletteColor.Grey;
 			tag.CanActivate = true;
 			Add (tag);
 
 			tag = new NoteTag ("link:internal");
 			tag.Underline = Pango.Underline.Single;
 			tag.PaletteForeground =
-			        NoteTag.PaletteColor.CONTRAST_COLOR_BLUE;
+			        ContrastPaletteColor.Blue;
 			tag.CanActivate = true;
 			Add (tag);
 
 			tag = new NoteTag ("link:url");
 			tag.Underline = Pango.Underline.Single;
 			tag.PaletteForeground =
-			        NoteTag.PaletteColor.CONTRAST_COLOR_BLUE;
+			        ContrastPaletteColor.Blue;
 			tag.CanActivate = true;
 			Add (tag);
 		}
