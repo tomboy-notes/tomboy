@@ -126,9 +126,9 @@ AC_SUBST(DBUS_LIBS)
 #
 # Check for external Mono.Addins
 #
-PKG_CHECK_MODULES(MONO_ADDINS, mono-addins > 0.3 \
-	mono-addins-gui > 0.3 \
-	mono-addins-setup > 0.3,
+PKG_CHECK_MODULES(MONO_ADDINS, mono-addins >= 0.3 \
+	mono-addins-gui >= 0.3 \
+	mono-addins-setup >= 0.3,
 	have_external_mono_addins="yes", have_external_mono_addins="no")
 
 if test "x$have_external_mono_addins" != "xyes"; then
