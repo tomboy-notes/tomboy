@@ -1,5 +1,12 @@
 2008-04-07  Sandy Armstrong <sanfordarmstrong@gmail.com> 
 
+	* Tomboy/Synchronization/FuseSyncServiceAddin.cs: Add abstract method
+	  GetFuseMountExeArgsForDisplay for writing to stdout and tomboy.log.
+	* Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs: Override
+	  GetFuseMountExeArgsForDisplay to mask password.
+
+2008-04-07  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
 	* Tomboy/tomboy-panel.in, Tomboy/tomboy.in: Replace #!/bin/bash with
 	  #!/usr/bin/env bash, to handle OSs that have the audacity to put
 	  bash somewhere other than its rightful place.  Fixes bug #521160. 

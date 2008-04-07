@@ -163,10 +163,11 @@ namespace Tomboy.Sync
 
 		protected abstract void ResetConfigurationValues ();
 
-		protected abstract string FuseMountExeName { get;
-			                                           }
+		protected abstract string FuseMountExeName { get; }
 
-			protected abstract string GetFuseMountExeArgs (string mountPath, bool fromStoredValues);
+		protected abstract string GetFuseMountExeArgs (string mountPath, bool fromStoredValues);
+		
+		protected abstract string GetFuseMountExeArgsForDisplay (string mountPath, bool fromStoredValues);
 		#endregion // Abstract Members
 
 		#region Public Virtual Members
@@ -216,7 +217,8 @@ namespace Tomboy.Sync
 			Logger.Debug (string.Format (
 			                             "Mounting sync path with this command: {0} {1}",
 			                             p.StartInfo.FileName,
-			                             p.StartInfo.Arguments));
+			                             // Args could include password, so may need to mask
+			                             GetFuseMountExeArgsForDisplay (mountPath, useStoredValues)));
 			p.StartInfo.CreateNoWindow = true;
 			p.Start ();
 			int timeoutMs = GetTimeoutMs ();
