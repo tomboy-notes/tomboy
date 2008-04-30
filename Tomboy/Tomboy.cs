@@ -17,10 +17,10 @@ namespace Tomboy
 		static bool is_panel_applet = false;
 		static PreferencesDialog prefs_dlg;
 		static SyncDialog sync_dlg;
-		#if ENABLE_DBUS
+#if ENABLE_DBUS
 		static RemoteControl remote_control;
-		#endif
-        static Gtk.IconTheme icon_theme = null;
+#endif
+		static Gtk.IconTheme icon_theme = null;
 
 		public static void Main (string [] args)
 		{
@@ -29,19 +29,19 @@ namespace Tomboy
 
 			TomboyCommandLine cmd_line = new TomboyCommandLine (args);
 
-			#if ENABLE_DBUS // Run command-line earlier with DBus enabled
+#if ENABLE_DBUS // Run command-line earlier with DBus enabled
 			if (cmd_line.NeedsExecute) {
 				// Execute args at an existing tomboy instance...
 				cmd_line.Execute ();
 				return;
 			}
-			#endif // ENABLE_DBUS
+#endif // ENABLE_DBUS
 
 			Initialize ("tomboy", "Tomboy", "tomboy", args);
 
-            // Add private icon dir to search path
-            icon_theme = Gtk.IconTheme.Default;
-            icon_theme.AppendSearchPath (System.IO.Path.Combine (Defines.DATADIR, "tomboy/icons"));
+			// Add private icon dir to search path
+			icon_theme = Gtk.IconTheme.Default;
+			icon_theme.AppendSearchPath (System.IO.Path.Combine (Defines.DATADIR, "tomboy/icons"));
 
 //   PluginManager.CheckPluginUnloading = cmd_line.CheckPluginUnloading;
 
@@ -63,11 +63,11 @@ namespace Tomboy
 				addin.Initialize ();
 			}
 
-			#if !ENABLE_DBUS
+#if !ENABLE_DBUS
 			if (cmd_line.NeedsExecute) {
 				cmd_line.Execute ();
 			}
-			#endif
+#endif
 
 			if (cmd_line.UsePanelApplet) {
 				tray_icon_showing = true;
@@ -92,8 +92,7 @@ namespace Tomboy
 		static string GetNotePath (string override_path)
 		{
 			// Default note location, as specified in --note-path or $TOMBOY_PATH
-			string note_path =
-			        (override_path != null) ?
+			string note_path = (override_path != null) ?
 			        override_path :
 			        Environment.GetEnvironmentVariable ("TOMBOY_PATH");
 			if (note_path == null)
@@ -146,7 +145,7 @@ namespace Tomboy
 
 		static void RegisterRemoteControl (NoteManager manager)
 		{
-			#if ENABLE_DBUS
+#if ENABLE_DBUS
 			try {
 				remote_control = RemoteControlProxy.Register (manager);
 				if (remote_control != null) {
@@ -168,7 +167,7 @@ namespace Tomboy
 				Logger.Log ("Tomboy remote control disabled (DBus exception): {0}",
 				            e.Message);
 			}
-			#endif
+#endif
 		}
 
 		// These actions can be called from anywhere in Tomboy
@@ -418,7 +417,7 @@ namespace Tomboy
 			                "  --search [text]\t\tOpen the search all notes window with " +
 			                "the search text.\n");
 
-			#if ENABLE_DBUS
+#if ENABLE_DBUS
 			usage +=
 			        Catalog.GetString (
 			                "  --new-note\t\t\tCreate and display a new note.\n" +
@@ -429,7 +428,7 @@ namespace Tomboy
 			                "  --start-here\t\t\tDisplay the 'Start Here' note.\n" +
 			                "  --highlight-search [text]\tSearch and highlight text " +
 			                "in the opened note.\n");
-			#endif
+#endif
 
 // TODO: Restore this functionality with addins
 //   usage +=
@@ -437,9 +436,9 @@ namespace Tomboy
 //     "  --check-plugin-unloading\tCheck if plugins are " +
 //     "unloaded properly.\n");
 
-			#if !ENABLE_DBUS
+#if !ENABLE_DBUS
 			usage += Catalog.GetString ("D-BUS remote control disabled.\n");
-			#endif
+#endif
 
 			Console.WriteLine (usage);
 		}
@@ -455,7 +454,7 @@ namespace Tomboy
 				bool quit = false;
 
 				switch (args [idx]) {
-					#if ENABLE_DBUS
+#if ENABLE_DBUS
 				case "--new-note":
 					// Get optional name for new note...
 					if (idx + 1 < args.Length
@@ -509,7 +508,7 @@ namespace Tomboy
 					++idx;
 					highlight_search = args [idx];
 					break;
-					#else
+#else
 				case "--new-note":
 				case "--open-note":
 				case "--start-here":
@@ -523,7 +522,7 @@ namespace Tomboy
 					Console.WriteLine (unknown_opt, args [idx]);
 					quit = true;
 					break;
-					#endif // ENABLE_DBUS
+#endif // ENABLE_DBUS
 
 				case "--panel-applet":
 					panel_applet = true;
@@ -590,7 +589,7 @@ namespace Tomboy
 
 		public void Execute ()
 		{
-			#if ENABLE_DBUS
+#if ENABLE_DBUS
 			RemoteControl remote = null;
 			try {
 				remote = RemoteControlProxy.GetInstance ();
@@ -683,7 +682,7 @@ namespace Tomboy
 				else
 					remote.DisplaySearch ();
 			}
-			#else
+#else
 			if (open_search) {
 				NoteRecentChanges recent_changes =
 				        NoteRecentChanges.GetInstance (Tomboy.DefaultNoteManager);
@@ -695,7 +694,7 @@ namespace Tomboy
 
 				recent_changes.Present ();
 			}
-			#endif // ENABLE_DBUS
+#endif // ENABLE_DBUS
 		}
 	}
 }

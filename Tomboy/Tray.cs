@@ -30,7 +30,7 @@ namespace Tomboy
 		}
 
 		public NoteMenuItem (Note note, bool show_pin)
-: base (GetDisplayName(note))
+                        : base (GetDisplayName(note))
 		{
 			this.note = note;
 			Image = new Gtk.Image (note_icon);
@@ -60,26 +60,26 @@ namespace Tomboy
 		static string GetDisplayName (Note note)
 		{
 			string display_name = note.Title;
-            int max_length = 40;
+                        int max_length = 100;
 
 			if (note.IsNew) {
-                string new_string = Catalog.GetString(" (new)");
-                max_length -= new_string.Length;
+                                string new_string = Catalog.GetString(" (new)");
+                                max_length -= new_string.Length;
 				display_name = Ellipsify (display_name, max_length)
-                    + new_string;
-            } else {
-                display_name = Ellipsify (display_name, max_length);
-            }
+                                        + new_string;
+                        } else {
+                                display_name = Ellipsify (display_name, max_length);
+                        }
 
 			return FormatForLabel (display_name);
 		}
 
-        static string Ellipsify (string str, int max)
-        {
-            if(str.Length > max)
-                return str.Substring(0, max - 1) + "...";
-            return str;
-        }
+                static string Ellipsify (string str, int max)
+                {
+                        if(str.Length > max)
+                                return str.Substring(0, max - 1) + "...";
+                        return str;
+                }
 
 		protected override void OnActivated ()
 		{
@@ -147,7 +147,7 @@ namespace Tomboy
 		int panel_size;
 
 		public TomboyTray (NoteManager manager)
-: base ()
+                        : base ()
 		{
 			this.manager = manager;
 			// Load a 16x16-sized icon to ensure we don't end up with a
@@ -316,12 +316,12 @@ namespace Tomboy
 
 			// Assume menu opens downward, move common items to top of menu
 			Gtk.MenuItem newNoteItem = Tomboy.ActionManager.GetWidget (
-			                                   "/TrayIconMenu/TrayNewNotePlaceholder/TrayNewNote") as Gtk.MenuItem;
+				"/TrayIconMenu/TrayNewNotePlaceholder/TrayNewNote") as Gtk.MenuItem;
 			Gtk.MenuItem searchNotesItem = Tomboy.ActionManager.GetWidget (
-			                                       "/TrayIconMenu/ShowSearchAllNotes") as Gtk.MenuItem;
+				"/TrayIconMenu/ShowSearchAllNotes") as Gtk.MenuItem;
 			recent_menu.ReorderChild (newNoteItem, 0);
 			int insertion_point = 1; // If menu opens downward
-			
+
 			// Find all child widgets under the TrayNewNotePlaceholder
 			// element.  Make sure those added by add-ins are
 			// properly accounted for and reordered.
@@ -336,12 +336,12 @@ namespace Tomboy
 					insertion_point++;
 				}
 			}
-			
+
 			recent_menu.ReorderChild (searchNotesItem, insertion_point);
 			insertion_point++;
 
 			DateTime days_ago = DateTime.Today.AddDays (-3);
-			
+
 			// Prevent template notes from appearing in the menu
 			Tag template_tag = TagManager.GetOrCreateSystemTag (TagManager.TemplateNoteSystemTag);
 
@@ -350,7 +350,7 @@ namespace Tomboy
 			foreach (Note note in manager.Notes) {
 				if (note.IsSpecial)
 					continue;
-				
+
 				// Skip template notes
 				if (note.ContainsTag (template_tag))
 					continue;
@@ -392,7 +392,7 @@ namespace Tomboy
 				list_size++;
 
 				bool enable_keybindings = (bool)
-				                          Preferences.Get (Preferences.ENABLE_KEYBINDINGS);
+					Preferences.Get (Preferences.ENABLE_KEYBINDINGS);
 				if (enable_keybindings)
 					GConfKeybindingToAccel.AddAccelerator (
 					        item,
@@ -617,24 +617,23 @@ namespace Tomboy
 
 				return binding;
 			} catch {
-			return null;
+				return null;
+			}
 		}
-	}
-
-	[DllImport("libtomboy")]
-		static extern bool egg_accelerator_parse_virtual (string keystring,
-			                out uint keysym,
-			                out uint virtual_mods);
 
 		[DllImport("libtomboy")]
-		static extern void egg_keymap_resolve_virtual_modifiers (
-			        IntPtr keymap,
-			        uint virtual_mods,
-			        out Gdk.ModifierType real_mods);
+		static extern bool egg_accelerator_parse_virtual (string keystring,
+								  out uint keysym,
+								  out uint virtual_mods);
+
+		[DllImport("libtomboy")]
+		static extern void egg_keymap_resolve_virtual_modifiers (IntPtr keymap,
+									 uint virtual_mods,
+									 out Gdk.ModifierType real_mods);
 
 		public static bool GetAccelKeys (string               gconf_path,
-		                                 out uint             keyval,
-		                                 out Gdk.ModifierType mods)
+						 out uint             keyval,
+						 out Gdk.ModifierType mods)
 		{
 			keyval = 0;
 			mods = 0;
@@ -642,38 +641,38 @@ namespace Tomboy
 			try {
 				string binding = (string) Preferences.Get (gconf_path);
 				if (binding == null ||
-				                binding == String.Empty ||
-				                binding == "disabled")
+				    binding == String.Empty ||
+				    binding == "disabled")
 					return false;
 
 				uint virtual_mods = 0;
 				if (!egg_accelerator_parse_virtual (binding,
-				                                    out keyval,
-				                                    out virtual_mods))
+								    out keyval,
+								    out virtual_mods))
 					return false;
 
 				Gdk.Keymap keymap = Gdk.Keymap.Default;
 				egg_keymap_resolve_virtual_modifiers (keymap.Handle,
-				                                      virtual_mods,
-				                                      out mods);
+								      virtual_mods,
+								      out mods);
 
 				return true;
 			} catch {
-			return false;
+				return false;
+			}
 		}
-	}
 
-	public static void AddAccelerator (Gtk.MenuItem item, string gconf_path)
+		public static void AddAccelerator (Gtk.MenuItem item, string gconf_path)
 		{
 			uint keyval;
 			Gdk.ModifierType mods;
 
 			if (GetAccelKeys (gconf_path, out keyval, out mods))
 				item.AddAccelerator ("activate",
-				                     accel_group,
-				                     keyval,
-				                     mods,
-				                     Gtk.AccelFlags.Visible);
+						     accel_group,
+						     keyval,
+						     mods,
+						     Gtk.AccelFlags.Visible);
 		}
 	}
 }

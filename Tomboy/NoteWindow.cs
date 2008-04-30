@@ -6,12 +6,13 @@ using System.Runtime.InteropServices;
 using System.Text;
 using Mono.Unix;
 using Gtk;
+
 namespace Tomboy
 {
 	public class NoteWindow : ForcedPresentWindow
 	{
 		Note note;
-		
+
 		Gtk.AccelGroup accel_group;
 		Gtk.Toolbar toolbar;
 		Gtk.Tooltips toolbar_tips;
@@ -33,8 +34,8 @@ namespace Tomboy
 		// and a Gtk.TextView as the body.
 		//
 
-public NoteWindow (Note note) :
-		base (note.Title)
+		public NoteWindow (Note note)
+			: base (note.Title)
 		{
 			this.note = note;
 			this.IconName = "tomboy";
@@ -106,7 +107,7 @@ public NoteWindow (Note note) :
 			// Don't set up Ctrl-W or Ctrl-N if Emacs is in use
 			bool using_emacs = false;
 			string gtk_key_theme = (string)
-			                       Preferences.Get ("/desktop/gnome/interface/gtk_key_theme");
+				Preferences.Get ("/desktop/gnome/interface/gtk_key_theme");
 			if (gtk_key_theme != null && gtk_key_theme.CompareTo ("Emacs") == 0)
 				using_emacs = true;
 
@@ -179,7 +180,6 @@ public NoteWindow (Note note) :
 			                            Gtk.AccelFlags.Visible);
 
 			this.Add (box);
-			
 		}
 
 		protected override bool OnDeleteEvent (Gdk.Event evnt)
@@ -201,7 +201,7 @@ public NoteWindow (Note note) :
 		}
 
 		void OnEscapeSettingChanged (object sender, GConf.NotifyEventArgs args)
-		{	
+		{
 			// enable escape key
 			if ((bool) args.Value)
 				KeyPressEvent += KeyPressed;
@@ -251,7 +251,7 @@ public NoteWindow (Note note) :
 				// Close windows on the same workspace, or all
 				// open windows if no workspace.
 				if (workspace < 0 ||
-				                tomboy_window_get_workspace (iter.Window.Handle) == workspace) {
+				    tomboy_window_get_workspace (iter.Window.Handle) == workspace) {
 					iter.Window.CloseWindowHandler (null, null);
 				}
 			}
@@ -284,7 +284,7 @@ public NoteWindow (Note note) :
 				return toolbar;
 			}
 		}
-		
+
 		/// <summary>
 		/// The Delete Toolbar Button
 		/// </summary>
@@ -434,10 +434,13 @@ public NoteWindow (Note note) :
 		{
 			Gtk.Toolbar tb = new Gtk.Toolbar ();
 			tb.Tooltips = true;
-			
+
 			toolbar_tips = new Gtk.Tooltips ();
-			
-			Gtk.ToolButton search = new Gtk.ToolButton (new Gtk.Image (Gtk.Stock.Find, tb.IconSize), Catalog.GetString ("Search"));
+
+			Gtk.ToolButton search = new Gtk.ToolButton (
+				new Gtk.Image (Gtk.Stock.Find, tb.IconSize),
+				Catalog.GetString ("Search"));
+			search.IsImportant = true;
 			search.Clicked += SearchActivate;
 			toolbar_tips.SetTip (search, Catalog.GetString ("Search your notes (Ctrl-Shift-F)"), null);
 			search.AddAccelerator ("clicked",
@@ -448,11 +451,17 @@ public NoteWindow (Note note) :
 			                       Gtk.AccelFlags.Visible);
 			search.ShowAll ();
 			tb.Insert (search, -1);
-			
-			link_button = new Gtk.ToolButton (new Gtk.Image (Gtk.Stock.JumpTo, tb.IconSize), Catalog.GetString ("Link"));
+
+			link_button = new Gtk.ToolButton (
+				new Gtk.Image (Gtk.Stock.JumpTo, tb.IconSize),
+				Catalog.GetString ("Link"));
+			link_button.IsImportant = true;
 			link_button.Sensitive = (note.Buffer.Selection != null);
 			link_button.Clicked += LinkToNoteActivate;
-			toolbar_tips.SetTip (link_button, Catalog.GetString ("Link selected text to a new note (Ctrl-L)"), null);
+			toolbar_tips.SetTip (
+				link_button,
+				Catalog.GetString ("Link selected text to a new note (Ctrl-L)"),
+				null);
 			link_button.AddAccelerator ("clicked",
 			                            accel_group,
 			                            (uint) Gdk.Key.l,
@@ -460,16 +469,17 @@ public NoteWindow (Note note) :
 			                            Gtk.AccelFlags.Visible);
 			link_button.ShowAll ();
 			tb.Insert (link_button, -1);
-			
+
 			ToolMenuButton text_button =
 			        new ToolMenuButton (tb,
 			                            Gtk.Stock.SelectFont,
 			                            Catalog.GetString ("_Text"),
 			                            text_menu);
+			text_button.IsImportant = true;
 			text_button.ShowAll ();
 			tb.Insert (text_button, -1);
 			toolbar_tips.SetTip (text_button, Catalog.GetString ("Set properties of text"), null);
-			
+
 			ToolMenuButton plugin_button =
 			        new ToolMenuButton (tb,
 			                            Gtk.Stock.Execute,
@@ -478,28 +488,28 @@ public NoteWindow (Note note) :
 			plugin_button.ShowAll ();
 			tb.Insert (plugin_button, -1);
 			toolbar_tips.SetTip (plugin_button, Catalog.GetString ("Use tools on this note"), null);
-			
+
 			tb.Insert (new Gtk.SeparatorToolItem (), -1);
-			
+
 			delete = new Gtk.ToolButton (Gtk.Stock.Delete);
 			delete.Clicked += OnDeleteButtonClicked;
 			delete.ShowAll ();
 			tb.Insert (delete, -1);
 			toolbar_tips.SetTip (delete, Catalog.GetString ("Delete this note"), null);
-			
+
 			// Don't allow deleting the "Start Here" note...
 			if (note.IsSpecial)
 				delete.Sensitive = false;
 
 			tb.Insert (new Gtk.SeparatorToolItem (), -1);
-			
+
 			Gtk.ImageMenuItem item =
 			        new Gtk.ImageMenuItem (Catalog.GetString ("Synchronize Notes"));
 			item.Image = new Gtk.Image (Gtk.Stock.Convert, Gtk.IconSize.Menu);
 			item.Activated += SyncItemSelected;
 			item.Show ();
 			PluginMenu.Add (item);
-			
+
 			tb.ShowAll ();
 			return tb;
 		}
@@ -716,7 +726,8 @@ public NoteWindow (Note note) :
 
 		bool shift_key_pressed;
 
-public NoteFindBar (Note note) : base (false, 0)
+		public NoteFindBar (Note note)
+			: base (false, 0)
 		{
 			this.note = note;
 
@@ -1188,7 +1199,7 @@ public NoteFindBar (Note note) : base (false, 0)
 		public NoteTextMenu (Gtk.AccelGroup accel_group,
 		                     NoteBuffer     buffer,
 		                     UndoManager    undo_manager)
-: base ()
+			: base ()
 		{
 			this.buffer = buffer;
 			this.undo_manager = undo_manager;
