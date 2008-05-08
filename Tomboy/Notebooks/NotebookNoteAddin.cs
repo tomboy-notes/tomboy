@@ -11,10 +11,12 @@ namespace Tomboy.Notebooks
 		Gtk.ImageMenuItem menuItem;
 		Gtk.Menu menu;
 		static Gdk.Pixbuf notebookIcon;
+		static Gdk.Pixbuf newNotebookIcon;
 		
 		static NotebookNoteAddin ()
 		{
 			notebookIcon = GuiUtils.GetIcon ("notebook", 22);
+			newNotebookIcon = GuiUtils.GetIcon ("notebook-new", 16);
 		}
 
 		public override void Initialize ()
@@ -90,6 +92,13 @@ namespace Tomboy.Notebooks
 				UpdateNotebookButtonLabel (null);
 		}
 		
+		void OnNewNotebookMenuItem (object sender, EventArgs args)
+		{
+			List<Note> noteList = new List<Note> ();
+			noteList.Add (Note);
+			NotebookManager.PromptCreateNewNotebook (Note.Window, noteList);
+		}
+		
 		void UpdateNotebookButtonLabel ()
 		{
 			Notebook currentNotebook = NotebookManager.GetNotebookFromNote (Note);
@@ -126,6 +135,14 @@ namespace Tomboy.Notebooks
 			//
 			// Build a new menu
 			//
+			
+			// Add the "New Notebook..."
+			Gtk.ImageMenuItem newNotebookMenuItem =
+				new Gtk.ImageMenuItem (Catalog.GetString ("_New notebook..."));
+			newNotebookMenuItem.Image = new Gtk.Image (newNotebookIcon);
+			newNotebookMenuItem.Activated += OnNewNotebookMenuItem;
+			newNotebookMenuItem.Show ();
+			menu.Append (newNotebookMenuItem);
 			
 			// Add the "(no notebook)" item at the top of the list
 			NotebookMenuItem noNotebookMenuItem = new NotebookMenuItem (Note, null);

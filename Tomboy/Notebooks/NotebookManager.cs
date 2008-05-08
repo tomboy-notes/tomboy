@@ -285,6 +285,26 @@ namespace Tomboy.Notebooks
 		/// <returns>If successful, returns the newly created notebook.</returns>
 		public static Notebook PromptCreateNewNotebook (Gtk.Window parent)
 		{
+			return PromptCreateNewNotebook (parent, null);
+		}
+		
+		/// <summary>
+		/// Prompt the user to create a new notebook and if successful, move
+		/// the notes specified in the notesToAdd list into the new notebook.
+		/// </summary>
+		/// <param name="parent">
+		/// A <see cref="Gtk.Window"/>
+		/// </param>
+		/// <param name="notesToAdd">
+		/// A <see cref="List`1"/> of notes that should be added to the new
+		/// notebook.
+		/// </param>
+		/// <returns>
+		/// The newly created <see cref="Notebook"/> if successful or null
+		/// if there was a problem.
+		/// </returns>
+		public static Notebook PromptCreateNewNotebook (Gtk.Window parent, List<Note> notesToAdd)
+		{
 			// Prompt the user for the name of a new notebook
 			Notebooks.CreateNotebookDialog dialog =
 				new Notebooks.CreateNotebookDialog (parent,
@@ -304,6 +324,11 @@ namespace Tomboy.Notebooks
 				Logger.Warn ("Could not create notebook: {0}", notebookName);
 			} else {
 				Logger.Debug ("Created the notebook: {0} ({1})", notebook.Name, notebook.NormalizedName);
+				
+				// Move all the specified notesToAdd into the new notebook
+				foreach (Note note in notesToAdd) {
+					NotebookManager.MoveNoteToNotebook (note, notebook);
+				}
 			}
 			
 			return notebook;
