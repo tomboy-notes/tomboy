@@ -1,5 +1,13 @@
 2008-05-11  Sandy Armstrong <sanfordarmstrong@gmail.com> 
 
+	* Tomboy/Synchronization/FuseSyncServiceAddin.cs: Add abstract method
+	  GetFuseMountExeArgsForDisplay for writing to stdout and tomboy.log.
+	* Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs,
+	  Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs: Override
+	  GetFuseMoutnExeArgsForDisplay to mask password.  Fixes bug #524707.
+
+2008-05-11  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
 	* configure.in: Fix check for Mono.Addins >= 0.3.  Fixes bug #521616,
 	  patch courtesy of Łukasz Jernaś.
 

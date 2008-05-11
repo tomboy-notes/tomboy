@@ -171,6 +171,11 @@ namespace Tomboy.Sync
 			               folder,
 			               mountPath);
 		}
+		
+		protected override string GetFuseMountExeArgsForDisplay (string mountPath, bool fromStoredValues)
+		{
+			return GetFuseMountExeArgs (mountPath, fromStoredValues);
+		}
 
 		protected override string FuseMountExeName
 		{

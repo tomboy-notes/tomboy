@@ -151,6 +151,24 @@ namespace Tomboy.Sync
 				GetConfigSettings (out url, out username, out password);
 			else
 				GetPrefWidgetSettings (out url, out username, out password);
+			
+			return GetFuseMountExeArgs (mountPath, url, username, password);
+		}
+		
+		protected override string GetFuseMountExeArgsForDisplay (string mountPath, bool fromStoredValues)
+		{
+			string url, username, password;
+			if (fromStoredValues)
+				GetConfigSettings (out url, out username, out password);
+			else
+				GetPrefWidgetSettings (out url, out username, out password);
+			
+			// Mask password
+			return GetFuseMountExeArgs (mountPath, url, username, "*****");
+		}
+		
+		private string GetFuseMountExeArgs (string mountPath, string url, string username, string password)
+		{
 			return string.Format ("{0} -a {1} -u {2} -p {3} -o fsname=tomboywdfs",
 			                      mountPath,
 			                      url,
