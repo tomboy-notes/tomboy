@@ -219,14 +219,9 @@ namespace Tomboy
 			align.Show ();
 			options_list.PackStart (align, false, false, 0);
 			
-			#if GTK_2_10
 			Gtk.LinkButton open_template_button = new Gtk.LinkButton (
 				String.Empty,
 				Catalog.GetString ("Open New Note Template"));
-			#else
-			Gtk.Button open_template_button = new Gtk.Button (
-				Catalog.GetString ("_Open New Note Template..."));
-			#endif
 
 			open_template_button.Clicked += OpenTemplateButtonClicked;
 			open_template_button.Show ();

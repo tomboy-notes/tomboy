@@ -137,11 +137,42 @@ AC_SUBST(MONO_ADDINS_LIBS)
 #
 GTKSHARP2_MINIMUM_VERSION=$GTK20_MINIMUM_VERSION
 if pkg-config --atleast-version=2.16.1 gconf-sharp-2.0; then
-	PKG_CHECK_MODULES(TOMBOY, gtk-sharp-2.0 >= $GTKSHARP2_MINIMUM_VERSION gnome-sharp-2.0 gconf-sharp-2.0 gconf-sharp-peditors-2.0)
+	PKG_CHECK_MODULES(TOMBOY,
+	                  gtk-sharp-2.0 >= $GTKSHARP2_MINIMUM_VERSION
+	                  gnome-sharp-2.0
+	                  gconf-sharp-2.0
+	                  gconf-sharp-peditors-2.0)
 else
-	PKG_CHECK_MODULES(TOMBOY, gtk-sharp-2.0 >= $GTKSHARP2_MINIMUM_VERSION gnome-sharp-2.0 gconf-sharp-2.0)
+	PKG_CHECK_MODULES(TOMBOY,
+	                  gtk-sharp-2.0 >= $GTKSHARP2_MINIMUM_VERSION
+	                  gnome-sharp-2.0
+	                  gconf-sharp-2.0)
 fi
 AC_SUBST(TOMBOY_LIBS)
+
+#
+# Printing at least needs Mono.Cairo
+#
+required_assemblies="Mono.Cairo"
+
+#
+# This check stolen from banshee/build/m4/shamrock/mono.m4, because pkg-config
+# seems to find the wrong Mono.Cairo (1.0).
+#
+for asm in $required_assemblies
+do
+	AC_MSG_CHECKING([for Mono 2.0 GAC for $asm.dll])
+	if test \
+		-e "$($PKG_CONFIG --variable=libdir mono)/mono/2.0/$asm.dll" -o \
+		-e "$($PKG_CONFIG --variable=prefix mono)/lib/mono/2.0/$asm.dll"; \
+		then \
+		AC_MSG_RESULT([found])
+	else
+		AC_MSG_RESULT([not found])
+		AC_MSG_ERROR([missing reqired Mono 2.0 assembly: $asm.dll])
+	fi
+done
+
 
 #
 # Evolution.dll needs Gmime#
@@ -156,13 +187,10 @@ AC_SUBST(EVOLUTION_LIBS)
 #
 # Sketching.dll is very sketchy; for now disable by default
 #
-PKG_CHECK_MODULES(CAIRO, mono-cairo, [
-          AC_ARG_ENABLE(sketching,
+AC_ARG_ENABLE(sketching,
               [  --enable-sketching[[=no/yes]]  compile sketching addin [[default: disabled]]],
-              ENABLE_SKETCHING="$enableval") ],
-          ENABLE_SKETCHING="no")
+              ENABLE_SKETCHING="$enableval")
 AM_CONDITIONAL(ENABLE_SKETCHING, test "$ENABLE_SKETCHING" = "yes")
-AC_SUBST(SKETCHING_LIBS)
 
 #
 # GalagoPresence.dll needs Galago#
@@ -181,15 +209,6 @@ PKG_CHECK_MODULES(NUNIT, nunit, HAVE_NUNIT="yes", HAVE_NUNIT="no")
 AM_CONDITIONAL(HAVE_NUNIT, test "$HAVE_NUNIT" = "yes")
 AC_SUBST(NUNIT_LIBS)
 AC_PATH_PROG(NUNIT, nunit-console)
-
-#
-# DEFINES uses for #if statements
-#
-CSC_DEFINES=""
-if pkg-config --atleast-version=2.10 gtk-sharp-2.0; then
-	CSC_DEFINES="-d:GTK_2_10"
-fi
-AC_SUBST(CSC_DEFINES)
 
 #
 # Check for X11 libraries
