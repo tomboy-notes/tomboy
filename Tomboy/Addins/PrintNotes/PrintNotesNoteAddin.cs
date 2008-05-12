@@ -52,7 +52,6 @@ namespace Tomboy.PrintNotes
 		private void OnBeginPrint (object sender, Gtk.BeginPrintArgs args)
 		{
 			PrintContext context = args.Context;
-			double width = context.Width;
 			double height = context.Height;
 			
 			layout = context.CreatePangoLayout ();
@@ -118,8 +117,6 @@ namespace Tomboy.PrintNotes
 			i = 0;
 			Pango.LayoutIter iter = layout.Iter;
 			do {
-				int baseline = 0;
-				
 				if (i >= start) {
 					Pango.LayoutLine line = iter.Line;
 					Pango.Rectangle logicalRect =
@@ -129,7 +126,6 @@ namespace Tomboy.PrintNotes
 
 					line.GetExtents (ref dummyRect, 
 					                 ref logicalRect);
-					baseline = iter.Baseline;
 					
 					if (i == start) {
 						cr.MoveTo (0, 0);
