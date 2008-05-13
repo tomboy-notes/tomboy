@@ -54,7 +54,7 @@ namespace Tomboy.Bugzilla
 
 				string bugIdGroup = "bugid";
 				string regexString =
-				        @"show_bug\.cgi\?(\S+\&){0,1}id=(?<" + bugIdGroup + @">\d{5,})";
+				        @"show_bug\.cgi\?(\S+\&){0,1}id=(?<" + bugIdGroup + @">\d{1,})";
 
 				Match match = Regex.Match (uriString, regexString);
 				if (match.Success) {
