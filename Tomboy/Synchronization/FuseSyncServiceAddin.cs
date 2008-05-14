@@ -356,7 +356,7 @@ namespace Tomboy.Sync
 
 				// TODO: Review this methodology...is it really the exe name, for example?
 				foreach (string outputLine in outputLines)
-				if (outputLine.StartsWith (FuseMountExeName) &&
+				if ((outputLine.StartsWith (FuseMountExeName) || outputLine.Contains (" type fuse." + FuseMountExeName)) &&
 				                outputLine.IndexOf (string.Format ("on {0} ", mountPath)) > -1)
 					return true;
 
