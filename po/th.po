@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tomboy VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-10 16:01+0700\n"
-"PO-Revision-Date: 2008-02-10 16:56+0700\n"
+"POT-Creation-Date: 2008-06-18 17:16+0700\n"
+"PO-Revision-Date: 2008-06-18 17:19+0700\n"
 "Last-Translator: Theppitak Karoonboonyanan <thep@linux.thai.net>\n"
 "Language-Team: Thai <thai-l10n@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -33,7 +33,7 @@ msgid "Tomboy Applet Factory"
 msgstr "โรงงานแอพเพล็ต Tomboy"
 
 #: ../data/GNOME_TomboyApplet.server.in.in.h:4 ../data/tomboy.desktop.in.h:3
-#: ../Tomboy/Applet.cs:153 ../Tomboy/Tray.cs:147
+#: ../Tomboy/Applet.cs:153 ../Tomboy/Tray.cs:163
 msgid "Tomboy Notes"
 msgstr "บันทึกของ Tomboy"
 
@@ -582,7 +582,7 @@ msgstr "ส่งออกบันทึกที่เชื่อมโยง
 msgid "Include all other linked notes"
 msgstr "ส่งออกบันทึกที่เชื่อมโยงอื่นทั้งหมด"
 
-#: ../Tomboy/Addins/Evolution/EvolutionNoteAddin.cs:273
+#: ../Tomboy/Addins/Evolution/EvolutionNoteAddin.cs:268
 msgid "Cannot open email"
 msgstr "ไม่สามารถเปิดอีเมล"
 
@@ -615,12 +615,12 @@ msgstr "โฟลเดอร์ในเครื่อง"
 msgid "_Fixed Width"
 msgstr "_กว้างคงที่"
 
-#: ../Tomboy/Addins/GalagoPresence/GalagoPresenceNoteAddin.cs:241
+#: ../Tomboy/Addins/GalagoPresence/GalagoPresenceNoteAddin.cs:244
 #, csharp-format
 msgid "Cannot contact '{0}'"
 msgstr "ไม่สามารถติดต่อ '{0}'"
 
-#: ../Tomboy/Addins/GalagoPresence/GalagoPresenceNoteAddin.cs:244
+#: ../Tomboy/Addins/GalagoPresence/GalagoPresenceNoteAddin.cs:247
 #, csharp-format
 msgid "Error running gaim-remote: {0}"
 msgstr "เกิดข้อผิดพลาดขณะเรียก gaim-remote: {0}"
@@ -631,7 +631,7 @@ msgstr "ลงบันทึกเวลา"
 
 #. initial newline
 #: ../Tomboy/Addins/InsertTimestamp/InsertTimestampPreferences.cs:30
-#: ../Tomboy/Preferences.cs:131 ../Tomboy/Tray.cs:195
+#: ../Tomboy/Preferences.cs:137 ../Tomboy/Tray.cs:211
 msgid "dddd, MMMM d, h:mm tt"
 msgstr "dddd d MMMM, H:mm"
 
@@ -668,10 +668,6 @@ msgstr "งาน"
 msgid "Appointments"
 msgstr "นัดหมาย"
 
-#: ../Tomboy/Addins/NoteOfTheDay/NoteOfTheDay.cs:67
-msgid "NoteOfTheDay"
-msgstr "บันทึกประจำวัน"
-
 #: ../Tomboy/Addins/NoteOfTheDay/NoteOfTheDayPreferences.cs:16
 msgid ""
 "Change the <span weight=\"bold\">Today: Template</span> note to customize "
@@ -684,146 +680,9 @@ msgstr ""
 msgid "_Open Today: Template"
 msgstr "_เปิดแผ่นแบบบันทึกประจำวัน"
 
-#: ../Tomboy/Addins/PrintNotes/PrintNotesNoteAddin.cs:18
-#: ../Tomboy/Addins/PrintNotes/gedit-print.c:142
+#: ../Tomboy/Addins/PrintNotes/PrintNotesNoteAddin.cs:22
 msgid "Print"
 msgstr "พิมพ์"
-
-#: ../Tomboy/Addins/PrintNotes/gedit-print.c:240
-msgid "Preparing pages..."
-msgstr "กำลังจัดหน้า..."
-
-#: ../Tomboy/Addins/PrintNotes/gedit-print.c:267
-#, c-format
-msgid "Rendering page %d of %d..."
-msgstr "กำลังวาดหน้า %d จาก %d..."
-
-#: ../Tomboy/Addins/PrintNotes/gedit-print.c:269
-#, c-format
-msgid "Printing page %d of %d..."
-msgstr "กำลังพิมพ์หน้า %d จาก %d..."
-
-#: ../Tomboy/Addins/PrintNotes/gedit-print.c:291
-msgid "Print preview"
-msgstr "ตัวอย่างก่อนพิมพ์"
-
-#: ../Tomboy/Addins/PrintNotes/gedit-print.c:442
-msgid "Page %N of %Q"
-msgstr "หน้า %N จาก %Q"
-
-#: ../Tomboy/Addins/PrintNotes/gedit-print.c:445
-#, no-c-format
-msgid "%A %x, %X"
-msgstr "%A %x, %X"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:268
-msgid "Configuration"
-msgstr "ค่าตั้ง"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:269
-msgid "Configuration options for the print job"
-msgstr "ค่าตั้งสำหรับงานพิมพ์"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:276
-msgid "Source Buffer"
-msgstr "บัฟเฟอร์ต้นทาง"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:277
-msgid "GtkTextBuffer object to print"
-msgstr "ออบเจกต์ GtkTextBuffer ที่จะพิมพ์"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:283
-msgid "Tabs Width"
-msgstr "ความกว้างแท็บ"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:284
-msgid "Width in equivalent space characters of tabs"
-msgstr "ความกว้างแท็บ ในหน่วยจำนวนอักขระเว้นวรรค"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:291
-msgid "Wrap Mode"
-msgstr "วิธีการตัดบรรทัด"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:292
-msgid "Word wrapping mode"
-msgstr "วิธีการตัดคำขึ้นบรรทัดใหม่"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:299
-msgid "Highlight"
-msgstr "เน้นข้อความ"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:300
-msgid "Whether to print the document with highlighted syntax"
-msgstr "กำหนดว่าจะพิมพ์เอกสารโดยเน้นข้อความตามไวยากรณ์หรือไม่"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:308
-msgid "Font"
-msgstr "แบบอักษร"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:309
-msgid "GnomeFont name to use for the document text (deprecated)"
-msgstr "ชื่อ GnomeFont ที่จะใช้สำหรับข้อความในเอกสาร (เลิกใช้แล้ว)"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:316
-msgid "Font Description"
-msgstr "คำบรรยายแบบอักษร"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:317
-msgid "Font to use for the document text (e.g. \"Monospace 10\")"
-msgstr "แบบอักษรที่จะใช้สำหรับข้อความในเอกสาร (เช่น \"Monospace 10\")"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:324
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:332
-msgid "Numbers Font"
-msgstr "แบบอักษรของเลขบรรทัด"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:325
-msgid "GnomeFont name to use for the line numbers (deprecated)"
-msgstr "ชื่อ GnomeFont ที่จะใช้สำหรับเลขบรรทัด (เลิกใช้แล้ว)"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:333
-msgid "Font description to use for the line numbers"
-msgstr "คำบรรยายแบบอักษรที่จะใช้สำหรับเลขบรรทัด"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:340
-msgid "Print Line Numbers"
-msgstr "พิมพ์เลขบรรทัด"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:341
-msgid "Interval of printed line numbers (0 means no numbers)"
-msgstr "ช่วงการเว้นบรรทัดในการพิมพ์เลขบรรทัด (0 หมายถึงไม่พิมพ์เลขบรรทัด)"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:348
-msgid "Print Header"
-msgstr "พิมพ์หัวกระดาษ"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:349
-msgid "Whether to print a header in each page"
-msgstr "กำหนดว่าจะพิมพ์หัวกระดาษในแต่ละหน้าหรือไม่"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:356
-msgid "Print Footer"
-msgstr "พิมพ์ท้ายกระดาษ"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:357
-msgid "Whether to print a footer in each page"
-msgstr "กำหนดว่าจะพิมพ์ท้ายกระดาษในแต่ละหน้าหรือไม่"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:364
-msgid "Header and Footer Font"
-msgstr "แบบอักษรของหัวและท้ายกระดาษ"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:365
-msgid "GnomeFont name to use for the header and footer (deprecated)"
-msgstr "ชื่อ GnomeFont ที่จะใช้สำหรับหัวและท้ายกระดาษ (เลิกใช้แล้ว)"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:372
-msgid "Header and Footer Font Description"
-msgstr "คำบรรยายแบบอักษรของหัวและท้ายกระดาษ"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:373
-msgid "Font to use for headers and footers (e.g. \"Monospace 10\")"
-msgstr "แบบอักษรที่จะใช้สำหรับหัวและท้ายกระดาษ (เช่น \"Monospace 10\")"
 
 #: ../Tomboy/Addins/Sketching/SketchingNoteAddin.cs:19
 msgid "Add a sketch"
@@ -859,7 +718,7 @@ msgstr "ไม่มีข้อมูลในช่องเซิร์ฟเ
 msgid "SSH (sshfs FUSE)"
 msgstr "SSH (sshfs FUSE)"
 
-#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:186
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:191
 msgid ""
 "Timeout connecting to server. Please ensure that your SSH key has been added "
 "to a running SSH daemon."
@@ -897,6 +756,22 @@ msgstr "ไม่มีหัวข้อ"
 msgid "Sticky Note: "
 msgstr "โน้ตติดกาว: "
 
+#: ../Tomboy/Addins/Tasque/TasqueNoteAddin.cs:57
+msgid "Tasque"
+msgstr "Tasque"
+
+#. Note to translators: "All" here must match up with the "All"
+#. category translation in Tasque for this to work properly.  "All"
+#. is used here to allow Tasque to decide which default category
+#. will be used to create the new task.
+#: ../Tomboy/Addins/Tasque/TasqueNoteAddin.cs:81
+msgid "All"
+msgstr "ทั้งหมด"
+
+#: ../Tomboy/Addins/Tasque/TasqueNoteAddin.cs:140
+msgid "--- Tasque is not running ---"
+msgstr "--- Tasque ไม่ได้ทำงานอยู่ ---"
+
 #: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:51
 msgid "_URL:"
 msgstr "_URL:"
@@ -913,7 +788,7 @@ msgstr "ไม่มีข้อมูลในช่อง URL, ชื่อผ
 msgid "WebDAV (wdfs FUSE)"
 msgstr "WebDAV (wdfs FUSE)"
 
-#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:172
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:190
 msgid ""
 "There was an error connecting to the server.  This may be caused by using an "
 "incorrect user name and/or password."
@@ -925,7 +800,7 @@ msgstr ""
 #. Save configuration into GConf
 #. Preferences.Set ("/apps/tomboy/sync_wdfs_url", url ?? string.Empty);
 #. Preferences.Set ("/apps/tomboy/sync_wdfs_username", username ?? string.Empty);
-#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:248
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:266
 msgid ""
 "Saving configuration to the GNOME keyring failed with the following message:"
 msgstr "ไม่สามารถบันทึกค่าตั้งในพวงกุญแจ GNOME ได้ โดยมีข้อความดังนี้:"
@@ -987,7 +862,7 @@ msgid "Create a new note in a notebook"
 msgstr "สร้างบันทึกใหม่ในสมุดบันทึก"
 
 #: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:41
-#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:192
+#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:201
 msgid "New Note_book..."
 msgstr "_สมุดบันทึกใหม่..."
 
@@ -1016,15 +891,15 @@ msgid "Delete the selected notebook"
 msgstr "ลบสมุดบันทึกที่เลือก"
 
 #: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:57
-#: ../Tomboy/RecentChanges.cs:244
+#: ../Tomboy/RecentChanges.cs:250
 msgid "Notebooks"
 msgstr "สมุดบันทึก"
 
-#: ../Tomboy/Notebooks/NotebookManager.cs:323
+#: ../Tomboy/Notebooks/NotebookManager.cs:354
 msgid "Really delete this notebook?"
 msgstr "ยืนยันว่าจะลบสมุดบันทึกนี้หรือไม่?"
 
-#: ../Tomboy/Notebooks/NotebookManager.cs:325
+#: ../Tomboy/Notebooks/NotebookManager.cs:356
 msgid ""
 "The notes that belong to this notebook will not be deleted, but they will no "
 "longer be associated with this notebook.  This action cannot be undone."
@@ -1045,23 +920,27 @@ msgstr "ไม่มีสมุดบันทึก"
 msgid "New \"{0}\" Note"
 msgstr "บันทึกใหม่สำหรับ \"{0}\""
 
-#: ../Tomboy/Notebooks/NotebookNoteAddin.cs:34
+#: ../Tomboy/Notebooks/NotebookNoteAddin.cs:36
 msgid "Place this note into a notebook"
 msgstr "ใส่บันทึกนี้เข้าในสมุดบันทึก"
 
-#: ../Tomboy/Notebooks/NotebookNoteAddin.cs:103
+#: ../Tomboy/Notebooks/NotebookNoteAddin.cs:112
 msgid "Notebook"
 msgstr "สมุดบันทึก"
 
-#: ../Tomboy/Note.cs:1330
+#: ../Tomboy/Notebooks/NotebookNoteAddin.cs:141
+msgid "_New notebook..."
+msgstr "_สมุดบันทึกใหม่..."
+
+#: ../Tomboy/Note.cs:1432
 msgid "Really delete this note?"
 msgstr "ยืนยันว่าจะลบบันทึกนี้หรือไม่?"
 
-#: ../Tomboy/Note.cs:1332
+#: ../Tomboy/Note.cs:1434
 msgid "Really delete these notes?"
 msgstr "ยืนยันว่าจะลบบันทึกเหล่านี้หรือไม่?"
 
-#: ../Tomboy/Note.cs:1341
+#: ../Tomboy/Note.cs:1443
 msgid "If you delete a note it is permanently lost."
 msgstr "ถ้าเลือกลบ บันทึกจะถูกลบอย่างถาวร"
 
@@ -1070,7 +949,7 @@ msgstr "ถ้าเลือกลบ บันทึกจะถูกลบ�
 msgid "New Note Template"
 msgstr "แผ่นแบบสำหรับบันทึกใหม่"
 
-#: ../Tomboy/NoteManager.cs:135
+#: ../Tomboy/NoteManager.cs:138
 msgid ""
 "<note-content>Start Here\n"
 "\n"
@@ -1105,7 +984,7 @@ msgstr ""
 "ว่าทุกครั้งที่คุณพิมพ์ <link:internal>การใช้ลิงก์ใน Tomboy</link:internal> "
 "ข้อความดังกล่าวจะถูกขีดเส้นใต้โดยอัตโนมัติ? คลิกที่ลิงก์เพื่อเปิดดูบันทึกดังกล่าวได้</note-content>"
 
-#: ../Tomboy/NoteManager.cs:154
+#: ../Tomboy/NoteManager.cs:157
 msgid ""
 "<note-content>Using Links in Tomboy\n"
 "\n"
@@ -1133,26 +1012,26 @@ msgstr ""
 "content>"
 
 #. Attempt to find an existing Start Here note
-#: ../Tomboy/NoteManager.cs:169 ../Tomboy/NoteManager.cs:232
+#: ../Tomboy/NoteManager.cs:172 ../Tomboy/NoteManager.cs:237
 msgid "Start Here"
 msgstr "เริ่มที่นี่"
 
-#: ../Tomboy/NoteManager.cs:174
+#: ../Tomboy/NoteManager.cs:177
 msgid "Using Links in Tomboy"
 msgstr "การใช้ลิงก์ใน Tomboy"
 
-#: ../Tomboy/NoteManager.cs:306
+#: ../Tomboy/NoteManager.cs:314
 #, csharp-format
 msgid "New Note {0}"
 msgstr "บันทึกใหม่ {0}"
 
 #. Use a simple "Describe..." body and highlight
 #. it so it can be easily overwritten
-#: ../Tomboy/NoteManager.cs:378 ../Tomboy/NoteManager.cs:470
+#: ../Tomboy/NoteManager.cs:386 ../Tomboy/NoteManager.cs:478
 msgid "Describe your new note here."
 msgstr "บรรยายบันทึกใหม่ของคุณที่นี่"
 
-#: ../Tomboy/NoteWindow.cs:57
+#: ../Tomboy/NoteWindow.cs:58
 msgid "Find in This Note"
 msgstr "หาในบันทึกนี้"
 
@@ -1172,107 +1051,107 @@ msgstr "_หาในบันทึกนี้"
 msgid "Clos_e All Notes"
 msgstr "ปิ_ดบันทึกทั้งหมด"
 
-#: ../Tomboy/NoteWindow.cs:440
+#: ../Tomboy/NoteWindow.cs:442
 msgid "Search"
 msgstr "ค้นหา"
 
-#: ../Tomboy/NoteWindow.cs:442
+#: ../Tomboy/NoteWindow.cs:445
 msgid "Search your notes (Ctrl-Shift-F)"
 msgstr "ค้นบันทึก (Ctrl-Shift-F)"
 
-#: ../Tomboy/NoteWindow.cs:452
+#: ../Tomboy/NoteWindow.cs:457
 msgid "Link"
 msgstr "ลิงก์"
 
-#: ../Tomboy/NoteWindow.cs:455
+#: ../Tomboy/NoteWindow.cs:463
 msgid "Link selected text to a new note (Ctrl-L)"
 msgstr "ลิงก์ข้อความที่เลือกไปยังบันทึกใหม่ (Ctrl-L)"
 
-#: ../Tomboy/NoteWindow.cs:467
+#: ../Tomboy/NoteWindow.cs:476
 msgid "_Text"
 msgstr "_ข้อความ"
 
-#: ../Tomboy/NoteWindow.cs:471
+#: ../Tomboy/NoteWindow.cs:481
 msgid "Set properties of text"
 msgstr "ปรับแต่งตัวอักษร"
 
-#: ../Tomboy/NoteWindow.cs:476
+#: ../Tomboy/NoteWindow.cs:486
 msgid "T_ools"
 msgstr "เครื่อง_มือ"
 
-#: ../Tomboy/NoteWindow.cs:480
+#: ../Tomboy/NoteWindow.cs:490
 msgid "Use tools on this note"
 msgstr "ใช้เครื่องมือกับบันทึกนี้"
 
-#: ../Tomboy/NoteWindow.cs:488
+#: ../Tomboy/NoteWindow.cs:498
 msgid "Delete this note"
 msgstr "ลบบันทึกนี้"
 
-#: ../Tomboy/NoteWindow.cs:497 ../Tomboy/Synchronization/SyncManager.cs:161
+#: ../Tomboy/NoteWindow.cs:507 ../Tomboy/Synchronization/SyncManager.cs:161
 msgid "Synchronize Notes"
 msgstr "ปรับข้อมูลบันทึกให้ตรงกัน"
 
-#: ../Tomboy/NoteWindow.cs:540
+#: ../Tomboy/NoteWindow.cs:550
 msgid "_Find..."
 msgstr "_หา..."
 
-#: ../Tomboy/NoteWindow.cs:551 ../Tomboy/NoteWindow.cs:752
+#: ../Tomboy/NoteWindow.cs:561 ../Tomboy/NoteWindow.cs:763
 msgid "Find _Next"
 msgstr "หา_ต่อ"
 
-#: ../Tomboy/NoteWindow.cs:564
+#: ../Tomboy/NoteWindow.cs:574
 msgid "Find _Previous"
 msgstr "หา_ก่อนหน้า"
 
-#: ../Tomboy/NoteWindow.cs:652
+#: ../Tomboy/NoteWindow.cs:662
 msgid "Cannot create note"
 msgstr "ไม่สามารถสร้างบันทึกได้"
 
-#: ../Tomboy/NoteWindow.cs:732
+#: ../Tomboy/NoteWindow.cs:743
 msgid "_Find:"
 msgstr "_หา:"
 
-#: ../Tomboy/NoteWindow.cs:743
+#: ../Tomboy/NoteWindow.cs:754
 msgid "_Previous"
 msgstr "_ก่อนหน้า"
 
-#: ../Tomboy/NoteWindow.cs:1227
+#: ../Tomboy/NoteWindow.cs:1238
 msgid "_Bold"
 msgstr "ตัว_หนา"
 
-#: ../Tomboy/NoteWindow.cs:1239
+#: ../Tomboy/NoteWindow.cs:1250
 msgid "_Italic"
 msgstr "ตัวเ_อียง"
 
-#: ../Tomboy/NoteWindow.cs:1251
+#: ../Tomboy/NoteWindow.cs:1262
 msgid "_Strikeout"
 msgstr "ขี_ดฆ่า"
 
-#: ../Tomboy/NoteWindow.cs:1263
+#: ../Tomboy/NoteWindow.cs:1274
 msgid "_Highlight"
 msgstr "เ_น้น"
 
-#: ../Tomboy/NoteWindow.cs:1276
+#: ../Tomboy/NoteWindow.cs:1287
 msgid "Font Size"
 msgstr "ขนาดอักษร"
 
-#: ../Tomboy/NoteWindow.cs:1279
+#: ../Tomboy/NoteWindow.cs:1290
 msgid "_Normal"
 msgstr "_ปกติ"
 
-#: ../Tomboy/NoteWindow.cs:1286
+#: ../Tomboy/NoteWindow.cs:1297
 msgid "Hu_ge"
 msgstr "ใหญ่_มาก"
 
-#: ../Tomboy/NoteWindow.cs:1294
+#: ../Tomboy/NoteWindow.cs:1305
 msgid "_Large"
 msgstr "ใ_หญ่"
 
-#: ../Tomboy/NoteWindow.cs:1302
+#: ../Tomboy/NoteWindow.cs:1313
 msgid "S_mall"
 msgstr "เ_ล็ก"
 
-#: ../Tomboy/NoteWindow.cs:1313
+#: ../Tomboy/NoteWindow.cs:1324
 msgid "Bullets"
 msgstr "รายการ"
 
@@ -1331,20 +1210,16 @@ msgid ""
 "creating a new note."
 msgstr "ใช้แผ่นแบบบันทึกเพื่อกำหนดข้อความที่จะใช้เมื่อสร้างบันทึกใหม่"
 
-#: ../Tomboy/PreferencesDialog.cs:225
+#: ../Tomboy/PreferencesDialog.cs:224
 msgid "Open New Note Template"
 msgstr "เปิดแผ่นแบบสำหรับบันทึกใหม่"
 
-#: ../Tomboy/PreferencesDialog.cs:228
-msgid "_Open New Note Template..."
-msgstr "เ_ปิดแผ่นแบบสำหรับบันทึกใหม่..."
-
 #. Hotkeys...
-#: ../Tomboy/PreferencesDialog.cs:286
+#: ../Tomboy/PreferencesDialog.cs:281
 msgid "Listen for _Hotkeys"
 msgstr "ใช้งาน_ปุ่มลัด"
 
-#: ../Tomboy/PreferencesDialog.cs:295
+#: ../Tomboy/PreferencesDialog.cs:290
 msgid ""
 "Hotkeys allow you to quickly access your notes from anywhere with a "
 "keypress. Example Hotkeys: <b>&lt;Control&gt;&lt;Shift&gt;F11</b>, <b>&lt;"
@@ -1354,90 +1229,90 @@ msgstr ""
 "F11</b>, <b>&lt;Alt&gt;N</b>"
 
 #. Show notes menu keybinding...
-#: ../Tomboy/PreferencesDialog.cs:315
+#: ../Tomboy/PreferencesDialog.cs:310
 msgid "Show notes _menu"
 msgstr "แสดงเ_มนูของบันทึก"
 
 #. Open Start Here keybinding...
-#: ../Tomboy/PreferencesDialog.cs:332
+#: ../Tomboy/PreferencesDialog.cs:327
 msgid "Open \"_Start Here\""
 msgstr "เปิด \"เ_ริ่มที่นี่\""
 
 #. Create new note keybinding...
-#: ../Tomboy/PreferencesDialog.cs:349
+#: ../Tomboy/PreferencesDialog.cs:344
 msgid "Create _new note"
 msgstr "สร้าง_บันทึกใหม่"
 
 #. Open Search All Notes window keybinding...
-#: ../Tomboy/PreferencesDialog.cs:366
+#: ../Tomboy/PreferencesDialog.cs:361
 msgid "Open \"Search _All Notes\""
 msgstr "เปิด \"ค้นบันทึก_ทั้งหมด\""
 
-#: ../Tomboy/PreferencesDialog.cs:393
+#: ../Tomboy/PreferencesDialog.cs:388
 msgid "Ser_vice:"
 msgstr "บ_ริการ:"
 
-#: ../Tomboy/PreferencesDialog.cs:446 ../Tomboy/PreferencesDialog.cs:1024
+#: ../Tomboy/PreferencesDialog.cs:441 ../Tomboy/PreferencesDialog.cs:1019
 msgid "Not configurable"
 msgstr "ปรับแต่งไม่ได้"
 
 #. "Advanced..." button to bring up extra sync config dialog
-#: ../Tomboy/PreferencesDialog.cs:466
+#: ../Tomboy/PreferencesDialog.cs:461
 msgid "_Advanced..."
 msgstr "_ขั้นสูง..."
 
-#: ../Tomboy/PreferencesDialog.cs:527
+#: ../Tomboy/PreferencesDialog.cs:522
 msgid "The following add-ins are installed"
 msgstr "โปรแกรมเสริมดังต่อไปนี้ติดตั้งแล้ว"
 
-#: ../Tomboy/PreferencesDialog.cs:558
+#: ../Tomboy/PreferencesDialog.cs:553
 msgid "_Enable"
 msgstr "เปิดใ_ช้"
 
-#: ../Tomboy/PreferencesDialog.cs:564
+#: ../Tomboy/PreferencesDialog.cs:559
 msgid "_Disable"
 msgstr "ไ_ม่ใช้"
 
-#: ../Tomboy/PreferencesDialog.cs:695
+#: ../Tomboy/PreferencesDialog.cs:690
 msgid "Not Implemented"
 msgstr "ยังไม่รองรับ"
 
-#: ../Tomboy/PreferencesDialog.cs:709
+#: ../Tomboy/PreferencesDialog.cs:704
 #, csharp-format
 msgid "{0} Preferences"
 msgstr "ปรับแต่ง {0}"
 
-#: ../Tomboy/PreferencesDialog.cs:848
+#: ../Tomboy/PreferencesDialog.cs:843
 msgid "Choose Note Font"
 msgstr "เลือกขนาดอักษรสำหรับบันทึก"
 
-#: ../Tomboy/PreferencesDialog.cs:892
+#: ../Tomboy/PreferencesDialog.cs:887
 msgid "Other Synchronization Options"
 msgstr "ตัวเลือกอื่นสำหรับการปรับข้อมูลให้ตรงกัน"
 
-#: ../Tomboy/PreferencesDialog.cs:899
+#: ../Tomboy/PreferencesDialog.cs:894
 msgid ""
 "When a conflict is detected between a local note and a note on the "
 "configured synchronization server:"
 msgstr "เมื่อมีสิ่งขัดแย้งระหว่างบันทึกในเครื่อง กับบันทึกที่อยู่ในเซิร์ฟเวอร์ที่กำหนดไว้สำหรับปรับข้อมูล:"
 
-#: ../Tomboy/PreferencesDialog.cs:906
+#: ../Tomboy/PreferencesDialog.cs:901
 msgid "Always ask me what to do."
 msgstr "ถามก่อนว่าจะให้ทำอย่างไร"
 
-#: ../Tomboy/PreferencesDialog.cs:910
+#: ../Tomboy/PreferencesDialog.cs:905
 msgid "Rename my local note."
 msgstr "เปลี่ยนชื่อบันทึกในเครื่อง"
 
-#: ../Tomboy/PreferencesDialog.cs:914
+#: ../Tomboy/PreferencesDialog.cs:909
 msgid "Replace my local note with the server's update."
 msgstr "เขียนบันทึกใหม่จากเซิร์ฟเวอร์ทับบันทึกในเครื่อง"
 
-#: ../Tomboy/PreferencesDialog.cs:1060
+#: ../Tomboy/PreferencesDialog.cs:1055
 msgid "WARNING: Are you sure?"
 msgstr "คำเตือน: แน่ใจหรือยัง?"
 
-#: ../Tomboy/PreferencesDialog.cs:1062
+#: ../Tomboy/PreferencesDialog.cs:1057
 msgid ""
 "Clearing your synchronization settings is not recommended.  You may be "
 "forced to synchronize all of your notes again when you save new settings."
@@ -1445,11 +1320,11 @@ msgstr ""
 "ไม่แนะนำให้ล้างค่าตั้งการปรับข้อมูลให้ตรงกันออก คุณอาจจำเป็นต้องปรับข้อมูลบันทึกของคุณใหม่หมด "
 "เมื่อคุณบันทึกการตั้งค่าชุดใหม่"
 
-#: ../Tomboy/PreferencesDialog.cs:1075
+#: ../Tomboy/PreferencesDialog.cs:1070
 msgid "Resetting Synchronization Settings"
 msgstr "กำลังล้างค่าตั้งสำหรับการปรับข้อมูลให้ตรงกัน"
 
-#: ../Tomboy/PreferencesDialog.cs:1077
+#: ../Tomboy/PreferencesDialog.cs:1072
 msgid ""
 "You have disabled the configured synchronization service.  Your "
 "synchronization settings will now be cleared.  You may be forced to "
@@ -1458,15 +1333,15 @@ msgstr ""
 "คุณได้ปิดบริการปรับข้อมูลให้ตรงกันที่ได้ตั้งค่าไว้ ค่าตั้งเกี่ยวกับการปรับข้อมูลให้ตรงกันของคุณจะถูกลบทิ้ง "
 "คุณอาจจำเป็นต้องปรับข้อมูลบันทึกของคุณใหม่หมดเมื่อคุณบันทึกการตั้งค่าชุดใหม่"
 
-#: ../Tomboy/PreferencesDialog.cs:1174
+#: ../Tomboy/PreferencesDialog.cs:1169
 msgid "Success! You're connected!"
 msgstr "สำเร็จ! เชื่อมต่อได้แล้ว"
 
-#: ../Tomboy/PreferencesDialog.cs:1176
+#: ../Tomboy/PreferencesDialog.cs:1171
 msgid "Tomboy is ready to synchronize your notes."
 msgstr "Tomboy พร้อมที่จะปรับข้อมูลบันทึกของคุณให้ตรงกันแล้ว"
 
-#: ../Tomboy/PreferencesDialog.cs:1195
+#: ../Tomboy/PreferencesDialog.cs:1190
 msgid ""
 "Sorry, but something went wrong.  Please check your information and try "
 "again.  The ~/.tomboy.log might be useful too."
@@ -1474,77 +1349,77 @@ msgstr ""
 "เสียใจด้วย มีบางอย่างผิดพลาด โปรดตรวจสอบข้อมูลของคุณแล้วลองใหม่อีกครั้ง แฟ้ม ~/.tomboy.log "
 "อาจเป็นประโยชน์ในกรณีนี้"
 
-#: ../Tomboy/PreferencesDialog.cs:1204
+#: ../Tomboy/PreferencesDialog.cs:1199
 msgid "Error connecting :("
 msgstr "เกิดข้อผิดพลาดขณะเชื่อมต่อ :("
 
-#: ../Tomboy/PreferencesDialog.cs:1280
+#: ../Tomboy/PreferencesDialog.cs:1275
 msgid "Version:"
 msgstr "รุ่น:"
 
-#: ../Tomboy/PreferencesDialog.cs:1287
+#: ../Tomboy/PreferencesDialog.cs:1282
 msgid "Author:"
 msgstr "ผู้แต่ง:"
 
-#: ../Tomboy/PreferencesDialog.cs:1294
+#: ../Tomboy/PreferencesDialog.cs:1289
 msgid "Copyright:"
 msgstr "สงวนลิขสิทธิ์:"
 
-#: ../Tomboy/PreferencesDialog.cs:1300
+#: ../Tomboy/PreferencesDialog.cs:1295
 msgid "Add-in Dependencies:"
 msgstr "สิ่งที่โปรแกรมเสริมต้องใช้:"
 
-#: ../Tomboy/RecentChanges.cs:74
+#: ../Tomboy/RecentChanges.cs:77
 msgid "Search All Notes"
 msgstr "ค้นบันทึกทั้งหมด"
 
-#: ../Tomboy/RecentChanges.cs:89
+#: ../Tomboy/RecentChanges.cs:94
 msgid "_Search:"
 msgstr "_ค้นหา:"
 
-#: ../Tomboy/RecentChanges.cs:110
+#: ../Tomboy/RecentChanges.cs:115
 msgid "C_ase Sensitive"
 msgstr "ตัวพิมพ์ใหญ่-เ_ล็กตรงกัน"
 
-#: ../Tomboy/RecentChanges.cs:307
+#: ../Tomboy/RecentChanges.cs:315
 msgid "Note"
 msgstr "บันทึก"
 
-#: ../Tomboy/RecentChanges.cs:326
+#: ../Tomboy/RecentChanges.cs:337
 msgid "Last Changed"
 msgstr "เปลี่ยนแปลงล่าสุด"
 
-#: ../Tomboy/RecentChanges.cs:459
+#: ../Tomboy/RecentChanges.cs:469
 msgid "Matches"
 msgstr "ผลการค้นหา"
 
-#: ../Tomboy/RecentChanges.cs:511
+#: ../Tomboy/RecentChanges.cs:521
 #, csharp-format
 msgid "{0} match"
 msgid_plural "{0} matches"
 msgstr[0] "พบ {0} รายการ"
 
-#: ../Tomboy/RecentChanges.cs:525
+#: ../Tomboy/RecentChanges.cs:535
 #, csharp-format
 msgid "Total: {0} note"
 msgid_plural "Total: {0} notes"
 msgstr[0] "บันทึกทั้งหมด: {0} รายการ"
 
-#: ../Tomboy/RecentChanges.cs:535
+#: ../Tomboy/RecentChanges.cs:545
 #, csharp-format
 msgid "Matches: {0} note"
 msgid_plural "Matches: {0} notes"
 msgstr[0] "บันทึกที่พบ: {0} รายการ"
 
-#: ../Tomboy/RecentChanges.cs:666
+#: ../Tomboy/RecentChanges.cs:676
 msgid "Notes"
 msgstr "บันทึก"
 
-#: ../Tomboy/Tomboy.cs:195
+#: ../Tomboy/Tomboy.cs:199
 msgid "Cannot create new note"
 msgstr "ไม่สามารถสร้างบันทึกใหม่ได้"
 
-#: ../Tomboy/Tomboy.cs:267
+#: ../Tomboy/Tomboy.cs:276
 msgid "translator-credits"
 msgstr ""
 "Isriya Paireepairit <markpeak@gmail.com>\n"
@@ -1552,19 +1427,19 @@ msgstr ""
 "Theppitak Karoonboonyanan <thep@linux.thai.net>\n"
 "aka.ape <aka.ape@gmail.com>"
 
-#: ../Tomboy/Tomboy.cs:276
+#: ../Tomboy/Tomboy.cs:285
 msgid "Copyright © 2004-2007 Alex Graveley"
 msgstr "สงวนลิขสิทธิ์ © 2004-2007 Alex Graveley"
 
-#: ../Tomboy/Tomboy.cs:277
+#: ../Tomboy/Tomboy.cs:286
 msgid "A simple and easy to use desktop note-taking application."
 msgstr "โปรแกรมบันทึกข้อความที่เรียบง่ายใช้สะดวก"
 
-#: ../Tomboy/Tomboy.cs:280
+#: ../Tomboy/Tomboy.cs:289
 msgid "Homepage"
 msgstr "โฮมเพจ"
 
-#: ../Tomboy/Tomboy.cs:391
+#: ../Tomboy/Tomboy.cs:400
 msgid ""
 "Tomboy: A simple, easy to use desktop note-taking application.\n"
 "Copyright (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
@@ -1574,7 +1449,7 @@ msgstr ""
 "Copyright (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
 "\n"
 
-#: ../Tomboy/Tomboy.cs:403
+#: ../Tomboy/Tomboy.cs:412
 msgid ""
 "Usage:\n"
 "  --version\t\t\tPrint version information.\n"
@@ -1588,7 +1463,7 @@ msgstr ""
 "  --note-path [path]\t\tเรียก/บันทึกข้อความในไดเรกทอรีนี้\n"
 "  --search [text]\t\tเปิดหน้าต่างค้นบันทึกทั้งหมด พร้อมคำค้น\n"
 
-#: ../Tomboy/Tomboy.cs:414
+#: ../Tomboy/Tomboy.cs:423
 msgid ""
 "  --new-note\t\t\tCreate and display a new note.\n"
 "  --new-note [title]\t\tCreate and display a new note, with a title.\n"
@@ -1602,16 +1477,21 @@ msgstr ""
 "  --start-here\t\t\tแสดงบันทึก 'เริ่มที่นี่'\n"
 "  --highlight-search [text]\tค้นหาและเน้นคำในบันทึกที่เปิดอยู่\n"
 
-#: ../Tomboy/Tomboy.cs:431
+#. TODO: Restore this functionality with addins
+#. usage +=
+#. Catalog.GetString (
+#. "  --check-plugin-unloading\tCheck if plugins are " +
+#. "unloaded properly.\n");
+#: ../Tomboy/Tomboy.cs:440
 msgid "D-BUS remote control disabled.\n"
 msgstr "การควบคุมระยะไกลผ่าน D-BUS ปิดอยู่\n"
 
-#: ../Tomboy/Tomboy.cs:439
+#: ../Tomboy/Tomboy.cs:448
 #, csharp-format
 msgid "Version {0}"
 msgstr "รุ่น {0}"
 
-#: ../Tomboy/Tomboy.cs:509
+#: ../Tomboy/Tomboy.cs:518
 #, csharp-format
 msgid ""
 "Tomboy: unsupported option '{0}'\n"
@@ -1622,93 +1502,93 @@ msgstr ""
 "ลองเรียก 'tomboy --help' เพื่อดูข้อมูลเพิ่มเติม\n"
 "การควบคุมระยะไกลผ่าน D-BUS ปิดอยู่"
 
-#: ../Tomboy/Tray.cs:64
+#: ../Tomboy/Tray.cs:66
 msgid " (new)"
 msgstr " (ใหม่)"
 
-#: ../Tomboy/Utils.cs:127
+#: ../Tomboy/Utils.cs:133
 msgid ""
 "The \"Tomboy Notes Manual\" could not be found.  Please verify that your "
 "installation has been completed successfully."
 msgstr "ไม่พบ \"คู่มือวิธีใช้บันทึก Tomboy\" กรุณาตรวจสอบการติดตั้งของคุณว่าครบถ้วนสมบูรณ์หรือไม่"
 
-#: ../Tomboy/Utils.cs:136
+#: ../Tomboy/Utils.cs:142
 msgid "Help not found"
 msgstr "ไม่พบคู่มือวิธีใช้"
 
-#: ../Tomboy/Utils.cs:159
+#: ../Tomboy/Utils.cs:165
 #, csharp-format
 msgid "Today, {0}"
 msgstr "วันนี้ {0}"
 
-#: ../Tomboy/Utils.cs:161
+#: ../Tomboy/Utils.cs:167
 msgid "Today"
 msgstr "วันนี้"
 
-#: ../Tomboy/Utils.cs:165
+#: ../Tomboy/Utils.cs:171
 #, csharp-format
 msgid "Yesterday, {0}"
 msgstr "เมื่อวานนี้ {0}"
 
-#: ../Tomboy/Utils.cs:167
+#: ../Tomboy/Utils.cs:173
 msgid "Yesterday"
 msgstr "เมื่อวาน"
 
-#: ../Tomboy/Utils.cs:171
+#: ../Tomboy/Utils.cs:177
 #, csharp-format
 msgid "{0} days ago, {1}"
 msgstr "{0} วันก่อน {1}"
 
-#: ../Tomboy/Utils.cs:173
+#: ../Tomboy/Utils.cs:179
 #, csharp-format
 msgid "{0} days ago"
 msgstr "{0} วันก่อน"
 
-#: ../Tomboy/Utils.cs:178
+#: ../Tomboy/Utils.cs:184
 #, csharp-format
 msgid "Tomorrow, {0}"
 msgstr "พรุ่งนี้ {0}"
 
-#: ../Tomboy/Utils.cs:180
+#: ../Tomboy/Utils.cs:186
 msgid "Tomorrow"
 msgstr "พรุ่งนี้"
 
-#: ../Tomboy/Utils.cs:184
+#: ../Tomboy/Utils.cs:190
 #, csharp-format
 msgid "In {0} days, {1}"
 msgstr "อีก {0} วัน {1}"
 
-#: ../Tomboy/Utils.cs:186
+#: ../Tomboy/Utils.cs:192
 #, csharp-format
 msgid "In {0} days"
 msgstr "อีก {0} วัน"
 
-#: ../Tomboy/Utils.cs:190
+#: ../Tomboy/Utils.cs:196
 msgid "MMMM d, h:mm tt"
 msgstr "d MMMM, H:mm"
 
-#: ../Tomboy/Utils.cs:191
+#: ../Tomboy/Utils.cs:197
 msgid "MMMM d"
 msgstr "d MMMM"
 
-#: ../Tomboy/Utils.cs:193
+#: ../Tomboy/Utils.cs:199
 msgid "No Date"
 msgstr "ไม่ระบุวันที่"
 
-#: ../Tomboy/Utils.cs:196
+#: ../Tomboy/Utils.cs:202
 msgid "MMMM d yyyy, h:mm tt"
 msgstr "d MMMM yyyy, H:mm"
 
-#: ../Tomboy/Utils.cs:197
+#: ../Tomboy/Utils.cs:203
 msgid "MMMM d yyyy"
 msgstr "d MMMM yyyy"
 
-#: ../Tomboy/Watchers.cs:152
+#: ../Tomboy/Watchers.cs:155
 #, csharp-format
 msgid "(Untitled {0})"
 msgstr "(ไม่มีหัวข้อ {0})"
 
-#: ../Tomboy/Watchers.cs:185
+#: ../Tomboy/Watchers.cs:188
 #, csharp-format
 msgid ""
 "A note with the title <b>{0}</b> already exists. Please choose another name "
@@ -1716,19 +1596,19 @@ msgid ""
 msgstr ""
 "มีบันทึกที่หัวข้อ <b>{0}</b> อยู่ก่อนแล้ว กรุณาเลือกชื่ออื่นสำหรับบันทึกนี้ ก่อนที่จะดำเนินการต่อไป"
 
-#: ../Tomboy/Watchers.cs:200
+#: ../Tomboy/Watchers.cs:203
 msgid "Note title taken"
 msgstr "หัวข้อนี้ถูกใช้แล้ว"
 
-#: ../Tomboy/Watchers.cs:449
+#: ../Tomboy/Watchers.cs:472
 msgid "Cannot open location"
 msgstr "ไม่สามารถเปิดตำแหน่ง"
 
-#: ../Tomboy/Watchers.cs:543
+#: ../Tomboy/Watchers.cs:566
 msgid "_Copy Link Address"
 msgstr "_คัดลอกตำแหน่งลิงก์"
 
-#: ../Tomboy/Watchers.cs:548
+#: ../Tomboy/Watchers.cs:571
 msgid "_Open Link"
 msgstr "เ_ปิดลิงก์"
 
@@ -1741,19 +1621,19 @@ msgstr ""
 "ระบบของคุณไม่รองรับบริการเสริมปรับข้อมูลให้ตรงกันนี้ กรุณาตรวจดูให้แน่ใจ ว่าคุณได้ติดตั้งและตั้งค่า "
 "FUSE และ {0} อย่างถูกต้อง"
 
-#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:177
+#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:178
 msgid "Timeout connecting to server."
 msgstr "หมดเวลาคอยขณะเชื่อมต่อไปยังเซิร์ฟเวอร์"
 
-#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:185
+#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:186
 msgid "Error connecting to server."
 msgstr "เกิดข้อผิดพลาดขณะเชื่อมต่อไปยังเซิร์ฟเวอร์"
 
-#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:199
+#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:200
 msgid "FUSE could not be enabled."
 msgstr "ไม่สามารถเปิดใช้ FUSE"
 
-#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:233
+#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:235
 msgid "An error ocurred while connecting to the specified server:"
 msgstr "เกิดข้อผิดพลาดขณะเชื่อมต่อไปยังเซิร์ฟเวอร์ที่ระบุ:"
 
@@ -1993,6 +1873,111 @@ msgstr ""
 "เพื่อหลีกเลี่ยงข้อความเตือนนี้ในครั้งต่อไป คุณควรโหลด FUSE ตั้งแต่เปิดเครื่อง โดยเพิ่ม \"modprobe "
 "fuse\" ใน /etc/init.d/boot.local หรือเพิ่ม \"fuse\" ใน /etc/modules"
 
+#~ msgid "NoteOfTheDay"
+#~ msgstr "บันทึกประจำวัน"
+
+#~ msgid "Preparing pages..."
+#~ msgstr "กำลังจัดหน้า..."
+
+#~ msgid "Rendering page %d of %d..."
+#~ msgstr "กำลังวาดหน้า %d จาก %d..."
+
+#~ msgid "Printing page %d of %d..."
+#~ msgstr "กำลังพิมพ์หน้า %d จาก %d..."
+
+#~ msgid "Print preview"
+#~ msgstr "ตัวอย่างก่อนพิมพ์"
+
+#~ msgid "Page %N of %Q"
+#~ msgstr "หน้า %N จาก %Q"
+
+#~ msgid "%A %x, %X"
+#~ msgstr "%A %x, %X"
+
+#~ msgid "Configuration"
+#~ msgstr "ค่าตั้ง"
+
+#~ msgid "Configuration options for the print job"
+#~ msgstr "ค่าตั้งสำหรับงานพิมพ์"
+
+#~ msgid "Source Buffer"
+#~ msgstr "บัฟเฟอร์ต้นทาง"
+
+#~ msgid "GtkTextBuffer object to print"
+#~ msgstr "ออบเจกต์ GtkTextBuffer ที่จะพิมพ์"
+
+#~ msgid "Tabs Width"
+#~ msgstr "ความกว้างแท็บ"
+
+#~ msgid "Width in equivalent space characters of tabs"
+#~ msgstr "ความกว้างแท็บ ในหน่วยจำนวนอักขระเว้นวรรค"
+
+#~ msgid "Wrap Mode"
+#~ msgstr "วิธีการตัดบรรทัด"
+
+#~ msgid "Word wrapping mode"
+#~ msgstr "วิธีการตัดคำขึ้นบรรทัดใหม่"
+
+#~ msgid "Highlight"
+#~ msgstr "เน้นข้อความ"
+
+#~ msgid "Whether to print the document with highlighted syntax"
+#~ msgstr "กำหนดว่าจะพิมพ์เอกสารโดยเน้นข้อความตามไวยากรณ์หรือไม่"
+
+#~ msgid "Font"
+#~ msgstr "แบบอักษร"
+
+#~ msgid "GnomeFont name to use for the document text (deprecated)"
+#~ msgstr "ชื่อ GnomeFont ที่จะใช้สำหรับข้อความในเอกสาร (เลิกใช้แล้ว)"
+
+#~ msgid "Font Description"
+#~ msgstr "คำบรรยายแบบอักษร"
+
+#~ msgid "Font to use for the document text (e.g. \"Monospace 10\")"
+#~ msgstr "แบบอักษรที่จะใช้สำหรับข้อความในเอกสาร (เช่น \"Monospace 10\")"
+
+#~ msgid "Numbers Font"
+#~ msgstr "แบบอักษรของเลขบรรทัด"
+
+#~ msgid "GnomeFont name to use for the line numbers (deprecated)"
+#~ msgstr "ชื่อ GnomeFont ที่จะใช้สำหรับเลขบรรทัด (เลิกใช้แล้ว)"
+
+#~ msgid "Font description to use for the line numbers"
+#~ msgstr "คำบรรยายแบบอักษรที่จะใช้สำหรับเลขบรรทัด"
+
+#~ msgid "Print Line Numbers"
+#~ msgstr "พิมพ์เลขบรรทัด"
+
+#~ msgid "Interval of printed line numbers (0 means no numbers)"
+#~ msgstr "ช่วงการเว้นบรรทัดในการพิมพ์เลขบรรทัด (0 หมายถึงไม่พิมพ์เลขบรรทัด)"
+
+#~ msgid "Print Header"
+#~ msgstr "พิมพ์หัวกระดาษ"
+
+#~ msgid "Whether to print a header in each page"
+#~ msgstr "กำหนดว่าจะพิมพ์หัวกระดาษในแต่ละหน้าหรือไม่"
+
+#~ msgid "Print Footer"
+#~ msgstr "พิมพ์ท้ายกระดาษ"
+
+#~ msgid "Whether to print a footer in each page"
+#~ msgstr "กำหนดว่าจะพิมพ์ท้ายกระดาษในแต่ละหน้าหรือไม่"
+
+#~ msgid "Header and Footer Font"
+#~ msgstr "แบบอักษรของหัวและท้ายกระดาษ"
+
+#~ msgid "GnomeFont name to use for the header and footer (deprecated)"
+#~ msgstr "ชื่อ GnomeFont ที่จะใช้สำหรับหัวและท้ายกระดาษ (เลิกใช้แล้ว)"
+
+#~ msgid "Header and Footer Font Description"
+#~ msgstr "คำบรรยายแบบอักษรของหัวและท้ายกระดาษ"
+
+#~ msgid "Font to use for headers and footers (e.g. \"Monospace 10\")"
+#~ msgstr "แบบอักษรที่จะใช้สำหรับหัวและท้ายกระดาษ (เช่น \"Monospace 10\")"
+
+#~ msgid "_Open New Note Template..."
+#~ msgstr "เ_ปิดแผ่นแบบสำหรับบันทึกใหม่..."
+
 #~ msgid "Delete"
 #~ msgstr "ลบ"
 
@@ -2139,9 +2124,6 @@ msgstr ""
 
 #~ msgid "Mark Complete"
 #~ msgstr "ทำเครื่องหมายว่าเสร็จเรียบร้อย"
-
-#~ msgid "Tags"
-#~ msgstr "ป้ายกำกับ"
 
 #~ msgid "Add/Remove note tags"
 #~ msgstr "เพิ่ม/ลบป้ายกำกับบันทึก"
