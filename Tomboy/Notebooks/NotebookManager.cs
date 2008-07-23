@@ -325,9 +325,11 @@ namespace Tomboy.Notebooks
 			} else {
 				Logger.Debug ("Created the notebook: {0} ({1})", notebook.Name, notebook.NormalizedName);
 				
-				// Move all the specified notesToAdd into the new notebook
-				foreach (Note note in notesToAdd) {
-					NotebookManager.MoveNoteToNotebook (note, notebook);
+				if (notesToAdd != null) {
+					// Move all the specified notesToAdd into the new notebook
+					foreach (Note note in notesToAdd) {
+						NotebookManager.MoveNoteToNotebook (note, notebook);
+					}
 				}
 			}
 			
