@@ -95,7 +95,7 @@ $(TARGET): $(CSFILES) Defines.cs
 	$(CSC) -out:$@ $(CSFLAGS) $^ $(ASSEMBLIES) $(RESOURCES)
 
 tomboylibdir = $(pkglibdir)
-tomboylib_DATA = $(TARGET) $(TARGET).config
+tomboylib_DATA = $(TARGET) $(TARGET).config $(TARGET).mdb
 
 
 bin_SCRIPTS = $(WRAPPER) $(PANEL_WRAPPER)

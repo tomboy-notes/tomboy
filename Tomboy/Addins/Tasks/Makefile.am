@@ -46,7 +46,8 @@ $(TASKS_TARGET): $(TASKS_CSFILES) $(top_builddir)/Tomboy/Tomboy.exe
 
 addinsdir = $(pkglibdir)/addins
 addins_DATA = 			\
-	$(TASKS_TARGET)
+	$(TASKS_TARGET)		\
+	$(TASKS_TARGET).mdb
 
 EXTRA_DIST =            	\
 	$(TASKS_CSFILES) \

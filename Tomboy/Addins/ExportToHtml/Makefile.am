@@ -28,7 +28,8 @@ $(TARGET): $(CSFILES) $(top_builddir)/Tomboy/Tomboy.exe
 
 addinsdir = $(pkglibdir)/addins
 addins_DATA = 			\
-	$(TARGET)
+	$(TARGET)		\
+	$(TARGET).mdb
 
 EXTRA_DIST =            	\
 	$(CSFILES) \
