@@ -24,12 +24,13 @@ RESOURCES = \
 
 $(TARGET): $(CSFILES) $(top_builddir)/Tomboy/Tomboy.exe
 	$(CSC) -out:$@ $(CSFLAGS) $(ASSEMBLIES) $(CSFILES) $(RESOURCES)
-endif
 
 
 addinsdir = $(pkglibdir)/addins
 addins_DATA = 			\
-	$(TARGET)
+	$(TARGET)		\
+	$(TARGET).mdb
+endif
 
 EXTRA_DIST =            	\
 	$(CSFILES) \
