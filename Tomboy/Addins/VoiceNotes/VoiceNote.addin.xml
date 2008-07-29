@@ -1,0 +1,21 @@
+<Addin id="VoiceNote"
+    namespace="Tomboy"
+    name="Voice Notes"
+    author="Tomboy Project"
+    description="Records voice notes"
+    category="Tools"
+    defaultEnabled="false"
+    version="0.1">
+
+    <Runtime>
+        <Import assembly="VoiceNote.Addin.dll" />
+    </Runtime>
+
+    <Dependencies>
+        <Addin id="Tomboy" version="0.7" />
+    </Dependencies>
+
+    <Extension path="/Tomboy/NoteAddins">
+        <NoteAddin type="Tomboy.VoiceNote.VoiceNote" />
+    </Extension>
+</Addin>
