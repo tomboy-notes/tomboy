@@ -64,11 +64,11 @@ $BEFORE_BUILD
 
 mkdir --parents --verbose $TMP_DIR/chrome
 
-# generate the JAR file, excluding CVS and temporary files
+# generate the JAR file, excluding SVN and temporary files
 JAR_FILE=$TMP_DIR/chrome/$APP_NAME.jar
 echo "Generating $JAR_FILE..."
 for CHROME_SUBDIR in $CHROME_PROVIDERS; do
-  find $CHROME_SUBDIR -path '*CVS*' -prune -o -type f -print | grep -v \~ >> files
+  find $CHROME_SUBDIR -path '*/.svn/*' -prune -o -type f -print | grep -v \~ >> files
 done
 
 zip -0 -r $JAR_FILE `cat files`
@@ -79,7 +79,7 @@ zip -0 -r $JAR_FILE `cat files`
 echo "Copying various files to $TMP_DIR folder..."
 for DIR in $ROOT_DIRS; do
   mkdir $TMP_DIR/$DIR
-  FILES="`find $DIR -path '*CVS*' -prune -o -type f -print | grep -v \~`"
+  FILES="`find $DIR -path '*/.svn/*' -prune -o -type f -print | grep -v \~`"
   echo $FILES >> files
   cp --verbose --parents $FILES $TMP_DIR
 done
