@@ -1369,6 +1369,10 @@ namespace Tomboy
                 public string SearchText
                 {
                         get {
+				// Entry may be null if search window closes
+				// early (bug #544996).
+				if (find_combo == null || find_combo.Entry == null)
+					return null;
                                 string text = find_combo.Entry.Text;
                                 text = text.Trim ();
                                 if (text == String.Empty)
