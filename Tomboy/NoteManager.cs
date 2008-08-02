@@ -229,10 +229,12 @@ public NoteManager (string directory) :
 				}
 			}
 
-			// Make sure that a Start Note Uri is set in the preferences.  This
+			// Make sure that a Start Note Uri is set in the preferences, and
+			// make sure that the Uri is valid to prevent bug #508982. This
 			// has to be done here for long-time Tomboy users who won't go
 			// through the CreateStartNotes () process.
-			if (StartNoteUri == String.Empty) {
+			if (StartNoteUri == String.Empty ||
+			    FindByUri(StartNoteUri) == null) {
 				// Attempt to find an existing Start Here note
 				Note start_note = Find (Catalog.GetString ("Start Here"));
 				if (start_note != null)
