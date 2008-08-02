@@ -496,7 +496,13 @@ namespace Tomboy
 
 			Logger.Log ("Saving '{0}'...", data.Data.Title);
 
-			NoteArchiver.Write (filepath, data.GetDataSynchronized ());
+			try {
+				NoteArchiver.Write (filepath, data.GetDataSynchronized ());
+			} catch (Exception e) {
+				// Probably IOException or UnauthorizedAccessException?
+				Logger.Error ("Exception while saving note: " + e.ToString ());
+				NoteUtils.ShowIOErrorDialog (window);
+			}
 
 			if (Saved != null)
 				Saved (this);
@@ -1464,6 +1470,24 @@ namespace Tomboy
 			}
 
 			dialog.Destroy();
+		}
+		
+		public static void ShowIOErrorDialog (Gtk.Window parent)
+		{
+			HIGMessageDialog dialog =
+				new HIGMessageDialog (
+				                      parent,
+				                      Gtk.DialogFlags.DestroyWithParent,
+				                      Gtk.MessageType.Error,
+				                      Gtk.ButtonsType.Ok,
+				                      Catalog.GetString ("Error saving note data."),
+				                      Catalog.GetString ("An error occurred while saving your notes. " +
+				                                         "Please check that you have sufficient disk " +
+				                                         "space, and that you have appropriate rights " +
+				                                         "on ~/.tomboy. Error details can be found in " +
+				                                         "~/.tomboy.log."));
+			dialog.Run ();
+			dialog.Destroy ();
 		}
 	}
 }
