@@ -18,7 +18,8 @@ namespace Tomboy
 		                             out int  y,
 		                             out bool push_in)
 		{
-			if (menu.AttachWidget == null) {
+			if (menu.AttachWidget == null ||
+			    menu.AttachWidget.GdkWindow == null) {
 				// Prevent null exception in weird cases
 				x = 0;
 				y = 0;
