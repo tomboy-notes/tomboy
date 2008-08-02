@@ -17,9 +17,7 @@ libtomboy_la_SOURCES =		\
 	tomboyutil.h		\
 	tomboyutil.c		\
 	eggaccelerators.h	\
-	eggaccelerators.c	\
-	eggtrayicon.h		\
-	eggtrayicon.c
+	eggaccelerators.c
 
 libtomboy_la_CFLAGS = $(X_CFLAGS)
 libtomboy_la_LDFLAGS = -export-dynamic -module -avoid-version

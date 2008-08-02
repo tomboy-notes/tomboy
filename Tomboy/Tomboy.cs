@@ -12,7 +12,7 @@ namespace Tomboy
 	{
 		static NoteManager manager;
 		static TomboyTrayIcon tray_icon;
-		static TomboyTray tomboy_tray = null;
+		static TomboyTray tray = null;
 		static bool tray_icon_showing = false;
 		static bool is_panel_applet = false;
 		static PreferencesDialog prefs_dlg;
@@ -112,34 +112,29 @@ namespace Tomboy
 		static void StartTrayIcon ()
 		{
 			// Create the tray icon and run the main loop
-			tray_icon = new TomboyTrayIcon (DefaultNoteManager);
+			tray_icon = new TomboyTrayIcon (manager);
+			tray = tray_icon.Tray;
 
 			// Give the TrayIcon 2 seconds to appear.  If it
 			// doesn't by then, open the SearchAllNotes window.
-			tray_icon.Embedded += TrayIconEmbedded;
-			GLib.Timeout.Add (2000, CheckTrayIconShowing);
-			tray_icon.Show ();
+			tray_icon_showing = tray_icon.IsEmbedded && tray_icon.Visible;
+			if (!tray_icon_showing)
+				GLib.Timeout.Add (2000, CheckTrayIconShowing);
 
 			StartMainLoop ();
 		}
 
-		// This event is signaled when Tomboy's TrayIcon is added to the
-		// Notification Area.  If it's never signaled, the Notification Area
-		// is not available.
-		static void TrayIconEmbedded (object sender, EventArgs args)
-		{
-			tray_icon_showing = true;
-		}
-
 		static bool CheckTrayIconShowing ()
 		{
+			tray_icon_showing = tray_icon.IsEmbedded && tray_icon.Visible;
+			
 			// Check to make sure the tray icon is showing.  If it's not,
 			// it's likely that the Notification Area isn't available.  So
 			// instead, launch the Search All Notes window so the user can
 			// can still use Tomboy.
 			if (tray_icon_showing == false)
 				ActionManager ["ShowSearchAllNotesAction"].Activate ();
-
+			
 			return false; // prevent GLib.Timeout from calling this method again
 		}
 
@@ -245,10 +240,10 @@ namespace Tomboy
 
 		static void OnShowHelpAction (object sender, EventArgs args)
 		{
-			// Pass in null for the screen when we're running as a panel applet
 			GuiUtils.ShowHelp("tomboy.xml", null,
-			                  tray_icon == null ? null : tray_icon.TomboyTray.Screen,
+			                  tray_icon == null ? null : tray_icon.Screen,
 			                  null);
+
 		}
 
 		static void OnShowAboutAction (object sender, EventArgs args)
@@ -324,13 +319,9 @@ namespace Tomboy
 		public static TomboyTray Tray
 		{
 			get {
-				if (tray_icon != null)
-					return tray_icon.TomboyTray;
-				else
-					return tomboy_tray;
-			}
-			set {
-				tomboy_tray = value;
+				return tray;
+			} set {
+				tray = value;
 			}
 		}
 

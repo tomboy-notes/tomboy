@@ -73,6 +73,20 @@ namespace Tomboy
 				menu.AttachWidget.State = Gtk.StateType.Selected;
 		}
 
+		public static void PopupMenu (Gtk.Menu menu, Gdk.EventButton ev, Gtk.MenuPositionFunc mpf)
+		{
+			menu.Deactivated += DeactivateMenu;
+			menu.Popup (null,
+			            null,
+			            mpf,
+			            (ev == null) ? 0 : ev.Button,
+			            (ev == null) ? Gtk.Global.CurrentEventTime : ev.Time);
+
+			// Highlight the parent
+			if (menu.AttachWidget != null)
+				menu.AttachWidget.State = Gtk.StateType.Selected;
+		}
+
 		public static Gdk.Pixbuf GetIcon (string resource_name, int size)
 		{
 			return GetIcon (null, resource_name, size);

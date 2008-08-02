@@ -1,5 +1,14 @@
 2008-08-02  Sandy Armstrong <sanfordarmstrong@gmail.com> 
 
+	* libtomboy/eggtrayicon.c, libtomboy/eggtrayicon.h,
+	  libtomboy/Makefile.am,
+	  Tomboy/Addins/Tasks/TasksApplicationAddin.cs, Tomboy/Applet.cs,
+	  Tomboy/Tomboy.cs, Tomboy/Tray.cs, Tomboy/Utils.cs: Use
+	  Gtk.StatusIcon instead of eggtrayicon.  Fixes bug #349265.  This
+	  wonderful patch was contributed by Stefan Cosma.
+
+2008-08-02  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
 	* Tomboy/Utils.cs: Prevent crash when activating notebook tool button
 	  in the case that the window was not wide enough to show it. 
 	  Unfortunately, when this case occurs, menu appears at 0,0, which is
