@@ -150,11 +150,8 @@ namespace Tomboy.Tasks
 			Gtk.SeparatorMenuItem separator;
 
 			// Determine whether the icon is near the top/bottom of the screen
-			// TODO: Do this better!
-			int x, y;
-			Tomboy.Tray.GdkWindow.GetOrigin (out x, out y);
 			int position;
-			if (y < 24)
+			if (!Tomboy.Tray.MenuOpensUpward ())
 				position = 2;
 			else
 				position = tomboy_tray_menu.Children.Length - 7;

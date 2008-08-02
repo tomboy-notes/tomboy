@@ -1,6 +1,7 @@
 
 using System;
 using System.IO;
+using System.Text;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using Mono.Unix;
@@ -14,7 +15,7 @@ namespace Tomboy
 	public class TomboyApplet : PanelApplet
 	{
 		NoteManager manager;
-		TomboyTray tray;
+		TomboyAppletEventBox applet_event_box;
 		TomboyGConfXKeybinder keybinder;
 
 		// Keep referenced so our callbacks don't get reaped.
@@ -44,13 +45,13 @@ namespace Tomboy
 			Logger.Log ("Applet Created...");
 
 			manager = Tomboy.DefaultNoteManager;
-			tray = new TomboyTray (manager);
-			keybinder = new TomboyGConfXKeybinder (manager, tray);
+			applet_event_box = new TomboyAppletEventBox (manager);
+			keybinder = new TomboyGConfXKeybinder (manager, applet_event_box.Tray);
 
 			Flags |= PanelAppletFlags.ExpandMinor;
 
-			Add (tray);
-			Tomboy.Tray = tray;
+			Add (applet_event_box);
+			Tomboy.Tray = applet_event_box.Tray;
 			OnChangeSize (Size);
 			ShowAll ();
 
@@ -104,136 +105,297 @@ namespace Tomboy
 		                Gdk.Color                 color,
 		                Gdk.Pixmap                pixmap)
 		{
-			if (tray == null)
+			if (applet_event_box == null)
 				return;
 
 			Gtk.RcStyle rc_style = new Gtk.RcStyle ();
-			tray.Style = null;
-			tray.ModifyStyle (rc_style);
+			applet_event_box.Style = null;
+			applet_event_box.ModifyStyle (rc_style);
 
 			switch (type) {
 			case PanelAppletBackgroundType.ColorBackground:
-				tray.ModifyBg (Gtk.StateType.Normal, color);
+				applet_event_box.ModifyBg (Gtk.StateType.Normal, color);
 				break;
 			case PanelAppletBackgroundType.NoBackground:
 				break;
 			case PanelAppletBackgroundType.PixmapBackground:
-				Gtk.Style copy = tray.Style.Copy();
+				Gtk.Style copy = applet_event_box.Style.Copy();
 				copy.SetBgPixmap (Gtk.StateType.Normal, pixmap);
-				tray.Style = copy;
+				applet_event_box.Style = copy;
 				break;
 			}
 		}
 
 		protected override void OnChangeSize (uint size)
 		{
-			if (tray == null)
+			if (applet_event_box == null)
 				return;
 
-			tray.SetSizeRequest ((int) size, (int) size);
+			applet_event_box.SetSizeRequest ((int) size, (int) size);
 		}
 	}
-
-	public class TomboyTrayIcon : Gtk.Plug
+	
+	public enum PanelOrientation { Horizontal, Vertical };
+	
+	public class TomboyAppletEventBox : Gtk.EventBox
 	{
 		NoteManager manager;
 		TomboyTray tray;
-		TomboyGConfXKeybinder keybinder;
+		Gtk.Tooltips tips;
+		Gtk.Image image;
+		int panel_size;
 
-		[DllImport ("libtomboy")]
-		private static extern IntPtr egg_tray_icon_new (string name);
-
-		public TomboyTrayIcon ()
-: this (Tomboy.DefaultNoteManager)
+		public TomboyAppletEventBox (NoteManager manager)
+: base ()
 		{
-		}
-
-		public TomboyTrayIcon (NoteManager manager)
-		{
-			this.Raw = egg_tray_icon_new (Catalog.GetString ("Tomboy Notes"));
 			this.manager = manager;
+			tray = new TomboyTray (manager, this);
 
-			tray = new TomboyTray (manager);
-			tray.ButtonPressEvent += ButtonPress;
+			// Load a 16x16-sized icon to ensure we don't end up with a
+			// 1x1 pixel.
+			panel_size = 16;
+			this.image = new Gtk.Image (GuiUtils.GetIcon ("tomboy", panel_size));
 
-			keybinder = new TomboyGConfXKeybinder (manager, tray);
+			this.CanFocus = true;
+			this.ButtonPressEvent += ButtonPress;
+			this.Add (image);
+			this.ShowAll ();
 
-			Add (tray);
-			ShowAll ();
+			string tip_text = TomboyTrayUtils.GetToolTipText ();
+
+			tips = new Gtk.Tooltips ();
+			tips.SetTip (this, tip_text, null);
+			tips.Enable ();
+			tips.Sink ();
+
+			SetupDragAndDrop ();
+		}
+		
+		public TomboyTray Tray
+		{
+			get {
+				return tray;
+			}
 		}
 
 		void ButtonPress (object sender, Gtk.ButtonPressEventArgs args)
 		{
 			Gtk.Widget parent = (Gtk.Widget) sender;
 
-			if (args.Event.Button == 3) {
-				Gtk.Menu menu = MakeRightClickMenu (parent);
-				GuiUtils.PopupMenu (menu, args.Event);
+			switch (args.Event.Button) {
+			case 1:
+				TomboyTrayUtils.UpdateTomboyTrayMenu (tray, parent);
+				GuiUtils.PopupMenu (tray.TomboyTrayMenu, args.Event);
 				args.RetVal = true;
+				break;
+			case 2:
+				if ((bool) Preferences.Get (Preferences.ENABLE_ICON_PASTE)) {
+					// Give some visual feedback
+					Gtk.Drag.Highlight (this);
+					args.RetVal = PastePrimaryClipboard ();
+					Gtk.Drag.Unhighlight (this);
+				}
+				break;
 			}
 		}
 
-		Gtk.Menu MakeRightClickMenu (Gtk.Widget parent)
+		void PrependTimestampedText (Note note, DateTime timestamp, string text)
 		{
-			Gtk.Menu menu = new Gtk.Menu ();
-			menu.AttachToWidget (parent, GuiUtils.DetachMenu);
+			NoteBuffer buffer = note.Buffer;
+			StringBuilder insert_text = new StringBuilder ();
 
-			Gtk.AccelGroup accel_group = new Gtk.AccelGroup ();
-			menu.AccelGroup = accel_group;
+			insert_text.Append ("\n"); // initial newline
+			string date_format = Catalog.GetString ("dddd, MMMM d, h:mm tt");
+			insert_text.Append (timestamp.ToString (date_format));
+			insert_text.Append ("\n"); // begin content
+			insert_text.Append (text);
+			insert_text.Append ("\n"); // trailing newline
 
-			Gtk.ImageMenuItem item;
+			buffer.Undoer.FreezeUndo ();
 
-			item = new Gtk.ImageMenuItem (Catalog.GetString ("_Preferences"));
-			item.Image = new Gtk.Image (Gtk.Stock.Preferences, Gtk.IconSize.Menu);
-			item.Activated += ShowPreferences;
-			menu.Append (item);
+			// Insert the date and list of links...
+			Gtk.TextIter cursor = buffer.StartIter;
+			cursor.ForwardLines (1); // skip title
 
-			item = new Gtk.ImageMenuItem (Catalog.GetString ("_Help"));
-			item.Image = new Gtk.Image (Gtk.Stock.Help, Gtk.IconSize.Menu);
-			item.Activated += ShowHelpContents;
-			menu.Append (item);
+			buffer.Insert (ref cursor, insert_text.ToString ());
 
-			item = new Gtk.ImageMenuItem (Catalog.GetString ("_About Tomboy"));
-			item.Image = new Gtk.Image (Gtk.Stock.About, Gtk.IconSize.Menu);
-			item.Activated += ShowAbout;
-			menu.Append (item);
+			// Make the date string a small font...
+			cursor = buffer.StartIter;
+			cursor.ForwardLines (2); // skip title & leading newline
 
-			menu.Append (new Gtk.SeparatorMenuItem ());
+			Gtk.TextIter end = cursor;
+			end.ForwardToLineEnd (); // end of date
 
-			item = new Gtk.ImageMenuItem (Catalog.GetString ("_Quit"));
-			item.Image = new Gtk.Image (Gtk.Stock.Quit, Gtk.IconSize.Menu);
-			item.Activated += Quit;
-			menu.Append (item);
+			buffer.ApplyTag ("datetime", cursor, end);
 
-			menu.ShowAll ();
-			return menu;
+			// Select the text we've inserted (avoid trailing newline)...
+			end = cursor;
+			end.ForwardChars (insert_text.Length - 1);
+
+			buffer.MoveMark (buffer.SelectionBound, cursor);
+			buffer.MoveMark (buffer.InsertMark, end);
+
+			buffer.Undoer.ThawUndo ();
 		}
 
-		void ShowPreferences (object sender, EventArgs args)
+		bool PastePrimaryClipboard ()
 		{
-			Tomboy.ActionManager ["ShowPreferencesAction"].Activate ();
+			Gtk.Clipboard clip = GetClipboard (Gdk.Selection.Primary);
+			string text = clip.WaitForText ();
+
+			if (text == null || text.Trim() == string.Empty)
+				return false;
+
+			Note link_note = manager.FindByUri (NoteManager.StartNoteUri);
+			if (link_note == null)
+				return false;
+
+			link_note.Window.Present ();
+			PrependTimestampedText (link_note,
+			                        DateTime.Now,
+			                        text);
+
+			return true;
 		}
 
-		void ShowHelpContents (object sender, EventArgs args)
-		{
-			Tomboy.ActionManager ["ShowHelpAction"].Activate ();
-		}
-
-		void ShowAbout (object sender, EventArgs args)
-		{
-			Tomboy.ActionManager ["ShowAboutAction"].Activate ();
-		}
-
-		void Quit (object sender, EventArgs args)
-		{
-			Tomboy.ActionManager ["QuitTomboyAction"].Activate ();
-		}
-
-		public TomboyTray TomboyTray
+		// Used by TomboyApplet to modify the icon background.
+		public Gtk.Image Image
 		{
 			get {
-				return tray;
+				return image;
 			}
+		}
+
+		public void ShowMenu (bool select_first_item)
+		{
+			TomboyTrayUtils.UpdateTomboyTrayMenu (tray, this);
+			if (select_first_item)
+				tray.TomboyTrayMenu.SelectFirst (false);
+
+			GuiUtils.PopupMenu (tray.TomboyTrayMenu, null);
+		}
+
+		// Support dropping text/uri-lists and _NETSCAPE_URLs currently.
+		void SetupDragAndDrop ()
+		{
+			Gtk.TargetEntry [] targets =
+			new Gtk.TargetEntry [] {
+				new Gtk.TargetEntry ("text/uri-list", 0, 0),
+				new Gtk.TargetEntry ("_NETSCAPE_URL", 0, 0)
+			};
+
+			Gtk.Drag.DestSet (this,
+			                  Gtk.DestDefaults.All,
+			                  targets,
+			                  Gdk.DragAction.Copy);
+
+			DragDataReceived += OnDragDataReceived;
+		}
+
+		// Pop up Start Here and insert dropped links, in the form:
+		// Wednesday, December 8, 6:45 AM
+		// http://luna/kwiki/index.cgi?AdelaideUniThoughts
+		// http://www.beatniksoftware.com/blog/
+		// And select the inserted text.
+		//
+		// FIXME: Make undoable, make sure our date-sizing tag never "bleeds".
+		//
+		void OnDragDataReceived (object sender, Gtk.DragDataReceivedArgs args)
+		{
+			UriList uri_list = new UriList (args.SelectionData);
+			if (uri_list.Count == 0)
+				return;
+
+			StringBuilder insert_text = new StringBuilder ();
+			bool more_than_one = false;
+
+			foreach (Uri uri in uri_list) {
+				if (more_than_one)
+					insert_text.Append ("\n");
+
+				if (uri.IsFile)
+					insert_text.Append (uri.LocalPath);
+				else
+					insert_text.Append (uri.ToString ());
+
+				more_than_one = true;
+			}
+
+			Note link_note = manager.FindByUri (NoteManager.StartNoteUri);
+			if (link_note != null) {
+				link_note.Window.Present ();
+				PrependTimestampedText (link_note,
+				                        DateTime.Now,
+				                        insert_text.ToString ());
+			}
+		}
+
+		void InitPixbuf ()
+		{
+			// For some reason, the first time we ask for the allocation,
+			// it's a 1x1 pixel.  Prevent against this by returning a
+			// reasonable default.  Setting the icon causes OnSizeAllocated
+			// to be called again anyhow.
+			int icon_size = panel_size;
+			if (icon_size < 16)
+				icon_size = 16;
+
+
+			// Control specifically which icon is used at the smaller sizes
+			// so that no scaling occurs.  In the case of the panel applet,
+			// add a couple extra pixels of padding so it matches the behavior
+			// of the notification area tray icon.  See bug #403500 for more
+			// info.
+			if (Tomboy.IsPanelApplet)
+				icon_size = icon_size - 2; // padding
+			if (icon_size <= 21)
+				icon_size = 16;
+			else if (icon_size <= 31)
+				icon_size = 22;
+			else if (icon_size <= 47)
+				icon_size = 32;
+
+			Gdk.Pixbuf new_icon = GuiUtils.GetIcon ("tomboy", icon_size);
+			image.Pixbuf = new_icon;
+		}
+
+		///
+		/// Determine whether the tray is inside a horizontal or vertical
+		/// panel so the size of the icon can adjust correctly.
+		///
+		PanelOrientation GetPanelOrientation ()
+		{
+			if (this.ParentWindow == null) {
+				return PanelOrientation.Horizontal;
+			}
+
+			Gdk.Window top_level_window = this.ParentWindow.Toplevel;
+
+			Gdk.Rectangle rect = top_level_window.FrameExtents;
+			if (rect.Width < rect.Height)
+				return PanelOrientation.Vertical;
+
+			return PanelOrientation.Horizontal;
+		}
+
+		protected override void OnSizeAllocated (Gdk.Rectangle rect)
+		{
+			base.OnSizeAllocated (rect);
+
+			// Determine the orientation
+			if (GetPanelOrientation () == PanelOrientation.Horizontal) {
+				if (panel_size == Allocation.Height)
+					return;
+
+				panel_size = Allocation.Height;
+			} else {
+				if (panel_size == Allocation.Width)
+					return;
+
+				panel_size = Allocation.Width;
+			}
+
+			InitPixbuf ();
 		}
 	}
 }
