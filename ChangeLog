@@ -1,5 +1,12 @@
 2008-08-02  Sandy Armstrong <sanfordarmstrong@gmail.com> 
 
+	* Tomboy/Utils.cs: Prevent crash when activating notebook tool button
+	  in the case that the window was not wide enough to show it. 
+	  Unfortunately, when this case occurs, menu appears at 0,0, which is
+	  non-optimal.  Still better than crashing.  Fixes bug #523035.
+
+2008-08-02  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
 	* Tomboy/RecentChanges.cs: Check for null widgets when computing
 	  SearchText.  Should fix bug #544996.
 
