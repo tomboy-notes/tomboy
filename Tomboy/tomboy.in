@@ -14,10 +14,34 @@ else
     export TOMBOY_WRAPPER_PATH="@bindir@/@wrapper@"
 
     THIS_EXE="@pkglibdir@/@target@"
+
+    [ -n "$TOMBOY_DEBUG" ] && TOMBOY_DEBUG="--debug"
+    [ -n "$TOMBOY_TRACE" ] && TOMBOY_TRACE="--trace=$TOMBOY_TRACE"
+    [ -n "$TOMBOY_PROFILE" ] && TOMBOY_PROFILE="--profile=$TOMBOY_PROFILE"
+
+    for arg in $*; do
+        case "x--debug" in ("x$arg")
+            TOMBOY_DEBUG=$arg
+        esac
+
+        case "x--trace=" in ("x${arg:0:8}")
+            TOMBOY_TRACE=$arg
+        esac
+
+        case "x--profile=" in ("x${arg:0:10}")
+            TOMBOY_PROFILE=$arg
+        esac
+    done
+
+    if [ -n "$TOMBOY_DEBUG" -o -n "$TOMBOY_TRACE" -o -n "$TOMBOY_PROFILE" -o -n "$MONO_EXTRA_ARGS" ]; then
+        MONO_OPTIONS="$TOMBOY_DEBUG $TOMBOY_TRACE $TOMBOY_PROFILE $MONO_EXTRA_ARGS"
+        echo "** Running Mono with $MONO_OPTIONS **"
+    fi
+
 fi
 
 if [ -n "@extragac@" ]; then
     export MONO_GAC_PREFIX="@extragac@:$MONO_GAC_PREFIX"
 fi
 
-exec mono $MONO_EXTRA_ARGS $THIS_EXE "$@"
+exec mono $MONO_OPTIONS $THIS_EXE "$@"
