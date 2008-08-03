@@ -12,7 +12,30 @@ void
 initialize ()
 {
   gst_init (NULL, NULL);
-  return 0;
+}
+
+static gboolean
+bus_callback (GstBus *bus, GstMessage *message, gpointer data)
+{
+  switch (GST_MESSAGE_TYPE (message)) {
+    case GST_MESSAGE_EOS: {
+      gst_element_set_state (GST_ELEMENT (pipeline), GST_STATE_READY);
+      printf ("Finished?");
+      break;
+    }
+    default:
+      break;
+  }
+
+  return TRUE;
+}
+
+void
+set_bus ()
+{
+  bus = gst_pipeline_get_bus (GST_PIPELINE (pipeline));
+  gst_bus_add_watch (bus, bus_callback, NULL);
+  gst_object_unref (bus);
 }
 
 void
@@ -22,6 +45,7 @@ start_record (gchar *uri)
   gst_command = g_strconcat(gst_command, uri, NULL);
   pipeline = gst_parse_launch (gst_command, NULL);
   g_free (gst_command);
+  set_bus ();
   gst_element_set_state (GST_ELEMENT (pipeline), GST_STATE_PLAYING);
 }
 
@@ -33,6 +57,7 @@ start_play (char *uri)
   gst_command = g_strconcat (gst_command, PLAY_CMD_END);
   pipeline = gst_parse_launch (gst_command, NULL);
   g_free (gst_command);
+  set_bus ();
   gst_element_set_state (GST_ELEMENT (pipeline), GST_STATE_PLAYING);
 }
 
@@ -40,4 +65,19 @@ void
 stop_stream ()
 {
   gst_element_set_state (GST_ELEMENT (pipeline), GST_STATE_NULL);
+}
+
+gint
+get_state ()
+{
+  gint status = GST_STATE (pipeline);
+  switch (status) {
+    case GST_STATE_PLAYING:
+      status = 1;
+      break;
+    default:
+      status = 0;
+      break;
+  }
+  return status;
 }

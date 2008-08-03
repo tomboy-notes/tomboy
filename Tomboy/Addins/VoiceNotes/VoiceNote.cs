@@ -9,12 +9,14 @@ namespace Tomboy.VoiceNote
 {
 	public class VoiceNote : NoteAddin
 	{
-		Gtk.ToolButton recordButton;
-		Gtk.ToolButton playButton;
-		Gtk.ToolButton stopButton;
+		Gtk.ToolButton record_button;
+		Gtk.ToolButton play_button;
+		Gtk.ToolButton stop_button;
 		Gtk.SeparatorToolItem separator;
+		InterruptableTimeout button_manager;
 		String voice_note_path;
-		FileStream voice_note_file;
+		bool has_voice_note;
+
 		
 		static VoiceNote ()
 		{
@@ -31,69 +33,97 @@ namespace Tomboy.VoiceNote
 		
 		[DllImport("libvoicenote")]
 		static extern void stop_stream ();
+		
+		[DllImport("libvoicenote")]
+		static extern int get_state ();
 
 
 		public override void Initialize ()
 		{
 			separator = new Gtk.SeparatorToolItem ();
-			recordButton = new Gtk.ToolButton (Gtk.Stock.MediaRecord);
-			recordButton.Clicked += OnRecordButtonClicked;
-			playButton = new Gtk.ToolButton (Gtk.Stock.MediaPlay);
-			playButton.Clicked += OnPlayButtonClicked;
-			stopButton = new Gtk.ToolButton (Gtk.Stock.MediaStop);
-			stopButton.Clicked += OnStopButtonClicked;
+			record_button = new Gtk.ToolButton (Gtk.Stock.MediaRecord);
+			record_button.Clicked += OnRecordButtonClicked;
+			play_button = new Gtk.ToolButton (Gtk.Stock.MediaPlay);
+			play_button.Clicked += OnPlayButtonClicked;
+			stop_button = new Gtk.ToolButton (Gtk.Stock.MediaStop);
+			stop_button.Clicked += OnStopButtonClicked;
 			initialize ();
 		}
 
 		
 		public override void Shutdown ()
 		{
-			recordButton.Clicked -= OnRecordButtonClicked;
-			playButton.Clicked -= OnPlayButtonClicked;
-			stopButton.Clicked -= OnStopButtonClicked;
+			record_button.Clicked -= OnRecordButtonClicked;
+			play_button.Clicked -= OnPlayButtonClicked;
+			stop_button.Clicked -= OnStopButtonClicked;
 		}
 
 
 		public override void OnNoteOpened ()
 		{
-			voice_note_path = Note.FilePath + ".ogg";			
+			voice_note_path = Note.FilePath + ".ogg";
+			has_voice_note = voice_note_exists ();
 			separator.Show ();
-			recordButton.Show ();
-			playButton.Show ();
-			stopButton.Show ();
+			record_button.Show ();
+			play_button.Sensitive = has_voice_note; 
+			play_button.Show ();
+			stop_button.Sensitive = false;
+			stop_button.Show ();
 			AddToolItem (separator, -1);
-			AddToolItem (recordButton, -1);
-			AddToolItem (playButton, -1);
-			AddToolItem (stopButton, -1);
+			AddToolItem (record_button, -1);
+			AddToolItem (play_button, -1);
+			AddToolItem (stop_button, -1);
+			
+			button_manager = new InterruptableTimeout ();
+			button_manager.Timeout += UpdateButtons;
 		}
 		
 
 		void OnRecordButtonClicked (object sender, EventArgs args)
 		{
 			start_record (voice_note_path);
+			button_manager.Reset (100);
 		}
 
 
 		void OnPlayButtonClicked (object sender, EventArgs args)
 		{
 			start_play (voice_note_path);
+			button_manager.Reset (100);
 		}
 		
 		void OnStopButtonClicked (object sender, EventArgs args)
 		{
 			stop_stream ();
 		}
-
+		
+		void UpdateButtons (object sender, EventArgs args)
+		{
+			int media_state = get_state ();
+			switch (media_state) {
+			case 0: //Stopped
+				record_button.Sensitive = true;
+				play_button.Sensitive = true;
+				stop_button.Sensitive = false;
+				break;
+			case 1: //Streaming
+				record_button.Sensitive = false;
+				play_button.Sensitive = false;
+				stop_button.Sensitive = true;
+				button_manager.Reset (100);
+				break;
+			default: //should not happen!!!
+				break;				
+			}
+		}
 
 		bool voice_note_exists ()
 		{
+			FileStream voice_note_file;
 			try{
-				/* Not guilty, I presume */
 				voice_note_file = File.Open (voice_note_path, FileMode.Open);
 			}
 			catch (Exception except) {
-				/* Oh, you've disappointed me 
-				 * I'll do nothing for you */
 				return false;
 			}
 			return true;
