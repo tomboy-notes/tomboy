@@ -77,24 +77,9 @@
 	</div>
 	
 	<xsl:if test="$export-linked and ((not($export-linked-all) and /tomboy:note/tomboy:title/text() = $root-note) or $export-linked-all)">
-		<!--
-			Loop through all the links contained in this note and
-			check to see if they've already been loaded/processed
-			(skip them if they have).
-		-->
 		<xsl:for-each select=".//link:internal/text()">
-		
-			<xsl:variable name="link-already-processed">
-				<xsl:call-template name="note-already-loaded">
-					<xsl:with-param name="title" select="."/>
-				</xsl:call-template>
-			</xsl:variable>
-			
-			<xsl:if test="contains($link-already-processed, 'NO')">
-				<!-- Load in the linked note's XML for processing. -->
-				<xsl:apply-templates select="document(.)/node()"/>
-			</xsl:if>
-
+			<!-- Load in the linked note's XML for processing. -->
+			<xsl:apply-templates select="document(.)/node()"/>
 		</xsl:for-each>
 	</xsl:if>
 </xsl:template>
@@ -145,7 +130,7 @@
 </xsl:template>
 
 <xsl:template match="link:internal">
-	<a style="color:#204A87" href="#{document(node())/tomboy:note/tomboy:title}">
+	<a style="color:#204A87" href="#{node()}">
 		<xsl:value-of select="node()"/>
 	</a>
 </xsl:template>
@@ -170,27 +155,6 @@
 		</xsl:attribute>
 		<xsl:apply-templates select="node()" />
 	</li>
-</xsl:template>
-
-<!--
-	The "note-title" key keeps a list of all note titles that have been
-	processed.  Each time a note's XML is loaded, its title is added to this
-	key automatically.  This is used to prevent including the text of a note
-	more than once if "export-linked" is true and a recursive link to a note
-	is found.
--->
-<xsl:key name="note-title" match="tomboy:note" use="tomboy:title" />
-
-<xsl:template name="note-already-loaded">
-	<xsl:param name="title" />
-	<xsl:choose>
-		<xsl:when test="key('note-title', $title)">
-			YES
-		</xsl:when>
-		<xsl:otherwise>
-			NO
-		</xsl:otherwise>
-	</xsl:choose>
 </xsl:template>
 
 <!-- Evolution.dll Plugin -->

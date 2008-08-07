@@ -1,3 +1,11 @@
+2008-08-08  Stefan Schweizer <steve.schweizer@gmail.com>
+
+	* Tomboy/Addins/ExportToHtml/NoteNameResolver.cs,
+	  Tomboy/Addins/ExportToHtml/ExportToHtml.xsl: Resolve note URIs only
+	  once to simplify check for loops between linked notes. Removed not
+	  working check with xsl:key for already processed notes.
+	  Fixes bug #546623.
+
 2008-08-04  Sandy Armstrong <sanfordarmstrong@gmail.com> 
 
 	* configure.in: Bump version to 0.11.2.
