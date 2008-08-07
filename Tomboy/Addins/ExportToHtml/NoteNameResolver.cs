@@ -11,22 +11,19 @@ namespace Tomboy.ExportToHtml
 	{
 		NoteManager manager;
 		
-		// Use this dictionary to keep track of notes that have already been
-		// resolved.  The key is the Note.Title:string and the value is the
-		// number of times the specified note has been requested.  ResolveUri
-		// for some reason, gets called twice for each of the notes.  Allow it
-		// to be called twice, but then return null after that.
-		Dictionary<string, int> resolvedNotes;
+		// Use this list to keep track of notes that have already been
+		// resolved.
+		List<string> resolvedNotes;
 
 		public NoteNameResolver (NoteManager manager, Note originNote)
 		{
 			this.manager = manager;
 			
-			resolvedNotes = new Dictionary<string,int> ();
+			resolvedNotes = new List<string> ();
 			
-			// Set the resolved count to 2 for the original note so it won't
-			// be included again.
-			resolvedNotes [originNote.Title.ToLower ()] = 2;
+			// Add the original note to the list of resolved notes
+			// so it won't be included again.
+			resolvedNotes.Add (originNote.Title.ToLower ());
 		}
 
 		public override System.Net.ICredentials Credentials
@@ -72,18 +69,13 @@ namespace Tomboy.ExportToHtml
 		public override Uri ResolveUri (Uri baseUri, string relativeUri)
 		{
 			string noteTitleLowered = relativeUri.ToLower ();
-			if (resolvedNotes.ContainsKey (noteTitleLowered) == true
-				&& resolvedNotes [noteTitleLowered] > 1) {
+			if (resolvedNotes.Contains (noteTitleLowered)) {
 				return null;
 			}
 			
 			Note note = manager.Find (relativeUri);
 			if (note != null) {
-				if (resolvedNotes.ContainsKey (noteTitleLowered) == true) {
-					resolvedNotes [noteTitleLowered] = 2;
-				} else {
-					resolvedNotes [noteTitleLowered] = 1;
-				}
+				resolvedNotes.Add (noteTitleLowered);
 				return new Uri (note.Uri);
 			}
 
