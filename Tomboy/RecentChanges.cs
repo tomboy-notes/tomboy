@@ -1283,7 +1283,8 @@ namespace Tomboy
 			Gtk.TreeModel model;
 			Gtk.TreeIter iter;
 			
-			if (notebooksTree.Selection.GetSelected (out model, out iter) == false)
+			Gtk.TreeSelection selection = notebooksTree.Selection;
+			if (selection == null || selection.GetSelected (out model, out iter) == false)
 				return null; // Nothing selected
 			
 			return model.GetValue (iter, 0) as Notebooks.Notebook;
