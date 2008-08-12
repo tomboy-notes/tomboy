@@ -294,13 +294,13 @@ namespace Tomboy
 				Note.TagTable.Add (tag);
 			}
 
+			Buffer.TagApplied += TagApplied;
+
 			if (obj_ptr == IntPtr.Zero) {
 				obj_ptr = gtkspell_new_attach (Window.Editor.Handle,
 				                               null,
 				                               IntPtr.Zero);
 			}
-
-			Buffer.TagApplied += TagApplied;
 		}
 
 		void Detach ()
