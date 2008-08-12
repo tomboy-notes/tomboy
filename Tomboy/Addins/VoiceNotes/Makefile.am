@@ -17,7 +17,8 @@ TARGET = $(ADDIN_NAME).Addin.dll
 CSFILES = \
 	$(srcdir)/VoiceNote.cs
 RESOURCES = \
-	-resource:$(srcdir)/$(ADDIN_NAME).addin.xml
+	-resource:$(srcdir)/$(ADDIN_NAME).addin.xml \
+	-resource:$(srcdir)/voicenote-22.png,voicenote.png
 
 $(TARGET): $(CSFILES) $(top_builddir)/Tomboy/Tomboy.exe
 	$(CSC) -out:$@ $(CSFLAGS) $(ASSEMBLIES) $(CSFILES) $(RESOURCES)
@@ -29,7 +30,8 @@ addins_DATA = \
 
 EXTRA_DIST = \
 	$(CSFILES) \
-	$(srcdir)/$(ADDIN_NAME).addin.xml
+	$(srcdir)/$(ADDIN_NAME).addin.xml \
+	$(srcdir)/voicenote-22.png
 
 CLEANFILES = \
 	$(TARGET).mdb \
