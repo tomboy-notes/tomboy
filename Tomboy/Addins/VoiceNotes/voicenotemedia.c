@@ -20,7 +20,6 @@ bus_callback (GstBus *bus, GstMessage *message, gpointer data)
   switch (GST_MESSAGE_TYPE (message)) {
     case GST_MESSAGE_EOS: {
       gst_element_set_state (GST_ELEMENT (pipeline), GST_STATE_READY);
-      printf ("Finished?");
       break;
     }
     default:
