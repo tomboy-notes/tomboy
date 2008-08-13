@@ -14,9 +14,9 @@ namespace Tomboy.VoiceNote
 		Gtk.ToolButton stop_button;
 		Gtk.SeparatorToolItem separator;
 		InterruptableTimeout button_manager;
+		Gtk.MenuItem delete_item;
 		String voice_note_path;
 		bool has_voice_note;
-		bool pipeline_set = false;
 		static Gdk.Pixbuf icon = null;
 
 		
@@ -45,12 +45,24 @@ namespace Tomboy.VoiceNote
 		public override void Initialize ()
 		{
 			separator = new Gtk.SeparatorToolItem ();
+			separator.Show ();
+			
 			record_button = new Gtk.ToolButton (Gtk.Stock.MediaRecord);
 			record_button.Clicked += OnRecordButtonClicked;
+			record_button.Show ();
+
 			play_button = new Gtk.ToolButton (Gtk.Stock.MediaPlay);
 			play_button.Clicked += OnPlayButtonClicked;
+			play_button.Show ();
+			
 			stop_button = new Gtk.ToolButton (Gtk.Stock.MediaStop);
 			stop_button.Clicked += OnStopButtonClicked;
+			stop_button.Show ();
+
+			delete_item = new Gtk.MenuItem ("Delete Voice Note");
+			delete_item.Activated += OnDeleteItemActivated;
+			delete_item.Show ();
+		
 			initialize ();
 		}
 
@@ -60,39 +72,29 @@ namespace Tomboy.VoiceNote
 			record_button.Clicked -= OnRecordButtonClicked;
 			play_button.Clicked -= OnPlayButtonClicked;
 			stop_button.Clicked -= OnStopButtonClicked;
-			
-			// Stop if streaming, and delete the voice note
-			if (pipeline_set)
-				stop_stream ();
-			if (has_voice_note)				
-				File.Delete (voice_note_path);
+			delete_item.Activated -= OnDeleteItemActivated;
+			stop_stream ();
+			DeleteVoiceNote ();
 		}
 
 
 		public override void OnNoteOpened ()
 		{
 			voice_note_path = Note.FilePath + ".ogg";
-			has_voice_note = voice_note_exists ();
-			//set the icon if there is a voice note
-			if (has_voice_note) {
-				Window.Icon = icon;
-			}
+			has_voice_note = VoiceNoteExists ();
 			
-			separator.Show ();
-			record_button.Show ();
-			play_button.Sensitive = has_voice_note; 
-			play_button.Show ();
-			stop_button.Sensitive = false;
-			stop_button.Show ();
+			if (has_voice_note)
+				Window.Icon = icon;
+			
 			AddToolItem (separator, -1);
 			AddToolItem (record_button, -1);
 			AddToolItem (play_button, -1);
 			AddToolItem (stop_button, -1);
+			AddPluginMenuItem (delete_item);			
 			
-			// This has to be done here and not in initialize,
-			//otherwise the button's layout becomes disformed
-			Window.Hidden += OnNoteClosed;
-			
+			play_button.Sensitive = has_voice_note; 
+			stop_button.Sensitive = false;
+			Window.Hidden += OnStopButtonClicked;
 			button_manager = new InterruptableTimeout ();
 			button_manager.Timeout += UpdateButtons;
 		}
@@ -101,7 +103,6 @@ namespace Tomboy.VoiceNote
 		void OnRecordButtonClicked (object sender, EventArgs args)
 		{
 			start_record (voice_note_path);
-			pipeline_set = true;
 			record_button.Sensitive = false;
 			play_button.Sensitive = false;
 			stop_button.Sensitive = true;
@@ -118,25 +119,28 @@ namespace Tomboy.VoiceNote
 
 		void OnPlayButtonClicked (object sender, EventArgs args)
 		{
-			start_play (voice_note_path);	
-			pipeline_set = true;
+			start_play (voice_note_path);
 			record_button.Sensitive = false;
 			play_button.Sensitive = false;
 			stop_button.Sensitive = true;
 			button_manager.Reset (500);
 		}
+
 		
 		void OnStopButtonClicked (object sender, EventArgs args)
 		{
 			stop_stream ();
 		}
 		
-		void OnNoteClosed (object sender, EventArgs args)
+		void OnDeleteItemActivated (object sender, EventArgs args)
 		{
-			// Stop streaming before hide the window
-			if (pipeline_set)
-				stop_stream ();
+			stop_stream ();
+			DeleteVoiceNote ();
+			has_voice_note = VoiceNoteExists ();
+			play_button.Sensitive = false;
+			stop_button.Sensitive = false;
 		}
+		
 		
 		void UpdateButtons (object sender, EventArgs args)
 		{
@@ -154,11 +158,21 @@ namespace Tomboy.VoiceNote
 				break;				
 			}
 		}
-
-		bool voice_note_exists ()
+		
+		void DeleteVoiceNote ()
 		{
-			try{ File.Open (voice_note_path, FileMode.Open); }
-			catch (Exception except) { return false; }
+			if (has_voice_note)
+				File.Delete (voice_note_path);
+		}
+
+		bool VoiceNoteExists ()
+		{
+			try{ 
+				File.Open (voice_note_path, FileMode.Open); 
+			}
+			catch (Exception except) { 
+				return false; 
+			}
 			return true;
 		}
 	}
