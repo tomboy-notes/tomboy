@@ -40,6 +40,8 @@ TASKS_EXTRA_DIST = \
 	$(srcdir)/TasksUIManagerLayout.xml \
 	$(srcdir)/Tasks.addin.xml
 
+$(TASKS_TARGET).mdb: $(TARGET)
+
 $(TASKS_TARGET): $(TASKS_CSFILES) $(top_builddir)/Tomboy/Tomboy.exe
 	$(CSC) -out:$@ $(CSFLAGS) $(ASSEMBLIES) $(TASKS_CSFILES) $(TASKS_RESOURCES)
 

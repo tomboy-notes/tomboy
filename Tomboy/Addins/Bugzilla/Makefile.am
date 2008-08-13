@@ -24,6 +24,8 @@ RESOURCES = \
 	-resource:$(srcdir)/bug.png,bug.png
 
 
+$(TARGET).mdb: $(TARGET)
+
 $(TARGET): $(CSFILES) $(top_builddir)/Tomboy/Tomboy.exe
 	$(CSC) -out:$@ $(CSFLAGS) $(ASSEMBLIES) $(CSFILES) $(RESOURCES)
 

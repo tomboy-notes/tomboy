@@ -91,6 +91,8 @@ RESOURCES = 										\
 	-resource:$(srcdir)/Tomboy.addin.xml
 
 
+$(TARGET).mdb: $(TARGET)
+
 $(TARGET): $(CSFILES) Defines.cs
 	$(CSC) -out:$@ $(CSFLAGS) $^ $(ASSEMBLIES) $(RESOURCES)
 

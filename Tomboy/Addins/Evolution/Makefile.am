@@ -23,6 +23,8 @@ RESOURCES = \
 	-resource:$(srcdir)/$(ADDIN_NAME).addin.xml \
 	-resource:$(srcdir)/mail.png,mail.png
 
+$(TARGET).mdb: $(TARGET)
+
 $(TARGET): $(CSFILES) $(top_builddir)/Tomboy/Tomboy.exe
 	$(CSC) -out:$@ $(CSFLAGS) $(ASSEMBLIES) $(CSFILES) $(RESOURCES)
 
