@@ -230,9 +230,6 @@ namespace Tomboy
 		[DllImport ("libgtkspell")]
 		static extern void gtkspell_detach (IntPtr obj);
 
-		[DllImport ("libgtkspell")]
-		static extern void gtkspell_recheck_all (IntPtr obj);
-
 		static bool DetectGtkSpellAvailable()
 		{
 			try {
@@ -298,7 +295,6 @@ namespace Tomboy
 			}
 
 			Buffer.TagApplied += TagApplied;
-			Buffer.TagRemoved += TagRemoved;
 
 			if (obj_ptr == IntPtr.Zero) {
 				obj_ptr = gtkspell_new_attach (Window.Editor.Handle,
@@ -309,7 +305,6 @@ namespace Tomboy
 
 		void Detach ()
 		{
-			Buffer.TagRemoved -= TagRemoved;
 			Buffer.TagApplied -= TagApplied;
 
 			if (obj_ptr != IntPtr.Zero) {
@@ -352,14 +347,6 @@ namespace Tomboy
 				                  args.StartChar,
 				                  args.EndChar);
 			}
-		}
-
-		void TagRemoved (object sender, Gtk.TagRemovedArgs args)
-		{
-			// Recheck when a tag is removed that prevented spell checking
-			if (!NoteTagTable.TagIsSpellCheckable (args.Tag) &&
-					obj_ptr != IntPtr.Zero)
-				gtkspell_recheck_all (obj_ptr);
 		}
 	}
 	#else
