@@ -21,6 +21,8 @@ CSFILES = \
 RESOURCES = \
 	-resource:$(srcdir)/SshSyncService.addin.xml
 
+$(TARGET).mdb: $(TARGET)
+
 $(TARGET): $(CSFILES) $(top_builddir)/Tomboy/Tomboy.exe
 	$(CSC) -out:$@ $(CSFLAGS) $(ASSEMBLIES) $(CSFILES) $(RESOURCES)
 
