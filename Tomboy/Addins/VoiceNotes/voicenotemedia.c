@@ -5,7 +5,7 @@
 #define PLAY_CMD_END " !oggdemux!vorbisdec!audioconvert!audioresample!gconfaudiosink "
 #define RECORD_CMD "gconfaudiosrc !audioconvert !vorbisenc !oggmux !filesink location="
 
-static GstElement *pipeline;
+static GstElement *pipeline = NULL;
 static GstBus *bus;
 
 void
@@ -63,7 +63,8 @@ start_play (char *uri)
 void
 stop_stream ()
 {
-  gst_element_set_state (GST_ELEMENT (pipeline), GST_STATE_NULL);
+  if (pipeline != NULL)
+    gst_element_set_state (GST_ELEMENT (pipeline), GST_STATE_NULL);
 }
 
 gint
