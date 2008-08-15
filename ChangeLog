@@ -1,5 +1,11 @@
 2008-08-15  Sandy Armstrong <sanfordarmstrong@gmail.com> 
 
+	* Tomboy/Addins/PrintNotes/PrintNotesNoteAddin.cs: Use
+	  Pango.Units.FromPixels instead of FromDouble, which appears to be
+	  new in gtk-sharp 2.12.
+
+2008-08-15  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
 	* Tomboy/Tomboy.cs: Use Gtk.StatusIcon.GetGeometry method to get a
 	  Gdk.Screen, as the Gtk.StatusIcon.Screen property is only available
 	  in gtk-sharp >= 2.12.  Should fix bug #547900.

@@ -61,7 +61,7 @@ namespace Tomboy.PrintNotes
 				                                  font_size);
 			layout.FontDescription = desc;
 			
-			layout.Width = Pango.Units.FromDouble (context.Width);
+			layout.Width = Pango.Units.FromPixels ((int)context.Width);
 			
 			Gtk.TextIter start_iter, end_iter;
 			Buffer.GetBounds (out start_iter, out end_iter);
