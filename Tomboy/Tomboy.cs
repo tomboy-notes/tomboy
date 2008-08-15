@@ -240,8 +240,14 @@ namespace Tomboy
 
 		static void OnShowHelpAction (object sender, EventArgs args)
 		{
+			Gdk.Screen screen = null;
+			if (tray_icon != null) {
+				Gdk.Rectangle area;
+				Gtk.Orientation orientation;
+				tray_icon.GetGeometry (out screen, out area, out orientation);
+			}
 			GuiUtils.ShowHelp("tomboy.xml", null,
-			                  tray_icon == null ? null : tray_icon.Screen,
+			                  screen,
 			                  null);
 
 		}
