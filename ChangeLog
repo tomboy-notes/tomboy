@@ -1,3 +1,9 @@
+2008-08-15  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* Tomboy/Tomboy.cs: Use Gtk.StatusIcon.GetGeometry method to get a
+	  Gdk.Screen, as the Gtk.StatusIcon.Screen property is only available
+	  in gtk-sharp >= 2.12.  Should fix bug #547900.
+
 2008-08-14  Gabriel Marcondes <gabrielgeraldo@gmail.com>
 
 	* Tomboy/Addins/VoiceNotes/VoiceNote.cs,
