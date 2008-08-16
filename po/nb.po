@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tomboy 0.7.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-05-14 15:10+0200\n"
-"PO-Revision-Date: 2008-05-14 15:10+0200\n"
+"POT-Creation-Date: 2008-08-17 00:53+0200\n"
+"PO-Revision-Date: 2008-08-17 00:54+0200\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian Bokmal <i18n-nb@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
@@ -31,7 +31,7 @@ msgid "Tomboy Applet Factory"
 msgstr "Tomboy programfabrikk"
 
 #: ../data/GNOME_TomboyApplet.server.in.in.h:4 ../data/tomboy.desktop.in.h:3
-#: ../Tomboy/Applet.cs:153 ../Tomboy/Tray.cs:163
+#: ../Tomboy/Tray.cs:514
 msgid "Tomboy Notes"
 msgstr "Tomboy notatskriver"
 
@@ -40,12 +40,12 @@ msgid "_About"
 msgstr "_Om"
 
 #: ../data/GNOME_TomboyApplet.xml.h:2 ../Tomboy/ActionManager.cs:157
-#: ../Tomboy/Applet.cs:191
+#: ../Tomboy/Tray.cs:223
 msgid "_Help"
 msgstr "_Hjelp"
 
 #: ../data/GNOME_TomboyApplet.xml.h:3 ../Tomboy/ActionManager.cs:153
-#: ../Tomboy/Applet.cs:186
+#: ../Tomboy/Tray.cs:218
 msgid "_Preferences"
 msgstr "_Brukervalg"
 
@@ -458,7 +458,7 @@ msgstr "_Lukk"
 msgid "Close this window"
 msgstr "Lukk dette vinduet"
 
-#: ../Tomboy/ActionManager.cs:146 ../Tomboy/Applet.cs:203
+#: ../Tomboy/ActionManager.cs:146 ../Tomboy/Tray.cs:235
 msgid "_Quit"
 msgstr "_Avslutt"
 
@@ -654,7 +654,7 @@ msgstr "Sett inn tidsstempel"
 
 #. initial newline
 #: ../Tomboy/Addins/InsertTimestamp/InsertTimestampPreferences.cs:30
-#: ../Tomboy/Preferences.cs:137 ../Tomboy/Tray.cs:211
+#: ../Tomboy/Applet.cs:208 ../Tomboy/Preferences.cs:137
 msgid "dddd, MMMM d, h:mm tt"
 msgstr "dddd d MMMM, h.mm tt"
 
@@ -830,10 +830,6 @@ msgid ""
 msgstr ""
 "Lagring av konfigurasjon til GNOME-nøkkelring feilet med følgende melding:"
 
-#: ../Tomboy/Applet.cs:196
-msgid "_About Tomboy"
-msgstr "_Om Tomboy"
-
 #: ../Tomboy/Notebooks/CreateNotebookDialog.cs:24
 #: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:42
 msgid "Create a new notebook"
@@ -920,11 +916,11 @@ msgstr "Slett valgt notisblokk"
 msgid "Notebooks"
 msgstr "Notatblokker"
 
-#: ../Tomboy/Notebooks/NotebookManager.cs:354
+#: ../Tomboy/Notebooks/NotebookManager.cs:356
 msgid "Really delete this notebook?"
 msgstr "Vil du virkelig slette denne notisblokken?"
 
-#: ../Tomboy/Notebooks/NotebookManager.cs:356
+#: ../Tomboy/Notebooks/NotebookManager.cs:358
 msgid ""
 "The notes that belong to this notebook will not be deleted, but they will no "
 "longer be associated with this notebook.  This action cannot be undone."
@@ -958,17 +954,29 @@ msgstr "Notisblokk"
 msgid "_New notebook..."
 msgstr "_Ny notisblokk..."
 
-#: ../Tomboy/Note.cs:1432
+#: ../Tomboy/Note.cs:1438
 msgid "Really delete this note?"
 msgstr "Vil du slette dette notatet?"
 
-#: ../Tomboy/Note.cs:1434
+#: ../Tomboy/Note.cs:1440
 msgid "Really delete these notes?"
 msgstr "Vil du virkelig slette disse notatene?"
 
-#: ../Tomboy/Note.cs:1443
+#: ../Tomboy/Note.cs:1449
 msgid "If you delete a note it is permanently lost."
 msgstr "Hvis du sletter et notat blir det tapt for alltid."
+
+#: ../Tomboy/Note.cs:1483
+msgid "Error saving note data."
+msgstr "Feil ved lagring av notatdata."
+
+#: ../Tomboy/Note.cs:1484
+#, fuzzy
+msgid ""
+"An error occurred while saving your notes. Please check that you have "
+"sufficient disk space, and that you have appropriate rights on ~/.tomboy. "
+"Error details can be found in ~/.tomboy.log."
+msgstr "En feil oppsto under lagring av dine notater. Sjekk at du har nok diskplass og at du har nok rettigheter på "
 
 #. New Note Template
 #: ../Tomboy/NoteManager.cs:20 ../Tomboy/PreferencesDialog.cs:210
@@ -1042,7 +1050,7 @@ msgstr ""
 "lenket opp automatisk for deg.</note-content>"
 
 #. Attempt to find an existing Start Here note
-#: ../Tomboy/NoteManager.cs:172 ../Tomboy/NoteManager.cs:237
+#: ../Tomboy/NoteManager.cs:172 ../Tomboy/NoteManager.cs:239
 msgid "Start Here"
 msgstr "Start her"
 
@@ -1050,14 +1058,14 @@ msgstr "Start her"
 msgid "Using Links in Tomboy"
 msgstr "Bruk av lenker i Tomboy"
 
-#: ../Tomboy/NoteManager.cs:314
+#: ../Tomboy/NoteManager.cs:316
 #, csharp-format
 msgid "New Note {0}"
 msgstr "Nytt notat {0}"
 
 #. Use a simple "Describe..." body and highlight
 #. it so it can be easily overwritten
-#: ../Tomboy/NoteManager.cs:386 ../Tomboy/NoteManager.cs:478
+#: ../Tomboy/NoteManager.cs:388 ../Tomboy/NoteManager.cs:480
 msgid "Describe your new note here."
 msgstr "Skriv innholdet her."
 
@@ -1456,27 +1464,27 @@ msgstr[1] "Treff: {0} notater"
 msgid "Notes"
 msgstr "Notater"
 
-#: ../Tomboy/Tomboy.cs:199
+#: ../Tomboy/Tomboy.cs:194
 msgid "Cannot create new note"
 msgstr "Kan ikke opprette nytt notat"
 
-#: ../Tomboy/Tomboy.cs:276
+#: ../Tomboy/Tomboy.cs:277
 msgid "translator-credits"
 msgstr "Sigurd Gartmann"
 
-#: ../Tomboy/Tomboy.cs:285
+#: ../Tomboy/Tomboy.cs:286
 msgid "Copyright © 2004-2007 Alex Graveley"
 msgstr "Opphavsrett © 2004-2007 Alex Graveley"
 
-#: ../Tomboy/Tomboy.cs:286
+#: ../Tomboy/Tomboy.cs:287
 msgid "A simple and easy to use desktop note-taking application."
 msgstr "Et enkelt og brukervennlig notatskrivingsprogram."
 
-#: ../Tomboy/Tomboy.cs:289
+#: ../Tomboy/Tomboy.cs:290
 msgid "Homepage"
 msgstr "Hjemmeside"
 
-#: ../Tomboy/Tomboy.cs:400
+#: ../Tomboy/Tomboy.cs:397
 msgid ""
 "Tomboy: A simple, easy to use desktop note-taking application.\n"
 "Copyright (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
@@ -1486,7 +1494,7 @@ msgstr ""
 "Opphavsrett © 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
 "\n"
 
-#: ../Tomboy/Tomboy.cs:412
+#: ../Tomboy/Tomboy.cs:409
 msgid ""
 "Usage:\n"
 "  --version\t\t\tPrint version information.\n"
@@ -1500,7 +1508,7 @@ msgstr ""
 "  --note-path [path]\t\tLast/lagre notatdata i denne katalogen.\n"
 "  --search [text]\t\tÅpne vindu for søk i alle notater med søketeksten.\n"
 
-#: ../Tomboy/Tomboy.cs:423
+#: ../Tomboy/Tomboy.cs:420
 msgid ""
 "  --new-note\t\t\tCreate and display a new note.\n"
 "  --new-note [title]\t\tCreate and display a new note, with a title.\n"
@@ -1519,16 +1527,16 @@ msgstr ""
 #. Catalog.GetString (
 #. "  --check-plugin-unloading\tCheck if plugins are " +
 #. "unloaded properly.\n");
-#: ../Tomboy/Tomboy.cs:440
+#: ../Tomboy/Tomboy.cs:437
 msgid "D-BUS remote control disabled.\n"
 msgstr "D-BUS fjernkontroll er deaktivert.\n"
 
-#: ../Tomboy/Tomboy.cs:448
+#: ../Tomboy/Tomboy.cs:445
 #, csharp-format
 msgid "Version {0}"
 msgstr "Versjon {0}"
 
-#: ../Tomboy/Tomboy.cs:518
+#: ../Tomboy/Tomboy.cs:515
 #, csharp-format
 msgid ""
 "Tomboy: unsupported option '{0}'\n"
@@ -1539,11 +1547,15 @@ msgstr ""
 "Prøv «tomboy --help» for mer informasjon.\n"
 "D_BUS-fjernkontroll slått av."
 
-#: ../Tomboy/Tray.cs:66
+#: ../Tomboy/Tray.cs:64
 msgid " (new)"
 msgstr " (ny)"
 
-#: ../Tomboy/Utils.cs:133
+#: ../Tomboy/Tray.cs:228
+msgid "_About Tomboy"
+msgstr "_Om Tomboy"
+
+#: ../Tomboy/Utils.cs:148
 msgid ""
 "The \"Tomboy Notes Manual\" could not be found.  Please verify that your "
 "installation has been completed successfully."
@@ -1551,74 +1563,74 @@ msgstr ""
 "Brukerhåndboken for Tomboy ble ikke funnet. Vennligst sjekk at programmet er "
 "korrekt installert."
 
-#: ../Tomboy/Utils.cs:142
+#: ../Tomboy/Utils.cs:157
 msgid "Help not found"
 msgstr "Hjelp ble ikke funnet"
 
-#: ../Tomboy/Utils.cs:165
+#: ../Tomboy/Utils.cs:180
 #, csharp-format
 msgid "Today, {0}"
 msgstr "I dag, {0}"
 
-#: ../Tomboy/Utils.cs:167
+#: ../Tomboy/Utils.cs:182
 msgid "Today"
 msgstr "I dag"
 
-#: ../Tomboy/Utils.cs:171
+#: ../Tomboy/Utils.cs:186
 #, csharp-format
 msgid "Yesterday, {0}"
 msgstr "I går, {0}"
 
-#: ../Tomboy/Utils.cs:173
+#: ../Tomboy/Utils.cs:188
 msgid "Yesterday"
 msgstr "I går"
 
-#: ../Tomboy/Utils.cs:177
+#: ../Tomboy/Utils.cs:192
 #, csharp-format
 msgid "{0} days ago, {1}"
 msgstr "For {0} dager siden, {1}"
 
-#: ../Tomboy/Utils.cs:179
+#: ../Tomboy/Utils.cs:194
 #, csharp-format
 msgid "{0} days ago"
 msgstr "{0} dager siden"
 
-#: ../Tomboy/Utils.cs:184
+#: ../Tomboy/Utils.cs:199
 #, csharp-format
 msgid "Tomorrow, {0}"
 msgstr "I morgen, {0}"
 
-#: ../Tomboy/Utils.cs:186
+#: ../Tomboy/Utils.cs:201
 msgid "Tomorrow"
 msgstr "I morgen"
 
-#: ../Tomboy/Utils.cs:190
+#: ../Tomboy/Utils.cs:205
 #, csharp-format
 msgid "In {0} days, {1}"
 msgstr "Om {0} dager, {1}"
 
-#: ../Tomboy/Utils.cs:192
+#: ../Tomboy/Utils.cs:207
 #, csharp-format
 msgid "In {0} days"
 msgstr "Om {0} dager"
 
-#: ../Tomboy/Utils.cs:196
+#: ../Tomboy/Utils.cs:211
 msgid "MMMM d, h:mm tt"
 msgstr "d MMMM, h.mm tt"
 
-#: ../Tomboy/Utils.cs:197
+#: ../Tomboy/Utils.cs:212
 msgid "MMMM d"
 msgstr "MMMM d"
 
-#: ../Tomboy/Utils.cs:199
+#: ../Tomboy/Utils.cs:214
 msgid "No Date"
 msgstr "Ingen dato"
 
-#: ../Tomboy/Utils.cs:202
+#: ../Tomboy/Utils.cs:217
 msgid "MMMM d yyyy, h:mm tt"
 msgstr "d MMMM yyyy, h.mm tt"
 
-#: ../Tomboy/Utils.cs:203
+#: ../Tomboy/Utils.cs:218
 msgid "MMMM d yyyy"
 msgstr "MMMM d yyyy"
 
