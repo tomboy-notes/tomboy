@@ -136,17 +136,27 @@ AC_SUBST(MONO_ADDINS_LIBS)
 # Tomboy.exe needs Gtk# Gnome# GConf#
 #
 GTKSHARP2_MINIMUM_VERSION=$GTK20_MINIMUM_VERSION
-if pkg-config --atleast-version=2.16.1 gconf-sharp-2.0; then
+GNOMESHARP_MINIMUM_VERSION=2.15
+if pkg-config --atleast-version=2.23.90 gnome-sharp-2.0; then
 	PKG_CHECK_MODULES(TOMBOY,
 	                  gtk-sharp-2.0 >= $GTKSHARP2_MINIMUM_VERSION
 	                  gnome-sharp-2.0
 	                  gconf-sharp-2.0
-	                  gconf-sharp-peditors-2.0)
+	                  gconf-sharp-peditors-2.0
+	                  gnome-panel-sharp-2.24)
 else
-	PKG_CHECK_MODULES(TOMBOY,
-	                  gtk-sharp-2.0 >= $GTKSHARP2_MINIMUM_VERSION
-	                  gnome-sharp-2.0
-	                  gconf-sharp-2.0)
+	if pkg-config --atleast-version=2.16.1 gconf-sharp-2.0; then
+		PKG_CHECK_MODULES(TOMBOY,
+			          gtk-sharp-2.0 >= $GTKSHARP2_MINIMUM_VERSION
+			          gnome-sharp-2.0 > $GNOMESHARP_MINIMUM_VERSION
+			          gconf-sharp-2.0
+			          gconf-sharp-peditors-2.0)
+	else
+		PKG_CHECK_MODULES(TOMBOY,
+			          gtk-sharp-2.0 >= $GTKSHARP2_MINIMUM_VERSION
+			          gnome-sharp-2.0 > $GNOMESHARP_MINIMUM_VERSION
+			          gconf-sharp-2.0)
+	fi
 fi
 AC_SUBST(TOMBOY_LIBS)
 

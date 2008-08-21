@@ -1,3 +1,24 @@
+2008-08-21  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* configure.in: Set minimum gnome-sharp version to 2.15 to account for
+	  panel applet fixes.  Handle gnome-panel-sharp being split out of
+	  gnome-sharp in 2.23.90.
+	* Tomboy/Applet.cs, Tomboy/Tomboy.cs: Stop using internal copy of panel
+	  applet code.  This has been fixed upstream for some time as far as
+	  I can tell.
+	* Tomboy/panelapplet, Tomboy/panelapplet/BonoboUIVerb.cs,
+	  Tomboy/panelapplet/PanelAppletFactory.cs,
+	  Tomboy/panelapplet/ChangeSizeHandler.cs,
+	  Tomboy/panelapplet/ObjectManager.cs,
+	  Tomboy/panelapplet/PanelAppletFlags.cs,
+	  Tomboy/panelapplet/ChangeBackgroundHandler.cs,
+	  Tomboy/panelapplet/GnomeSharp.PanelAppletFactoryCallbackNative.cs,
+	  Tomboy/panelapplet/PanelApplet.cs,
+	  Tomboy/panelapplet/MoveFocusOutOfAppletHandler.cs,
+	  Tomboy/panelapplet/PanelAppletBackgroundType.cs,
+	  Tomboy/panelapplet/PanelAppletFactoryCallback.cs,
+	  Tomboy/Makefile.am: Delete internal copy of panel applet code.
+
 2008-08-18  Sandy Armstrong <sanfordarmstrong@gmail.com> 
 
 	* configure.in: Bump version to 0.11.3.
