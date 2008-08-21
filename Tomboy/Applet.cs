@@ -5,10 +5,7 @@ using System.Text;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using Mono.Unix;
-
-// Work around bug in Gtk# panel applet bindings by using a local copy with
-// fixed OnBackgroundChanged marshalling.
-using _Gnome;
+using Gnome;
 
 namespace Tomboy
 {

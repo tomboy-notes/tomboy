@@ -63,7 +63,6 @@ CSFILES = 					\
 	$(srcdir)/Notebooks/*.cs		\
 	$(srcdir)/Synchronization/*.cs		\
 	\
-	$(srcdir)/panelapplet/*.cs		\
 	$(srcdir)/Gnome.Keyring/*.cs		\
 	\
 	$(DBUS_CSFILES)	

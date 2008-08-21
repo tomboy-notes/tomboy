@@ -105,8 +105,7 @@ namespace Tomboy
 		static void RegisterPanelAppletFactory ()
 		{
 			// This will block if there is no existing instance running
-			// FIXME: Use custom built panel applet bindings to work around bug in GTK#
-			_Gnome.PanelAppletFactory.Register (typeof (TomboyApplet));
+			Gnome.PanelAppletFactory.Register (typeof (TomboyApplet));
 		}
 
 		static void StartTrayIcon ()
