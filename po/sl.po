@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tomboy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-06-17 03:48+0000\n"
-"PO-Revision-Date: 2008-06-17 20:17+0100\n"
+"POT-Creation-Date: 2008-09-03 04:18+0000\n"
+"PO-Revision-Date: 2008-09-03 15:39+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian <sl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -34,8 +34,7 @@ msgstr "Tovarna vstavkov za Tomboy"
 
 #: ../data/GNOME_TomboyApplet.server.in.in.h:4
 #: ../data/tomboy.desktop.in.h:3
-#: ../Tomboy/Applet.cs:153
-#: ../Tomboy/Tray.cs:163
+#: ../Tomboy/Tray.cs:514
 msgid "Tomboy Notes"
 msgstr "Sporočilca Tomboy"
 
@@ -46,13 +45,13 @@ msgstr "_O Programu"
 
 #: ../data/GNOME_TomboyApplet.xml.h:2
 #: ../Tomboy/ActionManager.cs:157
-#: ../Tomboy/Applet.cs:191
+#: ../Tomboy/Tray.cs:223
 msgid "_Help"
 msgstr "_Pomoč"
 
 #: ../data/GNOME_TomboyApplet.xml.h:3
 #: ../Tomboy/ActionManager.cs:153
-#: ../Tomboy/Applet.cs:186
+#: ../Tomboy/Tray.cs:218
 msgid "_Preferences"
 msgstr "_Lastnosti"
 
@@ -328,7 +327,7 @@ msgid "Close this window"
 msgstr "Zapri to okno"
 
 #: ../Tomboy/ActionManager.cs:146
-#: ../Tomboy/Applet.cs:203
+#: ../Tomboy/Tray.cs:235
 msgid "_Quit"
 msgstr "_Izhod"
 
@@ -521,8 +520,8 @@ msgstr "Vstavi časovni žig"
 
 #. initial newline
 #: ../Tomboy/Addins/InsertTimestamp/InsertTimestampPreferences.cs:30
+#: ../Tomboy/Applet.cs:205
 #: ../Tomboy/Preferences.cs:137
-#: ../Tomboy/Tray.cs:211
 msgid "dddd, MMMM d, h:mm tt"
 msgstr "dddd, MMMM d, h:mm tt"
 
@@ -680,10 +679,6 @@ msgstr "Prišlo je do napake med povezovanjem s strežnikom. Morda ste vnesli na
 msgid "Saving configuration to the GNOME keyring failed with the following message:"
 msgstr "Neuspešno shranjevanje nastavitev v GNOME zbirko ključev:"
 
-#: ../Tomboy/Applet.cs:196
-msgid "_About Tomboy"
-msgstr "_O Tomboy"
-
 #: ../Tomboy/Notebooks/CreateNotebookDialog.cs:24
 #: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:42
 msgid "Create a new notebook"
@@ -770,11 +765,11 @@ msgstr "Izbriši izbrano beležko"
 msgid "Notebooks"
 msgstr "Beležke"
 
-#: ../Tomboy/Notebooks/NotebookManager.cs:354
+#: ../Tomboy/Notebooks/NotebookManager.cs:356
 msgid "Really delete this notebook?"
 msgstr "Ali želite izbrisati to beležko?"
 
-#: ../Tomboy/Notebooks/NotebookManager.cs:356
+#: ../Tomboy/Notebooks/NotebookManager.cs:358
 msgid "The notes that belong to this notebook will not be deleted, but they will no longer be associated with this notebook.  This action cannot be undone."
 msgstr "Sporočilca, ki pripadajo tej beležki ne bodo odstranjena, vendar ne bodo več povezana z beležko. Dejanja ni mogoče povrniti."
 
@@ -803,17 +798,25 @@ msgstr "Beležka"
 msgid "_New notebook..."
 msgstr "Nova _beležka ..."
 
-#: ../Tomboy/Note.cs:1432
+#: ../Tomboy/Note.cs:1438
 msgid "Really delete this note?"
 msgstr "Ali želite izbrisati to sporočilce?"
 
-#: ../Tomboy/Note.cs:1434
+#: ../Tomboy/Note.cs:1440
 msgid "Really delete these notes?"
 msgstr "Ali želite izbrisati ta sporočilca?"
 
-#: ../Tomboy/Note.cs:1443
+#: ../Tomboy/Note.cs:1449
 msgid "If you delete a note it is permanently lost."
 msgstr "Če izbrišete sporočilce, bo to trajno izgubljeno."
+
+#: ../Tomboy/Note.cs:1483
+msgid "Error saving note data."
+msgstr "Napaka med shranjevanjem podatkov."
+
+#: ../Tomboy/Note.cs:1484
+msgid "An error occurred while saving your notes. Please check that you have sufficient disk space, and that you have appropriate rights on ~/.tomboy. Error details can be found in ~/.tomboy.log."
+msgstr "Prišlo je do napake med shranjevanjem sporočilc. Preverite, da imate dovolj prostora na disku in da imate ustrezna dovoljenja v mapi ~/.tomboy. Podrobnosti napake so zapisane v datoteki ~/.tomboy.log"
 
 #. New Note Template
 #: ../Tomboy/NoteManager.cs:20
@@ -867,7 +870,7 @@ msgstr ""
 
 #. Attempt to find an existing Start Here note
 #: ../Tomboy/NoteManager.cs:172
-#: ../Tomboy/NoteManager.cs:237
+#: ../Tomboy/NoteManager.cs:239
 msgid "Start Here"
 msgstr "Začni tukaj"
 
@@ -875,15 +878,15 @@ msgstr "Začni tukaj"
 msgid "Using Links in Tomboy"
 msgstr "Uporaba povezav v programu Tomboy"
 
-#: ../Tomboy/NoteManager.cs:314
+#: ../Tomboy/NoteManager.cs:316
 #, csharp-format
 msgid "New Note {0}"
 msgstr "Novo sporočilce {0}"
 
 #. Use a simple "Describe..." body and highlight
 #. it so it can be easily overwritten
-#: ../Tomboy/NoteManager.cs:386
-#: ../Tomboy/NoteManager.cs:478
+#: ../Tomboy/NoteManager.cs:388
+#: ../Tomboy/NoteManager.cs:480
 msgid "Describe your new note here."
 msgstr "Tukaj opišite vaše novo sporočilce."
 
@@ -1255,7 +1258,7 @@ msgstr[3] "Skupaj: {0} sporočilca"
 msgid "Notes"
 msgstr "Sporočilca"
 
-#: ../Tomboy/Tomboy.cs:199
+#: ../Tomboy/Tomboy.cs:193
 msgid "Cannot create new note"
 msgstr "Ni mogoče ustvariti novega sporočilca"
 
@@ -1277,7 +1280,7 @@ msgstr "Preprost program za pisanje sporočilc na namizju."
 msgid "Homepage"
 msgstr "Spletna stran"
 
-#: ../Tomboy/Tomboy.cs:400
+#: ../Tomboy/Tomboy.cs:396
 msgid ""
 "Tomboy: A simple, easy to use desktop note-taking application.\n"
 "Copyright (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
@@ -1287,7 +1290,7 @@ msgstr ""
 "Avtorske pravice pridržane (C) 2004-2007 Alex Graveley <alex@beatniksoftware.com>\n"
 "\n"
 
-#: ../Tomboy/Tomboy.cs:412
+#: ../Tomboy/Tomboy.cs:408
 msgid ""
 "Usage:\n"
 "  --version\t\t\tPrint version information.\n"
@@ -1300,7 +1303,7 @@ msgstr ""
 "  --help\t\t\tIzpiše to sporočilo o uporabi.\n"
 "  --note-path [path]\t\tNaloži/shrani podatke o sporočilcu v tej mapi.\n"
 
-#: ../Tomboy/Tomboy.cs:423
+#: ../Tomboy/Tomboy.cs:419
 msgid ""
 "  --new-note\t\t\tCreate and display a new note.\n"
 "  --new-note [title]\t\tCreate and display a new note, with a title.\n"
@@ -1319,16 +1322,16 @@ msgstr ""
 #. Catalog.GetString (
 #. "  --check-plugin-unloading\tCheck if plugins are " +
 #. "unloaded properly.\n");
-#: ../Tomboy/Tomboy.cs:440
+#: ../Tomboy/Tomboy.cs:436
 msgid "D-BUS remote control disabled.\n"
 msgstr "Daljinski upravljalnik D-BUS onemogočen.\n"
 
-#: ../Tomboy/Tomboy.cs:448
+#: ../Tomboy/Tomboy.cs:444
 #, csharp-format
 msgid "Version {0}"
 msgstr "Različica {0}"
 
-#: ../Tomboy/Tomboy.cs:518
+#: ../Tomboy/Tomboy.cs:514
 #, csharp-format
 msgid ""
 "Tomboy: unsupported option '{0}'\n"
@@ -1339,82 +1342,86 @@ msgstr ""
 "Za več podatkov poskusite 'tomboy --help'.\n"
 "Daljinski upravljalnik D-BUS onemogočen."
 
-#: ../Tomboy/Tray.cs:66
+#: ../Tomboy/Tray.cs:64
 msgid " (new)"
 msgstr "(novo)"
 
-#: ../Tomboy/Utils.cs:133
+#: ../Tomboy/Tray.cs:228
+msgid "_About Tomboy"
+msgstr "_O Tomboy"
+
+#: ../Tomboy/Utils.cs:148
 msgid "The \"Tomboy Notes Manual\" could not be found.  Please verify that your installation has been completed successfully."
 msgstr "Priročnika \"Tomboy sporočilc\" ni mogoče najti. Preverite, če je namestitev pravilna in da je potekla do konca."
 
-#: ../Tomboy/Utils.cs:142
+#: ../Tomboy/Utils.cs:157
 msgid "Help not found"
 msgstr "Pomoči ni mogoče najti"
 
-#: ../Tomboy/Utils.cs:165
+#: ../Tomboy/Utils.cs:180
 #, csharp-format
 msgid "Today, {0}"
 msgstr "Danes, {0}"
 
-#: ../Tomboy/Utils.cs:167
+#: ../Tomboy/Utils.cs:182
 msgid "Today"
 msgstr "Danes"
 
-#: ../Tomboy/Utils.cs:171
+#: ../Tomboy/Utils.cs:186
 #, csharp-format
 msgid "Yesterday, {0}"
 msgstr "Včeraj, {0}"
 
-#: ../Tomboy/Utils.cs:173
+#: ../Tomboy/Utils.cs:188
 msgid "Yesterday"
 msgstr "Včeraj"
 
-#: ../Tomboy/Utils.cs:177
+#: ../Tomboy/Utils.cs:192
 #, csharp-format
 msgid "{0} days ago, {1}"
 msgstr "{0} dni nazaj, {1}"
 
-#: ../Tomboy/Utils.cs:179
+#: ../Tomboy/Utils.cs:194
 #, csharp-format
 msgid "{0} days ago"
 msgstr "{0} dni nazaj"
 
-#: ../Tomboy/Utils.cs:184
+#: ../Tomboy/Utils.cs:199
 #, csharp-format
 msgid "Tomorrow, {0}"
 msgstr "Jutri, {0}"
 
-#: ../Tomboy/Utils.cs:186
+#: ../Tomboy/Utils.cs:201
 msgid "Tomorrow"
 msgstr "Jutri"
 
-#: ../Tomboy/Utils.cs:190
+#: ../Tomboy/Utils.cs:205
 #, csharp-format
 msgid "In {0} days, {1}"
 msgstr "V {0} dneh, {1}"
 
-#: ../Tomboy/Utils.cs:192
+#: ../Tomboy/Utils.cs:207
 #, csharp-format
 msgid "In {0} days"
 msgstr "V {0} dneh"
 
-#: ../Tomboy/Utils.cs:196
+#: ../Tomboy/Utils.cs:211
 msgid "MMMM d, h:mm tt"
 msgstr "MMMM d, h:mm tt"
 
-#: ../Tomboy/Utils.cs:197
+#: ../Tomboy/Utils.cs:212
 msgid "MMMM d"
 msgstr "MMMM d"
 
-#: ../Tomboy/Utils.cs:199
+#: ../Tomboy/Utils.cs:214
 msgid "No Date"
 msgstr "Brez datuma"
 
-#: ../Tomboy/Utils.cs:202
+#: ../Tomboy/Utils.cs:217
 msgid "MMMM d yyyy, h:mm tt"
 msgstr "MMMM d yyyy, h:mm tt"
 
-#: ../Tomboy/Utils.cs:203
+#: ../Tomboy/Utils.cs:218
 msgid "MMMM d yyyy"
 msgstr "MMMM d yyyy"
 
