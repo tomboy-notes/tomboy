@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tomboy 0.9.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-06-29 20:24+0200\n"
-"PO-Revision-Date: 2008-06-29 20:26+0200\n"
+"POT-Creation-Date: 2008-09-08 13:44+0200\n"
+"PO-Revision-Date: 2008-09-09 09:26+0200\n"
 "Last-Translator: Jordi Mas <jmas@softcatala.org>\n"
 "Language-Team: Catalan <tradgnome@softcatala.net>\n"
 "MIME-Version: 1.0\n"
@@ -30,7 +30,7 @@ msgid "Tomboy Applet Factory"
 msgstr "Factoria de miniaplicacions Tomboy"
 
 #: ../data/GNOME_TomboyApplet.server.in.in.h:4 ../data/tomboy.desktop.in.h:3
-#: ../Tomboy/Applet.cs:153 ../Tomboy/Tray.cs:163
+#: ../Tomboy/Tray.cs:514
 msgid "Tomboy Notes"
 msgstr "Notes del Tomboy"
 
@@ -39,12 +39,12 @@ msgid "_About"
 msgstr "_Quant a"
 
 #: ../data/GNOME_TomboyApplet.xml.h:2 ../Tomboy/ActionManager.cs:157
-#: ../Tomboy/Applet.cs:191
+#: ../Tomboy/Tray.cs:223
 msgid "_Help"
 msgstr "A_juda"
 
 #: ../data/GNOME_TomboyApplet.xml.h:3 ../Tomboy/ActionManager.cs:153
-#: ../Tomboy/Applet.cs:186
+#: ../Tomboy/Tray.cs:218
 msgid "_Preferences"
 msgstr "_Preferències"
 
@@ -465,7 +465,7 @@ msgstr "_Tanca"
 msgid "Close this window"
 msgstr "Tanca aquesta finestra"
 
-#: ../Tomboy/ActionManager.cs:146 ../Tomboy/Applet.cs:203
+#: ../Tomboy/ActionManager.cs:146 ../Tomboy/Tray.cs:235
 msgid "_Quit"
 msgstr "_Surt"
 
@@ -666,7 +666,7 @@ msgstr "Insereix marca horària"
 
 #. initial newline
 #: ../Tomboy/Addins/InsertTimestamp/InsertTimestampPreferences.cs:30
-#: ../Tomboy/Preferences.cs:137 ../Tomboy/Tray.cs:211
+#: ../Tomboy/Applet.cs:205 ../Tomboy/Preferences.cs:137
 msgid "dddd, MMMM d, h:mm tt"
 msgstr "dddd, MMMM d, h:mm tt"
 
@@ -792,21 +792,23 @@ msgid "Sticky Note: "
 msgstr "Nota adhesiva: "
 
 #: ../Tomboy/Addins/Tasque/TasqueNoteAddin.cs:57
-#, fuzzy
+#
+# N.T.: Nom propi d'aplicació. Veure: http://live.gnome.org/Tasque
 msgid "Tasque"
-msgstr "Tasques"
+msgstr "Tasque"
 
 #. Note to translators: "All" here must match up with the "All"
 #. category translation in Tasque for this to work properly.  "All"
 #. is used here to allow Tasque to decide which default category
 #. will be used to create the new task.
 #: ../Tomboy/Addins/Tasque/TasqueNoteAddin.cs:81
+# N.T: Ho deixo en anglès ja que Tasque no està en català
 msgid "All"
-msgstr ""
+msgstr "All"
 
 #: ../Tomboy/Addins/Tasque/TasqueNoteAddin.cs:140
 msgid "--- Tasque is not running ---"
-msgstr ""
+msgstr "--- El Tasque no s'està executant ---"
 
 #: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:51
 msgid "_URL:"
@@ -843,10 +845,6 @@ msgid ""
 msgstr ""
 "S'ha produït l'error següent en desar la configuració a l'anell de claus del "
 "GNOME: "
-
-#: ../Tomboy/Applet.cs:196
-msgid "_About Tomboy"
-msgstr "_Quant al Tomboy"
 
 #: ../Tomboy/Notebooks/CreateNotebookDialog.cs:24
 #: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:42
@@ -934,11 +932,11 @@ msgstr "Suprimeix el bloc de notes seleccionat"
 msgid "Notebooks"
 msgstr "Blocs de notes"
 
-#: ../Tomboy/Notebooks/NotebookManager.cs:354
+#: ../Tomboy/Notebooks/NotebookManager.cs:356
 msgid "Really delete this notebook?"
 msgstr "Segur que voleu suprimir aquest bloc de notes?"
 
-#: ../Tomboy/Notebooks/NotebookManager.cs:356
+#: ../Tomboy/Notebooks/NotebookManager.cs:358
 msgid ""
 "The notes that belong to this notebook will not be deleted, but they will no "
 "longer be associated with this notebook.  This action cannot be undone."
@@ -968,21 +966,36 @@ msgid "Notebook"
 msgstr "Bloc de notes"
 
 #: ../Tomboy/Notebooks/NotebookNoteAddin.cs:141
-#, fuzzy
+#
 msgid "_New notebook..."
-msgstr "Bloc de notes nou..."
+msgstr "_Bloc de notes nou..."
 
-#: ../Tomboy/Note.cs:1432
+#: ../Tomboy/Note.cs:1438
 msgid "Really delete this note?"
 msgstr "Segur que voleu suprimir aquesta nota?"
 
-#: ../Tomboy/Note.cs:1434
+#: ../Tomboy/Note.cs:1440
 msgid "Really delete these notes?"
 msgstr "Segur que voleu suprimir aquestes notes?"
 
-#: ../Tomboy/Note.cs:1443
+#: ../Tomboy/Note.cs:1449
 msgid "If you delete a note it is permanently lost."
 msgstr "Si suprimiu una nota la perdreu definitivament."
+
+#: ../Tomboy/Note.cs:1483
+#
+msgid "Error saving note data."
+msgstr "S'ha produït un error en desar les dades de la nota."
+
+#: ../Tomboy/Note.cs:1484
+msgid ""
+"An error occurred while saving your notes. Please check that you have "
+"sufficient disk space, and that you have appropriate rights on ~/.tomboy. "
+"Error details can be found in ~/.tomboy.log."
+msgstr ""
+"S'ha produït un error en desar les notes. Comproveu que hi hagi espai suficient al disc, "
+"i que disposeu dels permisos adequats a  ~/.tomboy."
+"Podeu trobar detalls de l'error a ~/.tomboy.log."
 
 #. New Note Template
 #: ../Tomboy/NoteManager.cs:20 ../Tomboy/PreferencesDialog.cs:210
@@ -1058,7 +1071,7 @@ msgstr ""
 "s'enllaçarà automàticament.</note-content>"
 
 #. Attempt to find an existing Start Here note
-#: ../Tomboy/NoteManager.cs:172 ../Tomboy/NoteManager.cs:237
+#: ../Tomboy/NoteManager.cs:172 ../Tomboy/NoteManager.cs:239
 msgid "Start Here"
 msgstr "Comenceu aquí"
 
@@ -1066,14 +1079,14 @@ msgstr "Comenceu aquí"
 msgid "Using Links in Tomboy"
 msgstr "Utilització dels enllaços al Tomboy"
 
-#: ../Tomboy/NoteManager.cs:314
+#: ../Tomboy/NoteManager.cs:316
 #, csharp-format
 msgid "New Note {0}"
 msgstr "Nota nova {0}"
 
 #. Use a simple "Describe..." body and highlight
 #. it so it can be easily overwritten
-#: ../Tomboy/NoteManager.cs:386 ../Tomboy/NoteManager.cs:478
+#: ../Tomboy/NoteManager.cs:388 ../Tomboy/NoteManager.cs:480
 msgid "Describe your new note here."
 msgstr "Descriviu la vostra nota nova aquí."
 
@@ -1474,7 +1487,7 @@ msgstr[1] "Coincidències: {0} notes"
 msgid "Notes"
 msgstr "Notes"
 
-#: ../Tomboy/Tomboy.cs:199
+#: ../Tomboy/Tomboy.cs:193
 msgid "Cannot create new note"
 msgstr "No es pot crear una nota nova"
 
@@ -1495,7 +1508,7 @@ msgstr ""
 msgid "Homepage"
 msgstr "Pàgina inicial"
 
-#: ../Tomboy/Tomboy.cs:400
+#: ../Tomboy/Tomboy.cs:396
 msgid ""
 "Tomboy: A simple, easy to use desktop note-taking application.\n"
 "Copyright (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
@@ -1506,7 +1519,7 @@ msgstr ""
 "Copyright (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
 "\n"
 
-#: ../Tomboy/Tomboy.cs:412
+#: ../Tomboy/Tomboy.cs:408
 msgid ""
 "Usage:\n"
 "  --version\t\t\tPrint version information.\n"
@@ -1522,7 +1535,7 @@ msgstr ""
 "  --search [text]\t\tObre la finestra de cerca totes les notes amb el text "
 "de la cerca.\n"
 
-#: ../Tomboy/Tomboy.cs:423
+#: ../Tomboy/Tomboy.cs:419
 msgid ""
 "  --new-note\t\t\tCreate and display a new note.\n"
 "  --new-note [title]\t\tCreate and display a new note, with a title.\n"
@@ -1541,16 +1554,16 @@ msgstr ""
 #. Catalog.GetString (
 #. "  --check-plugin-unloading\tCheck if plugins are " +
 #. "unloaded properly.\n");
-#: ../Tomboy/Tomboy.cs:440
+#: ../Tomboy/Tomboy.cs:436
 msgid "D-BUS remote control disabled.\n"
 msgstr "El control remot D-BUS és inhabilitat.\n"
 
-#: ../Tomboy/Tomboy.cs:448
+#: ../Tomboy/Tomboy.cs:444
 #, csharp-format
 msgid "Version {0}"
 msgstr "Versió {0}"
 
-#: ../Tomboy/Tomboy.cs:518
+#: ../Tomboy/Tomboy.cs:514
 #, csharp-format
 msgid ""
 "Tomboy: unsupported option '{0}'\n"
@@ -1561,11 +1574,15 @@ msgstr ""
 "Proveu «tomboy --help» per a més informació.\n"
 "El control remot D-BUS és inhabilitat."
 
-#: ../Tomboy/Tray.cs:66
+#: ../Tomboy/Tray.cs:64
 msgid " (new)"
 msgstr " (nova) "
 
-#: ../Tomboy/Utils.cs:133
+#: ../Tomboy/Tray.cs:228
+msgid "_About Tomboy"
+msgstr "_Quant al Tomboy"
+
+#: ../Tomboy/Utils.cs:148
 msgid ""
 "The \"Tomboy Notes Manual\" could not be found.  Please verify that your "
 "installation has been completed successfully."
@@ -1573,75 +1590,75 @@ msgstr ""
 "No s'ha pogut trobar el «manual de notes del Tomboy». Comproveu que la "
 "instal·lació s'ha realitzat correctament."
 
-#: ../Tomboy/Utils.cs:142
+#: ../Tomboy/Utils.cs:157
 msgid "Help not found"
 msgstr "No s'ha trobat l'ajuda"
 
-#: ../Tomboy/Utils.cs:165
+#: ../Tomboy/Utils.cs:180
 #, csharp-format
 msgid "Today, {0}"
 msgstr "Avui, {0}"
 
-#: ../Tomboy/Utils.cs:167
+#: ../Tomboy/Utils.cs:182
 msgid "Today"
 msgstr "Avui"
 
-#: ../Tomboy/Utils.cs:171
+#: ../Tomboy/Utils.cs:186
 #, csharp-format
 msgid "Yesterday, {0}"
 msgstr "Ahir, {0}"
 
-#: ../Tomboy/Utils.cs:173
+#: ../Tomboy/Utils.cs:188
 msgid "Yesterday"
 msgstr "Ahir"
 
-#: ../Tomboy/Utils.cs:177
+#: ../Tomboy/Utils.cs:192
 #, csharp-format
 msgid "{0} days ago, {1}"
 msgstr "Fa {0} dies, {1}"
 
 # csharp-format
-#: ../Tomboy/Utils.cs:179
+#: ../Tomboy/Utils.cs:194
 #, csharp-format
 msgid "{0} days ago"
 msgstr "Fa {0} dies"
 
-#: ../Tomboy/Utils.cs:184
+#: ../Tomboy/Utils.cs:199
 #, csharp-format
 msgid "Tomorrow, {0}"
 msgstr "Demà, {0}"
 
-#: ../Tomboy/Utils.cs:186
+#: ../Tomboy/Utils.cs:201
 msgid "Tomorrow"
 msgstr "Demà"
 
-#: ../Tomboy/Utils.cs:190
+#: ../Tomboy/Utils.cs:205
 #, csharp-format
 msgid "In {0} days, {1}"
 msgstr "En {0} dies, {1}"
 
-#: ../Tomboy/Utils.cs:192
+#: ../Tomboy/Utils.cs:207
 #, csharp-format
 msgid "In {0} days"
 msgstr "En {0} dies"
 
-#: ../Tomboy/Utils.cs:196
+#: ../Tomboy/Utils.cs:211
 msgid "MMMM d, h:mm tt"
 msgstr "d MMMM, h:mm tt"
 
-#: ../Tomboy/Utils.cs:197
+#: ../Tomboy/Utils.cs:212
 msgid "MMMM d"
 msgstr "d MMMM"
 
-#: ../Tomboy/Utils.cs:199
+#: ../Tomboy/Utils.cs:214
 msgid "No Date"
 msgstr "Sense data"
 
-#: ../Tomboy/Utils.cs:202
+#: ../Tomboy/Utils.cs:217
 msgid "MMMM d yyyy, h:mm tt"
 msgstr "MMMM d yyyy, h:mm tt"
 
-#: ../Tomboy/Utils.cs:203
+#: ../Tomboy/Utils.cs:218
 msgid "MMMM d yyyy"
 msgstr "d MMMM yyyy"
 
