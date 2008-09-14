@@ -265,7 +265,8 @@ namespace Gnome.Keyring {
 			try {
 				resp = SendRequest (req.Stream);
 			} catch (KeyringException ke) {
-				if (ke.ResultCode == ResultCode.Denied)
+				if (ke.ResultCode == ResultCode.Denied ||
+				    ke.ResultCode == ResultCode.NoMatch)
 					return empty_item_data;
 				throw;
 			}
@@ -308,7 +309,8 @@ namespace Gnome.Keyring {
 			try {
 				resp = SendRequest (req.Stream);
 			} catch (KeyringException ke) {
-				if (ke.ResultCode == ResultCode.Denied)
+				if (ke.ResultCode == ResultCode.Denied ||
+				    ke.ResultCode == ResultCode.NoMatch)
 					return empty_net_item_data;
 				throw;
 			}
