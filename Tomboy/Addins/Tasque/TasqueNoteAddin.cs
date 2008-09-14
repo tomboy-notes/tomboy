@@ -40,9 +40,12 @@ namespace Tomboy.TasqueAddin
 		{
 			// The following two lines are required to prevent the plugin
 			// from leaking references when the plugin is disabled.
-			menu.Hidden -= OnMenuHidden;
-			menuToolButton.Clicked -= OnMenuToolButtonClicked;
-			menuToolButton.ShowMenu -= OnMenuItemActivated;
+			if (menu != null)
+				menu.Hidden -= OnMenuHidden;
+			if (menuToolButton != null) {
+				menuToolButton.Clicked -= OnMenuToolButtonClicked;
+				menuToolButton.ShowMenu -= OnMenuItemActivated;
+			}
 		}
 
 		public override void OnNoteOpened ()
