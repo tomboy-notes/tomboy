@@ -37,7 +37,8 @@ namespace Gnome.Keyring {
 		BadArguments,
 		IOError,
 		Cancelled,
-		AlreadyExists
+		AlreadyExists,
+		NoMatch
 	}
 }
 
