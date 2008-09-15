@@ -215,6 +215,7 @@ namespace Tomboy.Sync
 		{
 			// TODO: Try/finally this entire method so GUI doesn't hang?
 			SyncServiceAddin addin = null;
+			SyncServer server = null;
 			try {
 
 				addin = GetConfiguredSyncService ();
@@ -228,7 +229,6 @@ namespace Tomboy.Sync
 
 				Logger.Debug ("SyncThread using SyncServiceAddin: {0}", addin.Name);
 
-				SyncServer server;
 				SetState (SyncState.Connecting);
 				try {
 					server = addin.CreateSyncServer ();
@@ -317,6 +317,16 @@ namespace Tomboy.Sync
 					Note existingNote = FindNoteByUUID (noteUpdate.UUID);
 
 					if (existingNote == null) {
+						// Actually, it's possible to have a conflict here
+						// because of automatically-created notes like
+						// template notes (if a note with a new tag syncs
+						// before its associated template). So check by
+						// title and delete if necessary.
+						existingNote = NoteMgr.Find (noteUpdate.Title);
+						if (existingNote != null) {
+							Logger.Debug ("SyncManager: Deleting auto-generated note: " + noteUpdate.Title);
+							DeleteNoteInMainThread (existingNote);
+						}
 						CreateNoteInMainThread (noteUpdate);
 					} else if (existingNote.MetadataChangeDate.CompareTo (client.LastSyncDate) <= 0) {
 						// Existing note hasn't been modified since last sync; simply update it from server
@@ -352,9 +362,7 @@ namespace Tomboy.Sync
 				Gtk.Application.Invoke (delegate {
 				try {
 					// Make list of all local notes
-					List<Note> localNotes = new List<Note> ();
-					foreach (Note note in NoteMgr.Notes)
-					localNotes.Add (note);
+					List<Note> localNotes = new List<Note> (NoteMgr.Notes);
 
 					// Get all notes currently on server
 					IList<string> serverNotes = server.GetAllNoteUUIDs ();
@@ -385,7 +393,7 @@ namespace Tomboy.Sync
 				// Look through all the notes modified on the client
 				// and upload new or modified ones to the server
 				List<Note> newOrModifiedNotes = new List<Note> ();
-				foreach (Note note in NoteMgr.Notes) {
+				foreach (Note note in new List<Note> (NoteMgr.Notes)) {
 					if (client.GetRevision (note) == -1) {
 						// This is a new note that has never been synchronized to the server
 						// TODO: *OR* this is a note that we lost revision info for!!!
@@ -459,6 +467,11 @@ namespace Tomboy.Sync
 					SetState (SyncState.Idle); // stop progress
 					SetState (SyncState.Failed);
 					SetState (SyncState.Idle); // required to allow user to sync again
+					if (server != null)
+						// TODO: All I really want to do here is cancel
+						//       the update lock timeout, but in most cases
+						//       this will delete lock files, too.  Do better!
+						server.CancelSyncTransaction ();
 				} catch {}
 			} finally {
 			syncThread = null;
@@ -532,6 +545,29 @@ namespace Tomboy.Sync
 				throw mainThreadException;
 		}
 
+		private static void DeleteNoteInMainThread (Note existingNote)
+		{
+			// Note deletion may affect the GUI, so we have to use the
+			// delegate to run in the main gtk thread.
+			// To be consistent, any exceptions in the delgate will be caught
+			// and then rethrown in the synchronization thread.
+			Exception mainThreadException = null;
+			AutoResetEvent evt = new AutoResetEvent (false);
+			Gtk.Application.Invoke (delegate {
+				try {
+					NoteMgr.Delete (existingNote);
+				} catch (Exception e) {
+					mainThreadException = e;
+				}
+
+				evt.Set ();
+			});
+
+			evt.WaitOne ();
+			if (mainThreadException != null)
+				throw mainThreadException;
+		}
+
 		private static void UpdateLocalNote (Note localNote, NoteUpdate serverNote, NoteSyncType syncType)
 		{
 			// In each case, update existingNote's content and revision
@@ -582,7 +618,7 @@ namespace Tomboy.Sync
 
 				return title1 == title2 && tags1 == tags2 && content1 == content2;
 			} catch (Exception e){
-				Logger.Debug ("SynchronizedNoteXmlMatches threw exception with message: " + e.Message);
+				Logger.Debug ("SynchronizedNoteXmlMatches threw exception: " + e.ToString ());
 				return false;
 			}
 		}
