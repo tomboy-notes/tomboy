@@ -1,5 +1,18 @@
 2008-09-15  Sandy Armstrong <sanfordarmstrong@gmail.com> 
 
+	* configure.in, Tomboy/Addins/PrintNotes/COPYING,
+	  Tomboy/Addins/PrintNotes/gedit-print.c,
+	  Tomboy/Addins/PrintNotes/gedit-print.h,
+	  Tomboy/Addins/PrintNotes/gtksourceprintjob.c,
+	  Tomboy/Addins/PrintNotes/gtksourceprintjob.h,
+	  Tomboy/Addins/PrintNotes/Makefile.am,
+	  Tomboy/Addins/PrintNotes/PrintNotes.addin.xml,
+	  Tomboy/Addins/PrintNotes/PrintNotesNoteAddin.cs: Revert to old
+	  (pre-0.11.x) printing add-in, as the Gtk.Print port is not ready
+	  for release.
+
+2008-09-15  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
 	* Tomboy/Synchronization/SyncManager.cs: Fix bug #535279 by cancelling
 	  sync properly if an exception occurs (in turn cancelling the lock
 	  renewal timer).  This could use more testing, though.  Fixed
