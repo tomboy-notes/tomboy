@@ -784,25 +784,7 @@ namespace Tomboy
 		/// </summary>
 		public string GetCompleteNoteXml ()
 		{
-			if (!File.Exists (filepath))
-				return null;
-
-			// Make sure file contents are up to date
-			save_needed = true; // HACK: Catches newly created notes
-			Save ();
-
-			StreamReader reader = null;
-			try {
-				reader = new StreamReader (filepath);
-				return reader.ReadToEnd ();
-			} catch (Exception e) {
-				Logger.Error ("Error received while attempting to read " +
-				              filepath + ": " + e.Message);
-				return null;
-			} finally {
-				if (reader != null)
-					reader.Close ();
-			}
+			return NoteArchiver.WriteString (data.GetDataSynchronized ());
 		}
 
 		// Reload note data from a complete note XML string
@@ -1241,6 +1223,16 @@ namespace Tomboy
 			}
 
 			return note;
+		}
+
+		public static string WriteString(NoteData note)
+		{
+			StringWriter str = new StringWriter ();
+			XmlTextWriter xml = new XmlTextWriter (str);
+			Instance.Write (xml, note);
+			xml.Close ();
+			str.Flush();
+			return str.ToString ();
 		}
 
 		public static void Write (string write_file, NoteData note)
