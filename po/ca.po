@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tomboy 0.9.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-09-08 13:44+0200\n"
-"PO-Revision-Date: 2008-09-09 09:26+0200\n"
+"POT-Creation-Date: 2008-09-16 00:25+0200\n"
+"PO-Revision-Date: 2008-09-16 00:25+0200\n"
 "Last-Translator: Jordi Mas <jmas@softcatala.org>\n"
 "Language-Team: Catalan <tradgnome@softcatala.net>\n"
 "MIME-Version: 1.0\n"
@@ -715,9 +715,157 @@ msgstr ""
 msgid "_Open Today: Template"
 msgstr "_Obre Avui: plantilla"
 
-#: ../Tomboy/Addins/PrintNotes/PrintNotesNoteAddin.cs:22
+#: ../Tomboy/Addins/PrintNotes/PrintNotesNoteAddin.cs:18
+#: ../Tomboy/Addins/PrintNotes/gedit-print.c:142
 msgid "Print"
 msgstr "Imprimeix"
+
+#: ../Tomboy/Addins/PrintNotes/gedit-print.c:240
+msgid "Preparing pages..."
+msgstr "S'estan preparant les pàgines..."
+
+#: ../Tomboy/Addins/PrintNotes/gedit-print.c:267
+#, c-format
+msgid "Rendering page %d of %d..."
+msgstr "S'està representant la pàgina %d de %d..."
+
+#: ../Tomboy/Addins/PrintNotes/gedit-print.c:269
+#, c-format
+msgid "Printing page %d of %d..."
+msgstr "S'està imprimint la pàgina %d de %d..."
+
+#: ../Tomboy/Addins/PrintNotes/gedit-print.c:291
+msgid "Print preview"
+msgstr "Exemple d'impressió"
+
+#: ../Tomboy/Addins/PrintNotes/gedit-print.c:442
+msgid "Page %N of %Q"
+msgstr "Pàgina %N de %Q"
+
+#: ../Tomboy/Addins/PrintNotes/gedit-print.c:445
+#, no-c-format
+msgid "%A %x, %X"
+msgstr "%A %x, %X"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:268
+msgid "Configuration"
+msgstr "Configuració"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:269
+msgid "Configuration options for the print job"
+msgstr "Opcions de configuració del treball d'impressió"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:276
+msgid "Source Buffer"
+msgstr "Memòria intermèdia font"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:277
+msgid "GtkTextBuffer object to print"
+msgstr "Objecte GtkTextBuffer a imprimir"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:283
+msgid "Tabs Width"
+msgstr "Amplada de les tabulacions"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:284
+msgid "Width in equivalent space characters of tabs"
+msgstr "Amplada equivalent de les tabulacions en caràcters d'espai"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:291
+msgid "Wrap Mode"
+msgstr "Mode d'ajustament"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:292
+msgid "Word wrapping mode"
+msgstr "Mode d'ajustament de paraula"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:299
+msgid "Highlight"
+msgstr "Ressaltat"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:300
+msgid "Whether to print the document with highlighted syntax"
+msgstr "Si s'ha d'imprimir el document amb la sintaxi ressaltada"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:308
+msgid "Font"
+msgstr "Tipus lletra"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:309
+msgid "GnomeFont name to use for the document text (deprecated)"
+msgstr "El tipus de lletra que s'utilitzarà en el document (desaconsellat)"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:316
+msgid "Font Description"
+msgstr "Descripció del tipus de lletra"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:317
+msgid "Font to use for the document text (e.g. \"Monospace 10\")"
+msgstr ""
+"Tipus de lletra que es farà servir pel text del document (p.ex. «Monospace "
+"10»)"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:324
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:332
+msgid "Numbers Font"
+msgstr "Tipus de lletra dels números"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:325
+msgid "GnomeFont name to use for the line numbers (deprecated)"
+msgstr ""
+"Nom de la GnomeFont que es farà servir en els números de línia "
+"(desaconsellat)"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:333
+msgid "Font description to use for the line numbers"
+msgstr ""
+"Descripció del tipus de lletra que es farà servir en els números de línia"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:340
+msgid "Print Line Numbers"
+msgstr "Imprimeix els números de línia"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:341
+msgid "Interval of printed line numbers (0 means no numbers)"
+msgstr ""
+"Interval dels números de línia en l'impressió (el 0 indica no imprimir el "
+"número de línia)"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:348
+msgid "Print Header"
+msgstr "Imprimeix la capçalera"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:349
+msgid "Whether to print a header in each page"
+msgstr "Si s'ha d'imprimir la capçalera en cada pàgina"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:356
+msgid "Print Footer"
+msgstr "Imprimeix el peu de pàgina"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:357
+msgid "Whether to print a footer in each page"
+msgstr "Si s'ha d'imprimir el peu de pàgina en cada pàgina"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:364
+msgid "Header and Footer Font"
+msgstr "Tipus de lletra de la capçalera i del peu de pàgina"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:365
+msgid "GnomeFont name to use for the header and footer (deprecated)"
+msgstr ""
+"Nom del GnomeFont que s'utilitzarà per a la capçalera i el peu de pàgina "
+"(desaconsellat)"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:372
+msgid "Header and Footer Font Description"
+msgstr "Descripció del tipus de lletra de la capçalera i del peu de pàgina"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:373
+msgid "Font to use for headers and footers (e.g. \"Monospace 10\")"
+msgstr ""
+"Tipus de lletra a utilitzar per a la capçalera i del peu de pàgina (p.ex. "
+"«Monospace 10»)"
 
 #: ../Tomboy/Addins/Sketching/SketchingNoteAddin.cs:19
 msgid "Add a sketch"
@@ -791,22 +939,22 @@ msgstr "Sense títol"
 msgid "Sticky Note: "
 msgstr "Nota adhesiva: "
 
-#: ../Tomboy/Addins/Tasque/TasqueNoteAddin.cs:57
 #
 # N.T.: Nom propi d'aplicació. Veure: http://live.gnome.org/Tasque
+#: ../Tomboy/Addins/Tasque/TasqueNoteAddin.cs:60
 msgid "Tasque"
 msgstr "Tasque"
 
+# N.T: Ho deixo en anglès ja que Tasque no està en català
 #. Note to translators: "All" here must match up with the "All"
 #. category translation in Tasque for this to work properly.  "All"
 #. is used here to allow Tasque to decide which default category
 #. will be used to create the new task.
-#: ../Tomboy/Addins/Tasque/TasqueNoteAddin.cs:81
-# N.T: Ho deixo en anglès ja que Tasque no està en català
+#: ../Tomboy/Addins/Tasque/TasqueNoteAddin.cs:84
 msgid "All"
 msgstr "All"
 
-#: ../Tomboy/Addins/Tasque/TasqueNoteAddin.cs:140
+#: ../Tomboy/Addins/Tasque/TasqueNoteAddin.cs:143
 msgid "--- Tasque is not running ---"
 msgstr "--- El Tasque no s'està executant ---"
 
@@ -965,37 +1113,37 @@ msgstr "Posa aquesta nota al bloc de notes"
 msgid "Notebook"
 msgstr "Bloc de notes"
 
-#: ../Tomboy/Notebooks/NotebookNoteAddin.cs:141
 #
+#: ../Tomboy/Notebooks/NotebookNoteAddin.cs:141
 msgid "_New notebook..."
 msgstr "_Bloc de notes nou..."
 
-#: ../Tomboy/Note.cs:1438
+#: ../Tomboy/Note.cs:1430
 msgid "Really delete this note?"
 msgstr "Segur que voleu suprimir aquesta nota?"
 
-#: ../Tomboy/Note.cs:1440
+#: ../Tomboy/Note.cs:1432
 msgid "Really delete these notes?"
 msgstr "Segur que voleu suprimir aquestes notes?"
 
-#: ../Tomboy/Note.cs:1449
+#: ../Tomboy/Note.cs:1441
 msgid "If you delete a note it is permanently lost."
 msgstr "Si suprimiu una nota la perdreu definitivament."
 
-#: ../Tomboy/Note.cs:1483
 #
+#: ../Tomboy/Note.cs:1475
 msgid "Error saving note data."
 msgstr "S'ha produït un error en desar les dades de la nota."
 
-#: ../Tomboy/Note.cs:1484
+#: ../Tomboy/Note.cs:1476
 msgid ""
 "An error occurred while saving your notes. Please check that you have "
 "sufficient disk space, and that you have appropriate rights on ~/.tomboy. "
 "Error details can be found in ~/.tomboy.log."
 msgstr ""
-"S'ha produït un error en desar les notes. Comproveu que hi hagi espai suficient al disc, "
-"i que disposeu dels permisos adequats a  ~/.tomboy."
-"Podeu trobar detalls de l'error a ~/.tomboy.log."
+"S'ha produït un error en desar les notes. Comproveu que hi hagi espai "
+"suficient al disc, i que disposeu dels permisos adequats a  ~/.tomboy.Podeu "
+"trobar detalls de l'error a ~/.tomboy.log."
 
 #. New Note Template
 #: ../Tomboy/NoteManager.cs:20 ../Tomboy/PreferencesDialog.cs:210
@@ -1253,7 +1401,7 @@ msgid ""
 "Enable this option to highlight words <b>ThatLookLikeThis</b>. Clicking the "
 "word will create a note with that name."
 msgstr ""
-"Habiliteu aquesta opció per a ressaltar les paraules <b>ComAquesta</b>. Al "
+"Habiliteu aquesta opció per a ressaltar les paraules <b>ComAquesta</b>. En "
 "fer clic a la paraula es crearà una nota amb aquest nom."
 
 #. Auto bulleted list
@@ -1961,116 +2109,6 @@ msgstr ""
 "Per a evitar aquest missatge en el futur, heu de carregar el mòdul FUSE a "
 "l'inici. Afegiu «modprobe fuse» to /etc/init.d/boot.local or «fuse» to etc/"
 "modules."
-
-#~ msgid "Preparing pages..."
-#~ msgstr "S'estan preparant les pàgines..."
-
-#~ msgid "Rendering page %d of %d..."
-#~ msgstr "S'està representant la pàgina %d de %d..."
-
-#~ msgid "Printing page %d of %d..."
-#~ msgstr "S'està imprimint la pàgina %d de %d..."
-
-#~ msgid "Print preview"
-#~ msgstr "Exemple d'impressió"
-
-#~ msgid "Page %N of %Q"
-#~ msgstr "Pàgina %N de %Q"
-
-#~ msgid "%A %x, %X"
-#~ msgstr "%A %x, %X"
-
-#~ msgid "Configuration"
-#~ msgstr "Configuració"
-
-#~ msgid "Configuration options for the print job"
-#~ msgstr "Opcions de configuració del treball d'impressió"
-
-#~ msgid "Source Buffer"
-#~ msgstr "Memòria intermèdia font"
-
-#~ msgid "GtkTextBuffer object to print"
-#~ msgstr "Objecte GtkTextBuffer a imprimir"
-
-#~ msgid "Tabs Width"
-#~ msgstr "Amplada de les tabulacions"
-
-#~ msgid "Width in equivalent space characters of tabs"
-#~ msgstr "Amplada equivalent de les tabulacions en caràcters d'espai"
-
-#~ msgid "Wrap Mode"
-#~ msgstr "Mode d'ajustament"
-
-#~ msgid "Word wrapping mode"
-#~ msgstr "Mode d'ajustament de paraula"
-
-#~ msgid "Highlight"
-#~ msgstr "Ressaltat"
-
-#~ msgid "Whether to print the document with highlighted syntax"
-#~ msgstr "Si s'ha d'imprimir el document amb la sintaxi ressaltada"
-
-#~ msgid "Font"
-#~ msgstr "Tipus lletra"
-
-#~ msgid "GnomeFont name to use for the document text (deprecated)"
-#~ msgstr "El tipus de lletra que s'utilitzarà en el document (desaconsellat)"
-
-#~ msgid "Font Description"
-#~ msgstr "Descripció del tipus de lletra"
-
-#~ msgid "Font to use for the document text (e.g. \"Monospace 10\")"
-#~ msgstr ""
-#~ "Tipus de lletra que es farà servir pel text del document (p.ex. «Monospace "
-#~ "10»)"
-
-#~ msgid "Numbers Font"
-#~ msgstr "Tipus de lletra dels números"
-
-#~ msgid "GnomeFont name to use for the line numbers (deprecated)"
-#~ msgstr ""
-#~ "Nom de la GnomeFont que es farà servir en els números de línia "
-#~ "(desaconsellat)"
-
-#~ msgid "Font description to use for the line numbers"
-#~ msgstr ""
-#~ "Descripció del tipus de lletra que es farà servir en els números de línia"
-
-#~ msgid "Print Line Numbers"
-#~ msgstr "Imprimeix els números de línia"
-
-#~ msgid "Interval of printed line numbers (0 means no numbers)"
-#~ msgstr ""
-#~ "Interval dels números de línia en l'impressió (el 0 indica no imprimir el "
-#~ "número de línia)"
-
-#~ msgid "Print Header"
-#~ msgstr "Imprimeix la capçalera"
-
-#~ msgid "Whether to print a header in each page"
-#~ msgstr "Si s'ha d'imprimir la capçalera en cada pàgina"
-
-#~ msgid "Print Footer"
-#~ msgstr "Imprimeix el peu de pàgina"
-
-#~ msgid "Whether to print a footer in each page"
-#~ msgstr "Si s'ha d'imprimir el peu de pàgina en cada pàgina"
-
-#~ msgid "Header and Footer Font"
-#~ msgstr "Tipus de lletra de la capçalera i del peu de pàgina"
-
-#~ msgid "GnomeFont name to use for the header and footer (deprecated)"
-#~ msgstr ""
-#~ "Nom del GnomeFont que s'utilitzarà per a la capçalera i el peu de pàgina "
-#~ "(desaconsellat)"
-
-#~ msgid "Header and Footer Font Description"
-#~ msgstr "Descripció del tipus de lletra de la capçalera i del peu de pàgina"
-
-#~ msgid "Font to use for headers and footers (e.g. \"Monospace 10\")"
-#~ msgstr ""
-#~ "Tipus de lletra a utilitzar per a la capçalera i del peu de pàgina (p.ex. "
-#~ "«Monospace 10»)"
 
 #~ msgid "_Open New Note Template..."
 #~ msgstr "_Obre la plantilla de nota nova..."
