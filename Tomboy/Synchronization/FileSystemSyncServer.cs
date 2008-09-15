@@ -581,20 +581,21 @@ namespace Tomboy.Sync
 
 			// TODO: Permissions errors
 			// Attempt to load the file and parse it as XML
-			using (FileStream fs = new FileStream (xmlFilePath, FileMode.Open)) {
-				XmlDocument doc = new XmlDocument ();
-				try {
+			try {
+				using (FileStream fs = new FileStream (xmlFilePath, FileMode.Open)) {
+					XmlDocument doc = new XmlDocument ();
 					// TODO: Make this be a validating XML reader.  Not sure if it's validating yet.
 					doc.Load (fs);
-				} catch {
+				}
+			} catch (Exception e) {
+				Logger.Debug ("Exception while validating lock file: " + e.ToString ());
 				return false;
 			}
+
+			return true;
 		}
 
-		return true;
-	}
-
-	private void AdjustPermissions (string path)
+		private void AdjustPermissions (string path)
 		{
 			Mono.Unix.Native.Syscall.chmod (path, Mono.Unix.Native.FilePermissions.ACCESSPERMS);
 		}
