@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tomboy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-09-08 17:48+0900\n"
+"POT-Creation-Date: 2008-09-17 01:48+0900\n"
 "PO-Revision-Date: 2008-09-08 17:56+0900\n"
 "Last-Translator: Changwoo Ryu <cwryu@debian.org>\n"
 "Language-Team: GNOME Korea <gnome-kr-hackers@lists.kldp.net>\n"
@@ -683,9 +683,146 @@ msgstr ""
 msgid "_Open Today: Template"
 msgstr "오늘: 템플리트 열기(_O)"
 
-#: ../Tomboy/Addins/PrintNotes/PrintNotesNoteAddin.cs:22
+#: ../Tomboy/Addins/PrintNotes/PrintNotesNoteAddin.cs:18
+#: ../Tomboy/Addins/PrintNotes/gedit-print.c:142
 msgid "Print"
 msgstr "인쇄"
+
+#: ../Tomboy/Addins/PrintNotes/gedit-print.c:240
+msgid "Preparing pages..."
+msgstr "페이지 준비 중입니다..."
+
+#: ../Tomboy/Addins/PrintNotes/gedit-print.c:267
+#, c-format
+msgid "Rendering page %d of %d..."
+msgstr "%2$d페이지 중 %1$d페이지 그리는 중..."
+
+#: ../Tomboy/Addins/PrintNotes/gedit-print.c:269
+#, c-format
+msgid "Printing page %d of %d..."
+msgstr "%2$d페이지 중 %1$d페이지 인쇄 중..."
+
+#: ../Tomboy/Addins/PrintNotes/gedit-print.c:291
+msgid "Print preview"
+msgstr "인쇄 미리보기"
+
+#: ../Tomboy/Addins/PrintNotes/gedit-print.c:442
+msgid "Page %N of %Q"
+msgstr "%Q페이지 중 %N페이지"
+
+#: ../Tomboy/Addins/PrintNotes/gedit-print.c:445
+#, no-c-format
+msgid "%A %x, %X"
+msgstr "%x %A %X"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:268
+msgid "Configuration"
+msgstr "설정"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:269
+msgid "Configuration options for the print job"
+msgstr "인쇄에 대한 설정 옵션"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:276
+msgid "Source Buffer"
+msgstr "소스 버퍼"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:277
+msgid "GtkTextBuffer object to print"
+msgstr "인쇄할 GtkTextBuffer 개체"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:283
+msgid "Tabs Width"
+msgstr "탭 너비"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:284
+msgid "Width in equivalent space characters of tabs"
+msgstr "탭 너비에 해당하는 스페이스 개수"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:291
+msgid "Wrap Mode"
+msgstr "줄 바꾸기 모드"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:292
+msgid "Word wrapping mode"
+msgstr "단어 줄바꿈 모드"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:299
+msgid "Highlight"
+msgstr "강조"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:300
+msgid "Whether to print the document with highlighted syntax"
+msgstr "구문 강조된 문서를 인쇄할 지 여부"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:308
+msgid "Font"
+msgstr "글꼴"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:309
+msgid "GnomeFont name to use for the document text (deprecated)"
+msgstr "문서 글자에 쓰일 GnomeFont 이름(없어질 예정)"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:316
+msgid "Font Description"
+msgstr "글꼴 설명"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:317
+msgid "Font to use for the document text (e.g. \"Monospace 10\")"
+msgstr "문서 글자에 쓰일 글꼴(예: \"Monospace 10\")"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:324
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:332
+msgid "Numbers Font"
+msgstr "번호 글꼴"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:325
+msgid "GnomeFont name to use for the line numbers (deprecated)"
+msgstr "줄 번호에 쓰일 GnomeFont 이름 (없어질 예정)"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:333
+msgid "Font description to use for the line numbers"
+msgstr "줄 번호에 쓰일 글꼴 설명"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:340
+msgid "Print Line Numbers"
+msgstr "줄 번호 인쇄"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:341
+msgid "Interval of printed line numbers (0 means no numbers)"
+msgstr "줄번호 인쇄 간격 (0는 번호 없음)"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:348
+msgid "Print Header"
+msgstr "글머리 인쇄"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:349
+msgid "Whether to print a header in each page"
+msgstr "각 페이지에 글머리를 인쇄할 지 여부"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:356
+msgid "Print Footer"
+msgstr "글꼬리 인쇄"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:357
+msgid "Whether to print a footer in each page"
+msgstr "각 페이지에 글꼬리를 인쇄할 지 여부"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:364
+msgid "Header and Footer Font"
+msgstr "글머리 및 꼬리 글꼴"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:365
+msgid "GnomeFont name to use for the header and footer (deprecated)"
+msgstr "글머리와 꼬리에 쓰일 GnomeFont 이름 (없어질 예정)"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:372
+msgid "Header and Footer Font Description"
+msgstr "글머리 및 꼬리 글꼴 설명"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:373
+msgid "Font to use for headers and footers (e.g. \"Monospace 10\")"
+msgstr "글머리와 꼬리에 쓰일 글꼴 (예를 들어 \"Monospace 10\")"
 
 #: ../Tomboy/Addins/Sketching/SketchingNoteAddin.cs:19
 msgid "Add a sketch"
@@ -758,7 +895,7 @@ msgstr "제목 없음"
 msgid "Sticky Note: "
 msgstr "메모지:"
 
-#: ../Tomboy/Addins/Tasque/TasqueNoteAddin.cs:57
+#: ../Tomboy/Addins/Tasque/TasqueNoteAddin.cs:60
 msgid "Tasque"
 msgstr "작업"
 
@@ -766,11 +903,11 @@ msgstr "작업"
 #. category translation in Tasque for this to work properly.  "All"
 #. is used here to allow Tasque to decide which default category
 #. will be used to create the new task.
-#: ../Tomboy/Addins/Tasque/TasqueNoteAddin.cs:81
+#: ../Tomboy/Addins/Tasque/TasqueNoteAddin.cs:84
 msgid "All"
 msgstr "모두"
 
-#: ../Tomboy/Addins/Tasque/TasqueNoteAddin.cs:140
+#: ../Tomboy/Addins/Tasque/TasqueNoteAddin.cs:143
 msgid "--- Tasque is not running ---"
 msgstr "--- 작업 기능을 실행하고 있지 않습니다 ---"
 
@@ -931,28 +1068,31 @@ msgstr "쪽지함"
 msgid "_New notebook..."
 msgstr "새 쪽지함(_N)..."
 
-#: ../Tomboy/Note.cs:1438
+#: ../Tomboy/Note.cs:1430
 msgid "Really delete this note?"
 msgstr "이 쪽지를 정말로 지우겠습니까?"
 
-#: ../Tomboy/Note.cs:1440
+#: ../Tomboy/Note.cs:1432
 msgid "Really delete these notes?"
 msgstr "이 쪽지를 정말로 지우겠습니까?"
 
-#: ../Tomboy/Note.cs:1449
+#: ../Tomboy/Note.cs:1441
 msgid "If you delete a note it is permanently lost."
 msgstr "쪽지를 지우면 되살릴 수 없습니다."
 
-#: ../Tomboy/Note.cs:1483
+#: ../Tomboy/Note.cs:1475
 msgid "Error saving note data."
 msgstr "쪽지 데이터 저장에 오류."
 
-#: ../Tomboy/Note.cs:1484
+#: ../Tomboy/Note.cs:1476
 msgid ""
 "An error occurred while saving your notes. Please check that you have "
 "sufficient disk space, and that you have appropriate rights on ~/.tomboy. "
 "Error details can be found in ~/.tomboy.log."
-msgstr "쪽지를 저장하는 데 오류가 발생했습니다. 디스크 공간이 충분한 지 확인하시고, ~/.tomboy의 권한이 올바른지 확인하십시오. 자세한 오류 내용은 ~/.tomboy.log 파일에 있습니다."
+msgstr ""
+"쪽지를 저장하는 데 오류가 발생했습니다. 디스크 공간이 충분한 지 확인하시고, "
+"~/.tomboy의 권한이 올바른지 확인하십시오. 자세한 오류 내용은 ~/.tomboy.log 파"
+"일에 있습니다."
 
 #. New Note Template
 #: ../Tomboy/NoteManager.cs:20 ../Tomboy/PreferencesDialog.cs:210
@@ -1900,105 +2040,6 @@ msgstr ""
 "다음에 이 화면을 보지 않으려면, 시스템이 시작할 때 FUSE를 적재하도록 하시기 "
 "바랍니다. /etc/init.d/boot.local에 \"modprobe fuse\"를 추가하던 지, /etc/"
 "modules에 \"fuse\"를 추가하십시오."
-
-#~ msgid "Preparing pages..."
-#~ msgstr "페이지 준비 중입니다..."
-
-#~ msgid "Rendering page %d of %d..."
-#~ msgstr "%2$d페이지 중 %1$d페이지 그리는 중..."
-
-#~ msgid "Printing page %d of %d..."
-#~ msgstr "%2$d페이지 중 %1$d페이지 인쇄 중..."
-
-#~ msgid "Print preview"
-#~ msgstr "인쇄 미리보기"
-
-#~ msgid "Page %N of %Q"
-#~ msgstr "%Q페이지 중 %N페이지"
-
-#~ msgid "%A %x, %X"
-#~ msgstr "%x %A %X"
-
-#~ msgid "Configuration"
-#~ msgstr "설정"
-
-#~ msgid "Configuration options for the print job"
-#~ msgstr "인쇄에 대한 설정 옵션"
-
-#~ msgid "Source Buffer"
-#~ msgstr "소스 버퍼"
-
-#~ msgid "GtkTextBuffer object to print"
-#~ msgstr "인쇄할 GtkTextBuffer 개체"
-
-#~ msgid "Tabs Width"
-#~ msgstr "탭 너비"
-
-#~ msgid "Width in equivalent space characters of tabs"
-#~ msgstr "탭 너비에 해당하는 스페이스 개수"
-
-#~ msgid "Wrap Mode"
-#~ msgstr "줄 바꾸기 모드"
-
-#~ msgid "Word wrapping mode"
-#~ msgstr "단어 줄바꿈 모드"
-
-#~ msgid "Highlight"
-#~ msgstr "강조"
-
-#~ msgid "Whether to print the document with highlighted syntax"
-#~ msgstr "구문 강조된 문서를 인쇄할 지 여부"
-
-#~ msgid "Font"
-#~ msgstr "글꼴"
-
-#~ msgid "GnomeFont name to use for the document text (deprecated)"
-#~ msgstr "문서 글자에 쓰일 GnomeFont 이름(없어질 예정)"
-
-#~ msgid "Font Description"
-#~ msgstr "글꼴 설명"
-
-#~ msgid "Font to use for the document text (e.g. \"Monospace 10\")"
-#~ msgstr "문서 글자에 쓰일 글꼴(예: \"Monospace 10\")"
-
-#~ msgid "Numbers Font"
-#~ msgstr "번호 글꼴"
-
-#~ msgid "GnomeFont name to use for the line numbers (deprecated)"
-#~ msgstr "줄 번호에 쓰일 GnomeFont 이름 (없어질 예정)"
-
-#~ msgid "Font description to use for the line numbers"
-#~ msgstr "줄 번호에 쓰일 글꼴 설명"
-
-#~ msgid "Print Line Numbers"
-#~ msgstr "줄 번호 인쇄"
-
-#~ msgid "Interval of printed line numbers (0 means no numbers)"
-#~ msgstr "줄번호 인쇄 간격 (0는 번호 없음)"
-
-#~ msgid "Print Header"
-#~ msgstr "글머리 인쇄"
-
-#~ msgid "Whether to print a header in each page"
-#~ msgstr "각 페이지에 글머리를 인쇄할 지 여부"
-
-#~ msgid "Print Footer"
-#~ msgstr "글꼬리 인쇄"
-
-#~ msgid "Whether to print a footer in each page"
-#~ msgstr "각 페이지에 글꼬리를 인쇄할 지 여부"
-
-#~ msgid "Header and Footer Font"
-#~ msgstr "글머리 및 꼬리 글꼴"
-
-#~ msgid "GnomeFont name to use for the header and footer (deprecated)"
-#~ msgstr "글머리와 꼬리에 쓰일 GnomeFont 이름 (없어질 예정)"
-
-#~ msgid "Header and Footer Font Description"
-#~ msgstr "글머리 및 꼬리 글꼴 설명"
-
-#~ msgid "Font to use for headers and footers (e.g. \"Monospace 10\")"
-#~ msgstr "글머리와 꼬리에 쓰일 글꼴 (예를 들어 \"Monospace 10\")"
 
 #~ msgid "_Open New Note Template..."
 #~ msgstr "새 쪽지 템플리트 열기(_O)..."
