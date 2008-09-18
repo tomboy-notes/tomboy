@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tomboy HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-08-03 08:57+0200\n"
-"PO-Revision-Date: 2008-07-23 10:15+0200\n"
+"POT-Creation-Date: 2008-09-18 17:37+0200\n"
+"PO-Revision-Date: 2008-08-09 06:24+0200\n"
 "Last-Translator: Pavol Klačanský <pavolzetor@gmail.com>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
 "MIME-Version: 1.0\n"
@@ -662,7 +662,7 @@ msgstr "Vložiť čas"
 
 #. initial newline
 #: ../Tomboy/Addins/InsertTimestamp/InsertTimestampPreferences.cs:30
-#: ../Tomboy/Applet.cs:208 ../Tomboy/Preferences.cs:137
+#: ../Tomboy/Applet.cs:205 ../Tomboy/Preferences.cs:137
 msgid "dddd, MMMM d, h:mm tt"
 msgstr "dddd, d. MMMM, h:mm tt"
 
@@ -711,9 +711,146 @@ msgstr ""
 msgid "_Open Today: Template"
 msgstr "_Otvoriť dnešné: Šablóna"
 
-#: ../Tomboy/Addins/PrintNotes/PrintNotesNoteAddin.cs:22
+#: ../Tomboy/Addins/PrintNotes/PrintNotesNoteAddin.cs:18
+#: ../Tomboy/Addins/PrintNotes/gedit-print.c:142
 msgid "Print"
 msgstr "Tlačiť..."
+
+#: ../Tomboy/Addins/PrintNotes/gedit-print.c:240
+msgid "Preparing pages..."
+msgstr "Pripravujú sa stránky..."
+
+#: ../Tomboy/Addins/PrintNotes/gedit-print.c:267
+#, c-format
+msgid "Rendering page %d of %d..."
+msgstr "Vykresľuje sa stránka %d z %d"
+
+#: ../Tomboy/Addins/PrintNotes/gedit-print.c:269
+#, c-format
+msgid "Printing page %d of %d..."
+msgstr "Tlačí sa stránka %d z %d..."
+
+#: ../Tomboy/Addins/PrintNotes/gedit-print.c:291
+msgid "Print preview"
+msgstr "Náhľad pred tlačou"
+
+#: ../Tomboy/Addins/PrintNotes/gedit-print.c:442
+msgid "Page %N of %Q"
+msgstr "Strana %N z %Q"
+
+#: ../Tomboy/Addins/PrintNotes/gedit-print.c:445
+#, no-c-format
+msgid "%A %x, %X"
+msgstr "%A %x, %X"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:268
+msgid "Configuration"
+msgstr "Konfigurácia"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:269
+msgid "Configuration options for the print job"
+msgstr "Voľby nastavení pre tlačovú úlohu"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:276
+msgid "Source Buffer"
+msgstr "Zdrojový zásobník"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:277
+msgid "GtkTextBuffer object to print"
+msgstr "GtkTextBuffer objekt k tlačeniu"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:283
+msgid "Tabs Width"
+msgstr "Šírka kariet"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:284
+msgid "Width in equivalent space characters of tabs"
+msgstr "Rovnaká šírka medzier medzi znakmi oddelenými tabulátormi"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:291
+msgid "Wrap Mode"
+msgstr "Zalamovací režim"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:292
+msgid "Word wrapping mode"
+msgstr "Mód zalamovania slov"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:299
+msgid "Highlight"
+msgstr "Zvýraznenie"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:300
+msgid "Whether to print the document with highlighted syntax"
+msgstr "Či tlačiť dokument so zvýraznenou syntaxou"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:308
+msgid "Font"
+msgstr "Písmo"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:309
+msgid "GnomeFont name to use for the document text (deprecated)"
+msgstr "Názov GnomeFont použiť pre text dokumentu (nedoporučované)"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:316
+msgid "Font Description"
+msgstr "Druh písma"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:317
+msgid "Font to use for the document text (e.g. \"Monospace 10\")"
+msgstr "Použiť písmo na text dokumentu (napríklad \"Monospace 10\")"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:324
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:332
+msgid "Numbers Font"
+msgstr "Počet písiem"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:325
+msgid "GnomeFont name to use for the line numbers (deprecated)"
+msgstr "Názov GnomeFont použitého pre čísla riadkov (zastaralé)"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:333
+msgid "Font description to use for the line numbers"
+msgstr "Druh písma použiť pre čísla riadkov"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:340
+msgid "Print Line Numbers"
+msgstr "Tlačiť čísla riadkov"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:341
+msgid "Interval of printed line numbers (0 means no numbers)"
+msgstr "Rozpätie tlačených číslovaných riadkov (0 - žiadne čísla)"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:348
+msgid "Print Header"
+msgstr "Tlačiť záhlavie"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:349
+msgid "Whether to print a header in each page"
+msgstr "Či tlačiť záhlavie na každej strane"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:356
+msgid "Print Footer"
+msgstr "Tlačiť zápätie"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:357
+msgid "Whether to print a footer in each page"
+msgstr "Či tlačiť zápätie na každej strane"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:364
+msgid "Header and Footer Font"
+msgstr "Písmo záhlavia a zápätia"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:365
+msgid "GnomeFont name to use for the header and footer (deprecated)"
+msgstr "Názov GnomeFont použitého pre záhlavie a zápätie (zastaralé)"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:372
+msgid "Header and Footer Font Description"
+msgstr "Druh písma záhlavia a zápätia"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:373
+msgid "Font to use for headers and footers (e.g. \"Monospace 10\")"
+msgstr "Písmo použiť pre záhlavie a zápätie (napr. \"Monospace 10\")"
 
 #: ../Tomboy/Addins/Sketching/SketchingNoteAddin.cs:19
 msgid "Add a sketch"
@@ -787,7 +924,7 @@ msgstr "Nepomenovaný"
 msgid "Sticky Note: "
 msgstr "Sticky Notes:"
 
-#: ../Tomboy/Addins/Tasque/TasqueNoteAddin.cs:57
+#: ../Tomboy/Addins/Tasque/TasqueNoteAddin.cs:60
 msgid "Tasque"
 msgstr "Tasque"
 
@@ -795,11 +932,11 @@ msgstr "Tasque"
 #. category translation in Tasque for this to work properly.  "All"
 #. is used here to allow Tasque to decide which default category
 #. will be used to create the new task.
-#: ../Tomboy/Addins/Tasque/TasqueNoteAddin.cs:81
+#: ../Tomboy/Addins/Tasque/TasqueNoteAddin.cs:84
 msgid "All"
 msgstr "Všetky"
 
-#: ../Tomboy/Addins/Tasque/TasqueNoteAddin.cs:140
+#: ../Tomboy/Addins/Tasque/TasqueNoteAddin.cs:143
 msgid "--- Tasque is not running ---"
 msgstr "--- Tasque nie je spustený ---"
 
@@ -926,7 +1063,7 @@ msgstr "Zapisníky"
 
 #: ../Tomboy/Notebooks/NotebookManager.cs:356
 msgid "Really delete this notebook?"
-msgstr "Naozaj odstrániť túto poznámku?"
+msgstr "Naozaj odstrániť tento zápisník?"
 
 #: ../Tomboy/Notebooks/NotebookManager.cs:358
 msgid ""
@@ -934,7 +1071,7 @@ msgid ""
 "longer be associated with this notebook.  This action cannot be undone."
 msgstr ""
 "Poznámky patriace do tohto zápisníku nebudú odstránené, ale už nebudú "
-"priradené k tomuto zápisníku.  Táto akcia je nenávratná."
+"priradené k tomuto zápisníku.  Táto akcia je nevratná."
 
 #: ../Tomboy/Notebooks/NotebookMenuItem.cs:14
 msgid "No notebook"
@@ -961,29 +1098,31 @@ msgstr "Zápisník"
 msgid "_New notebook..."
 msgstr "_Nový zápisník..."
 
-#: ../Tomboy/Note.cs:1438
+#: ../Tomboy/Note.cs:1430
 msgid "Really delete this note?"
 msgstr "Skutočne odstrániť túto poznámku?"
 
-#: ../Tomboy/Note.cs:1440
+#: ../Tomboy/Note.cs:1432
 msgid "Really delete these notes?"
 msgstr "Naozaj odstrániť tieto poznámky?"
 
-#: ../Tomboy/Note.cs:1449
+#: ../Tomboy/Note.cs:1441
 msgid "If you delete a note it is permanently lost."
 msgstr "Ak zmažete poznámku, bude navždy odstránená."
 
-#: ../Tomboy/Note.cs:1483
-#, fuzzy
+#: ../Tomboy/Note.cs:1475
 msgid "Error saving note data."
-msgstr "Chyba pri ukladaní ikony"
+msgstr "Chyba pri ukladaní údajov poznámky."
 
-#: ../Tomboy/Note.cs:1484
+#: ../Tomboy/Note.cs:1476
 msgid ""
 "An error occurred while saving your notes. Please check that you have "
 "sufficient disk space, and that you have appropriate rights on ~/.tomboy. "
 "Error details can be found in ~/.tomboy.log."
 msgstr ""
+"Počas ukladania vašich poznámok sa vyskytla chyba. Skontrolujte, prosím, či "
+"máte dostatok miesta na disku, a či máte vhodné oprávnenia v ~/.tomboy. "
+"Podrobnosti chyby môžete nájsť v ~/.tomboy.log."
 
 #. New Note Template
 #: ../Tomboy/NoteManager.cs:20 ../Tomboy/PreferencesDialog.cs:210
@@ -1476,29 +1615,29 @@ msgstr[2] "Spolu: {0} poznámky"
 msgid "Notes"
 msgstr "Poznámky"
 
-#: ../Tomboy/Tomboy.cs:194
+#: ../Tomboy/Tomboy.cs:193
 msgid "Cannot create new note"
 msgstr "Nemôžem vytvoriť novú poznámku"
 
-#: ../Tomboy/Tomboy.cs:271
+#: ../Tomboy/Tomboy.cs:276
 msgid "translator-credits"
 msgstr "Pavol Klačanský <pavolzetor@gmail.com>"
 
-#: ../Tomboy/Tomboy.cs:280
+#: ../Tomboy/Tomboy.cs:285
 msgid "Copyright © 2004-2007 Alex Graveley"
 msgstr "Autorské práva © 2004-2007 Alex Graveley"
 
-#: ../Tomboy/Tomboy.cs:281
+#: ../Tomboy/Tomboy.cs:286
 msgid "A simple and easy to use desktop note-taking application."
 msgstr ""
 "Jednoduchá a ľahko používatelná\n"
 "aplikácia pre poznámky na pracovnej ploche."
 
-#: ../Tomboy/Tomboy.cs:284
+#: ../Tomboy/Tomboy.cs:289
 msgid "Homepage"
 msgstr "Domovská stránka"
 
-#: ../Tomboy/Tomboy.cs:391
+#: ../Tomboy/Tomboy.cs:396
 msgid ""
 "Tomboy: A simple, easy to use desktop note-taking application.\n"
 "Copyright (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
@@ -1508,7 +1647,7 @@ msgstr ""
 "Autorské práva (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
 "\n"
 
-#: ../Tomboy/Tomboy.cs:403
+#: ../Tomboy/Tomboy.cs:408
 msgid ""
 "Usage:\n"
 "  --version\t\t\tPrint version information.\n"
@@ -1524,7 +1663,7 @@ msgstr ""
 "  --search [text]\t\tOtvoriť okno hľadania vo všetkých poznámkach s textom "
 "na hľadanie.\n"
 
-#: ../Tomboy/Tomboy.cs:414
+#: ../Tomboy/Tomboy.cs:419
 msgid ""
 "  --new-note\t\t\tCreate and display a new note.\n"
 "  --new-note [title]\t\tCreate and display a new note, with a title.\n"
@@ -1544,16 +1683,16 @@ msgstr ""
 #. Catalog.GetString (
 #. "  --check-plugin-unloading\tCheck if plugins are " +
 #. "unloaded properly.\n");
-#: ../Tomboy/Tomboy.cs:431
+#: ../Tomboy/Tomboy.cs:436
 msgid "D-BUS remote control disabled.\n"
 msgstr "Zakázané vzdialené ovládanie D-BUS.\n"
 
-#: ../Tomboy/Tomboy.cs:439
+#: ../Tomboy/Tomboy.cs:444
 #, csharp-format
 msgid "Version {0}"
 msgstr "Verzia {0}"
 
-#: ../Tomboy/Tomboy.cs:509
+#: ../Tomboy/Tomboy.cs:514
 #, csharp-format
 msgid ""
 "Tomboy: unsupported option '{0}'\n"
@@ -1953,105 +2092,6 @@ msgstr ""
 "Ak nechcete dostávať túto výzvu, mali by ste pri štarte nahrať FUSE.  "
 "Pridajte \"modprobe fuse\" do /etc/init.d/boot.local alebo \"fuse\" do /etc/"
 "modules."
-
-#~ msgid "Preparing pages..."
-#~ msgstr "Pripravujú sa stránky..."
-
-#~ msgid "Rendering page %d of %d..."
-#~ msgstr "Vykresľuje sa stránka %d z %d"
-
-#~ msgid "Printing page %d of %d..."
-#~ msgstr "Tlačí sa stránka %d z %d..."
-
-#~ msgid "Print preview"
-#~ msgstr "Náhľad pred tlačou"
-
-#~ msgid "Page %N of %Q"
-#~ msgstr "Strana %N z %Q"
-
-#~ msgid "%A %x, %X"
-#~ msgstr "%A %x, %X"
-
-#~ msgid "Configuration"
-#~ msgstr "Konfigurácia"
-
-#~ msgid "Configuration options for the print job"
-#~ msgstr "Voľby nastavení pre tlačovú úlohu"
-
-#~ msgid "Source Buffer"
-#~ msgstr "Zdrojový zásobník"
-
-#~ msgid "GtkTextBuffer object to print"
-#~ msgstr "GtkTextBuffer objekt k tlačeniu"
-
-#~ msgid "Tabs Width"
-#~ msgstr "Šírka kariet"
-
-#~ msgid "Width in equivalent space characters of tabs"
-#~ msgstr "Rovnaká šírka medzier medzi znakmi oddelenými tabulátormi"
-
-#~ msgid "Wrap Mode"
-#~ msgstr "Zalamovací režim"
-
-#~ msgid "Word wrapping mode"
-#~ msgstr "Mód zalamovania slov"
-
-#~ msgid "Highlight"
-#~ msgstr "Zvýraznenie"
-
-#~ msgid "Whether to print the document with highlighted syntax"
-#~ msgstr "Či tlačiť dokument so zvýraznenou syntaxou"
-
-#~ msgid "Font"
-#~ msgstr "Písmo"
-
-#~ msgid "GnomeFont name to use for the document text (deprecated)"
-#~ msgstr "Názov GnomeFont použiť pre text dokumentu (nedoporučované)"
-
-#~ msgid "Font Description"
-#~ msgstr "Druh písma"
-
-#~ msgid "Font to use for the document text (e.g. \"Monospace 10\")"
-#~ msgstr "Použiť písmo na text dokumentu (napríklad \"Monospace 10\")"
-
-#~ msgid "Numbers Font"
-#~ msgstr "Počet písiem"
-
-#~ msgid "GnomeFont name to use for the line numbers (deprecated)"
-#~ msgstr "Názov GnomeFont použitého pre čísla riadkov (zastaralé)"
-
-#~ msgid "Font description to use for the line numbers"
-#~ msgstr "Druh písma použiť pre čísla riadkov"
-
-#~ msgid "Print Line Numbers"
-#~ msgstr "Tlačiť čísla riadkov"
-
-#~ msgid "Interval of printed line numbers (0 means no numbers)"
-#~ msgstr "Rozpätie tlačených číslovaných riadkov (0 - žiadne čísla)"
-
-#~ msgid "Print Header"
-#~ msgstr "Tlačiť záhlavie"
-
-#~ msgid "Whether to print a header in each page"
-#~ msgstr "Či tlačiť záhlavie na každej strane"
-
-#~ msgid "Print Footer"
-#~ msgstr "Tlačiť zápätie"
-
-#~ msgid "Whether to print a footer in each page"
-#~ msgstr "Či tlačiť zápätie na každej strane"
-
-#~ msgid "Header and Footer Font"
-#~ msgstr "Písmo záhlavia a zápätia"
-
-#~ msgid "GnomeFont name to use for the header and footer (deprecated)"
-#~ msgstr "Názov GnomeFont použitého pre záhlavie a zápätie (zastaralé)"
-
-#~ msgid "Header and Footer Font Description"
-#~ msgstr "Druh písma záhlavia a zápätia"
-
-#~ msgid "Font to use for headers and footers (e.g. \"Monospace 10\")"
-#~ msgstr "Písmo použiť pre záhlavie a zápätie (napr. \"Monospace 10\")"
 
 #~ msgid "_Open New Note Template..."
 #~ msgstr "_Otvoriť šablónu novej poznámky..."
