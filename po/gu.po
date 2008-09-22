@@ -3,20 +3,20 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
 #
 # Ankit Patel <ankit644@yahoo.com>, 2006.
-# Ankit Patel <ankit@redhat.com>, 2007.
+# Ankit Patel <ankit@redhat.com>, 2007, 2008.
 # Sweta Kothari <swkothar@redhat.com>, 2008.
 msgid ""
 msgstr ""
 "Project-Id-Version: tomboy.HEAD.gu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-08-02 14:55+0000\n"
-"PO-Revision-Date: 2008-08-08 14:12+0530\n"
-"Last-Translator: Sweta Kothari <swkothar@redhat.com>\n"
-"Language-Team: Gujarati\n"
+"POT-Creation-Date: 2008-09-15 16:03+0000\n"
+"PO-Revision-Date: 2008-09-21 22:49+0530\n"
+"Last-Translator: Ankit Patel <ankit@redhat.com>\n"
+"Language-Team: Gujarati <fedora-trans-gu@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"Plural-Forms:  nplurals=2; plural=(n!=1);\n\n"
 "\n"
 "\n"
 "\n"
@@ -47,7 +47,7 @@ msgid "Tomboy Applet Factory"
 msgstr "Tomboy એપ્લેટ કારખાનું"
 
 #: ../data/GNOME_TomboyApplet.server.in.in.h:4 ../data/tomboy.desktop.in.h:3
-#: ../Tomboy/Applet.cs:153 ../Tomboy/Tray.cs:163
+#: ../Tomboy/Tray.cs:514
 msgid "Tomboy Notes"
 msgstr "Tomboy નોંધો"
 
@@ -56,12 +56,12 @@ msgid "_About"
 msgstr "વિશે (_A)"
 
 #: ../data/GNOME_TomboyApplet.xml.h:2 ../Tomboy/ActionManager.cs:157
-#: ../Tomboy/Applet.cs:191
+#: ../Tomboy/Tray.cs:223
 msgid "_Help"
 msgstr "મદદ (_H)"
 
 #: ../data/GNOME_TomboyApplet.xml.h:3 ../Tomboy/ActionManager.cs:153
-#: ../Tomboy/Applet.cs:186
+#: ../Tomboy/Tray.cs:218
 msgid "_Preferences"
 msgstr "પસંદગીઓ (_P)"
 
@@ -91,7 +91,7 @@ msgstr "WikiWord પ્રકાશિત કરવાનું સક્રિ�
 
 #: ../data/tomboy.schemas.in.h:6
 msgid "Enable closing notes with escape."
-msgstr ""
+msgstr "એસ્કેપ સાથે નોંધો બંધ કરવાનું સક્રિય કરો."
 
 #: ../data/tomboy.schemas.in.h:7
 msgid "Enable custom font"
@@ -113,13 +113,13 @@ msgstr "શરૂઆતી નોંધો સક્રિય કરો"
 msgid ""
 "Enable this option if you want bulleted lists to be automatic when you place "
 "- or * at the beginning of a line."
-msgstr ""
+msgstr "જો તમને બુલેટવાળી યાદીઓ આપોઆપ જોઈતી હોય તો આ વિકલ્પ સક્રિય કરો જ્યારે તમે - અથવા * ને લીટીની શરૂઆતમાં મૂકો."
 
 #: ../data/tomboy.schemas.in.h:12
 msgid ""
 "Enable this option if you want to be able to middle-click the Tomboy icon to "
 "paste timestamped content into the Start Here note."
-msgstr ""
+msgstr "જો તમે Tomboy ચિહ્ન પર વચ્ચેનું ક્લિક કરવા પરો અંહિ શરૂ કરો નોંધમાં સમયનોંધવાળા સમાવિષ્ટને ચોંટાડવા માંગો તો આ વિકલ્પ સક્રિય કરો."
 
 #: ../data/tomboy.schemas.in.h:13
 msgid ""
@@ -159,7 +159,7 @@ msgstr ""
 
 #: ../data/tomboy.schemas.in.h:19
 msgid "If enabled, an opened note can be closed by hitting the escape key."
-msgstr ""
+msgstr "જો સક્રિય કરેલ હોય, તો ખૂલેલી નોંધ એસ્કેપ કી મારવાથી બંધ કરી શકાય છે."
 
 #: ../data/tomboy.schemas.in.h:20
 msgid ""
@@ -459,7 +459,7 @@ msgstr "બંધ કરો (_C)"
 msgid "Close this window"
 msgstr "આ વિન્ડો બંધ કરો"
 
-#: ../Tomboy/ActionManager.cs:146 ../Tomboy/Applet.cs:203
+#: ../Tomboy/ActionManager.cs:146 ../Tomboy/Tray.cs:235
 msgid "_Quit"
 msgstr "બહાર નીકળો (_Q)"
 
@@ -654,7 +654,7 @@ msgstr "ટાઇમસ્ટેમ્પ ને દાખલ કરો"
 
 #. initial newline
 #: ../Tomboy/Addins/InsertTimestamp/InsertTimestampPreferences.cs:30
-#: ../Tomboy/Preferences.cs:137 ../Tomboy/Tray.cs:211
+#: ../Tomboy/Applet.cs:205 ../Tomboy/Preferences.cs:137
 msgid "dddd, MMMM d, h:mm tt"
 msgstr "dddd, MMMM d, h:mm tt"
 
@@ -715,12 +715,12 @@ msgstr "પાનાંઓ તૈયાર કરી રહ્યા છીએ..
 #: ../Tomboy/Addins/PrintNotes/gedit-print.c:267
 #, c-format
 msgid "Rendering page %d of %d..."
-msgstr "પાનું રેન્ડર કરી રહ્યા છીએ %d મું %d માંથી..."
+msgstr "%d નંબરનું પાનું %d માંથી ઢાળી રહ્યા છીએ..."
 
 #: ../Tomboy/Addins/PrintNotes/gedit-print.c:269
 #, c-format
 msgid "Printing page %d of %d..."
-msgstr "પાનું છાપી રહ્યા છીએ %d મું %d માંથી..."
+msgstr "%d નંબરનું પાનું %d માંથી છાપી રહ્યા છીએ..."
 
 #: ../Tomboy/Addins/PrintNotes/gedit-print.c:291
 msgid "Print preview"
@@ -728,7 +728,7 @@ msgstr "છાપન પૂર્વદર્શન"
 
 #: ../Tomboy/Addins/PrintNotes/gedit-print.c:442
 msgid "Page %N of %Q"
-msgstr "પાનું %N મું %Q માંનું"
+msgstr "%N પાનું %Q માંથી"
 
 #: ../Tomboy/Addins/PrintNotes/gedit-print.c:445
 #, no-c-format
@@ -749,15 +749,15 @@ msgstr "સ્રોત બફર"
 
 #: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:277
 msgid "GtkTextBuffer object to print"
-msgstr "છાપવા માટે GtkTextBuffer ઓબ્જેક્ટ"
+msgstr "છાપવા માટેનો GtkTextBuffer ઓબ્જેક્ટ"
 
 #: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:283
 msgid "Tabs Width"
-msgstr "ટેબ પહોળાઈ"
+msgstr "ટેબોની પહોળાઈ"
 
 #: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:284
 msgid "Width in equivalent space characters of tabs"
-msgstr "ટેબની પહોળાઈ સરખી જગ્યાના અક્ષરોમાં"
+msgstr "ટેબોની સરખી જગ્યાના અક્ષરોને સરખી પહોળાઈ"
 
 #: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:291
 msgid "Wrap Mode"
@@ -765,7 +765,7 @@ msgstr "લપેટવાની સ્થિતિ"
 
 #: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:292
 msgid "Word wrapping mode"
-msgstr "શબ્દ લપેટો સ્થિતિ"
+msgstr "શબ્દ લપેટવાની સ્થિતિ"
 
 #: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:299
 msgid "Highlight"
@@ -773,7 +773,7 @@ msgstr "પ્રકાશિત કરો"
 
 #: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:300
 msgid "Whether to print the document with highlighted syntax"
-msgstr "પ્રકાશિત વાક્યરચના સાથેના દસ્તાવેજો છાપવા કે નહિં"
+msgstr "શું દસ્તાવેજને પ્રકાશિત સંરચનામાં છાપવું"
 
 #: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:308
 msgid "Font"
@@ -781,7 +781,7 @@ msgstr "ફોન્ટ"
 
 #: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:309
 msgid "GnomeFont name to use for the document text (deprecated)"
-msgstr "દસ્તાવેજ લખાણ માટે વાપરવાનું GnomeFont નામ (દૂર કરાયેલ)"
+msgstr "દસ્તાવેજ લખાણ માટે વાપરવાના જીનોમ ફોન્ટનું નામ (દૂર કરવામાં આવેલ છે)"
 
 #: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:316
 msgid "Font Description"
@@ -789,7 +789,7 @@ msgstr "ફોન્ટ વર્ણન"
 
 #: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:317
 msgid "Font to use for the document text (e.g. \"Monospace 10\")"
-msgstr "દસ્તાવેજ લખાણ માટે વાપરવાના ફોન્ટ (દા.ત. \"Monospace 10\")"
+msgstr "દસ્તાવેજ લખાણ માટે વાપરવાનો ફોન્ટ (દા.ત. \"Monospace 10\")"
 
 #: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:324
 #: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:332
@@ -798,11 +798,11 @@ msgstr "નંબરો ફોન્ટ"
 
 #: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:325
 msgid "GnomeFont name to use for the line numbers (deprecated)"
-msgstr "લીટી નંબરો માટે વાપરવાનું GnomeFont નામ (દૂર કરવામાં આવેલ)"
+msgstr "લીટી નંબરો માટે વાપરવાના જીનોમ ફોન્ટનું નામ (દૂર કરવામાં આવેલ છે)"
 
 #: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:333
 msgid "Font description to use for the line numbers"
-msgstr "લીટી નંબરો માટે વાપરવાનું ફોન્ટ વર્ણન"
+msgstr "લીટી નંબરો માટે વાપરવાના ફોન્ટનું વર્ણન"
 
 #: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:340
 msgid "Print Line Numbers"
@@ -818,7 +818,7 @@ msgstr "હેડર છાપો"
 
 #: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:349
 msgid "Whether to print a header in each page"
-msgstr "શું દરેક પાનાં પર હેડર છાપવી"
+msgstr "શું દરેક પાનાંમાં હેડર છાપવી"
 
 #: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:356
 msgid "Print Footer"
@@ -826,7 +826,7 @@ msgstr "ફૂટર છાપો"
 
 #: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:357
 msgid "Whether to print a footer in each page"
-msgstr "શું દરેક પાનાં પર ફૂટર છાપવી"
+msgstr "શું દરેક પાનાંમાં ફૂટર છાપવી"
 
 #: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:364
 msgid "Header and Footer Font"
@@ -834,7 +834,7 @@ msgstr "હેડર અને ફૂટર ફોન્ટ"
 
 #: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:365
 msgid "GnomeFont name to use for the header and footer (deprecated)"
-msgstr "હેડર અને ફૂટર માટે વાપરવાના GnomeFont નામ (દૂર કરવામાં આવેલ)"
+msgstr "હેડર અને ફૂટર માટે વાપરવાના જીનોમ ફોન્ટનું નામ (દૂર કરવામાં આવેલ છે)"
 
 #: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:372
 msgid "Header and Footer Font Description"
@@ -916,7 +916,7 @@ msgstr "શીર્ષકવીહિન"
 msgid "Sticky Note: "
 msgstr "સ્ટીકી નોંધ: "
 
-#: ../Tomboy/Addins/Tasque/TasqueNoteAddin.cs:57
+#: ../Tomboy/Addins/Tasque/TasqueNoteAddin.cs:60
 msgid "Tasque"
 msgstr "ટાસક્યુ"
 
@@ -924,11 +924,11 @@ msgstr "ટાસક્યુ"
 #. category translation in Tasque for this to work properly.  "All"
 #. is used here to allow Tasque to decide which default category
 #. will be used to create the new task.
-#: ../Tomboy/Addins/Tasque/TasqueNoteAddin.cs:81
+#: ../Tomboy/Addins/Tasque/TasqueNoteAddin.cs:84
 msgid "All"
 msgstr "બધા"
 
-#: ../Tomboy/Addins/Tasque/TasqueNoteAddin.cs:140
+#: ../Tomboy/Addins/Tasque/TasqueNoteAddin.cs:143
 msgid "--- Tasque is not running ---"
 msgstr "--- ટાસક્યુ ચાલી નથી રહ્યુ ---"
 
@@ -964,10 +964,6 @@ msgstr ""
 #: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:266
 msgid "Saving configuration to the GNOME keyring failed with the following message:"
 msgstr "જીનોમ કીરીંગમાં રૂપરેખાંકન સંગ્રહવાનું નીચેના સંદેશા સાથે નિષ્ફળ ગયું:"
-
-#: ../Tomboy/Applet.cs:196
-msgid "_About Tomboy"
-msgstr "Tomboy વિશે (_A)"
 
 #: ../Tomboy/Notebooks/CreateNotebookDialog.cs:24
 #: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:42
@@ -1009,9 +1005,8 @@ msgid "All Notes"
 msgstr "બધી નોંધો"
 
 #: ../Tomboy/Notebooks/Notebook.cs:215
-#, fuzzy
 msgid "Unfiled Notes"
-msgstr "નોંધો સુમેળ કરો"
+msgstr "નહિં ભરેલ નોંધો"
 
 #: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:37
 msgid "Note_books"
@@ -1064,7 +1059,7 @@ msgstr "શું ખરેખર આ નોટબુકને કાઢી ન�
 msgid ""
 "The notes that belong to this notebook will not be deleted, but they will no "
 "longer be associated with this notebook.  This action cannot be undone."
-msgstr ""
+msgstr "નોટ કે જે આ નોટબુકને લગતી હોય તેને કાઢવામાં આવશે નહિં, પરંતુ તેઓ આ નોટબુક સાથે ક્યારેય સંકળાયેલ રહેશે નહિં. આ ક્રિયા પાછી રદ કરી શકાશે નહિં."
 
 #: ../Tomboy/Notebooks/NotebookMenuItem.cs:14
 msgid "No notebook"
@@ -1091,28 +1086,28 @@ msgstr "નોટબુક"
 msgid "_New notebook..."
 msgstr "નવી નોટબુક (_N)..."
 
-#: ../Tomboy/Note.cs:1438
+#: ../Tomboy/Note.cs:1430
 msgid "Really delete this note?"
 msgstr "શું ખરેખર આ નોંધ કાઢી નાંખવા માંગો છો?"
 
-#: ../Tomboy/Note.cs:1440
+#: ../Tomboy/Note.cs:1432
 msgid "Really delete these notes?"
 msgstr "શું ખરેખર આ નોંધોને કાઢી નાંખવા માંગો છો?"
 
-#: ../Tomboy/Note.cs:1449
+#: ../Tomboy/Note.cs:1441
 msgid "If you delete a note it is permanently lost."
 msgstr "જો તમે નોંધ કાઢી નાંખો તો તે કાયમમાટે નષ્ટ થઈ જશે."
 
-#: ../Tomboy/Note.cs:1483
+#: ../Tomboy/Note.cs:1475
 msgid "Error saving note data."
 msgstr "નોંધ માહિતી સંગ્રહી રહ્યા હોય ત્યારે ભૂલ"
 
-#: ../Tomboy/Note.cs:1484
+#: ../Tomboy/Note.cs:1476
 msgid ""
 "An error occurred while saving your notes. Please check that you have "
 "sufficient disk space, and that you have appropriate rights on ~/.tomboy. "
 "Error details can be found in ~/.tomboy.log."
-msgstr ""
+msgstr "તમારી નોંધો સંગ્રહતી વખતે ભૂલ ઉદ્ભવી. મહેરબાની કરીને ચકાસો કે તમારી પાસે પૂરતી ડિસ્ક જગ્યા છે, અને જેનો તમારી પાસે ~/.tomboy પર યોગ્ય હક હોય. ~/.tomboy.log માં ભૂલ વિગતો શોધી શકાશે."
 
 #. New Note Template
 #: ../Tomboy/NoteManager.cs:20 ../Tomboy/PreferencesDialog.cs:210
@@ -1184,7 +1179,7 @@ msgstr ""
 "થઈ જશે.</note-content>"
 
 #. Attempt to find an existing Start Here note
-#: ../Tomboy/NoteManager.cs:172 ../Tomboy/NoteManager.cs:237
+#: ../Tomboy/NoteManager.cs:172 ../Tomboy/NoteManager.cs:239
 msgid "Start Here"
 msgstr "અંહિ શરૂ કરો"
 
@@ -1192,14 +1187,14 @@ msgstr "અંહિ શરૂ કરો"
 msgid "Using Links in Tomboy"
 msgstr "Tomboy માં કડીઓ વાપરવાનું"
 
-#: ../Tomboy/NoteManager.cs:314
+#: ../Tomboy/NoteManager.cs:316
 #, csharp-format
 msgid "New Note {0}"
 msgstr "નવી નોંધ {0}"
 
 #. Use a simple "Describe..." body and highlight
 #. it so it can be easily overwritten
-#: ../Tomboy/NoteManager.cs:386 ../Tomboy/NoteManager.cs:478
+#: ../Tomboy/NoteManager.cs:388 ../Tomboy/NoteManager.cs:480
 msgid "Describe your new note here."
 msgstr "તમારી નવી નોંધ અંહિ વર્ણવો."
 
@@ -1381,8 +1376,8 @@ msgid ""
 "Use the new note template to specify the text that should be used when "
 "creating a new note."
 msgstr ""
-"લખાણ સ્પષ્ટ કરવા માટે નવી નોંધ ટેમ્પલેટ વાપરો કે જે જ્યારે નવી નોંધ બનાવી "
-"રહ્યા હોય ત્યારે વપરાયેલ હોવુ જોઇએ."
+"લખાણ સ્પષ્ટ કરવા માટે નવી નોંધ ટેમ્પલેટ વાપરો કે જે જ્યારે નવી નોંધ બનાવી રહ્યા હોય ત્યારે "
+"વપરાયેલ હોવુ જોઇએ."
 
 #: ../Tomboy/PreferencesDialog.cs:224
 msgid "Open New Note Template"
@@ -1592,7 +1587,7 @@ msgstr[1] "મેચો: {0} નોંધો"
 msgid "Notes"
 msgstr "નોંધો"
 
-#: ../Tomboy/Tomboy.cs:199
+#: ../Tomboy/Tomboy.cs:193
 msgid "Cannot create new note"
 msgstr "નવી નોંધ બનાવી શકતા નથી"
 
@@ -1612,7 +1607,7 @@ msgstr "નોંધ-લેતો સાદો અને વાપરવામ�
 msgid "Homepage"
 msgstr "ઘરપાનું"
 
-#: ../Tomboy/Tomboy.cs:400
+#: ../Tomboy/Tomboy.cs:396
 msgid ""
 "Tomboy: A simple, easy to use desktop note-taking application.\n"
 "Copyright (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
@@ -1622,7 +1617,7 @@ msgstr ""
 "Copyright (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
 "\n"
 
-#: ../Tomboy/Tomboy.cs:412
+#: ../Tomboy/Tomboy.cs:408
 msgid ""
 "Usage:\n"
 "  --version\t\t\tPrint version information.\n"
@@ -1636,7 +1631,7 @@ msgstr ""
 "  --note-path [path]\t\tઆ ડિરેક્ટરીમાં નોંધ માહિતી લાવે/સંગ્રહે.\n"
 "  --search [text]\t\tપસંદિત લખાણ સાથે બધી નોંધો શોધો વિન્ડો ખોલો.\n"
 
-#: ../Tomboy/Tomboy.cs:423
+#: ../Tomboy/Tomboy.cs:419
 msgid ""
 "  --new-note\t\t\tCreate and display a new note.\n"
 "  --new-note [title]\t\tCreate and display a new note, with a title.\n"
@@ -1655,16 +1650,16 @@ msgstr ""
 #. Catalog.GetString (
 #. "  --check-plugin-unloading\tCheck if plugins are " +
 #. "unloaded properly.\n");
-#: ../Tomboy/Tomboy.cs:440
+#: ../Tomboy/Tomboy.cs:436
 msgid "D-BUS remote control disabled.\n"
 msgstr "D-BUS દૂરસ્થ નિયંત્રણ નિષ્ક્રિય કરેલ.\n"
 
-#: ../Tomboy/Tomboy.cs:448
+#: ../Tomboy/Tomboy.cs:444
 #, csharp-format
 msgid "Version {0}"
 msgstr "આવૃત્તિ {0}"
 
-#: ../Tomboy/Tomboy.cs:518
+#: ../Tomboy/Tomboy.cs:514
 #, csharp-format
 msgid ""
 "Tomboy: unsupported option '{0}'\n"
@@ -1675,11 +1670,15 @@ msgstr ""
 "વધુ જાણકારી માટે 'tomboy --help' નો પ્રયાસ કરો.\n"
 "D-BUS દૂરસ્થ નિયંત્રણ નિષ્ક્રિય કરેલ."
 
-#: ../Tomboy/Tray.cs:66
+#: ../Tomboy/Tray.cs:64
 msgid " (new)"
 msgstr " (નવું)"
 
-#: ../Tomboy/Utils.cs:133
+#: ../Tomboy/Tray.cs:228
+msgid "_About Tomboy"
+msgstr "Tomboy વિશે (_A)"
+
+#: ../Tomboy/Utils.cs:148
 msgid ""
 "The \"Tomboy Notes Manual\" could not be found.  Please verify that your "
 "installation has been completed successfully."
@@ -1687,74 +1686,74 @@ msgstr ""
 "\"Tomboy નોંધો માર્ગદર્શિકા\" શોધી શક્યા નહિં.  મહેરબાની કરીને ખાતરી કરો કે તમારું "
 "સ્થાપન સફળતાપૂર્વક સમાપ્ત થયું."
 
-#: ../Tomboy/Utils.cs:142
+#: ../Tomboy/Utils.cs:157
 msgid "Help not found"
 msgstr "મદદ મળી નહિં"
 
-#: ../Tomboy/Utils.cs:165
+#: ../Tomboy/Utils.cs:180
 #, csharp-format
 msgid "Today, {0}"
 msgstr "આજે, {0}"
 
-#: ../Tomboy/Utils.cs:167
+#: ../Tomboy/Utils.cs:182
 msgid "Today"
 msgstr "આજે"
 
-#: ../Tomboy/Utils.cs:171
+#: ../Tomboy/Utils.cs:186
 #, csharp-format
 msgid "Yesterday, {0}"
 msgstr "ગઈકાલે, {0}"
 
-#: ../Tomboy/Utils.cs:173
+#: ../Tomboy/Utils.cs:188
 msgid "Yesterday"
 msgstr "ગઈકાલે"
 
-#: ../Tomboy/Utils.cs:177
+#: ../Tomboy/Utils.cs:192
 #, csharp-format
 msgid "{0} days ago, {1}"
 msgstr "{0} દિવસો અગાઉ, {1}"
 
-#: ../Tomboy/Utils.cs:179
+#: ../Tomboy/Utils.cs:194
 #, csharp-format
 msgid "{0} days ago"
 msgstr "{0} દિવસો અગાઉ"
 
-#: ../Tomboy/Utils.cs:184
+#: ../Tomboy/Utils.cs:199
 #, csharp-format
 msgid "Tomorrow, {0}"
 msgstr "આવતી કાલે, {0}"
 
-#: ../Tomboy/Utils.cs:186
+#: ../Tomboy/Utils.cs:201
 msgid "Tomorrow"
 msgstr "આવતી કાલે"
 
-#: ../Tomboy/Utils.cs:190
+#: ../Tomboy/Utils.cs:205
 #, csharp-format
 msgid "In {0} days, {1}"
 msgstr "{0} દિવસોમાં, {1}"
 
-#: ../Tomboy/Utils.cs:192
+#: ../Tomboy/Utils.cs:207
 #, csharp-format
 msgid "In {0} days"
 msgstr "{0} દિવસોમાં"
 
-#: ../Tomboy/Utils.cs:196
+#: ../Tomboy/Utils.cs:211
 msgid "MMMM d, h:mm tt"
 msgstr "MMMM d, h:mm tt"
 
-#: ../Tomboy/Utils.cs:197
+#: ../Tomboy/Utils.cs:212
 msgid "MMMM d"
 msgstr "MMMM d"
 
-#: ../Tomboy/Utils.cs:199
+#: ../Tomboy/Utils.cs:214
 msgid "No Date"
 msgstr "કોઈ તારીખ નહિં"
 
-#: ../Tomboy/Utils.cs:202
+#: ../Tomboy/Utils.cs:217
 msgid "MMMM d yyyy, h:mm tt"
 msgstr "MMMM d yyyy, h:mm tt"
 
-#: ../Tomboy/Utils.cs:203
+#: ../Tomboy/Utils.cs:218
 msgid "MMMM d yyyy"
 msgstr "MMMM d yyyy"
 
