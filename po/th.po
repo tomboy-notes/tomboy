@@ -680,9 +680,145 @@ msgstr ""
 msgid "_Open Today: Template"
 msgstr "_เปิดแผ่นแบบบันทึกประจำวัน"
 
-#: ../Tomboy/Addins/PrintNotes/PrintNotesNoteAddin.cs:22
+#: ../Tomboy/Addins/PrintNotes/PrintNotesNoteAddin.cs:18
+#: ../Tomboy/Addins/PrintNotes/gedit-print.c:142
 msgid "Print"
 msgstr "พิมพ์"
+#: ../Tomboy/Addins/PrintNotes/gedit-print.c:240
+msgid "Preparing pages..."
+msgstr "กำลังจัดหน้า..."
+
+#: ../Tomboy/Addins/PrintNotes/gedit-print.c:267
+#, c-format
+msgid "Rendering page %d of %d..."
+msgstr "กำลังวาดหน้า %d จาก %d..."
+
+#: ../Tomboy/Addins/PrintNotes/gedit-print.c:269
+#, c-format
+msgid "Printing page %d of %d..."
+msgstr "กำลังพิมพ์หน้า %d จาก %d..."
+
+#: ../Tomboy/Addins/PrintNotes/gedit-print.c:291
+msgid "Print preview"
+msgstr "ตัวอย่างก่อนพิมพ์"
+
+#: ../Tomboy/Addins/PrintNotes/gedit-print.c:442
+msgid "Page %N of %Q"
+msgstr "หน้า %N จาก %Q"
+
+#: ../Tomboy/Addins/PrintNotes/gedit-print.c:445
+#, no-c-format
+msgid "%A %x, %X"
+msgstr "%A %x, %X"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:268
+msgid "Configuration"
+msgstr "ค่าตั้ง"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:269
+msgid "Configuration options for the print job"
+msgstr "ค่าตั้งสำหรับงานพิมพ์"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:276
+msgid "Source Buffer"
+msgstr "บัฟเฟอร์ต้นทาง"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:277
+msgid "GtkTextBuffer object to print"
+msgstr "ออบเจกต์ GtkTextBuffer ที่จะพิมพ์"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:283
+msgid "Tabs Width"
+msgstr "ความกว้างแท็บ"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:284
+msgid "Width in equivalent space characters of tabs"
+msgstr "ความกว้างแท็บ ในหน่วยจำนวนอักขระเว้นวรรค"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:291
+msgid "Wrap Mode"
+msgstr "วิธีการตัดบรรทัด"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:292
+msgid "Word wrapping mode"
+msgstr "วิธีการตัดคำขึ้นบรรทัดใหม่"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:299
+msgid "Highlight"
+msgstr "เน้นข้อความ"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:300
+msgid "Whether to print the document with highlighted syntax"
+msgstr "กำหนดว่าจะพิมพ์เอกสารโดยเน้นข้อความตามไวยากรณ์หรือไม่"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:308
+msgid "Font"
+msgstr "แบบอักษร"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:309
+msgid "GnomeFont name to use for the document text (deprecated)"
+msgstr "ชื่อ GnomeFont ที่จะใช้สำหรับข้อความในเอกสาร (เลิกใช้แล้ว)"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:316
+msgid "Font Description"
+msgstr "คำบรรยายแบบอักษร"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:317
+msgid "Font to use for the document text (e.g. \"Monospace 10\")"
+msgstr "แบบอักษรที่จะใช้สำหรับข้อความในเอกสาร (เช่น \"Monospace 10\")"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:324
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:332
+msgid "Numbers Font"
+msgstr "แบบอักษรของเลขบรรทัด"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:325
+msgid "GnomeFont name to use for the line numbers (deprecated)"
+msgstr "ชื่อ GnomeFont ที่จะใช้สำหรับเลขบรรทัด (เลิกใช้แล้ว)"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:333
+msgid "Font description to use for the line numbers"
+msgstr "คำบรรยายแบบอักษรที่จะใช้สำหรับเลขบรรทัด"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:340
+msgid "Print Line Numbers"
+msgstr "พิมพ์เลขบรรทัด"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:341
+msgid "Interval of printed line numbers (0 means no numbers)"
+msgstr "ช่วงการเว้นบรรทัดในการพิมพ์เลขบรรทัด (0 หมายถึงไม่พิมพ์เลขบรรทัด)"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:348
+msgid "Print Header"
+msgstr "พิมพ์หัวกระดาษ"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:349
+msgid "Whether to print a header in each page"
+msgstr "กำหนดว่าจะพิมพ์หัวกระดาษในแต่ละหน้าหรือไม่"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:356
+msgid "Print Footer"
+msgstr "พิมพ์ท้ายกระดาษ"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:357
+msgid "Whether to print a footer in each page"
+msgstr "กำหนดว่าจะพิมพ์ท้ายกระดาษในแต่ละหน้าหรือไม่"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:364
+msgid "Header and Footer Font"
+msgstr "แบบอักษรของหัวและท้ายกระดาษ"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:365
+msgid "GnomeFont name to use for the header and footer (deprecated)"
+msgstr "ชื่อ GnomeFont ที่จะใช้สำหรับหัวและท้ายกระดาษ (เลิกใช้แล้ว)"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:372
+msgid "Header and Footer Font Description"
+msgstr "คำบรรยายแบบอักษรของหัวและท้ายกระดาษ"
+
+#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:373
+msgid "Font to use for headers and footers (e.g. \"Monospace 10\")"
+msgstr "แบบอักษรที่จะใช้สำหรับหัวและท้ายกระดาษ (เช่น \"Monospace 10\")"
 
 #: ../Tomboy/Addins/Sketching/SketchingNoteAddin.cs:19
 msgid "Add a sketch"
@@ -1888,105 +2024,6 @@ msgstr ""
 
 #~ msgid "NoteOfTheDay"
 #~ msgstr "บันทึกประจำวัน"
-
-#~ msgid "Preparing pages..."
-#~ msgstr "กำลังจัดหน้า..."
-
-#~ msgid "Rendering page %d of %d..."
-#~ msgstr "กำลังวาดหน้า %d จาก %d..."
-
-#~ msgid "Printing page %d of %d..."
-#~ msgstr "กำลังพิมพ์หน้า %d จาก %d..."
-
-#~ msgid "Print preview"
-#~ msgstr "ตัวอย่างก่อนพิมพ์"
-
-#~ msgid "Page %N of %Q"
-#~ msgstr "หน้า %N จาก %Q"
-
-#~ msgid "%A %x, %X"
-#~ msgstr "%A %x, %X"
-
-#~ msgid "Configuration"
-#~ msgstr "ค่าตั้ง"
-
-#~ msgid "Configuration options for the print job"
-#~ msgstr "ค่าตั้งสำหรับงานพิมพ์"
-
-#~ msgid "Source Buffer"
-#~ msgstr "บัฟเฟอร์ต้นทาง"
-
-#~ msgid "GtkTextBuffer object to print"
-#~ msgstr "ออบเจกต์ GtkTextBuffer ที่จะพิมพ์"
-
-#~ msgid "Tabs Width"
-#~ msgstr "ความกว้างแท็บ"
-
-#~ msgid "Width in equivalent space characters of tabs"
-#~ msgstr "ความกว้างแท็บ ในหน่วยจำนวนอักขระเว้นวรรค"
-
-#~ msgid "Wrap Mode"
-#~ msgstr "วิธีการตัดบรรทัด"
-
-#~ msgid "Word wrapping mode"
-#~ msgstr "วิธีการตัดคำขึ้นบรรทัดใหม่"
-
-#~ msgid "Highlight"
-#~ msgstr "เน้นข้อความ"
-
-#~ msgid "Whether to print the document with highlighted syntax"
-#~ msgstr "กำหนดว่าจะพิมพ์เอกสารโดยเน้นข้อความตามไวยากรณ์หรือไม่"
-
-#~ msgid "Font"
-#~ msgstr "แบบอักษร"
-
-#~ msgid "GnomeFont name to use for the document text (deprecated)"
-#~ msgstr "ชื่อ GnomeFont ที่จะใช้สำหรับข้อความในเอกสาร (เลิกใช้แล้ว)"
-
-#~ msgid "Font Description"
-#~ msgstr "คำบรรยายแบบอักษร"
-
-#~ msgid "Font to use for the document text (e.g. \"Monospace 10\")"
-#~ msgstr "แบบอักษรที่จะใช้สำหรับข้อความในเอกสาร (เช่น \"Monospace 10\")"
-
-#~ msgid "Numbers Font"
-#~ msgstr "แบบอักษรของเลขบรรทัด"
-
-#~ msgid "GnomeFont name to use for the line numbers (deprecated)"
-#~ msgstr "ชื่อ GnomeFont ที่จะใช้สำหรับเลขบรรทัด (เลิกใช้แล้ว)"
-
-#~ msgid "Font description to use for the line numbers"
-#~ msgstr "คำบรรยายแบบอักษรที่จะใช้สำหรับเลขบรรทัด"
-
-#~ msgid "Print Line Numbers"
-#~ msgstr "พิมพ์เลขบรรทัด"
-
-#~ msgid "Interval of printed line numbers (0 means no numbers)"
-#~ msgstr "ช่วงการเว้นบรรทัดในการพิมพ์เลขบรรทัด (0 หมายถึงไม่พิมพ์เลขบรรทัด)"
-
-#~ msgid "Print Header"
-#~ msgstr "พิมพ์หัวกระดาษ"
-
-#~ msgid "Whether to print a header in each page"
-#~ msgstr "กำหนดว่าจะพิมพ์หัวกระดาษในแต่ละหน้าหรือไม่"
-
-#~ msgid "Print Footer"
-#~ msgstr "พิมพ์ท้ายกระดาษ"
-
-#~ msgid "Whether to print a footer in each page"
-#~ msgstr "กำหนดว่าจะพิมพ์ท้ายกระดาษในแต่ละหน้าหรือไม่"
-
-#~ msgid "Header and Footer Font"
-#~ msgstr "แบบอักษรของหัวและท้ายกระดาษ"
-
-#~ msgid "GnomeFont name to use for the header and footer (deprecated)"
-#~ msgstr "ชื่อ GnomeFont ที่จะใช้สำหรับหัวและท้ายกระดาษ (เลิกใช้แล้ว)"
-
-#~ msgid "Header and Footer Font Description"
-#~ msgstr "คำบรรยายแบบอักษรของหัวและท้ายกระดาษ"
-
-#~ msgid "Font to use for headers and footers (e.g. \"Monospace 10\")"
-#~ msgstr "แบบอักษรที่จะใช้สำหรับหัวและท้ายกระดาษ (เช่น \"Monospace 10\")"
 
 #~ msgid "_Open New Note Template..."
 #~ msgstr "เ_ปิดแผ่นแบบสำหรับบันทึกใหม่..."
