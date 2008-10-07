@@ -1,3 +1,12 @@
+2008-10-06  Sandy Armstrong <sanfordarmstrong@gmail.com> 
+
+	* configure.in, Tomboy/Applet.cs, Tomboy/panelapplet, Tomboy/Tomboy.cs,
+	  Tomboy/Makefile.am: Rebundling gnome-sharp panel applet code if
+	  gnome-sharp < 2.23.90 is detected during configure.  Earlier
+	  versions are generally missing a crucial DllMap in
+	  gnome-sharp.dll.config (though some distros patch this).  Fix for
+	  bug #555318.
+
 2008-09-22  Sandy Armstrong <sanfordarmstrong@gmail.com> 
 
 	* configure.in: Bump version to 0.12.1.

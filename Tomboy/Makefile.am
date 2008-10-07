@@ -17,12 +17,20 @@ if FIXED_GTKSPELL
 FIXED_GTKSPELL_CSFLAGS = -define:FIXED_GTKSPELL
 endif
 
+if FIXED_PANELAPPLET
+FIXED_PANELAPPLET_CSFLAGS = -define:FIXED_PANELAPPLET
+else
+PANELAPPLET_CSFILES =			\
+	$(srcdir)/panelapplet/*.cs
+endif
+
 CSFLAGS = 				\
 	-debug				\
 	-define:DEBUG 			\
 	-unsafe 			\
 	-target:exe 			\
 	$(DBUS_CSFLAGS) 		\
+	$(FIXED_PANELAPPLET_CSFLAGS)	\
 	$(FIXED_GTKSPELL_CSFLAGS) \
 	$(CSC_DEFINES)
 
@@ -62,6 +70,8 @@ CSFILES = 					\
 	$(srcdir)/XKeybinder.cs			\
 	$(srcdir)/Notebooks/*.cs		\
 	$(srcdir)/Synchronization/*.cs		\
+	\
+	$(PANELAPPLET_CSFILES)			\
 	\
 	$(srcdir)/Gnome.Keyring/*.cs		\
 	\

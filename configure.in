@@ -145,7 +145,10 @@ if pkg-config --atleast-version=2.23.90 gnome-sharp-2.0; then
 	                  gnome-sharp-2.0
 	                  gconf-sharp-2.0
 	                  gconf-sharp-peditors-2.0
-	                  gnome-panel-sharp-2.24)
+	                  gnome-panel-sharp-2.24,
+	                  has_fixed_panelapplet="yes",
+	                  has_fixed_panelapplet="no")
+
 else
 	if pkg-config --atleast-version=2.16.1 gconf-sharp-2.0; then
 		PKG_CHECK_MODULES(TOMBOY,
@@ -160,6 +163,7 @@ else
 			          gconf-sharp-2.0)
 	fi
 fi
+AM_CONDITIONAL(FIXED_PANELAPPLET, test "x$has_fixed_panelapplet" = "xyes")
 AC_SUBST(TOMBOY_LIBS)
 
 #
