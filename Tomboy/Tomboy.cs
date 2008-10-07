@@ -4,6 +4,12 @@ using System.IO;
 using System.Xml;
 using Mono.Unix;
 
+#if FIXED_PANELAPPLET
+using Gnome;
+#else
+using _Gnome;
+#endif
+
 using Tomboy.Sync;
 
 namespace Tomboy
@@ -105,7 +111,7 @@ namespace Tomboy
 		static void RegisterPanelAppletFactory ()
 		{
 			// This will block if there is no existing instance running
-			Gnome.PanelAppletFactory.Register (typeof (TomboyApplet));
+			PanelAppletFactory.Register (typeof (TomboyApplet));
 		}
 
 		static void StartTrayIcon ()
