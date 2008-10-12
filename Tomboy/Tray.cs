@@ -133,15 +133,15 @@ namespace Tomboy
 	}
 	
 	
-	public class TomboyTrayIcon : Gtk.StatusIcon
+	public class TomboyTrayIcon : Gtk.StatusIcon, ITomboyTray
 	{
 		TomboyTray tray;
-		TomboyGConfXKeybinder keybinder;
+		TomboyPrefsKeybinder keybinder;
 
 		public TomboyTrayIcon (NoteManager manager)
 		{
 			tray = new TomboyTray (manager, this);
-			keybinder = new TomboyGConfXKeybinder (manager, tray);
+			keybinder = new TomboyPrefsKeybinder (manager, this);
 			int panel_size = 22;
 			Pixbuf = GuiUtils.GetIcon ("tomboy", panel_size);
 
@@ -194,16 +194,25 @@ namespace Tomboy
 			Gdk.Screen screen;
 			Gdk.Rectangle area;
 			Gtk.Orientation orientation;
-			GetGeometry (out screen, out area, out orientation);
-			
-			x = area.X;
-			y = area.Y;
-			
-			Gtk.Requisition menu_req = menu.SizeRequest ();
-			if (y + menu_req.Height >= screen.Height)
-				y -= menu_req.Height;
-			else
-				y += area.Height;
+			try {
+#if WIN32
+				menu.Screen.Display.GetPointer (out x, out y);
+				screen = menu.Screen;
+				area.Height = 0;
+#else
+				GetGeometry (out screen, out area, out orientation);
+				x = area.X;
+				y = area.Y;
+#endif
+
+				Gtk.Requisition menu_req = menu.SizeRequest ();
+				if (y + menu_req.Height >= screen.Height)
+					y -= menu_req.Height;
+				else
+					y += area.Height;
+			} catch (Exception e) {
+				Logger.Error ("Exception in GetTrayMenuPosition: " + e.ToString ());
+			}
 		}
 		
 		Gtk.Menu MakeRightClickMenu ()
@@ -261,13 +270,42 @@ namespace Tomboy
 			Tomboy.ActionManager ["QuitTomboyAction"].Activate ();
 		}
 
+		public bool MenuOpensUpward ()
+		{
+			bool open_upwards = false;
+			int val = 0;
+			Gdk.Screen screen = null;
+
+			Gdk.Rectangle area;
+			Gtk.Orientation orientation;
+#if WIN32
+			int x;
+			tray.TomboyTrayMenu.Screen.Display.GetPointer (out x, out val);
+			screen = tray.TomboyTrayMenu.Screen;
+#else
+			GetGeometry (out screen, out area, out orientation);
+			val = area.Y;
+#endif
+
+			Gtk.Requisition menu_req = tray.TomboyTrayMenu.SizeRequest ();
+			if (val + menu_req.Height >= screen.Height)
+				open_upwards = true;
+
+			return open_upwards;
+		}
+	}
+
+	// TODO: Some naming love would be nice
+	public interface ITomboyTray
+	{
+		void ShowMenu (bool select_first_item);
+		bool MenuOpensUpward ();
 	}
 	
 	public class TomboyTray
 	{
 		NoteManager manager;
-		TomboyTrayIcon tray_icon = null;
-		TomboyAppletEventBox applet_event_box = null;
+		ITomboyTray tray;
 		bool menu_added = false;
 		List<Gtk.MenuItem> recent_notes = new List<Gtk.MenuItem> ();
 		Gtk.Menu tray_menu;
@@ -277,27 +315,12 @@ namespace Tomboy
 			this.manager = manager;
 			
 			tray_menu = MakeTrayNotesMenu ();
-			tray_menu.Hidden += MenuHidden;
 		}
 		
-		public TomboyTray (NoteManager manager, TomboyTrayIcon tray_icon)
+		public TomboyTray (NoteManager manager, ITomboyTray tray)
 			: this (manager)
 		{
-			this.tray_icon = tray_icon;
-		}
-		
-		public TomboyTray (NoteManager manager, TomboyAppletEventBox applet_event_box)
-			: this (manager)
-		{
-			this.applet_event_box = applet_event_box;
-		}
-		
-		public void ShowMenu (bool select_first_item)
-		{
-			if (applet_event_box != null)
-				applet_event_box.ShowMenu (select_first_item);
-			else if (tray_icon != null)
-				tray_icon.ShowMenu (select_first_item);
+			this.tray = tray;
 		}
 		
 		Gtk.Menu MakeTrayNotesMenu ()
@@ -339,12 +362,6 @@ namespace Tomboy
 			return menu;
 		}
 		
-		void MenuHidden (object sender, EventArgs args)
-		{
-			// Remove the old dynamic items
-			RemoveRecentlyChangedNotes ();
-		}
-		
 		void RemoveRecentlyChangedNotes ()
 		{
 			foreach (Gtk.Widget item in recent_notes) {
@@ -359,8 +376,11 @@ namespace Tomboy
 			int min_size = (int) Preferences.Get (Preferences.MENU_NOTE_COUNT);
 			int max_size = 18;
 			int list_size = 0;
-			bool menuOpensUpward = MenuOpensUpward ();
+			bool menuOpensUpward = tray.MenuOpensUpward ();
 			NoteMenuItem item;
+
+			// Remove the old dynamic items
+			RemoveRecentlyChangedNotes ();
 
 			// Assume menu opens downward, move common items to top of menu
 			Gtk.MenuItem newNoteItem = Tomboy.ActionManager.GetWidget (
@@ -463,31 +483,6 @@ namespace Tomboy
 			tray_menu.Insert (separator, insertion_point);
 			recent_notes.Add (separator);
 		}
-		
-		public bool MenuOpensUpward ()
-		{
-			bool open_upwards = false;
-			int val = 0;
-			Gdk.Screen screen = null;
-			
-			if (applet_event_box != null) {
-				int x, y;
-				applet_event_box.GdkWindow.GetOrigin (out x, out y);
-				val = y;
-				screen = applet_event_box.Screen;
-			} else if (tray_icon != null) {
-				Gdk.Rectangle area;
-				Gtk.Orientation orientation;
-				tray_icon.GetGeometry(out screen, out area, out orientation);
-				val = area.Y;
-			}
-			
-			Gtk.Requisition menu_req = tray_menu.SizeRequest ();
-			if (val + menu_req.Height >= screen.Height)
-				open_upwards = true;
-
-			return open_upwards;
-		}
 
 		public bool IsMenuAdded
 		{
@@ -575,54 +570,12 @@ namespace Tomboy
 		}
 	}
 
-	[DllImport("libtomboy")]
-		static extern bool egg_accelerator_parse_virtual (string keystring,
-			                out uint keysym,
-			                out uint virtual_mods);
-
-		[DllImport("libtomboy")]
-		static extern void egg_keymap_resolve_virtual_modifiers (
-			        IntPtr keymap,
-			        uint virtual_mods,
-			        out Gdk.ModifierType real_mods);
-
-		public static bool GetAccelKeys (string               gconf_path,
-		                                 out uint             keyval,
-		                                 out Gdk.ModifierType mods)
-		{
-			keyval = 0;
-			mods = 0;
-
-			try {
-				string binding = (string) Preferences.Get (gconf_path);
-				if (binding == null ||
-				                binding == String.Empty ||
-				                binding == "disabled")
-					return false;
-
-				uint virtual_mods = 0;
-				if (!egg_accelerator_parse_virtual (binding,
-				                                    out keyval,
-				                                    out virtual_mods))
-					return false;
-
-				Gdk.Keymap keymap = Gdk.Keymap.Default;
-				egg_keymap_resolve_virtual_modifiers (keymap.Handle,
-				                                      virtual_mods,
-				                                      out mods);
-
-				return true;
-			} catch {
-			return false;
-		}
-	}
-
 	public static void AddAccelerator (Gtk.MenuItem item, string gconf_path)
 		{
 			uint keyval;
 			Gdk.ModifierType mods;
 
-			if (GetAccelKeys (gconf_path, out keyval, out mods))
+			if (Services.Keybinder.GetAccelKeys (gconf_path, out keyval, out mods))
 				item.AddAccelerator ("activate",
 				                     accel_group,
 				                     keyval,

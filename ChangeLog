@@ -1,3 +1,93 @@
+2008-10-12  Sandy Armstrong  <sanfordarmstrong@gmail.com>
+
+	* Tomboy/WindowsFactory.cs: IPlatformFactory implementation for Windows.
+
+	* Tomboy.mdp:
+	* Tomboy/Makefile.am: Add new files.
+
+	* Tomboy/NativeApplication.cs: Adds INativeApplication interface,
+	abstracted from the Application class in Utils.cs.
+
+	* Tomboy/Utils.cs: Application now wraps INativeApplication, and the
+	implementation has moved to GnomeApplication. 
+	Gnome.Help.DisplayDesktopOnScreen ->
+	Serivces.NativeApplication.DisplayHelp.  #if-out some libtomboy code
+	in ForcedPresentWindow for WIN32 (this could be done better, of
+	course).
+
+	* Tomboy/Services.cs: Static class providing easy-access to
+	platform-specific services.  Responsible for creating the right
+	IPlatformFactory implementation.
+
+	* Tomboy/GnomeFactory.cs: IPlatformFactory implementation for GNOME
+	(maintains same behavior as Tomboy 0.12.0).
+
+	* Tomboy/PreferencesClient.cs: Add IPreferencesClient, IPropertyEditor,
+	and IPropertyEditorBool interfaces, modeled after GConf.  Also
+	includes a NullPreferencesClient.
+
+	* Tomboy/Tomboy.cs: Get note path from
+	Services.NativeApplication.ConfDir.  #if-out some GNOME Panel code
+	for WIN32.
+
+	* Tomboy/PlatformFactory.cs: Adds IPlatformFactory interface for
+	creating platform-specific instances of new interfaces.
+
+	* winbin: Binaries for building and running on Windows without needing a
+	Mono install.
+
+	* Tomboy/Watchers.cs: GConf -> IPreferencesClient.  Gnome.Url.Show ->
+	Services.NativeApplication.OpenUrl.
+
+	* Tomboy.sln:
+	* Tomboy.csproj: Visual Studio solution/project for building on Windows.
+	 Tested in Visual Studio 2008 and SharpDevelop 3.
+
+	* Tomboy/WindowsApplication.cs: INativeApplication implementation for
+	Windows.
+
+	* Tomboy/XmlPreferencesClient.cs: An IPreferencesClient implementation
+	that uses an XML file backend.
+
+	* Tomboy/Logger.cs: A few hacks to run in Windows that need to be
+	reviewed.
+
+	* Tomboy/PreferencesDialog.cs: GConf -> IPreferencesClient.  Also, only
+	show Hotkeys preferences if a keybinder other than NullKeybinder is
+	available.
+
+	* Tomboy/GConfPreferencesClient.cs: An IPreferencesClient implementation
+	that uses a GConf backend.
+
+	* Tomboy/NoteWindow.cs:
+	* Tomboy/NoteEditor.cs:
+	* Tomboy/Preferences.cs:
+	* Tomboy/Addins/InsertTimestamp/InsertTimestampNoteAddin.cs:
+	* Tomboy/Addins/InsertTimestamp/InsertTimestampPreferences.cs: GConf ->
+	IPreferencesClient.
+
+	* Tomboy/Keybinder.cs: Simple IKeybinder interface for binding keys to
+	actions, and a NullKeybinder implementation.
+
+	* Tomboy/GnomeApplication.cs: INativeApplication implementation for
+	GNOME.
+
+	* Tomboy/NoteManager.cs: GConf -> IPreferencesClient.  Get Tomboy
+	configuration directory from Services.NativeApplication.
+
+	* Tomboy/XKeybinder.cs: Implementation of IKeybinder for X11
+	environments.
+
+	* Tomboy/PrefsKeybinder.cs: Lifted from XKeybinder.cs.  GConf ->
+	IPreferencesClient, etc.
+
+	* Tomboy/Tray.cs:
+	* Tomboy/Applet.cs: New ITomboyTray interface, implemented by tray and
+	applet.  Accelerator DllImports moved to keybinder code.  Use
+	GetPointer instead of GetGeometry on WIN32 to work-around a gtk-sharp
+	bug (Doug Johnston).  Rearrange note menu item management code to
+	prevent duplication (bug #531774, Boyd Timothy, Samuel Vandamme).
+
 2008-10-07  Sandy Armstrong <sanfordarmstrong@gmail.com> 
 
 	* configure.in, Tomboy/Applet.cs, Tomboy/Tomboy.cs, Tomboy/Makefile.am,

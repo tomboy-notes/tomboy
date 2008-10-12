@@ -1,0 +1,226 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <ProjectGuid>{315DBB30-1461-4A41-A23F-A888D84E1EA0}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AssemblyName>Tomboy</AssemblyName>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <Execution>
+      <Execution xmlns="" />
+    </Execution>
+    <Build>
+      <Build xmlns="" />
+    </Build>
+    <DefineConstants>WIN32</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <Execution>
+      <Execution xmlns="" />
+    </Execution>
+    <Build>
+      <Build xmlns="" />
+    </Build>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="atk-sharp, Version=2.10.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Program Files\Medsphere\Gtk# SDK\lib\gtk-sharp-2.0\atk\atk-sharp.dll</HintPath>
+    </Reference>
+    <Reference Include="gdk-sharp, Version=2.10.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
+    <Reference Include="gtk-sharp, Version=2.10.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.85.5.452, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>winbin\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Addins, Version=0.3.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>winbin\Mono.Addins.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Addins.Gui, Version=0.3.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>winbin\Mono.Addins.Gui.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Addins.Setup, Version=0.3.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>winbin\Mono.Addins.Setup.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Posix, Version=2.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>winbin\Mono.Posix.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="glib-sharp, Version=2.10.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
+    <Reference Include="System" />
+    <Reference Include="pango-sharp, Version=2.10.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
+    <Reference Include="Mono.Cairo" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Tomboy\ActionManager.cs" />
+    <Compile Include="Tomboy\Contrast.cs" />
+    <Compile Include="Tomboy\Logger.cs" />
+    <Compile Include="Tomboy\Note.cs" />
+    <Compile Include="Tomboy\NoteBuffer.cs" />
+    <Compile Include="Tomboy\NoteManager.cs" />
+    <Compile Include="Tomboy\NoteTag.cs" />
+    <Compile Include="Tomboy\NoteWindow.cs" />
+    <Compile Include="Tomboy\Preferences.cs" />
+    <Compile Include="Tomboy\RecentChanges.cs" />
+    <Compile Include="Tomboy\Tomboy.cs" />
+    <Compile Include="Tomboy\Tray.cs" />
+    <Compile Include="Tomboy\Trie.cs" />
+    <Compile Include="Tomboy\Undo.cs" />
+    <Compile Include="Tomboy\Utils.cs" />
+    <Compile Include="Tomboy\Watchers.cs" />
+    <Compile Include="Tomboy\TagManager.cs" />
+    <Compile Include="Tomboy\Tag.cs" />
+    <Compile Include="Tomboy\TagButton.cs" />
+    <Compile Include="Tomboy\WrapBox.cs" />
+    <Compile Include="Tomboy\Defines.cs" />
+    <Compile Include="Tomboy\PreferencesDialog.cs" />
+    <Compile Include="Tomboy\NoteEditor.cs" />
+    <Compile Include="Tomboy\AbstractAddin.cs" />
+    <Compile Include="Tomboy\ApplicationAddin.cs" />
+    <Compile Include="Tomboy\NoteAddin.cs" />
+    <Compile Include="Tomboy\AddinManager.cs" />
+    <Compile Include="Tomboy\AddinPreferenceFactory.cs" />
+    <Compile Include="Tomboy\Synchronization\SyncDialog.cs" />
+    <Compile Include="Tomboy\Synchronization\SyncManager.cs" />
+    <Compile Include="Tomboy\Synchronization\SyncUtils.cs" />
+    <Compile Include="Tomboy\Synchronization\TomboySyncClient.cs" />
+    <Compile Include="Tomboy\Synchronization\FileSystemSyncServer.cs" />
+    <Compile Include="Tomboy\Synchronization\SyncServiceAddin.cs" />
+    <Compile Include="Tomboy\TagEntry.cs" />
+    <Compile Include="Tomboy\Search.cs" />
+    <Compile Include="Tomboy\Notebooks\Notebook.cs" />
+    <Compile Include="Tomboy\Notebooks\NotebookManager.cs" />
+    <Compile Include="Tomboy\Notebooks\CreateNotebookDialog.cs" />
+    <Compile Include="Tomboy\Notebooks\NotebookNoteAddin.cs" />
+    <Compile Include="Tomboy\Notebooks\NotebookMenuItem.cs" />
+    <Compile Include="Tomboy\Notebooks\NotebookApplicationAddin.cs" />
+    <Compile Include="Tomboy\Notebooks\NotebookNewNoteMenuItem.cs" />
+    <Compile Include="Tomboy\PreferenceTabAddin.cs" />
+    <Compile Include="Tomboy\Notebooks\NotebooksTreeView.cs" />
+    <Compile Include="Tomboy\RecentTreeView.cs" />
+    <Compile Include="Tomboy\Services.cs" />
+    <Compile Include="Tomboy\Keybinder.cs" />
+    <Compile Include="Tomboy\NativeApplication.cs" />
+    <Compile Include="Tomboy\PlatformFactory.cs" />
+    <Compile Include="Tomboy\PreferencesClient.cs" />
+    <Compile Include="Tomboy\PrefsKeybinder.cs" />
+    <Compile Include="Tomboy\WindowsApplication.cs" />
+    <Compile Include="Tomboy\XmlPreferencesClient.cs" />
+    <None Include="ChangeLog" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="UIManagerLayout.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Tomboy.addin.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="filter-note-all.png" />
+    <EmbeddedResource Include="filter-note-unfiled.png" />
+    <EmbeddedResource Include="note-new.png" />
+    <EmbeddedResource Include="note.png" />
+    <EmbeddedResource Include="notebook-new.png" />
+    <EmbeddedResource Include="notebook.png" />
+    <EmbeddedResource Include="pin-active.png" />
+    <EmbeddedResource Include="pin-down.png" />
+    <EmbeddedResource Include="pin-up.png" />
+    <EmbeddedResource Include="tomboy.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Tomboy\Defines.cs.in" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ProjectExtensions>
+    <MonoDevelop>
+      <Properties xmlns="">
+        <GtkDesignInfo gtkVersion="2.10.3" />
+        <MonoDevelop.Autotools.MakefileInfo IntegrationEnabled="true" RelativeMakefileName="./Makefile.am" ExecuteTargetName="run">
+          <BuildFilesVar />
+          <DeployFilesVar />
+          <ResourcesVar />
+          <OthersVar />
+          <GacRefVar />
+          <AsmRefVar />
+          <ProjectRefVar />
+        </MonoDevelop.Autotools.MakefileInfo>
+      </Properties>
+    </MonoDevelop>
+    <VisualStudio />
+  </ProjectExtensions>
+  <PropertyGroup>
+    <PreBuildEvent>copy "$(ProjectDir)data\icons\hicolor_apps_48x48_tomboy.png" "$(ProjectDir)tomboy.png"
+copy "$(ProjectDir)data\icons\hicolor_places_22x22_note.png" "$(ProjectDir)note.png"
+copy "$(ProjectDir)data\icons\hicolor_actions_16x16_note-new.png" "$(ProjectDir)note-new.png"
+copy "$(ProjectDir)data\icons\hicolor_actions_22x22_filter-note-all.png" "$(ProjectDir)filter-note-all.png"
+copy "$(ProjectDir)data\icons\hicolor_actions_22x22_filter-note-unfiled.png" "$(ProjectDir)\filter-note-unfiled.png"
+copy "$(ProjectDir)data\icons\hicolor_places_22x22_notebook.png" "$(ProjectDir)notebook.png"
+copy "$(ProjectDir)data\icons\hicolor_actions_48x48_notebook-new.png" "$(ProjectDir)notebook-new.png"
+copy "$(ProjectDir)data\icons\hicolor_status_16x16_pin-down.png" "$(ProjectDir)pin-down.png"
+copy "$(ProjectDir)data\icons\hicolor_status_16x16_pin-up.png" "$(ProjectDir)pin-up.png"
+copy "$(ProjectDir)data\icons\hicolor_status_16x16_pin-active.png" "$(ProjectDir)pin-active.png"
+copy "$(ProjectDir)Tomboy\Tomboy.addin.xml" "$(ProjectDir)"
+copy "$(ProjectDir)data\UIManagerLayout.xml" "$(ProjectDir)"
+copy "$(ProjectDir)Tomboy\Defines.cs.in" "$(ProjectDir)Tomboy\Defines.cs"</PreBuildEvent>
+    <PostBuildEvent>copy "$(ProjectDir)winbin\MonoPosixHelper.dll" "$(ProjectDir)bin\Debug"
+copy "$(ProjectDir)winbin\Mono.Addins.dll.config" "$(ProjectDir)bin\Debug"</PostBuildEvent>
+  </PropertyGroup>
+</Project>

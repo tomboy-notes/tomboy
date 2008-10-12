@@ -46,17 +46,14 @@ namespace Tomboy
 		public const string SEARCH_WINDOW_WIDTH = "/apps/tomboy/search_window_width";
 		public const string SEARCH_WINDOW_HEIGHT = "/apps/tomboy/search_window_height";
 
-		static GConf.Client client;
-		static GConf.NotifyEventHandler changed_handler;
+		static IPreferencesClient client;
 
-		public static GConf.Client Client
+		public static IPreferencesClient Client
 		{
 			get {
 				if (client == null) {
-					client = new GConf.Client ();
-
-					changed_handler = new GConf.NotifyEventHandler (OnSettingChanged);
-					client.AddNotify ("/apps/tomboy", changed_handler);
+					client = Services.Preferences;
+					client.AddNotify ("/apps/tomboy", OnSettingChanged);
 				}
 				return client;
 			}
@@ -144,7 +141,7 @@ namespace Tomboy
 		{
 			try {
 				return Client.Get (key);
-			} catch (GConf.NoSuchKeyException) {
+			} catch (NoSuchKeyException) {
 				object default_val = GetDefault (key);
 
 				if (default_val != null)
@@ -159,9 +156,9 @@ namespace Tomboy
 			Client.Set (key, value);
 		}
 
-		public static event GConf.NotifyEventHandler SettingChanged;
+		public static event NotifyEventHandler SettingChanged;
 
-		static void OnSettingChanged (object sender, GConf.NotifyEventArgs args)
+		static void OnSettingChanged (object sender, NotifyEventArgs args)
 		{
 			if (SettingChanged != null) {
 				SettingChanged (sender, args);

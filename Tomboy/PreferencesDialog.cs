@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using GConf.PropertyEditors;
 using Mono.Unix;
 
 using Tomboy.Sync;
@@ -79,8 +78,9 @@ namespace Tomboy
 
 			notebook.AppendPage (MakeEditingPane (),
 			                     new Gtk.Label (Catalog.GetString ("Editing")));
-			notebook.AppendPage (MakeHotkeysPane (),
-			                     new Gtk.Label (Catalog.GetString ("Hotkeys")));
+			if (! (Services.Keybinder is NullKeybinder))
+				notebook.AppendPage (MakeHotkeysPane (),
+				                     new Gtk.Label (Catalog.GetString ("Hotkeys")));
 			notebook.AppendPage (MakeSyncPane (),
 			                     new Gtk.Label (Catalog.GetString ("Synchronization")));
 			notebook.AppendPage (MakeAddinsPane (),
@@ -131,7 +131,7 @@ namespace Tomboy
 			Gtk.Label label;
 			Gtk.CheckButton check;
 			Gtk.Alignment align;
-			PropertyEditorBool peditor, font_peditor, bullet_peditor;
+			IPropertyEditorBool peditor, font_peditor, bullet_peditor;
 
 			Gtk.VBox options_list = new Gtk.VBox (false, 12);
 			options_list.BorderWidth = 12;
@@ -146,7 +146,7 @@ namespace Tomboy
 				                Catalog.GetString ("_Spell check while typing"));
 				options_list.PackStart (check, false, false, 0);
 
-				peditor = new PropertyEditorToggleButton (
+				peditor = Services.Factory.CreatePropertyEditorToggleButton (
 				        Preferences.ENABLE_SPELLCHECKING,
 				        check);
 				SetupPropertyEditor (peditor);
@@ -166,7 +166,7 @@ namespace Tomboy
 			check = MakeCheckButton (Catalog.GetString ("Highlight _WikiWords"));
 			options_list.PackStart (check, false, false, 0);
 
-			peditor = new PropertyEditorToggleButton (Preferences.ENABLE_WIKIWORDS,
+			peditor = Services.Factory.CreatePropertyEditorToggleButton (Preferences.ENABLE_WIKIWORDS,
 			                check);
 			SetupPropertyEditor (peditor);
 
@@ -181,7 +181,7 @@ namespace Tomboy
 			check = MakeCheckButton (Catalog.GetString ("Enable auto-_bulleted lists"));
 			options_list.PackStart (check, false, false, 0);
 			bullet_peditor =
-			        new PropertyEditorToggleButton (Preferences.ENABLE_AUTO_BULLETED_LISTS,
+			        Services.Factory.CreatePropertyEditorToggleButton (Preferences.ENABLE_AUTO_BULLETED_LISTS,
 			                                        check);
 			SetupPropertyEditor (bullet_peditor);
 
@@ -191,7 +191,7 @@ namespace Tomboy
 			options_list.PackStart (check, false, false, 0);
 
 			font_peditor =
-			        new PropertyEditorToggleButton (Preferences.ENABLE_CUSTOM_FONT,
+			        Services.Factory.CreatePropertyEditorToggleButton (Preferences.ENABLE_CUSTOM_FONT,
 			                                        check);
 			SetupPropertyEditor (font_peditor);
 
@@ -268,8 +268,8 @@ namespace Tomboy
 			Gtk.CheckButton check;
 			Gtk.Alignment align;
 			Gtk.Entry entry;
-			PropertyEditorBool keybind_peditor;
-			PropertyEditor peditor;
+			IPropertyEditorBool keybind_peditor;
+			IPropertyEditor peditor;
 
 			Gtk.VBox hotkeys_list = new Gtk.VBox (false, 12);
 			hotkeys_list.BorderWidth = 12;
@@ -282,7 +282,7 @@ namespace Tomboy
 			hotkeys_list.PackStart (check, false, false, 0);
 
 			keybind_peditor =
-			        new PropertyEditorToggleButton (Preferences.ENABLE_KEYBINDINGS,
+			        Services.Factory.CreatePropertyEditorToggleButton (Preferences.ENABLE_KEYBINDINGS,
 			                                        check);
 			SetupPropertyEditor (keybind_peditor);
 
@@ -315,7 +315,7 @@ namespace Tomboy
 			entry.Show ();
 			table.Attach (entry, 1, 2, 0, 1);
 
-			peditor = new PropertyEditorEntry (Preferences.KEYBINDING_SHOW_NOTE_MENU,
+			peditor = Services.Factory.CreatePropertyEditorEntry (Preferences.KEYBINDING_SHOW_NOTE_MENU,
 			                                   entry);
 			SetupPropertyEditor (peditor);
 
@@ -332,7 +332,7 @@ namespace Tomboy
 			entry.Show ();
 			table.Attach (entry, 1, 2, 1, 2);
 
-			peditor = new PropertyEditorEntry (Preferences.KEYBINDING_OPEN_START_HERE,
+			peditor = Services.Factory.CreatePropertyEditorEntry (Preferences.KEYBINDING_OPEN_START_HERE,
 			                                   entry);
 			SetupPropertyEditor (peditor);
 
@@ -349,7 +349,7 @@ namespace Tomboy
 			entry.Show ();
 			table.Attach (entry, 1, 2, 2, 3);
 
-			peditor = new PropertyEditorEntry (Preferences.KEYBINDING_CREATE_NEW_NOTE,
+			peditor = Services.Factory.CreatePropertyEditorEntry (Preferences.KEYBINDING_CREATE_NEW_NOTE,
 			                                   entry);
 			SetupPropertyEditor (peditor);
 
@@ -366,7 +366,7 @@ namespace Tomboy
 			entry.Show ();
 			table.Attach (entry, 1, 2, 3, 4);
 
-			peditor = new PropertyEditorEntry (
+			peditor = Services.Factory.CreatePropertyEditorEntry (
 			        Preferences.KEYBINDING_OPEN_RECENT_CHANGES,
 			        entry);
 			SetupPropertyEditor (peditor);
@@ -791,7 +791,7 @@ namespace Tomboy
 			AddinInfoDialogDeleted (sender, null);
 		}
 
-		void SetupPropertyEditor (PropertyEditor peditor)
+		void SetupPropertyEditor (IPropertyEditor peditor)
 		{
 			// Ensure the key exists
 			Preferences.Get (peditor.Key);

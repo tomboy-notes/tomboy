@@ -31,7 +31,7 @@ namespace Tomboy
 			Preferences.SettingChanged += OnSettingChanged;
 		}
 
-		static void OnSettingChanged (object sender, GConf.NotifyEventArgs args)
+		static void OnSettingChanged (object sender, NotifyEventArgs args)
 		{
 			switch (args.Key) {
 			case Preferences.START_NOTE_URI:
@@ -78,9 +78,7 @@ public NoteManager (string directory) :
 
 		protected virtual AddinManager CreateAddinManager ()
 		{
-			string tomboy_conf_dir =
-			        Path.Combine (Environment.GetEnvironmentVariable ("HOME"),
-			                      ".tomboy");
+			string tomboy_conf_dir = Services.NativeApplication.ConfDir;
 
 			return new AddinManager (tomboy_conf_dir);
 		}
