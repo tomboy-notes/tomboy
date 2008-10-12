@@ -61,7 +61,7 @@ namespace Tomboy
 				string doc_font_string = (string)
 				                         Preferences.Client.Get (GNOME_DOCUMENT_FONT_KEY);
 				return Pango.FontDescription.FromString (doc_font_string);
-			} catch (GConf.NoSuchKeyException) {
+			} catch (NoSuchKeyException) {
 			} catch (System.InvalidCastException) {
 			}
 
@@ -72,7 +72,7 @@ namespace Tomboy
 		// Update the font based on the changed Preference dialog setting.
 		// Also update the font based on the changed GConf GNOME document font setting.
 		//
-		void OnFontSettingChanged (object sender, GConf.NotifyEventArgs args)
+		void OnFontSettingChanged (object sender, NotifyEventArgs args)
 		{
 			switch (args.Key) {
 			case Preferences.ENABLE_CUSTOM_FONT:

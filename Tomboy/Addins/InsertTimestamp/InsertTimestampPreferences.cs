@@ -6,7 +6,6 @@
 using System;
 using System.Collections.Generic;
 
-using GConf.PropertyEditors;
 using Mono.Unix;
 
 using Tomboy;
@@ -91,7 +90,7 @@ namespace Tomboy.InsertTimestamp {
 			custom_entry = new Gtk.Entry ();
 			customBox.PackStart (custom_entry);
 
-			PropertyEditorEntry entryEditor = new PropertyEditorEntry (
+			IPropertyEditor entryEditor = Services.Factory.CreatePropertyEditorEntry (
 				Preferences.INSERT_TIMESTAMP_FORMAT, custom_entry);
 			entryEditor.Setup ();
 

@@ -6,7 +6,6 @@ using System.Reflection;
 using System.IO;
 
 using Mono.Unix;
-using Mono.Unix.Native;
 
 using Tomboy.Sync;
 

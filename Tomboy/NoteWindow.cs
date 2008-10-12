@@ -200,7 +200,7 @@ namespace Tomboy
 			Move (x, y);
 		}
 
-		void OnEscapeSettingChanged (object sender, GConf.NotifyEventArgs args)
+		void OnEscapeSettingChanged (object sender, NotifyEventArgs args)
 		{
 			// enable escape key
 			if ((bool) args.Value)

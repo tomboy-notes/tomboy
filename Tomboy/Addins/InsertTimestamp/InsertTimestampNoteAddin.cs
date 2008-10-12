@@ -47,7 +47,7 @@ namespace Tomboy.InsertTimestamp {
 			Buffer.InsertWithTagsByName (ref cursor, text, "datetime");
 		}
 
-		void OnFormatSettingChanged (object sender, GConf.NotifyEventArgs args)
+		void OnFormatSettingChanged (object sender, NotifyEventArgs args)
 		{
 			if (args.Key == Preferences.INSERT_TIMESTAMP_FORMAT)
 				date_format = (string) args.Value;

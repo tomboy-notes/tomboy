@@ -313,7 +313,7 @@ namespace Tomboy
 			}
 		}
 
-		void OnEnableSpellcheckChanged (object sender, GConf.NotifyEventArgs args)
+		void OnEnableSpellcheckChanged (object sender, NotifyEventArgs args)
 		{
 			if (args.Key != Preferences.ENABLE_SPELLCHECKING)
 				return;
@@ -456,7 +456,7 @@ namespace Tomboy
 		{
 			if (url != string.Empty) {
 				Logger.Log ("Opening url '{0}'...", url);
-				Gnome.Url.Show (url);
+				Services.NativeApplication.OpenUrl (url);
 			}
 		}
 
@@ -895,7 +895,7 @@ namespace Tomboy
 			Preferences.SettingChanged += OnEnableWikiwordsChanged;
 		}
 
-		void OnEnableWikiwordsChanged (object sender, GConf.NotifyEventArgs args)
+		void OnEnableWikiwordsChanged (object sender, NotifyEventArgs args)
 		{
 			if (args.Key != Preferences.ENABLE_WIKIWORDS)
 				return;

@@ -1,12 +1,10 @@
-
 using System;
 using System.Collections;
 using System.Runtime.InteropServices;
-using Mono.Unix;
 
 namespace Tomboy
 {
-	public class XKeybinder
+	public class XKeybinder : IKeybinder
 	{
 		[DllImport("libtomboy")]
 		static extern void tomboy_keybinder_init ();
@@ -21,6 +19,7 @@ namespace Tomboy
 
 		public delegate void BindkeyHandler (string key, IntPtr user_data);
 
+		// TODO: Change to IList<T>
 		ArrayList      bindings;
 		BindkeyHandler key_handler;
 
@@ -30,7 +29,6 @@ namespace Tomboy
 		}
 
 		public XKeybinder ()
-: base ()
 		{
 			bindings = new ArrayList ();
 			key_handler = new BindkeyHandler (KeybindingPressed);
@@ -79,212 +77,47 @@ namespace Tomboy
 
 			bindings.Clear ();
 		}
-	}
 
-	public class GConfXKeybinder : XKeybinder
-	{
-		GConf.Client client;
-		ArrayList bindings;
+	[DllImport("libtomboy")]
+		static extern bool egg_accelerator_parse_virtual (string keystring,
+			                out uint keysym,
+			                out uint virtual_mods);
 
-		public GConfXKeybinder ()
+		[DllImport("libtomboy")]
+		static extern void egg_keymap_resolve_virtual_modifiers (
+			        IntPtr keymap,
+			        uint virtual_mods,
+			        out Gdk.ModifierType real_mods);
+
+		public bool GetAccelKeys (string               gconf_path,
+		                                 out uint             keyval,
+		                                 out Gdk.ModifierType mods)
 		{
-			client = new GConf.Client ();
-			bindings = new ArrayList ();
-		}
+			keyval = 0;
+			mods = 0;
 
-		public void Bind (string       gconf_path,
-		                  string       default_binding,
-		                  EventHandler handler)
-		{
 			try {
-				Binding binding = new Binding (gconf_path,
-				                               default_binding,
-				                               handler,
-				                               this);
-				bindings.Add (binding);
-			} catch (Exception e) {
-				Logger.Log ("Error Adding global keybinding:");
-				Logger.Log (e.ToString ());
-			}
-		}
+				string binding = (string) Preferences.Get (gconf_path);
+				if (binding == null ||
+				                binding == String.Empty ||
+				                binding == "disabled")
+					return false;
 
-		public override void UnbindAll ()
-		{
-			try {
-				bindings.Clear ();
-				base.UnbindAll ();
-			} catch (Exception e) {
-				Logger.Log ("Error Removing global keybinding:");
-				Logger.Log (e.ToString ());
-			}
-		}
+				uint virtual_mods = 0;
+				if (!egg_accelerator_parse_virtual (binding,
+				                                    out keyval,
+				                                    out virtual_mods))
+					return false;
 
-		class Binding
-		{
-			public string   gconf_path;
-			public string   key_sequence;
-			EventHandler    handler;
-			GConfXKeybinder parent;
+				Gdk.Keymap keymap = Gdk.Keymap.Default;
+				egg_keymap_resolve_virtual_modifiers (keymap.Handle,
+				                                      virtual_mods,
+				                                      out mods);
 
-			public Binding (string          gconf_path,
-			                string          default_binding,
-			                EventHandler    handler,
-			                GConfXKeybinder parent)
-			{
-				this.gconf_path = gconf_path;
-				this.key_sequence = default_binding;
-				this.handler = handler;
-				this.parent = parent;
-
-				try {
-					key_sequence = (string) parent.client.Get (gconf_path);
-				} catch {
-				Logger.Log ("GConf key '{0}' does not exist, using default.",
-				gconf_path);
-				}
-
-				SetBinding ();
-
-				parent.client.AddNotify (
-				        gconf_path,
-				        new GConf.NotifyEventHandler (BindingChanged));
-			}
-
-			void BindingChanged (object sender, GConf.NotifyEventArgs args)
-			{
-				if (args.Key == gconf_path) {
-					Logger.Log ("Binding for '{0}' changed to '{1}'!",
-					            gconf_path,
-					            args.Value);
-
-					UnsetBinding ();
-
-					key_sequence = (string) args.Value;
-					SetBinding ();
-				}
-			}
-
-			public void SetBinding ()
-			{
-				if (key_sequence == null ||
-				                key_sequence == String.Empty ||
-				                key_sequence == "disabled")
-					return;
-
-				Logger.Log ("Binding key '{0}' for '{1}'",
-				            key_sequence,
-				            gconf_path);
-
-				parent.Bind (key_sequence, handler);
-			}
-
-			public void UnsetBinding ()
-			{
-				if (key_sequence == null)
-					return;
-
-				Logger.Log ("Unbinding key '{0}' for '{1}'",
-				            key_sequence,
-				            gconf_path);
-
-				parent.Unbind (key_sequence);
-			}
-		}
-	}
-
-	public class TomboyGConfXKeybinder : GConfXKeybinder
-	{
-		NoteManager manager;
-		TomboyTray  tray;
-
-		public TomboyGConfXKeybinder (NoteManager manager, TomboyTray tray)
-: base ()
-		{
-			this.manager = manager;
-			this.tray = tray;
-
-			EnableDisable ((bool) Preferences.Get (Preferences.ENABLE_KEYBINDINGS));
-
-			Preferences.SettingChanged += EnableKeybindingsChanged;
-		}
-
-		void EnableKeybindingsChanged (object sender, GConf.NotifyEventArgs args)
-		{
-			if (args.Key == Preferences.ENABLE_KEYBINDINGS) {
-				bool enabled = (bool) args.Value;
-				EnableDisable (enabled);
-			}
-		}
-
-		void EnableDisable (bool enable)
-		{
-			Logger.Log ("EnableDisable Called: enabling... {0}", enable);
-			if (enable) {
-				BindPreference (Preferences.KEYBINDING_SHOW_NOTE_MENU,
-				                new EventHandler (KeyShowMenu));
-
-				BindPreference (Preferences.KEYBINDING_OPEN_START_HERE,
-				                new EventHandler (KeyOpenStartHere));
-
-				BindPreference (Preferences.KEYBINDING_CREATE_NEW_NOTE,
-				                new EventHandler (KeyCreateNewNote));
-
-				BindPreference (Preferences.KEYBINDING_OPEN_SEARCH,
-				                new EventHandler (KeyOpenSearch));
-
-				BindPreference (Preferences.KEYBINDING_OPEN_RECENT_CHANGES,
-				                new EventHandler (KeyOpenRecentChanges));
-			} else {
-				UnbindAll ();
-			}
-		}
-
-		void BindPreference (string gconf_path, EventHandler handler)
-		{
-			Bind (gconf_path,
-			      (string) Preferences.GetDefault (gconf_path),
-			      handler);
-		}
-
-		void KeyShowMenu (object sender, EventArgs args)
-		{
-			// Show the notes menu, highlighting the first item.
-			// This matches the behavior of GTK for
-			// accelerator-shown menus.
-			tray.ShowMenu (true);
-		}
-
-		void KeyOpenStartHere (object sender, EventArgs args)
-		{
-			Note note = manager.FindByUri (NoteManager.StartNoteUri);
-			if (note != null)
-				note.Window.Present ();
-		}
-
-		void KeyCreateNewNote (object sender, EventArgs args)
-		{
-			try {
-				Note new_note = manager.Create ();
-				new_note.Window.Show ();
+				return true;
 			} catch {
-			// Fail silently.
+			return false;
 		}
 	}
-
-	void KeyOpenSearch (object sender, EventArgs args)
-		{
-			/* Find dialog is deprecated in favor of searcable ToC */
-			/*
-			NoteFindDialog find_dialog = NoteFindDialog.GetInstance (manager);
-			find_dialog.Present ();
-			*/
-			KeyOpenRecentChanges (sender, args);
-		}
-
-		void KeyOpenRecentChanges (object sender, EventArgs args)
-		{
-			NoteRecentChanges recent = NoteRecentChanges.GetInstance (manager);
-			recent.Present ();
-		}
 	}
 }
