@@ -1,0 +1,48 @@
+﻿<?xml version="1.0"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Product Id="*"
+		Name="Tomboy Notes"
+		Language="1033"
+		Version="0.13.0.0"
+		UpgradeCode="4401CB77-D6D4-4903-B1F9-41E2F80DF785"
+		Manufacturer="Alex Graveley et al">
+		<Package Description="#Description"
+			Comments="Comments"
+			InstallerVersion="200"
+			Compressed="yes"/>
+		<!--
+			Source media for the installation. 
+ 			Specifies a single cab file to be embedded in the installer's .msi. 
+		-->
+		<Media Id="1" Cabinet="contents.cab" EmbedCab="yes" CompressionLevel="high"/>
+		
+		<!-- Installation directory and files are defined in Files.wxs -->
+		<Directory Id="TARGETDIR" Name="SourceDir">
+		
+			<Directory Id="ProgramMenuFolder" Name="Programs" />
+			<Directory Id="DesktopFolder" Name="Desktop" />
+			
+		</Directory>
+
+		
+		<Feature Id="Complete"
+		         Title="Tomboy Notes"
+		         Description="Take notes, link ideas, and stay organized."
+		         Level="1">
+		         <ComponentRef Id="MyComponent"/>
+		         <ComponentRef Id="Shortcuts"/>
+		</Feature>
+		
+		<!-- 
+			Using the Wix UI library
+ 
+			WixUI_InstallDir does not allow the user to choose 
+			features but adds a dialog to let the user choose a 
+			directory where the product will be installed
+		-->
+		<Property Id="WIXUI_INSTALLDIR">INSTALLDIR</Property>
+		<UIRef Id="WixUI_InstallDir"/>
+	
+		<Icon Id="Tomboy.exe" SourceFile="..\bin\Debug\Tomboy.exe" />
+	</Product>
+</Wix>

@@ -1,0 +1,48 @@
+﻿<?xml version="1.0"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Fragment>
+		<DirectoryRef Id="TARGETDIR">
+			<Directory Id="ProgramFilesFolder" Name="PFiles">
+				<Directory Id="INSTALLDIR" Name="Tomboy">
+					<Component Id="MyComponent" Guid="01F111EB-3C6C-4E5B-8655-7922ED600DAC" DiskId="1">
+						<File Id="LicenseFile" Name="license.rtf" Source="license.rtf" />
+						<File Source="..\bin\Debug\Backlinks.dll" Name="Backlinks.dll" Id="Backlinks.dll" />
+						<File Source="..\bin\Debug\Bugzilla.dll" Name="Bugzilla.dll" Id="Bugzilla.dll" />
+						<File Source="..\bin\Debug\ExportToHtml.dll" Name="ExportToHtml.dll" Id="ExportToHtml.dll" />
+						<File Source="..\bin\Debug\ExportToHtml.xsl" Name="ExportToHtml.xsl" Id="ExportToHtml.xsl" />
+						<File Source="..\bin\Debug\FileSystemSyncService.dll" Name="FileSystemSyncService.dll" Id="FileSystemSyncService.dll" />
+						<File Source="..\bin\Debug\FixedWidth.dll" Name="FixedWidth.dll" Id="FixedWidth.dll" />
+						<File Source="..\bin\Debug\ICSharpCode.SharpZipLib.dll" Name="ICSharpCode.SharpZipLib.dll" Id="ICSharpCode.SharpZipLib.dll" />
+						<File Source="..\bin\Debug\InsertTimestamp.dll" Name="InsertTimestamp.dll" Id="InsertTimestamp.dll" />
+						<File Source="..\bin\Debug\Mono.Addins.dll" Name="Mono.Addins.dll" Id="Mono.Addins.dll" />
+						<File Source="..\bin\Debug\Mono.Addins.dll.config" Name="Mono.Addins.dll.config" Id="Mono.Addins.dll.config" />
+						<File Source="..\bin\Debug\Mono.Addins.Gui.dll" Name="Mono.Addins.Gui.dll" Id="Mono.Addins.Gui.dll" />
+						<File Source="..\bin\Debug\Mono.Addins.Setup.dll" Name="Mono.Addins.Setup.dll" Id="Mono.Addins.Setup.dll" />
+						<File Source="..\bin\Debug\Mono.Posix.dll" Name="Mono.Posix.dll" Id="Mono.Posix.dll" />
+						<File Source="..\bin\Debug\MonoPosixHelper.dll" Name="MonoPosixHelper.dll" Id="MonoPosixHelper.dll" />
+						<File Source="..\bin\Debug\NoteOfTheDay.dll" Name="NoteOfTheDay.dll" Id="NoteOfTheDay.dll" />
+						<File Source="..\bin\Debug\Tomboy.exe" Name="Tomboy.exe" Id="Tomboy.exe" Vital="yes">
+						</File>
+						<File Source="..\bin\Debug\Backlinks.pdb" Name="Backlinks.pdb" Id="Backlinks.pdb" />
+						<File Source="..\bin\Debug\Bugzilla.pdb" Name="Bugzilla.pdb" Id="Bugzilla.pdb" />
+						<File Source="..\bin\Debug\ExportToHtml.pdb" Name="ExportToHtml.pdb" Id="ExportToHtml.pdb" />
+						<File Source="..\bin\Debug\FileSystemSyncService.pdb" Name="FileSystemSyncService.pdb" Id="FileSystemSyncService.pdb" />
+						<File Source="..\bin\Debug\FixedWidth.pdb" Name="FixedWidth.pdb" Id="FixedWidth.pdb" />
+						<File Source="..\bin\Debug\InsertTimestamp.pdb" Name="InsertTimestamp.pdb" Id="InsertTimestamp.pdb" />
+						<File Source="..\bin\Debug\NoteOfTheDay.pdb" Name="NoteOfTheDay.pdb" Id="NoteOfTheDay.pdb" />
+						<File Source="..\bin\Debug\Tomboy.pdb" Name="Tomboy.pdb" Id="Tomboy.pdb" />
+					</Component>
+					<Component Id="Shortcuts" Guid="D1F1C647-7D55-4AD2-B765-4152B337546E" DiskId="1">
+					<CreateFolder/>
+						<RegistryKey Root="HKCU" Key="Software\Tomboy\Install"
+							Action="createAndRemoveOnUninstall">
+							<RegistryValue Name="DTSC" Value="1" Type="integer" KeyPath="yes"/>
+						</RegistryKey>
+						<Shortcut Id="startmenuTomboy" Directory="ProgramMenuFolder" Name="Tomboy Notes" WorkingDirectory="INSTALLDIR" Icon="Tomboy.exe" IconIndex="0" Target="[#Tomboy.exe]" />
+						<Shortcut Id="desktopTomboy" Directory="DesktopFolder" Name="Tomboy Notes" WorkingDirectory="INSTALLDIR" Icon="Tomboy.exe" IconIndex="0" Target="[#Tomboy.exe]" />
+					</Component>
+				</Directory>
+			</Directory>
+		</DirectoryRef>
+	</Fragment>
+</Wix>
