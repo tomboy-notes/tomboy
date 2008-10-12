@@ -73,11 +73,6 @@ namespace Tomboy
 		{
 			Gtk.Application.Run ();
 		}
-		
-		public void QuitMainLoop ()
-		{
-			Gtk.Application.Quit ();
-		}
 
 		public string ConfDir
 		{

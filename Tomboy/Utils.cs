@@ -906,11 +906,6 @@ namespace Tomboy
 			native_app.StartMainLoop ();
 		}
 
-		public static void QuitMainLoop ()
-		{
-			native_app.QuitMainLoop ();
-		}
-
 		public static ActionManager ActionManager
 		{
 			get {

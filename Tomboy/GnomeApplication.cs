@@ -89,11 +89,6 @@ namespace Tomboy
 			program.Run ();
 		}
 
-		public void QuitMainLoop ()
-		{
-			Gtk.Main.Quit ();
-		}
-
 		[DllImport("libc")]
 		private static extern int prctl (int option,
 			                                 byte [] arg2,
@@ -118,7 +113,7 @@ namespace Tomboy
 		{
 			// Don't let the exit signal run, which would cancel
 			// session management.
-			QuitMainLoop ();
+			Gtk.Main.Quit ();
 		}
 
 		private void CancelSessionManagerRestart ()
