@@ -100,7 +100,7 @@ namespace Tomboy.ExportToHtml
 
 				try {
 					Uri output_uri = new Uri (output_path);
-					Gnome.Url.Show (output_uri.AbsoluteUri);
+					Services.NativeApplication.OpenUrl (output_uri.AbsoluteUri);
 				} catch (Exception ex) {
 					Logger.Log ("Could not open exported note in a web browser: {0}",
 					            ex);

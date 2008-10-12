@@ -1,5 +1,35 @@
 2008-10-12  Sandy Armstrong  <sanfordarmstrong@gmail.com>
 
+	* Tomboy.csproj: Defines.cs -> Defines.WIN32.cs.  Add WindowsFactory.cs.
+	Use 22x22 Tomboy icon instead of 48x48.
+	
+	* Tomboy/Addins/Backlinks/Backlinks.csproj:
+	* Tomboy/Addins/Bugzilla/Bugzilla.csproj:
+	* Tomboy/Addins/ExportToHtml/ExportToHtml.csproj:
+	* Tomboy/Addins/FileSystemSyncService/FileSystemSyncService.csproj:
+	* Tomboy/Addins/FixedWidth/FixedWidth.csproj:
+	* Tomboy/Addins/InsertTimestamp/InsertTimestamp.csproj:
+	* Tomboy/Addins/NoteOfTheDay/NoteOfTheDay.csproj:
+	* Tomboy.sln: Added new projects for building certain add-ins on Windows.
+	
+	* Tomboy/Addins/Bugzilla/BugzillaLink.cs:
+	* Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs: Better OpenUrl.
+	
+	* Tomboy/Defines.WIN32.cs: A Defines class for Windows.  Need to make this
+	auto-generated or something.
+	
+	* Tomboy/NoteWindow.cs: Have "Close All Notes" action quit Tomboy on
+	Windows, since there aren't virtual desktops. Not married to this behavior.
+	
+	* Tomboy/Synchronization/FileSystemSyncServer.cs: Don't attempt to change
+	file permissions on Windows.  I don't feel like investigating the proper
+	way to do this right now.
+	
+	* Tomboy/XmlPreferencesClient.cs: Actually load preferences when Tomboy
+	starts, instead of overwriting with defaults each time.
+
+2008-10-12  Sandy Armstrong  <sanfordarmstrong@gmail.com>
+
 	* Tomboy/WindowsFactory.cs: IPlatformFactory implementation for Windows.
 
 	* Tomboy.mdp:

@@ -597,7 +597,9 @@ namespace Tomboy.Sync
 
 		private void AdjustPermissions (string path)
 		{
+#if !WIN32
 			Mono.Unix.Native.Syscall.chmod (path, Mono.Unix.Native.FilePermissions.ACCESSPERMS);
+#endif
 		}
 		#endregion // Private Methods
 
