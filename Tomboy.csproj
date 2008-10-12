@@ -28,6 +28,8 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <ApplicationIcon>tomboy.ico</ApplicationIcon>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -150,6 +152,7 @@
     <Compile Include="Tomboy\WindowsApplication.cs" />
     <Compile Include="Tomboy\XmlPreferencesClient.cs" />
     <None Include="ChangeLog" />
+    <None Include="COPYING" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
@@ -189,6 +192,9 @@
   <ItemGroup>
     <None Include="Tomboy\Defines.cs.in" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="tomboy.ico" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <MonoDevelop>
@@ -208,7 +214,8 @@
     <VisualStudio />
   </ProjectExtensions>
   <PropertyGroup>
-    <PreBuildEvent>copy "$(ProjectDir)data\icons\hicolor_apps_22x22_tomboy.png" "$(ProjectDir)tomboy.png"
+    <PreBuildEvent>copy "$(ProjectDir)data\icons\tomboy.ico" "$(ProjectDir)tomboy.ico"
+copy "$(ProjectDir)data\icons\hicolor_apps_22x22_tomboy.png" "$(ProjectDir)tomboy.png"
 copy "$(ProjectDir)data\icons\hicolor_places_22x22_note.png" "$(ProjectDir)note.png"
 copy "$(ProjectDir)data\icons\hicolor_actions_16x16_note-new.png" "$(ProjectDir)note-new.png"
 copy "$(ProjectDir)data\icons\hicolor_actions_22x22_filter-note-all.png" "$(ProjectDir)filter-note-all.png"
