@@ -17,7 +17,6 @@ namespace Tomboy
 
 		void Exit (int exitcode);
 		void StartMainLoop ();
-		void QuitMainLoop ();
 
 		string ConfDir { get; }
 
