@@ -1,0 +1,66 @@
+﻿<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{70C6BF8A-5AFF-4EF0-8D94-77F3281B8EE2}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <OutputType>Package</OutputType>
+    <RootNamespace>Setup</RootNamespace>
+    <OutputName>Tomboy</OutputName>
+    <WixToolPath Condition=" '$(WixToolPath)' == '' ">$(SharpDevelopBinPath)\Tools\Wix</WixToolPath>
+    <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' ">$(WixToolPath)\wix.targets</WixTargetsPath>
+    <WixTasksPath Condition=" '$(WixTasksPath)' == '' ">$(WixToolPath)\WixTasks.dll</WixTasksPath>
+    <SupressIces>ICE45</SupressIces>
+    <WixVariables>WixUILicenseRtf=license.rtf</WixVariables>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <DebugSymbols>True</DebugSymbols>
+    <DebugType>Full</DebugType>
+    <Optimize>False</Optimize>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <DebugSymbols>False</DebugSymbols>
+    <DebugType>None</DebugType>
+    <Optimize>True</Optimize>
+  </PropertyGroup>
+  <Import Project="$(WixToolPath)\wix.targets" />
+  <ItemGroup>
+    <WixExtension Include="$(WixToolPath)\WixUIExtension.dll" />
+    <Compile Include="Files.wxs" />
+    <Compile Include="Setup.wxs" />
+    <None Include="license.rtf" />
+    <ProjectReference Include="..\Tomboy.csproj">
+      <Project>{315DBB30-1461-4A41-A23F-A888D84E1EA0}</Project>
+      <Name>Tomboy</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tomboy\Addins\Backlinks\Backlinks.csproj">
+      <Project>{3D330B80-87BA-435E-B3B8-E3C796FB155C}</Project>
+      <Name>Backlinks</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tomboy\Addins\Bugzilla\Bugzilla.csproj">
+      <Project>{8543F6E2-9B1C-4BFF-B2CC-DD0198E921CC}</Project>
+      <Name>Bugzilla</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tomboy\Addins\ExportToHtml\ExportToHtml.csproj">
+      <Project>{88AB220D-4FB4-4875-8865-25CB6DF55EF8}</Project>
+      <Name>ExportToHtml</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tomboy\Addins\FileSystemSyncService\FileSystemSyncService.csproj">
+      <Project>{31C73629-6979-41ED-8278-A291CB12DADF}</Project>
+      <Name>FileSystemSyncService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tomboy\Addins\FixedWidth\FixedWidth.csproj">
+      <Project>{30A75F9A-7305-465E-8754-334345424569}</Project>
+      <Name>FixedWidth</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tomboy\Addins\InsertTimestamp\InsertTimestamp.csproj">
+      <Project>{F2F2E123-EA8C-4753-9383-4C86B152F4FE}</Project>
+      <Name>InsertTimestamp</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tomboy\Addins\NoteOfTheDay\NoteOfTheDay.csproj">
+      <Project>{33026B26-C907-4DBB-A438-85F042578AEA}</Project>
+      <Name>NoteOfTheDay</Name>
+    </ProjectReference>
+  </ItemGroup>
+</Project>
