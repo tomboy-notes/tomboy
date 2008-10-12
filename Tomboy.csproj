@@ -96,6 +96,7 @@
   <ItemGroup>
     <Compile Include="Tomboy\ActionManager.cs" />
     <Compile Include="Tomboy\Contrast.cs" />
+    <Compile Include="Tomboy\Defines.WIN32.cs" />
     <Compile Include="Tomboy\Logger.cs" />
     <Compile Include="Tomboy\Note.cs" />
     <Compile Include="Tomboy\NoteBuffer.cs" />
@@ -113,8 +114,8 @@
     <Compile Include="Tomboy\TagManager.cs" />
     <Compile Include="Tomboy\Tag.cs" />
     <Compile Include="Tomboy\TagButton.cs" />
+    <Compile Include="Tomboy\WindowsFactory.cs" />
     <Compile Include="Tomboy\WrapBox.cs" />
-    <Compile Include="Tomboy\Defines.cs" />
     <Compile Include="Tomboy\PreferencesDialog.cs" />
     <Compile Include="Tomboy\NoteEditor.cs" />
     <Compile Include="Tomboy\AbstractAddin.cs" />
@@ -207,7 +208,7 @@
     <VisualStudio />
   </ProjectExtensions>
   <PropertyGroup>
-    <PreBuildEvent>copy "$(ProjectDir)data\icons\hicolor_apps_48x48_tomboy.png" "$(ProjectDir)tomboy.png"
+    <PreBuildEvent>copy "$(ProjectDir)data\icons\hicolor_apps_22x22_tomboy.png" "$(ProjectDir)tomboy.png"
 copy "$(ProjectDir)data\icons\hicolor_places_22x22_note.png" "$(ProjectDir)note.png"
 copy "$(ProjectDir)data\icons\hicolor_actions_16x16_note-new.png" "$(ProjectDir)note-new.png"
 copy "$(ProjectDir)data\icons\hicolor_actions_22x22_filter-note-all.png" "$(ProjectDir)filter-note-all.png"
@@ -218,8 +219,7 @@ copy "$(ProjectDir)data\icons\hicolor_status_16x16_pin-down.png" "$(ProjectDir)p
 copy "$(ProjectDir)data\icons\hicolor_status_16x16_pin-up.png" "$(ProjectDir)pin-up.png"
 copy "$(ProjectDir)data\icons\hicolor_status_16x16_pin-active.png" "$(ProjectDir)pin-active.png"
 copy "$(ProjectDir)Tomboy\Tomboy.addin.xml" "$(ProjectDir)"
-copy "$(ProjectDir)data\UIManagerLayout.xml" "$(ProjectDir)"
-copy "$(ProjectDir)Tomboy\Defines.cs.in" "$(ProjectDir)Tomboy\Defines.cs"</PreBuildEvent>
+copy "$(ProjectDir)data\UIManagerLayout.xml" "$(ProjectDir)"</PreBuildEvent>
     <PostBuildEvent>copy "$(ProjectDir)winbin\MonoPosixHelper.dll" "$(ProjectDir)bin\Debug"
 copy "$(ProjectDir)winbin\Mono.Addins.dll.config" "$(ProjectDir)bin\Debug"</PostBuildEvent>
   </PropertyGroup>

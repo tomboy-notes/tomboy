@@ -68,7 +68,7 @@ namespace Tomboy.Bugzilla
 		{
 			if (BugUrl != string.Empty) {
 				Logger.Log ("Opening url '{0}'...", BugUrl);
-				Gnome.Url.Show (BugUrl);
+				Services.NativeApplication.OpenUrl (BugUrl);
 			}
 			return true;
 		}

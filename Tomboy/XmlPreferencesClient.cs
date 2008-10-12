@@ -23,6 +23,7 @@ namespace Tomboy
 				Services.NativeApplication.ConfDir,
 				"prefs.xml");
 			prefsDoc = new XmlDocument ();
+			prefsDoc.Load (fileName);
 			events = new Dictionary<string, NotifyEventHandler> ();
 		}
 		

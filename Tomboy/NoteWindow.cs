@@ -242,6 +242,9 @@ namespace Tomboy
 
 		void CloseAllWindowsHandler (object sender, EventArgs args)
 		{
+#if WIN32
+			Tomboy.Exit (0);
+#else
 			int workspace = tomboy_window_get_workspace (note.Window.Handle);
 
 			foreach (Note iter in note.Manager.Notes) {
@@ -255,6 +258,7 @@ namespace Tomboy
 					iter.Window.CloseWindowHandler (null, null);
 				}
 			}
+#endif
 		}
 
 		//
