@@ -249,9 +249,13 @@ namespace Tomboy
 		{
 			Gdk.Screen screen = null;
 			if (tray_icon != null) {
+#if WIN32
+				screen = tray_icon.Tray.TomboyTrayMenu.Screen;
+#else
 				Gdk.Rectangle area;
 				Gtk.Orientation orientation;
 				tray_icon.GetGeometry (out screen, out area, out orientation);
+#endif
 			}
 			GuiUtils.ShowHelp("tomboy.xml", null,
 			                  screen,

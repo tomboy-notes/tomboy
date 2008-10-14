@@ -1,4 +1,18 @@
-﻿2008-10-13  Sandy Armstrong  <sanfordarmstrong@gmail.com>
+﻿2008-10-14  Sandy Armstrong  <sanfordarmstrong@gmail.com>
+	
+	* Tomboy/ManagedWinapi.EventDispatchingNativeWindow.cs:
+	* Tomboy/ManagedWinapi.Hoteky.cs: Importing easy-to-use keybinding code
+	from the ManagedWinapi project (Windows-only, LGPL V2.1 or later).
+	
+	* Tomboy/WindowsKeybinder.cs: Implementation of IKeybinder for Windows.
+	
+	* Tomboy/WindowsFactory.cs: Use WindowsKeybinder instead of NullKeybinder.
+	
+	* Tomboy/Tomboy.cs: Work around GetGeometry bug for WIN32.
+
+	* Tomboy.csproj: Added new files and System.Windows.Forms dependency.
+	
+2008-10-13  Sandy Armstrong  <sanfordarmstrong@gmail.com>
 
 	* Tomboy.csproj: Change output type to WinExe to prevent DOS window. Need to
 	do the same for Mono.Addins.dll, too, I think, as it launches some temporary

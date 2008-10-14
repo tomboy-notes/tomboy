@@ -25,7 +25,7 @@ namespace Tomboy
 
 		public IKeybinder CreateKeybinder ()
 		{
-			return new NullKeybinder ();
+			return new WindowsKeybinder ();
 		}
 	}
 }
