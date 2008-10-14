@@ -89,6 +89,7 @@
       <HintPath>winbin\Mono.Posix.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="glib-sharp, Version=2.10.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
     <Reference Include="System" />
@@ -100,6 +101,10 @@
     <Compile Include="Tomboy\Contrast.cs" />
     <Compile Include="Tomboy\Defines.WIN32.cs" />
     <Compile Include="Tomboy\Logger.cs" />
+    <Compile Include="Tomboy\ManagedWinapi.EventDispatchingNativeWindow.cs" />
+    <Compile Include="Tomboy\ManagedWinapi.Hotkey.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Tomboy\Note.cs" />
     <Compile Include="Tomboy\NoteBuffer.cs" />
     <Compile Include="Tomboy\NoteManager.cs" />
@@ -117,6 +122,7 @@
     <Compile Include="Tomboy\Tag.cs" />
     <Compile Include="Tomboy\TagButton.cs" />
     <Compile Include="Tomboy\WindowsFactory.cs" />
+    <Compile Include="Tomboy\WindowsKeybinder.cs" />
     <Compile Include="Tomboy\WrapBox.cs" />
     <Compile Include="Tomboy\PreferencesDialog.cs" />
     <Compile Include="Tomboy\NoteEditor.cs" />
