@@ -24,6 +24,19 @@
 			
 		</Directory>
 
+		<Property Id="GTKSHARPSDKINSTALLVERSION">
+			<RegistrySearch Id='GtksharpsdkRegistry' Type='raw' Root='HKCU' Key='Software\Gtk# SDK\Version' />
+		</Property>
+		<Property Id="GTKSHARPRUNTIMEINSTALLVERSION">
+			<RegistrySearch Id='GtksharpruntimeRegistry' Type='raw' Root='HKCU' Key='Software\Gtk# Runtime\Version' />
+		</Property>
+		<Condition Message="This setup requires Gtk# 2.10 or higher. Please download the runtime installer from http://medsphere.org/projects/gtksharp/">
+			<![CDATA[GTKSHARPSDKINSTALLVERSION > "2.10" OR GTKSHARPRUNTIMEINSTALLVERSION > "2.10"]]>
+		</Condition>
+		<Condition Message='This setup requires the .NET Framework 2.0 or higher.'>
+			<![CDATA[MsiNetAssemblySupport >= "2.0.50727"]]>
+		</Condition>
+
 		
 		<Feature Id="Complete"
 		         Title="Tomboy Notes"
