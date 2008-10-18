@@ -39,6 +39,8 @@ namespace Tomboy
 		{
 #if WIN32
 			factory = new WindowsFactory ();
+#elif MAC
+			factory = new MacFactory ();
 #else
 			factory = new GnomeFactory ();
 #endif

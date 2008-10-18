@@ -1,5 +1,21 @@
 ﻿2008-10-18  Sandy Armstrong  <sanfordarmstrong@gmail.com>
 	
+	* Tomboy/MacFactory.cs:
+	* Tomboy/Services.cs: Initial Mac support (for now, identical to Windows
+	support, but leaves out WindowsKeybinder).
+	
+	* Tomboy.sln:
+	* Tomboy.csproj:
+	* Tomboy/Addins/*/*.csproj: Add new "Mac" configuration (should rename
+	"Debug" to "Windows", probably.  Defines "MAC".
+	
+	* Tomboy/NoteWindow.cs:
+	* Tomboy/Tomboy.cs:
+	* Tomboy/Tray.cs:
+	* Tomboy/Utiles.cs: Update #if statements to include MAC as necessary.
+
+2008-10-18  Sandy Armstrong  <sanfordarmstrong@gmail.com>
+	
 	* Tomboy/XmlPreferencesClient.cs: Don't try to load prefs.xml if it does
 	not yet exist.
 

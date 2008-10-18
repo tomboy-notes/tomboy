@@ -6,7 +6,7 @@ using Mono.Unix;
 
 #if FIXED_PANELAPPLET
 using Gnome;
-#elif !WIN32
+#elif !WIN32 && !MAC
 using _Gnome;
 #endif
 
@@ -111,7 +111,7 @@ namespace Tomboy
 		static void RegisterPanelAppletFactory ()
 		{
 			// This will block if there is no existing instance running
-#if !WIN32
+#if !WIN32 && !MAC
 			PanelAppletFactory.Register (typeof (TomboyApplet));
 #endif
 		}
@@ -249,7 +249,7 @@ namespace Tomboy
 		{
 			Gdk.Screen screen = null;
 			if (tray_icon != null) {
-#if WIN32
+#if WIN32 || MAC
 				screen = tray_icon.Tray.TomboyTrayMenu.Screen;
 #else
 				Gdk.Rectangle area;

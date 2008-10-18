@@ -786,7 +786,7 @@ namespace Tomboy
 : base (name)
 		{
 		}
-#if !WIN32
+#if !WIN32 && !MAC
 		[DllImport("libtomboy")]
 		static extern void tomboy_window_present_hardcore (IntPtr win);
 
