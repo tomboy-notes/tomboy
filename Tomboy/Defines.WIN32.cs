@@ -7,11 +7,11 @@ using System.Reflection;
 namespace Tomboy {
 	public class Defines {
 		public const string VERSION = "0.13.0";
-		public const string DATADIR = "@datadir@";
-		public const string GNOME_LOCALE_DIR = "@datadir@/locale";
+		public static readonly string DATADIR = System.IO.Path.GetDirectoryName (Assembly.GetExecutingAssembly ().Location);
+		public static readonly string GNOME_LOCALE_DIR = System.IO.Path.Combine (DATADIR, "locale");
 		public const string GNOME_HELP_DIR = "@datadir@/gnome/help/tomboy";
 		public const string PKGLIBDIR = "@pkglibdir@";
-		public const string SYS_ADDINS_DIR = "@pkglibdir@/addins";
+		public static readonly string SYS_ADDINS_DIR = DATADIR;
 		public const string TOMBOY_WEBSITE = "http://www.gnome.org/projects/tomboy/";
 	}
 }

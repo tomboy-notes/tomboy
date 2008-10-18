@@ -47,7 +47,7 @@ namespace Tomboy
 
 			// Add private icon dir to search path
 			icon_theme = Gtk.IconTheme.Default;
-			icon_theme.AppendSearchPath (System.IO.Path.Combine (Defines.DATADIR, "tomboy/icons"));
+			icon_theme.AppendSearchPath (Path.Combine (Path.Combine (Defines.DATADIR, "tomboy"), "icons"));
 
 //   PluginManager.CheckPluginUnloading = cmd_line.CheckPluginUnloading;
 
