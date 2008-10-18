@@ -40,6 +40,7 @@ namespace Tomboy
 			this.note = note;
 			this.IconName = "tomboy";
 			this.SetDefaultSize (450, 360);
+			Resizable = true;
 
 			accel_group = new Gtk.AccelGroup ();
 			AddAccelGroup (accel_group);
