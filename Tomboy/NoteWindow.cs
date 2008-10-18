@@ -242,7 +242,7 @@ namespace Tomboy
 
 		void CloseAllWindowsHandler (object sender, EventArgs args)
 		{
-#if WIN32
+#if WIN32 || MAC
 			Tomboy.Exit (0);
 #else
 			int workspace = tomboy_window_get_workspace (note.Window.Handle);

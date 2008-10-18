@@ -195,7 +195,7 @@ namespace Tomboy
 			Gdk.Rectangle area;
 			Gtk.Orientation orientation;
 			try {
-#if WIN32
+#if WIN32 || MAC
 				menu.Screen.Display.GetPointer (out x, out y);
 				screen = menu.Screen;
 				area.Height = 0;
@@ -278,7 +278,7 @@ namespace Tomboy
 
 			Gdk.Rectangle area;
 			Gtk.Orientation orientation;
-#if WIN32
+#if WIN32 || MAC
 			int x;
 			tray.TomboyTrayMenu.Screen.Display.GetPointer (out x, out val);
 			screen = tray.TomboyTrayMenu.Screen;

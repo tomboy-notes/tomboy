@@ -61,6 +61,16 @@
       <Build xmlns="" />
     </Build>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Mac|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Mac\</OutputPath>
+    <DefineConstants>MAC</DefineConstants>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <Optimize>true</Optimize>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="atk-sharp, Version=2.10.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
       <SpecificVersion>False</SpecificVersion>
@@ -88,6 +98,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>winbin\Mono.Posix.dll</HintPath>
     </Reference>
+    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
@@ -101,6 +112,7 @@
     <Compile Include="Tomboy\Contrast.cs" />
     <Compile Include="Tomboy\Defines.WIN32.cs" />
     <Compile Include="Tomboy\Logger.cs" />
+    <Compile Include="Tomboy\MacFactory.cs" />
     <Compile Include="Tomboy\ManagedWinapi.EventDispatchingNativeWindow.cs" />
     <Compile Include="Tomboy\ManagedWinapi.Hotkey.cs">
       <SubType>Component</SubType>
