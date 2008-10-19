@@ -11,5 +11,5 @@ cp data/icons/hicolor_actions_48x48_notebook-new.png notebook-new.png
 cp data/icons/hicolor_status_16x16_pin-down.png pin-down.png
 cp data/icons/hicolor_status_16x16_pin-up.png pin-up.png
 cp data/icons/hicolor_status_16x16_pin-active.png pin-active.png
-cp Tomboy/Tomboy.addin.xml .
+cp Tomboy/Tomboy.addin.mac.xml Tomboy.addin.xml
 cp data/UIManagerLayout.xml .

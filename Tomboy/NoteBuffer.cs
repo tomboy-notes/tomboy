@@ -14,7 +14,12 @@ namespace Tomboy
 	public class NoteBuffer : Gtk.TextBuffer
 	{
 		UndoManager undo_manager;
-		char[] indent_bullets = {'\u2022', '\u2218', '\u2023'};
+		char[] indent_bullets = {
+			'\u2022',
+#if !MAC
+			'\u2218', // Not available on Mac, need to pick something else
+#endif
+			'\u2023'};
 
 		// GODDAMN Gtk.TextBuffer. I hate you. Hate Hate Hate.
 		struct WidgetInsertData

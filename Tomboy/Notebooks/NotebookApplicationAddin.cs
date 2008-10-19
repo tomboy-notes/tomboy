@@ -115,6 +115,17 @@ namespace Tomboy.Notebooks
 				mainWindowNotebookMenu = new Gtk.Menu ();
 				imageitem.Submenu = mainWindowNotebookMenu;
 				
+#if MAC
+				// Make the menu once, since Shown events aren't working in Mac Menu
+				AddMenuItems (mainWindowNotebookMenu);
+				// Listen to these events to maintain list of Notebooks; watching the TreeStore
+				// takes more work because it's a pre-notify.
+				NotebookManager.NoteAddedToNotebook += delegate (Note o, Notebook args) {
+					AddMenuItems (mainWindowNotebookMenu); };
+				NotebookManager.NoteRemovedFromNotebook += delegate (Note o, Notebook args) {
+					AddMenuItems (mainWindowNotebookMenu); };
+#endif
+
 				mainWindowNotebookMenu.Shown += OnNewNotebookMenuShown;
 				mainWindowNotebookMenu.Hidden += OnNewNotebookMenuHidden;
 			}
@@ -218,10 +229,16 @@ namespace Tomboy.Notebooks
 					} while (model.IterNext (ref iter) == true);
 				}
 			}
+#if MAC
+			menu.ShowAll ();
+#endif
 		}
 		
 		private void RemoveMenuItems (Gtk.Menu menu)
 		{
+#if MAC
+			menu.HideAll ();
+#endif
 			foreach (Gtk.MenuItem child in menu.Children) {
 				menu.Remove (child);
 			}

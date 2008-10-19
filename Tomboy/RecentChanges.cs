@@ -191,7 +191,9 @@ namespace Tomboy
                         // Use another VBox to place the MenuBar
                         // right at thetop of the window.
                         content_vbox = new Gtk.VBox (false, 0);
+#if !MAC
                         content_vbox.PackStart (menu_bar, false, false, 0);
+#endif
                         content_vbox.PackStart (vbox, true, true, 0);
                         content_vbox.Show ();
 
@@ -962,9 +964,10 @@ namespace Tomboy
                         Hide ();
                         Destroy ();
                         instance = null;
-
+#if !MAC
                         if (Tomboy.TrayIconShowing == false)
                                 Tomboy.ActionManager ["QuitTomboyAction"].Activate ();
+#endif
                 }
 
                 void OnDelete (object sender, Gtk.DeleteEventArgs args)

@@ -1,3 +1,34 @@
+2008-10-19  Sandy Armstrong  <sanfordarmstrong@gmail.com>
+
+	* macbin/: Mono bindings for Immendio's ige-mac-integration library.
+	
+	* bunde-mac-app.sh:
+	* osx/: Support for building an app bundle for OS X.
+	
+	* Tomboy/Tomboy.addin.mac.xml:
+	* prebuild.sh: Use a modified add-in manifest file for Mac.
+	
+	* Tomboy.mac.sln:
+	* Tomboy.mac.csproj:
+	* Tomboy/Addins/*/*.mac.csproj: Fixes to Mac-specific MD projects.
+	
+	* Tomboy/WindowsApplication.cs: Mark everything virtual.
+	* Tomboy/MacApplication.cs: Subclass WindowsApplication, add
+	  Mac menu bar and dock integration.
+	* Tomboy/MacFactory.cs: Use MacApplication.
+	
+	* Tomboy/Tray.cs: Expose ITomboyTray. #if MAC, hide Tray icon. Hacky.
+	* Tomboy/Notebooks/NotebookApplicationAddin.cs: #if MAC hacks to work
+	  around issues with Mac menu bar integration.
+	* Tomboy/Tomboy.cs: Fix AboutDialog to properly show Tomboy website as
+	  clickable URL. #if !MAC code that shows Search if Tray doesn't appear.
+	* Tomboy/RecentChanges.cs: #if !MAC code to keep menu out of Search
+	  window, and to prevent quitting Tomboy when Search window closes just
+	  because Tray icon isn't Visible.
+	  
+	* Tomboy/NoteBuffer.cs: #if !MAC code to prevent use of \u2218 as
+	  a bullet symbol, as it doesn't appear to be available by default.
+
 2008-10-18  Sandy Armstrong  <sanfordarmstrong@gmail.com>
 
 	* Tomboy.mac.sln:
