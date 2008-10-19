@@ -146,6 +146,9 @@ namespace Tomboy
 			Pixbuf = GuiUtils.GetIcon ("tomboy", panel_size);
 
 			Tooltip = TomboyTrayUtils.GetToolTipText ();
+#if MAC
+			Visible = false;
+#endif
 		}
 		
 		public TomboyTray Tray
@@ -493,6 +496,11 @@ namespace Tomboy
 		public Gtk.Menu TomboyTrayMenu
 		{
 			get { return tray_menu; }
+		}
+		
+		public ITomboyTray Tray
+		{
+			get { return tray; }
 		}
 		
 		public NoteManager NoteManager

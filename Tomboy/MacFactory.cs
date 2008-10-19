@@ -1,4 +1,4 @@
-﻿namespace Tomboy
+namespace Tomboy
 {
 	public class MacFactory : IPlatformFactory
 	{
@@ -20,7 +20,7 @@
 
 		public INativeApplication CreateNativeApplication ()
 		{
-			return new WindowsApplication ();
+			return new MacApplication ();
 		}
 
 		public IKeybinder CreateKeybinder ()

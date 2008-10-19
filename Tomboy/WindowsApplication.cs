@@ -29,6 +29,7 @@ using System.IO;
 
 namespace Tomboy
 {
+	// TODO: Rename to GtkApplication
 	public class WindowsApplication : INativeApplication
 	{
 		private string confDir;
@@ -39,47 +40,45 @@ namespace Tomboy
 				Environment.GetFolderPath (
 			        	Environment.SpecialFolder.ApplicationData),
 					"tomboy");
-			if (!Directory.Exists (confDir))
-				Directory.CreateDirectory (confDir);
 		}
 		
 		#region INativeApplication implementation 
 		
 		public event EventHandler ExitingEvent;
 		
-		public void Initialize (string locale_dir, string display_name, string process_name, string[] args)
+		public virtual void Initialize (string locale_dir, string display_name, string process_name, string[] args)
 		{
 			Gtk.Application.Init ();
 		}
 		
-		public void RegisterSessionManagerRestart (string executable_path, string[] args, string[] environment)
+		public virtual void RegisterSessionManagerRestart (string executable_path, string[] args, string[] environment)
 		{
 			// Do nothing
 		}
 		
-		public void RegisterSignalHandlers ()
+		public virtual void RegisterSignalHandlers ()
 		{
 			// Nothing yet, but need to register for native exit signals?
 		}
 		
-		public void Exit (int exitcode)
+		public virtual void Exit (int exitcode)
 		{
 			if (ExitingEvent != null)
 				ExitingEvent (null, new EventArgs ());
 			System.Environment.Exit (exitcode);
 		}
 		
-		public void StartMainLoop ()
+		public virtual void StartMainLoop ()
 		{
 			Gtk.Application.Run ();
 		}
 
-		public string ConfDir
+		public virtual string ConfDir
 		{
 			get { return confDir; }
 		}
 
-		public void OpenUrl (string url)
+		public virtual void OpenUrl (string url)
 		{
 			try {
 				System.Diagnostics.Process.Start (url);
@@ -88,7 +87,7 @@ namespace Tomboy
 			}
 		}
 
-		public void DisplayHelp (string filename, string link_id, Gdk.Screen screen)
+		public virtual void DisplayHelp (string filename, string link_id, Gdk.Screen screen)
 		{
 			throw new NotImplementedException ();
 		}

@@ -139,8 +139,10 @@ namespace Tomboy
 			// it's likely that the Notification Area isn't available.  So
 			// instead, launch the Search All Notes window so the user can
 			// can still use Tomboy.
+#if !MAC
 			if (tray_icon_showing == false)
 				ActionManager ["ShowSearchAllNotesAction"].Activate ();
+#endif
 			
 			return false; // prevent GLib.Timeout from calling this method again
 		}
@@ -297,6 +299,9 @@ namespace Tomboy
 			        Catalog.GetString ("Copyright \xa9 2004-2007 Alex Graveley");
 			about.Comments = Catalog.GetString ("A simple and easy to use desktop " +
 			                                    "note-taking application.");
+			Gtk.AboutDialog.SetUrlHook (delegate (Gtk.AboutDialog dialog, string link) {
+				Services.NativeApplication.OpenUrl (link);
+			}); 
 			about.Website = Defines.TOMBOY_WEBSITE;
 			about.WebsiteLabel = Catalog.GetString("Homepage");
 			about.Authors = authors;
