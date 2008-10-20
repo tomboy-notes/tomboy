@@ -1,14 +1,34 @@
 using System;
+#if !WIN32
 using NDesk.DBus;
 using org.freedesktop.DBus;
+#else
+using System.Runtime.Remoting;
+using System.Runtime.Remoting.Activation;
+using System.Runtime.Remoting.Channels;
+using System.Runtime.Remoting.Channels.Ipc;
+using System.Threading;
+#endif
 
 namespace Tomboy
 {
 	public static class RemoteControlProxy {
+#if !WIN32
 		private const string Path = "/org/gnome/Tomboy/RemoteControl";
 		private const string Namespace = "org.gnome.Tomboy";
+#else
+		private static Mutex mutex;
+		private static IpcChannel IpcChannel;
+		private const string MutexName = "{9EF7D32D-3392-4940-8A28-1320A7BD42AB}";
+		private const string ServerName = "TomboyServer";
+		private const string ClientName = "TomboyClient";
+		private const string WrapperName = "TomboyRemoteControlWrapper";
+		private static string ServiceUrl =
+			string.Format ("ipc://{0}/{1}", ServerName, WrapperName);
+#endif
 
-		public static RemoteControl GetInstance () {
+		public static IRemoteControl GetInstance () {
+#if !WIN32
 			BusG.Init ();
 
 			if (! Bus.Session.NameHasOwner (Namespace))
@@ -16,9 +36,18 @@ namespace Tomboy
 
 			return Bus.Session.GetObject<RemoteControl> (Namespace,
 			                new ObjectPath (Path));
+#else
+			RemoteControlWrapper remote = (RemoteControlWrapper) Activator.GetObject (
+				typeof (RemoteControlWrapper),
+				ServiceUrl);
+
+			return remote;
+#endif
 		}
 
-		public static RemoteControl Register (NoteManager manager) {
+		public static RemoteControl Register (NoteManager manager)
+		{
+#if !WIN32
 			BusG.Init ();
 
 			RemoteControl remote_control = new RemoteControl (manager);
@@ -31,6 +60,47 @@ namespace Tomboy
 				return null;
 
 			return remote_control;
+#else
+			// Use a mutex to provide single-instance detection
+			bool isNew;
+			mutex = new Mutex (true, MutexName, out isNew);
+
+			if (isNew) {
+				// Register an IPC channel for .NET remoting
+				// access to our Remote Control
+				IpcChannel = new IpcChannel (ServerName);
+				ChannelServices.RegisterChannel (IpcChannel, false);
+				RemotingConfiguration.RegisterWellKnownServiceType (
+					typeof (RemoteControlWrapper),
+					WrapperName,
+					WellKnownObjectMode.Singleton);
+
+				// The actual Remote Control has many methods
+				// that need to be called in the GTK+ mainloop,
+				// which will not happen when the method calls
+				// come from a .NET remoting client. So we wrap
+				// the Remote Control in a class that implements
+				// the same interface, but wraps most method
+				// calls in Gtk.Application.Invoke.
+				//
+				// Note that only one RemoteControl is ever
+				// created, and that it is stored statically
+				// in the RemoteControlWrapper.
+				RemoteControl realRemote = new RemoteControl (manager);
+				RemoteControlWrapper.Initialize (realRemote);
+
+				RemoteControlWrapper remoteWrapper = (RemoteControlWrapper) Activator.GetObject (
+					typeof (RemoteControlWrapper),
+					ServiceUrl);
+				return realRemote;
+			} else {
+				// If Tomboy is already running, register a
+				// client IPC channel.
+				IpcChannel = new IpcChannel (ClientName);
+				ChannelServices.RegisterChannel (IpcChannel, false);
+				return null;
+			}
+#endif
 		}
 	}
 }

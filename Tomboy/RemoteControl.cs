@@ -2,18 +2,20 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-
+#if !WIN32
 using NDesk.DBus;
 using org.freedesktop.DBus;
+#endif
 
 namespace Tomboy
 {
 	public delegate void RemoteDeletedHandler (string uri, string title);
 	public delegate void RemoteAddedHandler (string uri);
 	public delegate void RemoteSavedHandler (string uri);
-
+#if !WIN32
 	[Interface ("org.gnome.Tomboy.RemoteControl")]
-	public class RemoteControl : MarshalByRefObject
+#endif
+	public class RemoteControl : MarshalByRefObject, IRemoteControl
 	{
 		private NoteManager note_manager;
 

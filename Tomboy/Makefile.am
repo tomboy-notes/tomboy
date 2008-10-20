@@ -9,6 +9,7 @@ PANEL_WRAPPER = tomboy-panel
 if ENABLE_DBUS
 DBUS_CSFLAGS = -define:ENABLE_DBUS
 DBUS_CSFILES = 				\
+	$(srcdir)/IRemoteControl.cs	\
 	$(srcdir)/RemoteControl.cs	\
 	$(srcdir)/RemoteControlProxy.cs
 endif

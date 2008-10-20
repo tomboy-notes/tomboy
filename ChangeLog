@@ -1,3 +1,26 @@
+2008-10-20  Sandy Armstrong  <sanfordarmstrong@gmail.com>
+
+	Fixes for bug #556136: Add single-instance detection and some support for
+	accessing the RemoteControl over .NET remoting (since we have no D-BUS
+	daemon on Windows or Mac).
+	
+	* Tomboy/RemoteControlProxy: For WIN32, use a mutex to enforce a single
+	  instance of Tomboy, and register a RemoteControlWrapper over IPC for use
+	  via .NET remoting.
+	
+	* Makefile.am:
+	* Tomboy/Tomboy.cs:
+	* Tomboy/RemoteControl.cs:
+	* Tomboy/IRemoteControl.cs: Extract interface from RemoteControl.
+	
+	* Tomboy/RemoteControlWrapper.cs: Implementation of IRemoteControl that
+	  wraps a RemoteControl instance's method calls with Gtk.Application.Invoke.
+	  Unfortunately these calls are not processed by the GTK+ event loop until
+	  some interaction with GTK+ occurs, so behavior can seem unpredictable.
+	  Throws NotImplemented for everything but DisplaySearch and Version.
+	
+	* Tomboy.csproj: Include new and existing RemoteControl stuff.
+
 2008-10-19  Sandy Armstrong  <sanfordarmstrong@gmail.com>
 
 	* macbin/: Mono bindings for Immendio's ige-mac-integration library.
