@@ -1,5 +1,5 @@
 using System;
-#if !WIN32
+#if ENABLE_DBUS
 using NDesk.DBus;
 using org.freedesktop.DBus;
 #else
@@ -13,7 +13,7 @@ using System.Threading;
 namespace Tomboy
 {
 	public static class RemoteControlProxy {
-#if !WIN32
+#if ENABLE_DBUS
 		private const string Path = "/org/gnome/Tomboy/RemoteControl";
 		private const string Namespace = "org.gnome.Tomboy";
 #else
@@ -28,7 +28,7 @@ namespace Tomboy
 #endif
 
 		public static IRemoteControl GetInstance () {
-#if !WIN32
+#if ENABLE_DBUS
 			BusG.Init ();
 
 			if (! Bus.Session.NameHasOwner (Namespace))
@@ -47,7 +47,7 @@ namespace Tomboy
 
 		public static RemoteControl Register (NoteManager manager)
 		{
-#if !WIN32
+#if ENABLE_DBUS
 			BusG.Init ();
 
 			RemoteControl remote_control = new RemoteControl (manager);
