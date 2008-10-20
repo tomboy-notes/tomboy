@@ -1,5 +1,11 @@
 2008-10-20  Sandy Armstrong  <sanfordarmstrong@gmail.com>
 
+	* Tomboy.mac.csproj: Add RemoteControl stuff to Mac project.
+	* Tomboy/Tomboy.cs: Add RemoteControl support #if MAC.
+	* Tomboy/RemoteControl*.cs: Replace #if !WIN32 with #if ENABLE_DBUS.
+
+2008-10-20  Sandy Armstrong  <sanfordarmstrong@gmail.com>
+
 	Fixes for bug #556136: Add single-instance detection and some support for
 	accessing the RemoteControl over .NET remoting (since we have no D-BUS
 	daemon on Windows or Mac).

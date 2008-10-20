@@ -105,6 +105,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>macbin\ige-mac-integration-sharp.dll</HintPath>
     </Reference>
+    <Reference Include="System.Runtime.Remoting" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Tomboy\ActionManager.cs" />
@@ -166,10 +167,14 @@
     <Compile Include="Tomboy\PrefsKeybinder.cs" />
     <Compile Include="Tomboy\WindowsApplication.cs" />
     <Compile Include="Tomboy\XmlPreferencesClient.cs" />
+    <Compile Include="Tomboy\MacApplication.cs" />
     <None Include="ChangeLog" />
     <None Include="COPYING" />
     <None Include="Tomboy\Defines.cs.in" />
-    <Compile Include="Tomboy\MacApplication.cs" />
+    <Compile Include="Tomboy\IRemoteControl.cs" />
+    <Compile Include="Tomboy\RemoteControl.cs" />
+    <Compile Include="Tomboy\RemoteControlProxy.cs" />
+    <Compile Include="Tomboy\RemoteControlWrapper.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">

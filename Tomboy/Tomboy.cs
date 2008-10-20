@@ -23,7 +23,7 @@ namespace Tomboy
 		static bool is_panel_applet = false;
 		static PreferencesDialog prefs_dlg;
 		static SyncDialog sync_dlg;
-#if ENABLE_DBUS || WIN32
+#if ENABLE_DBUS || WIN32 || MAC
 		static RemoteControl remote_control;
 #endif
 		static Gtk.IconTheme icon_theme = null;
@@ -35,7 +35,7 @@ namespace Tomboy
 
 			TomboyCommandLine cmd_line = new TomboyCommandLine (args);
 
-#if ENABLE_DBUS || WIN32 // Run command-line earlier with DBus enabled
+#if ENABLE_DBUS || WIN32 || MAC // Run command-line earlier with DBus enabled
 			if (cmd_line.NeedsExecute) {
 				// Execute args at an existing tomboy instance...
 				cmd_line.Execute ();
@@ -69,7 +69,7 @@ namespace Tomboy
 				addin.Initialize ();
 			}
 
-#if !ENABLE_DBUS && !WIN32
+#if !ENABLE_DBUS && !WIN32 && !MAC
 			if (cmd_line.NeedsExecute) {
 				cmd_line.Execute ();
 			}
@@ -149,7 +149,7 @@ namespace Tomboy
 
 		static void RegisterRemoteControl (NoteManager manager)
 		{
-#if ENABLE_DBUS || WIN32
+#if ENABLE_DBUS || WIN32 || MAC
 			try {
 				remote_control = RemoteControlProxy.Register (manager);
 				if (remote_control != null) {
@@ -430,7 +430,7 @@ namespace Tomboy
 			                "  --search [text]\t\tOpen the search all notes window with " +
 			                "the search text.\n");
 
-#if ENABLE_DBUS || WIN32
+#if ENABLE_DBUS || WIN32 || MAC
 			usage +=
 			        Catalog.GetString (
 			                "  --new-note\t\t\tCreate and display a new note.\n" +
@@ -449,7 +449,7 @@ namespace Tomboy
 //     "  --check-plugin-unloading\tCheck if plugins are " +
 //     "unloaded properly.\n");
 
-#if !ENABLE_DBUS && !WIN32
+#if !ENABLE_DBUS && !WIN32 && !MAC
 			usage += Catalog.GetString ("D-BUS remote control disabled.\n");
 #endif
 
@@ -467,7 +467,7 @@ namespace Tomboy
 				bool quit = false;
 
 				switch (args [idx]) {
-#if ENABLE_DBUS || WIN32
+#if ENABLE_DBUS || WIN32 || MAC
 				case "--new-note":
 					// Get optional name for new note...
 					if (idx + 1 < args.Length
@@ -602,7 +602,7 @@ namespace Tomboy
 
 		public void Execute ()
 		{
-#if ENABLE_DBUS || WIN32
+#if ENABLE_DBUS || WIN32 || MAC
 			IRemoteControl remote = null;
 			try {
 				remote = RemoteControlProxy.GetInstance ();
