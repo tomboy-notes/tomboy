@@ -89,7 +89,7 @@ namespace Tomboy
 
 		public virtual void DisplayHelp (string filename, string link_id, Gdk.Screen screen)
 		{
-			throw new NotImplementedException ();
+			OpenUrl ("http://library.gnome.org/users/tomboy/0.12/");
 		}
 
 		#endregion
