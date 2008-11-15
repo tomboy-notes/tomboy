@@ -7,7 +7,8 @@ CSFLAGS = 		\
 
 ASSEMBLIES = 					\
 	$(LINK_TOMBOY_EXE)			\
-	$(TOMBOY_LIBS) 				\
+	$(GTKSHARP_LIBS) 			\
+	$(GNOME_LIBS) 				\
 	$(EVOLUTION_LIBS)			\
 	$(LINK_MONO_ADDINS)			\
 	-r:Mono.Posix

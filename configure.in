@@ -95,11 +95,41 @@ PKG_CHECK_MODULES(GTKSPELL, gtkspell-2.0 >= 2.0.9, FIXED_GTKSPELL="yes", FIXED_G
 AM_CONDITIONAL(FIXED_GTKSPELL, test "$FIXED_GTKSPELL" = "yes")
 
 #
+# Check for Mac/Windows/GNOME Support
+#
+AC_ARG_ENABLE(windows, 
+	      [  --enable-windows[[=no/yes]]    compile with Windows support [[default: no]]],
+	      ENABLE_WIN="$enableval", ENABLE_WIN="no")
+AM_CONDITIONAL(ENABLE_WIN, test "x$ENABLE_WIN" = "xyes")
+
+AC_ARG_ENABLE(osx, 
+	      [  --enable-osx[[=no/yes]]    compile with Mac OS X support [[default: no]]],
+	      ENABLE_OSX="$enableval", ENABLE_OSX="no")
+AM_CONDITIONAL(ENABLE_OSX, test "x$ENABLE_OSX" = "xyes")
+
+AC_ARG_ENABLE(gnome, 
+	      [  --enable-gnome[[=no/yes]]    compile with GNOME support [[default: yes]]],
+	      ENABLE_GNOME="$enableval")
+
+if ((test "x$ENABLE_GNOME" = "xyes") && (test "x$ENABLE_WIN" = "xyes")) || ((test "x$ENABLE_GNOME" = "xyes") && (test "x$ENABLE_OSX" = "xyes")) || ((test "x$ENABLE_OSX" = "xyes") && (test "x$ENABLE_WIN" = "xyes")) ; then
+	AC_MSG_ERROR([--enable-gnome, --enable-windows, and --enable-osx are mutually exclusive])
+fi
+
+if (test "x$ENABLE_WIN" = "xno") && (test "x$ENABLE_OSX" = "xno") ; then
+	ENABLE_GNOME="yes"
+else
+	ENABLE_GNOME="no"
+fi
+AM_CONDITIONAL(ENABLE_GNOME, test "x$ENABLE_GNOME" != "xno")
+	
+
+
+#
 # Use DBus to export our remote control if available.
 #
 AC_ARG_ENABLE(dbus, 
 	      [  --enable-dbus[[=no/yes]]    compile with dbus support [[default: yes]]],
-	      ENABLE_DBUS="$enableval")
+	      ENABLE_DBUS="$enableval", ENABLE_DBUS="yes")
 AM_CONDITIONAL(ENABLE_DBUS, test "x$ENABLE_DBUS" != "xno")
 
 AC_ARG_WITH(dbus_service_dir, [  --with-dbus-service-dir=DIR            Where to install Tomboy's DBus service file.])
@@ -139,31 +169,34 @@ AC_SUBST(MONO_ADDINS_LIBS)
 #
 GTKSHARP2_MINIMUM_VERSION=$GTK20_MINIMUM_VERSION
 GNOMESHARP_MINIMUM_VERSION=2.15
-if pkg-config --atleast-version=2.23.90 gnome-sharp-2.0; then
-	PKG_CHECK_MODULES(TOMBOY,
-	                  gtk-sharp-2.0 >= $GTKSHARP2_MINIMUM_VERSION
-	                  gnome-sharp-2.0
-	                  gconf-sharp-2.0
-	                  gconf-sharp-peditors-2.0
-	                  gnome-panel-sharp-2.24)
-	has_fixed_panelapplet="yes"
-
-else
-	if pkg-config --atleast-version=2.16.1 gconf-sharp-2.0; then
-		PKG_CHECK_MODULES(TOMBOY,
-			          gtk-sharp-2.0 >= $GTKSHARP2_MINIMUM_VERSION
-			          gnome-sharp-2.0 > $GNOMESHARP_MINIMUM_VERSION
+if test "x$ENABLE_GNOME" != "xno"; then
+	if pkg-config --atleast-version=2.23.90 gnome-sharp-2.0; then
+		PKG_CHECK_MODULES(GNOME,
+			          gnome-sharp-2.0
 			          gconf-sharp-2.0
-			          gconf-sharp-peditors-2.0)
+			          gconf-sharp-peditors-2.0
+			          gnome-panel-sharp-2.24)
+		has_fixed_panelapplet="yes"
+
 	else
-		PKG_CHECK_MODULES(TOMBOY,
-			          gtk-sharp-2.0 >= $GTKSHARP2_MINIMUM_VERSION
-			          gnome-sharp-2.0 > $GNOMESHARP_MINIMUM_VERSION
-			          gconf-sharp-2.0)
+		if pkg-config --atleast-version=2.16.1 gconf-sharp-2.0; then
+			PKG_CHECK_MODULES(GNOME,
+					  gnome-sharp-2.0 > $GNOMESHARP_MINIMUM_VERSION
+					  gconf-sharp-2.0
+					  gconf-sharp-peditors-2.0)
+		else
+			PKG_CHECK_MODULES(GNOME,
+					  gnome-sharp-2.0 > $GNOMESHARP_MINIMUM_VERSION
+					  gconf-sharp-2.0)
+		fi
 	fi
 fi
 AM_CONDITIONAL(FIXED_PANELAPPLET, test "x$has_fixed_panelapplet" = "xyes")
-AC_SUBST(TOMBOY_LIBS)
+AC_SUBST(GNOME_LIBS)
+
+PKG_CHECK_MODULES(GTKSHARP,
+		  gtk-sharp-2.0 >= $GTKSHARP2_MINIMUM_VERSION)
+AC_SUBST(GTKSHARP_LIBS)
 
 #
 # Printing at least needs Mono.Cairo
@@ -193,6 +226,9 @@ done
 # Evolution.dll needs Gmime#
 #
 PKG_CHECK_MODULES(EVOLUTION, gmime-sharp, ENABLE_EVOLUTION="yes", ENABLE_EVOLUTION="no")
+if test "x$ENABLE_GNOME" = "xno" ; then
+	ENABLE_EVOLUTION=no
+fi
 AC_ARG_ENABLE(evolution, 
 	      [  --enable-evolution[[=no/yes]]  compile evolution addin [[default: yes]]],
 	      ENABLE_EVOLUTION="$enableval")
@@ -203,14 +239,17 @@ AC_SUBST(EVOLUTION_LIBS)
 # Sketching.dll is very sketchy; for now disable by default
 #
 AC_ARG_ENABLE(sketching,
-              [  --enable-sketching[[=no/yes]]  compile sketching addin [[default: disabled]]],
-              ENABLE_SKETCHING="$enableval")
+              [  --enable-sketching[[=no/yes]]  compile sketching addin [[default: no]]],
+              ENABLE_SKETCHING="$enableval", ENABLE_SKETCHING="no")
 AM_CONDITIONAL(ENABLE_SKETCHING, test "$ENABLE_SKETCHING" = "yes")
 
 #
 # GalagoPresence.dll needs Galago#
 #
 PKG_CHECK_MODULES(GALAGO, galago-sharp >= 0.5.0, ENABLE_GALAGO="yes", ENABLE_GALAGO="no")
+if test "x$ENABLE_GNOME" = "xno" ; then
+	ENABLE_GALAGO=no
+fi
 AC_ARG_ENABLE(galago, 
 	      [  --enable-galago[[=no/yes]]  compile galago addin [[default: yes]]],
 	      ENABLE_GALAGO="$enableval")
@@ -310,4 +349,21 @@ Tomboy/Addins/WebDavSyncService/Makefile
 test/Makefile
 po/Makefile.in
 ])
+
+echo "
+${PACKAGE}-${VERSION}
+
+    Install Prefix:    ${prefix}
+
+    GNOME Support:     ${ENABLE_GNOME}
+    Mac OS X Support:  ${ENABLE_OSX}
+    Windows Support:   ${ENABLE_WIN}
+
+    D-Bus Support:     ${ENABLE_DBUS}
+
+    Evolution Add-in:  ${ENABLE_EVOLUTION}
+    Galago Add-in:     ${ENABLE_GALAGO}
+    Sketching Add-in:  ${ENABLE_SKETCHING}
+"
+
 
