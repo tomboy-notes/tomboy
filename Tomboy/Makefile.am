@@ -14,15 +14,48 @@ DBUS_CSFILES = 				\
 	$(srcdir)/RemoteControlProxy.cs
 endif
 
-if FIXED_GTKSPELL
-FIXED_GTKSPELL_CSFLAGS = -define:FIXED_GTKSPELL
+if ENABLE_OSX
+OSX_CSFLAGS = -define:MAC
+OSX_CSFILES =					\
+	$(srcdir)/MacApplication.cs		\
+	$(srcdir)/MacFactory.cs			\
+	$(srcdir)/WindowsApplication.cs		\
+	$(srcdir)/XmlPreferencesClient.cs
+OSX_LIBS =					\
+	-r:$(top_srcdir)/macbin/ige-mac-integration-sharp.dll
 endif
+
+if ENABLE_WIN
+WIN_CSFLAGS = -define:WIN32
+WIN_CSFILES =					\
+	$(srcdir)/ManagedWinapi.EventDispatchingNativeWindow.cs	\
+	$(srcdir)/ManagedWinapi.Hotkey.cs	\
+	$(srcdir)/WindowsApplication.cs		\
+	$(srcdir)/WindowsFactory.cs		\
+	$(srcdir)/WindowsKeybinder.cs		\
+	$(srcdir)/XmlPreferencesClient.cs
+WIN_LIBS =					\
+	-r:System.Windows.Forms.dll
+endif
+
+if ENABLE_GNOME
+GNOME_CSFILES =					\
+	$(srcdir)/Applet.cs 			\
+	$(srcdir)/GConfPreferencesClient.cs	\
+	$(srcdir)/GnomeApplication.cs		\
+	$(srcdir)/GnomeFactory.cs		\
+	$(srcdir)/XKeybinder.cs
 
 if FIXED_PANELAPPLET
 FIXED_PANELAPPLET_CSFLAGS = -define:FIXED_PANELAPPLET
 else
 PANELAPPLET_CSFILES =			\
 	$(srcdir)/panelapplet/*.cs
+endif
+endif
+
+if FIXED_GTKSPELL
+FIXED_GTKSPELL_CSFLAGS = -define:FIXED_GTKSPELL
 endif
 
 CSFLAGS = 				\
@@ -31,6 +64,8 @@ CSFLAGS = 				\
 	-unsafe 			\
 	-target:exe 			\
 	$(DBUS_CSFLAGS) 		\
+	$(OSX_CSFLAGS) 		\
+	$(WIN_CSFLAGS) 		\
 	$(FIXED_PANELAPPLET_CSFLAGS)	\
 	$(FIXED_GTKSPELL_CSFLAGS) \
 	$(CSC_DEFINES)
@@ -42,12 +77,8 @@ CSFILES = 					\
 	$(srcdir)/ActionManager.cs		\
 	$(srcdir)/AddinManager.cs		\
 	$(srcdir)/AddinPreferenceFactory.cs	\
-	$(srcdir)/Applet.cs 			\
 	$(srcdir)/ApplicationAddin.cs		\
 	$(srcdir)/Contrast.cs		\
-	$(srcdir)/GConfPreferencesClient.cs	\
-	$(srcdir)/GnomeApplication.cs		\
-	$(srcdir)/GnomeFactory.cs		\
 	$(srcdir)/Keybinder.cs			\
 	$(srcdir)/Logger.cs			\
 	$(srcdir)/NativeApplication.cs		\
@@ -77,9 +108,12 @@ CSFILES = 					\
 	$(srcdir)/Utils.cs			\
 	$(srcdir)/Watchers.cs			\
 	$(srcdir)/WrapBox.cs			\
-	$(srcdir)/XKeybinder.cs			\
 	$(srcdir)/Notebooks/*.cs		\
 	$(srcdir)/Synchronization/*.cs		\
+	\
+	$(GNOME_CSFILES)			\
+	$(WIN_CSFILES)			\
+	$(OSX_CSFILES)			\
 	\
 	$(PANELAPPLET_CSFILES)			\
 	\
@@ -89,10 +123,13 @@ CSFILES = 					\
 
 
 ASSEMBLIES = 		\
-	$(TOMBOY_LIBS) 	\
+	$(GTKSHARP_LIBS) 	\
+	$(GNOME_LIBS) 	\
 	-r:Mono.Posix	\
 	$(DBUS_LIBS)	\
-	$(LINK_MONO_ADDINS)
+	$(LINK_MONO_ADDINS)	\
+	$(WIN_LIBS)	\
+	$(OSX_LIBS)
 
 RESOURCES = 										\
 	-resource:$(top_srcdir)/data/GNOME_TomboyApplet.xml,GNOME_TomboyApplet.xml	\
