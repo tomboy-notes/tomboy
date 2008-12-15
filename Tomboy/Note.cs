@@ -789,7 +789,7 @@ namespace Tomboy
 
 		// Reload note data from a complete note XML string
 		// Should referesh note window, too
-		public void LoadForeignNoteXml (string foreignNoteXml)
+		public void LoadForeignNoteXml (string foreignNoteXml, ChangeType changeType)
 		{
 			if (foreignNoteXml == null)
 				throw new ArgumentNullException ("foreignNoteXml");
@@ -852,7 +852,8 @@ namespace Tomboy
 
 			xml.Close ();
 
-			// TODO: Any reason to queue a save here?  Maybe not for sync but for others?
+			// Allow method caller to specify ChangeType (mostly needed by sync)
+			QueueSave (changeType);
 		}
 
 		// TODO: CODE DUPLICATION SUCKS

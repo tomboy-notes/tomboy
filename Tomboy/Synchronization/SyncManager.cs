@@ -572,7 +572,7 @@ namespace Tomboy.Sync
 		{
 			// In each case, update existingNote's content and revision
 			try {
-				localNote.LoadForeignNoteXml (serverNote.XmlContent);
+				localNote.LoadForeignNoteXml (serverNote.XmlContent, ChangeType.OtherDataChanged);
 			} catch {} // TODO: Handle exception in case that serverNote.XmlContent is invalid XML
 			client.SetRevision (localNote, serverNote.LatestRevision);
 
