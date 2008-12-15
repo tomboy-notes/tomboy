@@ -138,11 +138,9 @@ namespace Tomboy.Sync
 		private void Write (string manifestPath)
 		{
 			// TODO: Handle file permission errors
-			XmlTextWriter xml = new XmlTextWriter (manifestPath, System.Text.Encoding.UTF8);
+			XmlWriter xml = XmlWriter.Create (manifestPath, XmlEncoder.DocumentSettings);
 
 			try {
-				xml.Formatting = Formatting.Indented;
-
 				xml.WriteStartDocument ();
 				xml.WriteStartElement (null, "manifest", "http://beatniksoftware.com/tomboy");
 

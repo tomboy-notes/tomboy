@@ -527,9 +527,20 @@ namespace Tomboy
 		static StringBuilder builder;
 		static StringWriter writer;
 		static XmlTextWriter xml;
+		static XmlWriterSettings documentSettings;
+		static XmlWriterSettings fragmentSettings;
 
 		static XmlEncoder ()
 		{
+			documentSettings = new XmlWriterSettings ();
+			documentSettings.NewLineChars = "\n";
+			documentSettings.Indent = true;
+
+			fragmentSettings = new XmlWriterSettings ();
+			fragmentSettings.NewLineChars = "\n";
+			fragmentSettings.Indent = true;
+			fragmentSettings.ConformanceLevel = ConformanceLevel.Fragment;
+
 			builder = new StringBuilder ();
 			writer = new StringWriter (builder);
 			xml = new XmlTextWriter (writer);
@@ -542,6 +553,16 @@ namespace Tomboy
 			string val = builder.ToString ();
 			builder.Length = 0;
 			return val;
+		}
+
+		public static XmlWriterSettings DocumentSettings
+		{
+			get { return documentSettings; }
+		}
+
+		public static XmlWriterSettings FragmentSettings
+		{
+			get { return fragmentSettings; }
 		}
 	}
 

@@ -160,6 +160,10 @@ namespace Tomboy
 			end.ForwardToTagToggle (this);
 		}
 
+		// XmlTextWriter is required, because an XmlWriter created with
+		// XmlWriter.Create considers ":" to be an invalid character
+		// for an element name.
+		// http://bugzilla.gnome.org/show_bug.cgi?id=559094
 		public virtual void Write (XmlTextWriter xml, bool start)
 		{
 			if (CanSerialize) {
