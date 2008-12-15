@@ -23,9 +23,8 @@
 #ifndef __TOMBOY_UTIL_H__
 #define __TOMBOY_UTIL_H__
 
-#include <gdk/gdkpixmap.h>
-#include <gtk/gtkwidget.h>
-#include <gtk/gtkwindow.h>
+#include <gdk/gdk.h>
+#include <gtk/gtk.h>
 
 G_BEGIN_DECLS
 

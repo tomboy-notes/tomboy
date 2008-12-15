@@ -39,14 +39,6 @@
 #include <string.h>	/* For strlen */
 
 #include <glib/gi18n.h>
-#include <gtk/gtkframe.h>
-#include <gtk/gtkhbox.h>
-#include <gtk/gtkvbox.h>
-#include <gtk/gtklabel.h>
-#include <gtk/gtkmain.h>
-#include <gtk/gtkprogressbar.h>
-#include <gtk/gtkimage.h>
-#include <gtk/gtkwindow.h>
 #include <libgnomeprintui/gnome-print-dialog.h>
 #include <libgnomeprintui/gnome-print-job-preview.h>
 

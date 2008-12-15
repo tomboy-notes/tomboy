@@ -30,7 +30,7 @@
 #ifndef __GEDIT_PRINT_H__
 #define __GEDIT_PRINT_H__
 
-#include <gtk/gtktextview.h>
+#include <gtk/gtk.h>
 
 void gedit_print 		(GtkTextView* view);
 void gedit_print_preview	(GtkTextView* view);

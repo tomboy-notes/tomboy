@@ -26,7 +26,7 @@
 
 #include <libgnomeprint/gnome-print-config.h>
 #include <libgnomeprint/gnome-print-job.h>
-#include <gtk/gtktextbuffer.h>
+#include <gtk/gtk.h>
 //#include <gtksourceview/gtksourceview.h>
 
 G_BEGIN_DECLS
