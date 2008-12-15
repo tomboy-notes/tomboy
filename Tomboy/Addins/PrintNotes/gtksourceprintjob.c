@@ -36,8 +36,6 @@
 #include "gtksourceprintjob.h"
 
 #include <glib/gi18n.h>
-#include <gtk/gtkmain.h>
-#include <gtk/gtktextview.h>
 #include <libgnomeprint/gnome-print-pango.h>
 
 #ifdef ENABLE_PROFILE
