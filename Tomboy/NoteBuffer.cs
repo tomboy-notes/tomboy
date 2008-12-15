@@ -1140,7 +1140,16 @@ namespace Tomboy
 			Serialize (buffer, start, end, xml);
 
 			xml.Close ();
-			return stream.ToString ();
+			string serializedBuffer = stream.ToString ();
+			
+			// We cannot use newer XmlWriter with XmlWriterSettings
+			// to control the newline character, because XmlWriter
+			// doesn't like elements with ":" in the name.  The
+			// point here is to write these files identically on
+			// all platforms, to make synchronization work better.
+			if (Environment.NewLine != "\n")
+				serializedBuffer = serializedBuffer.Replace (Environment.NewLine, "\n");
+			return serializedBuffer;
 		}
 
 		static void WriteTag (Gtk.TextTag tag, XmlTextWriter xml, bool start)

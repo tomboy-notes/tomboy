@@ -1228,7 +1228,7 @@ namespace Tomboy
 		public static string WriteString(NoteData note)
 		{
 			StringWriter str = new StringWriter ();
-			XmlTextWriter xml = new XmlTextWriter (str);
+			XmlWriter xml = XmlWriter.Create (str, XmlEncoder.DocumentSettings);
 			Instance.Write (xml, note);
 			xml.Close ();
 			str.Flush();
@@ -1244,7 +1244,7 @@ namespace Tomboy
 		{
 			string tmp_file = write_file + ".tmp";
 
-			XmlTextWriter xml = new XmlTextWriter (tmp_file, System.Text.Encoding.UTF8);
+			XmlWriter xml = XmlWriter.Create (tmp_file, XmlEncoder.DocumentSettings);
 			Write (xml, note);
 			xml.Close ();
 
@@ -1274,15 +1274,13 @@ namespace Tomboy
 
 		public void WriteFile (TextWriter writer, NoteData note)
 		{
-			XmlTextWriter xml = new XmlTextWriter (writer);
+			XmlWriter xml = XmlWriter.Create (writer, XmlEncoder.DocumentSettings);
 			Write (xml, note);
 			xml.Close ();
 		}
 
-		void Write (XmlTextWriter xml, NoteData note)
+		void Write (XmlWriter xml, NoteData note)
 		{
-			xml.Formatting = Formatting.Indented;
-
 			xml.WriteStartDocument ();
 			xml.WriteStartElement (null, "note", "http://beatniksoftware.com/tomboy");
 			xml.WriteAttributeString(null,

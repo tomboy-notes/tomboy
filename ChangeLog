@@ -1,3 +1,18 @@
+2008-12-15  Sandy Armstrong  <sanfordarmstrong@gmail.com>
+
+	* Tomboy/Utils.cs: Add some useful XmlWriterSettings static members. 
+	The settings specify unix line endings, among other things.
+
+	* Tomboy/NoteTag.cs: Note about why we're still using XmlTextWriter.
+
+	* Tomboy/Note.cs:
+	* Tomboy/Synchronization/TomboySyncClient.cs:
+	* Tomboy/Synchronization/FileSystemSyncServer.cs: XmlTextWriter ->
+	XmlWriter.
+
+	* Tomboy/NoteBuffer.cs: When serializing the note buffer, make sure only
+	unix line endings are used.  Fixes bug #559094.
+
 2008-12-14  Sandy Armstrong  <sanfordarmstrong@gmail.com>
 
 	* Tomboy/RecentChanges.cs: When activating a notebook row in the search

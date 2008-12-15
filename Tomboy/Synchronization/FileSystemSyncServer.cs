@@ -237,10 +237,8 @@ namespace Tomboy.Sync
 				}
 
 				// Write out the new manifest file
-				XmlTextWriter xml = new XmlTextWriter (manifestFilePath, System.Text.Encoding.UTF8);
+				XmlWriter xml = XmlWriter.Create (manifestFilePath, XmlEncoder.DocumentSettings);
 				try {
-					xml.Formatting = Formatting.Indented;
-
 					xml.WriteStartDocument ();
 					xml.WriteStartElement (null, "sync", null);
 					xml.WriteAttributeString ("revision", newRevision.ToString ());
@@ -496,10 +494,8 @@ namespace Tomboy.Sync
 
 		private void UpdateLockFile (SyncLockInfo syncLockInfo)
 		{
-			XmlTextWriter xml = new XmlTextWriter (lockPath, System.Text.Encoding.UTF8);
+			XmlWriter xml = XmlWriter.Create (lockPath, XmlEncoder.DocumentSettings);
 			try {
-				xml.Formatting = Formatting.Indented;
-
 				xml.WriteStartDocument ();
 				xml.WriteStartElement (null, "lock", null);
 
