@@ -1,5 +1,16 @@
 2008-12-14  Sandy Armstrong  <sanfordarmstrong@gmail.com>
 
+	* Tomboy.mdp: Add the XSL to the project.
+
+	* Tomboy/Addins/ExportToHtml/ExportToHtml.xsl: Use ToLower for internal
+	links and anchor names, fixing bug #564150 (link text case may not
+	match note title case).  Thanks to Stefan Schweizer for his patch.
+
+	* Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs: Make
+	String.ToLower available in the XSL.
+
+2008-12-14  Sandy Armstrong  <sanfordarmstrong@gmail.com>
+
 	* libtomboy/tomboyutil.c:
 	* libtomboy/tomboyutil.h:
 	* libtomboy/eggaccelerators.h:

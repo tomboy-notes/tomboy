@@ -72,7 +72,7 @@
 <xsl:template match="tomboy:text">
 	<div class="note" 
 	     id="{/tomboy:note/tomboy:title}">
-		<a name="#{/tomboy:note/tomboy:title}" />
+		<a name="{tomboy:ToLower(/tomboy:note/tomboy:title)}" />
 		<xsl:apply-templates select="node()" />
 	</div>
 	
@@ -130,7 +130,7 @@
 </xsl:template>
 
 <xsl:template match="link:internal">
-	<a style="color:#204A87" href="#{node()}">
+	<a style="color:#204A87" href="#{tomboy:ToLower(node())}">
 		<xsl:value-of select="node()"/>
 	</a>
 </xsl:template>
