@@ -178,6 +178,8 @@ namespace Tomboy.ExportToHtml
 			args.AddParam ("export-linked", "", export_linked);
 			args.AddParam ("export-linked-all", "", export_linked_all);
 			args.AddParam ("root-note", "", note.Title);
+			args.AddExtensionObject ("http://beatniksoftware.com/tomboy",
+				new TransformExtension ());
 
 			if ((bool) Preferences.Get (Preferences.ENABLE_CUSTOM_FONT)) {
 				string font_face = (string) Preferences.Get (Preferences.CUSTOM_FONT_FACE);
@@ -190,6 +192,18 @@ namespace Tomboy.ExportToHtml
 
 			NoteNameResolver resolver = new NoteNameResolver (note.Manager, note);
 			xsl.Transform (doc, args, writer, resolver);
+		}
+	}
+
+	/// <summary>
+	/// Makes <see cref="System.String.ToLower"/> available in the
+	/// XSL stylesheet.
+	/// </summary>
+	public class TransformExtension
+	{
+		public String ToLower (string s)	
+		{
+			return s.ToLower ();
 		}
 	}
 }
