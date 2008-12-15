@@ -1238,10 +1238,10 @@ namespace Tomboy
 			Notebooks.NotebookManager.PromptDeleteNotebook (this, notebook);
 		}
 
-		// Open the notebook's note template when activated
+		// Create a new note in the notebook when activated
 		private void OnNotebookRowActivated (object sender, Gtk.RowActivatedArgs args)
 		{
-			OnOpenNotebookTemplateNote (sender, EventArgs.Empty);
+			OnNewNotebookNote (sender, EventArgs.Empty);
 		}
 		
 		private void OnNewNotebookNote (object sender, EventArgs args)
