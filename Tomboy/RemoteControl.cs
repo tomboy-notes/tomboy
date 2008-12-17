@@ -246,7 +246,7 @@ namespace Tomboy
 			note = note_manager.FindByUri (uri);
 			if (note == null)
 				return false;
-			note.LoadForeignNoteXml (xml_contents);
+			note.LoadForeignNoteXml (xml_contents, ChangeType.ContentChanged);
 			return true;
 		}
 

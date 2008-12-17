@@ -1,3 +1,15 @@
+2008-12-17  Sandy Armstrong  <sanfordarmstrong@gmail.com>
+
+	* Tomboy/Note.cs:
+	* Tomboy/RemoteControl.cs:
+	* Tomboy/Synchronization/SyncDialog.cs:
+	* Tomboy/Synchronization/SyncManager.cs: Add QueueSave to the end of
+	Note.LoadForeignNoteXml. Callers can specify change type. Fixes a
+	problem in sync (hard to reproduce) where downloaded notes never got
+	saved to a note file, and on subsequent syncs they would appear to be
+	deleted. This would cause mass deletion of notes. Backport from trunk
+	r2255.
+
 2008-10-06  Sandy Armstrong <sanfordarmstrong@gmail.com> 
 
 	* configure.in: Bump version to 0.12.2.
