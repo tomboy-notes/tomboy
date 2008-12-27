@@ -18,12 +18,15 @@ namespace Tomboy.TasqueAddin
 		static string TasqueNamespace = "org.gnome.Tasque";
 		
 		static Gdk.Pixbuf tasqueIcon = null;
-		
-		static TasqueNoteAddin ()
-		{
-			tasqueIcon =
-				GuiUtils.GetIcon (System.Reflection.Assembly.GetExecutingAssembly (),
-				"tasque", 22);
+
+		static Gdk.Pixbuf TasqueIcon {
+			get {
+				if (tasqueIcon == null)
+					tasqueIcon =
+						GuiUtils.GetIcon (System.Reflection.Assembly.GetExecutingAssembly (),
+						"tasque", 22);
+				return tasqueIcon;
+			}
 		}
 		
 		Gtk.MenuToolButton menuToolButton;
@@ -54,7 +57,7 @@ namespace Tomboy.TasqueAddin
 			menu.Hidden += OnMenuHidden;
 			menu.ShowAll ();
 			
-			Gtk.Image tasqueImage = new Gtk.Image (tasqueIcon);
+			Gtk.Image tasqueImage = new Gtk.Image (TasqueIcon);
 			tasqueImage.Show ();
 			menuToolButton =
 				new Gtk.MenuToolButton (tasqueImage, Catalog.GetString ("Tasque"));

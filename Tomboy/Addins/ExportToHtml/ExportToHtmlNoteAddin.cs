@@ -19,32 +19,49 @@ namespace Tomboy.ExportToHtml
 
 		Gtk.ImageMenuItem item;
 
-		static ExportToHtmlNoteAddin ()
+		static XslTransform NoteXsl
 		{
-			Assembly asm = Assembly.GetExecutingAssembly ();
-			string asm_dir = System.IO.Path.GetDirectoryName (asm.Location);
-			string stylesheet_file = Path.Combine (asm_dir, stylesheet_name);
-
-			xsl = new XslTransform ();
-
-			if (File.Exists (stylesheet_file)) {
-				Logger.Log ("ExportToHTML: Using user-custom {0} file.",
-				            stylesheet_name);
-				xsl.Load (stylesheet_file);
-			} else {
-				Stream resource = asm.GetManifestResourceStream (stylesheet_name);
-				if (resource != null) {
-					XmlTextReader reader = new XmlTextReader (resource);
-					xsl.Load (reader, null, null);
-					resource.Close ();
-				} else {
-					Logger.Log ("Unable to find HTML export template '{0}'.",
-					            stylesheet_name);
+			get {
+				if (xsl == null) {
+					Assembly asm = Assembly.GetExecutingAssembly ();
+					string asm_dir = System.IO.Path.GetDirectoryName (asm.Location);
+					string stylesheet_file = Path.Combine (asm_dir, stylesheet_name);
+		
+					xsl = new XslTransform ();
+		
+					if (File.Exists (stylesheet_file)) {
+						Logger.Log ("ExportToHTML: Using user-custom {0} file.",
+						            stylesheet_name);
+						xsl.Load (stylesheet_file);
+					} else {
+						Stream resource = asm.GetManifestResourceStream (stylesheet_name);
+						if (resource != null) {
+							XmlTextReader reader = new XmlTextReader (resource);
+							xsl.Load (reader, null, null);
+							resource.Close ();
+						} else {
+							Logger.Log ("Unable to find HTML export template '{0}'.",
+							            stylesheet_name);
+						}
+					}
 				}
+				return xsl;
 			}
 		}
 
 		public override void Initialize ()
+		{
+		}
+
+		public override void Shutdown ()
+		{
+			// Disconnect the event handlers so
+			// there aren't any memory leaks.
+			if (item != null)
+				item.Activated -= ExportButtonClicked;
+		}
+
+		public override void OnNoteOpened ()
 		{
 			item =
 			        new Gtk.ImageMenuItem (Catalog.GetString ("Export to HTML"));
@@ -52,18 +69,6 @@ namespace Tomboy.ExportToHtml
 			item.Activated += ExportButtonClicked;
 			item.Show ();
 			AddPluginMenuItem (item);
-		}
-
-		public override void Shutdown ()
-		{
-			// Disconnect the event handlers so
-			// there aren't any memory leaks.
-			item.Activated -= ExportButtonClicked;
-		}
-
-		public override void OnNoteOpened ()
-		{
-			// Do nothing.
 		}
 
 		void ExportButtonClicked (object sender, EventArgs args)
@@ -191,7 +196,7 @@ namespace Tomboy.ExportToHtml
 			}
 
 			NoteNameResolver resolver = new NoteNameResolver (note.Manager, note);
-			xsl.Transform (doc, args, writer, resolver);
+			NoteXsl.Transform (doc, args, writer, resolver);
 		}
 	}
 

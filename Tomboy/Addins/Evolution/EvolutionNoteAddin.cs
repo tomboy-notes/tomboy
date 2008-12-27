@@ -210,13 +210,17 @@ namespace Tomboy.Evolution
 	{
 		static Gdk.Pixbuf mail_icon = null;
 		
-		static EmailLink ()
+		static Gdk.Pixbuf MailIcon
 		{
-			mail_icon =
-				GuiUtils.GetIcon (
-					System.Reflection.Assembly.GetExecutingAssembly (),
-					"mail",
-					16);
+			get {
+				if (mail_icon == null)
+					mail_icon =
+						GuiUtils.GetIcon (
+							System.Reflection.Assembly.GetExecutingAssembly (),
+							"mail",
+							16);
+				return mail_icon;
+			}
 		}
 		
 		public EmailLink ()
@@ -232,7 +236,7 @@ namespace Tomboy.Evolution
 			Foreground = "blue";
 			CanActivate = true;
 
-			Image = mail_icon;
+			Image = MailIcon;
 		}
 
 		public string EmailUri

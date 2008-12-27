@@ -17,7 +17,20 @@ namespace Tomboy.Backlinks
 		public override void Initialize ()
 		{
 			submenu_built = false;
+		}
 
+		public override void Shutdown ()
+		{
+			// The following two lines are required to prevent the plugin
+			// from leaking references when the plugin is disabled.
+			if (menu != null)
+				menu.Hidden -= OnMenuHidden;
+			if (menu_item != null)
+				menu_item.Activated -= OnMenuItemActivated;
+		}
+
+		public override void OnNoteOpened ()
+		{
 			menu = new Gtk.Menu ();
 			menu.Hidden += OnMenuHidden;
 			menu.ShowAll ();
@@ -28,18 +41,6 @@ namespace Tomboy.Backlinks
 			menu_item.Activated += OnMenuItemActivated;
 			menu_item.Show ();
 			AddPluginMenuItem (menu_item);
-		}
-
-		public override void Shutdown ()
-		{
-			// The following two lines are required to prevent the plugin
-			// from leaking references when the plugin is disabled.
-			menu.Hidden -= OnMenuHidden;
-			menu_item.Activated -= OnMenuItemActivated;
-		}
-
-		public override void OnNoteOpened ()
-		{
 		}
 
 		void OnMenuItemActivated (object sender, EventArgs args)
