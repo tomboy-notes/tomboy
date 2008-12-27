@@ -11,17 +11,21 @@ namespace Tomboy.Backlinks
 
 		static Gdk.Pixbuf note_icon;
 
-		static BacklinkMenuItem ()
+		static Gdk.Pixbuf NoteIcon
 		{
-			note_icon = GuiUtils.GetIcon ("note", 16);
+			get {
+				if (note_icon == null)
+					note_icon = GuiUtils.GetIcon ("note", 16);
+				return note_icon;
+			}
 		}
 
-public BacklinkMenuItem (Note note, string title_search) :
-		base (note.Title)
+		public BacklinkMenuItem (Note note, string title_search) :
+			base (note.Title)
 		{
 			this.note = note;
 			this.title_search = title_search;
-			this.Image = new Gtk.Image (note_icon);
+			this.Image = new Gtk.Image (NoteIcon);
 		}
 
 		protected override void OnActivated ()

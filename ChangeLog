@@ -1,3 +1,19 @@
+2008-12-27  Sandy Armstrong  <sanfordarmstrong@gmail.com>
+
+	* Tomboy/Notebooks/NotebookNoteAddin.cs:
+	* Tomboy/Addins/Bugzilla/BugzillaLink.cs:
+	* Tomboy/Addins/Tasque/TasqueNoteAddin.cs:
+	* Tomboy/Addins/Backlinks/BacklinkMenuItem.cs:
+	* Tomboy/Notebooks/NotebookApplicationAddin.cs:
+	* Tomboy/Addins/Evolution/EvolutionNoteAddin.cs:
+	* Tomboy/Addins/Backlinks/BacklinksNoteAddin.cs:
+	* Tomboy/Addins/PrintNotes/PrintNotesNoteAddin.cs:
+	* Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs: Memory savings,
+	lazy-loading; beginnings of fix for bug #565790 (reduce Tomboy memory
+	footprint at startup).  For NoteAddins, moved a lot of work from
+	Initialize to OnNoteOpened.  In general, moved instantiation of some
+	objects from static constructor to lazy-loading static properties.
+
 2008-12-15  Sandy Armstrong  <sanfordarmstrong@gmail.com>
 
 	* configure.in:

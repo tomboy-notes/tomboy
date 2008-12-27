@@ -9,12 +9,16 @@ namespace Tomboy.Bugzilla
 		//private const string StockIconFilename = "bug.png";
 		private static Gdk.Pixbuf bug_icon;
 
-		static BugzillaLink ()
+		private static Gdk.Pixbuf BugIcon
 		{
-			bug_icon = GuiUtils.GetIcon (
-				System.Reflection.Assembly.GetExecutingAssembly (),
-				"bug",
-				16);
+			get {
+				if (bug_icon == null)
+					bug_icon = GuiUtils.GetIcon (
+						System.Reflection.Assembly.GetExecutingAssembly (),
+						"bug",
+						16);
+				return bug_icon;
+			}
 		}
 
 		public override void Initialize (string element_name)
@@ -48,7 +52,7 @@ namespace Tomboy.Bugzilla
 			} catch {}
 
 			if (uri == null) {
-				Image = bug_icon;
+				Image = BugIcon;
 				return;
 			}
 
@@ -60,7 +64,7 @@ namespace Tomboy.Bugzilla
 			try {
 				Image = new Gdk.Pixbuf (imagePath);
 			} catch (GLib.GException) {
-				Image = bug_icon;
+				Image = BugIcon;
 			}
 		}
 

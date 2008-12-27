@@ -13,23 +13,33 @@ namespace Tomboy.Notebooks
 		static Gdk.Pixbuf notebookIcon;
 		static Gdk.Pixbuf newNotebookIcon;
 		
-		static NotebookNoteAddin ()
+		static Gdk.Pixbuf NotebookIcon
 		{
-			notebookIcon = GuiUtils.GetIcon ("notebook", 22);
-			newNotebookIcon = GuiUtils.GetIcon ("notebook-new", 16);
+			get {
+				if (notebookIcon == null)
+					notebookIcon = GuiUtils.GetIcon ("notebook", 22);
+				return notebookIcon;
+			}
+		}
+
+		static Gdk.Pixbuf NewNotebookIcon
+		{
+			get {
+				if (newNotebookIcon == null)
+					newNotebookIcon = GuiUtils.GetIcon ("notebook-new", 16);
+				return newNotebookIcon;
+			}
 		}
 
 		public override void Initialize ()
 		{
-			menu = new Gtk.Menu ();
-			menu.ShowAll ();
 		}
 
 		private void InitializeToolButton ()
 		{
 			toolButton =
 					new ToolMenuButton (Note.Window.Toolbar,
-										new Gtk.Image (notebookIcon),
+										new Gtk.Image (NotebookIcon),
 										string.Empty, menu);
 			toolButton.Homogeneous = false;
 			Gtk.Tooltips toolbarTips = new Gtk.Tooltips ();
@@ -60,6 +70,11 @@ namespace Tomboy.Notebooks
 
 		public override void OnNoteOpened ()
 		{
+			if (menu == null) {
+				menu = new Gtk.Menu ();
+				menu.ShowAll ();
+			}
+			
 			if (toolButton == null) {
 				InitializeToolButton ();
 
@@ -139,7 +154,7 @@ namespace Tomboy.Notebooks
 			// Add the "New Notebook..."
 			Gtk.ImageMenuItem newNotebookMenuItem =
 				new Gtk.ImageMenuItem (Catalog.GetString ("_New notebook..."));
-			newNotebookMenuItem.Image = new Gtk.Image (newNotebookIcon);
+			newNotebookMenuItem.Image = new Gtk.Image (NewNotebookIcon);
 			newNotebookMenuItem.Activated += OnNewNotebookMenuItem;
 			newNotebookMenuItem.Show ();
 			menu.Append (newNotebookMenuItem);

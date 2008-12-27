@@ -12,11 +12,22 @@ namespace Tomboy.Notebooks
 		static Gdk.Pixbuf notebookIcon;
 		static Gdk.Pixbuf newNotebookIcon;
 		
-		static NotebookApplicationAddin ()
+		static Gdk.Pixbuf NotebookIcon
 		{
-			notebookIcon = GuiUtils.GetIcon ("notebook", 16);
-			newNotebookIcon = GuiUtils.GetIcon ("notebook-new", 16);
-			
+			get {
+				if (notebookIcon == null)
+					notebookIcon = GuiUtils.GetIcon ("notebook", 16);
+				return notebookIcon;
+			}
+		}
+
+		static Gdk.Pixbuf NewNotebookIcon
+		{
+			get {
+				if (newNotebookIcon == null)
+					newNotebookIcon = GuiUtils.GetIcon ("notebook-new", 16);
+				return newNotebookIcon;
+			}
 		}
 
 		bool initialized;
@@ -96,7 +107,7 @@ namespace Tomboy.Notebooks
 			if (item != null) {
 				if (item is Gtk.ImageMenuItem) {
 					Gtk.ImageMenuItem imageItem = item as Gtk.ImageMenuItem;
-					(imageItem.Image as Gtk.Image).Pixbuf = notebookIcon;
+					(imageItem.Image as Gtk.Image).Pixbuf = NotebookIcon;
 				}
 				trayNotebookMenu = new Gtk.Menu ();
 				item.Submenu = trayNotebookMenu;
@@ -110,7 +121,7 @@ namespace Tomboy.Notebooks
 			if (imageitem != null) {
 				if (imageitem is Gtk.ImageMenuItem) {
 					Gtk.ImageMenuItem imageItem = imageitem as Gtk.ImageMenuItem;
-					(imageItem.Image as Gtk.Image).Pixbuf = notebookIcon;
+					(imageItem.Image as Gtk.Image).Pixbuf = NotebookIcon;
 				}
 				mainWindowNotebookMenu = new Gtk.Menu ();
 				imageitem.Submenu = mainWindowNotebookMenu;
@@ -210,7 +221,7 @@ namespace Tomboy.Notebooks
 			// Add in the "New Notebook..." menu item
 			Gtk.ImageMenuItem newNotebookMenuItem =
 				new Gtk.ImageMenuItem (Catalog.GetString ("New Note_book..."));
-			newNotebookMenuItem.Image = new Gtk.Image (newNotebookIcon);
+			newNotebookMenuItem.Image = new Gtk.Image (NewNotebookIcon);
 			newNotebookMenuItem.Activated += OnNewNotebookMenuItem;
 			newNotebookMenuItem.ShowAll ();
 			menu.Append (newNotebookMenuItem);

@@ -15,23 +15,23 @@ namespace Tomboy.PrintNotes
 
 		public override void Initialize ()
 		{
-			item = new Gtk.ImageMenuItem (Catalog.GetString ("Print"));
-			item.Image = new Gtk.Image (Gtk.Stock.Print, Gtk.IconSize.Menu);
-			item.Activated += PrintButtonClicked;
-			item.Show ();
-			AddPluginMenuItem (item);
 		}
 
 		public override void Shutdown ()
 		{
 			// Disconnect the event handlers so
 			// there aren't any memory leaks.
-			item.Activated -= PrintButtonClicked;
+			if (item != null)
+				item.Activated -= PrintButtonClicked;
 		}
 
 		public override void OnNoteOpened ()
 		{
-			// Do nothing.
+			item = new Gtk.ImageMenuItem (Catalog.GetString ("Print"));
+			item.Image = new Gtk.Image (Gtk.Stock.Print, Gtk.IconSize.Menu);
+			item.Activated += PrintButtonClicked;
+			item.Show ();
+			AddPluginMenuItem (item);
 		}
 
 		[DllImport("libprintnotes")]
