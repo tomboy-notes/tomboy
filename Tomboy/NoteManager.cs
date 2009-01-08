@@ -377,7 +377,8 @@ public NoteManager (string directory) :
 			if (note_template != null) {
 				// Use the body from the "New Note Template" note
 				string xml_content =
-					note_template.XmlContent.Replace (NoteTemplateTitle, title);
+					note_template.XmlContent.Replace (NoteTemplateTitle,
+					                                  XmlEncoder.Encode (title));
 				return CreateNewNote (title, xml_content, guid);
 			}
 			
