@@ -206,7 +206,7 @@ namespace Tomboy
 			font_peditor.AddGuard (font_button);
 			
 			// New Note Template
-			
+			// Translators: This is 'New Note' Template, not New 'Note Template'
 			label = MakeLabel (Catalog.GetString ("New Note Template"));
 			options_list.PackStart (label, false, false, 0);
 
