@@ -17,7 +17,7 @@ namespace Tomboy
 	public class TomboyApplet : PanelApplet
 	{
 		NoteManager manager;
-		TomboyAppletEventBox applet_event_box;
+		TomboyPanelAppletEventBox applet_event_box;
 		TomboyPrefsKeybinder keybinder;
 
 		// Keep referenced so our callbacks don't get reaped.
@@ -47,7 +47,7 @@ namespace Tomboy
 			Logger.Log ("Applet Created...");
 
 			manager = Tomboy.DefaultNoteManager;
-			applet_event_box = new TomboyAppletEventBox (manager);
+			applet_event_box = new TomboyPanelAppletEventBox (manager);
 			keybinder = new TomboyPrefsKeybinder (manager, applet_event_box);
 
 			Flags |= PanelAppletFlags.ExpandMinor;
@@ -139,7 +139,7 @@ namespace Tomboy
 	
 	public enum PanelOrientation { Horizontal, Vertical };
 	
-	public class TomboyAppletEventBox : Gtk.EventBox, ITomboyTray
+	public class TomboyPanelAppletEventBox : Gtk.EventBox, ITomboyTray
 	{
 		NoteManager manager;
 		TomboyTray tray;
@@ -147,7 +147,7 @@ namespace Tomboy
 		Gtk.Image image;
 		int panel_size;
 
-		public TomboyAppletEventBox (NoteManager manager)
+		public TomboyPanelAppletEventBox (NoteManager manager)
 : base ()
 		{
 			this.manager = manager;
