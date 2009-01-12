@@ -1,3 +1,11 @@
+2009-01-12  Sandy Armstrong  <sanfordarmstrong@gmail.com>
+
+	* Tomboy/Applet.cs: Rename TomboyAppletEventBox to
+	TomboyPanelAppletEventBox. Fixes problem with panel applet icon
+	background (bug #567308), caused by many themes matching on widget
+	class names with patterns like "*Tray*" (which is why it worked when
+	the class was TomboyTray) and "*PanelApplet*".
+
 2009-01-08  Claude Paroz  <claude@2xlibre.net>
 
 	* Tomboy/PreferencesDialog.cs: Add translator comment for 'New Note
