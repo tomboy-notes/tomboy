@@ -254,8 +254,9 @@ run_add_dialog:
 				        Gtk.MessageType.Error,
 				        Gtk.ButtonsType.Ok,
 				        Catalog.GetString ("Error saving icon"),
-				        Catalog.GetString ("Could not save the icon file.  " +
-				                           err_msg));
+				        Catalog.GetString ("Could not save the icon file.") +
+					                   "  " +
+					                   err_msg);
 				err.Run ();
 				err.Destroy ();
 			}
