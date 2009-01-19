@@ -43,7 +43,7 @@ namespace Tomboy
 			}
 #endif // ENABLE_DBUS || WIN32
 
-			Initialize ("tomboy", "Tomboy", "tomboy", args);
+			Initialize ("tomboy", "tomboy", "tomboy", args);
 
 			// Add private icon dir to search path
 			icon_theme = Gtk.IconTheme.Default;
