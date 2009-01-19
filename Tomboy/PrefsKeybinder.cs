@@ -1,16 +1,16 @@
 using System;
-using System.Collections;
+using System.Collections.Generic;
 
 namespace Tomboy
 {
 	public class PrefsKeybinder
 	{
-		ArrayList bindings;
+		List<Binding> bindings;
 		IKeybinder native_keybinder;
 
 		public PrefsKeybinder ()
 		{
-			bindings = new ArrayList ();
+			bindings = new List<Binding> ();
 			native_keybinder = Services.Keybinder;
 		}
 

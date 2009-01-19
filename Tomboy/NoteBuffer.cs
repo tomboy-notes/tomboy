@@ -1,6 +1,5 @@
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml;
@@ -35,7 +34,7 @@ namespace Tomboy
 		// HATE.
 
 		// list of Gtk.TextTags to apply on insert
-		ArrayList active_tags;
+		List<Gtk.TextTag> active_tags;
 
 		// The note that owns this buffer
 		private Note note;
@@ -52,7 +51,7 @@ namespace Tomboy
 		public NoteBuffer (Gtk.TextTagTable tags, Note note)
 : base (tags)
 		{
-			active_tags = new ArrayList ();
+			active_tags = new List<Gtk.TextTag> ();
 			undo_manager = new UndoManager (this);
 
 			InsertText += TextInsertedEvent;
@@ -1179,9 +1178,9 @@ namespace Tomboy
 		                              Gtk.TextIter   end,
 		                              XmlTextWriter  xml)
 		{
-			Stack tag_stack = new Stack ();
-			Stack replay_stack = new Stack ();
-			Stack continue_stack = new Stack ();
+			Stack<Gtk.TextTag> tag_stack = new Stack<Gtk.TextTag> ();
+			Stack<Gtk.TextTag> replay_stack = new Stack<Gtk.TextTag> ();
+			Stack<Gtk.TextTag> continue_stack = new Stack<Gtk.TextTag> ();
 
 			Gtk.TextIter iter = start;
 			Gtk.TextIter next_iter = start;
@@ -1271,7 +1270,7 @@ namespace Tomboy
 				while (continue_stack.Count > 0 &&
 				                ((depth_tag == null && iter.StartsLine ()) || iter.LineOffset == 1))
 				{
-					Gtk.TextTag continue_tag = (Gtk.TextTag) continue_stack.Pop();
+					Gtk.TextTag continue_tag = continue_stack.Pop();
 
 					if (!TagEndsHere (continue_tag, iter, next_iter)
 					                && iter.HasTag (continue_tag))
@@ -1313,7 +1312,7 @@ namespace Tomboy
 				{
 					// Close all tags in the tag_stack
 					while (tag_stack.Count > 0) {
-						Gtk.TextTag existing_tag = tag_stack.Pop () as Gtk.TextTag;
+						Gtk.TextTag existing_tag = tag_stack.Pop ();
 
 						// Any tags which continue across the indented
 						// line are added to the continue_stack to be
@@ -1330,7 +1329,7 @@ namespace Tomboy
 						                NoteTagTable.TagIsSerializable(tag) && !(tag is DepthNoteTag))
 						{
 							while (tag_stack.Count > 0) {
-								Gtk.TextTag existing_tag = tag_stack.Pop () as Gtk.TextTag;
+								Gtk.TextTag existing_tag = tag_stack.Pop ();
 
 								if (!TagEndsHere (existing_tag, iter, next_iter)) {
 									replay_stack.Push (existing_tag);
@@ -1344,7 +1343,7 @@ namespace Tomboy
 							// overlapped with the ended
 							// tag...
 							while (replay_stack.Count > 0) {
-								Gtk.TextTag replay_tag = replay_stack.Pop () as Gtk.TextTag;
+								Gtk.TextTag replay_tag = replay_stack.Pop ();
 								tag_stack.Push (replay_tag);
 
 								WriteTag (replay_tag, xml, true);
@@ -1380,7 +1379,7 @@ namespace Tomboy
 
 			// Empty any trailing tags left in tag_stack..
 			while (tag_stack.Count > 0) {
-				Gtk.TextTag tail_tag = (Gtk.TextTag) tag_stack.Pop ();
+				Gtk.TextTag tail_tag = tag_stack.Pop ();
 				WriteTag (tail_tag, xml, false);
 			}
 
@@ -1414,7 +1413,7 @@ namespace Tomboy
 		                                XmlTextReader  xml)
 		{
 			int offset = start.Offset;
-			Stack stack = new Stack ();
+			Stack<TagStart> stack = new Stack<TagStart> ();
 			TagStart tag_start;
 
 			NoteTagTable note_table = buffer.TagTable as NoteTagTable;
@@ -1423,7 +1422,7 @@ namespace Tomboy
 
 			// A stack of boolean values which mark if a
 			// list-item contains content other than another list
-			Stack list_stack = new Stack();
+			Stack<bool> list_stack = new Stack<bool> ();
 
 			while (xml.Read ()) {
 				switch (xml.NodeType) {
@@ -1489,7 +1488,7 @@ namespace Tomboy
 						break;
 					}
 
-					tag_start = (TagStart) stack.Pop ();
+					tag_start = stack.Pop ();
 					if (tag_start.Tag == null)
 						break;
 
@@ -1506,7 +1505,7 @@ namespace Tomboy
 					// had content.
 					DepthNoteTag depth_tag = tag_start.Tag as DepthNoteTag;
 
-					if (depth_tag != null && (bool) list_stack.Pop ()) {
+					if (depth_tag != null && list_stack.Pop ()) {
 						((NoteBuffer) buffer).InsertBullet (ref apply_start,
 						                                    depth_tag.Depth,
 						                                    depth_tag.Direction);

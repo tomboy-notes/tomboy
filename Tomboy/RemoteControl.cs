@@ -1,6 +1,5 @@
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 #if ENABLE_DBUS
 using NDesk.DBus;
@@ -157,11 +156,11 @@ namespace Tomboy
 
 		public string[] ListAllNotes ()
 		{
-			ArrayList uris = new ArrayList ();
+			List<string> uris = new List<string> ();
 			foreach (Note note in note_manager.Notes) {
 				uris.Add (note.Uri);
 			}
-			return (string []) uris.ToArray (typeof (string)) ;
+			return uris.ToArray ();
 		}
 
 		public string GetNoteContents (string uri)

@@ -1,6 +1,6 @@
 
 using System;
-using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
@@ -783,7 +783,7 @@ namespace Tomboy
 
 		void HighlightInBlock (Gtk.TextIter start, Gtk.TextIter end)
 		{
-			ArrayList hits = Manager.TitleTrie.FindMatches (start.GetSlice (end));
+			IList<TrieHit> hits = Manager.TitleTrie.FindMatches (start.GetSlice (end));
 			foreach (TrieHit hit in hits) {
 				DoHighlight (hit, start, end);
 			}

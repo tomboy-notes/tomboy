@@ -1,6 +1,7 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.Xml;
 using System.Web;
@@ -20,7 +21,7 @@ namespace Tomboy.Evolution
 	class EvoUtils
 	{
 		// Cache of account URLs to account UIDs
-		static Hashtable source_url_to_uid;
+		static Dictionary<Uri, string> source_url_to_uid;
 
 		static GConf.Client gc;
 		static GConf.NotifyEventHandler changed_handler;
@@ -33,7 +34,7 @@ namespace Tomboy.Evolution
 				changed_handler = new GConf.NotifyEventHandler (OnAccountsSettingChanged);
 				gc.AddNotify ("/apps/evolution/mail/accounts", changed_handler);
 
-				source_url_to_uid = new Hashtable ();
+				source_url_to_uid = new Dictionary<Uri, string> ();
 				SetupAccountUrlToUidMap ();
 			}
 			catch (Exception e) {
@@ -137,7 +138,7 @@ namespace Tomboy.Evolution
 				}
 
 				if (match) {
-					account_uid = (string) source_url_to_uid [source_uri];
+					account_uid = source_url_to_uid [source_uri];
 					Logger.Log ("Evolution: Matching account '{0}'...",
 					            account_uid);
 					break;
@@ -283,8 +284,8 @@ namespace Tomboy.Evolution
 	public class EvolutionNoteAddin : NoteAddin
 	{
 		// Used in the two-phase evolution drop handling.
-		ArrayList xuid_list;
-		ArrayList subject_list;
+		List<string> xuid_list;
+		List<string> subject_list;
 
 		static EvolutionNoteAddin ()
 		{
@@ -374,7 +375,7 @@ namespace Tomboy.Evolution
 		{
 			string uri_string = Encoding.UTF8.GetString (args.SelectionData.Data);
 
-			subject_list = new ArrayList();
+			subject_list = new List<string>();
 
 			UriList uri_list = new UriList (uri_string);
 			foreach (Uri uri in uri_list) {
@@ -421,7 +422,7 @@ namespace Tomboy.Evolution
 			string source = Encoding.UTF8.GetString (args.SelectionData.Data);
 			string [] list = source.Split ('\0');
 
-			xuid_list = new ArrayList ();
+			xuid_list = new List<string> ();
 
 			Logger.Log ("Evolution: Dropped XUid: uri = '{0}'", list [0]);
 
@@ -441,7 +442,7 @@ namespace Tomboy.Evolution
 			}
 		}
 
-		void InsertMailLinks (int x, int y, ArrayList xuid_list, ArrayList subject_list)
+		void InsertMailLinks (int x, int y, List<string> xuid_list, List<string> subject_list)
 		{
 			int message_idx = 0;
 			bool more_than_one = false;
@@ -466,7 +467,7 @@ namespace Tomboy.Evolution
 						Buffer.Insert (ref cursor, ", ");
 				}
 
-				string launch_uri = (string) xuid_list [message_idx++];
+				string launch_uri = xuid_list [message_idx++];
 
 				EmailLink link_tag;
 				link_tag = (EmailLink) Note.TagTable.CreateDynamicTag ("link:evo-mail");

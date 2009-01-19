@@ -2,7 +2,6 @@
 // User: kkubasik (Kevin Kubasik) at 9:24 PM 12/13/2007
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
@@ -239,7 +238,7 @@ namespace Tomboy
 				//TagsAttached (this, new_tags.ToArray ());
 
 			// Remove any removed tags from the selected photos
-			ArrayList remove_tags = new ArrayList ();
+			List<Tag> remove_tags = new List<Tag> ();
 			foreach (string tagname in selected_photos_tagnames) {
 				if (! IsTagInList (tagnames, tagname)) {
 					Tag tag = TagManager.GetTag(tagname);

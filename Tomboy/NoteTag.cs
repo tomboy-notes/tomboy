@@ -1,6 +1,6 @@
 
 using System;
-using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Xml;
@@ -347,18 +347,18 @@ namespace Tomboy
 
 	public class DynamicNoteTag : NoteTag
 	{
-		Hashtable attributes;
+		Dictionary<string, string> attributes;
 
 		public DynamicNoteTag ()
 : base()
 		{
 		}
 
-		public Hashtable Attributes
+		public IDictionary<string, string> Attributes
 		{
 			get {
 				if (attributes == null)
-					attributes = new Hashtable ();
+					attributes = new Dictionary<string, string> ();
 				return attributes;
 			}
 		}
@@ -370,7 +370,7 @@ namespace Tomboy
 
 				if (start && attributes != null) {
 					foreach (string key in attributes.Keys) {
-						string val = (string) attributes [key];
+						string val = attributes [key];
 						xml.WriteAttributeString (null, key, null, val);
 					}
 				}
@@ -460,8 +460,8 @@ namespace Tomboy
 	public class NoteTagTable : Gtk.TextTagTable
 	{
 		static NoteTagTable instance;
-		Hashtable tag_types;
-		ArrayList added_tags;
+		Dictionary<string, Type> tag_types;
+		List<Gtk.TextTag> added_tags;
 
 		public static NoteTagTable Instance
 		{
@@ -475,8 +475,8 @@ namespace Tomboy
 		public NoteTagTable ()
 : base ()
 		{
-			tag_types = new Hashtable ();
-			added_tags = new ArrayList ();
+			tag_types = new Dictionary<string, Type> ();
+			added_tags = new List<Gtk.TextTag> ();
 
 			InitCommonTags ();
 		}
@@ -673,8 +673,8 @@ namespace Tomboy
 
 		public DynamicNoteTag CreateDynamicTag (string tag_name)
 		{
-			Type tag_type = tag_types [tag_name] as Type;
-			if (tag_type == null)
+			Type tag_type;
+			if (!tag_types.TryGetValue (tag_name, out tag_type))
 				return null;
 
 			DynamicNoteTag tag = (DynamicNoteTag) Activator.CreateInstance(tag_type);
@@ -693,7 +693,11 @@ namespace Tomboy
 
 		public bool IsDynamicTagRegistered (string tag_name)
 		{
-			return tag_types [tag_name] != null;
+			Type type;
+			if (tag_types.TryGetValue (tag_name, out type) &&
+			    type != null)
+				return true;
+			return false;
 		}
 
 		protected override void OnTagAdded (Gtk.TextTag tag)

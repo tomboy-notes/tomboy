@@ -1,6 +1,5 @@
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using Mono.Unix;
@@ -31,9 +30,9 @@ namespace Tomboy
                 Gtk.TreeModelSort store_sort;
 
                 /// <summary>
-                /// Stores search results as ArrayLists hashed by note uri.
+                /// Stores search results as integers hashed by note uri.
                 /// </summary>
-                Hashtable current_matches;
+                Dictionary<string, int> current_matches;
 
                 InterruptableTimeout entry_changed_timeout;
                 
@@ -52,7 +51,7 @@ namespace Tomboy
                 static Gdk.Pixbuf all_notes_icon;
                 static Gdk.Pixbuf unfiled_notes_icon;
                 static Gdk.Pixbuf notebook_icon;
-                static ArrayList previous_searches;
+                static List<string> previous_searches;
                 static NoteRecentChanges instance;
 
                 static NoteRecentChanges ()
@@ -80,7 +79,7 @@ namespace Tomboy
                         this.IconName = "tomboy";
                         this.DefaultWidth = 450;
                         this.DefaultHeight = 400;
-                        this.current_matches = new Hashtable ();
+                        this.current_matches = new Dictionary<string, int> ();
                         this.Resizable = true;
 
                         selected_tags = new Dictionary<Tag, Tag> ();
@@ -515,9 +514,8 @@ namespace Tomboy
 
                         Note note = (Note) model.GetValue (iter, 3 /* note */);
                         if (note != null) {
-                                object matches = current_matches [note.Uri];
-                                if (matches != null) {
-                                        int match_count = (int) matches;
+                                int match_count;
+                                if (current_matches.TryGetValue (note.Uri, out match_count)) {
                                         if (match_count > 0) {
                                                 match_str = string.Format (
                                                                     Catalog.GetPluralString ("{0} match",
@@ -629,7 +627,7 @@ namespace Tomboy
                         if (current_matches.Count == 0)
                                 return false;
 
-                        return note != null && current_matches [note.Uri] != null;
+                        return note != null && current_matches.ContainsKey (note.Uri);
                 }
 
                 void OnCaseSensitiveToggled (object sender, EventArgs args)
@@ -1036,17 +1034,19 @@ namespace Tomboy
                                 return -1;
                         }
 
-                        object matches_a = current_matches [note_a.Uri];
-                        object matches_b = current_matches [note_b.Uri];
+			int matches_a;
+			int matches_b;
+			bool has_matches_a = current_matches.TryGetValue (note_a.Uri, out matches_a);
+			bool has_matches_b = current_matches.TryGetValue (note_b.Uri, out matches_b);
 
-                        if (matches_a == null || matches_b == null) {
-                                if (matches_a != null)
+                        if (!has_matches_a || !has_matches_b) {
+                                if (has_matches_a)
                                         return 1;
 
                                 return -1;
                         }
 
-                        int result = (int) matches_a - (int) matches_b;
+                        int result = matches_a - matches_b;
                         if (result == 0) {
                                 // Do a secondary sort by note title in alphabetical order
                                 result = CompareTitles (model, a, b);
@@ -1130,7 +1130,7 @@ namespace Tomboy
                         // list, or shuffling an existing term to the top...
 
                         if (previous_searches == null)
-                                previous_searches = new ArrayList ();
+                                previous_searches = new List<string> ();
 
                         bool repeat = false;
 

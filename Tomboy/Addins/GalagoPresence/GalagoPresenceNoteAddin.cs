@@ -1,6 +1,6 @@
 
 using System;
-using System.Collections;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
 using Mono.Unix;
@@ -74,7 +74,7 @@ namespace Tomboy.GalagoPresence
 		void UpdateTrie (bool refresh_query)
 		{
 			trie = new TrieTree (false /* !case_sensitive */);
-			ArrayList people = new ArrayList ();
+			List<PersonLink> people = new List<PersonLink> ();
 
 			Logger.Log ("Loading up the person trie, Part 1...");
 
