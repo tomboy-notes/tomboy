@@ -1,6 +1,6 @@
 
 using System;
-using System.Collections;
+using System.Collections.Generic;
 
 namespace Tomboy
 {
@@ -36,17 +36,17 @@ namespace Tomboy
 
 	public abstract class SplitterAction : EditAction
 	{
-		struct TagData {
+		public struct TagData {
 			public int start;
 			public int end;
 			public Gtk.TextTag tag;
 		};
-		protected ArrayList splitTags;
+		protected List<TagData> splitTags;
 		protected TextRange chop;
 
 		protected SplitterAction ()
 		{
-			this.splitTags = new ArrayList();
+			this.splitTags = new List<TagData> ();
 		}
 
 		public TextRange Chop
@@ -56,7 +56,7 @@ namespace Tomboy
 			}
 		}
 
-		public ArrayList SplitTags
+		public List<TagData> SplitTags
 		{
 			get {
 				return splitTags;
@@ -552,15 +552,15 @@ namespace Tomboy
 		NoteBuffer buffer;
 		ChopBuffer chop_buffer;
 
-		Stack undo_stack;
-		Stack redo_stack;
+		Stack<EditAction> undo_stack;
+		Stack<EditAction> redo_stack;
 
 		public UndoManager (NoteBuffer buffer)
 		{
 			frozen_cnt = 0;
 			try_merge = false;
-			undo_stack = new Stack ();
-			redo_stack = new Stack ();
+			undo_stack = new Stack<EditAction> ();
+			redo_stack = new Stack<EditAction> ();
 
 			this.buffer = buffer;
 			chop_buffer = new ChopBuffer (buffer.TagTable);
@@ -609,7 +609,7 @@ namespace Tomboy
 			--frozen_cnt;
 		}
 
-		void UndoRedo (Stack pop_from, Stack push_to, bool is_undo)
+		void UndoRedo (Stack<EditAction> pop_from, Stack<EditAction> push_to, bool is_undo)
 		{
 			if (pop_from.Count > 0) {
 				EditAction action = (EditAction) pop_from.Pop ();
@@ -632,7 +632,7 @@ namespace Tomboy
 			}
 		}
 
-		void ClearActionStack (Stack stack)
+		void ClearActionStack (Stack<EditAction> stack)
 		{
 			foreach (EditAction action in stack) {
 				action.Destroy ();
@@ -652,7 +652,7 @@ namespace Tomboy
 		public void AddUndoAction (EditAction action)
 		{
 			if (try_merge && undo_stack.Count > 0) {
-				EditAction top = (EditAction) undo_stack.Peek ();
+				EditAction top = undo_stack.Peek ();
 
 				if (top.CanMerge (action)) {
 					// Merging object should handle freeing

@@ -1,6 +1,6 @@
 
 using System;
-using System.Collections;
+using System.Collections.Generic;
 
 using Mono.Unix;
 
@@ -92,7 +92,7 @@ namespace Tomboy.Backlinks
 
 		BacklinkMenuItem [] GetBacklinkMenuItems ()
 		{
-			ArrayList items = new ArrayList ();
+			List<BacklinkMenuItem> items = new List<BacklinkMenuItem> ();
 
 			string search_title = Note.Title;
 			string encoded_title = XmlEncoder.Encode (search_title.ToLower ());
@@ -111,7 +111,7 @@ namespace Tomboy.Backlinks
 
 			items.Sort ();
 
-			return items.ToArray (typeof (BacklinkMenuItem)) as BacklinkMenuItem [];
+			return items.ToArray ();
 		}
 
 		bool CheckNoteHasMatch (Note note, string encoded_title)

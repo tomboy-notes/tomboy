@@ -36,7 +36,10 @@ namespace Tomboy.Bugzilla
 		public string BugUrl
 		{
 			get {
-				return (string) Attributes [UriAttributeName];
+				string url;
+				if (Attributes.TryGetValue (UriAttributeName, out url))
+					return url;
+				return null;
 			}
 			set {
 				Attributes [UriAttributeName] = value;

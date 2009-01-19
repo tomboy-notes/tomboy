@@ -1,6 +1,5 @@
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -723,7 +722,7 @@ namespace Tomboy
 		Gtk.Button next_button;
 		Gtk.Button prev_button;
 
-		ArrayList current_matches;
+		List<Match> current_matches;
 		string prev_search_text;
 
 		InterruptableTimeout entry_changed_timeout;
@@ -1106,9 +1105,9 @@ namespace Tomboy
 			UpdateSensitivity ();
 		}
 
-		ArrayList FindMatchesInBuffer (NoteBuffer buffer, string [] words)
+		List<Match> FindMatchesInBuffer (NoteBuffer buffer, string [] words)
 		{
-			ArrayList matches = new ArrayList ();
+			List<Match> matches = new List<Match> ();
 
 			string note_text = buffer.GetSlice (buffer.StartIter,
 			                                    buffer.EndIter,

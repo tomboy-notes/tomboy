@@ -1,5 +1,5 @@
 using System;
-using System.Collections;
+using System.Collections.Generic;
 using Tomboy;
 using Mono.Unix;
 
@@ -90,7 +90,7 @@ namespace Tomboy.NoteOfTheDay
 
 		public static void CleanupOld (NoteManager manager)
 		{
-			ArrayList kill_list = new ArrayList();
+			List<Note> kill_list = new List<Note> ();
 			DateTime date_today = DateTime.Today; // time set to 00:00:00
 
 			foreach (Note note in manager.Notes) {

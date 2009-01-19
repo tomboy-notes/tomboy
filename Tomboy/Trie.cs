@@ -8,7 +8,7 @@
 //
 
 using System;
-using System.Collections;
+using System.Collections.Generic;
 
 namespace Tomboy
 {
@@ -47,7 +47,7 @@ namespace Tomboy
 		}
 
 		TrieState root;
-		ArrayList fail_states;
+		List<TrieState> fail_states;
 		bool      case_sensitive;
 		int       max_length;
 
@@ -56,7 +56,7 @@ namespace Tomboy
 			this.case_sensitive = case_sensitive;
 
 			root = new TrieState ();
-			fail_states = new ArrayList (8);
+			fail_states = new List<TrieState> (8);
 		}
 
 		TrieState InsertMatchAtState (int depth, TrieState q, char c)
@@ -67,7 +67,7 @@ namespace Tomboy
 
 			// Insert/Replace into fail_states at %depth
 			if (depth < fail_states.Count) {
-				new_q.Next = (TrieState) fail_states [depth];
+				new_q.Next = fail_states [depth];
 				fail_states [depth] = new_q;
 			} else {
 				fail_states.Insert (depth, new_q);
@@ -137,7 +137,7 @@ namespace Tomboy
 			// Step 2: compute failure graph...
 
 			for (int idx = 0; idx < fail_states.Count; idx++) {
-				q = (TrieState) fail_states [idx];
+				q = fail_states [idx];
 
 				while (q != null) {
 					TrieMatch m = q.FirstMatch;
@@ -198,9 +198,9 @@ namespace Tomboy
 		 * ENDFOR
 		 * RETURN FALSE
 		 */
-		public ArrayList FindMatches (string haystack)
+		public IList<TrieHit> FindMatches (string haystack)
 		{
-			ArrayList matches = new ArrayList (0);
+			List<TrieHit> matches = new List<TrieHit> ();
 			TrieState q = root;
 			TrieMatch m = null;
 			int idx = 0, start_idx = 0, last_idx = 0;

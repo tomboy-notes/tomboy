@@ -1,5 +1,5 @@
 using System;
-using System.Collections;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 namespace Tomboy
@@ -20,7 +20,7 @@ namespace Tomboy
 		public delegate void BindkeyHandler (string key, IntPtr user_data);
 
 		// TODO: Change to IList<T>
-		ArrayList      bindings;
+		List<Binding> bindings;
 		BindkeyHandler key_handler;
 
 		struct Binding {
@@ -30,7 +30,7 @@ namespace Tomboy
 
 		public XKeybinder ()
 		{
-			bindings = new ArrayList ();
+			bindings = new List<Binding> ();
 			key_handler = new BindkeyHandler (KeybindingPressed);
 
 			tomboy_keybinder_init ();
