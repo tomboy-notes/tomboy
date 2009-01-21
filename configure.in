@@ -151,18 +151,11 @@ fi
 AC_SUBST(DBUS_LIBS)
 
 #
-# Check for external Mono.Addins
+# Check for Mono.Addins
 #
 PKG_CHECK_MODULES(MONO_ADDINS, mono-addins >= 0.3 \
 	mono-addins-gui >= 0.3 \
-	mono-addins-setup >= 0.3,
-	have_external_mono_addins="yes", have_external_mono_addins="no")
-
-if test "x$have_external_mono_addins" != "xyes"; then
-	AC_MSG_RESULT([using internal copy])
-fi
-AM_CONDITIONAL(EXTERNAL_MONO_ADDINS, test "x$have_external_mono_addins" = "xyes")
-AC_SUBST(MONO_ADDINS_LIBS)
+	mono-addins-setup >= 0.3)
 
 #
 # Tomboy.exe needs Gtk# Gnome# GConf#
@@ -325,10 +318,6 @@ data/tomboy-addins.pc
 data/icons/Makefile
 help/Makefile
 libtomboy/Makefile
-Mono.Addins/Makefile
-Mono.Addins/Mono.Addins.Setup/Makefile
-Mono.Addins/Mono.Addins.Gui/Makefile
-Mono.Addins/Mono.Addins/Makefile
 Tomboy/Makefile
 Tomboy/Addins/Makefile
 Tomboy/Addins/Backlinks/Makefile
