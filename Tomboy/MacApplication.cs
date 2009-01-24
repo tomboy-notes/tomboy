@@ -24,6 +24,7 @@
 // 
 
 using System;
+using System.Runtime.InteropServices;
 using Mono.Unix;
 
 using Gtk;
@@ -194,6 +195,15 @@ namespace Tomboy
 			
 			base.StartMainLoop ();
 		}
+			
+			[DllImport ("libc", EntryPoint="system")]
+			public static extern int system (string command);
+			
+			public override void OpenUrl (string url)
+			{
+				system ("open \"" + url + "\"");
+			}
+
 
 	}
 }

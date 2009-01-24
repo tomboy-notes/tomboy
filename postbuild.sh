@@ -1,7 +1,6 @@
 #!/bin/sh
 
-cp winbin/MonoPosixHelper.dll bin/Debug
-cp winbin/Mono.Addins.dll.config bin/Debug
+cp macbin/ige-mac-integration-sharp.dll bin/Debug
 
 cp data/icons/tomboy.ico tomboy.ico
 
