@@ -70,40 +70,66 @@
     </Build>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="gdk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
-    <Reference Include="gtk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
+    <Reference Include="gtk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Library\Frameworks\Mono.framework\Versions\Current\lib\mono\gac\gtk-sharp\2.12.0.0__35e10195dab3c99f\gtk-sharp.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="glib-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Library\Frameworks\Mono.framework\Versions\Current\lib\mono\gac\glib-sharp\2.12.0.0__35e10195dab3c99f\glib-sharp.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="gdk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Library\Frameworks\Mono.framework\Versions\Current\lib\mono\gac\gdk-sharp\2.12.0.0__35e10195dab3c99f\gdk-sharp.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="atk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Library\Frameworks\Mono.framework\Versions\Current\lib\mono\gac\atk-sharp\2.12.0.0__35e10195dab3c99f\atk-sharp.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="pango-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Library\Frameworks\Mono.framework\Versions\Current\lib\mono\gac\pango-sharp\2.12.0.0__35e10195dab3c99f\pango-sharp.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="ICSharpCode.SharpZipLib, Version=0.85.5.452, Culture=neutral, PublicKeyToken=1b03e6acf1164f73">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>winbin\ICSharpCode.SharpZipLib.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Mono.Addins, Version=0.3.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>winbin\Mono.Addins.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Mono.Addins.Gui, Version=0.3.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>winbin\Mono.Addins.Gui.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Mono.Addins.Setup, Version=0.3.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>winbin\Mono.Addins.Setup.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Mono.Posix, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>winbin\Mono.Posix.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="glib-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
     <Reference Include="System" />
-    <Reference Include="pango-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
     <Reference Include="Mono.Cairo" />
-    <Reference Include="atk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
     <Reference Include="ige-mac-integration-sharp, Version=0.6.0.0, Culture=neutral, PublicKeyToken=8df8155add92b1bc">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>macbin\ige-mac-integration-sharp.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System.Runtime.Remoting" />
   </ItemGroup>
@@ -168,13 +194,13 @@
     <Compile Include="Tomboy\WindowsApplication.cs" />
     <Compile Include="Tomboy\XmlPreferencesClient.cs" />
     <Compile Include="Tomboy\MacApplication.cs" />
-    <None Include="ChangeLog" />
-    <None Include="COPYING" />
-    <None Include="Tomboy\Defines.cs.in" />
     <Compile Include="Tomboy\IRemoteControl.cs" />
     <Compile Include="Tomboy\RemoteControl.cs" />
     <Compile Include="Tomboy\RemoteControlProxy.cs" />
     <Compile Include="Tomboy\RemoteControlWrapper.cs" />
+    <None Include="ChangeLog" />
+    <None Include="COPYING" />
+    <None Include="Tomboy\Defines.cs.in" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">

@@ -1,4 +1,15 @@
-﻿2009-01-24  Sandy Armstrong  <sanfordarmstrong@gmail.com>
+2009-01-24  Sandy Armstrong  <sanfordarmstrong@gmail.com>
+
+	* Tomboy.mac.csproj:
+	* Tomboy/Addins/*/*.mac.csproj: Add HintPath for gtk-sharp and related
+	libs (Doug Johnston), and turn off a lot of unneeded "copy local"s.
+
+	* postbuild.sh: Switcharoo to copy the correct assemblies.
+
+	* Tomboy/MacApplication.cs: DllImport "system" function so we can call
+	the "open" command, as Process.Start is broken in Mono 2.0.x on OS X.
+
+2009-01-24  Sandy Armstrong  <sanfordarmstrong@gmail.com>
 
 	* Tomboy.csproj:
 	* Tomboy/Addins/*/*.csproj: Switch to x86 build target. Fixes bug #558272.
