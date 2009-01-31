@@ -84,6 +84,8 @@ namespace Tomboy
 				am ["QuitTomboyAction"].Visible = false;
 
 				RegisterPanelAppletFactory ();
+				Logger.Log ("All done.  Ciao!");
+				Exit (0);
 			} else {
 				RegisterSessionManagerRestart (
 				        Environment.GetEnvironmentVariable ("TOMBOY_WRAPPER_PATH"),
