@@ -24,7 +24,7 @@
 	h1 { font-size: xx-large;
      	     font-weight: bold;
      	     border-bottom: 1px solid black; }
-	div.note { overflow: auto;
+	div.note {
 		   position: relative;
 		   display: block;
 		   padding: 5pt;
