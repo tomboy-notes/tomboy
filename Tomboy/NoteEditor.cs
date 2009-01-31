@@ -76,25 +76,28 @@ namespace Tomboy
 		{
 			switch (args.Key) {
 			case Preferences.ENABLE_CUSTOM_FONT:
-				Logger.Log ("Switching note font {0}...",
-				            (bool) args.Value ? "ON" : "OFF");
-
-				if ((bool) args.Value) {
-					string font_string = (string)
-					                     Preferences.Get (Preferences.CUSTOM_FONT_FACE);
-					ModifyFont (Pango.FontDescription.FromString (font_string));
-				} else
-					ModifyFont (GetGnomeDocumentFontDescription ());
-
+				UpdateCustomFontSetting ();
+				break;
+			case Preferences.CUSTOM_FONT_FACE:
+				UpdateCustomFontSetting ();
 				break;
 
 			case GNOME_DOCUMENT_FONT_KEY:
 				if (!(bool) Preferences.Get (Preferences.ENABLE_CUSTOM_FONT))
 					ModifyFontFromString ((string) args.Value);
 				break;
-			case Preferences.CUSTOM_FONT_FACE:
-				ModifyFontFromString ((string) args.Value);
-				break;
+			}
+		}
+		
+		void UpdateCustomFontSetting ()
+		{
+			if ((bool) Preferences.Get(Preferences.ENABLE_CUSTOM_FONT)) {
+				string fontString = (string) Preferences.Get(Preferences.CUSTOM_FONT_FACE);
+				Logger.Log( "Switching note font to '{0}'...", fontString);
+				ModifyFontFromString (fontString);
+			} else {
+				Logger.Log ("Switching back to the default font");
+				ModifyFont (GetGnomeDocumentFontDescription());
 			}
 		}
 

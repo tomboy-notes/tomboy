@@ -145,6 +145,8 @@ namespace Tomboy
 			Pixbuf = GuiUtils.GetIcon ("tomboy", panel_size);
 
 			Tooltip = TomboyTrayUtils.GetToolTipText ();
+
+			Tomboy.ExitingEvent += OnExit;
 #if MAC
 			Visible = false;
 #endif
@@ -270,6 +272,11 @@ namespace Tomboy
 		void Quit (object sender, EventArgs args)
 		{
 			Tomboy.ActionManager ["QuitTomboyAction"].Activate ();
+		}
+
+		void OnExit (object sender, EventArgs e)
+		{
+			Visible = false;
 		}
 
 		public bool MenuOpensUpward ()
