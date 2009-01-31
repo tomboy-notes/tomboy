@@ -110,7 +110,6 @@ namespace Tomboy
 					internal_tags [ t.NormalizedName] = t;
 					return t;
 				}
-				return null;
 				}
 			}
 			Gtk.TreeIter iter = Gtk.TreeIter.Zero;

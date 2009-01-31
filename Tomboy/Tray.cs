@@ -195,13 +195,13 @@ namespace Tomboy
 			
 			Gdk.Screen screen;
 			Gdk.Rectangle area;
-			Gtk.Orientation orientation;
 			try {
 #if WIN32 || MAC
 				menu.Screen.Display.GetPointer (out x, out y);
 				screen = menu.Screen;
 				area.Height = 0;
 #else
+				Gtk.Orientation orientation;
 				GetGeometry (out screen, out area, out orientation);
 				x = area.X;
 				y = area.Y;
@@ -277,14 +277,13 @@ namespace Tomboy
 			bool open_upwards = false;
 			int val = 0;
 			Gdk.Screen screen = null;
-
-			Gdk.Rectangle area;
-			Gtk.Orientation orientation;
 #if WIN32 || MAC
 			int x;
 			tray.TomboyTrayMenu.Screen.Display.GetPointer (out x, out val);
 			screen = tray.TomboyTrayMenu.Screen;
 #else
+			Gdk.Rectangle area;
+			Gtk.Orientation orientation;
 			GetGeometry (out screen, out area, out orientation);
 			val = area.Y;
 #endif

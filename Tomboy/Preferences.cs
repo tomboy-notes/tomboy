@@ -122,7 +122,6 @@ namespace Tomboy
 
 			case SYNC_CLIENT_ID:
 				return System.Guid.NewGuid ().ToString ();
-				break;
 
 			case SYNC_LOCAL_PATH:
 				return string.Empty;

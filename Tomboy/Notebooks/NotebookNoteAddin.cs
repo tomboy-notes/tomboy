@@ -8,7 +8,6 @@ namespace Tomboy.Notebooks
 	public class NotebookNoteAddin : NoteAddin
 	{
 		ToolMenuButton toolButton;
-		Gtk.ImageMenuItem menuItem;
 		Gtk.Menu menu;
 		static Gdk.Pixbuf notebookIcon;
 		static Gdk.Pixbuf newNotebookIcon;

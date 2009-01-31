@@ -135,6 +135,8 @@ namespace Tomboy
 		/// </summary>
 		public DynamicNoteTag GetDynamicTag (string tag_name, Gtk.TextIter iter)
 		{
+			// TODO: Is this variables used, or do we just need to
+			// access iter.Tags to work around a bug?
 			Gtk.TextTag [] tags = iter.Tags;
 			foreach (Gtk.TextTag tag in iter.Tags) {
 				DynamicNoteTag dynamic_tag = tag as DynamicNoteTag;
