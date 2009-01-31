@@ -40,7 +40,6 @@ namespace Tomboy
 
 		public const string INSERT_TIMESTAMP_FORMAT = "/apps/tomboy/insert_timestamp/format";
 		
-		// TODO: Convert these into properly localized settings in 0.11.x after freeze is lifted
 		public const string SEARCH_WINDOW_X_POS = "/apps/tomboy/search_window_x_pos";
 		public const string SEARCH_WINDOW_Y_POS = "/apps/tomboy/search_window_y_pos";
 		public const string SEARCH_WINDOW_WIDTH = "/apps/tomboy/search_window_width";

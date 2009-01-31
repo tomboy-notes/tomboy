@@ -1401,28 +1401,28 @@ namespace Tomboy
 			GetPosition(out x, out y);
 			GetSize(out width, out height);
 			
-			Preferences.Set (Preferences.SEARCH_WINDOW_X_POS, x.ToString ());
-			Preferences.Set (Preferences.SEARCH_WINDOW_Y_POS, y.ToString ());
-			Preferences.Set (Preferences.SEARCH_WINDOW_WIDTH, width.ToString ());
-			Preferences.Set (Preferences.SEARCH_WINDOW_HEIGHT, height.ToString ());
+			Preferences.Set (Preferences.SEARCH_WINDOW_X_POS, x);
+			Preferences.Set (Preferences.SEARCH_WINDOW_Y_POS, y);
+			Preferences.Set (Preferences.SEARCH_WINDOW_WIDTH, width);
+			Preferences.Set (Preferences.SEARCH_WINDOW_HEIGHT, height);
         }
         
         private void RestorePosition ()
         {
-        	string xStr = Preferences.Get (Preferences.SEARCH_WINDOW_X_POS) as string;
-        	string yStr = Preferences.Get (Preferences.SEARCH_WINDOW_Y_POS) as string;
-        	string widthStr = Preferences.Get (Preferences.SEARCH_WINDOW_WIDTH) as string;
-        	string heightStr = Preferences.Get (Preferences.SEARCH_WINDOW_HEIGHT) as string;
+        	object x = Preferences.Get (Preferences.SEARCH_WINDOW_X_POS);
+        	object y = Preferences.Get (Preferences.SEARCH_WINDOW_Y_POS);
+        	object width = Preferences.Get (Preferences.SEARCH_WINDOW_WIDTH);
+        	object height = Preferences.Get (Preferences.SEARCH_WINDOW_HEIGHT);
         	
-        	if (xStr == null || xStr == string.Empty
-        			|| yStr == null || yStr == string.Empty
-        			|| widthStr == null || widthStr == string.Empty
-        			|| heightStr == null || heightStr == string.Empty)
+        	if (x == null || !(x is int)
+        			|| y == null || !(y is int)
+        			|| width == null || !(width is int)
+        			|| height == null || !(height is int))
         		return;
         	
         	DefaultSize =
-        		new Gdk.Size (int.Parse (widthStr), int.Parse (heightStr));
-        	Move (int.Parse (xStr), int.Parse (yStr));
+        		new Gdk.Size ((int) width, (int) height);
+        	Move ((int) x, (int) y);
         }
         
         private void OnExitingEvent (object sender, EventArgs args)
