@@ -1407,7 +1407,6 @@ namespace Tomboy
 						switch (xml.Name) {
 						case "title":
 							return xml.ReadString ();
-							break;
 						}
 						break;
 					}

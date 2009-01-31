@@ -101,13 +101,11 @@ CSFILES = 					\
 	$(srcdir)/Tag.cs			\
 	$(srcdir)/TagButton.cs			\
 	$(srcdir)/TagManager.cs			\
-	$(srcdir)/TagEntry.cs	\
 	$(srcdir)/Tray.cs 			\
 	$(srcdir)/Trie.cs			\
 	$(srcdir)/Undo.cs 			\
 	$(srcdir)/Utils.cs			\
 	$(srcdir)/Watchers.cs			\
-	$(srcdir)/WrapBox.cs			\
 	$(srcdir)/Notebooks/*.cs		\
 	$(srcdir)/Synchronization/*.cs		\
 	\

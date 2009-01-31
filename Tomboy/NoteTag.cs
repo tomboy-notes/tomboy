@@ -423,7 +423,7 @@ namespace Tomboy
 			}
 		}
 
-		public Pango.Direction Direction
+		public new Pango.Direction Direction
 		{
 			get{
 				return direction;

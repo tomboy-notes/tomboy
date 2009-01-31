@@ -822,7 +822,6 @@ namespace Tomboy
 	class ToolMenuButton : Gtk.ToggleToolButton
 	{
 		Gtk.Menu menu;
-		Gtk.Image image;
 
 		public ToolMenuButton (Gtk.Toolbar toolbar,
 		                       string stock_image,
