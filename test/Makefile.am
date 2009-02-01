@@ -1,4 +1,4 @@
-CSC = gmcs
+CSC = $(GMCS)
 
 TARGET = TomboyTest.dll
 
