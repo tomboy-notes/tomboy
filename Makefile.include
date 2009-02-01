@@ -10,7 +10,7 @@ LINK_MONO_ADDINS = $(MONO_ADDINS_LIBS)
 ## Build
 
 CSC_FLAGS = -debug
-CSC = gmcs $(CSC_FLAGS) -target:exe
+CSC = $(GMCS) $(CSC_FLAGS) -target:exe
 CSC_LIB = $(CSC) -target:library
 
 ## Runtime
