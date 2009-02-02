@@ -355,7 +355,7 @@ namespace Tomboy
 				if (item != null)
 					GConfKeybindingToAccel.AddAccelerator (
 					        item,
-					        Preferences.KEYBINDING_CREATE_NEW_NOTE);
+					        Preferences.KEYBINDING_OPEN_RECENT_CHANGES);
 
 				// Open Start Here Keybinding
 				item =
@@ -364,7 +364,7 @@ namespace Tomboy
 				if (item != null)
 					GConfKeybindingToAccel.AddAccelerator (
 					        item,
-					        Preferences.KEYBINDING_OPEN_RECENT_CHANGES);
+					        Preferences.KEYBINDING_OPEN_START_HERE);
 			}
 
 			return menu;
@@ -466,9 +466,9 @@ namespace Tomboy
 				recent_notes.Add (item);
 
 				list_size++;
-
+				
 				bool enable_keybindings = (bool)
-				                          Preferences.Get (Preferences.ENABLE_KEYBINDINGS);
+					                  Preferences.Get (Preferences.ENABLE_KEYBINDINGS);
 				if (enable_keybindings)
 					GConfKeybindingToAccel.AddAccelerator (
 					        item,
@@ -579,11 +579,11 @@ namespace Tomboy
 
 				return binding;
 			} catch {
-			return null;
+				return null;
+			}
 		}
-	}
 
-	public static void AddAccelerator (Gtk.MenuItem item, string gconf_path)
+		public static void AddAccelerator (Gtk.MenuItem item, string gconf_path)
 		{
 			uint keyval;
 			Gdk.ModifierType mods;
