@@ -156,6 +156,7 @@ namespace Tomboy
 			mainMenuActionGroup.Add (new ActionEntry [] {
 				new ActionEntry ("WindowMenuAction",
 				                 null,
+				                 // Translators: This is the name of "Window" menu in the Mac menubar
 				                 Catalog.GetString ("_Window"),
 				                 null,
 				                 null,
