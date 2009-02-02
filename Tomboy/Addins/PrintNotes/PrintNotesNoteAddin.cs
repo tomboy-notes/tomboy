@@ -77,7 +77,7 @@ namespace Tomboy.PrintNotes
 					print_op.Run (Gtk.PrintOperationAction.PrintDialog, Window);
 				}
 			} catch (Exception e) {
-				Logger.Error (e.ToString ());
+				Logger.Error ("Exception while printing " + Note.Title + ": " + e.ToString ());
 				HIGMessageDialog dlg = new HIGMessageDialog (Note.Window,
 					Gtk.DialogFlags.Modal,
 					Gtk.MessageType.Error,
