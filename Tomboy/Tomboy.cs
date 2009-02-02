@@ -302,7 +302,11 @@ namespace Tomboy
 			about.Comments = Catalog.GetString ("A simple and easy to use desktop " +
 			                                    "note-taking application.");
 			Gtk.AboutDialog.SetUrlHook (delegate (Gtk.AboutDialog dialog, string link) {
-				Services.NativeApplication.OpenUrl (link);
+				try {
+					Services.NativeApplication.OpenUrl (link);
+				} catch (Exception e) {
+					GuiUtils.ShowOpeningLocationError (dialog, link, e.Message);
+				}
 			}); 
 			about.Website = Defines.TOMBOY_WEBSITE;
 			about.WebsiteLabel = Catalog.GetString("Homepage");

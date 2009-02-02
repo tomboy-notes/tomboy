@@ -75,7 +75,12 @@ namespace Tomboy.Bugzilla
 		{
 			if (BugUrl != string.Empty) {
 				Logger.Log ("Opening url '{0}'...", BugUrl);
-				Services.NativeApplication.OpenUrl (BugUrl);
+				
+				try {
+					Services.NativeApplication.OpenUrl (BugUrl);
+				} catch (Exception e) {
+					GuiUtils.ShowOpeningLocationError (null, BugUrl, e.Message);
+				}
 			}
 			return true;
 		}
