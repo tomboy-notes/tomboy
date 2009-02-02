@@ -1,5 +1,15 @@
 2009-02-01  Sandy Armstrong  <sanfordarmstrong@gmail.com>
 
+	* Tomboy/Utils.cs:
+	* Tomboy/Tomboy.cs:
+	* Tomboy/Watchers.cs:
+	* Tomboy/Addins/Bugzilla/BugzillaLink.cs: Move
+	UrlWatcher.ShowOpeningLocationError to GuiUtils. Use with
+	try/catch wherever OpenUrl was called unsafely. Fixes crash
+	from bug #569639.
+
+2009-02-01  Sandy Armstrong  <sanfordarmstrong@gmail.com>
+
 	* Makefile.include:
 	* test/Makefile.am: Don't hardcode "gmcs" as the compiler.
 	Fixes bug #562846 (patch from James Westby).

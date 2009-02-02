@@ -460,21 +460,6 @@ namespace Tomboy
 			}
 		}
 
-		void ShowOpeningLocationError (string url, string error)
-		{
-			string message = String.Format ("{0}: {1}", url, error);
-
-			HIGMessageDialog dialog =
-			        new HIGMessageDialog (Window,
-			                              Gtk.DialogFlags.DestroyWithParent,
-			                              Gtk.MessageType.Info,
-			                              Gtk.ButtonsType.Ok,
-			                              Catalog.GetString ("Cannot open location"),
-			                              message);
-			dialog.Run ();
-			dialog.Destroy ();
-		}
-
 		bool OnUrlTagActivated (NoteTag      sender,
 		                        NoteEditor   editor,
 		                        Gtk.TextIter start,
@@ -484,7 +469,7 @@ namespace Tomboy
 			try {
 				OpenUrl (url);
 			} catch (GLib.GException e) {
-				ShowOpeningLocationError (url, e.Message);
+				GuiUtils.ShowOpeningLocationError (Window, url, e.Message);
 			}
 
 			// Kill the middle button paste...

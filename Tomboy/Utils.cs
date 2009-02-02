@@ -158,6 +158,21 @@ namespace Tomboy
 				dialog.Destroy ();
 			}
 		}
+		
+		public static void ShowOpeningLocationError (Gtk.Window parent, string url, string error)
+		{
+			string message = String.Format ("{0}: {1}", url, error);
+
+			HIGMessageDialog dialog =
+			        new HIGMessageDialog (parent,
+			                              Gtk.DialogFlags.DestroyWithParent,
+			                              Gtk.MessageType.Info,
+			                              Gtk.ButtonsType.Ok,
+			                              Catalog.GetString ("Cannot open location"),
+			                              message);
+			dialog.Run ();
+			dialog.Destroy ();
+		}
 
 		/// <summary>
 		/// Get a string that is more friendly/pretty for the specified date.
