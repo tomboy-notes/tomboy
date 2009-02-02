@@ -32,18 +32,12 @@ namespace Tomboy.PrintNotes
 	public class PrintNotesNoteAddin : NoteAddin
 	{
 		private Gtk.ImageMenuItem item;
-		private Gtk.PrintOperation print_op;
 		private PrintMargins page_margins;
 		private Pango.Layout date_time_footer;
 		private List<int> page_breaks;
 
 		public override void Initialize ()
 		{
-			page_margins = new PrintMargins ();
-			page_margins.Top = 400;
-			page_margins.Left = 200;
-			page_margins.Right = 100;
-			page_margins.Bottom = 0;
 		}
 
 		public override void Shutdown ()
@@ -66,14 +60,33 @@ namespace Tomboy.PrintNotes
 
 		private void PrintButtonClicked (object sender, EventArgs args)
 		{
-			print_op = new Gtk.PrintOperation ();
-			print_op.JobName = Note.Title;
+			try {
+				page_margins = new PrintMargins ();
+				page_margins.Top = 400;
+				page_margins.Left = 200;
+				page_margins.Right = 100;
+				page_margins.Bottom = 0;
 
-			print_op.BeginPrint += OnBeginPrint;
-			print_op.DrawPage += OnDrawPage;
-			print_op.EndPrint += OnEndPrint;
+				using (Gtk.PrintOperation print_op = new Gtk.PrintOperation ()) {
+					print_op.JobName = Note.Title;
 
-			print_op.Run (Gtk.PrintOperationAction.PrintDialog, Window);
+					print_op.BeginPrint += OnBeginPrint;
+					print_op.DrawPage += OnDrawPage;
+					print_op.EndPrint += OnEndPrint;
+
+					print_op.Run (Gtk.PrintOperationAction.PrintDialog, Window);
+				}
+			} catch (Exception e) {
+				Logger.Error (e.ToString ());
+				HIGMessageDialog dlg = new HIGMessageDialog (Note.Window,
+					Gtk.DialogFlags.Modal,
+					Gtk.MessageType.Error,
+					Gtk.ButtonsType.Ok,
+					Catalog.GetString ("Error printing note"),
+					e.Message);
+				dlg.Run ();
+				dlg.Destroy ();
+			}
 		}
 
 		private static IEnumerable<Pango.Attribute> GetParagraphAttributes (
@@ -370,9 +383,10 @@ namespace Tomboy.PrintNotes
 
 		private void OnEndPrint (object sender, Gtk.EndPrintArgs args)
 		{
-			date_time_footer.Dispose ();
-			page_breaks.Clear ();
-			print_op.Dispose ();
+			if (date_time_footer != null)
+				date_time_footer.Dispose ();
+			if (page_breaks != null)
+				page_breaks.Clear ();
 		}
 	}
 }

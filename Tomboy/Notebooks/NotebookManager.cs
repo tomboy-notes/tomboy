@@ -392,7 +392,7 @@ namespace Tomboy.Notebooks
 			if (note == null)
 				return false;
 			
-			// TODO: In the future we may want to allow notes
+			// NOTE: In the future we may want to allow notes
 			// to exist in multiple notebooks.  For now, to
 			// alleviate the confusion, only allow a note to
 			// exist in one notebook at a time.

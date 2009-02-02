@@ -19,7 +19,6 @@ namespace Tomboy
 
 		public delegate void BindkeyHandler (string key, IntPtr user_data);
 
-		// TODO: Change to IList<T>
 		List<Binding> bindings;
 		BindkeyHandler key_handler;
 

@@ -1,3 +1,18 @@
+﻿2009-02-01  Sandy Armstrong  <sanfordarmstrong@gmail.com>
+
+	* Tomboy/Addins/PrintNotes/PrintNotesNoteAddin.cs: Move work out of
+	Initialize. Ensure disposal of the print operation. Show an error message
+	if an exception occurs during printing (like on Windows with GTK# 2.10).
+
+	* Tomboy.sln:
+	* Tomboy/Addins/PrintNotes/PrintNotes.csproj: Windows build support.
+
+	* Setup/Files.wxs:
+	* Setup/Setup.wisproj: Add printing add-in to installer.
+
+	* Setup/Setup.wxs: Change Manufacturer to "Tomboy Project". Add support for
+	new registry key (probably) used by Novell's gtk-sharp 2.12.8.
+
 2009-02-01  Sandy Armstrong  <sanfordarmstrong@gmail.com>
 
 	* po/POTFILES.in:
