@@ -1,5 +1,24 @@
 2009-02-01  Sandy Armstrong  <sanfordarmstrong@gmail.com>
 
+	* po/POTFILES.in:
+	* Tomboy/Addins/PrintNotes/Makefile.am:
+	* Tomboy/Addins/PrintNotes/gedit-print.h:
+	* Tomboy/Addins/PrintNotes/gedit-print.c:
+	* Tomboy/Addins/PrintNotes/gtksourceprintjob.h:
+	* Tomboy/Addins/PrintNotes/gtksourceprintjob.c: Delete old
+	libgnomeprint-dependent print code. Add Mono.Cairo reference.
+
+	* Tomboy/Addins/PrintNotes/PrintNotes.addin.xml: Bump to
+	version 0.2.
+
+	* Tomboy/Addins/PrintNotes/PrintNotesNoteAddin.cs: New
+	printing implementation using Gtk.Print. Partial fix for bug
+	#512369. There are known wacky margin/header/footer problems
+	on Linux. Many thanks to Benjamin Podszun for doing this in
+	record time.
+
+2009-02-01  Sandy Armstrong  <sanfordarmstrong@gmail.com>
+
 	* Tomboy/MacApplication.cs: Add translator comment.
 
 	* Tomboy.mds: Update ChangeLog policy.
