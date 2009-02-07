@@ -1,28 +1,27 @@
 # Vietnamese translation for Tomboy.
-# Copyright © 2008 Gnome i18n Project for Vietnamese.
+# Copyright © 2009 GNOME i18n Project for Vietnamese.
 # Nguyễn Thái Ngọc Duy <pclouds@gmail.com>, 2007.
-# Clytie Siddall <clytie@riverland.net.au>, 2005-2008.
+# Clytie Siddall <clytie@riverland.net.au>, 2005-2009.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: tomboy GNOME TRUNK\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-05-12 14:18+0000\n"
-"PO-Revision-Date: 2008-06-02 17:36+0930\n"
+"Project-Id-Version: tomboy TRUNK\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=tomboy&component=general\n"
+"POT-Creation-Date: 2009-02-02 07:00+0000\n"
+"PO-Revision-Date: 2009-02-07 18:26+0930\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <vi-VN@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: LocFactoryEditor 1.7b3\n"
+"X-Generator: LocFactoryEditor 1.8\n"
 
 #: ../data/GNOME_TomboyApplet.server.in.in.h:1
 msgid "Accessories"
 msgstr "Phụ tùng"
 
 #: ../data/GNOME_TomboyApplet.server.in.in.h:2
-#: ../data/tomboy.desktop.in.h:2
 msgid "Simple and easy to use note-taking"
 msgstr "Ghi chú đơn giản và dễ dùng."
 
@@ -32,8 +31,7 @@ msgstr "Bộ tạo tiểu dụng Tomboy"
 
 #: ../data/GNOME_TomboyApplet.server.in.in.h:4
 #: ../data/tomboy.desktop.in.h:3
-#: ../Tomboy/Applet.cs:153
-#: ../Tomboy/Tray.cs:163
+#: ../Tomboy/Tray.cs:522
 msgid "Tomboy Notes"
 msgstr "Ghi chú Tomboy"
 
@@ -44,19 +42,23 @@ msgstr "_Giới thiệu"
 
 #: ../data/GNOME_TomboyApplet.xml.h:2
 #: ../Tomboy/ActionManager.cs:157
-#: ../Tomboy/Applet.cs:191
+#: ../Tomboy/Tray.cs:236
 msgid "_Help"
 msgstr "Trợ g_iúp"
 
 #: ../data/GNOME_TomboyApplet.xml.h:3
 #: ../Tomboy/ActionManager.cs:153
-#: ../Tomboy/Applet.cs:186
+#: ../Tomboy/Tray.cs:231
 msgid "_Preferences"
 msgstr "Tù_y thích"
 
 #: ../data/tomboy.desktop.in.h:1
 msgid "Note-taker"
 msgstr "Bộ ghi chú"
+
+#: ../data/tomboy.desktop.in.h:2
+msgid "Take notes, link ideas, and stay organized"
+msgstr "Ghi chép, liên kết ý kiến và cứ sắp đặt"
 
 #: ../data/tomboy.schemas.in.h:1
 msgid "Create a new Note"
@@ -67,369 +69,247 @@ msgid "Custom Font Face"
 msgstr "Mặt phông tự chọn"
 
 #: ../data/tomboy.schemas.in.h:3
+msgid "Determines X coordinate of Search window; stored on Tomboy exit."
+msgstr "Quyết định toạ độ X của cửa sổ Tìm Kiếm, được lưu lại khi Tomboy thoát."
+
+#: ../data/tomboy.schemas.in.h:4
+msgid "Determines Y coordinate of Search window; stored on Tomboy exit."
+msgstr "Quyết định toạ độ Y của cửa sổ Tìm Kiếm, được lưu lại khi Tomboy thoát."
+
+#: ../data/tomboy.schemas.in.h:5
+msgid "Determines pixel height of Search window; stored on Tomboy exit."
+msgstr "Quyết định chiều cao theo điểm ảnh của cửa sổ Tìm Kiếm, được lưu lại khi Tomboy thoát."
+
+#: ../data/tomboy.schemas.in.h:6
+msgid "Determines pixel width of Search window; stored on Tomboy exit."
+msgstr "Quyết định chiều rộng theo điểm ảnh của cửa sổ Tìm Kiếm, được lưu lại khi Tomboy thoát."
+
+#: ../data/tomboy.schemas.in.h:7
 msgid "Enable Auto bulleted lists."
 msgstr "Bật danh sách chấm điểm tự động."
 
-#: ../data/tomboy.schemas.in.h:4
+#: ../data/tomboy.schemas.in.h:8
 msgid "Enable Middle-Click Paste On Icon."
 msgstr "Bật biểu tượng nhấn-giữa dán vào."
 
-#: ../data/tomboy.schemas.in.h:5
+#: ../data/tomboy.schemas.in.h:9
 msgid "Enable WikiWord highlighting"
 msgstr "Bật tô sáng TừWiki"
 
-#: ../data/tomboy.schemas.in.h:6
+#: ../data/tomboy.schemas.in.h:10
 msgid "Enable closing notes with escape."
 msgstr "Bật đóng ghi chú dùng phím Esc."
 
-#: ../data/tomboy.schemas.in.h:7
+#: ../data/tomboy.schemas.in.h:11
 msgid "Enable custom font"
 msgstr "Bật phông tự chọn"
 
-#: ../data/tomboy.schemas.in.h:8
+#: ../data/tomboy.schemas.in.h:12
 msgid "Enable global keybindings"
 msgstr "Bộ tổ hợp phím toàn cục"
 
-#: ../data/tomboy.schemas.in.h:9
+#: ../data/tomboy.schemas.in.h:13
 msgid "Enable spellchecking"
 msgstr "Bật kiểm tra chính tả"
 
-#: ../data/tomboy.schemas.in.h:10
+#: ../data/tomboy.schemas.in.h:14
 msgid "Enable startup notes"
 msgstr "Bật ghi chú khởi chạy"
 
-#: ../data/tomboy.schemas.in.h:11
-msgid ""
-"Enable this option if you want bulleted lists to be automatic when you place "
-"- or * at the beginning of a line."
-msgstr ""
-"Bật tùy chọn này nếu bạn muốn tự động tạo danh sách chấm điểm khi bạn viết "
-"dấu gạch (-) hay dấu sao (*) ở đầu dòng."
+#: ../data/tomboy.schemas.in.h:15
+msgid "Enable this option if you want bulleted lists to be automatic when you place - or * at the beginning of a line."
+msgstr "Bật tùy chọn này nếu bạn muốn tự động tạo danh sách chấm điểm khi bạn viết dấu gạch (-) hay dấu sao (*) ở đầu dòng."
 
-#: ../data/tomboy.schemas.in.h:12
-msgid ""
-"Enable this option if you want to be able to middle-click the Tomboy icon to "
-"paste timestamped content into the Start Here note."
+#: ../data/tomboy.schemas.in.h:16
+msgid "Enable this option if you want to be able to middle-click the Tomboy icon to paste timestamped content into the Start Here note."
 msgstr "Bật tùy chọn này nếu bạn muốn có khả năng nhấn nút giữa trên con chuột vào biểu tượng Tomboy để dán nộ dung có nhãn thời gian vào ghi chú Bắt đầu ở đây."
 
-#: ../data/tomboy.schemas.in.h:13
-msgid ""
-"Enable this option to highlight words ThatLookLikeThis. Clicking the word "
-"will create a note with that name."
-msgstr ""
-"Hiệu lực tùy chọn này để tô sáng từ MàHìnhNhưĐây. Nhắp vào từ kiểu này sẽ "
-"tạo ghi chú tên đó."
+#: ../data/tomboy.schemas.in.h:17
+msgid "Enable this option to highlight words ThatLookLikeThis. Clicking the word will create a note with that name."
+msgstr "Hiệu lực tùy chọn này để tô sáng từ MàHìnhNhưĐây. Nhắp vào từ kiểu này sẽ tạo ghi chú tên đó."
 
-#: ../data/tomboy.schemas.in.h:14
+#: ../data/tomboy.schemas.in.h:18
 msgid "HTML Export All Linked Notes"
 msgstr "Xuất mọi ghi chú đã liên kết dạng HTML"
 
-#: ../data/tomboy.schemas.in.h:15
+#: ../data/tomboy.schemas.in.h:19
 msgid "HTML Export Last Directory"
 msgstr "Thư mục cuối cùng xuất dạng HTML"
 
-#: ../data/tomboy.schemas.in.h:16
+#: ../data/tomboy.schemas.in.h:20
 msgid "HTML Export Linked Notes"
 msgstr "Xuất ghi chú đã liên kết dạng HTML"
 
-#: ../data/tomboy.schemas.in.h:17
-msgid ""
-"If enable_custom_font is true, the font name set here will be used as the "
-"font when displaying notes."
-msgstr ""
-"Nếu « enable_custom_font » (bật phông tự chọn) thì tên phông chữ được bật tại "
-"đây sẽ được dùng là phông chữ khi hiển thị ghi chú."
+#: ../data/tomboy.schemas.in.h:21
+msgid "If enable_custom_font is true, the font name set here will be used as the font when displaying notes."
+msgstr "Nếu « enable_custom_font » (bật phông tự chọn) thì tên phông chữ được bật tại đây sẽ được dùng là phông chữ khi hiển thị ghi chú."
 
-#: ../data/tomboy.schemas.in.h:18
-msgid ""
-"If enabled, all notes that were open when Tomboy quit will automatically be "
-"reopened at startup."
-msgstr ""
-"Bật thì mọi ghi chú còn mở khi thoát khỏi Tomboy sẽ được mở tự động khi khởi "
-"chạy lại."
+#: ../data/tomboy.schemas.in.h:22
+msgid "If enabled, all notes that were open when Tomboy quit will automatically be reopened at startup."
+msgstr "Bật thì mọi ghi chú còn mở khi thoát khỏi Tomboy sẽ được mở tự động khi khởi chạy lại."
 
-#: ../data/tomboy.schemas.in.h:19
+#: ../data/tomboy.schemas.in.h:23
 msgid "If enabled, an opened note can be closed by hitting the escape key."
 msgstr "Bật tùy chọn này thì một ghi chú còn mở có thể được đóng bằng cách bấm phím Esc."
 
-#: ../data/tomboy.schemas.in.h:20
-msgid ""
-"If true, misspellings will be underlined in red, and correct spelling "
-"suggestions shown in the right-click menu."
-msgstr ""
-"Nếu Đúng thì mọi từ không có chính tả đúng sẽ bị gạch chân màu đỏ, mà đề "
-"nghị từ có chính tả đúng trong trình đơn thả khi nhắp-phải."
-
-#: ../data/tomboy.schemas.in.h:21
-msgid ""
-"If true, the desktop-global keybindings set in /apps/tomboy/"
-"global_keybindings will be enabled, allowing for useful Tomboy actions to be "
-"available from any application."
-msgstr ""
-"Nếu đúng thì tổ hợp phím cho toàn màn hình nền được đặt trong </apps/tomboy/"
-"global_keybindings> sẽ được bật, cho phép nhiều hành động Tomboy có ích thì "
-"sẵn sàng từ mọi ứng dụng.s"
-
-#: ../data/tomboy.schemas.in.h:22
-msgid ""
-"If true, the font name set in custom_font_face will be used as the font when "
-"displaying notes. Otherwise the desktop default font will be used."
-msgstr ""
-"Nếu đúng thì tên phông chữ được đặt trong « custom_font_face » (phông tự "
-"chọn) sẽ được dùng là phông chữ khi hiển thị ghi chú. Nếu không thì dùng "
-"phông chữ màn hình nền mặc định."
-
-#: ../data/tomboy.schemas.in.h:23
-msgid ""
-"Indicates that the Sticky Note Importer plugin has not been run, so it "
-"should run automatically the next time Tomboy starts."
-msgstr ""
-"Cho biết Phần bổ sung nhập Ghi chú Dính chưa chạy, vậy nó nên chạy tự động "
-"lần kế tiếp khởi chạy Tomboy."
-
 #: ../data/tomboy.schemas.in.h:24
-msgid ""
-"Integer determining the minimum number of notes to show in the Tomboy note "
-"menu."
-msgstr ""
-"Số nguyên xác định số tối thiểu ghi chú hiển thị trong trình đơn ghi chú của "
-"Tomboy."
+msgid "If true, misspellings will be underlined in red, and correct spelling suggestions shown in the right-click menu."
+msgstr "Nếu Đúng thì mọi từ không có chính tả đúng sẽ bị gạch chân màu đỏ, mà đề nghị từ có chính tả đúng trong trình đơn thả khi nhắp-phải."
 
 #: ../data/tomboy.schemas.in.h:25
-msgid ""
-"Integer value indicating if there is a preference to always perform a "
-"specific behavior when a conflict is detected, instead of prompting the "
-"user. The values map to an internal enumeration. 0 indicates that the user "
-"wishes to be prompted when a conflict occurs, so that they may handle each "
-"conflict situation on a case-by-case basis."
-msgstr ""
-"Giá trị số nguyên ngụ ý nếu có tùy thích để luôn luôn thực hiện một hành vị "
-"nào đó khi phát hiện trường hợp xung đột, thay vì nhắc người dùng. Giá trị "
-"ánh xạ tới sự đánh số nội bộ. Giá trị số không ngụ ý rằng người dùng muốn "
-"được nhắc khi trường hợp xung đột xảy ra, để quản lý mỗi trường hợp xung đột "
-"một cách từng trường."
+msgid "If true, the desktop-global keybindings set in /apps/tomboy/global_keybindings will be enabled, allowing for useful Tomboy actions to be available from any application."
+msgstr "Nếu đúng thì tổ hợp phím cho toàn màn hình nền được đặt trong </apps/tomboy/global_keybindings> sẽ được bật, cho phép nhiều hành động Tomboy có ích thì sẵn sàng từ mọi ứng dụng.s"
 
 #: ../data/tomboy.schemas.in.h:26
+msgid "If true, the font name set in custom_font_face will be used as the font when displaying notes. Otherwise the desktop default font will be used."
+msgstr "Nếu đúng thì tên phông chữ được đặt trong « custom_font_face » (phông tự chọn) sẽ được dùng là phông chữ khi hiển thị ghi chú. Nếu không thì dùng phông chữ màn hình nền mặc định."
+
+#: ../data/tomboy.schemas.in.h:27
+msgid "Indicates that the Sticky Note Importer plugin has not been run, so it should run automatically the next time Tomboy starts."
+msgstr "Cho biết Phần bổ sung nhập Ghi chú Dính chưa chạy, vậy nó nên chạy tự động lần kế tiếp khởi chạy Tomboy."
+
+#: ../data/tomboy.schemas.in.h:28
+msgid "Integer determining the minimum number of notes to show in the Tomboy note menu."
+msgstr "Số nguyên xác định số tối thiểu ghi chú hiển thị trong trình đơn ghi chú của Tomboy."
+
+#: ../data/tomboy.schemas.in.h:29
+msgid "Integer value indicating if there is a preference to always perform a specific behavior when a conflict is detected, instead of prompting the user. The values map to an internal enumeration. 0 indicates that the user wishes to be prompted when a conflict occurs, so that they may handle each conflict situation on a case-by-case basis."
+msgstr "Giá trị số nguyên ngụ ý nếu có tùy thích để luôn luôn thực hiện một hành vị nào đó khi phát hiện trường hợp xung đột, thay vì nhắc người dùng. Giá trị ánh xạ tới sự đánh số nội bộ. Giá trị số không ngụ ý rằng người dùng muốn được nhắc khi trường hợp xung đột xảy ra, để quản lý mỗi trường hợp xung đột một cách từng trường."
+
+#: ../data/tomboy.schemas.in.h:30
 msgid "List of pinned notes."
 msgstr "Danh sách các ghi chú ghim."
 
-#: ../data/tomboy.schemas.in.h:27
+#: ../data/tomboy.schemas.in.h:31
 msgid "Minimum number of notes to show in menu"
 msgstr "Số tối thiểu các ghi chú hiển thị trong trình đơn"
 
-#: ../data/tomboy.schemas.in.h:28
+#: ../data/tomboy.schemas.in.h:32
 msgid "Note Synchronization Conflict Saved Behavior"
 msgstr "Hành vị đã lưu về xung đột đồng bộ ghi chú"
 
-#: ../data/tomboy.schemas.in.h:29
+#: ../data/tomboy.schemas.in.h:33
 msgid "Open Recent Changes"
 msgstr "Mở Thay đổi Gần đây"
 
-#: ../data/tomboy.schemas.in.h:30
+#: ../data/tomboy.schemas.in.h:34
 msgid "Open Search Dialog"
 msgstr "Mở hộp thoại Tìm kiếm"
 
-#: ../data/tomboy.schemas.in.h:31
+#: ../data/tomboy.schemas.in.h:35
 msgid "Open Start Here"
 msgstr "Mở ghi chú Mở đầu"
 
-#: ../data/tomboy.schemas.in.h:32
-msgid ""
-"Path to the synchronization server when using the filesystem synchronization "
-"service addin."
-msgstr ""
-"Đường dẫn đến máy phục vụ đồng bộ khi sử dụng phần bổ sung dịch vụ đồng bộ "
-"của hệ thống tập tin."
+#: ../data/tomboy.schemas.in.h:36
+msgid "Path to the synchronization server when using the filesystem synchronization service addin."
+msgstr "Đường dẫn đến máy phục vụ đồng bộ khi sử dụng phần bổ sung dịch vụ đồng bộ của hệ thống tập tin."
 
-#: ../data/tomboy.schemas.in.h:33
+#: ../data/tomboy.schemas.in.h:37
+msgid "Saved height of Search window"
+msgstr "Bề cao đã lưu của cửa sổ Tìm Kiếm"
+
+#: ../data/tomboy.schemas.in.h:38
+msgid "Saved horizontal position of Search window"
+msgstr "Vị trí theo chiều ngang đã lưu của cửa sổ Tìm Kiếm"
+
+#: ../data/tomboy.schemas.in.h:39
+msgid "Saved vertical position of Search window"
+msgstr "Vị trí theo chiều dọc đã lưu của cửa sổ Tìm Kiếm"
+
+#: ../data/tomboy.schemas.in.h:40
+#| msgid "Open the Search All Notes window"
+msgid "Saved width of Search window"
+msgstr "Bề rộng đã lưu của cửa sổ Tìm Kiếm"
+
+#: ../data/tomboy.schemas.in.h:41
 msgid "Selected Synchronization Service Addin"
 msgstr "Phần bổ sung dịch vụ đồng bộ đã chọn"
 
-#: ../data/tomboy.schemas.in.h:34
+#: ../data/tomboy.schemas.in.h:42
 msgid "Set to TRUE to activate"
 msgstr "Đặt là TRUE (đúng) để kích hoạt"
 
-#: ../data/tomboy.schemas.in.h:35
+#: ../data/tomboy.schemas.in.h:43
 msgid "Show applet menu"
 msgstr "Hiện trình đơn tiểu dụng"
 
 # Type: note
 # Description
-#: ../data/tomboy.schemas.in.h:36
+#: ../data/tomboy.schemas.in.h:44
 msgid "Start Here Note"
 msgstr "Ghi chú Mở đầu"
 
-#: ../data/tomboy.schemas.in.h:37
+#: ../data/tomboy.schemas.in.h:45
 msgid "Sticky Note Importer First Run"
 msgstr "Lần chạy đầu tiên của Bộ nhập Ghi chú dính"
 
-#: ../data/tomboy.schemas.in.h:38
+#: ../data/tomboy.schemas.in.h:46
 msgid "Synchronization Client ID"
 msgstr "Mã số ứng dụng khách đồng bộ"
 
-#: ../data/tomboy.schemas.in.h:39
+#: ../data/tomboy.schemas.in.h:47
 msgid "Synchronization Local Server Path"
 msgstr "Đường dẫn máy phục vụ cục bộ đồng bộ"
 
-#: ../data/tomboy.schemas.in.h:40
+#: ../data/tomboy.schemas.in.h:48
 msgid "The date format that is used for the timestamp."
 msgstr "Định dạng ngày tháng được dùng trong nhãn thời gian."
 
-#: ../data/tomboy.schemas.in.h:41
-msgid ""
-"The global keybinding for creating and displaying a new Note. The format "
-"looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The "
-"parser is fairly liberal and allows lower or upper case, and also "
-"abbreviations such as \"&lt;Ctl&gt;\" and \"&lt;Ctrl&gt;\". If you set the "
-"option to the special string \"disabled\", then there will be no keybinding "
-"for this action."
-msgstr ""
-"Tổ hợp phím toàn cục dùng để tạo và hiển thị ghi chú mới. Dạng thức tương tự "
-"như \"&lt;Control&gt;a\" hoặc \"&lt;Shift&gt;&lt;Alt&gt;F1\". Bộ phân tích "
-"hiểu cả chữ hoa lẫn chữ thường, và cả những từ viết tắt như \"&lt;Ctl&gt;\" "
-"và \"&lt;Ctrl&gt;\". Nếu bạn đặt tùy chọn là chuỗi đặc biệt « disabled » thì "
-"sẽ không có tổ hợp phím nào thực hiện hành động này."
+#: ../data/tomboy.schemas.in.h:49
+msgid "The global keybinding for creating and displaying a new Note. The format looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is fairly liberal and allows lower or upper case, and also abbreviations such as \"&lt;Ctl&gt;\" and \"&lt;Ctrl&gt;\". If you set the option to the special string \"disabled\", then there will be no keybinding for this action."
+msgstr "Tổ hợp phím toàn cục dùng để tạo và hiển thị ghi chú mới. Dạng thức tương tự như \"&lt;Control&gt;a\" hoặc \"&lt;Shift&gt;&lt;Alt&gt;F1\". Bộ phân tích hiểu cả chữ hoa lẫn chữ thường, và cả những từ viết tắt như \"&lt;Ctl&gt;\" và \"&lt;Ctrl&gt;\". Nếu bạn đặt tùy chọn là chuỗi đặc biệt « disabled » thì sẽ không có tổ hợp phím nào thực hiện hành động này."
 
-#: ../data/tomboy.schemas.in.h:42
-msgid ""
-"The global keybinding for opening the \"Start Here\" note. The format looks "
-"like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
-"fairly liberal and allows lower or upper case, and also abbreviations such "
-"as \"&lt;Ctl&gt;\" and \"&lt;Ctrl&gt;\". If you set the option to the "
-"special string \"disabled\", then there will be no keybinding for this "
-"action."
-msgstr ""
-"Tổ hợp phím toàn cục dùng để mở ghi chú « Mở đầu ». Dạng thức tương tự như "
-"\"&lt;Control&gt;a\" hoặc \"&lt;Shift&gt;&lt;Alt&gt;F1\". Bộ phân tích hiểu "
-"cả chữ hoa lẫn chữ thường,  và cả những từ viết tắt như \"&lt;Ctl&gt;\" và "
-"\"&lt;Ctrl&gt;\". Nếu bạn đặt tùy chọn là chuỗi đặc biệt « disabled » thì sẽ "
-"không có tổ hợp phím nào thực hiện hành động này."
+#: ../data/tomboy.schemas.in.h:50
+msgid "The global keybinding for opening the \"Start Here\" note. The format looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is fairly liberal and allows lower or upper case, and also abbreviations such as \"&lt;Ctl&gt;\" and \"&lt;Ctrl&gt;\". If you set the option to the special string \"disabled\", then there will be no keybinding for this action."
+msgstr "Tổ hợp phím toàn cục dùng để mở ghi chú « Mở đầu ». Dạng thức tương tự như \"&lt;Control&gt;a\" hoặc \"&lt;Shift&gt;&lt;Alt&gt;F1\". Bộ phân tích hiểu cả chữ hoa lẫn chữ thường,  và cả những từ viết tắt như \"&lt;Ctl&gt;\" và \"&lt;Ctrl&gt;\". Nếu bạn đặt tùy chọn là chuỗi đặc biệt « disabled » thì sẽ không có tổ hợp phím nào thực hiện hành động này."
 
-#: ../data/tomboy.schemas.in.h:43
-msgid ""
-"The global keybinding for opening the Note Search dialog. The format looks "
-"like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
-"fairly liberal and allows lower or upper case, and also abbreviations such "
-"as \"&lt;Ctl&gt;\" and \"&lt;Ctrl&gt;\". If you set the option to the "
-"special string \"disabled\", then there will be no keybinding for this "
-"action."
-msgstr ""
-"Tổ hợp phím toàn cục dùng để mở hộp thoại Tìm kiếm ghi chú. Định dạng tương "
-"tự như \"&lt;Control&gt;a\" hoặc \"&lt;Shift&gt;&lt;Alt&gt;F1\". Bộ phân "
-"tích hiểu cả chữ hoa lẫn chữ thường, và cả những từ viết tắt như \"&lt;"
-"Ctl&gt;\" và \"&lt;Ctrl&gt;\". Nếu bạn đặt tùy chọn là chuỗi đặc biệt « "
-"disabled » thì sẽ không có tổ hợp phím nào thực hiện hành động này."
+#: ../data/tomboy.schemas.in.h:51
+msgid "The global keybinding for opening the Note Search dialog. The format looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is fairly liberal and allows lower or upper case, and also abbreviations such as \"&lt;Ctl&gt;\" and \"&lt;Ctrl&gt;\". If you set the option to the special string \"disabled\", then there will be no keybinding for this action."
+msgstr "Tổ hợp phím toàn cục dùng để mở hộp thoại Tìm kiếm ghi chú. Định dạng tương tự như \"&lt;Control&gt;a\" hoặc \"&lt;Shift&gt;&lt;Alt&gt;F1\". Bộ phân tích hiểu cả chữ hoa lẫn chữ thường, và cả những từ viết tắt như \"&lt;Ctl&gt;\" và \"&lt;Ctrl&gt;\". Nếu bạn đặt tùy chọn là chuỗi đặc biệt « disabled » thì sẽ không có tổ hợp phím nào thực hiện hành động này."
 
-#: ../data/tomboy.schemas.in.h:44
-msgid ""
-"The global keybinding for opening the Recent Changes dialog. The format "
-"looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The "
-"parser is fairly liberal and allows lower or upper case, and also "
-"abbreviations such as \"&lt;Ctl&gt;\" and \"&lt;Ctrl&gt;\". If you set the "
-"option to the special string \"disabled\", then there will be no keybinding "
-"for this action."
-msgstr ""
-"Tổ hợp phím toàn cục dùng để mở hộp thoại Thay đổi Gần đây. Định dạng tương "
-"tự như \"&lt;Control&gt;a\" hoặc \"&lt;Shift&gt;&lt;Alt&gt;F1\". Bộ phân "
-"tích hiểu cả chữ hoa lẫn chữ thường, và cả những từ viết tắt như \"&lt;"
-"Ctl&gt;\" và \"&lt;Ctrl&gt;\". Nếu bạn đặt tùy chọn là chuỗi đặc biệt « "
-"disabled » thì sẽ không có tổ hợp phím nào thực hiện hành động này."
+#: ../data/tomboy.schemas.in.h:52
+msgid "The global keybinding for opening the Recent Changes dialog. The format looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is fairly liberal and allows lower or upper case, and also abbreviations such as \"&lt;Ctl&gt;\" and \"&lt;Ctrl&gt;\". If you set the option to the special string \"disabled\", then there will be no keybinding for this action."
+msgstr "Tổ hợp phím toàn cục dùng để mở hộp thoại Thay đổi Gần đây. Định dạng tương tự như \"&lt;Control&gt;a\" hoặc \"&lt;Shift&gt;&lt;Alt&gt;F1\". Bộ phân tích hiểu cả chữ hoa lẫn chữ thường, và cả những từ viết tắt như \"&lt;Ctl&gt;\" và \"&lt;Ctrl&gt;\". Nếu bạn đặt tùy chọn là chuỗi đặc biệt « disabled » thì sẽ không có tổ hợp phím nào thực hiện hành động này."
 
-#: ../data/tomboy.schemas.in.h:45
-msgid ""
-"The global keybinding for showing the Tomboy applet's menu. The format looks "
-"like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
-"fairly liberal and allows lower or upper case, and also abbreviations such "
-"as \"&lt;Ctl&gt;\" and \"&lt;Ctrl&gt;\". If you set the option to the "
-"special string \"disabled\", then there will be no keybinding for this "
-"action."
-msgstr ""
-"Tổ hợp phím toàn cục dùng để hiện trình đơn của tiểu dụng Tomboy. Định dạng "
-"tương tự như \"&lt;Control&gt;a\" hoặc \"&lt;Shift&gt;&lt;Alt&gt;F1\". Bộ "
-"phân tích hiểu cả chữ hoa lẫn chữ thường, và cả những từ viết tắt như \"&lt;"
-"Ctl&gt;\" và \"&lt;Ctrl&gt;\". Nếu bạn đặt tùy chọn là chuỗi đặc biệt « "
-"disabled » thì sẽ không có phím nóng nào thực hiện hành động này."
+#: ../data/tomboy.schemas.in.h:53
+msgid "The global keybinding for showing the Tomboy applet's menu. The format looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is fairly liberal and allows lower or upper case, and also abbreviations such as \"&lt;Ctl&gt;\" and \"&lt;Ctrl&gt;\". If you set the option to the special string \"disabled\", then there will be no keybinding for this action."
+msgstr "Tổ hợp phím toàn cục dùng để hiện trình đơn của tiểu dụng Tomboy. Định dạng tương tự như \"&lt;Control&gt;a\" hoặc \"&lt;Shift&gt;&lt;Alt&gt;F1\". Bộ phân tích hiểu cả chữ hoa lẫn chữ thường, và cả những từ viết tắt như \"&lt;Ctl&gt;\" và \"&lt;Ctrl&gt;\". Nếu bạn đặt tùy chọn là chuỗi đặc biệt « disabled » thì sẽ không có phím nóng nào thực hiện hành động này."
 
-#: ../data/tomboy.schemas.in.h:46
+#: ../data/tomboy.schemas.in.h:54
 msgid "The handler for \"note://\" URLs"
 msgstr "Bộ thao tác các địa chỉ URL kiểu « note:// »"
 
-#: ../data/tomboy.schemas.in.h:47
-msgid ""
-"The last directory a note was exported to using the Export To HTML plugin."
-msgstr ""
-"Thư mục cuối cùng vào đó đã xuất ghi chú dùng phần bổ sung « Xuất dạng HTML »."
+#: ../data/tomboy.schemas.in.h:55
+msgid "The last directory a note was exported to using the Export To HTML plugin."
+msgstr "Thư mục cuối cùng vào đó đã xuất ghi chú dùng phần bổ sung « Xuất dạng HTML »."
 
-#: ../data/tomboy.schemas.in.h:48
-msgid ""
-"The last setting for the 'Export linked notes' checkbox in the Export to "
-"HTML plugin."
-msgstr ""
-"Thiết lập cuối cùng cho hộp chọn « Xuất ghi chú đã liên kết » trong phần bổ "
-"sung « Xuất dạng HTML »."
+#: ../data/tomboy.schemas.in.h:56
+msgid "The last setting for the 'Export linked notes' checkbox in the Export to HTML plugin."
+msgstr "Thiết lập cuối cùng cho hộp chọn « Xuất ghi chú đã liên kết » trong phần bổ sung « Xuất dạng HTML »."
 
-#: ../data/tomboy.schemas.in.h:49
-msgid ""
-"The last setting for the 'Include all other linked notes' checkbox in the "
-"Export to HTML plugin. This setting is used in conjunction with the 'HTML "
-"Export Linked Notes' setting and is used to specify whether all notes (found "
-"recursively) should be included during an export to HTML."
-msgstr ""
-"Thiết lập cuối cùng cho « Bao gồm mọi ghi chú đã liên kết khác » trong phần "
-"bổ sung Xuất dạng HTML. Thiết lập này được dùng kèm với thiết lập « Xuất mọi "
-"lời ghi chú đã liên kết dạng HTML » và được dùng để xác định có nên bao gồm "
-"mọi lời ghi chú (tìm đệ quy) trong quá trình xuất ra HTML không."
+#: ../data/tomboy.schemas.in.h:57
+msgid "The last setting for the 'Include all other linked notes' checkbox in the Export to HTML plugin. This setting is used in conjunction with the 'HTML Export Linked Notes' setting and is used to specify whether all notes (found recursively) should be included during an export to HTML."
+msgstr "Thiết lập cuối cùng cho « Bao gồm mọi ghi chú đã liên kết khác » trong phần bổ sung Xuất dạng HTML. Thiết lập này được dùng kèm với thiết lập « Xuất mọi lời ghi chú đã liên kết dạng HTML » và được dùng để xác định có nên bao gồm mọi lời ghi chú (tìm đệ quy) trong quá trình xuất ra HTML không."
 
-#: ../data/tomboy.schemas.in.h:50
-msgid ""
-"The note URI of the note that should be considered the \"Start Here\" note, "
-"which is always placed at the bottom of the Tomboy note menu and also "
-"accessible by hotkey."
-msgstr ""
-"Địa chỉ URI của ghi chú cần được xem là ghi chú \"Mở đầu\", ghi chú luôn "
-"luôn được đặt ở đáy trình đơn ghi chú Tomboy và cũng có thể truy cập qua "
-"phím tắt."
+#: ../data/tomboy.schemas.in.h:58
+msgid "The note URI of the note that should be considered the \"Start Here\" note, which is always placed at the bottom of the Tomboy note menu and also accessible by hotkey."
+msgstr "Địa chỉ URI của ghi chú cần được xem là ghi chú \"Mở đầu\", ghi chú luôn luôn được đặt ở đáy trình đơn ghi chú Tomboy và cũng có thể truy cập qua phím tắt."
 
-#: ../data/tomboy.schemas.in.h:51
+#: ../data/tomboy.schemas.in.h:59
 msgid "Timestamp format"
 msgstr "Định dạng ghi giờ"
 
-#: ../data/tomboy.schemas.in.h:52
-msgid ""
-"Unique identifier for the currently configured note synchronization service "
-"addin."
-msgstr ""
-"Dấu nhận diện duy nhất cho phần bổ sung dịch vụ đồng bộ ghi chú được cấu "
-"hình hiện thời."
+#: ../data/tomboy.schemas.in.h:60
+msgid "Unique identifier for the currently configured note synchronization service addin."
+msgstr "Dấu nhận diện duy nhất cho phần bổ sung dịch vụ đồng bộ ghi chú được cấu hình hiện thời."
 
-#: ../data/tomboy.schemas.in.h:53
-msgid ""
-"Unique identifier for this Tomboy client, used when communicating with a "
-"sychronization server."
-msgstr ""
-"Dấu nhận diện duy nhất cho ứng dụng khách Tomboy, được dùng khi liên lạc với "
-"máy phục vụ đồng bộ."
+#: ../data/tomboy.schemas.in.h:61
+msgid "Unique identifier for this Tomboy client, used when communicating with a sychronization server."
+msgstr "Dấu nhận diện duy nhất cho ứng dụng khách Tomboy, được dùng khi liên lạc với máy phục vụ đồng bộ."
 
-#: ../data/tomboy.schemas.in.h:54
-msgid ""
-"Whitespace-separated list of note URIs for notes that should always appear "
-"in the Tomboy note menu."
-msgstr ""
-"Danh sách cách nhau bằng khoảng trắng các địa chỉ URI của ghi chú luôn cần "
-"xuất hiện trong trình đơn ghi chú Tomboy."
-
-#: ../Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinTreeWidget.cs:91
-msgid "Add-in"
-msgstr "Bổ trợ"
-
-#: ../Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinTreeWidget.cs:112
-msgid "Version"
-msgstr "Phiên bản"
-
-#: ../Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinTreeWidget.cs:169
-#. Default category name to use if no category is specified for this addin
-msgid "Other"
-msgstr "Khác"
+#: ../data/tomboy.schemas.in.h:62
+msgid "Whitespace-separated list of note URIs for notes that should always appear in the Tomboy note menu."
+msgstr "Danh sách cách nhau bằng khoảng trắng các địa chỉ URI của ghi chú luôn cần xuất hiện trong trình đơn ghi chú Tomboy."
 
 #: ../Tomboy/ActionManager.cs:127
 msgid "_File"
@@ -461,7 +341,7 @@ msgid "Delete the selected note"
 msgstr "Xóa ghi chú được chọn"
 
 #: ../Tomboy/ActionManager.cs:142
-#: ../Tomboy/NoteWindow.cs:412
+#: ../Tomboy/NoteWindow.cs:416
 msgid "_Close"
 msgstr "Đón_g"
 
@@ -470,7 +350,7 @@ msgid "Close this window"
 msgstr "Đóng cửa sổ này"
 
 #: ../Tomboy/ActionManager.cs:146
-#: ../Tomboy/Applet.cs:203
+#: ../Tomboy/Tray.cs:248
 msgid "_Quit"
 msgstr "T_hoát"
 
@@ -483,7 +363,7 @@ msgid "_Edit"
 msgstr "_Sửa"
 
 #: ../Tomboy/ActionManager.cs:154
-#: ../Tomboy/PreferencesDialog.cs:63
+#: ../Tomboy/PreferencesDialog.cs:62
 msgid "Tomboy Preferences"
 msgstr "Tùy thích Tomboy"
 
@@ -508,7 +388,7 @@ msgid "Create _New Note"
 msgstr "Ghi chú _mới"
 
 #: ../Tomboy/ActionManager.cs:175
-#: ../Tomboy/NoteWindow.cs:355
+#: ../Tomboy/NoteWindow.cs:359
 msgid "_Search All Notes"
 msgstr "_Tìm qua mọi ghi chú"
 
@@ -524,22 +404,17 @@ msgstr "Đồng _bộ hoá ghi chú"
 msgid "Start synchronizing notes"
 msgstr "Bắt đầu đồng bộ hoá các ghi chú"
 
-#: ../Tomboy/Addins/Backlinks/BacklinksNoteAddin.cs:25
+#: ../Tomboy/Addins/Backlinks/BacklinksNoteAddin.cs:38
 msgid "What links here?"
 msgstr "Nơi nào liên kết đến đây?"
 
-#: ../Tomboy/Addins/Backlinks/BacklinksNoteAddin.cs:83
+#: ../Tomboy/Addins/Backlinks/BacklinksNoteAddin.cs:84
 msgid "(none)"
 msgstr "(không)"
 
 #: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:32
-msgid ""
-"You can use any bugzilla just by dragging links into notes.  If you want a "
-"special icon for certain hosts, add them here."
-msgstr ""
-"Bạn có thể sử dụng bất kỳ dịch vụ theo dõi lỗi Bugzilla, chỉ bằng cách kéo "
-"liên kết lưu vào ghi chú. Muốn đặt biểu tượng riêng cho máy nào thì thêm vào "
-"đây."
+msgid "You can use any bugzilla just by dragging links into notes.  If you want a special icon for certain hosts, add them here."
+msgstr "Bạn có thể sử dụng bất kỳ dịch vụ theo dõi lỗi Bugzilla, chỉ bằng cách kéo liên kết lưu vào ghi chú. Muốn đặt biểu tượng riêng cho máy nào thì thêm vào đây."
 
 #: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:50
 msgid "Host Name"
@@ -553,8 +428,8 @@ msgstr "Biểu tượng"
 msgid "Select an icon..."
 msgstr "Chọn biểu tượng..."
 
-#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:200
 #. Extra Widget
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:200
 msgid "_Host name:"
 msgstr "_Tên máy:"
 
@@ -571,39 +446,40 @@ msgid "Error saving icon"
 msgstr "Lỗi lưu biểu tượng"
 
 #: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:257
-msgid "Could not save the icon file.  "
-msgstr "Không thể lưu tập tin biểu tượng.  "
+#| msgid "Could not save the icon file.  "
+msgid "Could not save the icon file."
+msgstr "Không thể lưu tập tin biểu tượng."
 
-#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:310
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:311
 msgid "Really remove this icon?"
 msgstr "Thật sự gỡ bỏ biểu tượng này chứ?"
 
-#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:311
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:312
 msgid "If you remove an icon it is permanently lost."
 msgstr "Nếu bạn gỡ bỏ một biểu tượng, nó sẽ bị mất hoàn toàn."
 
-#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:50
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:66
 msgid "Export to HTML"
 msgstr "Xuất dạng HTML"
 
-#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:109
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:113
 #, csharp-format
 msgid "Your note was exported to \"{0}\"."
 msgstr "Lời ghi chú của bạn đã được xuất ra \"{0}\"."
 
-#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:120
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:124
 msgid "Note exported successfully"
 msgstr "Đã xuất thành công ghi chú"
 
-#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:126
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:130
 msgid "Access denied."
 msgstr "Truy cập bị từ chối."
 
-#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:128
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:132
 msgid "Folder does not exist."
 msgstr "Thư mục không tồn tại."
 
-#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:143
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:147
 #, csharp-format
 msgid "Could not save the file \"{0}\""
 msgstr "Không thể lưu tập tin \"{0}\""
@@ -620,7 +496,7 @@ msgstr "Xuất ghi chú đã liên kết"
 msgid "Include all other linked notes"
 msgstr "Bao gồm mọi ghi chú đã liên kết khác"
 
-#: ../Tomboy/Addins/Evolution/EvolutionNoteAddin.cs:268
+#: ../Tomboy/Addins/Evolution/EvolutionNoteAddin.cs:273
 msgid "Cannot open email"
 msgstr "Không thể mở thư điện tử"
 
@@ -641,8 +517,7 @@ msgid "Folder path field is empty."
 msgstr "Trường đường dẫn thư mục còn rỗng."
 
 #: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:157
-msgid ""
-"Specified folder path does not exist, and Tomboy was unable to create it."
+msgid "Specified folder path does not exist, and Tomboy was unable to create it."
 msgstr "Đường dẫn thư mục đã ghi rõ không tồn tại, và Tomboy không thể tạo nó."
 
 #: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:235
@@ -667,22 +542,22 @@ msgstr "Gặp lỗi khi chạy gaim-remote: {0}"
 msgid "Insert Timestamp"
 msgstr "Ghi giờ"
 
-#: ../Tomboy/Addins/InsertTimestamp/InsertTimestampPreferences.cs:30
-#: ../Tomboy/Preferences.cs:137
-#: ../Tomboy/Tray.cs:211
 #. initial newline
+#: ../Tomboy/Addins/InsertTimestamp/InsertTimestampPreferences.cs:29
+#: ../Tomboy/Applet.cs:210
+#: ../Tomboy/Preferences.cs:132
 msgid "dddd, MMMM d, h:mm tt"
 msgstr "dddd, MMMM d, h:mm tt"
 
-#: ../Tomboy/Addins/InsertTimestamp/InsertTimestampPreferences.cs:55
+#: ../Tomboy/Addins/InsertTimestamp/InsertTimestampPreferences.cs:54
 msgid "Choose one of the predefined formats or use your own."
 msgstr "Chọn một của những định dạng đặt sẵn, hoặc dùng định dạng của mình."
 
-#: ../Tomboy/Addins/InsertTimestamp/InsertTimestampPreferences.cs:63
+#: ../Tomboy/Addins/InsertTimestamp/InsertTimestampPreferences.cs:62
 msgid "Use _Selected Format"
 msgstr "Dùng định dạng đã _chọn"
 
-#: ../Tomboy/Addins/InsertTimestamp/InsertTimestampPreferences.cs:88
+#: ../Tomboy/Addins/InsertTimestamp/InsertTimestampPreferences.cs:87
 msgid "_Use Custom Format"
 msgstr "Dùng định dạng _tự chọn"
 
@@ -694,8 +569,8 @@ msgstr "Hôm nay: Mẫu"
 msgid "Today: "
 msgstr "Hôm nay: "
 
-#: ../Tomboy/Addins/NoteOfTheDay/NoteOfTheDay.cs:17
 #. Format: "Today: Friday, July 01 2005"
+#: ../Tomboy/Addins/NoteOfTheDay/NoteOfTheDay.cs:17
 msgid "dddd, MMMM d yyyy"
 msgstr "dddd, d MMMM yyyy"
 
@@ -708,159 +583,32 @@ msgid "Appointments"
 msgstr "Cuộc hẹn"
 
 #: ../Tomboy/Addins/NoteOfTheDay/NoteOfTheDayPreferences.cs:16
-msgid ""
-"Change the <span weight=\"bold\">Today: Template</span> note to customize "
-"the text that new Today notes have."
-msgstr ""
-"Thay đổi ghi chú <span weight=\"bold\">Mẫu <i>Hom nay:</i></span> để tùy "
-"chỉnh văn bản trong các ghi chú kiểu <i>Hôm nay</i>."
+msgid "Change the <span weight=\"bold\">Today: Template</span> note to customize the text that new Today notes have."
+msgstr "Thay đổi ghi chú <span weight=\"bold\">Mẫu <i>Hom nay:</i></span> để tùy chỉnh văn bản trong các ghi chú kiểu <i>Hôm nay</i>."
 
 #: ../Tomboy/Addins/NoteOfTheDay/NoteOfTheDayPreferences.cs:24
 msgid "_Open Today: Template"
 msgstr "_Mở Mẫu Hôm nay:"
 
-#: ../Tomboy/Addins/PrintNotes/PrintNotesNoteAddin.cs:18
-#: ../Tomboy/Addins/PrintNotes/gedit-print.c:142
+#: ../Tomboy/Addins/PrintNotes/PrintNotesNoteAddin.cs:51
 msgid "Print"
 msgstr "In"
 
-#: ../Tomboy/Addins/PrintNotes/gedit-print.c:240
-msgid "Preparing pages..."
-msgstr "Chuẩn bị trang..."
+#: ../Tomboy/Addins/PrintNotes/PrintNotesNoteAddin.cs:85
+#| msgid "Error connecting :("
+msgid "Error printing note"
+msgstr "Lỗi in bản ghi chép"
 
-#: ../Tomboy/Addins/PrintNotes/gedit-print.c:267
-#, c-format
-msgid "Rendering page %d of %d..."
-msgstr "Đang vẽ trang %d trên %d..."
+#: ../Tomboy/Addins/PrintNotes/PrintNotesNoteAddin.cs:208
+#, csharp-format
+#| msgid "Page %N of %Q"
+msgid "Page {0} of {1}"
+msgstr "Trang {0} trên {1}"
 
-#: ../Tomboy/Addins/PrintNotes/gedit-print.c:269
-#, c-format
-msgid "Printing page %d of %d..."
-msgstr "Đang in trang %d trên %d..."
-
-#: ../Tomboy/Addins/PrintNotes/gedit-print.c:291
-msgid "Print preview"
-msgstr "Xem thử bản in"
-
-#: ../Tomboy/Addins/PrintNotes/gedit-print.c:442
-msgid "Page %N of %Q"
-msgstr "Trang %N trên %Q"
-
-#: ../Tomboy/Addins/PrintNotes/gedit-print.c:445
-#, no-c-format
-msgid "%A %x, %X"
-msgstr "%A %x, %X"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:268
-msgid "Configuration"
-msgstr "Cấu hình"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:269
-msgid "Configuration options for the print job"
-msgstr "Các tùy chọn cấu hình về công việc in ấn"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:276
-msgid "Source Buffer"
-msgstr "Bộ đệm nguồn"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:277
-msgid "GtkTextBuffer object to print"
-msgstr "Đối tượng GtkTextBuffer (vùng đệm văn bản Gtk) cần in"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:283
-msgid "Tabs Width"
-msgstr "Khoảng Tab"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:284
-msgid "Width in equivalent space characters of tabs"
-msgstr "Khoảng tab theo ký tự dấu cách"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:291
-msgid "Wrap Mode"
-msgstr "Chế độ cuộn"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:292
-msgid "Word wrapping mode"
-msgstr "Chế độ cuộn văn bản (ngắt dòng)"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:299
-msgid "Highlight"
-msgstr "Tô sáng"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:300
-msgid "Whether to print the document with highlighted syntax"
-msgstr "Có nên in tài liệu có cú pháp đã tô sáng hay không"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:308
-msgid "Font"
-msgstr "Phông"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:309
-msgid "GnomeFont name to use for the document text (deprecated)"
-msgstr "Tên GnomeFont cần dùng cho văn bản của tài liệu (bị phản đối)"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:316
-msgid "Font Description"
-msgstr "Mô tả phông"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:317
-msgid "Font to use for the document text (e.g. \"Monospace 10\")"
-msgstr "Phông chữ cần dùng cho văn bản của tài liệu (v.d. « Monospace 10 » [phông "
-"đơn cách có kích cỡ 10 điểm ảnh])"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:324
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:332
-msgid "Numbers Font"
-msgstr "Phông số"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:325
-msgid "GnomeFont name to use for the line numbers (deprecated)"
-msgstr "Tên GnomeFont cần dùng cho các số thứ tự dòng (bị phản đối)"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:333
-msgid "Font description to use for the line numbers"
-msgstr "Mô tả phông cần dùng cho các số thứ tự dòng"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:340
-msgid "Print Line Numbers"
-msgstr "In ra số thứ tự dòng"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:341
-msgid "Interval of printed line numbers (0 means no numbers)"
-msgstr "Khoảng giữa hai số thứ tự dòng đã in ra (0 không in ra số thứ tự dòng)"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:348
-msgid "Print Header"
-msgstr "In đầu trang"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:349
-msgid "Whether to print a header in each page"
-msgstr "Có nên in ra phần đầu trang trên mỗi tờ giấy hay không"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:356
-msgid "Print Footer"
-msgstr "In chân trang"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:357
-msgid "Whether to print a footer in each page"
-msgstr "Có nên in ra phần chân trang trên mỗi tờ giấy hay không"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:364
-msgid "Header and Footer Font"
-msgstr "Phông Đầu/Chân Trang"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:365
-msgid "GnomeFont name to use for the header and footer (deprecated)"
-msgstr "Tên GnomeFont cần dùng cho phần đầu/chân trang (bị phản đối)"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:372
-msgid "Header and Footer Font Description"
-msgstr "Mô Tả Phông Đầu/Chân Trang"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:373
-msgid "Font to use for headers and footers (e.g. \"Monospace 10\")"
-msgstr "Phông chữ cần dùng cho các phần đầu/chân trang (v.d. « Monospace 10 » [phông "
-"đơn cách có kích cỡ 10 điểm ảnh])"
+#: ../Tomboy/Addins/PrintNotes/PrintNotesNoteAddin.cs:225
+#| msgid "dddd, MMMM d, h:mm tt"
+msgid "dddd MM/dd/yyyy, hh:mm:ss tt"
+msgstr "dddd MM/dd/yyyy, hh:mm:ss tt"
 
 #: ../Tomboy/Addins/Sketching/SketchingNoteAddin.cs:19
 msgid "Add a sketch"
@@ -879,14 +627,10 @@ msgstr "Tên _người dùng:"
 msgid "_Folder Path (optional):"
 msgstr "Đường dẫn thư _mục (tùy chọn):"
 
-#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:71
 #. Text for label describing setup required for SSH sync addin to work
-msgid ""
-"SSH synchronization requires an existing SSH key for this server and user, "
-"added to a running SSH daemon."
-msgstr ""
-"Khả năng đồng bộ SSH cần thiết một khoá SSH đã tồn tại cho máy phục vụ này "
-"và người dùng này, được thêm vào trình nền SSH đang chạy."
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:71
+msgid "SSH synchronization requires an existing SSH key for this server and user, added to a running SSH daemon."
+msgstr "Khả năng đồng bộ SSH cần thiết một khoá SSH đã tồn tại cho máy phục vụ này và người dùng này, được thêm vào trình nền SSH đang chạy."
 
 #: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:95
 msgid "Server or username field is empty."
@@ -898,12 +642,8 @@ msgid "SSH (sshfs FUSE)"
 msgstr "SSH (sshfs FUSE)"
 
 #: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:191
-msgid ""
-"Timeout connecting to server. Please ensure that your SSH key has been added "
-"to a running SSH daemon."
-msgstr ""
-"Quá hạn khi kết nối tới máy phục vụ. Hãy kiểm tra xem khoá SSH của bạn đã "
-"được thêm vào trình nền SSH đang chạy."
+msgid "Timeout connecting to server. Please ensure that your SSH key has been added to a running SSH daemon."
+msgstr "Quá hạn khi kết nối tới máy phục vụ. Hãy kiểm tra xem khoá SSH của bạn đã được thêm vào trình nền SSH đang chạy."
 
 #: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:50
 msgid "Import from Sticky Notes"
@@ -935,19 +675,19 @@ msgstr "Không tên"
 msgid "Sticky Note: "
 msgstr "Ghi Chú Dính: "
 
-#: ../Tomboy/Addins/Tasque/TasqueNoteAddin.cs:57
+#: ../Tomboy/Addins/Tasque/TasqueNoteAddin.cs:62
 msgid "Tasque"
 msgstr "Tasque"
 
-#: ../Tomboy/Addins/Tasque/TasqueNoteAddin.cs:81
 #. Note to translators: "All" here must match up with the "All"
 #. category translation in Tasque for this to work properly.  "All"
 #. is used here to allow Tasque to decide which default category
 #. will be used to create the new task.
+#: ../Tomboy/Addins/Tasque/TasqueNoteAddin.cs:86
 msgid "All"
 msgstr "Tất cả"
 
-#: ../Tomboy/Addins/Tasque/TasqueNoteAddin.cs:140
+#: ../Tomboy/Addins/Tasque/TasqueNoteAddin.cs:145
 msgid "--- Tasque is not running ---"
 msgstr "—— Tasque chưa chạy ——"
 
@@ -969,29 +709,20 @@ msgid "WebDAV (wdfs FUSE)"
 msgstr "WebDAV (wdfs FUSE)"
 
 #: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:190
-msgid ""
-"There was an error connecting to the server.  This may be caused by using an "
-"incorrect user name and/or password."
-msgstr ""
-"Gặp lỗi khi kết nối đến máy phục vụ. Có lẽ vì bạn đã nhập sai tên người dùng "
-"hay mật khẩu."
+msgid "There was an error connecting to the server.  This may be caused by using an incorrect user name and/or password."
+msgstr "Gặp lỗi khi kết nối đến máy phục vụ. Có lẽ vì bạn đã nhập sai tên người dùng hay mật khẩu."
 
-#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:266
 #. TODO: If the above fails (no keyring daemon), save all but password
 #. to GConf, and notify user.
 #. Save configuration into GConf
 #. Preferences.Set ("/apps/tomboy/sync_wdfs_url", url ?? string.Empty);
 #. Preferences.Set ("/apps/tomboy/sync_wdfs_username", username ?? string.Empty);
-msgid ""
-"Saving configuration to the GNOME keyring failed with the following message:"
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:266
+msgid "Saving configuration to the GNOME keyring failed with the following message:"
 msgstr "Tiến trình lưu cấu hình vào vòng khoá GNOME bị lỗi với thông điệp này:"
 
-#: ../Tomboy/Applet.cs:196
-msgid "_About Tomboy"
-msgstr "_Giới thiệu Tomboy"
-
 #: ../Tomboy/Notebooks/CreateNotebookDialog.cs:24
-#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:42
+#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:53
 msgid "Create a new notebook"
 msgstr "Tạo cuốn vở mới"
 
@@ -1007,14 +738,12 @@ msgstr "Tên cuốn _vở :"
 msgid "Name already taken"
 msgstr "Tên đó đang được dùng"
 
-#: ../Tomboy/Notebooks/CreateNotebookDialog.cs:59
 #. Translation note: This is the Create button in the Create
 #. New Note Dialog.
+#: ../Tomboy/Notebooks/CreateNotebookDialog.cs:59
 msgid "C_reate"
 msgstr "Tạ_o"
 
-#: ../Tomboy/Notebooks/Notebook.cs:79
-#, csharp-format
 #. The templateNoteTite should show the name of the
 #. notebook.  For example, if the name of the notebooks
 #. "Meetings", the templateNoteTitle should be "Meetings
@@ -1022,6 +751,8 @@ msgstr "Tạ_o"
 #. name of the notebook accordingly using "{0}".
 #. TODO: Figure out how to make this note for
 #. translators appear properly.
+#: ../Tomboy/Notebooks/Notebook.cs:79
+#, csharp-format
 msgid "{0} Notebook Template"
 msgstr "Mẫu cuốn vở {0}"
 
@@ -1033,105 +764,111 @@ msgstr "Mọi ghi chú"
 msgid "Unfiled Notes"
 msgstr "Ghi chú chưa lưu vào tập tin"
 
-#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:37
+#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:48
 msgid "Note_books"
 msgstr "C_uốn vở"
 
-#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:38
-#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:58
+#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:49
+#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:69
 msgid "Create a new note in a notebook"
 msgstr "Tạo ghi chú mới trong cuốn vở"
 
-#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:41
-#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:201
+#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:52
+#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:223
 msgid "New Note_book..."
 msgstr "Cuốn _vở mới..."
 
-#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:45
+#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:56
 msgid "_New Note"
 msgstr "Ghi chú _mới"
 
-#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:46
+#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:57
 msgid "Create a new note in this notebook"
 msgstr "Tạo một ghi chú mới trong cuốn vở này"
 
-#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:49
+#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:60
 msgid "_Open Template Note"
 msgstr "_Mở mẫu ghi chú"
 
-#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:50
+#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:61
 msgid "Open this notebook's template note"
 msgstr "Mở mẫu ghi chú của cuốn vở này"
 
-#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:53
+#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:64
 msgid "Delete Note_book"
 msgstr "Xoá cuốn _vở"
 
-#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:54
+#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:65
 msgid "Delete the selected notebook"
 msgstr "Xoá cuốn vở đã chọn"
 
-#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:57
-#: ../Tomboy/RecentChanges.cs:250
+#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:68
+#: ../Tomboy/RecentChanges.cs:251
 msgid "Notebooks"
 msgstr "Cuốn vở"
 
-#: ../Tomboy/Notebooks/NotebookManager.cs:354
+#: ../Tomboy/Notebooks/NotebookManager.cs:356
 msgid "Really delete this notebook?"
 msgstr "Thực sự xoá cuốn vở này không?"
 
-#: ../Tomboy/Notebooks/NotebookManager.cs:356
-msgid ""
-"The notes that belong to this notebook will not be deleted, but they will no "
-"longer be associated with this notebook.  This action cannot be undone."
-msgstr ""
-"Các ghi chú thuộc về cuốn vở này sẽ không bị xoá, nhưng chúng không còn liên "
-"quan lại đến cuốn vở này. Không thể hủy bước này."
+#: ../Tomboy/Notebooks/NotebookManager.cs:358
+msgid "The notes that belong to this notebook will not be deleted, but they will no longer be associated with this notebook.  This action cannot be undone."
+msgstr "Các ghi chú thuộc về cuốn vở này sẽ không bị xoá, nhưng chúng không còn liên quan lại đến cuốn vở này. Không thể hủy bước này."
 
 #: ../Tomboy/Notebooks/NotebookMenuItem.cs:14
 msgid "No notebook"
 msgstr "Không có cuốn vở"
 
-#: ../Tomboy/Notebooks/NotebookNewNoteMenuItem.cs:27
-#, csharp-format
 #. Translators should preserve the "{0}" in the following
 #. string.  After being formatted for a notebook named,
 #. "Meetings", for example, the resultant string would be:
 #. New "Meetings" Note
+#: ../Tomboy/Notebooks/NotebookNewNoteMenuItem.cs:27
+#, csharp-format
 msgid "New \"{0}\" Note"
 msgstr "Ghi chú « {0} » mới"
 
-#: ../Tomboy/Notebooks/NotebookNoteAddin.cs:36
+#: ../Tomboy/Notebooks/NotebookNoteAddin.cs:45
 msgid "Place this note into a notebook"
 msgstr "Để vào cuốn vở ghi chú này"
 
-#: ../Tomboy/Notebooks/NotebookNoteAddin.cs:112
+#: ../Tomboy/Notebooks/NotebookNoteAddin.cs:126
 msgid "Notebook"
 msgstr "Cuốn vở"
 
-#: ../Tomboy/Notebooks/NotebookNoteAddin.cs:141
+#: ../Tomboy/Notebooks/NotebookNoteAddin.cs:155
 msgid "_New notebook..."
 msgstr "Cuốn _vở mới..."
 
-#: ../Tomboy/Note.cs:1432
+#: ../Tomboy/Note.cs:1427
 msgid "Really delete this note?"
 msgstr "Thực sự xoá ghi chú này không?"
 
-#: ../Tomboy/Note.cs:1434
+#: ../Tomboy/Note.cs:1429
 msgid "Really delete these notes?"
 msgstr "Thực sự xoá những ghi chú này không?"
 
-#: ../Tomboy/Note.cs:1443
+#: ../Tomboy/Note.cs:1438
 msgid "If you delete a note it is permanently lost."
 msgstr "Nếu bạn xoã một ghi chú, nó sẽ bị mất hoàn toàn."
 
-#: ../Tomboy/NoteManager.cs:20
-#: ../Tomboy/PreferencesDialog.cs:210
+#: ../Tomboy/Note.cs:1472
+#| msgid "Error saving icon"
+msgid "Error saving note data."
+msgstr "Lỗi lưu dữ liệu ghi chép."
+
+#: ../Tomboy/Note.cs:1473
+msgid "An error occurred while saving your notes. Please check that you have sufficient disk space, and that you have appropriate rights on ~/.tomboy. Error details can be found in ~/.tomboy.log."
+msgstr "Gặp lỗi trong khi lưu lại các bản ghi chép của bạn. Hãy kiểm tra lại có đủ sức chứa trống còn lại trên đĩa, và bạn có quyền ghi vào thư mục « ~/tomboy ». Có thể tìm chi tiết về lỗi trong tập tin ghi lưu « ~/.tomboy.log »."
+
 #. New Note Template
+#. Translators: This is 'New Note' Template, not New 'Note Template'
+#: ../Tomboy/NoteManager.cs:19
+#: ../Tomboy/PreferencesDialog.cs:210
 msgid "New Note Template"
 msgstr "Mẫu ghi chú mới"
 
-#: ../Tomboy/NoteManager.cs:138
+#: ../Tomboy/NoteManager.cs:135
 msgid ""
 "<note-content>Start Here\n"
 "\n"
@@ -1139,17 +876,11 @@ msgid ""
 "\n"
 "Use this \"Start Here\" note to begin organizing your ideas and thoughts.\n"
 "\n"
-"You can create new notes to hold your ideas by selecting the \"Create New "
-"Note\" item from the Tomboy Notes menu in your GNOME Panel. Your note will "
-"be saved automatically.\n"
+"You can create new notes to hold your ideas by selecting the \"Create New Note\" item from the Tomboy Notes menu in your GNOME Panel. Your note will be saved automatically.\n"
 "\n"
-"Then organize the notes you create by linking related notes and ideas "
-"together!\n"
+"Then organize the notes you create by linking related notes and ideas together!\n"
 "\n"
-"We've created a note called <link:internal>Using Links in Tomboy</link:"
-"internal>.  Notice how each time we type <link:internal>Using Links in "
-"Tomboy</link:internal> it automatically gets underlined?  Click on the link "
-"to open the note.</note-content>"
+"We've created a note called <link:internal>Using Links in Tomboy</link:internal>.  Notice how each time we type <link:internal>Using Links in Tomboy</link:internal> it automatically gets underlined?  Click on the link to open the note.</note-content>"
 msgstr ""
 "<note-content>Mở đầu\n"
 "\n"
@@ -1157,67 +888,51 @@ msgstr ""
 "\n"
 "Dùng ghi chú \"Mở đầu\" để bắt đầu tổ chức các suy nghĩ và ý tưởng của bạn.\n"
 "\n"
-"Bạn có thể tạo ghi chú mới để lưu các ý tưởng bằng cách chọn \"Ghi chú mới\" "
-"từ trình đơn \"Ghi chú\" của Tomboy trên Bảng điều khiển GNOME. Lời ghi chú "
-"của bạn sẽ được lưu tự động.\n"
+"Bạn có thể tạo ghi chú mới để lưu các ý tưởng bằng cách chọn \"Ghi chú mới\" từ trình đơn \"Ghi chú\" của Tomboy trên Bảng điều khiển GNOME. Lời ghi chú của bạn sẽ được lưu tự động.\n"
 "\n"
-"Sau đó hãy tổ chức các ghi chú bạn tạo bằng cách liên kết các ghi chú có "
-"liên quan lại với nhau!\n"
+"Sau đó hãy tổ chức các ghi chú bạn tạo bằng cách liên kết các ghi chú có liên quan lại với nhau!\n"
 "\n"
-"Chúng tôi đã tạo ghi chú <link:internal>Dùng liên kết trong Tomboy</link:"
-"internal>. Bạn có nhận ra mỗi lần gõ <link:internal>Dùng ghi chú trong "
-"Tomboy</link:internal> nó sẽ tự động được gạch chân? Nhấn vào liên kết để mở "
-"ghi chú.</note-content>"
+"Chúng tôi đã tạo ghi chú <link:internal>Dùng liên kết trong Tomboy</link:internal>. Bạn có nhận ra mỗi lần gõ <link:internal>Dùng ghi chú trong Tomboy</link:internal> nó sẽ tự động được gạch chân? Nhấn vào liên kết để mở ghi chú.</note-content>"
 
-#: ../Tomboy/NoteManager.cs:157
+#: ../Tomboy/NoteManager.cs:154
 msgid ""
 "<note-content>Using Links in Tomboy\n"
 "\n"
-"Notes in Tomboy can be linked together by highlighting text in the current "
-"note and clicking the <bold>Link</bold> button above in the toolbar.  Doing "
-"so will create a new note and also underline the note's title in the current "
-"note.\n"
+"Notes in Tomboy can be linked together by highlighting text in the current note and clicking the <bold>Link</bold> button above in the toolbar.  Doing so will create a new note and also underline the note's title in the current note.\n"
 "\n"
-"Changing the title of a note will update links present in other notes.  This "
-"prevents broken links from occurring when a note is renamed.\n"
+"Changing the title of a note will update links present in other notes.  This prevents broken links from occurring when a note is renamed.\n"
 "\n"
-"Also, if you type the name of another note in your current note, it will "
-"automatically be linked for you.</note-content>"
+"Also, if you type the name of another note in your current note, it will automatically be linked for you.</note-content>"
 msgstr ""
 "<note-content>Dùng liên kết trong Tomboy\n"
 "\n"
-"Ghi chú trong Tomboy có thể được liên kết với nhau bằng cách tô sáng chuỗi "
-"trong ghi chú hiện thời và nhấn nút <bold>Liên kết</bold> trên thanh công "
-"cụ. Làm thế sẽ tạo một ghi chú mới và cũng gạch chân tên ghi chú mới trong "
-"ghi chú hiện thời.\n"
+"Ghi chú trong Tomboy có thể được liên kết với nhau bằng cách tô sáng chuỗi trong ghi chú hiện thời và nhấn nút <bold>Liên kết</bold> trên thanh công cụ. Làm thế sẽ tạo một ghi chú mới và cũng gạch chân tên ghi chú mới trong ghi chú hiện thời.\n"
 "\n"
-"Thay đổi tên ghi chú sẽ cập nhật các liên kết trong các ghi chú khác. Điều "
-"này giúp tránh các liên kết hỏng do ghi chú bị đổi tên.\n"
+"Thay đổi tên ghi chú sẽ cập nhật các liên kết trong các ghi chú khác. Điều này giúp tránh các liên kết hỏng do ghi chú bị đổi tên.\n"
 "\n"
-"Ngoài ra nếu bạn nhập tên một ghi chú khác trong ghi chú hiện thời, nó sẽ tự "
-"động được liên kết.</note-content>"
+"Ngoài ra nếu bạn nhập tên một ghi chú khác trong ghi chú hiện thời, nó sẽ tự động được liên kết.</note-content>"
 
 # Type: note
 # Description
-#: ../Tomboy/NoteManager.cs:172
-#: ../Tomboy/NoteManager.cs:237
 #. Attempt to find an existing Start Here note
+#: ../Tomboy/NoteManager.cs:169
+#: ../Tomboy/NoteManager.cs:236
 msgid "Start Here"
 msgstr "Mở đầu"
 
-#: ../Tomboy/NoteManager.cs:177
+#: ../Tomboy/NoteManager.cs:174
 msgid "Using Links in Tomboy"
 msgstr "Dùng liên kết trong Tomboy"
 
-#: ../Tomboy/NoteManager.cs:314
+#: ../Tomboy/NoteManager.cs:313
 #, csharp-format
 msgid "New Note {0}"
 msgstr "Ghi chú mới {0}"
 
-#: ../Tomboy/NoteManager.cs:386
-#: ../Tomboy/NoteManager.cs:478
 #. Use a simple "Describe..." body and highlight
 #. it so it can be easily overwritten
+#: ../Tomboy/NoteManager.cs:386
+#: ../Tomboy/NoteManager.cs:478
 msgid "Describe your new note here."
 msgstr "Diễn tả ghi chú mới vào đây."
 
@@ -1225,129 +940,129 @@ msgstr "Diễn tả ghi chú mới vào đây."
 msgid "Find in This Note"
 msgstr "Tìm trong ghi chú này"
 
-#: ../Tomboy/NoteWindow.cs:367
+#: ../Tomboy/NoteWindow.cs:371
 msgid "_Link to New Note"
 msgstr "_Liên kết đến ghi chú mới"
 
-#: ../Tomboy/NoteWindow.cs:379
+#: ../Tomboy/NoteWindow.cs:383
 msgid "Te_xt"
 msgstr "Chuỗ_i"
 
-#: ../Tomboy/NoteWindow.cs:387
+#: ../Tomboy/NoteWindow.cs:391
 msgid "_Find in This Note"
 msgstr "_Tìm trong ghi chú này"
 
-#: ../Tomboy/NoteWindow.cs:402
+#: ../Tomboy/NoteWindow.cs:406
 msgid "Clos_e All Notes"
 msgstr "Đóng mọ_i ghi chú"
 
-#: ../Tomboy/NoteWindow.cs:442
+#: ../Tomboy/NoteWindow.cs:446
 msgid "Search"
 msgstr "Tìm kiếm"
 
-#: ../Tomboy/NoteWindow.cs:445
+#: ../Tomboy/NoteWindow.cs:449
 msgid "Search your notes (Ctrl-Shift-F)"
 msgstr "Tìm qua các ghi chú (Ctrl-Shift-F)"
 
-#: ../Tomboy/NoteWindow.cs:457
+#: ../Tomboy/NoteWindow.cs:461
 msgid "Link"
 msgstr "Liên kết"
 
-#: ../Tomboy/NoteWindow.cs:463
+#: ../Tomboy/NoteWindow.cs:467
 msgid "Link selected text to a new note (Ctrl-L)"
 msgstr "Liên kết chuỗi đã chọn đến ghi chú mới (Ctrl-L)"
 
-#: ../Tomboy/NoteWindow.cs:476
+#: ../Tomboy/NoteWindow.cs:480
 msgid "_Text"
 msgstr "Ch_uỗi"
 
-#: ../Tomboy/NoteWindow.cs:481
+#: ../Tomboy/NoteWindow.cs:485
 msgid "Set properties of text"
 msgstr "Đặt thuộc tính về văn bản"
 
-#: ../Tomboy/NoteWindow.cs:486
+#: ../Tomboy/NoteWindow.cs:490
 msgid "T_ools"
 msgstr "_Công cụ"
 
-#: ../Tomboy/NoteWindow.cs:490
+#: ../Tomboy/NoteWindow.cs:494
 msgid "Use tools on this note"
 msgstr "Dùng công cụ với ghi chú này"
 
-#: ../Tomboy/NoteWindow.cs:498
+#: ../Tomboy/NoteWindow.cs:502
 msgid "Delete this note"
 msgstr "Xóa ghi chú này"
 
-#: ../Tomboy/NoteWindow.cs:507
+#: ../Tomboy/NoteWindow.cs:511
 #: ../Tomboy/Synchronization/SyncManager.cs:161
 msgid "Synchronize Notes"
 msgstr "Đồng bộ hoá ghi chú"
 
-#: ../Tomboy/NoteWindow.cs:550
+#: ../Tomboy/NoteWindow.cs:554
 msgid "_Find..."
 msgstr "_Tìm..."
 
-#: ../Tomboy/NoteWindow.cs:561
-#: ../Tomboy/NoteWindow.cs:763
+#: ../Tomboy/NoteWindow.cs:565
+#: ../Tomboy/NoteWindow.cs:767
 msgid "Find _Next"
 msgstr "Tìm tiế_p"
 
-#: ../Tomboy/NoteWindow.cs:574
+#: ../Tomboy/NoteWindow.cs:578
 msgid "Find _Previous"
 msgstr "Tìm _lùi"
 
-#: ../Tomboy/NoteWindow.cs:662
+#: ../Tomboy/NoteWindow.cs:666
 msgid "Cannot create note"
 msgstr "Không thể tạo ghi chú"
 
-#: ../Tomboy/NoteWindow.cs:743
+#: ../Tomboy/NoteWindow.cs:747
 msgid "_Find:"
 msgstr "_Tìm:"
 
-#: ../Tomboy/NoteWindow.cs:754
+#: ../Tomboy/NoteWindow.cs:758
 msgid "_Previous"
 msgstr "_Lùi"
 
-#: ../Tomboy/NoteWindow.cs:1238
+#: ../Tomboy/NoteWindow.cs:1242
 msgid "_Bold"
 msgstr "Đậ_m"
 
-#: ../Tomboy/NoteWindow.cs:1250
+#: ../Tomboy/NoteWindow.cs:1254
 msgid "_Italic"
 msgstr "Ngh_iêng"
 
-#: ../Tomboy/NoteWindow.cs:1262
+#: ../Tomboy/NoteWindow.cs:1266
 msgid "_Strikeout"
 msgstr "_Gạch đè"
 
-#: ../Tomboy/NoteWindow.cs:1274
+#: ../Tomboy/NoteWindow.cs:1278
 msgid "_Highlight"
 msgstr "Tô _sáng"
 
-#: ../Tomboy/NoteWindow.cs:1287
+#: ../Tomboy/NoteWindow.cs:1291
 msgid "Font Size"
 msgstr "Cỡ phông"
 
-#: ../Tomboy/NoteWindow.cs:1290
+#: ../Tomboy/NoteWindow.cs:1294
 msgid "_Normal"
 msgstr "Chuẩ_n"
 
-#: ../Tomboy/NoteWindow.cs:1297
+#: ../Tomboy/NoteWindow.cs:1301
 msgid "Hu_ge"
 msgstr "_Rất lớn"
 
-#: ../Tomboy/NoteWindow.cs:1305
+#: ../Tomboy/NoteWindow.cs:1309
 msgid "_Large"
 msgstr "_Lớn"
 
-#: ../Tomboy/NoteWindow.cs:1313
+#: ../Tomboy/NoteWindow.cs:1317
 msgid "S_mall"
 msgstr "_Nhỏ"
 
-#: ../Tomboy/NoteWindow.cs:1324
+#: ../Tomboy/NoteWindow.cs:1328
 msgid "Bullets"
 msgstr "Nút"
 
-#: ../Tomboy/PreferencesDialog.cs:81
+#: ../Tomboy/PreferencesDialog.cs:80
 msgid "Editing"
 msgstr "Sửa"
 
@@ -1368,79 +1083,62 @@ msgid "_Spell check while typing"
 msgstr "_Kiểm lỗi chính tả khi gõ"
 
 #: ../Tomboy/PreferencesDialog.cs:155
-msgid ""
-"Misspellings will be underlined in red, with correct spelling suggestions "
-"shown in the context menu."
-msgstr ""
-"Từ chưa chính tả đúng sẽ bị gạch chân màu đỏ, còn đề nghị từ chính tả đúng "
-"trong trình đơn thả nhắp-phải."
+msgid "Misspellings will be underlined in red, with correct spelling suggestions shown in the context menu."
+msgstr "Từ chưa chính tả đúng sẽ bị gạch chân màu đỏ, còn đề nghị từ chính tả đúng trong trình đơn thả nhắp-phải."
 
-#: ../Tomboy/PreferencesDialog.cs:166
 #. WikiWords...
+#: ../Tomboy/PreferencesDialog.cs:166
 msgid "Highlight _WikiWords"
 msgstr "Tô sáng Từ_Wiki"
 
 #: ../Tomboy/PreferencesDialog.cs:174
-msgid ""
-"Enable this option to highlight words <b>ThatLookLikeThis</b>. Clicking the "
-"word will create a note with that name."
-msgstr ""
-"Hiệu lực tùy chọn này để tô sáng từ <b>GiốngThếNày</b>. Nhắp vào từ kiểu đó "
-"sẽ tạo ghi chú mới tên đó."
+msgid "Enable this option to highlight words <b>ThatLookLikeThis</b>. Clicking the word will create a note with that name."
+msgstr "Hiệu lực tùy chọn này để tô sáng từ <b>GiốngThếNày</b>. Nhắp vào từ kiểu đó sẽ tạo ghi chú mới tên đó."
 
-#: ../Tomboy/PreferencesDialog.cs:181
 #. Auto bulleted list
+#: ../Tomboy/PreferencesDialog.cs:181
 msgid "Enable auto-_bulleted lists"
 msgstr "_Bật danh sách chấm điểm tự động"
 
-#: ../Tomboy/PreferencesDialog.cs:190
 #. Custom font...
+#: ../Tomboy/PreferencesDialog.cs:190
 msgid "Use custom _font"
 msgstr "Dùng _phông tự chọn"
 
 #: ../Tomboy/PreferencesDialog.cs:214
-msgid ""
-"Use the new note template to specify the text that should be used when "
-"creating a new note."
-msgstr ""
-"Hãy dùng mẫu ghi chú mới để ghi rõ văn bản nên dùng khi tạo ghi chú mới."
+msgid "Use the new note template to specify the text that should be used when creating a new note."
+msgstr "Hãy dùng mẫu ghi chú mới để ghi rõ văn bản nên dùng khi tạo ghi chú mới."
 
 #: ../Tomboy/PreferencesDialog.cs:224
 msgid "Open New Note Template"
 msgstr "Mở mẫu ghi chú mới"
 
-#: ../Tomboy/PreferencesDialog.cs:281
 #. Hotkeys...
+#: ../Tomboy/PreferencesDialog.cs:281
 msgid "Listen for _Hotkeys"
 msgstr "Lắng nghe phím _nóng"
 
 #: ../Tomboy/PreferencesDialog.cs:290
-msgid ""
-"Hotkeys allow you to quickly access your notes from anywhere with a "
-"keypress. Example Hotkeys: <b>&lt;Control&gt;&lt;Shift&gt;F11</b>, <b>&lt;"
-"Alt&gt;N</b>"
-msgstr ""
-"Phím nóng cho phép bạn truy cập nhanh ghi chú từ bất cứ nơi này, bằng cách "
-"bấm phím. Phím nóng thí dụ : <b>&lt;Control&gt;&lt;Shift&gt;F11</b>, <b>&lt;"
-"Alt&gt;N</b>"
+msgid "Hotkeys allow you to quickly access your notes from anywhere with a keypress. Example Hotkeys: <b>&lt;Control&gt;&lt;Shift&gt;F11</b>, <b>&lt;Alt&gt;N</b>"
+msgstr "Phím nóng cho phép bạn truy cập nhanh ghi chú từ bất cứ nơi này, bằng cách bấm phím. Phím nóng thí dụ : <b>&lt;Control&gt;&lt;Shift&gt;F11</b>, <b>&lt;Alt&gt;N</b>"
 
-#: ../Tomboy/PreferencesDialog.cs:310
 #. Show notes menu keybinding...
+#: ../Tomboy/PreferencesDialog.cs:310
 msgid "Show notes _menu"
 msgstr "Hiện trình đơn _ghi chú"
 
-#: ../Tomboy/PreferencesDialog.cs:327
 #. Open Start Here keybinding...
+#: ../Tomboy/PreferencesDialog.cs:327
 msgid "Open \"_Start Here\""
 msgstr "Mở \"Mở đầu\""
 
-#: ../Tomboy/PreferencesDialog.cs:344
 #. Create new note keybinding...
+#: ../Tomboy/PreferencesDialog.cs:344
 msgid "Create _new note"
 msgstr "Ghi chú _mới"
 
-#: ../Tomboy/PreferencesDialog.cs:361
 #. Open Search All Notes window keybinding...
+#: ../Tomboy/PreferencesDialog.cs:361
 msgid "Open \"Search _All Notes\""
 msgstr "Mở \"Tìm qua mọi ghi chú\""
 
@@ -1453,8 +1151,8 @@ msgstr "Dịch _vụ :"
 msgid "Not configurable"
 msgstr "Không thể cấu hình"
 
-#: ../Tomboy/PreferencesDialog.cs:461
 #. "Advanced..." button to bring up extra sync config dialog
+#: ../Tomboy/PreferencesDialog.cs:461
 msgid "_Advanced..."
 msgstr "Cấp c_ao..."
 
@@ -1488,12 +1186,8 @@ msgid "Other Synchronization Options"
 msgstr "Tùy chọn đồng bộ hoá khác"
 
 #: ../Tomboy/PreferencesDialog.cs:894
-msgid ""
-"When a conflict is detected between a local note and a note on the "
-"configured synchronization server:"
-msgstr ""
-"Khi phát hiện trường hợp xung đột giữa ghi chú cục bộ và ghi chú trên máy "
-"phục vụ đồng bộ đã cấu hình:"
+msgid "When a conflict is detected between a local note and a note on the configured synchronization server:"
+msgstr "Khi phát hiện trường hợp xung đột giữa ghi chú cục bộ và ghi chú trên máy phục vụ đồng bộ đã cấu hình:"
 
 #: ../Tomboy/PreferencesDialog.cs:901
 msgid "Always ask me what to do."
@@ -1512,26 +1206,16 @@ msgid "WARNING: Are you sure?"
 msgstr "CẢNH BÁO : bạn có chắc chưa?"
 
 #: ../Tomboy/PreferencesDialog.cs:1057
-msgid ""
-"Clearing your synchronization settings is not recommended.  You may be "
-"forced to synchronize all of your notes again when you save new settings."
-msgstr ""
-"Không khuyên bạn xoá thiết lập đồng bộ hoá. Lưu thiết lập mới thì có thể bắt "
-"buộc phải đồng bộ hoá mọi ghi chú lần nữa."
+msgid "Clearing your synchronization settings is not recommended.  You may be forced to synchronize all of your notes again when you save new settings."
+msgstr "Không khuyên bạn xoá thiết lập đồng bộ hoá. Lưu thiết lập mới thì có thể bắt buộc phải đồng bộ hoá mọi ghi chú lần nữa."
 
 #: ../Tomboy/PreferencesDialog.cs:1070
 msgid "Resetting Synchronization Settings"
 msgstr "Đặt lại thiết lập đồng bộ hoá"
 
 #: ../Tomboy/PreferencesDialog.cs:1072
-msgid ""
-"You have disabled the configured synchronization service.  Your "
-"synchronization settings will now be cleared.  You may be forced to "
-"synchronize all of your notes again when you save new settings"
-msgstr ""
-"Bạn đã tắt dịch vụ đồng bộ hoá đã cấu hình. Thiết lập đồng bộ hoá của bạn sẽ "
-"bị xoá ngay bây giờ. Lưu thiết lập mới thì có thể bắt buộc phải đồng bộ hoá "
-"mọi ghi chú lần nữa."
+msgid "You have disabled the configured synchronization service.  Your synchronization settings will now be cleared.  You may be forced to synchronize all of your notes again when you save new settings"
+msgstr "Bạn đã tắt dịch vụ đồng bộ hoá đã cấu hình. Thiết lập đồng bộ hoá của bạn sẽ bị xoá ngay bây giờ. Lưu thiết lập mới thì có thể bắt buộc phải đồng bộ hoá mọi ghi chú lần nữa."
 
 #: ../Tomboy/PreferencesDialog.cs:1169
 msgid "Success! You're connected!"
@@ -1542,12 +1226,8 @@ msgid "Tomboy is ready to synchronize your notes."
 msgstr "Tomboy sẵn sàng để đồng bộ hoá các ghi chú của bạn."
 
 #: ../Tomboy/PreferencesDialog.cs:1190
-msgid ""
-"Sorry, but something went wrong.  Please check your information and try "
-"again.  The ~/.tomboy.log might be useful too."
-msgstr ""
-"Tiếc là gập lỗi. Hãy kiểm tra thông tin về thử lại. Bản ghi « ~/.tomboy » "
-"cũng có thể hữu ích."
+msgid "Sorry, but something went wrong.  Please check your information and try again.  The ~/.tomboy.log might be useful too."
+msgstr "Tiếc là gập lỗi. Hãy kiểm tra thông tin về thử lại. Bản ghi « ~/.tomboy » cũng có thể hữu ích."
 
 #: ../Tomboy/PreferencesDialog.cs:1199
 msgid "Error connecting :("
@@ -1569,27 +1249,27 @@ msgstr "Tác quyền:"
 msgid "Add-in Dependencies:"
 msgstr "Quan hệ phụ thuộc của phần bổ trợ :"
 
-#: ../Tomboy/RecentChanges.cs:77
+#: ../Tomboy/RecentChanges.cs:76
 msgid "Search All Notes"
 msgstr "Tìm trong mọi ghi chú"
 
-#: ../Tomboy/RecentChanges.cs:94
+#: ../Tomboy/RecentChanges.cs:93
 msgid "_Search:"
 msgstr "_Tìm:"
 
-#: ../Tomboy/RecentChanges.cs:115
+#: ../Tomboy/RecentChanges.cs:114
 msgid "C_ase Sensitive"
 msgstr "Phân biệt ho_a/thường"
 
-#: ../Tomboy/RecentChanges.cs:315
+#: ../Tomboy/RecentChanges.cs:316
 msgid "Note"
 msgstr "Ghi chú"
 
-#: ../Tomboy/RecentChanges.cs:337
+#: ../Tomboy/RecentChanges.cs:338
 msgid "Last Changed"
 msgstr "Thay đổi cuối"
 
-#: ../Tomboy/RecentChanges.cs:469
+#: ../Tomboy/RecentChanges.cs:470
 msgid "Matches"
 msgstr "So khớp"
 
@@ -1615,27 +1295,27 @@ msgstr[0] "Khớp: {0} ghi chú"
 msgid "Notes"
 msgstr "Ghi chú"
 
-#: ../Tomboy/Tomboy.cs:199
+#: ../Tomboy/Tomboy.cs:205
 msgid "Cannot create new note"
 msgstr "Không thể tạo ghi chú mới"
 
-#: ../Tomboy/Tomboy.cs:276
+#: ../Tomboy/Tomboy.cs:292
 msgid "translator-credits"
 msgstr "Nhóm Việt hóa Gnome <gnomevi-list@lists.sourceforge.net>"
 
-#: ../Tomboy/Tomboy.cs:285
+#: ../Tomboy/Tomboy.cs:301
 msgid "Copyright © 2004-2007 Alex Graveley"
 msgstr "Tác quyền © 2004-2007 Alex Graveley"
 
-#: ../Tomboy/Tomboy.cs:286
+#: ../Tomboy/Tomboy.cs:302
 msgid "A simple and easy to use desktop note-taking application."
 msgstr "Ứng dụng ghi chú đơn giản dễ dùng cho màn hình nền của bạn."
 
-#: ../Tomboy/Tomboy.cs:289
+#: ../Tomboy/Tomboy.cs:312
 msgid "Homepage"
 msgstr "Trang chủ"
 
-#: ../Tomboy/Tomboy.cs:400
+#: ../Tomboy/Tomboy.cs:419
 msgid ""
 "Tomboy: A simple, easy to use desktop note-taking application.\n"
 "Copyright (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
@@ -1644,7 +1324,7 @@ msgstr ""
 "Tomboy: một ứng dụng ghi chú đơn giản dễ dùng cho giao diện của bạn.\n"
 "Tác quyền © năm 2004-2006 của Alex Graveley <alex@beatniksoftware.com>\n"
 
-#: ../Tomboy/Tomboy.cs:412
+#: ../Tomboy/Tomboy.cs:431
 msgid ""
 "Usage:\n"
 "  --version\t\t\tPrint version information.\n"
@@ -1656,10 +1336,9 @@ msgstr ""
 "  --version\t\t\tHiển thị thông tin _phiên bản_.\n"
 "  --help\t\t\tHiển thị _trợ giúp_ này.\n"
 "  --note-path [đường_dẫn]\t\tNạp/Lưu dữ liệu ghi chú từ/vào thư mục này.\n"
-"  --search [chuỗi]\t\tMở cửa sổ tìm trong mọi ghi chú chứa chuỗi cần "
-"tìm.                        \n"
+"  --search [chuỗi]\t\tMở cửa sổ tìm trong mọi ghi chú chứa chuỗi cần tìm.                        \n"
 
-#: ../Tomboy/Tomboy.cs:423
+#: ../Tomboy/Tomboy.cs:442
 msgid ""
 "  --new-note\t\t\tCreate and display a new note.\n"
 "  --new-note [title]\t\tCreate and display a new note, with a title.\n"
@@ -1671,24 +1350,23 @@ msgstr ""
 "  --new-note [tựa_đề]\t\tTạo và hiển thị ghi chú mới với tiêu đề.\n"
 "  --open-note [tựa_đề/url]\tMở ghi chú đã có mà khớp tiêu đề đó.\n"
 "  --start-here\t\t\tHiển thị ghi chú 'Mở đầu'.\n"
-"  --highlight-search [chuỗi]\tTìm kiếm rồi tô sáng đoạn trong ghi chú đã "
-"mở.\n"
+"  --highlight-search [chuỗi]\tTìm kiếm rồi tô sáng đoạn trong ghi chú đã mở.\n"
 
-#: ../Tomboy/Tomboy.cs:440
 #. TODO: Restore this functionality with addins
 #. usage +=
 #. Catalog.GetString (
 #. "  --check-plugin-unloading\tCheck if plugins are " +
 #. "unloaded properly.\n");
+#: ../Tomboy/Tomboy.cs:459
 msgid "D-BUS remote control disabled.\n"
 msgstr "Khả năng điều khiển từ xa D-BUS bị tắt.\n"
 
-#: ../Tomboy/Tomboy.cs:448
+#: ../Tomboy/Tomboy.cs:467
 #, csharp-format
 msgid "Version {0}"
 msgstr "Phiên bản {0}"
 
-#: ../Tomboy/Tomboy.cs:518
+#: ../Tomboy/Tomboy.cs:537
 #, csharp-format
 msgid ""
 "Tomboy: unsupported option '{0}'\n"
@@ -1699,86 +1377,90 @@ msgstr ""
 "Hãy thử lệnh « tomboy --help » để xem thêm thông tin.\n"
 "Điều khiển từ xa D-BUS đã tắt."
 
-#: ../Tomboy/Tray.cs:66
+#: ../Tomboy/Tray.cs:63
 msgid " (new)"
 msgstr " (mới)"
 
-#: ../Tomboy/Utils.cs:133
-msgid ""
-"The \"Tomboy Notes Manual\" could not be found.  Please verify that your "
-"installation has been completed successfully."
-msgstr ""
-"Không tìm thấy \"Sổ tay Ghi chú Tomboy\". Vui lòng kiểm tra xem có cài đặt "
-"thành công Tomboy không."
+#: ../Tomboy/Tray.cs:241
+msgid "_About Tomboy"
+msgstr "_Giới thiệu Tomboy"
 
-#: ../Tomboy/Utils.cs:142
+#: ../Tomboy/Utils.cs:146
+msgid "The \"Tomboy Notes Manual\" could not be found.  Please verify that your installation has been completed successfully."
+msgstr "Không tìm thấy \"Sổ tay Ghi chú Tomboy\". Vui lòng kiểm tra xem có cài đặt thành công Tomboy không."
+
+#: ../Tomboy/Utils.cs:155
 msgid "Help not found"
 msgstr "Không tìm thấy trợ giúp"
 
-#: ../Tomboy/Utils.cs:165
+#: ../Tomboy/Utils.cs:171
+msgid "Cannot open location"
+msgstr "Không mở được đia điểm."
+
+#: ../Tomboy/Utils.cs:193
 #, csharp-format
 msgid "Today, {0}"
 msgstr "Hôm nay, {0}"
 
-#: ../Tomboy/Utils.cs:167
+#: ../Tomboy/Utils.cs:195
 msgid "Today"
 msgstr "Hôm nay"
 
-#: ../Tomboy/Utils.cs:171
+#: ../Tomboy/Utils.cs:199
 #, csharp-format
 msgid "Yesterday, {0}"
 msgstr "Hôm qua, {0}"
 
-#: ../Tomboy/Utils.cs:173
+#: ../Tomboy/Utils.cs:201
 msgid "Yesterday"
 msgstr "Hôm qua"
 
-#: ../Tomboy/Utils.cs:177
+#: ../Tomboy/Utils.cs:205
 #, csharp-format
 msgid "{0} days ago, {1}"
 msgstr "{0} ngày trước, {1}"
 
-#: ../Tomboy/Utils.cs:179
+#: ../Tomboy/Utils.cs:207
 #, csharp-format
 msgid "{0} days ago"
 msgstr "{0} ngày trước"
 
-#: ../Tomboy/Utils.cs:184
+#: ../Tomboy/Utils.cs:212
 #, csharp-format
 msgid "Tomorrow, {0}"
 msgstr "Ngày mai, {0}"
 
-#: ../Tomboy/Utils.cs:186
+#: ../Tomboy/Utils.cs:214
 msgid "Tomorrow"
 msgstr "Ngày mai"
 
-#: ../Tomboy/Utils.cs:190
+#: ../Tomboy/Utils.cs:218
 #, csharp-format
 msgid "In {0} days, {1}"
 msgstr "Trong {0} ngày, {1}"
 
-#: ../Tomboy/Utils.cs:192
+#: ../Tomboy/Utils.cs:220
 #, csharp-format
 msgid "In {0} days"
 msgstr "Trong {0} ngày"
 
-#: ../Tomboy/Utils.cs:196
+#: ../Tomboy/Utils.cs:224
 msgid "MMMM d, h:mm tt"
 msgstr "MMMM d, h:mm tt"
 
-#: ../Tomboy/Utils.cs:197
+#: ../Tomboy/Utils.cs:225
 msgid "MMMM d"
 msgstr "MMMM d"
 
-#: ../Tomboy/Utils.cs:199
+#: ../Tomboy/Utils.cs:227
 msgid "No Date"
 msgstr "Không có ngày tháng"
 
-#: ../Tomboy/Utils.cs:202
+#: ../Tomboy/Utils.cs:230
 msgid "MMMM d yyyy, h:mm tt"
 msgstr "MMMM d yyyy, h:mm tt"
 
-#: ../Tomboy/Utils.cs:203
+#: ../Tomboy/Utils.cs:231
 msgid "MMMM d yyyy"
 msgstr "MMMM d yyyy"
 
@@ -1789,37 +1471,25 @@ msgstr "(Không tên {0})"
 
 #: ../Tomboy/Watchers.cs:188
 #, csharp-format
-msgid ""
-"A note with the title <b>{0}</b> already exists. Please choose another name "
-"for this note before continuing."
-msgstr ""
-"Ghi chú tên <b>{0}</b> đã có. Hãy chọn tên khác cho ghi chú này trước khi "
-"tiếp tục."
+msgid "A note with the title <b>{0}</b> already exists. Please choose another name for this note before continuing."
+msgstr "Ghi chú tên <b>{0}</b> đã có. Hãy chọn tên khác cho ghi chú này trước khi tiếp tục."
 
 #: ../Tomboy/Watchers.cs:203
 msgid "Note title taken"
 msgstr "Tựa đề ghi chú đang được dùng"
 
-#: ../Tomboy/Watchers.cs:472
-msgid "Cannot open location"
-msgstr "Không mở được đia điểm."
-
-#: ../Tomboy/Watchers.cs:566
+#: ../Tomboy/Watchers.cs:551
 msgid "_Copy Link Address"
 msgstr "_Chép địa chỉ liên kết"
 
-#: ../Tomboy/Watchers.cs:571
+#: ../Tomboy/Watchers.cs:556
 msgid "_Open Link"
 msgstr "Mở _liên kết"
 
 #: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:94
 #, csharp-format
-msgid ""
-"This synchronization addin is not supported on your computer. Please make "
-"sure you have FUSE and {0} correctly installed and configured"
-msgstr ""
-"Phần bổ sung đồng bộ hoá này không được hỗ trợ trên máy tính của bạn. Hãy "
-"kiểm tra xem bạn đã cài đặt và cấu hình đúng FUSE và {0}."
+msgid "This synchronization addin is not supported on your computer. Please make sure you have FUSE and {0} correctly installed and configured"
+msgstr "Phần bổ sung đồng bộ hoá này không được hỗ trợ trên máy tính của bạn. Hãy kiểm tra xem bạn đã cài đặt và cấu hình đúng FUSE và {0}."
 
 #: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:178
 msgid "Timeout connecting to server."
@@ -1837,209 +1507,199 @@ msgstr "Không thể hiệu lực FUSE."
 msgid "An error ocurred while connecting to the specified server:"
 msgstr "Gặp lỗi khi kết nối tới máy phục vụ đã ghi rõ."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:89
 #. Expander containing TreeView
+#: ../Tomboy/Synchronization/SyncDialog.cs:88
 msgid "Details"
 msgstr "Chi tiết"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:119
+#: ../Tomboy/Synchronization/SyncDialog.cs:118
 msgid "Note Title"
 msgstr "Tên ghi chú"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:126
+#: ../Tomboy/Synchronization/SyncDialog.cs:125
 msgid "Status"
 msgstr "Trạng thái"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:241
+#: ../Tomboy/Synchronization/SyncDialog.cs:240
 msgid "Acquiring sync lock..."
 msgstr "Đang lấy khoá đồng bộ..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:244
+#: ../Tomboy/Synchronization/SyncDialog.cs:243
 msgid "Committing changes..."
 msgstr "Đang gài các thay đổi vào..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:247
+#: ../Tomboy/Synchronization/SyncDialog.cs:246
 msgid "Synchronizing Notes"
 msgstr "Đồng bộ hoá ghi chú"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:248
+#: ../Tomboy/Synchronization/SyncDialog.cs:247
 msgid "Synchronizing your notes..."
 msgstr "Đang đồng bộ hoá các ghi chú của bạn..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:249
+#: ../Tomboy/Synchronization/SyncDialog.cs:248
 msgid "This may take a while, kick back and enjoy!"
 msgstr "Tiến trình này có thể kéo dài một lát. Hãy nghỉ."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:251
+#: ../Tomboy/Synchronization/SyncDialog.cs:250
 msgid "Connecting to the server..."
 msgstr "Đang kết nối tới máy phục vụ..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:257
+#: ../Tomboy/Synchronization/SyncDialog.cs:256
 msgid "Deleting notes off of the server..."
 msgstr "Đang xoá các ghi chú khỏi máy phục vụ..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:261
+#: ../Tomboy/Synchronization/SyncDialog.cs:260
 msgid "Downloading new/updated notes..."
 msgstr "Đang tải về các ghi chú mới và ghi chú đã cập nhật..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:273
+#: ../Tomboy/Synchronization/SyncDialog.cs:272
 msgid "Server Locked"
 msgstr "Máy phục vụ bị khoá"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:274
+#: ../Tomboy/Synchronization/SyncDialog.cs:273
 msgid "Server is locked"
 msgstr "Máy phục vụ hiện thời bị khoá"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:275
-msgid ""
-"One of your other computers is currently synchronizing.  Please wait 2 "
-"minutes and try again."
-msgstr ""
-"Một của những máy tính khác cùng mạng đang đồng bộ hoá. Hãy đợi hai phút, "
-"rồi thử lại."
+#: ../Tomboy/Synchronization/SyncDialog.cs:274
+msgid "One of your other computers is currently synchronizing.  Please wait 2 minutes and try again."
+msgstr "Một của những máy tính khác cùng mạng đang đồng bộ hoá. Hãy đợi hai phút, rồi thử lại."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:279
+#: ../Tomboy/Synchronization/SyncDialog.cs:278
 msgid "Preparing to download updates from server..."
 msgstr "Đang chuẩn bị tải các bản cập nhật xuống máy phục vụ..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:282
+#: ../Tomboy/Synchronization/SyncDialog.cs:281
 msgid "Preparing to upload updates to server..."
 msgstr "Đang chuẩn bị tải các bản cập nhật lên máy phục vụ..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:285
+#: ../Tomboy/Synchronization/SyncDialog.cs:284
 msgid "Uploading notes to server..."
 msgstr "Đang tải các ghi chú lên máy phục vụ..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:288
+#: ../Tomboy/Synchronization/SyncDialog.cs:287
 msgid "Synchronization Failed"
 msgstr "Đồng bộ hoá không thành công"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:289
+#: ../Tomboy/Synchronization/SyncDialog.cs:288
 msgid "Failed to synchronize"
 msgstr "Lỗi đồng bộ hoá"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:290
+#: ../Tomboy/Synchronization/SyncDialog.cs:289
 msgid "Could not synchronize notes.  Check the details below and try again."
-msgstr ""
-"Không thể đồng bộ hoá các ghi chú. Hãy kiểm tra chi tiết bên dưới, rồi thử "
-"lại."
+msgstr "Không thể đồng bộ hoá các ghi chú. Hãy kiểm tra chi tiết bên dưới, rồi thử lại."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:296
+#: ../Tomboy/Synchronization/SyncDialog.cs:295
 msgid "Synchronization Complete"
 msgstr "Đồng bộ hoá thành công"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:297
+#: ../Tomboy/Synchronization/SyncDialog.cs:296
 msgid "Synchronization is complete"
 msgstr "Tiến trình đồng bộ hoá đã chạy xong"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:299
+#: ../Tomboy/Synchronization/SyncDialog.cs:298
 #, csharp-format
 msgid "{0} note updated."
 msgid_plural "{0} notes updated."
 msgstr[0] "{0} ghi chú đã được cập nhật."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:304
+#: ../Tomboy/Synchronization/SyncDialog.cs:303
 msgid "Your notes are now up to date."
 msgstr "Các ghi chú của bạn giờ này là hiện thời."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:308
+#: ../Tomboy/Synchronization/SyncDialog.cs:307
 msgid "Synchronization Canceled"
 msgstr "Đồng bộ hoá bị thôi"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:309
+#: ../Tomboy/Synchronization/SyncDialog.cs:308
 msgid "Synchronization was canceled"
 msgstr "Tiến trình đồng bộ hoá đã bị hủy bỏ"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:310
+#: ../Tomboy/Synchronization/SyncDialog.cs:309
 msgid "You canceled the synchronization.  You may close the window now."
 msgstr "Bạn đã hủy bỏ tiến trình đồng bộ hoá. Vậy cũng có thể đóng cửa sổ."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:314
+#: ../Tomboy/Synchronization/SyncDialog.cs:313
 msgid "Synchronization Not Configured"
 msgstr "Chưa cấu hình tiến trình đồng bộ hoá"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:315
+#: ../Tomboy/Synchronization/SyncDialog.cs:314
 msgid "Synchronization is not configured"
 msgstr "Chưa cấu hình tiến trình đồng bộ hoá"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:316
+#: ../Tomboy/Synchronization/SyncDialog.cs:315
 msgid "Please configure synchronization in the preferences dialog."
 msgstr "Hãy cấu hình tiến trình đồng bộ hoá trong hộp thoại tùy thích."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:320
+#: ../Tomboy/Synchronization/SyncDialog.cs:319
 msgid "Synchronization Service Error"
 msgstr "Lỗi dịch vụ đồng bộ hoá"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:321
+#: ../Tomboy/Synchronization/SyncDialog.cs:320
 msgid "Service error"
 msgstr "Lỗi dịch vụ"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:322
+#: ../Tomboy/Synchronization/SyncDialog.cs:321
 msgid "Error connecting to the synchronization service.  Please try again."
 msgstr "Lỗi kết nối đến dịch vụ đồng bộ hoá. Hãy thử lại."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:339
+#: ../Tomboy/Synchronization/SyncDialog.cs:338
 msgid "Deleted locally"
 msgstr "Bị xoá cục bộ"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:342
+#: ../Tomboy/Synchronization/SyncDialog.cs:341
 msgid "Deleted from server"
 msgstr "Bị xoá khỏi máy phục vụ"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:345
+#: ../Tomboy/Synchronization/SyncDialog.cs:344
 msgid "Updated"
 msgstr "Đã cập nhật"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:348
+#: ../Tomboy/Synchronization/SyncDialog.cs:347
 msgid "Added"
 msgstr "Đã thêm"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:351
+#: ../Tomboy/Synchronization/SyncDialog.cs:350
 msgid "Uploaded changes to server"
 msgstr "Đã tải các thay đổi lên máy phục vụ"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:354
+#: ../Tomboy/Synchronization/SyncDialog.cs:353
 msgid "Uploaded new note to server"
 msgstr "Đã tải ghi chú mới lên máy phục vụ"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:502
+#: ../Tomboy/Synchronization/SyncDialog.cs:501
 msgid "Note Conflict"
 msgstr "Ghi chú xung đột"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:508
 #. Suggest renaming note by appending " (old)" to the existing title
+#: ../Tomboy/Synchronization/SyncDialog.cs:507
 msgid " (old)"
 msgstr " (cũ)"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:547
+#: ../Tomboy/Synchronization/SyncDialog.cs:546
 msgid "Rename local note:"
 msgstr "Thay tên ghi chú cục bộ :"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:553
+#: ../Tomboy/Synchronization/SyncDialog.cs:552
 msgid "Update links in referencing notes"
 msgstr "Cập nhật các liên kết trong ghi chú tham chiếu"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:560
+#: ../Tomboy/Synchronization/SyncDialog.cs:559
 msgid "Overwrite local note"
 msgstr "Ghi đè lên ghi chú cục bộ"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:564
+#: ../Tomboy/Synchronization/SyncDialog.cs:563
 msgid "Always perform this action"
 msgstr "Lúc nào cũng làm hành động này"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:570
 #. Set initial dialog text
+#: ../Tomboy/Synchronization/SyncDialog.cs:569
 msgid "Note conflict detected"
 msgstr "Phát hiện ghi chú xung đột"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:571
+#: ../Tomboy/Synchronization/SyncDialog.cs:570
 #, csharp-format
-msgid ""
-"The server version of \"{0}\" conflicts with your local note.  What do you "
-"want to do with your local note?"
-msgstr ""
-"Phiên bản máy phục vụ của « {0} » xung đột với ghi chú cục bộ của bạn. Bạn có "
-"muốn làm gì với ghi chú cục bộ?"
+msgid "The server version of \"{0}\" conflicts with your local note.  What do you want to do with your local note?"
+msgstr "Phiên bản máy phục vụ của « {0} » xung đột với ghi chú cục bộ của bạn. Bạn có muốn làm gì với ghi chú cục bộ?"
 
 #: ../Tomboy/Synchronization/SyncManager.cs:159
 msgid "_Tools"
@@ -2052,29 +1712,22 @@ msgstr "Không thể hiệu lực FUSE"
 
 #: ../Tomboy/Synchronization/SyncUtils.cs:134
 #: ../Tomboy/Synchronization/SyncUtils.cs:178
-msgid ""
-"The FUSE module could not be loaded. Please check that it is installed "
-"properly and try again."
-msgstr ""
-"Mô-đun FUSE không thể được nạp. Hãy kiểm tra nó đã được cài đặt đúng, rồi "
-"thử lại."
+msgid "The FUSE module could not be loaded. Please check that it is installed properly and try again."
+msgstr "Mô-đun FUSE không thể được nạp. Hãy kiểm tra nó đã được cài đặt đúng, rồi thử lại."
 
 #: ../Tomboy/Synchronization/SyncUtils.cs:149
 msgid "Enable FUSE?"
 msgstr "Bật FUSE không?"
 
-#: ../Tomboy/Synchronization/SyncUtils.cs:153
 #. TODO: This message isn't entirely accurate.
 #. We should fix it.
+#: ../Tomboy/Synchronization/SyncUtils.cs:153
 msgid ""
 "The synchronization you've chosen requires the FUSE module to be loaded.\n"
 "\n"
-"To avoid getting this prompt in the future, you should load FUSE at "
-"startup.  Add \"modprobe fuse\" to /etc/init.d/boot.local or \"fuse\" to /"
-"etc/modules."
+"To avoid getting this prompt in the future, you should load FUSE at startup.  Add \"modprobe fuse\" to /etc/init.d/boot.local or \"fuse\" to /etc/modules."
 msgstr ""
 "Phương pháp đồng bộ hoá bạn đã chọn cũng cần thiết mô-đun FUSE được nạp.\n"
 "\n"
-"Để tránh thông điệp này hiển thị sau, bạn nên nạp FUSE khi khởi động hệ "
-"thống. Thêm « modprobe fuse » vào « /etc/init.d/boot.local » hay thêm « fuse » "
-"vào « etc/modules »."
+"Để tránh thông điệp này hiển thị sau, bạn nên nạp FUSE khi khởi động hệ thống. Thêm « modprobe fuse » vào « /etc/init.d/boot.local » hay thêm « fuse » vào « etc/modules »."
+
