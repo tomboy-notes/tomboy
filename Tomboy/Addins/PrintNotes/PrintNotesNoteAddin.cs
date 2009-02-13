@@ -222,6 +222,8 @@ namespace Tomboy.PrintNotes
 			layout.FontDescription.Weight = Pango.Weight.Light;
 
 			string footer_right = DateTime.Now.ToString (
+			/* Translators: Explanation of the date and time format specifications can be found here:
+			 * http://msdn.microsoft.com/en-us/library/system.globalization.datetimeformatinfo.aspx */
 				Catalog.GetString ("dddd MM/dd/yyyy, hh:mm:ss tt"));
 			Logger.Debug (footer_right);
 			layout.Alignment = Pango.Alignment.Right;
