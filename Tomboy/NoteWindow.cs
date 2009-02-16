@@ -1329,10 +1329,20 @@ namespace Tomboy
 			bullets.Activated += ToggleBulletsClicked;
 
 			increase_indent = new Gtk.ImageMenuItem (Gtk.Stock.Indent, accel_group);
+			increase_indent.AddAccelerator ("activate",
+						accel_group,
+						(uint) Gdk.Key.Right,
+						Gdk.ModifierType.Mod1Mask,
+						Gtk.AccelFlags.Visible);
 			increase_indent.Activated += IncreaseIndentClicked;
 			increase_indent.Show ();
 
 			decrease_indent = new Gtk.ImageMenuItem (Gtk.Stock.Unindent, accel_group);
+			decrease_indent.AddAccelerator ("activate",
+						accel_group,
+						(uint) Gdk.Key.Left,
+						Gdk.ModifierType.Mod1Mask,
+						Gtk.AccelFlags.Visible);
 			decrease_indent.Activated += DecreaseIndentClicked;
 			decrease_indent.Show ();
 
