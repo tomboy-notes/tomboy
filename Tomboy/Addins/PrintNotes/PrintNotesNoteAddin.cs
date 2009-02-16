@@ -336,11 +336,11 @@ namespace Tomboy.PrintNotes
 
 				int start_line = 0;
 				if (args.PageNr != 0)
-					start_line = page_breaks [args.PageNr - 1] + 1;
+					start_line = page_breaks [args.PageNr - 1];
 
 				int last_line = -1;
 				if (page_breaks.Count > args.PageNr)
-					last_line = page_breaks [args.PageNr];
+					last_line = page_breaks [args.PageNr] - 1;
 
 				Gtk.TextIter position;
 				Gtk.TextIter end_iter;
