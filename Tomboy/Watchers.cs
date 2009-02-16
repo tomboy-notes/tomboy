@@ -717,7 +717,25 @@ namespace Tomboy
 
 		void DoHighlight (TrieHit hit, Gtk.TextIter start, Gtk.TextIter end)
 		{
+			// Some of these checks should be replaced with fixes to
+			// TitleTrie.FindMatches, probably.
+			if (hit.Value == null) {
+				Logger.Debug ("DoHighlight: null pointer error for '{0}'." , hit.Key);
+				return;
+			}
+			
+			if (Manager.Find(hit.Key) == null) {
+				Logger.Debug ("DoHighlight: '{0}' links to non-existing note." , hit.Key);
+				return;
+			}
+			
 			Note hit_note = (Note) hit.Value;
+
+			if (String.Compare (hit.Key.ToString(), hit_note.Title.ToString(), true ) != 0) { // == 0 if same string  
+				Logger.Debug ("DoHighlight: '{0}' links wrongly to note '{1}'." , hit.Key, hit_note.Title);
+				return;
+			}
+			
 			if (hit_note == this.Note)
 				return;
 
