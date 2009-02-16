@@ -1161,16 +1161,21 @@ namespace Tomboy
 
 				// Give the user a visual letting them know that connecting
 				// was successful.
+				// TODO: Replace Yes/No with Sync/Close
 				dialog =
 				        new HIGMessageDialog (this,
 				                              Gtk.DialogFlags.Modal,
 				                              Gtk.MessageType.Info,
-				                              Gtk.ButtonsType.Close,
+				                              Gtk.ButtonsType.YesNo,
 				                              Catalog.GetString ("Success! You're connected!"),
 				                              Catalog.GetString (
-				                                      "Tomboy is ready to synchronize your notes."));
-				dialog.Run ();
+				                                      "Tomboy is ready to synchronize your notes. Would you like to synchronize them now?"));
+				int response = dialog.Run ();
 				dialog.Destroy ();
+
+				if (response == (int) Gtk.ResponseType.Yes)
+					// TODO: Put this voodoo in a method somewhere
+					Tomboy.ActionManager ["NoteSynchronizationAction"].Activate ();
 			} else {
 				// TODO: Change the SyncServiceAddin API so the call to
 				// SaveConfiguration has a way of passing back an exception
