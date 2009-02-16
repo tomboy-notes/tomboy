@@ -202,10 +202,14 @@ namespace Tomboy
 				else if (date.DayOfYear < now.DayOfYear
 				                && date.DayOfYear > now.DayOfYear - 6)
 					pretty_str = show_time ?
-					             String.Format (Catalog.GetString ("{0} days ago, {1}"),
-					                            now.DayOfYear - date.DayOfYear, short_time) :
-					             String.Format (Catalog.GetString ("{0} days ago"),
-					                            now.DayOfYear - date.DayOfYear);
+					             String.Format (Catalog.GetPluralString (
+								"{0} day ago, {1}", "{0} days ago, {1}", 
+								now.DayOfYear - date.DayOfYear),
+								now.DayOfYear - date.DayOfYear, short_time) :
+					             String.Format (Catalog.GetPluralString (
+								"{0} day ago", "{0} days ago",
+								now.DayOfYear - date.DayOfYear),
+								now.DayOfYear - date.DayOfYear);
 				else if (date.DayOfYear > now.DayOfYear
 				                && date.DayOfYear == now.DayOfYear + 1)
 					pretty_str = show_time ?
@@ -215,10 +219,14 @@ namespace Tomboy
 				else if (date.DayOfYear > now.DayOfYear
 				                && date.DayOfYear < now.DayOfYear + 6)
 					pretty_str = show_time ?
-					             String.Format (Catalog.GetString ("In {0} days, {1}"),
-					                            date.DayOfYear - now.DayOfYear, short_time) :
-					             String.Format (Catalog.GetString ("In {0} days"),
-					                            date.DayOfYear - now.DayOfYear);
+					             String.Format (Catalog.GetPluralString (
+								"In {0} day, {1}", "In {0} days, {1}",
+								date.DayOfYear - now.DayOfYear),
+								date.DayOfYear - now.DayOfYear, short_time) :
+					             String.Format (Catalog.GetPluralString (
+								"In {0} day", "In {0} days",
+								date.DayOfYear - now.DayOfYear),
+								date.DayOfYear - now.DayOfYear);
 				else
 					pretty_str = show_time ?
 					             date.ToString (Catalog.GetString ("MMMM d, h:mm tt")) :
