@@ -104,7 +104,6 @@ namespace Tomboy.Sync
 			if (mounted) {
 				try {
 					// Test creating/writing/deleting a file
-					// FIXME: Should throw TomboySyncException once string changes are OK again
 					string testPathBase = Path.Combine (mountPath, "test");
 					string testPath = testPathBase;
 					int count = 0;
@@ -115,8 +114,7 @@ namespace Tomboy.Sync
 
 					// Test ability to create and write
 					string testLine = "Testing write capabilities.";
-					using (FileStream fs = File.Create (testPath)) {
-						StreamWriter writer = new StreamWriter (fs);
+					using (StreamWriter writer = new StreamWriter (File.Create (testPath))) {
 						writer.WriteLine (testLine);
 					}
 
@@ -128,10 +126,10 @@ namespace Tomboy.Sync
 						break;
 					}
 					if (!testFileFound)
-						; // TODO: Throw TomboySyncException
+						throw new TomboySyncException (Catalog.GetString ("Could not read testfile."));
 					using (StreamReader reader = new StreamReader (testPath)) {
 						if (reader.ReadLine () != testLine)
-							; // TODO: Throw TomboySyncException
+							throw new TomboySyncException (Catalog.GetString ("Write test failed."));
 					}
 
 					// Test ability to delete
