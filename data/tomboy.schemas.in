@@ -430,6 +430,77 @@
     </schema>
 
     <schema>
+      <key>/schemas/apps/tomboy/sync_fuse_mount_timeout_ms</key>
+      <applyto>/apps/tomboy/sync_fuse_mount_timeout_ms</applyto>
+      <owner>tomboy</owner>
+      <type>int</type>
+      <default>10000</default>
+      <locale name="C">
+         <short>FUSE Mounting Timeout (ms)</short>
+         <long>
+	   Time (in milliseconds) Tomboy should wait for a response when using
+	   FUSE to mount a sync share.
+         </long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/tomboy/sync_sshfs_folder</key>
+      <applyto>/apps/tomboy/sync_sshfs_folder</applyto>
+      <owner>tomboy</owner>
+      <type>string</type>
+      <default></default>
+      <locale name="C">
+         <short>SSHFS Remote Synchronization Folder</short>
+         <long>
+	   Path on SSH server to Tomboy synchronization directory (optional).
+         </long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/tomboy/sync_sshfs_server</key>
+      <applyto>/apps/tomboy/sync_sshfs_server</applyto>
+      <owner>tomboy</owner>
+      <type>string</type>
+      <default></default>
+      <locale name="C">
+         <short>SSHFS Synchronization Server URL</short>
+         <long>
+	   URL of SSH server containing Tomboy synchronization directory.
+         </long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/tomboy/sync_sshfs_username</key>
+      <applyto>/apps/tomboy/sync_sshfs_username</applyto>
+      <owner>tomboy</owner>
+      <type>string</type>
+      <default></default>
+      <locale name="C">
+         <short>SSHFS Remote Synchronization User Name</short>
+         <long>
+	   User name to use when connecting to the synchronization server via SSH.
+         </long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/tomboy/sync_sshfs_port</key>
+      <applyto>/apps/tomboy/sync_sshfs_port</applyto>
+      <owner>tomboy</owner>
+      <type>int</type>
+      <default>22</default>
+      <locale name="C">
+         <short>SSHFS Synchronization Server Port</short>
+         <long>
+	   The port to use when connecting to the synchronization server via SSH.
+         </long>
+      </locale>
+    </schema>
+
+    <schema>
       <key>/schemas/apps/tomboy/sync/sync_conflict_behavior</key>
       <applyto>/apps/tomboy/sync/sync_conflict_behavior</applyto>
       <owner>tomboy</owner>
