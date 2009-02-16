@@ -152,7 +152,7 @@ namespace Tomboy.Sync
 			else
 				GetPrefWidgetSettings (out url, out username, out password);
 			
-			return GetFuseMountExeArgs (mountPath, url, username, password);
+			return GetFuseMountExeArgs (mountPath, url, username, password, AcceptSslCert);
 		}
 		
 		protected override string GetFuseMountExeArgsForDisplay (string mountPath, bool fromStoredValues)
@@ -164,16 +164,17 @@ namespace Tomboy.Sync
 				GetPrefWidgetSettings (out url, out username, out password);
 			
 			// Mask password
-			return GetFuseMountExeArgs (mountPath, url, username, "*****");
+			return GetFuseMountExeArgs (mountPath, url, username, "*****", AcceptSslCert);
 		}
 		
-		private string GetFuseMountExeArgs (string mountPath, string url, string username, string password)
+		private string GetFuseMountExeArgs (string mountPath, string url, string username, string password, bool acceptSsl)
 		{
-			return string.Format ("{0} -a {1} -u {2} -p {3} -o fsname=tomboywdfs",
+			return string.Format ("{0} -a {1} -u {2} -p {3} {4} -o fsname=tomboywdfs",
 			                      mountPath,
 			                      url,
 			                      username,
-			                      password);
+			                      password,
+			                      acceptSsl ? "-ac" : string.Empty);
 		}
 
 		protected override string FuseMountExeName
@@ -281,6 +282,16 @@ namespace Tomboy.Sync
 			return !string.IsNullOrEmpty (url)
 			       && !string.IsNullOrEmpty (username)
 			       && !string.IsNullOrEmpty (password);
+		}
+
+		private bool AcceptSslCert {
+			get {
+				try {
+					return (bool) Preferences.Get ("/apps/tomboy/sync/wdfs/accept_sslcert");
+				} catch {
+					return false;
+				}
+			}
 		}
 		#endregion // Private Methods
 	}
