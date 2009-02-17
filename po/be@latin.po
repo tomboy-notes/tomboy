@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tomboy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-18 01:02+0200\n"
-"PO-Revision-Date: 2008-02-18 01:11+0200\n"
+"POT-Creation-Date: 2009-02-18 01:47+0200\n"
+"PO-Revision-Date: 2009-02-18 01:47+0200\n"
 "Last-Translator: Alaksandar Navicki <zolak@lacinka.org>\n"
 "Language-Team: Belarusian Latin <be-latin.open-tran.eu>\n"
 "MIME-Version: 1.0\n"
@@ -20,7 +20,7 @@ msgstr ""
 msgid "Accessories"
 msgstr "Dadatki"
 
-#: ../data/GNOME_TomboyApplet.server.in.in.h:2 ../data/tomboy.desktop.in.h:2
+#: ../data/GNOME_TomboyApplet.server.in.in.h:2
 msgid "Simple and easy to use note-taking"
 msgstr "Prostaje j lohkaje viadzieńnie natatak"
 
@@ -29,7 +29,7 @@ msgid "Tomboy Applet Factory"
 msgstr "Fabryka apletu Tomboy"
 
 #: ../data/GNOME_TomboyApplet.server.in.in.h:4 ../data/tomboy.desktop.in.h:3
-#: ../Tomboy/Applet.cs:153 ../Tomboy/Tray.cs:147
+#: ../Tomboy/Tray.cs:522
 msgid "Tomboy Notes"
 msgstr "Natatki Tomboy"
 
@@ -38,12 +38,12 @@ msgid "_About"
 msgstr "_Ab prahramie"
 
 #: ../data/GNOME_TomboyApplet.xml.h:2 ../Tomboy/ActionManager.cs:157
-#: ../Tomboy/Applet.cs:191
+#: ../Tomboy/Tray.cs:236
 msgid "_Help"
 msgstr "_Dapamoha"
 
 #: ../data/GNOME_TomboyApplet.xml.h:3 ../Tomboy/ActionManager.cs:153
-#: ../Tomboy/Applet.cs:186
+#: ../Tomboy/Tray.cs:231
 msgid "_Preferences"
 msgstr "_Nałady"
 
@@ -51,47 +51,79 @@ msgstr "_Nałady"
 msgid "Note-taker"
 msgstr "Natatnik"
 
+#: ../data/tomboy.desktop.in.h:2
+msgid "Take notes, link ideas, and stay organized"
+msgstr "Stvaraj natatki, arhanizuj siabie j svaje dumki"
+
 #: ../data/tomboy.schemas.in.h:1
+msgid "Accept SSL Certificates"
+msgstr "Pryjmaj sertyfikaty SSL"
+
+#: ../data/tomboy.schemas.in.h:2
 msgid "Create a new Note"
 msgstr "Stvary novuju natatku"
 
-#: ../data/tomboy.schemas.in.h:2
+#: ../data/tomboy.schemas.in.h:3
 msgid "Custom Font Face"
 msgstr "Vykarystaj ułasny šryft"
 
-#: ../data/tomboy.schemas.in.h:3
+#: ../data/tomboy.schemas.in.h:4
+msgid "Determines X coordinate of Search window; stored on Tomboy exit."
+msgstr ""
+"Akreślaje miesca akna pošuku na vosi X (zachoŭvajecca pry vychadzie z "
+"prahramy Tomboy."
+
+#: ../data/tomboy.schemas.in.h:5
+msgid "Determines Y coordinate of Search window; stored on Tomboy exit."
+msgstr ""
+"Akreślaje miesca akna pošuku na vosi Y (zachoŭvajecca pry vychadzie z "
+"prahramy Tomboy."
+
+#: ../data/tomboy.schemas.in.h:6
+msgid "Determines pixel height of Search window; stored on Tomboy exit."
+msgstr ""
+"Akreślaje vyšyniu akna pošuku ŭ pikselach (zachoŭvajecca pry vychadzie z "
+"prahramy Tomboy."
+
+#: ../data/tomboy.schemas.in.h:7
+msgid "Determines pixel width of Search window; stored on Tomboy exit."
+msgstr ""
+"Akreślaje šyryniu akna pošuku ŭ pikselach (zachoŭvajecca pry vychadzie z "
+"prahramy Tomboy."
+
+#: ../data/tomboy.schemas.in.h:8
 msgid "Enable Auto bulleted lists."
 msgstr "Uklučy aŭtamatyčnyja śpisy."
 
-#: ../data/tomboy.schemas.in.h:4
+#: ../data/tomboy.schemas.in.h:9
 msgid "Enable Middle-Click Paste On Icon."
 msgstr "Uklučy ŭklejvańnie siarednim klikam na ikonie."
 
-#: ../data/tomboy.schemas.in.h:5
+#: ../data/tomboy.schemas.in.h:10
 msgid "Enable WikiWord highlighting"
 msgstr "Uklučy padśviatleńnie WikiWord"
 
-#: ../data/tomboy.schemas.in.h:6
+#: ../data/tomboy.schemas.in.h:11
 msgid "Enable closing notes with escape."
 msgstr "Uklučy začynieńnie natatak klavišaj \"Escape\"."
 
-#: ../data/tomboy.schemas.in.h:7
+#: ../data/tomboy.schemas.in.h:12
 msgid "Enable custom font"
 msgstr "Dazvol abirać ułasny šryft"
 
-#: ../data/tomboy.schemas.in.h:8
+#: ../data/tomboy.schemas.in.h:13
 msgid "Enable global keybindings"
 msgstr "Uklučy hlabalnyja klavijaturnyja skaroty"
 
-#: ../data/tomboy.schemas.in.h:9
+#: ../data/tomboy.schemas.in.h:14
 msgid "Enable spellchecking"
 msgstr "Uklučy pravierku pravapisu"
 
-#: ../data/tomboy.schemas.in.h:10
+#: ../data/tomboy.schemas.in.h:15
 msgid "Enable startup notes"
 msgstr "Uklučy natatki pry ŭruchamleńni"
 
-#: ../data/tomboy.schemas.in.h:11
+#: ../data/tomboy.schemas.in.h:16
 msgid ""
 "Enable this option if you want bulleted lists to be automatic when you place "
 "- or * at the beginning of a line."
@@ -99,7 +131,7 @@ msgstr ""
 "Uklučy hetuju opcyju, kali chočaš, kab śpisy stvaralisia aŭtamatyčna, kali "
 "ty źmiaščaješ - ci * u pačatku radka."
 
-#: ../data/tomboy.schemas.in.h:12
+#: ../data/tomboy.schemas.in.h:17
 msgid ""
 "Enable this option if you want to be able to middle-click the Tomboy icon to "
 "paste timestamped content into the Start Here note."
@@ -107,7 +139,7 @@ msgstr ""
 "Uklučy hetuju opcyju, kali chočaš uklejvać u pačatkovuju natatku źmieściva, "
 "paznačanaje časam, siarednim klikam na ikonie Tomboy."
 
-#: ../data/tomboy.schemas.in.h:13
+#: ../data/tomboy.schemas.in.h:18
 msgid ""
 "Enable this option to highlight words ThatLookLikeThis. Clicking the word "
 "will create a note with that name."
@@ -115,19 +147,23 @@ msgstr ""
 "Uklučy hetuju opcyju, kab padśviatlać słovy, JakijaVyhladajućVośTak. "
 "Kliknuŭšy takoje słova, ty stvoryš natatku z takoj nazvaj."
 
-#: ../data/tomboy.schemas.in.h:14
+#: ../data/tomboy.schemas.in.h:19
+msgid "FUSE Mounting Timeout (ms)"
+msgstr "Termin čakańnia dla mantavańnia FUSE (ms)"
+
+#: ../data/tomboy.schemas.in.h:20
 msgid "HTML Export All Linked Notes"
 msgstr "Ekspartuj u HTML usie natatki, na jakija ŭ hetych jość spasyłki"
 
-#: ../data/tomboy.schemas.in.h:15
+#: ../data/tomboy.schemas.in.h:21
 msgid "HTML Export Last Directory"
 msgstr "Kataloh apošniaha ekspartavańnia ŭ HTML"
 
-#: ../data/tomboy.schemas.in.h:16
+#: ../data/tomboy.schemas.in.h:22
 msgid "HTML Export Linked Notes"
 msgstr "Ekspartuj u HTML natatki, na jakija ŭ hetych jość spasyłki"
 
-#: ../data/tomboy.schemas.in.h:17
+#: ../data/tomboy.schemas.in.h:23
 msgid ""
 "If enable_custom_font is true, the font name set here will be used as the "
 "font when displaying notes."
@@ -135,7 +171,7 @@ msgstr ""
 "Kali opcyja \"enable_custom_font\" uklučanaja, dla pakazu natatak budzie "
 "ŭžyvacca šryft z akreślenaj nazvaj."
 
-#: ../data/tomboy.schemas.in.h:18
+#: ../data/tomboy.schemas.in.h:24
 msgid ""
 "If enabled, all notes that were open when Tomboy quit will automatically be "
 "reopened at startup."
@@ -143,11 +179,13 @@ msgstr ""
 "Kali ŭklučana, usie natatki, adčynienyja da vychadu z Tomboy, buduć "
 "aŭtamatyčna pieraadčyniacca pry ŭruchamleńni."
 
-#: ../data/tomboy.schemas.in.h:19
+#: ../data/tomboy.schemas.in.h:25
 msgid "If enabled, an opened note can be closed by hitting the escape key."
-msgstr "Kali ŭklučana, adčynienuju natatku možna začynić, nacisnuŭšy klavišu \"Escape\"."
+msgstr ""
+"Kali ŭklučana, adčynienuju natatku možna začynić, nacisnuŭšy klavišu \"Escape"
+"\"."
 
-#: ../data/tomboy.schemas.in.h:20
+#: ../data/tomboy.schemas.in.h:26
 msgid ""
 "If true, misspellings will be underlined in red, and correct spelling "
 "suggestions shown in the right-click menu."
@@ -156,7 +194,7 @@ msgstr ""
 "rysaj, a prapanovy dla vypraŭleńnia pamyłak buduć dastupnyja ŭ menu pravaha "
 "kliku."
 
-#: ../data/tomboy.schemas.in.h:21
+#: ../data/tomboy.schemas.in.h:27
 msgid ""
 "If true, the desktop-global keybindings set in /apps/tomboy/"
 "global_keybindings will be enabled, allowing for useful Tomboy actions to be "
@@ -166,7 +204,7 @@ msgstr ""
 "akreślenyja ŭ \"/apps/tomboy/global_keybindings\", i tady karysnyja "
 "dziejańni Tomboy buduć dastupnyja ź luboj aplikacyi."
 
-#: ../data/tomboy.schemas.in.h:22
+#: ../data/tomboy.schemas.in.h:28
 msgid ""
 "If true, the font name set in custom_font_face will be used as the font when "
 "displaying notes. Otherwise the desktop default font will be used."
@@ -174,7 +212,7 @@ msgstr ""
 "Kali ŭklučana, šryft z nazvaj, akreślenaj u \"custom_font_face\", budzie "
 "ŭžyty dla pakazu natatak. Inakš budzie ŭžyty zmoŭčany šryft stała."
 
-#: ../data/tomboy.schemas.in.h:23
+#: ../data/tomboy.schemas.in.h:29
 msgid ""
 "Indicates that the Sticky Note Importer plugin has not been run, so it "
 "should run automatically the next time Tomboy starts."
@@ -183,7 +221,7 @@ msgstr ""
 "jon pavinien aŭtamatyčna zahruzicca pry nastupnym uruchamleńni prahramy "
 "Tomboy."
 
-#: ../data/tomboy.schemas.in.h:24
+#: ../data/tomboy.schemas.in.h:30
 msgid ""
 "Integer determining the minimum number of notes to show in the Tomboy note "
 "menu."
@@ -191,7 +229,7 @@ msgstr ""
 "Ceły lik, jaki akreślaje minimalnuju kolkaść natatak, bačnych u menu natatak "
 "Tomboy."
 
-#: ../data/tomboy.schemas.in.h:25
+#: ../data/tomboy.schemas.in.h:31
 msgid ""
 "Integer value indicating if there is a preference to always perform a "
 "specific behavior when a conflict is detected, instead of prompting the "
@@ -203,31 +241,36 @@ msgstr ""
 "dziejańnie ŭ vypadku kanfliktu, nie pytajučysia ŭ karystalnika. Vartaść 0 "
 "aznačaje, što karystalnika pry ožnym kanflikcie prosiać pryniać rašeńnie."
 
-#: ../data/tomboy.schemas.in.h:26
+#: ../data/tomboy.schemas.in.h:32
 msgid "List of pinned notes."
 msgstr "Śpis pryšpilenych natatak."
 
-#: ../data/tomboy.schemas.in.h:27
+#: ../data/tomboy.schemas.in.h:33
 msgid "Minimum number of notes to show in menu"
 msgstr "Minimalnaja kolkaść natatak, bačnych u menu"
 
-#: ../data/tomboy.schemas.in.h:28
+#: ../data/tomboy.schemas.in.h:34
 msgid "Note Synchronization Conflict Saved Behavior"
 msgstr "Dziejańni, pradbačanyja na vypadak kanfliktu synchranizacyi"
 
-#: ../data/tomboy.schemas.in.h:29
+#: ../data/tomboy.schemas.in.h:35
 msgid "Open Recent Changes"
 msgstr "Adčyni niadaŭnyja źmieny"
 
-#: ../data/tomboy.schemas.in.h:30
+#: ../data/tomboy.schemas.in.h:36
 msgid "Open Search Dialog"
 msgstr "Adčyni dyjaloh pošuku"
 
-#: ../data/tomboy.schemas.in.h:31
+#: ../data/tomboy.schemas.in.h:37
 msgid "Open Start Here"
 msgstr "Adčyni pačatak"
 
-#: ../data/tomboy.schemas.in.h:32
+#: ../data/tomboy.schemas.in.h:38
+msgid "Path on SSH server to Tomboy synchronization directory (optional)."
+msgstr ""
+"Ściežka na servery SSH dla synchranizacyi Tomboy (nieabaviazkovaja opcyja)."
+
+#: ../data/tomboy.schemas.in.h:39
 msgid ""
 "Path to the synchronization server when using the filesystem synchronization "
 "service addin."
@@ -235,39 +278,71 @@ msgstr ""
 "Ściežka da servera synchranizacyi, pry vykarystańni dadatkovaj pasłuhi "
 "synchranizacyi fajłavaj systemy."
 
-#: ../data/tomboy.schemas.in.h:33
+#: ../data/tomboy.schemas.in.h:40
+msgid "SSHFS Remote Synchronization Folder"
+msgstr "Kataloh addalenaj synchranizacyi SSHFS"
+
+#: ../data/tomboy.schemas.in.h:41
+msgid "SSHFS Remote Synchronization User Name"
+msgstr "Karystalnik dla addalenaj synchranizacyi SSHFS"
+
+#: ../data/tomboy.schemas.in.h:42
+msgid "SSHFS Synchronization Server Port"
+msgstr "Port servera synchranizacyi SSHFS"
+
+#: ../data/tomboy.schemas.in.h:43
+msgid "SSHFS Synchronization Server URL"
+msgstr "Adras (URL) servera synchranizacyi SSHFS"
+
+#: ../data/tomboy.schemas.in.h:44
+msgid "Saved height of Search window"
+msgstr "Zapisanaja vyšynia akna pošuku"
+
+#: ../data/tomboy.schemas.in.h:45
+msgid "Saved horizontal position of Search window"
+msgstr "Zapisanaje miesca akna pošuku na haryzantali"
+
+#: ../data/tomboy.schemas.in.h:46
+msgid "Saved vertical position of Search window"
+msgstr "Zapisanaje miesca akna pošuku na vertykali"
+
+#: ../data/tomboy.schemas.in.h:47
+msgid "Saved width of Search window"
+msgstr "Zapisanaja šyrynia akna pošuku"
+
+#: ../data/tomboy.schemas.in.h:48
 msgid "Selected Synchronization Service Addin"
 msgstr "Abranaja dadatkovaja pasłuha synchranizacyi"
 
-#: ../data/tomboy.schemas.in.h:34
+#: ../data/tomboy.schemas.in.h:49
 msgid "Set to TRUE to activate"
 msgstr "Uklučy, kab zadziejničać"
 
-#: ../data/tomboy.schemas.in.h:35
+#: ../data/tomboy.schemas.in.h:50
 msgid "Show applet menu"
 msgstr "Pakažy menu apletu"
 
-#: ../data/tomboy.schemas.in.h:36
+#: ../data/tomboy.schemas.in.h:51
 msgid "Start Here Note"
 msgstr "Pačatkovaja natatka"
 
-#: ../data/tomboy.schemas.in.h:37
+#: ../data/tomboy.schemas.in.h:52
 msgid "Sticky Note Importer First Run"
 msgstr "Pieršaje ŭruchamleńnie impartera Prymacavanych natatak"
 
-#: ../data/tomboy.schemas.in.h:38
+#: ../data/tomboy.schemas.in.h:53
 msgid "Synchronization Client ID"
 msgstr "ID klijenta synchranizacyi"
 
-#: ../data/tomboy.schemas.in.h:39
+#: ../data/tomboy.schemas.in.h:54
 msgid "Synchronization Local Server Path"
 msgstr "Ściežka lakalnaha servera synchranizacyi"
 
-#: ../data/tomboy.schemas.in.h:40
+#: ../data/tomboy.schemas.in.h:55
 msgid "The date format that is used for the timestamp."
 msgstr "Farmat daty dla adbitkaŭ času."
 
-#: ../data/tomboy.schemas.in.h:41
+#: ../data/tomboy.schemas.in.h:56
 msgid ""
 "The global keybinding for creating and displaying a new Note. The format "
 "looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The "
@@ -283,7 +358,7 @@ msgstr ""
 "ty akreśliŭ hetuju opcyju jak \"disabled\" (vyklučanaje), tady dla hetaha "
 "dziejańnia nia budzie klavijaturnaha skarotu."
 
-#: ../data/tomboy.schemas.in.h:42
+#: ../data/tomboy.schemas.in.h:57
 msgid ""
 "The global keybinding for opening the \"Start Here\" note. The format looks "
 "like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
@@ -299,7 +374,7 @@ msgstr ""
 "ty akreśliŭ hetuju opcyju jak \"disabled\" (vyklučanaje), tady dla hetaha "
 "dziejańnia nia budzie klavijaturnаha skarotu."
 
-#: ../data/tomboy.schemas.in.h:43
+#: ../data/tomboy.schemas.in.h:58
 msgid ""
 "The global keybinding for opening the Note Search dialog. The format looks "
 "like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
@@ -315,7 +390,7 @@ msgstr ""
 "ty akreśliŭ hetuju opcyju jak \"disabled\" (vyklučanaje), tady dla hetaha "
 "dziejańnia nia budzie klavijaturny skarotu."
 
-#: ../data/tomboy.schemas.in.h:44
+#: ../data/tomboy.schemas.in.h:59
 msgid ""
 "The global keybinding for opening the Recent Changes dialog. The format "
 "looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The "
@@ -331,7 +406,7 @@ msgstr ""
 "ty akreśliŭ hetuju opcyju jak \"disabled\" (vyklučanaje), tady dla hetaha "
 "dziejańnia nia budzie klavijaturnaha skarotu."
 
-#: ../data/tomboy.schemas.in.h:45
+#: ../data/tomboy.schemas.in.h:60
 msgid ""
 "The global keybinding for showing the Tomboy applet's menu. The format looks "
 "like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
@@ -347,18 +422,18 @@ msgstr ""
 "hetuju opcyju jak \"disabled\" (vyklučanaje), tady dla hetaha dziejańnia nia "
 "budzie klavijaturnaha skarotu."
 
-#: ../data/tomboy.schemas.in.h:46
+#: ../data/tomboy.schemas.in.h:61
 msgid "The handler for \"note://\" URLs"
 msgstr "Apracoŭnik dla spasyłak \"note://\""
 
-#: ../data/tomboy.schemas.in.h:47
+#: ../data/tomboy.schemas.in.h:62
 msgid ""
 "The last directory a note was exported to using the Export To HTML plugin."
 msgstr ""
 "Kataloh, kudy apošnim razam ekspartavali natatku praz plugin ekspartavańnia "
 "ŭ HTML."
 
-#: ../data/tomboy.schemas.in.h:48
+#: ../data/tomboy.schemas.in.h:63
 msgid ""
 "The last setting for the 'Export linked notes' checkbox in the Export to "
 "HTML plugin."
@@ -366,7 +441,7 @@ msgstr ""
 "Apošniaja vartaść dla opcyi \"Ekspartuj natatki, na jakija ŭ hetych jość "
 "spasyłki\" ŭ pluginie ekspartavańnia ŭ HTML."
 
-#: ../data/tomboy.schemas.in.h:49
+#: ../data/tomboy.schemas.in.h:64
 msgid ""
 "The last setting for the 'Include all other linked notes' checkbox in the "
 "Export to HTML plugin. This setting is used in conjunction with the 'HTML "
@@ -379,7 +454,7 @@ msgstr ""
 "na jakija ŭ hetych jość spasyłki\", kab akreślić, ci ŭłučać usie "
 "znojdzienyja rekursiŭna natatki ŭ ekspartavanaje ŭ HTML."
 
-#: ../data/tomboy.schemas.in.h:50
+#: ../data/tomboy.schemas.in.h:65
 msgid ""
 "The note URI of the note that should be considered the \"Start Here\" note, "
 "which is always placed at the bottom of the Tomboy note menu and also "
@@ -389,11 +464,27 @@ msgstr ""
 "raźmieščanaja ŭ kancy menu natatak Tomboy i dastupnaja praz klavijaturny "
 "skarot."
 
-#: ../data/tomboy.schemas.in.h:51
+#: ../data/tomboy.schemas.in.h:66
+msgid "The port to use when connecting to the synchronization server via SSH."
+msgstr "Port dla spałučeńnia z serveram synchranizacyi praz SSH."
+
+#: ../data/tomboy.schemas.in.h:67
+msgid ""
+"Time (in milliseconds) Tomboy should wait for a response when using FUSE to "
+"mount a sync share."
+msgstr ""
+"Termin (u milisekundach), ciaham jakoha Tomboy čakaje adkazu pry zmantavańni "
+"FUSE, vykarystanym dla synchranizacyi."
+
+#: ../data/tomboy.schemas.in.h:68
 msgid "Timestamp format"
 msgstr "Farmat adbitkaŭ času"
 
-#: ../data/tomboy.schemas.in.h:52
+#: ../data/tomboy.schemas.in.h:69
+msgid "URL of SSH server containing Tomboy synchronization directory."
+msgstr "Adras servera SSH, jaki źmiaščaje kataloh dla synchranizacyi Tomboy."
+
+#: ../data/tomboy.schemas.in.h:70
 msgid ""
 "Unique identifier for the currently configured note synchronization service "
 "addin."
@@ -401,7 +492,7 @@ msgstr ""
 "Unikalny identyfikatar dla kanfihuravanaj dadatkovaj pasłuhi synchranizacyi "
 "natatak."
 
-#: ../data/tomboy.schemas.in.h:53
+#: ../data/tomboy.schemas.in.h:71
 msgid ""
 "Unique identifier for this Tomboy client, used when communicating with a "
 "sychronization server."
@@ -409,26 +500,25 @@ msgstr ""
 "Unikalny identyfikatar dla klijenta Tomboy, užyvany pry kamunikavańni z "
 "serveram synchranizacyi."
 
-#: ../data/tomboy.schemas.in.h:54
+#: ../data/tomboy.schemas.in.h:72
+msgid ""
+"Use wdfs option \"-ac\" to accept SSL certificates without prompting the "
+"user."
+msgstr ""
+"Vykarystaj opcyju wdfs \"-ac\", kab pryjmać sertyfikaty SSL, nie pytajučysia "
+"paćvierdžańnia ŭ karystalnika."
+
+#: ../data/tomboy.schemas.in.h:73
+msgid "User name to use when connecting to the synchronization server via SSH."
+msgstr "Karystalnik dla spałučeńnia z serveram synchranizacyi praz SSH."
+
+#: ../data/tomboy.schemas.in.h:74
 msgid ""
 "Whitespace-separated list of note URIs for notes that should always appear "
 "in the Tomboy note menu."
 msgstr ""
 "Śpis padzielenych prabiełami spasyłak (URI) na natatki, jakija treba "
 "zaŭsiody trymać u menu natatak Tomboy."
-
-#: ../Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinTreeWidget.cs:91
-msgid "Add-in"
-msgstr "Dadatak"
-
-#: ../Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinTreeWidget.cs:112
-msgid "Version"
-msgstr "Versija"
-
-#. Default category name to use if no category is specified for this addin
-#: ../Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinTreeWidget.cs:169
-msgid "Other"
-msgstr "Inšaje"
 
 #: ../Tomboy/ActionManager.cs:127
 msgid "_File"
@@ -458,7 +548,7 @@ msgstr "_Vydal"
 msgid "Delete the selected note"
 msgstr "Vydal abranuju natatku"
 
-#: ../Tomboy/ActionManager.cs:142 ../Tomboy/NoteWindow.cs:412
+#: ../Tomboy/ActionManager.cs:142 ../Tomboy/NoteWindow.cs:416
 msgid "_Close"
 msgstr "_Začyni"
 
@@ -466,7 +556,7 @@ msgstr "_Začyni"
 msgid "Close this window"
 msgstr "Začyni hetaje vakno"
 
-#: ../Tomboy/ActionManager.cs:146 ../Tomboy/Applet.cs:203
+#: ../Tomboy/ActionManager.cs:146 ../Tomboy/Tray.cs:248
 msgid "_Quit"
 msgstr "_Vyjdzi"
 
@@ -478,7 +568,7 @@ msgstr "Vyjdzi z prahramy Tomboy"
 msgid "_Edit"
 msgstr "_Redahuj"
 
-#: ../Tomboy/ActionManager.cs:154 ../Tomboy/PreferencesDialog.cs:63
+#: ../Tomboy/ActionManager.cs:154 ../Tomboy/PreferencesDialog.cs:62
 msgid "Tomboy Preferences"
 msgstr "Nałady prahramy Tomboy"
 
@@ -502,7 +592,7 @@ msgstr "Ikona ŭ abšary nahadvańniaŭ"
 msgid "Create _New Note"
 msgstr "Stvary _novuju natatku"
 
-#: ../Tomboy/ActionManager.cs:175 ../Tomboy/NoteWindow.cs:355
+#: ../Tomboy/ActionManager.cs:175 ../Tomboy/NoteWindow.cs:359
 msgid "_Search All Notes"
 msgstr "_Šukaj va ŭsich natatkach"
 
@@ -518,11 +608,11 @@ msgstr "S_ynchranizuj natatki"
 msgid "Start synchronizing notes"
 msgstr "Pačni synchranizavać natatki"
 
-#: ../Tomboy/Addins/Backlinks/BacklinksNoteAddin.cs:25
+#: ../Tomboy/Addins/Backlinks/BacklinksNoteAddin.cs:38
 msgid "What links here?"
 msgstr "Adkul spasyłajucca siudy?"
 
-#: ../Tomboy/Addins/Backlinks/BacklinksNoteAddin.cs:83
+#: ../Tomboy/Addins/Backlinks/BacklinksNoteAddin.cs:84
 msgid "(none)"
 msgstr "(niama)"
 
@@ -564,39 +654,39 @@ msgid "Error saving icon"
 msgstr "Pamyłka zapisu ikony"
 
 #: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:257
-msgid "Could not save the icon file.  "
-msgstr "Niemahčyma zapisać fajł ikony.  "
+msgid "Could not save the icon file."
+msgstr "Nie ŭdałosia zapisać fajł fajł ikony."
 
-#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:310
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:311
 msgid "Really remove this icon?"
 msgstr "Sapraŭdy vydalić hetuju ikonu?"
 
-#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:311
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:312
 msgid "If you remove an icon it is permanently lost."
 msgstr "Vydaliŭšy ikonu, ty nazaŭždy zhubiš jaje."
 
-#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:50
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:66
 msgid "Export to HTML"
 msgstr "Ekspartuj u HTML"
 
-#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:109
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:113
 #, csharp-format
 msgid "Your note was exported to \"{0}\"."
 msgstr "Natatka zekspartavanaja ŭ \"{0}\"."
 
-#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:120
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:124
 msgid "Note exported successfully"
 msgstr "Natatka paśpiachova zekspartavanaja"
 
-#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:126
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:130
 msgid "Access denied."
 msgstr "Dostup zabaronieny."
 
-#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:128
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:132
 msgid "Folder does not exist."
 msgstr "Kataloh nie isnuje."
 
-#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:143
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:147
 #, csharp-format
 msgid "Could not save the file \"{0}\""
 msgstr "Niemahčyma zapisać fajł \"{0}\""
@@ -647,12 +737,12 @@ msgstr "Lakalny kataloh"
 msgid "_Fixed Width"
 msgstr "_Stałaja šyrynia"
 
-#: ../Tomboy/Addins/GalagoPresence/GalagoPresenceNoteAddin.cs:241
+#: ../Tomboy/Addins/GalagoPresence/GalagoPresenceNoteAddin.cs:244
 #, csharp-format
 msgid "Cannot contact '{0}'"
 msgstr "Niemahčyma spałučycca z '{0}'"
 
-#: ../Tomboy/Addins/GalagoPresence/GalagoPresenceNoteAddin.cs:244
+#: ../Tomboy/Addins/GalagoPresence/GalagoPresenceNoteAddin.cs:247
 #, csharp-format
 msgid "Error running gaim-remote: {0}"
 msgstr "Pamyłka ŭruchamleńnia \"gaim-remote\": {0}"
@@ -662,20 +752,20 @@ msgid "Insert Timestamp"
 msgstr "Ustaŭ adbitak času"
 
 #. initial newline
-#: ../Tomboy/Addins/InsertTimestamp/InsertTimestampPreferences.cs:30
-#: ../Tomboy/Preferences.cs:131 ../Tomboy/Tray.cs:195
+#: ../Tomboy/Addins/InsertTimestamp/InsertTimestampPreferences.cs:29
+#: ../Tomboy/Applet.cs:210 ../Tomboy/Preferences.cs:132
 msgid "dddd, MMMM d, h:mm tt"
-msgstr "dddd, MMMM d, h:mm tt"
+msgstr "dddd, d MMMM, H:mm"
 
-#: ../Tomboy/Addins/InsertTimestamp/InsertTimestampPreferences.cs:55
+#: ../Tomboy/Addins/InsertTimestamp/InsertTimestampPreferences.cs:54
 msgid "Choose one of the predefined formats or use your own."
 msgstr "Abiary ŭžo akreśleny ci svoj farmat."
 
-#: ../Tomboy/Addins/InsertTimestamp/InsertTimestampPreferences.cs:63
+#: ../Tomboy/Addins/InsertTimestamp/InsertTimestampPreferences.cs:62
 msgid "Use _Selected Format"
 msgstr "Užyj _abrany farmat"
 
-#: ../Tomboy/Addins/InsertTimestamp/InsertTimestampPreferences.cs:88
+#: ../Tomboy/Addins/InsertTimestamp/InsertTimestampPreferences.cs:87
 msgid "_Use Custom Format"
 msgstr "Užyj ułasny _farmat"
 
@@ -712,147 +802,24 @@ msgstr ""
 msgid "_Open Today: Template"
 msgstr "_Adčyni \"Siońnia: Šablon\""
 
-#: ../Tomboy/Addins/PrintNotes/PrintNotesNoteAddin.cs:18
-#: ../Tomboy/Addins/PrintNotes/gedit-print.c:142
+#: ../Tomboy/Addins/PrintNotes/PrintNotesNoteAddin.cs:51
 msgid "Print"
 msgstr "Drukuj"
 
-#: ../Tomboy/Addins/PrintNotes/gedit-print.c:240
-msgid "Preparing pages..."
-msgstr "Padrychtoŭka staronak..."
+#: ../Tomboy/Addins/PrintNotes/PrintNotesNoteAddin.cs:79
+msgid "Error printing note"
+msgstr "Pamyłka vydruku natatki"
 
-#: ../Tomboy/Addins/PrintNotes/gedit-print.c:267
-#, c-format
-msgid "Rendering page %d of %d..."
-msgstr "Vyjaŭleńnie staronki %d z %d..."
+#: ../Tomboy/Addins/PrintNotes/PrintNotesNoteAddin.cs:205
+#, csharp-format
+msgid "Page {0} of {1}"
+msgstr "Staronka {0} z {1}"
 
-#: ../Tomboy/Addins/PrintNotes/gedit-print.c:269
-#, c-format
-msgid "Printing page %d of %d..."
-msgstr "Drukavańnie staronki %d z %d..."
-
-#: ../Tomboy/Addins/PrintNotes/gedit-print.c:291
-msgid "Print preview"
-msgstr "Pieradahlad druku"
-
-#: ../Tomboy/Addins/PrintNotes/gedit-print.c:442
-msgid "Page %N of %Q"
-msgstr "Staronka %N z %Q"
-
-#: ../Tomboy/Addins/PrintNotes/gedit-print.c:445
-#, no-c-format
-msgid "%A %x, %X"
-msgstr "%A %x, %X"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:268
-msgid "Configuration"
-msgstr "Kanfihuracyja"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:269
-msgid "Configuration options for the print job"
-msgstr "Kanfihuracyjnyja opcyi dla drukarskaha zadańnia"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:276
-msgid "Source Buffer"
-msgstr "Kryničny bufer"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:277
-msgid "GtkTextBuffer object to print"
-msgstr "Abjekt GtkTextBuffer dziela drukavańnia"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:283
-msgid "Tabs Width"
-msgstr "Šyrynia tabulacyi"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:284
-msgid "Width in equivalent space characters of tabs"
-msgstr "Šyrynia tabulacyi ŭ prabielnych znakach"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:291
-msgid "Wrap Mode"
-msgstr "Režym pieranosu"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:292
-msgid "Word wrapping mode"
-msgstr "Režym pieranosu słovaŭ"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:299
-msgid "Highlight"
-msgstr "Padśviatlaj"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:300
-msgid "Whether to print the document with highlighted syntax"
-msgstr "Ci drukavać dakument z padśvietlenym syntaksam"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:308
-msgid "Font"
-msgstr "Šryft"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:309
-msgid "GnomeFont name to use for the document text (deprecated)"
-msgstr "Nazva GnomeFont dla tekstu dakumentu (sastarełaje)"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:316
-msgid "Font Description"
-msgstr "Apisańnie šryftu"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:317
-msgid "Font to use for the document text (e.g. \"Monospace 10\")"
-msgstr "Šryft dla tekstu dakumentu (naprykład, \"Monospace 10\")"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:324
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:332
-msgid "Numbers Font"
-msgstr "Šryft dla numaroŭ"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:325
-msgid "GnomeFont name to use for the line numbers (deprecated)"
-msgstr "Nazva GnomeFont dla numaroŭ radkoŭ (sastarełaje)"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:333
-msgid "Font description to use for the line numbers"
-msgstr "Apisańnie šryftu dla numaroŭ radkoŭ"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:340
-msgid "Print Line Numbers"
-msgstr "Drukuj numary radkoŭ"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:341
-msgid "Interval of printed line numbers (0 means no numbers)"
-msgstr "Intervał pamiž drukavanymi numarami radkoŭ (0 značyć biez numaroŭ)"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:348
-msgid "Print Header"
-msgstr "Drukuj šapku"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:349
-msgid "Whether to print a header in each page"
-msgstr "Ci drukavać šapku dla kožnaj staronki"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:356
-msgid "Print Footer"
-msgstr "Drukavańnie padvału"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:357
-msgid "Whether to print a footer in each page"
-msgstr "Akreślivaje, ci drukavać padvał na kožnaj staroncy"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:364
-msgid "Header and Footer Font"
-msgstr "Šryft šapki j padvału"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:365
-msgid "GnomeFont name to use for the header and footer (deprecated)"
-msgstr "Nazva GnomeFont, užyvanaha dziela šapki j padvału (sastarełaje)"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:372
-msgid "Header and Footer Font Description"
-msgstr "Apisańnie šryftoŭ šapki j padvału"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:373
-msgid "Font to use for headers and footers (e.g. \"Monospace 10\")"
-msgstr ""
-"Šryft dziela vykarystańnia ŭ šapkach i padvałach (napr.: \"Monospace 10\")"
+#. Translators: Explanation of the date and time format specifications can be found here:
+#. * http://msdn.microsoft.com/en-us/library/system.globalization.datetimeformatinfo.aspx
+#: ../Tomboy/Addins/PrintNotes/PrintNotesNoteAddin.cs:224
+msgid "dddd MM/dd/yyyy, hh:mm:ss tt"
+msgstr "dddd dd.MM.yyyy, H:mm:ss"
 
 #: ../Tomboy/Addins/Sketching/SketchingNoteAddin.cs:19
 msgid "Add a sketch"
@@ -888,7 +855,7 @@ msgstr "Pole servera ci nazvy karystalnika pustoje."
 msgid "SSH (sshfs FUSE)"
 msgstr "SSH (sshfs FUSE)"
 
-#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:186
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:191
 msgid ""
 "Timeout connecting to server. Please ensure that your SSH key has been added "
 "to a running SSH daemon."
@@ -927,6 +894,22 @@ msgstr "Bieznazoŭny"
 msgid "Sticky Note: "
 msgstr "Prymacavanaja natatka: "
 
+#: ../Tomboy/Addins/Tasque/TasqueNoteAddin.cs:62
+msgid "Tasque"
+msgstr "Tasque"
+
+#. Note to translators: "All" here must match up with the "All"
+#. category translation in Tasque for this to work properly.  "All"
+#. is used here to allow Tasque to decide which default category
+#. will be used to create the new task.
+#: ../Tomboy/Addins/Tasque/TasqueNoteAddin.cs:86
+msgid "All"
+msgstr "Usie"
+
+#: ../Tomboy/Addins/Tasque/TasqueNoteAddin.cs:145
+msgid "--- Tasque is not running ---"
+msgstr "--- Tasque nia dziejničaje ---"
+
 #: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:51
 msgid "_URL:"
 msgstr "_URL:"
@@ -943,7 +926,7 @@ msgstr "Pole adrasu, nazvy karystalnika albo parolu pustoje."
 msgid "WebDAV (wdfs FUSE)"
 msgstr "WebDAV (wdfs FUSE)"
 
-#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:172
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:191
 msgid ""
 "There was an error connecting to the server.  This may be caused by using an "
 "incorrect user name and/or password."
@@ -956,18 +939,14 @@ msgstr ""
 #. Save configuration into GConf
 #. Preferences.Set ("/apps/tomboy/sync_wdfs_url", url ?? string.Empty);
 #. Preferences.Set ("/apps/tomboy/sync_wdfs_username", username ?? string.Empty);
-#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:248
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:267
 msgid ""
 "Saving configuration to the GNOME keyring failed with the following message:"
 msgstr ""
 "Pamyłka zapisu kanfihuracyi ŭ klučniku GNOME z nastupnym paviedamleńniem:"
 
-#: ../Tomboy/Applet.cs:196
-msgid "_About Tomboy"
-msgstr "_Ab prahramie Tomboy"
-
 #: ../Tomboy/Notebooks/CreateNotebookDialog.cs:24
-#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:42
+#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:53
 msgid "Create a new notebook"
 msgstr "Stvary novy natatnik"
 
@@ -1009,54 +988,54 @@ msgstr "Usie natatki"
 msgid "Unfiled Notes"
 msgstr "Niepadšytyja natatki"
 
-#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:37
+#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:48
 msgid "Note_books"
 msgstr "_Natatniki"
 
-#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:38
-#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:58
+#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:49
+#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:69
 msgid "Create a new note in a notebook"
 msgstr "Stvary novuju natatku ŭ natatniku"
 
-#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:41
-#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:192
+#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:52
+#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:223
 msgid "New Note_book..."
 msgstr "Novy _natatnik..."
 
-#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:45
+#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:56
 msgid "_New Note"
 msgstr "_Novaja natatka"
 
-#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:46
+#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:57
 msgid "Create a new note in this notebook"
 msgstr "Stvary novuju natatku ŭ hetym natatniku"
 
-#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:49
+#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:60
 msgid "_Open Template Note"
 msgstr "_Adčyni šablonnuju natatku"
 
-#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:50
+#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:61
 msgid "Open this notebook's template note"
 msgstr "Adčyni šablonnuju natatku dla hetaha natatnika"
 
-#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:53
+#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:64
 msgid "Delete Note_book"
 msgstr "Vydal _natatnik"
 
-#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:54
+#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:65
 msgid "Delete the selected notebook"
 msgstr "Vydal abrany natatnik"
 
-#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:57
-#: ../Tomboy/RecentChanges.cs:244
+#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:68
+#: ../Tomboy/RecentChanges.cs:251
 msgid "Notebooks"
 msgstr "Natatniki"
 
-#: ../Tomboy/Notebooks/NotebookManager.cs:323
+#: ../Tomboy/Notebooks/NotebookManager.cs:356
 msgid "Really delete this notebook?"
 msgstr "Sapraŭdy vydalić hety natatnik?"
 
-#: ../Tomboy/Notebooks/NotebookManager.cs:325
+#: ../Tomboy/Notebooks/NotebookManager.cs:358
 msgid ""
 "The notes that belong to this notebook will not be deleted, but they will no "
 "longer be associated with this notebook.  This action cannot be undone."
@@ -1077,28 +1056,47 @@ msgstr "Niama natatnika"
 msgid "New \"{0}\" Note"
 msgstr "Novaja natatka \"{0}\""
 
-#: ../Tomboy/Notebooks/NotebookNoteAddin.cs:34
+#: ../Tomboy/Notebooks/NotebookNoteAddin.cs:45
 msgid "Place this note into a notebook"
 msgstr "Źmiaści hetuju natatku ŭ natatniku"
 
-#: ../Tomboy/Notebooks/NotebookNoteAddin.cs:103
+#: ../Tomboy/Notebooks/NotebookNoteAddin.cs:126
 msgid "Notebook"
 msgstr "Natatnik"
 
-#: ../Tomboy/Note.cs:1332
+#: ../Tomboy/Notebooks/NotebookNoteAddin.cs:155
+msgid "_New notebook..."
+msgstr "_Novy natatnik..."
+
+#: ../Tomboy/Note.cs:1427
 msgid "Really delete this note?"
 msgstr "Sapraŭdy vydalić hetuju natatku?"
 
-#: ../Tomboy/Note.cs:1334
+#: ../Tomboy/Note.cs:1429
 msgid "Really delete these notes?"
 msgstr "Sapraŭdy vydalić hetyja natatki?"
 
-#: ../Tomboy/Note.cs:1343
+#: ../Tomboy/Note.cs:1438
 msgid "If you delete a note it is permanently lost."
 msgstr "Vydaliŭšy natatku, ty nazaŭždy straciš jaje."
 
+#: ../Tomboy/Note.cs:1472
+msgid "Error saving note data."
+msgstr "Pamyłka zapisu natatki."
+
+#: ../Tomboy/Note.cs:1473
+msgid ""
+"An error occurred while saving your notes. Please check that you have "
+"sufficient disk space, and that you have appropriate rights on ~/.tomboy. "
+"Error details can be found in ~/.tomboy.log."
+msgstr ""
+"Padčas zapisu natatak uźnikła pamyłka. Spraŭdź najaŭnaść volnaha miesca na "
+"dyskach, a taksama dazvoły dla katalohu ~/.tomboy. Detali pamyłki možna "
+"pahladzieć u fajle ~/.tomboy.log."
+
 #. New Note Template
-#: ../Tomboy/NoteManager.cs:20 ../Tomboy/PreferencesDialog.cs:210
+#. Translators: This is 'New Note' Template, not New 'Note Template'
+#: ../Tomboy/NoteManager.cs:19 ../Tomboy/PreferencesDialog.cs:210
 msgid "New Note Template"
 msgstr "Novy šablon natatki"
 
@@ -1174,7 +1172,7 @@ msgstr ""
 "</note-content>"
 
 #. Attempt to find an existing Start Here note
-#: ../Tomboy/NoteManager.cs:169 ../Tomboy/NoteManager.cs:232
+#: ../Tomboy/NoteManager.cs:169 ../Tomboy/NoteManager.cs:236
 msgid "Start Here"
 msgstr "Pačatak"
 
@@ -1182,142 +1180,142 @@ msgstr "Pačatak"
 msgid "Using Links in Tomboy"
 msgstr "Karystajučysia spasyłkami ŭ Tomboy"
 
-#: ../Tomboy/NoteManager.cs:306
+#: ../Tomboy/NoteManager.cs:313
 #, csharp-format
 msgid "New Note {0}"
 msgstr "Novaja natatka {0}"
 
 #. Use a simple "Describe..." body and highlight
 #. it so it can be easily overwritten
-#: ../Tomboy/NoteManager.cs:378 ../Tomboy/NoteManager.cs:470
+#: ../Tomboy/NoteManager.cs:386 ../Tomboy/NoteManager.cs:478
 msgid "Describe your new note here."
 msgstr "Heta miesca na źmiest novaj natatki."
 
-#: ../Tomboy/NoteWindow.cs:57
+#: ../Tomboy/NoteWindow.cs:58
 msgid "Find in This Note"
 msgstr "Šukaj u hetaj natatcy"
 
-#: ../Tomboy/NoteWindow.cs:367
+#: ../Tomboy/NoteWindow.cs:371
 msgid "_Link to New Note"
 msgstr "_Spašlisia na novuju natatku"
 
-#: ../Tomboy/NoteWindow.cs:379
+#: ../Tomboy/NoteWindow.cs:383
 msgid "Te_xt"
 msgstr "Te_kst"
 
-#: ../Tomboy/NoteWindow.cs:387
+#: ../Tomboy/NoteWindow.cs:391
 msgid "_Find in This Note"
 msgstr "_Šukaj u hetaj natatcy"
 
-#: ../Tomboy/NoteWindow.cs:402
+#: ../Tomboy/NoteWindow.cs:406
 msgid "Clos_e All Notes"
 msgstr "_Začyni ŭsie natatki"
 
-#: ../Tomboy/NoteWindow.cs:440
+#: ../Tomboy/NoteWindow.cs:446
 msgid "Search"
 msgstr "Šukaj"
 
-#: ../Tomboy/NoteWindow.cs:442
+#: ../Tomboy/NoteWindow.cs:449
 msgid "Search your notes (Ctrl-Shift-F)"
 msgstr "Šukaj u svaich natatkach (Ctrl-Shift-F)"
 
-#: ../Tomboy/NoteWindow.cs:452
+#: ../Tomboy/NoteWindow.cs:461
 msgid "Link"
 msgstr "Spasyłka"
 
-#: ../Tomboy/NoteWindow.cs:455
+#: ../Tomboy/NoteWindow.cs:467
 msgid "Link selected text to a new note (Ctrl-L)"
 msgstr "Stvaraje spasyłku z zaznačanaha tekstu da novaj natatki (Ctrl-L)"
 
-#: ../Tomboy/NoteWindow.cs:467
+#: ../Tomboy/NoteWindow.cs:480
 msgid "_Text"
 msgstr "_Tekst"
 
-#: ../Tomboy/NoteWindow.cs:471
+#: ../Tomboy/NoteWindow.cs:485
 msgid "Set properties of text"
 msgstr "Akreśl ułaścivaści tekstu"
 
-#: ../Tomboy/NoteWindow.cs:476
+#: ../Tomboy/NoteWindow.cs:490
 msgid "T_ools"
 msgstr "_Pryładździe"
 
-#: ../Tomboy/NoteWindow.cs:480
+#: ../Tomboy/NoteWindow.cs:494
 msgid "Use tools on this note"
 msgstr "Užyj pryładździe dla hetaj natatki"
 
-#: ../Tomboy/NoteWindow.cs:488
+#: ../Tomboy/NoteWindow.cs:502
 msgid "Delete this note"
 msgstr "Vydal hetuju natatku"
 
-#: ../Tomboy/NoteWindow.cs:497 ../Tomboy/Synchronization/SyncManager.cs:161
+#: ../Tomboy/NoteWindow.cs:511 ../Tomboy/Synchronization/SyncManager.cs:161
 msgid "Synchronize Notes"
 msgstr "Synchranizuj natatki"
 
-#: ../Tomboy/NoteWindow.cs:540
+#: ../Tomboy/NoteWindow.cs:554
 msgid "_Find..."
 msgstr "_Šukaj..."
 
-#: ../Tomboy/NoteWindow.cs:551 ../Tomboy/NoteWindow.cs:752
+#: ../Tomboy/NoteWindow.cs:565 ../Tomboy/NoteWindow.cs:767
 msgid "Find _Next"
 msgstr "Znajdzi _nastupnaje"
 
-#: ../Tomboy/NoteWindow.cs:564
+#: ../Tomboy/NoteWindow.cs:578
 msgid "Find _Previous"
 msgstr "Znajdzi _raniejšaje"
 
-#: ../Tomboy/NoteWindow.cs:652
+#: ../Tomboy/NoteWindow.cs:666
 msgid "Cannot create note"
 msgstr "Niemahčyma stvaryć natatku"
 
-#: ../Tomboy/NoteWindow.cs:732
+#: ../Tomboy/NoteWindow.cs:747
 msgid "_Find:"
 msgstr "_Šukaj:"
 
-#: ../Tomboy/NoteWindow.cs:743
+#: ../Tomboy/NoteWindow.cs:758
 msgid "_Previous"
 msgstr "_Papiaredniaje"
 
-#: ../Tomboy/NoteWindow.cs:1227
+#: ../Tomboy/NoteWindow.cs:1242
 msgid "_Bold"
 msgstr "_Tłusty"
 
-#: ../Tomboy/NoteWindow.cs:1239
+#: ../Tomboy/NoteWindow.cs:1254
 msgid "_Italic"
 msgstr "_Kursiŭ"
 
-#: ../Tomboy/NoteWindow.cs:1251
+#: ../Tomboy/NoteWindow.cs:1266
 msgid "_Strikeout"
 msgstr "_Zakreśleny"
 
-#: ../Tomboy/NoteWindow.cs:1263
+#: ../Tomboy/NoteWindow.cs:1278
 msgid "_Highlight"
 msgstr "_Padśvietleny"
 
-#: ../Tomboy/NoteWindow.cs:1276
+#: ../Tomboy/NoteWindow.cs:1291
 msgid "Font Size"
 msgstr "Pamier šryftu"
 
-#: ../Tomboy/NoteWindow.cs:1279
+#: ../Tomboy/NoteWindow.cs:1294
 msgid "_Normal"
 msgstr "_Zvyčajny"
 
-#: ../Tomboy/NoteWindow.cs:1286
+#: ../Tomboy/NoteWindow.cs:1301
 msgid "Hu_ge"
 msgstr "_Vializny"
 
-#: ../Tomboy/NoteWindow.cs:1294
+#: ../Tomboy/NoteWindow.cs:1309
 msgid "_Large"
 msgstr "Via_liki"
 
-#: ../Tomboy/NoteWindow.cs:1302
+#: ../Tomboy/NoteWindow.cs:1317
 msgid "S_mall"
 msgstr "_Mały"
 
-#: ../Tomboy/NoteWindow.cs:1313
+#: ../Tomboy/NoteWindow.cs:1328
 msgid "Bullets"
 msgstr "Guziki"
 
-#: ../Tomboy/PreferencesDialog.cs:81
+#: ../Tomboy/PreferencesDialog.cs:80
 msgid "Editing"
 msgstr "Redahavańnie"
 
@@ -1376,20 +1374,16 @@ msgstr ""
 "Užyj šablon novych natatak, kab akreślić tekst, jaki vykarystoŭvajecca pry "
 "stvareńni novych natatak."
 
-#: ../Tomboy/PreferencesDialog.cs:225
+#: ../Tomboy/PreferencesDialog.cs:224
 msgid "Open New Note Template"
 msgstr "Adčyni šablon novych natatak"
 
-#: ../Tomboy/PreferencesDialog.cs:228
-msgid "_Open New Note Template..."
-msgstr "_Adčyni šablon novych natatak..."
-
 #. Hotkeys...
-#: ../Tomboy/PreferencesDialog.cs:286
+#: ../Tomboy/PreferencesDialog.cs:281
 msgid "Listen for _Hotkeys"
 msgstr "_Klavijaturnyja skaroty"
 
-#: ../Tomboy/PreferencesDialog.cs:295
+#: ../Tomboy/PreferencesDialog.cs:290
 msgid ""
 "Hotkeys allow you to quickly access your notes from anywhere with a "
 "keypress. Example Hotkeys: <b>&lt;Control&gt;&lt;Shift&gt;F11</b>, <b>&lt;"
@@ -1400,68 +1394,68 @@ msgstr ""
 "Shift&gt;F11</b>, <b>&lt;Alt&gt;N</b>"
 
 #. Show notes menu keybinding...
-#: ../Tomboy/PreferencesDialog.cs:315
+#: ../Tomboy/PreferencesDialog.cs:310
 msgid "Show notes _menu"
 msgstr "Pakažy _menu natatak"
 
 #. Open Start Here keybinding...
-#: ../Tomboy/PreferencesDialog.cs:332
+#: ../Tomboy/PreferencesDialog.cs:327
 msgid "Open \"_Start Here\""
 msgstr "Adčyni pačatkovuju natatku"
 
 #. Create new note keybinding...
-#: ../Tomboy/PreferencesDialog.cs:349
+#: ../Tomboy/PreferencesDialog.cs:344
 msgid "Create _new note"
 msgstr "Stvary _novuju natatku"
 
 #. Open Search All Notes window keybinding...
-#: ../Tomboy/PreferencesDialog.cs:366
+#: ../Tomboy/PreferencesDialog.cs:361
 msgid "Open \"Search _All Notes\""
 msgstr "Adčyni vakno \"Šukaj va _ŭsich natatkach\""
 
-#: ../Tomboy/PreferencesDialog.cs:393
+#: ../Tomboy/PreferencesDialog.cs:388
 msgid "Ser_vice:"
 msgstr "_Pasłuha:"
 
-#: ../Tomboy/PreferencesDialog.cs:446 ../Tomboy/PreferencesDialog.cs:1024
+#: ../Tomboy/PreferencesDialog.cs:441 ../Tomboy/PreferencesDialog.cs:1019
 msgid "Not configurable"
 msgstr "Nielha skanfihuravać"
 
 #. "Advanced..." button to bring up extra sync config dialog
-#: ../Tomboy/PreferencesDialog.cs:466
+#: ../Tomboy/PreferencesDialog.cs:461
 msgid "_Advanced..."
 msgstr "_Asablivaje..."
 
-#: ../Tomboy/PreferencesDialog.cs:527
+#: ../Tomboy/PreferencesDialog.cs:522
 msgid "The following add-ins are installed"
 msgstr "Zainstalavanyja nastupnyja dadatki"
 
-#: ../Tomboy/PreferencesDialog.cs:558
+#: ../Tomboy/PreferencesDialog.cs:553
 msgid "_Enable"
 msgstr "_Uklučy"
 
-#: ../Tomboy/PreferencesDialog.cs:564
+#: ../Tomboy/PreferencesDialog.cs:559
 msgid "_Disable"
 msgstr "_Vykluč"
 
-#: ../Tomboy/PreferencesDialog.cs:695
+#: ../Tomboy/PreferencesDialog.cs:690
 msgid "Not Implemented"
 msgstr "Nie zaimplementavany"
 
-#: ../Tomboy/PreferencesDialog.cs:709
+#: ../Tomboy/PreferencesDialog.cs:704
 #, csharp-format
 msgid "{0} Preferences"
 msgstr "Nałady {0}"
 
-#: ../Tomboy/PreferencesDialog.cs:848
+#: ../Tomboy/PreferencesDialog.cs:843
 msgid "Choose Note Font"
 msgstr "Abiary šryft dla natatki"
 
-#: ../Tomboy/PreferencesDialog.cs:892
+#: ../Tomboy/PreferencesDialog.cs:887
 msgid "Other Synchronization Options"
 msgstr "Inšyja opcyi synchranizacyi"
 
-#: ../Tomboy/PreferencesDialog.cs:899
+#: ../Tomboy/PreferencesDialog.cs:894
 msgid ""
 "When a conflict is detected between a local note and a note on the "
 "configured synchronization server:"
@@ -1469,23 +1463,23 @@ msgstr ""
 "Kali ŭźnikaje kanflikt pamiž lakalnaj natatkaj i natatkaj na skanfihuravanym "
 "synchranizacyjnym servery:"
 
-#: ../Tomboy/PreferencesDialog.cs:906
+#: ../Tomboy/PreferencesDialog.cs:901
 msgid "Always ask me what to do."
 msgstr "Zaŭždy pytajsia ŭ mianie, što rabić."
 
-#: ../Tomboy/PreferencesDialog.cs:910
+#: ../Tomboy/PreferencesDialog.cs:905
 msgid "Rename my local note."
 msgstr "Źmiani nazvu majoj lakalnaj natatki."
 
-#: ../Tomboy/PreferencesDialog.cs:914
+#: ../Tomboy/PreferencesDialog.cs:909
 msgid "Replace my local note with the server's update."
 msgstr "Zamiani maju lakalnuju natatku versijaj z servera."
 
-#: ../Tomboy/PreferencesDialog.cs:1060
+#: ../Tomboy/PreferencesDialog.cs:1055
 msgid "WARNING: Are you sure?"
 msgstr "UVAHA: Ty ŭpeŭnieny?"
 
-#: ../Tomboy/PreferencesDialog.cs:1062
+#: ../Tomboy/PreferencesDialog.cs:1057
 msgid ""
 "Clearing your synchronization settings is not recommended.  You may be "
 "forced to synchronize all of your notes again when you save new settings."
@@ -1493,11 +1487,11 @@ msgstr ""
 "Ačyščeńnie tvaich naładaŭ synchranizacyi nie rekamendujecca. Mahčyma, tabie "
 "daviadziecca pierasynchranizavać svaje natatki pry zapisie novych naładaŭ."
 
-#: ../Tomboy/PreferencesDialog.cs:1075
+#: ../Tomboy/PreferencesDialog.cs:1070
 msgid "Resetting Synchronization Settings"
 msgstr "Viartańnie naładaŭ synchranizacyi"
 
-#: ../Tomboy/PreferencesDialog.cs:1077
+#: ../Tomboy/PreferencesDialog.cs:1072
 msgid ""
 "You have disabled the configured synchronization service.  Your "
 "synchronization settings will now be cleared.  You may be forced to "
@@ -1507,13 +1501,15 @@ msgstr ""
 "synchranizacyi zaraz buduć ačyščanyja. Mahčyma, što pry zapisie novych "
 "naładaŭ ty budzieš vymušany synchranizavać usie svaje natatki znoŭ."
 
-#: ../Tomboy/PreferencesDialog.cs:1174
+#: ../Tomboy/PreferencesDialog.cs:1170
 msgid "Success! You're connected!"
 msgstr "Pośpiech! Ty spałučyŭsia!"
 
-#: ../Tomboy/PreferencesDialog.cs:1176
-msgid "Tomboy is ready to synchronize your notes."
-msgstr "Tomboy hatovy synchranizavać tvaje natatki."
+#: ../Tomboy/PreferencesDialog.cs:1172
+msgid ""
+"Tomboy is ready to synchronize your notes. Would you like to synchronize "
+"them now?"
+msgstr "Tomboy hatovy synchranizavać tvaje natatki. Zrabić heta zaraz?"
 
 #: ../Tomboy/PreferencesDialog.cs:1195
 msgid ""
@@ -1543,31 +1539,31 @@ msgstr "Aŭtarskija pravy:"
 msgid "Add-in Dependencies:"
 msgstr "Zaležnaści dadatka:"
 
-#: ../Tomboy/RecentChanges.cs:74
+#: ../Tomboy/RecentChanges.cs:76
 msgid "Search All Notes"
 msgstr "Šukaj va ŭsich natatkach"
 
-#: ../Tomboy/RecentChanges.cs:89
+#: ../Tomboy/RecentChanges.cs:93
 msgid "_Search:"
 msgstr "_Šukaj:"
 
-#: ../Tomboy/RecentChanges.cs:110
+#: ../Tomboy/RecentChanges.cs:114
 msgid "C_ase Sensitive"
 msgstr "Z u_likam rehistru"
 
-#: ../Tomboy/RecentChanges.cs:307
+#: ../Tomboy/RecentChanges.cs:316
 msgid "Note"
 msgstr "Natatka"
 
-#: ../Tomboy/RecentChanges.cs:326
+#: ../Tomboy/RecentChanges.cs:338
 msgid "Last Changed"
 msgstr "Apošniaja źmiena"
 
-#: ../Tomboy/RecentChanges.cs:459
+#: ../Tomboy/RecentChanges.cs:470
 msgid "Matches"
 msgstr "Adpaviedniki"
 
-#: ../Tomboy/RecentChanges.cs:511
+#: ../Tomboy/RecentChanges.cs:521
 #, csharp-format
 msgid "{0} match"
 msgid_plural "{0} matches"
@@ -1575,7 +1571,7 @@ msgstr[0] "{0} adpaviednik"
 msgstr[1] "{0} adpaviedniki"
 msgstr[2] "{0} adpaviednikaŭ"
 
-#: ../Tomboy/RecentChanges.cs:525
+#: ../Tomboy/RecentChanges.cs:535
 #, csharp-format
 msgid "Total: {0} note"
 msgid_plural "Total: {0} notes"
@@ -1583,7 +1579,7 @@ msgstr[0] "Usiaho: {0} natatka"
 msgstr[1] "Usiaho: {0} natatki"
 msgstr[2] "Usiaho: {0} natatak"
 
-#: ../Tomboy/RecentChanges.cs:535
+#: ../Tomboy/RecentChanges.cs:545
 #, csharp-format
 msgid "Matches: {0} note"
 msgid_plural "Matches: {0} notes"
@@ -1591,31 +1587,31 @@ msgstr[0] "Adpaviadaje: {0} natatka"
 msgstr[1] "Adpaviadajuć: {0} natatki"
 msgstr[2] "Adpaviadajuć: {0} natatak"
 
-#: ../Tomboy/RecentChanges.cs:666
+#: ../Tomboy/RecentChanges.cs:676
 msgid "Notes"
 msgstr "Natatki"
 
-#: ../Tomboy/Tomboy.cs:200
+#: ../Tomboy/Tomboy.cs:205
 msgid "Cannot create new note"
 msgstr "Niemahčyma stvaryć novuju natatku"
 
-#: ../Tomboy/Tomboy.cs:272
+#: ../Tomboy/Tomboy.cs:292
 msgid "translator-credits"
 msgstr "Ihar Hračyška"
 
-#: ../Tomboy/Tomboy.cs:281
+#: ../Tomboy/Tomboy.cs:301
 msgid "Copyright © 2004-2007 Alex Graveley"
 msgstr "Aŭtarskija pravy © 2004-2007 Alex Graveley"
 
-#: ../Tomboy/Tomboy.cs:282
+#: ../Tomboy/Tomboy.cs:302
 msgid "A simple and easy to use desktop note-taking application."
 msgstr "Aplikacyja, jakaja dazvalaje lohka j prosta vieści natatki."
 
-#: ../Tomboy/Tomboy.cs:285
+#: ../Tomboy/Tomboy.cs:312
 msgid "Homepage"
 msgstr "Chatniaja staronka"
 
-#: ../Tomboy/Tomboy.cs:396
+#: ../Tomboy/Tomboy.cs:419
 msgid ""
 "Tomboy: A simple, easy to use desktop note-taking application.\n"
 "Copyright (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
@@ -1625,7 +1621,7 @@ msgstr ""
 "Aŭtarskija pravy (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
 "\n"
 
-#: ../Tomboy/Tomboy.cs:408
+#: ../Tomboy/Tomboy.cs:431
 msgid ""
 "Usage:\n"
 "  --version\t\t\tPrint version information.\n"
@@ -1640,7 +1636,7 @@ msgstr ""
 "katalohu.\n"
 "  --search [tekst]\t\tAdčyni vakno pošuku tekstu va ŭsich natatkach.\n"
 
-#: ../Tomboy/Tomboy.cs:419
+#: ../Tomboy/Tomboy.cs:442
 msgid ""
 "  --new-note\t\t\tCreate and display a new note.\n"
 "  --new-note [title]\t\tCreate and display a new note, with a title.\n"
@@ -1657,16 +1653,21 @@ msgstr ""
 "  --highlight-search [tekst]\tŠukaj i padśviatlaj tekst u adčynienaj "
 "natatcy.\n"
 
-#: ../Tomboy/Tomboy.cs:436
+#. TODO: Restore this functionality with addins
+#. usage +=
+#. Catalog.GetString (
+#. "  --check-plugin-unloading\tCheck if plugins are " +
+#. "unloaded properly.\n");
+#: ../Tomboy/Tomboy.cs:459
 msgid "D-BUS remote control disabled.\n"
 msgstr "Addalenaje kiravańnie praz D-BUS adklučanaje.\n"
 
-#: ../Tomboy/Tomboy.cs:444
+#: ../Tomboy/Tomboy.cs:467
 #, csharp-format
 msgid "Version {0}"
 msgstr "Versija {0}"
 
-#: ../Tomboy/Tomboy.cs:514
+#: ../Tomboy/Tomboy.cs:537
 #, csharp-format
 msgid ""
 "Tomboy: unsupported option '{0}'\n"
@@ -1677,11 +1678,15 @@ msgstr ""
 "Vykanaj \"tomboy --help\" dla padrabiaźniejšych źviestak.\n"
 "Addalenaje kiravańnie praz D-BUS adklučanaje."
 
-#: ../Tomboy/Tray.cs:64
+#: ../Tomboy/Tray.cs:63
 msgid " (new)"
 msgstr " (novaja)"
 
-#: ../Tomboy/Utils.cs:127
+#: ../Tomboy/Tray.cs:241
+msgid "_About Tomboy"
+msgstr "_Ab prahramie Tomboy"
+
+#: ../Tomboy/Utils.cs:146
 msgid ""
 "The \"Tomboy Notes Manual\" could not be found.  Please verify that your "
 "installation has been completed successfully."
@@ -1689,83 +1694,99 @@ msgstr ""
 "Niemahčyma znajści \"Padručnik karystalnika prahramy Tomboy\". Pravier, ci "
 "pravilna adbyłasia instalacyja."
 
-#: ../Tomboy/Utils.cs:136
+#: ../Tomboy/Utils.cs:155
 msgid "Help not found"
 msgstr "Dapamoha nia znojdzienaja"
 
-#: ../Tomboy/Utils.cs:159
+#: ../Tomboy/Utils.cs:171
+msgid "Cannot open location"
+msgstr "Niemahčyma adčynić pałažeńnie"
+
+#: ../Tomboy/Utils.cs:193
 #, csharp-format
 msgid "Today, {0}"
 msgstr "Siońnia, {0}"
 
-#: ../Tomboy/Utils.cs:161
+#: ../Tomboy/Utils.cs:195
 msgid "Today"
 msgstr "Siońnia"
 
-#: ../Tomboy/Utils.cs:165
+#: ../Tomboy/Utils.cs:199
 #, csharp-format
 msgid "Yesterday, {0}"
 msgstr "Učora, {0}"
 
-#: ../Tomboy/Utils.cs:167
+#: ../Tomboy/Utils.cs:201
 msgid "Yesterday"
 msgstr "Učora"
 
-#: ../Tomboy/Utils.cs:171
+#: ../Tomboy/Utils.cs:206
 #, csharp-format
-msgid "{0} days ago, {1}"
-msgstr "{0} dzion tamu, {1}"
+msgid "{0} day ago, {1}"
+msgid_plural "{0} days ago, {1}"
+msgstr[0] "{0} dzień tamu, {1}"
+msgstr[1] "{0} dni tamu, {1}"
+msgstr[2] "{0} dzion tamu, {1}"
 
-#: ../Tomboy/Utils.cs:173
+#: ../Tomboy/Utils.cs:210
 #, csharp-format
-msgid "{0} days ago"
-msgstr "{0} dzion tamu"
+msgid "{0} day ago"
+msgid_plural "{0} days ago"
+msgstr[0] "{0} dzień tamu"
+msgstr[1] "{0} dni tamu"
+msgstr[2] "{0} dzion tamu"
 
-#: ../Tomboy/Utils.cs:178
+#: ../Tomboy/Utils.cs:216
 #, csharp-format
 msgid "Tomorrow, {0}"
 msgstr "Zaŭtra, {0}"
 
-#: ../Tomboy/Utils.cs:180
+#: ../Tomboy/Utils.cs:218
 msgid "Tomorrow"
 msgstr "Zaŭtra"
 
-#: ../Tomboy/Utils.cs:184
+#: ../Tomboy/Utils.cs:223
 #, csharp-format
-msgid "In {0} days, {1}"
-msgstr "Praz {0} dzion, {1}"
+msgid "In {0} day, {1}"
+msgid_plural "In {0} days, {1}"
+msgstr[0] "Praz {0} dzień, {1}"
+msgstr[1] "Praz {0} dni, {1}"
+msgstr[2] "Praz {0} dzion, {1}"
 
-#: ../Tomboy/Utils.cs:186
+#: ../Tomboy/Utils.cs:227
 #, csharp-format
-msgid "In {0} days"
-msgstr "Praz {0} dzion"
+msgid "In {0} day"
+msgid_plural "In {0} days"
+msgstr[0] "Praz {0} dzień"
+msgstr[1] "Praz {0} dni"
+msgstr[2] "Praz {0} dzion"
 
-#: ../Tomboy/Utils.cs:190
+#: ../Tomboy/Utils.cs:232
 msgid "MMMM d, h:mm tt"
 msgstr "MMMM d, h:mm tt"
 
-#: ../Tomboy/Utils.cs:191
+#: ../Tomboy/Utils.cs:233
 msgid "MMMM d"
 msgstr "MMMM d"
 
-#: ../Tomboy/Utils.cs:193
+#: ../Tomboy/Utils.cs:235
 msgid "No Date"
 msgstr "Biaz daty"
 
-#: ../Tomboy/Utils.cs:196
+#: ../Tomboy/Utils.cs:238
 msgid "MMMM d yyyy, h:mm tt"
 msgstr "MMMM d yyyy, h:mm tt"
 
-#: ../Tomboy/Utils.cs:197
+#: ../Tomboy/Utils.cs:239
 msgid "MMMM d yyyy"
 msgstr "MMMM d yyyy"
 
-#: ../Tomboy/Watchers.cs:152
+#: ../Tomboy/Watchers.cs:155
 #, csharp-format
 msgid "(Untitled {0})"
 msgstr "(Bieznazoŭny {0})"
 
-#: ../Tomboy/Watchers.cs:185
+#: ../Tomboy/Watchers.cs:188
 #, csharp-format
 msgid ""
 "A note with the title <b>{0}</b> already exists. Please choose another name "
@@ -1774,19 +1795,15 @@ msgstr ""
 "Natatka z zahałoŭkam <b>{0}</b> užo isnuje. Kali łaska, abiary inšuju nazvu "
 "dla hetaj natatki."
 
-#: ../Tomboy/Watchers.cs:200
+#: ../Tomboy/Watchers.cs:203
 msgid "Note title taken"
 msgstr "Uziaty zahałovak natatki"
 
-#: ../Tomboy/Watchers.cs:452
-msgid "Cannot open location"
-msgstr "Niemahčyma adčynić pałažeńnie"
-
-#: ../Tomboy/Watchers.cs:546
+#: ../Tomboy/Watchers.cs:551
 msgid "_Copy Link Address"
 msgstr "S_kapijuj adras spasyłki"
 
-#: ../Tomboy/Watchers.cs:551
+#: ../Tomboy/Watchers.cs:556
 msgid "_Open Link"
 msgstr "_Adčyni spasyłku"
 
@@ -1799,15 +1816,23 @@ msgstr ""
 "Hety dadatak synchranizacyi nie padtrymlivajecca na tvaim kamputary. "
 "Pravier, ci zainstalavanyja j skanfihuravanyja FUSE i {0}"
 
-#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:177
+#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:129
+msgid "Could not read testfile."
+msgstr "Nie ŭdałosia pračytać testavy fajł."
+
+#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:132
+msgid "Write test failed."
+msgstr "Nie ŭdałosia vykanać test zapisu."
+
+#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:176
 msgid "Timeout connecting to server."
 msgstr "Skončyŭsia termin čakańnia spałučeńnia z serveram."
 
-#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:185
+#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:184
 msgid "Error connecting to server."
 msgstr "Pamyłka spałučeńnia z serveram."
 
-#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:199
+#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:198
 msgid "FUSE could not be enabled."
 msgstr "Niemahčyma ŭklučyć FUSE."
 
@@ -1816,59 +1841,59 @@ msgid "An error ocurred while connecting to the specified server:"
 msgstr "Pry spałučeńni z akreślenym serveram adbyłasia pamyłka:"
 
 #. Expander containing TreeView
-#: ../Tomboy/Synchronization/SyncDialog.cs:89
+#: ../Tomboy/Synchronization/SyncDialog.cs:88
 msgid "Details"
 msgstr "Detali"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:119
+#: ../Tomboy/Synchronization/SyncDialog.cs:118
 msgid "Note Title"
 msgstr "Zahałovak natatki"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:126
+#: ../Tomboy/Synchronization/SyncDialog.cs:125
 msgid "Status"
 msgstr "Status"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:241
+#: ../Tomboy/Synchronization/SyncDialog.cs:240
 msgid "Acquiring sync lock..."
 msgstr "Blakavańnie synchranizacyi..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:244
+#: ../Tomboy/Synchronization/SyncDialog.cs:243
 msgid "Committing changes..."
 msgstr "Pierasyłka źmienaŭ..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:247
+#: ../Tomboy/Synchronization/SyncDialog.cs:246
 msgid "Synchronizing Notes"
 msgstr "Synchranizacyja natatak"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:248
+#: ../Tomboy/Synchronization/SyncDialog.cs:247
 msgid "Synchronizing your notes..."
 msgstr "Adbyvajecca synchranizacyja natatak..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:249
+#: ../Tomboy/Synchronization/SyncDialog.cs:248
 msgid "This may take a while, kick back and enjoy!"
 msgstr "Heta adbudziecca nie adrazu, tak što raźniavolsia j pačakaj!"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:251
+#: ../Tomboy/Synchronization/SyncDialog.cs:250
 msgid "Connecting to the server..."
 msgstr "Spałučeńnie z serveram..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:257
+#: ../Tomboy/Synchronization/SyncDialog.cs:256
 msgid "Deleting notes off of the server..."
 msgstr "Vydaleńnie natatak z servera..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:261
+#: ../Tomboy/Synchronization/SyncDialog.cs:260
 msgid "Downloading new/updated notes..."
 msgstr "Ściahvańnie novych/aktualizavanych natatak..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:273
+#: ../Tomboy/Synchronization/SyncDialog.cs:272
 msgid "Server Locked"
 msgstr "Server zablakavany"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:274
+#: ../Tomboy/Synchronization/SyncDialog.cs:273
 msgid "Server is locked"
 msgstr "Server zablakavany"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:275
+#: ../Tomboy/Synchronization/SyncDialog.cs:274
 msgid ""
 "One of your other computers is currently synchronizing.  Please wait 2 "
 "minutes and try again."
@@ -1876,41 +1901,41 @@ msgstr ""
 "Adzin z tvaich kamputaraŭ ciapier synchranizujecca. Pačakaj paru chvilin i "
 "pasprabuj znoŭ."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:279
+#: ../Tomboy/Synchronization/SyncDialog.cs:278
 msgid "Preparing to download updates from server..."
 msgstr "Padrychtoŭka da ściahvańnia aktualizacyj z servera..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:282
+#: ../Tomboy/Synchronization/SyncDialog.cs:281
 msgid "Preparing to upload updates to server..."
 msgstr "Padrychtoŭka da zahruzki aktualizacyj na server..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:285
+#: ../Tomboy/Synchronization/SyncDialog.cs:284
 msgid "Uploading notes to server..."
 msgstr "Zahruzka natatak na server..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:288
+#: ../Tomboy/Synchronization/SyncDialog.cs:287
 msgid "Synchronization Failed"
 msgstr "Pamyłka synchranizacyi"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:289
+#: ../Tomboy/Synchronization/SyncDialog.cs:288
 msgid "Failed to synchronize"
 msgstr "Pamyłka synchranizacyi"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:290
+#: ../Tomboy/Synchronization/SyncDialog.cs:289
 msgid "Could not synchronize notes.  Check the details below and try again."
 msgstr ""
 "Niemahčyma synchranizavać natatki. Prahledź padrabiaznaści nižej i pasprabuj "
 "znoŭ."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:296
+#: ../Tomboy/Synchronization/SyncDialog.cs:295
 msgid "Synchronization Complete"
 msgstr "Synchranizacyja zavieršanaja"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:297
+#: ../Tomboy/Synchronization/SyncDialog.cs:296
 msgid "Synchronization is complete"
 msgstr "Synchranizacyja zavieršanaja"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:299
+#: ../Tomboy/Synchronization/SyncDialog.cs:298
 #, csharp-format
 msgid "{0} note updated."
 msgid_plural "{0} notes updated."
@@ -1918,101 +1943,101 @@ msgstr[0] "{0} natatka aktualizavanaja."
 msgstr[1] "{0} natatki aktualizavanyja."
 msgstr[2] "{0} natatak aktualizavanyja."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:304
+#: ../Tomboy/Synchronization/SyncDialog.cs:303
 msgid "Your notes are now up to date."
 msgstr "Tvaje natatki ciapier aktualnyja."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:308
+#: ../Tomboy/Synchronization/SyncDialog.cs:307
 msgid "Synchronization Canceled"
 msgstr "Synchranizacyja anulavanaja"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:309
+#: ../Tomboy/Synchronization/SyncDialog.cs:308
 msgid "Synchronization was canceled"
 msgstr "Synchranizacyja anulavanaja"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:310
+#: ../Tomboy/Synchronization/SyncDialog.cs:309
 msgid "You canceled the synchronization.  You may close the window now."
 msgstr "Ty anulavaŭ synchranizacyju. Ciapier ty možaš začynić akno."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:314
+#: ../Tomboy/Synchronization/SyncDialog.cs:313
 msgid "Synchronization Not Configured"
 msgstr "Synchranizacyja nie skanfihuravanaja"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:315
+#: ../Tomboy/Synchronization/SyncDialog.cs:314
 msgid "Synchronization is not configured"
 msgstr "Synchranizacyja nie skanfihuravanaja"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:316
+#: ../Tomboy/Synchronization/SyncDialog.cs:315
 msgid "Please configure synchronization in the preferences dialog."
 msgstr "Skanfihuruj synchranizacyju ŭ dyjalohu naładaŭ."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:320
+#: ../Tomboy/Synchronization/SyncDialog.cs:319
 msgid "Synchronization Service Error"
 msgstr "Pamyłka pasłuhi synchranizacyi"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:321
+#: ../Tomboy/Synchronization/SyncDialog.cs:320
 msgid "Service error"
 msgstr "Pamyłka pasłuhi"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:322
+#: ../Tomboy/Synchronization/SyncDialog.cs:321
 msgid "Error connecting to the synchronization service.  Please try again."
 msgstr "Pamyłka spałučeńnia z pasłuhaj synchranizacyi. Pasprabuj znoŭ."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:339
+#: ../Tomboy/Synchronization/SyncDialog.cs:338
 msgid "Deleted locally"
 msgstr "Vydalena lakalna"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:342
+#: ../Tomboy/Synchronization/SyncDialog.cs:341
 msgid "Deleted from server"
 msgstr "Vydalena z servera"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:345
+#: ../Tomboy/Synchronization/SyncDialog.cs:344
 msgid "Updated"
 msgstr "Abnoŭlena"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:348
+#: ../Tomboy/Synchronization/SyncDialog.cs:347
 msgid "Added"
 msgstr "Dadadziena"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:351
+#: ../Tomboy/Synchronization/SyncDialog.cs:350
 msgid "Uploaded changes to server"
 msgstr "Źmieny dasłanyja na server"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:354
+#: ../Tomboy/Synchronization/SyncDialog.cs:353
 msgid "Uploaded new note to server"
 msgstr "Novaja natatka dasłanaja na server"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:502
+#: ../Tomboy/Synchronization/SyncDialog.cs:501
 msgid "Note Conflict"
 msgstr "Kanflikt natatak"
 
 #. Suggest renaming note by appending " (old)" to the existing title
-#: ../Tomboy/Synchronization/SyncDialog.cs:508
+#: ../Tomboy/Synchronization/SyncDialog.cs:507
 msgid " (old)"
 msgstr " (staraja)"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:547
+#: ../Tomboy/Synchronization/SyncDialog.cs:546
 msgid "Rename local note:"
 msgstr "Źmiani nazvu lakalnaj natatki:"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:553
+#: ../Tomboy/Synchronization/SyncDialog.cs:552
 msgid "Update links in referencing notes"
 msgstr "Aktualizuj spasyłki ŭ natatkach, jakija siudy spasyłajucca"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:560
+#: ../Tomboy/Synchronization/SyncDialog.cs:559
 msgid "Overwrite local note"
 msgstr "Nadpišy lakalnuju natatku"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:564
+#: ../Tomboy/Synchronization/SyncDialog.cs:563
 msgid "Always perform this action"
 msgstr "Zaŭsiody vykonvaj hetaje dziejańnie"
 
 #. Set initial dialog text
-#: ../Tomboy/Synchronization/SyncDialog.cs:570
+#: ../Tomboy/Synchronization/SyncDialog.cs:569
 msgid "Note conflict detected"
 msgstr "Vyjaŭleny kanflikt natatak"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:571
+#: ../Tomboy/Synchronization/SyncDialog.cs:570
 #, csharp-format
 msgid ""
 "The server version of \"{0}\" conflicts with your local note.  What do you "
@@ -2059,6 +2084,115 @@ msgstr ""
 "ŭruchamleńni. Dadaj \"modprobe fuse\" u /etc/init.d/boot.local ci \"fuse\" "
 "u /etc/modules."
 
+#~ msgid "Add-in"
+#~ msgstr "Dadatak"
+
+#~ msgid "Version"
+#~ msgstr "Versija"
+
+#~ msgid "Other"
+#~ msgstr "Inšaje"
+
+#~ msgid "Preparing pages..."
+#~ msgstr "Padrychtoŭka staronak..."
+
+#~ msgid "Rendering page %d of %d..."
+#~ msgstr "Vyjaŭleńnie staronki %d z %d..."
+
+#~ msgid "Printing page %d of %d..."
+#~ msgstr "Drukavańnie staronki %d z %d..."
+
+#~ msgid "Print preview"
+#~ msgstr "Pieradahlad druku"
+
+#~ msgid "%A %x, %X"
+#~ msgstr "%A %x, %X"
+
+#~ msgid "Configuration"
+#~ msgstr "Kanfihuracyja"
+
+#~ msgid "Configuration options for the print job"
+#~ msgstr "Kanfihuracyjnyja opcyi dla drukarskaha zadańnia"
+
+#~ msgid "Source Buffer"
+#~ msgstr "Kryničny bufer"
+
+#~ msgid "GtkTextBuffer object to print"
+#~ msgstr "Abjekt GtkTextBuffer dziela drukavańnia"
+
+#~ msgid "Tabs Width"
+#~ msgstr "Šyrynia tabulacyi"
+
+#~ msgid "Width in equivalent space characters of tabs"
+#~ msgstr "Šyrynia tabulacyi ŭ prabielnych znakach"
+
+#~ msgid "Wrap Mode"
+#~ msgstr "Režym pieranosu"
+
+#~ msgid "Word wrapping mode"
+#~ msgstr "Režym pieranosu słovaŭ"
+
+#~ msgid "Highlight"
+#~ msgstr "Padśviatlaj"
+
+#~ msgid "Whether to print the document with highlighted syntax"
+#~ msgstr "Ci drukavać dakument z padśvietlenym syntaksam"
+
+#~ msgid "Font"
+#~ msgstr "Šryft"
+
+#~ msgid "GnomeFont name to use for the document text (deprecated)"
+#~ msgstr "Nazva GnomeFont dla tekstu dakumentu (sastarełaje)"
+
+#~ msgid "Font Description"
+#~ msgstr "Apisańnie šryftu"
+
+#~ msgid "Font to use for the document text (e.g. \"Monospace 10\")"
+#~ msgstr "Šryft dla tekstu dakumentu (naprykład, \"Monospace 10\")"
+
+#~ msgid "Numbers Font"
+#~ msgstr "Šryft dla numaroŭ"
+
+#~ msgid "GnomeFont name to use for the line numbers (deprecated)"
+#~ msgstr "Nazva GnomeFont dla numaroŭ radkoŭ (sastarełaje)"
+
+#~ msgid "Font description to use for the line numbers"
+#~ msgstr "Apisańnie šryftu dla numaroŭ radkoŭ"
+
+#~ msgid "Print Line Numbers"
+#~ msgstr "Drukuj numary radkoŭ"
+
+#~ msgid "Interval of printed line numbers (0 means no numbers)"
+#~ msgstr "Intervał pamiž drukavanymi numarami radkoŭ (0 značyć biez numaroŭ)"
+
+#~ msgid "Print Header"
+#~ msgstr "Drukuj šapku"
+
+#~ msgid "Whether to print a header in each page"
+#~ msgstr "Ci drukavać šapku dla kožnaj staronki"
+
+#~ msgid "Print Footer"
+#~ msgstr "Drukavańnie padvału"
+
+#~ msgid "Whether to print a footer in each page"
+#~ msgstr "Akreślivaje, ci drukavać padvał na kožnaj staroncy"
+
+#~ msgid "Header and Footer Font"
+#~ msgstr "Šryft šapki j padvału"
+
+#~ msgid "GnomeFont name to use for the header and footer (deprecated)"
+#~ msgstr "Nazva GnomeFont, užyvanaha dziela šapki j padvału (sastarełaje)"
+
+#~ msgid "Header and Footer Font Description"
+#~ msgstr "Apisańnie šryftoŭ šapki j padvału"
+
+#~ msgid "Font to use for headers and footers (e.g. \"Monospace 10\")"
+#~ msgstr ""
+#~ "Šryft dziela vykarystańnia ŭ šapkach i padvałach (napr.: \"Monospace 10\")"
+
+#~ msgid "_Open New Note Template..."
+#~ msgstr "_Adčyni šablon novych natatak..."
+
 #~ msgid "NoteOfTheDay"
 #~ msgstr "NatatkaDnia"
 
@@ -2081,9 +2215,6 @@ msgstr ""
 
 #~ msgid "Case _sensitive"
 #~ msgstr "Z _ulikam rehistru"
-
-#~ msgid "Tags"
-#~ msgstr "Cetliki"
 
 #~ msgid "Add/Remove note tags"
 #~ msgstr "Dadaj/Vydal cetliki dla natatki"
