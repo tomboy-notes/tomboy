@@ -158,7 +158,7 @@ PKG_CHECK_MODULES(MONO_ADDINS, mono-addins >= 0.3 \
 #
 # Tomboy.exe needs Gtk# Gnome# GConf#
 #
-GTKSHARP2_MINIMUM_VERSION=$GTK20_MINIMUM_VERSION
+GTKSHARP2_MINIMUM_VERSION=2.10.1
 GNOMESHARP_MINIMUM_VERSION=2.15
 if test "x$ENABLE_GNOME" != "xno"; then
 	if pkg-config --atleast-version=2.23.90 gnome-sharp-2.0; then
