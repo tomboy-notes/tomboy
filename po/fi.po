@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tomboy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-01-27 17:56+0300\n"
-"PO-Revision-Date: 2009-01-27 18:00+0300\n"
+"POT-Creation-Date: 2009-02-19 09:57+0300\n"
+"PO-Revision-Date: 2009-02-19 10:05+0300\n"
 "Last-Translator: Ilkka Tuohela <hile@iki.fi>\n"
 "Language-Team: Finnish <gnome-fi-laatu@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -30,7 +30,7 @@ msgid "Tomboy Applet Factory"
 msgstr "Tomboy-sovelman tehdas"
 
 #: ../data/GNOME_TomboyApplet.server.in.in.h:4 ../data/tomboy.desktop.in.h:3
-#: ../Tomboy/Tray.cs:516
+#: ../Tomboy/Tray.cs:522
 msgid "Tomboy Notes"
 msgstr "Tomboy-muistilaput"
 
@@ -39,12 +39,12 @@ msgid "_About"
 msgstr "_Tietoja"
 
 #: ../data/GNOME_TomboyApplet.xml.h:2 ../Tomboy/ActionManager.cs:157
-#: ../Tomboy/Tray.cs:234
+#: ../Tomboy/Tray.cs:236
 msgid "_Help"
 msgstr "O_hje"
 
 #: ../data/GNOME_TomboyApplet.xml.h:3 ../Tomboy/ActionManager.cs:153
-#: ../Tomboy/Tray.cs:229
+#: ../Tomboy/Tray.cs:231
 msgid "_Preferences"
 msgstr "_Asetukset"
 
@@ -57,46 +57,66 @@ msgid "Take notes, link ideas, and stay organized"
 msgstr "Kerää muistiinpanoja ja yhdistä ajatuksia"
 
 #: ../data/tomboy.schemas.in.h:1
+msgid "Accept SSL Certificates"
+msgstr "Hyväksy SSL-varmenteet"
+
+#: ../data/tomboy.schemas.in.h:2
 msgid "Create a new Note"
 msgstr "Luo uusi muistilappu"
 
-#: ../data/tomboy.schemas.in.h:2
+#: ../data/tomboy.schemas.in.h:3
 msgid "Custom Font Face"
 msgstr "Oma kirjasin"
 
-#: ../data/tomboy.schemas.in.h:3
+#: ../data/tomboy.schemas.in.h:4
+msgid "Determines X coordinate of Search window; stored on Tomboy exit."
+msgstr "Määrittää hakuikkunan X-koordinaatin, tallennetaan suljettaessa."
+
+#: ../data/tomboy.schemas.in.h:5
+msgid "Determines Y coordinate of Search window; stored on Tomboy exit."
+msgstr "Määrittää hakuikkunan Y-koordinaatin, tallennetaan suljettaessa."
+
+#: ../data/tomboy.schemas.in.h:6
+msgid "Determines pixel height of Search window; stored on Tomboy exit."
+msgstr "Määrittää hakuikkunan korkeuden pikseleinä, tallennetaan suljettaessa."
+
+#: ../data/tomboy.schemas.in.h:7
+msgid "Determines pixel width of Search window; stored on Tomboy exit."
+msgstr "Määrittää hakuikkunan leveyden pikseleinä, tallennetaan suljettaessa."
+
+#: ../data/tomboy.schemas.in.h:8
 msgid "Enable Auto bulleted lists."
 msgstr "Käytä automaattisia listoja."
 
-#: ../data/tomboy.schemas.in.h:4
+#: ../data/tomboy.schemas.in.h:9
 msgid "Enable Middle-Click Paste On Icon."
 msgstr "Käytä keskinapilla kuvakkeen päältä liitämistä."
 
-#: ../data/tomboy.schemas.in.h:5
+#: ../data/tomboy.schemas.in.h:10
 msgid "Enable WikiWord highlighting"
 msgstr "Käytä WikiSanat-korostusta"
 
-#: ../data/tomboy.schemas.in.h:6
+#: ../data/tomboy.schemas.in.h:11
 msgid "Enable closing notes with escape."
 msgstr "Muistilapun voi sulkea Escape-näppäimestä."
 
-#: ../data/tomboy.schemas.in.h:7
+#: ../data/tomboy.schemas.in.h:12
 msgid "Enable custom font"
 msgstr "Käytä omaa kirjasinta"
 
-#: ../data/tomboy.schemas.in.h:8
+#: ../data/tomboy.schemas.in.h:13
 msgid "Enable global keybindings"
 msgstr "Käytä yhteisiä näppäinoikoteitä"
 
-#: ../data/tomboy.schemas.in.h:9
+#: ../data/tomboy.schemas.in.h:14
 msgid "Enable spellchecking"
 msgstr "Tarkista oikeinkirjoitus"
 
-#: ../data/tomboy.schemas.in.h:10
+#: ../data/tomboy.schemas.in.h:15
 msgid "Enable startup notes"
 msgstr "Ota aloitusmuistilaput käyttöön"
 
-#: ../data/tomboy.schemas.in.h:11
+#: ../data/tomboy.schemas.in.h:16
 msgid ""
 "Enable this option if you want bulleted lists to be automatic when you place "
 "- or * at the beginning of a line."
@@ -104,7 +124,7 @@ msgstr ""
 "Ota tämä valinta käyttöön, jos haluat tehdä listoja automaattisesti, kun "
 "rivi arkaa merkeillä - tai *."
 
-#: ../data/tomboy.schemas.in.h:12
+#: ../data/tomboy.schemas.in.h:17
 msgid ""
 "Enable this option if you want to be able to middle-click the Tomboy icon to "
 "paste timestamped content into the Start Here note."
@@ -112,7 +132,7 @@ msgstr ""
 "Ota tämä valinta käyttöön, jos haluat liittää tekstiä aikaleimattuna "
 "aloitusmuistilappuun napsauttamalla hiiren keskinapilla Tomboy-kuvaketta."
 
-#: ../data/tomboy.schemas.in.h:13
+#: ../data/tomboy.schemas.in.h:18
 msgid ""
 "Enable this option to highlight words ThatLookLikeThis. Clicking the word "
 "will create a note with that name."
@@ -120,19 +140,23 @@ msgstr ""
 "Käytä toimintoa, joka korostaa sanat JotkaNäyttävätTältä. Sanan kohdalta "
 "napsauttaminen luo uuden muistilapun tällä nimellä."
 
-#: ../data/tomboy.schemas.in.h:14
+#: ../data/tomboy.schemas.in.h:19
+msgid "FUSE Mounting Timeout (ms)"
+msgstr "FUSE-liitoksen aikakatkaisu (ms)"
+
+#: ../data/tomboy.schemas.in.h:20
 msgid "HTML Export All Linked Notes"
 msgstr "Vie kaikki linkitetyt muistilaput HTML-muodossa"
 
-#: ../data/tomboy.schemas.in.h:15
+#: ../data/tomboy.schemas.in.h:21
 msgid "HTML Export Last Directory"
 msgstr "Vie HTML-muodossa viimeisin hakemisto"
 
-#: ../data/tomboy.schemas.in.h:16
+#: ../data/tomboy.schemas.in.h:22
 msgid "HTML Export Linked Notes"
 msgstr "Vie HTML-muodossa linkitetyt muistilaput"
 
-#: ../data/tomboy.schemas.in.h:17
+#: ../data/tomboy.schemas.in.h:23
 msgid ""
 "If enable_custom_font is true, the font name set here will be used as the "
 "font when displaying notes."
@@ -140,7 +164,7 @@ msgstr ""
 "Jos oma kirjasin on käytössä, käytetään muistilappuja näytettäessä tässä "
 "määriteltyä kirjasinta."
 
-#: ../data/tomboy.schemas.in.h:18
+#: ../data/tomboy.schemas.in.h:24
 msgid ""
 "If enabled, all notes that were open when Tomboy quit will automatically be "
 "reopened at startup."
@@ -148,11 +172,11 @@ msgstr ""
 "Jos käytössä, avataan kaikki viimeksi suljettaessa auki olleen muistilaput "
 "automaattisesti käynnistyttäessä."
 
-#: ../data/tomboy.schemas.in.h:19
+#: ../data/tomboy.schemas.in.h:25
 msgid "If enabled, an opened note can be closed by hitting the escape key."
 msgstr "Jos käytössä, avattu muistilappu voidaan sulkea Escape-näppäimestä."
 
-#: ../data/tomboy.schemas.in.h:20
+#: ../data/tomboy.schemas.in.h:26
 msgid ""
 "If true, misspellings will be underlined in red, and correct spelling "
 "suggestions shown in the right-click menu."
@@ -160,7 +184,7 @@ msgstr ""
 "Jos käytössä, alleviivataan väärin kirjoitukset punaisella ja samalla "
 "näytetään ehdotus oikeaksi kirjoitusasuksi ponnahdusvalikossa."
 
-#: ../data/tomboy.schemas.in.h:21
+#: ../data/tomboy.schemas.in.h:27
 msgid ""
 "If true, the desktop-global keybindings set in /apps/tomboy/"
 "global_keybindings will be enabled, allowing for useful Tomboy actions to be "
@@ -170,7 +194,7 @@ msgstr ""
 "asetettu kohdassa /apps/tomboy/global_keybindings. Nämä mahdollistavat "
 "hyödyllisiä Tomboyn toimintoja mistä tahansa sovelluksesta."
 
-#: ../data/tomboy.schemas.in.h:22
+#: ../data/tomboy.schemas.in.h:28
 msgid ""
 "If true, the font name set in custom_font_face will be used as the font when "
 "displaying notes. Otherwise the desktop default font will be used."
@@ -179,7 +203,7 @@ msgstr ""
 "muistilappuja näytetään. Muussa tapauksessa käytetään työpöydän "
 "oletuskirjasinta."
 
-#: ../data/tomboy.schemas.in.h:23
+#: ../data/tomboy.schemas.in.h:29
 msgid ""
 "Indicates that the Sticky Note Importer plugin has not been run, so it "
 "should run automatically the next time Tomboy starts."
@@ -187,7 +211,7 @@ msgstr ""
 "Ilmoittaa, ettei muistilappujen tuontiliitännäistä ole suoritettu ja että se "
 "pitäisi ajaa automaattisesti, kun tomboy käynnistyy."
 
-#: ../data/tomboy.schemas.in.h:24
+#: ../data/tomboy.schemas.in.h:30
 msgid ""
 "Integer determining the minimum number of notes to show in the Tomboy note "
 "menu."
@@ -195,7 +219,7 @@ msgstr ""
 "Kokonaisluku, joka määrittää kuinka monta muistilappu Tomboyn valikossa "
 "näytetään."
 
-#: ../data/tomboy.schemas.in.h:25
+#: ../data/tomboy.schemas.in.h:31
 msgid ""
 "Integer value indicating if there is a preference to always perform a "
 "specific behavior when a conflict is detected, instead of prompting the "
@@ -209,31 +233,35 @@ msgstr ""
 "aina mitä tehdään, jotta kukin ristiriita voidaan ratkaista "
 "tapauskohtaisesti."
 
-#: ../data/tomboy.schemas.in.h:26
+#: ../data/tomboy.schemas.in.h:32
 msgid "List of pinned notes."
 msgstr "Luettelo kiinnitetyistä muistilapuista"
 
-#: ../data/tomboy.schemas.in.h:27
+#: ../data/tomboy.schemas.in.h:33
 msgid "Minimum number of notes to show in menu"
 msgstr "Valikossa näytettävien muistilappujen vähimmäismäärä"
 
-#: ../data/tomboy.schemas.in.h:28
+#: ../data/tomboy.schemas.in.h:34
 msgid "Note Synchronization Conflict Saved Behavior"
 msgstr "Muistilappujen synkronoinnin ristiriitojen toimintatapa"
 
-#: ../data/tomboy.schemas.in.h:29
+#: ../data/tomboy.schemas.in.h:35
 msgid "Open Recent Changes"
 msgstr "Avaa viimeiset muutokset"
 
-#: ../data/tomboy.schemas.in.h:30
+#: ../data/tomboy.schemas.in.h:36
 msgid "Open Search Dialog"
 msgstr "Avaa hakuikkuna"
 
-#: ../data/tomboy.schemas.in.h:31
+#: ../data/tomboy.schemas.in.h:37
 msgid "Open Start Here"
 msgstr "Avaa Käynnistä tästä"
 
-#: ../data/tomboy.schemas.in.h:32
+#: ../data/tomboy.schemas.in.h:38
+msgid "Path on SSH server to Tomboy synchronization directory (optional)."
+msgstr "Tomboyn synkronointikansion polku SSH-palvimella (valinnainen)."
+
+#: ../data/tomboy.schemas.in.h:39
 msgid ""
 "Path to the synchronization server when using the filesystem synchronization "
 "service addin."
@@ -241,39 +269,71 @@ msgstr ""
 "Polku synkronointipalvelimeen käytettäessä tiedostojärjestelmään perustuvaa "
 "synkronoinnin lisäosaa."
 
-#: ../data/tomboy.schemas.in.h:33
+#: ../data/tomboy.schemas.in.h:40
+msgid "SSHFS Remote Synchronization Folder"
+msgstr "SSHFS-synkronoinnin kansio"
+
+#: ../data/tomboy.schemas.in.h:41
+msgid "SSHFS Remote Synchronization User Name"
+msgstr "SSHFS-synkronoinnin käyttäjä"
+
+#: ../data/tomboy.schemas.in.h:42
+msgid "SSHFS Synchronization Server Port"
+msgstr "SSHFS-synkronoinnin palvelimen portti"
+
+#: ../data/tomboy.schemas.in.h:43
+msgid "SSHFS Synchronization Server URL"
+msgstr "SSHFS-synkronoinnin palvelimen URL"
+
+#: ../data/tomboy.schemas.in.h:44
+msgid "Saved height of Search window"
+msgstr "Hakuikkunan tallennettu korkeus"
+
+#: ../data/tomboy.schemas.in.h:45
+msgid "Saved horizontal position of Search window"
+msgstr "Hakuikkunan tallennettu sijainti vaakasuunnassa"
+
+#: ../data/tomboy.schemas.in.h:46
+msgid "Saved vertical position of Search window"
+msgstr "Hakuikkunan tallennettu sijainti pystysuunnassa"
+
+#: ../data/tomboy.schemas.in.h:47
+msgid "Saved width of Search window"
+msgstr "Hakuikkunan tallennettu leveys"
+
+#: ../data/tomboy.schemas.in.h:48
 msgid "Selected Synchronization Service Addin"
 msgstr "Valittu synkronisointipalvelun lisäosa"
 
-#: ../data/tomboy.schemas.in.h:34
+#: ../data/tomboy.schemas.in.h:49
 msgid "Set to TRUE to activate"
 msgstr "Aseta arvoon TRUE jos haluat aktivoida"
 
-#: ../data/tomboy.schemas.in.h:35
+#: ../data/tomboy.schemas.in.h:50
 msgid "Show applet menu"
 msgstr "Näytä sovelman valikko"
 
-#: ../data/tomboy.schemas.in.h:36
+#: ../data/tomboy.schemas.in.h:51
 msgid "Start Here Note"
 msgstr "Aloita tästä -muistilappu"
 
-#: ../data/tomboy.schemas.in.h:37
+#: ../data/tomboy.schemas.in.h:52
 msgid "Sticky Note Importer First Run"
 msgstr "Muistilappujen tuonnin suoritustila"
 
-#: ../data/tomboy.schemas.in.h:38
+#: ../data/tomboy.schemas.in.h:53
 msgid "Synchronization Client ID"
 msgstr "Synkronointiasiakkaan tunniste"
 
-#: ../data/tomboy.schemas.in.h:39
+#: ../data/tomboy.schemas.in.h:54
 msgid "Synchronization Local Server Path"
 msgstr "Paikallisen synkronointipalvelimen polku"
 
-#: ../data/tomboy.schemas.in.h:40
+#: ../data/tomboy.schemas.in.h:55
 msgid "The date format that is used for the timestamp."
 msgstr "Aikaleimoissa käytetty päiväyksen muoto."
 
-#: ../data/tomboy.schemas.in.h:41
+#: ../data/tomboy.schemas.in.h:56
 msgid ""
 "The global keybinding for creating and displaying a new Note. The format "
 "looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The "
@@ -289,7 +349,7 @@ msgstr ""
 "merkkijonon erikoisarvoon \"disabled\", ei tälle toiminnolle ole "
 "pikanäppäintä."
 
-#: ../data/tomboy.schemas.in.h:42
+#: ../data/tomboy.schemas.in.h:57
 msgid ""
 "The global keybinding for opening the \"Start Here\" note. The format looks "
 "like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
@@ -305,7 +365,7 @@ msgstr ""
 "Ctrl&gt;\". Jos asetat merkkijonon erikoisarvoon \"disabled\", ei tälle "
 "toiminnolle ole pikanäppäintä."
 
-#: ../data/tomboy.schemas.in.h:43
+#: ../data/tomboy.schemas.in.h:58
 msgid ""
 "The global keybinding for opening the Note Search dialog. The format looks "
 "like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
@@ -321,7 +381,7 @@ msgstr ""
 "Ctrl&gt;\". Jos asetat merkkijonon erikoisarvoon \"disabled\", ei tälle "
 "toiminnolle ole pikanäppäintä."
 
-#: ../data/tomboy.schemas.in.h:44
+#: ../data/tomboy.schemas.in.h:59
 msgid ""
 "The global keybinding for opening the Recent Changes dialog. The format "
 "looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The "
@@ -337,7 +397,7 @@ msgstr ""
 "Ctrl&gt;\". Jos asetat merkkijonon erikoisarvoon \"disabled\", ei tälle "
 "toiminnolle ole pikanäppäintä."
 
-#: ../data/tomboy.schemas.in.h:45
+#: ../data/tomboy.schemas.in.h:60
 msgid ""
 "The global keybinding for showing the Tomboy applet's menu. The format looks "
 "like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
@@ -353,18 +413,18 @@ msgstr ""
 "merkkijonon erikoisarvoon \"disabled\", ei tälle toiminnolle ole "
 "pikanäppäintä."
 
-#: ../data/tomboy.schemas.in.h:46
+#: ../data/tomboy.schemas.in.h:61
 msgid "The handler for \"note://\" URLs"
 msgstr "Käsittelijä \"note://\" -URLeille"
 
-#: ../data/tomboy.schemas.in.h:47
+#: ../data/tomboy.schemas.in.h:62
 msgid ""
 "The last directory a note was exported to using the Export To HTML plugin."
 msgstr ""
 "Viimeisin hakemisto, johon \"Vie HTML-tiedostona\"-liitännäisellä "
 "tallennettiin tiedosto."
 
-#: ../data/tomboy.schemas.in.h:48
+#: ../data/tomboy.schemas.in.h:63
 msgid ""
 "The last setting for the 'Export linked notes' checkbox in the Export to "
 "HTML plugin."
@@ -372,7 +432,7 @@ msgstr ""
 "Viimeisin asetus \"Vie linkitetyt muistilaput\"-ruudulle liitännäisessä "
 "\"Vie HTML-tiedostoon\"."
 
-#: ../data/tomboy.schemas.in.h:49
+#: ../data/tomboy.schemas.in.h:64
 msgid ""
 "The last setting for the 'Include all other linked notes' checkbox in the "
 "Export to HTML plugin. This setting is used in conjunction with the 'HTML "
@@ -385,7 +445,7 @@ msgstr ""
 "tulisiko kaikki linkitetyt muistilaput viedä rekursiivisesti vietäessä HTML-"
 "muotoon."
 
-#: ../data/tomboy.schemas.in.h:50
+#: ../data/tomboy.schemas.in.h:65
 msgid ""
 "The note URI of the note that should be considered the \"Start Here\" note, "
 "which is always placed at the bottom of the Tomboy note menu and also "
@@ -395,17 +455,33 @@ msgstr ""
 "sijoitettu Tomboyn muistilappuvalikon alimmaiseksi ja johon pääsee käsiksi "
 "pikanäppäimellä."
 
-#: ../data/tomboy.schemas.in.h:51
+#: ../data/tomboy.schemas.in.h:66
+msgid "The port to use when connecting to the synchronization server via SSH."
+msgstr "Synronointipalvelimen SSH-yhteydessä käytettävä palvelimen portti."
+
+#: ../data/tomboy.schemas.in.h:67
+msgid ""
+"Time (in milliseconds) Tomboy should wait for a response when using FUSE to "
+"mount a sync share."
+msgstr ""
+"Kuinka pitkään (millisekunteina) tomboy odottaa vastausta liitettäessä "
+"FUSE-liitospistettä synkronoitia varten."
+
+#: ../data/tomboy.schemas.in.h:68
 msgid "Timestamp format"
 msgstr "Aikaleiman muoto"
 
-#: ../data/tomboy.schemas.in.h:52
+#: ../data/tomboy.schemas.in.h:69
+msgid "URL of SSH server containing Tomboy synchronization directory."
+msgstr "Tomboyn synkronointikansion sisältävän SSH-palvelimen URL."
+
+#: ../data/tomboy.schemas.in.h:70
 msgid ""
 "Unique identifier for the currently configured note synchronization service "
 "addin."
 msgstr "Yksilöllinen tunniste määritellylle synkronointipalvelun lisäosalle."
 
-#: ../data/tomboy.schemas.in.h:53
+#: ../data/tomboy.schemas.in.h:71
 msgid ""
 "Unique identifier for this Tomboy client, used when communicating with a "
 "sychronization server."
@@ -413,7 +489,20 @@ msgstr ""
 "Yksilöllinen tunniste tälle Tomboy-asiakkaalle, tätä käytetään otettaessa "
 "yhteyttä synkronointipalveluun."
 
-#: ../data/tomboy.schemas.in.h:54
+#: ../data/tomboy.schemas.in.h:72
+msgid ""
+"Use wdfs option \"-ac\" to accept SSL certificates without prompting the "
+"user."
+msgstr ""
+"Käytä wdfs-valitsinta \"-ac\" hyväksymään SSL-varmenteet kysymättä "
+"käyttäjän vahvistusta."
+
+#: ../data/tomboy.schemas.in.h:73
+msgid "User name to use when connecting to the synchronization server via SSH."
+msgstr ""
+"Synronointipalvelimen SSH-yhteydessä käytettävä palvelimen käyttäjä."
+
+#: ../data/tomboy.schemas.in.h:74
 msgid ""
 "Whitespace-separated list of note URIs for notes that should always appear "
 "in the Tomboy note menu."
@@ -457,7 +546,7 @@ msgstr "_Sulje"
 msgid "Close this window"
 msgstr "Sulje tämä ikkuna"
 
-#: ../Tomboy/ActionManager.cs:146 ../Tomboy/Tray.cs:246
+#: ../Tomboy/ActionManager.cs:146 ../Tomboy/Tray.cs:248
 msgid "_Quit"
 msgstr "_Lopeta"
 
@@ -653,7 +742,7 @@ msgstr "Lisää aikaleima"
 
 #. initial newline
 #: ../Tomboy/Addins/InsertTimestamp/InsertTimestampPreferences.cs:29
-#: ../Tomboy/Applet.cs:210 ../Tomboy/Preferences.cs:134
+#: ../Tomboy/Applet.cs:210 ../Tomboy/Preferences.cs:132
 msgid "dddd, MMMM d, h:mm tt"
 msgstr "dddd, MMMMn d., HH:mm"
 
@@ -702,146 +791,24 @@ msgstr ""
 msgid "_Open Today: Template"
 msgstr "Avaa _Tänään:-pohja"
 
-#: ../Tomboy/Addins/PrintNotes/PrintNotesNoteAddin.cs:30
-#: ../Tomboy/Addins/PrintNotes/gedit-print.c:134
+#: ../Tomboy/Addins/PrintNotes/PrintNotesNoteAddin.cs:51
 msgid "Print"
 msgstr "Tulosta"
 
-#: ../Tomboy/Addins/PrintNotes/gedit-print.c:232
-msgid "Preparing pages..."
-msgstr "Valmistellaan sivuja..."
+#: ../Tomboy/Addins/PrintNotes/PrintNotesNoteAddin.cs:79
+msgid "Error printing note"
+msgstr "Virhe tlostettaessa muistilappua"
 
-#: ../Tomboy/Addins/PrintNotes/gedit-print.c:259
-#, c-format
-msgid "Rendering page %d of %d..."
-msgstr "Piirretään sivua %d/%d"
+#: ../Tomboy/Addins/PrintNotes/PrintNotesNoteAddin.cs:205
+#, csharp-format
+msgid "Page {0} of {1}"
+msgstr "Sivu {0} / {1}"
 
-#: ../Tomboy/Addins/PrintNotes/gedit-print.c:261
-#, c-format
-msgid "Printing page %d of %d..."
-msgstr "Tulostetaan sivua %d/%d"
-
-#: ../Tomboy/Addins/PrintNotes/gedit-print.c:283
-msgid "Print preview"
-msgstr "Tulostuksen esikatselu"
-
-#: ../Tomboy/Addins/PrintNotes/gedit-print.c:434
-msgid "Page %N of %Q"
-msgstr "Sivu %N/%Q"
-
-#: ../Tomboy/Addins/PrintNotes/gedit-print.c:437
-#, no-c-format
-msgid "%A %x, %X"
-msgstr "%A %x, %X"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:266
-msgid "Configuration"
-msgstr "Tulostusasetukset"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:267
-msgid "Configuration options for the print job"
-msgstr "Tulostustyöhön liittyvät asetukset"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:274
-msgid "Source Buffer"
-msgstr "Lähdepuskuri"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:275
-msgid "GtkTextBuffer object to print"
-msgstr "Tulostettava GtkTextBuffer-olio"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:281
-msgid "Tabs Width"
-msgstr "Sarkainten leveys"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:282
-msgid "Width in equivalent space characters of tabs"
-msgstr "Sarkaimen leveys välilyönteinä"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:289
-msgid "Wrap Mode"
-msgstr "Rivitystapa"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:290
-msgid "Word wrapping mode"
-msgstr "Sanojen rivitystapa"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:297
-msgid "Highlight"
-msgstr "Korostus"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:298
-msgid "Whether to print the document with highlighted syntax"
-msgstr "Tulostetaanko asiakirja syntaksin korostuksen kanssa"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:306
-msgid "Font"
-msgstr "Kirjasin"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:307
-msgid "GnomeFont name to use for the document text (deprecated)"
-msgstr "Asiakirjan tekstille käytettävä GnomeFont-nimi (vanhentunut)"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:314
-msgid "Font Description"
-msgstr "Kirjasimen kuvaus"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:315
-msgid "Font to use for the document text (e.g. \"Monospace 10\")"
-msgstr "Tekstille käytettävä kirjasin (esim. \"Monospace 10\")"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:322
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:330
-msgid "Numbers Font"
-msgstr "Numeroiden kirjasin"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:323
-msgid "GnomeFont name to use for the line numbers (deprecated)"
-msgstr "Asiakirjan rivinumeroille käytettävä GnomeFont-nimi (vanhentunut)"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:331
-msgid "Font description to use for the line numbers"
-msgstr "Rivinumeroille käytettävän kirjasimen kuvaus"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:338
-msgid "Print Line Numbers"
-msgstr "Tulosta rivinumerot"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:339
-msgid "Interval of printed line numbers (0 means no numbers)"
-msgstr "Tulostettujen rivinumeroiden väli (0 tarkoittaa ei rivinumeroita)"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:346
-msgid "Print Header"
-msgstr "Tulosta otsake"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:347
-msgid "Whether to print a header in each page"
-msgstr "Tulostetaanko joka sivulle otsake"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:354
-msgid "Print Footer"
-msgstr "Tulosta alaotsake"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:355
-msgid "Whether to print a footer in each page"
-msgstr "Tulostetaanko joka sivulle alaotsake"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:362
-msgid "Header and Footer Font"
-msgstr "Otsakkeiden kirjasin"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:363
-msgid "GnomeFont name to use for the header and footer (deprecated)"
-msgstr "Asiakirjan otsakkeille käytettävä GnomeFont-nimi (vanhentunut)"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:370
-msgid "Header and Footer Font Description"
-msgstr "Otsakkeille käytettävän kirjasimen kuvaus"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:371
-msgid "Font to use for headers and footers (e.g. \"Monospace 10\")"
-msgstr "Otsakkeille käytettävä kirjasin (esim. \"Monospace 10\")"
+#. Translators: Explanation of the date and time format specifications can be found here:
+#. * http://msdn.microsoft.com/en-us/library/system.globalization.datetimeformatinfo.aspx
+#: ../Tomboy/Addins/PrintNotes/PrintNotesNoteAddin.cs:224
+msgid "dddd MM/dd/yyyy, hh:mm:ss tt"
+msgstr "dddd, MMMMn d., HH:mm:ss"
 
 #: ../Tomboy/Addins/Sketching/SketchingNoteAddin.cs:19
 msgid "Add a sketch"
@@ -947,7 +914,7 @@ msgstr "URL, käyttäjätunnus tai salasana on tyhjä."
 msgid "WebDAV (wdfs FUSE)"
 msgstr "WebDAV (FUSE-wdfs)"
 
-#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:190
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:191
 msgid ""
 "There was an error connecting to the server.  This may be caused by using an "
 "incorrect user name and/or password."
@@ -960,7 +927,7 @@ msgstr ""
 #. Save configuration into GConf
 #. Preferences.Set ("/apps/tomboy/sync_wdfs_url", url ?? string.Empty);
 #. Preferences.Set ("/apps/tomboy/sync_wdfs_username", username ?? string.Empty);
-#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:266
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:267
 msgid ""
 "Saving configuration to the GNOME keyring failed with the following message:"
 msgstr ""
@@ -1078,35 +1045,35 @@ msgstr "Ei muistiota"
 msgid "New \"{0}\" Note"
 msgstr "Uusi \"{0}\"-muistilappu"
 
-#: ../Tomboy/Notebooks/NotebookNoteAddin.cs:46
+#: ../Tomboy/Notebooks/NotebookNoteAddin.cs:45
 msgid "Place this note into a notebook"
 msgstr "Siirrä tämä muistilappu muistioon"
 
-#: ../Tomboy/Notebooks/NotebookNoteAddin.cs:127
+#: ../Tomboy/Notebooks/NotebookNoteAddin.cs:126
 msgid "Notebook"
 msgstr "Muistio"
 
-#: ../Tomboy/Notebooks/NotebookNoteAddin.cs:156
+#: ../Tomboy/Notebooks/NotebookNoteAddin.cs:155
 msgid "_New notebook..."
 msgstr "Uusi mu_istio..."
 
-#: ../Tomboy/Note.cs:1428
+#: ../Tomboy/Note.cs:1427
 msgid "Really delete this note?"
 msgstr "Poistetaanko tämä muistilappu?"
 
-#: ../Tomboy/Note.cs:1430
+#: ../Tomboy/Note.cs:1429
 msgid "Really delete these notes?"
 msgstr "Poistetaanko nämä muistilaput?"
 
-#: ../Tomboy/Note.cs:1439
+#: ../Tomboy/Note.cs:1438
 msgid "If you delete a note it is permanently lost."
 msgstr "Jos poistat, hukataan muistilappu pysyvästi."
 
-#: ../Tomboy/Note.cs:1473
+#: ../Tomboy/Note.cs:1472
 msgid "Error saving note data."
 msgstr "Virhe tallennettaessa muistilapun tietoja."
 
-#: ../Tomboy/Note.cs:1474
+#: ../Tomboy/Note.cs:1473
 msgid ""
 "An error occurred while saving your notes. Please check that you have "
 "sufficient disk space, and that you have appropriate rights on ~/.tomboy. "
@@ -1521,15 +1488,18 @@ msgstr ""
 "asetukset nollataan nyt. Voi olla, että joudut synkronoimaan kaikki "
 "muistilaput uudestaan tallennettuasi uudet asetukset."
 
-#: ../Tomboy/PreferencesDialog.cs:1169
+#: ../Tomboy/PreferencesDialog.cs:1170
 msgid "Success! You're connected!"
 msgstr "Onnistui, yhteys on auki!"
 
-#: ../Tomboy/PreferencesDialog.cs:1171
-msgid "Tomboy is ready to synchronize your notes."
-msgstr "Tomboy on valmis synkronoimaan muistilappusi."
+#: ../Tomboy/PreferencesDialog.cs:1172
+msgid ""
+"Tomboy is ready to synchronize your notes. Would you like to synchronize "
+"them now?"
+msgstr ""
+"Tomboy on valmis synkronoimaan muistilappusi. Haluatko synkronoida ne heti?"
 
-#: ../Tomboy/PreferencesDialog.cs:1190
+#: ../Tomboy/PreferencesDialog.cs:1195
 msgid ""
 "Sorry, but something went wrong.  Please check your information and try "
 "again.  The ~/.tomboy.log might be useful too."
@@ -1537,23 +1507,23 @@ msgstr ""
 "Valitettavasti jotain meni pieleen. Tarkista tiedot ja yritä uudestaan. Voit "
 "myös katsoa sisältääkö lokitiedosto ~/.tomboy.log hyödyllisiä tietoja."
 
-#: ../Tomboy/PreferencesDialog.cs:1199
+#: ../Tomboy/PreferencesDialog.cs:1204
 msgid "Error connecting :("
 msgstr "Virhe otettaessa yhteyttä"
 
-#: ../Tomboy/PreferencesDialog.cs:1275
+#: ../Tomboy/PreferencesDialog.cs:1280
 msgid "Version:"
 msgstr "Versio:"
 
-#: ../Tomboy/PreferencesDialog.cs:1282
+#: ../Tomboy/PreferencesDialog.cs:1287
 msgid "Author:"
 msgstr "Tekijä:"
 
-#: ../Tomboy/PreferencesDialog.cs:1289
+#: ../Tomboy/PreferencesDialog.cs:1294
 msgid "Copyright:"
 msgstr "Tekijänoikeudet:"
 
-#: ../Tomboy/PreferencesDialog.cs:1295
+#: ../Tomboy/PreferencesDialog.cs:1300
 msgid "Add-in Dependencies:"
 msgstr "Lisäosan riippuvuudet:"
 
@@ -1606,30 +1576,30 @@ msgstr[1] "Täsmää: {0} muistilappua"
 msgid "Notes"
 msgstr "Muistilaput"
 
-#: ../Tomboy/Tomboy.cs:203
+#: ../Tomboy/Tomboy.cs:205
 msgid "Cannot create new note"
 msgstr "Uutta muistilappua ei voi luoda"
 
-#: ../Tomboy/Tomboy.cs:290
+#: ../Tomboy/Tomboy.cs:292
 msgid "translator-credits"
 msgstr ""
 "Ilkka Tuohela, 2005-2009\n"
 "\n"
 "http://www.gnome.fi/"
 
-#: ../Tomboy/Tomboy.cs:299
+#: ../Tomboy/Tomboy.cs:301
 msgid "Copyright © 2004-2007 Alex Graveley"
 msgstr "Copyright © 2004-2007 Alex Graveley"
 
-#: ../Tomboy/Tomboy.cs:300
+#: ../Tomboy/Tomboy.cs:302
 msgid "A simple and easy to use desktop note-taking application."
 msgstr "Yksinkertainen ja helppokäyttöinen muistilappusovellus."
 
-#: ../Tomboy/Tomboy.cs:306
+#: ../Tomboy/Tomboy.cs:312
 msgid "Homepage"
 msgstr "Kotisivu"
 
-#: ../Tomboy/Tomboy.cs:413
+#: ../Tomboy/Tomboy.cs:419
 msgid ""
 "Tomboy: A simple, easy to use desktop note-taking application.\n"
 "Copyright (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
@@ -1639,7 +1609,7 @@ msgstr ""
 "työpöydänmuistilapuille.\n"
 "Copyright (©) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
 
-#: ../Tomboy/Tomboy.cs:425
+#: ../Tomboy/Tomboy.cs:431
 msgid ""
 "Usage:\n"
 "  --version\t\t\tPrint version information.\n"
@@ -1654,7 +1624,7 @@ msgstr ""
 "  --search [teksti]\t\tAvaa hakuikkunan teksti kaikkien muistilappujen "
 "hakuun.\n"
 
-#: ../Tomboy/Tomboy.cs:436
+#: ../Tomboy/Tomboy.cs:442
 msgid ""
 "  --new-note\t\t\tCreate and display a new note.\n"
 "  --new-note [title]\t\tCreate and display a new note, with a title.\n"
@@ -1674,16 +1644,16 @@ msgstr ""
 #. Catalog.GetString (
 #. "  --check-plugin-unloading\tCheck if plugins are " +
 #. "unloaded properly.\n");
-#: ../Tomboy/Tomboy.cs:453
+#: ../Tomboy/Tomboy.cs:459
 msgid "D-BUS remote control disabled.\n"
 msgstr "D-BUS-etäohjaus ei käytössä.\n"
 
-#: ../Tomboy/Tomboy.cs:461
+#: ../Tomboy/Tomboy.cs:467
 #, csharp-format
 msgid "Version {0}"
 msgstr "Versio {0}"
 
-#: ../Tomboy/Tomboy.cs:531
+#: ../Tomboy/Tomboy.cs:537
 #, csharp-format
 msgid ""
 "Tomboy: unsupported option '{0}'\n"
@@ -1698,7 +1668,7 @@ msgstr ""
 msgid " (new)"
 msgstr " (uusi)"
 
-#: ../Tomboy/Tray.cs:239
+#: ../Tomboy/Tray.cs:241
 msgid "_About Tomboy"
 msgstr "_Tietoja Tomboysta"
 
@@ -1714,70 +1684,82 @@ msgstr ""
 msgid "Help not found"
 msgstr "Ohjetta ei löytynyt"
 
-#: ../Tomboy/Utils.cs:178
+#: ../Tomboy/Utils.cs:171
+msgid "Cannot open location"
+msgstr "Sijaintia ei voi avata"
+
+#: ../Tomboy/Utils.cs:193
 #, csharp-format
 msgid "Today, {0}"
 msgstr "Tänään, {0}"
 
-#: ../Tomboy/Utils.cs:180
+#: ../Tomboy/Utils.cs:195
 msgid "Today"
 msgstr "Tänään"
 
-#: ../Tomboy/Utils.cs:184
+#: ../Tomboy/Utils.cs:199
 #, csharp-format
 msgid "Yesterday, {0}"
 msgstr "Eilen, {0}"
 
-#: ../Tomboy/Utils.cs:186
+#: ../Tomboy/Utils.cs:201
 msgid "Yesterday"
 msgstr "Eilen"
 
-#: ../Tomboy/Utils.cs:190
+#: ../Tomboy/Utils.cs:206
 #, csharp-format
-msgid "{0} days ago, {1}"
-msgstr "{0} päivää sitten, {1}"
+msgid "{0} day ago, {1}"
+msgid_plural "{0} days ago, {1}"
+msgstr[0] "{0} päivä sitten, {1}"
+msgstr[1] "{0} päivää sitten, {1}"
 
-#: ../Tomboy/Utils.cs:192
+#: ../Tomboy/Utils.cs:210
 #, csharp-format
-msgid "{0} days ago"
-msgstr "{0} päivää sitten"
+msgid "{0} day ago"
+msgid_plural "{0} days ago"
+msgstr[0] "{0} päivä sitten"
+msgstr[1] "{0} päivää sitten"
 
-#: ../Tomboy/Utils.cs:197
+#: ../Tomboy/Utils.cs:216
 #, csharp-format
 msgid "Tomorrow, {0}"
 msgstr "Huomenna, {0}"
 
-#: ../Tomboy/Utils.cs:199
+#: ../Tomboy/Utils.cs:218
 msgid "Tomorrow"
 msgstr "Huomenna"
 
-#: ../Tomboy/Utils.cs:203
+#: ../Tomboy/Utils.cs:223
 #, csharp-format
-msgid "In {0} days, {1}"
-msgstr "{0} päivän kuluttua, {1}"
+msgid "In {0} day, {1}"
+msgid_plural "In {0} days, {1}"
+msgstr[0] "{0} päivän kuluttua, {1}"
+msgstr[1] "{0} päivän kuluttua, {1}"
 
-#: ../Tomboy/Utils.cs:205
+#: ../Tomboy/Utils.cs:227
 #, csharp-format
-msgid "In {0} days"
-msgstr "{0} päivän kuluttua"
+msgid "In {0} day"
+msgid_plural "In {0} days"
+msgstr[0] "{0} päivän kuluttua"
+msgstr[1] "{0} päivän kuluttua"
 
-#: ../Tomboy/Utils.cs:209
+#: ../Tomboy/Utils.cs:232
 msgid "MMMM d, h:mm tt"
 msgstr "MMMMn d. HH:mm"
 
-#: ../Tomboy/Utils.cs:210
+#: ../Tomboy/Utils.cs:233
 msgid "MMMM d"
 msgstr "MMMMn d."
 
-#: ../Tomboy/Utils.cs:212
+#: ../Tomboy/Utils.cs:235
 msgid "No Date"
 msgstr "Ei päiväystä"
 
-#: ../Tomboy/Utils.cs:215
+#: ../Tomboy/Utils.cs:238
 msgid "MMMM d yyyy, h:mm tt"
 msgstr "MMMMn d. yyyy, HH:mm"
 
-#: ../Tomboy/Utils.cs:216
+#: ../Tomboy/Utils.cs:239
 msgid "MMMM d yyyy"
 msgstr "MMMMn d. yyyy"
 
@@ -1799,15 +1781,11 @@ msgstr ""
 msgid "Note title taken"
 msgstr "Muistilapun nimi käytössä"
 
-#: ../Tomboy/Watchers.cs:472
-msgid "Cannot open location"
-msgstr "Sijaintia ei voi avata"
-
-#: ../Tomboy/Watchers.cs:566
+#: ../Tomboy/Watchers.cs:551
 msgid "_Copy Link Address"
 msgstr "Kopioi linkin osoite"
 
-#: ../Tomboy/Watchers.cs:571
+#: ../Tomboy/Watchers.cs:556
 msgid "_Open Link"
 msgstr "_Avaa linkki"
 
@@ -1820,19 +1798,27 @@ msgstr ""
 "Tätä synkronoinnin lisäosaa ei ole tuettu tietokoneellasi. Varmista, että "
 "FUSE ja {0} on oikein asennettu ja määritelty"
 
-#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:178
+#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:129
+msgid "Could not read testfile."
+msgstr "Testitiedostoa ei voitu lukea."
+
+#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:132
+msgid "Write test failed."
+msgstr "Kirjoitustesti epäonnistui."
+
+#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:176
 msgid "Timeout connecting to server."
 msgstr "Aikakatkaisu otettaessa yhteyttä palvelimeen."
 
-#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:186
+#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:184
 msgid "Error connecting to server."
 msgstr "Virhe otettaessa yhteyttä palvelimeen."
 
-#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:200
+#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:198
 msgid "FUSE could not be enabled."
 msgstr "FUSE:a ei voitu ottaa käyttöön."
 
-#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:235
+#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:233
 msgid "An error ocurred while connecting to the specified server:"
 msgstr "Tapahtui virhe otettaessa yhteyttä määriteltyyn palvelimeen:"
 
@@ -2079,6 +2065,102 @@ msgstr ""
 "Jotta tätä kysymystä ei kysyttäisi jatkossa, tulisi FUSE ladata "
 "käynnistettäessä. Lisää \"modprobe fuse\" tiedostoon /etc/init.d/boot.local "
 "tai rivi \"fuse\" tiedostoon /etc/modules."
+
+#~ msgid "Preparing pages..."
+#~ msgstr "Valmistellaan sivuja..."
+
+#~ msgid "Rendering page %d of %d..."
+#~ msgstr "Piirretään sivua %d/%d"
+
+#~ msgid "Printing page %d of %d..."
+#~ msgstr "Tulostetaan sivua %d/%d"
+
+#~ msgid "Print preview"
+#~ msgstr "Tulostuksen esikatselu"
+
+#~ msgid "%A %x, %X"
+#~ msgstr "%A %x, %X"
+
+#~ msgid "Configuration"
+#~ msgstr "Tulostusasetukset"
+
+#~ msgid "Configuration options for the print job"
+#~ msgstr "Tulostustyöhön liittyvät asetukset"
+
+#~ msgid "Source Buffer"
+#~ msgstr "Lähdepuskuri"
+
+#~ msgid "GtkTextBuffer object to print"
+#~ msgstr "Tulostettava GtkTextBuffer-olio"
+
+#~ msgid "Tabs Width"
+#~ msgstr "Sarkainten leveys"
+
+#~ msgid "Width in equivalent space characters of tabs"
+#~ msgstr "Sarkaimen leveys välilyönteinä"
+
+#~ msgid "Wrap Mode"
+#~ msgstr "Rivitystapa"
+
+#~ msgid "Word wrapping mode"
+#~ msgstr "Sanojen rivitystapa"
+
+#~ msgid "Highlight"
+#~ msgstr "Korostus"
+
+#~ msgid "Whether to print the document with highlighted syntax"
+#~ msgstr "Tulostetaanko asiakirja syntaksin korostuksen kanssa"
+
+#~ msgid "Font"
+#~ msgstr "Kirjasin"
+
+#~ msgid "GnomeFont name to use for the document text (deprecated)"
+#~ msgstr "Asiakirjan tekstille käytettävä GnomeFont-nimi (vanhentunut)"
+
+#~ msgid "Font Description"
+#~ msgstr "Kirjasimen kuvaus"
+
+#~ msgid "Font to use for the document text (e.g. \"Monospace 10\")"
+#~ msgstr "Tekstille käytettävä kirjasin (esim. \"Monospace 10\")"
+
+#~ msgid "Numbers Font"
+#~ msgstr "Numeroiden kirjasin"
+
+#~ msgid "GnomeFont name to use for the line numbers (deprecated)"
+#~ msgstr "Asiakirjan rivinumeroille käytettävä GnomeFont-nimi (vanhentunut)"
+
+#~ msgid "Font description to use for the line numbers"
+#~ msgstr "Rivinumeroille käytettävän kirjasimen kuvaus"
+
+#~ msgid "Print Line Numbers"
+#~ msgstr "Tulosta rivinumerot"
+
+#~ msgid "Interval of printed line numbers (0 means no numbers)"
+#~ msgstr "Tulostettujen rivinumeroiden väli (0 tarkoittaa ei rivinumeroita)"
+
+#~ msgid "Print Header"
+#~ msgstr "Tulosta otsake"
+
+#~ msgid "Whether to print a header in each page"
+#~ msgstr "Tulostetaanko joka sivulle otsake"
+
+#~ msgid "Print Footer"
+#~ msgstr "Tulosta alaotsake"
+
+#~ msgid "Whether to print a footer in each page"
+#~ msgstr "Tulostetaanko joka sivulle alaotsake"
+
+#~ msgid "Header and Footer Font"
+#~ msgstr "Otsakkeiden kirjasin"
+
+#~ msgid "GnomeFont name to use for the header and footer (deprecated)"
+#~ msgstr "Asiakirjan otsakkeille käytettävä GnomeFont-nimi (vanhentunut)"
+
+#~ msgid "Header and Footer Font Description"
+#~ msgstr "Otsakkeille käytettävän kirjasimen kuvaus"
+
+#~ msgid "Font to use for headers and footers (e.g. \"Monospace 10\")"
+#~ msgstr "Otsakkeille käytettävä kirjasin (esim. \"Monospace 10\")"
 
 #~ msgid "Add-in"
 #~ msgstr "Lisäosa"
