@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tomboy\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=tomboy&component=general\n"
-"POT-Creation-Date: 2009-02-16 23:00+0000\n"
-"PO-Revision-Date: 2009-02-17 21:53+0200\n"
+"POT-Creation-Date: 2009-02-22 13:04+0000\n"
+"PO-Revision-Date: 2009-02-22 16:14+0200\n"
 "Last-Translator: Adi Roiban <adi@roiban.ro>\n"
 "Language-Team: Română <gnomero-list@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -216,22 +216,18 @@ msgid "Path to the synchronization server when using the filesystem synchronizat
 msgstr "Calea către serverul de sincronizare când este folosit modulul de sincronizare pe bază de sistem de fișiere."
 
 #: ../data/tomboy.schemas.in.h:40
-#| msgid "Select Synchronization Folder..."
 msgid "SSHFS Remote Synchronization Folder"
 msgstr "Dosar sincronizare la distanță SSHFS"
 
 #: ../data/tomboy.schemas.in.h:41
-#| msgid "Selected Synchronization Service Addin"
 msgid "SSHFS Remote Synchronization User Name"
 msgstr "Nume utilizator sincronizare la distanță SSHFS"
 
 #: ../data/tomboy.schemas.in.h:42
-#| msgid "Synchronization Service Error"
 msgid "SSHFS Synchronization Server Port"
 msgstr "Port server sincronizare SSHFS"
 
 #: ../data/tomboy.schemas.in.h:43
-#| msgid "Synchronization Service Error"
 msgid "SSHFS Synchronization Server URL"
 msgstr "URL server sincronizare SSHFS"
 
@@ -248,7 +244,6 @@ msgid "Saved vertical position of Search window"
 msgstr "Poziția verticală salvată pentru fereastra de căutare"
 
 #: ../data/tomboy.schemas.in.h:47
-#| msgid "Open the Search All Notes window"
 msgid "Saved width of Search window"
 msgstr "Lățimea salvată a ferestrei de căutare"
 
@@ -325,7 +320,6 @@ msgid "The note URI of the note that should be considered the \"Start Here\" not
 msgstr "URI-ul notiței care să fie notița „Începeți aici”. Ea va fi plasată întotdeauna în meniul Tomboy și accesibilă cu ajutorul unei taste rapide."
 
 #: ../data/tomboy.schemas.in.h:66
-#| msgid "Error connecting to the synchronization service.  Please try again."
 msgid "The port to use when connecting to the synchronization server via SSH."
 msgstr "Portul folosit pentru conectarea la serverul de sincronizare prin SSH."
 
@@ -354,7 +348,6 @@ msgid "Use wdfs option \"-ac\" to accept SSL certificates without prompting the 
 msgstr "Folosiți opțiunea wdfs „-ac” pentru a accepta certificate SSL fără a întreba utilizatorul."
 
 #: ../data/tomboy.schemas.in.h:73
-#| msgid "Error connecting to the synchronization service.  Please try again."
 msgid "User name to use when connecting to the synchronization server via SSH."
 msgstr "Numele de utilizator folosit pentru conectarea la serverul de sincronizare prin SSH."
 
@@ -497,7 +490,6 @@ msgid "Error saving icon"
 msgstr "Eroare la salvarea iconiței"
 
 #: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:257
-#| msgid "Could not save the icon file.  "
 msgid "Could not save the icon file."
 msgstr "Nu s-a putut salva fișierul iconiță.  "
 
@@ -646,20 +638,17 @@ msgid "Print"
 msgstr "Tipărește"
 
 #: ../Tomboy/Addins/PrintNotes/PrintNotesNoteAddin.cs:79
-#| msgid "Error saving note data."
 msgid "Error printing note"
 msgstr "Eroare tipărire notiță"
 
 #: ../Tomboy/Addins/PrintNotes/PrintNotesNoteAddin.cs:205
 #, csharp-format
-#| msgid "Page %N of %Q"
 msgid "Page {0} of {1}"
 msgstr "Pagina {0} din {1}"
 
 #. Translators: Explanation of the date and time format specifications can be found here:
 #. * http://msdn.microsoft.com/en-us/library/system.globalization.datetimeformatinfo.aspx
 #: ../Tomboy/Addins/PrintNotes/PrintNotesNoteAddin.cs:224
-#| msgid "dddd, MMMM d, h:mm tt"
 msgid "dddd MM/dd/yyyy, hh:mm:ss tt"
 msgstr "dddd MM/dd/yyyy, hh:mm:ss tt"
 
@@ -895,19 +884,24 @@ msgstr "Carnețel _nou..."
 msgid "Really delete this note?"
 msgstr "Doriți să stergeți această notiță?"
 
-#: ../Tomboy/Note.cs:1429
-msgid "Really delete these notes?"
-msgstr "Doriți să ștergeți aceste notițe?"
+#: ../Tomboy/Note.cs:1430
+#, csharp-format
+#| msgid "Really delete this note?"
+msgid "Really delete this {0} note?"
+msgid_plural "Really delete these {0} notes?"
+msgstr[0] "Doriți să stergeți {0} notiță?"
+msgstr[1] "Doriți să stergeți {0} notițe?"
+msgstr[2] "Doriți să stergeți {0} de notițe?"
 
-#: ../Tomboy/Note.cs:1438
+#: ../Tomboy/Note.cs:1441
 msgid "If you delete a note it is permanently lost."
 msgstr "Dacă ștergeți o notiță, aceasta nu va mai putea fi recuperată."
 
-#: ../Tomboy/Note.cs:1472
+#: ../Tomboy/Note.cs:1475
 msgid "Error saving note data."
 msgstr "Eroare la salvarea datelor din notiță."
 
-#: ../Tomboy/Note.cs:1473
+#: ../Tomboy/Note.cs:1476
 msgid "An error occurred while saving your notes. Please check that you have sufficient disk space, and that you have appropriate rights on ~/.tomboy. Error details can be found in ~/.tomboy.log."
 msgstr "S-a produs o eroare la salvarea notiței. Vă rugăm să verificați că aveți spațiu suficient pe disc și aveți drepturi de scriere în ~/.tomboy. Detaliile de eroare se găsesc în  ~/.tomboy.log."
 
@@ -1270,7 +1264,6 @@ msgid "Success! You're connected!"
 msgstr "Succes! Sunteți conectat!"
 
 #: ../Tomboy/PreferencesDialog.cs:1172
-#| msgid "Tomboy is ready to synchronize your notes."
 msgid "Tomboy is ready to synchronize your notes. Would you like to synchronize them now?"
 msgstr "Tomboy este pregătit pentru sincronizarea notițelor dumneavoastră. Doriți să le sincronizați acum?"
 
@@ -1482,7 +1475,6 @@ msgstr "Ieri"
 
 #: ../Tomboy/Utils.cs:206
 #, csharp-format
-#| msgid "{0} days ago, {1}"
 msgid "{0} day ago, {1}"
 msgid_plural "{0} days ago, {1}"
 msgstr[0] "{0} zi în urmă, {1}"
@@ -1491,7 +1483,6 @@ msgstr[2] "{0} de zile în urmă, {1}"
 
 #: ../Tomboy/Utils.cs:210
 #, csharp-format
-#| msgid "{0} days ago"
 msgid "{0} day ago"
 msgid_plural "{0} days ago"
 msgstr[0] "acum {0} zi"
@@ -1509,7 +1500,6 @@ msgstr "Mâine"
 
 #: ../Tomboy/Utils.cs:223
 #, csharp-format
-#| msgid "In {0} days, {1}"
 msgid "In {0} day, {1}"
 msgid_plural "In {0} days, {1}"
 msgstr[0] "În {0} zi, {1}"
@@ -1518,7 +1508,6 @@ msgstr[2] "În {0} de zile, {1}"
 
 #: ../Tomboy/Utils.cs:227
 #, csharp-format
-#| msgid "In {0} days"
 msgid "In {0} day"
 msgid_plural "In {0} days"
 msgstr[0] "În {0} zi"
@@ -1573,7 +1562,6 @@ msgid "This synchronization addin is not supported on your computer. Please make
 msgstr "Modulul de sincronizare nu este suportat de calculatorul dumneavoastră. Verificați că aveți instalat și configurat FUSE și {0}"
 
 #: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:129
-#| msgid "Could not save the icon file.  "
 msgid "Could not read testfile."
 msgstr "Nu s-a putut citi fișier test."
 
@@ -1823,6 +1811,8 @@ msgstr ""
 "\n"
 "Pentru a evită apariția acestui dialog, încărcați modulul FUSE la pornire. Adăugați „modprobe fuse” în /etc/init.d/boot.local sau „fuse” în /etc/modules."
 
+#~ msgid "Really delete these notes?"
+#~ msgstr "Doriți să ștergeți aceste notițe?"
 #~ msgid "Add-in"
 #~ msgstr "Modul"
 #~ msgid "Version"
