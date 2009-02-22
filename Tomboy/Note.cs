@@ -1426,7 +1426,10 @@ namespace Tomboy
 			if (notes.Count == 1)
 				message = Catalog.GetString ("Really delete this note?");
 			else
-				message = Catalog.GetString ("Really delete these notes?");
+				message = string.Format (Catalog.GetPluralString (
+					"Really delete this {0} note?",
+					"Really delete these {0} notes?",
+					notes.Count), notes.Count);
 			
 			HIGMessageDialog dialog =
 			        new HIGMessageDialog (
