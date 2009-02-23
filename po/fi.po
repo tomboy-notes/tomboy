@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tomboy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-02-19 09:57+0300\n"
-"PO-Revision-Date: 2009-02-19 10:05+0300\n"
+"POT-Creation-Date: 2009-02-23 16:52+0300\n"
+"PO-Revision-Date: 2009-02-23 16:55+0300\n"
 "Last-Translator: Ilkka Tuohela <hile@iki.fi>\n"
 "Language-Team: Finnish <gnome-fi-laatu@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -464,8 +464,8 @@ msgid ""
 "Time (in milliseconds) Tomboy should wait for a response when using FUSE to "
 "mount a sync share."
 msgstr ""
-"Kuinka pitkään (millisekunteina) tomboy odottaa vastausta liitettäessä "
-"FUSE-liitospistettä synkronoitia varten."
+"Kuinka pitkään (millisekunteina) tomboy odottaa vastausta liitettäessä FUSE-"
+"liitospistettä synkronoitia varten."
 
 #: ../data/tomboy.schemas.in.h:68
 msgid "Timestamp format"
@@ -494,13 +494,12 @@ msgid ""
 "Use wdfs option \"-ac\" to accept SSL certificates without prompting the "
 "user."
 msgstr ""
-"Käytä wdfs-valitsinta \"-ac\" hyväksymään SSL-varmenteet kysymättä "
-"käyttäjän vahvistusta."
+"Käytä wdfs-valitsinta \"-ac\" hyväksymään SSL-varmenteet kysymättä käyttäjän "
+"vahvistusta."
 
 #: ../data/tomboy.schemas.in.h:73
 msgid "User name to use when connecting to the synchronization server via SSH."
-msgstr ""
-"Synronointipalvelimen SSH-yhteydessä käytettävä palvelimen käyttäjä."
+msgstr "Synronointipalvelimen SSH-yhteydessä käytettävä palvelimen käyttäjä."
 
 #: ../data/tomboy.schemas.in.h:74
 msgid ""
@@ -1061,19 +1060,22 @@ msgstr "Uusi mu_istio..."
 msgid "Really delete this note?"
 msgstr "Poistetaanko tämä muistilappu?"
 
-#: ../Tomboy/Note.cs:1429
-msgid "Really delete these notes?"
-msgstr "Poistetaanko nämä muistilaput?"
+#: ../Tomboy/Note.cs:1430
+#, csharp-format
+msgid "Really delete this {0} note?"
+msgid_plural "Really delete these {0} notes?"
+msgstr[0] "Poistetaanko tämä {0}-muistilappu?"
+msgstr[1] "Poistetaanko nämä {0}-muistilaput?"
 
-#: ../Tomboy/Note.cs:1438
+#: ../Tomboy/Note.cs:1441
 msgid "If you delete a note it is permanently lost."
 msgstr "Jos poistat, hukataan muistilappu pysyvästi."
 
-#: ../Tomboy/Note.cs:1472
+#: ../Tomboy/Note.cs:1475
 msgid "Error saving note data."
 msgstr "Virhe tallennettaessa muistilapun tietoja."
 
-#: ../Tomboy/Note.cs:1473
+#: ../Tomboy/Note.cs:1476
 msgid ""
 "An error occurred while saving your notes. Please check that you have "
 "sufficient disk space, and that you have appropriate rights on ~/.tomboy. "
@@ -2065,6 +2067,9 @@ msgstr ""
 "Jotta tätä kysymystä ei kysyttäisi jatkossa, tulisi FUSE ladata "
 "käynnistettäessä. Lisää \"modprobe fuse\" tiedostoon /etc/init.d/boot.local "
 "tai rivi \"fuse\" tiedostoon /etc/modules."
+
+#~ msgid "Really delete these notes?"
+#~ msgstr "Poistetaanko nämä muistilaput?"
 
 #~ msgid "Preparing pages..."
 #~ msgstr "Valmistellaan sivuja..."
