@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tomboy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-02-17 13:22+0900\n"
-"PO-Revision-Date: 2009-02-17 13:32+0900\n"
+"POT-Creation-Date: 2009-02-26 15:57+0900\n"
+"PO-Revision-Date: 2009-02-26 15:57+0900\n"
 "Last-Translator: Changwoo Ryu <cwryu@debian.org>\n"
 "Language-Team: GNOME Korea <gnome-kr-hackers@lists.kldp.net>\n"
 "MIME-Version: 1.0\n"
@@ -442,7 +442,8 @@ msgstr "SSH를 통한 동기화 서버에 연결할 때 사용할 포트."
 msgid ""
 "Time (in milliseconds) Tomboy should wait for a response when using FUSE to "
 "mount a sync share."
-msgstr "FUSE로 동기화할 위치를 연결할 때 응답을 기다리는 시간 제한 (밀리초 단위)."
+msgstr ""
+"FUSE로 동기화할 위치를 연결할 때 응답을 기다리는 시간 제한 (밀리초 단위)."
 
 #: ../data/tomboy.schemas.in.h:68
 msgid "Timestamp format"
@@ -1027,19 +1028,21 @@ msgstr "새 쪽지함(_N)..."
 msgid "Really delete this note?"
 msgstr "이 쪽지를 정말로 삭제하시겠습니까?"
 
-#: ../Tomboy/Note.cs:1429
-msgid "Really delete these notes?"
-msgstr "이 쪽지를 정말로 삭제하시겠습니까?"
+#: ../Tomboy/Note.cs:1430
+#, csharp-format
+msgid "Really delete this {0} note?"
+msgid_plural "Really delete these {0} notes?"
+msgstr[0] "정말로 쪽지 {0}개를 삭제하시겠습니까?"
 
-#: ../Tomboy/Note.cs:1438
+#: ../Tomboy/Note.cs:1441
 msgid "If you delete a note it is permanently lost."
 msgstr "쪽지를 삭제하면 되살릴 수 없습니다."
 
-#: ../Tomboy/Note.cs:1472
+#: ../Tomboy/Note.cs:1475
 msgid "Error saving note data."
 msgstr "쪽지 데이터 저장에 오류."
 
-#: ../Tomboy/Note.cs:1473
+#: ../Tomboy/Note.cs:1476
 msgid ""
 "An error occurred while saving your notes. Please check that you have "
 "sufficient disk space, and that you have appropriate rights on ~/.tomboy. "
@@ -2009,6 +2012,9 @@ msgstr ""
 "다음에 이 화면을 보지 않으려면, 시스템이 시작할 때 FUSE를 적재하십시오. /etc/"
 "init.d/boot.local에 \"modprobe fuse\"를 추가하거나, /etc/modules에 \"fuse"
 "\"를 추가하십시오."
+
+#~ msgid "Really delete these notes?"
+#~ msgstr "이 쪽지를 정말로 삭제하시겠습니까?"
 
 #~ msgid "Preparing pages..."
 #~ msgstr "페이지 준비 중입니다..."
