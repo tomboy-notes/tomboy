@@ -11,9 +11,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: tomboy.HEAD\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=tomboy&component=general\n"
-"POT-Creation-Date: 2009-02-16 23:00+0000\n"
-"PO-Revision-Date: 2009-02-17 18:53+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-02-27 10:38+0100\n"
+"PO-Revision-Date: 2009-02-27 23:28+0100\n"
 "Last-Translator: Gabor Kelemen <kelemeng@gnome.hu>\n"
 "Language-Team: Hungarian <gnome@fsf.hu>\n"
 "MIME-Version: 1.0\n"
@@ -281,22 +281,18 @@ msgstr ""
 "szinkronizációs kiszolgáló útvonala."
 
 #: ../data/tomboy.schemas.in.h:40
-#| msgid "Select Synchronization Folder..."
 msgid "SSHFS Remote Synchronization Folder"
 msgstr "SSHFS távoli szinkronizálási mappa"
 
 #: ../data/tomboy.schemas.in.h:41
-#| msgid "Selected Synchronization Service Addin"
 msgid "SSHFS Remote Synchronization User Name"
 msgstr "SSHFS távoli szinkronizálási felhasználónév"
 
 #: ../data/tomboy.schemas.in.h:42
-#| msgid "Synchronization Service Error"
 msgid "SSHFS Synchronization Server Port"
 msgstr "SSHFS szinkronizálási kiszolgáló portja"
 
 #: ../data/tomboy.schemas.in.h:43
-#| msgid "Synchronization Service Error"
 msgid "SSHFS Synchronization Server URL"
 msgstr "SSHFS szinkronizálási kiszolgáló URL címe"
 
@@ -468,15 +464,18 @@ msgstr ""
 "jegyzetmenüjének tetején helyezkedik el és gyorsbillentyűvel is elérhető."
 
 #: ../data/tomboy.schemas.in.h:66
-#| msgid "Error connecting to the synchronization service.  Please try again."
 msgid "The port to use when connecting to the synchronization server via SSH."
-msgstr "A szinkronizációs szolgáltatáshoz SSH-n keresztül csatlakozáshoz használandó port."
+msgstr ""
+"A szinkronizációs szolgáltatáshoz SSH-n keresztül csatlakozáshoz használandó "
+"port."
 
 #: ../data/tomboy.schemas.in.h:67
 msgid ""
 "Time (in milliseconds) Tomboy should wait for a response when using FUSE to "
 "mount a sync share."
-msgstr "A Tomboy ennyi ideig vár válaszra FUSE használatakor szinkronizálási megosztás csatolására."
+msgstr ""
+"A Tomboy ennyi ideig vár válaszra FUSE használatakor szinkronizálási "
+"megosztás csatolására."
 
 #: ../data/tomboy.schemas.in.h:68
 msgid "Timestamp format"
@@ -506,12 +505,15 @@ msgstr ""
 msgid ""
 "Use wdfs option \"-ac\" to accept SSL certificates without prompting the "
 "user."
-msgstr "A „-ac” wdfs kapcsoló használata SSL tanúsítványok elfogadására a felhasználó megkérdezése nélkül."
+msgstr ""
+"A „-ac” wdfs kapcsoló használata SSL tanúsítványok elfogadására a "
+"felhasználó megkérdezése nélkül."
 
 #: ../data/tomboy.schemas.in.h:73
-#| msgid "Error connecting to the synchronization service.  Please try again."
 msgid "User name to use when connecting to the synchronization server via SSH."
-msgstr "A szinkronizációs szolgáltatáshoz SSH-n keresztüli csatlakozáskor használandó felhasználónév."
+msgstr ""
+"A szinkronizációs szolgáltatáshoz SSH-n keresztüli csatlakozáskor "
+"használandó felhasználónév."
 
 #: ../data/tomboy.schemas.in.h:74
 msgid ""
@@ -941,6 +943,11 @@ msgstr ""
 msgid "Saving configuration to the GNOME keyring failed with the following message:"
 msgstr "A beállítások GNOME kulcstartóra mentése meghiúsult a következő üzenettel:"
 
+#. Translators: This is the name of "Window" menu in the Mac menubar
+#: ../Tomboy/MacApplication.cs:160
+msgid "_Window"
+msgstr "_Ablak"
+
 #: ../Tomboy/Notebooks/CreateNotebookDialog.cs:24
 #: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:53
 msgid "Create a new notebook"
@@ -974,7 +981,7 @@ msgstr "_Létrehozás"
 #: ../Tomboy/Notebooks/Notebook.cs:79
 #, csharp-format
 msgid "{0} Notebook Template"
-msgstr "{0} jegyzetsablon"
+msgstr "{0} jegyzet sablon"
 
 #: ../Tomboy/Notebooks/Notebook.cs:183
 msgid "All Notes"
@@ -1069,19 +1076,22 @@ msgstr "Új jeg_yzettömb…"
 msgid "Really delete this note?"
 msgstr "Biztosan törli ezt a jegyzetet?"
 
-#: ../Tomboy/Note.cs:1429
-msgid "Really delete these notes?"
-msgstr "Biztosan törli ezeket a jegyzeteket?"
+#: ../Tomboy/Note.cs:1430
+#, csharp-format
+msgid "Really delete this {0} note?"
+msgid_plural "Really delete these {0} notes?"
+msgstr[0] "Biztosan törli ezt a(z) {0} jegyzetet?"
+msgstr[1] "Biztosan törli ezt a(z) {0} jegyzetet?"
 
-#: ../Tomboy/Note.cs:1438
+#: ../Tomboy/Note.cs:1441
 msgid "If you delete a note it is permanently lost."
 msgstr "Ha töröl egy jegyzetet, akkor az véglegesen elvész."
 
-#: ../Tomboy/Note.cs:1472
+#: ../Tomboy/Note.cs:1475
 msgid "Error saving note data."
 msgstr "Hiba a jegyzet adatainak mentésekor."
 
-#: ../Tomboy/Note.cs:1473
+#: ../Tomboy/Note.cs:1476
 msgid ""
 "An error occurred while saving your notes. Please check that you have "
 "sufficient disk space, and that you have appropriate rights on ~/.tomboy. "
@@ -1095,7 +1105,7 @@ msgstr ""
 #. Translators: This is 'New Note' Template, not New 'Note Template'
 #: ../Tomboy/NoteManager.cs:19 ../Tomboy/PreferencesDialog.cs:210
 msgid "New Note Template"
-msgstr "Új jegyzetsablon"
+msgstr "Új jegyzet sablon"
 
 #: ../Tomboy/NoteManager.cs:135
 msgid ""
@@ -1371,7 +1381,7 @@ msgstr ""
 
 #: ../Tomboy/PreferencesDialog.cs:224
 msgid "Open New Note Template"
-msgstr "Új jegyzetsablon megnyitása"
+msgstr "Új jegyzet sablon megnyitása"
 
 #. Hotkeys...
 #: ../Tomboy/PreferencesDialog.cs:281
@@ -1501,11 +1511,12 @@ msgid "Success! You're connected!"
 msgstr "Sikeresen csatlakozott"
 
 #: ../Tomboy/PreferencesDialog.cs:1172
-#| msgid "Tomboy is ready to synchronize your notes."
 msgid ""
 "Tomboy is ready to synchronize your notes. Would you like to synchronize "
 "them now?"
-msgstr "A Tomboy készen áll a jegyzetei szinkronizálására. Kívánja azokat most szinkronizálni?"
+msgstr ""
+"A Tomboy készen áll a jegyzetei szinkronizálására. Kívánja azokat most "
+"szinkronizálni?"
 
 #: ../Tomboy/PreferencesDialog.cs:1195
 msgid ""
@@ -1718,7 +1729,6 @@ msgstr "Tegnap"
 
 #: ../Tomboy/Utils.cs:206
 #, csharp-format
-#| msgid "{0} days ago, {1}"
 msgid "{0} day ago, {1}"
 msgid_plural "{0} days ago, {1}"
 msgstr[0] "{0} napja, {1}"
@@ -1726,7 +1736,6 @@ msgstr[1] "{0} napja, {1}"
 
 #: ../Tomboy/Utils.cs:210
 #, csharp-format
-#| msgid "{0} days ago"
 msgid "{0} day ago"
 msgid_plural "{0} days ago"
 msgstr[0] "{0} napja"
@@ -1743,7 +1752,6 @@ msgstr "Holnap"
 
 #: ../Tomboy/Utils.cs:223
 #, csharp-format
-#| msgid "In {0} days, {1}"
 msgid "In {0} day, {1}"
 msgid_plural "In {0} days, {1}"
 msgstr[0] "{0} napon belül, {1}"
@@ -1751,7 +1759,6 @@ msgstr[1] "{0} napon belül, {1}"
 
 #: ../Tomboy/Utils.cs:227
 #, csharp-format
-#| msgid "In {0} days"
 msgid "In {0} day"
 msgid_plural "In {0} days"
 msgstr[0] "{0} napon belül"
@@ -1811,7 +1818,6 @@ msgstr ""
 "meg róla, hogy a FUSE és a(z) {0} megfelelően van telepítve és beállítva."
 
 #: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:129
-#| msgid "Could not save the icon file."
 msgid "Could not read testfile."
 msgstr "Nem sikerült olvasni a tesztfájlt."
 
