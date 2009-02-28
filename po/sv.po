@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tomboy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-02-19 21:31+0100\n"
-"PO-Revision-Date: 2009-02-19 21:34+0100\n"
+"POT-Creation-Date: 2009-02-28 17:24+0100\n"
+"PO-Revision-Date: 2009-02-28 17:24+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "MIME-Version: 1.0\n"
@@ -885,19 +885,22 @@ msgstr "_Nytt anteckningsblock..."
 msgid "Really delete this note?"
 msgstr "Verkligen ta bort denna anteckning?"
 
-#: ../Tomboy/Note.cs:1429
-msgid "Really delete these notes?"
-msgstr "Verkligen ta bort dessa anteckningar?"
+#: ../Tomboy/Note.cs:1430
+#, csharp-format
+msgid "Really delete this {0} note?"
+msgid_plural "Really delete these {0} notes?"
+msgstr[0] "Verkligen ta bort {0} anteckning?"
+msgstr[1] "Verkligen ta bort dessa {0} anteckningar?"
 
-#: ../Tomboy/Note.cs:1438
+#: ../Tomboy/Note.cs:1441
 msgid "If you delete a note it is permanently lost."
 msgstr "Om du tar bort en anteckning försvinner den för alltid."
 
-#: ../Tomboy/Note.cs:1472
+#: ../Tomboy/Note.cs:1475
 msgid "Error saving note data."
 msgstr "Fel vid sparande av anteckningsdata."
 
-#: ../Tomboy/Note.cs:1473
+#: ../Tomboy/Note.cs:1476
 msgid "An error occurred while saving your notes. Please check that you have sufficient disk space, and that you have appropriate rights on ~/.tomboy. Error details can be found in ~/.tomboy.log."
 msgstr "Ett fel inträffade när dina anteckningar sparades. Kontrollera att du har tillräckligt mycket diskutrymme och att du har lämpliga rättigheter på ~/.tomboy. Mer information kan hittas i ~/.tomboy.log."
 
@@ -1797,6 +1800,8 @@ msgstr ""
 "\n"
 "För att undvika att få den här prompten i framtiden bör du läsa in FUSE vid uppstart.  Lägg till \"modprobe fuse\" till /etc/init.d/boot.local eller \"fuse\" till /etc/modules."
 
+#~ msgid "Really delete these notes?"
+#~ msgstr "Verkligen ta bort dessa anteckningar?"
 #~ msgid "Add-in"
 #~ msgstr "Tillägg"
 #~ msgid "Version"
