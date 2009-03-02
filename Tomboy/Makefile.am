@@ -6,27 +6,29 @@ TARGET = Tomboy.exe
 WRAPPER = tomboy
 PANEL_WRAPPER = tomboy-panel
 
-if ENABLE_DBUS
-DBUS_CSFLAGS = -define:ENABLE_DBUS
 DBUS_CSFILES = 				\
 	$(srcdir)/IRemoteControl.cs	\
 	$(srcdir)/RemoteControl.cs	\
 	$(srcdir)/RemoteControlProxy.cs
+
+if ENABLE_DBUS
+DBUS_CSFLAGS = -define:ENABLE_DBUS
+DBUS_USED_CSFILES = $(DBUS_CSFILES)
 endif
 
-if ENABLE_OSX
-OSX_CSFLAGS = -define:MAC
 OSX_CSFILES =					\
 	$(srcdir)/MacApplication.cs		\
 	$(srcdir)/MacFactory.cs			\
 	$(srcdir)/WindowsApplication.cs		\
 	$(srcdir)/XmlPreferencesClient.cs
+
+if ENABLE_OSX
+OSX_CSFLAGS = -define:MAC
+OSX_USED_CSFILES = $(OSX_CSFILES)
 OSX_LIBS =					\
 	-r:$(top_srcdir)/macbin/ige-mac-integration-sharp.dll
 endif
 
-if ENABLE_WIN
-WIN_CSFLAGS = -define:WIN32
 WIN_CSFILES =					\
 	$(srcdir)/ManagedWinapi.EventDispatchingNativeWindow.cs	\
 	$(srcdir)/ManagedWinapi.Hotkey.cs	\
@@ -34,11 +36,14 @@ WIN_CSFILES =					\
 	$(srcdir)/WindowsFactory.cs		\
 	$(srcdir)/WindowsKeybinder.cs		\
 	$(srcdir)/XmlPreferencesClient.cs
+
+if ENABLE_WIN
+WIN_CSFLAGS = -define:WIN32
+WIN_USED_CSFILES = $(WIN_CSFILES)
 WIN_LIBS =					\
 	-r:System.Windows.Forms.dll
 endif
 
-if ENABLE_GNOME
 GNOME_CSFILES =					\
 	$(srcdir)/Applet.cs 			\
 	$(srcdir)/GConfPreferencesClient.cs	\
@@ -46,10 +51,13 @@ GNOME_CSFILES =					\
 	$(srcdir)/GnomeFactory.cs		\
 	$(srcdir)/XKeybinder.cs
 
+if ENABLE_GNOME
+GNOME_USED_CSFILES = $(GNOME_CSFILES)
+
 if FIXED_PANELAPPLET
 FIXED_PANELAPPLET_CSFLAGS = -define:FIXED_PANELAPPLET
 else
-PANELAPPLET_CSFILES =			\
+PANELAPPLET_USED_CSFILES =			\
 	$(srcdir)/panelapplet/*.cs
 endif
 endif
@@ -109,15 +117,15 @@ CSFILES = 					\
 	$(srcdir)/Notebooks/*.cs		\
 	$(srcdir)/Synchronization/*.cs		\
 	\
-	$(GNOME_CSFILES)			\
-	$(WIN_CSFILES)			\
-	$(OSX_CSFILES)			\
+	$(GNOME_USED_CSFILES)			\
+	$(WIN_USED_CSFILES)			\
+	$(OSX_USED_CSFILES)			\
 	\
-	$(PANELAPPLET_CSFILES)			\
+	$(PANELAPPLET_USED_CSFILES)			\
 	\
 	$(srcdir)/Gnome.Keyring/*.cs		\
 	\
-	$(DBUS_CSFILES)	
+	$(DBUS_USED_CSFILES)	
 
 
 ASSEMBLIES = 		\
@@ -190,6 +198,11 @@ Defines.cs: $(srcdir)/Defines.cs.in Makefile
 
 EXTRA_DIST =            		\
 	$(CSFILES)      		\
+	$(GNOME_CSFILES)		\
+	$(OSX_CSFILES)		\
+	$(WIN_CSFILES)		\
+	$(DBUS_CSFILES)		\
+	$(PANELAPPLET_CSFILES)		\
 	$(WRAPPER).in			\
 	$(PANEL_WRAPPER).in		\
 	$(TARGET).config.in		\
