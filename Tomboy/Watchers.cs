@@ -444,9 +444,9 @@ namespace Tomboy
 				url = "file://" +
 				      Path.Combine (Environment.GetEnvironmentVariable ("HOME"),
 				                    url.Substring (2));
-			else if (url.IndexOf ("@") > 1 &&
-			                url.IndexOf (".") > 3 &&
-			                !url.StartsWith ("mailto:"))
+			else if (Regex.IsMatch (url, 
+				@"^(?!(news|mailto|http|https|ftp|file|irc):).+@.{2,}$",
+				RegexOptions.IgnoreCase))
 				url = "mailto:" + url;
 
 			return url;
