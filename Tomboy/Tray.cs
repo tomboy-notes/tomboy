@@ -136,6 +136,7 @@ namespace Tomboy
 	{
 		TomboyTray tray;
 		TomboyPrefsKeybinder keybinder;
+		Gtk.Menu context_menu;
 
 		public TomboyTrayIcon (NoteManager manager)
 		{
@@ -167,7 +168,7 @@ namespace Tomboy
 		protected override void OnPopupMenu (uint button, uint activate_time)
 		{
 			if (button == 3)
-				GuiUtils.PopupMenu (MakeRightClickMenu (),
+				GuiUtils.PopupMenu (GetRightClickMenu (),
 				                    null, 
 				                    new Gtk.MenuPositionFunc (GetTrayMenuPosition));
 				
@@ -175,6 +176,9 @@ namespace Tomboy
 		
 		public void ShowMenu (bool select_first_item)
 		{
+			if (context_menu != null)
+				context_menu.Hide ();
+
 			TomboyTrayUtils.UpdateTomboyTrayMenu (tray, null);
 			if (select_first_item)
 				tray.TomboyTrayMenu.SelectFirst (false);
@@ -219,39 +223,47 @@ namespace Tomboy
 			}
 		}
 		
-		Gtk.Menu MakeRightClickMenu ()
+		Gtk.Menu GetRightClickMenu ()
 		{
-			Gtk.Menu menu = new Gtk.Menu ();
+			if (tray.TomboyTrayMenu != null)
+				tray.TomboyTrayMenu.Hide ();
+
+			if (context_menu != null) {
+				context_menu.Hide ();
+				return context_menu;
+			}
+
+			context_menu = new Gtk.Menu ();
 
 			Gtk.AccelGroup accel_group = new Gtk.AccelGroup ();
-			menu.AccelGroup = accel_group;
+			context_menu.AccelGroup = accel_group;
 
 			Gtk.ImageMenuItem item;
 
 			item = new Gtk.ImageMenuItem (Catalog.GetString ("_Preferences"));
 			item.Image = new Gtk.Image (Gtk.Stock.Preferences, Gtk.IconSize.Menu);
 			item.Activated += ShowPreferences;
-			menu.Append (item);
+			context_menu.Append (item);
 
 			item = new Gtk.ImageMenuItem (Catalog.GetString ("_Help"));
 			item.Image = new Gtk.Image (Gtk.Stock.Help, Gtk.IconSize.Menu);
 			item.Activated += ShowHelpContents;
-			menu.Append (item);
+			context_menu.Append (item);
 
 			item = new Gtk.ImageMenuItem (Catalog.GetString ("_About Tomboy"));
 			item.Image = new Gtk.Image (Gtk.Stock.About, Gtk.IconSize.Menu);
 			item.Activated += ShowAbout;
-			menu.Append (item);
+			context_menu.Append (item);
 
-			menu.Append (new Gtk.SeparatorMenuItem ());
+			context_menu.Append (new Gtk.SeparatorMenuItem ());
 
 			item = new Gtk.ImageMenuItem (Catalog.GetString ("_Quit"));
 			item.Image = new Gtk.Image (Gtk.Stock.Quit, Gtk.IconSize.Menu);
 			item.Activated += Quit;
-			menu.Append (item);
+			context_menu.Append (item);
 
-			menu.ShowAll ();
-			return menu;
+			context_menu.ShowAll ();
+			return context_menu;
 		}
 
 		void ShowPreferences (object sender, EventArgs args)
