@@ -2,11 +2,11 @@
 using System.Reflection;
 
 // TODO: Automate this
-[assembly: AssemblyInformationalVersion ("0.13.7")]
+[assembly: AssemblyInformationalVersion ("0.14.0")]
 
 namespace Tomboy {
 	public class Defines {
-		public const string VERSION = "0.13.7";
+		public const string VERSION = "0.14.0";
 		public static readonly string DATADIR = System.IO.Path.GetDirectoryName (Assembly.GetExecutingAssembly ().Location);
 		public static readonly string GNOME_LOCALE_DIR = System.IO.Path.Combine (DATADIR, "locale");
 		public const string GNOME_HELP_DIR = "@datadir@/gnome/help/tomboy";
