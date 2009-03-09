@@ -102,17 +102,17 @@
     </Reference>
     <Reference Include="Mono.Addins, Version=0.3.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>winbin\Mono.Addins.dll</HintPath>
+      <HintPath>..\..\..\..\Library\Frameworks\Mono.framework\Versions\Current\lib\mono\gac\Mono.Addins\0.4.0.0__0738eb9f132ed756\Mono.Addins.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Mono.Addins.Gui, Version=0.3.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>winbin\Mono.Addins.Gui.dll</HintPath>
+      <HintPath>..\..\..\..\Library\Frameworks\Mono.framework\Versions\Current\lib\mono\gac\Mono.Addins.Gui\0.4.0.0__0738eb9f132ed756\Mono.Addins.Gui.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Mono.Addins.Setup, Version=0.3.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>winbin\Mono.Addins.Setup.dll</HintPath>
+      <HintPath>..\..\..\..\Library\Frameworks\Mono.framework\Versions\Current\lib\mono\gac\Mono.Addins.Setup\0.4.0.0__0738eb9f132ed756\Mono.Addins.Setup.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Mono.Posix, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756">
@@ -266,10 +266,7 @@ copy "$(ProjectDir)data\icons\hicolor_status_16x16_pin-up.png" "$(ProjectDir)pin
 copy "$(ProjectDir)data\icons\hicolor_status_16x16_pin-active.png" "$(ProjectDir)pin-active.png"
 copy "$(ProjectDir)Tomboy\Tomboy.addin.xml" "$(ProjectDir)"
 copy "$(ProjectDir)data\UIManagerLayout.xml" "$(ProjectDir)"</PreBuildEvent>
-    <PostBuildEvent>copy "$(ProjectDir)winbin\MonoPosixHelper.dll" "$(ProjectDir)bin\Debug"
-copy "$(ProjectDir)winbin\Mono.Addins.dll.config" "$(ProjectDir)bin\Debug"
-
-copy "$(ProjectDir)data\icons\tomboy.ico" "$(ProjectDir)tomboy.ico"
+    <PostBuildEvent>copy "$(ProjectDir)data\icons\tomboy.ico" "$(ProjectDir)tomboy.ico"
 
 mkdir "$(ProjectDir)bin\Debug\tomboy\icons\hicolor\16x16\apps"
 mkdir "$(ProjectDir)bin\Debug\tomboy\icons\hicolor\22x22\apps"
