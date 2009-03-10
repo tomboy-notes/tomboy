@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-02-19 20:02+0100\n"
-"PO-Revision-Date: 2009-02-19 20:09+0100\n"
+"POT-Creation-Date: 2009-03-10 15:41+0100\n"
+"PO-Revision-Date: 2009-03-10 15:42+0100\n"
 "Last-Translator: Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>\n"
 "Language-Team: Basque <itzulpena@euskalgnu.org>\n"
 "MIME-Version: 1.0\n"
@@ -34,7 +34,7 @@ msgid "Tomboy Applet Factory"
 msgstr "Tomboy applet-aren fabrika"
 
 #: ../data/GNOME_TomboyApplet.server.in.in.h:4 ../data/tomboy.desktop.in.h:3
-#: ../Tomboy/Tray.cs:522
+#: ../Tomboy/Tray.cs:534
 msgid "Tomboy Notes"
 msgstr "Tomboy oharrak"
 
@@ -43,12 +43,12 @@ msgid "_About"
 msgstr "Honi _buruz"
 
 #: ../data/GNOME_TomboyApplet.xml.h:2 ../Tomboy/ActionManager.cs:157
-#: ../Tomboy/Tray.cs:236
+#: ../Tomboy/Tray.cs:248
 msgid "_Help"
 msgstr "_Laguntza"
 
 #: ../data/GNOME_TomboyApplet.xml.h:3 ../Tomboy/ActionManager.cs:153
-#: ../Tomboy/Tray.cs:231
+#: ../Tomboy/Tray.cs:243
 msgid "_Preferences"
 msgstr "_Hobespenak"
 
@@ -469,8 +469,8 @@ msgid ""
 "Time (in milliseconds) Tomboy should wait for a response when using FUSE to "
 "mount a sync share."
 msgstr ""
-"Denbora (milisegundotan) Tomboy-rek erantzunaren zai egoteko "
-"sinkronizatze-partekatua muntatzeko FUSE erabiltzean."
+"Denbora (milisegundotan) Tomboy-rek erantzunaren zai egoteko sinkronizatze-"
+"partekatua muntatzeko FUSE erabiltzean."
 
 #: ../data/tomboy.schemas.in.h:68
 msgid "Timestamp format"
@@ -500,11 +500,15 @@ msgstr ""
 msgid ""
 "Use wdfs option \"-ac\" to accept SSL certificates without prompting the "
 "user."
-msgstr "Erabili wdfs aukera \"-ac\" erabiltzaileari galdetu gabe SSL ziurtagiriak onartzeko."
+msgstr ""
+"Erabili wdfs aukera \"-ac\" erabiltzaileari galdetu gabe SSL ziurtagiriak "
+"onartzeko."
 
 #: ../data/tomboy.schemas.in.h:73
 msgid "User name to use when connecting to the synchronization server via SSH."
-msgstr "SSH bidez sinkronizazio-zerbitzariarekin konektatzean erabiliko den erabiltzaile-izena."
+msgstr ""
+"SSH bidez sinkronizazio-zerbitzariarekin konektatzean erabiliko den "
+"erabiltzaile-izena."
 
 #: ../data/tomboy.schemas.in.h:74
 msgid ""
@@ -550,7 +554,7 @@ msgstr "_Itxi"
 msgid "Close this window"
 msgstr "Itxi leiho hau"
 
-#: ../Tomboy/ActionManager.cs:146 ../Tomboy/Tray.cs:248
+#: ../Tomboy/ActionManager.cs:146 ../Tomboy/Tray.cs:260
 msgid "_Quit"
 msgstr "_Irten"
 
@@ -938,6 +942,11 @@ msgstr ""
 "Huts egin du konfigurazioa GNOMEren gako-sortan gordetzean: Hutsegitearen "
 "mezua:"
 
+#. Translators: This is the name of "Window" menu in the Mac menubar
+#: ../Tomboy/MacApplication.cs:160
+msgid "_Window"
+msgstr "_Leihoa"
+
 #: ../Tomboy/Notebooks/CreateNotebookDialog.cs:24
 #: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:53
 msgid "Create a new notebook"
@@ -1065,19 +1074,22 @@ msgstr "_Koaderno berria..."
 msgid "Really delete this note?"
 msgstr "Ziur zaude ohar hau ezabatzea nahi duzula?"
 
-#: ../Tomboy/Note.cs:1429
-msgid "Really delete these notes?"
-msgstr "Ziur zaude ohar hauek ezabatzea nahi dituzula?"
+#: ../Tomboy/Note.cs:1430
+#, csharp-format
+msgid "Really delete this {0} note?"
+msgid_plural "Really delete these {0} notes?"
+msgstr[0] "Ziur zaude ohar {0} ezabatzea nahi duzula?"
+msgstr[1] "Ziur zaude {0} ohar ezabatzea nahi dituzula?"
 
-#: ../Tomboy/Note.cs:1438
+#: ../Tomboy/Note.cs:1441
 msgid "If you delete a note it is permanently lost."
 msgstr "Ohar bat ezabatzen baduzu betirako galduko da."
 
-#: ../Tomboy/Note.cs:1472
+#: ../Tomboy/Note.cs:1475
 msgid "Error saving note data."
 msgstr "Errorea oharraren datuak gordetzean."
 
-#: ../Tomboy/Note.cs:1473
+#: ../Tomboy/Note.cs:1476
 msgid ""
 "An error occurred while saving your notes. Please check that you have "
 "sufficient disk space, and that you have appropriate rights on ~/.tomboy. "
@@ -1498,8 +1510,8 @@ msgid ""
 "Tomboy is ready to synchronize your notes. Would you like to synchronize "
 "them now?"
 msgstr ""
-"Tomboy prest dago zure oharrak sinkronizatzeko. Nahi dituzu oharrak "
-"orain sinkronizatzea?"
+"Tomboy prest dago zure oharrak sinkronizatzeko. Nahi dituzu oharrak orain "
+"sinkronizatzea?"
 
 #: ../Tomboy/PreferencesDialog.cs:1195
 msgid ""
@@ -1671,7 +1683,7 @@ msgstr ""
 msgid " (new)"
 msgstr " (berria)"
 
-#: ../Tomboy/Tray.cs:241
+#: ../Tomboy/Tray.cs:253
 msgid "_About Tomboy"
 msgstr "_Tomboy-ri buruz"
 
