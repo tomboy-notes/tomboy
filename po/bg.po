@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tomboy trunk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-02-21 23:45+0200\n"
-"PO-Revision-Date: 2009-02-21 23:35+0200\n"
+"POT-Creation-Date: 2009-03-16 13:25+0200\n"
+"PO-Revision-Date: 2009-03-16 13:24+0200\n"
 "Last-Translator: Vladimir \"Kaladan\" Petkov <kaladan@gmail.com>\n"
 "Language-Team: Bulgarian <dict@fsa-bg.org>\n"
 "MIME-Version: 1.0\n"
@@ -31,7 +31,7 @@ msgid "Tomboy Applet Factory"
 msgstr "Фабрика за аплети на Tomboy"
 
 #: ../data/GNOME_TomboyApplet.server.in.in.h:4 ../data/tomboy.desktop.in.h:3
-#: ../Tomboy/Tray.cs:522
+#: ../Tomboy/Tray.cs:534
 msgid "Tomboy Notes"
 msgstr "Бележки (Tomboy)"
 
@@ -40,12 +40,12 @@ msgid "_About"
 msgstr "_Относно"
 
 #: ../data/GNOME_TomboyApplet.xml.h:2 ../Tomboy/ActionManager.cs:157
-#: ../Tomboy/Tray.cs:236
+#: ../Tomboy/Tray.cs:248
 msgid "_Help"
 msgstr "Помо_щ"
 
 #: ../data/GNOME_TomboyApplet.xml.h:3 ../Tomboy/ActionManager.cs:153
-#: ../Tomboy/Tray.cs:231
+#: ../Tomboy/Tray.cs:243
 msgid "_Preferences"
 msgstr "_Настройки"
 
@@ -564,7 +564,7 @@ msgstr "_Затваряне"
 msgid "Close this window"
 msgstr "Затваряне на този прозорец"
 
-#: ../Tomboy/ActionManager.cs:146 ../Tomboy/Tray.cs:248
+#: ../Tomboy/ActionManager.cs:146 ../Tomboy/Tray.cs:260
 msgid "_Quit"
 msgstr "_Спиране на програмата"
 
@@ -954,6 +954,11 @@ msgstr ""
 "Запазването на настройките в ключодържателя на GNOME бе неуспешно и върна "
 "следното съобщение:"
 
+#. Translators: This is the name of "Window" menu in the Mac menubar
+#: ../Tomboy/MacApplication.cs:160
+msgid "_Window"
+msgstr "_Прозорец"
+
 #: ../Tomboy/Notebooks/CreateNotebookDialog.cs:24
 #: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:53
 msgid "Create a new notebook"
@@ -1081,19 +1086,22 @@ msgstr "Но_в бележник…"
 msgid "Really delete this note?"
 msgstr "Наистина ли да се изтрие тази бележка?"
 
-#: ../Tomboy/Note.cs:1429
-msgid "Really delete these notes?"
-msgstr "Наистина ли да се изтрият тези бележки?"
+#: ../Tomboy/Note.cs:1430
+#, csharp-format
+msgid "Really delete this {0} note?"
+msgid_plural "Really delete these {0} notes?"
+msgstr[0] "Наистина ли да се изтрие тази {0} бележка?"
+msgstr[1] "Наистина ли да се изтрият тези {0} бележки?"
 
-#: ../Tomboy/Note.cs:1438
+#: ../Tomboy/Note.cs:1441
 msgid "If you delete a note it is permanently lost."
 msgstr "Ако изтриете бележка, тя се губи завинаги."
 
-#: ../Tomboy/Note.cs:1472
+#: ../Tomboy/Note.cs:1475
 msgid "Error saving note data."
 msgstr "Грешка при запазване на данните на бележка."
 
-#: ../Tomboy/Note.cs:1473
+#: ../Tomboy/Note.cs:1476
 msgid ""
 "An error occurred while saving your notes. Please check that you have "
 "sufficient disk space, and that you have appropriate rights on ~/.tomboy. "
@@ -1698,7 +1706,7 @@ msgstr ""
 msgid " (new)"
 msgstr "(ново)"
 
-#: ../Tomboy/Tray.cs:241
+#: ../Tomboy/Tray.cs:253
 msgid "_About Tomboy"
 msgstr "_Относно Tomboy"
 
