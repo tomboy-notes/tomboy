@@ -1184,6 +1184,12 @@ namespace Tomboy
 		Gtk.ImageMenuItem increase_indent;
 		Gtk.ImageMenuItem decrease_indent;
 
+		// There is a bug in GTK+ that lends to improperly themed Menus
+		// and MenuItems when you derive from one of those classes; this
+		// is an internal Menu that sits around to provide proper theme
+		// information to override on this derived Menu
+		Gtk.Menu theme_hack_menu;
+
 		// Active when the text size is indeterminable, such as when in
 		// the note's title line.
 		Gtk.RadioMenuItem hidden_no_size;
@@ -1363,6 +1369,12 @@ namespace Tomboy
 			Append (increase_indent);
 			Append (decrease_indent);
 			ShowAll ();
+
+			theme_hack_menu = new Menu ();
+			theme_hack_menu.Realize ();
+			theme_hack_menu.StyleSet += delegate {
+				ModifyBg (StateType.Normal, theme_hack_menu.Style.Background (StateType.Normal));
+			};
 		}
 
 		protected override void OnShown ()
