@@ -43,6 +43,8 @@ namespace Tomboy
 			}
 #endif // ENABLE_DBUS || WIN32
 
+			// NOTE: It is important not to use the Preferences
+			//       class before this call.
 			Initialize ("tomboy", "tomboy", "tomboy", args);
 
 			// Add private icon dir to search path

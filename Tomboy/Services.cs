@@ -46,7 +46,6 @@ namespace Tomboy
 #endif
 			
 			nativeApp = factory.CreateNativeApplication ();
-			prefs = factory.CreatePreferencesClient ();
 		}
 
 		public static IPlatformFactory Factory {
@@ -57,6 +56,8 @@ namespace Tomboy
 
 		public static IPreferencesClient Preferences {
 			get {
+				if (prefs == null)
+					prefs = factory.CreatePreferencesClient ();
 				return prefs;
 			}
 		}
