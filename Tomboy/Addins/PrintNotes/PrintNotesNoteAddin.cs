@@ -4,37 +4,38 @@ using Mono.Unix;
 
 namespace Tomboy.PrintNotes
 {
-	// TODO:
-	// COMMENT! A lot!
-	// Remove magic numbers (margins), turn them into preferences
-	// Replace bullet point chars with an image?
-	// Split the file if it grows any further
-
-	struct PrintMargins
+	public class PageBreak
 	{
-		public int Top;
-		public int Left;
-		public int Right;
-		public int Bottom;
+		private readonly int break_paragraph;
+		private readonly int break_line;
 
-		public int VerticalMargins ()
+		public int Paragraph
 		{
-			return Top + Bottom;
+			get { return break_paragraph; }
+		}
+		
+		public int Line
+		{
+			get { return break_line; }
 		}
 
-		public int HorizontalMargins ()
+		public PageBreak(int paragraph, int line)
 		{
-			return Left + Right;
+			break_paragraph = paragraph;
+			break_line = line;
 		}
 	}
-
+	
 	public class PrintNotesNoteAddin : NoteAddin
-	{
+	{		
 		private Gtk.ImageMenuItem item;
-		private PrintMargins page_margins;
-		private Pango.Layout date_time_footer;
-		private int footer_offset;
-		private List<int> page_breaks;
+		private int margin_top;
+		private int margin_left;
+		private int margin_right;
+		private int margin_bottom;
+
+		private Pango.Layout timestamp_footer;
+		private IList<PageBreak> page_breaks;
 
 		public override void Initialize ()
 		{
@@ -57,10 +58,12 @@ namespace Tomboy.PrintNotes
 			item.Show ();
 			AddPluginMenuItem (item);
 		}
-
+		
 		private void PrintButtonClicked (object sender, EventArgs args)
 		{
 			try {
+				page_breaks = new List<PageBreak> ();				
+				
 				using (Gtk.PrintOperation print_op = new Gtk.PrintOperation ()) {
 					print_op.JobName = Note.Title;
 
@@ -83,12 +86,23 @@ namespace Tomboy.PrintNotes
 			}
 		}
 
+		private static int CmToPixel (double cm, double dpi)
+		{
+			return (int) (cm * dpi / 2.54);
+		}
+
+		private static int InchToPixel (double inch, double dpi)
+		{
+			return (int) (inch * dpi);
+		}
+		
 		private IEnumerable<Pango.Attribute> GetParagraphAttributes (
-			Pango.Layout layout, double dpiX, ref PrintMargins margins,
+			Pango.Layout layout, double dpiX, out int indentation,
 			ref Gtk.TextIter position, Gtk.TextIter limit)
 		{
 			IList<Pango.Attribute> attributes = new List<Pango.Attribute> ();
-
+			indentation = 0;
+			
 			Gtk.TextTag [] tags = position.Tags;
 			position.ForwardToTagToggle (null);
 			if (position.Compare (limit) > 0) position = limit;
@@ -110,10 +124,10 @@ namespace Tomboy.PrintNotes
 					layout.Indent = tag.Indent;
 				}
 				if (tag.LeftMarginSet) {                                        
-					margins.Left = (int) (tag.LeftMargin / screen_dpiX * dpiX);
+					indentation = (int) (tag.LeftMargin / screen_dpiX * dpiX);
 				}
 				if (tag.RightMarginSet) {
-					margins.Right = (int) (tag.RightMargin / screen_dpiX * dpiX);
+					indentation = (int) (tag.RightMargin / screen_dpiX * dpiX);
 				}
 				if (tag.FontDesc != null) {
 					attributes.Add (new Pango.AttrFontDesc (tag.FontDesc));
@@ -150,27 +164,26 @@ namespace Tomboy.PrintNotes
 			return attributes;
 		}
 
-		private Pango.Layout CreateLayoutForParagraph (Gtk.PrintContext context,
+		private Pango.Layout CreateParagraphLayout (Gtk.PrintContext context,
 							       Gtk.TextIter p_start,
 							       Gtk.TextIter p_end,
-							       out PrintMargins margins)
+							       out int indentation)
 		{
 			Pango.Layout layout = context.CreatePangoLayout ();
 			layout.FontDescription = Window.Editor.Style.FontDesc;
 			int start_index = p_start.LineIndex;
+			indentation = 0;
 
-			margins = new PrintMargins ();
-
+			double dpiX = context.DpiX;
 			using (Pango.AttrList attr_list = new Pango.AttrList ()) {
 				Gtk.TextIter segm_start = p_start;
 				Gtk.TextIter segm_end;
-
-				double dpiX = context.DpiX;
+				
 				while (segm_start.Compare (p_end) < 0) {
 					segm_end = segm_start;
 					IEnumerable<Pango.Attribute> attrs =
 						GetParagraphAttributes (
-							layout, dpiX, ref margins,
+							layout, dpiX, out indentation,
 							ref segm_end, p_end);
 
 					uint si = (uint) (segm_start.LineIndex - start_index);
@@ -188,222 +201,234 @@ namespace Tomboy.PrintNotes
 			}
 
 			layout.Width = Pango.Units.FromPixels ((int)context.Width -
-				margins.HorizontalMargins () -
-				page_margins.HorizontalMargins ());
+				margin_left - margin_right - indentation);
+			layout.Wrap = Pango.WrapMode.WordChar;
 			layout.SetText (Buffer.GetSlice (p_start, p_end, false));
 			return layout;
 		}
+		
+		private Pango.Layout CreatePagenumbersLayout (Gtk.PrintContext context,
+		                                              int page_number, int total_pages)
+                {
+                        Pango.Layout layout = context.CreatePangoLayout ();
+                        layout.FontDescription = Window.Editor.Style.FontDesc;
+                        layout.Width = Pango.Units.FromPixels ((int) context.Width);
+                        layout.FontDescription.Style = Pango.Style.Normal;
+                        layout.FontDescription.Weight = Pango.Weight.Light;
 
-		private Pango.Layout CreateLayoutForPagenumbers (Gtk.PrintContext context, int page_number, int total_pages)
-		{
-			Pango.Layout layout = context.CreatePangoLayout ();
-			layout.FontDescription = Window.Editor.Style.FontDesc;
-			layout.Width = Pango.Units.FromPixels ((int) context.Width);
-			layout.FontDescription.Style = Pango.Style.Normal;
-			layout.FontDescription.Weight = Pango.Weight.Light;
+                        string footer_left = string.Format (Catalog.GetString ("Page {0} of {1}"),
+                                                            page_number, total_pages);
+                        layout.Alignment = Pango.Alignment.Left;
+                        layout.SetText (footer_left);
 
-			string footer_left = string.Format (Catalog.GetString ("Page {0} of {1}"),
-			                                    page_number, total_pages);
-			layout.Alignment = Pango.Alignment.Left;
-			layout.SetText (footer_left);
+                        return layout;
+                }
 
-			return layout;
-		}
+                private Pango.Layout CreateTimestampLayout (Gtk.PrintContext context)
+                {
+                        Pango.Layout layout = context.CreatePangoLayout ();
+                        layout.FontDescription = Window.Editor.Style.FontDesc;
+                        layout.Width = Pango.Units.FromPixels ((int) context.Width);
+                        layout.FontDescription.Style = Pango.Style.Normal;
+                        layout.FontDescription.Weight = Pango.Weight.Light;
 
-		private Pango.Layout CreateLayoutForTimestamp (Gtk.PrintContext context)
-		{
-			Pango.Layout layout = context.CreatePangoLayout ();
-			layout.FontDescription = Window.Editor.Style.FontDesc;
-			layout.Width = Pango.Units.FromPixels ((int) context.Width);
-			layout.FontDescription.Style = Pango.Style.Normal;
-			layout.FontDescription.Weight = Pango.Weight.Light;
+                        string footer_right = DateTime.Now.ToString (
+                        /* Translators: Explanation of the date and time format specifications can be found here:
+                         * http://msdn.microsoft.com/en-us/library/system.globalization.datetimeformatinfo.aspx */
+                                Catalog.GetString ("dddd MM/dd/yyyy, hh:mm:ss tt"));
+                        layout.Alignment = Pango.Alignment.Right;
+                        layout.SetText (footer_right);
 
-			string footer_right = DateTime.Now.ToString (
-			/* Translators: Explanation of the date and time format specifications can be found here:
-			 * http://msdn.microsoft.com/en-us/library/system.globalization.datetimeformatinfo.aspx */
-				Catalog.GetString ("dddd MM/dd/yyyy, hh:mm:ss tt"));
-			Logger.Debug (footer_right);
-			layout.Alignment = Pango.Alignment.Right;
-			layout.SetText (footer_right);
-
-			return layout;
-		}
-
-		public static int CmToPixel (double cm, double dpi)
-		{
-			return (int) (cm * dpi / 2.54);
+                        return layout;
+                }
+		
+		private int ComputeFooterHeight (Gtk.PrintContext context) {
+			using (Pango.Layout layout = CreateTimestampLayout (context)) {	                        
+				Pango.Rectangle ink_rect;
+				Pango.Rectangle logical_rect;
+				layout.GetExtents (out ink_rect, out logical_rect);
+				
+				// Compute the footer height, include the space for the horizontal line
+				return  Pango.Units.ToPixels (ink_rect.Height) +
+                                               CmToPixel (0.5, context.DpiY);
+			}			
 		}
 		
 		private void OnBeginPrint (object sender, Gtk.BeginPrintArgs args)
 		{
+			Gtk.PrintOperation op = (Gtk.PrintOperation) sender;			
 			Gtk.PrintContext context = args.Context;
-
-			// Create and initialize the page margins
-			page_margins = new PrintMargins ();
-			page_margins.Top = CmToPixel (1.5, context.DpiY);
-			page_margins.Left = CmToPixel (1, context.DpiX);
-			page_margins.Right = CmToPixel (1, context.DpiX);
-			page_margins.Bottom = 0;
+			timestamp_footer = CreateTimestampLayout (context);
 			
-			// Compute the footer height to define the bottom margin 
-			date_time_footer = CreateLayoutForTimestamp (context);
-			Pango.Rectangle footer_ink_rect;
-			Pango.Rectangle footer_logical_rect;
-			date_time_footer.GetExtents (
-				out footer_ink_rect,
-				out footer_logical_rect);
+			// FIXME: These should be configurable settings later (UI Change)
+			margin_top = CmToPixel (1.5, context.DpiY);
+			margin_left = CmToPixel (1, context.DpiX);
+			margin_right = CmToPixel (1, context.DpiX);
+			margin_bottom = 0;
+			double max_height = Pango.Units.FromPixels ((int) context.Height - 
+						margin_top - margin_bottom - ComputeFooterHeight (context));
 			
-			footer_offset = CmToPixel (0.5, context.DpiY);
-			
-			/* Set the bottom margin to the height of the footer + a constant 
-			 * offset for the separation line */  
-			page_margins.Bottom += Pango.Units.ToPixels (footer_logical_rect.Height) +
-					       footer_offset;
-
-			double height = Pango.Units.FromPixels ((int) context.Height - page_margins.VerticalMargins ());
-			double page_height = 0;
-
-			page_breaks = new List<int> ();
-
 			Gtk.TextIter position;
 			Gtk.TextIter end_iter;
 			Buffer.GetBounds (out position, out end_iter);
 
+			double page_height = 0;
 			bool done = position.Compare (end_iter) >= 0;
 			while (!done) {
-				int line_number = position.Line;
-
 				Gtk.TextIter line_end = position;
 				if (!line_end.EndsLine ())
 					line_end.ForwardToLineEnd ();
+				
+				int paragraph_number = position.Line;
+				int indentation;
+				using (Pango.Layout layout = CreateParagraphLayout (
+					context, position, line_end, out indentation)) {
 
-				PrintMargins margins;
-				using (Pango.Layout layout = CreateLayoutForParagraph (
-					context, position, line_end, out margins)) {
+					Pango.Rectangle ink_rect = Pango.Rectangle.Zero;
+					Pango.Rectangle logical_rect = Pango.Rectangle.Zero;
+					for (int line_in_paragraph = 0; line_in_paragraph < layout.LineCount;
+					     line_in_paragraph++) {
+						Pango.LayoutLine line = layout.GetLine (line_in_paragraph);
+						line.GetExtents (ref ink_rect, ref logical_rect);
 
-					Pango.Rectangle ink_rect;
-					Pango.Rectangle logical_rect;
-					layout.GetExtents (out ink_rect, out logical_rect);
-
-					if (page_height + logical_rect.Height > height) {
-						page_breaks.Add (line_number);
-						page_height = 0;
+						if (page_height + logical_rect.Height >= max_height) {
+							PageBreak page_break = new PageBreak (
+								paragraph_number, line_in_paragraph);
+							page_breaks.Add (page_break);
+	
+							page_height = 0;
+						}
+						page_height += logical_rect.Height;
 					}
 
-					page_height += logical_rect.Height;
+					position.ForwardLine ();
+					done = position.Compare (end_iter) >= 0;
 				}
-
-				position.ForwardLine ();
-				done = position.Compare (end_iter) >= 0;
 			}
 
-			Gtk.PrintOperation op = (Gtk.PrintOperation) sender;
 			op.NPages = page_breaks.Count + 1;
 		}
 
-		private void PrintFooter (Gtk.DrawPageArgs args)
-		{
-			int total_height = Pango.Units.FromPixels ((int) args.Context.Height);
-			int total_width = Pango.Units.FromPixels ((int) args.Context.Width);
-
-			using (Cairo.Context cr = args.Context.CairoContext) {
-				cr.MoveTo (CmToPixel (0.5, args.Context.DpiX), Pango.Units.ToPixels (total_height) - page_margins.Bottom + footer_offset);
-				cr.LineTo (Pango.Units.ToPixels (total_width) - CmToPixel (0.5, args.Context.DpiX), Pango.Units.ToPixels (total_height) - page_margins.Bottom + footer_offset);
-				cr.Stroke ();
-
-				Pango.Rectangle ink_rect;
-				Pango.Rectangle logical_rect;
-				date_time_footer.GetExtents (out ink_rect, out logical_rect);
-				
-				Cairo.PointD footer_anchor = new Cairo.PointD (
-					CmToPixel (0.5, args.Context.DpiX), Pango.Units.ToPixels (total_height) - page_margins.Bottom  + footer_offset + Pango.Units.ToPixels (logical_rect.Height));
-
-				cr.MoveTo (Pango.Units.ToPixels (total_width - logical_rect.Width) - CmToPixel (0.5, args.Context.DpiX), footer_anchor.Y);
-				Pango.CairoHelper.ShowLayoutLine (cr, date_time_footer.Lines [0]);
-				
-				cr.MoveTo (footer_anchor);
-				using (Pango.Layout pages_footer = CreateLayoutForPagenumbers (
-					args.Context, args.PageNr + 1, page_breaks.Count + 1)) {
-					Pango.CairoHelper.ShowLayoutLine (cr, pages_footer.Lines [0]);
-				}
-			}
-		}
-		
 		public void OnDrawPage (object sender, Gtk.DrawPageArgs args)
 		{
 			using (Cairo.Context cr = args.Context.CairoContext) {
-				cr.MoveTo (page_margins.Left, page_margins.Top);
+				cr.MoveTo (margin_left, margin_top);
 
-				int start_line = 0;
-				if (args.PageNr != 0)
-					start_line = page_breaks [args.PageNr - 1];
+				PageBreak start;
+				if (args.PageNr == 0) {
+					start = new PageBreak (0, 0);
+				} else {
+					start = page_breaks [args.PageNr - 1];
+				}				
 
-				int last_line = -1;
-				if (page_breaks.Count > args.PageNr)
-					last_line = page_breaks [args.PageNr] - 1;
+				PageBreak end;			
+				if (args.PageNr < page_breaks.Count) {
+					end = page_breaks [args.PageNr];
+				} else {
+					end = new PageBreak (-1, -1);
+				}
 
+				Gtk.PrintContext context = args.Context;
 				Gtk.TextIter position;
 				Gtk.TextIter end_iter;
 				Buffer.GetBounds (out position, out end_iter);
 
-				bool done = position.Compare (end_iter) >= 0;
-				int line_number = position.Line;
-
-				// Fast-forward to the starting line
-				while (!done && line_number < start_line) {
-					Gtk.TextIter line_end = position;
-					if (!line_end.EndsLine ())
-						line_end.ForwardToLineEnd ();
-
+				// Fast-forward to the right starting paragraph
+				while (position.Line < start.Paragraph) {
 					position.ForwardLine ();
-					done = position.Compare (end_iter) >= 0;
-					line_number = position.Line;
 				}
-
-				// Print the current page's content
-				while (!done && ((last_line == -1) || (line_number < last_line))) {
-					line_number = position.Line;
-
+				
+				bool done = position.Compare (end_iter) >= 0;
+				while (!done) {
 					Gtk.TextIter line_end = position;
 					if (!line_end.EndsLine ())
 						line_end.ForwardToLineEnd ();
 
-					PrintMargins margins;
-					using (Pango.Layout layout =
-						CreateLayoutForParagraph (args.Context,
-							position, line_end, out margins)) {
-						foreach (Pango.LayoutLine line in layout.Lines) {
+					int paragraph_number = position.Line;
+					int indentation;
+					using (Pango.Layout layout = CreateParagraphLayout (
+						context, position, line_end, out indentation)) {
+						
+						for (int line_number = 0;
+						     line_number < layout.LineCount && !done;
+						     line_number++) {
+							// Skip the lines up to the starting line in the
+							// first paragraph on this page
+							if ((paragraph_number == start.Paragraph) &&
+							    (line_number < start.Line)) {
+								continue;
+							}
+
+							// Break as soon as we hit the end line
+							if ((paragraph_number == end.Paragraph) &&
+							    (line_number == end.Line)) {
+								done = true;
+								break;
+							}
+
+							Pango.LayoutLine line = layout.Lines [line_number];
 							Pango.Rectangle ink_rect = Pango.Rectangle.Zero;
 							Pango.Rectangle logical_rect = Pango.Rectangle.Zero;
 							line.GetExtents (ref ink_rect, ref logical_rect);
-
-							cr.MoveTo (
-								margins.Left + page_margins.Left,
+		
+							cr.MoveTo (margin_left + indentation,
 								cr.CurrentPoint.Y);
-							int line_height = Pango.Units.ToPixels(logical_rect.Height);
+							int line_height = Pango.Units.ToPixels (logical_rect.Height);
+							
 							Cairo.PointD new_line_point = new Cairo.PointD (
-								margins.Left + page_margins.Left,
+								margin_left + indentation,
 								cr.CurrentPoint.Y + line_height);
+							
 							Pango.CairoHelper.ShowLayoutLine (cr, line);
 							cr.MoveTo (new_line_point);
 						}
 					}
-
+	
 					position.ForwardLine ();
-					done = position.Compare (end_iter) >= 0;
-				}
+					done = done || position.Compare (end_iter) >= 0;
+				}				
 
-				// Print the footer
-				PrintFooter (args);
+				int total_height = (int) args.Context.Height;
+				int total_width = (int) args.Context.Width; 
+				int footer_height = 0;
+
+				Cairo.PointD footer_anchor;
+				using (Pango.Layout pages_footer = CreatePagenumbersLayout (
+					args.Context, args.PageNr + 1, page_breaks.Count + 1)) {
+					Pango.Rectangle ink_footer_rect;
+					Pango.Rectangle logical_footer_rect;
+					pages_footer.GetExtents (out ink_footer_rect, out logical_footer_rect);
+
+					footer_anchor = new Cairo.PointD (
+						CmToPixel (0.5, args.Context.DpiX),
+						total_height - margin_bottom);
+					footer_height = Pango.Units.ToPixels (logical_footer_rect.Height);
+					
+					cr.MoveTo (
+				           total_width - Pango.Units.ToPixels (logical_footer_rect.Width) -
+				           CmToPixel (0.5, args.Context.DpiX),
+				           footer_anchor.Y);
+				
+					Pango.CairoHelper.ShowLayoutLine (cr, pages_footer.Lines [0]);
+				}
+				
+				cr.MoveTo (footer_anchor);
+				Pango.CairoHelper.ShowLayoutLine (cr, timestamp_footer.Lines [0]);
+				
+				cr.MoveTo (CmToPixel (0.5, args.Context.DpiX),
+				           total_height - margin_bottom - footer_height);
+				cr.LineTo (total_width - CmToPixel (0.5, args.Context.DpiX),
+				           total_height - margin_bottom - footer_height);
+				cr.Stroke ();
 			}
 		}
 
 		private void OnEndPrint (object sender, Gtk.EndPrintArgs args)
 		{
-			if (date_time_footer != null)
-				date_time_footer.Dispose ();
-			if (page_breaks != null)
-				page_breaks.Clear ();
+			if (timestamp_footer != null) {
+				timestamp_footer.Dispose ();
+				timestamp_footer = null;
+			}
 		}
 	}
 }
