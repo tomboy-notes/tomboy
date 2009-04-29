@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Runtime.InteropServices;
 
 namespace Tomboy
 {
@@ -137,6 +138,8 @@ namespace Tomboy
 		// This is here to support the original logging, but it should be
 		// considered deprecated and old code that uses it should be upgraded to
 		// call one of the level specific log methods.
+		[Obsolete("Loger.Log is deprecated and should be replaced " +
+			"with calls to the level specific log methods")]
 		public static void Log (string msg, params object[] args)
 		{
 			Log (Level.DEBUG, msg, args);
