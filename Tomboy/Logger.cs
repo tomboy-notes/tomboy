@@ -34,20 +34,30 @@ namespace Tomboy
 
 		public FileLogger ()
 		{
-			try {
-				log = File.CreateText (Path.Combine (
-#if WIN32
-				                               Services.NativeApplication.ConfDir,
-#else
-				                               Environment.GetEnvironmentVariable ("HOME"),
-#endif
-				                               ".tomboy.log"));
-				log.Flush ();
-			} catch (IOException) {
-				// FIXME: Use temp file
-			}
-
 			console = new ConsoleLogger ();
+
+#if WIN32
+			string logfile = Path.Combine(
+				Services.NativeApplication.ConfDir,
+				"tomboy.log");
+#else
+			string logfile = Path.Combine(
+				Environment.GetEnvironmentVariable ("HOME"),
+				".tomboy.log");
+#endif
+
+			try {
+				log = File.CreateText (logfile);
+				log.Flush ();
+			} catch (IOException iox) {
+				console.Log(Level.WARN, 
+					"Failed to create the logfile at {0}: {1}",
+					logfile, iox.Message);
+			} catch (UnauthorizedAccessException uax) {
+				console.Log(Level.WARN,
+					"Failed to create the logfile at {0}: {1}",
+					logfile, uax.Message);
+			}
 		}
 
 		~FileLogger ()
