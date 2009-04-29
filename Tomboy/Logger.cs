@@ -19,6 +19,24 @@ namespace Tomboy
 
 	class ConsoleLogger : ILogger
 	{
+#if WIN32
+		[DllImport("kernel32.dll")]
+		public static extern bool AttachConsole (uint dwProcessId);
+		const uint ATTACH_PARENT_PROCESS = 0x0ffffffff;
+		[DllImport("kernel32.dll")]
+		public static extern bool FreeConsole ();
+
+		public ConsoleLogger ()
+		{
+			AttachConsole (ATTACH_PARENT_PROCESS);
+		}
+
+		~ConsoleLogger ()
+		{
+			FreeConsole ();
+		}
+#endif
+
 		public void Log (Level lvl, string msg, params object[] args)
 		{
 			msg = string.Format ("[{0}]: {1}", Enum.GetName (typeof (Level), lvl), msg);
