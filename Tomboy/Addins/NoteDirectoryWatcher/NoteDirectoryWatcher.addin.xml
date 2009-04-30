@@ -1,0 +1,22 @@
+<Addin id="NoteDirectoryWatcher"
+	namespace="Tomboy"
+	name="Note Directory Watcher"
+	author="Tomboy Project"
+	description="Watch your Tomboy note directory for changes to your notes."
+	category="Tools"
+	defaultEnabled="false"
+	version="0.1">
+
+	<Runtime>
+		<Import assembly="NoteDirectoryWatcher.dll" />
+	</Runtime>
+
+	<Dependencies>
+		<Addin id="Tomboy" version="0.10" />
+	</Dependencies>
+
+	<Extension path="/Tomboy/ApplicationAddins">
+		<ApplicationAddin type="Tomboy.NoteDirectoryWatcher.NoteDirectoryWatcherApplicationAddin" />
+	</Extension>
+
+</Addin>
