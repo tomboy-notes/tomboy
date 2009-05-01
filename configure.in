@@ -214,10 +214,15 @@ done
 
 
 #
-# Evolution.dll needs Gmime#
+# Evolution.dll needs GMime#
 #
-PKG_CHECK_MODULES(EVOLUTION, gmime-sharp, ENABLE_EVOLUTION="yes", ENABLE_EVOLUTION="no")
-if test "x$ENABLE_GNOME" = "xno" ; then
+if test "x$ENABLE_GNOME" != "xno"; then
+	if pkg-config --exists gmime-sharp-2.4; then
+		PKG_CHECK_MODULES(EVOLUTION, gmime-sharp-2.4, ENABLE_EVOLUTION="yes", ENABLE_EVOLUTION="no")
+	else
+		PKG_CHECK_MODULES(EVOLUTION, gmime-sharp >= 2.2.7, ENABLE_EVOLUTION="yes", ENABLE_EVOLUTION="no")
+	fi
+else
 	ENABLE_EVOLUTION=no
 fi
 AC_ARG_ENABLE(evolution, 

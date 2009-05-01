@@ -396,12 +396,10 @@ namespace Tomboy.Evolution
 					GMime.Message message = parser.ConstructMessage ();
 					if (message == null)
 						break;
-
-					string subject = GMime.Utils.HeaderDecodePhrase (message.Subject);
-					subject_list.Add (subject);
+					
+					Logger.Log ("Evolution: Message Subject: {0}", message.Subject);
+					subject_list.Add (message.Subject);
 					message.Dispose ();
-
-					Logger.Log ("Evolution: Message Subject: {0}", subject);
 				};
 
 				parser.Dispose ();
