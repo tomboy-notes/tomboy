@@ -937,19 +937,10 @@ namespace Tomboy
 		{
 			get {
 				if (tag_table == null) {
-					#if FIXED_GTKSPELL
 					// NOTE: Sharing the same TagTable means
 					// that formatting is duplicated between
 					// buffers.
 					tag_table = NoteTagTable.Instance;
-					#else
-					// NOTE: GtkSpell chokes on shared
-					// TagTables because it blindly tries to
-					// create a new "gtkspell-misspelling"
-					// tag, which fails if one already
-					// exists in the table.
-					tag_table = new NoteTagTable ();
-					#endif
 				}
 				return tag_table;
 			}

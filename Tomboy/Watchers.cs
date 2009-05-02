@@ -399,9 +399,8 @@ namespace Tomboy
 
 		public override void OnNoteOpened ()
 		{
-			#if FIXED_GTKSPELL
-			// NOTE: This hack helps avoid multiple URL opens for
-			// cases where the GtkSpell version is fixed to allow
+			// NOTE: This hack helps avoid multiple URL opens
+			// now that Notes always perform
 			// TagTable sharing.  This is because if the TagTable is
 			// shared, we will connect to the same Tag's event
 			// source each time a note is opened, and get called
@@ -411,9 +410,6 @@ namespace Tomboy
 				url_tag.Activated += OnUrlTagActivated;
 				text_event_connected = true;
 			}
-			#else
-			url_tag.Activated += OnUrlTagActivated;
-			#endif
 
 			click_mark = Buffer.CreateMark (null, Buffer.StartIter, true);
 
@@ -622,9 +618,8 @@ namespace Tomboy
 
 		public override void OnNoteOpened ()
 		{
-			#if FIXED_GTKSPELL
-			// NOTE: This avoid multiple link opens for cases where
-			// the GtkSpell version is fixed to allow TagTable
+			// NOTE: This avoids multiple link opens
+			// now that notes always perform TagTable
 			// sharing.  This is because if the TagTable is shared,
 			// we will connect to the same Tag's event source each
 			// time a note is opened, and get called multiple times
@@ -634,10 +629,6 @@ namespace Tomboy
 				broken_link_tag.Activated += OnLinkTagActivated;
 				text_event_connected = true;
 			}
-			#else
-			link_tag.Activated += OnLinkTagActivated;
-			broken_link_tag.Activated += OnLinkTagActivated;
-			#endif
 
 			Buffer.InsertText += OnInsertText;
 			Buffer.DeleteRange += OnDeleteRange;
