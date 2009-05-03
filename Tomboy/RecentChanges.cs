@@ -599,20 +599,19 @@ namespace Tomboy
                 // based on the current selection of tags.  If no tags are selected,
                 // all notes should be allowed.
                 // </summary>
-				  bool FilterByTag (Note note)
-				  {
-				   if (selected_tags.Count == 0)
-				    return true;
+		bool FilterByTag (Note note)
+		{
+			if (selected_tags.Count == 0)
+				return true;
 
-				//   // FIXME: Ugh!  NOT an O(1) operation.  Is there a better way?
-				   List<Tag> tags = note.Tags;
-				   foreach (Tag tag in tags) {
-				    if (selected_tags.ContainsKey (tag))
-				     return true;
-				   }
+			// FIXME: Ugh!  NOT an O(1) operation.  Is there a better way?
+			foreach (Tag tag in note.Tags) {
+				if (selected_tags.ContainsKey (tag))
+					return true;
+			}
 
-				   return false;
-				  }
+			return false;
+		}
 
                 // <summary>
                 // Return true if the specified note should be shown in the list
