@@ -808,8 +808,7 @@ namespace Tomboy
 
 			// Remove tags now, since a note with no tags has
 			// no "tags" element in the XML
-			foreach (Tag tag in Tags)
-			RemoveTag (tag);
+			List<Tag> newTags = new List<Tag> ();
 
 			while (xml.Read ()) {
 				switch (xml.NodeType) {
@@ -838,7 +837,7 @@ namespace Tomboy
 						List<string> tag_strings = ParseTags (doc.ReadNode (xml.ReadSubtree ()));
 						foreach (string tag_str in tag_strings) {
 							Tag tag = TagManager.GetOrCreateTag (tag_str);
-							AddTag (tag);
+							newTags.Add (tag);
 						}
 						break;
 					case "open-on-startup":
@@ -850,6 +849,12 @@ namespace Tomboy
 			}
 
 			xml.Close ();
+
+			foreach (Tag oldTag in Tags)
+				if (!newTags.Contains (oldTag))
+				    RemoveTag (oldTag);
+			foreach (Tag newTag in newTags)
+				AddTag (newTag);
 
 			// Allow method caller to specify ChangeType (mostly needed by sync)
 			QueueSave (changeType);
