@@ -27,7 +27,7 @@ namespace Tomboy.NoteDirectoryWatcher
 		{
 			string note_path = Tomboy.DefaultNoteManager.NoteDirectoryPath;
 
-			file_change_records = new Dictionary<string, NoteFileChangeRecord>();
+			file_change_records = new Dictionary<string, NoteFileChangeRecord> ();
 
 			file_system_watcher = new FileSystemWatcher (note_path);
 
@@ -52,10 +52,7 @@ namespace Tomboy.NoteDirectoryWatcher
 
 		public override bool Initialized
 		{
-			get 
-			{
-				return initialized;
-			}
+			get { return initialized; }
 		}
 
 		private void HandleFileSystemErrorEvent (Object sender, ErrorEventArgs arg) 
@@ -64,65 +61,45 @@ namespace Tomboy.NoteDirectoryWatcher
 		}
 
 		private void HandleFileSystemChangeEvent (Object sender, FileSystemEventArgs arg) 
-		{			
-			string note_id = GetId(arg.FullPath);
+		{
+			string note_id = GetId (arg.FullPath);
 
 			if (VERBOSE_LOGGING)
-			{
 				Logger.Debug ("{0} has {1} (note_id={2})", arg.FullPath, arg.ChangeType, note_id);
-			}
 
 			// If the note_id is long 36 characters then the file probably wasn't a note.
-			if (note_id.Length != 36) 
-			{
+			if (note_id.Length != 36) {
 				if (VERBOSE_LOGGING)
-				{
 					Logger.Debug ("Ignoring change to {0}", arg.FullPath);
-				}
 
 				return;
 			}
 			
 			// Record that the file has been added/changed/deleted.  Adds/changes trump
 			// deletes.  Record the date.
-			lock (file_change_records)
-			{
+			lock (file_change_records) {
 				NoteFileChangeRecord record = null;
 
-				if (file_change_records.ContainsKey (note_id)) 
-				{
-					record = file_change_records[note_id];
-				} 
-				else 
-				{
+				if (file_change_records.ContainsKey (note_id)) {
+					record = file_change_records [note_id];
+				} else {
 					record = new NoteFileChangeRecord ();
-					file_change_records[note_id] = record;
+					file_change_records [note_id] = record;
 				}
 
-				if (arg.ChangeType == WatcherChangeTypes.Changed)
-				{
+				if (arg.ChangeType == WatcherChangeTypes.Changed) {
 					record.changed = true;
 					record.deleted = false;
-				}
-				else if (arg.ChangeType == WatcherChangeTypes.Created) 
-				{
+				} else if (arg.ChangeType == WatcherChangeTypes.Created) {
 					record.changed = true;
 					record.deleted = false;
-				}
-				else if (arg.ChangeType == WatcherChangeTypes.Renamed)
-				{
+				} else if (arg.ChangeType == WatcherChangeTypes.Renamed) {
 					record.changed = true;
 					record.deleted = false;
-				}
-				else if (arg.ChangeType == WatcherChangeTypes.Deleted)
-				{
+				} else if (arg.ChangeType == WatcherChangeTypes.Deleted) {
 					if (!record.changed)
-					{
 						record.deleted = true;
-					}
-				}
-				else
-				{
+				} else {
 					String message = "Unexpected WatcherChangeType " + arg.ChangeType;
 					Logger.Error (message);
 					throw new Exception (message);
@@ -136,36 +113,25 @@ namespace Tomboy.NoteDirectoryWatcher
 
 		private bool HandleTimeout () 
 		{
-			lock (file_change_records)
-			{
+			lock (file_change_records) {
 				List<string> keysToRemove = new List<string> (file_change_records.Count);
 
-				foreach (KeyValuePair<string, NoteFileChangeRecord> pair in file_change_records) 
-				{
+				foreach (KeyValuePair<string, NoteFileChangeRecord> pair in file_change_records)  {
 					if (VERBOSE_LOGGING)
-					{
 						Logger.Debug ("Handling (timeout) {0}", pair.Key);
-					}
 
-					if (DateTime.Now > pair.Value.last_change.Add (new TimeSpan (4000)) ) 
-					{
-						if (pair.Value.deleted) 
-						{
+					if (DateTime.Now > pair.Value.last_change.Add (new TimeSpan (4000)) ) {
+						if (pair.Value.deleted)
 							DeleteNote (pair.Key);
-						} 
 						else
-						{
 							AddOrUpdateNote (pair.Key);
-						}
 
 						keysToRemove.Add (pair.Key);
 					}
 				}
 
-				foreach (string note_id in keysToRemove) 
-				{
+				foreach (string note_id in keysToRemove)
 					file_change_records.Remove (note_id);
-				}
 			}
 			
 			return false;
@@ -193,14 +159,11 @@ namespace Tomboy.NoteDirectoryWatcher
 
 			Note note = Tomboy.DefaultNoteManager.FindByUri (note_uri);
 
-			if (note == null)
-			{
+			if (note == null) {
 				Logger.Debug ("Adding {0} because file changed.", note_id);
 				Note new_note = Note.Load (note_path, Tomboy.DefaultNoteManager);
 				Tomboy.DefaultNoteManager.Notes.Add (new_note);	
-			}
-			else
-			{
+			} else {
 				NoteData data = NoteArchiver.Instance.ReadFile (note_path, note_uri);
 
 				// Only record changes if the note actually changes.  This prevents the Addin from
@@ -208,12 +171,8 @@ namespace Tomboy.NoteDirectoryWatcher
 				if (data.Text == note.XmlContent)
 				{
 					if (VERBOSE_LOGGING)
-					{
 						Logger.Debug ("Ignoring {0} because contents identical", note_id);
-					}
-				}
-				else 
-				{
+				} else  {
 					Logger.Debug ("Updating {0} because file changed.", note_id);
 					note.XmlContent = data.Text;
 					note.Title = data.Title;
