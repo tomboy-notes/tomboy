@@ -287,7 +287,8 @@ namespace Tomboy
 				"Sandy Armstrong <sanfordarmstrong@gmail.com>",
 				"Sebastian Rittau <srittau@jroger.in-berlin.de>",
 				"Kevin Kubasik <kevin@kubasik.net>",
-				"Stefan Schweizer <steve.schweizer@gmail.com>"
+				"Stefan Schweizer <steve.schweizer@gmail.com>",
+				"Benjamin Podszun <benjamin.podszun@gmail.com>"
 			};
 
 			string [] documenters = new string [] {
