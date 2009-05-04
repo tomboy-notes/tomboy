@@ -753,10 +753,10 @@ namespace Tomboy
 			entry.Changed += OnFindEntryChanged;
 			entry.Activated += OnFindEntryActivated;
 			entry.Show ();
-			PackStart (entry, false, false, 0);
+			PackStart (entry, true, true, 0);
 
 			prev_button = new Gtk.Button (Catalog.GetString ("_Previous"));
-			prev_button.Image = new Gtk.Image (Gtk.Stock.GoBack, Gtk.IconSize.Menu);
+			prev_button.Image = new Gtk.Arrow (Gtk.ArrowType.Left, Gtk.ShadowType.None);
 			prev_button.Relief = Gtk.ReliefStyle.None;
 			prev_button.Sensitive = false;
 			prev_button.FocusOnClick = false;
@@ -764,8 +764,8 @@ namespace Tomboy
 			prev_button.Show ();
 			PackStart (prev_button, false, false, 0);
 
-			next_button = new Gtk.Button (Catalog.GetString ("Find _Next"));
-			next_button.Image = new Gtk.Image (Gtk.Stock.GoForward, Gtk.IconSize.Menu);
+			next_button = new Gtk.Button (Catalog.GetString ("_Next"));
+			next_button.Image = new Gtk.Arrow (Gtk.ArrowType.Right, Gtk.ShadowType.None);
 			next_button.Relief = Gtk.ReliefStyle.None;
 			next_button.Sensitive = false;
 			next_button.FocusOnClick = false;
