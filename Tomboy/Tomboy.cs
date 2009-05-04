@@ -16,6 +16,7 @@ namespace Tomboy
 {
 	public class Tomboy : Application
 	{
+		static bool debugging;
 		static NoteManager manager;
 		static TomboyTrayIcon tray_icon;
 		static TomboyTray tray = null;
@@ -34,6 +35,7 @@ namespace Tomboy
 			Catalog.Init ("tomboy", Defines.GNOME_LOCALE_DIR);
 
 			TomboyCommandLine cmd_line = new TomboyCommandLine (args);
+			debugging = cmd_line.Debug;
 
 #if ENABLE_DBUS || WIN32 || MAC // Run command-line earlier with DBus enabled
 			if (cmd_line.NeedsExecute) {
@@ -97,6 +99,11 @@ namespace Tomboy
 			}
 
 			Logger.Log ("All done.  Ciao!");
+		}
+
+		public static bool Debugging
+		{
+			get { return debugging; }
 		}
 
 		static string GetNotePath (string override_path)
@@ -365,6 +372,7 @@ namespace Tomboy
 
 	public class TomboyCommandLine
 	{
+		bool debug;
 		bool new_note;
 		bool panel_applet;
 		string new_note_name;
@@ -381,6 +389,12 @@ namespace Tomboy
 		public TomboyCommandLine (string [] args)
 		{
 			Parse (args);
+		}
+
+		// TODO: Document this option
+		public bool Debug
+		{
+			get { return debug; }
 		}
 
 		public bool UsePanelApplet
@@ -475,6 +489,9 @@ namespace Tomboy
 				bool quit = false;
 
 				switch (args [idx]) {
+				case "--debug":
+					debug = true;
+					break;
 #if ENABLE_DBUS || WIN32 || MAC
 				case "--new-note":
 					// Get optional name for new note...
