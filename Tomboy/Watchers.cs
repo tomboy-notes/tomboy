@@ -904,20 +904,6 @@ namespace Tomboy
 			}
 		}
 
-		static string [] PatronymicPrefixes =
-		        new string [] { "Mc", "Mac", "Le", "La", "De", "Van" };
-
-		bool IsPatronymicName (string word)
-		{
-			foreach (string prefix in PatronymicPrefixes) {
-				if (word.StartsWith (prefix) &&
-				                char.IsUpper (word [prefix.Length]))
-					return true;
-			}
-
-			return false;
-		}
-
 		void ApplyWikiwordToBlock (Gtk.TextIter start, Gtk.TextIter end)
 		{
 			NoteBuffer.GetBlockExtents (ref start,
@@ -931,9 +917,6 @@ namespace Tomboy
 			                match.Success;
 			                match = match.NextMatch ()) {
 				System.Text.RegularExpressions.Group group = match.Groups [1];
-
-				if (IsPatronymicName (group.ToString ()))
-					continue;
 
 				Logger.Log ("Highlighting wikiword: '{0}' at offset {1}",
 				            group,
