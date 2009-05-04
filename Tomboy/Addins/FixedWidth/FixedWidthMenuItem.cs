@@ -1,24 +1,26 @@
 using System;
-using Gtk;
 using Mono.Unix;
 
 namespace Tomboy.FixedWidth
 {
-	class FixedWidthMenuItem : CheckMenuItem
+	class FixedWidthMenuItem : Gtk.CheckMenuItem
 	{
 		NoteAddin Addin;
 		bool event_freeze;
 
 		public FixedWidthMenuItem (NoteAddin addin)
 : base ("<span font_family='monospace'>" +
-		        Catalog.GetString ("_Fixed Width") +
+		        Catalog.GetString ("Fixed Wid_th") +
 		        "</span>")
 		{
-			((Label) Child).UseUnderline = true;
-			((Label) Child).UseMarkup = true;
+			((Gtk.Label) Child).UseUnderline = true;
+			((Gtk.Label) Child).UseMarkup = true;
 
 			Addin = addin;
 			Addin.Window.TextMenu.Shown += MenuShown;
+			AddAccelerator ("activate", Addin.Window.AccelGroup,
+                                (uint) Gdk.Key.t, Gdk.ModifierType.ControlMask,
+                                Gtk.AccelFlags.Visible);
 
 			ShowAll();
 		}
