@@ -14,7 +14,7 @@ namespace Tomboy
                 Gtk.ComboBoxEntry find_combo;
                 Gtk.Button clear_search_button;
                 Gtk.CheckButton case_sensitive;
-                Gtk.Label note_count;
+                Gtk.Statusbar status_bar;
                 Gtk.ScrolledWindow matches_window;
                 Gtk.VBox content_vbox;
                 Gtk.TreeViewColumn matches_column;
@@ -137,9 +137,9 @@ namespace Tomboy
                         MakeRecentTree ();
                         tree.Show ();
 
-                        note_count = new Gtk.Label ();
-                        note_count.Xalign = 0;
-                        note_count.Show ();
+                        status_bar = new Gtk.Statusbar ();
+                        status_bar.HasResizeGrip = true;
+                        status_bar.Show ();
 
                         // Update on changes to notes
                         manager.NoteDeleted += OnNotesChanged;
@@ -176,15 +176,11 @@ namespace Tomboy
 					   hpaned.Add2 (matches_window);
 					   hpaned.Show ();
 
-                        Gtk.HBox status_box = new Gtk.HBox (false, 8);
-                        status_box.PackStart (note_count, true, true, 0);
-                        status_box.Show ();
-
                         Gtk.VBox vbox = new Gtk.VBox (false, 8);
                         vbox.BorderWidth = 6;
                         vbox.PackStart (hbox, false, false, 0);
                         vbox.PackStart (hpaned, true, true, 0);
-                        vbox.PackStart (status_box, false, false, 0);
+                        vbox.PackStart (status_bar, false, false, 0);
                         vbox.Show ();
 
                         // Use another VBox to place the MenuBar
@@ -536,7 +532,8 @@ namespace Tomboy
                 									 "Total: {0} notes",
                 									 total),
                 			total);
-                	note_count.Text = status;
+                        status_bar.Pop (0);
+                        status_bar.Push (0, status);
                 }
                 
                 void UpdateMatchNoteCount (int matches)
@@ -546,7 +543,8 @@ namespace Tomboy
                 									 "Matches: {0} notes",
                 									 matches),
                 			matches);
-                	note_count.Text = status;
+                        status_bar.Pop (0);
+                        status_bar.Push (0, status);
                 }
                 
                 /// <summary>
