@@ -77,7 +77,11 @@ namespace Tomboy
 			Mono.Addins.AddinManager.AddinUnloaded += OnAddinUnloaded;
 			Mono.Addins.AddinManager.Initialize (tomboy_conf_dir);
 			UpgradeOldAddinConfig ();
-			Mono.Addins.AddinManager.Registry.Rebuild (null);
+			if (Tomboy.Debugging) {
+				Mono.Addins.AddinManager.Registry.Rebuild (null);
+			} else {
+				Mono.Addins.AddinManager.Registry.Update (null);
+			}
 			Mono.Addins.AddinManager.AddExtensionNodeHandler ("/Tomboy/ApplicationAddins", OnApplicationAddinExtensionChanged);
 			// NOTE: A SyncServiceAddin is a specialization of an ApplicationAddin
 			Mono.Addins.AddinManager.AddExtensionNodeHandler ("/Tomboy/SyncServiceAddins", OnApplicationAddinExtensionChanged);
