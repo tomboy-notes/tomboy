@@ -2,96 +2,103 @@
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
 	<Fragment>
 		<DirectoryRef Id="TARGETDIR">
-			<Directory Id="ProgramFilesFolder" Name="PFiles">
+			<Directory Id="ProgramFilesFolder">
 				<Directory Id="INSTALLDIR" Name="Tomboy">
-					<Component Id="MyComponent" Guid="01F111EB-3C6C-4E5B-8655-7922ED600DAC" DiskId="1">
-						<File Id="LicenseFile" Name="license.rtf" Source="license.rtf" />
-						<File Id="README" Name="README" Source="..\README" />
-						<File Id="COPYING" Name="COPYING" Source="..\COPYING" />
-						<File Id="NEWS" Name="NEWS" Source="..\NEWS" />
-						<File Id="AUTHORS" Name="AUTHORS" Source="..\AUTHORS" />
-						<File Source="..\bin\Debug\Backlinks.dll" Name="Backlinks.dll" Id="Backlinks.dll" />
-						<File Source="..\bin\Debug\Bugzilla.dll" Name="Bugzilla.dll" Id="Bugzilla.dll" />
-						<File Source="..\bin\Debug\ExportToHtml.dll" Name="ExportToHtml.dll" Id="ExportToHtml.dll" />
-						<File Source="..\bin\Debug\ExportToHtml.xsl" Name="ExportToHtml.xsl" Id="ExportToHtml.xsl" />
-						<File Source="..\bin\Debug\FileSystemSyncService.dll" Name="FileSystemSyncService.dll" Id="FileSystemSyncService.dll" />
-						<File Source="..\bin\Debug\FixedWidth.dll" Name="FixedWidth.dll" Id="FixedWidth.dll" />
-						<File Source="..\bin\Debug\ICSharpCode.SharpZipLib.dll" Name="ICSharpCode.SharpZipLib.dll" Id="ICSharpCode.SharpZipLib.dll" />
-						<File Source="..\bin\Debug\InsertTimestamp.dll" Name="InsertTimestamp.dll" Id="InsertTimestamp.dll" />
-						<File Source="..\bin\Debug\Mono.Addins.dll" Name="Mono.Addins.dll" Id="Mono.Addins.dll" />
-						<File Source="..\bin\Debug\Mono.Addins.dll.config" Name="Mono.Addins.dll.config" Id="Mono.Addins.dll.config" />
-						<File Source="..\bin\Debug\Mono.Addins.Gui.dll" Name="Mono.Addins.Gui.dll" Id="Mono.Addins.Gui.dll" />
-						<File Source="..\bin\Debug\Mono.Addins.Setup.dll" Name="Mono.Addins.Setup.dll" Id="Mono.Addins.Setup.dll" />
-						<File Source="..\bin\Debug\Mono.Posix.dll" Name="Mono.Posix.dll" Id="Mono.Posix.dll" />
-						<File Source="..\bin\Debug\MonoPosixHelper.dll" Name="MonoPosixHelper.dll" Id="MonoPosixHelper.dll" />
-						<File Source="..\bin\Debug\NoteOfTheDay.dll" Name="NoteOfTheDay.dll" Id="NoteOfTheDay.dll" />
-						<File Source="..\bin\Debug\PrintNotes.dll" Name="PrintNotes.dll" Id="PrintNotes.dll" />
-						<File Source="..\bin\Debug\Tomboy.exe" Name="Tomboy.exe" Id="Tomboy.exe" Vital="yes"></File>
-						<File Source="..\bin\Debug\Backlinks.pdb" Name="Backlinks.pdb" Id="Backlinks.pdb" />
-						<File Source="..\bin\Debug\Bugzilla.pdb" Name="Bugzilla.pdb" Id="Bugzilla.pdb" />
-						<File Source="..\bin\Debug\ExportToHtml.pdb" Name="ExportToHtml.pdb" Id="ExportToHtml.pdb" />
-						<File Source="..\bin\Debug\FileSystemSyncService.pdb" Name="FileSystemSyncService.pdb" Id="FileSystemSyncService.pdb" />
-						<File Source="..\bin\Debug\FixedWidth.pdb" Name="FixedWidth.pdb" Id="FixedWidth.pdb" />
-						<File Source="..\bin\Debug\InsertTimestamp.pdb" Name="InsertTimestamp.pdb" Id="InsertTimestamp.pdb" />
-						<File Source="..\bin\Debug\NoteOfTheDay.pdb" Name="NoteOfTheDay.pdb" Id="NoteOfTheDay.pdb" />
-						<File Source="..\bin\Debug\PrintNotes.pdb" Name="PrintNotes.pdb" Id="PrintNotes.pdb" />
-						<File Source="..\bin\Debug\Tomboy.pdb" Name="Tomboy.pdb" Id="Tomboy.pdb" />
-					</Component>
-					<Component Id="Shortcuts" Guid="D1F1C647-7D55-4AD2-B765-4152B337546E" DiskId="1">
-						<CreateFolder />
-						<RegistryKey Root="HKCU" Key="Software\Tomboy\Install" Action="createAndRemoveOnUninstall">
-							<RegistryValue Name="DTSC" Value="1" Type="integer" KeyPath="yes" />
+					<Component Id="INSTALLDIR" Guid="D1F1C647-7D55-4AD2-B765-4152B337546E">
+						<!--<RemoveFolder Id='ProgramMenuDir' Directory='ProgramMenuDir' On='uninstall' />-->
+						<RemoveFolder Id='INSTALLDIR' Directory='INSTALLDIR' On='uninstall' />
+
+						<RegistryKey Id="TomboyRegKey" Root="HKLM" Key="Software\Tomboy" Action="createAndRemoveOnUninstall">
+							<RegistryValue Id="WriteTomboyInstallDir" Name="InstallDir" Action="write" Type="string" Value="[INSTALLDIR]" />
 						</RegistryKey>
-						<Shortcut Id="startmenuTomboy" Directory="ProgramMenuFolder" Name="Tomboy Notes" WorkingDirectory="INSTALLDIR" Icon="Tomboy.exe" IconIndex="0" Target="[#Tomboy.exe]" />
-						<Shortcut Id="desktopTomboy" Directory="DesktopFolder" Name="Tomboy Notes" WorkingDirectory="INSTALLDIR" Icon="Tomboy.exe" IconIndex="0" Target="[#Tomboy.exe]" />
 					</Component>
+					<!--<Component Id="Shortcuts" Guid="D1F1C647-7D55-4AD2-B765-4152B337546E" DiskId="1">
+						<CreateFolder />
+					</Component>-->
+					<Component Id="TomboyCore" Guid="01F111EB-3C6C-4E5B-8655-7922ED600DAC" DiskId="1">
+						<File Source="license.rtf" Id="LicenseFile" Name="license.rtf"  Vital="yes"/>
+						<File Source="..\README" Id="README" Name="README"  Vital="yes"/>
+						<File Source="..\COPYING" Id="COPYING" Name="COPYING"  Vital="yes" />
+						<File Source="..\NEWS" Id="NEWS" Name="NEWS"  Vital="yes"/>
+						<File Source="..\AUTHORS" Id="AUTHORS" Name="AUTHORS"  Vital="yes"/>
+						<File Source="..\bin\Debug\Backlinks.dll" Name="Backlinks.dll" Id="Backlinks.dll"  Vital="yes"/>
+						<File Source="..\bin\Debug\Bugzilla.dll" Name="Bugzilla.dll" Id="Bugzilla.dll"  Vital="yes"/>
+						<File Source="..\bin\Debug\ExportToHtml.dll" Name="ExportToHtml.dll" Id="ExportToHtml.dll"  Vital="yes"/>
+						<File Source="..\bin\Debug\ExportToHtml.xsl" Name="ExportToHtml.xsl" Id="ExportToHtml.xsl"  Vital="yes"/>
+						<File Source="..\bin\Debug\FileSystemSyncService.dll" Name="FileSystemSyncService.dll" Id="FileSystemSyncService.dll" Vital="yes" />
+						<File Source="..\bin\Debug\FixedWidth.dll" Name="FixedWidth.dll" Id="FixedWidth.dll"  Vital="yes"/>
+						<File Source="..\bin\Debug\ICSharpCode.SharpZipLib.dll" Name="ICSharpCode.SharpZipLib.dll" Id="ICSharpCode.SharpZipLib.dll" Vital="yes" />
+						<File Source="..\bin\Debug\InsertTimestamp.dll" Name="InsertTimestamp.dll" Id="InsertTimestamp.dll" Vital="yes" />
+						<File Source="..\bin\Debug\Mono.Addins.dll" Name="Mono.Addins.dll" Id="Mono.Addins.dll" Vital="yes" />
+						<File Source="..\bin\Debug\Mono.Addins.dll.config" Name="Mono.Addins.dll.config" Id="Mono.Addins.dll.config" Vital="yes" />
+						<File Source="..\bin\Debug\Mono.Addins.Gui.dll" Name="Mono.Addins.Gui.dll" Id="Mono.Addins.Gui.dll" Vital="yes" />
+						<File Source="..\bin\Debug\Mono.Addins.Setup.dll" Name="Mono.Addins.Setup.dll" Id="Mono.Addins.Setup.dll" Vital="yes" />
+						<File Source="..\bin\Debug\Mono.Posix.dll" Name="Mono.Posix.dll" Id="Mono.Posix.dll" Vital="yes" />
+						<File Source="..\bin\Debug\MonoPosixHelper.dll" Name="MonoPosixHelper.dll" Id="MonoPosixHelper.dll" Vital="yes" />
+						<File Source="..\bin\Debug\NoteOfTheDay.dll" Name="NoteOfTheDay.dll" Id="NoteOfTheDay.dll" Vital="yes" />
+						<File Source="..\bin\Debug\PrintNotes.dll" Name="PrintNotes.dll" Id="PrintNotes.dll" Vital="yes" />
+						<File Source="..\bin\Debug\Tomboy.exe" Name="Tomboy.exe" Id="Tomboy.exe" Vital="yes" KeyPath="yes">
+							<Shortcut Id="startmenuTomboy" Directory="ProgramMenuFolder" Name="Tomboy Notes" Description="Tomboy Notes" Advertise="yes" WorkingDirectory="INSTALLDIR" Icon="Tomboy.exe" IconIndex="0" />
+							<Shortcut Id="desktopTomboy" Directory="DesktopFolder" Name="Tomboy Notes"  Description="Tomboy Notes" Advertise="yes" WorkingDirectory="INSTALLDIR" Icon="Tomboy.exe" IconIndex="0" />
+						</File>
+						<File Source="..\bin\Debug\Backlinks.pdb" Name="Backlinks.pdb" Id="Backlinks.pdb" Vital="yes" />
+						<File Source="..\bin\Debug\Bugzilla.pdb" Name="Bugzilla.pdb" Id="Bugzilla.pdb" Vital="yes" />
+						<File Source="..\bin\Debug\ExportToHtml.pdb" Name="ExportToHtml.pdb" Id="ExportToHtml.pdb" Vital="yes" />
+						<File Source="..\bin\Debug\FileSystemSyncService.pdb" Name="FileSystemSyncService.pdb" Id="FileSystemSyncService.pdb" Vital="yes" />
+						<File Source="..\bin\Debug\FixedWidth.pdb" Name="FixedWidth.pdb" Id="FixedWidth.pdb" Vital="yes" />
+						<File Source="..\bin\Debug\InsertTimestamp.pdb" Name="InsertTimestamp.pdb" Id="InsertTimestamp.pdb" Vital="yes" />
+						<File Source="..\bin\Debug\NoteOfTheDay.pdb" Name="NoteOfTheDay.pdb" Id="NoteOfTheDay.pdb" Vital="yes" />
+						<File Source="..\bin\Debug\PrintNotes.pdb" Name="PrintNotes.pdb" Id="PrintNotes.pdb" Vital="yes" />
+						<File Source="..\bin\Debug\Tomboy.pdb" Name="Tomboy.pdb" Id="Tomboy.pdb" Vital="yes" />
+					</Component>
+
 					<Directory Id="tomboy" Name="tomboy">
 						<Directory Id="icons" Name="icons">
 							<Directory Id="hicolor" Name="hicolor">
 								<Directory Id="_6x16" Name="16x16">
 									<Directory Id="actions16" Name="actions">
 										<Component Guid="2F7685A9-DF0E-4471-9308-D3986E1E1A76" Id="Note_newPng" DiskId="1">
-											<File Source="..\bin\Debug\tomboy\icons\hicolor\16x16\actions\note-new.png" Name="note-new.png" Id="note_new.png" />
+											<File Source="..\bin\Debug\tomboy\icons\hicolor\16x16\actions\note-new.png" Name="note-new.png" Id="note_new.png" Vital="yes" />
 										</Component>
 									</Directory>
 									<Directory Id="apps16" Name="apps">
 										<Component Guid="5765C385-C549-4976-8E32-0D9218B666B3" Id="TomboyPng" DiskId="1">
-											<File Source="..\bin\Debug\tomboy\icons\hicolor\16x16\apps\tomboy.png" Name="tomboy.png" Id="tomboy.png" />
+											<File Source="..\bin\Debug\tomboy\icons\hicolor\16x16\apps\tomboy.png" Name="tomboy.png" Id="tomboy.png" Vital="yes" />
 										</Component>
 									</Directory>
 									<Directory Id="places16" Name="places" />
 									<Directory Id="status16" Name="status">
 										<Component Guid="7DC80176-A1D9-4078-B09D-CA08D029728E" Id="Pin_activePng" DiskId="1">
-											<File Source="..\bin\Debug\tomboy\icons\hicolor\16x16\status\pin-active.png" Name="pin-active.png" Id="pin_active.png" />
+											<File Source="..\bin\Debug\tomboy\icons\hicolor\16x16\status\pin-active.png" Name="pin-active.png" Id="pin_active.png" Vital="yes" />
 										</Component>
 										<Component Guid="03FEA52F-888F-43B1-9DE0-3934C88E8BF6" Id="Pin_downPng" DiskId="1">
-											<File Source="..\bin\Debug\tomboy\icons\hicolor\16x16\status\pin-down.png" Name="pin-down.png" Id="pin_down.png" />
+											<File Source="..\bin\Debug\tomboy\icons\hicolor\16x16\status\pin-down.png" Name="pin-down.png" Id="pin_down.png" Vital="yes" />
 										</Component>
 										<Component Guid="3EB31AAD-392C-4B25-BD29-178C829FFA3E" Id="Pin_upPng" DiskId="1">
-											<File Source="..\bin\Debug\tomboy\icons\hicolor\16x16\status\pin-up.png" Name="pin-up.png" Id="pin_up.png" />
+											<File Source="..\bin\Debug\tomboy\icons\hicolor\16x16\status\pin-up.png" Name="pin-up.png" Id="pin_up.png" Vital="yes" />
 										</Component>
 									</Directory>
 								</Directory>
 								<Directory Id="_2x22" Name="22x22">
 									<Directory Id="actions22" Name="actions">
 										<Component Guid="EE1BA642-20A2-4CF1-9356-D174F32EA91B" Id="Filter_note_allPng" DiskId="1">
-											<File Source="..\bin\Debug\tomboy\icons\hicolor\22x22\actions\filter-note-all.png" Name="filter-note-all.png" Id="filter_note_all.png" />
+											<File Source="..\bin\Debug\tomboy\icons\hicolor\22x22\actions\filter-note-all.png" Name="filter-note-all.png" Id="filter_note_all.png" Vital="yes" />
 										</Component>
 										<Component Guid="48ED3CD0-FDF0-4A76-8609-1C6ACF436003" Id="Filter_note_unfiledPng" DiskId="1">
-											<File Source="..\bin\Debug\tomboy\icons\hicolor\22x22\actions\filter-note-unfiled.png" Name="filter-note-unfiled.png" Id="filter_note_unfiled.png" />
+											<File Source="..\bin\Debug\tomboy\icons\hicolor\22x22\actions\filter-note-unfiled.png" Name="filter-note-unfiled.png" Id="filter_note_unfiled.png" Vital="yes" />
 										</Component>
 									</Directory>
 									<Directory Id="apps22" Name="apps">
 										<Component Guid="23BD730D-537E-49C0-81B2-E687DD458B31" Id="AppsTomboyPng" DiskId="1">
-											<File Source="..\bin\Debug\tomboy\icons\hicolor\22x22\apps\tomboy.png" Name="tomboy.png" Id="apps.tomboy.png" />
+											<File Source="..\bin\Debug\tomboy\icons\hicolor\22x22\apps\tomboy.png" Name="tomboy.png" Id="apps.tomboy.png" Vital="yes" />
 										</Component>
 									</Directory>
 									<Directory Id="places22" Name="places">
 										<Component Guid="A421B2BE-7618-484E-B79C-4A583395E847" Id="NotePng" DiskId="1">
-											<File Source="..\bin\Debug\tomboy\icons\hicolor\22x22\places\note.png" Name="note.png" Id="note.png" />
+											<File Source="..\bin\Debug\tomboy\icons\hicolor\22x22\places\note.png" Name="note.png" Id="note.png" Vital="yes" />
 										</Component>
 										<Component Guid="6F91DF63-6D53-4ACF-AFFD-756A87108A74" Id="NotebookPng" DiskId="1">
-											<File Source="..\bin\Debug\tomboy\icons\hicolor\22x22\places\notebook.png" Name="notebook.png" Id="notebook.png" />
+											<File Source="..\bin\Debug\tomboy\icons\hicolor\22x22\places\notebook.png" Name="notebook.png" Id="notebook.png" Vital="yes" />
 										</Component>
 									</Directory>
 									<Directory Id="status22" Name="status" />
@@ -100,7 +107,7 @@
 									<Directory Id="actions24" Name="actions" />
 									<Directory Id="apps24" Name="apps">
 										<Component Guid="2EEEDADB-BFAB-486E-8A90-4FB849924813" Id="AppsTomboyPng1" DiskId="1">
-											<File Source="..\bin\Debug\tomboy\icons\hicolor\24x24\apps\tomboy.png" Name="tomboy.png" Id="apps.tomboy1.png" />
+											<File Source="..\bin\Debug\tomboy\icons\hicolor\24x24\apps\tomboy.png" Name="tomboy.png" Id="apps.tomboy1.png" Vital="yes" />
 										</Component>
 									</Directory>
 									<Directory Id="places24" Name="places" />
@@ -110,7 +117,7 @@
 									<Directory Id="actions32" Name="actions" />
 									<Directory Id="apps32" Name="apps">
 										<Component Guid="7C4CA97A-AF77-452F-B848-9655BD322337" Id="AppsTomboyPng2" DiskId="1">
-											<File Source="..\bin\Debug\tomboy\icons\hicolor\32x32\apps\tomboy.png" Name="tomboy.png" Id="apps.tomboy2.png" />
+											<File Source="..\bin\Debug\tomboy\icons\hicolor\32x32\apps\tomboy.png" Name="tomboy.png" Id="apps.tomboy2.png" Vital="yes" />
 										</Component>
 									</Directory>
 									<Directory Id="places32" Name="places" />
@@ -119,12 +126,12 @@
 								<Directory Id="_8x48" Name="48x48">
 									<Directory Id="actions48" Name="actions">
 										<Component Guid="88DE93FC-41BD-456B-B3F9-2DFB6C9970F4" Id="Notebook_newPng" DiskId="1">
-											<File Source="..\bin\Debug\tomboy\icons\hicolor\48x48\actions\notebook-new.png" Name="notebook-new.png" Id="notebook_new.png" />
+											<File Source="..\bin\Debug\tomboy\icons\hicolor\48x48\actions\notebook-new.png" Name="notebook-new.png" Id="notebook_new.png" Vital="yes" />
 										</Component>
 									</Directory>
 									<Directory Id="apps48" Name="apps">
 										<Component Guid="4B6E164C-E3E8-4B28-8FF4-2E48BA766A02" Id="AppsTomboyPng3" DiskId="1">
-											<File Source="..\bin\Debug\tomboy\icons\hicolor\48x48\apps\tomboy.png" Name="tomboy.png" Id="apps.tomboy3.png" />
+											<File Source="..\bin\Debug\tomboy\icons\hicolor\48x48\apps\tomboy.png" Name="tomboy.png" Id="apps.tomboy3.png" Vital="yes" />
 										</Component>
 									</Directory>
 									<Directory Id="places48" Name="places" />
