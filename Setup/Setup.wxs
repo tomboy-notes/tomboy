@@ -6,8 +6,8 @@
 		Version="0.14.2.0"
 		UpgradeCode="4401CB77-D6D4-4903-B1F9-41E2F80DF785"
 		Manufacturer="Tomboy Project">
-		<Package Description="#Description"
-			Comments="Comments"
+		<Package Description="Tomboy Notes"
+			Comments="Installs or upgrades Tomboy notes/"
 			InstallerVersion="200"
 			Compressed="yes"/>
 		<!--
@@ -18,16 +18,27 @@
 		
 		<!-- Installation directory and files are defined in Files.wxs -->
 		<Directory Id="TARGETDIR" Name="SourceDir">
-		
 			<Directory Id="ProgramMenuFolder" Name="Programs" />
 			<Directory Id="DesktopFolder" Name="Desktop" />
-			
 		</Directory>
+
+		<!--
+			The install directory will be stored in the registry 
+			this way, future "upgrades" can auto-detect where to go
+			TODO: HKLM access requires elevation on Vista, but so do
+				"Program Files" installs. If we want non-elevated users
+				to be able to install this as smoothly (outside of the
+				"Program Files" folder), we need to fall back to HKCU?
+		-->
+		<Property Id="INSTALLDIR">
+			<RegistrySearch Id='SearchTomboyInstallDir' Type='directory' Root='HKLM' Key='Software\Tomboy' Name='InstallDir' />
+		</Property>
+		
 		
 		<Property Id="GTKSHARPNOVELLINSTALLVERSION">
 			<RegistrySearch Id='GtksharpnovellRegistry' Type='raw' Root='HKLM' Key='Software\Novell\GtkSharp\Version' />
 		</Property>
-		<Condition Message="This setup requires Gtk# for .NET (version 2.12.8 or higher). Please download the latest installer from http://ftp.novell.com/pub/mono/gtk-sharp/">
+		<Condition Message="This setup requires Gtk# for .NET (version 2.12.8 or higher). Please download the latest installer from http://ftp.novell.com/pub/mono/gtk-sharp/ ">
 			<![CDATA[GTKSHARPNOVELLINSTALLVERSION >= "2.12.8" OR REMOVE ~= "ALL"]]>
 		</Condition>
 		<Condition Message='This setup requires the .NET Framework 2.0 or higher.'>
@@ -35,12 +46,13 @@
 		</Condition>
 
 		
-		<Feature Id="Complete"
+		<Feature ConfigurableDirectory="INSTALLDIR" TypicalDefault="install" 
+					Id="TomboyNotes"
 		         Title="Tomboy Notes"
 		         Description="Take notes, link ideas, and stay organized."
 		         Level="1">
-		         <ComponentRef Id="MyComponent"/>
-		         <ComponentRef Id="Shortcuts"/>
+		         <ComponentRef Id="TomboyCore"/>
+		         <ComponentRef Id="INSTALLDIR"/>
 		         <ComponentRef Id="Note_newPng"/>
 		         <ComponentRef Id="TomboyPng"/>
 		         <ComponentRef Id="Pin_activePng"/>
@@ -68,9 +80,9 @@
 			features but adds a dialog to let the user choose a 
 			directory where the product will be installed
 		-->
-		<Property Id="WIXUI_INSTALLDIR">INSTALLDIR</Property>
+		<Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR" />
 		<UIRef Id="WixUI_InstallDir"/>
-	
+
 		<Icon Id="Tomboy.exe" SourceFile="..\bin\Debug\Tomboy.exe" />
 	</Product>
 </Wix>
