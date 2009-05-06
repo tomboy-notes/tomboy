@@ -198,6 +198,16 @@ namespace Tomboy
 			case Gdk.EventType.ButtonPress:
 				Gdk.EventButton button_ev = new Gdk.EventButton (ev.Handle);
 
+				// Do not insert selected text when activating links with
+				// middle mouse button
+				if (button_ev.Button == 2)
+					return true;
+
+				return false;
+
+			case Gdk.EventType.ButtonRelease:
+				button_ev = new Gdk.EventButton (ev.Handle);
+
 				if (button_ev.Button != 1 && button_ev.Button != 2)
 					return false;
 
@@ -206,15 +216,20 @@ namespace Tomboy
 				                              Gdk.ModifierType.ControlMask)) != 0)
 					return false;
 
+				// Prevent activation when selecting links with the mouse
+				if (editor.Buffer.HasSelection)
+					return false;
+
 				GetExtents (iter, out start, out end);
 				bool success = OnActivate (editor, start, end);
 
+				// Hide note if link is activated with middle mouse button
 				if (success && button_ev.Button == 2) {
 					Gtk.Widget widget = (Gtk.Widget) sender;
 					widget.Toplevel.Hide ();
 				}
 
-				return success;
+				return false;
 
 			case Gdk.EventType.KeyPress:
 				Gdk.EventKey key_ev = new Gdk.EventKey (ev.Handle);
