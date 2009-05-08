@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Text.RegularExpressions;
 using Mono.Unix;
 
 namespace Tomboy.Sync
@@ -82,34 +83,19 @@ namespace Tomboy.Sync
 
 
 		/// <summary>
-		/// Calls lsmod to check for fuse in the output
+		/// Checks /proc/filesystems to check for fuse in the output
 		/// </summary>
 		public static bool IsFuseEnabled ()
 		{
-			if (string.IsNullOrEmpty (lsmodTool))
-				throw new InvalidOperationException ("Unable to check if FUSE is enabled without a valid lsmod tool.");
-
-			Process p = new Process ();
-			p.StartInfo.UseShellExecute = false;
-			p.StartInfo.RedirectStandardOutput = true;
-			// TODO: Is calling lsmod safe enough?  i.e., can we be guaranteed it's gonna be there?
-			p.StartInfo.FileName = lsmodTool;
-			p.StartInfo.CreateNoWindow = true;
-			p.Start ();
-			string output = p.StandardOutput.ReadToEnd ();
-			p.WaitForExit ();
-
-			if (p.ExitCode == 1) {
-				Logger.Debug ("Error calling lsmod in SyncUtils.IsFuseEnabled ()");
-				return false;
-			}
-
-			if (output.IndexOf ("fuse") == -1) {
-				Logger.Debug ("Could not find 'fuse' in lsmod output");
-				return false;
-			}
-
-			return true;
+			try {
+				string fsFileName = "/proc/filesystems";
+				if (File.Exists (fsFileName)) {
+					string fsOutput = new System.IO.StreamReader (fsFileName).ReadToEnd ();
+					Regex fuseEx = new Regex ("\\s+fuse\\s+");
+					return fuseEx.Match (fsOutput).Success;
+				}
+			} catch { }
+			return false;
 		}
 
 		/// <summary>
