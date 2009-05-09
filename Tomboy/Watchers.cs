@@ -370,7 +370,6 @@ namespace Tomboy
 
 	public class NoteUrlWatcher : NoteAddin
 	{
-		NoteTag url_tag;
 		Gtk.TextMark click_mark;
 
 		const string URL_REGEX =
@@ -389,7 +388,7 @@ namespace Tomboy
 
 		public override void Initialize ()
 		{
-			url_tag = (NoteTag) Note.TagTable.Lookup ("link:url");
+			// Do nothing
 		}
 
 		public override void Shutdown ()
@@ -407,7 +406,7 @@ namespace Tomboy
 			// multiple times for each button press.  Fixes bug
 			// #305813.
 			if (!text_event_connected) {
-				url_tag.Activated += OnUrlTagActivated;
+				Note.TagTable.UrlTag.Activated += OnUrlTagActivated;
 				text_event_connected = true;
 			}
 
@@ -478,9 +477,9 @@ namespace Tomboy
 			NoteBuffer.GetBlockExtents (ref start,
 			                            ref end,
 			                            256 /* max url length */,
-			                            url_tag);
+			                            Note.TagTable.UrlTag);
 
-			Buffer.RemoveTag (url_tag, start, end);
+			Buffer.RemoveTag (Note.TagTable.UrlTag, start, end);
 
 			for (Match match = regex.Match (start.GetSlice (end));
 			                match.Success;
@@ -499,7 +498,7 @@ namespace Tomboy
 				end = start_cpy;
 				end.ForwardChars (group.Length);
 
-				Buffer.ApplyTag (url_tag, start_cpy, end);
+				Buffer.ApplyTag (Note.TagTable.UrlTag, start_cpy, end);
 			}
 		}
 
@@ -538,6 +537,7 @@ namespace Tomboy
 		void OnPopulatePopup (object sender, Gtk.PopulatePopupArgs args)
 		{
 			Gtk.TextIter click_iter = Buffer.GetIterAtMark (click_mark);
+			NoteTag url_tag = Note.TagTable.UrlTag;
 			if (click_iter.HasTag (url_tag) || click_iter.EndsTag (url_tag)) {
 				Gtk.MenuItem item;
 
@@ -571,6 +571,7 @@ namespace Tomboy
 			Gtk.TextIter click_iter = Buffer.GetIterAtMark (click_mark);
 
 			Gtk.TextIter start, end;
+			NoteTag url_tag = Note.TagTable.UrlTag;
 			url_tag.GetExtents (click_iter, out start, out end);
 
 			OnUrlTagActivated (url_tag, (NoteEditor) Window.Editor, start, end);
@@ -581,7 +582,7 @@ namespace Tomboy
 			Gtk.TextIter click_iter = Buffer.GetIterAtMark (click_mark);
 
 			Gtk.TextIter start, end;
-			url_tag.GetExtents (click_iter, out start, out end);
+			Note.TagTable.UrlTag.GetExtents (click_iter, out start, out end);
 
 			string url = GetUrl (start, end);
 
@@ -592,10 +593,6 @@ namespace Tomboy
 
 	public class NoteLinkWatcher : NoteAddin
 	{
-		NoteTag url_tag;
-		NoteTag link_tag;
-		NoteTag broken_link_tag;
-
 		static bool text_event_connected;
 
 		public override void Initialize ()
@@ -603,10 +600,6 @@ namespace Tomboy
 			Manager.NoteDeleted += OnNoteDeleted;
 			Manager.NoteAdded += OnNoteAdded;
 			Manager.NoteRenamed += OnNoteRenamed;
-
-			url_tag = (NoteTag) Note.TagTable.Lookup ("link:url");
-			link_tag = (NoteTag) Note.TagTable.Lookup ("link:internal");
-			broken_link_tag = (NoteTag) Note.TagTable.Lookup ("link:broken");
 		}
 
 		public override void Shutdown ()
@@ -625,8 +618,8 @@ namespace Tomboy
 			// time a note is opened, and get called multiple times
 			// for each button press.  Fixes bug #305813.
 			if (!text_event_connected) {
-				link_tag.Activated += OnLinkTagActivated;
-				broken_link_tag.Activated += OnLinkTagActivated;
+				Note.TagTable.LinkTag.Activated += OnLinkTagActivated;
+				Note.TagTable.BrokenLinkTag.Activated += OnLinkTagActivated;
 				text_event_connected = true;
 			}
 
@@ -665,6 +658,8 @@ namespace Tomboy
 			string old_title_lower = deleted.Title.ToLower ();
 
 			// Turn all link:internal to link:broken for the deleted note.
+			NoteTag link_tag = Note.TagTable.LinkTag;
+			NoteTag broken_link_tag = Note.TagTable.BrokenLinkTag;
 			TextTagEnumerator enumerator = new TextTagEnumerator (Buffer, link_tag);
 			foreach (TextRange range in enumerator) {
 				if (range.Text.ToLower () != old_title_lower)
@@ -690,6 +685,7 @@ namespace Tomboy
 			string old_title_lower = old_title.ToLower ();
 
 			// Replace existing links with the new title.
+			NoteTag link_tag = Note.TagTable.LinkTag;
 			TextTagEnumerator enumerator = new TextTagEnumerator (Buffer, link_tag);
 			foreach (TextRange range in enumerator) {
 				if (range.Text.ToLower () != old_title_lower)
@@ -743,7 +739,7 @@ namespace Tomboy
 				return;
 
 			// Don't create links inside URLs
-			if (title_start.HasTag (url_tag))
+			if (title_start.HasTag (Note.TagTable.UrlTag))
 				return;
 
 			Logger.Log ("Matching Note title '{0}' at {1}-{2}...",
@@ -751,8 +747,8 @@ namespace Tomboy
 			            hit.Start,
 			            hit.End);
 
-			Buffer.RemoveTag (broken_link_tag, title_start, title_end);
-			Buffer.ApplyTag (link_tag, title_start, title_end);
+			Buffer.RemoveTag (Note.TagTable.BrokenLinkTag, title_start, title_end);
+			Buffer.ApplyTag (Note.TagTable.LinkTag, title_start, title_end);
 		}
 
 		void HighlightNoteInBlock (Note find_note, Gtk.TextIter start, Gtk.TextIter end)
@@ -786,7 +782,7 @@ namespace Tomboy
 
 		void UnhighlightInBlock (Gtk.TextIter start, Gtk.TextIter end)
 		{
-			Buffer.RemoveTag (link_tag, start, end);
+			Buffer.RemoveTag (Note.TagTable.LinkTag, start, end);
 		}
 
 		void OnDeleteRange (object sender, Gtk.DeleteRangeArgs args)
@@ -797,7 +793,7 @@ namespace Tomboy
 			NoteBuffer.GetBlockExtents (ref start,
 			                            ref end,
 			                            Manager.TitleTrie.MaxLength,
-			                            link_tag);
+			                            Note.TagTable.LinkTag);
 
 			UnhighlightInBlock (start, end);
 			HighlightInBlock (start, end);
@@ -813,7 +809,7 @@ namespace Tomboy
 			NoteBuffer.GetBlockExtents (ref start,
 			                            ref end,
 			                            Manager.TitleTrie.MaxLength,
-			                            link_tag);
+			                            Note.TagTable.LinkTag);
 
 			UnhighlightInBlock (start, end);
 			HighlightInBlock (start, end);
