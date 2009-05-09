@@ -506,6 +506,10 @@ namespace Tomboy
 			InitCommonTags ();
 		}
 
+		public NoteTag UrlTag { get; private set; }
+		public NoteTag LinkTag { get; private set; }
+		public NoteTag BrokenLinkTag { get; private set; }
+
 		void InitCommonTags ()
 		{
 			NoteTag tag;
@@ -614,6 +618,7 @@ namespace Tomboy
 			        ContrastPaletteColor.Grey;
 			tag.CanActivate = true;
 			Add (tag);
+			BrokenLinkTag = tag;
 
 			tag = new NoteTag ("link:internal");
 			tag.Underline = Pango.Underline.Single;
@@ -621,6 +626,7 @@ namespace Tomboy
 			        ContrastPaletteColor.Blue;
 			tag.CanActivate = true;
 			Add (tag);
+			LinkTag = tag;
 
 			tag = new NoteTag ("link:url");
 			tag.Underline = Pango.Underline.Single;
@@ -628,6 +634,7 @@ namespace Tomboy
 			        ContrastPaletteColor.Blue;
 			tag.CanActivate = true;
 			Add (tag);
+			UrlTag = tag;
 		}
 
 		public static bool TagIsSerializable (Gtk.TextTag tag)
