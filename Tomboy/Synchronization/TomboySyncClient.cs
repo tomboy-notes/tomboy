@@ -125,7 +125,7 @@ namespace Tomboy.Sync
 
 				foreach (XmlNode node in doc.GetElementsByTagName ("last-sync-date")) {
 					try {
-						lastSyncDate = XmlConvert.ToDateTime (node.InnerText);
+						lastSyncDate = DateTime.Parse (node.InnerText);
 					} catch {
 					Logger.Error ("Unparsable last-sync-date element in " + manifestPath);
 					}

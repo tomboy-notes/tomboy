@@ -811,6 +811,8 @@ namespace Tomboy
 			foreach (Tag tag in Tags)
 			RemoveTag (tag);
 
+			DateTime date;
+
 			while (xml.Read ()) {
 				switch (xml.NodeType) {
 				case XmlNodeType.Element:
@@ -822,16 +824,22 @@ namespace Tomboy
 						XmlContent = xml.ReadInnerXml ();
 						break;
 					case "last-change-date":
-						data.Data.ChangeDate =
-						        XmlConvert.ToDateTime (xml.ReadString (), NoteArchiver.DATE_TIME_FORMAT);
+						if (DateTime.TryParse (xml.ReadString (), out date))
+							data.Data.ChangeDate = date;
+						else
+							data.Data.ChangeDate = DateTime.Now;
 						break;
 					case "last-metadata-change-date":
-						data.Data.MetadataChangeDate =
-						        XmlConvert.ToDateTime (xml.ReadString (), NoteArchiver.DATE_TIME_FORMAT);
+						if (DateTime.TryParse (xml.ReadString (), out date))
+							data.Data.MetadataChangeDate = date;
+						else
+							data.Data.MetadataChangeDate = DateTime.Now;
 						break;
 					case "create-date":
-						data.Data.CreateDate =
-						        XmlConvert.ToDateTime (xml.ReadString (), NoteArchiver.DATE_TIME_FORMAT);
+						if (DateTime.TryParse (xml.ReadString (), out date))
+							data.Data.CreateDate = date;
+						else
+							data.Data.CreateDate = DateTime.Now;
 						break;
 					case "tags":
 						XmlDocument doc = new XmlDocument ();
@@ -842,7 +850,9 @@ namespace Tomboy
 						}
 						break;
 					case "open-on-startup":
-						IsOpenOnStartup = bool.Parse (xml.ReadString ());
+						bool isStartup;
+						if (bool.TryParse (xml.ReadString (), out isStartup))
+							IsOpenOnStartup = isStartup;
 						break;
 					}
 					break;
@@ -1103,6 +1113,8 @@ namespace Tomboy
 	{
 		public const string CURRENT_VERSION = "0.3";
 
+		// NOTE: If this changes from a standard format, make sure to update
+		//       XML parsing to have a DateTime.TryParseExact
 		public const string DATE_TIME_FORMAT = "yyyy-MM-ddTHH:mm:ss.fffffffzzz";
 
 		static NoteArchiver instance = null;
@@ -1145,6 +1157,8 @@ namespace Tomboy
 			                                        System.Text.Encoding.UTF8);
 			XmlTextReader xml = new XmlTextReader (reader);
 			xml.Namespaces = false;
+			DateTime date;
+			int num;
 
 			while (xml.Read ()) {
 				switch (xml.NodeType) {
@@ -1162,31 +1176,42 @@ namespace Tomboy
 						note.Text = xml.ReadInnerXml ();
 						break;
 					case "last-change-date":
-						note.ChangeDate =
-						        XmlConvert.ToDateTime (xml.ReadString (), DATE_TIME_FORMAT);
+						if (DateTime.TryParse (xml.ReadString (), out date))
+							note.ChangeDate = date;
+						else
+							note.ChangeDate = DateTime.Now;
 						break;
 					case "last-metadata-change-date":
-						note.MetadataChangeDate =
-						        XmlConvert.ToDateTime (xml.ReadString (), DATE_TIME_FORMAT);
+						if (DateTime.TryParse (xml.ReadString (), out date))
+							note.MetadataChangeDate = date;
+						else
+							note.MetadataChangeDate = DateTime.Now;
 						break;
 					case "create-date":
-						note.CreateDate =
-						        XmlConvert.ToDateTime (xml.ReadString (), DATE_TIME_FORMAT);
+						if (DateTime.TryParse (xml.ReadString (), out date))
+							note.CreateDate = date;
+						else
+							note.CreateDate = DateTime.Now;
 						break;
 					case "cursor-position":
-						note.CursorPosition = int.Parse (xml.ReadString ());
+						if (int.TryParse (xml.ReadString (), out num))
+							note.CursorPosition = num;
 						break;
 					case "width":
-						note.Width = int.Parse (xml.ReadString ());
+						if (int.TryParse (xml.ReadString (), out num))
+							note.Width = num;
 						break;
 					case "height":
-						note.Height = int.Parse (xml.ReadString ());
+						if (int.TryParse (xml.ReadString (), out num))
+							note.Height = num;
 						break;
 					case "x":
-						note.X = int.Parse (xml.ReadString ());
+						if (int.TryParse (xml.ReadString (), out num))
+							note.X = num;
 						break;
 					case "y":
-						note.Y = int.Parse (xml.ReadString ());
+						if (int.TryParse (xml.ReadString (), out num))
+							note.Y = num;
 						break;
 					case "tags":
 						XmlDocument doc = new XmlDocument ();
@@ -1197,7 +1222,9 @@ namespace Tomboy
 						}
 						break;
 					case "open-on-startup":
-						note.IsOpenOnStartup = bool.Parse (xml.ReadString ());
+						bool isStartup;
+						if (bool.TryParse (xml.ReadString (), out isStartup))
+							note.IsOpenOnStartup = isStartup;
 						break;
 					}
 					break;
