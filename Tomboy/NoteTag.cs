@@ -17,6 +17,7 @@ namespace Tomboy
 		string element_name;
 		Gtk.TextMark widgetLocation;
 		Gtk.Widget widget;
+		bool allow_middle_activate = false;
 
 		[Flags]
 		enum TagFlags {
@@ -200,8 +201,10 @@ namespace Tomboy
 
 				// Do not insert selected text when activating links with
 				// middle mouse button
-				if (button_ev.Button == 2)
+				if (button_ev.Button == 2) {
+					allow_middle_activate = true;
 					return true;
+				}
 
 				return false;
 
@@ -219,6 +222,13 @@ namespace Tomboy
 				// Prevent activation when selecting links with the mouse
 				if (editor.Buffer.HasSelection)
 					return false;
+
+				// Don't activate if the link has just been pasted with the
+				// middle mouse button (no preceding ButtonPress event)
+				if (button_ev.Button == 2 && !allow_middle_activate)
+					return false;
+				else
+					allow_middle_activate = false;
 
 				GetExtents (iter, out start, out end);
 				bool success = OnActivate (editor, start, end);
