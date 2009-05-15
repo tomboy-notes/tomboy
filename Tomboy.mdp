@@ -145,6 +145,12 @@
     <File name="Tomboy/Addins/ExportToHtml/ExportToHtml.xsl" subtype="Code" buildaction="Nothing" />
     <File name="Tomboy/Addins/NoteDirectoryWatcher/NoteDirectoryWatcher.addin.xml" subtype="Code" buildaction="Nothing" />
     <File name="Tomboy/Addins/NoteDirectoryWatcher/NoteDirectoryWatcherApplicationAddin.cs" subtype="Code" buildaction="Compile" />
+    <File name="Tomboy/Addins/WebSyncService" subtype="Directory" buildaction="Compile" />
+    <File name="Tomboy/Addins/WebSyncService/WebSyncServiceAddin.cs" subtype="Code" buildaction="Compile" />
+    <File name="Tomboy/Addins/WebSyncService/WebSyncServer.cs" subtype="Code" buildaction="Compile" />
+    <File name="Tomboy/Addins/WebSyncService/Api" subtype="Directory" buildaction="Compile" />
+    <File name="Tomboy/Addins/WebSyncService/Api/NoteInfo.cs" subtype="Code" buildaction="Compile" />
+    <File name="Tomboy/Addins/WebSyncService/Api/UserInfo.cs" subtype="Code" buildaction="Compile" />
   </Contents>
   <References>
     <ProjectReference type="Gac" localcopy="True" refto="gdk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
@@ -156,6 +162,7 @@
     <ProjectReference type="Gac" localcopy="True" refto="Mono.Posix, Version=2.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756" />
     <ProjectReference type="Gac" localcopy="True" refto="pango-sharp, Version=2.10.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
     <ProjectReference type="Gac" localcopy="True" refto="Mono.Cairo, Version=2.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756" />
+    <ProjectReference type="Gac" localcopy="True" refto="System.Web.Extensions, Version=1.0.61025.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
   </References>
   <MonoDevelop.Autotools.MakefileInfo IntegrationEnabled="True" RelativeMakefileName="./Makefile.am" ExecuteTargetName="run">
     <BuildFilesVar />

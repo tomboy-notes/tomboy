@@ -1,0 +1,21 @@
+<Addin id="WebSyncServiceAddin"
+	namespace="Tomboy"
+	name="Web Sync Service Add-in"
+	author="Tomboy Project"
+	description="Synchronize Tomboy Notes with Tomboy Online and other compatible web services"
+	category="Synchronization"
+	defaultEnabled="true"
+	version="0.1">
+
+	<Runtime>
+		<Import assembly="WebSyncServiceAddin.dll" />
+	</Runtime>
+
+	<Dependencies>
+		<Addin id="Tomboy" version="0.10" />
+	</Dependencies>
+
+	<Extension path="/Tomboy/SyncServiceAddins">
+		<SyncServiceAddin type="Tomboy.WebSync.WebSyncServiceAddin" />
+	</Extension>
+</Addin>

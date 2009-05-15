@@ -14,5 +14,6 @@ SUBDIRS =				\
 	StickyNoteImport	\
 	Tasque			\
 	NoteDirectoryWatcher			\
-	WebDavSyncService
+	WebDavSyncService			\
+	WebSyncService
 
