@@ -31,22 +31,60 @@ namespace Tomboy.WebSync.Api
 {
 	public class UserInfo
 	{
+		public static UserInfo GetUser (string uri)
+		{
+			// TODO: Error-handling in GET and Deserialize
+			WebHelper helper = new WebHelper ();
+			string jsonString = helper.Get (uri, null);
+
+			JavaScriptSerializer ser = new JavaScriptSerializer ();
+			return ser.Deserialize <UserInfo> (jsonString);
+		}
+		
 		public string FirstName { get; private set; }
 
 		public string LastName { get; private set; }
 
-		public string NotesUri { get; private set; }
+		public ResourceReference Notes { get; private set; }
 
-		public string FriendsUri { get; private set; }
+		public ResourceReference Friends { get; private set; }
+
+		public int LatestSyncRevision { get; private set; }
 
 		public IList<NoteInfo> GetNotes (bool includeContent)
 		{
+			return GetNotes (includeContent, -1);
+		}
+
+		public IList<NoteInfo> GetNotes (bool includeContent, int sinceRevision)
+		{
+			// TODO: Error-handling in GET and Deserialize
+			WebHelper helper = new WebHelper ();
 			string jsonString = string.Empty;
 
-			// TODO: Do request using NotesUri
+			Dictionary<string, string> parameters =
+				new Dictionary<string, string> ();
+			if (includeContent)
+				parameters ["include_notes"] = "true";
+			if (sinceRevision >= 0)
+				parameters ["since"] = sinceRevision.ToString ();
+			
+			jsonString = helper.Get (Notes.ApiRef, parameters);
 
 			JavaScriptSerializer ser = new JavaScriptSerializer ();
 			return ser.Deserialize <List<NoteInfo>> (jsonString);
+		}
+
+		public void UpdateNotes (IList<NoteInfo> noteUpdates)
+		{
+			// TODO: Error-handling in PUT, Serialize, and Deserialize
+			WebHelper helper = new WebHelper ();
+			JavaScriptSerializer ser = new JavaScriptSerializer ();
+
+			string jsonString =
+				helper.PutJson (Notes.ApiRef, null, ser.Serialize (noteUpdates));
+			
+			ser.Deserialize <List<NoteInfo>> (jsonString);
 		}
 	}
 }

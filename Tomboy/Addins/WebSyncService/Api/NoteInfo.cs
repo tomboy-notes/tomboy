@@ -30,22 +30,26 @@ namespace Tomboy.WebSync.Api
 {
 	public class NoteInfo
 	{
-		public string Guid { get; private set; }
+		public string Guid { get; set; }
 		
-		public string Uri { get; private set; }
+		public ResourceReference ResourceReference { get; set; }
 		
-		public string Title { get; private set; }
+		public string Title { get; set; }
 		
-		public string XmlContent { get; private set; }
+		public string NoteContent { get; set; }
 		
-		public DateTime LastChangeDate { get; private set; }
+		public DateTime LastChangeDate { get; set; }
 		
-		public DateTime LastMetadataChangeDate { get; private set; }
+		public DateTime LastMetadataChangeDate { get; set; }
 		
-		public DateTime CreateDate { get; private set; }
+		public DateTime CreateDate { get; set; }
+
+		public int LastSyncRevision { get; set; }
 		
-		public bool OpenOnStartup { get; private set; }
+		public bool OpenOnStartup { get; set; }
 		
-		public List<string> Tags { get; private set; }
+		public List<string> Tags { get; set; }
+
+		public string Command { get; set; }
 	}
 }

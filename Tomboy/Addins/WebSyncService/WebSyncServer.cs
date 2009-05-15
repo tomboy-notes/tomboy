@@ -27,6 +27,7 @@ using System;
 using System.Collections.Generic;
 
 using Tomboy.Sync;
+using Tomboy.WebSync.Api;
 
 namespace Tomboy.WebSync
 {
@@ -34,11 +35,15 @@ namespace Tomboy.WebSync
 	{
 		private string serverUrl;
 		private string userName;
+		private UserInfo user;
+		private List<NoteInfo> pendingCommits;
 		
 		public WebSyncServer (string serverUrl, string userName)
 		{
 			this.serverUrl = serverUrl;
 			this.userName = userName;
+
+			pendingCommits = new List<NoteInfo> ();
 		}
 
 		#region SyncServer implementation
@@ -46,6 +51,7 @@ namespace Tomboy.WebSync
 		public bool BeginSyncTransaction ()
 		{
 			// TODO: Check connection and auth
+			RefreshUser ();
 			return true;
 		}
 		
@@ -57,8 +63,9 @@ namespace Tomboy.WebSync
 		
 		public bool CommitSyncTransaction ()
 		{
-			// TODO: PUT request from info cached during
-			//       UploadNotes and DeleteNotes
+			RefreshUser ();	// TODO: Test that latest sync rev hasn't changed
+			user.UpdateNotes (pendingCommits);
+			// TODO: Check for problems
 			return true;
 		}
 		
@@ -70,7 +77,12 @@ namespace Tomboy.WebSync
 		
 		public void DeleteNotes (IList<string> deletedNoteUUIDs)
 		{
-			// TODO: Build relevant piece of PUT request
+			foreach (string uuid in deletedNoteUUIDs) {
+				NoteInfo noteInfo = new NoteInfo ();
+				noteInfo.Command = "delete";
+				noteInfo.Guid = uuid;
+				pendingCommits.Add (noteInfo);
+			}
 		}
 		
 		public IList<string> GetAllNoteUUIDs ()
@@ -80,7 +92,18 @@ namespace Tomboy.WebSync
 		
 		public IDictionary<string, NoteUpdate> GetNoteUpdatesSince (int revision)
 		{
-			throw new System.NotImplementedException();
+			RefreshUser ();	// TODO: Test that latest sync rev hasn't changed
+			Dictionary<string, NoteUpdate> updates =
+				new Dictionary<string, NoteUpdate> ();
+			foreach (NoteInfo noteInfo in user.GetNotes (true, revision)) {
+				string noteXml = CreateNoteXml (noteInfo);
+				NoteUpdate update = new NoteUpdate (noteXml,
+				                                    noteInfo.Title,
+				                                    noteInfo.Guid,
+				                                    noteInfo.LastSyncRevision);
+				updates.Add (noteInfo.Guid, update);
+			}
+			return updates;
 		}
 		
 		public string Id {
@@ -91,15 +114,53 @@ namespace Tomboy.WebSync
 		
 		public int LatestRevision {
 			get {
-				throw new System.NotImplementedException();
+				RefreshUser ();	// TODO: Test that latest sync rev hasn't changed
+				return user.LatestSyncRevision;
 			}
 		}
 		
 		public void UploadNotes (IList<Note> notes)
 		{
-			// TODO: Build relevant piece of PUT request
+			foreach (Note note in notes) {
+				pendingCommits.Add (CreateNoteInfo (note));
+			}
 		}
 		
+		#endregion
+
+		#region Private Methods
+		
+		private void RefreshUser ()
+		{
+			user = UserInfo.GetUser (serverUrl + "/api/1.0/" + userName);
+		}
+
+		private NoteInfo CreateNoteInfo (Note note)
+		{
+			NoteInfo noteInfo = new NoteInfo ();
+			
+			noteInfo.Guid = note.Id;
+			noteInfo.Title = note.Title;
+			noteInfo.OpenOnStartup = note.IsOpenOnStartup;
+			noteInfo.CreateDate = note.CreateDate;
+			noteInfo.LastChangeDate = note.ChangeDate;
+			noteInfo.LastMetadataChangeDate = note.MetadataChangeDate;
+
+			noteInfo.Tags = new List<string> ();
+			foreach (Tag tag in note.Tags)
+				noteInfo.Tags.Add (tag.Name);
+
+			// TODO: content
+
+			return noteInfo;
+		}
+
+		private string CreateNoteXml (NoteInfo noteInfo)
+		{
+			// TODO: Everything
+			return string.Empty;
+		}
+
 		#endregion
 	}
 }
