@@ -21,7 +21,9 @@ CSFILES = \
 	$(srcdir)/WebSyncServer.cs		\
 	$(srcdir)/WebSyncServiceAddin.cs	\
 	$(srcdir)/Api/NoteInfo.cs	\
-	$(srcdir)/Api/UserInfo.cs
+	$(srcdir)/Api/ResourceReference.cs	\
+	$(srcdir)/Api/UserInfo.cs	\
+	$(srcdir)/Api/WebHelper.cs
 RESOURCES = \
 	-resource:$(srcdir)/WebSyncService.addin.xml
 
