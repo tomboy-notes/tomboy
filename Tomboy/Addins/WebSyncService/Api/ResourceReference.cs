@@ -29,7 +29,32 @@ namespace Tomboy.WebSync.Api
 {
 	public class ResourceReference
 	{
+		#region API Members
+		
 		public string Href { get; private set; }
+		
 		public string ApiRef { get; private set; }
+
+		#endregion
+
+		#region Public Static Members
+
+		public static ResourceReference ParseJson (Hyena.Json.JsonObject jsonObj)
+		{
+			if (jsonObj == null)
+				throw new ArgumentNullException ("jsonObj");
+
+			// TODO: Casting checks?
+			ResourceReference resourceRef = new ResourceReference ();
+			object uri;
+			if (jsonObj.TryGetValue ("api-ref", out uri))
+				resourceRef.ApiRef = (string) uri;
+			if (jsonObj.TryGetValue ("href", out uri))
+				resourceRef.Href = (string) uri;
+			
+			return resourceRef;
+		}
+
+		#endregion
 	}
 }

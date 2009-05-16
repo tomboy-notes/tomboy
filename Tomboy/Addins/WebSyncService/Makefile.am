@@ -9,8 +9,7 @@ ASSEMBLIES = 					\
 	$(LINK_TOMBOY_EXE)			\
 	$(GTKSHARP_LIBS) 				\
 	$(LINK_MONO_ADDINS)			\
-	-r:Mono.Posix               \
-	-r:System.Web.Extensions
+	-r:Mono.Posix
 
 #
 # Web Sync Service Addin
@@ -18,12 +17,14 @@ ASSEMBLIES = 					\
 
 TARGET = WebSyncServiceAddin.dll
 CSFILES = \
-	$(srcdir)/WebSyncServer.cs		\
+	$(srcdir)/WebSyncServer.cs          \
 	$(srcdir)/WebSyncServiceAddin.cs	\
-	$(srcdir)/Api/NoteInfo.cs	\
+	$(srcdir)/Api/NoteInfo.cs       	\
 	$(srcdir)/Api/ResourceReference.cs	\
-	$(srcdir)/Api/UserInfo.cs	\
-	$(srcdir)/Api/WebHelper.cs
+	$(srcdir)/Api/UserInfo.cs       	\
+	$(srcdir)/Api/WebHelper.cs          \
+	$(srcdir)/Hyena.Json/*.cs           \
+	$(srcdir)/Hyena.Json/Tests/*.cs
 RESOURCES = \
 	-resource:$(srcdir)/WebSyncService.addin.xml
 

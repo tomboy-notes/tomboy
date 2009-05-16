@@ -25,31 +25,65 @@
 
 using System;
 using System.Collections.Generic;
-using System.Web.Script.Serialization;
 
 namespace Tomboy.WebSync.Api
 {
 	public class UserInfo
 	{
+		#region Public Static Methods
+		
 		public static UserInfo GetUser (string uri)
 		{
 			// TODO: Error-handling in GET and Deserialize
 			WebHelper helper = new WebHelper ();
 			string jsonString = helper.Get (uri, null);
-
-			JavaScriptSerializer ser = new JavaScriptSerializer ();
-			return ser.Deserialize <UserInfo> (jsonString);
+			return ParseJson (jsonString);
 		}
+
+		public static UserInfo ParseJson (string jsonString)
+		{
+			Hyena.Json.Deserializer deserializer =
+				new Hyena.Json.Deserializer (jsonString);
+			object obj = deserializer.Deserialize ();
+
+			Hyena.Json.JsonObject jsonObj =
+				obj as Hyena.Json.JsonObject;
+			if (jsonObj == null)
+				throw new ArgumentException ("jsonString does not contain a valid UserInfo representation");
+
+			// TODO: Checks
+			UserInfo user = new UserInfo ();
+			user.FirstName = (string) jsonObj ["first-name"];
+			user.LastName = (string) jsonObj ["last-name"];
+			user.LatestSyncRevision = (int) jsonObj ["latest-sync-revision"];
+
+			Hyena.Json.JsonObject notesRefJsonObj =
+				(Hyena.Json.JsonObject) jsonObj ["notes-ref"];
+			user.Notes =
+				ResourceReference.ParseJson (notesRefJsonObj);
+
+			object friendsRefObj;
+			if (jsonObj.TryGetValue ("friends-ref", out friendsRefObj)) {
+				user.Notes =
+					ResourceReference.ParseJson ((Hyena.Json.JsonObject) friendsRefObj);
+			}
+
+			return user;
+		}
+
+		#endregion
+
+		#region API Members
 		
 		public string FirstName { get; private set; }
 
 		public string LastName { get; private set; }
 
+		public int LatestSyncRevision { get; private set; }
+
 		public ResourceReference Notes { get; private set; }
 
 		public ResourceReference Friends { get; private set; }
-
-		public int LatestSyncRevision { get; private set; }
 
 		public IList<NoteInfo> GetNotes (bool includeContent)
 		{
@@ -71,20 +105,62 @@ namespace Tomboy.WebSync.Api
 			
 			jsonString = helper.Get (Notes.ApiRef, parameters);
 
-			JavaScriptSerializer ser = new JavaScriptSerializer ();
-			return ser.Deserialize <List<NoteInfo>> (jsonString);
+			return ParseJsonNotes (jsonString);
 		}
 
 		public void UpdateNotes (IList<NoteInfo> noteUpdates)
 		{
 			// TODO: Error-handling in PUT, Serialize, and Deserialize
 			WebHelper helper = new WebHelper ();
-			JavaScriptSerializer ser = new JavaScriptSerializer ();
 
-			string jsonString =
-				helper.PutJson (Notes.ApiRef, null, ser.Serialize (noteUpdates));
+			string jsonResponseString =
+				helper.PutJson (Notes.ApiRef, null, CreateNoteChangesJsonString (noteUpdates));
 			
-			ser.Deserialize <List<NoteInfo>> (jsonString);
+			ParseJsonNotes (jsonResponseString);	// TODO: What?
 		}
+
+		#endregion
+
+		#region Private Methods
+
+		private IList<NoteInfo> ParseJsonNotes (string jsonString)
+		{
+			Hyena.Json.Deserializer deserializer =
+				new Hyena.Json.Deserializer (jsonString);
+			object obj = deserializer.Deserialize ();
+			Hyena.Json.JsonObject jsonObj =
+				obj as Hyena.Json.JsonObject;
+			Hyena.Json.JsonArray noteArray =
+				(Hyena.Json.JsonArray) jsonObj ["notes"];
+			return ParseJsonNoteArray (noteArray);
+		}
+
+		public IList<NoteInfo> ParseJsonNoteArray (Hyena.Json.JsonArray jsonArray)
+		{
+			if (jsonArray == null)
+				throw new ArgumentNullException ("jsonArray does not contain a valid NoteInfo array representation");
+
+			// TODO: Checks
+			List<NoteInfo> noteList = new List<NoteInfo> ();
+			foreach (Hyena.Json.JsonObject jsonObj in jsonArray)
+				noteList.Add (NoteInfo.ParseJson (jsonObj));
+			return noteList;
+		}
+
+		private string CreateNoteChangesJsonString (IList<NoteInfo> noteUpdates)
+		{
+			Hyena.Json.JsonObject noteChangesObj =
+				new Hyena.Json.JsonObject ();
+			Hyena.Json.JsonArray noteChangesArray =
+				new Hyena.Json.JsonArray ();
+			foreach (NoteInfo note in noteUpdates)
+				noteChangesArray.Add (note.ToUpdateObject ());
+			noteChangesObj ["note-changes"] = noteChangesArray;
+
+			// TODO: Convert noteChangsObj to string
+			return string.Empty;
+		}
+		
+		#endregion
 	}
 }

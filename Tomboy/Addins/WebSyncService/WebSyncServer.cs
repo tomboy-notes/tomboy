@@ -25,6 +25,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 using Tomboy.Sync;
 using Tomboy.WebSync.Api;
@@ -151,14 +152,45 @@ namespace Tomboy.WebSync
 				noteInfo.Tags.Add (tag.Name);
 
 			// TODO: content
+			const string noteContentRegex =
+				@"\A<note-content(\s+version=""(?<contentVersion>[^""]+)"")?>(?<innerContent>.*)</note-content>\Z";
+			Match m = Regex.Match (note.XmlContent, noteContentRegex);
+			Group versionGroup = m.Groups ["contentVersion"];
+			Group contentGroup = m.Groups ["innerContent"];
+
+			double contentVersion;
+			if (versionGroup.Success &&
+			    double.TryParse (versionGroup.Value, out contentVersion)) {
+				noteInfo.NoteContentVersion = contentVersion;
+			} else
+				noteInfo.NoteContentVersion = 0.1;
+
+			if (contentGroup.Success)
+				noteInfo.NoteContent = contentGroup.Value;
+			else
+				noteInfo.NoteContent = string.Empty;
 
 			return noteInfo;
 		}
 
 		private string CreateNoteXml (NoteInfo noteInfo)
 		{
-			// TODO: Everything
-			return string.Empty;
+			NoteData noteData = new NoteData (noteInfo.Guid);
+			noteData.Title = noteInfo.Title;
+			noteData.Text =
+				"<note-content version=\"" + noteInfo.NoteContentVersion.ToString () + "\">" +
+				noteInfo.NoteContent + "</note-content>";
+			noteData.ChangeDate = noteInfo.LastChangeDate;
+			noteData.MetadataChangeDate = noteInfo.LastMetadataChangeDate;
+			noteData.CreateDate = noteInfo.CreateDate;
+			noteData.IsOpenOnStartup = noteInfo.OpenOnStartup;
+
+			foreach (string tagName in noteInfo.Tags) {
+				Tag tag = TagManager.GetOrCreateTag (tagName);
+				noteData.Tags [tag.NormalizedName] = tag;
+			}
+			
+			return NoteArchiver.WriteString (noteData);
 		}
 
 		#endregion
