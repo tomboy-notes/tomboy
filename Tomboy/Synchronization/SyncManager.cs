@@ -474,9 +474,9 @@ namespace Tomboy.Sync
 						server.CancelSyncTransaction ();
 				} catch {}
 			} finally {
-			syncThread = null;
-			try {
-				addin.PostSyncCleanup ();
+				syncThread = null;
+				try {
+					addin.PostSyncCleanup ();
 				} catch (Exception e) {
 					Logger.Error ("Error cleaning up addin after sync: " +
 					              e.Message + "\n" +
@@ -822,37 +822,28 @@ namespace Tomboy.Sync
 		IDictionary<string, NoteUpdate> GetNoteUpdatesSince (int revision);
 		void DeleteNotes (IList<string> deletedNoteUUIDs);
 		void UploadNotes (IList<Note> notes);
-		int LatestRevision { get;
-			                   }
-			SyncLockInfo CurrentSyncLock { get;
-				                             }
-				string Id { get;
-					          }
-				}
+		int LatestRevision { get; }
+		SyncLockInfo CurrentSyncLock { get; }
+		string Id { get; }
+	}
 
 	public interface SyncClient
 	{
-		int LastSynchronizedRevision { get;
-			                               set;
-				                             }
-				DateTime LastSyncDate { get;
-					                        set;
-						                      }
-						int GetRevision (Note note);
+		int LastSynchronizedRevision { get; set; }
+		DateTime LastSyncDate { get; set; }
+		int GetRevision (Note note);
 		void SetRevision (Note note, int revision);
-		IDictionary<string, string> DeletedNoteTitles { get;
-			                                              }
-			void Reset ();
-		string AssociatedServerId { get;
-			                            set;
-				                          }
-			}
+		IDictionary<string, string> DeletedNoteTitles { get; }
+		void Reset ();
+		string AssociatedServerId { get; set; }
+	}
 
 	public class TomboySyncException : ApplicationException
 	{
-public TomboySyncException (string message) :
+		public TomboySyncException (string message) :
 		base (message) {}
-public TomboySyncException (string message, Exception innerException) :
+
+		public TomboySyncException (string message, Exception innerException) :
 		base (message, innerException) {}
 	}
 }

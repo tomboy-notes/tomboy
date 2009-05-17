@@ -100,27 +100,27 @@ namespace Tomboy
 				Note note = note_manager.Create ();
 				return note.Uri;
 			} catch {
-			return  "";
+				return string.Empty;
+			}
 		}
-	}
 
-	public string CreateNamedNote (string linked_title)
+		public string CreateNamedNote (string linked_title)
 		{
 			Note note;
 
 			note = note_manager.Find (linked_title);
 			if (note != null)
-				return "";
+				return string.Empty;
 
 			try {
 				note = note_manager.Create (linked_title);
 				return note.Uri;
 			} catch {
-			return "";
+				return string.Empty;
+			}
 		}
-	}
 
-	public bool DeleteNote (string uri)
+		public bool DeleteNote (string uri)
 		{
 			Note note;
 
@@ -168,7 +168,7 @@ namespace Tomboy
 			Note note;
 			note = note_manager.FindByUri (uri);
 			if (note == null)
-				return "";
+				return string.Empty;
 			return note.TextContent;
 		}
 
@@ -177,7 +177,7 @@ namespace Tomboy
 			Note note;
 			note = note_manager.FindByUri (uri);
 			if (note == null)
-				return "";
+				return string.Empty;
 			return note.Title;
 		}
 
@@ -204,7 +204,7 @@ namespace Tomboy
 			Note note;
 			note = note_manager.FindByUri (uri);
 			if (note == null)
-				return "";
+				return string.Empty;
 			return note.XmlContent;
 		}
 
@@ -213,7 +213,7 @@ namespace Tomboy
 			Note note;
 			note = note_manager.FindByUri (uri);
 			if (note == null)
-				return "";
+				return string.Empty;
 			return note.GetCompleteNoteXml () ?? string.Empty;
 		}
 
