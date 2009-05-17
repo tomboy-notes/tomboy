@@ -255,7 +255,7 @@ AC_SUBST(GALAGO_LIBS)
 #
 # NUnit required for (optional) unit tests
 #
-PKG_CHECK_MODULES(NUNIT, nunit, HAVE_NUNIT="yes", HAVE_NUNIT="no")
+PKG_CHECK_MODULES(NUNIT, mono-nunit, HAVE_NUNIT="yes", HAVE_NUNIT="no")
 AM_CONDITIONAL(HAVE_NUNIT, test "$HAVE_NUNIT" = "yes")
 AC_SUBST(NUNIT_LIBS)
 AC_PATH_PROG(NUNIT, nunit-console)
