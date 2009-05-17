@@ -97,11 +97,11 @@ namespace Tomboy.WebSync
 			Dictionary<string, NoteUpdate> updates =
 				new Dictionary<string, NoteUpdate> ();
 			foreach (NoteInfo noteInfo in user.GetNotes (true, revision)) {
-				string noteXml = CreateNoteXml (noteInfo);
+				string noteXml = NoteConvert.ToNoteXml (noteInfo);
 				NoteUpdate update = new NoteUpdate (noteXml,
 				                                    noteInfo.Title,
 				                                    noteInfo.Guid,
-				                                    noteInfo.LastSyncRevision);
+				                                    noteInfo.LastSyncRevision.Value);
 				updates.Add (noteInfo.Guid, update);
 			}
 			return updates;
@@ -116,14 +116,14 @@ namespace Tomboy.WebSync
 		public int LatestRevision {
 			get {
 				RefreshUser ();	// TODO: Test that latest sync rev hasn't changed
-				return user.LatestSyncRevision;
+				return user.LatestSyncRevision.Value;
 			}
 		}
 		
 		public void UploadNotes (IList<Note> notes)
 		{
 			foreach (Note note in notes) {
-				pendingCommits.Add (CreateNoteInfo (note));
+				pendingCommits.Add (NoteConvert.ToNoteInfo (note));
 			}
 		}
 		
@@ -134,63 +134,6 @@ namespace Tomboy.WebSync
 		private void RefreshUser ()
 		{
 			user = UserInfo.GetUser (serverUrl + "/api/1.0/" + userName);
-		}
-
-		private NoteInfo CreateNoteInfo (Note note)
-		{
-			NoteInfo noteInfo = new NoteInfo ();
-			
-			noteInfo.Guid = note.Id;
-			noteInfo.Title = note.Title;
-			noteInfo.OpenOnStartup = note.IsOpenOnStartup;
-			noteInfo.CreateDate = note.CreateDate;
-			noteInfo.LastChangeDate = note.ChangeDate;
-			noteInfo.LastMetadataChangeDate = note.MetadataChangeDate;
-
-			noteInfo.Tags = new List<string> ();
-			foreach (Tag tag in note.Tags)
-				noteInfo.Tags.Add (tag.Name);
-
-			// TODO: content
-			const string noteContentRegex =
-				@"\A<note-content(\s+version=""(?<contentVersion>[^""]+)"")?>(?<innerContent>.*)</note-content>\Z";
-			Match m = Regex.Match (note.XmlContent, noteContentRegex);
-			Group versionGroup = m.Groups ["contentVersion"];
-			Group contentGroup = m.Groups ["innerContent"];
-
-			double contentVersion;
-			if (versionGroup.Success &&
-			    double.TryParse (versionGroup.Value, out contentVersion)) {
-				noteInfo.NoteContentVersion = contentVersion;
-			} else
-				noteInfo.NoteContentVersion = 0.1;
-
-			if (contentGroup.Success)
-				noteInfo.NoteContent = contentGroup.Value;
-			else
-				noteInfo.NoteContent = string.Empty;
-
-			return noteInfo;
-		}
-
-		private string CreateNoteXml (NoteInfo noteInfo)
-		{
-			NoteData noteData = new NoteData (noteInfo.Guid);
-			noteData.Title = noteInfo.Title;
-			noteData.Text =
-				"<note-content version=\"" + noteInfo.NoteContentVersion.ToString () + "\">" +
-				noteInfo.NoteContent + "</note-content>";
-			noteData.ChangeDate = noteInfo.LastChangeDate;
-			noteData.MetadataChangeDate = noteInfo.LastMetadataChangeDate;
-			noteData.CreateDate = noteInfo.CreateDate;
-			noteData.IsOpenOnStartup = noteInfo.OpenOnStartup;
-
-			foreach (string tagName in noteInfo.Tags) {
-				Tag tag = TagManager.GetOrCreateTag (tagName);
-				noteData.Tags [tag.NormalizedName] = tag;
-			}
-			
-			return NoteArchiver.WriteString (noteData);
 		}
 
 		#endregion

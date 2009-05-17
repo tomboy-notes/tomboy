@@ -79,7 +79,7 @@ namespace Tomboy.WebSync.Api
 
 		public string LastName { get; private set; }
 
-		public int LatestSyncRevision { get; private set; }
+		public int? LatestSyncRevision { get; private set; }
 
 		public ResourceReference Notes { get; private set; }
 

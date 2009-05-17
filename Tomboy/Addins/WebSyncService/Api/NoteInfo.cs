@@ -97,6 +97,10 @@ namespace Tomboy.WebSync.Api
 		{
 			Hyena.Json.JsonObject noteUpdateObj =
 				new Hyena.Json.JsonObject ();
+
+			if (string.IsNullOrEmpty (Guid))
+				throw new InvalidOperationException ("Cannot create a valid JSON representation without a Guid");
+			
 			noteUpdateObj [GuidElementName] = Guid;
 			
 			if (!string.IsNullOrEmpty (Command)) {
@@ -104,25 +108,35 @@ namespace Tomboy.WebSync.Api
 				return noteUpdateObj;
 			}
 
-			noteUpdateObj [TitleElementName] = Title;
-			noteUpdateObj [NoteContentElementName] = NoteContent;
-			noteUpdateObj [NoteContentVersionElementName] = NoteContentVersion;
-			
-			noteUpdateObj [LastChangeDateElementName] =
-				LastChangeDate.ToString (NoteArchiver.DATE_TIME_FORMAT);
-			noteUpdateObj [LastMetadataChangeDateElementName] =
-				LastMetadataChangeDate.ToString (NoteArchiver.DATE_TIME_FORMAT);
-			noteUpdateObj [CreateDateElementName] =
-				CreateDate.ToString (NoteArchiver.DATE_TIME_FORMAT);
-			
-			noteUpdateObj [LastSyncRevisionElementName] = LastSyncRevision;
-			noteUpdateObj [OpenOnStartupElementName] = OpenOnStartup;
+			if (Title != null)
+				noteUpdateObj [TitleElementName] = Title;
+			if (NoteContent != null)
+				noteUpdateObj [NoteContentElementName] = NoteContent;
+			if (NoteContentVersion.HasValue)
+				noteUpdateObj [NoteContentVersionElementName] = NoteContentVersion;
 
-			Hyena.Json.JsonArray tagArray =
-				new Hyena.Json.JsonArray ();
-			foreach (string tag in Tags)
-				tagArray.Add (tag);
-			noteUpdateObj [TagsElementName] = tagArray;
+			if (LastChangeDate.HasValue)
+				noteUpdateObj [LastChangeDateElementName] =
+					LastChangeDate.Value.ToString (NoteArchiver.DATE_TIME_FORMAT);
+			if (LastMetadataChangeDate.HasValue)
+				noteUpdateObj [LastMetadataChangeDateElementName] =
+					LastMetadataChangeDate.Value.ToString (NoteArchiver.DATE_TIME_FORMAT);
+			if (CreateDate.HasValue)
+				noteUpdateObj [CreateDateElementName] =
+					CreateDate.Value.ToString (NoteArchiver.DATE_TIME_FORMAT);
+
+			if (LastSyncRevision.HasValue)
+				noteUpdateObj [LastSyncRevisionElementName] = LastSyncRevision;
+			if (OpenOnStartup.HasValue)
+				noteUpdateObj [OpenOnStartupElementName] = OpenOnStartup;
+
+			if (Tags != null) {
+				Hyena.Json.JsonArray tagArray =
+					new Hyena.Json.JsonArray ();
+				foreach (string tag in Tags)
+					tagArray.Add (tag);
+				noteUpdateObj [TagsElementName] = tagArray;
+			}
 
 			return noteUpdateObj;
 		}
@@ -139,17 +153,17 @@ namespace Tomboy.WebSync.Api
 		
 		public string NoteContent { get; set; }
 
-		public double NoteContentVersion { get; set; }
+		public double? NoteContentVersion { get; set; }
 		
-		public DateTime LastChangeDate { get; set; }
+		public DateTime? LastChangeDate { get; set; }
 		
-		public DateTime LastMetadataChangeDate { get; set; }
+		public DateTime? LastMetadataChangeDate { get; set; }
 		
-		public DateTime CreateDate { get; set; }
+		public DateTime? CreateDate { get; set; }
 
-		public int LastSyncRevision { get; set; }
+		public int? LastSyncRevision { get; set; }
 		
-		public bool OpenOnStartup { get; set; }
+		public bool? OpenOnStartup { get; set; }
 		
 		public List<string> Tags { get; set; }
 
@@ -157,20 +171,20 @@ namespace Tomboy.WebSync.Api
 
 		#endregion
 
-		#region Public Constants
+		#region Private Constants
 
-		public const string GuidElementName = "guid";
-		public const string ResourceReferenceElementName = "ref";
-		public const string TitleElementName = "title";
-		public const string NoteContentElementName = "note-content";
-		public const string NoteContentVersionElementName = "note-content-version";
-		public const string LastChangeDateElementName = "last-change-date";
-		public const string LastMetadataChangeDateElementName = "last-metadata-change-date";
-		public const string CreateDateElementName = "create-date";
-		public const string LastSyncRevisionElementName = "last-sync-revision";
-		public const string OpenOnStartupElementName = "open-on-startup";
-		public const string TagsElementName = "tags";
-		public const string CommandElementName = "command";
+		private const string GuidElementName = "guid";
+		private const string ResourceReferenceElementName = "ref";
+		private const string TitleElementName = "title";
+		private const string NoteContentElementName = "note-content";
+		private const string NoteContentVersionElementName = "note-content-version";
+		private const string LastChangeDateElementName = "last-change-date";
+		private const string LastMetadataChangeDateElementName = "last-metadata-change-date";
+		private const string CreateDateElementName = "create-date";
+		private const string LastSyncRevisionElementName = "last-sync-revision";
+		private const string OpenOnStartupElementName = "open-on-startup";
+		private const string TagsElementName = "tags";
+		private const string CommandElementName = "command";
 
 		#endregion
 	}

@@ -23,6 +23,7 @@ ASSEMBLIES = \
 
 TARGET = WebSyncServiceAddin.dll
 CSFILES = \
+	$(srcdir)/NoteConvert.cs       	\
 	$(srcdir)/WebSyncServer.cs          \
 	$(srcdir)/WebSyncServiceAddin.cs	\
 	$(srcdir)/Api/NoteInfo.cs       	\
