@@ -37,7 +37,7 @@ using Hyena.Json;
 namespace Hyena.Json.Tests
 {
     [TestFixture]
-    public class DeserializerTests : Hyena.Tests.TestBase
+    public class DeserializerTests
     {
         private Deserializer deserializer;
         

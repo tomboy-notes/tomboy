@@ -1,14 +1,20 @@
 include $(top_srcdir)/Makefile.include
 
-CSFLAGS = 		\
-	-debug 		\
-	-define:DEBUG 	\
-	-target:library
+if HAVE_NUNIT
+    TEST_FLAGS = -define:ENABLE_TESTS
+endif
 
-ASSEMBLIES = 					\
+CSFLAGS = \
+	-debug			\
+	-define:DEBUG	\
+	-target:library	\
+	$(TEST_FLAGS)
+
+ASSEMBLIES = \
 	$(LINK_TOMBOY_EXE)			\
-	$(GTKSHARP_LIBS) 				\
+	$(GTKSHARP_LIBS)			\
 	$(LINK_MONO_ADDINS)			\
+	$(NUNIT_LIBS)				\
 	-r:Mono.Posix
 
 #

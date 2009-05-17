@@ -37,7 +37,7 @@ using Hyena.Json;
 namespace Hyena.Json.Tests
 {
     [TestFixture]
-    public class TokenizerTests : Hyena.Tests.TestBase
+    public class TokenizerTests
     {
         private Tokenizer tokenizer;
         
