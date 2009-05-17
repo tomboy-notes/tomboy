@@ -68,17 +68,17 @@ namespace Hyena.Json.Tests
         public void NumberInt ()
         {
             // Number tests
-            AssertTokenStream ("0", Token.Number (0));
-            AssertTokenStream ("-0", Token.Number (-0));
+            AssertTokenStream ("0", Token.Integer (0));
+            AssertTokenStream ("-0", Token.Integer (-0));
             
-            AssertTokenStream ("9", Token.Number (9));
-            AssertTokenStream ("-9", Token.Number (-9));
+            AssertTokenStream ("9", Token.Integer (9));
+            AssertTokenStream ("-9", Token.Integer (-9));
             
-            AssertTokenStream ("14", Token.Number (14));
-            AssertTokenStream ("-14", Token.Number (-14));
+            AssertTokenStream ("14", Token.Integer (14));
+            AssertTokenStream ("-14", Token.Integer (-14));
             
-            AssertTokenStream ("15309", Token.Number (15309));
-            AssertTokenStream ("-15309", Token.Number (-15309));
+            AssertTokenStream ("15309", Token.Integer (15309));
+            AssertTokenStream ("-15309", Token.Integer (-15309));
         }
         
         [Test]
@@ -148,14 +148,14 @@ namespace Hyena.Json.Tests
         [Test]
         public void Array ()
         {
-            AssertTokenStream ("[1]", Token.ArrayStart, Token.Number (1), Token.ArrayFinish);
-            AssertTokenStream ("[1,0]", Token.ArrayStart, Token.Number (1), Token.Comma, Token.Number (0), Token.ArrayFinish);
+            AssertTokenStream ("[1]", Token.ArrayStart, Token.Integer (1), Token.ArrayFinish);
+            AssertTokenStream ("[1,0]", Token.ArrayStart, Token.Integer (1), Token.Comma, Token.Integer (0), Token.ArrayFinish);
             AssertTokenStream ("[\"a\",true,null]", Token.ArrayStart, Token.String ("a"), Token.Comma, 
                 Token.Bool (true), Token.Comma, Token.Null, Token.ArrayFinish);
-            AssertTokenStream ("[0,1,[[2,[4]],5],6]", Token.ArrayStart, Token.Number (0), Token.Comma, Token.Number (1),
-                 Token.Comma, Token.ArrayStart, Token.ArrayStart, Token.Number (2), Token.Comma, Token.ArrayStart, 
-                 Token.Number (4), Token.ArrayFinish, Token.ArrayFinish, Token.Comma, Token.Number (5), Token.ArrayFinish,
-                 Token.Comma, Token.Number (6), Token.ArrayFinish);
+            AssertTokenStream ("[0,1,[[2,[4]],5],6]", Token.ArrayStart, Token.Integer (0), Token.Comma, Token.Integer (1),
+                 Token.Comma, Token.ArrayStart, Token.ArrayStart, Token.Integer (2), Token.Comma, Token.ArrayStart, 
+                 Token.Integer (4), Token.ArrayFinish, Token.ArrayFinish, Token.Comma, Token.Integer (5), Token.ArrayFinish,
+                 Token.Comma, Token.Integer (6), Token.ArrayFinish);
         }
         
         [Test]
@@ -194,7 +194,8 @@ namespace Hyena.Json.Tests
                     continue;
                 }
                 
-                if ((compare.Type == TokenType.Number && (double)compare.Value != (double)token.Value) ||
+                if ((compare.Type == TokenType.Integer && (int)compare.Value != (int)token.Value) ||
+                    (compare.Type == TokenType.Number && (double)compare.Value != (double)token.Value) ||
                     (compare.Type == TokenType.String && (string)compare.Value != (string)token.Value) ||
                     (compare.Type == TokenType.Boolean && (bool)compare.Value != (bool)token.Value)) {
                     throw new ApplicationException ("Token values do not match");

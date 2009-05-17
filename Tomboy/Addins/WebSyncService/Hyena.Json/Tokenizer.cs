@@ -163,14 +163,14 @@ namespace Hyena.Json
             return buffer.ToString ();
         }
         
-        private double LexInt ()
+        private int LexInt ()
         {
             return LexInt (false, 0);
         }
         
-        private double LexInt (bool hex, int maxDigits)
+        private int LexInt (bool hex, int maxDigits)
         {
-            double value = 0.0;
+            int value = 0;
             int count = 0;
             
             do {
@@ -212,34 +212,38 @@ namespace Hyena.Json
             return fraction;
         }
         
-        private double LexNumber ()
+        private object LexNumber (out bool isDouble)
         {
-            double value = 0.0;
+            isDouble = false;
+            int  intVal = 0;
+            double doubleVal = 0.0;
             bool negate = peek == '-';
             if (negate) {
                 ReadChar ();
             }
             
             if (peek != '0') {
-                value = LexInt ();
+                doubleVal = intVal = LexInt ();
             } else {
                 ReadChar ();
             }
             
             if (peek == '.') {
-                value += LexFraction ();
+                isDouble = true;
+                doubleVal += LexFraction ();
             }
             
             if (peek == 'e' || peek == 'E') {
+                isDouble = true;
                 ReadChar ();
                 if (peek == '-') {
                     ReadChar ();
-                    value /= Math.Pow (10, LexInt ());
+                    doubleVal /= Math.Pow (10, LexInt ());
                 } else if (peek == '+') {
                     ReadChar ();
-                    value *= Math.Pow (10, LexInt ());
+                    doubleVal *= Math.Pow (10, LexInt ());
                 } else if (Char.IsDigit (peek)) {
-                    value *= Math.Pow (10, LexInt ());
+                    doubleVal *= Math.Pow (10, LexInt ());
                 } else {
                     InvalidSyntax ("Malformed exponent");
                 }
@@ -249,8 +253,11 @@ namespace Hyena.Json
                 InvalidSyntax ("Numbers starting with 0 must be followed by a . or not " +
                     "followed by a digit (octal syntax not legal)");
             }
-            
-            return negate ? -1.0 * value : value;
+
+            if (!isDouble)
+                return negate ? -1 * intVal : intVal;
+            else
+                return negate ? -1.0 * doubleVal : doubleVal;
         }
         
         public Token Scan ()
@@ -291,7 +298,12 @@ namespace Hyena.Json
                 case '"': return new Token (TokenType.String, LexString ());
                 default:
                     if (peek == '-' || Char.IsDigit (peek)) {
-                        return new Token (TokenType.Number, LexNumber ());
+                        bool isDouble;
+                        object num = LexNumber (out isDouble);
+                        if (!isDouble)
+                            return new Token (TokenType.Integer, num);
+                        else
+                            return new Token (TokenType.Number, num);
                     } else if (Char.IsLetter (peek)) {
                         string identifier = LexId ();
                         switch (identifier) {

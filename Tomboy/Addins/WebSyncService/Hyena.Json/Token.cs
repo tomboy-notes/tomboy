@@ -98,6 +98,11 @@ namespace Hyena.Json
             return new Token (TokenType.Number, value);
         }
         
+        internal static Token Integer (int value)
+        {
+            return new Token (TokenType.Integer, value);
+        }
+        
         internal static Token String (string value)
         {
             return new Token (TokenType.String, value);

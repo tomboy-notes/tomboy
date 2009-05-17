@@ -42,10 +42,11 @@ namespace Hyena.Json
         String = 1 << 5,
         Null = 1 << 6,
         Number = 1 << 7,
-        Comma = 1 << 8,
-        Colon = 1 << 9,
+        Integer = 1 << 8,
+        Comma = 1 << 9,
+        Colon = 1 << 10,
         
-        Literal = String | Number | Boolean | Null,
+        Literal = String | Number | Boolean | Null | Integer,
         Value = ObjectStart | ArrayStart | Literal
     }
 }
