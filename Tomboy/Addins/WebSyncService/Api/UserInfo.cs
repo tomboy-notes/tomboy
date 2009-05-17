@@ -157,8 +157,10 @@ namespace Tomboy.WebSync.Api
 				noteChangesArray.Add (note.ToUpdateObject ());
 			noteChangesObj ["note-changes"] = noteChangesArray;
 
-			// TODO: Convert noteChangsObj to string
-			return string.Empty;
+			// TODO: Handle errors
+			Hyena.Json.Serializer serializer =
+				new Hyena.Json.Serializer (noteChangesObj);
+			return serializer.Serialize ();
 		}
 		
 		#endregion
