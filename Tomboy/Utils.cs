@@ -900,12 +900,10 @@ namespace Tomboy
 		{
 		}
 #if !WIN32 && !MAC
-		[DllImport("libtomboy")]
-		static extern void tomboy_window_present_hardcore (IntPtr win);
-
 		public new void Present ()
 		{
-			tomboy_window_present_hardcore (this.Handle);
+			//delay Present() to play well with global key bindings
+			Gtk.Application.Invoke (delegate { base.Present (); } );
 		}
 #endif
 	}
