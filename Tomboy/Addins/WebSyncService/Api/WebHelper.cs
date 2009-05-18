@@ -33,10 +33,12 @@ namespace Tomboy.WebSync.Api
 {
 	public class WebHelper
 	{
-		public string Get (string uri, IDictionary<string, string> queryParameters)
+		public string Get (string uri, IDictionary<string, string> queryParameters, IAuthProvider auth)
 		{
 			WebRequest request = BuildRequest (uri, queryParameters);
 			request.Method = "GET";
+			if (auth != null)
+				auth.PrepareRequest (request);
 
 			// TODO: Set ContentLength, UserAgent, Timeout, KeepAlive, Proxy, ContentType?
 			//       (May only be available if we cast back to HttpWebRequest)
@@ -44,10 +46,10 @@ namespace Tomboy.WebSync.Api
 			return ProcessResponse (request);
 		}
 
-		public string PutJson (string uri, IDictionary<string, string> queryParameters, string postValue)
+		public string PutJson (string uri, IDictionary<string, string> queryParameters, string postValue, IAuthProvider auth)
 		{
 			WebRequest request = BuildRequest (uri, queryParameters);
-			request.Method = "POST";
+			request.Method = "PUT";
 
 			// TODO: Set ContentLength, UserAgent, Timeout, KeepAlive, Proxy, ContentType?
 			//       (May only be available if we cast back to HttpWebRequest)
@@ -55,6 +57,8 @@ namespace Tomboy.WebSync.Api
 
 			byte [] data = Encoding.UTF8.GetBytes (postValue);
 			request.ContentLength = data.Length;
+			if (auth != null)
+				auth.PrepareRequest (request);
 
 			// TODO: try/finally error handling
 			Stream requestStream = request.GetRequestStream ();
@@ -80,6 +84,10 @@ namespace Tomboy.WebSync.Api
 
 		private WebRequest BuildRequest (string uri, IDictionary<string, string> queryParameters)
 		{
+			// NOTE: This is the proper way, but not yet implemented in Mono 2.0.1
+			//ServicePointManager.ServerCertificateValidationCallback = CheckCertificate;
+			ServicePointManager.CertificatePolicy = new LooseCertificatePolicy ();
+			
 			StringBuilder urlBuilder = new StringBuilder (uri);	// TODO: Capacity?
 			urlBuilder.Append ("?");
 			if (queryParameters != null) {
@@ -94,6 +102,51 @@ namespace Tomboy.WebSync.Api
 			urlBuilder.Remove (urlBuilder.Length - 1, 1);
 
 			return HttpWebRequest.Create (urlBuilder.ToString ());
+		}
+
+		// TODO: Consider moving to IAuthProvider
+//		private bool CheckCertificate (object sender,
+//		                               System.Security.Cryptography.X509Certificates.X509Certificate cert,
+//		                               System.Security.Cryptography.X509Certificates.X509Chain chain,
+//		                               System.Net.Security.SslPolicyErrors policyErrors)
+//		{
+//			return true;
+//		}
+		                               
+	}
+
+	// TODO: Replace with IAuthenticationModule
+	public interface IAuthProvider
+	{
+		void PrepareRequest (WebRequest request);
+	}
+	
+	public class BasicHttpAuthProvider : IAuthProvider
+	{
+		private string username;
+		private string password;
+
+		public BasicHttpAuthProvider (string username, string password)
+		{
+			this.username = username;
+			this.password = password;
+		}
+
+		public void PrepareRequest (WebRequest request)
+		{
+			request.PreAuthenticate = true;
+			request.Credentials = new NetworkCredential (username, password);
+		}
+	}
+
+	public class LooseCertificatePolicy : ICertificatePolicy
+	{
+		public bool CheckValidationResult (ServicePoint srvPoint,
+		                                   System.Security.Cryptography.X509Certificates.X509Certificate certificate,
+		                                   WebRequest request,
+		                                   int certificateProblem)
+		{
+			return true;
 		}
 	}
 }

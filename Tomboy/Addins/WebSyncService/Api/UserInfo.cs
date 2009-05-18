@@ -32,12 +32,19 @@ namespace Tomboy.WebSync.Api
 	{
 		#region Public Static Methods
 		
-		public static UserInfo GetUser (string uri)
+		public static UserInfo GetUser (string serverUrl, string userName, IAuthProvider auth)
 		{
+			// TODO: Clean this up
+			string baseUrl = serverUrl + "/api/1.0/";
+			string uri = baseUrl + userName;
+			
 			// TODO: Error-handling in GET and Deserialize
 			WebHelper helper = new WebHelper ();
-			string jsonString = helper.Get (uri, null);
-			return ParseJson (jsonString);
+			string jsonString = helper.Get (uri, null, auth);
+			UserInfo user = ParseJson (jsonString);
+			user.AuthProvider = auth;
+			user.BaseUrl = baseUrl;
+			return user;
 		}
 
 		public static UserInfo ParseJson (string jsonString)
@@ -103,7 +110,7 @@ namespace Tomboy.WebSync.Api
 			if (sinceRevision >= 0)
 				parameters ["since"] = sinceRevision.ToString ();
 			
-			jsonString = helper.Get (Notes.ApiRef, parameters);
+			jsonString = helper.Get (BaseUrl + Notes.ApiRef, parameters, AuthProvider);
 
 			return ParseJsonNotes (jsonString);
 		}
@@ -114,10 +121,21 @@ namespace Tomboy.WebSync.Api
 			WebHelper helper = new WebHelper ();
 
 			string jsonResponseString =
-				helper.PutJson (Notes.ApiRef, null, CreateNoteChangesJsonString (noteUpdates));
-			
-			ParseJsonNotes (jsonResponseString);	// TODO: What?
+				helper.PutJson (BaseUrl + Notes.ApiRef, null, CreateNoteChangesJsonString (noteUpdates), AuthProvider);
+
+			// TODO: Not working on server yet, but this will let us do
+			//       a sanity check on what revision we pushed, *and*
+			//       let us update any cache of refs that we keep.
+			//ParseJsonNotes (jsonResponseString);
 		}
+
+		#endregion
+
+		#region Public Properties
+
+		public IAuthProvider AuthProvider { get; set; }
+
+		public string BaseUrl { get; set; }
 
 		#endregion
 
@@ -160,6 +178,7 @@ namespace Tomboy.WebSync.Api
 			// TODO: Handle errors
 			Hyena.Json.Serializer serializer =
 				new Hyena.Json.Serializer (noteChangesObj);
+			// TODO: Log this for debugging?
 			return serializer.Serialize ();
 		}
 		

@@ -36,6 +36,7 @@ namespace Tomboy.WebSync
 	{
 		private string serverUrl;
 		private string userName;
+		private IAuthProvider auth;
 		private UserInfo user;
 		private List<NoteInfo> pendingCommits;
 		
@@ -44,6 +45,7 @@ namespace Tomboy.WebSync
 			this.serverUrl = serverUrl;
 			this.userName = userName;
 
+			auth = new BasicHttpAuthProvider (userName, password);
 			pendingCommits = new List<NoteInfo> ();
 		}
 
@@ -133,7 +135,7 @@ namespace Tomboy.WebSync
 		
 		private void RefreshUser ()
 		{
-			user = UserInfo.GetUser (serverUrl + "/api/1.0/" + userName);
+			user = UserInfo.GetUser (serverUrl, userName, auth);
 		}
 
 		#endregion
