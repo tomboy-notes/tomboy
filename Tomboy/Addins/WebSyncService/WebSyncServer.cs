@@ -39,7 +39,7 @@ namespace Tomboy.WebSync
 		private UserInfo user;
 		private List<NoteInfo> pendingCommits;
 		
-		public WebSyncServer (string serverUrl, string userName)
+		public WebSyncServer (string serverUrl, string userName, string password)
 		{
 			this.serverUrl = serverUrl;
 			this.userName = userName;
