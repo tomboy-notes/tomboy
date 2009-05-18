@@ -125,8 +125,9 @@ namespace Tomboy.WebSync.Api
 				noteUpdateObj [CreateDateElementName] =
 					CreateDate.Value.ToString (NoteArchiver.DATE_TIME_FORMAT);
 
-			if (LastSyncRevision.HasValue)
-				noteUpdateObj [LastSyncRevisionElementName] = LastSyncRevision;
+			// TODO: Figure out what we do on client side for this
+//			if (LastSyncRevision.HasValue)
+//				noteUpdateObj [LastSyncRevisionElementName] = LastSyncRevision;
 			if (OpenOnStartup.HasValue)
 				noteUpdateObj [OpenOnStartupElementName] = OpenOnStartup;
 

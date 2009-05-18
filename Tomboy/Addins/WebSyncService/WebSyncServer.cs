@@ -117,6 +117,10 @@ namespace Tomboy.WebSync
 		
 		public int LatestRevision {
 			get {
+				// TODO: Is this really the right way to do this?
+				//       If we just pushed and update, should trust
+				//       value returned from the PUT. Other client
+				//       may have pushed a new rev in intervening time!
 				RefreshUser ();	// TODO: Test that latest sync rev hasn't changed
 				return user.LatestSyncRevision.Value;
 			}

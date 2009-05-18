@@ -62,7 +62,12 @@ namespace Tomboy.WebSync.Api
 			UserInfo user = new UserInfo ();
 			user.FirstName = (string) jsonObj ["first-name"];
 			user.LastName = (string) jsonObj ["last-name"];
-			user.LatestSyncRevision = (int) jsonObj ["latest-sync-revision"];
+			
+			object latestSyncObj;
+			if (jsonObj.TryGetValue ("latest-sync-revision", out latestSyncObj))
+				user.LatestSyncRevision = (int) latestSyncObj;
+			else
+				user.LatestSyncRevision = -1;
 
 			Hyena.Json.JsonObject notesRefJsonObj =
 				(Hyena.Json.JsonObject) jsonObj ["notes-ref"];
