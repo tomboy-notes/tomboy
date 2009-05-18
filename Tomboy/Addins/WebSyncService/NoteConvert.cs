@@ -50,8 +50,8 @@ namespace Tomboy.WebSync
 				noteInfo.Tags.Add (tag.Name);
 
 			const string noteContentRegex =
-				@"\A<note-content(\s+version=""(?<contentVersion>[^""]+)"")?>(?<innerContent>.*)</note-content>\Z";
-			Match m = Regex.Match (note.XmlContent, noteContentRegex);
+				@"^<note-content(\s+version=""(?<contentVersion>[^""]+)"")?>(?<innerContent>.*)</note-content>$";
+			Match m = Regex.Match (note.XmlContent, noteContentRegex, RegexOptions.Singleline);
 			Group versionGroup = m.Groups ["contentVersion"];
 			Group contentGroup = m.Groups ["innerContent"];
 
