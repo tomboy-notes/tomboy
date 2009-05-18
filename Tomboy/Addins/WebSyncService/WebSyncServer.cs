@@ -36,7 +36,9 @@ namespace Tomboy.WebSync
 	{
 		private string serverUrl;
 		private string userName;
+
 		private IAuthProvider auth;
+		
 		private UserInfo user;
 		private List<NoteInfo> pendingCommits;
 		
@@ -46,7 +48,6 @@ namespace Tomboy.WebSync
 			this.userName = userName;
 
 			auth = new BasicHttpAuthProvider (userName, password);
-			pendingCommits = new List<NoteInfo> ();
 		}
 
 		#region SyncServer implementation
@@ -55,12 +56,14 @@ namespace Tomboy.WebSync
 		{
 			// TODO: Check connection and auth
 			RefreshUser ();
+			pendingCommits = new List<NoteInfo> ();
 			return true;
 		}
 		
 		public bool CancelSyncTransaction ()
 		{
 			// TODO: Cancel any pending request
+			pendingCommits.Clear ();
 			return true;
 		}
 		
@@ -68,6 +71,7 @@ namespace Tomboy.WebSync
 		{
 			RefreshUser ();	// TODO: Test that latest sync rev hasn't changed
 			user.UpdateNotes (pendingCommits);
+			pendingCommits.Clear ();
 			// TODO: Check for problems
 			return true;
 		}
