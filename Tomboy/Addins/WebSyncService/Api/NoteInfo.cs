@@ -113,7 +113,7 @@ namespace Tomboy.WebSync.Api
 			if (NoteContent != null)
 				noteUpdateObj [NoteContentElementName] = NoteContent;
 			if (NoteContentVersion.HasValue)
-				noteUpdateObj [NoteContentVersionElementName] = NoteContentVersion;
+				noteUpdateObj [NoteContentVersionElementName] = NoteContentVersion.Value;
 
 			if (LastChangeDate.HasValue)
 				noteUpdateObj [LastChangeDateElementName] =
@@ -129,7 +129,7 @@ namespace Tomboy.WebSync.Api
 //			if (LastSyncRevision.HasValue)
 //				noteUpdateObj [LastSyncRevisionElementName] = LastSyncRevision;
 			if (OpenOnStartup.HasValue)
-				noteUpdateObj [OpenOnStartupElementName] = OpenOnStartup;
+				noteUpdateObj [OpenOnStartupElementName] = OpenOnStartup.Value;
 
 			if (Tags != null) {
 				Hyena.Json.JsonArray tagArray =
