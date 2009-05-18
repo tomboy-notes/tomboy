@@ -90,7 +90,11 @@ namespace Tomboy.WebSync
 		
 		public IList<string> GetAllNoteUUIDs ()
 		{
-			throw new System.NotImplementedException();
+			RefreshUser ();	// TODO: Test that latest sync rev hasn't changed
+			List<string> uuids = new List<string> ();
+			foreach (NoteInfo noteInfo in user.GetNotes (false))
+				uuids.Add (noteInfo.Guid);
+			return uuids;
 		}
 		
 		public IDictionary<string, NoteUpdate> GetNoteUpdatesSince (int revision)
