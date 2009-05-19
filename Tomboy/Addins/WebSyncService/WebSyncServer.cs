@@ -54,8 +54,13 @@ namespace Tomboy.WebSync
 		
 		public bool BeginSyncTransaction ()
 		{
-			// TODO: Check connection and auth
-			RefreshUser ();
+			// TODO: Check connection and auth (is getting user resource a sufficient check?)
+			user = UserInfo.GetUser (serverUrl, userName, auth);
+			if (user.LatestSyncRevision.HasValue)
+				LatestRevision = user.LatestSyncRevision.Value;
+			else
+				VerifyLatestSyncRevision (user.LatestSyncRevision);
+			
 			pendingCommits = new List<NoteInfo> ();
 			return true;
 		}
@@ -69,10 +74,10 @@ namespace Tomboy.WebSync
 		
 		public bool CommitSyncTransaction ()
 		{
-			RefreshUser ();	// TODO: Test that latest sync rev hasn't changed
-			user.UpdateNotes (pendingCommits);
-			pendingCommits.Clear ();
-			// TODO: Check for problems
+			if (pendingCommits != null && pendingCommits.Count > 0) {
+				LatestRevision = user.UpdateNotes (pendingCommits, LatestRevision + 1);
+				pendingCommits.Clear ();
+			}
 			return true;
 		}
 		
@@ -94,19 +99,23 @@ namespace Tomboy.WebSync
 		
 		public IList<string> GetAllNoteUUIDs ()
 		{
-			RefreshUser ();	// TODO: Test that latest sync rev hasn't changed
 			List<string> uuids = new List<string> ();
-			foreach (NoteInfo noteInfo in user.GetNotes (false))
+			int? latestRevision;
+			IList<NoteInfo> serverNotes = user.GetNotes (false, out latestRevision);
+			VerifyLatestSyncRevision (latestRevision);
+			foreach (NoteInfo noteInfo in serverNotes)
 				uuids.Add (noteInfo.Guid);
 			return uuids;
 		}
 		
 		public IDictionary<string, NoteUpdate> GetNoteUpdatesSince (int revision)
 		{
-			RefreshUser ();	// TODO: Test that latest sync rev hasn't changed
 			Dictionary<string, NoteUpdate> updates =
 				new Dictionary<string, NoteUpdate> ();
-			foreach (NoteInfo noteInfo in user.GetNotes (true, revision)) {
+			int? latestRevision;
+			IList<NoteInfo> serverNotes = user.GetNotes (true, revision, out latestRevision);
+			VerifyLatestSyncRevision (latestRevision);
+			foreach (NoteInfo noteInfo in serverNotes) {
 				string noteXml = NoteConvert.ToNoteXml (noteInfo);
 				NoteUpdate update = new NoteUpdate (noteXml,
 				                                    noteInfo.Title,
@@ -123,31 +132,24 @@ namespace Tomboy.WebSync
 			}
 		}
 		
-		public int LatestRevision {
-			get {
-				// TODO: Is this really the right way to do this?
-				//       If we just pushed and update, should trust
-				//       value returned from the PUT. Other client
-				//       may have pushed a new rev in intervening time!
-				RefreshUser ();	// TODO: Test that latest sync rev hasn't changed
-				return user.LatestSyncRevision.Value;
-			}
-		}
+		public int LatestRevision { get; private set; }
 		
 		public void UploadNotes (IList<Note> notes)
 		{
-			foreach (Note note in notes) {
+			foreach (Note note in notes)
 				pendingCommits.Add (NoteConvert.ToNoteInfo (note));
-			}
 		}
 		
 		#endregion
 
 		#region Private Methods
-		
-		private void RefreshUser ()
+
+		private void VerifyLatestSyncRevision (int? latestRevision)
 		{
-			user = UserInfo.GetUser (serverUrl, userName, auth);
+			if (!latestRevision.HasValue)
+				throw new TomboySyncException ("No sync revision provided in server response");
+			if (latestRevision.Value != LatestRevision)
+				throw new TomboySyncException ("Latest revision on server has changed, please update restart your sync");
 		}
 
 		#endregion

@@ -97,12 +97,12 @@ namespace Tomboy.WebSync.Api
 
 		public ResourceReference Friends { get; private set; }
 
-		public IList<NoteInfo> GetNotes (bool includeContent)
+		public IList<NoteInfo> GetNotes (bool includeContent, out int? latestSyncRevision)
 		{
-			return GetNotes (includeContent, -1);
+			return GetNotes (includeContent, -1, out latestSyncRevision);
 		}
 
-		public IList<NoteInfo> GetNotes (bool includeContent, int sinceRevision)
+		public IList<NoteInfo> GetNotes (bool includeContent, int sinceRevision, out int? latestSyncRevision)
 		{
 			// TODO: Error-handling in GET and Deserialize
 			WebHelper helper = new WebHelper ();
@@ -117,21 +117,29 @@ namespace Tomboy.WebSync.Api
 			
 			jsonString = helper.Get (BaseUrl + Notes.ApiRef, parameters, AuthProvider);
 
-			return ParseJsonNotes (jsonString);
+			return ParseJsonNotes (jsonString, out latestSyncRevision);
 		}
 
-		public void UpdateNotes (IList<NoteInfo> noteUpdates)
+		public int UpdateNotes (IList<NoteInfo> noteUpdates, int expectedNewRevision)
 		{
 			// TODO: Error-handling in PUT, Serialize, and Deserialize
 			WebHelper helper = new WebHelper ();
 
 			string jsonResponseString =
-				helper.PutJson (BaseUrl + Notes.ApiRef, null, CreateNoteChangesJsonString (noteUpdates), AuthProvider);
+				helper.PutJson (BaseUrl + Notes.ApiRef,
+				                null,
+				                CreateNoteChangesJsonString (noteUpdates, expectedNewRevision),
+				                AuthProvider);
 
-			// TODO: Not working on server yet, but this will let us do
-			//       a sanity check on what revision we pushed, *and*
-			//       let us update any cache of refs that we keep.
-			//ParseJsonNotes (jsonResponseString);
+			// TODO: This response object could be extremely useful
+			using (System.IO.StreamWriter writer = System.IO.File.CreateText ("/home/sandy/lastPutResp"))
+				writer.Write (jsonResponseString);
+			
+			int? actualNewRevision;
+			ParseJsonNotes (jsonResponseString, out actualNewRevision);
+			if (!actualNewRevision.HasValue)
+				throw new ApplicationException ("No new sync revision provided in server response after uploading note changes");
+			return actualNewRevision.Value;
 		}
 
 		#endregion
@@ -146,7 +154,7 @@ namespace Tomboy.WebSync.Api
 
 		#region Private Methods
 
-		private IList<NoteInfo> ParseJsonNotes (string jsonString)
+		private IList<NoteInfo> ParseJsonNotes (string jsonString, out int? latestSyncRevision)
 		{
 			Hyena.Json.Deserializer deserializer =
 				new Hyena.Json.Deserializer (jsonString);
@@ -154,7 +162,14 @@ namespace Tomboy.WebSync.Api
 			Hyena.Json.JsonObject jsonObj =
 				obj as Hyena.Json.JsonObject;
 			Hyena.Json.JsonArray noteArray =
-				(Hyena.Json.JsonArray) jsonObj ["notes"];
+				(Hyena.Json.JsonArray) jsonObj [NotesElementName];
+
+			object val;
+			if (jsonObj.TryGetValue (LatestSyncRevisionElementName, out val))
+				latestSyncRevision = (int) val;
+			else
+				latestSyncRevision = null;
+				
 			return ParseJsonNoteArray (noteArray);
 		}
 
@@ -170,7 +185,7 @@ namespace Tomboy.WebSync.Api
 			return noteList;
 		}
 
-		private string CreateNoteChangesJsonString (IList<NoteInfo> noteUpdates)
+		private string CreateNoteChangesJsonString (IList<NoteInfo> noteUpdates, int? expectedNewRevision)
 		{
 			Hyena.Json.JsonObject noteChangesObj =
 				new Hyena.Json.JsonObject ();
@@ -178,7 +193,9 @@ namespace Tomboy.WebSync.Api
 				new Hyena.Json.JsonArray ();
 			foreach (NoteInfo note in noteUpdates)
 				noteChangesArray.Add (note.ToUpdateObject ());
-			noteChangesObj ["note-changes"] = noteChangesArray;
+			noteChangesObj [NoteChangesElementName] = noteChangesArray;
+			if (expectedNewRevision != null)
+				noteChangesObj [LatestSyncRevisionElementName] = expectedNewRevision;
 
 			// TODO: Handle errors
 			Hyena.Json.Serializer serializer =
@@ -187,6 +204,14 @@ namespace Tomboy.WebSync.Api
 			return serializer.Serialize ();
 		}
 		
+		#endregion
+
+		#region Private Constants
+
+		private const string LatestSyncRevisionElementName = "latest-sync-revision";
+		private const string NotesElementName = "notes";
+		private const string NoteChangesElementName = "note-changes";
+
 		#endregion
 	}
 }
