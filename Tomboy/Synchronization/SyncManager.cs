@@ -283,8 +283,8 @@ namespace Tomboy.Sync
 				// for title conflict handling purposes.
 				List<string> noteUpdateTitles = new List<string> ();
 				foreach (NoteUpdate noteUpdate in noteUpdates.Values)
-				if (!string.IsNullOrEmpty (noteUpdate.Title))
-					noteUpdateTitles.Add (noteUpdate.Title);
+					if (!string.IsNullOrEmpty (noteUpdate.Title))
+						noteUpdateTitles.Add (noteUpdate.Title);
 
 				// First, check for new local notes that might have title conflicts
 				// with the updates coming from the server.  Prompt the user if necessary.
