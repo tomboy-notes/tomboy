@@ -73,20 +73,28 @@ namespace Tomboy.WebSync
 
 		public static NoteData ToNoteData (NoteInfo noteInfo)
 		{
+			// NOTE: For now, we absolutely require values for
+			//       Guid, Title, NoteContent, and NoteContentVersion
 			NoteData noteData = new NoteData (noteInfo.Guid);
 			noteData.Title = noteInfo.Title;
 			noteData.Text =
 				"<note-content version=\"" + noteInfo.NoteContentVersion.ToString () + "\">" +
 				noteInfo.NoteContent + "</note-content>";
-			noteData.ChangeDate = noteInfo.LastChangeDate.Value;
-			noteData.MetadataChangeDate = noteInfo.LastMetadataChangeDate.Value;
-			noteData.CreateDate = noteInfo.CreateDate.Value;
-			noteData.IsOpenOnStartup = noteInfo.OpenOnStartup.Value;
+			if (noteInfo.LastChangeDate.HasValue)
+				noteData.ChangeDate = noteInfo.LastChangeDate.Value;
+			if (noteInfo.LastMetadataChangeDate.HasValue)
+				noteData.MetadataChangeDate = noteInfo.LastMetadataChangeDate.Value;
+			if (noteInfo.CreateDate.HasValue)
+				noteData.CreateDate = noteInfo.CreateDate.Value;
+			if (noteInfo.OpenOnStartup.HasValue)
+				noteData.IsOpenOnStartup = noteInfo.OpenOnStartup.Value;
 			// TODO: support Pinned
 
-			foreach (string tagName in noteInfo.Tags) {
-				Tag tag = TagManager.GetOrCreateTag (tagName);
-				noteData.Tags [tag.NormalizedName] = tag;
+			if (noteInfo.Tags != null) {
+				foreach (string tagName in noteInfo.Tags) {
+					Tag tag = TagManager.GetOrCreateTag (tagName);
+					noteData.Tags [tag.NormalizedName] = tag;
+				}
 			}
 
 			return noteData;
