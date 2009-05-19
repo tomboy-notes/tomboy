@@ -35,7 +35,7 @@ namespace Tomboy.WebSync.Api
 	{
 		public string Get (string uri, IDictionary<string, string> queryParameters, IAuthProvider auth)
 		{
-			WebRequest request = BuildRequest (uri, queryParameters);
+			HttpWebRequest request = BuildRequest (uri, queryParameters);
 			request.Method = "GET";
 			if (auth != null)
 				auth.PrepareRequest (request);
@@ -48,7 +48,7 @@ namespace Tomboy.WebSync.Api
 
 		public string PutJson (string uri, IDictionary<string, string> queryParameters, string postValue, IAuthProvider auth)
 		{
-			WebRequest request = BuildRequest (uri, queryParameters);
+			HttpWebRequest request = BuildRequest (uri, queryParameters);
 			request.Method = "PUT";
 
 			// TODO: Set ContentLength, UserAgent, Timeout, KeepAlive, Proxy, ContentType?
@@ -68,21 +68,29 @@ namespace Tomboy.WebSync.Api
 			return ProcessResponse (request);
 		}
 
-		private string ProcessResponse (WebRequest request)
+		private string ProcessResponse (HttpWebRequest request)
 		{
 			string responseString;
 			
 			// TODO: Error-checking
-			WebResponse response = request.GetResponse ();
+			HttpWebResponse response = (HttpWebResponse) request.GetResponse ();
 			
 			using (StreamReader sr = new StreamReader (response.GetResponseStream ())) {
 				responseString = sr.ReadToEnd ();
 			}
 
+			if (response.StatusCode != HttpStatusCode.OK &&
+			    response.StatusCode != HttpStatusCode.Created)
+				throw new ApplicationException (string.Format ("Request to {0} returned with status {1} and response:\n{2}",
+				                                               request.RequestUri,
+				                                               response.StatusCode,
+				                                               responseString));
+
+			Logger.Debug ("Response status code: {0}", response.StatusCode);
 			return responseString;
 		}
 
-		private WebRequest BuildRequest (string uri, IDictionary<string, string> queryParameters)
+		private HttpWebRequest BuildRequest (string uri, IDictionary<string, string> queryParameters)
 		{
 			// NOTE: This is the proper way, but not yet implemented in Mono 2.0.1
 			//ServicePointManager.ServerCertificateValidationCallback = CheckCertificate;
@@ -100,8 +108,10 @@ namespace Tomboy.WebSync.Api
 			}
 			// Get rid of trailing ? or &
 			urlBuilder.Remove (urlBuilder.Length - 1, 1);
+			string uriString = urlBuilder.ToString ();
+			Logger.Debug ("Building request for {0}", uriString);
 
-			return HttpWebRequest.Create (urlBuilder.ToString ());
+			return (HttpWebRequest) HttpWebRequest.Create (uriString);
 		}
 
 		// TODO: Consider moving to IAuthProvider
