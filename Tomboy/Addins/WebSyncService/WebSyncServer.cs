@@ -60,6 +60,9 @@ namespace Tomboy.WebSync
 				LatestRevision = user.LatestSyncRevision.Value;
 			else
 				VerifyLatestSyncRevision (user.LatestSyncRevision);
+
+			if (string.IsNullOrEmpty (user.CurrentSyncGuid))
+				throw new TomboySyncException ("No sync GUID for user provided in server response");
 			
 			pendingCommits = new List<NoteInfo> ();
 			return true;
@@ -128,7 +131,7 @@ namespace Tomboy.WebSync
 		
 		public string Id {
 			get {
-				return serverUrl;
+				return user.CurrentSyncGuid;
 			}
 		}
 		

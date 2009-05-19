@@ -63,21 +63,23 @@ namespace Tomboy.WebSync.Api
 			user.FirstName = (string) jsonObj ["first-name"];
 			user.LastName = (string) jsonObj ["last-name"];
 			
-			object latestSyncObj;
-			if (jsonObj.TryGetValue ("latest-sync-revision", out latestSyncObj))
-				user.LatestSyncRevision = (int) latestSyncObj;
+			object val;
+			if (jsonObj.TryGetValue ("latest-sync-revision", out val))
+				user.LatestSyncRevision = (int) val;
 			else
 				user.LatestSyncRevision = -1;
+			
+			if (jsonObj.TryGetValue ("current-sync-guid", out val))
+				user.CurrentSyncGuid = (string) val;
 
 			Hyena.Json.JsonObject notesRefJsonObj =
 				(Hyena.Json.JsonObject) jsonObj ["notes-ref"];
 			user.Notes =
 				ResourceReference.ParseJson (notesRefJsonObj);
 
-			object friendsRefObj;
-			if (jsonObj.TryGetValue ("friends-ref", out friendsRefObj)) {
+			if (jsonObj.TryGetValue ("friends-ref", out val)) {
 				user.Notes =
-					ResourceReference.ParseJson ((Hyena.Json.JsonObject) friendsRefObj);
+					ResourceReference.ParseJson ((Hyena.Json.JsonObject) val);
 			}
 
 			return user;
@@ -92,6 +94,8 @@ namespace Tomboy.WebSync.Api
 		public string LastName { get; private set; }
 
 		public int? LatestSyncRevision { get; private set; }
+
+		public string CurrentSyncGuid { get; private set; }
 
 		public ResourceReference Notes { get; private set; }
 
