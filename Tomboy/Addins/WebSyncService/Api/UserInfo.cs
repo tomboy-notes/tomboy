@@ -132,8 +132,8 @@ namespace Tomboy.WebSync.Api
 				                AuthProvider);
 
 			// TODO: This response object could be extremely useful
-			using (System.IO.StreamWriter writer = System.IO.File.CreateText ("/home/sandy/lastPutResp"))
-				writer.Write (jsonResponseString);
+//			using (System.IO.StreamWriter writer = System.IO.File.CreateText ("/home/sandy/lastPutResp"))
+//				writer.Write (jsonResponseString);
 			
 			int? actualNewRevision;
 			ParseJsonNotes (jsonResponseString, out actualNewRevision);
