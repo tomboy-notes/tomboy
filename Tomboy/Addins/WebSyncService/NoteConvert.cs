@@ -41,6 +41,7 @@ namespace Tomboy.WebSync
 			noteInfo.Guid = note.Id;
 			noteInfo.Title = note.Title;
 			noteInfo.OpenOnStartup = note.IsOpenOnStartup;
+			noteInfo.Pinned = note.IsPinned;
 			noteInfo.CreateDate = note.CreateDate;
 			noteInfo.LastChangeDate = note.ChangeDate;
 			noteInfo.LastMetadataChangeDate = note.MetadataChangeDate;
@@ -81,6 +82,7 @@ namespace Tomboy.WebSync
 			noteData.MetadataChangeDate = noteInfo.LastMetadataChangeDate.Value;
 			noteData.CreateDate = noteInfo.CreateDate.Value;
 			noteData.IsOpenOnStartup = noteInfo.OpenOnStartup.Value;
+			// TODO: support Pinned
 
 			foreach (string tagName in noteInfo.Tags) {
 				Tag tag = TagManager.GetOrCreateTag (tagName);

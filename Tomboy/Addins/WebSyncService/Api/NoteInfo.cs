@@ -73,6 +73,8 @@ namespace Tomboy.WebSync.Api
 				note.LastSyncRevision = (int) val;
 			if (jsonObj.TryGetValue (OpenOnStartupElementName, out val))
 				note.OpenOnStartup = (bool) val;
+			if (jsonObj.TryGetValue (PinnedElementName, out val))
+				note.Pinned = (bool) val;
 			
 			if (jsonObj.TryGetValue (TagsElementName, out val)) {
 				Hyena.Json.JsonArray tagsJsonArray =
@@ -130,6 +132,8 @@ namespace Tomboy.WebSync.Api
 //				noteUpdateObj [LastSyncRevisionElementName] = LastSyncRevision;
 			if (OpenOnStartup.HasValue)
 				noteUpdateObj [OpenOnStartupElementName] = OpenOnStartup.Value;
+			if (Pinned.HasValue)
+				noteUpdateObj [PinnedElementName] = Pinned.Value;
 
 			if (Tags != null) {
 				Hyena.Json.JsonArray tagArray =
@@ -166,6 +170,8 @@ namespace Tomboy.WebSync.Api
 		
 		public bool? OpenOnStartup { get; set; }
 		
+		public bool? Pinned { get; set; }
+		
 		public List<string> Tags { get; set; }
 
 		public string Command { get; set; }
@@ -184,6 +190,7 @@ namespace Tomboy.WebSync.Api
 		private const string CreateDateElementName = "create-date";
 		private const string LastSyncRevisionElementName = "last-sync-revision";
 		private const string OpenOnStartupElementName = "open-on-startup";
+		private const string PinnedElementName = "pinned";
 		private const string TagsElementName = "tags";
 		private const string CommandElementName = "command";
 
