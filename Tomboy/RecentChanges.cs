@@ -204,6 +204,13 @@ namespace Tomboy
 			Tomboy.ExitingEvent += OnExitingEvent;
 		}
 
+		public new void Present ()
+		{
+			base.Present ();
+			
+			find_combo.Entry.GrabFocus ();
+		}
+
 		Gtk.MenuBar CreateMenuBar ()
 		{
 			ActionManager am = Tomboy.ActionManager;
@@ -993,7 +1000,6 @@ namespace Tomboy
 			// Select "All Notes" in the notebooks list
 			SelectAllNotesNotebook ();
 
-			find_combo.Entry.GrabFocus ();
 			base.OnShown ();
 		}
 
