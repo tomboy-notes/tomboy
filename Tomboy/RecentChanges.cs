@@ -15,6 +15,7 @@ namespace Tomboy
 		Gtk.CheckButton case_sensitive;
 		Gtk.Statusbar status_bar;
 		Gtk.ScrolledWindow matches_window;
+		Gtk.HPaned hpaned;
 		Gtk.VBox content_vbox;
 		Gtk.TreeViewColumn matches_column;
 
@@ -161,18 +162,18 @@ namespace Tomboy
 			if (tree_req.Width > 480)
 				matches_window.WidthRequest = 480;
 
-			RestorePosition ();
-
 			matches_window.HscrollbarPolicy = Gtk.PolicyType.Automatic;
 			matches_window.VscrollbarPolicy = Gtk.PolicyType.Automatic;
 			matches_window.Add (tree);
 			matches_window.Show ();
 
-			Gtk.HPaned hpaned = new Gtk.HPaned ();
+			hpaned = new Gtk.HPaned ();
 			hpaned.Position = 150;
 			hpaned.Add1 (notebooksPane);
 			hpaned.Add2 (matches_window);
 			hpaned.Show ();
+
+			RestorePosition ();
 
 			Gtk.VBox vbox = new Gtk.VBox (false, 8);
 			vbox.BorderWidth = 6;
@@ -1397,6 +1398,7 @@ namespace Tomboy
 			Preferences.Set (Preferences.SEARCH_WINDOW_Y_POS, y);
 			Preferences.Set (Preferences.SEARCH_WINDOW_WIDTH, width);
 			Preferences.Set (Preferences.SEARCH_WINDOW_HEIGHT, height);
+			Preferences.Set (Preferences.SEARCH_WINDOW_SPLITTER_POS, hpaned.Position);
 		}
 
 		private void RestorePosition ()
@@ -1405,16 +1407,19 @@ namespace Tomboy
 			object y = Preferences.Get (Preferences.SEARCH_WINDOW_Y_POS);
 			object width = Preferences.Get (Preferences.SEARCH_WINDOW_WIDTH);
 			object height = Preferences.Get (Preferences.SEARCH_WINDOW_HEIGHT);
+			object splitter_pos = Preferences.Get (Preferences.SEARCH_WINDOW_SPLITTER_POS);
 
 			if (x == null || !(x is int)
 				|| y == null || !(y is int)
 				|| width == null || !(width is int)
-				|| height == null || !(height is int))
+				|| height == null || !(height is int)
+				|| splitter_pos == null || !(splitter_pos is int))
 			return;
 		
 			DefaultSize =
 				new Gdk.Size ((int) width, (int) height);
 			Move ((int) x, (int) y);
+			hpaned.Position = (int) splitter_pos;
 		}
 
 		private void OnExitingEvent (object sender, EventArgs args)
