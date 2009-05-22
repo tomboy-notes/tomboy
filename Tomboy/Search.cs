@@ -36,10 +36,10 @@ namespace Tomboy
 				bool case_sensitive,
 				Notebooks.Notebook selected_notebook)
 		{
-			string [] words = query.Split (' ', '\t', '\n');
+			string [] words = Search.SplitWatchingQuotes (query);
 
 			// Used for matching in the raw note XML
-            string [] encoded_words = XmlEncoder.Encode (query).Split (' ', '\t', '\n');
+			string [] encoded_words = SplitWatchingQuotes (XmlEncoder.Encode (query));
 			Dictionary<Note,int> temp_matches = new Dictionary<Note,int>();
 			
 			// Skip over notes that are template notes
@@ -73,8 +73,26 @@ namespace Tomboy
 			}
 			return temp_matches;
 		}
+		
+		static public string [] SplitWatchingQuotes (string text)
+		{
+			string [] phrases = text.Split ('\"');
 
-	
+			//Make it possible to search for "whole phrases"
+			List<string> wordsList = new List<string> (phrases);
+			int count = wordsList.Count;
+			for (int i = 0; i < count; i += 1) {
+				string part = wordsList[i];
+				foreach (string s in part.Split (' ', '\t', '\n'))
+					if (s.Length > 0)
+						wordsList.Add (s);
+				wordsList.RemoveAt (i);
+				count--;
+			}
+
+			return wordsList.ToArray ();
+		}
+
 		bool CheckNoteHasMatch (Note note, string [] encoded_words, bool match_case)
 		{
 			string note_text = note.XmlContent;

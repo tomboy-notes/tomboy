@@ -931,7 +931,7 @@ namespace Tomboy
 
 			text = text.ToLower ();
 
-			string [] words = text.Split (' ', '\t', '\n');
+			string [] words = Search.SplitWatchingQuotes (text);
 
 			current_matches =
 			        FindMatchesInBuffer (note.Buffer, words);
