@@ -18,6 +18,7 @@ namespace Tomboy
 		Gtk.ToolButton link_button;
 		NoteTextMenu text_menu;
 		Gtk.Menu plugin_menu;
+		Gtk.ImageMenuItem sync_menu_item;
 		Gtk.TextView editor;
 		Gtk.ScrolledWindow editor_window;
 		NoteFindBar find_bar;
@@ -184,6 +185,8 @@ namespace Tomboy
 
 		protected override bool OnDeleteEvent (Gdk.Event evnt)
 		{
+			Preferences.SettingChanged -= Preferences_SettingChanged;
+
 			CloseWindowHandler (null, null);
 			return true;
 		}
@@ -507,15 +510,33 @@ namespace Tomboy
 
 			tb.Insert (new Gtk.SeparatorToolItem (), -1);
 
-			Gtk.ImageMenuItem item =
-			        new Gtk.ImageMenuItem (Catalog.GetString ("Synchronize Notes"));
-			item.Image = new Gtk.Image (Gtk.Stock.Convert, Gtk.IconSize.Menu);
-			item.Activated += SyncItemSelected;
-			item.Show ();
-			PluginMenu.Add (item);
+			sync_menu_item = new Gtk.ImageMenuItem (Catalog.GetString ("Synchronize Notes"));
+			sync_menu_item.Image = new Gtk.Image (Gtk.Stock.Convert, Gtk.IconSize.Menu);
+			sync_menu_item.Activated += SyncItemSelected;
+			sync_menu_item.Show ();
+			PluginMenu.Add (sync_menu_item);
+
+			// We might want to know when various settings are altered.
+			Preferences.SettingChanged += Preferences_SettingChanged;
+
+			// Update items based on configuration.
+			UpdateMenuItems ();
 
 			tb.ShowAll ();
 			return tb;
+		}
+
+		void Preferences_SettingChanged (object sender, EventArgs args)
+		{
+			// Update items based on configuration.
+			UpdateMenuItems ();
+		}
+
+		void UpdateMenuItems ()
+		{
+			// Is synchronization configured and active?
+			string sync_addin_id = Preferences.Get (Preferences.SYNC_SELECTED_SERVICE_ADDIN) as string;
+			sync_menu_item.Sensitive = !string.IsNullOrEmpty (sync_addin_id);
 		}
 
 		void SyncItemSelected (object sender, EventArgs args)

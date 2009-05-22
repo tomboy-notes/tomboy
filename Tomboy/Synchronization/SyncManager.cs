@@ -151,7 +151,7 @@ namespace Tomboy.Sync
 			// is the first reference to SyncManager
 
 			///
-			/// Add a "Synchronize Notes" to Tomboy's Tray Icon Menu
+			/// Add a "Synchronize Notes" to Tomboy's Main Menu
 			///
 			Gtk.ActionGroup action_group = new Gtk.ActionGroup ("Sync");
 			action_group.Add (new Gtk.ActionEntry [] {
@@ -162,7 +162,6 @@ namespace Tomboy.Sync
 				delegate {
 					Tomboy.ActionManager ["NoteSynchronizationAction"].Activate ();
 				})
-//     delegate { SyncManager.OpenNoteSyncWindow (); })
 			});
 
 			Tomboy.ActionManager.UI.AddUiFromString (@"
@@ -191,6 +190,23 @@ namespace Tomboy.Sync
 					// TODO: Call something like AddinManager.Disable (addin)
 				}
 			}
+
+			Preferences.SettingChanged += Preferences_SettingChanged;
+
+			// Update sync item based on configuration.
+			UpdateSyncAction ();
+		}
+
+		static void Preferences_SettingChanged (object sender, EventArgs args)
+		{
+			// Update sync item based on configuration.
+			UpdateSyncAction ();
+		}
+
+		static void UpdateSyncAction ()
+		{
+			string sync_addin_id = Preferences.Get (Preferences.SYNC_SELECTED_SERVICE_ADDIN) as string;
+			Tomboy.ActionManager["SyncNotesAction"].Sensitive = !string.IsNullOrEmpty (sync_addin_id);
 		}
 
 		public static void PerformSynchronization ()
