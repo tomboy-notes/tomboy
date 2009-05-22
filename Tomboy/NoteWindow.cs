@@ -1,4 +1,3 @@
-
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
@@ -160,13 +159,8 @@ namespace Tomboy
 				                            Gdk.ModifierType.ControlMask,
 				                            Gtk.AccelFlags.Visible);
 
-			// Have Esc key close the note window
-			if ((bool) Preferences.Get (Preferences.ENABLE_CLOSE_NOTE_ON_ESCAPE))
-				KeyPressEvent += KeyPressed;
-
-			// Watch the escape setting in GConf
-			Preferences.Client.AddNotify (Preferences.ENABLE_CLOSE_NOTE_ON_ESCAPE,
-					OnEscapeSettingChanged);
+			// Have Esc key close the find bar or note window
+			KeyPressEvent += KeyPressed;
 
 			// Increase Indent
 			global_keys.AddAccelerator (new EventHandler (ChangeDepthRightHandler),
@@ -203,16 +197,6 @@ namespace Tomboy
 			Move (x, y);
 		}
 
-		void OnEscapeSettingChanged (object sender, NotifyEventArgs args)
-		{
-			// enable escape key
-			if ((bool) args.Value)
-				KeyPressEvent += KeyPressed;
-			// disable escape key
-			else
-				KeyPressEvent -= KeyPressed;
-		}
-
 		void KeyPressed (object sender, Gtk.KeyPressEventArgs args)
 		{
 			args.RetVal = true;
@@ -220,7 +204,10 @@ namespace Tomboy
 			switch (args.Event.Key)
 			{
 			case Gdk.Key.Escape:
-				CloseWindowHandler (null, null);
+				if (find_bar != null && find_bar.Visible)
+					find_bar.Hide ();
+				else if ((bool) Preferences.Get(Preferences.ENABLE_CLOSE_NOTE_ON_ESCAPE))
+					CloseWindowHandler (null, null);
 				break;
 			default:
 				args.RetVal = false;
