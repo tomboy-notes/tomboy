@@ -1235,7 +1235,7 @@ namespace Tomboy
 
 			// TODO: Change this icon to be an addin/package icon
 			Gtk.Image icon =
-			        new Gtk.Image (Gtk.Stock.Info, Gtk.IconSize.Dialog);
+			        new Gtk.Image (Gtk.Stock.DialogInfo, Gtk.IconSize.Dialog);
 			icon.Yalign = 0;
 
 			info_label = new Gtk.Label ();
