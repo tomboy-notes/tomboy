@@ -25,6 +25,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Text.RegularExpressions;
 
 using Tomboy.Sync;
@@ -51,7 +52,7 @@ namespace Tomboy.WebSync
 				noteInfo.Tags.Add (tag.Name);
 
 			const string noteContentRegex =
-				@"^<note-content(\s+version=""(?<contentVersion>[^""]+)"")?>(?<innerContent>.*)</note-content>$";
+				@"^<note-content(\s+version=""(?<contentVersion>[^""]+)"")?\s*((/>)|(>(?<innerContent>.*)</note-content>))$";
 			Match m = Regex.Match (note.XmlContent, noteContentRegex, RegexOptions.Singleline);
 			Group versionGroup = m.Groups ["contentVersion"];
 			Group contentGroup = m.Groups ["innerContent"];
@@ -61,11 +62,38 @@ namespace Tomboy.WebSync
 			    double.TryParse (versionGroup.Value, out contentVersion)) {
 				noteInfo.NoteContentVersion = contentVersion;
 			} else
-				noteInfo.NoteContentVersion = 0.1;
+				noteInfo.NoteContentVersion = 0.1;	// TODO: Constants, transformations, etc, if this changes
 
-			if (contentGroup.Success)
-				noteInfo.NoteContent = contentGroup.Value;
-			else
+			if (contentGroup.Success) {
+				string [] splits =
+					contentGroup.Value.Split (new char [] {'\n'}, 2);
+				if (splits.Length > 1 && splits [1].Length > 0) {
+					StringBuilder builder = new StringBuilder (contentGroup.Value.Length);
+					bool inTag = false;
+					// Strip everything out of first line, except for XML tags
+					// TODO: Handle 'note-title' element differently?
+					//       Ideally we would want to get rid of it completely.
+					foreach (char c in splits [0]) {
+						if (!inTag && c == '<')
+							inTag = true;
+						if (inTag) {
+							builder.Append (c);
+							if (c == '>')
+								inTag = false;
+						}
+					}
+					
+					// Trim leading newline, if there is one
+					if (splits [1][0] == '\n')
+						builder.Append (splits [1], 1, splits [1].Length - 1);
+					else
+						builder.Append (splits [1]);
+					
+					noteInfo.NoteContent = builder.ToString ();
+				}
+			}
+			
+			if (noteInfo.NoteContent == null)
 				noteInfo.NoteContent = string.Empty;
 
 			return noteInfo;
@@ -75,11 +103,13 @@ namespace Tomboy.WebSync
 		{
 			// NOTE: For now, we absolutely require values for
 			//       Guid, Title, NoteContent, and NoteContentVersion
-			NoteData noteData = new NoteData (noteInfo.Guid);
+			// TODO: Is this true? What happens if dates are excluded?
+			NoteData noteData = new NoteData (NoteUriFromGuid (noteInfo.Guid));
 			noteData.Title = noteInfo.Title;
-			noteData.Text =
-				"<note-content version=\"" + noteInfo.NoteContentVersion.ToString () + "\">" +
-				noteInfo.NoteContent + "</note-content>";
+			noteData.Text = string.Format ("<note-content version=\"{0}\">{1}\n\n{2}</note-content>",
+				noteInfo.NoteContentVersion,
+				noteData.Title,
+				noteInfo.NoteContent);
 			if (noteInfo.LastChangeDate.HasValue)
 				noteData.ChangeDate = noteInfo.LastChangeDate.Value;
 			if (noteInfo.LastMetadataChangeDate.HasValue)
@@ -88,7 +118,7 @@ namespace Tomboy.WebSync
 				noteData.CreateDate = noteInfo.CreateDate.Value;
 			if (noteInfo.OpenOnStartup.HasValue)
 				noteData.IsOpenOnStartup = noteInfo.OpenOnStartup.Value;
-			// TODO: support Pinned
+			// TODO: support Pinned -- http://bugzilla.gnome.org/show_bug.cgi?id=433412
 
 			if (noteInfo.Tags != null) {
 				foreach (string tagName in noteInfo.Tags) {
@@ -104,6 +134,12 @@ namespace Tomboy.WebSync
 		{
 			NoteData noteData = ToNoteData (noteInfo);
 			return NoteArchiver.WriteString (noteData);
+		}
+
+		// TODO: Copied from Note.cs, duplication sucks
+		static string NoteUriFromGuid (string guid)
+		{
+			return "note://tomboy/" + guid;
 		}
 	}
 }
