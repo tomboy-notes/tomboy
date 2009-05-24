@@ -40,7 +40,12 @@ namespace Tomboy.WebSync
 			NoteInfo noteInfo = new NoteInfo ();
 			
 			noteInfo.Guid = note.Id;
-			noteInfo.Title = note.Title;
+			noteInfo.Title = note.Title
+				.Replace ("&", "&amp;")
+				.Replace ("<", "&lt;")
+				.Replace (">", "&gt;")
+				.Replace ("\"", "&quot;")
+				.Replace ("\'", "&apos;");
 			noteInfo.OpenOnStartup = note.IsOpenOnStartup;
 			noteInfo.Pinned = note.IsPinned;
 			noteInfo.CreateDate = note.CreateDate;
@@ -105,10 +110,15 @@ namespace Tomboy.WebSync
 			//       Guid, Title, NoteContent, and NoteContentVersion
 			// TODO: Is this true? What happens if dates are excluded?
 			NoteData noteData = new NoteData (NoteUriFromGuid (noteInfo.Guid));
-			noteData.Title = noteInfo.Title;
+			noteData.Title = noteInfo.Title
+				.Replace ("&amp;", "&")
+				.Replace ("&lt;", "<")
+				.Replace ("&gt;", ">")
+				.Replace ("&quot;", "\"")
+				.Replace ("&apos;", "\'");
 			noteData.Text = string.Format ("<note-content version=\"{0}\">{1}\n\n{2}</note-content>",
 				noteInfo.NoteContentVersion,
-				noteData.Title,
+				noteInfo.Title,
 				noteInfo.NoteContent);
 			if (noteInfo.LastChangeDate.HasValue)
 				noteData.ChangeDate = noteInfo.LastChangeDate.Value;
