@@ -175,7 +175,8 @@ public NoteManager (string directory) :
 				                          links_note_content);
 				links_note.QueueSave (ChangeType.ContentChanged);
 
-				start_note.Window.Show ();
+				if (!Tomboy.IsPanelApplet)
+					start_note.Window.Show ();
 			} catch (Exception e) {
 				Logger.Warn ("Error creating start notes: {0}\n{1}",
 				             e.Message, e.StackTrace);
