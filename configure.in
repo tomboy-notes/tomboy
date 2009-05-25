@@ -41,6 +41,12 @@ if test "x$GMCS" = "x" ; then
 fi
 
 #
+# Check Mono version
+#
+MONO_MINIMUM_VERSION=1.9.1
+PKG_CHECK_MODULES(MONO, mono >= $MONO_MINIMUM_VERSION)
+
+#
 # Gdk and Atk are needed for libtrayicon
 #
 GDK20_MINIMUM_VERSION=2.6.0
