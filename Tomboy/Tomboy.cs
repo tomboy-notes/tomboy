@@ -31,6 +31,35 @@ namespace Tomboy
 
 		public static void Main (string [] args)
 		{
+			// TODO: Extract to a PreInit in Application, or something
+#if WIN32
+			string tomboy_path =
+				Environment.GetEnvironmentVariable ("TOMBOY_PATH_PREFIX");
+			string tomboy_gtk_basepath =
+				Environment.GetEnvironmentVariable ("TOMBOY_GTK_BASEPATH");
+			Environment.SetEnvironmentVariable ("GTK_BASEPATH",
+				tomboy_gtk_basepath ?? string.Empty);
+			if (string.IsNullOrEmpty (tomboy_path)) {
+				string gtk_lib_path = null;
+				try {
+					gtk_lib_path = (string)
+						Microsoft.Win32.Registry.GetValue (@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\.NETFramework\AssemblyFolders\GtkSharp",
+						                                   string.Empty,
+						                                   string.Empty);
+				} catch (Exception e) {
+					Console.WriteLine ("Exception while trying to get GTK# install path: " +
+					                   e.ToString ());
+				}
+				if (!string.IsNullOrEmpty (gtk_lib_path))
+					tomboy_path =
+						gtk_lib_path.Replace ("lib\\gtk-sharp-2.0", "bin");
+			}
+			if (!string.IsNullOrEmpty (tomboy_path))
+				Environment.SetEnvironmentVariable ("PATH",
+				                                    tomboy_path +
+				                                    Path.PathSeparator +
+				                                    Environment.GetEnvironmentVariable ("PATH"));
+#endif
 			// Initialize GETTEXT
 			Catalog.Init ("tomboy", Defines.GNOME_LOCALE_DIR);
 
