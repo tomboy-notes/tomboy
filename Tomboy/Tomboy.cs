@@ -36,6 +36,7 @@ namespace Tomboy
 
 			TomboyCommandLine cmd_line = new TomboyCommandLine (args);
 			debugging = cmd_line.Debug;
+			is_panel_applet = cmd_line.UsePanelApplet;
 
 #if ENABLE_DBUS || WIN32 || MAC // Run command-line earlier with DBus enabled
 			if (cmd_line.NeedsExecute) {
@@ -79,9 +80,8 @@ namespace Tomboy
 			}
 #endif
 
-			if (cmd_line.UsePanelApplet) {
+			if (is_panel_applet) {
 				tray_icon_showing = true;
-				is_panel_applet = true;
 
 				// Show the Close item and hide the Quit item
 				am ["CloseWindowAction"].Visible = true;
