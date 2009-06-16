@@ -51,6 +51,9 @@ GNOME_CSFILES =					\
 	$(srcdir)/GnomeFactory.cs		\
 	$(srcdir)/XKeybinder.cs
 
+PANELAPPLET_CSFILES =			\
+	$(srcdir)/panelapplet/*.cs
+
 if ENABLE_GNOME
 GNOME_USED_CSFILES = $(GNOME_CSFILES)
 
@@ -58,7 +61,7 @@ if FIXED_PANELAPPLET
 FIXED_PANELAPPLET_CSFLAGS = -define:FIXED_PANELAPPLET
 else
 PANELAPPLET_USED_CSFILES =			\
-	$(srcdir)/panelapplet/*.cs
+	$PANELAPPLET_CSFILES
 endif
 endif
 
