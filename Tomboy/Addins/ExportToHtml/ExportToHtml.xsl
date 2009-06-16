@@ -147,7 +147,7 @@
 
 <xsl:template match="tomboy:list-item">
 	<li>
-		<xsl:if test="normalize-space(text()) = ''">
+		<xsl:if test="normalize-space(text()) = '' and count(tomboy:list) = 1 and count(*) = 1">
 			<xsl:attribute name="style">list-style-type: none</xsl:attribute>
 		</xsl:if>
 		<xsl:attribute name="dir">
