@@ -1191,6 +1191,8 @@ namespace Tomboy
 		Gtk.CheckMenuItem bullets;
 		Gtk.ImageMenuItem increase_indent;
 		Gtk.ImageMenuItem decrease_indent;
+		Gtk.MenuItem increase_font;
+		Gtk.MenuItem decrease_font;
 
 		// There is a bug in GTK+ that lends to improperly themed Menus
 		// and MenuItems when you derive from one of those classes; this
@@ -1337,6 +1339,22 @@ namespace Tomboy
 			hidden_no_size = new Gtk.RadioMenuItem (small.Group, string.Empty);
 			hidden_no_size.Hide ();
 
+			increase_font = new Gtk.MenuItem (Catalog.GetString ("Increase Font Size"));
+			increase_font.AddAccelerator ("activate",
+						accel_group,
+						(uint) Gdk.Key.plus,
+						Gdk.ModifierType.ControlMask,
+						Gtk.AccelFlags.Visible);
+			increase_font.Activated += IncreaseFontClicked;
+
+			decrease_font = new Gtk.MenuItem (Catalog.GetString ("Decrease Font Size"));
+			decrease_font.AddAccelerator ("activate",
+						accel_group,
+						(uint) Gdk.Key.minus,
+						Gdk.ModifierType.ControlMask,
+						Gtk.AccelFlags.Visible);
+			decrease_font.Activated += DecreaseFontClicked;
+
 			Gtk.SeparatorMenuItem spacer2 = new Gtk.SeparatorMenuItem ();
 
 			bullets = new Gtk.CheckMenuItem (Catalog.GetString ("Bullets"));
@@ -1372,6 +1390,8 @@ namespace Tomboy
 			Append (normal);
 			Append (large);
 			Append (huge);
+			Append (increase_font);
+			Append (decrease_font);
 			Append (spacer2);
 			Append (bullets);
 			Append (increase_indent);
@@ -1493,6 +1513,42 @@ namespace Tomboy
 			string tag = (string) item.Data ["Tag"];
 			if (tag != null)
 				buffer.SetActiveTag (tag);
+		}
+
+		void IncreaseFontClicked (object sender, EventArgs args)
+		{
+			if (event_freeze)
+				return;
+
+			if (buffer.IsActiveTag ("size:small")) {
+				buffer.RemoveActiveTag ("size:small");
+			} else if (buffer.IsActiveTag ("size:large")) {
+				buffer.RemoveActiveTag ("size:large");
+				buffer.SetActiveTag ("size:huge");
+			} else if (buffer.IsActiveTag ("size:huge")) {
+				// Maximum font size, do nothing
+			} else {
+				// Current font size is normal
+				buffer.SetActiveTag ("size:large");
+			}
+		}
+
+		void DecreaseFontClicked (object sender, EventArgs args)
+		{
+			if (event_freeze)
+				return;
+
+			if (buffer.IsActiveTag ("size:small")) {
+				// Minimum font size, do nothing
+			} else if (buffer.IsActiveTag ("size:large")) {
+				buffer.RemoveActiveTag ("size:large");
+			} else if (buffer.IsActiveTag ("size:huge")) {
+				buffer.RemoveActiveTag ("size:huge");
+				buffer.SetActiveTag ("size:large");
+			} else {
+				// Current font size is normal
+				buffer.SetActiveTag ("size:small");
+			}
 		}
 
 		void UndoClicked (object sender, EventArgs args)
