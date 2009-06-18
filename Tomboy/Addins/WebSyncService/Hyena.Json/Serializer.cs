@@ -64,7 +64,7 @@ namespace Hyena.Json
 
         private string SerializeDouble (double val)
         {
-            return val.ToString ();
+            return val.ToString (System.Globalization.CultureInfo.InvariantCulture.NumberFormat);
         }
 
         // TODO: exponent stuff
