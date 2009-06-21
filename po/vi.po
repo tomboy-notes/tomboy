@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tomboy TRUNK\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=tomboy&component=general\n"
-"POT-Creation-Date: 2009-02-02 07:00+0000\n"
-"PO-Revision-Date: 2009-06-21 14:09+1000\n"
+"POT-Creation-Date: 2009-05-25 17:24+0000\n"
+"PO-Revision-Date: 2009-06-21 18:06+0700\n"
 "Last-Translator: Nguyễn Đình Trung <nguyendinhtrung141@gmail.com>\n"
 "Language-Team: Vietnamese <vi-VN@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -61,6 +61,10 @@ msgid "Take notes, link ideas, and stay organized"
 msgstr "Ghi chép, liên kết ý kiến và cứ sắp đặt"
 
 #: ../data/tomboy.schemas.in.h:1
+msgid "Accept SSL Certificates"
+msgstr "Cấp phép cho chứng nhận SSL"
+
+#: ../data/tomboy.schemas.in.h:2
 msgid "Create a new Note"
 msgstr "Ghi chú mới"
 
@@ -128,7 +132,11 @@ msgstr "Bật tùy chọn này nếu bạn muốn có khả năng nhấn nút gi
 msgid "Enable this option to highlight words ThatLookLikeThis. Clicking the word will create a note with that name."
 msgstr "Kích hoạt tùy chọn này để tô sáng từ GiốngThếNày. Nhắp vào từ kiểu này sẽ tạo ghi chú tên đó."
 
-#: ../data/tomboy.schemas.in.h:18
+#: ../data/tomboy.schemas.in.h:19
+msgid "FUSE Mounting Timeout (ms)"
+msgstr "Thời hạn gắn kết FUSE (ms)"
+
+#: ../data/tomboy.schemas.in.h:20
 msgid "HTML Export All Linked Notes"
 msgstr "Xuất mọi ghi chú đã liên kết dạng HTML"
 
@@ -200,11 +208,36 @@ msgstr "Mở hộp thoại Tìm kiếm"
 msgid "Open Start Here"
 msgstr "Mở ghi chú Mở đầu"
 
-#: ../data/tomboy.schemas.in.h:36
+#: ../data/tomboy.schemas.in.h:38
+msgid "Path on SSH server to Tomboy synchronization directory (optional)."
+msgstr "Đường dẫn tới thư mục đồng bộ ghi chú Tomboy trên máy chủ SSH (tùy chọn)."
+
+#: ../data/tomboy.schemas.in.h:39
 msgid "Path to the synchronization server when using the filesystem synchronization service addin."
 msgstr "Đường dẫn đến máy chủ đồng bộ khi sử dụng phần bổ sung dịch vụ đồng bộ của hệ thống tập tin."
 
-#: ../data/tomboy.schemas.in.h:37
+#: ../data/tomboy.schemas.in.h:40
+#| msgid "Select Synchronization Folder..."
+msgid "SSHFS Remote Synchronization Folder"
+msgstr "Thư mục đồng bộ trên SSHFS với máy khác"
+
+# Nên chăng sửa SSHFS thành SSH? Người dùng cuối có cần biết thêm khái niệm SSHFS nữa không?
+#: ../data/tomboy.schemas.in.h:41
+#| msgid "Selected Synchronization Service Addin"
+msgid "SSHFS Remote Synchronization User Name"
+msgstr "Tên đăng nhập khi đồng bộ SSHFS với máy khác"
+
+#: ../data/tomboy.schemas.in.h:42
+#| msgid "Synchronization Service Error"
+msgid "SSHFS Synchronization Server Port"
+msgstr "Cổng trên máy chủ đồng bộ SSH"
+
+#: ../data/tomboy.schemas.in.h:43
+#| msgid "Synchronization Service Error"
+msgid "SSHFS Synchronization Server URL"
+msgstr "Địa chỉ URL của máy chủ đồng bộ qua SSH"
+
+#: ../data/tomboy.schemas.in.h:44
 msgid "Saved height of Search window"
 msgstr "Bề cao đã lưu của cửa sổ Tìm Kiếm"
 
@@ -295,11 +328,24 @@ msgstr "Thiết lập cuối cùng cho « Bao gồm mọi ghi chú đã liên k�
 msgid "The note URI of the note that should be considered the \"Start Here\" note, which is always placed at the bottom of the Tomboy note menu and also accessible by hotkey."
 msgstr "Địa chỉ URI của ghi chú cần được xem là ghi chú \"Mở đầu\", ghi chú luôn luôn được đặt ở đáy trình đơn ghi chú Tomboy và cũng có thể truy cập qua phím tắt."
 
-#: ../data/tomboy.schemas.in.h:59
+#: ../data/tomboy.schemas.in.h:66
+#| msgid "Error connecting to the synchronization service.  Please try again."
+msgid "The port to use when connecting to the synchronization server via SSH."
+msgstr "Cổng sẽ dùng để kết nối khi đồng bộ nội dung ghi chú qua SSH."
+
+#: ../data/tomboy.schemas.in.h:67
+msgid "Time (in milliseconds) Tomboy should wait for a response when using FUSE to mount a sync share."
+msgstr "Thời gian tối đa (mili giây) mà Tomboy sẽ chờ thông tin phản hồi khi dùng FUSE để gắn kết thư mục chia sẻ lúc đồng bộ ghi chú."
+
+#: ../data/tomboy.schemas.in.h:68
 msgid "Timestamp format"
 msgstr "Định dạng ghi giờ"
 
-#: ../data/tomboy.schemas.in.h:60
+#: ../data/tomboy.schemas.in.h:69
+msgid "URL of SSH server containing Tomboy synchronization directory."
+msgstr "Địa chỉ URL của máy chủ SSH chứa thư mục đồng bộ ghi chú cho Tomboy."
+
+#: ../data/tomboy.schemas.in.h:70
 msgid "Unique identifier for the currently configured note synchronization service addin."
 msgstr "Dấu nhận diện duy nhất cho phần bổ sung dịch vụ đồng bộ ghi chú được cấu hình hiện thời."
 
@@ -307,7 +353,15 @@ msgstr "Dấu nhận diện duy nhất cho phần bổ sung dịch vụ đồng 
 msgid "Unique identifier for this Tomboy client, used when communicating with a sychronization server."
 msgstr "Dấu nhận diện duy nhất cho ứng dụng khách Tomboy, được dùng khi liên lạc với máy chủ đồng bộ."
 
-#: ../data/tomboy.schemas.in.h:62
+#: ../data/tomboy.schemas.in.h:72
+msgid "Use wdfs option \"-ac\" to accept SSL certificates without prompting the user."
+msgstr "Dùng lệnh wdfs với tùy chọn \"-ac\" để chấp thuận chứng nhận SSL, không cần xác nhận từ phía người dùng."
+
+#: ../data/tomboy.schemas.in.h:73
+msgid "User name to use when connecting to the synchronization server via SSH."
+msgstr "Tên đăng nhập để kết nối tới máy chủ chứa thông tin cần đồng bộ qua SSH."
+
+#: ../data/tomboy.schemas.in.h:74
 msgid "Whitespace-separated list of note URIs for notes that should always appear in the Tomboy note menu."
 msgstr "Danh sách cách nhau bằng khoảng trắng các địa chỉ URI của ghi chú luôn cần xuất hiện trong trình đơn ghi chú Tomboy."
 
@@ -390,11 +444,11 @@ msgstr "Ghi chú _mới"
 #: ../Tomboy/ActionManager.cs:175
 #: ../Tomboy/NoteWindow.cs:359
 msgid "_Search All Notes"
-msgstr "_Tìm qua mọi ghi chú"
+msgstr "_Tìm trong tất cả các ghi chú"
 
 #: ../Tomboy/ActionManager.cs:176
 msgid "Open the Search All Notes window"
-msgstr "Mở cửa sổ Tìm qua mọi ghi chú"
+msgstr "Mở cửa sổ Tìm trong tất cả các ghi chú"
 
 #: ../Tomboy/ActionManager.cs:179
 msgid "S_ynchronize Notes"
@@ -406,7 +460,7 @@ msgstr "Bắt đầu đồng bộ hoá các ghi chú"
 
 #: ../Tomboy/Addins/Backlinks/BacklinksNoteAddin.cs:38
 msgid "What links here?"
-msgstr "Nơi nào liên kết đến đây?"
+msgstr "Những mục nào liên kết đến đây?"
 
 #: ../Tomboy/Addins/Backlinks/BacklinksNoteAddin.cs:84
 msgid "(none)"
@@ -456,7 +510,7 @@ msgstr "Thật sự gỡ bỏ biểu tượng này chứ?"
 
 #: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:312
 msgid "If you remove an icon it is permanently lost."
-msgstr "Sau khi xoá, biểu tượng sẽ không khôi phục lại được."
+msgstr "Nếu bạn gỡ bỏ một biểu tượng, nó sẽ bị mất hoàn toàn."
 
 #: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:66
 msgid "Export to HTML"
@@ -524,9 +578,10 @@ msgstr "Đường dẫn thư mục đã ghi rõ không tồn tại, và Tomboy k
 msgid "Local Folder"
 msgstr "Thư mục cục bộ"
 
-#: ../Tomboy/Addins/FixedWidth/FixedWidthMenuItem.cs:14
-msgid "_Fixed Width"
-msgstr "_Rộng cố định"
+#: ../Tomboy/Addins/FixedWidth/FixedWidthMenuItem.cs:13
+#| msgid "_Fixed Width"
+msgid "Fixed Wid_th"
+msgstr "Độ _Rộng cố định"
 
 #: ../Tomboy/Addins/GalagoPresence/GalagoPresenceNoteAddin.cs:244
 #, csharp-format
@@ -717,9 +772,20 @@ msgstr "Gặp lỗi khi kết nối đến máy chủ. Có lẽ vì bạn đã n
 #. Save configuration into GConf
 #. Preferences.Set ("/apps/tomboy/sync_wdfs_url", url ?? string.Empty);
 #. Preferences.Set ("/apps/tomboy/sync_wdfs_username", username ?? string.Empty);
-#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:266
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:267
 msgid "Saving configuration to the GNOME keyring failed with the following message:"
 msgstr "Tiến trình lưu cấu hình vào vòng khoá GNOME bị lỗi với thông điệp này:"
+
+#: ../Tomboy/Addins/WebSyncService/WebSyncServiceAddin.cs:63
+#| msgid "Tomboy Help"
+msgid "Tomboy Web"
+msgstr "Trang web Tomboy"
+
+#. Translators: This is the name of "Window" menu in the Mac menubar
+#: ../Tomboy/MacApplication.cs:160
+#| msgid "_Find:"
+msgid "_Window"
+msgstr "_Cửa sổ"
 
 #: ../Tomboy/Notebooks/CreateNotebookDialog.cs:24
 #: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:53
@@ -844,13 +910,16 @@ msgstr "Sổ ghi chú _mới..."
 msgid "Really delete this note?"
 msgstr "Thực sự xoá ghi chú này chứ?"
 
-#: ../Tomboy/Note.cs:1429
-msgid "Really delete these notes?"
-msgstr "Thực sự xoá những ghi chú này chứ?"
+#: ../Tomboy/Note.cs:1452
+#, csharp-format
+#| msgid "Really delete this note?"
+msgid "Really delete this {0} note?"
+msgid_plural "Really delete these {0} notes?"
+msgstr[0] "Sẽ xóa {0} ghi chú này chứ?"
 
 #: ../Tomboy/Note.cs:1438
 msgid "If you delete a note it is permanently lost."
-msgstr "Sau khi xoá, nội dung ghi chú sẽ không khôi phục lại được."
+msgstr "Sau khi xóa, nội dung của ghi chú sẽ không khôi phục lại được."
 
 #: ../Tomboy/Note.cs:1472
 #| msgid "Error saving icon"
@@ -888,7 +957,7 @@ msgstr ""
 "\n"
 "Dùng ghi chú \"Mở đầu\" để bắt đầu tổ chức các suy nghĩ và ý tưởng của bạn.\n"
 "\n"
-"Bạn có thể tạo ghi chú mới để lưu các ý tưởng bằng cách chọn \"Ghi chú mới\" từ trình đơn \"Ghi chú\" của Tomboy trên Bảng điều khiển GNOME. Lời ghi chú của bạn sẽ được lưu tự động.\n"
+"Bạn có thể tạo ghi chú mới để lưu các ý tưởng bằng cách chọn \"Ghi chú mới\" từ trình đơn \"Ghi chú\" của Tomboy trên thanh ngang GNOME. Lời ghi chú của bạn sẽ được lưu tự động.\n"
 "\n"
 "Sau đó hãy tổ chức các ghi chú bạn tạo bằng cách liên kết các ghi chú có liên quan lại với nhau!\n"
 "\n"
@@ -1022,7 +1091,12 @@ msgstr "_Tìm:"
 msgid "_Previous"
 msgstr "_Lùi"
 
-#: ../Tomboy/NoteWindow.cs:1242
+#: ../Tomboy/NoteWindow.cs:775
+#| msgid "_Text"
+msgid "_Next"
+msgstr "_Kế"
+
+#: ../Tomboy/NoteWindow.cs:1256
 msgid "_Bold"
 msgstr "Đậ_m"
 
@@ -1032,7 +1106,7 @@ msgstr "Ngh_iêng"
 
 #: ../Tomboy/NoteWindow.cs:1266
 msgid "_Strikeout"
-msgstr "_Gạch đè"
+msgstr "_Gạch ngang"
 
 #: ../Tomboy/NoteWindow.cs:1278
 msgid "_Highlight"
@@ -1140,7 +1214,7 @@ msgstr "Ghi chú _mới"
 #. Open Search All Notes window keybinding...
 #: ../Tomboy/PreferencesDialog.cs:361
 msgid "Open \"Search _All Notes\""
-msgstr "Mở \"Tìm qua mọi ghi chú\""
+msgstr "Mở \"Tìm trong tất cả các ghi chú\""
 
 #: ../Tomboy/PreferencesDialog.cs:388
 msgid "Ser_vice:"
@@ -1221,9 +1295,10 @@ msgstr "Bạn đã tắt dịch vụ đồng bộ hoá đã cấu hình. Thiết
 msgid "Success! You're connected!"
 msgstr "Bạn đã kết nối thành công."
 
-#: ../Tomboy/PreferencesDialog.cs:1171
-msgid "Tomboy is ready to synchronize your notes."
-msgstr "Tomboy sẵn sàng để đồng bộ hoá các ghi chú của bạn."
+#: ../Tomboy/PreferencesDialog.cs:1170
+#| msgid "Tomboy is ready to synchronize your notes."
+msgid "Tomboy is ready to synchronize your notes. Would you like to synchronize them now?"
+msgstr "Tomboy đã sẵn sàng cho việc tiến hành đồng bộ các ghi chú của bạn. Bạn có muốn thực hiện việc đồng bộ luôn không?"
 
 #: ../Tomboy/PreferencesDialog.cs:1190
 msgid "Sorry, but something went wrong.  Please check your information and try again.  The ~/.tomboy.log might be useful too."
@@ -1251,7 +1326,7 @@ msgstr "Quan hệ phụ thuộc của phần bổ trợ:"
 
 #: ../Tomboy/RecentChanges.cs:76
 msgid "Search All Notes"
-msgstr "Tìm trong mọi ghi chú"
+msgstr "Tìm trong tất cả các ghi chú"
 
 #: ../Tomboy/RecentChanges.cs:93
 msgid "_Search:"
@@ -1303,9 +1378,15 @@ msgstr "Không thể tạo ghi chú mới"
 msgid "translator-credits"
 msgstr "Nhóm Việt hóa Gnome <gnomevi-list@lists.sourceforge.net>"
 
-#: ../Tomboy/Tomboy.cs:301
-msgid "Copyright © 2004-2007 Alex Graveley"
-msgstr "Tác quyền © 2004-2007 Alex Graveley"
+# Dịch Copyright là Tác quyền nghe rất vớ vẩn, vì em luôn thấy dòng này được để nguyên.
+#: ../Tomboy/Tomboy.cs:340
+#| msgid "Copyright © 2004-2007 Alex Graveley"
+msgid ""
+"Copyright © 2004-2007 Alex Graveley\n"
+"Copyright © 2004-2009 Others\n"
+msgstr ""
+"Copyright © 2004-2007 Alex Graveley\n"
+"Copyright © 2004-2009 Others\n"
 
 #: ../Tomboy/Tomboy.cs:302
 msgid "A simple and easy to use desktop note-taking application."
@@ -1417,13 +1498,17 @@ msgstr "Hôm qua"
 
 #: ../Tomboy/Utils.cs:205
 #, csharp-format
-msgid "{0} days ago, {1}"
-msgstr "{0} ngày trước, {1}"
+#| msgid "{0} days ago, {1}"
+msgid "{0} day ago, {1}"
+msgid_plural "{0} days ago, {1}"
+msgstr[0] "{0} ngày trước, {1}"
 
 #: ../Tomboy/Utils.cs:207
 #, csharp-format
-msgid "{0} days ago"
-msgstr "{0} ngày trước"
+#| msgid "{0} days ago"
+msgid "{0} day ago"
+msgid_plural "{0} days ago"
+msgstr[0] "{0} ngày trước"
 
 #: ../Tomboy/Utils.cs:212
 #, csharp-format
@@ -1436,13 +1521,17 @@ msgstr "Ngày mai"
 
 #: ../Tomboy/Utils.cs:218
 #, csharp-format
-msgid "In {0} days, {1}"
-msgstr "Trong {0} ngày, {1}"
+#| msgid "In {0} days, {1}"
+msgid "In {0} day, {1}"
+msgid_plural "In {0} days, {1}"
+msgstr[0] "Trong {0} ngày, {1}"
 
 #: ../Tomboy/Utils.cs:220
 #, csharp-format
-msgid "In {0} days"
-msgstr "Trong {0} ngày"
+#| msgid "In {0} days"
+msgid "In {0} day"
+msgid_plural "In {0} days"
+msgstr[0] "Trong {0} ngày"
 
 #: ../Tomboy/Utils.cs:224
 msgid "MMMM d, h:mm tt"
@@ -1491,7 +1580,16 @@ msgstr "Mở _liên kết"
 msgid "This synchronization addin is not supported on your computer. Please make sure you have FUSE and {0} correctly installed and configured"
 msgstr "Phần bổ sung đồng bộ hoá này không được hỗ trợ trên máy tính của bạn. Hãy kiểm tra xem bạn đã cài đặt và cấu hình đúng FUSE và {0}."
 
-#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:178
+#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:129
+#| msgid "Could not save the icon file."
+msgid "Could not read testfile."
+msgstr "Thất bại khi thử đọc dữ liệu."
+
+#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:132
+msgid "Write test failed."
+msgstr "Thất bại khi thử ghi dữ liệu."
+
+#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:176
 msgid "Timeout connecting to server."
 msgstr "Quá hạn khi kết nối tới máy chủ."
 
