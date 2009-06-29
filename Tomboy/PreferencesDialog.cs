@@ -1091,33 +1091,13 @@ namespace Tomboy
 			        Preferences.SYNC_CONFIGURED_CONFLICT_BEHAVIOR,
 			        Preferences.GetDefault (Preferences.SYNC_CONFIGURED_CONFLICT_BEHAVIOR));
 
-			NukeSyncClientManifest ();
+			SyncManager.ResetClient ();
 
 			syncAddinCombo.Sensitive = true;
 			resetSyncAddinButton.Sensitive = false;
 			saveSyncAddinButton.Sensitive = true;
 			if (syncAddinPrefsWidget != null)
 				syncAddinPrefsWidget.Sensitive = true;
-		}
-
-		// TODO: This class shouldn't know about the manifest.
-		//       Abstract this out somehow (ie, SyncManager.ResetClient()
-		//       or something like that).
-		void NukeSyncClientManifest ()
-		{
-			// Nuke ~/.tomboy/manifest.xml
-			string clientManifestPath = System.IO.Path.Combine (
-			                                    Tomboy.DefaultNoteManager.NoteDirectoryPath,
-			                                    "manifest.xml");
-			if (System.IO.File.Exists (clientManifestPath) == true) {
-				try {
-					System.IO.File.Delete (clientManifestPath);
-				} catch (Exception e) {
-					Logger.Debug ("Error deleting \"{0}\" during reset: {1}",
-					              clientManifestPath,
-					              e.Message);
-				}
-			}
 		}
 
 		/// <summary>
@@ -1155,7 +1135,7 @@ namespace Tomboy
 				resetSyncAddinButton.Sensitive = true;
 				saveSyncAddinButton.Sensitive = false;
 
-				NukeSyncClientManifest ();
+				SyncManager.ResetClient ();
 
 				// Give the user a visual letting them know that connecting
 				// was successful.

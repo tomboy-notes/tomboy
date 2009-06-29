@@ -209,6 +209,16 @@ namespace Tomboy.Sync
 			Tomboy.ActionManager["SyncNotesAction"].Sensitive = !string.IsNullOrEmpty (sync_addin_id);
 		}
 
+		public static void ResetClient ()
+		{
+			try {
+				client.Reset ();
+			} catch (Exception e) {
+				Logger.Debug ("Error deleting client manifest during reset: {1}",
+				              e.Message);
+			}
+		}
+
 		public static void PerformSynchronization ()
 		{
 			if (syncThread != null) {
