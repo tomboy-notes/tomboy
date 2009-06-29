@@ -65,6 +65,7 @@ namespace Tomboy
 
 			TomboyCommandLine cmd_line = new TomboyCommandLine (args);
 			debugging = cmd_line.Debug;
+			Logger.LogLevel = debugging ? Level.DEBUG : Level.INFO;
 			is_panel_applet = cmd_line.UsePanelApplet;
 
 #if ENABLE_DBUS || WIN32 || MAC // Run command-line earlier with DBus enabled
