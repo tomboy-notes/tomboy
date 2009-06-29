@@ -15,6 +15,7 @@ ASSEMBLIES = \
 	$(GTKSHARP_LIBS)			\
 	$(LINK_MONO_ADDINS)			\
 	$(NUNIT_LIBS)				\
+	-r:System.Web				\
 	-r:Mono.Posix
 
 #
@@ -24,16 +25,16 @@ ASSEMBLIES = \
 TARGET = WebSyncServiceAddin.dll
 CSFILES = \
 	$(srcdir)/NoteConvert.cs       	\
+	$(srcdir)/WebSyncPreferencesWidget.cs   \
 	$(srcdir)/WebSyncServer.cs          \
 	$(srcdir)/WebSyncServiceAddin.cs	\
 	$(srcdir)/Tests/*.cs            	\
-	$(srcdir)/Api/NoteInfo.cs       	\
-	$(srcdir)/Api/ResourceReference.cs	\
-	$(srcdir)/Api/UserInfo.cs       	\
-	$(srcdir)/Api/WebHelper.cs          \
+	$(srcdir)/Api/*.cs                  \
 	$(srcdir)/Api/Tests/*.cs            \
 	$(srcdir)/Hyena.Json/*.cs           \
-	$(srcdir)/Hyena.Json/Tests/*.cs
+	$(srcdir)/Hyena.Json/Tests/*.cs     \
+	$(srcdir)/OAuth/*.cs                \
+	$(srcdir)/OAuth/Mono.Rocks/*.cs
 RESOURCES = \
 	-resource:$(srcdir)/WebSyncService.addin.xml
 

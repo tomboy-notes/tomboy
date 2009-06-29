@@ -32,18 +32,13 @@ namespace Tomboy.WebSync.Api
 	{
 		#region Public Static Methods
 		
-		public static UserInfo GetUser (string serverUrl, string userName, IAuthProvider auth)
+		public static UserInfo GetUser (string userUri, IWebConnection connection)
 		{
-			// TODO: Clean this up
-			string baseUrl = serverUrl + "/api/1.0/";
-			string uri = baseUrl + userName;
-			
 			// TODO: Error-handling in GET and Deserialize
-			WebHelper helper = new WebHelper ();
-			string jsonString = helper.Get (uri, null, auth);
+			string jsonString = connection.Get (userUri, null);
 			UserInfo user = ParseJson (jsonString);
-			user.AuthProvider = auth;
-			user.BaseUrl = baseUrl;
+			user.Connection = connection;
+			user.Uri = userUri;
 			return user;
 		}
 
@@ -60,6 +55,7 @@ namespace Tomboy.WebSync.Api
 
 			// TODO: Checks
 			UserInfo user = new UserInfo ();
+			user.UserName = (string) jsonObj ["user-name"];
 			user.FirstName = (string) jsonObj ["first-name"];
 			user.LastName = (string) jsonObj ["last-name"];
 			
@@ -88,7 +84,9 @@ namespace Tomboy.WebSync.Api
 		#endregion
 
 		#region API Members
-		
+
+		public string UserName { get; private set; }
+
 		public string FirstName { get; private set; }
 
 		public string LastName { get; private set; }
@@ -109,7 +107,6 @@ namespace Tomboy.WebSync.Api
 		public IList<NoteInfo> GetNotes (bool includeContent, int sinceRevision, out int? latestSyncRevision)
 		{
 			// TODO: Error-handling in GET and Deserialize
-			WebHelper helper = new WebHelper ();
 			string jsonString = string.Empty;
 
 			Dictionary<string, string> parameters =
@@ -119,7 +116,7 @@ namespace Tomboy.WebSync.Api
 			if (sinceRevision >= 0)
 				parameters ["since"] = sinceRevision.ToString ();
 			
-			jsonString = helper.Get (BaseUrl + Notes.ApiRef, parameters, AuthProvider);
+			jsonString = Connection.Get (Notes.ApiRef, parameters);
 
 			return ParseJsonNotes (jsonString, out latestSyncRevision);
 		}
@@ -127,13 +124,11 @@ namespace Tomboy.WebSync.Api
 		public int UpdateNotes (IList<NoteInfo> noteUpdates, int expectedNewRevision)
 		{
 			// TODO: Error-handling in PUT, Serialize, and Deserialize
-			WebHelper helper = new WebHelper ();
 
 			string jsonResponseString =
-				helper.PutJson (BaseUrl + Notes.ApiRef,
+				Connection.Put (Notes.ApiRef,
 				                null,
-				                CreateNoteChangesJsonString (noteUpdates, expectedNewRevision),
-				                AuthProvider);
+				                CreateNoteChangesJsonString (noteUpdates, expectedNewRevision));
 
 			// TODO: This response object could be extremely useful
 //			using (System.IO.StreamWriter writer = System.IO.File.CreateText ("/home/sandy/lastPutResp"))
@@ -150,9 +145,9 @@ namespace Tomboy.WebSync.Api
 
 		#region Public Properties
 
-		public IAuthProvider AuthProvider { get; set; }
+		public IWebConnection Connection { get; private set; }
 
-		public string BaseUrl { get; set; }
+		public string Uri { get; private set; }
 
 		#endregion
 

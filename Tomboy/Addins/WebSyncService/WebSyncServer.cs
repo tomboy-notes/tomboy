@@ -35,27 +35,26 @@ namespace Tomboy.WebSync
 	public class WebSyncServer : SyncServer
 	{
 		private string serverUrl;
-		private string userName;
+		private IWebConnection connection;
 
-		private IAuthProvider auth;
-		
+		private RootInfo root;
 		private UserInfo user;
 		private List<NoteInfo> pendingCommits;
 		
-		public WebSyncServer (string serverUrl, string userName, string password)
+		public WebSyncServer (string serverUrl, IWebConnection connection)
 		{
 			this.serverUrl = serverUrl;
-			this.userName = userName;
-
-			auth = new BasicHttpAuthProvider (userName, password);
+			this.connection = connection;
 		}
 
 		#region SyncServer implementation
 		
 		public bool BeginSyncTransaction ()
 		{
-			// TODO: Check connection and auth (is getting user resource a sufficient check?)
-			user = UserInfo.GetUser (serverUrl, userName, auth);
+			// TODO: Check connection and auth (is getting root/user resources a sufficient check?)
+			string rootUri = serverUrl + "/api/1.0/";
+			root = RootInfo.GetRoot (rootUri, connection);
+			user = UserInfo.GetUser (root.User.ApiRef, connection);
 			if (user.LatestSyncRevision.HasValue)
 				LatestRevision = user.LatestSyncRevision.Value;
 			else

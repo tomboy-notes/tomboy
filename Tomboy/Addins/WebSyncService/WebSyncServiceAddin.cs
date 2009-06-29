@@ -35,18 +35,26 @@ namespace Tomboy.WebSync
 	public class WebSyncServiceAddin : SyncServiceAddin
 	{
 		private bool initialized;
+		private WebSyncPreferencesWidget prefsWidget;
 
 		private const string serverUrlPrefPath =
 			"/apps/tomboy/sync/tomboyweb/server";
-		private const string usernamePrefPath =
-			"/apps/tomboy/sync/tomboyweb/username";
-		// TODO: Migrate to keyring or hash it or something!
-		private const string passwordPrefPath =
-			"/apps/tomboy/sync/tomboyweb/password";
-
-		private Gtk.Entry serverEntry;
-		private Gtk.Entry userEntry;
-		private Gtk.Entry passwordEntry;
+		private const string accessTokenBaseUrlPrefPath =
+			"/apps/tomboy/sync/tomboyweb/oauth_access_token_base_url";
+		private const string authorizeLocationPrefPath =
+			"/apps/tomboy/sync/tomboyweb/oauth_authorize_location";
+		private const string consumerKeyPrefPath =
+			"/apps/tomboy/sync/tomboyweb/oauth_consumer_key";
+		private const string consumerSecretPrefPath =
+			"/apps/tomboy/sync/tomboyweb/oauth_consumer_secret";
+		private const string realmPrefPath =
+			"/apps/tomboy/sync/tomboyweb/oauth_realm";
+		private const string requestTokenBaseUrlPrefPath =
+			"/apps/tomboy/sync/tomboyweb/oauth_request_token_base_url";
+		private const string tokenPrefPath =
+			"/apps/tomboy/sync/tomboyweb/oauth_token";
+		private const string tokenSecretPrefPath =
+			"/apps/tomboy/sync/tomboyweb/oauth_token_secret";
 		
 		public WebSyncServiceAddin ()
 		{
@@ -66,11 +74,12 @@ namespace Tomboy.WebSync
 
 		public override bool IsConfigured {
 			get {
-				string serverPref, userPref, passPref;
-				GetConfigSettings (out serverPref, out userPref, out passPref);
+				string serverPref;
+				Api.OAuth oauth;
+				GetConfigSettings (out oauth, out serverPref);
 				return !string.IsNullOrEmpty (serverPref) &&
-					!string.IsNullOrEmpty (userPref) &&
-					!string.IsNullOrEmpty (passPref);
+					oauth != null &&
+					oauth.IsAccessToken;
 			}
 		}
 
@@ -82,40 +91,19 @@ namespace Tomboy.WebSync
 
 		public override Gtk.Widget CreatePreferencesControl ()
 		{
-			Gtk.Table prefsTable = new Gtk.Table (3, 2, false);
-			prefsTable.RowSpacing = 5;
-			prefsTable.ColumnSpacing = 10;
-
-			serverEntry = new Gtk.Entry ();
-			userEntry = new Gtk.Entry ();
-			passwordEntry = new Gtk.Entry ();
-
-			string serverPref, userPref, passPref;
-			GetConfigSettings (out serverPref, out userPref, out passPref);
-
-			serverEntry.Text = serverPref;
-			userEntry.Text = userPref;
-			passwordEntry.Text = passPref;
-			passwordEntry.Visibility = false;
-			
-			AddRow (prefsTable, serverEntry, Catalog.GetString ("Se_rver:"), 0);
-			AddRow (prefsTable, userEntry, Catalog.GetString ("User_name:"), 1);
-			AddRow (prefsTable, passwordEntry, Catalog.GetString ("_Password:"), 2);
-
-			prefsTable.Show ();
-
-			// TODO: Add a section that shows the user something to verify they put
-			//       in the right URL...something that constructs their user URL, maybe?
-			
-			return prefsTable;
+			string serverPref;
+			Api.OAuth oauth;
+			GetConfigSettings (out oauth, out serverPref);
+			prefsWidget = new WebSyncPreferencesWidget (oauth, serverPref);
+			return prefsWidget;
 		}
 
 		public override SyncServer CreateSyncServer ()
 		{
-			// TODO: What exactly do we need for connecting?
-			string serverPref, userPref, passPref;
-			GetConfigSettings (out serverPref, out userPref, out passPref);
-			return new WebSyncServer (serverPref, userPref, passPref);
+			string serverPref;
+			Api.OAuth oauth;
+			GetConfigSettings (out oauth, out serverPref);
+			return new WebSyncServer (serverPref, oauth);
 		}
 
 		public override void PostSyncCleanup ()
@@ -124,15 +112,18 @@ namespace Tomboy.WebSync
 
 		public override void ResetConfiguration ()
 		{
-			SaveConfigSettings (null, null, null);
+			SaveConfigSettings (null, null);
+			prefsWidget.Auth = null;
 		}
 
 		public override bool SaveConfiguration ()
 		{
-			string serverPref, userPref, passPref;
-			GetPrefWidgetSettings (out serverPref, out userPref, out passPref);
-			SaveConfigSettings (serverPref, userPref, passPref);
-			// TODO: Validate config
+			// TODO: Is this really sufficient validation?
+			//       Should we try a REST API request?
+			if (prefsWidget.Auth == null ||
+			    !prefsWidget.Auth.IsAccessToken)
+				return false;
+			SaveConfigSettings (prefsWidget.Auth, prefsWidget.Server);
 			return true;
 		}
 		
@@ -158,50 +149,77 @@ namespace Tomboy.WebSync
 
 		#region Private Members
 
-		private void GetPrefWidgetSettings (out string serverPref, out string userPref, out string passPref)
-		{
-			serverPref = serverEntry.Text.Trim ();
-			userPref = userEntry.Text.Trim ();
-			passPref = passwordEntry.Text.Trim ();
-		}
-
-		private void GetConfigSettings (out string serverPref, out string userPref, out string passPref)
+		private void GetConfigSettings (out Api.OAuth oauthConfig, out string serverPref)
 		{
 			serverPref = (string)
 				Preferences.Get (serverUrlPrefPath);
-			userPref = (string)
-				Preferences.Get (usernamePrefPath);
-			passPref = (string)
-				Preferences.Get (passwordPrefPath);
+
+			oauthConfig = new Api.OAuth ();
+			oauthConfig.AccessTokenBaseUrl =
+				Preferences.Get (accessTokenBaseUrlPrefPath) as string;
+			oauthConfig.AuthorizeLocation =
+				Preferences.Get (authorizeLocationPrefPath) as string;
+			oauthConfig.ConsumerKey =
+				Preferences.Get (consumerKeyPrefPath) as string;
+			oauthConfig.ConsumerSecret =
+				Preferences.Get (consumerSecretPrefPath) as string;
+			oauthConfig.Realm =
+				Preferences.Get (realmPrefPath) as string;
+			oauthConfig.RequestTokenBaseUrl =
+				Preferences.Get (requestTokenBaseUrlPrefPath) as string;
+			oauthConfig.Token =
+				Preferences.Get (tokenPrefPath) as string;
+			oauthConfig.TokenSecret =
+				Preferences.Get (tokenSecretPrefPath) as string;
+
+			// The fact that the configuration was saved at all
+			// implies that the token is an access token.
+			// TODO: Any benefit in actually storing this bool, in
+			//       case of weird circumstances?
+			oauthConfig.IsAccessToken =
+				!String.IsNullOrEmpty (oauthConfig.Token);
 		}
 
-		private void SaveConfigSettings (string serverPref, string userPref, string passPref)
+		private void SaveConfigSettings (Api.OAuth oauthConfig, string serverPref)
 		{
-			Preferences.Set (serverUrlPrefPath, serverPref);
-			Preferences.Set (usernamePrefPath, userPref);
-			Preferences.Set (passwordPrefPath, passPref);
+			Preferences.Set (serverUrlPrefPath, GetConfigString (serverPref));
+			Preferences.Set (accessTokenBaseUrlPrefPath,
+			                 oauthConfig != null ?
+			                 GetConfigString (oauthConfig.AccessTokenBaseUrl) :
+			                 String.Empty);
+			Preferences.Set (authorizeLocationPrefPath,
+			                 oauthConfig != null ?
+			                 GetConfigString (oauthConfig.AuthorizeLocation) :
+			                 String.Empty);
+			Preferences.Set (consumerKeyPrefPath,
+			                 oauthConfig != null ?
+			                 GetConfigString (oauthConfig.ConsumerKey) :
+			                 String.Empty);
+			Preferences.Set (consumerSecretPrefPath,
+			                 oauthConfig != null ?
+			                 GetConfigString (oauthConfig.ConsumerSecret) :
+			                 String.Empty);
+			Preferences.Set (realmPrefPath,
+			                 oauthConfig != null ?
+			                 GetConfigString (oauthConfig.Realm) :
+			                 String.Empty);
+			Preferences.Set (requestTokenBaseUrlPrefPath,
+			                 oauthConfig != null ?
+			                 GetConfigString (oauthConfig.RequestTokenBaseUrl) :
+			                 String.Empty);
+			Preferences.Set (tokenPrefPath,
+			                 oauthConfig != null ?
+			                 GetConfigString (oauthConfig.Token) :
+			                 String.Empty);
+			Preferences.Set (tokenSecretPrefPath,
+			                 oauthConfig != null ?
+			                 GetConfigString (oauthConfig.TokenSecret) :
+			                 String.Empty);
 		}
-		
-		private void AddRow (Gtk.Table table, Gtk.Widget widget, string labelText, uint row)
+
+		private string GetConfigString (string val)
 		{
-			Gtk.Label l = new Gtk.Label (labelText);
-			l.UseUnderline = true;
-			l.Xalign = 0.0f;
-			l.Show ();
-			table.Attach (l, 0, 1, row, row + 1,
-			              Gtk.AttachOptions.Fill,
-			              Gtk.AttachOptions.Expand | Gtk.AttachOptions.Fill,
-			              0, 0);
-
-			widget.Show ();
-			table.Attach (widget, 1, 2, row, row + 1,
-			              Gtk.AttachOptions.Expand | Gtk.AttachOptions.Fill,
-			              Gtk.AttachOptions.Expand | Gtk.AttachOptions.Fill,
-			              0, 0);
-
-			l.MnemonicWidget = widget;
-
-			// TODO: Tooltips
+			return val ?? String.Empty;
 		}
 
 		#endregion
