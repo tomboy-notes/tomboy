@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: tomboy.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=tomboy&component=general\n"
-"POT-Creation-Date: 2009-06-23 05:49+0000\n"
-"PO-Revision-Date: 2009-06-27 14:51+0200\n"
+"POT-Creation-Date: 2009-06-30 13:31+0000\n"
+"PO-Revision-Date: 2009-06-30 20:25+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -838,13 +838,12 @@ msgid "Add a sketch"
 msgstr "Añadir un dibujo"
 
 #: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:43
-#: ../Tomboy/Addins/WebSyncService/WebSyncServiceAddin.cs:101
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:49
 msgid "Se_rver:"
 msgstr "Se_rvidor:"
 
 #: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:52
 #: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:60
-#: ../Tomboy/Addins/WebSyncService/WebSyncServiceAddin.cs:102
 msgid "User_name:"
 msgstr "_Usuario:"
 
@@ -932,7 +931,6 @@ msgid "_URL:"
 msgstr "_URL:"
 
 #: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:69
-#: ../Tomboy/Addins/WebSyncService/WebSyncServiceAddin.cs:103
 msgid "_Password:"
 msgstr "Contrase_ña:"
 
@@ -964,9 +962,48 @@ msgstr ""
 "Falló al guardar la configuración al depósito de claves con el siguiente "
 "mensaje:"
 
-#: ../Tomboy/Addins/WebSyncService/WebSyncServiceAddin.cs:63
+#: ../Tomboy/Addins/WebSyncService/WebSyncServiceAddin.cs:70
 msgid "Tomboy Web"
 msgstr "Web de Tomboy"
+
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:56
+#| msgid "Connecting to the server..."
+msgid "_Connect to Server"
+msgstr "_Conectar con el servidor"
+
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:58
+msgid "Connected"
+msgstr "Conectado"
+
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:86
+#| msgid "Connecting to the server..."
+msgid "Connect to Server"
+msgstr "Conectar con el servidor"
+
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:111
+msgid "Server not responding. Try again later."
+msgstr "El servidor no está respondiendo. Inténtelo de nuevo más tarde."
+
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:118
+msgid "Click Here After Authorizing"
+msgstr "Pulse aquí después de autorizar"
+
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:121
+msgid "Set the default browser and try again"
+msgstr "Establecer el navegador predeterminado e intentarlo de nuevo"
+
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:125
+msgid "Processing..."
+msgstr "Procesando…"
+
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:136
+#| msgid "Synchronization Failed"
+msgid "Authorization Failed, Try Again"
+msgstr "Falló la autorización. Inténtelo de nuevo."
+
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:143
+msgid "Connected. Click Save to start synchronizing"
+msgstr "Conectado. Pulse guardar para iniciar la sincronización."
 
 #. Translators: This is the name of "Window" menu in the Mac menubar
 #: ../Tomboy/MacApplication.cs:160
@@ -1541,11 +1578,11 @@ msgstr ""
 "sincronización se limpiarán. Quizá se vea forzado a sincronizar todas sus "
 "notas de nuevo cuando guarde los nuevos ajustes."
 
-#: ../Tomboy/PreferencesDialog.cs:1168
+#: ../Tomboy/PreferencesDialog.cs:1148
 msgid "Success! You're connected!"
 msgstr "Está conectado."
 
-#: ../Tomboy/PreferencesDialog.cs:1170
+#: ../Tomboy/PreferencesDialog.cs:1150
 msgid ""
 "Tomboy is ready to synchronize your notes. Would you like to synchronize "
 "them now?"
@@ -1553,7 +1590,7 @@ msgstr ""
 "Tomboy está preparado para sincronizar sus notas. ¿Quiere sincronizarlas "
 "ahora?"
 
-#: ../Tomboy/PreferencesDialog.cs:1193
+#: ../Tomboy/PreferencesDialog.cs:1173
 msgid ""
 "Sorry, but something went wrong.  Please check your information and try "
 "again.  The ~/.tomboy.log might be useful too."
@@ -1561,23 +1598,23 @@ msgstr ""
 "Lo siento pero algo fue mal. Compruebe su información e inténtelo de nuevo. "
 "El archivo ~/.tomboy.log puede ser útil."
 
-#: ../Tomboy/PreferencesDialog.cs:1202
+#: ../Tomboy/PreferencesDialog.cs:1182
 msgid "Error connecting :("
 msgstr "Error al conectar"
 
-#: ../Tomboy/PreferencesDialog.cs:1278
+#: ../Tomboy/PreferencesDialog.cs:1258
 msgid "Version:"
 msgstr "Versión:"
 
-#: ../Tomboy/PreferencesDialog.cs:1285
+#: ../Tomboy/PreferencesDialog.cs:1265
 msgid "Author:"
 msgstr "Autor:"
 
-#: ../Tomboy/PreferencesDialog.cs:1292
+#: ../Tomboy/PreferencesDialog.cs:1272
 msgid "Copyright:"
 msgstr "Copyright:"
 
-#: ../Tomboy/PreferencesDialog.cs:1298
+#: ../Tomboy/PreferencesDialog.cs:1278
 msgid "Add-in Dependencies:"
 msgstr "Dependencias de los complementos:"
 
@@ -1630,15 +1667,15 @@ msgstr[1] "Coincide con: {0} notas"
 msgid "Notes"
 msgstr "Notas"
 
-#: ../Tomboy/Tomboy.cs:243
+#: ../Tomboy/Tomboy.cs:244
 msgid "Cannot create new note"
 msgstr "No se puede crear una nota nueva"
 
-#: ../Tomboy/Tomboy.cs:331
+#: ../Tomboy/Tomboy.cs:332
 msgid "translator-credits"
 msgstr "Jorge González <jorgegonz@svn.gnome.org>, 2004-2009"
 
-#: ../Tomboy/Tomboy.cs:340
+#: ../Tomboy/Tomboy.cs:341
 msgid ""
 "Copyright © 2004-2007 Alex Graveley\n"
 "Copyright © 2004-2009 Others\n"
@@ -1646,16 +1683,16 @@ msgstr ""
 "Copyright © 2004-2007 Alex Graveley\n"
 "Copyright © 2004-2009 Otros\n"
 
-#: ../Tomboy/Tomboy.cs:342
+#: ../Tomboy/Tomboy.cs:343
 msgid "A simple and easy to use desktop note-taking application."
 msgstr ""
 "Una aplicación simple y fácil de usar para tomar notas en el escritorio."
 
-#: ../Tomboy/Tomboy.cs:352
+#: ../Tomboy/Tomboy.cs:353
 msgid "Homepage"
 msgstr "Página web"
 
-#: ../Tomboy/Tomboy.cs:466
+#: ../Tomboy/Tomboy.cs:467
 msgid ""
 "Tomboy: A simple, easy to use desktop note-taking application.\n"
 "Copyright (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
@@ -1666,7 +1703,7 @@ msgstr ""
 "Copyright (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
 "\n"
 
-#: ../Tomboy/Tomboy.cs:478
+#: ../Tomboy/Tomboy.cs:479
 msgid ""
 "Usage:\n"
 "  --version\t\t\tPrint version information.\n"
@@ -1682,7 +1719,7 @@ msgstr ""
 "  --search [texto]\t\tAbre la ventana de búsqueda de todas las notas con el "
 "texto buscado.\n"
 
-#: ../Tomboy/Tomboy.cs:489
+#: ../Tomboy/Tomboy.cs:490
 msgid ""
 "  --new-note\t\t\tCreate and display a new note.\n"
 "  --new-note [title]\t\tCreate and display a new note, with a title.\n"
@@ -1703,16 +1740,16 @@ msgstr ""
 #. Catalog.GetString (
 #. "  --check-plugin-unloading\tCheck if plugins are " +
 #. "unloaded properly.\n");
-#: ../Tomboy/Tomboy.cs:506
+#: ../Tomboy/Tomboy.cs:507
 msgid "D-BUS remote control disabled.\n"
 msgstr "Control remoto de D-BUS desactivado.\n"
 
-#: ../Tomboy/Tomboy.cs:514
+#: ../Tomboy/Tomboy.cs:515
 #, csharp-format
 msgid "Version {0}"
 msgstr "Versión {0}"
 
-#: ../Tomboy/Tomboy.cs:587
+#: ../Tomboy/Tomboy.cs:588
 #, csharp-format
 msgid ""
 "Tomboy: unsupported option '{0}'\n"
