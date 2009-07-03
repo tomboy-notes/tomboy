@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tomboy.HEAD.ta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-06-23 21:51+0530\n"
-"PO-Revision-Date: 2009-06-23 22:05+0530\n"
+"POT-Creation-Date: 2009-07-03 06:55+0530\n"
+"PO-Revision-Date: 2009-07-03 17:33+0530\n"
 "Last-Translator: Dr.T.Vasudevan <agnihot3@gmail.com>\n"
 "Language-Team: American English <Ubuntu-l10n-tam@lists.ubuntu.com>\n"
 "MIME-Version: 1.0\n"
@@ -804,13 +804,12 @@ msgid "Add a sketch"
 msgstr "ஒரு கோட்டு சித்திரத்தை சேர்"
 
 #: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:43
-#: ../Tomboy/Addins/WebSyncService/WebSyncServiceAddin.cs:101
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:49
 msgid "Se_rver:"
 msgstr "சேவையகம்:"
 
 #: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:52
 #: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:60
-#: ../Tomboy/Addins/WebSyncService/WebSyncServiceAddin.cs:102
 msgid "User_name:"
 msgstr "(_n)பயனீட்டாளர் பெயர்"
 
@@ -898,7 +897,6 @@ msgid "_URL:"
 msgstr "_URL:"
 
 #: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:69
-#: ../Tomboy/Addins/WebSyncService/WebSyncServiceAddin.cs:103
 msgid "_Password:"
 msgstr "_கடவுச்சொல்:"
 
@@ -927,9 +925,45 @@ msgstr ""
 msgid "Saving configuration to the GNOME keyring failed with the following message:"
 msgstr "க்னோம் விசை வளைய வடிவமைப்பை சேமிப்பது இயலவில்லை இதனுடன் பின்வருபவை செய்திகள்வந்தன:"
 
-#: ../Tomboy/Addins/WebSyncService/WebSyncServiceAddin.cs:63
+#: ../Tomboy/Addins/WebSyncService/WebSyncServiceAddin.cs:70
 msgid "Tomboy Web"
 msgstr "டாம்பாய் வலை"
+
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:56
+msgid "_Connect to Server"
+msgstr "(_C) சேவையகத்துடன் இணை"
+
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:58
+msgid "Connected"
+msgstr "இணைக்கப்பட்டது"
+
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:86
+msgid "Connect to Server"
+msgstr "சேவையகத்துடன் இணை"
+
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:111
+msgid "Server not responding. Try again later."
+msgstr "சேவையகம் பதில் தரவில்லை. மீண்டும் பிறகு முயற்சி செய்யவும்."
+
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:118
+msgid "Click Here After Authorizing"
+msgstr "அங்கீகாரம் செய்த பின் இங்கு சொடுக்கவும்"
+
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:121
+msgid "Set the default browser and try again"
+msgstr "முன்னிருப்பு உலாவியை அமைதது மீண்டும் முயற்சி செய்யவும்"
+
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:125
+msgid "Processing..."
+msgstr "செயலாக்கம்..."
+
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:136
+msgid "Authorization Failed, Try Again"
+msgstr "ஒத்திசைவு தோல்வியடைந்தது. மீண்டும் முயற்சி செய்யவும்."
+
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:143
+msgid "Connected. Click Save to start synchronizing"
+msgstr "இணைக்கப்பட்டது. ஒத்திசைவு ஆரம்பிக்க சொடுக்குக"
 
 #. Translators: This is the name of "Window" menu in the Mac menubar
 #: ../Tomboy/MacApplication.cs:160
@@ -1497,17 +1531,17 @@ msgstr ""
 "சுத்தப்படுத்தப்பட்டது. நீங்கள் புதிய அமைப்பை சேமிக்கும் போது உங்கள் குறிப்புகளனைத்தையும் "
 "ஒத்திசைக்க கட்டாயப்படுத்தப்ப்டலாம்."
 
-#: ../Tomboy/PreferencesDialog.cs:1168
+#: ../Tomboy/PreferencesDialog.cs:1148
 msgid "Success! You're connected!"
 msgstr "வெற்றி! நீங்கள் இணக்கப்பட்டுவிட்டீர்கள்!"
 
-#: ../Tomboy/PreferencesDialog.cs:1170
+#: ../Tomboy/PreferencesDialog.cs:1150
 msgid ""
 "Tomboy is ready to synchronize your notes. Would you like to synchronize "
 "them now?"
 msgstr "டாம்பாய் உங்கல் குறிப்புகளை ஒத்திசைக்க தயார். அவற்றை இப்போது ஒத்திசைக்கலாமா?"
 
-#: ../Tomboy/PreferencesDialog.cs:1193
+#: ../Tomboy/PreferencesDialog.cs:1173
 msgid ""
 "Sorry, but something went wrong.  Please check your information and try "
 "again.  The ~/.tomboy.log might be useful too."
@@ -1515,23 +1549,23 @@ msgstr ""
 "மன்னிக்கவும். ஏதோ தவறு நிகழ்ந்துள்ளது. உங்கள் தகவலை சரி பார்த்து மீண்டும் முயற்சி செய்க. ~/."
 "tomboy.log அதற்கு உதவலாம்."
 
-#: ../Tomboy/PreferencesDialog.cs:1202
+#: ../Tomboy/PreferencesDialog.cs:1182
 msgid "Error connecting :("
 msgstr "இணைப்பதில் பிழை :("
 
-#: ../Tomboy/PreferencesDialog.cs:1278
+#: ../Tomboy/PreferencesDialog.cs:1258
 msgid "Version:"
 msgstr "பதிப்பு:"
 
-#: ../Tomboy/PreferencesDialog.cs:1285
+#: ../Tomboy/PreferencesDialog.cs:1265
 msgid "Author:"
 msgstr "ஆசிரியர்:"
 
-#: ../Tomboy/PreferencesDialog.cs:1292
+#: ../Tomboy/PreferencesDialog.cs:1272
 msgid "Copyright:"
 msgstr "காப்புரிமை:"
 
-#: ../Tomboy/PreferencesDialog.cs:1298
+#: ../Tomboy/PreferencesDialog.cs:1278
 msgid "Add-in Dependencies:"
 msgstr "உள்கூட்டு சார்புகள்"
 
@@ -1584,15 +1618,15 @@ msgstr[1] "ஒத்திசைவு: {0} குறிப்புகள்"
 msgid "Notes"
 msgstr "குறிப்புகள்"
 
-#: ../Tomboy/Tomboy.cs:243
+#: ../Tomboy/Tomboy.cs:244
 msgid "Cannot create new note"
 msgstr "புதிய குறிப்பினை உருவாக்க முடியவில்லை"
 
-#: ../Tomboy/Tomboy.cs:331
+#: ../Tomboy/Tomboy.cs:332
 msgid "translator-credits"
 msgstr "மொழிபெயர்ப்பாளர்-சன்மானம்"
 
-#: ../Tomboy/Tomboy.cs:340
+#: ../Tomboy/Tomboy.cs:341
 msgid ""
 "Copyright © 2004-2007 Alex Graveley\n"
 "Copyright © 2004-2009 Others\n"
@@ -1600,15 +1634,15 @@ msgstr ""
 "பதிப்புரிமை © 2004-2007 அலெக்ஸ் க்ராவலி \n"
 "பதிப்புரிமை © 2004-2009 மற்றவர்கள்\n"
 
-#: ../Tomboy/Tomboy.cs:342
+#: ../Tomboy/Tomboy.cs:343
 msgid "A simple and easy to use desktop note-taking application."
 msgstr "மேல்மேசை குறிப்பெடுத்தலுக்கு ஒரு எளிய பயன்பாடு."
 
-#: ../Tomboy/Tomboy.cs:352
+#: ../Tomboy/Tomboy.cs:353
 msgid "Homepage"
 msgstr "ஆரம்பபக்கம்"
 
-#: ../Tomboy/Tomboy.cs:466
+#: ../Tomboy/Tomboy.cs:467
 msgid ""
 "Tomboy: A simple, easy to use desktop note-taking application.\n"
 "Copyright (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
@@ -1617,7 +1651,7 @@ msgstr ""
 "மேல்மேசை குறிப்பெடுத்தலுக்கு ஒரு எளிய பயன்பாடு.\n"
 "பதிப்புரிமை © 2004-2006 அலெக்ஸ் க்ராவலி <alex@beatniksoftware.com>\n"
 
-#: ../Tomboy/Tomboy.cs:478
+#: ../Tomboy/Tomboy.cs:479
 msgid ""
 "Usage:\n"
 "  --version\t\t\tPrint version information.\n"
@@ -1632,7 +1666,7 @@ msgstr ""
 "  --search [text]\t\tஎல்லா குறிப்புகளையும் தேடு சாளரத்தை தேடும் உரையுடன் "
 "திறக்கவும்.\n"
 
-#: ../Tomboy/Tomboy.cs:489
+#: ../Tomboy/Tomboy.cs:490
 msgid ""
 "  --new-note\t\t\tCreate and display a new note.\n"
 "  --new-note [title]\t\tCreate and display a new note, with a title.\n"
@@ -1651,16 +1685,16 @@ msgstr ""
 #. Catalog.GetString (
 #. "  --check-plugin-unloading\tCheck if plugins are " +
 #. "unloaded properly.\n");
-#: ../Tomboy/Tomboy.cs:506
+#: ../Tomboy/Tomboy.cs:507
 msgid "D-BUS remote control disabled.\n"
 msgstr "டி பஸ் தொலை கட்டுப்பாடு செயலிழக்கப்பட்டது.\n"
 
-#: ../Tomboy/Tomboy.cs:514
+#: ../Tomboy/Tomboy.cs:515
 #, csharp-format
 msgid "Version {0}"
 msgstr "பதிப்பு {0}"
 
-#: ../Tomboy/Tomboy.cs:587
+#: ../Tomboy/Tomboy.cs:588
 #, csharp-format
 msgid ""
 "Tomboy: unsupported option '{0}'\n"
