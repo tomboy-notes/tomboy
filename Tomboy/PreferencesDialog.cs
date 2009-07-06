@@ -537,7 +537,23 @@ namespace Tomboy
 			sw.ShadowType = Gtk.ShadowType.In;
 			sw.Add (tree);
 			sw.Show ();
-			hbox.PackStart (sw, true, true, 0);
+			Gtk.LinkButton get_more_link =
+				new Gtk.LinkButton ("http://live.gnome.org/Tomboy/PluginList",
+				                    Catalog.GetString ("Get More Add-Ins..."));
+			get_more_link.Clicked += delegate(object sender, EventArgs args) {
+				string uri = ((Gtk.LinkButton) sender).Uri;
+				try {
+					Services.NativeApplication.OpenUrl (uri);
+				} catch (Exception e) {
+					GuiUtils.ShowOpeningLocationError (this, uri, e.Message);
+				}
+			};
+			get_more_link.Show ();
+			Gtk.VBox tree_box = new Gtk.VBox (false, 0);
+			tree_box.Add (sw);
+			tree_box.PackEnd (get_more_link, false, false, 5);
+			tree_box.Show ();
+			hbox.PackStart (tree_box, true, true, 0);
 
 			// Action Buttons (right of TreeView)
 			Gtk.VButtonBox button_box = new Gtk.VButtonBox ();
