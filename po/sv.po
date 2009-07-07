@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tomboy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-06-13 13:03+0200\n"
-"PO-Revision-Date: 2009-06-13 13:04+0100\n"
+"POT-Creation-Date: 2009-07-07 12:55+0200\n"
+"PO-Revision-Date: 2009-07-07 22:27+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "MIME-Version: 1.0\n"
@@ -658,13 +658,12 @@ msgid "Add a sketch"
 msgstr "Lägg till en skiss"
 
 #: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:43
-#: ../Tomboy/Addins/WebSyncService/WebSyncServiceAddin.cs:101
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:49
 msgid "Se_rver:"
 msgstr "Se_rver:"
 
 #: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:52
 #: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:60
-#: ../Tomboy/Addins/WebSyncService/WebSyncServiceAddin.cs:102
 msgid "User_name:"
 msgstr "Användar_namn:"
 
@@ -735,12 +734,15 @@ msgstr "Alla"
 msgid "--- Tasque is not running ---"
 msgstr "--- Tasque är inte igång ---"
 
+#: ../Tomboy/Addins/Underline/UnderlineMenuItem.cs:12
+msgid "_Underline"
+msgstr "_Understryk"
+
 #: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:51
 msgid "_URL:"
 msgstr "_Url:"
 
 #: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:69
-#: ../Tomboy/Addins/WebSyncService/WebSyncServiceAddin.cs:103
 msgid "_Password:"
 msgstr "_Lösenord:"
 
@@ -765,9 +767,45 @@ msgstr "Det inträffade ett fel vid anslutning till servern.  Det kan ha orsakat
 msgid "Saving configuration to the GNOME keyring failed with the following message:"
 msgstr "Sparning av konfiguration till GNOME-nyckelringen misslyckades med följande meddelande:"
 
-#: ../Tomboy/Addins/WebSyncService/WebSyncServiceAddin.cs:63
+#: ../Tomboy/Addins/WebSyncService/WebSyncServiceAddin.cs:70
 msgid "Tomboy Web"
 msgstr "Tomboys webbsida"
+
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:56
+msgid "_Connect to Server"
+msgstr "_Anslut till server"
+
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:58
+msgid "Connected"
+msgstr "Ansluten"
+
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:86
+msgid "Connect to Server"
+msgstr "Anslut till server"
+
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:111
+msgid "Server not responding. Try again later."
+msgstr "Servern svarar inte. Försök igen senare."
+
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:118
+msgid "Click Here After Authorizing"
+msgstr "Klicka här efter auktorisering"
+
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:121
+msgid "Set the default browser and try again"
+msgstr "Ställ in standardwebbläsare och försök igen"
+
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:125
+msgid "Processing..."
+msgstr "Behandlar..."
+
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:136
+msgid "Authorization Failed, Try Again"
+msgstr "Auktorisering misslyckades, försök igen"
+
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:143
+msgid "Connected. Click Save to start synchronizing"
+msgstr "Ansluten. Klicka på Spara för att påbörja synkronseringen"
 
 #. Translators: This is the name of "Window" menu in the Mac menubar
 #: ../Tomboy/MacApplication.cs:160
@@ -1079,43 +1117,51 @@ msgstr "_Föregående"
 msgid "_Next"
 msgstr "_Nästa"
 
-#: ../Tomboy/NoteWindow.cs:1256
+#: ../Tomboy/NoteWindow.cs:1258
 msgid "_Bold"
 msgstr "_Fet"
 
-#: ../Tomboy/NoteWindow.cs:1268
+#: ../Tomboy/NoteWindow.cs:1270
 msgid "_Italic"
 msgstr "_Kursiv"
 
-#: ../Tomboy/NoteWindow.cs:1280
+#: ../Tomboy/NoteWindow.cs:1282
 msgid "_Strikeout"
 msgstr "_Genomstruken"
 
-#: ../Tomboy/NoteWindow.cs:1292
+#: ../Tomboy/NoteWindow.cs:1294
 msgid "_Highlight"
 msgstr "_Markera"
 
-#: ../Tomboy/NoteWindow.cs:1305
+#: ../Tomboy/NoteWindow.cs:1307
 msgid "Font Size"
 msgstr "Typsnittsstorlek"
 
-#: ../Tomboy/NoteWindow.cs:1308
+#: ../Tomboy/NoteWindow.cs:1310
 msgid "_Normal"
 msgstr "_Normal"
 
-#: ../Tomboy/NoteWindow.cs:1315
+#: ../Tomboy/NoteWindow.cs:1317
 msgid "Hu_ge"
 msgstr "_Enorm"
 
-#: ../Tomboy/NoteWindow.cs:1323
+#: ../Tomboy/NoteWindow.cs:1325
 msgid "_Large"
 msgstr "_Stor"
 
-#: ../Tomboy/NoteWindow.cs:1331
+#: ../Tomboy/NoteWindow.cs:1333
 msgid "S_mall"
 msgstr "_Liten"
 
 #: ../Tomboy/NoteWindow.cs:1342
+msgid "Increase Font Size"
+msgstr "Öka typsnittsstorlek"
+
+#: ../Tomboy/NoteWindow.cs:1350
+msgid "Decrease Font Size"
+msgstr "Minska typsnittsstorlek"
+
+#: ../Tomboy/NoteWindow.cs:1360
 msgid "Bullets"
 msgstr "Punkter"
 
@@ -1204,7 +1250,7 @@ msgid "Ser_vice:"
 msgstr "T_jänst:"
 
 #: ../Tomboy/PreferencesDialog.cs:440
-#: ../Tomboy/PreferencesDialog.cs:1017
+#: ../Tomboy/PreferencesDialog.cs:1033
 msgid "Not configurable"
 msgstr "Inte konfigurerbar"
 
@@ -1217,92 +1263,96 @@ msgstr "_Avancerat..."
 msgid "The following add-ins are installed"
 msgstr "Följande tillägg är installerade"
 
-#: ../Tomboy/PreferencesDialog.cs:552
+#: ../Tomboy/PreferencesDialog.cs:542
+msgid "Get More Add-Ins..."
+msgstr "Hämta fler tillägg..."
+
+#: ../Tomboy/PreferencesDialog.cs:568
 msgid "_Enable"
 msgstr "_Aktivera"
 
-#: ../Tomboy/PreferencesDialog.cs:558
+#: ../Tomboy/PreferencesDialog.cs:574
 msgid "_Disable"
 msgstr "_Inaktivera"
 
-#: ../Tomboy/PreferencesDialog.cs:689
+#: ../Tomboy/PreferencesDialog.cs:705
 msgid "Not Implemented"
 msgstr "Inte implementerad"
 
-#: ../Tomboy/PreferencesDialog.cs:703
+#: ../Tomboy/PreferencesDialog.cs:719
 #, csharp-format
 msgid "{0} Preferences"
 msgstr "Inställningar för {0}"
 
-#: ../Tomboy/PreferencesDialog.cs:842
+#: ../Tomboy/PreferencesDialog.cs:858
 msgid "Choose Note Font"
 msgstr "Välj anteckningstypsnitt"
 
-#: ../Tomboy/PreferencesDialog.cs:886
+#: ../Tomboy/PreferencesDialog.cs:902
 msgid "Other Synchronization Options"
 msgstr "Andra synkroniseringsalternativ"
 
-#: ../Tomboy/PreferencesDialog.cs:892
+#: ../Tomboy/PreferencesDialog.cs:908
 msgid "When a conflict is detected between a local note and a note on the configured synchronization server:"
 msgstr "När en konflikt upptäcks mellan en lokal anteckning och en anteckning på den konfigurerade synkroniseringsservern:"
 
-#: ../Tomboy/PreferencesDialog.cs:899
+#: ../Tomboy/PreferencesDialog.cs:915
 msgid "Always ask me what to do."
 msgstr "Fråga mig alltid vad som ska göras."
 
-#: ../Tomboy/PreferencesDialog.cs:903
+#: ../Tomboy/PreferencesDialog.cs:919
 msgid "Rename my local note."
 msgstr "Byt namn på min lokala anteckning."
 
-#: ../Tomboy/PreferencesDialog.cs:907
+#: ../Tomboy/PreferencesDialog.cs:923
 msgid "Replace my local note with the server's update."
 msgstr "Ersätt min lokal anteckning med serverns uppdatering."
 
-#: ../Tomboy/PreferencesDialog.cs:1053
+#: ../Tomboy/PreferencesDialog.cs:1069
 msgid "WARNING: Are you sure?"
 msgstr "VARNING: Är du säker?"
 
-#: ../Tomboy/PreferencesDialog.cs:1055
+#: ../Tomboy/PreferencesDialog.cs:1071
 msgid "Clearing your synchronization settings is not recommended.  You may be forced to synchronize all of your notes again when you save new settings."
 msgstr "Tömning av dina synkroniseringsinställningar rekommenderas inte. Du kan tvingas att synkronisera alla dina anteckningar igen när du sparar nya inställningar."
 
-#: ../Tomboy/PreferencesDialog.cs:1068
+#: ../Tomboy/PreferencesDialog.cs:1084
 msgid "Resetting Synchronization Settings"
 msgstr "Återställer synkroniseringsinställningar"
 
-#: ../Tomboy/PreferencesDialog.cs:1070
+#: ../Tomboy/PreferencesDialog.cs:1086
 msgid "You have disabled the configured synchronization service.  Your synchronization settings will now be cleared.  You may be forced to synchronize all of your notes again when you save new settings"
 msgstr "Du har inaktiverat den konfigurerade synkroniseringstjänsten.  Dina synkroniseringsinställningar kommer nu att tömmas. Du kan tvingas att synkronisera alla dina anteckningar igen när du sparar nya inställningar."
 
-#: ../Tomboy/PreferencesDialog.cs:1168
+#: ../Tomboy/PreferencesDialog.cs:1164
 msgid "Success! You're connected!"
 msgstr "Lyckades! Du är nu ansluten!"
 
-#: ../Tomboy/PreferencesDialog.cs:1170
+#: ../Tomboy/PreferencesDialog.cs:1166
 msgid "Tomboy is ready to synchronize your notes. Would you like to synchronize them now?"
 msgstr "Tomboy är redo att synkronisera dina anteckningar. Vill du synkronisera dem nu?"
 
-#: ../Tomboy/PreferencesDialog.cs:1193
+#: ../Tomboy/PreferencesDialog.cs:1189
 msgid "Sorry, but something went wrong.  Please check your information and try again.  The ~/.tomboy.log might be useful too."
 msgstr "Tyvärr, någonting gick fel.  Kontrollera din information och försök igen.  Filen ~/.tomboy.log kan också vara behjälplig."
 
-#: ../Tomboy/PreferencesDialog.cs:1202
+#: ../Tomboy/PreferencesDialog.cs:1198
 msgid "Error connecting :("
 msgstr "Fel vid anslutning :("
 
-#: ../Tomboy/PreferencesDialog.cs:1278
+#: ../Tomboy/PreferencesDialog.cs:1274
 msgid "Version:"
 msgstr "Version:"
 
-#: ../Tomboy/PreferencesDialog.cs:1285
+#: ../Tomboy/PreferencesDialog.cs:1281
 msgid "Author:"
 msgstr "Upphovsman:"
 
-#: ../Tomboy/PreferencesDialog.cs:1292
+#: ../Tomboy/PreferencesDialog.cs:1288
 msgid "Copyright:"
 msgstr "Copyright:"
 
-#: ../Tomboy/PreferencesDialog.cs:1298
+#: ../Tomboy/PreferencesDialog.cs:1294
 msgid "Add-in Dependencies:"
 msgstr "Tilläggsberoenden:"
 
@@ -1355,11 +1405,11 @@ msgstr[1] "Sökträffar: {0} anteckningar"
 msgid "Notes"
 msgstr "Anteckningar"
 
-#: ../Tomboy/Tomboy.cs:243
+#: ../Tomboy/Tomboy.cs:244
 msgid "Cannot create new note"
 msgstr "Kan inte skapa ny anteckning"
 
-#: ../Tomboy/Tomboy.cs:331
+#: ../Tomboy/Tomboy.cs:332
 msgid "translator-credits"
 msgstr ""
 "Daniel Nylander\n"
@@ -1369,7 +1419,7 @@ msgstr ""
 "Skicka synpunkter på översättningen till\n"
 "tp-sv@listor.tp-sv.se"
 
-#: ../Tomboy/Tomboy.cs:340
+#: ../Tomboy/Tomboy.cs:341
 msgid ""
 "Copyright © 2004-2007 Alex Graveley\n"
 "Copyright © 2004-2009 Others\n"
@@ -1377,15 +1427,15 @@ msgstr ""
 "Copyright © 2004-2007 Alex Graveley\n"
 "Copyright © 2004-2009 Övriga\n"
 
-#: ../Tomboy/Tomboy.cs:342
+#: ../Tomboy/Tomboy.cs:343
 msgid "A simple and easy to use desktop note-taking application."
 msgstr "Ett enkelt och lättanvänt program för att ta anteckningar."
 
-#: ../Tomboy/Tomboy.cs:352
+#: ../Tomboy/Tomboy.cs:353
 msgid "Homepage"
 msgstr "Webbplats"
 
-#: ../Tomboy/Tomboy.cs:466
+#: ../Tomboy/Tomboy.cs:467
 msgid ""
 "Tomboy: A simple, easy to use desktop note-taking application.\n"
 "Copyright (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
@@ -1395,7 +1445,7 @@ msgstr ""
 "Copyright © 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
 "\n"
 
-#: ../Tomboy/Tomboy.cs:478
+#: ../Tomboy/Tomboy.cs:479
 msgid ""
 "Usage:\n"
 "  --version\t\t\tPrint version information.\n"
@@ -1409,7 +1459,7 @@ msgstr ""
 "  --note-path [sökväg]\t\tLäs in/Spara anteckningsdata i denna katalog\n"
 "  --search [text]\t\tÖppna sökfönster för att anteckningar med angiven text.\n"
 
-#: ../Tomboy/Tomboy.cs:489
+#: ../Tomboy/Tomboy.cs:490
 msgid ""
 "  --new-note\t\t\tCreate and display a new note.\n"
 "  --new-note [title]\t\tCreate and display a new note, with a title.\n"
@@ -1428,16 +1478,16 @@ msgstr ""
 #. Catalog.GetString (
 #. "  --check-plugin-unloading\tCheck if plugins are " +
 #. "unloaded properly.\n");
-#: ../Tomboy/Tomboy.cs:506
+#: ../Tomboy/Tomboy.cs:507
 msgid "D-BUS remote control disabled.\n"
 msgstr "D-BUS-fjärrkontroll inaktiverad.\n"
 
-#: ../Tomboy/Tomboy.cs:514
+#: ../Tomboy/Tomboy.cs:515
 #, csharp-format
 msgid "Version {0}"
 msgstr "Version {0}"
 
-#: ../Tomboy/Tomboy.cs:587
+#: ../Tomboy/Tomboy.cs:588
 #, csharp-format
 msgid ""
 "Tomboy: unsupported option '{0}'\n"
@@ -1997,8 +2047,6 @@ msgstr ""
 #~ msgstr "_Sammanfattning:"
 #~ msgid "_Details:"
 #~ msgstr "_Detaljer:"
-#~ msgid "_Completed:"
-#~ msgstr "_Färdig:"
 #~ msgid "_Complete"
 #~ msgstr "_Färdig"
 #~ msgid "Due Date:"
