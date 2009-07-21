@@ -137,6 +137,7 @@ namespace Tomboy
 		TomboyTray tray;
 		TomboyPrefsKeybinder keybinder;
 		Gtk.Menu context_menu;
+		Gtk.ImageMenuItem sync_menu_item;
 
 		public TomboyTrayIcon (NoteManager manager)
 		{
@@ -222,7 +223,21 @@ namespace Tomboy
 				Logger.Error ("Exception in GetTrayMenuPosition: " + e.ToString ());
 			}
 		}
-		
+
+		void Preferences_SettingChanged (object sender, EventArgs args)
+		{
+			// Update items based on configuration.
+			UpdateMenuItems ();
+		}
+
+		void UpdateMenuItems ()
+		{
+			// Is synchronization configured and active?
+			string sync_addin_id = Preferences.Get (Preferences.SYNC_SELECTED_SERVICE_ADDIN)
+				as string;
+			sync_menu_item.Sensitive = !string.IsNullOrEmpty (sync_addin_id);
+		}
+
 		Gtk.Menu GetRightClickMenu ()
 		{
 			if (tray.TomboyTrayMenu != null)
@@ -239,6 +254,15 @@ namespace Tomboy
 			context_menu.AccelGroup = accel_group;
 
 			Gtk.ImageMenuItem item;
+
+			sync_menu_item = new Gtk.ImageMenuItem (Catalog.GetString ("S_ynchronize Notes"));
+			sync_menu_item.Image = new Gtk.Image (Gtk.Stock.Convert, Gtk.IconSize.Menu);
+			UpdateMenuItems();
+			Preferences.SettingChanged += Preferences_SettingChanged;
+			sync_menu_item.Activated += SyncNotes;
+			context_menu.Append (sync_menu_item);
+
+			context_menu.Append (new Gtk.SeparatorMenuItem ());
 
 			item = new Gtk.ImageMenuItem (Catalog.GetString ("_Preferences"));
 			item.Image = new Gtk.Image (Gtk.Stock.Preferences, Gtk.IconSize.Menu);
@@ -269,6 +293,11 @@ namespace Tomboy
 		void ShowPreferences (object sender, EventArgs args)
 		{
 			Tomboy.ActionManager ["ShowPreferencesAction"].Activate ();
+		}
+
+		void SyncNotes (object sender, EventArgs args)
+		{
+			Tomboy.ActionManager ["NoteSynchronizationAction"].Activate ();
 		}
 
 		void ShowHelpContents (object sender, EventArgs args)
