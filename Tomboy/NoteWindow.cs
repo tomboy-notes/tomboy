@@ -1310,6 +1310,16 @@ namespace Tomboy
 			normal = new Gtk.RadioMenuItem (Catalog.GetString ("_Normal"));
 			MarkupLabel (normal);
 			normal.Active = true;
+			normal.AddAccelerator ("activate",
+						accel_group,
+						(uint) Gdk.Key.Key_0,
+						Gdk.ModifierType.ControlMask,
+						Gtk.AccelFlags.Visible);
+			normal.AddAccelerator ("activate",
+						accel_group,
+						(uint) Gdk.Key.KP_0,
+						Gdk.ModifierType.ControlMask,
+						Gtk.AccelFlags.Visible);
 			normal.Activated += FontSizeActivated;
 
 			huge = new Gtk.RadioMenuItem (normal.Group,
@@ -1345,12 +1355,27 @@ namespace Tomboy
 						(uint) Gdk.Key.plus,
 						Gdk.ModifierType.ControlMask,
 						Gtk.AccelFlags.Visible);
+			increase_font.AddAccelerator ("activate",
+						accel_group,
+						(uint) Gdk.Key.KP_Add,
+						Gdk.ModifierType.ControlMask,
+						Gtk.AccelFlags.Visible);
+			increase_font.AddAccelerator ("activate",
+						accel_group,
+						(uint) Gdk.Key.equal,
+						Gdk.ModifierType.ControlMask,
+						Gtk.AccelFlags.Visible);
 			increase_font.Activated += IncreaseFontClicked;
 
 			decrease_font = new Gtk.MenuItem (Catalog.GetString ("Decrease Font Size"));
 			decrease_font.AddAccelerator ("activate",
 						accel_group,
 						(uint) Gdk.Key.minus,
+						Gdk.ModifierType.ControlMask,
+						Gtk.AccelFlags.Visible);
+			decrease_font.AddAccelerator ("activate",
+						accel_group,
+						(uint) Gdk.Key.KP_Subtract,
 						Gdk.ModifierType.ControlMask,
 						Gtk.AccelFlags.Visible);
 			decrease_font.Activated += DecreaseFontClicked;
