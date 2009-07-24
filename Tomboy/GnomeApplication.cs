@@ -144,7 +144,7 @@ namespace Tomboy
 		
 		public void OpenUrl (string url)
 		{
-			Gnome.Url.Show (url);
+			GtkBeans.Global.ShowUri (null, url);
 		}
 		
 		public void DisplayHelp (string filename, string link_id, Gdk.Screen screen)

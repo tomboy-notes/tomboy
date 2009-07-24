@@ -49,7 +49,8 @@ GNOME_CSFILES =					\
 	$(srcdir)/GConfPreferencesClient.cs	\
 	$(srcdir)/GnomeApplication.cs		\
 	$(srcdir)/GnomeFactory.cs		\
-	$(srcdir)/XKeybinder.cs
+	$(srcdir)/XKeybinder.cs			\
+	$(srcdir)/gtk-sharp-beans/*.cs
 
 PANELAPPLET_CSFILES =			\
 	$(srcdir)/panelapplet/*.cs
