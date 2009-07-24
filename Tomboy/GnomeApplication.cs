@@ -142,19 +142,14 @@ namespace Tomboy
 				ExitingEvent (null, new EventArgs ());
 		}
 		
-		public void OpenUrl (string url)
+		public void OpenUrl (string url, Gdk.Screen screen)
 		{
-			GtkBeans.Global.ShowUri (null, url);
+			GtkBeans.Global.ShowUri (screen, url);
 		}
 		
-		public void DisplayHelp (string filename, string link_id, Gdk.Screen screen)
+		public void DisplayHelp (string help_uri, Gdk.Screen screen)
 		{
-			Gnome.Help.DisplayDesktopOnScreen (
-			        Gnome.Program.Get (),
-			        Defines.GNOME_HELP_DIR,
-			        filename,
-			        link_id,
-			        screen);
+			GtkBeans.Global.ShowUri (screen, help_uri);
 		}
 		
 		public string ConfDir {

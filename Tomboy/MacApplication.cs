@@ -200,7 +200,7 @@ namespace Tomboy
 			[DllImport ("libc", EntryPoint="system")]
 			public static extern int system (string command);
 			
-			public override void OpenUrl (string url)
+			public override void OpenUrl (string url, Gdk.Screen screen)
 			{
 				system ("open \"" + url + "\"");
 			}

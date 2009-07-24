@@ -131,22 +131,18 @@ namespace Tomboy
 			return MakeImageButton (image, label);
 		}
 
-		public static void ShowHelp (string filename,
-		                             string link_id,
+		public static void ShowHelp (string help_uri,
 		                             Gdk.Screen screen,
 		                             Gtk.Window parent)
 		{
 			try {
-				Services.NativeApplication.DisplayHelp (
-					filename,
-					link_id,
-					screen);
+				Services.NativeApplication.DisplayHelp (help_uri, screen);
 			} catch {
-			string message =
-			Catalog.GetString ("The \"Tomboy Notes Manual\" could " +
-			"not be found.  Please verify " +
-			"that your installation has been " +
-			"completed successfully.");
+				string message =
+					Catalog.GetString ("The \"Tomboy Notes Manual\" could " +
+					"not be found.  Please verify " +
+					"that your installation has been " +
+					"completed successfully.");
 				HIGMessageDialog dialog =
 				        new HIGMessageDialog (parent,
 				                              Gtk.DialogFlags.DestroyWithParent,

@@ -543,7 +543,7 @@ namespace Tomboy
 			get_more_link.Clicked += delegate(object sender, EventArgs args) {
 				string uri = ((Gtk.LinkButton) sender).Uri;
 				try {
-					Services.NativeApplication.OpenUrl (uri);
+					Services.NativeApplication.OpenUrl (uri, Screen);
 				} catch (Exception e) {
 					GuiUtils.ShowOpeningLocationError (this, uri, e.Message);
 				}

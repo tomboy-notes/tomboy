@@ -113,7 +113,7 @@ namespace Tomboy.WebSync
 				}
 				Logger.Debug ("Launching browser to authorize web sync: " + authUrl);
 				try {
-					Services.NativeApplication.OpenUrl (authUrl);
+					Services.NativeApplication.OpenUrl (authUrl, Screen);
 					authReqested = true;
 					authButton.Label = Catalog.GetString ("Click Here After Authorizing");
 				} catch (Exception e) {

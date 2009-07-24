@@ -95,7 +95,7 @@ namespace Tomboy
 		{
 			// Don't use the ActionManager in this case because
 			// the handler won't know about the Screen.
-			GuiUtils.ShowHelp ("tomboy.xml", null, Screen, null);
+			GuiUtils.ShowHelp ("ghelp:tomboy", Screen, null);
 		}
 
 		void ShowAboutVerb ()

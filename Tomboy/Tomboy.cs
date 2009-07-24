@@ -300,9 +300,7 @@ namespace Tomboy
 				tray_icon.GetGeometry (out screen, out area, out orientation);
 #endif
 			}
-			GuiUtils.ShowHelp("tomboy.xml", null,
-			                  screen,
-			                  null);
+			GuiUtils.ShowHelp ("ghelp:tomboy", screen, null);
 
 		}
 
@@ -344,7 +342,7 @@ namespace Tomboy
 			                                    "note-taking application.");
 			Gtk.AboutDialog.SetUrlHook (delegate (Gtk.AboutDialog dialog, string link) {
 				try {
-					Services.NativeApplication.OpenUrl (link);
+					Services.NativeApplication.OpenUrl (link, null);
 				} catch (Exception e) {
 					GuiUtils.ShowOpeningLocationError (dialog, link, e.Message);
 				}

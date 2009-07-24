@@ -452,7 +452,7 @@ namespace Tomboy
 		{
 			if (url != string.Empty) {
 				Logger.Log ("Opening url '{0}'...", url);
-				Services.NativeApplication.OpenUrl (url);
+				Services.NativeApplication.OpenUrl (url, Note.Window.Screen);
 			}
 		}
 

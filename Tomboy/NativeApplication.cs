@@ -20,10 +20,8 @@ namespace Tomboy
 
 		string ConfDir { get; }
 
-		void OpenUrl (string url);
+		void OpenUrl (string url, Gdk.Screen screen);
 
-		void DisplayHelp (string filename,
-			string link_id,
-			Gdk.Screen screen);
+		void DisplayHelp (string help_uri, Gdk.Screen screen);
 	}
 }

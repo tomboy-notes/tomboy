@@ -78,7 +78,7 @@ namespace Tomboy
 			get { return confDir; }
 		}
 
-		public virtual void OpenUrl (string url)
+		public virtual void OpenUrl (string url, Gdk.Screen screen)
 		{
 			try {
 				System.Diagnostics.Process.Start (url);
@@ -87,7 +87,7 @@ namespace Tomboy
 			}
 		}
 
-		public virtual void DisplayHelp (string filename, string link_id, Gdk.Screen screen)
+		public virtual void DisplayHelp (string help_uri, Gdk.Screen screen)
 		{
 			OpenUrl ("http://library.gnome.org/users/tomboy/0.12/");
 		}
