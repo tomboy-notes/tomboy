@@ -1378,6 +1378,11 @@ namespace Tomboy
 						(uint) Gdk.Key.KP_Subtract,
 						Gdk.ModifierType.ControlMask,
 						Gtk.AccelFlags.Visible);
+			decrease_font.AddAccelerator ("activate",
+						accel_group,
+						(uint) Gdk.Key.underscore,
+						Gdk.ModifierType.ControlMask,
+						Gtk.AccelFlags.Visible);
 			decrease_font.Activated += DecreaseFontClicked;
 
 			Gtk.SeparatorMenuItem spacer2 = new Gtk.SeparatorMenuItem ();
