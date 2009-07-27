@@ -53,7 +53,7 @@ namespace Tomboy.WebSync
 			authButton = new Gtk.Button ();
 			// TODO: If Auth is valid, this text should change
 			if (!Auth.IsAccessToken)
-				authButton.Label = Catalog.GetString ("_Connect to Server");
+				authButton.Label = Catalog.GetString ("Connect to Server");
 			else {
 				authButton.Label = Catalog.GetString ("Connected");
 				authButton.Sensitive = false;
