@@ -9,7 +9,7 @@
     <OutputType>Library</OutputType>
     <NoStandardLibraries>false</NoStandardLibraries>
     <AssemblyName>WebSyncServiceAddin</AssemblyName>
-    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <RootNamespace>Tomboy.WebSync</RootNamespace>
     <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
@@ -71,6 +71,10 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="Mono.Posix" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="WebSyncService.addin.xml" />
@@ -79,7 +83,6 @@
     <Compile Include="Api\NoteInfo.cs" />
     <Compile Include="Api\ResourceReference.cs" />
     <Compile Include="Api\UserInfo.cs" />
-    <Compile Include="Api\WebHelper.cs" />
     <Compile Include="Hyena.Json\Deserializer.cs" />
     <Compile Include="Hyena.Json\IJsonCollection.cs" />
     <Compile Include="Hyena.Json\JsonArray.cs" />
@@ -91,6 +94,16 @@
     <Compile Include="NoteConvert.cs" />
     <Compile Include="WebSyncServer.cs" />
     <Compile Include="WebSyncServiceAddin.cs" />
+    <Compile Include="Api\IWebConnection.cs" />
+    <Compile Include="Api\OAuth.cs" />
+    <Compile Include="Api\RootInfo.cs" />
+    <Compile Include="OAuth\Base.cs" />
+    <Compile Include="OAuth\Enums.cs" />
+    <Compile Include="OAuth\Extensions.cs" />
+    <Compile Include="OAuth\QueryParameter.cs" />
+    <Compile Include="OAuth\Mono.Rocks\Check.cs" />
+    <Compile Include="OAuth\Mono.Rocks\IEnumerable.cs" />
+    <Compile Include="WebSyncPreferencesWidget.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Makefile.am" />
