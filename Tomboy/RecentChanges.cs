@@ -650,7 +650,9 @@ namespace Tomboy
 
 		void OnNoteSaved (Note note)
 		{
+			var rect = tree.VisibleRect;
 			UpdateResults ();
+			tree.ScrollToPoint (rect.X, rect.Y);
 		}
 
 		void OnTreeViewDragDataGet (object sender, Gtk.DragDataGetArgs args)
