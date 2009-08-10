@@ -257,10 +257,13 @@ namespace Tomboy
 			column.SetCellDataFunc (renderer,
 				new Gtk.TreeCellDataFunc (NotebookPixbufCellDataFunc));
 
-			renderer = new Gtk.CellRendererText ();
-			column.PackStart (renderer, true);
-			column.SetCellDataFunc (renderer,
+			var textRenderer = new Gtk.CellRendererText ();
+			// TODO: Make special notebooks' rows uneditable
+			textRenderer.Editable = true;
+			column.PackStart (textRenderer, true);
+			column.SetCellDataFunc (textRenderer,
 				new Gtk.TreeCellDataFunc (NotebookTextCellDataFunc));
+			textRenderer.Edited += OnNotebookRowEdited;
 
 			notebooksTree.AppendColumn (column);
 
@@ -675,6 +678,27 @@ namespace Tomboy
 				args.SelectionData.Text = selected_notes [0].Title;
 			else
 				args.SelectionData.Text = Catalog.GetString ("Notes");
+		}
+
+		void OnNotebookRowEdited (object sender, Gtk.EditedArgs args)
+		{
+			if (Notebooks.NotebookManager.NotebookExists (args.NewText))
+				return;
+			var oldNotebook = GetSelectedNotebook ();
+			if (oldNotebook is Notebooks.SpecialNotebook)
+				return;
+			var newNotebook = Notebooks.NotebookManager.GetOrCreateNotebook (args.NewText);
+			Logger.Debug ("Renaming notebook '{0}' to '{1}'",
+			              oldNotebook.Name,
+			              args.NewText);
+			foreach (Note note in oldNotebook.Tag.Notes)
+				Notebooks.NotebookManager.MoveNoteToNotebook (note, newNotebook);
+			Notebooks.NotebookManager.DeleteNotebook (oldNotebook);
+			Gtk.TreeIter iter;
+			if (Notebooks.NotebookManager.GetNotebookIter (newNotebook, out iter)) {
+				// TODO: Why doesn't this work?
+				notebooksTree.Selection.SelectIter (iter);
+			}
 		}
 
 		void OnSelectionChanged (object sender, EventArgs args)
