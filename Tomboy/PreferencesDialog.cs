@@ -61,7 +61,6 @@ namespace Tomboy
 			Resizable = true;
 			Title = Catalog.GetString ("Tomboy Preferences");
 
-			VBox.Spacing = 5;
 			ActionArea.Layout = Gtk.ButtonBoxStyle.End;
 
 			addin_prefs_dialogs =
@@ -73,7 +72,6 @@ namespace Tomboy
 
 			Gtk.Notebook notebook = new Gtk.Notebook ();
 			notebook.TabPos = Gtk.PositionType.Top;
-			notebook.BorderWidth = 5;
 			notebook.Show ();
 
 			notebook.AppendPage (MakeEditingPane (),
