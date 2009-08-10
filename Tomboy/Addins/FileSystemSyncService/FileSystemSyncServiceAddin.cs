@@ -82,6 +82,8 @@ namespace Tomboy.Sync
 		public override Gtk.Widget CreatePreferencesControl ()
 		{
 			Gtk.Table table = new Gtk.Table (1, 3, false);
+			table.RowSpacing = 5;
+			table.ColumnSpacing = 10;
 
 			// Read settings out of gconf
 			string syncPath;
@@ -90,11 +92,17 @@ namespace Tomboy.Sync
 
 			Label l = new Label (Catalog.GetString ("_Folder Path:"));
 			l.Xalign = 1;
-			table.Attach (l, 0, 1, 0, 1);
+			table.Attach (l, 0, 1, 0, 1,
+			              Gtk.AttachOptions.Fill,
+			              Gtk.AttachOptions.Expand | Gtk.AttachOptions.Fill,
+			              0, 0);
 
 			pathEntry = new Entry ();
 			pathEntry.Text = syncPath;
-			table.Attach (pathEntry, 1, 2, 0, 1);
+			table.Attach (pathEntry, 1, 2, 0, 1,
+			              Gtk.AttachOptions.Expand | Gtk.AttachOptions.Fill,
+			              Gtk.AttachOptions.Expand | Gtk.AttachOptions.Fill,
+			              0, 0);
 			l.MnemonicWidget = pathEntry;
 
 			Image browseImage = new Image (Stock.Open, IconSize.Button);

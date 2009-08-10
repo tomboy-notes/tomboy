@@ -26,6 +26,8 @@ namespace Tomboy.Sync
 		public override Gtk.Widget CreatePreferencesControl ()
 		{
 			Gtk.Table table = new Gtk.Table (3, 2, false);
+			table.RowSpacing = 5;
+			table.ColumnSpacing = 10;
 
 			// Read settings out of gconf
 			string server, folder, username;
@@ -40,37 +42,22 @@ namespace Tomboy.Sync
 			if (username == null)
 				username = string.Empty;
 
-			Label l = new Label (Catalog.GetString ("Se_rver:"));
-			l.Xalign = 1;
-			table.Attach (l, 0, 1, 0, 1);
-
 			serverEntry = new Entry ();
-			l.MnemonicWidget = serverEntry;
 			serverEntry.Text = server;
-			table.Attach (serverEntry, 1, 2, 0, 1);
-
-			l = new Label (Catalog.GetString ("User_name:"));
-			l.Xalign = 1;
-			table.Attach (l, 0, 1, 1, 2);
+			AddRow (table, serverEntry, Catalog.GetString ("Se_rver:"), 0);
 
 			usernameEntry = new Entry ();
-			l.MnemonicWidget = usernameEntry;
 			usernameEntry.Text = username;
-			table.Attach (usernameEntry, 1, 2, 1, 2);
-
-			l = new Label (Catalog.GetString ("_Folder Path (optional):"));
-			l.Xalign = 1;
-			table.Attach (l, 0, 1, 2, 3);
+			AddRow (table, usernameEntry, Catalog.GetString ("User_name:"), 1);
 
 			folderEntry = new Entry ();
-			l.MnemonicWidget = folderEntry;
 			folderEntry.Text = folder;
-			table.Attach (folderEntry, 1, 2, 2, 3);
+			AddRow (table, folderEntry, Catalog.GetString ("_Folder Path (optional):"), 2);
 
 			// Text for label describing setup required for SSH sync addin to work
 			string sshInfo = Catalog.GetString ("SSH synchronization requires an existing SSH key for this " +
 			                                    "server and user, added to a running SSH daemon.");
-			l = new Label ();
+			Label l = new Label ();
 			l.UseMarkup = true;
 			l.Markup = string.Format ("<span size=\"small\">{0}</span>",
 			                          sshInfo);
@@ -232,6 +219,29 @@ namespace Tomboy.Sync
 
 			return !string.IsNullOrEmpty (server)
 			       && !string.IsNullOrEmpty (username);
+		}
+
+		// TODO: Centralize duplicated code
+		private void AddRow (Gtk.Table table, Gtk.Widget widget, string labelText, uint row)
+		{
+			Gtk.Label l = new Gtk.Label (labelText);
+			l.UseUnderline = true;
+			l.Xalign = 0.0f;
+			l.Show ();
+			table.Attach (l, 0, 1, row, row + 1,
+			              Gtk.AttachOptions.Fill,
+			              Gtk.AttachOptions.Expand | Gtk.AttachOptions.Fill,
+			              0, 0);
+
+			widget.Show ();
+			table.Attach (widget, 1, 2, row, row + 1,
+			              Gtk.AttachOptions.Expand | Gtk.AttachOptions.Fill,
+			              Gtk.AttachOptions.Expand | Gtk.AttachOptions.Fill,
+			              0, 0);
+
+			l.MnemonicWidget = widget;
+
+			// TODO: Tooltips
 		}
 		#endregion // Private Methods
 	}

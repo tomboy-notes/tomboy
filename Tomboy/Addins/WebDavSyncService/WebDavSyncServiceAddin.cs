@@ -36,6 +36,8 @@ namespace Tomboy.Sync
 		public override Gtk.Widget CreatePreferencesControl ()
 		{
 			Gtk.Table table = new Gtk.Table (3, 2, false);
+			table.RowSpacing = 5;
+			table.ColumnSpacing = 10;
 
 			// Read settings out of gconf
 			string url, username, password;
@@ -48,33 +50,18 @@ namespace Tomboy.Sync
 			if (password == null)
 				password = string.Empty;
 
-			Label l = new Label (Catalog.GetString ("_URL:"));
-			l.Xalign = 1;
-			table.Attach (l, 0, 1, 0, 1);
-
 			urlEntry = new Entry ();
-			l.MnemonicWidget = urlEntry;
 			urlEntry.Text = url;
-			table.Attach (urlEntry, 1, 2, 0, 1);
-
-			l = new Label (Catalog.GetString ("User_name:"));
-			l.Xalign = 1;
-			table.Attach (l, 0, 1, 1, 2);
+			AddRow (table, urlEntry, Catalog.GetString ("_URL:"), 0);
 
 			usernameEntry = new Entry ();
-			l.MnemonicWidget = usernameEntry;
 			usernameEntry.Text = username;
-			table.Attach (usernameEntry, 1, 2, 1, 2);
-
-			l = new Label (Catalog.GetString ("_Password:"));
-			l.Xalign = 1;
-			table.Attach (l, 0, 1, 2, 3);
+			AddRow (table, usernameEntry, Catalog.GetString ("User_name:"), 1);
 
 			passwordEntry = new Entry ();
-			l.MnemonicWidget = passwordEntry;
 			passwordEntry.Text = password;
 			passwordEntry.Visibility = false;
-			table.Attach (passwordEntry, 1, 2, 2, 3);
+			AddRow (table, passwordEntry, Catalog.GetString ("_Password:"), 2);
 
 			table.ShowAll ();
 			return table;
@@ -292,6 +279,29 @@ namespace Tomboy.Sync
 					return false;
 				}
 			}
+		}
+
+		// TODO: Centralize duplicated code
+		private void AddRow (Gtk.Table table, Gtk.Widget widget, string labelText, uint row)
+		{
+			Gtk.Label l = new Gtk.Label (labelText);
+			l.UseUnderline = true;
+			l.Xalign = 0.0f;
+			l.Show ();
+			table.Attach (l, 0, 1, row, row + 1,
+			              Gtk.AttachOptions.Fill,
+			              Gtk.AttachOptions.Expand | Gtk.AttachOptions.Fill,
+			              0, 0);
+
+			widget.Show ();
+			table.Attach (widget, 1, 2, row, row + 1,
+			              Gtk.AttachOptions.Expand | Gtk.AttachOptions.Fill,
+			              Gtk.AttachOptions.Expand | Gtk.AttachOptions.Fill,
+			              0, 0);
+
+			l.MnemonicWidget = widget;
+
+			// TODO: Tooltips
 		}
 		#endregion // Private Methods
 	}

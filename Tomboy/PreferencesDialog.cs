@@ -446,9 +446,9 @@ namespace Tomboy
 
 			syncAddinPrefsWidget.Show ();
 			syncAddinPrefsContainer = new Gtk.VBox (false, 0);
-			syncAddinPrefsContainer.PackStart (syncAddinPrefsWidget, true, true, 0);
+			syncAddinPrefsContainer.PackStart (syncAddinPrefsWidget, false, false, 0);
 			syncAddinPrefsContainer.Show ();
-			vbox.PackStart (syncAddinPrefsContainer, true, true, 0);
+			vbox.PackStart (syncAddinPrefsContainer, true, true, 10);
 
 			Gtk.HButtonBox bbox = new Gtk.HButtonBox ();
 			bbox.Spacing = 4;
@@ -1035,7 +1035,7 @@ namespace Tomboy
 					}
 
 					syncAddinPrefsWidget.Show ();
-					syncAddinPrefsContainer.PackStart (syncAddinPrefsWidget, true, true, 0);
+					syncAddinPrefsContainer.PackStart (syncAddinPrefsWidget, false, false, 0);
 
 					resetSyncAddinButton.Sensitive = false;
 					saveSyncAddinButton.Sensitive = true;
