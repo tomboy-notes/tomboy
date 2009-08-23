@@ -35,7 +35,7 @@ namespace Tomboy.Sync
 			GetConfigSettings (out server, out folder, out username, out port);
 			if (server == null)
 				server = string.Empty;
-			if (port != 22)
+			if (port > -1 && port != 22)
 				server += ":" + port.ToString ();
 			if (folder == null)
 				folder = string.Empty;
@@ -103,7 +103,7 @@ namespace Tomboy.Sync
 		protected override void ResetConfigurationValues ()
 		{
 			Preferences.Set ("/apps/tomboy/sync_sshfs_server", string.Empty);
-			Preferences.Set ("/apps/tomboy/sync_sshfs_port", 22);
+			Preferences.Set ("/apps/tomboy/sync_sshfs_port", -1);
 			Preferences.Set ("/apps/tomboy/sync_sshfs_folder", string.Empty);
 			Preferences.Set ("/apps/tomboy/sync_sshfs_username", string.Empty);
 		}
@@ -144,15 +144,16 @@ namespace Tomboy.Sync
 
 		protected override string GetFuseMountExeArgs (string mountPath, bool fromStoredValues)
 		{
-			int port = 22;
+			int port = -1;
 			string server, folder, username;
 			if (fromStoredValues)
 				GetConfigSettings (out server, out folder, out username, out port);
 			else
 				GetPrefWidgetSettings (out server, out folder, out username, out port);
+			string portStr = port > -1 ? string.Format ("-p {0}", port) : string.Empty;
 			return string.Format (
-			               "-p {0} {1}@{2}:{3} {4}",
-			               port,
+			               "{0} {1}@{2}:{3} {4}",
+			               portStr,
 			               username,
 			               server,
 			               folder,
@@ -189,7 +190,7 @@ namespace Tomboy.Sync
 		private bool GetConfigSettings (out string server, out string folder, out string username, out int port)
 		{
 			server = Preferences.Get ("/apps/tomboy/sync_sshfs_server") as String;
-			port = 22;
+			port = -1;
 			try {
 				port = (int)Preferences.Get ("/apps/tomboy/sync_sshfs_port");
 			} catch {}
@@ -205,7 +206,7 @@ namespace Tomboy.Sync
 		/// </summary>
 		private bool GetPrefWidgetSettings (out string server, out string folder, out string username, out int port)
 		{
-			port = 22;
+			port = -1;
 			server = serverEntry.Text.Trim ();
 			int lastColonIndex = server.LastIndexOf(":");
 			if (lastColonIndex > 0) {
