@@ -353,8 +353,10 @@ namespace Tomboy
 			about.Documenters = documenters;
 			about.TranslatorCredits = translators;
 			about.IconName = "tomboy";
-			about.Run ();
-			about.Destroy ();
+			about.Response += delegate {
+				about.Destroy ();
+			};
+			about.Present ();
 		}
 
 		static void OpenSearchAll (object sender, EventArgs args)
