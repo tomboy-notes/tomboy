@@ -20,6 +20,7 @@ namespace Tomboy
 		public const string CUSTOM_FONT_FACE = "/apps/tomboy/custom_font_face";
 		public const string MENU_NOTE_COUNT = "/apps/tomboy/menu_note_count";
 		public const string MENU_PINNED_NOTES = "/apps/tomboy/menu_pinned_notes";
+		public const string MENU_ITEM_MAX_LENGTH = "/apps/tomboy/tray_menu_item_max_length";
 
 		public const string KEYBINDING_SHOW_NOTE_MENU = "/apps/tomboy/global_keybindings/show_note_menu";
 		public const string KEYBINDING_OPEN_START_HERE = "/apps/tomboy/global_keybindings/open_start_here";
@@ -93,6 +94,9 @@ namespace Tomboy
 
 			case MENU_PINNED_NOTES:
 				return string.Empty;
+
+			case MENU_ITEM_MAX_LENGTH:
+				return 100;
 
 			case KEYBINDING_SHOW_NOTE_MENU:
 				return "<Alt>F12";
