@@ -307,16 +307,19 @@ namespace Tomboy
 		static void OnShowAboutAction (object sender, EventArgs args)
 		{
 			string [] authors = new string [] {
-				"Alex Graveley <alex@beatniksoftware.com>",
-				"Boyd Timothy <btimothy@gmail.com>",
-				"Chris Scobell <chris@thescobells.com>",
-				"David Trowbridge <trowbrds@gmail.com>",
-				"Ryan Lortie <desrt@desrt.ca>",
-				"Sandy Armstrong <sanfordarmstrong@gmail.com>",
-				"Sebastian Rittau <srittau@jroger.in-berlin.de>",
-				"Kevin Kubasik <kevin@kubasik.net>",
-				"Stefan Schweizer <steve.schweizer@gmail.com>",
-				"Benjamin Podszun <benjamin.podszun@gmail.com>"
+				Catalog.GetString ("Primary Development:"),
+				"\tAlex Graveley <alex@beatniksoftware.com>",
+				"\tBoyd Timothy <btimothy@gmail.com>",
+				"\tSandy Armstrong <sanfordarmstrong@gmail.com>",
+				"",
+				Catalog.GetString ("Contributors:"),
+				"\tBenjamin Podszun <benjamin.podszun@gmail.com>",
+				"\tChris Scobell <chris@thescobells.com>",
+				"\tDavid Trowbridge <trowbrds@gmail.com>",
+				"\tKevin Kubasik <kevin@kubasik.net>",
+				"\tRyan Lortie <desrt@desrt.ca>",
+				"\tSebastian Rittau <srittau@jroger.in-berlin.de>",
+				"\tStefan Schweizer <steve.schweizer@gmail.com>"
 			};
 
 			string [] documenters = new string [] {
