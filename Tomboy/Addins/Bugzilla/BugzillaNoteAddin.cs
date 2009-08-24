@@ -1,5 +1,6 @@
 
 using System;
+using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -14,6 +15,26 @@ namespace Tomboy.Bugzilla
 	public class BugzillaNoteAddin : NoteAddin
 	{
 		public const string BugzillaLinkTagName = "link:bugzilla";
+
+		private static string image_dir = null;
+
+		public static string ImageDirectory {
+			get {
+				if (image_dir == null) {
+					image_dir = Path.Combine (Services.NativeApplication.ConfigurationDirectory,
+					                          "BugzillaIcons");
+
+					// Perform migration if necessary
+					if (!Directory.Exists (ImageDirectory)) {
+						string old_image_dir = Path.Combine (Services.NativeApplication.PreOneDotZeroNoteDirectory,
+						                                     "BugzillaIcons");
+						if (Directory.Exists (old_image_dir))
+							IOUtils.CopyDirectory (old_image_dir, image_dir);
+					}
+				}
+				return image_dir;
+			}
+		}
 
 		public override void Initialize ()
 		{

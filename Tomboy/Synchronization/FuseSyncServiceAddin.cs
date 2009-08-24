@@ -121,9 +121,9 @@ namespace Tomboy.Sync
 					// Test ability to read
 					bool testFileFound = false;
 					foreach (string filePath in Directory.GetFiles (mountPath))
-					if (filePath == testPath) {
-						testFileFound = true;
-						break;
+						if (filePath == testPath) {
+							testFileFound = true;
+							break;
 					}
 					if (!testFileFound)
 						throw new TomboySyncException (Catalog.GetString ("Could not read testfile."));
@@ -265,7 +265,7 @@ namespace Tomboy.Sync
 
 		private void SetUpMountPath ()
 		{
-			string notesPath = Tomboy.DefaultNoteManager.NoteDirectoryPath;
+			string notesPath = Services.NativeApplication.CacheDirectory;
 			mountPath = Path.Combine (notesPath, "sync-" + Id); // TODO: Best mount path name?
 		}
 

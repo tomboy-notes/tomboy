@@ -19,10 +19,22 @@ namespace Tomboy
 
 		public XmlPreferencesClient ()
 		{
-			fileName = Path.Combine (
-				Services.NativeApplication.ConfDir,
-				"prefs.xml");
+			string confDir = Services.NativeApplication.ConfigurationDirectory;
+			fileName = Path.Combine (confDir, "prefs.xml");
 			prefsDoc = new XmlDocument ();
+
+			// Migration from old location
+			// NOTE: Assumes this class is instantiated before
+			//       NoteManager performs its migration
+			if (!Directory.Exists (Services.NativeApplication.DataDirectory) &&
+			    !File.Exists (fileName) &&
+			    File.Exists (Path.Combine (Services.NativeApplication.PreOneDotZeroNoteDirectory, "prefs.xml"))) {
+				if (!Directory.Exists (confDir))
+					Directory.CreateDirectory (confDir);
+				File.Copy (Path.Combine (Services.NativeApplication.PreOneDotZeroNoteDirectory, "prefs.xml"),
+					   fileName);
+			}
+
 			if (File.Exists (fileName))
 				prefsDoc.Load (fileName);
 			events = new Dictionary<string, NotifyEventHandler> ();

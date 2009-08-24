@@ -121,6 +121,8 @@ CSFILES = 					\
 	$(srcdir)/Notebooks/*.cs		\
 	$(srcdir)/Synchronization/*.cs		\
 	\
+	$(srcdir)/Hyena/*.cs			\
+	\
 	$(GNOME_USED_CSFILES)			\
 	$(WIN_USED_CSFILES)			\
 	$(OSX_USED_CSFILES)			\

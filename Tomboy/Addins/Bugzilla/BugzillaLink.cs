@@ -1,4 +1,6 @@
 using System;
+using System.IO;
+
 using Tomboy;
 
 namespace Tomboy.Bugzilla
@@ -60,9 +62,8 @@ namespace Tomboy.Bugzilla
 			}
 
 			string host = uri.Host;
-			// TODO: Get this in a safer way
-			string imageDir = "~/.tomboy/BugzillaIcons/";
-			string imagePath = imageDir.Replace ("~", Environment.GetEnvironmentVariable ("HOME")) + host + ".png";
+			string imagePath = Path.Combine (BugzillaNoteAddin.ImageDirectory,
+			                                 host + ".png");
 
 			try {
 				Image = new Gdk.Pixbuf (imagePath);

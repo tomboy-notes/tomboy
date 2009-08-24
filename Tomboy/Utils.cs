@@ -953,4 +953,21 @@ namespace Tomboy
 			}
 		}
 	}
+
+	public static class IOUtils
+	{
+		/// <summary>
+		/// Recursively copy the directory specified by old_path to
+		/// new_path. Assumes that old_path is an existing directory
+		/// and new_path does not exist.
+		/// </summary>
+		public static void CopyDirectory (string old_path, string new_path)
+		{
+			Directory.CreateDirectory (new_path);
+			foreach (string file_path in Directory.GetFiles (old_path))
+				File.Copy (file_path, Path.Combine (new_path, Path.GetFileName (file_path)));
+			foreach (string dir_path in Directory.GetDirectories (old_path))
+				CopyDirectory (dir_path, Path.Combine (new_path, Path.GetFileName (dir_path)));
+		}
+	}
 }

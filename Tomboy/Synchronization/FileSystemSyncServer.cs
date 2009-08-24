@@ -13,7 +13,7 @@ namespace Tomboy.Sync
 		private string serverId;
 
 		private string serverPath;
-		private string notePath;
+		private string cachePath;
 		private string lockPath;
 		private string manifestPath;
 
@@ -32,7 +32,7 @@ namespace Tomboy.Sync
 			if (!Directory.Exists (serverPath))
 				throw new DirectoryNotFoundException (serverPath);
 
-			notePath = Tomboy.DefaultNoteManager.NoteDirectoryPath;
+			cachePath = Services.NativeApplication.CacheDirectory;
 			lockPath = Path.Combine (serverPath, "lock");
 			manifestPath = Path.Combine (serverPath, "manifest.xml");
 
@@ -100,7 +100,7 @@ namespace Tomboy.Sync
 		{
 			Dictionary<string, NoteUpdate> noteUpdates = new Dictionary<string, NoteUpdate> ();
 
-			string tempPath = Path.Combine (notePath, "sync_temp");
+			string tempPath = Path.Combine (cachePath, "sync_temp");
 			if (!Directory.Exists (tempPath)) {
 				Directory.CreateDirectory (tempPath);
 			} else {
@@ -112,7 +112,7 @@ namespace Tomboy.Sync
 				} catch {}
 			}
 
-		if (IsValidXmlFile (manifestPath)) {
+			if (IsValidXmlFile (manifestPath)) {
 				// TODO: Permissions errors
 				using (FileStream fs = new FileStream (manifestPath, FileMode.Open)) {
 					XmlDocument doc = new XmlDocument ();

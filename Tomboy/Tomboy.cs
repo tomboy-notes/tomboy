@@ -124,7 +124,7 @@ namespace Tomboy
 				RegisterSessionManagerRestart (
 				        Environment.GetEnvironmentVariable ("TOMBOY_WRAPPER_PATH"),
 				        args,
-				        new string [] { "TOMBOY_PATH=" + note_path  });
+				        new string [] { "TOMBOY_PATH=" + note_path  }); // TODO: Pass along XDG_*?
 				StartTrayIcon ();
 			}
 
@@ -143,10 +143,10 @@ namespace Tomboy
 			        override_path :
 			        Environment.GetEnvironmentVariable ("TOMBOY_PATH");
 			if (note_path == null)
-				note_path = Services.NativeApplication.ConfDir;
+				note_path = Services.NativeApplication.DataDirectory;
 
 			// Tilde expand
-			return note_path.Replace ("~", Environment.GetEnvironmentVariable ("HOME"));
+			return note_path.Replace ("~", Environment.GetEnvironmentVariable ("HOME")); // TODO: Wasted work
 		}
 
 		static void RegisterPanelAppletFactory ()

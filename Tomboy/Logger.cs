@@ -57,17 +57,14 @@ namespace Tomboy
 		{
 			console = new ConsoleLogger ();
 
-#if WIN32
+			string logDir = Services.NativeApplication.LogDirectory;
 			string logfile = Path.Combine(
-				Services.NativeApplication.ConfDir,
+				logDir,
 				"tomboy.log");
-#else
-			string logfile = Path.Combine(
-				Environment.GetEnvironmentVariable ("HOME"),
-				".tomboy.log");
-#endif
 
 			try {
+				if (!Directory.Exists (logDir))
+					Directory.CreateDirectory (logDir);
 				log = File.CreateText (logfile);
 				log.Flush ();
 			} catch (IOException iox) {

@@ -20,12 +20,12 @@ namespace Tomboy.Sync
 		{
 			// TODO: Why doesn't OnChanged ever get fired?!
 			FileSystemWatcher w = new FileSystemWatcher ();
-			w.Path = Tomboy.DefaultNoteManager.NoteDirectoryPath;
+			w.Path = Services.NativeApplication.ConfigurationDirectory;
 			w.Filter = localManifestFileName;
 			w.Changed += OnChanged;
 
 			localManifestFilePath =
-			        Path.Combine (Tomboy.DefaultNoteManager.NoteDirectoryPath,
+			        Path.Combine (Services.NativeApplication.ConfigurationDirectory,
 			                      localManifestFileName);
 			Parse (localManifestFilePath);
 

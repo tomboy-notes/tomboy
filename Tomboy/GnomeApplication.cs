@@ -7,17 +7,34 @@ using System.Xml;
 using Mono.Unix;
 using Mono.Unix.Native;
 
+using Hyena;
+
 namespace Tomboy
 {
 	public class GnomeApplication : INativeApplication
 	{
 		private Gnome.Program program;
-		private string confDir;
+		private static string confDir;
+		private static string dataDir;
+		private static string cacheDir;
+		private const string tomboyDirName = "tomboy";
 
-		public GnomeApplication ()
+		static GnomeApplication ()
 		{
-			confDir = Path.Combine (Environment.GetEnvironmentVariable ("HOME"),
-			                        ".tomboy");
+			dataDir = Path.Combine (XdgBaseDirectorySpec.GetUserDirectory ("XDG_DATA_HOME",
+			                                                               Path.Combine (".local", "share")),
+			                        tomboyDirName);
+			confDir = Path.Combine (XdgBaseDirectorySpec.GetUserDirectory ("XDG_CONFIG_HOME",
+			                                                               ".config"),
+			                        tomboyDirName);
+			cacheDir = Path.Combine (XdgBaseDirectorySpec.GetUserDirectory ("XDG_CACHE_HOME",
+			                                                                ".cache"),
+			                         tomboyDirName);
+
+			// NOTE: Other directories created on demand
+			//       (non-existence is an indicator that migration is needed)
+			if (!Directory.Exists (cacheDir))
+				Directory.CreateDirectory (cacheDir);
 		}
 
 		public void Initialize (string locale_dir,
@@ -152,9 +169,26 @@ namespace Tomboy
 			GtkBeans.Global.ShowUri (screen, help_uri);
 		}
 		
-		public string ConfDir {
+		public string DataDirectory {
+			get { return dataDir; }
+		}
+
+		public string ConfigurationDirectory {
+			get { return confDir; }
+		}
+
+		public string CacheDirectory {
+			get { return cacheDir; }
+		}
+
+		public string LogDirectory {
+			get { return confDir; }
+		}
+
+		public string PreOneDotZeroNoteDirectory {
 			get {
-				return confDir;
+				return Path.Combine (Environment.GetEnvironmentVariable ("HOME"),
+				                     ".tomboy");
 			}
 		}
 	}

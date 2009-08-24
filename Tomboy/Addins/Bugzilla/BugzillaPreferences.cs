@@ -14,15 +14,6 @@ namespace Tomboy.Bugzilla
 
 		string last_opened_dir;
 
-		static string IMAGE_DIR = "~/.tomboy/BugzillaIcons";
-		static string image_dir = null;
-
-		static BugzillaPreferences ()
-		{
-			// TODO: Get this in a safer way
-			image_dir = IMAGE_DIR.Replace ("~", Environment.GetEnvironmentVariable ("HOME"));
-		}
-
 		public BugzillaPreferences ()
 : base (false, 12)
 		{
@@ -116,14 +107,14 @@ namespace Tomboy.Bugzilla
 
 		void UpdateIconStore ()
 		{
-			// Read ~/.tomboy/BugzillaIcons/"
+			// Read ~/.config/tomboy/BugzillaIcons/"
 
-			if (!Directory.Exists (image_dir))
+			if (!Directory.Exists (BugzillaNoteAddin.ImageDirectory))
 				return;
 
 			icon_store.Clear (); // clear out the old entries
 
-			string [] icon_files = Directory.GetFiles (image_dir);
+			string [] icon_files = Directory.GetFiles (BugzillaNoteAddin.ImageDirectory);
 			foreach (string icon_file in icon_files) {
 				FileInfo file_info = new FileInfo (icon_file);
 
@@ -272,10 +263,10 @@ run_add_dialog:
 
 			FileInfo file_info = new FileInfo (file_path);
 			string ext = file_info.Extension;
-			string saved_path = System.IO.Path.Combine (image_dir, host + ext);
+			string saved_path = System.IO.Path.Combine (BugzillaNoteAddin.ImageDirectory, host + ext);
 			try {
-				if (!Directory.Exists (image_dir)) {
-					Directory.CreateDirectory (image_dir);
+				if (!Directory.Exists (BugzillaNoteAddin.ImageDirectory)) {
+					Directory.CreateDirectory (BugzillaNoteAddin.ImageDirectory);
 				}
 
 				File.Copy (file_path, saved_path);

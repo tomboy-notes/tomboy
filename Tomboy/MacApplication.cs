@@ -24,6 +24,7 @@
 // 
 
 using System;
+using System.IO;
 using System.Runtime.InteropServices;
 using Mono.Unix;
 
@@ -134,7 +135,7 @@ namespace Tomboy
 
 	}
 	
-	public class MacApplication : WindowsApplication
+	public class MacApplication : INativeApplication
 	{
 		private const string osxMenuXml =@"
 <ui>
@@ -148,7 +149,60 @@ namespace Tomboy
   </menubar>
 </ui>
 ";
-		public override void StartMainLoop ()
+
+		private static string confDir;
+		private static string dataDir;
+		private static string cacheDir;
+		private static string logDir;
+		private const string tomboyDirName = "Tomboy";
+
+		static MacApplication ()
+		{
+			string homeDir = Environment.GetFolderPath (Environment.SpecialFolder.Personal);
+			string libraryDir = Path.Combine (homeDir, "Library");
+
+			dataDir = Path.Combine (Path.Combine (libraryDir, "Application Support"),
+			                        tomboyDirName);
+			confDir = Path.Combine (Path.Combine (libraryDir, "Preferences"),
+			                        tomboyDirName);
+			cacheDir = Path.Combine (Path.Combine (libraryDir, "Caches"),
+			                         tomboyDirName);
+			logDir = Path.Combine (Path.Combine (libraryDir, "Logs"),
+			                       tomboyDirName);
+
+			// NOTE: Other directories created on demand
+			//       (non-existence is an indicator that migration is needed)
+			if (!Directory.Exists (cacheDir))
+				Directory.CreateDirectory (cacheDir);
+		}
+
+		#region INativeApplication implementation
+
+		public event EventHandler ExitingEvent;
+
+		public virtual void Initialize (string locale_dir, string display_name, string process_name, string[] args)
+		{
+			Gtk.Application.Init ();
+		}
+
+		public virtual void RegisterSessionManagerRestart (string executable_path, string[] args, string[] environment)
+		{
+			// Do nothing
+		}
+
+		public virtual void RegisterSignalHandlers ()
+		{
+			// Nothing yet, but need to register for native exit signals?
+		}
+
+		public virtual void Exit (int exitcode)
+		{
+			if (ExitingEvent != null)
+				ExitingEvent (null, new EventArgs ());
+			System.Environment.Exit (exitcode);
+		}
+
+		public virtual void StartMainLoop ()
 		{
 			Gtk.UIManager uiManager = Tomboy.ActionManager.UI;
 			
@@ -194,17 +248,45 @@ namespace Tomboy
 			
 			Tomboy.ActionManager ["CloseWindowAction"].Visible = false;
 			
-			base.StartMainLoop ();
+			Gtk.Application.Run ();
 		}
-			
-			[DllImport ("libc", EntryPoint="system")]
-			public static extern int system (string command);
-			
-			public override void OpenUrl (string url, Gdk.Screen screen)
-			{
-				system ("open \"" + url + "\"");
+
+		public string DataDirectory {
+			get { return dataDir; }
+		}
+
+		public string ConfigurationDirectory {
+			get { return confDir; }
+		}
+
+		public string CacheDirectory {
+			get { return cacheDir; }
+		}
+
+		public string LogDirectory {
+			get { return logDir; }
+		}
+
+		public string PreOneDotZeroNoteDirectory {
+			get {
+				return Path.Combine (Environment.GetFolderPath (Environment.SpecialFolder.ApplicationData),
+				                     "tomboy");
 			}
+		}
 
+		[DllImport ("libc", EntryPoint="system")]
+		public static extern int system (string command);
 
+		public virtual void OpenUrl (string url, Gdk.Screen screen)
+		{
+			system ("open \"" + url + "\"");
+		}
+
+		public virtual void DisplayHelp (string help_uri, Gdk.Screen screen)
+		{
+			OpenUrl ("http://library.gnome.org/users/tomboy/0.12/", screen);
+		}
+
+		#endregion
 	}
 }

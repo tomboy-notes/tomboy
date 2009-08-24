@@ -52,17 +52,111 @@ public NoteManager (string directory) :
 			backup_dir = backup_directory;
 			notes = new List<Note> ();
 
+			string conf_dir = Services.NativeApplication.ConfigurationDirectory;
+
+			string old_notes_dir = null;
+			bool migration_needed = false;
+
 			bool first_run = FirstRun ();
+			if (first_run) {
+				old_notes_dir = Services.NativeApplication.PreOneDotZeroNoteDirectory;
+				migration_needed = DirectoryExists (old_notes_dir);
+			}
 			CreateNotesDir ();
+			if (!Directory.Exists (conf_dir))
+				Directory.CreateDirectory (conf_dir);
+
+			if (migration_needed) {
+				// Copy notes
+				foreach (string noteFile in Directory.GetFiles (old_notes_dir, "*.note"))
+					File.Copy (noteFile, Path.Combine (notes_dir, Path.GetFileName (noteFile)));
+
+				// Copy deleted notes
+				string old_backup = Path.Combine (old_notes_dir, "Backup");
+				if (DirectoryExists (old_backup)) {
+					Directory.CreateDirectory (backup_dir);
+					foreach (string noteFile in Directory.GetFiles (old_backup, "*.note"))
+						File.Copy (noteFile, Path.Combine (backup_dir, Path.GetFileName (noteFile)));
+				}
+
+				// Copy configuration data
+				// NOTE: Add-in configuration data copied by AddinManager
+				string sync_manifest_name = "manifest.xml";
+				string old_sync_manifest_path =
+					Path.Combine (old_notes_dir, sync_manifest_name);
+				if (File.Exists (old_sync_manifest_path))
+					File.Copy (old_sync_manifest_path,
+					           Path.Combine (conf_dir, sync_manifest_name));
+
+
+				// NOTE: Not copying cached data
+
+				first_run = false;
+			}
 
 			trie_controller = CreateTrieController ();
-			addin_mgr = CreateAddinManager ();
+			addin_mgr = new AddinManager (conf_dir,
+			                              migration_needed ? old_notes_dir : null);
 
 			if (first_run) {
 				// First run. Create "Start Here" notes.
 				CreateStartNotes ();
 			} else {
 				LoadNotes ();
+			}
+
+			if (migration_needed) {
+				// Create migration notification note
+				// Translators: The title of the data migration note
+				string base_migration_note_title = Catalog.GetString ("Your Notes Have Moved!");
+				string migration_note_title = base_migration_note_title;
+
+				// NOTE: Uncomment to generate a title suitable for
+				//       putting in the note collection
+//				int count = 1;
+//				while (Find (migration_note_title) != null) {
+//					migration_note_title = base_migration_note_title +
+//						string.Format (" ({0})", ++count);
+//				}
+
+				string migration_note_content_template = Catalog.GetString (
+// Translators: The contents (not including the title) of the data migration note. {0}, {1}, {2}, {3}, and {4} are replaced by directory paths and should not be changed
+@"In the latest version of Tomboy, your note files have moved.  You have probably never cared where your notes are stored, and if you still don't care, please go ahead and <bold>delete this note</bold>.  :-)
+
+Your old note directory is still safe and sound at <link:url>{0}</link:url> . If you go back to an older version of Tomboy, it will look for notes there.
+
+But we've copied your notes and configuration info into new directories, which will be used from now on:
+
+<list><list-item dir=""ltr"">Notes can now be found at <link:url>{1}</link:url>
+</list-item><list-item dir=""ltr"">Configuration is at <link:url>{2}</link:url>
+</list-item><list-item dir=""ltr"">You can install add-ins at <link:url>{3}</link:url>
+</list-item><list-item dir=""ltr"">Log files can be found at <link:url>{4}</link:url></list-item></list>
+
+Ciao!");
+				string migration_note_content =
+					"<note-content version=\"1.0\">" +
+					migration_note_title + "\n\n" +
+					string.Format (migration_note_content_template,
+					               old_notes_dir + Path.DirectorySeparatorChar,
+					               notes_dir + Path.DirectorySeparatorChar,
+					               conf_dir + Path.DirectorySeparatorChar,
+					               Path.Combine (conf_dir, "addins") + Path.DirectorySeparatorChar,
+					               Services.NativeApplication.LogDirectory + Path.DirectorySeparatorChar) +
+					"</note-content>";
+
+				// NOTE: Uncomment to create a Tomboy note and
+				//       show it to the user
+//				Note migration_note = Create (migration_note_title,
+//				                              migration_note_content);
+//				migration_note.QueueSave (ChangeType.ContentChanged);
+//				migration_note.Window.Show ();
+
+				// Place file announcing migration in old note directory
+				try {
+					using (var writer = File.CreateText (Path.Combine (old_notes_dir,
+					                                                   migration_note_title.ToUpper ().Replace (" ", "_"))))
+						writer.Write (migration_note_content);
+				} catch {}
 			}
 
 			Tomboy.ExitingEvent += OnExitingEvent;
@@ -73,13 +167,6 @@ public NoteManager (string directory) :
 		protected virtual TrieController CreateTrieController ()
 		{
 			return new TrieController (this);
-		}
-
-		protected virtual AddinManager CreateAddinManager ()
-		{
-			string tomboy_conf_dir = Services.NativeApplication.ConfDir;
-
-			return new AddinManager (tomboy_conf_dir);
 		}
 
 		// For overriding in test methods.
