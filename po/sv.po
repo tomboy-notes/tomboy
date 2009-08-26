@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tomboy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-08-24 08:56+0200\n"
-"PO-Revision-Date: 2009-08-24 08:58+0100\n"
+"POT-Creation-Date: 2009-08-26 05:58+0200\n"
+"PO-Revision-Date: 2009-08-26 06:01+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "MIME-Version: 1.0\n"
@@ -466,48 +466,48 @@ msgstr "Vad länkar hit?"
 msgid "(none)"
 msgstr "(ingen)"
 
-#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:32
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:23
 msgid "You can use any bugzilla just by dragging links into notes.  If you want a special icon for certain hosts, add them here."
 msgstr "Du kan använda en valfri bugzilla helt enkelt genom att dra länkar till anteckningar.  Om du vill ha en speciell ikon för vissa värddatorer kan du lägga till dem här."
 
-#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:50
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:41
 msgid "Host Name"
 msgstr "Värdnamn"
 
-#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:67
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:58
 msgid "Icon"
 msgstr "Ikon"
 
-#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:185
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:176
 msgid "Select an icon..."
 msgstr "Välj en ikon..."
 
 #. Extra Widget
-#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:200
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:191
 msgid "_Host name:"
 msgstr "_Värdnamn:"
 
-#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:229
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:220
 msgid "No host name specified"
 msgstr "Inget värdnamn angavs"
 
-#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:230
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:221
 msgid "You must specify the Bugzilla host name to use with this icon."
 msgstr "Du måste ange värdnamnet för den Bugzilla som ska användas med den här ikonen."
 
-#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:256
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:247
 msgid "Error saving icon"
 msgstr "Fel vid sparandet av ikon"
 
-#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:257
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:248
 msgid "Could not save the icon file."
 msgstr "Kunde inte spara ikonfilen.  "
 
-#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:311
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:302
 msgid "Really remove this icon?"
 msgstr "Verkligen ta bort den här ikonen?"
 
-#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:312
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:303
 msgid "If you remove an icon it is permanently lost."
 msgstr "Om du tar bort en ikon försvinner den för alltid."
 
@@ -814,7 +814,7 @@ msgid "Connected. Click Save to start synchronizing"
 msgstr "Ansluten. Klicka på Spara för att påbörja synkronseringen"
 
 #. Translators: This is the name of "Window" menu in the Mac menubar
-#: ../Tomboy/MacApplication.cs:160
+#: ../Tomboy/MacApplication.cs:214
 msgid "_Window"
 msgstr "_Fönster"
 
@@ -967,7 +967,43 @@ msgstr "Ett fel inträffade när dina anteckningar sparades. Kontrollera att du 
 msgid "New Note Template"
 msgstr "Ny anteckningsmall"
 
-#: ../Tomboy/NoteManager.cs:135
+#. Create migration notification note
+#. Translators: The title of the data migration note
+#: ../Tomboy/NoteManager.cs:111
+msgid "Your Notes Have Moved!"
+msgstr "Dina anteckningar har flyttats!"
+
+#. Translators: The contents (not including the title) of the data migration note. {0}, {1}, {2}, {3}, and {4} are replaced by directory paths and should not be changed
+#: ../Tomboy/NoteManager.cs:124
+#, csharp-format
+msgid ""
+"In the latest version of Tomboy, your note files have moved.  You have probably never cared where your notes are stored, and if you still don't care, please go ahead and <bold>delete this note</bold>.  :-)\n"
+"\n"
+"Your old note directory is still safe and sound at <link:url>{0}</link:url> . If you go back to an older version of Tomboy, it will look for notes there.\n"
+"\n"
+"But we've copied your notes and configuration info into new directories, which will be used from now on:\n"
+"\n"
+"<list><list-item dir=\"ltr\">Notes can now be found at <link:url>{1}</link:url>\n"
+"</list-item><list-item dir=\"ltr\">Configuration is at <link:url>{2}</link:url>\n"
+"</list-item><list-item dir=\"ltr\">You can install add-ins at <link:url>{3}</link:url>\n"
+"</list-item><list-item dir=\"ltr\">Log files can be found at <link:url>{4}</link:url></list-item></list>\n"
+"\n"
+"Ciao!"
+msgstr ""
+"I senaste versionen av Tomboy så har dina anteckningsfiler flyttats.  Du har antagligen aldrig varit intresserad av var dina anteckningar lagrats, och om du fortfarande inte är intresserad, så kan du <bold>ta bort denna anteckning</bold>.  :-)\n"
+"\n"
+"Din gamla anteckningskatalog är fortfarande kvar i <link:url>{0}</link:url> . Om du går tillbaka till en äldre version av Tomboy så kommer det att leta efter anteckningar här.\n"
+"\n"
+"Men vi har kopierat dina anteckningar och konfiguration till nya kataloger som kommer att användas från och med nu:\n"
+"\n"
+"<list><list-item dir=\"ltr\">Anteckningar kan nu hittas i <link:url>{1}</link:url>\n"
+"</list-item><list-item dir=\"ltr\">Konfigurationen finns i <link:url>{2}</link:url>\n"
+"</list-item><list-item dir=\"ltr\">Du kan installera tillägg i <link:url>{3}</link:url>\n"
+"</list-item><list-item dir=\"ltr\">Loggfiler kan hittas i <link:url>{4}</link:url></list-item></list>\n"
+"\n"
+"Tjo!"
+
+#: ../Tomboy/NoteManager.cs:222
 msgid ""
 "<note-content>Start Here\n"
 "\n"
@@ -993,7 +1029,7 @@ msgstr ""
 "\n"
 "Vi har skapat en anteckning kallad <link:internal>Användning av länkar i Tomboy</link:internal>.  Observera att varje gång vi skriver <link:internal>Användning av länkar i Tomboy</link:internal> så blir den automatiskt understruken?  Klicka på länken för att öppna anteckningen.</note-content>"
 
-#: ../Tomboy/NoteManager.cs:154
+#: ../Tomboy/NoteManager.cs:241
 msgid ""
 "<note-content>Using Links in Tomboy\n"
 "\n"
@@ -1012,24 +1048,24 @@ msgstr ""
 "Om du skriver in namnet på en annan anteckning i din aktuella anteckning, kommer den automatiskt att länkas åt dig.</note-content>"
 
 #. Attempt to find an existing Start Here note
-#: ../Tomboy/NoteManager.cs:169
-#: ../Tomboy/NoteManager.cs:237
+#: ../Tomboy/NoteManager.cs:256
+#: ../Tomboy/NoteManager.cs:324
 msgid "Start Here"
 msgstr "Börja här"
 
-#: ../Tomboy/NoteManager.cs:174
+#: ../Tomboy/NoteManager.cs:261
 msgid "Using Links in Tomboy"
 msgstr "Användning av länkar i Tomboy"
 
-#: ../Tomboy/NoteManager.cs:314
+#: ../Tomboy/NoteManager.cs:401
 #, csharp-format
 msgid "New Note {0}"
 msgstr "Ny anteckning {0}"
 
 #. Use a simple "Describe..." body and highlight
 #. it so it can be easily overwritten
-#: ../Tomboy/NoteManager.cs:387
-#: ../Tomboy/NoteManager.cs:479
+#: ../Tomboy/NoteManager.cs:474
+#: ../Tomboy/NoteManager.cs:566
 msgid "Describe your new note here."
 msgstr "Beskriv din nya anteckning här."
 
@@ -1411,7 +1447,15 @@ msgstr "Anteckningar"
 msgid "Cannot create new note"
 msgstr "Kan inte skapa ny anteckning"
 
-#: ../Tomboy/Tomboy.cs:330
+#: ../Tomboy/Tomboy.cs:310
+msgid "Primary Development:"
+msgstr "Primär utveckling:"
+
+#: ../Tomboy/Tomboy.cs:315
+msgid "Contributors:"
+msgstr "Bidragsgivare:"
+
+#: ../Tomboy/Tomboy.cs:333
 msgid "translator-credits"
 msgstr ""
 "Daniel Nylander\n"
@@ -1421,7 +1465,7 @@ msgstr ""
 "Skicka synpunkter på översättningen till\n"
 "tp-sv@listor.tp-sv.se"
 
-#: ../Tomboy/Tomboy.cs:339
+#: ../Tomboy/Tomboy.cs:342
 msgid ""
 "Copyright © 2004-2007 Alex Graveley\n"
 "Copyright © 2004-2009 Others\n"
@@ -1429,15 +1473,15 @@ msgstr ""
 "Copyright © 2004-2007 Alex Graveley\n"
 "Copyright © 2004-2009 Övriga\n"
 
-#: ../Tomboy/Tomboy.cs:341
+#: ../Tomboy/Tomboy.cs:344
 msgid "A simple and easy to use desktop note-taking application."
 msgstr "Ett enkelt och lättanvänt program för att ta anteckningar."
 
-#: ../Tomboy/Tomboy.cs:351
+#: ../Tomboy/Tomboy.cs:354
 msgid "Homepage"
 msgstr "Webbplats"
 
-#: ../Tomboy/Tomboy.cs:467
+#: ../Tomboy/Tomboy.cs:470
 msgid ""
 "Tomboy: A simple, easy to use desktop note-taking application.\n"
 "Copyright (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
@@ -1447,7 +1491,7 @@ msgstr ""
 "Copyright © 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
 "\n"
 
-#: ../Tomboy/Tomboy.cs:479
+#: ../Tomboy/Tomboy.cs:482
 msgid ""
 "Usage:\n"
 "  --version\t\t\tPrint version information.\n"
@@ -1461,7 +1505,7 @@ msgstr ""
 "  --note-path [sökväg]\t\tLäs in/Spara anteckningsdata i denna katalog\n"
 "  --search [text]\t\tÖppna sökfönster för att anteckningar med angiven text.\n"
 
-#: ../Tomboy/Tomboy.cs:490
+#: ../Tomboy/Tomboy.cs:493
 msgid ""
 "  --new-note\t\t\tCreate and display a new note.\n"
 "  --new-note [title]\t\tCreate and display a new note, with a title.\n"
@@ -1480,16 +1524,16 @@ msgstr ""
 #. Catalog.GetString (
 #. "  --check-plugin-unloading\tCheck if plugins are " +
 #. "unloaded properly.\n");
-#: ../Tomboy/Tomboy.cs:507
+#: ../Tomboy/Tomboy.cs:510
 msgid "D-BUS remote control disabled.\n"
 msgstr "D-BUS-fjärrkontroll inaktiverad.\n"
 
-#: ../Tomboy/Tomboy.cs:515
+#: ../Tomboy/Tomboy.cs:518
 #, csharp-format
 msgid "Version {0}"
 msgstr "Version {0}"
 
-#: ../Tomboy/Tomboy.cs:588
+#: ../Tomboy/Tomboy.cs:591
 #, csharp-format
 msgid ""
 "Tomboy: unsupported option '{0}'\n"
