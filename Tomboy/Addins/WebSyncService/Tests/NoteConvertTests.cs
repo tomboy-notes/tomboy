@@ -78,9 +78,9 @@ namespace Tomboy.WebSync.Tests
 		public void ToNoteInfoTest ()
 		{
 			// Note content stress tests
-			string [] titles = new string [14];
-			string [] contents = new string [14];
-			string [] expectedInfoContents = new string [14];
+			string [] titles = new string [15];
+			string [] contents = new string [15];
+			string [] expectedInfoContents = new string [15];
 			
 			titles [0] = "(Untitled 238)";
 			contents [0] = @"<note-content version=""0.1"">
@@ -205,6 +205,12 @@ Describe your new note here.</note-content>";
 Describe your new note here.</note-content>";
 			expectedInfoContents [13] = @"
 Describe your new note here.";
+
+			titles [14] = "New Note 331";
+			contents [14] = @"<note-content version="""">New Note 331
+
+Describe your new note here.</note-content>";
+			expectedInfoContents [14] = @"Describe your new note here.";
 			
 
 			for (int i =0; i < titles.Length; i++) {
