@@ -26,6 +26,7 @@
 using System;
 
 using Mono.Unix;
+using Tomboy.WebSync.Api;
 
 namespace Tomboy.WebSync
 {
@@ -93,13 +94,24 @@ namespace Tomboy.WebSync
 		{
 			// TODO: Move this
 			if (Auth == null) {
-				Auth = new Api.OAuth ();
-				Auth.AuthorizeLocation = Server + "/oauth/authenticate/";
-				Auth.AccessTokenBaseUrl = Server + "/oauth/access_token/";
-				Auth.RequestTokenBaseUrl = Server + "/oauth/request_token/";
-				Auth.ConsumerKey = "abcdefg";
-				Auth.ConsumerSecret = "1234567";
-				Auth.Realm = "Snowy";
+				string rootUri = Server + "/api/1.0";
+				try {
+					RootInfo root = RootInfo.GetRoot (rootUri, new Api.AnonymousConnection ());
+
+					Auth = new Api.OAuth ();
+
+					Auth.AuthorizeLocation = root.AuthorizeUrl;
+					Auth.AccessTokenBaseUrl = root.AccessTokenUrl;
+					Auth.RequestTokenBaseUrl = root.RequestTokenUrl;
+					Auth.ConsumerKey = "anyone";
+					Auth.ConsumerSecret = "anyone";
+					Auth.Realm = "Snowy";
+				} catch (Exception e) {
+					Logger.Error ("Failed to get Root resource " + rootUri + ". Exception was: " + e.ToString());
+					authButton.Label = Catalog.GetString ("Server not responding. Try again later.");
+					oauth = null;
+					return;
+				}
 			}
 
 			if (!Auth.IsAccessToken && !authReqested) {
@@ -109,6 +121,7 @@ namespace Tomboy.WebSync
 				} catch (Exception e) {
 					Logger.Error ("Failed to get auth URL from " + Server + ". Exception was: " + e.ToString ());
 					authButton.Label = Catalog.GetString ("Server not responding. Try again later.");
+					oauth = null;
 					return;
 				}
 				Logger.Debug ("Launching browser to authorize web sync: " + authUrl);

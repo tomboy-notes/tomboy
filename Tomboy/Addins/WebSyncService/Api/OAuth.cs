@@ -224,6 +224,8 @@ namespace Tomboy.WebSync.Api
 		{
 			var responseData = string.Empty;
 
+			ServicePointManager.CertificatePolicy = new CertificateManager ();
+
 			// TODO: Set UserAgent, Timeout, KeepAlive, Proxy?
 			HttpWebRequest webRequest = System.Net.WebRequest.Create (url) as HttpWebRequest;
 			webRequest.Method = method.ToString ();
@@ -246,14 +248,14 @@ namespace Tomboy.WebSync.Api
 					requestWriter.Write (postData);
 			}
 
-			using (var responseReader = new StreamReader (webRequest.GetResponse ().GetResponseStream ())) {
-				try {
-					responseData = responseReader.ReadToEnd ();
-				} catch (Exception e) {
-					Logger.Error ("Caught exception. Message: {0}", e.Message);
-					Logger.Error ("Stack trace for previous exception: {0}", e.StackTrace);
-					throw;
+			try {
+				using (var responseReader = new StreamReader (webRequest.GetResponse ().GetResponseStream ())) {
+			      		responseData = responseReader.ReadToEnd ();
 				}
+			} catch (Exception e) {
+				Logger.Error ("Caught exception. Message: {0}", e.Message);
+				Logger.Error ("Stack trace for previous exception: {0}", e.StackTrace);
+				throw;
 			}
 
 			if (Debugging)

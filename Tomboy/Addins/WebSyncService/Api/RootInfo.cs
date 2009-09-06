@@ -54,10 +54,17 @@ namespace Tomboy.WebSync.Api
 			RootInfo root = new RootInfo ();
 			root.ApiVersion = (string) jsonObj ["api-version"];
 
-			Hyena.Json.JsonObject userRefJsonObj =
-				(Hyena.Json.JsonObject) jsonObj ["user-ref"];
-			root.User =
-				ResourceReference.ParseJson (userRefJsonObj);
+			object val;
+			if (jsonObj.TryGetValue ("user-ref", out val)) {
+				Hyena.Json.JsonObject userRefJsonObj = (Hyena.Json.JsonObject) val;
+
+				root.User =
+					ResourceReference.ParseJson (userRefJsonObj);
+			}
+
+			root.AuthorizeUrl =  (string) jsonObj ["oauth_authorize_url"];
+			root.AccessTokenUrl = (string) jsonObj ["oauth_access_token_url"];
+			root.RequestTokenUrl = (string) jsonObj ["oauth_request_token_url"];
 
 			return root;
 		}
@@ -69,6 +76,12 @@ namespace Tomboy.WebSync.Api
 		public ResourceReference User { get; private set; }
 
 		public string ApiVersion { get; private set; }
+
+		public string AuthorizeUrl { get; private set; }
+
+		public string AccessTokenUrl { get; private set; }
+
+		public string RequestTokenUrl { get; private set; }
 
 		#endregion
 	}
