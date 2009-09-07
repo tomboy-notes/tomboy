@@ -15,7 +15,6 @@ ASSEMBLIES = \
 	$(GTKSHARP_LIBS)			\
 	$(LINK_MONO_ADDINS)			\
 	$(NUNIT_LIBS)				\
-	-r:System.Web				\
 	-r:Mono.Posix
 
 #

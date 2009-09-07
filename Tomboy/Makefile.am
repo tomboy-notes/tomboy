@@ -73,6 +73,7 @@ endif
 CSFLAGS = 				\
 	-debug				\
 	-define:DEBUG 			\
+	-define:NET_2_0			\
 	-unsafe 			\
 	-target:exe 			\
 	$(DBUS_CSFLAGS) 		\
@@ -122,6 +123,8 @@ CSFILES = 					\
 	$(srcdir)/Synchronization/*.cs		\
 	\
 	$(srcdir)/Hyena/*.cs			\
+	\
+	$(srcdir)/System.Web/*.cs			\
 	\
 	$(GNOME_USED_CSFILES)			\
 	$(WIN_USED_CSFILES)			\
