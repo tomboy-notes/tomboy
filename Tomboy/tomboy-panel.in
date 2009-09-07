@@ -10,4 +10,4 @@ if [ -n "@extragac@" ]; then
     export MONO_GAC_PREFIX="@extragac@:$MONO_GAC_PREFIX"
 fi
 
-exec mono $MONO_EXTRA_ARGS $THIS_EXE --panel-applet "$@"
+exec mono $MONO_EXTRA_ARGS $THIS_EXE --sm-disable --panel-applet "$@"
