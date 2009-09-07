@@ -61,26 +61,26 @@ namespace Tomboy
 		// calling this.
 		public static void PopupMenu (Gtk.Menu menu, Gdk.EventButton ev)
 		{
-			menu.Deactivated += DeactivateMenu;
-			menu.Popup (null,
-			            null,
-			            new Gtk.MenuPositionFunc (GetMenuPosition),
-			            (ev == null) ? 0 : ev.Button,
-			            (ev == null) ? Gtk.Global.CurrentEventTime : ev.Time);
-
-			// Highlight the parent
-			if (menu.AttachWidget != null)
-				menu.AttachWidget.State = Gtk.StateType.Selected;
+			PopupMenu (menu, ev, new Gtk.MenuPositionFunc (GetMenuPosition));
 		}
 
 		public static void PopupMenu (Gtk.Menu menu, Gdk.EventButton ev, Gtk.MenuPositionFunc mpf)
 		{
 			menu.Deactivated += DeactivateMenu;
-			menu.Popup (null,
-			            null,
-			            mpf,
-			            (ev == null) ? 0 : ev.Button,
-			            (ev == null) ? Gtk.Global.CurrentEventTime : ev.Time);
+			try {
+				menu.Popup (null,
+				            null,
+				            mpf,
+				            (ev == null) ? 0 : ev.Button,
+				            (ev == null) ? Gtk.Global.CurrentEventTime : ev.Time);
+			} catch {
+				Logger.Debug ("Menu popup failed with custom MenuPositionFunc; trying again without");
+				menu.Popup (null,
+				            null,
+				            null,
+				            (ev == null) ? 0 : ev.Button,
+				            (ev == null) ? Gtk.Global.CurrentEventTime : ev.Time);
+			}
 
 			// Highlight the parent
 			if (menu.AttachWidget != null)

@@ -838,10 +838,18 @@ namespace Tomboy
 			if (x == 0 && y == 0)
 				pos_menu_func = PositionContextMenu;
 
-			menu.Popup (null, null,
-				    pos_menu_func,
-				    0,
-				    Gtk.Global.CurrentEventTime);
+			try {
+				menu.Popup (null, null,
+					    pos_menu_func,
+					    0,
+					    Gtk.Global.CurrentEventTime);
+			} catch {
+				Logger.Debug ("Menu popup failed with custom MenuPositionFunc; trying again without");
+				menu.Popup (null, null,
+					    null,
+					    0,
+					    Gtk.Global.CurrentEventTime);
+			}
 		}
 
 		// This is needed for when the user opens
