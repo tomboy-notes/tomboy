@@ -24,6 +24,8 @@
 // 
 
 using System;
+using System.Net;
+using System.Web;
 
 using Mono.Unix;
 using Tomboy.WebSync.Api;
@@ -34,8 +36,11 @@ namespace Tomboy.WebSync
 	{
 		private Gtk.Entry serverEntry;
 		private Gtk.Button authButton;
-		private bool authReqested;
 		private Api.OAuth oauth;
+		private HttpListener listener;
+		
+		private const string callbackHtmlTemplate =
+			@"<html><head><title>{0}</title></head><body><div><h1>{0}</h1>{1}</div></body></html>";
 		
 		public WebSyncPreferencesWidget (Api.OAuth oauth, string server) : base (false, 5)
 		{
@@ -92,6 +97,9 @@ namespace Tomboy.WebSync
 
 		private void OnAuthButtonClicked (object sender, EventArgs args)
 		{
+			if (listener != null && listener.IsListening)
+				listener.Close ();
+
 			// TODO: Move this
 			if (Auth == null) {
 				string rootUri = Server + "/api/1.0";
@@ -114,46 +122,97 @@ namespace Tomboy.WebSync
 				}
 			}
 
-			if (!Auth.IsAccessToken && !authReqested) {
-				string authUrl = string.Empty;
-				try {
-					authUrl = Auth.GetAuthorizationUrl ();
-				} catch (Exception e) {
-					Logger.Error ("Failed to get auth URL from " + Server + ". Exception was: " + e.ToString ());
+			if (!Auth.IsAccessToken) {
+				listener = new HttpListener ();
+				int portToTry = 8000;
+				string callbackUrl = string.Empty;
+				while (!listener.IsListening && portToTry < 9000) {
+					callbackUrl = String.Format ("http://localhost:{0}/tomboy-web-sync/",
+					                            portToTry);
+					listener.Prefixes.Add (callbackUrl);
+					try {
+						listener.Start ();
+						Auth.CallbackUrl = callbackUrl;
+					} catch {
+						listener.Prefixes.Clear ();
+						portToTry++;
+					}
+				}
+
+				if (!listener.IsListening) {
+					Logger.Error ("Unable to start HttpListener on any port between 8000-8999");
 					authButton.Label = Catalog.GetString ("Server not responding. Try again later.");
 					oauth = null;
 					return;
 				}
+
+				string authUrl = string.Empty;
+				try {
+					authUrl = Auth.GetAuthorizationUrl ();
+				} catch (Exception e) {
+					listener.Close ();
+					Logger.Error ("Failed to get auth URL from " + Server + ". Exception was: " + e.ToString ());
+					// Translators: The web service supporting Tomboy WebSync is not responding as expected
+					authButton.Label = Catalog.GetString ("Server not responding. Try again later.");
+					oauth = null;
+					return;
+				}
+
+				IAsyncResult result = listener.BeginGetContext (delegate (IAsyncResult localResult) {
+					var context = listener.EndGetContext (localResult);
+					// Assuming if we got here user clicked Allow
+					Logger.Debug ("Context request uri query section: " + context.Request.Url.Query);
+					// oauth_verifier is required in OAuth 1.0a, not 1.0
+					var qs = HttpUtility.ParseQueryString (context.Request.Url.Query);
+					if (!String.IsNullOrEmpty (qs ["oauth_verifier"]))
+						Auth.Verifier = qs ["oauth_verifier"];
+					try {
+						if (!Auth.GetAccessAfterAuthorization ())
+							throw new ApplicationException ("Unknown error getting access token");
+						Logger.Debug ("Successfully authorized web sync");
+					} catch (Exception e) {
+						listener.Close ();
+						Logger.Error ("Failed to authorize web sync, with exception:");
+						Logger.Error (e.ToString ());
+						Gtk.Application.Invoke (delegate {
+							authButton.Label = Catalog.GetString ("Authorization Failed, Try Again");
+							authButton.Sensitive = true;
+						});
+						oauth = null;
+						return;
+					}
+					string htmlResponse =
+						String.Format (callbackHtmlTemplate,
+						               // Translators: Title of web page presented to user after they authorized Tomboy for sync
+						               Catalog.GetString ("Tomboy Web Authorization Successful"),
+						               // Translators: Body of web page presented to user after they authorized Tomboy for sync
+						               Catalog.GetString ("Please return to the Tomboy Preferences window and press Save to start synchronizing."));
+					using (var writer = new System.IO.StreamWriter (context.Response.OutputStream))
+						writer.Write (htmlResponse);
+					listener.Close ();
+
+					if (Auth.IsAccessToken) {
+						Gtk.Application.Invoke (delegate {
+							authButton.Sensitive = false;
+							authButton.Label = Catalog.GetString ("Connected. Press Save to start synchronizing");
+						});
+					}
+				}, null);
+
+				Logger.Debug ("Listening on {0} for OAuth callback", callbackUrl);
 				Logger.Debug ("Launching browser to authorize web sync: " + authUrl);
+				authButton.Label = Catalog.GetString ("Authorizing in browser (Press to reset connection)");
 				try {
 					Services.NativeApplication.OpenUrl (authUrl, Screen);
-					authReqested = true;
-					authButton.Label = Catalog.GetString ("Click Here After Authorizing");
 				} catch (Exception e) {
+					listener.Close ();
 					Logger.Error ("Exception opening URL: " + e.Message);
+					// Translators: Sometimes a user's default browser is not set, so we recommend setting it and trying again
 					authButton.Label = Catalog.GetString ("Set the default browser and try again");
+					return;
 				}
-			} else if (!Auth.IsAccessToken && authReqested) {
-				authButton.Sensitive = false;
-				authButton.Label = Catalog.GetString ("Processing...");
-				try {
-					if (!Auth.GetAccessAfterAuthorization ())
-						throw new ApplicationException ("Unknown error getting access token");
-					// TODO: Check Auth.IsAccessToken?
-					Logger.Debug ("Successfully authorized web sync");
-					authReqested = false;
-				} catch (Exception e) {
-					Logger.Error ("Failed to authorize web sync, with exception:");
-					Logger.Error (e.ToString ());
-					authReqested = true;
-					authButton.Label = Catalog.GetString ("Authorization Failed, Try Again");
-					authButton.Sensitive = true;
-				}
-			}
-
-			if (Auth.IsAccessToken) {
-				authButton.Sensitive = false;
-				authButton.Label = Catalog.GetString ("Connected. Click Save to start synchronizing");
+				// Translators: The user must take action in their web browser to continue the authorization process
+				authButton.Label = Catalog.GetString ("Authorizing in browser (Press to reset connection)");
 			}
 		}
 		

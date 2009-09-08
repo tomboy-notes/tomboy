@@ -76,6 +76,7 @@ namespace OAuth
 		private const string OAuthNonceKey = "oauth_nonce";
 		private const string OAuthTokenKey = "oauth_token";
 		private const string OAuthTokenSecretKey = "oauth_token_secret";
+		private const string OAuthVerifierKey = "oauth_verifier";
 
 		private const string HMACSHA1SignatureType = "HMAC-SHA1";
 		private const string PlainTextSignatureType = "PLAINTEXT";
@@ -153,10 +154,11 @@ namespace OAuth
 		/// <param name="consumerKey">The consumer key.</param>
 		/// <param name="token">The token, if available. If not available pass null or an empty string.</param>
 		/// <param name="tokenSecret">The token secret, if available. If not available pass null or an empty string.</param>
+		/// <param name="verifier">The callback verifier, if available. If not available pass null or an empty string.</param>
 		/// <param name="httpMethod">The HTTP method used. Must be a valid HTTP method verb (POST,GET,PUT, etc)</param>
 		/// <param name="signatureType">The signature type. To use the default values use <see cref="SignatureType">SignatureType</see>.</param>
 		/// <returns>The signature base.</returns>
-		private string GenerateSignatureBase (Uri url, string consumerKey, string token, string tokenSecret,
+		private string GenerateSignatureBase (Uri url, string consumerKey, string token, string tokenSecret, string verifier,
 			RequestMethod method, TimeSpan timeStamp, string nonce, SignatureType signatureType, out string normalizedUrl,
 			out List<IQueryParameter<string>> parameters)
 		{
@@ -164,6 +166,7 @@ namespace OAuth
 
 			token = token ?? string.Empty;
 			tokenSecret = tokenSecret ?? string.Empty;
+			verifier = verifier ?? String.Empty;
 
 			if (consumerKey == null) throw new ArgumentNullException ("consumerKey");
 
@@ -192,6 +195,7 @@ namespace OAuth
 			}).ToList ();
 
 			if (!string.IsNullOrEmpty (token)) parameters.Add (new QueryParameter<string> (OAuthTokenKey, token, s => string.IsNullOrEmpty (s)));
+			if (!string.IsNullOrEmpty (verifier)) parameters.Add (new QueryParameter<string> (OAuthVerifierKey, verifier, s => string.IsNullOrEmpty (s)));
 
 			log.LogDebug ("Normalizing URL for signature.");
 
@@ -243,14 +247,15 @@ namespace OAuth
 		/// <param name="consumerSecret">The consumer seceret.</param>
 		/// <param name="token">The token, if available. If not available pass null or an empty string.</param>
 		/// <param name="tokenSecret">The token secret, if available. If not, pass null or an empty string.</param>
+		/// <param name="verifier">The callback verifier, if available. If not, pass null or an empty string.</param>
 		/// <param name="httpMethod">The HTTP method used. Must be valid HTTP method verb (POST, GET, PUT, etc).</param>
 		/// <returns>A Base64 string of the hash value.</returns>
 		protected string GenerateSignature (Uri url, string consumerKey, string consumerSecret, string token,
-			string tokenSecret, RequestMethod method, TimeSpan timeStamp, string nonce, out string normalizedUrl,
+			string tokenSecret, string verifier, RequestMethod method, TimeSpan timeStamp, string nonce, out string normalizedUrl,
 			out List<IQueryParameter<string>> parameters)
 		{
 			log.LogDebug ("Generating signature using HMAC-SHA1 algorithm.");
-			return GenerateSignature (url, consumerKey, consumerSecret, token, tokenSecret, method, timeStamp, nonce,
+			return GenerateSignature (url, consumerKey, consumerSecret, token, tokenSecret, verifier, method, timeStamp, nonce,
 				SignatureType.HMACSHA1, out normalizedUrl, out parameters);
 		}
 
@@ -262,11 +267,12 @@ namespace OAuth
 		/// <param name="consumerSecret">The consumer seceret.</param>
 		/// <param name="token">The token, if available. If not available pass null or an empty string.</param>
 		/// <param name="tokenSecret">The token secret, if available. If not, pass null or an empty string.</param>
+		/// <param name="verifier">The callback verifier, if available. If not, pass null or an empty string.</param>
 		/// <param name="httpMethod">The HTTP method used. Must be a valid HTTP method verb (POST,GET,PUT, etc).</param>
 		/// <param name="signatureType">The type of signature to use.</param>
 		/// <returns>A Base64 string of the hash value.</returns>
 		private string GenerateSignature (Uri url, string consumerKey, string consumerSecret, string token,
-			string tokenSecret, RequestMethod method, TimeSpan timeStamp, string nonce, SignatureType signatureType,
+			string tokenSecret, string verifier, RequestMethod method, TimeSpan timeStamp, string nonce, SignatureType signatureType,
 			out string normalizedUrl, out List<IQueryParameter<string>> parameters)
 		{
 			log.LogDebug ("Generating signature using signature type {0}", signatureType);
@@ -281,7 +287,7 @@ namespace OAuth
 					log.LogDebug ("Plaintext encoding signature {0} of consumer secret and token secret.", signature);
 					return signature;
 				case SignatureType.HMACSHA1:
-					string signatureBase = GenerateSignatureBase (url, consumerKey, token, tokenSecret, method,
+					string signatureBase = GenerateSignatureBase (url, consumerKey, token, tokenSecret, verifier, method,
 						timeStamp, nonce, SignatureType.HMACSHA1, out normalizedUrl, out parameters);
 
 					var hmacsha1 = new HMACSHA1 ();

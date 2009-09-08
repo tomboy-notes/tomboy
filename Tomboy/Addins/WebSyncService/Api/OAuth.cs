@@ -60,7 +60,7 @@ namespace Tomboy.WebSync.Api
 				if (!string.IsNullOrEmpty (qs ["oauth_token"])) {
 					Token = qs ["oauth_token"];
 					TokenSecret = qs ["oauth_token_secret"];
-					var link = string.Format ("{0}?oauth_token={1}&oauth_callback={2}", AuthorizeLocation, qs ["oauth_token"], "http://www.google.com");
+					var link = string.Format ("{0}?oauth_token={1}&oauth_callback={2}", AuthorizeLocation, qs ["oauth_token"], HttpUtility.UrlEncode (CallbackUrl));
 					Logger.Debug ("Response from request for auth url: {0}", response);
 					return link;
 				}
@@ -147,6 +147,10 @@ namespace Tomboy.WebSync.Api
 		public string AccessTokenBaseUrl { get; set; }
 
 		public string Realm { get; set; }
+
+		public string CallbackUrl { get; set; }
+
+		public string Verifier { get; set; }
 		#endregion
 
 		#region Private Methods
@@ -188,7 +192,7 @@ namespace Tomboy.WebSync.Api
 			var outUrl = string.Empty;
 			List<IQueryParameter<string>> parameters = null;
 
-			var sig = GenerateSignature (uri, ConsumerKey, ConsumerSecret, Token, TokenSecret, method,
+			var sig = GenerateSignature (uri, ConsumerKey, ConsumerSecret, Token, TokenSecret, Verifier, method,
 				timeStamp, nonce, out outUrl, out parameters);
 
 			if (Debugging)
