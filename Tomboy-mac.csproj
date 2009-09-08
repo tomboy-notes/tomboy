@@ -31,6 +31,7 @@
     <ApplicationIcon>tomboy.ico</ApplicationIcon>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
     <SchemaVersion>2.0</SchemaVersion>
+    <ReleaseVersion>0.13</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -95,27 +96,27 @@
       <HintPath>..\..\..\..\Library\Frameworks\Mono.framework\Versions\Current\lib\mono\gac\pango-sharp\2.12.0.0__35e10195dab3c99f\pango-sharp.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="ICSharpCode.SharpZipLib, Version=0.85.5.452, Culture=neutral, PublicKeyToken=1b03e6acf1164f73">
+    <Reference Include="ICSharpCode.SharpZipLib, Version=2.84.0.0, Culture=neutral, PublicKeyToken=1b03e6acf1164f73">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>winbin\ICSharpCode.SharpZipLib.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Mono.Addins, Version=0.3.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756">
+    <Reference Include="Mono.Addins, Version=0.4.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Library\Frameworks\Mono.framework\Versions\Current\lib\mono\gac\Mono.Addins\0.4.0.0__0738eb9f132ed756\Mono.Addins.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Mono.Addins.Gui, Version=0.3.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756">
+    <Reference Include="Mono.Addins.Gui, Version=0.4.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Library\Frameworks\Mono.framework\Versions\Current\lib\mono\gac\Mono.Addins.Gui\0.4.0.0__0738eb9f132ed756\Mono.Addins.Gui.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Mono.Addins.Setup, Version=0.3.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756">
+    <Reference Include="Mono.Addins.Setup, Version=0.4.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Library\Frameworks\Mono.framework\Versions\Current\lib\mono\gac\Mono.Addins.Setup\0.4.0.0__0738eb9f132ed756\Mono.Addins.Setup.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Mono.Posix, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756">
+    <Reference Include="Mono.Posix, Version=2.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>winbin\Mono.Posix.dll</HintPath>
       <Private>False</Private>
@@ -157,8 +158,8 @@
     <Compile Include="Tomboy\TagManager.cs" />
     <Compile Include="Tomboy\Tag.cs" />
     <Compile Include="Tomboy\TagButton.cs" />
-    <Compile Include="Tomboy\WindowsFactory.cs" />
-    <Compile Include="Tomboy\WindowsKeybinder.cs" />
+    <None Include="Tomboy\WindowsFactory.cs" />
+    <None Include="Tomboy\WindowsKeybinder.cs" />
     <Compile Include="Tomboy\PreferencesDialog.cs" />
     <Compile Include="Tomboy\NoteEditor.cs" />
     <Compile Include="Tomboy\AbstractAddin.cs" />
@@ -189,7 +190,7 @@
     <Compile Include="Tomboy\PlatformFactory.cs" />
     <Compile Include="Tomboy\PreferencesClient.cs" />
     <Compile Include="Tomboy\PrefsKeybinder.cs" />
-    <Compile Include="Tomboy\WindowsApplication.cs" />
+    <None Include="Tomboy\WindowsApplication.cs" />
     <Compile Include="Tomboy\XmlPreferencesClient.cs" />
     <Compile Include="Tomboy\MacApplication.cs" />
     <Compile Include="Tomboy\IRemoteControl.cs" />
@@ -203,18 +204,12 @@
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
       <Visible>False</Visible>
-      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
-      <Install>true</Install>
     </BootstrapperPackage>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
       <Visible>False</Visible>
-      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
-      <Install>false</Install>
     </BootstrapperPackage>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
       <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5</ProductName>
-      <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
