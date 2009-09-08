@@ -24,7 +24,6 @@
 // 
 
 using System;
-using System.Net;
 using System.Web;
 
 using Mono.Unix;
@@ -37,7 +36,7 @@ namespace Tomboy.WebSync
 		private Gtk.Entry serverEntry;
 		private Gtk.Button authButton;
 		private Api.OAuth oauth;
-		private HttpListener listener;
+		private MonoHttp.HttpListener listener;
 		
 		private const string callbackHtmlTemplate =
 			@"<html><head><title>{0}</title></head><body><div><h1>{0}</h1>{1}</div></body></html>";
@@ -123,7 +122,7 @@ namespace Tomboy.WebSync
 			}
 
 			if (!Auth.IsAccessToken) {
-				listener = new HttpListener ();
+				listener = new MonoHttp.HttpListener ();
 				int portToTry = 8000;
 				string callbackUrl = string.Empty;
 				while (!listener.IsListening && portToTry < 9000) {
