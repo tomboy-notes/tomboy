@@ -9,6 +9,21 @@ Please send questions and suggestions to
 Please report bugs using http://bugzilla.gnome.org/
 (http://bugzilla.gnome.org/enter_bug.cgi?product=Tomboy).
 
+Version 0.15.7
+WebSync updates:
+* Update for latest (hopefully final) REST API spec (Rodrigo Moya).
+* Initial support for OAuth 1.0a servers (#594046).
+* Drop heavy System.Web dependency by bundling HttpUtility class.
+* Fix parsing bug that caused Tomboy to upload empty notes to the server.
+* More streamlined initial auth procedure (less clicks).
+* Fix error when connecting before logged in to Snowy (#591455).
+Other updates:
+* Prevent crash on PPC and ARM when showing menus (#586605, #593422).
+* Don't connect to session manager when running as applet (#533537).
+* When closing search window, do not quit if Tomboy icon is visible (#584910).
+* Translation updates: bn, bn_IN, de, es, et, eu, fr, nb, pl, pt, pt_BR,
+                       sr, sr@latin, sv, ta, zh_HK, zh_TW
+
 Version 0.15.6
 * Migrate notes from ~/.tomboy, following Free Desktop standards on Linux and
   appropriate conventions on Windows and Mac OS X (#518585, #557288).
