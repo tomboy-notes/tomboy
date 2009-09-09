@@ -20,9 +20,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tomboy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-08-24 23:22-0400\n"
-"PO-Revision-Date: 2009-08-24 19:28-0300\n"
-"Last-Translator: Henrique P Machado <zehrique@gmail.com>\n"
+"POT-Creation-Date: 2009-09-08 22:49-0300\n"
+"PO-Revision-Date: 2009-09-08 22:49-0300\n"
+"Last-Translator: Djavan Fagundes <dnoway@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <gnome-pt_br-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -494,8 +494,8 @@ msgid ""
 "The port to use when connecting to the synchronization server via SSH. Set "
 "to -1 or less if default SSH port settings should be used instead."
 msgstr ""
-"A porta usada ao conectar ao servidor de sincronização via SSH. Defina como "
-"-1 ou menos se as configurações padrões de porta do SSH devem ser usadas ao "
+"A porta usada ao conectar ao servidor de sincronização via SSH. Defina como -"
+"1 ou menos se as configurações padrões de porta do SSH devem ser usadas ao "
 "invés desta."
 
 #: ../data/tomboy.schemas.in.h:69
@@ -859,7 +859,7 @@ msgid "Add a sketch"
 msgstr "Adicionar um esboço"
 
 #: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:47
-#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:49
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:55
 msgid "Se_rver:"
 msgstr "Se_rvidor:"
 
@@ -987,38 +987,54 @@ msgstr ""
 msgid "Tomboy Web"
 msgstr "Tomboy Web"
 
-#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:56
-#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:86
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:62
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:92
 msgid "Connect to Server"
 msgstr "Conectar ao servidor"
 
-#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:58
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:64
 msgid "Connected"
 msgstr "Conectado"
 
-#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:111
+#. Translators: The web service supporting Tomboy WebSync is not responding as expected
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:119
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:144
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:156
 msgid "Server not responding. Try again later."
 msgstr "Servidor não respondendo. Tente novamente depois."
 
-#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:118
-msgid "Click Here After Authorizing"
-msgstr "Clique aqui depois de autorizar"
-
-#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:121
-msgid "Set the default browser and try again"
-msgstr "Defina o navegador padrão e tente novamente"
-
-#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:125
-msgid "Processing..."
-msgstr "Processando..."
-
-#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:136
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:178
 msgid "Authorization Failed, Try Again"
 msgstr "Autorização falhou, tente novamente"
 
-#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:143
-msgid "Connected. Click Save to start synchronizing"
+#. Translators: Title of web page presented to user after they authorized Tomboy for sync
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:187
+msgid "Tomboy Web Authorization Successful"
+msgstr "Autorização Web do Tomboy realizada com sucesso"
+
+#. Translators: Body of web page presented to user after they authorized Tomboy for sync
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:189
+msgid ""
+"Please return to the Tomboy Preferences window and press Save to start "
+"synchronizing."
+msgstr ""
+"Por favor, volte para a janela de preferências do Tomboy a clique em salvar "
+"para iniciar a sincronização."
+
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:197
+msgid "Connected. Press Save to start synchronizing"
 msgstr "Conectado. Clique em salvar para iniciar a sincronização"
+
+#. Translators: The user must take action in their web browser to continue the authorization process
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:204
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:215
+msgid "Authorizing in browser (Press to reset connection)"
+msgstr "Autorizando no navegador (Clique para reiniciar a conexão)"
+
+#. Translators: Sometimes a user's default browser is not set, so we recommend setting it and trying again
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:211
+msgid "Set the default browser and try again"
+msgstr "Defina o navegador padrão e tente novamente"
 
 #. Translators: This is the name of "Window" menu in the Mac menubar
 #: ../Tomboy/MacApplication.cs:214
@@ -1216,8 +1232,8 @@ msgid ""
 "Ciao!"
 msgstr ""
 "Na última versão do Tomboy, seus arquivos de notas foram movidos. Você "
-"provavelmente nunca se importou onde suas notas são armazenadas, e se "
-"você ainda não se importa, vá adiante e <bold>exclua esta nota</bold>. :-)\n"
+"provavelmente nunca se importou onde suas notas são armazenadas, e se você "
+"ainda não se importa, vá adiante e <bold>exclua esta nota</bold>. :-)\n"
 "\n"
 "Seu diretório de anotações antigo ainda está a salvo em <link:url>{0}</link:"
 "url>. Se você retornar a uma versão antiga do Tomboy, este irá procurar "
@@ -1778,7 +1794,7 @@ msgstr "Um aplicativo para tomar notas simples e fácil de usar."
 msgid "Homepage"
 msgstr "Página inicial"
 
-#: ../Tomboy/Tomboy.cs:470
+#: ../Tomboy/Tomboy.cs:471
 msgid ""
 "Tomboy: A simple, easy to use desktop note-taking application.\n"
 "Copyright (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
@@ -1788,7 +1804,7 @@ msgstr ""
 "Copyright (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
 "\n"
 
-#: ../Tomboy/Tomboy.cs:482
+#: ../Tomboy/Tomboy.cs:483
 msgid ""
 "Usage:\n"
 "  --version\t\t\tPrint version information.\n"
@@ -1804,7 +1820,7 @@ msgstr ""
 "  --search [texto]\t\tAbre a janela de pesquisar em todas as notas com o "
 "texto como busca.\n"
 
-#: ../Tomboy/Tomboy.cs:493
+#: ../Tomboy/Tomboy.cs:494
 msgid ""
 "  --new-note\t\t\tCreate and display a new note.\n"
 "  --new-note [title]\t\tCreate and display a new note, with a title.\n"
@@ -1823,16 +1839,16 @@ msgstr ""
 #. Catalog.GetString (
 #. "  --check-plugin-unloading\tCheck if plugins are " +
 #. "unloaded properly.\n");
-#: ../Tomboy/Tomboy.cs:510
+#: ../Tomboy/Tomboy.cs:511
 msgid "D-BUS remote control disabled.\n"
 msgstr "Controle remoto D-BUS desabilitado.\n"
 
-#: ../Tomboy/Tomboy.cs:518
+#: ../Tomboy/Tomboy.cs:519
 #, csharp-format
 msgid "Version {0}"
 msgstr "Versão {0}"
 
-#: ../Tomboy/Tomboy.cs:591
+#: ../Tomboy/Tomboy.cs:592
 #, csharp-format
 msgid ""
 "Tomboy: unsupported option '{0}'\n"
@@ -2245,6 +2261,12 @@ msgstr ""
 "Para evitar esse aviso no futuro, você deve carregar FUSE na inicialização. "
 "Adicione \"modprobe fuse\" ao /etc/init.d/boot.local ou \"fuse\" ao /etc/"
 "modules."
+
+#~ msgid "Click Here After Authorizing"
+#~ msgstr "Clique aqui depois de autorizar"
+
+#~ msgid "Processing..."
+#~ msgstr "Processando..."
 
 #~ msgid "C_ase Sensitive"
 #~ msgstr "_Diferenciar maiúsculas de minúsculas"
