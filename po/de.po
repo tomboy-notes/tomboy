@@ -7,14 +7,15 @@
 # Hendrik Richter <hendrikr@gnome.org>, 2006, 2007, 2008, 2009.
 # Andre Klapper <ak-47@gmx.net>, 2008.
 # Wolfgang Stöggl <c72578@yahoo.de>, 2009.
+# Mario Blättermann <mariobl@gnome.org>, 2009.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: tomboy\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=tomboy&component=general\n"
-"POT-Creation-Date: 2009-09-01 12:21+0000\n"
-"PO-Revision-Date: 2009-09-04 21:34+0200\n"
+"POT-Creation-Date: 2009-09-08 00:06+0000\n"
+"PO-Revision-Date: 2009-09-10 21:30+0100\n"
 "Last-Translator: Mario Blättermann <mariobl@gnome.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -856,7 +857,7 @@ msgid "Add a sketch"
 msgstr "Entwurf hinzufügen"
 
 #: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:47
-#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:49
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:55
 msgid "Se_rver:"
 msgstr "Se_rver:"
 
@@ -987,40 +988,57 @@ msgstr ""
 msgid "Tomboy Web"
 msgstr "Tomboy im Internet"
 
-#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:56
-#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:86
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:62
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:92
 msgid "Connect to Server"
 msgstr "Mit Server verbinden"
 
-#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:58
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:64
 msgid "Connected"
 msgstr "Verbunden"
 
-#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:111
+#. Translators: The web service supporting Tomboy WebSync is not responding as expected
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:119
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:144
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:156
 msgid "Server not responding. Try again later."
 msgstr "Server antwortet nicht. Bitte später versuchen."
 
-#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:118
-msgid "Click Here After Authorizing"
-msgstr "Nach der Legitimierung hier klicken"
-
-#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:121
-msgid "Set the default browser and try again"
-msgstr "Legen Sie Ihren Vorgabe-Browser fest und versuchen Sie es erneut."
-
-#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:125
-msgid "Processing..."
-msgstr "Verarbeitung läuft …"
-
-#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:136
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:178
 msgid "Authorization Failed, Try Again"
 msgstr "Legitimierung gescheitert, bitte erneut versuchen"
 
-#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:143
-msgid "Connected. Click Save to start synchronizing"
+#. Translators: Title of web page presented to user after they authorized Tomboy for sync
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:187
+msgid "Tomboy Web Authorization Successful"
+msgstr "Tomboy-Web-Legitimierung erfolgreich"
+
+#. Translators: Body of web page presented to user after they authorized Tomboy for sync
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:189
+msgid ""
+"Please return to the Tomboy Preferences window and press Save to start "
+"synchronizing."
+msgstr ""
+"Drücken Sie im Einstellungsfenster von Tomboy die Eingabetaste und klicken "
+"Sie auf »Speichern«, um mit dem Abgleich zu beginnen."
+
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:197
+#| msgid "Connected. Click Save to start synchronizing"
+msgid "Connected. Press Save to start synchronizing"
 msgstr ""
 "Verbindung hergestellt. Klicken Sie auf »Speichern«, um mit dem Abgleich zu "
 "beginnen."
+
+#. Translators: The user must take action in their web browser to continue the authorization process
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:204
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:215
+msgid "Authorizing in browser (Press to reset connection)"
+msgstr "Legitimierung im Browser (Klicken, um die Verbindung zurückzusetzen)"
+
+#. Translators: Sometimes a user's default browser is not set, so we recommend setting it and trying again
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:211
+msgid "Set the default browser and try again"
+msgstr "Legen Sie Ihren Vorgabe-Browser fest und versuchen Sie es erneut."
 
 #. Translators: This is the name of "Window" menu in the Mac menubar
 #: ../Tomboy/MacApplication.cs:214
@@ -1782,7 +1800,7 @@ msgstr "Eine einfache und leicht bedienbare Anwendung für Notizen."
 msgid "Homepage"
 msgstr "Homepage"
 
-#: ../Tomboy/Tomboy.cs:470
+#: ../Tomboy/Tomboy.cs:471
 msgid ""
 "Tomboy: A simple, easy to use desktop note-taking application.\n"
 "Copyright (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
@@ -1792,7 +1810,7 @@ msgstr ""
 "Copyright © 2004, 2006 Alex Graveley <alex@beatniksoftware.com>\n"
 "\n"
 
-#: ../Tomboy/Tomboy.cs:482
+#: ../Tomboy/Tomboy.cs:483
 msgid ""
 "Usage:\n"
 "  --version\t\t\tPrint version information.\n"
@@ -1807,7 +1825,7 @@ msgstr ""
 "  --search [text]\t\tÖffnen eines Fensters zum Durchsuchen aller Notizen nach "
 "dem angegebenen Suchtext.\n"
 
-#: ../Tomboy/Tomboy.cs:493
+#: ../Tomboy/Tomboy.cs:494
 msgid ""
 "  --new-note\t\t\tCreate and display a new note.\n"
 "  --new-note [title]\t\tCreate and display a new note, with a title.\n"
@@ -1827,16 +1845,16 @@ msgstr ""
 #. Catalog.GetString (
 #. "  --check-plugin-unloading\tCheck if plugins are " +
 #. "unloaded properly.\n");
-#: ../Tomboy/Tomboy.cs:510
+#: ../Tomboy/Tomboy.cs:511
 msgid "D-BUS remote control disabled.\n"
 msgstr "D-BUS Fernsteuerung deaktiviert.\n"
 
-#: ../Tomboy/Tomboy.cs:518
+#: ../Tomboy/Tomboy.cs:519
 #, csharp-format
 msgid "Version {0}"
 msgstr "Version {0}"
 
-#: ../Tomboy/Tomboy.cs:591
+#: ../Tomboy/Tomboy.cs:592
 #, csharp-format
 msgid ""
 "Tomboy: unsupported option '{0}'\n"
@@ -2249,6 +2267,12 @@ msgstr ""
 "Um diese Meldung zukünftig zu vermeiden, sollten Sie FUSE beim Starten laden. "
 "Fügen Sie »modprobe fuse« in /etc/init.d/boot.local oder »fuse« in /etc/modules "
 "hinzu."
+
+#~ msgid "Click Here After Authorizing"
+#~ msgstr "Nach der Legitimierung hier klicken"
+
+#~ msgid "Processing..."
+#~ msgstr "Verarbeitung läuft …"
 
 #~ msgid "C_ase Sensitive"
 #~ msgstr "_Groß-/Kleinschreibung berücksichtigen"
