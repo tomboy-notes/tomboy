@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-08-27 17:42+0200\n"
-"PO-Revision-Date: 2009-08-27 17:53+0200\n"
+"POT-Creation-Date: 2009-09-11 10:09+0200\n"
+"PO-Revision-Date: 2009-09-11 10:12+0200\n"
 "Last-Translator: Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>\n"
 "Language-Team: Basque <itzulpena@euskalgnu.org>\n"
 "MIME-Version: 1.0\n"
@@ -840,7 +840,7 @@ msgid "Add a sketch"
 msgstr "Gehitu marrazki bat"
 
 #: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:47
-#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:49
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:55
 msgid "Se_rver:"
 msgstr "_Zerbitzaria:"
 
@@ -967,38 +967,54 @@ msgstr ""
 msgid "Tomboy Web"
 msgstr "Tomboy-ren webgunea"
 
-#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:56
-#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:86
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:62
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:92
 msgid "Connect to Server"
 msgstr "Konektatu zerbitzarira"
 
-#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:58
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:64
 msgid "Connected"
 msgstr "Konektatuta"
 
-#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:111
+#. Translators: The web service supporting Tomboy WebSync is not responding as expected
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:119
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:144
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:156
 msgid "Server not responding. Try again later."
 msgstr "Zerbitzariak ez du erantzuten. Saiatu beranduago."
 
-#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:118
-msgid "Click Here After Authorizing"
-msgstr "Egin klik hemen autorizazioaren ondoren"
-
-#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:121
-msgid "Set the default browser and try again"
-msgstr "Ezarri arakatzaile lehenetsia eta saiatu berriro"
-
-#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:125
-msgid "Processing..."
-msgstr "Prozesatzen..."
-
-#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:136
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:178
 msgid "Authorization Failed, Try Again"
 msgstr "Autorizazioak huts egin du. Saiatu berriro"
 
-#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:143
-msgid "Connected. Click Save to start synchronizing"
+#. Translators: Title of web page presented to user after they authorized Tomboy for sync
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:187
+msgid "Tomboy Web Authorization Successful"
+msgstr "Tomboy-ren webaren autorizazioa lortu da"
+
+#. Translators: Body of web page presented to user after they authorized Tomboy for sync
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:189
+msgid ""
+"Please return to the Tomboy Preferences window and press Save to start "
+"synchronizing."
+msgstr ""
+"Itzul zaitez Tomboy-ren hobespenen leihora eta egin klik 'Gorde' botoian "
+"sinkronizazioa hasteko."
+
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:197
+msgid "Connected. Press Save to start synchronizing"
 msgstr "Konektatuta. Egin klik 'Gorde' botoian sinkronizazioa hasteko"
+
+#. Translators: The user must take action in their web browser to continue the authorization process
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:204
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:215
+msgid "Authorizing in browser (Press to reset connection)"
+msgstr "Autorizazioa web arakatzailean (sakatu konexioa berrezarteko)"
+
+#. Translators: Sometimes a user's default browser is not set, so we recommend setting it and trying again
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:211
+msgid "Set the default browser and try again"
+msgstr "Ezarri arakatzaile lehenetsia eta saiatu berriro"
 
 #. Translators: This is the name of "Window" menu in the Mac menubar
 #: ../Tomboy/MacApplication.cs:214
@@ -1195,25 +1211,25 @@ msgid ""
 "\n"
 "Ciao!"
 msgstr ""
-"Tomboy-ren azken bertsioan zure oharrak lekuz aldatu dira. Litekeena da "
-"non gordetzen diren buruz jakin beharrik ez izatea, eta oraindik ere garrantzirik "
-"ez badiozu ematen, zuzenean <bold>ezabatu ezazu ohar hau</bold>. :-)\n"
+"Tomboy-ren azken bertsioan zure oharrak lekuz aldatu dira. Litekeena da non "
+"gordetzen diren buruz jakin beharrik ez izatea, eta oraindik ere "
+"garrantzirik ez badiozu ematen, zuzenean <bold>ezabatu ezazu ohar hau</"
+"bold>. :-)\n"
 "\n"
-"Oharren direktorio zaharra oraindik bizirik dago, eta bere kokalekua honakoa da: "
-"<link:url>{0}</link:url>. Tomboy-ren bertsio zaharrago batera itzultzen bazara, "
-"oharrak kokaleku horretan bilatuko ditu.\n"
+"Oharren direktorio zaharra oraindik bizirik dago, eta bere kokalekua honakoa "
+"da: <link:url>{0}</link:url>. Tomboy-ren bertsio zaharrago batera itzultzen "
+"bazara, oharrak kokaleku horretan bilatuko ditu.\n"
 "\n"
-"Hala ere, zure oharrak eta konfigurazioko datuak direktorio berrietan kopiatu dira, "
-"eta hemendik aurrera honako kokalekuetan aurki ditzakezu:\n"
+"Hala ere, zure oharrak eta konfigurazioko datuak direktorio berrietan "
+"kopiatu dira, eta hemendik aurrera honako kokalekuetan aurki ditzakezu:\n"
 "\n"
-"<list><list-item dir=\"ltr\">Oharren kokalekua: <link:url>{1}</link:"
-"url>\n"
-"</list-item><list-item dir=\"ltr\">Konfigurazioaren kokalekua: <link:url>{2}</link:"
-"url>\n"
+"<list><list-item dir=\"ltr\">Oharren kokalekua: <link:url>{1}</link:url>\n"
+"</list-item><list-item dir=\"ltr\">Konfigurazioaren kokalekua: <link:url>{2}"
+"</link:url>\n"
 "</list-item><list-item dir=\"ltr\">Gehigarrien kokalekua: <link:url>{3}</"
 "link:url>\n"
-"</list-item><list-item dir=\"ltr\">Egunkarien kokalekua: <link:url>{4}</"
-"link:url></list-item></list>\n"
+"</list-item><list-item dir=\"ltr\">Egunkarien kokalekua: <link:url>{4}</link:"
+"url></list-item></list>\n"
 "\n"
 "Agur!"
 
@@ -1748,7 +1764,7 @@ msgstr "Oharrak hartzeko mahaigaineko aplikazio sinple eta erraza."
 msgid "Homepage"
 msgstr "Gune nagusia"
 
-#: ../Tomboy/Tomboy.cs:470
+#: ../Tomboy/Tomboy.cs:471
 msgid ""
 "Tomboy: A simple, easy to use desktop note-taking application.\n"
 "Copyright (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
@@ -1758,7 +1774,7 @@ msgstr ""
 "Copyright (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
 "\n"
 
-#: ../Tomboy/Tomboy.cs:482
+#: ../Tomboy/Tomboy.cs:483
 msgid ""
 "Usage:\n"
 "  --version\t\t\tPrint version information.\n"
@@ -1774,7 +1790,7 @@ msgstr ""
 "  --search [testua]\t\t'Bilatu ohar guztietan' leihoa irekitzen du bilatzeko "
 "testuarekin.\n"
 
-#: ../Tomboy/Tomboy.cs:493
+#: ../Tomboy/Tomboy.cs:494
 msgid ""
 "  --new-note\t\t\tCreate and display a new note.\n"
 "  --new-note [title]\t\tCreate and display a new note, with a title.\n"
@@ -1795,16 +1811,16 @@ msgstr ""
 #. Catalog.GetString (
 #. "  --check-plugin-unloading\tCheck if plugins are " +
 #. "unloaded properly.\n");
-#: ../Tomboy/Tomboy.cs:510
+#: ../Tomboy/Tomboy.cs:511
 msgid "D-BUS remote control disabled.\n"
 msgstr "D-BUS urruneko kontrola desgaituta.\n"
 
-#: ../Tomboy/Tomboy.cs:518
+#: ../Tomboy/Tomboy.cs:519
 #, csharp-format
 msgid "Version {0}"
 msgstr "{0} bertsioa"
 
-#: ../Tomboy/Tomboy.cs:591
+#: ../Tomboy/Tomboy.cs:592
 #, csharp-format
 msgid ""
 "Tomboy: unsupported option '{0}'\n"
