@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=tomboy&component=general\n"
-"POT-Creation-Date: 2009-09-06 00:55+0000\n"
-"PO-Revision-Date: 2009-08-29 22:49+0200\n"
+"POT-Creation-Date: 2009-09-12 00:31+0000\n"
+"PO-Revision-Date: 2009-09-12 17:28+0200\n"
 "Last-Translator: Горан Ракић <grakic@devbase.net>\n"
 "Language-Team: Serbian (sr) <gnom@prevod.org>\n"
 "MIME-Version: 1.0\n"
@@ -837,7 +837,7 @@ msgid "Add a sketch"
 msgstr "Додај цртеж"
 
 #: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:47
-#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:50
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:55
 msgid "Se_rver:"
 msgstr "Се_рвер:"
 
@@ -964,39 +964,53 @@ msgstr ""
 msgid "Tomboy Web"
 msgstr "Веб Томица"
 
-#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:57
-#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:87
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:62
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:92
 msgid "Connect to Server"
 msgstr "Повезујем се са сервером"
 
-#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:59
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:64
 msgid "Connected"
 msgstr "Повезан"
 
-#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:111
-#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:123
+#. Translators: The web service supporting Tomboy WebSync is not responding as expected
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:119
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:144
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:156
 msgid "Server not responding. Try again later."
 msgstr "Сервер не одговора. Покушајте касније."
 
-#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:131
-msgid "Click Here After Authorizing"
-msgstr "Кликните овде после ауторизације"
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:178
+msgid "Authorization Failed, Try Again"
+msgstr "Није успело пријављивање, покушајте поново"
 
-#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:134
+#. Translators: Title of web page presented to user after they authorized Tomboy for sync
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:187
+msgid "Tomboy Web Authorization Successful"
+msgstr "Веб Томица је пријављен"
+
+#. Translators: Body of web page presented to user after they authorized Tomboy for sync
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:189
+msgid ""
+"Please return to the Tomboy Preferences window and press Save to start "
+"synchronizing."
+msgstr ""
+"Вратите се у прозор „Поставке“ и кликните „Сними“ да започнете усклађивање."
+
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:197
+msgid "Connected. Press Save to start synchronizing"
+msgstr "Повезан. Кликните „Сними“ да започнете усклађивање"
+
+#. Translators: The user must take action in their web browser to continue the authorization process
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:204
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:215
+msgid "Authorizing in browser (Press to reset connection)"
+msgstr "Пријава из Интернет прегледника (кликните да ресетујете везу)"
+
+#. Translators: Sometimes a user's default browser is not set, so we recommend setting it and trying again
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:211
 msgid "Set the default browser and try again"
 msgstr "Поставите подразумевани интернет прегледник и покушајте поново"
-
-#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:138
-msgid "Processing..."
-msgstr "Обрађујем..."
-
-#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:149
-msgid "Authorization Failed, Try Again"
-msgstr "Ауторизација није успела, Покушајте поново"
-
-#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:156
-msgid "Connected. Click Save to start synchronizing"
-msgstr "Повезан. Кликните „Сними“ да започнете усклађивање"
 
 #. Translators: This is the name of "Window" menu in the Mac menubar
 #: ../Tomboy/MacApplication.cs:214
@@ -1632,8 +1646,7 @@ msgstr "Успех! Повезани смо!"
 msgid ""
 "Tomboy is ready to synchronize your notes. Would you like to synchronize "
 "them now?"
-msgstr ""
-"Томица је спреман да усклади белешке. Желите ли да их ускладите сада?"
+msgstr "Томица је спреман да усклади белешке. Желите ли да их ускладите сада?"
 
 #: ../Tomboy/PreferencesDialog.cs:1187
 msgid ""
@@ -1750,7 +1763,7 @@ msgstr "Једноставан и згодан програмчић за хва�
 msgid "Homepage"
 msgstr "Веб страница"
 
-#: ../Tomboy/Tomboy.cs:470
+#: ../Tomboy/Tomboy.cs:471
 msgid ""
 "Tomboy: A simple, easy to use desktop note-taking application.\n"
 "Copyright (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
@@ -1760,7 +1773,7 @@ msgstr ""
 "Copyright (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
 "\n"
 
-#: ../Tomboy/Tomboy.cs:482
+#: ../Tomboy/Tomboy.cs:483
 msgid ""
 "Usage:\n"
 "  --version\t\t\tPrint version information.\n"
@@ -1776,7 +1789,7 @@ msgstr ""
 "  --search [текст]\t\tТражи унети текст кроз све белешке у прозору за "
 "претрагу.\n"
 
-#: ../Tomboy/Tomboy.cs:493
+#: ../Tomboy/Tomboy.cs:494
 msgid ""
 "  --new-note\t\t\tCreate and display a new note.\n"
 "  --new-note [title]\t\tCreate and display a new note, with a title.\n"
@@ -1796,16 +1809,16 @@ msgstr ""
 #. Catalog.GetString (
 #. "  --check-plugin-unloading\tCheck if plugins are " +
 #. "unloaded properly.\n");
-#: ../Tomboy/Tomboy.cs:510
+#: ../Tomboy/Tomboy.cs:511
 msgid "D-BUS remote control disabled.\n"
 msgstr "Удаљено управљање кроз Д-Бас није омогућено.\n"
 
-#: ../Tomboy/Tomboy.cs:518
+#: ../Tomboy/Tomboy.cs:519
 #, csharp-format
 msgid "Version {0}"
 msgstr "Верзија {0}"
 
-#: ../Tomboy/Tomboy.cs:591
+#: ../Tomboy/Tomboy.cs:592
 #, csharp-format
 msgid ""
 "Tomboy: unsupported option '{0}'\n"
@@ -2234,6 +2247,12 @@ msgstr ""
 "За избегавање овог прозорчета у будућности, требаш учитати FUSE при "
 "покретању. Додај „modprobe fuse“ у /etc/init.d/boot.local или „fuse“ у /etc/"
 "modules."
+
+#~ msgid "Click Here After Authorizing"
+#~ msgstr "Кликните овде после ауторизације"
+
+#~ msgid "Processing..."
+#~ msgstr "Обрађујем..."
 
 #~ msgid "Add-in"
 #~ msgstr "Додатак"
