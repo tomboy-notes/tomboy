@@ -419,7 +419,8 @@ namespace Tomboy
 		public static bool TrayIconShowing
 		{
 			get {
-				tray_icon_showing = tray_icon.IsEmbedded && tray_icon.Visible;
+				tray_icon_showing = !is_panel_applet && tray_icon != null &&
+					tray_icon.IsEmbedded && tray_icon.Visible;
 				return tray_icon_showing;
 			}
 		}
