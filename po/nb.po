@@ -6,10 +6,10 @@
 # Kjartan Maraas <kmaraas@gnome.org>, 2006-2009.
 msgid ""
 msgstr ""
-"Project-Id-Version: Tomboy 0.9.x\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-01 14:19+0200\n"
-"PO-Revision-Date: 2009-09-01 14:21+0200\n"
+"Project-Id-Version: Tomboy 0.15.x\n"
+"Report-Msgid-Bugs-To:\n"
+"POT-Creation-Date: 2009-09-14 10:38+0200\n"
+"PO-Revision-Date: 2009-09-14 10:44+0200\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian Bokmal <i18n-nb@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
@@ -70,19 +70,19 @@ msgstr "Egendefinert skrifttype"
 
 #: ../data/tomboy.schemas.in.h:4
 msgid "Determines X coordinate of Search window; stored on Tomboy exit."
-msgstr ""
+msgstr "Bestemmer X-koordinat for søkevinduet. Lagres når Tomboy avsluttes."
 
 #: ../data/tomboy.schemas.in.h:5
 msgid "Determines Y coordinate of Search window; stored on Tomboy exit."
-msgstr ""
+msgstr "Bestemmer Y-koordinat for søkevinduet. Lagres når Tomboy avsluttes."
 
 #: ../data/tomboy.schemas.in.h:6
 msgid "Determines pixel height of Search window; stored on Tomboy exit."
-msgstr ""
+msgstr "Bestemmer pikselhøyde for søkevinduet. Lagres når Tomboy avsluttes."
 
 #: ../data/tomboy.schemas.in.h:7
 msgid "Determines pixel width of Search window; stored on Tomboy exit."
-msgstr ""
+msgstr "Bestemmer pikselhøyde for søkevinduet. Lagres når Tomboy avsluttes."
 
 #: ../data/tomboy.schemas.in.h:8
 msgid "Enable Auto bulleted lists."
@@ -142,7 +142,7 @@ msgstr ""
 
 #: ../data/tomboy.schemas.in.h:19
 msgid "FUSE Mounting Timeout (ms)"
-msgstr ""
+msgstr "Tidsavbrudd for montering av FUSE (ms)"
 
 #: ../data/tomboy.schemas.in.h:20
 msgid "HTML Export All Linked Notes"
@@ -239,9 +239,8 @@ msgid ""
 msgstr ""
 
 #: ../data/tomboy.schemas.in.h:34
-#, fuzzy
 msgid "Maximum note title length to show in tray menu."
-msgstr "Minste antall notater som skal vises i menyen"
+msgstr "Maksimal lengde på titel som skal vises i menyen i systemområdet."
 
 #: ../data/tomboy.schemas.in.h:35
 msgid "Minimum number of notes to show in menu"
@@ -266,7 +265,7 @@ msgstr "Åpne «Start her»"
 
 #: ../data/tomboy.schemas.in.h:40
 msgid "Path on SSH server to Tomboy synchronization directory (optional)."
-msgstr ""
+msgstr "Sti til synkroniseringskatalog på SSH-tjener (valgfri)."
 
 #: ../data/tomboy.schemas.in.h:41
 msgid ""
@@ -476,7 +475,7 @@ msgstr "Format for tidsstempel"
 
 #: ../data/tomboy.schemas.in.h:71
 msgid "URL of SSH server containing Tomboy synchronization directory."
-msgstr ""
+msgstr "URL for SSH-tjener som inneholder synkroniseringskatalog for Tomboy."
 
 #: ../data/tomboy.schemas.in.h:72
 msgid ""
@@ -498,13 +497,11 @@ msgstr ""
 msgid ""
 "Use wdfs option \"-ac\" to accept SSL certificates without prompting the "
 "user."
-msgstr ""
+msgstr "Bruk wdfs-alternativet «-ac» for å godta SSL-sertifikater uten å spørre bruker."
 
 #: ../data/tomboy.schemas.in.h:75
-#, fuzzy
 msgid "User name to use when connecting to the synchronization server via SSH."
-msgstr ""
-"Feil ved tilkobling til synkroniseringstjenesten. Vennligst prøv igjen."
+msgstr "Brukernavn som skal brukes ved tilkobling til synkroniseringstjenesten via SSH."
 
 #: ../data/tomboy.schemas.in.h:76
 msgid ""
@@ -818,7 +815,7 @@ msgid "Add a sketch"
 msgstr "Legg til en skisse"
 
 #: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:47
-#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:49
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:55
 msgid "Se_rver:"
 msgstr "Tjene_r:"
 
@@ -945,38 +942,52 @@ msgstr ""
 msgid "Tomboy Web"
 msgstr "Tomboy nettside"
 
-#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:56
-#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:86
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:62
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:92
 msgid "Connect to Server"
 msgstr "Koble til tjener"
 
-#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:58
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:64
 msgid "Connected"
 msgstr "Tilkoblet"
 
-#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:111
+#. Translators: The web service supporting Tomboy WebSync is not responding as expected
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:119
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:144
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:156
 msgid "Server not responding. Try again later."
 msgstr "Tjener svarer ikke. Prøv igjen senere."
 
-#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:118
-msgid "Click Here After Authorizing"
-msgstr "Klikk her etter autorisasjon"
-
-#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:121
-msgid "Set the default browser and try again"
-msgstr "Sett forvalgt nettleser og prøv igjen"
-
-#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:125
-msgid "Processing..."
-msgstr "Prosesserer"
-
-#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:136
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:178
 msgid "Authorization Failed, Try Again"
 msgstr "Autorisering feilet. Prøv igjen"
 
-#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:143
-msgid "Connected. Click Save to start synchronizing"
+#. Translators: Title of web page presented to user after they authorized Tomboy for sync
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:187
+msgid "Tomboy Web Authorization Successful"
+msgstr "Web-autorisering for Tomboy fullført"
+
+#. Translators: Body of web page presented to user after they authorized Tomboy for sync
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:189
+msgid ""
+"Please return to the Tomboy Preferences window and press Save to start "
+"synchronizing."
+msgstr "Vennligst gå tilbake til brukervalg-vinduet i Tomboy og trykk Lagre for å starte synkronisering."
+
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:197
+msgid "Connected. Press Save to start synchronizing"
 msgstr "Tilkoblet. Klikk på Lagre for å starte synkronisering"
+
+#. Translators: The user must take action in their web browser to continue the authorization process
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:204
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:215
+msgid "Authorizing in browser (Press to reset connection)"
+msgstr "Autoriserer i nettleser (Trykk for å nullstille tilkoblingen)"
+
+#. Translators: Sometimes a user's default browser is not set, so we recommend setting it and trying again
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:211
+msgid "Set the default browser and try again"
+msgstr "Sett forvalgt nettleser og prøv igjen"
 
 #. Translators: This is the name of "Window" menu in the Mac menubar
 #: ../Tomboy/MacApplication.cs:214
@@ -1706,7 +1717,7 @@ msgstr "Et enkelt og brukervennlig notatskrivingsprogram."
 msgid "Homepage"
 msgstr "Hjemmeside"
 
-#: ../Tomboy/Tomboy.cs:470
+#: ../Tomboy/Tomboy.cs:471
 msgid ""
 "Tomboy: A simple, easy to use desktop note-taking application.\n"
 "Copyright (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
@@ -1716,7 +1727,7 @@ msgstr ""
 "Opphavsrett © 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
 "\n"
 
-#: ../Tomboy/Tomboy.cs:482
+#: ../Tomboy/Tomboy.cs:483
 msgid ""
 "Usage:\n"
 "  --version\t\t\tPrint version information.\n"
@@ -1730,7 +1741,7 @@ msgstr ""
 "  --note-path [path]\t\tLast/lagre notatdata i denne katalogen.\n"
 "  --search [text]\t\tÅpne vindu for søk i alle notater med søketeksten.\n"
 
-#: ../Tomboy/Tomboy.cs:493
+#: ../Tomboy/Tomboy.cs:494
 msgid ""
 "  --new-note\t\t\tCreate and display a new note.\n"
 "  --new-note [title]\t\tCreate and display a new note, with a title.\n"
@@ -1749,16 +1760,16 @@ msgstr ""
 #. Catalog.GetString (
 #. "  --check-plugin-unloading\tCheck if plugins are " +
 #. "unloaded properly.\n");
-#: ../Tomboy/Tomboy.cs:510
+#: ../Tomboy/Tomboy.cs:511
 msgid "D-BUS remote control disabled.\n"
 msgstr "D-BUS fjernkontroll er deaktivert.\n"
 
-#: ../Tomboy/Tomboy.cs:518
+#: ../Tomboy/Tomboy.cs:519
 #, csharp-format
 msgid "Version {0}"
 msgstr "Versjon {0}"
 
-#: ../Tomboy/Tomboy.cs:591
+#: ../Tomboy/Tomboy.cs:592
 #, csharp-format
 msgid ""
 "Tomboy: unsupported option '{0}'\n"
