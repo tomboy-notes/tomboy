@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Mono.Unix;
 using System.Runtime.InteropServices;
+using GtkBeans;
 
 namespace Tomboy
 {
@@ -31,7 +32,9 @@ namespace Tomboy
 		{
 			this.note = note;
 			Image = new Gtk.Image (note_icon);
-
+#if HAS_GTK_2_16
+			this.SetAlwaysShowImage (true);
+#endif
 			if (show_pin) {
 				Gtk.HBox box = new Gtk.HBox (false, 0);
 				Gtk.Widget child = Child;

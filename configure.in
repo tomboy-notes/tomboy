@@ -60,6 +60,11 @@ PKG_CHECK_MODULES(LIBTOMBOY,
 AC_SUBST(LIBTOMBOY_CFLAGS)
 AC_SUBST(LIBTOMBOY_LIBS)
 
+if pkg-config --atleast-version=2.16 gtk+-2.0; then
+	HAS_GTK_2_16=yes
+fi
+AM_CONDITIONAL(HAS_GTK_2_16, test "x$HAS_GTK_2_16" = "xyes")
+
 #
 # Use pkg-config to check for the panel applet server directory if
 # specified by --enable-panelapplet-srvdir-check.

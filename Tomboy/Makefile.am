@@ -70,6 +70,10 @@ if FIXED_GTKSPELL
 FIXED_GTKSPELL_CSFLAGS = -define:FIXED_GTKSPELL
 endif
 
+if HAS_GTK_2_16
+HAS_GTK_2_16_FLAGS = -define:HAS_GTK_2_16
+endif
+
 CSFLAGS = 				\
 	-debug				\
 	-define:DEBUG 			\
@@ -81,6 +85,7 @@ CSFLAGS = 				\
 	$(WIN_CSFLAGS) 		\
 	$(FIXED_PANELAPPLET_CSFLAGS)	\
 	$(FIXED_GTKSPELL_CSFLAGS) \
+	$(HAS_GTK_2_16_FLAGS) \
 	$(CSC_DEFINES)
 
 CSFILES = 					\
