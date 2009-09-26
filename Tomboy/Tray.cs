@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using Mono.Unix;
 using System.Runtime.InteropServices;
+#if !WIN32 && !MAC
 using GtkBeans;
+#endif
 
 namespace Tomboy
 {
