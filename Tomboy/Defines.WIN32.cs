@@ -3,6 +3,8 @@ using System.Reflection;
 
 // TODO: Automate this
 [assembly: AssemblyInformationalVersion ("1.1.0")]
+[assembly: AssemblyProduct("Tomboy")]
+[assembly: AssemblyTitle("Tomboy Notes")]
 
 namespace Tomboy {
 	public class Defines {
