@@ -192,8 +192,11 @@ namespace Tomboy.WebSync.Api
 			var outUrl = string.Empty;
 			List<IQueryParameter<string>> parameters = null;
 
+			string callbackUrl = string.Empty;
+			if (url.StartsWith (RequestTokenBaseUrl) || url.StartsWith (AccessTokenBaseUrl))
+				callbackUrl = CallbackUrl;
 			var sig = GenerateSignature (uri, ConsumerKey, ConsumerSecret, Token, TokenSecret, Verifier, method,
-				timeStamp, nonce, out outUrl, out parameters);
+			                             timeStamp, nonce, callbackUrl, out outUrl, out parameters);
 
 			if (Debugging)
 				Logger.Debug ("Generated signature {0}", sig);
