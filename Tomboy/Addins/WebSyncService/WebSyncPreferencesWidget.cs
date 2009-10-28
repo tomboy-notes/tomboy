@@ -107,25 +107,24 @@ namespace Tomboy.WebSync
 			}
 
 			// TODO: Move this
-			if (Auth == null) {
-				string rootUri = Server + "/api/1.0";
-				try {
-					RootInfo root = RootInfo.GetRoot (rootUri, new Api.AnonymousConnection ());
+			if (Auth == null)
+				Auth = new Api.OAuth ();
 
-					Auth = new Api.OAuth ();
+			string rootUri = Server + "/api/1.0";
+			try {
+				RootInfo root = RootInfo.GetRoot (rootUri, new Api.AnonymousConnection ());
 
-					Auth.AuthorizeLocation = root.AuthorizeUrl;
-					Auth.AccessTokenBaseUrl = root.AccessTokenUrl;
-					Auth.RequestTokenBaseUrl = root.RequestTokenUrl;
-					Auth.ConsumerKey = "anyone";
-					Auth.ConsumerSecret = "anyone";
-					Auth.Realm = "Snowy";
-				} catch (Exception e) {
-					Logger.Error ("Failed to get Root resource " + rootUri + ". Exception was: " + e.ToString());
-					authButton.Label = Catalog.GetString ("Server not responding. Try again later.");
-					oauth = null;
-					return;
-				}
+				Auth.AuthorizeLocation = root.AuthorizeUrl;
+				Auth.AccessTokenBaseUrl = root.AccessTokenUrl;
+				Auth.RequestTokenBaseUrl = root.RequestTokenUrl;
+				Auth.ConsumerKey = "anyone";
+				Auth.ConsumerSecret = "anyone";
+				Auth.Realm = "Snowy";
+			} catch (Exception e) {
+				Logger.Error ("Failed to get Root resource " + rootUri + ". Exception was: " + e.ToString());
+				authButton.Label = Catalog.GetString ("Server not responding. Try again later.");
+				oauth = null;
+				return;
 			}
 
 			if (!Auth.IsAccessToken) {
@@ -159,6 +158,7 @@ namespace Tomboy.WebSync
 					return;
 				}
 
+				Logger.Debug ("Listening on {0} for OAuth callback", callbackUrl);
 				string authUrl = string.Empty;
 				try {
 					authUrl = Auth.GetAuthorizationUrl ();
@@ -223,7 +223,6 @@ namespace Tomboy.WebSync
 					}
 				}, null);
 
-				Logger.Debug ("Listening on {0} for OAuth callback", callbackUrl);
 				Logger.Debug ("Launching browser to authorize web sync: " + authUrl);
 				authButton.Label = Catalog.GetString ("Authorizing in browser (Press to reset connection)");
 				try {
