@@ -109,6 +109,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Tomboy\ActionManager.cs" />
+    <Compile Include="Tomboy\JumpListManager.cs" />
     <Compile Include="Tomboy\Contrast.cs" />
     <Compile Include="Tomboy\Defines.WIN32.cs" />
     <Compile Include="Tomboy\IRemoteControl.cs" />
@@ -136,6 +137,7 @@
     <Compile Include="Tomboy\TagManager.cs" />
     <Compile Include="Tomboy\Tag.cs" />
     <Compile Include="Tomboy\TagButton.cs" />
+    <Compile Include="Tomboy\WindowsInterop.cs" />
     <Compile Include="Tomboy\WindowsFactory.cs" />
     <Compile Include="Tomboy\WindowsKeybinder.cs" />
     <Compile Include="Tomboy\PreferencesDialog.cs" />
@@ -211,6 +213,15 @@
     <None Include="Tomboy\Defines.cs.in" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="new_note.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="note.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="search.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="tomboy.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
@@ -233,6 +244,9 @@
   </ProjectExtensions>
   <PropertyGroup>
     <PreBuildEvent>copy "$(ProjectDir)data\icons\tomboy.ico" "$(ProjectDir)tomboy.ico"
+copy "$(ProjectDir)data\icons\note.ico" "$(ProjectDir)note.ico"
+copy "$(ProjectDir)data\icons\new_note.ico" "$(ProjectDir)new_note.ico"
+copy "$(ProjectDir)data\icons\search.ico" "$(ProjectDir)search.ico"
 copy "$(ProjectDir)data\icons\hicolor_apps_48x48_tomboy.png" "$(ProjectDir)tomboy.png"
 copy "$(ProjectDir)data\icons\hicolor_places_22x22_note.png" "$(ProjectDir)note.png"
 copy "$(ProjectDir)data\icons\hicolor_actions_16x16_note-new.png" "$(ProjectDir)note-new.png"

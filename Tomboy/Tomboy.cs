@@ -116,6 +116,27 @@ namespace Tomboy
 			}
 #endif
 
+#if WIN32
+			if (Environment.OSVersion.Platform == PlatformID.Win32NT) {
+				var os_version = Environment.OSVersion.Version;
+				if (( os_version.Major == 6 && os_version.Minor > 0 ) || os_version.Major > 6) {
+					JumpListManager.CreateJumpList (manager);
+
+					manager.NoteAdded += delegate (object sender, Note changed) {
+						JumpListManager.CreateJumpList (manager);
+					};
+
+					manager.NoteRenamed += delegate (Note sender, string old_title) {
+						JumpListManager.CreateJumpList (manager);
+					};
+
+					manager.NoteDeleted += delegate (object sender, Note changed) {
+						JumpListManager.CreateJumpList (manager);
+					};
+				}
+			}
+#endif
+
 			if (is_panel_applet) {
 				tray_icon_showing = true;
 
