@@ -33,6 +33,11 @@ namespace Tomboy
 			throw new NotImplementedException ();
 		}
 
+		public string CreateNamedNoteWithUri (string linked_title, string uri)
+		{
+			throw new NotImplementedException ();
+		}
+
 		public string CreateNote ()
 		{
 			throw new NotImplementedException ();

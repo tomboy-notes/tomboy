@@ -120,6 +120,35 @@ namespace Tomboy
 			}
 		}
 
+		public string CreateNamedNoteWithUri (string linked_title, string uri)
+		{
+			Note note;
+			string guid;
+			try {
+				guid = uri.Replace ("note://tomboy/", "");
+			} catch {
+				return string.Empty;
+			}
+
+			if (String.IsNullOrEmpty (guid))
+				return string.Empty;
+
+			note = note_manager.Find (linked_title);
+			if (note != null)
+				return string.Empty;
+
+			note = note_manager.FindByUri (uri);
+			if (note != null)
+				return string.Empty;
+
+			try {
+				note = note_manager.CreateWithGuid (linked_title, guid);
+				return note.Uri;
+			} catch {
+				return string.Empty;
+			}
+		}
+
 		public bool DeleteNote (string uri)
 		{
 			Note note;

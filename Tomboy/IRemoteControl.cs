@@ -6,6 +6,7 @@ namespace Tomboy
 	{
 		bool AddTagToNote (string uri, string tag_name);
 		string CreateNamedNote (string linked_title);
+		string CreateNamedNoteWithUri (string linked_title, string uri);
 		string CreateNote ();
 		bool DeleteNote (string uri);
 		bool DisplayNote (string uri);
