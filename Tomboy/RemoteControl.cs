@@ -98,6 +98,7 @@ namespace Tomboy
 		{
 			try {
 				Note note = note_manager.Create ();
+				note.QueueSave (ChangeType.ContentChanged);
 				return note.Uri;
 			} catch {
 				return string.Empty;
@@ -114,6 +115,7 @@ namespace Tomboy
 
 			try {
 				note = note_manager.Create (linked_title);
+				note.QueueSave (ChangeType.ContentChanged);
 				return note.Uri;
 			} catch {
 				return string.Empty;
@@ -143,6 +145,7 @@ namespace Tomboy
 
 			try {
 				note = note_manager.CreateWithGuid (linked_title, guid);
+				note.QueueSave (ChangeType.ContentChanged);
 				return note.Uri;
 			} catch {
 				return string.Empty;
@@ -298,6 +301,7 @@ namespace Tomboy
 				return false;
 			Tag tag = TagManager.GetOrCreateTag (tag_name);
 			note.AddTag (tag);
+			note.QueueSave (ChangeType.OtherDataChanged);
 			return true;
 		}
 
@@ -309,6 +313,7 @@ namespace Tomboy
 			Tag tag = TagManager.GetTag (tag_name);
 			if (tag != null)
 				note.RemoveTag (tag);
+			note.QueueSave (ChangeType.OtherDataChanged);
 			return true;
 		}
 
