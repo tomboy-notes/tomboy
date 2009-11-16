@@ -24,9 +24,7 @@ namespace Tomboy
 		static bool is_panel_applet = false;
 		static PreferencesDialog prefs_dlg;
 		static SyncDialog sync_dlg;
-#if ENABLE_DBUS || WIN32 || MAC
 		static RemoteControl remote_control;
-#endif
 		static Gtk.IconTheme icon_theme = null;
 
 		[STAThread]
@@ -69,13 +67,19 @@ namespace Tomboy
 			Logger.LogLevel = debugging ? Level.DEBUG : Level.INFO;
 			is_panel_applet = cmd_line.UsePanelApplet;
 
-#if ENABLE_DBUS || WIN32 || MAC // Run command-line earlier with DBus enabled
+#if ENABLE_DBUS // Run command-line earlier with DBus enabled
 			if (cmd_line.NeedsExecute) {
 				// Execute args at an existing tomboy instance...
 				cmd_line.Execute ();
 				return;
 			}
-#endif // ENABLE_DBUS || WIN32
+#else // Without DBus enabled, need to manually check if this is the first instance
+			if (cmd_line.NeedsExecute && !RemoteControlProxy.FirstInstance) {
+				// Execute args at an existing tomboy instance...
+				cmd_line.Execute ();
+				return;
+			}
+#endif
 
 			// NOTE: It is important not to use the Preferences
 			//       class before this call.
@@ -105,8 +109,9 @@ namespace Tomboy
 				addin.Initialize ();
 			}
 
-#if !ENABLE_DBUS && !WIN32 && !MAC
-			if (cmd_line.NeedsExecute) {
+#if !ENABLE_DBUS
+			if (cmd_line.NeedsExecute && RemoteControlProxy.FirstInstance) {
+				// Execute args on this instance
 				cmd_line.Execute ();
 			}
 #endif
@@ -191,7 +196,6 @@ namespace Tomboy
 
 		static void RegisterRemoteControl (NoteManager manager)
 		{
-#if ENABLE_DBUS || WIN32 || MAC
 			try {
 				remote_control = RemoteControlProxy.Register (manager);
 				if (remote_control != null) {
@@ -213,7 +217,6 @@ namespace Tomboy
 				Logger.Log ("Tomboy remote control disabled (DBus exception): {0}",
 				            e.Message);
 			}
-#endif
 		}
 
 		// These actions can be called from anywhere in Tomboy
@@ -531,8 +534,7 @@ namespace Tomboy
 			                "directory.\n" +
 			                "  --search [text]\t\tOpen the search all notes window with " +
 			                "the search text.\n");
-
-#if ENABLE_DBUS || WIN32 || MAC
+			// This odd concatenation preserved to avoid wasting time retranslating these strings
 			usage +=
 			        Catalog.GetString (
 			                "  --new-note\t\t\tCreate and display a new note.\n" +
@@ -543,17 +545,6 @@ namespace Tomboy
 			                "  --start-here\t\t\tDisplay the 'Start Here' note.\n" +
 			                "  --highlight-search [text]\tSearch and highlight text " +
 			                "in the opened note.\n");
-#endif
-
-// TODO: Restore this functionality with addins
-//   usage +=
-//    Catalog.GetString (
-//     "  --check-plugin-unloading\tCheck if plugins are " +
-//     "unloaded properly.\n");
-
-#if !ENABLE_DBUS && !WIN32 && !MAC
-			usage += Catalog.GetString ("D-BUS remote control disabled.\n");
-#endif
 
 			Console.WriteLine (usage);
 		}
@@ -572,7 +563,6 @@ namespace Tomboy
 				case "--debug":
 					debug = true;
 					break;
-#if ENABLE_DBUS || WIN32 || MAC
 				case "--new-note":
 					// Get optional name for new note...
 					if (idx + 1 < args.Length
@@ -626,21 +616,6 @@ namespace Tomboy
 					++idx;
 					highlight_search = args [idx];
 					break;
-#else
-				case "--new-note":
-				case "--open-note":
-				case "--start-here":
-				case "--highlight-search":
-					string unknown_opt =
-					        Catalog.GetString (
-					                "Tomboy: unsupported option '{0}'\n" +
-					                "Try 'tomboy --help' for more " +
-					                "information.\n" +
-					                "D-BUS remote control disabled.");
-					Console.WriteLine (unknown_opt, args [idx]);
-					quit = true;
-					break;
-#endif // ENABLE_DBUS || WIN32
 
 				case "--panel-applet":
 					panel_applet = true;
@@ -707,7 +682,6 @@ namespace Tomboy
 
 		public void Execute ()
 		{
-#if ENABLE_DBUS || WIN32 || MAC
 			IRemoteControl remote = null;
 			try {
 				remote = RemoteControlProxy.GetInstance ();
@@ -800,19 +774,6 @@ namespace Tomboy
 				else
 					remote.DisplaySearch ();
 			}
-#else
-			if (open_search) {
-				NoteRecentChanges recent_changes =
-				        NoteRecentChanges.GetInstance (Tomboy.DefaultNoteManager);
-				if (recent_changes == null)
-					return;
-
-				if (search_text != null)
-					recent_changes.SearchText = search_text;
-
-				recent_changes.Present ();
-			}
-#endif // ENABLE_DBUS || WIN32
 		}
 	}
 }

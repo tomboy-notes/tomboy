@@ -19,6 +19,7 @@ namespace Tomboy
 #else
 		private static Mutex mutex;
 		private static IpcChannel IpcChannel;
+		private static bool firstInstance;
 		private const string MutexName = "{9EF7D32D-3392-4940-8A28-1320A7BD42AB}";
 		private const string ServerName = "TomboyServer";
 		private const string ClientName = "TomboyClient";
@@ -61,11 +62,7 @@ namespace Tomboy
 
 			return remote_control;
 #else
-			// Use a mutex to provide single-instance detection
-			bool isNew;
-			mutex = new Mutex (true, MutexName, out isNew);
-
-			if (isNew) {
+			if (FirstInstance) {
 				// Register an IPC channel for .NET remoting
 				// access to our Remote Control
 				IpcChannel = new IpcChannel (ServerName);
@@ -102,5 +99,15 @@ namespace Tomboy
 			}
 #endif
 		}
+#if !ENABLE_DBUS
+		public static bool FirstInstance {
+			get {
+				// Use a mutex to provide single-instance detection
+				if (mutex == null)
+					mutex = new Mutex (true, MutexName, out firstInstance);
+				return firstInstance;
+			}
+		}
+#endif
 	}
 }
