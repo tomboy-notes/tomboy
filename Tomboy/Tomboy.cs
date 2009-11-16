@@ -29,6 +29,7 @@ namespace Tomboy
 #endif
 		static Gtk.IconTheme icon_theme = null;
 
+		[STAThread]
 		public static void Main (string [] args)
 		{
 			// TODO: Extract to a PreInit in Application, or something
