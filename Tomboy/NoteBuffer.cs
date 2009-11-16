@@ -1,8 +1,11 @@
 
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.IO;
 using System.Xml;
+using System.Xml.XPath;
+using System.Xml.Xsl;
 
 namespace Tomboy
 {
@@ -48,9 +51,16 @@ namespace Tomboy
 			}
 		}
 
+		private static bool text_buffer_serialize_func_fixed = typeof(Gtk.TextBufferSerializeFunc).GetMethod ("Invoke").ReturnType == typeof(byte[]);
+
 		public NoteBuffer (Gtk.TextTagTable tags, Note note)
 : base (tags)
 		{
+			// Ensure Gtk# has the fix for BNC #555495
+			if (text_buffer_serialize_func_fixed) {
+				RegisterSerializeFormat ("text/html", (Gtk.TextBufferSerializeFunc) Delegate.CreateDelegate (typeof(Gtk.TextBufferSerializeFunc), this, "SerializeToHtml"));
+			}
+
 			active_tags = new List<Gtk.TextTag> ();
 			undo_manager = new UndoManager (this);
 
@@ -66,6 +76,48 @@ namespace Tomboy
 			widgetQueueTimeout = 0;
 
 			this.note = note;
+		}
+
+		private static XslTransform html_transform;
+		private static XslTransform HtmlTransform {
+			get {
+				if (html_transform == null) {
+					html_transform = new XslTransform ();
+					var resource = typeof(NoteBuffer).Assembly.GetManifestResourceStream ("tomboy-note-clipboard-html.xsl");
+					var reader = new XmlTextReader (resource);
+					html_transform.Load (reader, null, null);
+					reader.Close ();
+				}
+				return html_transform;
+			}
+		}
+
+		private byte [] SerializeToHtml (Gtk.TextBuffer register_buffer, Gtk.TextBuffer content_buffer, Gtk.TextIter start, Gtk.TextIter end, out ulong length)
+		{
+			if (start.Equals (end) || start.Equals (Gtk.TextIter.Zero) || end.Equals (Gtk.TextIter.Zero) || HtmlTransform == null) {
+				length = 0;
+				return new byte [0];
+			}
+
+			Logger.Debug ("Handling text/html Clipboard copy/cut request");
+			var xsl = HtmlTransform;
+
+			string xml = String.Format (
+				"<note version=\"0.3\" xmlns:link=\"http://beatniksoftware.com/tomboy/link\" xmlns:size=\"http://beatniksoftware.com/tomboy/size\">{0}</note>",
+				NoteBufferArchiver.Serialize (register_buffer, start, end)
+			);
+
+			var reader = new StringReader (xml);
+			var doc = new XPathDocument (reader);
+			var args = new XsltArgumentList ();
+
+			var writer = new StringWriter ();
+			xsl.Transform (doc, args, writer);
+
+			string html = writer.ToString ();
+			byte [] bytes = System.Text.Encoding.UTF8.GetBytes (html);
+			length = (ulong)bytes.Length;
+			return bytes;
 		}
 
 		// Signal that text has been inserted, and any active tags have

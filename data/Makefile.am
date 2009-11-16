@@ -67,6 +67,7 @@ EXTRA_DIST = 					\
 	$(noinst_DATA)				\
 	GNOME_TomboyApplet.server.in.in		\
 	$(dbusservice_in_files)				\
+	tomboy-note-clipboard-html.xsl		\
 	UIManagerLayout.xml
 
 DISTCLEANFILES = 				\
