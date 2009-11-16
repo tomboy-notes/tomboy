@@ -1,9 +1,11 @@
-﻿using System;
+using System;
 
 namespace Tomboy
 {
 	public interface IRemoteControl
 	{
+		bool AddNotebook (string notebook_name);
+		bool AddNoteToNotebook (string uri, string notebook_name);
 		bool AddTagToNote (string uri, string tag_name);
 		string CreateNamedNote (string linked_title);
 		string CreateNamedNoteWithUri (string linked_title, string uri);
@@ -15,7 +17,9 @@ namespace Tomboy
 		void DisplaySearchWithText (string search_text);
 		string FindNote (string linked_title);
 		string FindStartHereNote ();
-		string [] GetAllNotesWithTag (string tag_name);
+		string [] GetAllNotesInNotebook (string notebook_name);
+ 		string [] GetAllNotesWithTag (string tag_name);
+		string GetNotebookForNote (string uri);
 		long GetNoteChangeDate (string uri);
 		string GetNoteCompleteXml (string uri);
 		string GetNoteContents (string uri);

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace Tomboy
 {
@@ -183,6 +183,26 @@ namespace Tomboy
 		public string Version ()
 		{
 			return remote.Version ();
+		}
+
+		public string GetNotebookForNote (string uri)
+		{
+			return remote.GetNotebookForNote (uri);
+		}
+
+		public bool AddNoteToNotebook (string uri, string notebook_name)
+		{
+			return remote.AddNoteToNotebook (uri, notebook_name);
+		}
+
+		public string [] GetAllNotesInNotebook (string notebook_name)
+		{
+			return remote.GetAllNotesInNotebook (notebook_name);
+		}
+
+		public bool AddNotebook (string notebook_name)
+		{
+			return remote.AddNotebook (notebook_name);
 		}
 
 		#endregion
