@@ -25,37 +25,45 @@ namespace Tomboy
 
 		public bool AddTagToNote (string uri, string tag_name)
 		{
-			throw new NotImplementedException ();
+			return remote.AddTagToNote (uri, tag_name);
 		}
 
 		public string CreateNamedNote (string linked_title)
 		{
-			throw new NotImplementedException ();
+			return remote.CreateNamedNote (linked_title);
 		}
 
 		public string CreateNamedNoteWithUri (string linked_title, string uri)
 		{
-			throw new NotImplementedException ();
+			return remote.CreateNamedNoteWithUri (linked_title, uri);
 		}
 
 		public string CreateNote ()
 		{
-			throw new NotImplementedException ();
+			return remote.CreateNote ();
 		}
 
 		public bool DeleteNote (string uri)
 		{
-			throw new NotImplementedException ();
+			return remote.DeleteNote (uri);
 		}
 
 		public bool DisplayNote (string uri)
 		{
-			throw new NotImplementedException ();
+			bool result = false;
+			Gtk.Application.Invoke (delegate {
+				result = remote.DisplayNote (uri);
+			});
+			return result;
 		}
 
 		public bool DisplayNoteWithSearch (string uri, string search)
 		{
-			throw new NotImplementedException ();
+			bool result = false;
+			Gtk.Application.Invoke (delegate {
+				result = remote.DisplayNoteWithSearch (uri, search);
+			});
+			return result;
 		}
 
 		public void DisplaySearch ()
@@ -67,67 +75,73 @@ namespace Tomboy
 
 		public void DisplaySearchWithText (string search_text)
 		{
-			throw new NotImplementedException ();
+			Gtk.Application.Invoke (delegate {
+				remote.DisplaySearchWithText (search_text);
+			});
 		}
 
 		public string FindNote (string linked_title)
 		{
-			throw new NotImplementedException ();
+			return remote.FindNote (linked_title);
 		}
 
 		public string FindStartHereNote ()
 		{
-			throw new NotImplementedException ();
+			return remote.FindStartHereNote ();
 		}
 
 		public string [] GetAllNotesWithTag (string tag_name)
 		{
-			throw new NotImplementedException ();
+			return remote.GetAllNotesWithTag (tag_name);
 		}
 
 		public long GetNoteChangeDate (string uri)
 		{
-			throw new NotImplementedException ();
+			return remote.GetNoteChangeDate (uri);
 		}
 
 		public string GetNoteCompleteXml (string uri)
 		{
-			throw new NotImplementedException ();
+			return remote.GetNoteCompleteXml (uri);
 		}
 
 		public string GetNoteContents (string uri)
 		{
-			throw new NotImplementedException ();
+			return remote.GetNoteContents (uri);
 		}
 
 		public string GetNoteContentsXml (string uri)
 		{
-			throw new NotImplementedException ();
+			return remote.GetNoteContentsXml (uri);
 		}
 
 		public long GetNoteCreateDate (string uri)
 		{
-			throw new NotImplementedException ();
+			return remote.GetNoteCreateDate (uri);
 		}
 
 		public string GetNoteTitle (string uri)
 		{
-			throw new NotImplementedException ();
+			return remote.GetNoteTitle (uri);
 		}
 
 		public string [] GetTagsForNote (string uri)
 		{
-			throw new NotImplementedException ();
+			return remote.GetTagsForNote (uri);
 		}
 
 		public bool HideNote (string uri)
 		{
-			throw new NotImplementedException ();
+			bool result = false;
+			Gtk.Application.Invoke (delegate {
+				result = remote.HideNote (uri);
+			});
+			return result;
 		}
 
 		public string [] ListAllNotes ()
 		{
-			throw new NotImplementedException ();
+			return remote.ListAllNotes ();
 		}
 
 		public event RemoteAddedHandler NoteAdded;
@@ -136,34 +150,34 @@ namespace Tomboy
 
 		public bool NoteExists (string uri)
 		{
-			throw new NotImplementedException ();
+			return remote.NoteExists (uri);
 		}
 
 		public event RemoteSavedHandler NoteSaved;
 
 		public bool RemoveTagFromNote (string uri, string tag_name)
 		{
-			throw new NotImplementedException ();
+			return remote.RemoveTagFromNote (uri, tag_name);
 		}
 
 		public string [] SearchNotes (string query, bool case_sensitive)
 		{
-			throw new NotImplementedException ();
+			return remote.SearchNotes (query, case_sensitive);
 		}
 
 		public bool SetNoteCompleteXml (string uri, string xml_contents)
 		{
-			throw new NotImplementedException ();
+			return remote.SetNoteCompleteXml (uri, xml_contents);
 		}
 
 		public bool SetNoteContents (string uri, string text_contents)
 		{
-			throw new NotImplementedException ();
+			return remote.SetNoteContents (uri, text_contents);
 		}
 
 		public bool SetNoteContentsXml (string uri, string xml_contents)
 		{
-			throw new NotImplementedException ();
+			return remote.SetNoteContentsXml (uri, xml_contents);
 		}
 
 		public string Version ()
