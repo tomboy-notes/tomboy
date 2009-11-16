@@ -1183,11 +1183,15 @@ namespace Tomboy
 
 				// Give the user a visual letting them know that connecting
 				// was successful.
-				if (errorMsg == null)
+				if (errorMsg == null) {
 					errorMsg = Catalog.GetString ("Sorry, but something went wrong.  " +
 					                              "Please check your information and " +
-					                              "try again.  The ~/.tomboy.log might " +
+					                              "try again.  The {0} might " +
 					                              "be useful too.");
+					string logPath = System.IO.Path.Combine (Services.NativeApplication.LogDirectory,
+					                                         "tomboy.log");
+					errorMsg = String.Format (errorMsg, logPath);
+				}
 				dialog =
 				        new HIGMessageDialog (this,
 				                              Gtk.DialogFlags.Modal,

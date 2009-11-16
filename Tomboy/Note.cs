@@ -1488,6 +1488,16 @@ namespace Tomboy
 		
 		public static void ShowIOErrorDialog (Gtk.Window parent)
 		{
+			string errorMsg = Catalog.GetString ("An error occurred while saving your notes. " +
+			                                     "Please check that you have sufficient disk " +
+			                                     "space, and that you have appropriate rights " +
+			                                     "on {0}. Error details can be found in " +
+			                                     "{0}.");
+			string logPath = System.IO.Path.Combine (Services.NativeApplication.LogDirectory,
+			                                         "tomboy.log");
+			errorMsg = String.Format (errorMsg,
+			                          Services.NativeApplication.DataDirectory,
+			                          logPath);
 			HIGMessageDialog dialog =
 				new HIGMessageDialog (
 				                      parent,
@@ -1495,11 +1505,7 @@ namespace Tomboy
 				                      Gtk.MessageType.Error,
 				                      Gtk.ButtonsType.Ok,
 				                      Catalog.GetString ("Error saving note data."),
-				                      Catalog.GetString ("An error occurred while saving your notes. " +
-				                                         "Please check that you have sufficient disk " +
-				                                         "space, and that you have appropriate rights " +
-				                                         "on ~/.tomboy. Error details can be found in " +
-				                                         "~/.tomboy.log."));
+				                      errorMsg);
 			dialog.Run ();
 			dialog.Destroy ();
 		}
