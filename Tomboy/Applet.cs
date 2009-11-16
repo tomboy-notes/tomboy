@@ -59,6 +59,7 @@ namespace Tomboy
 
 			if (menu_verbs == null) {
 				menu_verbs = new BonoboUIVerb [] {
+					new BonoboUIVerb ("Sync", SyncVerb),
 					new BonoboUIVerb ("Props", ShowPreferencesVerb),
 					new BonoboUIVerb ("Help", ShowHelpVerb),
 					new BonoboUIVerb ("About", ShowAboutVerb)
@@ -84,6 +85,11 @@ namespace Tomboy
 
 				SetupMenu (xml, verbs);
 			}
+		}
+
+		void SyncVerb ()
+		{
+			Tomboy.ActionManager ["NoteSynchronizationAction"].Activate ();
 		}
 
 		void ShowPreferencesVerb ()
