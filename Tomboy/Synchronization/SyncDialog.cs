@@ -65,6 +65,7 @@ namespace Tomboy.Sync
 			messageLabel.Xalign = 0;
 			messageLabel.UseUnderline = false;
 			messageLabel.LineWrap = true;
+			messageLabel.SetSizeRequest (250, -1);
 			messageLabel.Show ();
 			vbox.PackStart (messageLabel, false, false, 0);
 
