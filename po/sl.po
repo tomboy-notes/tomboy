@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tomboy\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=tomboy&component=general\n"
-"POT-Creation-Date: 2009-10-28 21:55+0000\n"
-"PO-Revision-Date: 2009-10-31 22:22+0100\n"
+"POT-Creation-Date: 2009-11-17 00:51+0000\n"
+"PO-Revision-Date: 2009-11-17 10:20+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -38,17 +38,23 @@ msgid "Tomboy Notes"
 msgstr "Sporočilca Tomboy"
 
 #: ../data/GNOME_TomboyApplet.xml.h:1
+#: ../Tomboy/ActionManager.cs:179
+#: ../Tomboy/Tray.cs:263
+msgid "S_ynchronize Notes"
+msgstr "_Usklajevanje sporočilc"
+
+#: ../data/GNOME_TomboyApplet.xml.h:2
 #: ../Tomboy/ActionManager.cs:164
 msgid "_About"
 msgstr "_O Programu"
 
-#: ../data/GNOME_TomboyApplet.xml.h:2
+#: ../data/GNOME_TomboyApplet.xml.h:3
 #: ../Tomboy/ActionManager.cs:157
 #: ../Tomboy/Tray.cs:277
 msgid "_Help"
 msgstr "_Pomoč"
 
-#: ../data/GNOME_TomboyApplet.xml.h:3
+#: ../data/GNOME_TomboyApplet.xml.h:4
 #: ../Tomboy/ActionManager.cs:153
 #: ../Tomboy/Tray.cs:272
 msgid "_Preferences"
@@ -451,11 +457,6 @@ msgstr "_Iskanje vseh sporočilc"
 msgid "Open the Search All Notes window"
 msgstr "Odpri okno iskanja vseh sporočilc"
 
-#: ../Tomboy/ActionManager.cs:179
-#: ../Tomboy/Tray.cs:263
-msgid "S_ynchronize Notes"
-msgstr "_Usklajevanje sporočilc"
-
 #: ../Tomboy/ActionManager.cs:180
 msgid "Start synchronizing notes"
 msgstr "Začni usklajevati sporočilca"
@@ -599,7 +600,7 @@ msgstr "Vstavi časovni žig"
 
 #. initial newline
 #: ../Tomboy/Addins/InsertTimestamp/InsertTimestampPreferences.cs:29
-#: ../Tomboy/Applet.cs:210
+#: ../Tomboy/Applet.cs:216
 #: ../Tomboy/Preferences.cs:137
 msgid "dddd, MMMM d, h:mm tt"
 msgstr "dddd, MMMM d, h:mm tt"
@@ -697,7 +698,7 @@ msgstr "SSH (sshfs FUSE)"
 
 #: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:179
 msgid "Timeout connecting to server. Please ensure that your SSH key has been added to a running SSH daemon."
-msgstr "Povezava s strežnikom je časovno potekla. Prosim, poglejte, da je vaš SSH ključ pravilno dodan in da ozadnji program SSH teče."
+msgstr "Povezava s strežnikom je časovno potekla. Poglejte, da je vaš SSH ključ pravilno dodan in da ozadnji program SSH teče."
 
 #: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:50
 msgid "Import from Sticky Notes"
@@ -810,7 +811,7 @@ msgstr "Spletna overitev s strežnikom Tomboy je uspela."
 #. Translators: Body of web page presented to user after they authorized Tomboy for sync
 #: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:212
 msgid "Please return to the Tomboy Preferences window and press Save to start synchronizing."
-msgstr "Prosim, vrnite se na okno natavitev in pritisnite tipko shrani za začetek usklajevanja."
+msgstr "Vrnite se na okno natavitev in pritisnite tipko shrani za začetek usklajevanja."
 
 #: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:221
 msgid "Connected. Press Save to start synchronizing"
@@ -828,7 +829,7 @@ msgid "Set the default browser and try again"
 msgstr "Določite privzeti brskalnik in poskusite znova"
 
 #. Translators: This is the name of "Window" menu in the Mac menubar
-#: ../Tomboy/MacApplication.cs:214
+#: ../Tomboy/MacApplication.cs:215
 msgid "_Window"
 msgstr "_Okno"
 
@@ -968,13 +969,14 @@ msgstr[3] "Ali želite izbrisati {0} sporočilca?"
 msgid "If you delete a note it is permanently lost."
 msgstr "Če izbrišete sporočilce, bo to trajno izgubljeno."
 
-#: ../Tomboy/Note.cs:1497
+#: ../Tomboy/Note.cs:1491
+#, csharp-format
+msgid "An error occurred while saving your notes. Please check that you have sufficient disk space, and that you have appropriate rights on {0}. Error details can be found in {0}."
+msgstr "Prišlo je do napake med shranjevanjem sporočilc. Preverite, da je dovolj prostora na disku in da imate ustrezna dovoljenja v {0}. Podrobnosti napake so zapisane v {0}."
+
+#: ../Tomboy/Note.cs:1507
 msgid "Error saving note data."
 msgstr "Napaka med shranjevanjem podatkov."
-
-#: ../Tomboy/Note.cs:1498
-msgid "An error occurred while saving your notes. Please check that you have sufficient disk space, and that you have appropriate rights on ~/.tomboy. Error details can be found in ~/.tomboy.log."
-msgstr "Prišlo je do napake med shranjevanjem sporočilc. Preverite, da imate dovolj prostora na disku in da imate ustrezna dovoljenja v mapi ~/.tomboy. Podrobnosti napake so zapisane v datoteki ~/.tomboy.log"
 
 #. New Note Template
 #. Translators: This is 'New Note' Template, not New 'Note Template'
@@ -1006,7 +1008,7 @@ msgid ""
 "\n"
 "Ciao!"
 msgstr ""
-"V zadnji različici programa Tomboy, so vaša sporočilca premaknjena na drugo mesto. Najverjetneje se nikoli niste ukvarjali s takimi podrobnosti in če vam je še vedno vseeno, prosimo, enostavno <bold>izbrišite to sporočilce</bold>.  :-)\n"
+"V zadnji različici programa Tomboy, so vaša sporočilca premaknjena na drugo mesto. Najverjetneje se nikoli niste ukvarjali s takimi podrobnosti in če vam je še vedno vseeno, enostavno <bold>izbrišite to sporočilce</bold>.  :-)\n"
 "\n"
 "Staro mesto je ostalo nedotaknjeno v <link:url>{0}</link:url> . V primeru, da povrnete namestitev na starejšo različico, vas vaša sporočilca še vedno varno čakajo.\n"
 "\n"
@@ -1390,26 +1392,27 @@ msgid "Tomboy is ready to synchronize your notes. Would you like to synchronize 
 msgstr "Program Tomboy je pripravljen na usklajevanje sporočilc. Ali želite takoj zagnati usklajevanje?"
 
 #: ../Tomboy/PreferencesDialog.cs:1187
-msgid "Sorry, but something went wrong.  Please check your information and try again.  The ~/.tomboy.log might be useful too."
-msgstr "Prišlo je do napake. Prosim, preverite podrobnosti in poskusite znova. Več podrobnosti je zapisanih tudi v datoteki ~/.tomboy.log."
+#, csharp-format
+msgid "Sorry, but something went wrong.  Please check your information and try again.  The {0} might be useful too."
+msgstr "Prišlo je do napake. Preverite podrobnosti in poskusite znova. Več podrobnosti je mogoče najti tudi v {0}."
 
-#: ../Tomboy/PreferencesDialog.cs:1196
+#: ../Tomboy/PreferencesDialog.cs:1200
 msgid "Error connecting :("
 msgstr "Napaka povezovanja ..."
 
-#: ../Tomboy/PreferencesDialog.cs:1272
+#: ../Tomboy/PreferencesDialog.cs:1276
 msgid "Version:"
 msgstr "Različica:"
 
-#: ../Tomboy/PreferencesDialog.cs:1279
+#: ../Tomboy/PreferencesDialog.cs:1283
 msgid "Author:"
 msgstr "Avtor:"
 
-#: ../Tomboy/PreferencesDialog.cs:1286
+#: ../Tomboy/PreferencesDialog.cs:1290
 msgid "Copyright:"
 msgstr "Avtorske pravice:"
 
-#: ../Tomboy/PreferencesDialog.cs:1292
+#: ../Tomboy/PreferencesDialog.cs:1296
 msgid "Add-in Dependencies:"
 msgstr "Odvisnosti vstavkov:"
 
@@ -1464,25 +1467,25 @@ msgstr[3] "Skupaj: {0} sporočilca"
 msgid "Notes"
 msgstr "Sporočilca"
 
-#: ../Tomboy/Tomboy.cs:244
+#: ../Tomboy/Tomboy.cs:248
 msgid "Cannot create new note"
 msgstr "Ni mogoče ustvariti novega sporočilca"
 
-#: ../Tomboy/Tomboy.cs:310
+#: ../Tomboy/Tomboy.cs:314
 msgid "Primary Development:"
 msgstr "Osnovni razvoj:"
 
-#: ../Tomboy/Tomboy.cs:316
+#: ../Tomboy/Tomboy.cs:320
 msgid "Contributors:"
 msgstr "Sodelavci:"
 
-#: ../Tomboy/Tomboy.cs:375
+#: ../Tomboy/Tomboy.cs:379
 msgid "translator-credits"
 msgstr ""
 "Matej Urbančič <mateju@svn.gnome.org>\n"
 "Matjaž Horvat <m@owca.info>"
 
-#: ../Tomboy/Tomboy.cs:384
+#: ../Tomboy/Tomboy.cs:388
 msgid ""
 "Copyright © 2004-2007 Alex Graveley\n"
 "Copyright © 2004-2009 Others\n"
@@ -1490,15 +1493,15 @@ msgstr ""
 "Avtorske pravice © 2004-2007 Alex Graveley\n"
 "Avtorske pravice © 2004-2009 Others\n"
 
-#: ../Tomboy/Tomboy.cs:386
+#: ../Tomboy/Tomboy.cs:390
 msgid "A simple and easy to use desktop note-taking application."
 msgstr "Preprost program za pisanje sporočilc na namizju."
 
-#: ../Tomboy/Tomboy.cs:396
+#: ../Tomboy/Tomboy.cs:400
 msgid "Homepage"
 msgstr "Spletna stran"
 
-#: ../Tomboy/Tomboy.cs:514
+#: ../Tomboy/Tomboy.cs:518
 msgid ""
 "Tomboy: A simple, easy to use desktop note-taking application.\n"
 "Copyright (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
@@ -1508,7 +1511,7 @@ msgstr ""
 "Avtorske pravice pridržane (C) 2004-2007 Alex Graveley <alex@beatniksoftware.com>\n"
 "\n"
 
-#: ../Tomboy/Tomboy.cs:526
+#: ../Tomboy/Tomboy.cs:530
 msgid ""
 "Usage:\n"
 "  --version\t\t\tPrint version information.\n"
@@ -1521,7 +1524,7 @@ msgstr ""
 "  --help\t\t\tIzpiše to sporočilo o uporabi.\n"
 "  --note-path [path]\t\tNaloži/shrani podatke o sporočilcu v tej mapi.\n"
 
-#: ../Tomboy/Tomboy.cs:537
+#: ../Tomboy/Tomboy.cs:540
 msgid ""
 "  --new-note\t\t\tCreate and display a new note.\n"
 "  --new-note [title]\t\tCreate and display a new note, with a title.\n"
@@ -1535,30 +1538,10 @@ msgstr ""
 "  --start-here\t\t\tPrikaže sporočilce 'Začni tukaj'.\n"
 "  --highlight-search [text]\tIšči in poudari besedilo v odprtem sporočilcu.\n"
 
-#. TODO: Restore this functionality with addins
-#. usage +=
-#. Catalog.GetString (
-#. "  --check-plugin-unloading\tCheck if plugins are " +
-#. "unloaded properly.\n");
 #: ../Tomboy/Tomboy.cs:554
-msgid "D-BUS remote control disabled.\n"
-msgstr "Daljinski upravljalnik D-BUS onemogočen.\n"
-
-#: ../Tomboy/Tomboy.cs:562
 #, csharp-format
 msgid "Version {0}"
 msgstr "Različica {0}"
-
-#: ../Tomboy/Tomboy.cs:635
-#, csharp-format
-msgid ""
-"Tomboy: unsupported option '{0}'\n"
-"Try 'tomboy --help' for more information.\n"
-"D-BUS remote control disabled."
-msgstr ""
-"Tomboy: nepodprta možnost '{0}'\n"
-"Za več podatkov poskusite 'tomboy --help'.\n"
-"Daljinski upravljalnik D-BUS onemogočen."
 
 #: ../Tomboy/Tray.cs:68
 msgid " (new)"
@@ -1715,95 +1698,95 @@ msgid "An error ocurred while connecting to the specified server:"
 msgstr "Prišlo je do napake med povezovanjem z določenim strežnikom:"
 
 #. Expander containing TreeView
-#: ../Tomboy/Synchronization/SyncDialog.cs:88
+#: ../Tomboy/Synchronization/SyncDialog.cs:89
 msgid "Details"
 msgstr "Podrobnosti"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:118
+#: ../Tomboy/Synchronization/SyncDialog.cs:119
 msgid "Note Title"
 msgstr "Naslov sporočilca"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:125
+#: ../Tomboy/Synchronization/SyncDialog.cs:126
 msgid "Status"
 msgstr "Stanje"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:240
+#: ../Tomboy/Synchronization/SyncDialog.cs:241
 msgid "Acquiring sync lock..."
 msgstr "Neposredno povezovanje za usklajevanje ..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:243
+#: ../Tomboy/Synchronization/SyncDialog.cs:244
 msgid "Committing changes..."
 msgstr "Uveljavljanje sprememb ..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:246
+#: ../Tomboy/Synchronization/SyncDialog.cs:247
 msgid "Synchronizing Notes"
 msgstr "Usklajevanje sporočilc"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:247
+#: ../Tomboy/Synchronization/SyncDialog.cs:248
 msgid "Synchronizing your notes..."
 msgstr "Usklajevanje sporočilc ..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:248
+#: ../Tomboy/Synchronization/SyncDialog.cs:249
 msgid "This may take a while, kick back and enjoy!"
 msgstr "Postopek lahko traja nekaj časa."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:250
+#: ../Tomboy/Synchronization/SyncDialog.cs:251
 msgid "Connecting to the server..."
 msgstr "Povezovanje s strežnikom ..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:256
+#: ../Tomboy/Synchronization/SyncDialog.cs:257
 msgid "Deleting notes off of the server..."
 msgstr "Brisanje sporočilc s strežnika ..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:260
+#: ../Tomboy/Synchronization/SyncDialog.cs:261
 msgid "Downloading new/updated notes..."
 msgstr "Prenašanje novih in poslanih sporočilc ..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:272
+#: ../Tomboy/Synchronization/SyncDialog.cs:273
 msgid "Server Locked"
 msgstr "Strežnik zaklenjen"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:273
+#: ../Tomboy/Synchronization/SyncDialog.cs:274
 msgid "Server is locked"
 msgstr "Strežnik je zaklenjen"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:274
+#: ../Tomboy/Synchronization/SyncDialog.cs:275
 msgid "One of your other computers is currently synchronizing.  Please wait 2 minutes and try again."
-msgstr "Eden izmed preostalih vaših računalnikov je trenutno v postopku osveževanja. Prosim, počakajte nekaj minut in poskusite  znova."
+msgstr "Eden izmed preostalih vaših računalnikov je trenutno v postopku osveževanja. Počakajte nekaj minut in poskusite  znova."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:278
+#: ../Tomboy/Synchronization/SyncDialog.cs:279
 msgid "Preparing to download updates from server..."
 msgstr "Priprava za prenos posodobitev iz strežnika ..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:281
+#: ../Tomboy/Synchronization/SyncDialog.cs:282
 msgid "Preparing to upload updates to server..."
 msgstr "Priprava za pošiljanje posodobitev na strežnik ..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:284
+#: ../Tomboy/Synchronization/SyncDialog.cs:285
 msgid "Uploading notes to server..."
 msgstr "Pošiljanje sporočilc na strežnik ..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:287
+#: ../Tomboy/Synchronization/SyncDialog.cs:288
 msgid "Synchronization Failed"
 msgstr "Napaka usklajevanja"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:288
+#: ../Tomboy/Synchronization/SyncDialog.cs:289
 msgid "Failed to synchronize"
 msgstr "Usklajevanje ni bilo uspešno"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:289
+#: ../Tomboy/Synchronization/SyncDialog.cs:290
 msgid "Could not synchronize notes.  Check the details below and try again."
 msgstr "Ni mogoče uskladiti sporočilc. Preverite zapisane podrobnosti in poskusite znova."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:295
+#: ../Tomboy/Synchronization/SyncDialog.cs:296
 msgid "Synchronization Complete"
 msgstr "Usklajevanje končano"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:296
+#: ../Tomboy/Synchronization/SyncDialog.cs:297
 msgid "Synchronization is complete"
 msgstr "Usklajevanje je uspešno končano"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:298
+#: ../Tomboy/Synchronization/SyncDialog.cs:299
 #, csharp-format
 msgid "{0} note updated."
 msgid_plural "{0} notes updated."
@@ -1812,101 +1795,101 @@ msgstr[1] "{0} sporočilce posodobljeno."
 msgstr[2] "{0} sporočilci posodobljeni."
 msgstr[3] "{0} sporočilca posodobljena."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:303
+#: ../Tomboy/Synchronization/SyncDialog.cs:304
 msgid "Your notes are now up to date."
 msgstr "Vaša sporočilca so posodobljena."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:307
+#: ../Tomboy/Synchronization/SyncDialog.cs:308
 msgid "Synchronization Canceled"
 msgstr "Usklajevanje preklicano"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:308
+#: ../Tomboy/Synchronization/SyncDialog.cs:309
 msgid "Synchronization was canceled"
 msgstr "Usklajevanje je bilo preklicano."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:309
+#: ../Tomboy/Synchronization/SyncDialog.cs:310
 msgid "You canceled the synchronization.  You may close the window now."
 msgstr "Preklicali ste usklajevanje. Sedaj lahko zaprete okno."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:313
+#: ../Tomboy/Synchronization/SyncDialog.cs:314
 msgid "Synchronization Not Configured"
 msgstr "Usklajevanje ni nastavljeno"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:314
+#: ../Tomboy/Synchronization/SyncDialog.cs:315
 msgid "Synchronization is not configured"
 msgstr "Usklajevanje ni nastavljeno"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:315
+#: ../Tomboy/Synchronization/SyncDialog.cs:316
 msgid "Please configure synchronization in the preferences dialog."
-msgstr "Prosim, nastavite usklajevanje med lastnostmi."
+msgstr "Nastavite usklajevanje med lastnostmi."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:319
+#: ../Tomboy/Synchronization/SyncDialog.cs:320
 msgid "Synchronization Service Error"
 msgstr "Napaka storitve usklajevanja"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:320
+#: ../Tomboy/Synchronization/SyncDialog.cs:321
 msgid "Service error"
 msgstr "Napaka storitve"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:321
+#: ../Tomboy/Synchronization/SyncDialog.cs:322
 msgid "Error connecting to the synchronization service.  Please try again."
 msgstr "Napaka povezave s storitvijo usklajevanja. Poskusite znova."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:338
+#: ../Tomboy/Synchronization/SyncDialog.cs:339
 msgid "Deleted locally"
 msgstr "Izbrisano krajevno"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:341
+#: ../Tomboy/Synchronization/SyncDialog.cs:342
 msgid "Deleted from server"
 msgstr "Izbrisano s strežnika"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:344
+#: ../Tomboy/Synchronization/SyncDialog.cs:345
 msgid "Updated"
 msgstr "Posodobljen"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:347
+#: ../Tomboy/Synchronization/SyncDialog.cs:348
 msgid "Added"
 msgstr "Dodano"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:350
+#: ../Tomboy/Synchronization/SyncDialog.cs:351
 msgid "Uploaded changes to server"
 msgstr "Prenesi spremembe na strežnik"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:353
+#: ../Tomboy/Synchronization/SyncDialog.cs:354
 msgid "Uploaded new note to server"
 msgstr "Prenesi novo sporočilce na strežnik"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:501
+#: ../Tomboy/Synchronization/SyncDialog.cs:502
 msgid "Note Conflict"
 msgstr "Navzkrižna sporočilca"
 
 #. Suggest renaming note by appending " (old)" to the existing title
-#: ../Tomboy/Synchronization/SyncDialog.cs:507
+#: ../Tomboy/Synchronization/SyncDialog.cs:508
 msgid " (old)"
 msgstr " (staro)"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:546
+#: ../Tomboy/Synchronization/SyncDialog.cs:547
 msgid "Rename local note:"
 msgstr "Preimenuj krajevno sporočilce:"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:552
+#: ../Tomboy/Synchronization/SyncDialog.cs:553
 msgid "Update links in referencing notes"
 msgstr "Posodobitev povezav v povezanih sporočilcih"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:559
+#: ../Tomboy/Synchronization/SyncDialog.cs:560
 msgid "Overwrite local note"
 msgstr "Prepiši krajevno sporočilce"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:563
+#: ../Tomboy/Synchronization/SyncDialog.cs:564
 msgid "Always perform this action"
 msgstr "_Vedno izvedi to dejanje"
 
 #. Set initial dialog text
-#: ../Tomboy/Synchronization/SyncDialog.cs:569
+#: ../Tomboy/Synchronization/SyncDialog.cs:570
 msgid "Note conflict detected"
 msgstr "Zaznano navzkrižje sporočilc"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:570
+#: ../Tomboy/Synchronization/SyncDialog.cs:571
 #, csharp-format
 msgid "The server version of \"{0}\" conflicts with your local note.  What do you want to do with your local note?"
 msgstr "Različica strežnika  \"{0}\" ni v skladu z vašim krajevnim sporočilcem. Kaj želite storiti z vašim krajevnim sporočilcem?"
@@ -1923,7 +1906,7 @@ msgstr "Ni mogoče zagnati FUSE."
 #: ../Tomboy/Synchronization/SyncUtils.cs:120
 #: ../Tomboy/Synchronization/SyncUtils.cs:164
 msgid "The FUSE module could not be loaded. Please check that it is installed properly and try again."
-msgstr "Modula FUSE ni mogoče naložiti. Prosim, preverite, le je modul pravilno nameščen in poskusite znova."
+msgstr "Modula FUSE ni mogoče naložiti. Preverite, le je modul pravilno nameščen in poskusite znova."
 
 #: ../Tomboy/Synchronization/SyncUtils.cs:135
 msgid "Enable FUSE?"
@@ -1941,6 +1924,16 @@ msgstr ""
 "\n"
 "Sporočilu se lahko izognete, če bo modul FUSE naložen ob zagonu računalnika. Dodajte \"modprobe fuse\" v datoteko /etc/init.d/boot.local ali \"fuse\" v /etc/modules."
 
+#~ msgid "D-BUS remote control disabled.\n"
+#~ msgstr "Daljinski upravljalnik D-BUS onemogočen.\n"
+#~ msgid ""
+#~ "Tomboy: unsupported option '{0}'\n"
+#~ "Try 'tomboy --help' for more information.\n"
+#~ "D-BUS remote control disabled."
+#~ msgstr ""
+#~ "Tomboy: nepodprta možnost '{0}'\n"
+#~ "Za več podatkov poskusite 'tomboy --help'.\n"
+#~ "Daljinski upravljalnik D-BUS onemogočen."
 #~ msgid "C_ase Sensitive"
 #~ msgstr "Razlikovanje velikosti črk"
 #~ msgid "Really delete these notes?"
