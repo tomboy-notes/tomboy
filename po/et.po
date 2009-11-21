@@ -4,17 +4,17 @@
 # Copyright (C) 2006-2009 The Gnome Project.
 # This file is distributed under the same license as the tomboy package.
 #
-# Ivar Smolin <okul@linux.ee>, 2006-2009.
-# Priit Laes <amd@store20.com>, 2007.
-# Mattias Põldaru <mahfiaz@gmail.com>, 2009.
+# Ivar Smolin <okul linux ee>, 2006-2009.
+# Priit Laes <amd store20 com>, 2007.
+# Mattias Põldaru <mahfiaz gmail com>, 2009.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Tomboy HEAD\n"
+"Project-Id-Version: tomboy MASTER\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=tomboy&component=general\n"
-"POT-Creation-Date: 2009-09-08 00:06+0000\n"
-"PO-Revision-Date: 2009-09-14 13:53+0300\n"
+"POT-Creation-Date: 2009-11-18 06:11+0000\n"
+"PO-Revision-Date: 2009-11-21 10:06+0200\n"
 "Last-Translator: Ivar Smolin <okul@linux.ee>\n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
 "MIME-Version: 1.0\n"
@@ -33,6 +33,9 @@ msgstr "Tomboy rakendi Factory"
 
 msgid "Tomboy Notes"
 msgstr "Tomboy märkmed"
+
+msgid "S_ynchronize Notes"
+msgstr "Sü_nkroniseeri märkmed"
 
 msgid "_About"
 msgstr "_Tomboy'st lähemalt"
@@ -502,9 +505,6 @@ msgstr "_Otsi kõikide märkmete hulgast"
 msgid "Open the Search All Notes window"
 msgstr "Otsing kõikide märkmete hulgast"
 
-msgid "S_ynchronize Notes"
-msgstr "Sü_nkroniseeri märkmed"
-
 msgid "Start synchronizing notes"
 msgstr "Märkmete sünkroniseerimise alustamine"
 
@@ -785,25 +785,12 @@ msgstr "Ühendatud"
 msgid "Server not responding. Try again later."
 msgstr "Server ei vasta. Proovi mõne aja pärast uuesti."
 
-msgid "Click Here After Authorizing"
-msgstr "Pärast autoriseerimist klõpsa siin"
-
-#. Translators: Sometimes a user's default browser is not set, so we recommend setting it and trying again
-msgid "Set the default browser and try again"
-msgstr "Määra vaikimisi veebisirvija ja proovi uuesti"
+msgid "Authorization Failed, Try Again"
+msgstr "Tõrge autoriseerimisel. Proovi uuesti"
 
 #. Translators: Title of web page presented to user after they authorized Tomboy for sync
 msgid "Tomboy Web Authorization Successful"
 msgstr "Tomboy veebiautoriseerimine oli edukas"
-
-msgid "Processing..."
-msgstr "Töötlemine..."
-
-msgid "Authorization Failed, Try Again"
-msgstr "Tõrge autoriseerimisel. Proovi uuesti"
-
-msgid "Connected. Press Save to start synchronizing"
-msgstr "Ühendatud. Sünkroniseerimise alustamiseks klõpsa salvestamise nupul"
 
 #. Translators: Body of web page presented to user after they authorized Tomboy for sync
 msgid ""
@@ -813,9 +800,16 @@ msgstr ""
 "Palun naase Tomboy eelistuste aknasse ja klõpra sünkroniseerimise "
 "alustamiseks salvestamise nupul."
 
+msgid "Connected. Press Save to start synchronizing"
+msgstr "Ühendatud. Sünkroniseerimise alustamiseks klõpsa salvestamise nupul"
+
 #. Translators: The user must take action in their web browser to continue the authorization process
 msgid "Authorizing in browser (Press to reset connection)"
 msgstr "Autoriseerimine veebisirvijas (Vajuta ühenduse lähtestamiseks)"
+
+#. Translators: Sometimes a user's default browser is not set, so we recommend setting it and trying again
+msgid "Set the default browser and try again"
+msgstr "Määra vaikimisi veebisirvija ja proovi uuesti"
 
 #. Translators: This is the name of "Window" menu in the Mac menubar
 msgid "_Window"
@@ -928,17 +922,18 @@ msgstr[1] "Kas kustutada need {0} märget?"
 msgid "If you delete a note it is permanently lost."
 msgstr "Kui sa märkme kustutad, siis on see jäädavalt kadunud."
 
-msgid "Error saving note data."
-msgstr "Viga märkme andmete salvestamisel."
-
+#, csharp-format
 msgid ""
 "An error occurred while saving your notes. Please check that you have "
-"sufficient disk space, and that you have appropriate rights on ~/.tomboy. "
-"Error details can be found in ~/.tomboy.log."
+"sufficient disk space, and that you have appropriate rights on {0}. Error "
+"details can be found in {0}."
 msgstr ""
 "Sinu märkmete salvestamise käigus tekkis viga. Palun kontrolli, kas Sul on "
-"piisavalt vaba kettaruumi ja kas sul on kataloogi ~/.tomboy kirjutamiseks "
-"piisavalt õiguseis. Vea üksikasjad leiab failist ~/.tomboy.log."
+"piisavalt vaba kettaruumi ja kas sul on kataloogi {0} kirjutamiseks "
+"piisavalt õiguseis. Vea üksikasjad leiab failist {0}."
+
+msgid "Error saving note data."
+msgstr "Viga märkme andmete salvestamisel."
 
 #. New Note Template
 #. Translators: This is 'New Note' Template, not New 'Note Template'
@@ -1342,12 +1337,13 @@ msgstr ""
 "Tomboy on valmis Sinu märkmeid sünkroniseerima. Kas sa soovid kohe "
 "sünkroniseerida?"
 
+#, csharp-format
 msgid ""
 "Sorry, but something went wrong.  Please check your information and try "
-"again.  The ~/.tomboy.log might be useful too."
+"again.  The {0} might be useful too."
 msgstr ""
 "Vabandust, midagi läks viltu.  Palun kontrolli oma andmeid ja proovi uuesti. "
-"Võib-olla aitab sind logifaili ~/.tomboy.log uurimine."
+"Võib-olla aitab sind logifaili {0} uurimine."
 
 msgid "Error connecting :("
 msgstr "Viga ühendumisel :("
@@ -1411,8 +1407,9 @@ msgstr "Kaasaaitajad:"
 
 msgid "translator-credits"
 msgstr ""
-"Ivar Smolin <okul@linux.ee>, 2006-2009.\n"
-"Priit Laes <amd@store20.com>, 2007."
+"Ivar Smolin <okul linux ee>, 2006-2009.\n"
+"Priit Laes <amd store20 com>, 2007.\n"
+"Mattias Põldaru <mahfiaz gmail com>, 2009."
 
 msgid ""
 "Copyright © 2004-2007 Alex Graveley\n"
@@ -1467,27 +1464,9 @@ msgstr ""
 "  --highlight-search [tekst]\tAvatud märkmest teksti otsimine ja "
 "esiletõstmine.\n"
 
-#. TODO: Restore this functionality with addins
-#. usage +=
-#. Catalog.GetString (
-#. "  --check-plugin-unloading\tCheck if plugins are " +
-#. "unloaded properly.\n");
-msgid "D-BUS remote control disabled.\n"
-msgstr "D-BUS kaugjuhtimine on keelatud.\n"
-
 #, csharp-format
 msgid "Version {0}"
 msgstr "Versioon {0}"
-
-#, csharp-format
-msgid ""
-"Tomboy: unsupported option '{0}'\n"
-"Try 'tomboy --help' for more information.\n"
-"D-BUS remote control disabled."
-msgstr ""
-"Tomboy: toetamata võti '{0}'\n"
-"Täiendava teabe saamiseks proovi 'tomboy --help'.\n"
-"D-BUS kaugjuhtimine on keelatud."
 
 msgid " (new)"
 msgstr " (uus)"
