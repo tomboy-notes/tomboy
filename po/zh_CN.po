@@ -9,13 +9,13 @@ msgstr ""
 "Project-Id-Version: tomboy HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=tomboy&component=general\n"
-"POT-Creation-Date: 2009-07-06 22:19+0000\n"
-"PO-Revision-Date: 2009-06-23 14:01+0800\n"
-"Last-Translator: Ray Wang <raywang@gnome.org>\n"
+"POT-Creation-Date: 2009-11-27 01:23+0000\n"
+"PO-Revision-Date: 2009-11-29 11:03+0100\n"
+"Last-Translator: Tao Wei <weitao1979@gmail.com>\n"
 "Language-Team: Chinese (Simplified) <i18n-zh@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8\n"
+"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: ../data/GNOME_TomboyApplet.server.in.in.h:1
@@ -31,21 +31,26 @@ msgid "Tomboy Applet Factory"
 msgstr "阿帖小程序工厂"
 
 #: ../data/GNOME_TomboyApplet.server.in.in.h:4 ../data/tomboy.desktop.in.h:3
-#: ../Tomboy/Tray.cs:534
+#: ../Tomboy/Tray.cs:568
 msgid "Tomboy Notes"
 msgstr "阿帖便笺"
 
-#: ../data/GNOME_TomboyApplet.xml.h:1 ../Tomboy/ActionManager.cs:164
+#: ../data/GNOME_TomboyApplet.xml.h:1 ../Tomboy/ActionManager.cs:179
+#: ../Tomboy/Tray.cs:263
+msgid "S_ynchronize Notes"
+msgstr "同步便笺(_Y)"
+
+#: ../data/GNOME_TomboyApplet.xml.h:2 ../Tomboy/ActionManager.cs:164
 msgid "_About"
 msgstr "关于(_A)"
 
-#: ../data/GNOME_TomboyApplet.xml.h:2 ../Tomboy/ActionManager.cs:157
-#: ../Tomboy/Tray.cs:248
+#: ../data/GNOME_TomboyApplet.xml.h:3 ../Tomboy/ActionManager.cs:157
+#: ../Tomboy/Tray.cs:277
 msgid "_Help"
 msgstr "帮助(_H)"
 
-#: ../data/GNOME_TomboyApplet.xml.h:3 ../Tomboy/ActionManager.cs:153
-#: ../Tomboy/Tray.cs:243
+#: ../data/GNOME_TomboyApplet.xml.h:4 ../Tomboy/ActionManager.cs:153
+#: ../Tomboy/Tray.cs:272
 msgid "_Preferences"
 msgstr "首选项(_P)"
 
@@ -55,7 +60,7 @@ msgstr "记事本"
 
 #: ../data/tomboy.desktop.in.h:2
 msgid "Take notes, link ideas, and stay organized"
-msgstr "记录笔记，链接想法，良好的组织"
+msgstr "记录便笺，链接想法，良好的组织"
 
 #: ../data/tomboy.schemas.in.h:1
 msgid "Accept SSL Certificates"
@@ -224,100 +229,110 @@ msgid "List of pinned notes."
 msgstr "加钉便笺列表。"
 
 #: ../data/tomboy.schemas.in.h:33
+msgid ""
+"Maximum characters of note title to show in the Tomboy tray or panel applet "
+"note menu."
+msgstr "在 Tomboy 托盘或者面板小程序便笺菜单中显示的最大便笺标题字符。"
+
+#: ../data/tomboy.schemas.in.h:34
+msgid "Maximum note title length to show in tray menu."
+msgstr "在托盘菜单中显示的最大便笺标题长度。"
+
+#: ../data/tomboy.schemas.in.h:35
 msgid "Minimum number of notes to show in menu"
 msgstr "菜单中要显示的最少便笺数"
 
-#: ../data/tomboy.schemas.in.h:34
+#: ../data/tomboy.schemas.in.h:36
 msgid "Note Synchronization Conflict Saved Behavior"
 msgstr "便笺同步冲突保存行为"
 
-#: ../data/tomboy.schemas.in.h:35
+#: ../data/tomboy.schemas.in.h:37
 msgid "Open Recent Changes"
 msgstr "打开最近的更改"
 
-#: ../data/tomboy.schemas.in.h:36
+#: ../data/tomboy.schemas.in.h:38
 msgid "Open Search Dialog"
 msgstr "打开搜索对话框"
 
-#: ../data/tomboy.schemas.in.h:37
+#: ../data/tomboy.schemas.in.h:39
 msgid "Open Start Here"
 msgstr "打开“从这里开始”"
 
-#: ../data/tomboy.schemas.in.h:38
+#: ../data/tomboy.schemas.in.h:40
 msgid "Path on SSH server to Tomboy synchronization directory (optional)."
 msgstr "SSH 服务器到 Tomboy 同步目录的路径 (可选)。"
 
-#: ../data/tomboy.schemas.in.h:39
+#: ../data/tomboy.schemas.in.h:41
 msgid ""
 "Path to the synchronization server when using the filesystem synchronization "
 "service addin."
 msgstr "使用文件系统同步服务插件时的同步服务器路径。"
 
-#: ../data/tomboy.schemas.in.h:40
+#: ../data/tomboy.schemas.in.h:42
 msgid "SSHFS Remote Synchronization Folder"
 msgstr "SSHFS 远程同步文件夹"
 
-#: ../data/tomboy.schemas.in.h:41
+#: ../data/tomboy.schemas.in.h:43
 msgid "SSHFS Remote Synchronization User Name"
 msgstr "SSHFS 远程同步用户名"
 
-#: ../data/tomboy.schemas.in.h:42
+#: ../data/tomboy.schemas.in.h:44
 msgid "SSHFS Synchronization Server Port"
 msgstr "SSHFS 同步服务器端口"
 
-#: ../data/tomboy.schemas.in.h:43
+#: ../data/tomboy.schemas.in.h:45
 msgid "SSHFS Synchronization Server URL"
 msgstr "SSHFS 同步服务器 URL"
 
-#: ../data/tomboy.schemas.in.h:44
+#: ../data/tomboy.schemas.in.h:46
 msgid "Saved height of Search window"
 msgstr "保存的搜索窗口高度"
 
-#: ../data/tomboy.schemas.in.h:45
+#: ../data/tomboy.schemas.in.h:47
 msgid "Saved horizontal position of Search window"
 msgstr "保存的搜索窗口水平位置"
 
-#: ../data/tomboy.schemas.in.h:46
+#: ../data/tomboy.schemas.in.h:48
 msgid "Saved vertical position of Search window"
 msgstr "保存的搜索窗口垂直位置"
 
-#: ../data/tomboy.schemas.in.h:47
+#: ../data/tomboy.schemas.in.h:49
 msgid "Saved width of Search window"
 msgstr "保存的搜索窗口宽度"
 
-#: ../data/tomboy.schemas.in.h:48
+#: ../data/tomboy.schemas.in.h:50
 msgid "Selected Synchronization Service Addin"
 msgstr "所选的同步服务插件"
 
-#: ../data/tomboy.schemas.in.h:49
+#: ../data/tomboy.schemas.in.h:51
 msgid "Set to TRUE to activate"
 msgstr "设为 TRUE 可激活"
 
-#: ../data/tomboy.schemas.in.h:50
+#: ../data/tomboy.schemas.in.h:52
 msgid "Show applet menu"
 msgstr "显示小程序菜单"
 
-#: ../data/tomboy.schemas.in.h:51
+#: ../data/tomboy.schemas.in.h:53
 msgid "Start Here Note"
 msgstr "“从这里开始”便笺"
 
-#: ../data/tomboy.schemas.in.h:52
+#: ../data/tomboy.schemas.in.h:54
 msgid "Sticky Note Importer First Run"
 msgstr "置顶便笺导入器首次运行"
 
-#: ../data/tomboy.schemas.in.h:53
+#: ../data/tomboy.schemas.in.h:55
 msgid "Synchronization Client ID"
 msgstr "同步客户端 ID"
 
-#: ../data/tomboy.schemas.in.h:54
+#: ../data/tomboy.schemas.in.h:56
 msgid "Synchronization Local Server Path"
 msgstr "本地同步服务器路径"
 
-#: ../data/tomboy.schemas.in.h:55
+#: ../data/tomboy.schemas.in.h:57
 msgid "The date format that is used for the timestamp."
 msgstr "用于时间戳的日期格式。"
 
-#: ../data/tomboy.schemas.in.h:56
+#: ../data/tomboy.schemas.in.h:58
 msgid ""
 "The global keybinding for creating and displaying a new Note. The format "
 "looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The "
@@ -331,7 +346,7 @@ msgstr ""
 "如“&lt;Ctl&gt;”和“&lt;Ctrl&gt;”。如果将该选项设置为特殊字符串“disabled”，那么"
 "此操作将没有按键组合。"
 
-#: ../data/tomboy.schemas.in.h:57
+#: ../data/tomboy.schemas.in.h:59
 msgid ""
 "The global keybinding for opening the \"Start Here\" note. The format looks "
 "like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
@@ -345,7 +360,7 @@ msgstr ""
 "如“&lt;Ctl&gt;”和“&lt;Ctrl&gt;”。如果将该选项设置为特殊字符串“disabled”，那么"
 "此操作将没有按键组合。"
 
-#: ../data/tomboy.schemas.in.h:58
+#: ../data/tomboy.schemas.in.h:60
 msgid ""
 "The global keybinding for opening the Note Search dialog. The format looks "
 "like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
@@ -359,7 +374,7 @@ msgstr ""
 "如“&lt;Ctl&gt;”和“&lt;Ctrl&gt;”。如果将该选项设置为特殊字符串“disabled”，那么"
 "此操作将没有按键组合。"
 
-#: ../data/tomboy.schemas.in.h:59
+#: ../data/tomboy.schemas.in.h:61
 msgid ""
 "The global keybinding for opening the Recent Changes dialog. The format "
 "looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The "
@@ -373,7 +388,7 @@ msgstr ""
 "如“&lt;Ctl&gt;”和“&lt;Ctrl&gt;”。如果将该选项设置为特殊字符串“disabled”，那么"
 "此操作将没有按键组合。"
 
-#: ../data/tomboy.schemas.in.h:60
+#: ../data/tomboy.schemas.in.h:62
 msgid ""
 "The global keybinding for showing the Tomboy applet's menu. The format looks "
 "like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
@@ -387,22 +402,22 @@ msgstr ""
 "如“&lt;Ctl&gt;”和“&lt;Ctrl&gt;”。如果将该选项设置为特殊字符串“disabled”，那么"
 "此操作将没有按键组合。"
 
-#: ../data/tomboy.schemas.in.h:61
+#: ../data/tomboy.schemas.in.h:63
 msgid "The handler for \"note://\" URLs"
-msgstr "“note://” 类型 URL 的处理程序"
+msgstr "“note://” 类型网址的处理器"
 
-#: ../data/tomboy.schemas.in.h:62
+#: ../data/tomboy.schemas.in.h:64
 msgid ""
 "The last directory a note was exported to using the Export To HTML plugin."
 msgstr "使用导出至 HTML 插件导出便笺时上次使用的目录。"
 
-#: ../data/tomboy.schemas.in.h:63
+#: ../data/tomboy.schemas.in.h:65
 msgid ""
 "The last setting for the 'Export linked notes' checkbox in the Export to "
 "HTML plugin."
 msgstr "导出到 HTML 插件中“导出链接的便笺”复选框上次的选中状态。"
 
-#: ../data/tomboy.schemas.in.h:64
+#: ../data/tomboy.schemas.in.h:66
 msgid ""
 "The last setting for the 'Include all other linked notes' checkbox in the "
 "Export to HTML plugin. This setting is used in conjunction with the 'HTML "
@@ -412,7 +427,7 @@ msgstr ""
 "导出至 HTML 插件中“包含链接的全部便笺”的上次设置。此设置将与“HTML 导出链接的"
 "便笺”设置组合使用，用于指定在导出至 HTML 时是否应递归包含所涉及的全部便笺。"
 
-#: ../data/tomboy.schemas.in.h:65
+#: ../data/tomboy.schemas.in.h:67
 msgid ""
 "The note URI of the note that should be considered the \"Start Here\" note, "
 "which is always placed at the bottom of the Tomboy note menu and also "
@@ -421,48 +436,52 @@ msgstr ""
 "应被视为“从这里开始”便笺的 URI，它将总显示在阿帖便笺菜单的底端，并且可以用快"
 "捷键访问。"
 
-#: ../data/tomboy.schemas.in.h:66
-msgid "The port to use when connecting to the synchronization server via SSH."
-msgstr "通过·SSH·连接同步服务器时使用的端口。"
+#: ../data/tomboy.schemas.in.h:68
+msgid ""
+"The port to use when connecting to the synchronization server via SSH. Set "
+"to -1 or less if default SSH port settings should be used instead."
+msgstr ""
+"通过 SSH 连接同步服务器时使用的端口。如果想使用默认的 SSH 端口，那么设为 -1 "
+"或者更小。"
 
-#: ../data/tomboy.schemas.in.h:67
+#: ../data/tomboy.schemas.in.h:69
 msgid ""
 "Time (in milliseconds) Tomboy should wait for a response when using FUSE to "
 "mount a sync share."
 msgstr ""
 "时间 (毫秒) 当使用 FUSE 来挂载一个同步共享时，Tomboy 需要等待一个回应。"
 
-#: ../data/tomboy.schemas.in.h:68
+#: ../data/tomboy.schemas.in.h:70
 msgid "Timestamp format"
 msgstr "时间戳格式"
 
-#: ../data/tomboy.schemas.in.h:69
+#: ../data/tomboy.schemas.in.h:71
 msgid "URL of SSH server containing Tomboy synchronization directory."
 msgstr "包含 Tomboy·同步目录的 SSH·服务器 URL。"
 
-#: ../data/tomboy.schemas.in.h:70
+#: ../data/tomboy.schemas.in.h:72
 msgid ""
 "Unique identifier for the currently configured note synchronization service "
 "addin."
 msgstr "目前已配置的便笺同步服务插件的唯一标识符"
 
-#: ../data/tomboy.schemas.in.h:71
+#: ../data/tomboy.schemas.in.h:73
 msgid ""
 "Unique identifier for this Tomboy client, used when communicating with a "
 "sychronization server."
 msgstr "此阿帖客户端的唯一标识符，用于与同步服务器通讯。"
 
-#: ../data/tomboy.schemas.in.h:72
+#: ../data/tomboy.schemas.in.h:74
 msgid ""
 "Use wdfs option \"-ac\" to accept SSL certificates without prompting the "
 "user."
 msgstr "使用·wdfs·选项·\"-ac\"·让用户接受·SSL·证书时不出现提示信息。"
 
-#: ../data/tomboy.schemas.in.h:73
+#: ../data/tomboy.schemas.in.h:75
 msgid "User name to use when connecting to the synchronization server via SSH."
 msgstr "通过 SSH 连接同步服务器时使用的用户名。"
 
-#: ../data/tomboy.schemas.in.h:74
+#: ../data/tomboy.schemas.in.h:76
 msgid ""
 "Whitespace-separated list of note URIs for notes that should always appear "
 "in the Tomboy note menu."
@@ -504,7 +523,7 @@ msgstr "关闭(_C)"
 msgid "Close this window"
 msgstr "关闭此窗口"
 
-#: ../Tomboy/ActionManager.cs:146 ../Tomboy/Tray.cs:260
+#: ../Tomboy/ActionManager.cs:146 ../Tomboy/Tray.cs:289
 msgid "_Quit"
 msgstr "退出(_Q)"
 
@@ -548,10 +567,6 @@ msgstr "搜索全部便笺(_S)"
 msgid "Open the Search All Notes window"
 msgstr "打开搜索全部便笺窗口"
 
-#: ../Tomboy/ActionManager.cs:179
-msgid "S_ynchronize Notes"
-msgstr "同步便笺(_Y)"
-
 #: ../Tomboy/ActionManager.cs:180
 msgid "Start synchronizing notes"
 msgstr "开始同步便笺"
@@ -564,7 +579,7 @@ msgstr "反向链接"
 msgid "(none)"
 msgstr "(无)"
 
-#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:32
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:23
 msgid ""
 "You can use any bugzilla just by dragging links into notes.  If you want a "
 "special icon for certain hosts, add them here."
@@ -572,44 +587,44 @@ msgstr ""
 "您可以使用任何 Bugzilla 项目，只需将其链接拖曳到便笺中。如果你希望为特定主机"
 "使用特殊图标，请在此处添加。"
 
-#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:50
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:41
 msgid "Host Name"
 msgstr "主机名"
 
-#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:67
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:58
 msgid "Icon"
 msgstr "图标"
 
-#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:185
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:176
 msgid "Select an icon..."
 msgstr "选择图标..."
 
 #. Extra Widget
-#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:200
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:191
 msgid "_Host name:"
 msgstr "主机名(_H)："
 
-#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:229
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:220
 msgid "No host name specified"
 msgstr "未指定主机名"
 
-#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:230
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:221
 msgid "You must specify the Bugzilla host name to use with this icon."
 msgstr "要使用此图标，您必须指定 Bugzilla 主机名。"
 
-#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:256
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:247
 msgid "Error saving icon"
 msgstr "保存图标时出错"
 
-#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:257
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:248
 msgid "Could not save the icon file."
 msgstr "无法保存图标文件。"
 
-#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:311
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:302
 msgid "Really remove this icon?"
 msgstr "真的要删除此图标吗？"
 
-#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:312
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:303
 msgid "If you remove an icon it is permanently lost."
 msgstr "如果您删除了图标，其内容将永久丢失。"
 
@@ -617,24 +632,24 @@ msgstr "如果您删除了图标，其内容将永久丢失。"
 msgid "Export to HTML"
 msgstr "导出为 HTML"
 
-#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:113
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:114
 #, csharp-format
 msgid "Your note was exported to \"{0}\"."
 msgstr "您的便笺已导出为“{0}”。"
 
-#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:124
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:125
 msgid "Note exported successfully"
 msgstr "便笺导出成功"
 
-#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:130
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:131
 msgid "Access denied."
 msgstr "访问被禁止。"
 
-#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:132
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:133
 msgid "Folder does not exist."
 msgstr "文件夹不存在。"
 
-#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:147
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:148
 #, csharp-format
 msgid "Could not save the file \"{0}\""
 msgstr "无法保存文件“{0}”"
@@ -655,28 +670,28 @@ msgstr "包含链接的全部其它便笺"
 msgid "Cannot open email"
 msgstr "无法打开电子邮件"
 
-#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:91
+#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:93
 msgid "_Folder Path:"
 msgstr "文件夹路径(_F)："
 
-#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:101
+#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:109
 msgid "_Browse..."
 msgstr "浏览(_B)..."
 
-#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:120
+#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:128
 msgid "Select Synchronization Folder..."
 msgstr "选择同步文件夹..."
 
-#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:148
+#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:156
 msgid "Folder path field is empty."
 msgstr "文件夹路径为空。"
 
-#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:157
+#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:165
 msgid ""
 "Specified folder path does not exist, and Tomboy was unable to create it."
 msgstr "特殊文件夹路径不存在，阿帖无法创建它。"
 
-#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:235
+#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:243
 msgid "Local Folder"
 msgstr "本地文件夹"
 
@@ -700,7 +715,7 @@ msgstr "插入时间戳"
 
 #. initial newline
 #: ../Tomboy/Addins/InsertTimestamp/InsertTimestampPreferences.cs:29
-#: ../Tomboy/Applet.cs:210 ../Tomboy/Preferences.cs:133
+#: ../Tomboy/Applet.cs:216 ../Tomboy/Preferences.cs:137
 msgid "dddd, MMMM d, h:mm tt"
 msgstr "M 月 dd 日 dddd h:mm tt"
 
@@ -771,37 +786,37 @@ msgstr "yyyy 年 MM 月 dd 日 dddd hh:mm:ss tt"
 msgid "Add a sketch"
 msgstr "添加草图"
 
-#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:43
-#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:49
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:47
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:59
 msgid "Se_rver:"
 msgstr "服务器(_R)："
 
-#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:52
-#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:60
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:51
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:59
 msgid "User_name:"
 msgstr "用户名(_N)："
 
-#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:61
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:55
 msgid "_Folder Path (optional):"
 msgstr "文件夹路径(可选)(_F)："
 
 #. Text for label describing setup required for SSH sync addin to work
-#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:71
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:58
 msgid ""
 "SSH synchronization requires an existing SSH key for this server and user, "
 "added to a running SSH daemon."
 msgstr ""
 "SSH 同步需要将该服务器和用户的已有 SSH 钥匙添加到正在运行的 SSH 守护进程。"
 
-#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:95
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:82
 msgid "Server or username field is empty."
 msgstr "服务器或用户名为空。"
 
-#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:143
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:130
 msgid "SSH (sshfs FUSE)"
 msgstr "SSH (sshfs FUSE)"
 
-#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:191
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:179
 msgid ""
 "Timeout connecting to server. Please ensure that your SSH key has been added "
 "to a running SSH daemon."
@@ -858,23 +873,23 @@ msgstr "--- Tasque 未运行 ---"
 msgid "_Underline"
 msgstr "下划线(_U)"
 
-#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:51
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:55
 msgid "_URL:"
 msgstr "_URL："
 
-#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:69
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:64
 msgid "_Password:"
 msgstr "密码(_P)："
 
-#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:90
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:77
 msgid "URL, username, or password field is empty."
 msgstr "URL、用户名或密码为空。"
 
-#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:132
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:119
 msgid "WebDAV (wdfs FUSE)"
 msgstr "WebDAV (wdfs FUSE)"
 
-#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:191
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:178
 msgid ""
 "There was an error connecting to the server.  This may be caused by using an "
 "incorrect user name and/or password."
@@ -885,7 +900,7 @@ msgstr "连接到服务器出错。可能是因为用户名或密码错误。"
 #. Save configuration into GConf
 #. Preferences.Set ("/apps/tomboy/sync_wdfs_url", url ?? string.Empty);
 #. Preferences.Set ("/apps/tomboy/sync_wdfs_username", username ?? string.Empty);
-#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:267
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:254
 msgid ""
 "Saving configuration to the GNOME keyring failed with the following message:"
 msgstr "将配置保存到 GNOME 密钥环时失败，出错信息如下："
@@ -894,50 +909,55 @@ msgstr "将配置保存到 GNOME 密钥环时失败，出错信息如下："
 msgid "Tomboy Web"
 msgstr "阿帖网站"
 
-#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:56
-#, fuzzy
-#| msgid "Connecting to the server..."
-msgid "_Connect to Server"
-msgstr "正在连接到服务器..."
-
-#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:58
-msgid "Connected"
-msgstr ""
-
-#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:86
-#, fuzzy
-#| msgid "Connecting to the server..."
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:66
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:96
 msgid "Connect to Server"
-msgstr "正在连接到服务器..."
+msgstr "连接到服务器"
 
-#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:111
-msgid "Server not responding. Try again later."
-msgstr ""
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:68
+msgid "Connected"
+msgstr "连接的"
 
-#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:118
-msgid "Click Here After Authorizing"
-msgstr ""
-
-#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:121
-msgid "Set the default browser and try again"
-msgstr ""
-
+#. Translators: The web service supporting Tomboy WebSync is not responding as expected
 #: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:125
-msgid "Processing..."
-msgstr ""
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:156
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:170
+msgid "Server not responding. Try again later."
+msgstr "服务器没有响应。以后在重新尝试。"
 
-#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:136
-#, fuzzy
-#| msgid "Synchronization Failed"
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:201
 msgid "Authorization Failed, Try Again"
-msgstr "同步失败"
+msgstr "认证失败，重试"
 
-#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:143
-msgid "Connected. Click Save to start synchronizing"
-msgstr ""
+#. Translators: Title of web page presented to user after they authorized Tomboy for sync
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:210
+msgid "Tomboy Web Authorization Successful"
+msgstr "Tomboy 网络认证成功"
+
+#. Translators: Body of web page presented to user after they authorized Tomboy for sync
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:212
+msgid ""
+"Please return to the Tomboy Preferences window and press Save to start "
+"synchronizing."
+msgstr "请返回到 Tomboy 首选项窗口并按下保存来开始同步。"
+
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:221
+msgid "Connected. Press Save to start synchronizing"
+msgstr "已经连接。按下保存来开始同步"
+
+#. Translators: The user must take action in their web browser to continue the authorization process
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:227
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:239
+msgid "Authorizing in browser (Press to reset connection)"
+msgstr "在浏览器中认证(按下来重置连接)"
+
+#. Translators: Sometimes a user's default browser is not set, so we recommend setting it and trying again
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:235
+msgid "Set the default browser and try again"
+msgstr "设定默认浏览器并重试"
 
 #. Translators: This is the name of "Window" menu in the Mac menubar
-#: ../Tomboy/MacApplication.cs:160
+#: ../Tomboy/MacApplication.cs:215
 msgid "_Window"
 msgstr "窗口(_W)"
 
@@ -1023,7 +1043,7 @@ msgid "Delete the selected notebook"
 msgstr "删除选中笔记本"
 
 #: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:68
-#: ../Tomboy/RecentChanges.cs:253
+#: ../Tomboy/RecentChanges.cs:251
 msgid "Notebooks"
 msgstr "笔记本"
 
@@ -1051,15 +1071,15 @@ msgstr "没有笔记本"
 msgid "New \"{0}\" Note"
 msgstr "新建“{0}”便笺"
 
-#: ../Tomboy/Notebooks/NotebookNoteAddin.cs:45
+#: ../Tomboy/Notebooks/NotebookNoteAddin.cs:46
 msgid "Place this note into a notebook"
 msgstr "将此便笺放入一个笔记本"
 
-#: ../Tomboy/Notebooks/NotebookNoteAddin.cs:126
+#: ../Tomboy/Notebooks/NotebookNoteAddin.cs:127
 msgid "Notebook"
 msgstr "笔记本"
 
-#: ../Tomboy/Notebooks/NotebookNoteAddin.cs:155
+#: ../Tomboy/Notebooks/NotebookNoteAddin.cs:156
 msgid "_New notebook..."
 msgstr "新建笔记本(_N)..."
 
@@ -1077,26 +1097,60 @@ msgstr[0] "真的要删除 {0} 个便笺吗？"
 msgid "If you delete a note it is permanently lost."
 msgstr "如果您删除了便笺，其内容将永久丢失。"
 
-#: ../Tomboy/Note.cs:1497
+#: ../Tomboy/Note.cs:1491
+#, csharp-format
+msgid ""
+"An error occurred while saving your notes. Please check that you have "
+"sufficient disk space, and that you have appropriate rights on {0}. Error "
+"details can be found in {0}."
+msgstr ""
+"保存您的便笺时发生了错误。请检查您是否有足够的磁盘空间，以及您在 {0} 是否有足"
+"够的权限。错误细节可在 {0} 中找到。"
+
+#: ../Tomboy/Note.cs:1507
 msgid "Error saving note data."
 msgstr "保存便笺数据时出错。"
 
-#: ../Tomboy/Note.cs:1498
-msgid ""
-"An error occurred while saving your notes. Please check that you have "
-"sufficient disk space, and that you have appropriate rights on ~/.tomboy. "
-"Error details can be found in ~/.tomboy.log."
-msgstr ""
-"保存您的便笺时发生了错误。请检查您是否有足够的磁盘空间，以及您在 ~/.tomboy 是"
-"否有足够的权限。错误细节可在 ~/.tomboy.log 中找到。"
-
 #. New Note Template
 #. Translators: This is 'New Note' Template, not New 'Note Template'
-#: ../Tomboy/NoteManager.cs:19 ../Tomboy/PreferencesDialog.cs:210
+#: ../Tomboy/NoteManager.cs:19 ../Tomboy/PreferencesDialog.cs:208
 msgid "New Note Template"
 msgstr "新建便笺模板"
 
-#: ../Tomboy/NoteManager.cs:135
+#. Create migration notification note
+#. Translators: The title of the data migration note
+#: ../Tomboy/NoteManager.cs:111
+msgid "Your Notes Have Moved!"
+msgstr "您的笔记已经移除！"
+
+#. Translators: The contents (not including the title) of the data migration note. {0}, {1}, {2}, {3}, and {4} are replaced by directory paths and should not be changed
+#: ../Tomboy/NoteManager.cs:124
+#, csharp-format
+msgid ""
+"In the latest version of Tomboy, your note files have moved.  You have "
+"probably never cared where your notes are stored, and if you still don't "
+"care, please go ahead and <bold>delete this note</bold>.  :-)\n"
+"\n"
+"Your old note directory is still safe and sound at <link:url>{0}</link:"
+"url> . If you go back to an older version of Tomboy, it will look for notes "
+"there.\n"
+"\n"
+"But we've copied your notes and configuration info into new directories, "
+"which will be used from now on:\n"
+"\n"
+"<list><list-item dir=\"ltr\">Notes can now be found at <link:url>{1}</link:"
+"url>\n"
+"</list-item><list-item dir=\"ltr\">Configuration is at <link:url>{2}</link:"
+"url>\n"
+"</list-item><list-item dir=\"ltr\">You can install add-ins at <link:url>{3}</"
+"link:url>\n"
+"</list-item><list-item dir=\"ltr\">Log files can be found at <link:url>{4}</"
+"link:url></list-item></list>\n"
+"\n"
+"Ciao!"
+msgstr ""
+
+#: ../Tomboy/NoteManager.cs:222
 msgid ""
 "<note-content>Start Here\n"
 "\n"
@@ -1131,7 +1185,7 @@ msgstr ""
 "是否已经注意到，我们每次输入<link:internal>在阿帖中使用链接</link:internal>的"
 "时候，都会自动加下划线？单击链接即可打开该便笺。</note-content>"
 
-#: ../Tomboy/NoteManager.cs:154
+#: ../Tomboy/NoteManager.cs:241
 msgid ""
 "<note-content>Using Links in Tomboy\n"
 "\n"
@@ -1159,22 +1213,22 @@ msgstr ""
 "</note-content>"
 
 #. Attempt to find an existing Start Here note
-#: ../Tomboy/NoteManager.cs:169 ../Tomboy/NoteManager.cs:237
+#: ../Tomboy/NoteManager.cs:256 ../Tomboy/NoteManager.cs:324
 msgid "Start Here"
 msgstr "从这里开始"
 
-#: ../Tomboy/NoteManager.cs:174
+#: ../Tomboy/NoteManager.cs:261
 msgid "Using Links in Tomboy"
 msgstr "在阿帖中使用链接"
 
-#: ../Tomboy/NoteManager.cs:314
+#: ../Tomboy/NoteManager.cs:401
 #, csharp-format
 msgid "New Note {0}"
 msgstr "新便笺 {0}"
 
 #. Use a simple "Describe..." body and highlight
 #. it so it can be easily overwritten
-#: ../Tomboy/NoteManager.cs:387 ../Tomboy/NoteManager.cs:479
+#: ../Tomboy/NoteManager.cs:474 ../Tomboy/NoteManager.cs:566
 msgid "Describe your new note here."
 msgstr "在此描述您的新便笺。"
 
@@ -1290,62 +1344,62 @@ msgstr "字体大小"
 msgid "_Normal"
 msgstr "普通(_N)"
 
-#: ../Tomboy/NoteWindow.cs:1317
+#: ../Tomboy/NoteWindow.cs:1327
 msgid "Hu_ge"
 msgstr "巨大(_G)"
 
-#: ../Tomboy/NoteWindow.cs:1325
+#: ../Tomboy/NoteWindow.cs:1335
 msgid "_Large"
 msgstr "大(_L)"
 
-#: ../Tomboy/NoteWindow.cs:1333
+#: ../Tomboy/NoteWindow.cs:1343
 msgid "S_mall"
 msgstr "小(_M)"
 
-#: ../Tomboy/NoteWindow.cs:1342
+#: ../Tomboy/NoteWindow.cs:1352
 msgid "Increase Font Size"
 msgstr "增大字号"
 
-#: ../Tomboy/NoteWindow.cs:1350
+#: ../Tomboy/NoteWindow.cs:1370
 msgid "Decrease Font Size"
 msgstr "减小字号"
 
-#: ../Tomboy/NoteWindow.cs:1360
+#: ../Tomboy/NoteWindow.cs:1390
 msgid "Bullets"
 msgstr "项目符号"
 
-#: ../Tomboy/PreferencesDialog.cs:80
+#: ../Tomboy/PreferencesDialog.cs:78
 msgid "Editing"
 msgstr "编辑"
 
-#: ../Tomboy/PreferencesDialog.cs:83
+#: ../Tomboy/PreferencesDialog.cs:81
 msgid "Hotkeys"
 msgstr "热键"
 
-#: ../Tomboy/PreferencesDialog.cs:85
+#: ../Tomboy/PreferencesDialog.cs:83
 msgid "Synchronization"
 msgstr "同步"
 
-#: ../Tomboy/PreferencesDialog.cs:87
+#: ../Tomboy/PreferencesDialog.cs:85
 msgid "Add-ins"
 msgstr "添加项"
 
-#: ../Tomboy/PreferencesDialog.cs:146
+#: ../Tomboy/PreferencesDialog.cs:144
 msgid "_Spell check while typing"
 msgstr "输入时检查拼写(_S)"
 
-#: ../Tomboy/PreferencesDialog.cs:155
+#: ../Tomboy/PreferencesDialog.cs:153
 msgid ""
 "Misspellings will be underlined in red, with correct spelling suggestions "
 "shown in the context menu."
 msgstr "拼错的单词将以红色显示，而纠正拼写错误的建议将显示在右键菜单中。"
 
 #. WikiWords...
-#: ../Tomboy/PreferencesDialog.cs:166
+#: ../Tomboy/PreferencesDialog.cs:164
 msgid "Highlight _WikiWords"
 msgstr "加亮 _WikiWords"
 
-#: ../Tomboy/PreferencesDialog.cs:174
+#: ../Tomboy/PreferencesDialog.cs:172
 msgid ""
 "Enable this option to highlight words <b>ThatLookLikeThis</b>. Clicking the "
 "word will create a note with that name."
@@ -1353,31 +1407,31 @@ msgstr ""
 "启用此选项将加亮类似 <b>WikiWords</b> 的单词。单击此单词将以该名称创建便笺。"
 
 #. Auto bulleted list
-#: ../Tomboy/PreferencesDialog.cs:181
+#: ../Tomboy/PreferencesDialog.cs:179
 msgid "Enable auto-_bulleted lists"
 msgstr "允许对列表自动编号(_B)"
 
 #. Custom font...
-#: ../Tomboy/PreferencesDialog.cs:190
+#: ../Tomboy/PreferencesDialog.cs:188
 msgid "Use custom _font"
 msgstr "使用自定义字体(_F)"
 
-#: ../Tomboy/PreferencesDialog.cs:214
+#: ../Tomboy/PreferencesDialog.cs:212
 msgid ""
 "Use the new note template to specify the text that should be used when "
 "creating a new note."
 msgstr "创建新的便笺时使用新的便笺模板来设定应使用的文字。"
 
-#: ../Tomboy/PreferencesDialog.cs:223
+#: ../Tomboy/PreferencesDialog.cs:221
 msgid "Open New Note Template"
 msgstr "打开新的便笺模板"
 
 #. Hotkeys...
-#: ../Tomboy/PreferencesDialog.cs:280
+#: ../Tomboy/PreferencesDialog.cs:278
 msgid "Listen for _Hotkeys"
 msgstr "监听热键(_H)"
 
-#: ../Tomboy/PreferencesDialog.cs:289
+#: ../Tomboy/PreferencesDialog.cs:287
 msgid ""
 "Hotkeys allow you to quickly access your notes from anywhere with a "
 "keypress. Example Hotkeys: <b>&lt;Control&gt;&lt;Shift&gt;F11</b>, <b>&lt;"
@@ -1387,105 +1441,105 @@ msgstr ""
 "b>，<b>&lt;Alt&gt;N</b>"
 
 #. Show notes menu keybinding...
-#: ../Tomboy/PreferencesDialog.cs:309
+#: ../Tomboy/PreferencesDialog.cs:307
 msgid "Show notes _menu"
 msgstr "显示便笺菜单(_M)"
 
 #. Open Start Here keybinding...
-#: ../Tomboy/PreferencesDialog.cs:326
+#: ../Tomboy/PreferencesDialog.cs:324
 msgid "Open \"_Start Here\""
 msgstr "打开“从这里开始”(_S)"
 
 #. Create new note keybinding...
-#: ../Tomboy/PreferencesDialog.cs:343
+#: ../Tomboy/PreferencesDialog.cs:341
 msgid "Create _new note"
 msgstr "创建新便笺(_N)"
 
 #. Open Search All Notes window keybinding...
-#: ../Tomboy/PreferencesDialog.cs:360
+#: ../Tomboy/PreferencesDialog.cs:358
 msgid "Open \"Search _All Notes\""
 msgstr "打开“搜索全部便笺”(_A)"
 
-#: ../Tomboy/PreferencesDialog.cs:387
+#: ../Tomboy/PreferencesDialog.cs:385
 msgid "Ser_vice:"
 msgstr "服务(_V)："
 
-#: ../Tomboy/PreferencesDialog.cs:440 ../Tomboy/PreferencesDialog.cs:1033
+#: ../Tomboy/PreferencesDialog.cs:438 ../Tomboy/PreferencesDialog.cs:1031
 msgid "Not configurable"
 msgstr "不可配置"
 
 #. "Advanced..." button to bring up extra sync config dialog
-#: ../Tomboy/PreferencesDialog.cs:460
+#: ../Tomboy/PreferencesDialog.cs:458
 msgid "_Advanced..."
 msgstr "高级(_A)..."
 
-#: ../Tomboy/PreferencesDialog.cs:521
+#: ../Tomboy/PreferencesDialog.cs:519
 msgid "The following add-ins are installed"
 msgstr "已安装以下添加项"
 
-#: ../Tomboy/PreferencesDialog.cs:542
+#: ../Tomboy/PreferencesDialog.cs:540
 msgid "Get More Add-Ins..."
-msgstr ""
+msgstr "获取更多插件..."
 
-#: ../Tomboy/PreferencesDialog.cs:568
+#: ../Tomboy/PreferencesDialog.cs:566
 msgid "_Enable"
 msgstr "启用(_E)"
 
-#: ../Tomboy/PreferencesDialog.cs:574
+#: ../Tomboy/PreferencesDialog.cs:572
 msgid "_Disable"
 msgstr "禁用(_D)"
 
-#: ../Tomboy/PreferencesDialog.cs:705
+#: ../Tomboy/PreferencesDialog.cs:703
 msgid "Not Implemented"
 msgstr "尚未实现"
 
-#: ../Tomboy/PreferencesDialog.cs:719
+#: ../Tomboy/PreferencesDialog.cs:717
 #, csharp-format
 msgid "{0} Preferences"
 msgstr "{0} 首选项"
 
-#: ../Tomboy/PreferencesDialog.cs:858
+#: ../Tomboy/PreferencesDialog.cs:856
 msgid "Choose Note Font"
 msgstr "选择便笺字体"
 
-#: ../Tomboy/PreferencesDialog.cs:902
+#: ../Tomboy/PreferencesDialog.cs:900
 msgid "Other Synchronization Options"
 msgstr "其它同步选项"
 
-#: ../Tomboy/PreferencesDialog.cs:908
+#: ../Tomboy/PreferencesDialog.cs:906
 msgid ""
 "When a conflict is detected between a local note and a note on the "
 "configured synchronization server:"
 msgstr "当检测到本地便笺和所配置的同步服务器上的便笺有冲突时："
 
-#: ../Tomboy/PreferencesDialog.cs:915
+#: ../Tomboy/PreferencesDialog.cs:913
 msgid "Always ask me what to do."
 msgstr "问我该怎么做。"
 
-#: ../Tomboy/PreferencesDialog.cs:919
+#: ../Tomboy/PreferencesDialog.cs:917
 msgid "Rename my local note."
 msgstr "重命名我的本地便笺。"
 
-#: ../Tomboy/PreferencesDialog.cs:923
+#: ../Tomboy/PreferencesDialog.cs:921
 msgid "Replace my local note with the server's update."
 msgstr "用服务器上的便笺更新我的本地便笺。"
 
-#: ../Tomboy/PreferencesDialog.cs:1069
+#: ../Tomboy/PreferencesDialog.cs:1067
 msgid "WARNING: Are you sure?"
 msgstr "警告：您确定吗？"
 
-#: ../Tomboy/PreferencesDialog.cs:1071
+#: ../Tomboy/PreferencesDialog.cs:1069
 msgid ""
 "Clearing your synchronization settings is not recommended.  You may be "
 "forced to synchronize all of your notes again when you save new settings."
 msgstr ""
 "不推荐清空您的同步设置。当您保存新设置时可能再次被强制同步你的所有便笺。"
 
-#: ../Tomboy/PreferencesDialog.cs:1084
+#: ../Tomboy/PreferencesDialog.cs:1082
 msgid "Resetting Synchronization Settings"
 msgstr "重置同步设置"
 
-#: ../Tomboy/PreferencesDialog.cs:1086
+#: ../Tomboy/PreferencesDialog.cs:1084
 msgid ""
 "You have disabled the configured synchronization service.  Your "
 "synchronization settings will now be cleared.  You may be forced to "
@@ -1494,60 +1548,56 @@ msgstr ""
 "您已关闭所配置的同步服务。您的同步设置现在将被清空。当您保存新设置时可能再次"
 "被强制同步你的所有便笺"
 
-#: ../Tomboy/PreferencesDialog.cs:1164
+#: ../Tomboy/PreferencesDialog.cs:1162
 msgid "Success! You're connected!"
 msgstr "成功！您已连接上！"
 
-#: ../Tomboy/PreferencesDialog.cs:1166
+#: ../Tomboy/PreferencesDialog.cs:1164
 msgid ""
 "Tomboy is ready to synchronize your notes. Would you like to synchronize "
 "them now?"
 msgstr "Tomboy 已经准备好同步您的便笺。您想要现在同步它们吗？"
 
-#: ../Tomboy/PreferencesDialog.cs:1189
+#: ../Tomboy/PreferencesDialog.cs:1187
+#, csharp-format
 msgid ""
 "Sorry, but something went wrong.  Please check your information and try "
-"again.  The ~/.tomboy.log might be useful too."
-msgstr ""
-"对不起，发生了错误。请检查您的信息并重试。查看 ~/.tomboy.log 也许会有帮助。"
+"again.  The {0} might be useful too."
+msgstr "对不起，发生了错误。请检查您的信息并重试。查看 {0} 也许会有帮助。"
 
-#: ../Tomboy/PreferencesDialog.cs:1198
+#: ../Tomboy/PreferencesDialog.cs:1200
 msgid "Error connecting :("
 msgstr "连接出错 :("
 
-#: ../Tomboy/PreferencesDialog.cs:1274
+#: ../Tomboy/PreferencesDialog.cs:1276
 msgid "Version:"
 msgstr "版本："
 
-#: ../Tomboy/PreferencesDialog.cs:1281
+#: ../Tomboy/PreferencesDialog.cs:1283
 msgid "Author:"
 msgstr "作者："
 
-#: ../Tomboy/PreferencesDialog.cs:1288
+#: ../Tomboy/PreferencesDialog.cs:1290
 msgid "Copyright:"
 msgstr "版权所有："
 
-#: ../Tomboy/PreferencesDialog.cs:1294
+#: ../Tomboy/PreferencesDialog.cs:1296
 msgid "Add-in Dependencies:"
 msgstr "插件依赖："
 
-#: ../Tomboy/RecentChanges.cs:76
+#: ../Tomboy/RecentChanges.cs:75
 msgid "Search All Notes"
 msgstr "搜索全部便笺"
 
-#: ../Tomboy/RecentChanges.cs:93
+#: ../Tomboy/RecentChanges.cs:90
 msgid "_Search:"
 msgstr "搜索(_S)："
 
-#: ../Tomboy/RecentChanges.cs:114
-msgid "C_ase Sensitive"
-msgstr "区分大小写(_A)"
-
-#: ../Tomboy/RecentChanges.cs:318
+#: ../Tomboy/RecentChanges.cs:319
 msgid "Note"
 msgstr "便笺"
 
-#: ../Tomboy/RecentChanges.cs:340
+#: ../Tomboy/RecentChanges.cs:341
 msgid "Last Changed"
 msgstr "最近更改"
 
@@ -1573,22 +1623,30 @@ msgid "Matches: {0} note"
 msgid_plural "Matches: {0} notes"
 msgstr[0] "匹配：{0} 个便笺"
 
-#: ../Tomboy/RecentChanges.cs:678
+#: ../Tomboy/RecentChanges.cs:680
 msgid "Notes"
 msgstr "便笺"
 
-#: ../Tomboy/Tomboy.cs:244
+#: ../Tomboy/Tomboy.cs:248
 msgid "Cannot create new note"
 msgstr "无法创建新便笺"
 
-#: ../Tomboy/Tomboy.cs:332
+#: ../Tomboy/Tomboy.cs:314
+msgid "Primary Development:"
+msgstr "首席开发："
+
+#: ../Tomboy/Tomboy.cs:320
+msgid "Contributors:"
+msgstr "贡献者："
+
+#: ../Tomboy/Tomboy.cs:379
 msgid "translator-credits"
 msgstr ""
 "Funda Wang <fundawang@gmail.com>, 2005-2008.\n"
 "Ray Wang <wanglei1123@gmail.com>, 2009.\n"
 "Aron Xu <aronmalache@163.com>, 2009."
 
-#: ../Tomboy/Tomboy.cs:341
+#: ../Tomboy/Tomboy.cs:388
 msgid ""
 "Copyright © 2004-2007 Alex Graveley\n"
 "Copyright © 2004-2009 Others\n"
@@ -1596,15 +1654,15 @@ msgstr ""
 "版权所有 © 2004-2007 Alex Graveley\n"
 "版权所有 ©·2004-2009·其他人\n"
 
-#: ../Tomboy/Tomboy.cs:343
+#: ../Tomboy/Tomboy.cs:390
 msgid "A simple and easy to use desktop note-taking application."
 msgstr "简单易用的桌面随意帖应用程序。"
 
-#: ../Tomboy/Tomboy.cs:353
+#: ../Tomboy/Tomboy.cs:400
 msgid "Homepage"
 msgstr "主页"
 
-#: ../Tomboy/Tomboy.cs:467
+#: ../Tomboy/Tomboy.cs:518
 msgid ""
 "Tomboy: A simple, easy to use desktop note-taking application.\n"
 "Copyright (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
@@ -1614,7 +1672,7 @@ msgstr ""
 "版权所有 (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
 "\n"
 
-#: ../Tomboy/Tomboy.cs:479
+#: ../Tomboy/Tomboy.cs:530
 msgid ""
 "Usage:\n"
 "  --version\t\t\tPrint version information.\n"
@@ -1628,7 +1686,7 @@ msgstr ""
 "  --note-path [路径]\t\t装入/保存此目录中的便笺数据。\n"
 "  --search [文本]\t\t打开搜索全部便笺窗口，并预置搜索文本。\n"
 
-#: ../Tomboy/Tomboy.cs:490
+#: ../Tomboy/Tomboy.cs:540
 msgid ""
 "  --new-note\t\t\tCreate and display a new note.\n"
 "  --new-note [title]\t\tCreate and display a new note, with a title.\n"
@@ -1642,121 +1700,101 @@ msgstr ""
 "  --start-here\t\t\t显示“从这里开始”便笺。\n"
 "  --highlight-search [文本]\t在打开的便笺中搜索突出显示的文本。\n"
 
-#. TODO: Restore this functionality with addins
-#. usage +=
-#. Catalog.GetString (
-#. "  --check-plugin-unloading\tCheck if plugins are " +
-#. "unloaded properly.\n");
-#: ../Tomboy/Tomboy.cs:507
-msgid "D-BUS remote control disabled.\n"
-msgstr "D-BUS 远程控制已禁用。\n"
-
-#: ../Tomboy/Tomboy.cs:515
+#: ../Tomboy/Tomboy.cs:554
 #, csharp-format
 msgid "Version {0}"
 msgstr "{0} 版本"
 
-#: ../Tomboy/Tomboy.cs:588
-#, csharp-format
-msgid ""
-"Tomboy: unsupported option '{0}'\n"
-"Try 'tomboy --help' for more information.\n"
-"D-BUS remote control disabled."
-msgstr ""
-"阿帖：不支持的选项“{0}”\n"
-"使用“tomboy --help”可获得更多信息。\n"
-"D-BUS 远程控制被禁用。"
-
-#: ../Tomboy/Tray.cs:63
+#: ../Tomboy/Tray.cs:68
 msgid " (new)"
 msgstr " (新)"
 
-#: ../Tomboy/Tray.cs:253
+#: ../Tomboy/Tray.cs:282
 msgid "_About Tomboy"
 msgstr "关于阿帖(_A)"
 
-#: ../Tomboy/Utils.cs:146
+#: ../Tomboy/Utils.cs:142
 msgid ""
 "The \"Tomboy Notes Manual\" could not be found.  Please verify that your "
 "installation has been completed successfully."
 msgstr "找不到“阿帖便笺手册”。请检查您的安装是否已成功完成。"
 
-#: ../Tomboy/Utils.cs:155
+#: ../Tomboy/Utils.cs:151
 msgid "Help not found"
 msgstr "帮助未找到"
 
-#: ../Tomboy/Utils.cs:171
+#: ../Tomboy/Utils.cs:167
 msgid "Cannot open location"
 msgstr "无法打开位置"
 
-#: ../Tomboy/Utils.cs:193
+#: ../Tomboy/Utils.cs:189
 #, csharp-format
 msgid "Today, {0}"
 msgstr "今日，{0}"
 
-#: ../Tomboy/Utils.cs:195
+#: ../Tomboy/Utils.cs:191
 msgid "Today"
 msgstr "今日"
 
-#: ../Tomboy/Utils.cs:199
+#: ../Tomboy/Utils.cs:195
 #, csharp-format
 msgid "Yesterday, {0}"
 msgstr "昨天，{0}"
 
-#: ../Tomboy/Utils.cs:201
+#: ../Tomboy/Utils.cs:197
 msgid "Yesterday"
 msgstr "昨天"
 
-#: ../Tomboy/Utils.cs:206
+#: ../Tomboy/Utils.cs:202
 #, csharp-format
 msgid "{0} day ago, {1}"
 msgid_plural "{0} days ago, {1}"
 msgstr[0] "{0} 天前，{1}"
 
-#: ../Tomboy/Utils.cs:210
+#: ../Tomboy/Utils.cs:206
 #, csharp-format
 msgid "{0} day ago"
 msgid_plural "{0} days ago"
 msgstr[0] "{0} 天前"
 
-#: ../Tomboy/Utils.cs:216
+#: ../Tomboy/Utils.cs:212
 #, csharp-format
 msgid "Tomorrow, {0}"
 msgstr "明天，{0}"
 
-#: ../Tomboy/Utils.cs:218
+#: ../Tomboy/Utils.cs:214
 msgid "Tomorrow"
 msgstr "明天"
 
-#: ../Tomboy/Utils.cs:223
+#: ../Tomboy/Utils.cs:219
 #, csharp-format
 msgid "In {0} day, {1}"
 msgid_plural "In {0} days, {1}"
 msgstr[0] "{0} 天内，{1}"
 
-#: ../Tomboy/Utils.cs:227
+#: ../Tomboy/Utils.cs:223
 #, csharp-format
 msgid "In {0} day"
 msgid_plural "In {0} days"
 msgstr[0] "{0} 天内"
 
-#: ../Tomboy/Utils.cs:232
+#: ../Tomboy/Utils.cs:228
 msgid "MMMM d, h:mm tt"
 msgstr "M 月 d 日，h:mm tt"
 
-#: ../Tomboy/Utils.cs:233
+#: ../Tomboy/Utils.cs:229
 msgid "MMMM d"
 msgstr "M 月 d 日"
 
-#: ../Tomboy/Utils.cs:235
+#: ../Tomboy/Utils.cs:231
 msgid "No Date"
 msgstr "没有日期"
 
-#: ../Tomboy/Utils.cs:238
+#: ../Tomboy/Utils.cs:234
 msgid "MMMM d yyyy, h:mm tt"
 msgstr "yyyy 年 M 月 d 日，h:mm tt"
 
-#: ../Tomboy/Utils.cs:239
+#: ../Tomboy/Utils.cs:235
 msgid "MMMM d yyyy"
 msgstr "yyyy 年 M 月 d 日"
 
@@ -1816,197 +1854,197 @@ msgid "An error ocurred while connecting to the specified server:"
 msgstr "连接到指定服务器时出错："
 
 #. Expander containing TreeView
-#: ../Tomboy/Synchronization/SyncDialog.cs:88
+#: ../Tomboy/Synchronization/SyncDialog.cs:89
 msgid "Details"
 msgstr "细节"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:118
+#: ../Tomboy/Synchronization/SyncDialog.cs:119
 msgid "Note Title"
 msgstr "便笺标题"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:125
+#: ../Tomboy/Synchronization/SyncDialog.cs:126
 msgid "Status"
 msgstr "状态"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:240
+#: ../Tomboy/Synchronization/SyncDialog.cs:241
 msgid "Acquiring sync lock..."
 msgstr "正在请求同步锁..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:243
+#: ../Tomboy/Synchronization/SyncDialog.cs:244
 msgid "Committing changes..."
 msgstr "正在提交更改..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:246
+#: ../Tomboy/Synchronization/SyncDialog.cs:247
 msgid "Synchronizing Notes"
 msgstr "同步便笺"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:247
+#: ../Tomboy/Synchronization/SyncDialog.cs:248
 msgid "Synchronizing your notes..."
 msgstr "正在同步您的便笺..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:248
+#: ../Tomboy/Synchronization/SyncDialog.cs:249
 msgid "This may take a while, kick back and enjoy!"
 msgstr "这可能需要花一些时间，请稍候。"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:250
+#: ../Tomboy/Synchronization/SyncDialog.cs:251
 msgid "Connecting to the server..."
 msgstr "正在连接到服务器..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:256
+#: ../Tomboy/Synchronization/SyncDialog.cs:257
 msgid "Deleting notes off of the server..."
 msgstr "正在从服务器删除便笺..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:260
+#: ../Tomboy/Synchronization/SyncDialog.cs:261
 msgid "Downloading new/updated notes..."
 msgstr "正在下载新的/已更新的便笺..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:272
+#: ../Tomboy/Synchronization/SyncDialog.cs:273
 msgid "Server Locked"
 msgstr "服务器已锁定"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:273
+#: ../Tomboy/Synchronization/SyncDialog.cs:274
 msgid "Server is locked"
 msgstr "服务器已被锁定"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:274
+#: ../Tomboy/Synchronization/SyncDialog.cs:275
 msgid ""
 "One of your other computers is currently synchronizing.  Please wait 2 "
 "minutes and try again."
 msgstr "您的其它电脑正在同步中。请等2分钟后重试。"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:278
+#: ../Tomboy/Synchronization/SyncDialog.cs:279
 msgid "Preparing to download updates from server..."
 msgstr "正在准备从服务器下载更新..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:281
+#: ../Tomboy/Synchronization/SyncDialog.cs:282
 msgid "Preparing to upload updates to server..."
 msgstr "正在准备向服务器上传更新..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:284
+#: ../Tomboy/Synchronization/SyncDialog.cs:285
 msgid "Uploading notes to server..."
 msgstr "正在向服务器上传更新..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:287
+#: ../Tomboy/Synchronization/SyncDialog.cs:288
 msgid "Synchronization Failed"
 msgstr "同步失败"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:288
+#: ../Tomboy/Synchronization/SyncDialog.cs:289
 msgid "Failed to synchronize"
 msgstr "同步失败"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:289
+#: ../Tomboy/Synchronization/SyncDialog.cs:290
 msgid "Could not synchronize notes.  Check the details below and try again."
 msgstr "无法同步便笺。请检查以下细节并重试。"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:295
+#: ../Tomboy/Synchronization/SyncDialog.cs:296
 msgid "Synchronization Complete"
 msgstr "同步完成"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:296
+#: ../Tomboy/Synchronization/SyncDialog.cs:297
 msgid "Synchronization is complete"
 msgstr "同步已完成"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:298
+#: ../Tomboy/Synchronization/SyncDialog.cs:299
 #, csharp-format
 msgid "{0} note updated."
 msgid_plural "{0} notes updated."
 msgstr[0] "已更新 {0} 个便笺。"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:303
+#: ../Tomboy/Synchronization/SyncDialog.cs:304
 msgid "Your notes are now up to date."
 msgstr "您的便笺已经是最新的了。"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:307
+#: ../Tomboy/Synchronization/SyncDialog.cs:308
 msgid "Synchronization Canceled"
 msgstr "同步已取消"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:308
+#: ../Tomboy/Synchronization/SyncDialog.cs:309
 msgid "Synchronization was canceled"
 msgstr "同步已被取消"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:309
+#: ../Tomboy/Synchronization/SyncDialog.cs:310
 msgid "You canceled the synchronization.  You may close the window now."
 msgstr "您取消了同步。您现在可以关闭窗口。"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:313
+#: ../Tomboy/Synchronization/SyncDialog.cs:314
 msgid "Synchronization Not Configured"
 msgstr "同步未配置"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:314
+#: ../Tomboy/Synchronization/SyncDialog.cs:315
 msgid "Synchronization is not configured"
 msgstr "同步尚未配置好"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:315
+#: ../Tomboy/Synchronization/SyncDialog.cs:316
 msgid "Please configure synchronization in the preferences dialog."
 msgstr "请在首选项对话框中配置同步。"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:319
+#: ../Tomboy/Synchronization/SyncDialog.cs:320
 msgid "Synchronization Service Error"
 msgstr "同步服务器出错"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:320
+#: ../Tomboy/Synchronization/SyncDialog.cs:321
 msgid "Service error"
 msgstr "服务错误"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:321
+#: ../Tomboy/Synchronization/SyncDialog.cs:322
 msgid "Error connecting to the synchronization service.  Please try again."
 msgstr "连接到同步服务出错。请重试。"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:338
+#: ../Tomboy/Synchronization/SyncDialog.cs:339
 msgid "Deleted locally"
 msgstr "已从本地删除"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:341
+#: ../Tomboy/Synchronization/SyncDialog.cs:342
 msgid "Deleted from server"
 msgstr "已从服务器删除"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:344
+#: ../Tomboy/Synchronization/SyncDialog.cs:345
 msgid "Updated"
 msgstr "已更新"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:347
+#: ../Tomboy/Synchronization/SyncDialog.cs:348
 msgid "Added"
 msgstr "已添加"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:350
+#: ../Tomboy/Synchronization/SyncDialog.cs:351
 msgid "Uploaded changes to server"
 msgstr "已将更改上传到服务器"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:353
+#: ../Tomboy/Synchronization/SyncDialog.cs:354
 msgid "Uploaded new note to server"
 msgstr "已将新便笺上传到服务器"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:501
+#: ../Tomboy/Synchronization/SyncDialog.cs:502
 msgid "Note Conflict"
 msgstr "便笺冲突"
 
 #. Suggest renaming note by appending " (old)" to the existing title
-#: ../Tomboy/Synchronization/SyncDialog.cs:507
+#: ../Tomboy/Synchronization/SyncDialog.cs:508
 msgid " (old)"
 msgstr " (旧)"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:546
+#: ../Tomboy/Synchronization/SyncDialog.cs:547
 msgid "Rename local note:"
 msgstr "重命名本地便笺："
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:552
+#: ../Tomboy/Synchronization/SyncDialog.cs:553
 msgid "Update links in referencing notes"
 msgstr "更新引用便笺中的链接"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:559
+#: ../Tomboy/Synchronization/SyncDialog.cs:560
 msgid "Overwrite local note"
 msgstr "覆盖本地便笺"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:563
+#: ../Tomboy/Synchronization/SyncDialog.cs:564
 msgid "Always perform this action"
 msgstr "总是执行这一操作"
 
 #. Set initial dialog text
-#: ../Tomboy/Synchronization/SyncDialog.cs:569
+#: ../Tomboy/Synchronization/SyncDialog.cs:570
 msgid "Note conflict detected"
 msgstr "检测到便笺冲突"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:570
+#: ../Tomboy/Synchronization/SyncDialog.cs:571
 #, csharp-format
 msgid ""
 "The server version of \"{0}\" conflicts with your local note.  What do you "
@@ -2047,111 +2085,3 @@ msgstr ""
 "\n"
 "为了避免将来弹出这个消息，您应该在启动时加载 FUSE 。添加“modprobe fuse”到 /"
 "etc/init.d/boot.local 或者“fuse”到 /etc/modules 。"
-
-#~ msgid "Add-in"
-#~ msgstr "插件"
-
-#~ msgid "Version"
-#~ msgstr "版本"
-
-#~ msgid "Other"
-#~ msgstr "其它"
-
-#~ msgid "Preparing pages..."
-#~ msgstr "正在准备页面..."
-
-#~ msgid "Rendering page %d of %d..."
-#~ msgstr "正在渲染第%d页，共%d页..."
-
-#~ msgid "Printing page %d of %d..."
-#~ msgstr "正在打印第%d页，共%d页..."
-
-#~ msgid "Print preview"
-#~ msgstr "打印预览"
-
-#~ msgid "%A %x, %X"
-#~ msgstr "%x%A %X"
-
-#~ msgid "Configuration"
-#~ msgstr "配置"
-
-#~ msgid "Configuration options for the print job"
-#~ msgstr "打印任务配置选项"
-
-#~ msgid "Source Buffer"
-#~ msgstr "来源缓冲"
-
-#~ msgid "GtkTextBuffer object to print"
-#~ msgstr "用于打印的 GtkTextBuffer 对象"
-
-#~ msgid "Tabs Width"
-#~ msgstr "标签宽度"
-
-#~ msgid "Width in equivalent space characters of tabs"
-#~ msgstr "与标签空格字符等宽的宽度"
-
-#~ msgid "Wrap Mode"
-#~ msgstr "折行模式"
-
-#~ msgid "Word wrapping mode"
-#~ msgstr "文字折行模式"
-
-#~ msgid "Highlight"
-#~ msgstr "高亮显示"
-
-#~ msgid "Whether to print the document with highlighted syntax"
-#~ msgstr "是否以高亮语法打印该文档"
-
-#~ msgid "Font"
-#~ msgstr "字体"
-
-#~ msgid "GnomeFont name to use for the document text (deprecated)"
-#~ msgstr "用于文档文本的 GnomeFont 字体名称(不建议使用)"
-
-#~ msgid "Font Description"
-#~ msgstr "字体描述"
-
-#~ msgid "Font to use for the document text (e.g. \"Monospace 10\")"
-#~ msgstr "用于文档文本的字体(比如“Monospace 10”)"
-
-#~ msgid "Numbers Font"
-#~ msgstr "数字字体"
-
-#~ msgid "GnomeFont name to use for the line numbers (deprecated)"
-#~ msgstr "用于行号的 GnomeFont 字体名称(不建议使用)"
-
-#~ msgid "Font description to use for the line numbers"
-#~ msgstr "用于行号的字体说明"
-
-#~ msgid "Print Line Numbers"
-#~ msgstr "打印行号"
-
-#~ msgid "Interval of printed line numbers (0 means no numbers)"
-#~ msgstr "打印行号的间隔(0表示无间隔)"
-
-#~ msgid "Print Header"
-#~ msgstr "打印头"
-
-#~ msgid "Whether to print a header in each page"
-#~ msgstr "是否在每页打印页眉"
-
-#~ msgid "Print Footer"
-#~ msgstr "打印页脚"
-
-#~ msgid "Whether to print a footer in each page"
-#~ msgstr "是否在每页打印页脚"
-
-#~ msgid "Header and Footer Font"
-#~ msgstr "页眉页脚的字体"
-
-#~ msgid "GnomeFont name to use for the header and footer (deprecated)"
-#~ msgstr "用于页眉页脚的 GnomeFont 字体名称(不建议使用)"
-
-#~ msgid "Header and Footer Font Description"
-#~ msgstr "页眉页脚的字体说明"
-
-#~ msgid "Font to use for headers and footers (e.g. \"Monospace 10\")"
-#~ msgstr "用于页眉页脚的字体(比如“Monospace 10”)"
-
-#~ msgid "Really delete these notes?"
-#~ msgstr "真的要删除这些便笺吗？"
