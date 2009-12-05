@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tomboy 0.15.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-15 14:11+0100\n"
-"PO-Revision-Date: 2009-11-15 14:23+0100\n"
+"POT-Creation-Date: 2009-12-05 20:27+0100\n"
+"PO-Revision-Date: 2009-12-05 20:28+0100\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian Bokmal <i18n-nb@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
@@ -34,16 +34,21 @@ msgstr "Tomboy programfabrikk"
 msgid "Tomboy Notes"
 msgstr "Tomboy notatskriver"
 
-#: ../data/GNOME_TomboyApplet.xml.h:1 ../Tomboy/ActionManager.cs:164
+#: ../data/GNOME_TomboyApplet.xml.h:1 ../Tomboy/ActionManager.cs:179
+#: ../Tomboy/Tray.cs:263
+msgid "S_ynchronize Notes"
+msgstr "S_ynkroniser notater"
+
+#: ../data/GNOME_TomboyApplet.xml.h:2 ../Tomboy/ActionManager.cs:164
 msgid "_About"
 msgstr "_Om"
 
-#: ../data/GNOME_TomboyApplet.xml.h:2 ../Tomboy/ActionManager.cs:157
+#: ../data/GNOME_TomboyApplet.xml.h:3 ../Tomboy/ActionManager.cs:157
 #: ../Tomboy/Tray.cs:277
 msgid "_Help"
 msgstr "_Hjelp"
 
-#: ../data/GNOME_TomboyApplet.xml.h:3 ../Tomboy/ActionManager.cs:153
+#: ../data/GNOME_TomboyApplet.xml.h:4 ../Tomboy/ActionManager.cs:153
 #: ../Tomboy/Tray.cs:272
 msgid "_Preferences"
 msgstr "_Brukervalg"
@@ -236,7 +241,9 @@ msgstr "Liste med festede notater."
 msgid ""
 "Maximum characters of note title to show in the Tomboy tray or panel applet "
 "note menu."
-msgstr "Maksimalt antall tegn fra notatets tittel som skal vises i varslingsområdet eller menyen for panelprogrammet."
+msgstr ""
+"Maksimalt antall tegn fra notatets tittel som skal vises i varslingsområdet "
+"eller menyen for panelprogrammet."
 
 #: ../data/tomboy.schemas.in.h:34
 msgid "Maximum note title length to show in tray menu."
@@ -459,13 +466,18 @@ msgstr ""
 msgid ""
 "The port to use when connecting to the synchronization server via SSH. Set "
 "to -1 or less if default SSH port settings should be used instead."
-msgstr "Port som skal brukes ved tilkobling til synkroniseringstjener via SSH. Sett til -1 eller mindre hvis forvalgte innstillinger for SSH-port skal brukes i stedet."
+msgstr ""
+"Port som skal brukes ved tilkobling til synkroniseringstjener via SSH. Sett "
+"til -1 eller mindre hvis forvalgte innstillinger for SSH-port skal brukes i "
+"stedet."
 
 #: ../data/tomboy.schemas.in.h:69
 msgid ""
 "Time (in milliseconds) Tomboy should wait for a response when using FUSE to "
 "mount a sync share."
-msgstr "Tid i millisekunder Tomboy skal vente på svar når FUSE brukes til å montere en synkroniseringsressurs. "
+msgstr ""
+"Tid i millisekunder Tomboy skal vente på svar når FUSE brukes til å montere "
+"en synkroniseringsressurs. "
 
 #: ../data/tomboy.schemas.in.h:70
 msgid "Timestamp format"
@@ -591,10 +603,6 @@ msgstr "_Søk i alle notatene"
 #: ../Tomboy/ActionManager.cs:176
 msgid "Open the Search All Notes window"
 msgstr "Åpne vinduet «Søk i alle notater»"
-
-#: ../Tomboy/ActionManager.cs:179 ../Tomboy/Tray.cs:263
-msgid "S_ynchronize Notes"
-msgstr "S_ynkroniser notater"
 
 #: ../Tomboy/ActionManager.cs:180
 msgid "Start synchronizing notes"
@@ -744,7 +752,7 @@ msgstr "Sett inn tidsstempel"
 
 #. initial newline
 #: ../Tomboy/Addins/InsertTimestamp/InsertTimestampPreferences.cs:29
-#: ../Tomboy/Applet.cs:210 ../Tomboy/Preferences.cs:137
+#: ../Tomboy/Applet.cs:216 ../Tomboy/Preferences.cs:137
 msgid "dddd, MMMM d, h:mm tt"
 msgstr "dddd d MMMM, h.mm tt"
 
@@ -994,7 +1002,7 @@ msgid "Set the default browser and try again"
 msgstr "Sett forvalgt nettleser og prøv igjen"
 
 #. Translators: This is the name of "Window" menu in the Mac menubar
-#: ../Tomboy/MacApplication.cs:214
+#: ../Tomboy/MacApplication.cs:215
 msgid "_Window"
 msgstr "_Vindu"
 
@@ -1137,19 +1145,17 @@ msgstr[1] "Vil du slette disse {0} notatene?"
 msgid "If you delete a note it is permanently lost."
 msgstr "Hvis du sletter et notat blir det tapt for alltid."
 
-#: ../Tomboy/Note.cs:1497
-msgid "Error saving note data."
-msgstr "Feil ved lagring av notatdata."
-
-#: ../Tomboy/Note.cs:1498
+#: ../Tomboy/Note.cs:1491
+#, csharp-format
 msgid ""
 "An error occurred while saving your notes. Please check that you have "
-"sufficient disk space, and that you have appropriate rights on ~/.tomboy. "
-"Error details can be found in ~/.tomboy.log."
-msgstr ""
-"En feil oppsto under lagring av dine notater. Sjekk at du har nok diskplass "
-"og at du har nok rettigheter på ~/.tomboy. Detaljer om feilen kan finnes i "
-"~/.tomboy.log"
+"sufficient disk space, and that you have appropriate rights on {0}. Error "
+"details can be found in {0}."
+msgstr "En feil oppsto under lagring av dine notater. Sjekk at du har nok diskplass og at du har nok rettigheter på {0}. Detaljer om feilen kan finnes i {0}."
+
+#: ../Tomboy/Note.cs:1507
+msgid "Error saving note data."
+msgstr "Feil ved lagring av notatdata."
 
 #. New Note Template
 #. Translators: This is 'New Note' Template, not New 'Note Template'
@@ -1189,16 +1195,25 @@ msgid ""
 "\n"
 "Ciao!"
 msgstr ""
-"Notatfilene er flyttet i siste versjon av Tomboy. Du har sannsynligvis aldri vært opptatt av hvor notatene har vært lagret, og hvis du fremdeles ikke bryr deg kan du slette <bold>dette notatet</bold>. :-)\n"
+"Notatfilene er flyttet i siste versjon av Tomboy. Du har sannsynligvis aldri "
+"vært opptatt av hvor notatene har vært lagret, og hvis du fremdeles ikke "
+"bryr deg kan du slette <bold>dette notatet</bold>. :-)\n"
 "\n"
-"Katalogen med dine gamle notater er fremdeles trygt bevart i <link:url>{0}:url>. Hvis du går tilbake til en eldre versjon av Tomboy vil denne se etter notater der.\n"
+"Katalogen med dine gamle notater er fremdeles trygt bevart i <link:url>{0}:"
+"url>. Hvis du går tilbake til en eldre versjon av Tomboy vil denne se etter "
+"notater der.\n"
 "\n"
-"Men notatene og konfigurasjonen er kopiert til de nye katalogene som vil bli brukt fra nå av:\n"
+"Men notatene og konfigurasjonen er kopiert til de nye katalogene som vil bli "
+"brukt fra nå av:\n"
 "\n"
-"<list><list-item dir=\"ltr\">Notater befinner seg nå i <link:url>{1}</link:url>\n"
-"</list-item><list-item dir=\"ltr\">Konfigurasjonen befinner seg i <link:url>{2}</link:url>\n"
-"</list-item><list-item dir=\"ltr\">Du kan installere tillegg i <link:url>{3}</linkl:url>\n"
-"</list-item><list-item dir=\"ltr\">Loggfiler finnes i <link:url>{4}</link:url></list-item></list>\n"
+"<list><list-item dir=\"ltr\">Notater befinner seg nå i <link:url>{1}</link:"
+"url>\n"
+"</list-item><list-item dir=\"ltr\">Konfigurasjonen befinner seg i <link:url>"
+"{2}</link:url>\n"
+"</list-item><list-item dir=\"ltr\">Du kan installere tillegg i <link:url>{3}"
+"</linkl:url>\n"
+"</list-item><list-item dir=\"ltr\">Loggfiler finnes i <link:url>{4}</link:"
+"url></list-item></list>\n"
 "\n"
 "Ciao!"
 
@@ -1627,30 +1642,29 @@ msgstr ""
 "nå?"
 
 #: ../Tomboy/PreferencesDialog.cs:1187
+#, csharp-format
 msgid ""
 "Sorry, but something went wrong.  Please check your information and try "
-"again.  The ~/.tomboy.log might be useful too."
-msgstr ""
-"Beklager men noe gikk galt. Vennligst sjekk din informasjon og prøv på nytt. "
-"Loggen i ~/.tomboy kan være nyttig også."
+"again.  The {0} might be useful too."
+msgstr "Beklager men noe gikk galt. Vennligst sjekk din informasjon og prøv på nytt. Loggen i {0} kan være nyttig også."
 
-#: ../Tomboy/PreferencesDialog.cs:1196
+#: ../Tomboy/PreferencesDialog.cs:1200
 msgid "Error connecting :("
 msgstr "Feil ved tilkobling :("
 
-#: ../Tomboy/PreferencesDialog.cs:1272
+#: ../Tomboy/PreferencesDialog.cs:1276
 msgid "Version:"
 msgstr "Versjon:"
 
-#: ../Tomboy/PreferencesDialog.cs:1279
+#: ../Tomboy/PreferencesDialog.cs:1283
 msgid "Author:"
 msgstr "Forfatter:"
 
-#: ../Tomboy/PreferencesDialog.cs:1286
+#: ../Tomboy/PreferencesDialog.cs:1290
 msgid "Copyright:"
 msgstr "Opphavsrett:"
 
-#: ../Tomboy/PreferencesDialog.cs:1292
+#: ../Tomboy/PreferencesDialog.cs:1296
 msgid "Add-in Dependencies:"
 msgstr "Avhengigheter mellom tillegg:"
 
@@ -1699,25 +1713,25 @@ msgstr[1] "Treff: {0} notater"
 msgid "Notes"
 msgstr "Notater"
 
-#: ../Tomboy/Tomboy.cs:244
+#: ../Tomboy/Tomboy.cs:248
 msgid "Cannot create new note"
 msgstr "Kan ikke opprette nytt notat"
 
-#: ../Tomboy/Tomboy.cs:310
+#: ../Tomboy/Tomboy.cs:314
 msgid "Primary Development:"
 msgstr "Hovedutvikler:"
 
-#: ../Tomboy/Tomboy.cs:316
+#: ../Tomboy/Tomboy.cs:320
 msgid "Contributors:"
 msgstr "Bidragsytere:"
 
-#: ../Tomboy/Tomboy.cs:375
+#: ../Tomboy/Tomboy.cs:379
 msgid "translator-credits"
 msgstr ""
 "Sigurd Gartmann\n"
 "Kjartan maraas"
 
-#: ../Tomboy/Tomboy.cs:384
+#: ../Tomboy/Tomboy.cs:388
 msgid ""
 "Copyright © 2004-2007 Alex Graveley\n"
 "Copyright © 2004-2009 Others\n"
@@ -1725,15 +1739,15 @@ msgstr ""
 "Opphavsrett © 2004-2007 Alex Graveley\n"
 "Opphavsrett © 2004-2009 Andre\n"
 
-#: ../Tomboy/Tomboy.cs:386
+#: ../Tomboy/Tomboy.cs:390
 msgid "A simple and easy to use desktop note-taking application."
 msgstr "Et enkelt og brukervennlig notatskrivingsprogram."
 
-#: ../Tomboy/Tomboy.cs:396
+#: ../Tomboy/Tomboy.cs:400
 msgid "Homepage"
 msgstr "Hjemmeside"
 
-#: ../Tomboy/Tomboy.cs:514
+#: ../Tomboy/Tomboy.cs:518
 msgid ""
 "Tomboy: A simple, easy to use desktop note-taking application.\n"
 "Copyright (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
@@ -1743,7 +1757,7 @@ msgstr ""
 "Opphavsrett © 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
 "\n"
 
-#: ../Tomboy/Tomboy.cs:526
+#: ../Tomboy/Tomboy.cs:530
 msgid ""
 "Usage:\n"
 "  --version\t\t\tPrint version information.\n"
@@ -1757,7 +1771,7 @@ msgstr ""
 "  --note-path [path]\t\tLast/lagre notatdata i denne katalogen.\n"
 "  --search [text]\t\tÅpne vindu for søk i alle notater med søketeksten.\n"
 
-#: ../Tomboy/Tomboy.cs:537
+#: ../Tomboy/Tomboy.cs:540
 msgid ""
 "  --new-note\t\t\tCreate and display a new note.\n"
 "  --new-note [title]\t\tCreate and display a new note, with a title.\n"
@@ -1771,30 +1785,10 @@ msgstr ""
 "  --start-here\t\t\tVis «Start her»-notatet.\n"
 "  --highlight-search [tekst]\tSøk eller marker tekst i det åpnede notatet.\n"
 
-#. TODO: Restore this functionality with addins
-#. usage +=
-#. Catalog.GetString (
-#. "  --check-plugin-unloading\tCheck if plugins are " +
-#. "unloaded properly.\n");
 #: ../Tomboy/Tomboy.cs:554
-msgid "D-BUS remote control disabled.\n"
-msgstr "D-BUS fjernkontroll er deaktivert.\n"
-
-#: ../Tomboy/Tomboy.cs:562
 #, csharp-format
 msgid "Version {0}"
 msgstr "Versjon {0}"
-
-#: ../Tomboy/Tomboy.cs:635
-#, csharp-format
-msgid ""
-"Tomboy: unsupported option '{0}'\n"
-"Try 'tomboy --help' for more information.\n"
-"D-BUS remote control disabled."
-msgstr ""
-"Tomboy: ustøttet argument «{0}»\n"
-"Prøv «tomboy --help» for mer informasjon.\n"
-"D_BUS-fjernkontroll slått av."
 
 #: ../Tomboy/Tray.cs:68
 msgid " (new)"
@@ -1955,59 +1949,59 @@ msgid "An error ocurred while connecting to the specified server:"
 msgstr "En feil oppsto under tilkobling til oppgitt tjener:"
 
 #. Expander containing TreeView
-#: ../Tomboy/Synchronization/SyncDialog.cs:88
+#: ../Tomboy/Synchronization/SyncDialog.cs:89
 msgid "Details"
 msgstr "Detaljer"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:118
+#: ../Tomboy/Synchronization/SyncDialog.cs:119
 msgid "Note Title"
 msgstr "Tittel på notat"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:125
+#: ../Tomboy/Synchronization/SyncDialog.cs:126
 msgid "Status"
 msgstr "Status"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:240
+#: ../Tomboy/Synchronization/SyncDialog.cs:241
 msgid "Acquiring sync lock..."
 msgstr "Låser for synkronisering..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:243
+#: ../Tomboy/Synchronization/SyncDialog.cs:244
 msgid "Committing changes..."
 msgstr "Legger inn endringer..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:246
+#: ../Tomboy/Synchronization/SyncDialog.cs:247
 msgid "Synchronizing Notes"
 msgstr "Synkroniserer notater"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:247
+#: ../Tomboy/Synchronization/SyncDialog.cs:248
 msgid "Synchronizing your notes..."
 msgstr "Synkroniserer dine notater..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:248
+#: ../Tomboy/Synchronization/SyncDialog.cs:249
 msgid "This may take a while, kick back and enjoy!"
 msgstr "Dette kan ta litt tid. Slapp av og nyt det!"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:250
+#: ../Tomboy/Synchronization/SyncDialog.cs:251
 msgid "Connecting to the server..."
 msgstr "Kobler til tjeneren..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:256
+#: ../Tomboy/Synchronization/SyncDialog.cs:257
 msgid "Deleting notes off of the server..."
 msgstr "Sletter notater på tjeneren..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:260
+#: ../Tomboy/Synchronization/SyncDialog.cs:261
 msgid "Downloading new/updated notes..."
 msgstr "Laster ned nye/oppdaterte notater..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:272
+#: ../Tomboy/Synchronization/SyncDialog.cs:273
 msgid "Server Locked"
 msgstr "Tjener låst"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:273
+#: ../Tomboy/Synchronization/SyncDialog.cs:274
 msgid "Server is locked"
 msgstr "Tjeneren er låst"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:274
+#: ../Tomboy/Synchronization/SyncDialog.cs:275
 msgid ""
 "One of your other computers is currently synchronizing.  Please wait 2 "
 "minutes and try again."
@@ -2015,141 +2009,141 @@ msgstr ""
 "En av dine andre datamaskiner synkroniserer nå. Vennligst vent to minutter "
 "og prøv på nytt."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:278
+#: ../Tomboy/Synchronization/SyncDialog.cs:279
 msgid "Preparing to download updates from server..."
 msgstr "Forbereder nedlasting av oppdateringer fra tjeneren..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:281
+#: ../Tomboy/Synchronization/SyncDialog.cs:282
 msgid "Preparing to upload updates to server..."
 msgstr "Forbereder opplasting av oppdateringer til tjeneren..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:284
+#: ../Tomboy/Synchronization/SyncDialog.cs:285
 msgid "Uploading notes to server..."
 msgstr "Laster opp notater til tjeneren..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:287
+#: ../Tomboy/Synchronization/SyncDialog.cs:288
 msgid "Synchronization Failed"
 msgstr "Synkronisering feilet"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:288
+#: ../Tomboy/Synchronization/SyncDialog.cs:289
 msgid "Failed to synchronize"
 msgstr "Klarte ikke å synkronisere"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:289
+#: ../Tomboy/Synchronization/SyncDialog.cs:290
 msgid "Could not synchronize notes.  Check the details below and try again."
 msgstr "Kunne ikke synkronisere notater. Sjekk detaljene under og prøv igjen."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:295
+#: ../Tomboy/Synchronization/SyncDialog.cs:296
 msgid "Synchronization Complete"
 msgstr "Synkronisering fullført"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:296
+#: ../Tomboy/Synchronization/SyncDialog.cs:297
 msgid "Synchronization is complete"
 msgstr "Synkroniseringen er fullført"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:298
+#: ../Tomboy/Synchronization/SyncDialog.cs:299
 #, csharp-format
 msgid "{0} note updated."
 msgid_plural "{0} notes updated."
 msgstr[0] "{0} notat oppdatert."
 msgstr[1] "{0} notater oppdatert."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:303
+#: ../Tomboy/Synchronization/SyncDialog.cs:304
 msgid "Your notes are now up to date."
 msgstr "Dine notater er nå oppdatert."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:307
+#: ../Tomboy/Synchronization/SyncDialog.cs:308
 msgid "Synchronization Canceled"
 msgstr "Synkronisering avbrutt"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:308
+#: ../Tomboy/Synchronization/SyncDialog.cs:309
 msgid "Synchronization was canceled"
 msgstr "Synkroniseringen ble avbrutt"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:309
+#: ../Tomboy/Synchronization/SyncDialog.cs:310
 msgid "You canceled the synchronization.  You may close the window now."
 msgstr "Du avbrøt synkroniseringen. Du kan lukke vinduet nå."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:313
+#: ../Tomboy/Synchronization/SyncDialog.cs:314
 msgid "Synchronization Not Configured"
 msgstr "Synkronisering ikke konfigurert"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:314
+#: ../Tomboy/Synchronization/SyncDialog.cs:315
 msgid "Synchronization is not configured"
 msgstr "Synkronisering er ikke konfigurert"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:315
+#: ../Tomboy/Synchronization/SyncDialog.cs:316
 msgid "Please configure synchronization in the preferences dialog."
 msgstr "Vennligst konfigurer synkronisering i brukervalgdialogen."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:319
+#: ../Tomboy/Synchronization/SyncDialog.cs:320
 msgid "Synchronization Service Error"
 msgstr "Feil med tjeneste for synkronisering"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:320
+#: ../Tomboy/Synchronization/SyncDialog.cs:321
 msgid "Service error"
 msgstr "Feil ved tjeneste"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:321
+#: ../Tomboy/Synchronization/SyncDialog.cs:322
 msgid "Error connecting to the synchronization service.  Please try again."
 msgstr ""
 "Feil ved tilkobling til synkroniseringstjenesten. Vennligst prøv igjen."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:338
+#: ../Tomboy/Synchronization/SyncDialog.cs:339
 msgid "Deleted locally"
 msgstr "Slettet lokalt"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:341
+#: ../Tomboy/Synchronization/SyncDialog.cs:342
 msgid "Deleted from server"
 msgstr "Slettet fra tjener"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:344
+#: ../Tomboy/Synchronization/SyncDialog.cs:345
 msgid "Updated"
 msgstr "Oppdatert"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:347
+#: ../Tomboy/Synchronization/SyncDialog.cs:348
 msgid "Added"
 msgstr "Lagt til"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:350
+#: ../Tomboy/Synchronization/SyncDialog.cs:351
 msgid "Uploaded changes to server"
 msgstr "Endringer lastet opp til tjeneren"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:353
+#: ../Tomboy/Synchronization/SyncDialog.cs:354
 msgid "Uploaded new note to server"
 msgstr "Lastet opp nytt notat til tjeneren"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:501
+#: ../Tomboy/Synchronization/SyncDialog.cs:502
 msgid "Note Conflict"
 msgstr "Konflikt i notat"
 
 #. Suggest renaming note by appending " (old)" to the existing title
-#: ../Tomboy/Synchronization/SyncDialog.cs:507
+#: ../Tomboy/Synchronization/SyncDialog.cs:508
 msgid " (old)"
 msgstr " (gammelt)"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:546
+#: ../Tomboy/Synchronization/SyncDialog.cs:547
 msgid "Rename local note:"
 msgstr "Endre navn på lokalt notat:"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:552
+#: ../Tomboy/Synchronization/SyncDialog.cs:553
 msgid "Update links in referencing notes"
 msgstr "Oppdater lenker i notater med referanser til dette"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:559
+#: ../Tomboy/Synchronization/SyncDialog.cs:560
 msgid "Overwrite local note"
 msgstr "Overskriv lokalt notat"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:563
+#: ../Tomboy/Synchronization/SyncDialog.cs:564
 msgid "Always perform this action"
 msgstr "Alltid utfør denne handlingen"
 
 #. Set initial dialog text
-#: ../Tomboy/Synchronization/SyncDialog.cs:569
+#: ../Tomboy/Synchronization/SyncDialog.cs:570
 msgid "Note conflict detected"
 msgstr "Konflikt funnet i notat"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:570
+#: ../Tomboy/Synchronization/SyncDialog.cs:571
 #, csharp-format
 msgid ""
 "The server version of \"{0}\" conflicts with your local note.  What do you "
