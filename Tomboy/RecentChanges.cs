@@ -682,7 +682,8 @@ namespace Tomboy
 
 		void OnNotebookRowEdited (object sender, Gtk.EditedArgs args)
 		{
-			if (Notebooks.NotebookManager.NotebookExists (args.NewText))
+			if (Notebooks.NotebookManager.NotebookExists (args.NewText) ||
+			    string.IsNullOrEmpty (args.NewText))
 				return;
 			var oldNotebook = GetSelectedNotebook ();
 			if (oldNotebook is Notebooks.SpecialNotebook)
