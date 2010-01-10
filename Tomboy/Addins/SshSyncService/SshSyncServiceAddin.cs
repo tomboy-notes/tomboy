@@ -218,8 +218,7 @@ namespace Tomboy.Sync
 			folder = folderEntry.Text.Trim ();
 			username = usernameEntry.Text.Trim ();
 
-			return !string.IsNullOrEmpty (server)
-			       && !string.IsNullOrEmpty (username);
+			return !string.IsNullOrEmpty (server);
 		}
 
 		// TODO: Centralize duplicated code
