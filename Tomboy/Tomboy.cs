@@ -373,6 +373,7 @@ namespace Tomboy
 				"\tMatt Johnston",
 				"\tMike Mazur",
 				"\tNathaniel Smith",
+				"\tPaul Cutler",
 				"\tPrzemysław Grzegorczyk",
 				"\tRobert Buchholz",
 				"\tRobin Sonefors",
