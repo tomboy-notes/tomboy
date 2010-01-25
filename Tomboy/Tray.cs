@@ -185,14 +185,14 @@ namespace Tomboy
 			if (context_menu != null)
 				context_menu.Hide ();
 
-			TomboyTrayUtils.UpdateTomboyTrayMenu (tray, null);
-			if (select_first_item)
-				tray.TomboyTrayMenu.SelectFirst (false);
+			tray.NoteManager.GtkInvoke (() => {
+				TomboyTrayUtils.UpdateTomboyTrayMenu (tray, null);
+				if (select_first_item)
+					tray.TomboyTrayMenu.SelectFirst (false);
 
-			
-				
-			GuiUtils.PopupMenu (tray.TomboyTrayMenu, null, 
-				new Gtk.MenuPositionFunc (GetTrayMenuPosition));
+				GuiUtils.PopupMenu (tray.TomboyTrayMenu, null,
+					new Gtk.MenuPositionFunc (GetTrayMenuPosition));
+			});
 		}
 		
 		public void GetTrayMenuPosition (Gtk.Menu menu,

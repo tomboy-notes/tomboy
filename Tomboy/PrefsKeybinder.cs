@@ -126,7 +126,7 @@ namespace Tomboy
 	public class TomboyPrefsKeybinder : PrefsKeybinder
 	{
 		NoteManager manager;
-		ITomboyTray  tray;
+		ITomboyTray tray;
 
 		public TomboyPrefsKeybinder (NoteManager manager, ITomboyTray tray)
 				: base ()
@@ -187,16 +187,20 @@ namespace Tomboy
 
 		void KeyOpenStartHere (object sender, EventArgs args)
 		{
-			Note note = manager.FindByUri (NoteManager.StartNoteUri);
-			if (note != null)
-				note.Window.Present ();
+			manager.GtkInvoke (() => {
+				Note note = manager.FindByUri (NoteManager.StartNoteUri);
+				if (note != null)
+					note.Window.Present ();
+			});
 		}
 
 		void KeyCreateNewNote (object sender, EventArgs args)
 		{
 			try {
-				Note new_note = manager.Create ();
-				new_note.Window.Show ();
+				manager.GtkInvoke (() => {
+					Note new_note = manager.Create ();
+					new_note.Window.Show ();
+				});
 			} catch {
 				// Fail silently.
 			}
@@ -214,8 +218,10 @@ namespace Tomboy
 
 		void KeyOpenRecentChanges (object sender, EventArgs args)
 		{
-			NoteRecentChanges recent = NoteRecentChanges.GetInstance (manager);
-			recent.Present ();
+			manager.GtkInvoke (() => {
+				NoteRecentChanges recent = NoteRecentChanges.GetInstance (manager);
+				recent.Present ();
+			});
 		}
 	}
 }

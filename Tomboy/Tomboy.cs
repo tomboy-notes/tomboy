@@ -95,19 +95,11 @@ namespace Tomboy
 			string note_path = GetNotePath (cmd_line.NotePath);
 			manager = new NoteManager (note_path);
 
-			SyncManager.Initialize ();
-
 			// Register the manager to handle remote requests.
 			RegisterRemoteControl (manager);
 
 			SetupGlobalActions ();
 			ActionManager am = Tomboy.ActionManager;
-
-			ApplicationAddin [] addins =
-			        manager.AddinManager.GetApplicationAddins ();
-			foreach (ApplicationAddin addin in addins) {
-				addin.Initialize ();
-			}
 
 #if !ENABLE_DBUS
 			if (cmd_line.NeedsExecute && RemoteControlProxy.FirstInstance) {
@@ -136,6 +128,23 @@ namespace Tomboy
 				}
 			}
 #endif
+
+			// TODO: Instead of just delaying, lazy-load
+			//       (only an issue for add-ins that need to be
+			//       available at Tomboy startup, and restoring
+			//       previously-opened notes)
+			GLib.Timeout.Add (500, () => {
+				manager.Initialize ();
+				SyncManager.Initialize ();
+
+				ApplicationAddin [] addins =
+				        manager.AddinManager.GetApplicationAddins ();
+				foreach (ApplicationAddin addin in addins) {
+					addin.Initialize ();
+				}
+
+				return false;
+			});
 
 			if (is_panel_applet) {
 				tray_icon_showing = true;

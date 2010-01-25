@@ -188,19 +188,24 @@ namespace Tomboy
 
 		void ButtonPress (object sender, Gtk.ButtonPressEventArgs args)
 		{
+
 			Gtk.Widget parent = (Gtk.Widget) sender;
 
 			switch (args.Event.Button) {
 			case 1:
-				TomboyTrayUtils.UpdateTomboyTrayMenu (tray, parent);
-				GuiUtils.PopupMenu (tray.TomboyTrayMenu, args.Event);
+				manager.GtkInvoke (() => {
+					TomboyTrayUtils.UpdateTomboyTrayMenu (tray, parent);
+					GuiUtils.PopupMenu (tray.TomboyTrayMenu, args.Event);
+				});
 				args.RetVal = true;
 				break;
 			case 2:
 				if ((bool) Preferences.Get (Preferences.ENABLE_ICON_PASTE)) {
 					// Give some visual feedback
 					Gtk.Drag.Highlight (this);
-					args.RetVal = PastePrimaryClipboard ();
+					manager.GtkInvoke (() => {
+						args.RetVal = PastePrimaryClipboard ();
+					});
 					Gtk.Drag.Unhighlight (this);
 				}
 				break;
@@ -276,11 +281,13 @@ namespace Tomboy
 
 		public void ShowMenu (bool select_first_item)
 		{
-			TomboyTrayUtils.UpdateTomboyTrayMenu (tray, this);
-			if (select_first_item)
-				tray.TomboyTrayMenu.SelectFirst (false);
+			manager.GtkInvoke (() => {
+				TomboyTrayUtils.UpdateTomboyTrayMenu (tray, this);
+				if (select_first_item)
+					tray.TomboyTrayMenu.SelectFirst (false);
 
-			GuiUtils.PopupMenu (tray.TomboyTrayMenu, null);
+				GuiUtils.PopupMenu (tray.TomboyTrayMenu, null);
+			});
 		}
 
 		// Support dropping text/uri-lists and _NETSCAPE_URLs currently.
@@ -329,13 +336,15 @@ namespace Tomboy
 				more_than_one = true;
 			}
 
-			Note link_note = manager.FindByUri (NoteManager.StartNoteUri);
-			if (link_note != null) {
-				link_note.Window.Present ();
-				PrependTimestampedText (link_note,
-				                        DateTime.Now,
-				                        insert_text.ToString ());
-			}
+			manager.GtkInvoke (() => {
+				Note link_note = manager.FindByUri (NoteManager.StartNoteUri);
+				if (link_note != null) {
+					link_note.Window.Present ();
+					PrependTimestampedText (link_note,
+					                        DateTime.Now,
+					                        insert_text.ToString ());
+				}
+			});
 		}
 
 		void InitPixbuf ()
