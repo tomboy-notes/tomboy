@@ -59,27 +59,22 @@ namespace Tomboy
 				                                    Path.PathSeparator +
 				                                    Environment.GetEnvironmentVariable ("PATH"));
 #endif
-			// Initialize GETTEXT
 			Catalog.Init ("tomboy", Defines.GNOME_LOCALE_DIR);
 
 			TomboyCommandLine cmd_line = new TomboyCommandLine (args);
 			debugging = cmd_line.Debug;
+
+			if (!RemoteControlProxy.FirstInstance) {
+				if (!cmd_line.NeedsExecute)
+					cmd_line = new TomboyCommandLine (new string [] {"--search"});
+				// Execute args at an existing tomboy instance...
+				cmd_line.Execute ();
+				Console.WriteLine ("Tomboy is already running.  Exiting...");
+				return;
+			}
+
 			Logger.LogLevel = debugging ? Level.DEBUG : Level.INFO;
 			is_panel_applet = cmd_line.UsePanelApplet;
-
-#if ENABLE_DBUS // Run command-line earlier with DBus enabled
-			if (cmd_line.NeedsExecute) {
-				// Execute args at an existing tomboy instance...
-				cmd_line.Execute ();
-				return;
-			}
-#else // Without DBus enabled, need to manually check if this is the first instance
-			if (cmd_line.NeedsExecute && !RemoteControlProxy.FirstInstance) {
-				// Execute args at an existing tomboy instance...
-				cmd_line.Execute ();
-				return;
-			}
-#endif
 
 			// NOTE: It is important not to use the Preferences
 			//       class before this call.
@@ -89,45 +84,12 @@ namespace Tomboy
 			icon_theme = Gtk.IconTheme.Default;
 			icon_theme.AppendSearchPath (Path.Combine (Path.Combine (Defines.DATADIR, "tomboy"), "icons"));
 
-//   PluginManager.CheckPluginUnloading = cmd_line.CheckPluginUnloading;
-
 			// Create the default note manager instance.
 			string note_path = GetNotePath (cmd_line.NotePath);
 			manager = new NoteManager (note_path);
 
-			// Register the manager to handle remote requests.
-			RegisterRemoteControl (manager);
-
 			SetupGlobalActions ();
 			ActionManager am = Tomboy.ActionManager;
-
-#if !ENABLE_DBUS
-			if (cmd_line.NeedsExecute && RemoteControlProxy.FirstInstance) {
-				// Execute args on this instance
-				cmd_line.Execute ();
-			}
-#endif
-
-#if WIN32
-			if (Environment.OSVersion.Platform == PlatformID.Win32NT) {
-				var os_version = Environment.OSVersion.Version;
-				if (( os_version.Major == 6 && os_version.Minor > 0 ) || os_version.Major > 6) {
-					JumpListManager.CreateJumpList (manager);
-
-					manager.NoteAdded += delegate (object sender, Note changed) {
-						JumpListManager.CreateJumpList (manager);
-					};
-
-					manager.NoteRenamed += delegate (Note sender, string old_title) {
-						JumpListManager.CreateJumpList (manager);
-					};
-
-					manager.NoteDeleted += delegate (object sender, Note changed) {
-						JumpListManager.CreateJumpList (manager);
-					};
-				}
-			}
-#endif
 
 			// TODO: Instead of just delaying, lazy-load
 			//       (only an issue for add-ins that need to be
@@ -143,6 +105,32 @@ namespace Tomboy
 					addin.Initialize ();
 				}
 
+				// Register the manager to handle remote requests.
+				RegisterRemoteControl (manager);
+				if (cmd_line.NeedsExecute) {
+					// Execute args on this instance
+					cmd_line.Execute ();
+				}
+#if WIN32
+				if (Environment.OSVersion.Platform == PlatformID.Win32NT) {
+					var os_version = Environment.OSVersion.Version;
+					if (( os_version.Major == 6 && os_version.Minor > 0 ) || os_version.Major > 6) {
+						JumpListManager.CreateJumpList (manager);
+
+						manager.NoteAdded += delegate (object sender, Note changed) {
+							JumpListManager.CreateJumpList (manager);
+						};
+
+						manager.NoteRenamed += delegate (Note sender, string old_title) {
+							JumpListManager.CreateJumpList (manager);
+						};
+
+						manager.NoteDeleted += delegate (object sender, Note changed) {
+							JumpListManager.CreateJumpList (manager);
+						};
+					}
+				}
+#endif
 				return false;
 			});
 
@@ -240,7 +228,7 @@ namespace Tomboy
 						remote.DisplaySearch ();
 					} catch {}
 
-					Logger.Log ("Tomboy is already running.  Exiting...");
+					Logger.Info ("Tomboy is already running.  Exiting...");
 					System.Environment.Exit (-1);
 				}
 			} catch (Exception e) {
@@ -497,7 +485,6 @@ namespace Tomboy
 		string note_path;
 		string search_text;
 		bool open_search;
-//  bool check_plugin_unloading;
 
 		public TomboyCommandLine (string [] args)
 		{
@@ -535,11 +522,6 @@ namespace Tomboy
 				return note_path;
 			}
 		}
-
-//  public bool CheckPluginUnloading
-//  {
-//   get { return check_plugin_unloading; }
-//  }
 
 		public static void PrintAbout ()
 		{
@@ -683,10 +665,6 @@ namespace Tomboy
 
 					open_search = true;
 					break;
-
-//    case "--check-plugin-unloading":
-//     check_plugin_unloading = true;
-//     break;
 
 				case "--version":
 					PrintAbout ();

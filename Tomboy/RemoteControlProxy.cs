@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 #if ENABLE_DBUS
 using NDesk.DBus;
 using org.freedesktop.DBus;
@@ -7,20 +8,19 @@ using System.Runtime.Remoting;
 using System.Runtime.Remoting.Activation;
 using System.Runtime.Remoting.Channels;
 using System.Runtime.Remoting.Channels.Ipc;
-using System.Threading;
 #endif
 
 namespace Tomboy
 {
 	public static class RemoteControlProxy {
+		private static Mutex mutex;
+		private static bool firstInstance;
+		private const string MutexName = "{9EF7D32D-3392-4940-8A28-1320A7BD42AB}";
 #if ENABLE_DBUS
 		private const string Path = "/org/gnome/Tomboy/RemoteControl";
 		private const string Namespace = "org.gnome.Tomboy";
 #else
-		private static Mutex mutex;
 		private static IpcChannel IpcChannel;
-		private static bool firstInstance;
-		private const string MutexName = "{9EF7D32D-3392-4940-8A28-1320A7BD42AB}";
 		private const string ServerName = "TomboyServer";
 		private const string ClientName = "TomboyClient";
 		private const string WrapperName = "TomboyRemoteControlWrapper";
@@ -99,7 +99,7 @@ namespace Tomboy
 			}
 #endif
 		}
-#if !ENABLE_DBUS
+
 		public static bool FirstInstance {
 			get {
 				// Use a mutex to provide single-instance detection
@@ -108,6 +108,5 @@ namespace Tomboy
 				return firstInstance;
 			}
 		}
-#endif
 	}
 }
