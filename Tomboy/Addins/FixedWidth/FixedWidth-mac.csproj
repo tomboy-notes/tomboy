@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -9,7 +9,7 @@
     <OutputType>Library</OutputType>
     <NoStandardLibraries>false</NoStandardLibraries>
     <AssemblyName>FixedWidth</AssemblyName>
-    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <RootNamespace>FixedWidth</RootNamespace>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
@@ -84,11 +84,11 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Tomboy-mac.csproj">
-      <Project>{30A75F9A-7305-465E-8754-334345424569}</Project>
+      <Project>{315DBB30-1461-4A41-A23F-A888D84E1EA0}</Project>
       <Name>Tomboy-mac</Name>
     </ProjectReference>
   </ItemGroup>
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio AllowExistingFolder="true" />
   </ProjectExtensions>
