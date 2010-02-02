@@ -1,4 +1,4 @@
-﻿//#if WIN32
+//#if WIN32
 
 using System;
 using System.Collections.Generic;
@@ -128,10 +128,12 @@ namespace Tomboy
 
 			// Add Start Here note
 			Note start_note = note_manager.FindByUri (NoteManager.StartNoteUri);
-			IShellLink start_note_link = CreateShellLink (start_note.Title, tomboy_path, "--open-note " +
-				NoteManager.StartNoteUri, icons_path + NoteIcon, -1);
-			if (start_note_link != null)
-				object_collection.AddObject (start_note_link);
+			if (start_note != null) {
+				IShellLink start_note_link = CreateShellLink (start_note.Title, tomboy_path, "--open-note " +
+					NoteManager.StartNoteUri, icons_path + NoteIcon, -1);
+				if (start_note_link != null)
+					object_collection.AddObject (start_note_link);
+			}
 
 			custom_destinationd_list.AppendCategory ("Recent Notes", (IObjectArray) object_collection);
 
