@@ -48,7 +48,7 @@ namespace Tomboy
 
 				Marshal.FinalReleaseComObject (custom_destinationd_list);
 				custom_destinationd_list = null;
-			} catch (COMException e) {
+			} catch (Exception e) {
 				Logger.Error ("Error creating jump list: {0}\n{1}", e.Message, e.StackTrace);
 			}
 		}
@@ -64,7 +64,7 @@ namespace Tomboy
 
 				Marshal.FinalReleaseComObject (custom_destinationd_list);
 				custom_destinationd_list = null;
-			} catch (COMException e) {
+			} catch (Exception e) {
 				Logger.Error ("Error removing jump list: {0}\n{1}", e.Message, e.StackTrace);
 			}
 		}
