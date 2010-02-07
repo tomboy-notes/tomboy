@@ -732,17 +732,108 @@ namespace Tomboy
 				return data.Data.Title;
 			}
 			set {
-				if (data.Data.Title != value) {
-					if (window != null)
-						window.Title = value;
+				SetTitle (value, false);
+			}
+		}
 
-					string old_title = data.Data.Title;
-					data.Data.Title = value;
+		public void SetTitle (string new_title, bool from_user_action)
+		{
+			if (data.Data.Title != new_title) {
+				if (window != null)
+					window.Title = new_title;
 
-					if (Renamed != null)
-						Renamed (this, old_title);
+				string old_title = data.Data.Title;
+				data.Data.Title = new_title;
 
-					QueueSave (ChangeType.ContentChanged); // TODO: Right place for this?
+				if (from_user_action)
+					ProcessRenameLinkUpdate (old_title);
+
+				if (Renamed != null)
+					Renamed (this, old_title);
+
+				QueueSave (ChangeType.ContentChanged); // TODO: Right place for this?
+			}
+		}
+
+		private void ProcessRenameLinkUpdate (string old_title)
+		{
+			List<Note> linkingNotes = new List<Note> ();
+			foreach (Note note in manager.Notes) {
+				// Technically, containing text does not imply linking,
+				// but this is less work
+				if (note != this && note.ContainsText (old_title))
+					linkingNotes.Add (note);
+			}
+
+			if (linkingNotes.Count > 0) {
+				NoteRenameBehavior behavior = (NoteRenameBehavior)
+					Preferences.Get (Preferences.NOTE_RENAME_BEHAVIOR);
+				if (behavior == NoteRenameBehavior.AlwaysShowDialog) {
+					var dlg = new NoteRenameDialog (linkingNotes, old_title, this);
+					Gtk.ResponseType response = (Gtk.ResponseType) dlg.Run ();
+					if (response != Gtk.ResponseType.Cancel &&
+					    dlg.SelectedBehavior != NoteRenameBehavior.AlwaysShowDialog)
+						Preferences.Set (Preferences.NOTE_RENAME_BEHAVIOR, (int) dlg.SelectedBehavior);
+					foreach (var pair in dlg.Notes) {
+						if (pair.Value && response == Gtk.ResponseType.Yes) // Rename
+							pair.Key.RenameLinks (old_title, this);
+						else
+							pair.Key.RemoveLinks (old_title, this);
+					}
+					dlg.Destroy ();
+				} else if (behavior == NoteRenameBehavior.AlwaysRemoveLinks)
+					foreach (var note in linkingNotes)
+						note.RemoveLinks (old_title, this);
+				else if (behavior == NoteRenameBehavior.AlwaysRenameLinks)
+					foreach (var note in linkingNotes)
+						note.RenameLinks (old_title, this);
+			}
+		}
+
+		private bool ContainsText (string text)
+		{
+			return TextContent.IndexOf (text, StringComparison.InvariantCultureIgnoreCase) > -1;
+		}
+
+		private void RenameLinks (string old_title, Note renamed)
+		{
+			HandleLinkRename (old_title, renamed, true);
+		}
+
+		private void RemoveLinks (string old_title, Note renamed)
+		{
+			HandleLinkRename (old_title, renamed, false);
+		}
+
+		private void HandleLinkRename (string old_title, Note renamed, bool rename_links)
+		{
+			// Check again, things may have changed
+			if (!ContainsText (old_title))
+				return;
+
+			string old_title_lower = old_title.ToLower ();
+
+			NoteTag link_tag = TagTable.LinkTag;
+
+			// Replace existing links with the new title.
+			TextTagEnumerator enumerator = new TextTagEnumerator (Buffer, link_tag);
+			foreach (TextRange range in enumerator) {
+				if (range.Text.ToLower () != old_title_lower)
+					continue;
+
+				if (!rename_links) {
+					Logger.Debug ("Removing link tag from text '{0}'",
+					              range.Text);
+					Buffer.RemoveTag (link_tag, range.Start, range.End);
+				} else {
+					Logger.Debug ("Replacing '{0}' with '{1}'",
+					              range.Text,
+					              renamed.Title);
+					Gtk.TextIter start_iter = range.Start;
+					Gtk.TextIter end_iter = range.End;
+					Buffer.Delete (ref start_iter, ref end_iter);
+					start_iter = range.Start;
+					Buffer.InsertWithTags (ref start_iter, renamed.Title, link_tag);
 				}
 			}
 		}

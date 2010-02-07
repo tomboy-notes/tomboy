@@ -18,6 +18,7 @@ namespace Tomboy
 		Gtk.Widget syncAddinPrefsWidget;
 		Gtk.Button resetSyncAddinButton;
 		Gtk.Button saveSyncAddinButton;
+		Gtk.ComboBox rename_behavior_combo;
 		readonly AddinManager addin_manager;
 		
 		Gtk.Button font_button;
@@ -120,6 +121,21 @@ namespace Tomboy
 
 			AddActionWidget (button, Gtk.ResponseType.Close);
 			DefaultResponse = Gtk.ResponseType.Close;
+
+			Preferences.SettingChanged += HandlePreferencesSettingChanged;
+		}
+
+		void HandlePreferencesSettingChanged (object sender, NotifyEventArgs args)
+		{
+			if (args.Key == Preferences.NOTE_RENAME_BEHAVIOR) {
+				int rename_behavior = (int) args.Value;
+				if (rename_behavior < 0 || rename_behavior > 2) {
+					rename_behavior = 0;
+					Preferences.Set (Preferences.NOTE_RENAME_BEHAVIOR, rename_behavior);
+				}
+				if (rename_behavior_combo.Active != rename_behavior)
+					rename_behavior_combo.Active = rename_behavior;
+			}
 		}
 		
 		// Page 1
@@ -184,24 +200,43 @@ namespace Tomboy
 			SetupPropertyEditor (bullet_peditor);
 
 			// Custom font...
-
+			Gtk.HBox font_box = new Gtk.HBox (false, 0);
 			check = MakeCheckButton (Catalog.GetString ("Use custom _font"));
-			options_list.PackStart (check, false, false, 0);
+			font_box.PackStart (check);
 
 			font_peditor =
 			        Services.Factory.CreatePropertyEditorToggleButton (Preferences.ENABLE_CUSTOM_FONT,
 			                                        check);
 			SetupPropertyEditor (font_peditor);
 
-			align = new Gtk.Alignment (0.5f, 0.5f, 0.4f, 1.0f);
-			align.Show ();
-			options_list.PackStart (align, false, false, 0);
-
 			font_button = MakeFontButton ();
 			font_button.Sensitive = check.Active;
-			align.Add (font_button);
+			font_box.PackStart (font_button);
+			font_box.ShowAll ();
+			options_list.PackStart (font_box, false, false, 0);
 
 			font_peditor.AddGuard (font_button);
+
+			// Note renaming bahvior
+			Gtk.HBox rename_behavior_box = new Gtk.HBox (false, 0);
+			label = MakeLabel (Catalog.GetString ("When renaming a linked note: "));
+			rename_behavior_box.PackStart (label);
+			rename_behavior_combo = new Gtk.ComboBox (new string [] {
+				Catalog.GetString ("Ask me what to do"),
+				Catalog.GetString ("Never rename links"),
+				Catalog.GetString ("Always rename links")});
+			int rename_behavior = (int) Preferences.Get (Preferences.NOTE_RENAME_BEHAVIOR);
+			if (rename_behavior < 0 || rename_behavior > 2) {
+				rename_behavior = 0;
+				Preferences.Set (Preferences.NOTE_RENAME_BEHAVIOR, rename_behavior);
+			}
+			rename_behavior_combo.Active = rename_behavior;
+			rename_behavior_combo.Changed += (o, e) =>
+				Preferences.Set (Preferences.NOTE_RENAME_BEHAVIOR,
+				                 rename_behavior_combo.Active);
+			rename_behavior_box.PackStart (rename_behavior_combo);
+			rename_behavior_box.ShowAll ();
+			options_list.PackStart (rename_behavior_box, false, false, 0);
 			
 			// New Note Template
 			// Translators: This is 'New Note' Template, not New 'Note Template'

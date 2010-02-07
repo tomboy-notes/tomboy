@@ -174,7 +174,8 @@ namespace Tomboy
 			}
 
 			Logger.Debug ("Renaming note from {0} to {1}", Note.Title, title);
-			Note.Title = title;
+			Note.SetTitle (title, true);
+
 			return true;
 		}
 
@@ -678,29 +679,6 @@ namespace Tomboy
 			// Highlight previously unlinked text
 			if (ContainsText (renamed.Title))
 				HighlightNoteInBlock (renamed, Buffer.StartIter, Buffer.EndIter);
-
-			if (!ContainsText (old_title))
-				return;
-
-			string old_title_lower = old_title.ToLower ();
-
-			// Replace existing links with the new title.
-			NoteTag link_tag = Note.TagTable.LinkTag;
-			TextTagEnumerator enumerator = new TextTagEnumerator (Buffer, link_tag);
-			foreach (TextRange range in enumerator) {
-				if (range.Text.ToLower () != old_title_lower)
-					continue;
-
-				Logger.Log ("Replacing '{0}' with '{1}'",
-				            range.Text,
-				            renamed.Title);
-
-				Gtk.TextIter start_iter = range.Start;
-				Gtk.TextIter end_iter = range.End;
-				Buffer.Delete (ref start_iter, ref end_iter);
-				start_iter = range.Start;
-				Buffer.InsertWithTags (ref start_iter, renamed.Title, link_tag);
-			}
 		}
 
 		void DoHighlight (TrieHit hit, Gtk.TextIter start, Gtk.TextIter end)

@@ -106,6 +106,7 @@ CSFILES = 					\
 	$(srcdir)/NoteManager.cs 		\
 	$(srcdir)/NoteWindow.cs 		\
 	$(srcdir)/NoteBuffer.cs 		\
+	$(srcdir)/NoteRenameDialog.cs 		\
 	$(srcdir)/NoteTag.cs 			\
 	$(srcdir)/PlatformFactory.cs		\
 	$(srcdir)/Preferences.cs		\

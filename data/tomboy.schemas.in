@@ -549,6 +549,26 @@
     </schema>
 
     <schema>
+      <key>/schemas/apps/tomboy/note_rename_behavior</key>
+      <applyto>/apps/tomboy/note_rename_behavior</applyto>
+      <owner>tomboy</owner>
+      <type>int</type>
+      <default>0</default>
+      <locale name="C">
+         <short>Link Updating Behavior on Note Rename</short>
+         <long>
+	   Integer value indicating if there is a preference to always perform
+	   a specific link updating behavior when a note is renamed, instead of prompting
+	   the user.  The values map to an internal enumeration.  0 indicates
+	   that the user wishes to be prompted when renaming a note may impact links
+	   that exist in other notes. 1 indicates that links should automatically
+	   be removed. 2 indicates that link text should be updated to the new note name
+	   so that it will continue linking to the renamed note.
+         </long>
+      </locale>
+    </schema>
+
+    <schema>
       <key>/schemas/apps/tomboy/insert_timestamp/format</key>
       <applyto>/apps/tomboy/insert_timestamp/format</applyto>
       <owner>tomboy</owner>

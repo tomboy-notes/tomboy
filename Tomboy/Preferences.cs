@@ -39,6 +39,8 @@ namespace Tomboy
 		public const string SYNC_SELECTED_SERVICE_ADDIN = "/apps/tomboy/sync/sync_selected_service_addin";
 		public const string SYNC_CONFIGURED_CONFLICT_BEHAVIOR = "/apps/tomboy/sync/sync_conflict_behavior";
 
+		public const string NOTE_RENAME_BEHAVIOR = "/apps/tomboy/note_rename_behavior";
+
 		public const string INSERT_TIMESTAMP_FORMAT = "/apps/tomboy/insert_timestamp/format";
 		
 		public const string SEARCH_WINDOW_X_POS = "/apps/tomboy/search_window_x_pos";
@@ -131,6 +133,9 @@ namespace Tomboy
 				return string.Empty;
 
 			case SYNC_CONFIGURED_CONFLICT_BEHAVIOR:
+				return 0;
+
+			case NOTE_RENAME_BEHAVIOR:
 				return 0;
 
 			case INSERT_TIMESTAMP_FORMAT:
