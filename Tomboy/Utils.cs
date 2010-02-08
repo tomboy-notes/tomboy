@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading;
 using System.IO;
 using System.Xml;
 
@@ -235,6 +236,31 @@ namespace Tomboy
 				             date.ToString (Catalog.GetString ("MMMM d yyyy"));
 
 			return pretty_str;
+		}
+
+		/// <summary>
+		/// Invoke a method on the GUI thread, and wait for it to
+		/// return. If the method raises an exception, it will be
+		/// thrown from this method.
+		/// </summary>
+		/// <param name="a">
+		/// The action to invoke.
+		/// </param>
+		public static void GtkInvokeAndWait (Action a)
+		{
+			Exception mainThreadException = null;
+			AutoResetEvent evt = new AutoResetEvent (false);
+			Gtk.Application.Invoke (delegate {
+				try {
+					a.Invoke ();
+				} catch (Exception e) {
+					mainThreadException = e;
+				}
+				evt.Set ();
+			});
+			evt.WaitOne ();
+			if (mainThreadException != null)
+				throw mainThreadException;
 		}
 	}
 

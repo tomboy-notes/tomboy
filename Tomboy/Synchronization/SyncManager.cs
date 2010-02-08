@@ -383,10 +383,7 @@ namespace Tomboy.Sync
 				// delegate to run in the main gtk thread.
 				// To be consistent, any exceptions in the delgate will be caught
 				// and then rethrown in the synchronization thread.
-				Exception mainThreadException = null;
-				AutoResetEvent evt = new AutoResetEvent (false);
-				Gtk.Application.Invoke (delegate {
-				try {
+				GuiUtils.GtkInvokeAndWait (() => {
 					// Make list of all local notes
 					List<Note> localNotes = new List<Note> (NoteMgr.Notes);
 
@@ -397,21 +394,12 @@ namespace Tomboy.Sync
 					foreach (Note note in localNotes) {
 						if (client.GetRevision (note) != -1 &&
 						!serverNotes.Contains (note.Id)) {
-
 							if (NoteSynchronized != null)
 								NoteSynchronized (note.Title, NoteSyncType.DeleteFromClient);
 							NoteMgr.Delete (note);
 						}
 					}
-					evt.Set ();
-				} catch (Exception e) {
-				mainThreadException = e;
-			}
-			                        });
-
-				evt.WaitOne ();
-				if (mainThreadException != null)
-					throw mainThreadException;
+				});
 
 				// TODO: Add following updates to syncDialog treeview
 
@@ -530,22 +518,10 @@ namespace Tomboy.Sync
 			// delegate to run in the main gtk thread.
 			// To be consistent, any exceptions in the delgate will be caught
 			// and then rethrown in the synchronization thread.
-			Exception mainThreadException = null;
-			AutoResetEvent evt = new AutoResetEvent (false);
-			Gtk.Application.Invoke (delegate {
-				try {
-					Note existingNote = NoteMgr.CreateWithGuid (noteUpdate.Title, noteUpdate.UUID);
-					UpdateLocalNote (existingNote, noteUpdate, NoteSyncType.DownloadNew);
-				} catch (Exception e) {
-					mainThreadException = e;
-				}
-
-				evt.Set ();
+			GuiUtils.GtkInvokeAndWait (() => {
+				Note existingNote = NoteMgr.CreateWithGuid (noteUpdate.Title, noteUpdate.UUID);
+				UpdateLocalNote (existingNote, noteUpdate, NoteSyncType.DownloadNew);
 			});
-
-			evt.WaitOne ();
-			if (mainThreadException != null)
-				throw mainThreadException;
 		}
 
 		private static void UpdateNoteInMainThread (Note existingNote, NoteUpdate noteUpdate)
@@ -554,21 +530,9 @@ namespace Tomboy.Sync
 			// delegate to run in the main gtk thread.
 			// To be consistent, any exceptions in the delgate will be caught
 			// and then rethrown in the synchronization thread.
-			Exception mainThreadException = null;
-			AutoResetEvent evt = new AutoResetEvent (false);
-			Gtk.Application.Invoke (delegate {
-				try {
-					UpdateLocalNote (existingNote, noteUpdate, NoteSyncType.DownloadModified);
-				} catch (Exception e) {
-					mainThreadException = e;
-				}
-
-				evt.Set ();
+			GuiUtils.GtkInvokeAndWait (() => {
+				UpdateLocalNote (existingNote, noteUpdate, NoteSyncType.DownloadModified);
 			});
-
-			evt.WaitOne ();
-			if (mainThreadException != null)
-				throw mainThreadException;
 		}
 
 		private static void DeleteNoteInMainThread (Note existingNote)
@@ -577,21 +541,9 @@ namespace Tomboy.Sync
 			// delegate to run in the main gtk thread.
 			// To be consistent, any exceptions in the delgate will be caught
 			// and then rethrown in the synchronization thread.
-			Exception mainThreadException = null;
-			AutoResetEvent evt = new AutoResetEvent (false);
-			Gtk.Application.Invoke (delegate {
-				try {
-					NoteMgr.Delete (existingNote);
-				} catch (Exception e) {
-					mainThreadException = e;
-				}
-
-				evt.Set ();
+			GuiUtils.GtkInvokeAndWait (() => {
+				NoteMgr.Delete (existingNote);
 			});
-
-			evt.WaitOne ();
-			if (mainThreadException != null)
-				throw mainThreadException;
 		}
 
 		private static void UpdateLocalNote (Note localNote, NoteUpdate serverNote, NoteSyncType syncType)
