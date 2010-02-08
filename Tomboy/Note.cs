@@ -353,6 +353,7 @@ namespace Tomboy
 
 		bool save_needed;
 		bool is_deleting;
+		bool enabled = true;
 
 		NoteManager manager;
 		NoteWindow window;
@@ -1085,6 +1086,16 @@ namespace Tomboy
 			}
 		}
 
+		public bool Enabled
+		{
+			get { return enabled; }
+			set {
+				enabled = value;
+				if (window != null)
+					window.Editor.Sensitive = enabled;
+			}
+		}
+
 		public NoteWindow Window
 		{
 			get {
@@ -1092,6 +1103,8 @@ namespace Tomboy
 					window = new NoteWindow (this);
 					window.Destroyed += WindowDestroyed;
 					window.ConfigureEvent += WindowConfigureEvent;
+					// TODO: What about a disabled set where you can still copy text?
+					window.Editor.Sensitive = Enabled;
 
 					if (data.Data.HasExtent ())
 						window.SetDefaultSize (data.Data.Width,

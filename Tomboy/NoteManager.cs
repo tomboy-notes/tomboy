@@ -48,6 +48,11 @@ namespace Tomboy
 			get; private set;
 		}
 
+		// TODO: Decide if/how to enforce
+		public bool ReadOnly {
+			get; set;
+		}
+
 		/// <summary>
 		/// Use Gtk.Application.Invoke to invoke the Action delegate
 		/// once this NoteManager is initialized. If this NoteManager

@@ -98,6 +98,8 @@ namespace Tomboy
 
 		public string CreateNote ()
 		{
+			if (note_manager.ReadOnly)
+				return string.Empty;
 			try {
 				Note note = note_manager.Create ();
 				note.QueueSave (ChangeType.ContentChanged);
@@ -109,6 +111,8 @@ namespace Tomboy
 
 		public string CreateNamedNote (string linked_title)
 		{
+			if (note_manager.ReadOnly)
+				return string.Empty;
 			Note note;
 
 			note = note_manager.Find (linked_title);
@@ -126,6 +130,8 @@ namespace Tomboy
 
 		public string CreateNamedNoteWithUri (string linked_title, string uri)
 		{
+			if (note_manager.ReadOnly)
+				return string.Empty;
 			Note note;
 			string guid;
 			try {
@@ -156,6 +162,8 @@ namespace Tomboy
 
 		public bool DeleteNote (string uri)
 		{
+			if (note_manager.ReadOnly)
+				return false;
 			Note note;
 
 			note = note_manager.FindByUri (uri);
@@ -253,6 +261,8 @@ namespace Tomboy
 
 		public bool SetNoteContents (string uri, string text_contents)
 		{
+			if (note_manager.ReadOnly)
+				return false;
 			Note note;
 			note = note_manager.FindByUri (uri);
 			if (note == null)
@@ -263,6 +273,8 @@ namespace Tomboy
 
 		public bool SetNoteContentsXml (string uri, string xml_contents)
 		{
+			if (note_manager.ReadOnly)
+				return false;
 			Note note;
 			note = note_manager.FindByUri (uri);
 			if (note == null)
@@ -277,6 +289,8 @@ namespace Tomboy
 		/// </summary>
 		public bool SetNoteCompleteXml (string uri, string xml_contents)
 		{
+			if (note_manager.ReadOnly)
+				return false;
 			Note note;
 			note = note_manager.FindByUri (uri);
 			if (note == null)
@@ -298,6 +312,8 @@ namespace Tomboy
 
 		public bool AddTagToNote (string uri, string tag_name)
 		{
+			if (note_manager.ReadOnly)
+				return false;
 			Note note = note_manager.FindByUri (uri);
 			if (note == null)
 				return false;
@@ -343,6 +359,8 @@ namespace Tomboy
 
 		public bool AddNoteToNotebook (string uri, string notebook_name)
 		{
+			if (note_manager.ReadOnly)
+				return false;
 			Note note = note_manager.FindByUri (uri);
 			if (note == null)
 				return false;

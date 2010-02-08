@@ -19,7 +19,7 @@ namespace Tomboy.NoteOfTheDay
 		void CheckNewDay (object sender, EventArgs args)
 		{
 			Note notd = NoteOfTheDay.GetNoteByDate (manager, DateTime.Today);
-			if (notd == null) {
+			if (notd == null && !manager.ReadOnly) {
 				NoteOfTheDay.CleanupOld (manager);
 
 				// Create a new NotD if the day has changed
