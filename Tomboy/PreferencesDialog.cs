@@ -18,6 +18,8 @@ namespace Tomboy
 		Gtk.Widget syncAddinPrefsWidget;
 		Gtk.Button resetSyncAddinButton;
 		Gtk.Button saveSyncAddinButton;
+		Gtk.CheckButton autosyncCheck;
+		Gtk.SpinButton autosyncSpinner;
 		Gtk.ComboBox rename_behavior_combo;
 		readonly AddinManager addin_manager;
 		
@@ -135,6 +137,17 @@ namespace Tomboy
 				}
 				if (rename_behavior_combo.Active != rename_behavior)
 					rename_behavior_combo.Active = rename_behavior;
+			} else if (args.Key == Preferences.SYNC_AUTOSYNC_TIMEOUT) {
+				int timeout = (int) args.Value;
+				if (timeout <= 0 && autosyncCheck.Active)
+					autosyncCheck.Active = false;
+				else if (timeout > 0) {
+					timeout = (timeout >= 5 && timeout < 1000) ? timeout : 5;
+					if (!autosyncCheck.Active)
+						autosyncCheck.Active = true;
+					if ((int) autosyncSpinner.Value != timeout)
+						autosyncSpinner.Value = timeout;
+				}
 			}
 		}
 		
@@ -484,6 +497,41 @@ namespace Tomboy
 			syncAddinPrefsContainer.PackStart (syncAddinPrefsWidget, false, false, 0);
 			syncAddinPrefsContainer.Show ();
 			vbox.PackStart (syncAddinPrefsContainer, true, true, 10);
+
+			// Autosync preference
+			int timeout = (int) Preferences.Get (Preferences.SYNC_AUTOSYNC_TIMEOUT);
+			if (timeout > 0 && timeout < 5) {
+				timeout = 5;
+				Preferences.Set (Preferences.SYNC_AUTOSYNC_TIMEOUT, 5);
+			}
+			Gtk.HBox autosyncBox = new Gtk.HBox (false, 5);
+			// Translators: This is and the next string go together.
+			// Together they look like "Automatically Sync in Background Every [_] Minutes",
+			// where "[_]" is a GtkSpinButton.
+			autosyncCheck =
+				new Gtk.CheckButton (Catalog.GetString ("Automaticall_y Sync in Background Every"));
+			autosyncSpinner = new Gtk.SpinButton (5, 1000, 1);
+			autosyncSpinner.Value = timeout >= 5 ? timeout : 10;
+			Gtk.Label autosyncExtraText =
+				// Translators: See above comment for details on
+				// this string.
+				new Gtk.Label (Catalog.GetString ("Minutes"));
+			autosyncCheck.Active = autosyncSpinner.Sensitive = timeout >= 5;
+			EventHandler updateTimeoutPref = (o, e) => {
+				Preferences.Set (Preferences.SYNC_AUTOSYNC_TIMEOUT,
+				                 autosyncCheck.Active ? (int) autosyncSpinner.Value : -1);
+			};
+			autosyncCheck.Toggled += (o, e) => {
+				autosyncSpinner.Sensitive = autosyncCheck.Active;
+				updateTimeoutPref (o, e);
+			};
+			autosyncSpinner.ValueChanged += updateTimeoutPref;
+
+			autosyncBox.PackStart (autosyncCheck);
+			autosyncBox.PackStart (autosyncSpinner);
+			autosyncBox.PackStart (autosyncExtraText);
+			autosyncBox.Sensitive = false; // TODO: Remove when this feature is stable
+			vbox.PackStart (autosyncBox, false, true, 0);
 
 			Gtk.HButtonBox bbox = new Gtk.HButtonBox ();
 			bbox.Spacing = 4;

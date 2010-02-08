@@ -549,6 +549,23 @@
     </schema>
 
     <schema>
+      <key>/schemas/apps/tomboy/sync/autosync_timeout</key>
+      <applyto>/apps/tomboy/sync/autosync_timeout</applyto>
+      <owner>tomboy</owner>
+      <type>int</type>
+      <default>-1</default>
+      <locale name="C">
+         <short>Automatic Background Synchronization Timeout</short>
+         <long>
+	   Integer value indicating how frequently to perform a background sync
+	   of your notes (when sync is configured).  Any value less than 1
+	   indicates that autosync is disabled.  The lowest acceptable positive
+	   value is 5.  Value is in minutes.
+         </long>
+      </locale>
+    </schema>
+
+    <schema>
       <key>/schemas/apps/tomboy/note_rename_behavior</key>
       <applyto>/apps/tomboy/note_rename_behavior</applyto>
       <owner>tomboy</owner>

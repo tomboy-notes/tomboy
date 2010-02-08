@@ -205,10 +205,64 @@ namespace Tomboy.Sync
 			UpdateSyncAction ();
 		}
 
+		private static Timer autosyncTimer;
+		private static int autosyncTimeout = -1;
+
 		static void UpdateSyncAction ()
 		{
 			string sync_addin_id = Preferences.Get (Preferences.SYNC_SELECTED_SERVICE_ADDIN) as string;
 			Tomboy.ActionManager["SyncNotesAction"].Sensitive = !string.IsNullOrEmpty (sync_addin_id);
+
+			int timeoutPref = (int) Preferences.Get (Preferences.SYNC_AUTOSYNC_TIMEOUT);
+			if (timeoutPref != autosyncTimeout) {
+				autosyncTimeout = timeoutPref;
+				if (autosyncTimer != null) {
+					autosyncTimer.Dispose ();
+					autosyncTimer = null;
+				}
+				if (autosyncTimeout > 0) {
+					autosyncTimeout = autosyncTimeout >= 5 ? autosyncTimeout : 5;
+					autosyncTimer = new Timer ((o) => BackgroundSyncChecker (),
+					                           null,
+					                           60000, // Perform a sync one minute after setting change
+					                           autosyncTimeout * 60000);
+				}
+			}
+		}
+
+		static void BackgroundSyncChecker ()
+		{
+			if (syncThread != null)
+				return;
+			var addin = GetConfiguredSyncService ();
+			if (addin != null) {
+				// TODO: block sync while checking
+				var server = addin.CreateSyncServer ();
+				bool clientHasUpdates = client.DeletedNoteTitles.Count > 0;
+				bool serverHasUpdates = false;
+				if (!clientHasUpdates) {
+					foreach (Note note in new List<Note> (NoteMgr.Notes)) {
+						if (client.GetRevision (note) == -1 ||
+						    note.MetadataChangeDate > client.LastSyncDate) {
+							clientHasUpdates = true;
+							break;
+						}
+					}
+				}
+				// Wasteful to check when we'll sync anyway
+				// TODO: Unless we want to show a bubble when server has updates for users that don't autosync
+				if (!clientHasUpdates) {
+					Logger.Debug ("BackgroundSyncChecker: No client updates; checking with server");
+					serverHasUpdates = server.UpdatesAvailableSince (client.LastSynchronizedRevision);
+				}
+				addin.PostSyncCleanup (); // Let FUSE unmount, etc
+
+				if (clientHasUpdates || serverHasUpdates) {
+					Logger.Debug ("BackgroundSyncChecker: Detected that sync would be a good idea now");
+					// TODO: Check that it's safe to sync, block other sync UIs
+					PerformSynchronization (new SilentUI (NoteMgr));
+				}
+			}
 		}
 
 		public static void ResetClient ()
@@ -505,6 +559,7 @@ namespace Tomboy.Sync
 				}
 			}
 		}
+
 
 		/// <summary>
 		/// The GUI should call this after having the user resolve a conflict
