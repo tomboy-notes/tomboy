@@ -34,7 +34,7 @@ namespace Tomboy.WebSync
 {
 	public class WebSyncServer : SyncServer
 	{
-		private string serverUrl;
+		private string rootUri;
 		private IWebConnection connection;
 
 		private RootInfo root;
@@ -43,8 +43,8 @@ namespace Tomboy.WebSync
 		
 		public WebSyncServer (string serverUrl, IWebConnection connection)
 		{
-			this.serverUrl = serverUrl;
 			this.connection = connection;
+			rootUri = serverUrl + "/api/1.0/"; // TODO: Trim trailing / from serverUrl if necessary
 		}
 
 		#region SyncServer implementation
@@ -52,7 +52,6 @@ namespace Tomboy.WebSync
 		public bool BeginSyncTransaction ()
 		{
 			// TODO: Check connection and auth (is getting root/user resources a sufficient check?)
-			string rootUri = serverUrl + "/api/1.0/";
 			root = RootInfo.GetRoot (rootUri, connection);
 			user = UserInfo.GetUser (root.User.ApiRef, connection);
 			if (user.LatestSyncRevision.HasValue)
@@ -140,6 +139,14 @@ namespace Tomboy.WebSync
 		{
 			foreach (Note note in notes)
 				pendingCommits.Add (NoteConvert.ToNoteInfo (note));
+		}
+
+		public bool UpdatesAvailableSince (int revision)
+		{
+			root = RootInfo.GetRoot (rootUri, connection);
+			user = UserInfo.GetUser (root.User.ApiRef, connection);
+			return user.LatestSyncRevision.HasValue &&
+				user.LatestSyncRevision.Value > revision;
 		}
 		
 		#endregion

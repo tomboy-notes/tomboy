@@ -96,6 +96,11 @@ namespace Tomboy.Sync
 			return noteUUIDs;
 		}
 
+		public bool UpdatesAvailableSince (int revision)
+		{
+			return LatestRevision > revision; // TODO: Mounting, etc?
+		}
+
 		public virtual IDictionary<string, NoteUpdate> GetNoteUpdatesSince (int revision)
 		{
 			Dictionary<string, NoteUpdate> noteUpdates = new Dictionary<string, NoteUpdate> ();

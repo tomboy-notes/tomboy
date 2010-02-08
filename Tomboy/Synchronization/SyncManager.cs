@@ -851,9 +851,10 @@ namespace Tomboy.Sync
 		IDictionary<string, NoteUpdate> GetNoteUpdatesSince (int revision);
 		void DeleteNotes (IList<string> deletedNoteUUIDs);
 		void UploadNotes (IList<Note> notes);
-		int LatestRevision { get; }
+		int LatestRevision { get; } // NOTE: Only reliable during a transaction
 		SyncLockInfo CurrentSyncLock { get; }
 		string Id { get; }
+		bool UpdatesAvailableSince (int revision);
 	}
 
 	public interface SyncClient
