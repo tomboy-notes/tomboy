@@ -117,7 +117,6 @@ namespace Tomboy.Sync
 
 	public class SyncManager
 	{
-		//private static SyncServer server;
 		private static SyncClient client;
 		private static SyncState state = SyncState.Idle;
 		private static Thread syncThread = null;
@@ -239,7 +238,6 @@ namespace Tomboy.Sync
 		/// </summary>
 		public static void SynchronizationThread ()
 		{
-			// TODO: Try/finally this entire method so GUI doesn't hang?
 			SyncServiceAddin addin = null;
 			SyncServer server = null;
 			try {
@@ -660,13 +658,13 @@ namespace Tomboy.Sync
 					StateChanged (state);
 				} catch {}
 			}
-	}
+		}
 
-	/// <summary>
-	/// Read the preferences and load the specified SyncServiceAddin to
-	/// perform synchronization.
-	/// </summary>
-	private static SyncServiceAddin GetConfiguredSyncService ()
+		/// <summary>
+		/// Read the preferences and load the specified SyncServiceAddin to
+		/// perform synchronization.
+		/// </summary>
+		private static SyncServiceAddin GetConfiguredSyncService ()
 		{
 			SyncServiceAddin addin = null;
 
