@@ -321,7 +321,8 @@ namespace Tomboy.Sync
 				{
 					if (FindNoteByUUID (noteUpdate.UUID) == null) {
 						Note existingNote = NoteMgr.Find (noteUpdate.Title);
-						if (existingNote != null) {
+						if (existingNote != null && !noteUpdate.BasicallyEqualTo (existingNote)) {
+//							Logger.Debug ("Sync: Early conflict detection for '{0}'", noteUpdate.Title);
 							if (NoteConflictDetected != null) {
 								NoteConflictDetected (NoteMgr, existingNote, noteUpdate, noteUpdateTitles);
 
@@ -354,10 +355,12 @@ namespace Tomboy.Sync
 							DeleteNoteInMainThread (existingNote);
 						}
 						CreateNoteInMainThread (noteUpdate);
-					} else if (existingNote.MetadataChangeDate.CompareTo (client.LastSyncDate) <= 0) {
+					} else if (existingNote.MetadataChangeDate.CompareTo (client.LastSyncDate) <= 0 ||
+					           noteUpdate.BasicallyEqualTo (existingNote)) {
 						// Existing note hasn't been modified since last sync; simply update it from server
 						UpdateNoteInMainThread (existingNote, noteUpdate);
 					} else {
+//						Logger.Debug ("Sync: Late conflict detection for '{0}'", noteUpdate.Title);
 						Logger.Debug (string.Format (
 						                      "SyncManager: Content conflict in note update for note '{0}'",
 						                      noteUpdate.Title));
@@ -726,6 +729,54 @@ namespace Tomboy.Sync
 					}
 				}
 			}
+		}
+
+		public bool BasicallyEqualTo (Note existingNote)
+		{
+//			Logger.Debug ("Comparing NoteData for '{0}'", existingNote.Title);
+			// NOTE: This would be so much easier if NoteUpdate
+			//       was not just a container for a big XML string
+			NoteData updateData = null;
+			using (var xml = new XmlTextReader (new StringReader (XmlContent))) {
+				xml.Namespaces = false;
+				updateData = NoteArchiver.Instance.Read (xml, UUID);
+			}
+
+			// NOTE: Mostly a hack to ignore missing version attributes
+			string existingInnerContent = GetInnerContent (existingNote.Data.Text);
+			string updateInnerContent = GetInnerContent (updateData.Text);
+
+//			Logger.Debug ("existingNote.Data.Title: {0}", existingNote.Data.Title);
+//			Logger.Debug ("updateData.Title: {0}", updateData.Title);
+//
+//			Logger.Debug ("existingInnerContent: {0}", existingInnerContent);
+//			Logger.Debug ("updateInnerContent: {0}", updateInnerContent);
+
+			return existingInnerContent == updateInnerContent &&
+				existingNote.Data.Title == updateData.Title &&
+				CompareTags (existingNote.Data.Tags, updateData.Tags);
+				// TODO: Compare open-on-startup, pinned
+		}
+
+		private string GetInnerContent (string fullContentElement)
+		{
+			const string noteContentRegex =
+				@"^<note-content(\s+version=""(?<contentVersion>[^""]*)"")?\s*((/>)|(>(?<innerContent>.*)</note-content>))$";
+			Match m = Regex.Match (fullContentElement, noteContentRegex, RegexOptions.Singleline);
+			Group contentGroup = m.Groups ["innerContent"];
+			if (!contentGroup.Success)
+				return null;
+			return contentGroup.Value;
+		}
+
+		private bool CompareTags (Dictionary<string, Tag> set1, Dictionary<string, Tag> set2)
+		{
+			if (set1.Count != set2.Count)
+				return false;
+			foreach (string key in set1.Keys)
+				if (!set2.ContainsKey (key))
+					return false;
+			return true;
 		}
 	}
 

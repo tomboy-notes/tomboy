@@ -1258,15 +1258,40 @@ namespace Tomboy
 
 		public virtual NoteData ReadFile (string read_file, string uri)
 		{
-			NoteData note = new NoteData (uri);
-			string version = "";
-
 			StreamReader reader = new StreamReader (read_file,
 			                                        System.Text.Encoding.UTF8);
 			XmlTextReader xml = new XmlTextReader (reader);
 			xml.Namespaces = false;
+
+			string version;
+			NoteData data = Read (xml, uri, out version);
+
+			if (version != NoteArchiver.CURRENT_VERSION) {
+				// Note has old format, so rewrite it.  No need
+				// to reread, since we are not adding anything.
+				Logger.Log ("Updating note XML to newest format...");
+				NoteArchiver.Write (read_file, data);
+			}
+
+			reader.Close ();
+			xml.Close ();
+
+			return data;
+		}
+
+		public virtual NoteData Read (XmlTextReader xml, string uri)
+		{
+			string version; // discarded
+			NoteData data = Read (xml, uri, out version);
+			return data;
+		}
+
+		private NoteData Read (XmlTextReader xml, string uri, out string version)
+		{
+			NoteData note = new NoteData (uri);
 			DateTime date;
 			int num;
+			version = String.Empty;
 
 			while (xml.Read ()) {
 				switch (xml.NodeType) {
@@ -1337,15 +1362,6 @@ namespace Tomboy
 					}
 					break;
 				}
-			}
-			reader.Close ();
-			xml.Close ();
-
-			if (version != NoteArchiver.CURRENT_VERSION) {
-				// Note has old format, so rewrite it.  No need
-				// to reread, since we are not adding anything.
-				Logger.Log ("Updating note XML to newest format...");
-				NoteArchiver.Write (read_file, note);
 			}
 
 			return note;
