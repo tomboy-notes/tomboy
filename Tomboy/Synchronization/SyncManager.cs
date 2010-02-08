@@ -117,26 +117,29 @@ namespace Tomboy.Sync
 
 	public class SyncManager
 	{
+		private static ISyncUI syncUI;
 		private static SyncClient client;
 		private static SyncState state = SyncState.Idle;
 		private static Thread syncThread = null;
 		// TODO: Expose the next enum more publicly
 		private static SyncTitleConflictResolution conflictResolution;
 
-		/// <summary>
-		/// Emitted when the state of the synchronization changes
-		/// </summary>
-		public static event SyncStateChangedHandler StateChanged;
-
-		/// <summary>
-		/// Emmitted when a file is uploaded, downloaded, or deleted.
-		/// </summary>
-		public static event NoteSyncHandler NoteSynchronized;
-
-		/// <summary>
-		///
-		/// </summary>
-		public static event NoteConflictHandler NoteConflictDetected;
+		// TODO: Are these needed in the era of ISyncUI? Probably,
+		//       but leaving them out is good for testing right now
+//		/// <summary>
+//		/// Emitted when the state of the synchronization changes
+//		/// </summary>
+//		public static event SyncStateChangedHandler StateChanged;
+//
+//		/// <summary>
+//		/// Emmitted when a file is uploaded, downloaded, or deleted.
+//		/// </summary>
+//		public static event NoteSyncHandler NoteSynchronized;
+//
+//		/// <summary>
+//		///
+//		/// </summary>
+//		public static event NoteConflictHandler NoteConflictDetected;
 
 		static SyncManager ()
 		{
@@ -218,15 +221,18 @@ namespace Tomboy.Sync
 			}
 		}
 
-		public static void PerformSynchronization ()
+		public static void PerformSynchronization (ISyncUI syncUI)
 		{
 			if (syncThread != null) {
 				// A synchronization thread is already running
 				// TODO: Start new sync if existing dlg is for finished sync
-				Tomboy.SyncDialog.Present ();
+				// TODO: ISyncUI-ize this somehow
+				if (SyncManager.syncUI == Tomboy.SyncDialog)
+					Tomboy.SyncDialog.Present ();
 				return;
 			}
 
+			SyncManager.syncUI = syncUI;
 			syncThread = new Thread (new ThreadStart (SynchronizationThread));
 			syncThread.IsBackground = true;
 			syncThread.Start ();
@@ -321,8 +327,8 @@ namespace Tomboy.Sync
 						Note existingNote = NoteMgr.Find (noteUpdate.Title);
 						if (existingNote != null && !noteUpdate.BasicallyEqualTo (existingNote)) {
 //							Logger.Debug ("Sync: Early conflict detection for '{0}'", noteUpdate.Title);
-							if (NoteConflictDetected != null) {
-								NoteConflictDetected (NoteMgr, existingNote, noteUpdate, noteUpdateTitles);
+							if (syncUI != null) {
+								syncUI.NoteConflictDetected (NoteMgr, existingNote, noteUpdate, noteUpdateTitles);
 
 								// Suspend this thread while the GUI is presented to
 								// the user.
@@ -363,8 +369,8 @@ namespace Tomboy.Sync
 						                      "SyncManager: Content conflict in note update for note '{0}'",
 						                      noteUpdate.Title));
 						// Note already exists locally, but has been modified since last sync; prompt user
-						if (NoteConflictDetected != null) {
-							NoteConflictDetected (NoteMgr, existingNote, noteUpdate, noteUpdateTitles);
+						if (syncUI != null) {
+							syncUI.NoteConflictDetected (NoteMgr, existingNote, noteUpdate, noteUpdateTitles);
 
 							// Suspend this thread while the GUI is presented to
 							// the user.
@@ -395,8 +401,8 @@ namespace Tomboy.Sync
 					foreach (Note note in localNotes) {
 						if (client.GetRevision (note) != -1 &&
 						!serverNotes.Contains (note.Id)) {
-							if (NoteSynchronized != null)
-								NoteSynchronized (note.Title, NoteSyncType.DeleteFromClient);
+							if (syncUI != null)
+								syncUI.NoteSynchronized (note.Title, NoteSyncType.DeleteFromClient);
 							NoteMgr.Delete (note);
 						}
 					}
@@ -415,14 +421,14 @@ namespace Tomboy.Sync
 						// TODO: Do the above NOW!!! (don't commit this dummy)
 						note.Save ();
 						newOrModifiedNotes.Add (note);
-						if (NoteSynchronized != null)
-							NoteSynchronized (note.Title, NoteSyncType.UploadNew);
+						if (syncUI != null)
+							syncUI.NoteSynchronized (note.Title, NoteSyncType.UploadNew);
 					} else if (client.GetRevision (note) <= client.LastSynchronizedRevision &&
 					                note.MetadataChangeDate > client.LastSyncDate) {
 						note.Save ();
 						newOrModifiedNotes.Add (note);
-						if (NoteSynchronized != null)
-							NoteSynchronized (note.Title, NoteSyncType.UploadModified);
+						if (syncUI != null)
+							syncUI.NoteSynchronized (note.Title, NoteSyncType.UploadModified);
 					}
 				}
 
@@ -437,11 +443,11 @@ namespace Tomboy.Sync
 				foreach (string noteUUID in server.GetAllNoteUUIDs ()) {
 					if (FindNoteByUUID (noteUUID) == null) {
 						locallyDeletedUUIDs.Add (noteUUID);
-						if (NoteSynchronized != null) {
+						if (syncUI != null) {
 							string deletedTitle = noteUUID;
 							if (client.DeletedNoteTitles.ContainsKey (noteUUID))
 								deletedTitle = client.DeletedNoteTitles [noteUUID];
-							NoteSynchronized (deletedTitle, NoteSyncType.DeleteFromServer);
+							syncUI.NoteSynchronized (deletedTitle, NoteSyncType.DeleteFromServer);
 						}
 					}
 				}
@@ -556,8 +562,8 @@ namespace Tomboy.Sync
 			client.SetRevision (localNote, serverNote.LatestRevision);
 
 			// Update dialog's sync status
-			if (NoteSynchronized != null)
-				NoteSynchronized (localNote.Title, syncType);
+			if (syncUI != null)
+				syncUI.NoteSynchronized (localNote.Title, syncType);
 		}
 
 		private static Note FindNoteByUUID (string uuid)
@@ -652,10 +658,10 @@ namespace Tomboy.Sync
 		private static void SetState (SyncState newState)
 		{
 			state = newState;
-			if (StateChanged != null) {
+			if (syncUI != null) {
 				// Notify the event handlers
 				try {
-					StateChanged (state);
+					syncUI.SyncStateChanged (state);
 				} catch {}
 			}
 		}

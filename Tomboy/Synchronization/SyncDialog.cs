@@ -6,7 +6,7 @@ using Gtk;
 
 namespace Tomboy.Sync
 {
-	public class SyncDialog : Gtk.Dialog
+	public class SyncDialog : Gtk.Dialog, ISyncUI
 	{
 		private Gtk.Image image;
 		private Gtk.Label headerLabel;
@@ -136,9 +136,6 @@ namespace Tomboy.Sync
 
 		public override void Destroy ()
 		{
-			SyncManager.StateChanged -= OnSyncStateChanged;
-			SyncManager.NoteSynchronized -= OnNoteSynchronized;
-			SyncManager.NoteConflictDetected -= OnNoteConflictDetected;
 			base.Destroy ();
 		}
 
@@ -146,20 +143,16 @@ namespace Tomboy.Sync
 		{
 			base.OnRealized ();
 
-			SyncManager.StateChanged += OnSyncStateChanged;
-			SyncManager.NoteSynchronized += OnNoteSynchronized;
-			SyncManager.NoteConflictDetected += OnNoteConflictDetected;
-
 			SyncState state = SyncManager.State;
 			if (state == SyncState.Idle) {
 				// Kick off a timer to keep the progress bar going
 				progressBarTimeoutId = GLib.Timeout.Add (500, OnPulseProgressBar);
 
 				// Kick off a new synchronization
-				SyncManager.PerformSynchronization ();
+				SyncManager.PerformSynchronization (this);
 			} else {
 				// Adjust the GUI accordingly
-				OnSyncStateChanged (state);
+				SyncStateChanged (state);
 			}
 		}
 
@@ -229,8 +222,10 @@ namespace Tomboy.Sync
 			// Return true to keep things going well
 			return true;
 		}
+		#endregion // Private Event Handlers
 
-		void OnSyncStateChanged (SyncState state)
+		#region ISyncUI Members
+		public void SyncStateChanged (SyncState state)
 		{
 			// This event handler will be called by the synchronization thread
 			// so we have to use the delegate here to manipulate the GUI.
@@ -326,7 +321,7 @@ namespace Tomboy.Sync
 			});
 		}
 
-		void OnNoteSynchronized (string noteTitle, NoteSyncType type)
+		public void NoteSynchronized (string noteTitle, NoteSyncType type)
 		{
 			// This event handler will be called by the synchronization thread
 			// so we have to use the delegate here to manipulate the GUI.
@@ -358,7 +353,7 @@ namespace Tomboy.Sync
 			});
 		}
 
-		void OnNoteConflictDetected (NoteManager manager,
+		public void NoteConflictDetected (NoteManager manager,
 		                             Note localConflictNote,
 		                             NoteUpdate remoteNote,
 		                             IList<string> noteUpdateTitles)
@@ -436,8 +431,7 @@ namespace Tomboy.Sync
 			if (mainThreadException != null)
 				throw mainThreadException;
 		}
-
-		#endregion // Private Event Handlers
+		#endregion	// ISyncUI Members
 
 		#region Private Methods
 		// TODO: This appears to add <link:internal> around the note title
