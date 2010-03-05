@@ -9,9 +9,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: tomboy master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=tomboy&component=general\n"
-"POT-Creation-Date: 2010-02-08 20:39+0000\n"
-"PO-Revision-Date: 2010-03-05 23:03+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-03-06 00:20+0100\n"
+"PO-Revision-Date: 2010-03-06 00:21+0100\n"
 "Last-Translator: Gabor Kelemen <kelemeng at gnome dot hu>\n"
 "Language-Team: Hungarian <gnome at fsf dot hu>\n"
 "MIME-Version: 1.0\n"
@@ -244,7 +244,11 @@ msgid ""
 "notes (when sync is configured). Any value less than 1 indicates that "
 "autosync is disabled. The lowest acceptable positive value is 5. Value is in "
 "minutes."
-msgstr "A jegyzetek háttérben végzett szinkronizálásának gyakoriságát jelző egész érték (ha a szinkronizálás be van állítva). Az 1-nél kisebb érték a szinkronizálás kikapcsolt állapotát jelzi. A legkisebb elfogadható érték az 5. Az érték percekben értendő."
+msgstr ""
+"A jegyzetek háttérben végzett szinkronizálásának gyakoriságát jelző egész "
+"érték (ha a szinkronizálás be van állítva). Az 1-nél kisebb érték a "
+"szinkronizálás kikapcsolt állapotát jelzi. A legkisebb elfogadható érték az "
+"5. Az érték percekben értendő."
 
 #: ../data/tomboy.schemas.in.h:33
 msgid ""
@@ -260,12 +264,6 @@ msgstr ""
 "értesítést kér, így azokat külön-külön kezelheti."
 
 #: ../data/tomboy.schemas.in.h:34
-#| msgid ""
-#| "Integer value indicating if there is a preference to always perform a "
-#| "specific behavior when a conflict is detected, instead of prompting the "
-#| "user. The values map to an internal enumeration. 0 indicates that the "
-#| "user wishes to be prompted when a conflict occurs, so that they may "
-#| "handle each conflict situation on a case-by-case basis."
 msgid ""
 "Integer value indicating if there is a preference to always perform a "
 "specific link updating behavior when a note is renamed, instead of prompting "
@@ -275,8 +273,15 @@ msgid ""
 "indicates that link text should be updated to the new note name so that it "
 "will continue linking to the renamed note."
 msgstr ""
-"Egész érték, amely jelzi hogy ütközés esetén a felhasználó megkérdezése nélkül mindig egy adott hivatkozásfrissítési viselkedésmód követendő-e jegyzetek átnevezésekor. Az értékek egy belső "
-"felsorolásra kerülnek leképezésre. A 0 esetén a felhasználó jegyzetek átnevezésekor ütközések esetén értesítést kér, ha a jegyzet átnevezése a meglévő jegyzetekben található hivatkozásokat érint. Az 1 azt jelzi, hogy a hivatkozásokat automatikusan el kell távolítani. A 2 azt jelzi, hogy a hivatkozás szövegét frissíteni kell az új jegyzetnévre, hogy az továbbra is ugyanarra a jegyzetre hivatkozzon."
+"Egész érték, amely jelzi hogy ütközés esetén a felhasználó megkérdezése "
+"nélkül mindig egy adott hivatkozásfrissítési viselkedésmód követendő-e "
+"jegyzetek átnevezésekor. Az értékek egy belső felsorolásra kerülnek "
+"leképezésre. A 0 esetén a felhasználó jegyzetek átnevezésekor ütközések "
+"esetén értesítést kér, ha a jegyzet átnevezése a meglévő jegyzetekben "
+"található hivatkozásokat érint. Az 1 azt jelzi, hogy a hivatkozásokat "
+"automatikusan el kell távolítani. A 2 azt jelzi, hogy a hivatkozás szövegét "
+"frissíteni kell az új jegyzetnévre, hogy az továbbra is ugyanarra a "
+"jegyzetre hivatkozzon."
 
 #: ../data/tomboy.schemas.in.h:35
 msgid "Link Updating Behavior on Note Rename"
@@ -573,8 +578,8 @@ msgid ""
 "Whitespace-separated list of note URIs for notes that should always appear "
 "in the Tomboy note menu."
 msgstr ""
-"A Tomboy jegyzetmenüjében mindig megjelenítendő jegyzetek URI címeinek "
-"üres hely karakterekkel elválasztott listája."
+"A Tomboy jegyzetmenüjében mindig megjelenítendő jegyzetek URI címeinek üres "
+"hely karakterekkel elválasztott listája."
 
 #: ../Tomboy/ActionManager.cs:127
 msgid "_File"
@@ -862,7 +867,7 @@ msgid "Page {0} of {1}"
 msgstr "{0}/{1} oldal"
 
 #. Translators: Explanation of the date and time format specifications can be found here:
-#. * http://msdn.microsoft dot com/en-us/library/system.globalization.datetimeformatinfo.aspx
+#. * http://msdn.microsoft.com/en-us/library/system.globalization.datetimeformatinfo.aspx
 #: ../Tomboy/Addins/PrintNotes/PrintNotesNoteAddin.cs:238
 msgid "dddd MM/dd/yyyy, hh:mm:ss tt"
 msgstr "dddd, yyyy. MM. dd, h.mm.ss tt"
@@ -1192,18 +1197,14 @@ msgstr "Ha töröl egy jegyzetet, akkor az véglegesen elvész."
 
 #: ../Tomboy/Note.cs:1611
 #, csharp-format
-#| msgid ""
-#| "An error occurred while saving your notes. Please check that you have "
-#| "sufficient disk space, and that you have appropriate rights on ~/.tomboy. "
-#| "Error details can be found in ~/.tomboy.log."
 msgid ""
 "An error occurred while saving your notes. Please check that you have "
 "sufficient disk space, and that you have appropriate rights on {0}. Error "
-"details can be found in {0}."
+"details can be found in {1}."
 msgstr ""
 "Hiba történt a jegyzetek mentésekor. Ellenőrizze, hogy van-e elég szabad "
-"lemezterület és rendelkezik jogosultságokkal a(z) {0} írásához. "
-"A hiba részletei a(z) {0} alatt találhatók."
+"lemezterület és rendelkezik jogosultságokkal a(z) {0} írásához. A hiba "
+"részletei a(z) {1} alatt találhatók."
 
 #: ../Tomboy/Note.cs:1627
 msgid "Error saving note data."
@@ -1363,7 +1364,6 @@ msgid "Rename Note Links?"
 msgstr "Átnevezi a jegyzet hivatkozásait?"
 
 #: ../Tomboy/NoteRenameDialog.cs:56
-#| msgid "_Open Link"
 msgid "_Rename Links"
 msgstr "_Hivatkozások átnevezése"
 
@@ -1379,12 +1379,13 @@ msgid ""
 "\n"
 "If you do not rename the links, they will no longer link to anything."
 msgstr ""
-"Átnevezi a hivatkozásokat más jegyzetekben erről: <span underline=\"single\">{0}</span> erre: \"<span underline=\"single\">{1}</span>\"?\n"
+"Átnevezi a hivatkozásokat más jegyzetekben erről: <span underline=\"single\">"
+"{0}</span> erre: \"<span underline=\"single\">{1}</span>\"?\n"
 "\n"
-"Ha nem nevezi át a hivatkozásokat, akkor azok nem fognak semmire sem hivatkozni."
+"Ha nem nevezi át a hivatkozásokat, akkor azok nem fognak semmire sem "
+"hivatkozni."
 
 #: ../Tomboy/NoteRenameDialog.cs:81
-#| msgid "_Open Link"
 msgid "Rename Links"
 msgstr "Hivatkozások átnevezése"
 
@@ -1398,17 +1399,14 @@ msgid "Select All"
 msgstr "Mindent kijelöl"
 
 #: ../Tomboy/NoteRenameDialog.cs:123
-#| msgid "Select an icon..."
 msgid "Select None"
 msgstr "Kijelölés megszüntetése"
 
 #: ../Tomboy/NoteRenameDialog.cs:140
-#| msgid "_Advanced..."
 msgid "Ad_vanced"
 msgstr "Spe_ciális"
 
 #: ../Tomboy/NoteRenameDialog.cs:143
-#| msgid "Close this window"
 msgid "Always show this _window"
 msgstr "Min_dig jelenjen meg ez az ablak"
 
@@ -1611,7 +1609,6 @@ msgid "When renaming a linked note: "
 msgstr "Hivatkozott jegyzet átnevezésekor: "
 
 #: ../Tomboy/PreferencesDialog.cs:238
-#| msgid "Always ask me what to do."
 msgid "Ask me what to do"
 msgstr "Mindig kérdezzen"
 
@@ -1786,15 +1783,12 @@ msgstr ""
 
 #: ../Tomboy/PreferencesDialog.cs:1270
 #, csharp-format
-#| msgid ""
-#| "Sorry, but something went wrong.  Please check your information and try "
-#| "again.  The ~/.tomboy.log might be useful too."
 msgid ""
 "Sorry, but something went wrong.  Please check your information and try "
 "again.  The {0} might be useful too."
 msgstr ""
-"Elnézést, hiba történt. Ellenőrizze az információkat, és próbálkozzon újra. A(z) "
-"{0} fájl tartalma is hasznos lehet."
+"Elnézést, hiba történt. Ellenőrizze az információkat, és próbálkozzon újra. A"
+"(z) {0} fájl tartalma is hasznos lehet."
 
 #: ../Tomboy/PreferencesDialog.cs:1283
 msgid "Error connecting :("
@@ -1899,7 +1893,7 @@ msgstr "Honlap"
 #: ../Tomboy/Tomboy.cs:533
 msgid ""
 "Tomboy: A simple, easy to use desktop note-taking application.\n"
-"Copyright (C) 2004-2006 Alex Graveley <alex at beatniksoftware dot com>\n"
+"Copyright (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
 "\n"
 msgstr ""
 "Tomboy: Egyszerű, könnyen használható asztali jegyzetkezelő alkalmazás.\n"
