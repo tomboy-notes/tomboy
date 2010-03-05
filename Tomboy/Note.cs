@@ -1612,7 +1612,7 @@ namespace Tomboy
 			                                     "Please check that you have sufficient disk " +
 			                                     "space, and that you have appropriate rights " +
 			                                     "on {0}. Error details can be found in " +
-			                                     "{0}.");
+			                                     "{1}.");
 			string logPath = System.IO.Path.Combine (Services.NativeApplication.LogDirectory,
 			                                         "tomboy.log");
 			errorMsg = String.Format (errorMsg,
