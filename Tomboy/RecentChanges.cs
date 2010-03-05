@@ -7,6 +7,14 @@ namespace Tomboy
 {
 	public class NoteRecentChanges : ForcedPresentWindow
 	{
+
+		private enum Target
+		{
+			Text,
+			Uri,
+			Path,
+		}
+
 		NoteManager manager;
 
 		Gtk.MenuBar menu_bar;
@@ -289,13 +297,16 @@ namespace Tomboy
 			new Gtk.TargetEntry [] {
 				new Gtk.TargetEntry ("STRING",
 				Gtk.TargetFlags.App,
-				0),
+				(uint) Target.Text),
 				new Gtk.TargetEntry ("text/plain",
 				Gtk.TargetFlags.App,
-				0),
+				(uint) Target.Text),
 				new Gtk.TargetEntry ("text/uri-list",
 				Gtk.TargetFlags.App,
-				1),
+				(uint) Target.Uri),
+				new Gtk.TargetEntry ("text/path-list",
+				Gtk.TargetFlags.App,
+				(uint) Target.Path),
 			};
 
 			tree = new RecentTreeView ();
@@ -662,17 +673,25 @@ namespace Tomboy
 				return;
 
 			string uris = string.Empty;
+			string paths = string.Empty;
 			foreach (Note note in selected_notes) {
 				if (uris != string.Empty)
 					uris += "\n";
 				uris += note.Uri;
+				if (paths != string.Empty)
+					paths += "\n";
+				paths += "file://" + note.FilePath;
 			}
 
-			// FIXME: Gtk.SelectionData has no way to get the
-			//	requested target.
-			args.SelectionData.Set (Gdk.Atom.Intern ("text/uri-list", false),
-								8,
-								Encoding.UTF8.GetBytes (uris));
+			if(args.Info == (uint) Target.Path)
+				args.SelectionData.Set (Gdk.Atom.Intern ("text/path-list", false),
+							8,
+							Encoding.UTF8.GetBytes (paths));
+
+			else
+				args.SelectionData.Set (Gdk.Atom.Intern ("text/uri-list", false),
+							8,
+							Encoding.UTF8.GetBytes (uris));
 
 			if (selected_notes.Count == 1)
 				args.SelectionData.Text = selected_notes [0].Title;
