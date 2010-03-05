@@ -675,12 +675,8 @@ namespace Tomboy
 			string uris = string.Empty;
 			string paths = string.Empty;
 			foreach (Note note in selected_notes) {
-				if (uris != string.Empty)
-					uris += "\n";
-				uris += note.Uri;
-				if (paths != string.Empty)
-					paths += "\n";
-				paths += "file://" + note.FilePath;
+				uris += note.Uri + "\r\n";
+				paths += "file://" + note.FilePath + "\r\n";
 			}
 
 			if(args.Info == (uint) Target.Path)
