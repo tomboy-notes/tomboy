@@ -15,8 +15,8 @@ msgstr ""
 "Project-Id-Version: tomboy\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=tomboy&component=general\n"
-"POT-Creation-Date: 2010-02-25 00:57+0000\n"
-"PO-Revision-Date: 2010-03-02 09:22+0100\n"
+"POT-Creation-Date: 2010-03-06 17:11+0000\n"
+"PO-Revision-Date: 2010-03-06 18:59+0100\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -226,7 +226,7 @@ msgid ""
 "displaying notes. Otherwise the desktop default font will be used."
 msgstr ""
 "Je-li „true“, bude se název písma nastavený v „custom_font_face“ používat "
-"při zobrazování poznámek. Jinak se bude používat implicitní písmo prostřední "
+"při zobrazování poznámek. Jinak se bude používat výchozí písmo prostřední "
 "pracovní plochy."
 
 #: ../data/tomboy.schemas.in.h:30
@@ -1053,6 +1053,27 @@ msgstr "Ověřování v prohlížeči (Stiskněte pro obnovení spojení)"
 msgid "Set the default browser and try again"
 msgstr "Nastavte si výchozí prohlížeč WWW a zkuste to znovu"
 
+#: ../Tomboy/JumpListManager.cs:77 ../Tomboy/RecentChanges.cs:75
+msgid "Search All Notes"
+msgstr "Hledat ve všech poznámkách"
+
+#. IShellLink new_notebook = CreateShellLink("New Notebook", topmboy_path, "--new-notebook",
+#. icons_path, (int)TomboyIcons.NewNotebook);
+#. if (new_notebook != null)
+#. object_collection.AddObject(new_notebook);
+#: ../Tomboy/JumpListManager.cs:87
+msgid "Create New Note"
+msgstr "Vytvořit novou poznámku"
+
+#: ../Tomboy/JumpListManager.cs:117
+#, csharp-format
+msgid "{0} (new)"
+msgstr "{0} (nová)"
+
+#: ../Tomboy/JumpListManager.cs:138
+msgid "Recent Notes"
+msgstr "Nedávné poznámky"
+
 #. Translators: This is the name of "Window" menu in the Mac menubar
 #: ../Tomboy/MacApplication.cs:215
 msgid "_Window"
@@ -1202,11 +1223,11 @@ msgstr "Pokud odstraníte poznámku, bude navždy ztracena."
 msgid ""
 "An error occurred while saving your notes. Please check that you have "
 "sufficient disk space, and that you have appropriate rights on {0}. Error "
-"details can be found in {0}."
+"details can be found in {1}."
 msgstr ""
 "Došlo k chybě během ukládání poznámky. Zkontrolujte, zda máte dostatek "
 "volného místa a můžete zapisovat do složky {0}. Chybové hlášení naleznete v "
-"{0}."
+"{1}."
 
 #: ../Tomboy/Note.cs:1627
 msgid "Error saving note data."
@@ -1803,10 +1824,6 @@ msgstr "Copyright:"
 #: ../Tomboy/PreferencesDialog.cs:1379
 msgid "Add-in Dependencies:"
 msgstr "Závislosti rozšíření:"
-
-#: ../Tomboy/RecentChanges.cs:75
-msgid "Search All Notes"
-msgstr "Hledat ve všech poznámkách"
 
 #: ../Tomboy/RecentChanges.cs:90
 msgid "_Search:"
