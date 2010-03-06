@@ -30,6 +30,7 @@ OSX_LIBS =					\
 endif
 
 WIN_CSFILES =					\
+	$(srcdir)/JumpListManager.cs		\
 	$(srcdir)/ManagedWinapi.EventDispatchingNativeWindow.cs	\
 	$(srcdir)/ManagedWinapi.Hotkey.cs	\
 	$(srcdir)/WindowsApplication.cs		\
