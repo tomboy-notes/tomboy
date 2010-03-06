@@ -74,7 +74,7 @@ namespace Tomboy
 			IObjectCollection object_collection =
 			    (IObjectCollection) Activator.CreateInstance (Type.GetTypeFromCLSID (CLSID.EnumerableObjectCollection));
 
-			IShellLink search_notes = CreateShellLink ("Search All Notes", tomboy_path, "--search",
+			IShellLink search_notes = CreateShellLink (Catalog.GetString ("Search All Notes"), tomboy_path, "--search",
 			    icons_path + SearchIcon, -1);
 			if (search_notes != null)
 				object_collection.AddObject (search_notes);
@@ -84,7 +84,7 @@ namespace Tomboy
 			//if (new_notebook != null)
 			//    object_collection.AddObject(new_notebook);
 
-			IShellLink new_note = CreateShellLink ("Create New Note", tomboy_path, "--new-note",
+			IShellLink new_note = CreateShellLink (Catalog.GetString ("Create New Note"), tomboy_path, "--new-note",
 			    icons_path + NewNoteIcon, -1);
 			if (new_note != null)
 				object_collection.AddObject (new_note);
@@ -114,7 +114,7 @@ namespace Tomboy
 
 				string note_title = note.Title;
 				if (note.IsNew) {
-					note_title += Catalog.GetString (" (new)");
+					note_title = String.Format (Catalog.GetString ("{0} (new)"), note_title);
 				}
 
 				IShellLink note_link = CreateShellLink (note_title, tomboy_path, "--open-note " + note.Uri,
@@ -135,7 +135,7 @@ namespace Tomboy
 					object_collection.AddObject (start_note_link);
 			}
 
-			custom_destinationd_list.AppendCategory ("Recent Notes", (IObjectArray) object_collection);
+			custom_destinationd_list.AppendCategory (Catalog.GetString ("Recent Notes"), (IObjectArray) object_collection);
 
 			Marshal.ReleaseComObject (object_collection);
 			object_collection = null;
