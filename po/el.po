@@ -11,9 +11,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: tomboy.HEAD\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=tomboy&component=general\n"
-"POT-Creation-Date: 2010-02-08 20:39+0000\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-03-07 21:21+0200\n"
 "PO-Revision-Date: 2010-03-07 21:07+0200\n"
 "Last-Translator: Thanos Lefteris <alefteris@gmail.com>\n"
 "Language-Team: Greek <>\n"
@@ -276,12 +275,6 @@ msgstr ""
 "ξεχωριστά."
 
 #: ../data/tomboy.schemas.in.h:34
-#| msgid ""
-#| "Integer value indicating if there is a preference to always perform a "
-#| "specific behavior when a conflict is detected, instead of prompting the "
-#| "user. The values map to an internal enumeration. 0 indicates that the "
-#| "user wishes to be prompted when a conflict occurs, so that they may "
-#| "handle each conflict situation on a case-by-case basis."
 msgid ""
 "Integer value indicating if there is a preference to always perform a "
 "specific link updating behavior when a note is renamed, instead of prompting "
@@ -318,7 +311,6 @@ msgstr ""
 "μενού της μικροεφαρμογής Tomboy."
 
 #: ../data/tomboy.schemas.in.h:38
-#| msgid "Minimum number of notes to show in menu"
 msgid "Maximum note title length to show in tray menu."
 msgstr ""
 "Μέγιστο μήκος του τίτλου της σημείωσης που θα εμφανίζεται στο μενού της "
@@ -546,8 +538,6 @@ msgstr ""
 "Tomboy και είναι επίσης προσβάσιμη από μια συντόμευση πληκτρολογίου."
 
 #: ../data/tomboy.schemas.in.h:72
-#| msgid ""
-#| "The port to use when connecting to the synchronization server via SSH."
 msgid ""
 "The port to use when connecting to the synchronization server via SSH. Set "
 "to -1 or less if default SSH port settings should be used instead."
@@ -1043,13 +1033,11 @@ msgstr ""
 "ακόλουθο μήνυμα:"
 
 #: ../Tomboy/Addins/WebSyncService/WebSyncServiceAddin.cs:70
-#| msgid "Tomboy Help"
 msgid "Tomboy Web"
 msgstr "Tomboy στο διαδίκτυο"
 
 #: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:66
 #: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:96
-#| msgid "Connecting to the server..."
 msgid "Connect to Server"
 msgstr "Συνδεδεμένος στον εξυπηρετητή"
 
@@ -1065,7 +1053,6 @@ msgid "Server not responding. Try again later."
 msgstr "Ο εξυπηρετητής δεν ανταποκρίνεται. Προσπαθήστε ξανά αργότερα."
 
 #: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:201
-#| msgid "Synchronization Failed"
 msgid "Authorization Failed, Try Again"
 msgstr "Η εξουσιοδότηση απέτυχε, προσπαθήστε ξανά"
 
@@ -1100,6 +1087,27 @@ msgstr ""
 #: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:235
 msgid "Set the default browser and try again"
 msgstr "Ορίστε τον προεπιλεγμένο περιηγητή και προσπαθήστε ξανά"
+
+#: ../Tomboy/JumpListManager.cs:77 ../Tomboy/RecentChanges.cs:75
+msgid "Search All Notes"
+msgstr "Αναζήτηση σε όλες τις σημειώσεις"
+
+#. IShellLink new_notebook = CreateShellLink("New Notebook", topmboy_path, "--new-notebook",
+#. icons_path, (int)TomboyIcons.NewNotebook);
+#. if (new_notebook != null)
+#. object_collection.AddObject(new_notebook);
+#: ../Tomboy/JumpListManager.cs:87
+msgid "Create New Note"
+msgstr "Δημιουργία νέας σημείωσης"
+
+#: ../Tomboy/JumpListManager.cs:117
+#, csharp-format
+msgid "{0} (new)"
+msgstr "{0} (νέο)"
+
+#: ../Tomboy/JumpListManager.cs:138
+msgid "Recent Notes"
+msgstr "Πρόσφατες σημειώσεις"
 
 #. Translators: This is the name of "Window" menu in the Mac menubar
 #: ../Tomboy/MacApplication.cs:215
@@ -1248,19 +1256,15 @@ msgstr "Αν διαγράψετε μία σημείωση θα χαθεί μόν
 
 #: ../Tomboy/Note.cs:1611
 #, csharp-format
-#| msgid ""
-#| "An error occurred while saving your notes. Please check that you have "
-#| "sufficient disk space, and that you have appropriate rights on ~/.tomboy. "
-#| "Error details can be found in ~/.tomboy.log."
 msgid ""
 "An error occurred while saving your notes. Please check that you have "
 "sufficient disk space, and that you have appropriate rights on {0}. Error "
-"details can be found in {0}."
+"details can be found in {1}."
 msgstr ""
 "Προέκυψε σφάλμα κατά την αποθήκευση των σημειώσεών σας. Παρακαλώ, ελέγξτε αν "
 "υπάρχει διαθέσιμος χώρος στο δίσκο και αν διαθέτετε τα κατάλληλα δικαιώματα "
 "για το {0}. Μπορείτε να βρείτε περισσότερες λεπτομέρειες για το σφάλμα στο "
-"{0}."
+"{1}."
 
 #: ../Tomboy/Note.cs:1627
 msgid "Error saving note data."
@@ -1420,7 +1424,6 @@ msgid "Rename Note Links?"
 msgstr "Μετονομασία συνδέσμων σημειώσεων;"
 
 #: ../Tomboy/NoteRenameDialog.cs:56
-#| msgid "_Open Link"
 msgid "_Rename Links"
 msgstr "_Μετονομασία συνδέσμων"
 
@@ -1442,7 +1445,6 @@ msgstr ""
 "Αν δε μετονομαστούν οι σύνδεσμοι, δεν θα συνδέονται με τίποτα πλέον."
 
 #: ../Tomboy/NoteRenameDialog.cs:81
-#| msgid "_Open Link"
 msgid "Rename Links"
 msgstr "Μετονομασία συνδέσμων"
 
@@ -1456,17 +1458,14 @@ msgid "Select All"
 msgstr "Επιλογή όλων"
 
 #: ../Tomboy/NoteRenameDialog.cs:123
-#| msgid "Select an icon..."
 msgid "Select None"
 msgstr "Επιλογή κανενός"
 
 #: ../Tomboy/NoteRenameDialog.cs:140
-#| msgid "_Advanced..."
 msgid "Ad_vanced"
 msgstr "_Προχωρημένα"
 
 #: ../Tomboy/NoteRenameDialog.cs:143
-#| msgid "Close this window"
 msgid "Always show this _window"
 msgstr "_Εμφάνιση αυτού του παραθύρου πάντοτε"
 
@@ -1603,12 +1602,10 @@ msgid "S_mall"
 msgstr "Μ_ικρό"
 
 #: ../Tomboy/NoteWindow.cs:1352
-#| msgid "Font Size"
 msgid "Increase Font Size"
 msgstr "Μεγέθυνση γραμματοσειράς"
 
 #: ../Tomboy/NoteWindow.cs:1370
-#| msgid "Font Size"
 msgid "Decrease Font Size"
 msgstr "Σμίκρυνση γραμματοσειράς"
 
@@ -1672,7 +1669,6 @@ msgid "When renaming a linked note: "
 msgstr "Όταν μετονομάζεται μια συνδεδεμένη σημείωση: "
 
 #: ../Tomboy/PreferencesDialog.cs:238
-#| msgid "Always ask me what to do."
 msgid "Ask me what to do"
 msgstr "Να γίνεται ερώτηση κάθε φορά"
 
@@ -1849,9 +1845,6 @@ msgstr ""
 
 #: ../Tomboy/PreferencesDialog.cs:1270
 #, csharp-format
-#| msgid ""
-#| "Sorry, but something went wrong.  Please check your information and try "
-#| "again.  The ~/.tomboy.log might be useful too."
 msgid ""
 "Sorry, but something went wrong.  Please check your information and try "
 "again.  The {0} might be useful too."
@@ -1878,10 +1871,6 @@ msgstr "Πνευματικά δικαιώματα:"
 #: ../Tomboy/PreferencesDialog.cs:1379
 msgid "Add-in Dependencies:"
 msgstr "Εξαρτήσεις πρόσθετων λειτουργιών:"
-
-#: ../Tomboy/RecentChanges.cs:75
-msgid "Search All Notes"
-msgstr "Αναζήτηση σε όλες τις σημειώσεις"
 
 #: ../Tomboy/RecentChanges.cs:90
 msgid "_Search:"
