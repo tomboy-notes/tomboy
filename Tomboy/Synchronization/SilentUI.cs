@@ -46,7 +46,6 @@ namespace Tomboy.Sync
 			//       D-Bus event?
 			//       libnotify bubbles when appropriate
 			Logger.Debug ("SilentUI: SyncStateChanged: {0}", state);
-			AutoResetEvent evt;
 			switch (state) {
 			case SyncState.Connecting:
 				uiDisabled = true;
