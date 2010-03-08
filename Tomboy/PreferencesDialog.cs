@@ -530,7 +530,6 @@ namespace Tomboy
 			autosyncBox.PackStart (autosyncCheck);
 			autosyncBox.PackStart (autosyncSpinner);
 			autosyncBox.PackStart (autosyncExtraText);
-			autosyncBox.Sensitive = false; // TODO: Remove when this feature is stable
 			vbox.PackStart (autosyncBox, false, true, 0);
 
 			Gtk.HButtonBox bbox = new Gtk.HButtonBox ();
