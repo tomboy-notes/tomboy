@@ -194,13 +194,14 @@ namespace Tomboy.Sync
 			}
 
 			Preferences.SettingChanged += Preferences_SettingChanged;
-			NoteMgr.NoteSaved += HandleNoteSaved;
+			NoteMgr.NoteSaved += (n) => HandleNoteSavedOrDeleted ();
+			NoteMgr.NoteDeleted += (o, n) => HandleNoteSavedOrDeleted ();
 
 			// Update sync item based on configuration.
 			UpdateSyncAction ();
 		}
 
-		static void HandleNoteSaved (Note note)
+		static void HandleNoteSavedOrDeleted ()
 		{
 			if (syncThread == null && autosyncTimer != null && autosyncTimeoutPrefMinutes > 0) {
 				TimeSpan timeSinceLastCheck =
@@ -208,7 +209,7 @@ namespace Tomboy.Sync
 				TimeSpan timeUntilNextCheck =
 					new TimeSpan (0, currentAutosyncTimeoutMinutes, 0) - timeSinceLastCheck;
 				if (timeUntilNextCheck.TotalMinutes < 1) {
-					Logger.Debug ("Note saved within a minute of next autosync...resetting sync timer");
+					Logger.Debug ("Note saved or deleted within a minute of next autosync...resetting sync timer");
 					currentAutosyncTimeoutMinutes = 1;
 					autosyncTimer.Change (currentAutosyncTimeoutMinutes * 60000,
 					                      autosyncTimeoutPrefMinutes * 60000);
@@ -216,6 +217,7 @@ namespace Tomboy.Sync
 					NoteMgr.NoteBufferChanged += HandleNoteBufferChanged;
 				}
 			} else if (syncThread == null && autosyncTimer == null && autosyncTimeoutPrefMinutes > 0) {
+				Logger.Debug ("Note saved or deleted...restarting sync timer");
 				lastBackgroundCheck = DateTime.Now;
 				 // Perform a sync one minute after setting change
 				currentAutosyncTimeoutMinutes = 1;
@@ -233,6 +235,7 @@ namespace Tomboy.Sync
 			// If note text changes, kill the timer.  It will
 			// automatically be resurrected once a Save occurs.
 			if (syncThread == null && autosyncTimer != null) {
+				Logger.Debug ("Note edited...killing autosync timer until next save or delete event");
 				autosyncTimer.Dispose ();
 				autosyncTimer = null;
 			}
@@ -265,6 +268,7 @@ namespace Tomboy.Sync
 					autosyncTimer = null;
 				}
 				if (autosyncTimeoutPrefMinutes > 0) {
+					Logger.Debug ("Autosync pref changed...restarting sync timer");
 					autosyncTimeoutPrefMinutes = autosyncTimeoutPrefMinutes >= 5 ? autosyncTimeoutPrefMinutes : 5;
 					lastBackgroundCheck = DateTime.Now;
 					 // Perform a sync one minute after setting change
