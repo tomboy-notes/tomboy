@@ -252,7 +252,7 @@ namespace Tomboy
 			}
 			set {
 				buffer = value;
-				buffer.Changed += BufferChanged;
+				buffer.Changed += OnBufferChanged;
 				buffer.TagApplied += BufferTagApplied;
 				buffer.TagRemoved += BufferTagRemoved;
 
@@ -325,7 +325,7 @@ namespace Tomboy
 
 		// Callbacks
 
-		void BufferChanged (object sender, EventArgs args)
+		void OnBufferChanged (object sender, EventArgs args)
 		{
 			InvalidateText ();
 		}
@@ -513,10 +513,12 @@ namespace Tomboy
 		// depending on the change...
 		//
 
-		void BufferChanged (object sender, EventArgs args)
+		void OnBufferChanged (object sender, EventArgs args)
 		{
-			DebugSave ("BufferChanged queueing save");
+			DebugSave ("OnBufferChanged queueing save");
 			QueueSave (ChangeType.ContentChanged);
+			if (BufferChanged != null)
+				BufferChanged (this);
 		}
 
 		void BufferTagApplied (object sender, Gtk.TagAppliedArgs args)
@@ -1070,7 +1072,7 @@ namespace Tomboy
 					data.Buffer = buffer;
 
 					// Listen for further changed signals
-					buffer.Changed += BufferChanged;
+					buffer.Changed += OnBufferChanged;
 					buffer.TagApplied += BufferTagApplied;
 					buffer.TagRemoved += BufferTagRemoved;
 					buffer.MarkSet += BufferInsertMarkSet;
@@ -1218,6 +1220,7 @@ namespace Tomboy
 		public event TagAddedHandler TagAdded;
 		public event TagRemovingHandler TagRemoving;
 		public event TagRemovedHandler TagRemoved;
+		public event Action<Note> BufferChanged;
 	}
 
 	// Singleton - allow overriding the instance for easy sensing in
