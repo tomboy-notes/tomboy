@@ -112,6 +112,7 @@ namespace Tomboy
 
 			var notesBox = new VBox (false, 5);
 			var selectAllButton = new Button ();
+			// Translators: This button causes all notes in the list to be selected
 			selectAllButton.Label = Catalog.GetString ("Select All");
 			selectAllButton.Clicked += (o, e) => {
 				notesModel.Foreach ((model, path, iter) => {
@@ -120,6 +121,7 @@ namespace Tomboy
 				});
 			};
 			var selectNoneButton = new Button ();
+			// Translators: This button causes all notes in the list to be unselected
 			selectNoneButton.Label = Catalog.GetString ("Select None");
 			selectNoneButton.Clicked += (o, e) => {
 				notesModel.Foreach ((model, path, iter) => {
