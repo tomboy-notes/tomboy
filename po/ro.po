@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tomboy\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=tomboy&component=general\n"
-"POT-Creation-Date: 2010-02-12 11:52+0000\n"
-"PO-Revision-Date: 2010-02-13 17:07+0200\n"
+"POT-Creation-Date: 2010-03-06 00:32+0000\n"
+"PO-Revision-Date: 2010-03-08 21:12+0200\n"
 "Last-Translator: Adi Roiban <adi@roiban.ro>\n"
 "Language-Team: Romanian GNOME Team <gnomero-list@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -840,6 +840,31 @@ msgstr "Se autorizează în navigator (Apăsați pentru a reseta conexiunea)"
 msgid "Set the default browser and try again"
 msgstr "Configurați navigatorul web implicit și încercați din nou"
 
+#: ../Tomboy/JumpListManager.cs:77
+#: ../Tomboy/RecentChanges.cs:75
+msgid "Search All Notes"
+msgstr "Caută în toate notițele"
+
+#. IShellLink new_notebook = CreateShellLink("New Notebook", topmboy_path, "--new-notebook",
+#. icons_path, (int)TomboyIcons.NewNotebook);
+#. if (new_notebook != null)
+#. object_collection.AddObject(new_notebook);
+#: ../Tomboy/JumpListManager.cs:87
+#| msgid "Create _New Note"
+msgid "Create New Note"
+msgstr "Crează o nouă notiță"
+
+#: ../Tomboy/JumpListManager.cs:117
+#, csharp-format
+#| msgid " (new)"
+msgid "{0} (new)"
+msgstr "{0}  (nouă)"
+
+#: ../Tomboy/JumpListManager.cs:138
+#| msgid "Select None"
+msgid "Recent Notes"
+msgstr "Notițe noi"
+
 #. Translators: This is the name of "Window" menu in the Mac menubar
 #: ../Tomboy/MacApplication.cs:215
 msgid "_Window"
@@ -982,8 +1007,12 @@ msgstr "Dacă ștergeți o notiță, aceasta nu va mai putea fi recuperată."
 
 #: ../Tomboy/Note.cs:1611
 #, csharp-format
-msgid "An error occurred while saving your notes. Please check that you have sufficient disk space, and that you have appropriate rights on {0}. Error details can be found in {0}."
-msgstr "S-a produs o eroare la salvarea notițelor. Verificați că aveți spațiu suficient pe disc și aveți drepturi de scriere în {0}. Detaliile de eroare se găsesc în {0}."
+#| msgid ""
+#| "An error occurred while saving your notes. Please check that you have "
+#| "sufficient disk space, and that you have appropriate rights on {0}. Error "
+#| "details can be found in {0}."
+msgid "An error occurred while saving your notes. Please check that you have sufficient disk space, and that you have appropriate rights on {0}. Error details can be found in {1}."
+msgstr "S-a produs o eroare la salvarea notițelor. Verificați că aveți spațiu suficient pe disc și aveți drepturi de scriere în {0}. Detaliile de eroare se găsesc în {1}."
 
 #: ../Tomboy/Note.cs:1627
 msgid "Error saving note data."
@@ -1507,10 +1536,6 @@ msgstr "Drepturi de autor:"
 #: ../Tomboy/PreferencesDialog.cs:1379
 msgid "Add-in Dependencies:"
 msgstr "Dependențe module:"
-
-#: ../Tomboy/RecentChanges.cs:75
-msgid "Search All Notes"
-msgstr "Caută în toate notițele"
 
 #: ../Tomboy/RecentChanges.cs:90
 msgid "_Search:"
