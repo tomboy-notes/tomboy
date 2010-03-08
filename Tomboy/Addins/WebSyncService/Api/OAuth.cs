@@ -262,6 +262,7 @@ namespace Tomboy.WebSync.Api
 			} catch (Exception e) {
 				Logger.Error ("Caught exception. Message: {0}", e.Message);
 				Logger.Error ("Stack trace for previous exception: {0}", e.StackTrace);
+				Logger.Error ("Rest of stack trace for above exception: {0}", System.Environment.StackTrace);
 				throw;
 			}
 
