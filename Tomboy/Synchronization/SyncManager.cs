@@ -249,12 +249,18 @@ namespace Tomboy.Sync
 						}
 					}
 				}
-				// Wasteful to check when we'll sync anyway
-				// TODO: Unless we want to show a bubble when server has updates for users that don't autosync
-				if (!clientHasUpdates) {
-					Logger.Debug ("BackgroundSyncChecker: No client updates; checking with server");
+
+				// NOTE: Important to check, at least to verify
+				//       that server is available
+				try {
+					Logger.Debug ("BackgroundSyncChecker: Checking server for updates");
 					serverHasUpdates = server.UpdatesAvailableSince (client.LastSynchronizedRevision);
+				} catch {
+					// TODO: A libnotify bubble might be nice
+					Logger.Debug ("BackgroundSyncChecker: Error connecting to server");
+					return;
 				}
+
 				addin.PostSyncCleanup (); // Let FUSE unmount, etc
 
 				if (clientHasUpdates || serverHasUpdates) {
