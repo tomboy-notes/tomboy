@@ -1086,13 +1086,19 @@ namespace Tomboy
 			}
 		}
 
+		private Gtk.Widget focusWidget;
 		public bool Enabled
 		{
 			get { return enabled; }
 			set {
 				enabled = value;
-				if (window != null)
-					window.Editor.Sensitive = enabled;
+				if (window != null) {
+					if (!enabled)
+						focusWidget = window.Focus;
+					window.Sensitive = enabled;
+					if (enabled)
+						window.Focus = focusWidget;
+				}
 			}
 		}
 
