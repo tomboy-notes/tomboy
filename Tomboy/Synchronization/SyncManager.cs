@@ -194,7 +194,7 @@ namespace Tomboy.Sync
 			}
 
 			Preferences.SettingChanged += Preferences_SettingChanged;
-			Tomboy.DefaultNoteManager.NoteSaved += HandleNoteSaved;
+			NoteMgr.NoteSaved += HandleNoteSaved;
 
 			// Update sync item based on configuration.
 			UpdateSyncAction ();
@@ -212,8 +212,31 @@ namespace Tomboy.Sync
 					currentAutosyncTimeoutMinutes = 1;
 					autosyncTimer.Change (currentAutosyncTimeoutMinutes * 60000,
 					                      autosyncTimeoutPrefMinutes * 60000);
+					NoteMgr.NoteBufferChanged -= HandleNoteBufferChanged;
+					NoteMgr.NoteBufferChanged += HandleNoteBufferChanged;
 				}
+			} else if (syncThread == null && autosyncTimer == null && autosyncTimeoutPrefMinutes > 0) {
+				lastBackgroundCheck = DateTime.Now;
+				 // Perform a sync one minute after setting change
+				currentAutosyncTimeoutMinutes = 1;
+				autosyncTimer = new Timer ((o) => BackgroundSyncChecker (),
+				                           null,
+				                           currentAutosyncTimeoutMinutes * 60000,
+				                           autosyncTimeoutPrefMinutes * 60000);
+				NoteMgr.NoteBufferChanged -= HandleNoteBufferChanged;
+				NoteMgr.NoteBufferChanged += HandleNoteBufferChanged;
 			}
+		}
+
+		static void HandleNoteBufferChanged (Note note)
+		{
+			// If note text changes, kill the timer.  It will
+			// automatically be resurrected once a Save occurs.
+			if (syncThread == null && autosyncTimer != null) {
+				autosyncTimer.Dispose ();
+				autosyncTimer = null;
+			}
+			NoteMgr.NoteBufferChanged -= HandleNoteBufferChanged;
 		}
 
 		static void Preferences_SettingChanged (object sender, EventArgs args)
@@ -250,6 +273,8 @@ namespace Tomboy.Sync
 					                           null,
 					                           currentAutosyncTimeoutMinutes * 60000,
 					                           autosyncTimeoutPrefMinutes * 60000);
+					NoteMgr.NoteBufferChanged -= HandleNoteBufferChanged;
+					NoteMgr.NoteBufferChanged += HandleNoteBufferChanged;
 				}
 			}
 		}
