@@ -194,9 +194,26 @@ namespace Tomboy.Sync
 			}
 
 			Preferences.SettingChanged += Preferences_SettingChanged;
+			Tomboy.DefaultNoteManager.NoteSaved += HandleNoteSaved;
 
 			// Update sync item based on configuration.
 			UpdateSyncAction ();
+		}
+
+		static void HandleNoteSaved (Note note)
+		{
+			if (syncThread == null && autosyncTimer != null && autosyncTimeoutPrefMinutes > 0) {
+				TimeSpan timeSinceLastCheck =
+					DateTime.Now - lastBackgroundCheck;
+				TimeSpan timeUntilNextCheck =
+					new TimeSpan (0, currentAutosyncTimeoutMinutes, 0) - timeSinceLastCheck;
+				if (timeUntilNextCheck.TotalMinutes < 1) {
+					Logger.Debug ("Note saved within a minute of next autosync...resetting sync timer");
+					currentAutosyncTimeoutMinutes = 1;
+					autosyncTimer.Change (currentAutosyncTimeoutMinutes * 60000,
+					                      autosyncTimeoutPrefMinutes * 60000);
+				}
+			}
 		}
 
 		static void Preferences_SettingChanged (object sender, EventArgs args)
@@ -206,7 +223,11 @@ namespace Tomboy.Sync
 		}
 
 		private static Timer autosyncTimer;
-		private static int autosyncTimeout = -1;
+		private static int autosyncTimeoutPrefMinutes = -1;
+		// This may differ from the pref, if some logic has determined
+		// that the next background check should occur in, say, 1 minute
+		private static int currentAutosyncTimeoutMinutes = -1;
+		private static DateTime lastBackgroundCheck;
 
 		static void UpdateSyncAction ()
 		{
@@ -214,32 +235,37 @@ namespace Tomboy.Sync
 			Tomboy.ActionManager["SyncNotesAction"].Sensitive = !string.IsNullOrEmpty (sync_addin_id);
 
 			int timeoutPref = (int) Preferences.Get (Preferences.SYNC_AUTOSYNC_TIMEOUT);
-			if (timeoutPref != autosyncTimeout) {
-				autosyncTimeout = timeoutPref;
+			if (timeoutPref != autosyncTimeoutPrefMinutes) {
+				autosyncTimeoutPrefMinutes = timeoutPref;
 				if (autosyncTimer != null) {
 					autosyncTimer.Dispose ();
 					autosyncTimer = null;
 				}
-				if (autosyncTimeout > 0) {
-					autosyncTimeout = autosyncTimeout >= 5 ? autosyncTimeout : 5;
+				if (autosyncTimeoutPrefMinutes > 0) {
+					autosyncTimeoutPrefMinutes = autosyncTimeoutPrefMinutes >= 5 ? autosyncTimeoutPrefMinutes : 5;
+					lastBackgroundCheck = DateTime.Now;
+					 // Perform a sync one minute after setting change
+					currentAutosyncTimeoutMinutes = 1;
 					autosyncTimer = new Timer ((o) => BackgroundSyncChecker (),
 					                           null,
-					                           60000, // Perform a sync one minute after setting change
-					                           autosyncTimeout * 60000);
+					                           currentAutosyncTimeoutMinutes * 60000,
+					                           autosyncTimeoutPrefMinutes * 60000);
 				}
 			}
 		}
 
 		static void BackgroundSyncChecker ()
 		{
+			lastBackgroundCheck = DateTime.Now;
+			currentAutosyncTimeoutMinutes = autosyncTimeoutPrefMinutes;
 			if (syncThread != null)
 				return;
 			var addin = GetConfiguredSyncService ();
 			if (addin != null) {
 				// TODO: block sync while checking
 				var server = addin.CreateSyncServer ();
-				bool clientHasUpdates = client.DeletedNoteTitles.Count > 0;
 				bool serverHasUpdates = false;
+				bool clientHasUpdates = client.DeletedNoteTitles.Count > 0;
 				if (!clientHasUpdates) {
 					foreach (Note note in new List<Note> (NoteMgr.Notes)) {
 						if (client.GetRevision (note) == -1 ||
