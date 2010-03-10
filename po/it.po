@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tomboy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-22 21:55+0100\n"
-"PO-Revision-Date: 2010-02-22 21:57+0100\n"
+"POT-Creation-Date: 2010-03-10 19:16+0100\n"
+"PO-Revision-Date: 2010-03-10 19:17+0100\n"
 "Last-Translator: Milo Casagrande <milo@ubuntu.com>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
 "MIME-Version: 1.0\n"
@@ -1084,6 +1084,27 @@ msgstr "Autorizzazione browser (fare clic per reimpostare la connessione)"
 msgid "Set the default browser and try again"
 msgstr "Impostare il browser predefinito e provare ancora"
 
+#: ../Tomboy/JumpListManager.cs:77 ../Tomboy/RecentChanges.cs:75
+msgid "Search All Notes"
+msgstr "Cerca in tutte le note"
+
+#. IShellLink new_notebook = CreateShellLink("New Notebook", topmboy_path, "--new-notebook",
+#. icons_path, (int)TomboyIcons.NewNotebook);
+#. if (new_notebook != null)
+#. object_collection.AddObject(new_notebook);
+#: ../Tomboy/JumpListManager.cs:87
+msgid "Create New Note"
+msgstr "Crea nuova nota"
+
+#: ../Tomboy/JumpListManager.cs:117
+#, csharp-format
+msgid "{0} (new)"
+msgstr "{0} (nuova)"
+
+#: ../Tomboy/JumpListManager.cs:139
+msgid "Recent Notes"
+msgstr "Note recenti"
+
 #. Translators: This is the name of "Window" menu in the Mac menubar
 #: ../Tomboy/MacApplication.cs:215
 msgid "_Window"
@@ -1213,33 +1234,33 @@ msgstr "Blocco note"
 msgid "_New notebook..."
 msgstr "Nuovo _blocco note..."
 
-#: ../Tomboy/Note.cs:1569
+#: ../Tomboy/Note.cs:1578
 msgid "Really delete this note?"
 msgstr "Eliminare veramente questa nota?"
 
-#: ../Tomboy/Note.cs:1572
+#: ../Tomboy/Note.cs:1581
 #, csharp-format
 msgid "Really delete this {0} note?"
 msgid_plural "Really delete these {0} notes?"
 msgstr[0] "Eliminare veramente {0} nota?"
 msgstr[1] "Eliminare veramente {0} note?"
 
-#: ../Tomboy/Note.cs:1583
+#: ../Tomboy/Note.cs:1592
 msgid "If you delete a note it is permanently lost."
 msgstr "Se si elimina una nota, questa sarà persa in modo definitivo."
 
-#: ../Tomboy/Note.cs:1611
+#: ../Tomboy/Note.cs:1620
 #, csharp-format
 msgid ""
 "An error occurred while saving your notes. Please check that you have "
 "sufficient disk space, and that you have appropriate rights on {0}. Error "
-"details can be found in {0}."
+"details can be found in {1}."
 msgstr ""
 "Si è verificato un errore nel salvare le note. Controllare che ci sia spazio "
-"sufficiente sul disco e di avere i permessi adeguati «{0}». Maggiori "
-"informazioni sull'errore possono essere trovate in «{0}»."
+"sufficiente sul disco e di avere i permessi adeguati su «{0}». Maggiori "
+"informazioni sull'errore possono essere trovate in «{1}»."
 
-#: ../Tomboy/Note.cs:1627
+#: ../Tomboy/Note.cs:1636
 msgid "Error saving note data."
 msgstr "Errore nel salvare i dati della nota."
 
@@ -1305,7 +1326,7 @@ msgstr ""
 "\n"
 "Ciao!"
 
-#: ../Tomboy/NoteManager.cs:259
+#: ../Tomboy/NoteManager.cs:265
 msgid ""
 "<note-content>Start Here\n"
 "\n"
@@ -1343,7 +1364,7 @@ msgstr ""
 "collegamenti con Tomboy</link:internal> viene sottolineato automaticamente. "
 "Fare clic sul collegamento per aprire la nota.</note-content>"
 
-#: ../Tomboy/NoteManager.cs:278
+#: ../Tomboy/NoteManager.cs:284
 msgid ""
 "<note-content>Using Links in Tomboy\n"
 "\n"
@@ -1374,22 +1395,22 @@ msgstr ""
 "content>"
 
 #. Attempt to find an existing Start Here note
-#: ../Tomboy/NoteManager.cs:293 ../Tomboy/NoteManager.cs:361
+#: ../Tomboy/NoteManager.cs:299 ../Tomboy/NoteManager.cs:368
 msgid "Start Here"
 msgstr "Inizia qui"
 
-#: ../Tomboy/NoteManager.cs:298
+#: ../Tomboy/NoteManager.cs:304
 msgid "Using Links in Tomboy"
 msgstr "Usare i collegamenti con Tomboy"
 
-#: ../Tomboy/NoteManager.cs:438
+#: ../Tomboy/NoteManager.cs:445
 #, csharp-format
 msgid "New Note {0}"
 msgstr "Nuova nota {0}"
 
 #. Use a simple "Describe..." body and highlight
 #. it so it can be easily overwritten
-#: ../Tomboy/NoteManager.cs:511 ../Tomboy/NoteManager.cs:603
+#: ../Tomboy/NoteManager.cs:518 ../Tomboy/NoteManager.cs:611
 msgid "Describe your new note here."
 msgstr "Scrivere qui la nuova nota."
 
@@ -1428,27 +1449,29 @@ msgstr "Rinomina collegamenti"
 msgid "Note Title"
 msgstr "Nome nota"
 
-#: ../Tomboy/NoteRenameDialog.cs:115
+#. Translators: This button causes all notes in the list to be selected
+#: ../Tomboy/NoteRenameDialog.cs:116
 msgid "Select All"
 msgstr "Tutte"
 
-#: ../Tomboy/NoteRenameDialog.cs:123
+#. Translators: This button causes all notes in the list to be unselected
+#: ../Tomboy/NoteRenameDialog.cs:125
 msgid "Select None"
 msgstr "Nessuna"
 
-#: ../Tomboy/NoteRenameDialog.cs:140
+#: ../Tomboy/NoteRenameDialog.cs:142
 msgid "Ad_vanced"
 msgstr "A_vanzate"
 
-#: ../Tomboy/NoteRenameDialog.cs:143
+#: ../Tomboy/NoteRenameDialog.cs:145
 msgid "Always show this _window"
 msgstr "_Mostrare sempre questa finestra"
 
-#: ../Tomboy/NoteRenameDialog.cs:151
+#: ../Tomboy/NoteRenameDialog.cs:153
 msgid "Never rename _links"
 msgstr "Non rinominare mai i co_llegamenti"
 
-#: ../Tomboy/NoteRenameDialog.cs:159
+#: ../Tomboy/NoteRenameDialog.cs:161
 msgid "Alwa_ys rename links"
 msgstr "_Rinominare sempre i collegamenti"
 
@@ -1712,7 +1735,7 @@ msgstr "Apri «Cerca _in tutte le note»"
 msgid "Ser_vice:"
 msgstr "Ser_vizio:"
 
-#: ../Tomboy/PreferencesDialog.cs:486 ../Tomboy/PreferencesDialog.cs:1114
+#: ../Tomboy/PreferencesDialog.cs:486 ../Tomboy/PreferencesDialog.cs:1113
 msgid "Not configurable"
 msgstr "Non configurabile"
 
@@ -1728,51 +1751,51 @@ msgid "Minutes"
 msgstr "minuti"
 
 #. "Advanced..." button to bring up extra sync config dialog
-#: ../Tomboy/PreferencesDialog.cs:541
+#: ../Tomboy/PreferencesDialog.cs:540
 msgid "_Advanced..."
 msgstr "_Avanzate..."
 
-#: ../Tomboy/PreferencesDialog.cs:602
+#: ../Tomboy/PreferencesDialog.cs:601
 msgid "The following add-ins are installed"
 msgstr "I seguenti add-in sono installati"
 
 # (ndt) pare una specie di pulsante
-#: ../Tomboy/PreferencesDialog.cs:623
+#: ../Tomboy/PreferencesDialog.cs:622
 msgid "Get More Add-Ins..."
 msgstr "Ulteriori add-in..."
 
 # (ndt) pulsante
-#: ../Tomboy/PreferencesDialog.cs:649
+#: ../Tomboy/PreferencesDialog.cs:648
 msgid "_Enable"
 msgstr "_Abilita"
 
 # (ndt) pulsante
-#: ../Tomboy/PreferencesDialog.cs:655
+#: ../Tomboy/PreferencesDialog.cs:654
 msgid "_Disable"
 msgstr "_Disabilita"
 
-#: ../Tomboy/PreferencesDialog.cs:786
+#: ../Tomboy/PreferencesDialog.cs:785
 msgid "Not Implemented"
 msgstr "Non implementato"
 
 # (ndT) dovrebbe essere tipo Preferenze di {nome-add-in}
-#: ../Tomboy/PreferencesDialog.cs:800
+#: ../Tomboy/PreferencesDialog.cs:799
 #, csharp-format
 msgid "{0} Preferences"
 msgstr "Preferenze di {0}"
 
 # (ndt) titolo finestra di dialogo
-#: ../Tomboy/PreferencesDialog.cs:939
+#: ../Tomboy/PreferencesDialog.cs:938
 msgid "Choose Note Font"
 msgstr "Scegli carattere per le note"
 
 # (ndt) titolo finestra di dialogo
-#: ../Tomboy/PreferencesDialog.cs:983
+#: ../Tomboy/PreferencesDialog.cs:982
 msgid "Other Synchronization Options"
 msgstr "Altre opzioni di sincronizzazione"
 
 # (ndT) le metto al plurale... mi suonano meglio
-#: ../Tomboy/PreferencesDialog.cs:989
+#: ../Tomboy/PreferencesDialog.cs:988
 msgid ""
 "When a conflict is detected between a local note and a note on the "
 "configured synchronization server:"
@@ -1781,25 +1804,25 @@ msgstr ""
 "la sincronizzazione sul server:"
 
 # (ndt) volutamente eliminato il punto, è un'opzione
-#: ../Tomboy/PreferencesDialog.cs:996
+#: ../Tomboy/PreferencesDialog.cs:995
 msgid "Always ask me what to do."
 msgstr "Chiedere sempre cosa fare"
 
 # (ndt) volutamente eliminato il punto, è un'opzione
-#: ../Tomboy/PreferencesDialog.cs:1000
+#: ../Tomboy/PreferencesDialog.cs:999
 msgid "Rename my local note."
 msgstr "Rinominare le note locali"
 
 # (ndt) volutamente eliminato il punto, è un'opzione
-#: ../Tomboy/PreferencesDialog.cs:1004
+#: ../Tomboy/PreferencesDialog.cs:1003
 msgid "Replace my local note with the server's update."
 msgstr "Sostituire le note locali con gli aggiornamenti del server"
 
-#: ../Tomboy/PreferencesDialog.cs:1150
+#: ../Tomboy/PreferencesDialog.cs:1149
 msgid "WARNING: Are you sure?"
 msgstr "Attenzione: procedere veramente?"
 
-#: ../Tomboy/PreferencesDialog.cs:1152
+#: ../Tomboy/PreferencesDialog.cs:1151
 msgid ""
 "Clearing your synchronization settings is not recommended.  You may be "
 "forced to synchronize all of your notes again when you save new settings."
@@ -1808,11 +1831,11 @@ msgstr ""
 "essere necessario sincronizzare nuovamente tutte le note al prossimo "
 "salvataggio delle nuove impostazioni."
 
-#: ../Tomboy/PreferencesDialog.cs:1165
+#: ../Tomboy/PreferencesDialog.cs:1164
 msgid "Resetting Synchronization Settings"
 msgstr "Ripristino impostazioni di sincronizzazione"
 
-#: ../Tomboy/PreferencesDialog.cs:1167
+#: ../Tomboy/PreferencesDialog.cs:1166
 msgid ""
 "You have disabled the configured synchronization service.  Your "
 "synchronization settings will now be cleared.  You may be forced to "
@@ -1823,18 +1846,18 @@ msgstr ""
 "necessario sincronizzare nuovamente tutte le note quando vengono salvate "
 "delle nuove impostazioni"
 
-#: ../Tomboy/PreferencesDialog.cs:1245
+#: ../Tomboy/PreferencesDialog.cs:1244
 msgid "Success! You're connected!"
 msgstr "Connessione stabilita con successo."
 
-#: ../Tomboy/PreferencesDialog.cs:1247
+#: ../Tomboy/PreferencesDialog.cs:1246
 msgid ""
 "Tomboy is ready to synchronize your notes. Would you like to synchronize "
 "them now?"
 msgstr ""
 "Il programma è pronto alla sincronizzazione delle note. Sincronizzarle ora?"
 
-#: ../Tomboy/PreferencesDialog.cs:1270
+#: ../Tomboy/PreferencesDialog.cs:1269
 #, csharp-format
 msgid ""
 "Sorry, but something went wrong.  Please check your information and try "
@@ -1843,29 +1866,25 @@ msgstr ""
 "Qualcosa è andato storto. Controllare le informazioni e riprovare. Il file "
 "«{0}» potrebbe essere d'aiuto."
 
-#: ../Tomboy/PreferencesDialog.cs:1283
+#: ../Tomboy/PreferencesDialog.cs:1282
 msgid "Error connecting :("
 msgstr "Errore nella connessione"
 
-#: ../Tomboy/PreferencesDialog.cs:1359
+#: ../Tomboy/PreferencesDialog.cs:1358
 msgid "Version:"
 msgstr "Versione:"
 
-#: ../Tomboy/PreferencesDialog.cs:1366
+#: ../Tomboy/PreferencesDialog.cs:1365
 msgid "Author:"
 msgstr "Autore:"
 
-#: ../Tomboy/PreferencesDialog.cs:1373
+#: ../Tomboy/PreferencesDialog.cs:1372
 msgid "Copyright:"
 msgstr "Copyright:"
 
-#: ../Tomboy/PreferencesDialog.cs:1379
+#: ../Tomboy/PreferencesDialog.cs:1378
 msgid "Add-in Dependencies:"
 msgstr "Dipendenze add-in:"
-
-#: ../Tomboy/RecentChanges.cs:75
-msgid "Search All Notes"
-msgstr "Cerca in tutte le note"
 
 #: ../Tomboy/RecentChanges.cs:90
 msgid "_Search:"
@@ -2388,18 +2407,3 @@ msgstr ""
 "Per evitare il ripetersi di questo messaggio, caricare FUSE all'avvio. "
 "Aggiungere «modprobe fuse» al file «/etc/init.d/boot.local» oppure «fuse» al "
 "file «/etc/modules»."
-
-#~ msgid "_Browse..."
-#~ msgstr "_Sfoglia..."
-
-#~ msgid "D-BUS remote control disabled.\n"
-#~ msgstr "Controllo remoto D-BUS disabilitato.\n"
-
-#~ msgid ""
-#~ "Tomboy: unsupported option '{0}'\n"
-#~ "Try 'tomboy --help' for more information.\n"
-#~ "D-BUS remote control disabled."
-#~ msgstr ""
-#~ "Tomboy: opzione non supportata \"{0}\"\n"
-#~ "Usare \"tomboy --help\" per maggiori informazioni.\n"
-#~ "Controllo remoto D-BUS disabilitato."
