@@ -17,7 +17,7 @@ namespace Tomboy
 		private static readonly string SearchIcon = "search.ico";
 
 		private static readonly string tomboy_path = System.Reflection.Assembly.GetExecutingAssembly ().Location;
-		private static readonly string icons_path = tomboy_path.Substring (0, tomboy_path.LastIndexOf ('\\') + 1);
+		private static readonly string icons_path = Defines.DATADIR;
 
 		public static void CreateJumpList ()
 		{
@@ -75,7 +75,7 @@ namespace Tomboy
 			    (IObjectCollection) Activator.CreateInstance (Type.GetTypeFromCLSID (CLSID.EnumerableObjectCollection));
 
 			IShellLink search_notes = CreateShellLink (Catalog.GetString ("Search All Notes"), tomboy_path, "--search",
-			    icons_path + SearchIcon, -1);
+			                                           System.IO.Path.Combine (icons_path, SearchIcon),  -1);
 			if (search_notes != null)
 				object_collection.AddObject (search_notes);
 
@@ -85,7 +85,7 @@ namespace Tomboy
 			//    object_collection.AddObject(new_notebook);
 
 			IShellLink new_note = CreateShellLink (Catalog.GetString ("Create New Note"), tomboy_path, "--new-note",
-			    icons_path + NewNoteIcon, -1);
+			                                       System.IO.Path.Combine (icons_path, NewNoteIcon), -1);
 			if (new_note != null)
 				object_collection.AddObject (new_note);
 
@@ -118,7 +118,7 @@ namespace Tomboy
 				}
 
 				IShellLink note_link = CreateShellLink (note_title, tomboy_path, "--open-note " + note.Uri,
-					icons_path + NoteIcon, -1);
+				                                        System.IO.Path.Combine (icons_path, NoteIcon), -1);
 				if (note_link != null)
 					object_collection.AddObject (note_link);
 
@@ -130,7 +130,8 @@ namespace Tomboy
 			Note start_note = note_manager.FindByUri (NoteManager.StartNoteUri);
 			if (start_note != null) {
 				IShellLink start_note_link = CreateShellLink (start_note.Title, tomboy_path, "--open-note " +
-					NoteManager.StartNoteUri, icons_path + NoteIcon, -1);
+				                                              NoteManager.StartNoteUri,
+				                                              System.IO.Path.Combine (icons_path, NoteIcon), -1);
 				if (start_note_link != null)
 					object_collection.AddObject (start_note_link);
 			}
