@@ -200,6 +200,10 @@ namespace Tomboy.PrintNotes
 				layout.Attributes = attr_list;
 			}
 
+			DepthNoteTag depth = Buffer.FindDepthTag (p_start);
+			if (depth != null)
+				indentation += ((int) (dpiX / 3)) * depth.Depth;
+
 			layout.Width = Pango.Units.FromPixels ((int)context.Width -
 				margin_left - margin_right - indentation);
 			layout.Wrap = Pango.WrapMode.WordChar;
