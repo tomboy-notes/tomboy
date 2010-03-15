@@ -105,7 +105,7 @@ namespace Tomboy
 				return ret.ScaleSimple (size, size, Gdk.InterpType.Bilinear);
 			} catch (ArgumentException) {}
 
-			Logger.Log ("Unable to load icon '{0}'.", resource_name);
+			Logger.Debug ("Unable to load icon '{0}'.", resource_name);
 			return null;
 		}
 

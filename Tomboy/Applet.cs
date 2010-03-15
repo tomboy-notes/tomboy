@@ -162,7 +162,13 @@ namespace Tomboy
 			// Load a 16x16-sized icon to ensure we don't end up with a
 			// 1x1 pixel.
 			panel_size = 16;
-			this.image = new Gtk.Image (GuiUtils.GetIcon ("tomboy", panel_size));
+			// Load Icon to display in the panel.
+			// First we try the "tomboy-panel" icon. This icon can be replaced
+			// by the user's icon theme. If the theme does not have this icon
+			// then we fall back to the Tomboy Menu icon named "tomboy".
+			var icon = GuiUtils.GetIcon ("tomboy-panel", panel_size) ??
+				GuiUtils.GetIcon ("tomboy", panel_size);
+			this.image = new Gtk.Image (icon);
 
 			this.CanFocus = true;
 			this.ButtonPressEvent += ButtonPress;
