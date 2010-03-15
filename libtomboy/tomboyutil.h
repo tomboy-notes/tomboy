@@ -28,6 +28,11 @@
 
 G_BEGIN_DECLS
 
+#ifdef HAS_GTK_2_20
+#define GTK_WIDGET_REALIZED(wid)	  (gtk_widget_get_realized (wid))
+#define GTK_WIDGET_VISIBLE(wid)	  (gtk_widget_get_visible (wid))
+#endif
+
 gint tomboy_window_get_workspace (GtkWindow *window);
 
 void tomboy_window_move_to_current_workspace (GtkWindow *window);

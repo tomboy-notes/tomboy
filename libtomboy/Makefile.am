@@ -1,4 +1,8 @@
 
+if HAS_GTK_2_20
+EXTRA_FLAGS = -DHAS_GTK_2_20
+endif
+
 INCLUDES = 				\
 	-I$(top_srcdir)			\
 	-DG_LOG_DOMAIN=\"libtomboy\"	\
@@ -6,7 +10,8 @@ INCLUDES = 				\
 	-DGTK_DISABLE_DEPRECATED 	\
 	-DGDK_DISABLE_DEPRECATED 	\
 	-DG_DISABLE_DEPRECATED		\
-	$(LIBTOMBOY_CFLAGS)
+	$(LIBTOMBOY_CFLAGS)		\
+	$(EXTRA_FLAGS)
 
 tomboylibdir = $(pkglibdir)
 tomboylib_LTLIBRARIES = libtomboy.la

@@ -65,6 +65,11 @@ if pkg-config --atleast-version=2.16 gtk+-2.0; then
 fi
 AM_CONDITIONAL(HAS_GTK_2_16, test "x$HAS_GTK_2_16" = "xyes")
 
+if pkg-config --atleast-version=2.19.7 gtk+-2.0; then
+	HAS_GTK_2_20=yes
+fi
+AM_CONDITIONAL(HAS_GTK_2_20, test "x$HAS_GTK_2_20" = "xyes")
+
 #
 # Use pkg-config to check for the panel applet server directory if
 # specified by --enable-panelapplet-srvdir-check.
