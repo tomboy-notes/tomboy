@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-04 23:44+0100\n"
-"PO-Revision-Date: 2010-03-05 09:28+0100\n"
+"POT-Creation-Date: 2010-03-16 18:08+0100\n"
+"PO-Revision-Date: 2010-03-16 18:09+0100\n"
 "Last-Translator: Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>\n"
 "Language-Team: Basque <itzulpena@euskalgnu.org>\n"
 "MIME-Version: 1.0\n"
@@ -34,12 +34,12 @@ msgid "Tomboy Applet Factory"
 msgstr "Tomboy applet-aren fabrika"
 
 #: ../data/GNOME_TomboyApplet.server.in.in.h:4 ../data/tomboy.desktop.in.h:3
-#: ../Tomboy/Tray.cs:568
+#: ../Tomboy/Tray.cs:573
 msgid "Tomboy Notes"
 msgstr "Tomboy oharrak"
 
 #: ../data/GNOME_TomboyApplet.xml.h:1 ../Tomboy/ActionManager.cs:179
-#: ../Tomboy/Tray.cs:263
+#: ../Tomboy/Tray.cs:268
 msgid "S_ynchronize Notes"
 msgstr "_Sinkronizatu oharrak"
 
@@ -48,12 +48,12 @@ msgid "_About"
 msgstr "Honi _buruz"
 
 #: ../data/GNOME_TomboyApplet.xml.h:3 ../Tomboy/ActionManager.cs:157
-#: ../Tomboy/Tray.cs:277
+#: ../Tomboy/Tray.cs:282
 msgid "_Help"
 msgstr "_Laguntza"
 
 #: ../data/GNOME_TomboyApplet.xml.h:4 ../Tomboy/ActionManager.cs:153
-#: ../Tomboy/Tray.cs:272
+#: ../Tomboy/Tray.cs:277
 msgid "_Preferences"
 msgstr "_Hobespenak"
 
@@ -243,9 +243,9 @@ msgid ""
 "minutes."
 msgstr ""
 "Zure oharren atzeko planoko sinkronizazioaren maiztasuna adierazten duen "
-"osoko balioa (sink. configuratuta dagoenean). 1 baino gutxiagoko edozein baliok "
-"sink. automatikoa desgaituta dagoela adierazten du. Onartzen den balio positiborik "
-"baxuena 5 da. Balioak minutuak adierazten ditu."
+"osoko balioa (sink. configuratuta dagoenean). 1 baino gutxiagoko edozein "
+"baliok sink. automatikoa desgaituta dagoela adierazten du. Onartzen den "
+"balio positiborik baxuena 5 da. Balioak minutuak adierazten ditu."
 
 #: ../data/tomboy.schemas.in.h:33
 msgid ""
@@ -271,14 +271,14 @@ msgid ""
 "indicates that link text should be updated to the new note name so that it "
 "will continue linking to the renamed note."
 msgstr ""
-"Ohar bat izenez aldatzean esteka zehatz baten eguneraketa egitean "
-"beti portaera jakin bat lantzeko ezarpenik dagoen "
-"adierazten du osoko balioak, erabiltzaileari galdetu ordez. Balioak barneko "
-"enumerazioa jarraitzen du: 0 balioak ohar baten izena aldatzean beste oharretako "
-"estekei eragingo dien erabiltzaileari galdetzea adierazten du. "
-"1 balioak estekak automatikoki kenduko direla adierazten du. 2 balioak "
-"estekaren testua oharraren izen berrira eguneratuko dela adierazten du, "
-"horrela izenez aldatutako oharrera estekaten jarraituko baitu."
+"Ohar bat izenez aldatzean esteka zehatz baten eguneraketa egitean beti "
+"portaera jakin bat lantzeko ezarpenik dagoen adierazten du osoko balioak, "
+"erabiltzaileari galdetu ordez. Balioak barneko enumerazioa jarraitzen du: 0 "
+"balioak ohar baten izena aldatzean beste oharretako estekei eragingo dien "
+"erabiltzaileari galdetzea adierazten du. 1 balioak estekak automatikoki "
+"kenduko direla adierazten du. 2 balioak estekaren testua oharraren izen "
+"berrira eguneratuko dela adierazten du, horrela izenez aldatutako oharrera "
+"estekaten jarraituko baitu."
 
 #: ../data/tomboy.schemas.in.h:35
 msgid "Link Updating Behavior on Note Rename"
@@ -614,7 +614,7 @@ msgstr "_Itxi"
 msgid "Close this window"
 msgstr "Itxi leiho hau"
 
-#: ../Tomboy/ActionManager.cs:146 ../Tomboy/Tray.cs:289
+#: ../Tomboy/ActionManager.cs:146 ../Tomboy/Tray.cs:294
 msgid "_Quit"
 msgstr "_Irten"
 
@@ -803,7 +803,7 @@ msgstr "Txertatu ordu-zigilua"
 
 #. initial newline
 #: ../Tomboy/Addins/InsertTimestamp/InsertTimestampPreferences.cs:29
-#: ../Tomboy/Applet.cs:221 ../Tomboy/Preferences.cs:146
+#: ../Tomboy/Applet.cs:227 ../Tomboy/Preferences.cs:146
 msgid "dddd, MMMM d, h:mm tt"
 msgstr "dddd, MMMM d, h:mm tt"
 
@@ -1052,6 +1052,27 @@ msgstr "Autorizazioa web arakatzailean (sakatu konexioa berrezarteko)"
 msgid "Set the default browser and try again"
 msgstr "Ezarri arakatzaile lehenetsia eta saiatu berriro"
 
+#: ../Tomboy/JumpListManager.cs:77 ../Tomboy/RecentChanges.cs:83
+msgid "Search All Notes"
+msgstr "Bilatu ohar guztiak"
+
+#. IShellLink new_notebook = CreateShellLink("New Notebook", topmboy_path, "--new-notebook",
+#. icons_path, (int)TomboyIcons.NewNotebook);
+#. if (new_notebook != null)
+#. object_collection.AddObject(new_notebook);
+#: ../Tomboy/JumpListManager.cs:87
+msgid "Create New Note"
+msgstr "Sortu ohar berria"
+
+#: ../Tomboy/JumpListManager.cs:117
+#, csharp-format
+msgid "{0} (new)"
+msgstr "{0} (berria)"
+
+#: ../Tomboy/JumpListManager.cs:139
+msgid "Recent Notes"
+msgstr "Azken oharrak"
+
 #. Translators: This is the name of "Window" menu in the Mac menubar
 #: ../Tomboy/MacApplication.cs:215
 msgid "_Window"
@@ -1139,7 +1160,7 @@ msgid "Delete the selected notebook"
 msgstr "Ezabatu hautatutako koadernoa"
 
 #: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:68
-#: ../Tomboy/RecentChanges.cs:251
+#: ../Tomboy/RecentChanges.cs:259
 msgid "Notebooks"
 msgstr "Koadernoak"
 
@@ -1180,33 +1201,33 @@ msgstr "Koadernoa"
 msgid "_New notebook..."
 msgstr "_Koaderno berria..."
 
-#: ../Tomboy/Note.cs:1569
+#: ../Tomboy/Note.cs:1578
 msgid "Really delete this note?"
 msgstr "Ziur zaude ohar hau ezabatzea nahi duzula?"
 
-#: ../Tomboy/Note.cs:1572
+#: ../Tomboy/Note.cs:1581
 #, csharp-format
 msgid "Really delete this {0} note?"
 msgid_plural "Really delete these {0} notes?"
 msgstr[0] "Ziur zaude ohar {0} ezabatzea nahi duzula?"
 msgstr[1] "Ziur zaude {0} ohar ezabatzea nahi dituzula?"
 
-#: ../Tomboy/Note.cs:1583
+#: ../Tomboy/Note.cs:1592
 msgid "If you delete a note it is permanently lost."
 msgstr "Ohar bat ezabatzen baduzu betirako galduko da."
 
-#: ../Tomboy/Note.cs:1611
+#: ../Tomboy/Note.cs:1620
 #, csharp-format
 msgid ""
 "An error occurred while saving your notes. Please check that you have "
 "sufficient disk space, and that you have appropriate rights on {0}. Error "
-"details can be found in {0}."
+"details can be found in {1}."
 msgstr ""
 "Errorea gertatu da zure oharrak gordetzean. Egiaztatu diskoan nahikoa leku "
-"libre dagoela, eta {0} direktoriorako nahikoa baimen dituzula. Errorearen "
-"xehetasunak {0} fitxategian aurki dezakezu."
+"libre dagoela, eta {0} direktoriorako baimen egokiak dituzula. Errorearen "
+"xehetasunak {1} fitxategian aurki dezakezu."
 
-#: ../Tomboy/Note.cs:1627
+#: ../Tomboy/Note.cs:1636
 msgid "Error saving note data."
 msgstr "Errorea oharraren datuak gordetzean."
 
@@ -1270,7 +1291,7 @@ msgstr ""
 "\n"
 "Agur!"
 
-#: ../Tomboy/NoteManager.cs:259
+#: ../Tomboy/NoteManager.cs:265
 msgid ""
 "<note-content>Start Here\n"
 "\n"
@@ -1308,7 +1329,7 @@ msgstr ""
 "erabiltzea</link:internal> idazten bakoitzean automatikoki azpimarratua "
 "agertzen dela? Egin klik estekan oharra irekitzeko.</note-content>"
 
-#: ../Tomboy/NoteManager.cs:278
+#: ../Tomboy/NoteManager.cs:284
 msgid ""
 "<note-content>Using Links in Tomboy\n"
 "\n"
@@ -1337,22 +1358,22 @@ msgstr ""
 "estekatuko du.</note-content>"
 
 #. Attempt to find an existing Start Here note
-#: ../Tomboy/NoteManager.cs:293 ../Tomboy/NoteManager.cs:361
+#: ../Tomboy/NoteManager.cs:299 ../Tomboy/NoteManager.cs:368
 msgid "Start Here"
 msgstr "Hasi hemen"
 
-#: ../Tomboy/NoteManager.cs:298
+#: ../Tomboy/NoteManager.cs:304
 msgid "Using Links in Tomboy"
 msgstr "Tomboy-ko estekak erabiltzea"
 
-#: ../Tomboy/NoteManager.cs:438
+#: ../Tomboy/NoteManager.cs:445
 #, csharp-format
 msgid "New Note {0}"
 msgstr "{0}. mezu berria"
 
 #. Use a simple "Describe..." body and highlight
 #. it so it can be easily overwritten
-#: ../Tomboy/NoteManager.cs:511 ../Tomboy/NoteManager.cs:603
+#: ../Tomboy/NoteManager.cs:518 ../Tomboy/NoteManager.cs:611
 msgid "Describe your new note here."
 msgstr "Azaldu ohar berria hemen."
 
@@ -1390,27 +1411,29 @@ msgstr "Aldatu esteken izenak"
 msgid "Note Title"
 msgstr "Oharraren titulua"
 
-#: ../Tomboy/NoteRenameDialog.cs:115
+#. Translators: This button causes all notes in the list to be selected
+#: ../Tomboy/NoteRenameDialog.cs:116
 msgid "Select All"
 msgstr "Hautatu denak"
 
-#: ../Tomboy/NoteRenameDialog.cs:123
+#. Translators: This button causes all notes in the list to be unselected
+#: ../Tomboy/NoteRenameDialog.cs:125
 msgid "Select None"
 msgstr "Ez hautatu bat ere"
 
-#: ../Tomboy/NoteRenameDialog.cs:140
+#: ../Tomboy/NoteRenameDialog.cs:142
 msgid "Ad_vanced"
 msgstr "_Aurreratua"
 
-#: ../Tomboy/NoteRenameDialog.cs:143
+#: ../Tomboy/NoteRenameDialog.cs:145
 msgid "Always show this _window"
 msgstr "Erakutsi beti _leiho hau"
 
-#: ../Tomboy/NoteRenameDialog.cs:151
+#: ../Tomboy/NoteRenameDialog.cs:153
 msgid "Never rename _links"
 msgstr "Inoiz ere ez aldatu _estekak izenez"
 
-#: ../Tomboy/NoteRenameDialog.cs:159
+#: ../Tomboy/NoteRenameDialog.cs:161
 msgid "Alwa_ys rename links"
 msgstr "_Beti aldatu esteken izenak"
 
@@ -1667,7 +1690,7 @@ msgstr "Ireki \"_Bilatu ohar guztiak\""
 msgid "Ser_vice:"
 msgstr "_Zerbitzua:"
 
-#: ../Tomboy/PreferencesDialog.cs:486 ../Tomboy/PreferencesDialog.cs:1114
+#: ../Tomboy/PreferencesDialog.cs:486 ../Tomboy/PreferencesDialog.cs:1113
 msgid "Not configurable"
 msgstr "Ez da konfiguragarria"
 
@@ -1682,44 +1705,44 @@ msgid "Minutes"
 msgstr "minuturo"
 
 #. "Advanced..." button to bring up extra sync config dialog
-#: ../Tomboy/PreferencesDialog.cs:541
+#: ../Tomboy/PreferencesDialog.cs:540
 msgid "_Advanced..."
 msgstr "_Aurreratua..."
 
-#: ../Tomboy/PreferencesDialog.cs:602
+#: ../Tomboy/PreferencesDialog.cs:601
 msgid "The following add-ins are installed"
 msgstr "Honako gehigarriak daude instalatuta"
 
-#: ../Tomboy/PreferencesDialog.cs:623
+#: ../Tomboy/PreferencesDialog.cs:622
 msgid "Get More Add-Ins..."
 msgstr "Lortu gehigarri gehiago..."
 
-#: ../Tomboy/PreferencesDialog.cs:649
+#: ../Tomboy/PreferencesDialog.cs:648
 msgid "_Enable"
 msgstr "_Gaitu"
 
-#: ../Tomboy/PreferencesDialog.cs:655
+#: ../Tomboy/PreferencesDialog.cs:654
 msgid "_Disable"
 msgstr "_Desgaitu"
 
-#: ../Tomboy/PreferencesDialog.cs:786
+#: ../Tomboy/PreferencesDialog.cs:785
 msgid "Not Implemented"
 msgstr "Inplementatu gabe"
 
-#: ../Tomboy/PreferencesDialog.cs:800
+#: ../Tomboy/PreferencesDialog.cs:799
 #, csharp-format
 msgid "{0} Preferences"
 msgstr "{0}(r)en hobespenak"
 
-#: ../Tomboy/PreferencesDialog.cs:939
+#: ../Tomboy/PreferencesDialog.cs:938
 msgid "Choose Note Font"
 msgstr "Aukeratu oharraren letra-tipoa"
 
-#: ../Tomboy/PreferencesDialog.cs:983
+#: ../Tomboy/PreferencesDialog.cs:982
 msgid "Other Synchronization Options"
 msgstr "Bestelako sinkronizazioko aukerak"
 
-#: ../Tomboy/PreferencesDialog.cs:989
+#: ../Tomboy/PreferencesDialog.cs:988
 msgid ""
 "When a conflict is detected between a local note and a note on the "
 "configured synchronization server:"
@@ -1727,23 +1750,23 @@ msgstr ""
 "Lokaleko eta konfiguratutako sinkronizazioko zerbitzariko oharren artean "
 "gatazkak detektatzen direnean:"
 
-#: ../Tomboy/PreferencesDialog.cs:996
+#: ../Tomboy/PreferencesDialog.cs:995
 msgid "Always ask me what to do."
 msgstr "Galdetu beti zer egin."
 
-#: ../Tomboy/PreferencesDialog.cs:1000
+#: ../Tomboy/PreferencesDialog.cs:999
 msgid "Rename my local note."
 msgstr "Aldatu lokaleko oharraren izena."
 
-#: ../Tomboy/PreferencesDialog.cs:1004
+#: ../Tomboy/PreferencesDialog.cs:1003
 msgid "Replace my local note with the server's update."
 msgstr "Ordeztu lokaleko oharra zerbitzariko eguneraketarekin."
 
-#: ../Tomboy/PreferencesDialog.cs:1150
+#: ../Tomboy/PreferencesDialog.cs:1149
 msgid "WARNING: Are you sure?"
 msgstr "ABISUA: ziur zaude?"
 
-#: ../Tomboy/PreferencesDialog.cs:1152
+#: ../Tomboy/PreferencesDialog.cs:1151
 msgid ""
 "Clearing your synchronization settings is not recommended.  You may be "
 "forced to synchronize all of your notes again when you save new settings."
@@ -1751,11 +1774,11 @@ msgstr ""
 "Ez da aholkatzen sInkronizazioaren ezarpenak garbitzea. Zure ohar guztiak "
 "berriro sinkronizatu beharko dituzu ezarpen berriak gordetzean."
 
-#: ../Tomboy/PreferencesDialog.cs:1165
+#: ../Tomboy/PreferencesDialog.cs:1164
 msgid "Resetting Synchronization Settings"
 msgstr "Sinkronizazio-ezarpenak berrezartzen"
 
-#: ../Tomboy/PreferencesDialog.cs:1167
+#: ../Tomboy/PreferencesDialog.cs:1166
 msgid ""
 "You have disabled the configured synchronization service.  Your "
 "synchronization settings will now be cleared.  You may be forced to "
@@ -1765,11 +1788,11 @@ msgstr ""
 "konfigurazioak garbitu egingo dira. Zure ohar guztiak berriro sinkronizatu "
 "beharko dituzu ezarpen berriak gordetzean."
 
-#: ../Tomboy/PreferencesDialog.cs:1245
+#: ../Tomboy/PreferencesDialog.cs:1244
 msgid "Success! You're connected!"
 msgstr "Ongi! Konektatuta zaude."
 
-#: ../Tomboy/PreferencesDialog.cs:1247
+#: ../Tomboy/PreferencesDialog.cs:1246
 msgid ""
 "Tomboy is ready to synchronize your notes. Would you like to synchronize "
 "them now?"
@@ -1777,7 +1800,7 @@ msgstr ""
 "Tomboy prest dago zure oharrak sinkronizatzeko. Nahi dituzu oharrak orain "
 "sinkronizatzea?"
 
-#: ../Tomboy/PreferencesDialog.cs:1270
+#: ../Tomboy/PreferencesDialog.cs:1269
 #, csharp-format
 msgid ""
 "Sorry, but something went wrong.  Please check your information and try "
@@ -1786,68 +1809,64 @@ msgstr ""
 "Zerbait oker joan da. Egiaztatu informazioa eta saiatu berriro. {0} "
 "egunkaria laguntzakoa gerta dakizuke."
 
-#: ../Tomboy/PreferencesDialog.cs:1283
+#: ../Tomboy/PreferencesDialog.cs:1282
 msgid "Error connecting :("
 msgstr "Errorea konektatzean :("
 
-#: ../Tomboy/PreferencesDialog.cs:1359
+#: ../Tomboy/PreferencesDialog.cs:1358
 msgid "Version:"
 msgstr "Bertsioa:"
 
-#: ../Tomboy/PreferencesDialog.cs:1366
+#: ../Tomboy/PreferencesDialog.cs:1365
 msgid "Author:"
 msgstr "Egilea:"
 
-#: ../Tomboy/PreferencesDialog.cs:1373
+#: ../Tomboy/PreferencesDialog.cs:1372
 msgid "Copyright:"
 msgstr "Copyright-a:"
 
-#: ../Tomboy/PreferencesDialog.cs:1379
+#: ../Tomboy/PreferencesDialog.cs:1378
 msgid "Add-in Dependencies:"
 msgstr "Gehigarriaren mendekotasunak:"
 
-#: ../Tomboy/RecentChanges.cs:75
-msgid "Search All Notes"
-msgstr "Bilatu ohar guztiak"
-
-#: ../Tomboy/RecentChanges.cs:90
+#: ../Tomboy/RecentChanges.cs:98
 msgid "_Search:"
 msgstr "_Bilatu:"
 
-#: ../Tomboy/RecentChanges.cs:319
+#: ../Tomboy/RecentChanges.cs:330
 msgid "Note"
 msgstr "Oharra"
 
-#: ../Tomboy/RecentChanges.cs:341
+#: ../Tomboy/RecentChanges.cs:352
 msgid "Last Changed"
 msgstr "Azken aldatutakoa"
 
-#: ../Tomboy/RecentChanges.cs:472
+#: ../Tomboy/RecentChanges.cs:483
 msgid "Matches"
 msgstr "Bat datozenak:"
 
-#: ../Tomboy/RecentChanges.cs:523
+#: ../Tomboy/RecentChanges.cs:534
 #, csharp-format
 msgid "{0} match"
 msgid_plural "{0} matches"
 msgstr[0] "{0} bat dator"
 msgstr[1] "{0} bat datoz"
 
-#: ../Tomboy/RecentChanges.cs:537
+#: ../Tomboy/RecentChanges.cs:548
 #, csharp-format
 msgid "Total: {0} note"
 msgid_plural "Total: {0} notes"
 msgstr[0] "Guztira: ohar {0}"
 msgstr[1] "Guztira: {0} ohar"
 
-#: ../Tomboy/RecentChanges.cs:548
+#: ../Tomboy/RecentChanges.cs:559
 #, csharp-format
 msgid "Matches: {0} note"
 msgid_plural "Matches: {0} notes"
 msgstr[0] "Bat datoztenak: ohar {0}"
 msgstr[1] "Bat datoztenak: {0} ohar"
 
-#: ../Tomboy/RecentChanges.cs:680
+#: ../Tomboy/RecentChanges.cs:695
 msgid "Notes"
 msgstr "Oharrak"
 
@@ -1936,7 +1955,7 @@ msgstr "{0} bertsioa"
 msgid " (new)"
 msgstr " (berria)"
 
-#: ../Tomboy/Tray.cs:282
+#: ../Tomboy/Tray.cs:287
 msgid "_About Tomboy"
 msgstr "_Tomboy-ri buruz"
 
