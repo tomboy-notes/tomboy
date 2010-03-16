@@ -11,6 +11,9 @@ public_icons = \
 	hicolor_apps_32x32_tomboy.png \
 	hicolor_apps_48x48_tomboy.png \
 	hicolor_apps_scalable_tomboy.svg \
+	hicolor_mimetypes_16x16_application-x-note.png \
+	hicolor_mimetypes_22x22_application-x-note.png \
+	hicolor_mimetypes_48x48_application-x-note.png \
 	$(NULL)
 
 private_icons = \
