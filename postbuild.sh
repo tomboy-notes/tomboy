@@ -46,4 +46,4 @@ cp data/icons/hicolor_places_22x22_note.png bin/Debug/tomboy/icons/hicolor/22x22
 cp data/icons/hicolor_places_22x22_notebook.png bin/Debug/tomboy/icons/hicolor/22x22/places/notebook.png
 cp data/icons/hicolor_status_16x16_pin-down.png bin/Debug/tomboy/icons/hicolor/16x16/status/pin-down.png
 cp data/icons/hicolor_status_16x16_pin-up.png bin/Debug/tomboy/icons/hicolor/16x16/status/pin-up.png
-cp data/icons/hicolor_status_16x16_pin-active.png bin/Debug/tomboy/icons/hicolor/16x16/status/pin-active.pn
+cp data/icons/hicolor_status_16x16_pin-active.png bin/Debug/tomboy/icons/hicolor/16x16/status/pin-active.png
