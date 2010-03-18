@@ -5,24 +5,24 @@ dist-hook: doc-dist-hook
 DOC_ID = tomboy
 DOC_INCLUDES = legal.xml
 DOC_FIGURES = \
-	add-notebook-search.png \
-	add-to-notebook.png \
-	delete-notebook.png \
-	move-notes-search.png \
-	new-notebook.png \
-	notebook-icon.png \
-	note-template.png \
-	tomboy-main-menu.png \
-	tomboy-new-note.png \
-	tomboy-panel.png \
-	tomboy-pindown.png \
-	tomboy-pinup.png \
-	tomboy.png \
-	tomboy-preferences-add-ins.png \
-	tomboy-preferences-editing.png \
-	tomboy-preferences-hotkeys.png \
-	tomboy-preferences-synchronization.png \
-	tomboy-tools.png
+	figures/add-notebook-search.png \
+	figures/add-to-notebook.png \
+	figures/delete-notebook.png \
+	figures/move-notes-search.png \
+	figures/new-notebook.png \
+	figures/notebook-icon.png \
+	figures/note-template.png \
+	figures/tomboy-main-menu.png \
+	figures/tomboy-new-note.png \
+	figures/tomboy-panel.png \
+	figures/tomboy-pindown.png \
+	figures/tomboy-pinup.png \
+	figures/tomboy.png \
+	figures/tomboy-preferences-add-ins.png \
+	figures/tomboy-preferences-editing.png \
+	figures/tomboy-preferences-hotkeys.png \
+	figures/tomboy-preferences-synchronization.png \
+	figures/tomboy-tools.png
 
 DOC_PAGES = \
 	addins-desktop.page \
