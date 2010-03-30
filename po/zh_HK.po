@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tomboy 1.1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-16 19:17+0800\n"
-"PO-Revision-Date: 2010-02-16 19:18+0800\n"
+"POT-Creation-Date: 2010-03-30 21:35+0800\n"
+"PO-Revision-Date: 2010-03-30 21:35+0800\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: Chinese (Hong Kong) <community@linuxhall.org>\n"
 "MIME-Version: 1.0\n"
@@ -34,12 +34,12 @@ msgid "Tomboy Applet Factory"
 msgstr "Tomboy 面板程式工廠"
 
 #: ../data/GNOME_TomboyApplet.server.in.in.h:4 ../data/tomboy.desktop.in.h:3
-#: ../Tomboy/Tray.cs:568
+#: ../Tomboy/Tray.cs:573
 msgid "Tomboy Notes"
 msgstr "Tomboy 筆記"
 
 #: ../data/GNOME_TomboyApplet.xml.h:1 ../Tomboy/ActionManager.cs:179
-#: ../Tomboy/Tray.cs:263
+#: ../Tomboy/Tray.cs:268
 msgid "S_ynchronize Notes"
 msgstr "同步筆記(_Y)"
 
@@ -48,12 +48,12 @@ msgid "_About"
 msgstr "關於(_A)"
 
 #: ../data/GNOME_TomboyApplet.xml.h:3 ../Tomboy/ActionManager.cs:157
-#: ../Tomboy/Tray.cs:277
+#: ../Tomboy/Tray.cs:282
 msgid "_Help"
 msgstr "求助(_H)"
 
 #: ../data/GNOME_TomboyApplet.xml.h:4 ../Tomboy/ActionManager.cs:153
-#: ../Tomboy/Tray.cs:272
+#: ../Tomboy/Tray.cs:277
 msgid "_Preferences"
 msgstr "偏好設定(_P)"
 
@@ -514,7 +514,7 @@ msgstr "關閉(_C)"
 msgid "Close this window"
 msgstr "關閉本視窗"
 
-#: ../Tomboy/ActionManager.cs:146 ../Tomboy/Tray.cs:289
+#: ../Tomboy/ActionManager.cs:146 ../Tomboy/Tray.cs:294
 msgid "_Quit"
 msgstr "結束(_Q)"
 
@@ -702,7 +702,7 @@ msgstr "插入時刻戳記"
 
 #. initial newline
 #: ../Tomboy/Addins/InsertTimestamp/InsertTimestampPreferences.cs:29
-#: ../Tomboy/Applet.cs:221 ../Tomboy/Preferences.cs:146
+#: ../Tomboy/Applet.cs:227 ../Tomboy/Preferences.cs:146
 msgid "dddd, MMMM d, h:mm tt"
 msgstr "MMMM d日 (dddd) h:mm tt"
 
@@ -940,6 +940,27 @@ msgstr "在瀏覽器中驗證（按下可重設連線）"
 msgid "Set the default browser and try again"
 msgstr "設定預設瀏覽器後再試一次"
 
+#: ../Tomboy/JumpListManager.cs:77 ../Tomboy/RecentChanges.cs:83
+msgid "Search All Notes"
+msgstr "搜尋所有筆記"
+
+#. IShellLink new_notebook = CreateShellLink("New Notebook", topmboy_path, "--new-notebook",
+#. icons_path, (int)TomboyIcons.NewNotebook);
+#. if (new_notebook != null)
+#. object_collection.AddObject(new_notebook);
+#: ../Tomboy/JumpListManager.cs:87
+msgid "Create New Note"
+msgstr "建立新的筆記"
+
+#: ../Tomboy/JumpListManager.cs:117
+#, csharp-format
+msgid "{0} (new)"
+msgstr "{0} (新的)"
+
+#: ../Tomboy/JumpListManager.cs:139
+msgid "Recent Notes"
+msgstr "最近的筆記"
+
 #. Translators: This is the name of "Window" menu in the Mac menubar
 #: ../Tomboy/MacApplication.cs:215
 msgid "_Window"
@@ -1027,7 +1048,7 @@ msgid "Delete the selected notebook"
 msgstr "刪除選定的筆記簿"
 
 #: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:68
-#: ../Tomboy/RecentChanges.cs:251
+#: ../Tomboy/RecentChanges.cs:259
 msgid "Notebooks"
 msgstr "筆記簿"
 
@@ -1066,29 +1087,29 @@ msgstr "筆記簿"
 msgid "_New notebook..."
 msgstr "新增筆記簿(_N)..."
 
-#: ../Tomboy/Note.cs:1569
+#: ../Tomboy/Note.cs:1578
 msgid "Really delete this note?"
 msgstr "確定要刪除這個筆記？"
 
-#: ../Tomboy/Note.cs:1572
+#: ../Tomboy/Note.cs:1581
 #, csharp-format
 msgid "Really delete this {0} note?"
 msgid_plural "Really delete these {0} notes?"
 msgstr[0] "確定要刪除這 {0} 個筆記？"
 
-#: ../Tomboy/Note.cs:1583
+#: ../Tomboy/Note.cs:1592
 msgid "If you delete a note it is permanently lost."
 msgstr "如果你刪除一篇筆記它將永遠消失。"
 
-#: ../Tomboy/Note.cs:1611
+#: ../Tomboy/Note.cs:1620
 #, csharp-format
 msgid ""
 "An error occurred while saving your notes. Please check that you have "
 "sufficient disk space, and that you have appropriate rights on {0}. Error "
-"details can be found in {0}."
-msgstr "當儲存你的筆記時發生錯誤。請檢查是否有足夠的磁碟空間，並且在 {0} 有適當的權限。錯誤的詳細資訊可以在 {0} 中找到。"
+"details can be found in {1}."
+msgstr "當儲存你的筆記時發生錯誤。請檢查是否有足夠的磁碟空間，並且在 {0} 有適當的權限。錯誤的詳細資訊可以在 {1} 中找到。"
 
-#: ../Tomboy/Note.cs:1627
+#: ../Tomboy/Note.cs:1636
 msgid "Error saving note data."
 msgstr "儲存資料時發生錯誤。"
 
@@ -1143,7 +1164,7 @@ msgstr ""
 "\n"
 "再見！"
 
-#: ../Tomboy/NoteManager.cs:259
+#: ../Tomboy/NoteManager.cs:265
 msgid ""
 "<note-content>Start Here\n"
 "\n"
@@ -1175,7 +1196,7 @@ msgstr ""
 "\n"
 "我們已經建立一個名為 <link:internal>在 Tomboy 中使用連結</link:internal>的筆記。注意到當我們輸入 <link:internal>在 Tomboy 中使用連結</link:internal> 時它會自動加上底線嗎？按下該連結就可以開啟筆記。</note-content>"
 
-#: ../Tomboy/NoteManager.cs:278
+#: ../Tomboy/NoteManager.cs:284
 msgid ""
 "<note-content>Using Links in Tomboy\n"
 "\n"
@@ -1199,22 +1220,22 @@ msgstr ""
 "還有，如果在目前的筆記中輸入其他筆記的名稱，也會自動為你建立連結。</note-content>"
 
 #. Attempt to find an existing Start Here note
-#: ../Tomboy/NoteManager.cs:293 ../Tomboy/NoteManager.cs:361
+#: ../Tomboy/NoteManager.cs:299 ../Tomboy/NoteManager.cs:368
 msgid "Start Here"
 msgstr "起始頁面"
 
-#: ../Tomboy/NoteManager.cs:298
+#: ../Tomboy/NoteManager.cs:304
 msgid "Using Links in Tomboy"
 msgstr "在 Tomboy 中使用連結"
 
-#: ../Tomboy/NoteManager.cs:438
+#: ../Tomboy/NoteManager.cs:445
 #, csharp-format
 msgid "New Note {0}"
 msgstr "添加新筆記頁 {0}"
 
 #. Use a simple "Describe..." body and highlight
 #. it so it can be easily overwritten
-#: ../Tomboy/NoteManager.cs:511 ../Tomboy/NoteManager.cs:603
+#: ../Tomboy/NoteManager.cs:518 ../Tomboy/NoteManager.cs:611
 msgid "Describe your new note here."
 msgstr "在這裏編寫新筆記頁。"
 
@@ -1251,27 +1272,29 @@ msgstr "重新命名連結"
 msgid "Note Title"
 msgstr "筆記頁標題"
 
-#: ../Tomboy/NoteRenameDialog.cs:115
+#. Translators: This button causes all notes in the list to be selected
+#: ../Tomboy/NoteRenameDialog.cs:116
 msgid "Select All"
 msgstr "全部選取"
 
-#: ../Tomboy/NoteRenameDialog.cs:123
+#. Translators: This button causes all notes in the list to be unselected
+#: ../Tomboy/NoteRenameDialog.cs:125
 msgid "Select None"
 msgstr "不選取"
 
-#: ../Tomboy/NoteRenameDialog.cs:140
+#: ../Tomboy/NoteRenameDialog.cs:142
 msgid "Ad_vanced"
 msgstr "進階(_V)"
 
-#: ../Tomboy/NoteRenameDialog.cs:143
+#: ../Tomboy/NoteRenameDialog.cs:145
 msgid "Always show this _window"
 msgstr "永遠顯示這個視窗(_W)"
 
-#: ../Tomboy/NoteRenameDialog.cs:151
+#: ../Tomboy/NoteRenameDialog.cs:153
 msgid "Never rename _links"
 msgstr "永不重新命名連結(_L)"
 
-#: ../Tomboy/NoteRenameDialog.cs:159
+#: ../Tomboy/NoteRenameDialog.cs:161
 msgid "Alwa_ys rename links"
 msgstr "永遠重新命名連結(_Y)"
 
@@ -1519,7 +1542,7 @@ msgstr "開啟「搜尋所有筆記(_A)」"
 msgid "Ser_vice:"
 msgstr "服務(_V):"
 
-#: ../Tomboy/PreferencesDialog.cs:486 ../Tomboy/PreferencesDialog.cs:1114
+#: ../Tomboy/PreferencesDialog.cs:486 ../Tomboy/PreferencesDialog.cs:1113
 msgid "Not configurable"
 msgstr "尚未設定"
 
@@ -1534,158 +1557,154 @@ msgid "Minutes"
 msgstr "分鐘"
 
 #. "Advanced..." button to bring up extra sync config dialog
-#: ../Tomboy/PreferencesDialog.cs:541
+#: ../Tomboy/PreferencesDialog.cs:540
 msgid "_Advanced..."
 msgstr "進階(_A)..."
 
-#: ../Tomboy/PreferencesDialog.cs:602
+#: ../Tomboy/PreferencesDialog.cs:601
 msgid "The following add-ins are installed"
 msgstr "已安裝下列附加元件"
 
-#: ../Tomboy/PreferencesDialog.cs:623
+#: ../Tomboy/PreferencesDialog.cs:622
 msgid "Get More Add-Ins..."
 msgstr "取得更多附加元件..."
 
-#: ../Tomboy/PreferencesDialog.cs:649
+#: ../Tomboy/PreferencesDialog.cs:648
 msgid "_Enable"
 msgstr "啟用(_E)"
 
-#: ../Tomboy/PreferencesDialog.cs:655
+#: ../Tomboy/PreferencesDialog.cs:654
 msgid "_Disable"
 msgstr "停用(_D)"
 
-#: ../Tomboy/PreferencesDialog.cs:786
+#: ../Tomboy/PreferencesDialog.cs:785
 msgid "Not Implemented"
 msgstr "未實作"
 
-#: ../Tomboy/PreferencesDialog.cs:800
+#: ../Tomboy/PreferencesDialog.cs:799
 #, csharp-format
 msgid "{0} Preferences"
 msgstr "{0} 偏好設定"
 
-#: ../Tomboy/PreferencesDialog.cs:939
+#: ../Tomboy/PreferencesDialog.cs:938
 msgid "Choose Note Font"
 msgstr "選擇字型"
 
-#: ../Tomboy/PreferencesDialog.cs:983
+#: ../Tomboy/PreferencesDialog.cs:982
 msgid "Other Synchronization Options"
 msgstr "其他同步化選項"
 
-#: ../Tomboy/PreferencesDialog.cs:989
+#: ../Tomboy/PreferencesDialog.cs:988
 msgid ""
 "When a conflict is detected between a local note and a note on the "
 "configured synchronization server:"
 msgstr "當偵測到本地端筆記與設定的同步化伺服器之間有衝突時："
 
-#: ../Tomboy/PreferencesDialog.cs:996
+#: ../Tomboy/PreferencesDialog.cs:995
 msgid "Always ask me what to do."
 msgstr "永遠詢問我要怎麼做。"
 
-#: ../Tomboy/PreferencesDialog.cs:1000
+#: ../Tomboy/PreferencesDialog.cs:999
 msgid "Rename my local note."
 msgstr "重新命名我的本地端筆記。"
 
-#: ../Tomboy/PreferencesDialog.cs:1004
+#: ../Tomboy/PreferencesDialog.cs:1003
 msgid "Replace my local note with the server's update."
 msgstr "以該伺服器的更新取代我的本地端筆記。"
 
-#: ../Tomboy/PreferencesDialog.cs:1150
+#: ../Tomboy/PreferencesDialog.cs:1149
 msgid "WARNING: Are you sure?"
 msgstr "警告：你確定嗎？"
 
-#: ../Tomboy/PreferencesDialog.cs:1152
+#: ../Tomboy/PreferencesDialog.cs:1151
 msgid ""
 "Clearing your synchronization settings is not recommended.  You may be "
 "forced to synchronize all of your notes again when you save new settings."
 msgstr "不建議清除同步化設定值。當你儲存新的設定值時可能被強迫要再次同步所有的筆記。"
 
-#: ../Tomboy/PreferencesDialog.cs:1165
+#: ../Tomboy/PreferencesDialog.cs:1164
 msgid "Resetting Synchronization Settings"
 msgstr "重新設定同步化設定值"
 
-#: ../Tomboy/PreferencesDialog.cs:1167
+#: ../Tomboy/PreferencesDialog.cs:1166
 msgid ""
 "You have disabled the configured synchronization service.  Your "
 "synchronization settings will now be cleared.  You may be forced to "
 "synchronize all of your notes again when you save new settings"
 msgstr "你已經停用設定的同步化服務。現在將建立你的同步化設定值。。當你儲存新的設定值時可能被強迫要再次同步所有的筆記。"
 
-#: ../Tomboy/PreferencesDialog.cs:1245
+#: ../Tomboy/PreferencesDialog.cs:1244
 msgid "Success! You're connected!"
 msgstr "成功！你已經連線！"
 
-#: ../Tomboy/PreferencesDialog.cs:1247
+#: ../Tomboy/PreferencesDialog.cs:1246
 msgid ""
 "Tomboy is ready to synchronize your notes. Would you like to synchronize "
 "them now?"
 msgstr "Tomboy 已準備好同步你的筆記。是否要立刻同步它們？"
 
-#: ../Tomboy/PreferencesDialog.cs:1270
+#: ../Tomboy/PreferencesDialog.cs:1269
 #, csharp-format
 msgid ""
 "Sorry, but something went wrong.  Please check your information and try "
 "again.  The {0} might be useful too."
 msgstr "抱歉，但有些地方有誤。請檢查你的資訊並再試一次。{0} 也可能會很有幫助。"
 
-#: ../Tomboy/PreferencesDialog.cs:1283
+#: ../Tomboy/PreferencesDialog.cs:1282
 msgid "Error connecting :("
 msgstr "連線錯誤 :("
 
-#: ../Tomboy/PreferencesDialog.cs:1359
+#: ../Tomboy/PreferencesDialog.cs:1358
 msgid "Version:"
 msgstr "版本:"
 
-#: ../Tomboy/PreferencesDialog.cs:1366
+#: ../Tomboy/PreferencesDialog.cs:1365
 msgid "Author:"
 msgstr "作者:"
 
-#: ../Tomboy/PreferencesDialog.cs:1373
+#: ../Tomboy/PreferencesDialog.cs:1372
 msgid "Copyright:"
 msgstr "版權:"
 
-#: ../Tomboy/PreferencesDialog.cs:1379
+#: ../Tomboy/PreferencesDialog.cs:1378
 msgid "Add-in Dependencies:"
 msgstr "附加元件相根據性:"
 
-#: ../Tomboy/RecentChanges.cs:75
-msgid "Search All Notes"
-msgstr "搜尋所有筆記"
-
-#: ../Tomboy/RecentChanges.cs:90
+#: ../Tomboy/RecentChanges.cs:98
 msgid "_Search:"
 msgstr "搜尋(_S):"
 
-#: ../Tomboy/RecentChanges.cs:319
+#: ../Tomboy/RecentChanges.cs:330
 msgid "Note"
 msgstr "筆記"
 
-#: ../Tomboy/RecentChanges.cs:341
+#: ../Tomboy/RecentChanges.cs:352
 msgid "Last Changed"
 msgstr "上次更改"
 
-#: ../Tomboy/RecentChanges.cs:472
+#: ../Tomboy/RecentChanges.cs:483
 msgid "Matches"
 msgstr "符合"
 
-#: ../Tomboy/RecentChanges.cs:523
+#: ../Tomboy/RecentChanges.cs:534
 #, csharp-format
 msgid "{0} match"
 msgid_plural "{0} matches"
 msgstr[0] "{0} 項符合"
 
-#: ../Tomboy/RecentChanges.cs:537
+#: ../Tomboy/RecentChanges.cs:548
 #, csharp-format
 msgid "Total: {0} note"
 msgid_plural "Total: {0} notes"
 msgstr[0] "總共：{0} 頁筆記"
 
-#: ../Tomboy/RecentChanges.cs:548
+#: ../Tomboy/RecentChanges.cs:559
 #, csharp-format
 msgid "Matches: {0} note"
 msgid_plural "Matches: {0} notes"
 msgstr[0] "符合數：{0} 頁筆記"
 
-#: ../Tomboy/RecentChanges.cs:680
+#: ../Tomboy/RecentChanges.cs:695
 msgid "Notes"
 msgstr "筆記"
 
@@ -1701,7 +1720,7 @@ msgstr "主要開發者："
 msgid "Contributors:"
 msgstr "貢獻者："
 
-#: ../Tomboy/Tomboy.cs:400
+#: ../Tomboy/Tomboy.cs:403
 msgid "translator-credits"
 msgstr ""
 "如對翻譯有任何意見，請送一封電子郵件給\n"
@@ -1713,7 +1732,7 @@ msgstr ""
 "Youchen Lee <copyleft@ubuntu.org.tw>, 2005\n"
 "BlueT <BlueT@Ubuntu.org.tw>, 2005"
 
-#: ../Tomboy/Tomboy.cs:409
+#: ../Tomboy/Tomboy.cs:412
 msgid ""
 "Copyright © 2004-2007 Alex Graveley\n"
 "Copyright © 2004-2009 Others\n"
@@ -1721,15 +1740,15 @@ msgstr ""
 "版權所有 © 2004-2007 Alex Graveley\n"
 "版權所有 © 2004-2009 其他人士\n"
 
-#: ../Tomboy/Tomboy.cs:411
+#: ../Tomboy/Tomboy.cs:414
 msgid "A simple and easy to use desktop note-taking application."
 msgstr "一款簡單易用的桌面筆記軟件。"
 
-#: ../Tomboy/Tomboy.cs:421
+#: ../Tomboy/Tomboy.cs:424
 msgid "Homepage"
 msgstr "首頁"
 
-#: ../Tomboy/Tomboy.cs:533
+#: ../Tomboy/Tomboy.cs:536
 msgid ""
 "Tomboy: A simple, easy to use desktop note-taking application.\n"
 "Copyright (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
@@ -1739,7 +1758,7 @@ msgstr ""
 "版權所有 (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
 "\n"
 
-#: ../Tomboy/Tomboy.cs:545
+#: ../Tomboy/Tomboy.cs:548
 msgid ""
 "Usage:\n"
 "  --version\t\t\tPrint version information.\n"
@@ -1753,7 +1772,7 @@ msgstr ""
 "  --note-path [path]\t\t在此目錄載入或儲存筆記資料\n"
 "  --search [text]\t\t以要搜尋的文字開啟搜尋所有筆記視窗。\n"
 
-#: ../Tomboy/Tomboy.cs:555
+#: ../Tomboy/Tomboy.cs:558
 msgid ""
 "  --new-note\t\t\tCreate and display a new note.\n"
 "  --new-note [title]\t\tCreate and display a new note, with a title.\n"
@@ -1767,7 +1786,7 @@ msgstr ""
 "\t--start-here\t\t\t顯示「起始頁面」筆記頁\n"
 "\t--highlight-search [text]\t搜尋筆記並在其上加強顯示指定文字\n"
 
-#: ../Tomboy/Tomboy.cs:569
+#: ../Tomboy/Tomboy.cs:572
 #, csharp-format
 msgid "Version {0}"
 msgstr "{0} 版本"
@@ -1776,7 +1795,7 @@ msgstr "{0} 版本"
 msgid " (new)"
 msgstr " (新)"
 
-#: ../Tomboy/Tray.cs:282
+#: ../Tomboy/Tray.cs:287
 msgid "_About Tomboy"
 msgstr "關於 _Tomboy"
 
