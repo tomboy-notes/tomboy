@@ -40,7 +40,13 @@ namespace Tomboy
 
 		public void Log (Level lvl, string msg, params object[] args)
 		{
-			msg = string.Format ("[{0}]: {1}", Enum.GetName (typeof (Level), lvl), msg);
+			Console.Write ("[{0} {1:00}:{2:00}:{3:00}.{4:000}]",
+			               Enum.GetName (typeof (Level), lvl),
+			               DateTime.Now.Hour,
+			               DateTime.Now.Minute,
+			               DateTime.Now.Second,
+			               DateTime.Now.Millisecond);
+			msg = string.Format (" {0}", msg);
 			if (args.Length > 0)
 				Console.WriteLine (msg, args);
 			else
