@@ -896,62 +896,59 @@ namespace Tomboy
 			xmlDoc.LoadXml (foreignNoteXml);
 			xmlDoc = null;
 
-			StringReader reader = new StringReader (foreignNoteXml);
-			XmlTextReader xml = new XmlTextReader (reader);
-			xml.Namespaces = false;
-
 			// Remove tags now, since a note with no tags has
 			// no "tags" element in the XML
 			List<Tag> newTags = new List<Tag> ();
-			DateTime date;
 
-			while (xml.Read ()) {
-				switch (xml.NodeType) {
-				case XmlNodeType.Element:
-					switch (xml.Name) {
-					case "title":
-						Title = xml.ReadString ();
-						break;
-					case "text":
-						XmlContent = xml.ReadInnerXml ();
-						break;
-					case "last-change-date":
-						if (DateTime.TryParse (xml.ReadString (), out date))
-							data.Data.ChangeDate = date;
-						else
-							data.Data.ChangeDate = DateTime.Now;
-						break;
-					case "last-metadata-change-date":
-						if (DateTime.TryParse (xml.ReadString (), out date))
-							data.Data.MetadataChangeDate = date;
-						else
-							data.Data.MetadataChangeDate = DateTime.Now;
-						break;
-					case "create-date":
-						if (DateTime.TryParse (xml.ReadString (), out date))
-							data.Data.CreateDate = date;
-						else
-							data.Data.CreateDate = DateTime.Now;
-						break;
-					case "tags":
-						XmlDocument doc = new XmlDocument ();
-						List<string> tag_strings = ParseTags (doc.ReadNode (xml.ReadSubtree ()));
-						foreach (string tag_str in tag_strings) {
-							Tag tag = TagManager.GetOrCreateTag (tag_str);
-							newTags.Add (tag);
+			using (var xml = new XmlTextReader (new StringReader (foreignNoteXml)) {Namespaces = false}) {
+				DateTime date;
+	
+				while (xml.Read ()) {
+					switch (xml.NodeType) {
+					case XmlNodeType.Element:
+						switch (xml.Name) {
+						case "title":
+							Title = xml.ReadString ();
+							break;
+						case "text":
+							XmlContent = xml.ReadInnerXml ();
+							break;
+						case "last-change-date":
+							if (DateTime.TryParse (xml.ReadString (), out date))
+								data.Data.ChangeDate = date;
+							else
+								data.Data.ChangeDate = DateTime.Now;
+							break;
+						case "last-metadata-change-date":
+							if (DateTime.TryParse (xml.ReadString (), out date))
+								data.Data.MetadataChangeDate = date;
+							else
+								data.Data.MetadataChangeDate = DateTime.Now;
+							break;
+						case "create-date":
+							if (DateTime.TryParse (xml.ReadString (), out date))
+								data.Data.CreateDate = date;
+							else
+								data.Data.CreateDate = DateTime.Now;
+							break;
+						case "tags":
+							XmlDocument doc = new XmlDocument ();
+							List<string> tag_strings = ParseTags (doc.ReadNode (xml.ReadSubtree ()));
+							foreach (string tag_str in tag_strings) {
+								Tag tag = TagManager.GetOrCreateTag (tag_str);
+								newTags.Add (tag);
+							}
+							break;
+						case "open-on-startup":
+							bool isStartup;
+							if (bool.TryParse (xml.ReadString (), out isStartup))
+								IsOpenOnStartup = isStartup;
+							break;
 						}
 						break;
-					case "open-on-startup":
-						bool isStartup;
-						if (bool.TryParse (xml.ReadString (), out isStartup))
-							IsOpenOnStartup = isStartup;
-						break;
 					}
-					break;
 				}
 			}
-
-			xml.Close ();
 
 			foreach (Tag oldTag in Tags)
 				if (!newTags.Contains (oldTag))
@@ -1267,13 +1264,10 @@ namespace Tomboy
 
 		public virtual NoteData ReadFile (string read_file, string uri)
 		{
-			StreamReader reader = new StreamReader (read_file,
-			                                        System.Text.Encoding.UTF8);
-			XmlTextReader xml = new XmlTextReader (reader);
-			xml.Namespaces = false;
-
+			NoteData data;
 			string version;
-			NoteData data = Read (xml, uri, out version);
+			using (var xml = new XmlTextReader (new StreamReader (read_file, System.Text.Encoding.UTF8)) {Namespaces = false})
+				data = Read (xml, uri, out version);
 
 			if (version != NoteArchiver.CURRENT_VERSION) {
 				// Note has old format, so rewrite it.  No need
@@ -1281,9 +1275,6 @@ namespace Tomboy
 				Logger.Log ("Updating note XML to newest format...");
 				NoteArchiver.Write (read_file, data);
 			}
-
-			reader.Close ();
-			xml.Close ();
 
 			return data;
 		}
@@ -1379,9 +1370,8 @@ namespace Tomboy
 		public static string WriteString(NoteData note)
 		{
 			StringWriter str = new StringWriter ();
-			XmlWriter xml = XmlWriter.Create (str, XmlEncoder.DocumentSettings);
-			Instance.Write (xml, note);
-			xml.Close ();
+			using (var xml = XmlWriter.Create (str, XmlEncoder.DocumentSettings))
+				Instance.Write (xml, note);
 			str.Flush();
 			return str.ToString ();
 		}
@@ -1395,9 +1385,8 @@ namespace Tomboy
 		{
 			string tmp_file = write_file + ".tmp";
 
-			XmlWriter xml = XmlWriter.Create (tmp_file, XmlEncoder.DocumentSettings);
-			Write (xml, note);
-			xml.Close ();
+			using (var xml = XmlWriter.Create (tmp_file, XmlEncoder.DocumentSettings))
+				Write (xml, note);
 
 			if (File.Exists (write_file)) {
 				string backup_path = write_file + "~";
@@ -1425,9 +1414,8 @@ namespace Tomboy
 
 		public void WriteFile (TextWriter writer, NoteData note)
 		{
-			XmlWriter xml = XmlWriter.Create (writer, XmlEncoder.DocumentSettings);
-			Write (xml, note);
-			xml.Close ();
+			using (var xml = XmlWriter.Create (writer, XmlEncoder.DocumentSettings))
+				Write (xml, note);
 		}
 
 		void Write (XmlWriter xml, NoteData note)
