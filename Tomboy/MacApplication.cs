@@ -230,6 +230,9 @@ namespace Tomboy
 			Gtk.MenuItem prefs_item = uiManager.GetWidget ("/MainWindowMenubar/EditMenu/ShowPreferences") as Gtk.MenuItem;
 			Gtk.MenuItem quit_item  = uiManager.GetWidget ("/MainWindowMenubar/FileMenu/QuitTomboy") as Gtk.MenuItem;
 			
+			(about_item.Child as Gtk.Label).Text = Catalog.GetString ("About Tomboy");
+			(prefs_item.Child as Gtk.Label).Text = Catalog.GetString ("Preferences...");
+
 			IgeMacMenuGroup about_group = IgeMacMenu.AddAppMenuGroup ();
 			IgeMacMenuGroup prefs_group = IgeMacMenu.AddAppMenuGroup ();
 
