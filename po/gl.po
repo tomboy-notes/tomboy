@@ -7,16 +7,16 @@
 # Ignacio Casal Quinteiro <nacho.resa@gmail.com>, 2008.
 # Fran Dieguez <fran.dieguez@glug.es>, 2009.
 # Antón Méixome <meixome@mancomun.org>, 2009.
-# Fran Diéguez <frandieguez@ubuntu.com>, 2010.
 # Francisco Diéguez <frandieguez@ubuntu.com>, 2010.
+# Fran Diéguez <frandieguez@ubuntu.com>, 2010.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: tomboy-master-po-gl-54142\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=tomboy&component=general\n"
-"POT-Creation-Date: 2010-03-10 04:25+0000\n"
-"PO-Revision-Date: 2010-03-06 23:45+0100\n"
-"Last-Translator: Francisco Diéguez <frandieguez@ubuntu.com>\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-04-22 23:12+0200\n"
+"PO-Revision-Date: 2010-04-22 23:12+0200\n"
+"Last-Translator: Fran Diéguez <frandieguez@ubuntu.com>\n"
 "Language-Team: Galician <proxecto@trasno.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -37,12 +37,12 @@ msgid "Tomboy Applet Factory"
 msgstr "Factoría de miniaplicativos Tomboy"
 
 #: ../data/GNOME_TomboyApplet.server.in.in.h:4 ../data/tomboy.desktop.in.h:3
-#: ../Tomboy/Tray.cs:568
+#: ../Tomboy/Tray.cs:573
 msgid "Tomboy Notes"
 msgstr "Notas do Tomboy"
 
 #: ../data/GNOME_TomboyApplet.xml.h:1 ../Tomboy/ActionManager.cs:179
-#: ../Tomboy/Tray.cs:263
+#: ../Tomboy/Tray.cs:268
 msgid "S_ynchronize Notes"
 msgstr "_Sincronizar notas"
 
@@ -51,12 +51,12 @@ msgid "_About"
 msgstr "_Sobre"
 
 #: ../data/GNOME_TomboyApplet.xml.h:3 ../Tomboy/ActionManager.cs:157
-#: ../Tomboy/Tray.cs:277
+#: ../Tomboy/Tray.cs:282
 msgid "_Help"
 msgstr "A_xuda"
 
 #: ../data/GNOME_TomboyApplet.xml.h:4 ../Tomboy/ActionManager.cs:153
-#: ../Tomboy/Tray.cs:272
+#: ../Tomboy/Tray.cs:277
 msgid "_Preferences"
 msgstr "_Preferencias"
 
@@ -625,7 +625,7 @@ msgstr "_Pechar"
 msgid "Close this window"
 msgstr "Pechar esta xanela"
 
-#: ../Tomboy/ActionManager.cs:146 ../Tomboy/Tray.cs:289
+#: ../Tomboy/ActionManager.cs:146 ../Tomboy/Tray.cs:294
 msgid "_Quit"
 msgstr "_Saír"
 
@@ -649,7 +649,7 @@ msgstr "_Contidos"
 msgid "Tomboy Help"
 msgstr "Axuda do Tomboy"
 
-#: ../Tomboy/ActionManager.cs:165
+#: ../Tomboy/ActionManager.cs:165 ../Tomboy/MacApplication.cs:233
 msgid "About Tomboy"
 msgstr "Sobre o Tomboy"
 
@@ -814,7 +814,7 @@ msgstr "Inserir marca de tempo"
 
 #. initial newline
 #: ../Tomboy/Addins/InsertTimestamp/InsertTimestampPreferences.cs:29
-#: ../Tomboy/Applet.cs:221 ../Tomboy/Preferences.cs:146
+#: ../Tomboy/Applet.cs:227 ../Tomboy/Preferences.cs:146
 msgid "dddd, MMMM d, h:mm tt"
 msgstr "dddd, MMMM d, h:mm tt"
 
@@ -871,14 +871,14 @@ msgstr "Imprimir"
 msgid "Error printing note"
 msgstr "Produciuse un erro ao imprimir a nota"
 
-#: ../Tomboy/Addins/PrintNotes/PrintNotesNoteAddin.cs:219
+#: ../Tomboy/Addins/PrintNotes/PrintNotesNoteAddin.cs:223
 #, csharp-format
 msgid "Page {0} of {1}"
 msgstr "Páxina {0} de {1}"
 
 #. Translators: Explanation of the date and time format specifications can be found here:
 #. * http://msdn.microsoft.com/en-us/library/system.globalization.datetimeformatinfo.aspx
-#: ../Tomboy/Addins/PrintNotes/PrintNotesNoteAddin.cs:238
+#: ../Tomboy/Addins/PrintNotes/PrintNotesNoteAddin.cs:242
 msgid "dddd MM/dd/yyyy, hh:mm:ss tt"
 msgstr "hh:mm:ss tt dddd dd/MM/yyyy"
 
@@ -1065,7 +1065,7 @@ msgstr "Autorizando no navegador (prema para reiniciar a conexión)"
 msgid "Set the default browser and try again"
 msgstr "Configure o navegador predefinido e probe outra vez"
 
-#: ../Tomboy/JumpListManager.cs:77 ../Tomboy/RecentChanges.cs:75
+#: ../Tomboy/JumpListManager.cs:77 ../Tomboy/RecentChanges.cs:83
 msgid "Search All Notes"
 msgstr "Buscar en todas as notas"
 
@@ -1090,6 +1090,10 @@ msgstr "Notas recentes"
 #: ../Tomboy/MacApplication.cs:215
 msgid "_Window"
 msgstr "_Xanela"
+
+#: ../Tomboy/MacApplication.cs:234
+msgid "Preferences..."
+msgstr "Preferencias..."
 
 #: ../Tomboy/Notebooks/CreateNotebookDialog.cs:24
 #: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:53
@@ -1173,7 +1177,7 @@ msgid "Delete the selected notebook"
 msgstr "Eliminar o carderno seleccionado"
 
 #: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:68
-#: ../Tomboy/RecentChanges.cs:251
+#: ../Tomboy/RecentChanges.cs:259
 msgid "Notebooks"
 msgstr "Cadernos"
 
@@ -1215,22 +1219,22 @@ msgstr "Caderno"
 msgid "_New notebook..."
 msgstr "_Novo caderno..."
 
-#: ../Tomboy/Note.cs:1578
+#: ../Tomboy/Note.cs:1566
 msgid "Really delete this note?"
 msgstr "Está seguro de que quere eliminar esta nota?"
 
-#: ../Tomboy/Note.cs:1581
+#: ../Tomboy/Note.cs:1569
 #, csharp-format
 msgid "Really delete this {0} note?"
 msgid_plural "Really delete these {0} notes?"
 msgstr[0] "Está seguro de que quere eliminar esta {0} nota?"
 msgstr[1] "Está seguro de que quere eliminar estas {0} notas?"
 
-#: ../Tomboy/Note.cs:1592
+#: ../Tomboy/Note.cs:1580
 msgid "If you delete a note it is permanently lost."
 msgstr "Se elimina unha nota perderase permanentemente."
 
-#: ../Tomboy/Note.cs:1620
+#: ../Tomboy/Note.cs:1608
 #, csharp-format
 msgid ""
 "An error occurred while saving your notes. Please check that you have "
@@ -1241,7 +1245,7 @@ msgstr ""
 "espazo no disco e que ten os permisos axeitados en {0}. Os detalles do erro "
 "pódeos encontrar en {1}."
 
-#: ../Tomboy/Note.cs:1636
+#: ../Tomboy/Note.cs:1624
 msgid "Error saving note data."
 msgstr "Produciuse un erro ao gardar os datos da nota."
 
@@ -1844,44 +1848,44 @@ msgstr "Dereitos de autor:"
 msgid "Add-in Dependencies:"
 msgstr "Dependencias dos engadidos:"
 
-#: ../Tomboy/RecentChanges.cs:90
+#: ../Tomboy/RecentChanges.cs:98
 msgid "_Search:"
 msgstr "_Buscar:"
 
-#: ../Tomboy/RecentChanges.cs:319
+#: ../Tomboy/RecentChanges.cs:330
 msgid "Note"
 msgstr "Nota"
 
-#: ../Tomboy/RecentChanges.cs:341
+#: ../Tomboy/RecentChanges.cs:352
 msgid "Last Changed"
 msgstr "Último cambio"
 
-#: ../Tomboy/RecentChanges.cs:472
+#: ../Tomboy/RecentChanges.cs:483
 msgid "Matches"
 msgstr "Coincidencias"
 
-#: ../Tomboy/RecentChanges.cs:523
+#: ../Tomboy/RecentChanges.cs:534
 #, csharp-format
 msgid "{0} match"
 msgid_plural "{0} matches"
 msgstr[0] "{0} coincidencia"
 msgstr[1] "{0} coincidencias"
 
-#: ../Tomboy/RecentChanges.cs:537
+#: ../Tomboy/RecentChanges.cs:548
 #, csharp-format
 msgid "Total: {0} note"
 msgid_plural "Total: {0} notes"
 msgstr[0] "Total: {0} nota"
 msgstr[1] "Total: {0} notas"
 
-#: ../Tomboy/RecentChanges.cs:548
+#: ../Tomboy/RecentChanges.cs:559
 #, csharp-format
 msgid "Matches: {0} note"
 msgid_plural "Matches: {0} notes"
 msgstr[0] "Coincidencias: {0} nota"
 msgstr[1] "Coincidencias: {0} notas"
 
-#: ../Tomboy/RecentChanges.cs:680
+#: ../Tomboy/RecentChanges.cs:695
 msgid "Notes"
 msgstr "Notas"
 
@@ -1897,13 +1901,13 @@ msgstr "Desenvolvemento primario:"
 msgid "Contributors:"
 msgstr "Contribuidores:"
 
-#: ../Tomboy/Tomboy.cs:400
+#: ../Tomboy/Tomboy.cs:403
 msgid "translator-credits"
 msgstr ""
 "Fran Diéguez <frandieguez@ubuntu.com>, 2009, 2010;\n"
 "Ignacio Casal Quinteiro <icq@cvs.GNOME.org>;"
 
-#: ../Tomboy/Tomboy.cs:409
+#: ../Tomboy/Tomboy.cs:412
 msgid ""
 "Copyright © 2004-2007 Alex Graveley\n"
 "Copyright © 2004-2009 Others\n"
@@ -1911,15 +1915,15 @@ msgstr ""
 "Dereitos de autor © 2004-2007 Alex Graveley\n"
 "Dereitos de autor © 2004-2009 Others\n"
 
-#: ../Tomboy/Tomboy.cs:411
+#: ../Tomboy/Tomboy.cs:414
 msgid "A simple and easy to use desktop note-taking application."
 msgstr "Un aplicativo sinxelo e fácil de usar para tomar notas no escritorio."
 
-#: ../Tomboy/Tomboy.cs:421
+#: ../Tomboy/Tomboy.cs:424
 msgid "Homepage"
 msgstr "Páxina de inicio"
 
-#: ../Tomboy/Tomboy.cs:533
+#: ../Tomboy/Tomboy.cs:536
 msgid ""
 "Tomboy: A simple, easy to use desktop note-taking application.\n"
 "Copyright (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
@@ -1930,7 +1934,7 @@ msgstr ""
 "Dereitos de autor (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
 "\n"
 
-#: ../Tomboy/Tomboy.cs:545
+#: ../Tomboy/Tomboy.cs:548
 msgid ""
 "Usage:\n"
 "  --version\t\t\tPrint version information.\n"
@@ -1946,7 +1950,7 @@ msgstr ""
 "  --search [texto]\t\tAbre a xanela buscar en todas as notas co texto a "
 "buscar.\n"
 
-#: ../Tomboy/Tomboy.cs:555
+#: ../Tomboy/Tomboy.cs:558
 msgid ""
 "  --new-note\t\t\tCreate and display a new note.\n"
 "  --new-note [title]\t\tCreate and display a new note, with a title.\n"
@@ -1961,7 +1965,7 @@ msgstr ""
 "  --highlight-search [texto]\tBuscar e realzar o texto coincidente na nota "
 "aberta.\n"
 
-#: ../Tomboy/Tomboy.cs:569
+#: ../Tomboy/Tomboy.cs:572
 #, csharp-format
 msgid "Version {0}"
 msgstr "Versión {0}"
@@ -1970,7 +1974,7 @@ msgstr "Versión {0}"
 msgid " (new)"
 msgstr " (nova)"
 
-#: ../Tomboy/Tray.cs:282
+#: ../Tomboy/Tray.cs:287
 msgid "_About Tomboy"
 msgstr "_Sobre o Tomboy"
 
@@ -2364,4 +2368,3 @@ msgstr ""
 "Para evitar que se lle mostre esta mensaxe no futuro, debería cargar FUSE ao "
 "inicio. Engada \"modprobe fuse\" a /etc/init.d/boot.local ou \"fuse\" a /etc/"
 "modules."
-
