@@ -6,10 +6,10 @@
 # Kjartan Maraas <kmaraas@gnome.org>, 2006-2010.
 msgid ""
 msgstr ""
-"Project-Id-Version: Tomboy 0.15.x\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-27 11:43+0100\n"
-"PO-Revision-Date: 2010-03-27 11:45+0100\n"
+"Project-Id-Version: Tomboy 1.3.0\n"
+"Report-Msgid-Bugs-To:\n"
+"POT-Creation-Date: 2010-05-02 12:29+0200\n"
+"PO-Revision-Date: 2010-05-02 12:32+0200\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian Bokmal <i18n-nb@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
@@ -616,7 +616,7 @@ msgstr "_Innhold"
 msgid "Tomboy Help"
 msgstr "Tomboy hjelp"
 
-#: ../Tomboy/ActionManager.cs:165
+#: ../Tomboy/ActionManager.cs:165 ../Tomboy/MacApplication.cs:233
 msgid "About Tomboy"
 msgstr "Om Tomboy"
 
@@ -837,14 +837,14 @@ msgstr "Skriv ut"
 msgid "Error printing note"
 msgstr "Feil ved utskrift av notat."
 
-#: ../Tomboy/Addins/PrintNotes/PrintNotesNoteAddin.cs:219
+#: ../Tomboy/Addins/PrintNotes/PrintNotesNoteAddin.cs:223
 #, csharp-format
 msgid "Page {0} of {1}"
 msgstr "Side {0} av {1}"
 
 #. Translators: Explanation of the date and time format specifications can be found here:
 #. * http://msdn.microsoft.com/en-us/library/system.globalization.datetimeformatinfo.aspx
-#: ../Tomboy/Addins/PrintNotes/PrintNotesNoteAddin.cs:238
+#: ../Tomboy/Addins/PrintNotes/PrintNotesNoteAddin.cs:242
 msgid "dddd MM/dd/yyyy, hh:mm:ss tt"
 msgstr "dddd MM/dd/yyyy, hh.mm.ss tt"
 
@@ -1055,6 +1055,10 @@ msgstr "Siste notater"
 msgid "_Window"
 msgstr "_Vindu"
 
+#: ../Tomboy/MacApplication.cs:234
+msgid "Preferences..."
+msgstr "Brukervalg..."
+
 #: ../Tomboy/Notebooks/CreateNotebookDialog.cs:24
 #: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:53
 msgid "Create a new notebook"
@@ -1179,30 +1183,32 @@ msgstr "Notisblokk"
 msgid "_New notebook..."
 msgstr "_Ny notisblokk..."
 
-#: ../Tomboy/Note.cs:1578
+#: ../Tomboy/Note.cs:1566
 msgid "Really delete this note?"
 msgstr "Vil du slette dette notatet?"
 
-#: ../Tomboy/Note.cs:1581
+#: ../Tomboy/Note.cs:1569
 #, csharp-format
 msgid "Really delete this {0} note?"
 msgid_plural "Really delete these {0} notes?"
 msgstr[0] "Vil du virkelig slette dette {0} notatet?"
 msgstr[1] "Vil du slette disse {0} notatene?"
 
-#: ../Tomboy/Note.cs:1592
+#: ../Tomboy/Note.cs:1580
 msgid "If you delete a note it is permanently lost."
 msgstr "Hvis du sletter et notat blir det tapt for alltid."
 
-#: ../Tomboy/Note.cs:1620
+#: ../Tomboy/Note.cs:1608
 #, csharp-format
 msgid ""
 "An error occurred while saving your notes. Please check that you have "
 "sufficient disk space, and that you have appropriate rights on {0}. Error "
 "details can be found in {1}."
-msgstr "En feil oppsto under lagring av dine notater. Sjekk at du har nok diskplass og at du har nok rettigheter på {0}. Detaljer om feilen kan finnes i {1}."
+msgstr ""
+"En feil oppsto under lagring av dine notater. Sjekk at du har nok diskplass "
+"og at du har nok rettigheter på {0}. Detaljer om feilen kan finnes i {1}."
 
-#: ../Tomboy/Note.cs:1636
+#: ../Tomboy/Note.cs:1624
 msgid "Error saving note data."
 msgstr "Feil ved lagring av notatdata."
 
@@ -1372,6 +1378,9 @@ msgid ""
 "\n"
 "If you do not rename the links, they will no longer link to anything."
 msgstr ""
+"Endre navn på lenker i andre notater fra «<span underline=\"single\">{0}</span>» til «<span underline=\"single\">{1}</span>»?\n"
+"\n"
+"Hvis du ikke endrer navn på lenkene vil de ikke være korrekte."
 
 #: ../Tomboy/NoteRenameDialog.cs:81
 msgid "Rename Links"
@@ -1853,13 +1862,13 @@ msgstr "Hovedutvikler:"
 msgid "Contributors:"
 msgstr "Bidragsytere:"
 
-#: ../Tomboy/Tomboy.cs:400
+#: ../Tomboy/Tomboy.cs:403
 msgid "translator-credits"
 msgstr ""
 "Sigurd Gartmann\n"
 "Kjartan maraas"
 
-#: ../Tomboy/Tomboy.cs:409
+#: ../Tomboy/Tomboy.cs:412
 msgid ""
 "Copyright © 2004-2007 Alex Graveley\n"
 "Copyright © 2004-2009 Others\n"
@@ -1867,15 +1876,15 @@ msgstr ""
 "Opphavsrett © 2004-2007 Alex Graveley\n"
 "Opphavsrett © 2004-2009 Andre\n"
 
-#: ../Tomboy/Tomboy.cs:411
+#: ../Tomboy/Tomboy.cs:414
 msgid "A simple and easy to use desktop note-taking application."
 msgstr "Et enkelt og brukervennlig notatskrivingsprogram."
 
-#: ../Tomboy/Tomboy.cs:421
+#: ../Tomboy/Tomboy.cs:424
 msgid "Homepage"
 msgstr "Hjemmeside"
 
-#: ../Tomboy/Tomboy.cs:533
+#: ../Tomboy/Tomboy.cs:536
 msgid ""
 "Tomboy: A simple, easy to use desktop note-taking application.\n"
 "Copyright (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
@@ -1885,7 +1894,7 @@ msgstr ""
 "Opphavsrett © 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
 "\n"
 
-#: ../Tomboy/Tomboy.cs:545
+#: ../Tomboy/Tomboy.cs:548
 msgid ""
 "Usage:\n"
 "  --version\t\t\tPrint version information.\n"
@@ -1899,7 +1908,7 @@ msgstr ""
 "  --note-path [path]\t\tLast/lagre notatdata i denne katalogen.\n"
 "  --search [text]\t\tÅpne vindu for søk i alle notater med søketeksten.\n"
 
-#: ../Tomboy/Tomboy.cs:555
+#: ../Tomboy/Tomboy.cs:558
 msgid ""
 "  --new-note\t\t\tCreate and display a new note.\n"
 "  --new-note [title]\t\tCreate and display a new note, with a title.\n"
@@ -1913,7 +1922,7 @@ msgstr ""
 "  --start-here\t\t\tVis «Start her»-notatet.\n"
 "  --highlight-search [tekst]\tSøk eller marker tekst i det åpnede notatet.\n"
 
-#: ../Tomboy/Tomboy.cs:569
+#: ../Tomboy/Tomboy.cs:572
 #, csharp-format
 msgid "Version {0}"
 msgstr "Versjon {0}"
