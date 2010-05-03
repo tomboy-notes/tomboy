@@ -43,7 +43,7 @@
 gint
 tomboy_window_get_workspace (GtkWindow *window)
 {
-	GdkWindow *gdkwin = GTK_WIDGET (window)->window;
+	GdkWindow *gdkwin = gtk_widget_get_window (GTK_WIDGET (window));
 	GdkAtom wm_desktop = gdk_atom_intern ("_NET_WM_DESKTOP", FALSE);
 	GdkAtom out_type;
 	gint out_format, out_length;
@@ -70,7 +70,7 @@ tomboy_window_get_workspace (GtkWindow *window)
 void
 tomboy_window_move_to_current_workspace (GtkWindow *window)
 {
-	GdkWindow *gdkwin = GTK_WIDGET (window)->window;
+	GdkWindow *gdkwin = gtk_widget_get_window (GTK_WIDGET (window));
 	GdkWindow *rootwin = 
 		gdk_screen_get_root_window (gdk_drawable_get_screen (gdkwin));
 
@@ -143,11 +143,11 @@ tomboy_window_override_user_time (GtkWindow *window)
 		 * NOTE: Last resort for D-BUS or other non-interactive
 		 *       openings.  Causes roundtrip to server.  Lame. 
 		 */
-		ev_time = gdk_x11_get_server_time (GTK_WIDGET(window)->window);
+		ev_time = gdk_x11_get_server_time (gtk_widget_get_window (GTK_WIDGET (window)));
 	}
 
 	TRACE (g_print("Setting _NET_WM_USER_TIME to: %d\n", ev_time));
-	gdk_x11_window_set_user_time (GTK_WIDGET(window)->window, ev_time);
+	gdk_x11_window_set_user_time (gtk_widget_get_window (GTK_WIDGET (window)), ev_time);
 }
 
 void

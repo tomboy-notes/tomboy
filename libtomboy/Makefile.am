@@ -1,6 +1,8 @@
 
 if HAS_GTK_2_20
-EXTRA_FLAGS = -DHAS_GTK_2_20
+EXTRA_FLAGS = 				\
+	-DHAS_GTK_2_20			\
+	-DGSEAL_ENABLE
 endif
 
 INCLUDES = 				\
