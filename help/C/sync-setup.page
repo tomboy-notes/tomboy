@@ -1,0 +1,142 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      xmlns:e="http://projectmallard.org/experimental/"
+      type="topic" style="task"
+      id="sync-setup">
+
+  <info>
+    <link type="guide" xref="index#sync"/>
+    <desc>Sync your notes with other computers.</desc>
+    <revision pkgversion="3.0" version="0.1" date="2010-05-08" status="stub"/>
+    <credit type="author">
+      <name>Paul Cutler</name>
+      <email>pcutler@gnome.org</email>
+    </credit>    
+<!--
+    <copyright>
+      <year>2010</year>
+      <name>GNOME Documentation Project</name>
+    </copyright>
+-->
+    <include href="legal.xml" xmlns="http://www.w3.org/2001/XInclude"/>
+  </info>
+
+ <title>Configure and Setup Sync</title>
+
+ <section id="enablesync">
+
+	<title>Enable Sync</title>
+	
+	<p><app>Tomboy</app> can synchronize your notes between multiple
+	computers.  This allows you to have a backup of your notes on another
+	computer of share your notes between computers so you always have 
+	access to your notes.
+	</p>
+	
+	<p>You can enable sync by opening <gui>Tomboy Preferences</gui> by 
+	using your mouse to right click on the Tomboy icon in your panel,
+	taskbar or dock and choose <gui>Preferences</gui> and then select
+	the <gui>Synchronization</gui> tab.  You can also open <gui> Tomboy
+	Preferences</gui> from the <gui>Search All Notes</gui> dialog. From
+	the menu choose <guiseq><gui>Edit</gui><gui>Preferences</gui>
+	</guiseq>.
+	</p>
+
+ </section>
+ 
+ <title>Configure and Setup Sync</title>
+
+ <section id="conflict">
+
+	<title>Managing Note conflict when syncing</title>
+	
+	<p>You can set the default behavior for Tomboy when
+	a note is discovered to be a conflict.  This can occur
+	when notes are not synced on a regular basis.
+	</p>
+	
+	<p>In the <gui>Preferences</gui> dialog press the <gui>Advanced</gui>
+	button.  You can select from three choices as the default behavior
+	in managing conflicts:
+	</p>
+	
+	<list>
+		<li><p><gui>Always ask me what to do.</gui> This is the default
+		choice and when Tomboy encounters a conflict Tomboy will
+		always prompt you to ask you if you want to rename the local 
+		note or replace your local note with the note the server has 
+		stored.</p></li>
+		<li><p><gui>Rename my local note.</gui>  If this option is 
+		selected, Tomboy will automatically replace the note with a 
+		copy from the remote computer and rename the note on your
+		computer so you don't lose your information in your note.</p>
+		</li>
+		
+		<li><p><gui>Replace my local note with the server's update.
+		</gui>.  If you have selected this option, when you sync 
+		Tomboy will overwrite and replace your note stored on your
+		computer with a copy from the remote computer.</p></li>
+		
+		<note style="tip">
+		<p>Automatically overwriting the note is permanent.  Your
+		local note will be replaced by the copy on the remote
+		computer and you will lose your information that was
+		stored prior to syncing.  </p>
+		
+
+ </section> 
+ 
+  <section id="webdav">
+
+	<title>Configure Sync using WebDav</title>
+	
+	<p>In order to synchronize your notes with a WebDAV server, you will need
+      	the wdfs FUSE file system installed.  Follow the documentation for your 	operating system to set up FUSE for your user.  You will also need the 		GNOME Keyring installed.
+	</p>
+	
+	<p>Choose <gui>WebDAV</gui> from the <gui>Service</gui>
+ 	drop-down list. Fill in the connection information for your server, and 	then select the <gui>Save</gui> button.  
+ 	You are now ready to synchronize your notes.</p>
+
+ </section>
+ 
+  <section id="ssh">
+
+	<title>Configure Sync using SSH</title>
+	
+	<p>In order to synchronize your notes with an SSH server, you will need
+      	the FUSE file system, also called <app>sshfs</app>installed.  Follow the 		documentation for your operating system to set up FUSE for your user.  
+      	You will also need an SSH key for your SSH server account, whi<app>GNOME 		Seahorse</app> application, which is also known as 
+      	<app>Passwords and Encryption Keys</app>.
+	</p>
+	
+	<p>It is recommended to use a third computer or server as the remote 		computer to store the syncronized notes that are to be synced between 		multiple computers.</p>
+
+	<p>Open <app>Passwords and Encryption Keys</app> by choosing 
+	<guiseq><gui>Applications</gui><gui>Accessories</gui>
+	<gui>Passwords and Encryption Keys</gui></guiseq>.  
+	Click on your key, and from the menu choose <guiseq><gui>Remote</gui> 		<gui>Configure Key for Secure Shell</gui>  and enter the domain name 
+	or IP address of the computer you want to sync to in Computer Name.  Enter 		the username of the remote computer in Computer Name: and click Set Up.
+	When prompted, enter the password and setting up your key will be 		completed.
+	</p>
+	
+	<p>In Tomboy, choose <gui>SSH</gui> from the <gui>Service</gui>
+	drop-down list. Fill in the connection information for your server, and 	then select the <gui>Save</gui> button.  The <gui>Folder Path</gui>, 
+	while optional, should point at an empty folder. You are now ready to 		synchronize your notes.</p>
+
+ </section>
+
+ <section id="local">
+
+	<title>Configure Sync to a local folder</title>
+	
+	<p>You may want to synchronize your notes to a local folder if that 
+	folder is available to your other systems, or if that folder represents a 		local mount of a remote server.
+	</p>
+
+	<p>Choose Local Folder from the <gui>Service</gui>
+	drop-down list. Choose the desired synchronization 
+	<gui>Folder Path</gui> and then select the <gui>Save</gui> button.  
+	You are now ready to synchronize your notes.</p>
+
+ </section>
+ </page>
