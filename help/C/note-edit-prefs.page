@@ -6,7 +6,7 @@
   <info>
     <link type="guide" xref="index#prefs"/>
     <desc>Note editing preferences.</desc>
-    <revision pkgversion="2.30" version="0.1" date="2010-01-20" status="stub"/>
+    <revision pkgversion="3.0" version="0.1" date="2010-05-09" status="draft"/>
     <credit type="author">
       <name>Paul Cutler</name>
       <email>pcutler@gnome.org</email>
@@ -21,5 +21,116 @@
   </info>
 
  <title>Note preferences</title>
+ 
+ 	<p>You can change the default settings when typing notes
+ 	in Tomboy.  To change your note settings, open
+ 	 <gui>Tomboy Preferences</gui> by 
+	using your mouse to right click on the Tomboy icon in your panel,
+	taskbar or dock and choose <gui>Preferences</gui> and then select
+	the <gui>Hotkeys</gui> tab.  You can also open <gui> Tomboy
+	Preferences</gui> from the <gui>Search All Notes</gui> dialog. From
+	the menu choose <guiseq><gui>Edit</gui><gui>Preferences</gui>
+	</guiseq>.
+	</p>
+ 
+ <section id="spellcheck">
+   <title>Spell Check</title>
+   <p>Tomboy can check the spelling of your words as you type in a note.
+   Spell check is enabled by default and Tomboy will underline any 
+   misspelled words and you can see spelling suggestions by using your mouse
+   to right click on the misspelled word.
+   </p>
+   
+   <p>To disable automatic spell checking, use your mouse or the spacebar
+   to uncheck <gui>Spell check while typing</gui> in the <gui>Editing</gui>
+   tab of Tomboy's Preferences.</p>
+   
+ </section>
+
+ <section id="wikiwords">
+   <title>WikiWords</title>
+   <p>Tomboy can highlight words that <gui>LookLikeThis</gui>.  By 
+   capitalizing multiple words together without using spaces, similar to how
+   a wiki works, Tomboy will highlight the word and make it a link.  Clicking
+   the link will create a new note with the WikiWord as the note title.
+   </p>
+   
+   <p>WikiWords are disabled by default.  To enable WikiWords use your mouse
+   or the spacebar to check the box to enable <gui>Highlight WikiWords</gui> in
+    the <gui>Editing</gui> tab of Tomboy's Preferences.</p>
+   
+ </section>
+
+ <section id="bullets">
+   <title>Auto-Bulleted Lists</title>
+   <p>Tomboy can create bulleted list automatically.  This option is enabled
+   by default and when you are editing a note, typing <key>*</key> followed
+   by the text and pressing <key>Enter</key> will automatically create a 
+   bulleted list.  After pressing <key>Enter</key> the next line will start 
+   with a bullet too.
+   </p>
+   
+   <p>To disable auto-bulleted lists, use your mouse or the spacebar
+   to uncheck <gui>Enable auto-bulleted lists</gui> in the <gui>Editing</gui>
+   tab of Tomboy's Preferences.</p>
+   
+ </section>
+
+ <section id="customfont">
+   <title>Custom Fonts</title>
+   <p>You can choose to use a font or font size in Tomboy different than the
+    default font of your desktop.  This feature is disabled by default.
+   </p>
+   
+   <p>To enable a different font, use your mouse or the spacebar
+   to uncheck <gui>Use custom font</gui> in the <gui>Editing</gui>
+   tab of Tomboy's Preferences.</p>
+
+   <p>You can then press the font button and a font dialog box will appear
+    allowing you to choose which font you wish to use, the style such as bold
+    or italic and the size of the font.  Press <key>Ok</key> to save your 
+    selection.</p>
+   
+ </section>
+
+ <section id="renamelinks">
+ 
+   <title>Renaming a Linked Notes</title>
+   <p>Tomboy automatically creates links between notes when you type the
+   title of a saved note in your current note.  If you try to rename a note
+   that has links to it in other notes in Tomboy, you can choose the default
+   behavior Tomboy should do when detecting a change.  Your options include:
+   </p>
+   
+   <list>
+     <item><p><gui>Ask me what to do<gui>: Tomboy will prompt you each
+     time it detects a change with one of the below options.</p></item>
+     <item><p><gui>Never rename links</gui>: Tomboy will leave the other
+     notes as they are and unlink the notes.</p></item>
+     <item><p><gui>Always rename links</gui>: Tomboy will automatically
+     rename all the links in other notes to the note you have renamed.
+     </p></item>
+   </list>
+   
+   <p>Choose one of the above options from the drop down box to the 
+   right of <gui>When renaming a linked note:</gui> in the <gui>Editing</gui>
+   tab of Tomboy's Preferences.</p>
+   
+ </section>
+
+<section id="newtemplate">
+  <title>Create a New Note Template</title>
+  <p>You can create a new template that is displayed every time you create 
+  a new note.</p>
+  
+  <p>Press the <gui>Open New Note Template</gui> button in the 
+  <gui>Editing</gui> tab of Tomboy's Preferences.</p> A new template will be
+  displayed that looks similar to a Tomboy Note.  Replace the <gui>Describe
+  your new note here.</gui> text in the note with the text that should be the
+  new template.  Close the note and you have completed creating a new template.
+  Each time you create a new note that template will be displayed in the new 
+  note.</p>
+   
+</section>
 
  </page>
