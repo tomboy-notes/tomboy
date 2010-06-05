@@ -50,6 +50,7 @@ GNOME_CSFILES =					\
 	$(srcdir)/GConfPreferencesClient.cs	\
 	$(srcdir)/GnomeApplication.cs		\
 	$(srcdir)/GnomeFactory.cs		\
+	$(srcdir)/GnomeSession.cs		\
 	$(srcdir)/XKeybinder.cs			\
 	$(srcdir)/gtk-sharp-beans/*.cs
 

@@ -9,6 +9,9 @@ using Mono.Unix.Native;
 
 using Hyena;
 
+using NDesk.DBus;
+using org.gnome.SessionManager;
+
 namespace Tomboy
 {
 	public class GnomeApplication : INativeApplication
@@ -17,6 +20,7 @@ namespace Tomboy
 		private static string confDir;
 		private static string dataDir;
 		private static string cacheDir;
+		private static ObjectPath session_client_id;
 		private const string tomboyDirName = "tomboy";
 
 		static GnomeApplication ()
@@ -46,42 +50,38 @@ namespace Tomboy
 				SetProcessName (process_name);
 			} catch {} // Ignore exception if fail (not needed to run)
 
+			// Register handler for saving session when logging out of Gnome
+			BusG.Init ();
+			string startup_id = Environment.GetEnvironmentVariable ("DESKTOP_AUTOSTART_ID");
+			if (String.IsNullOrEmpty (startup_id))
+				startup_id = display_name;
+
+			try {
+				SessionManager session = Bus.Session.GetObject<SessionManager> (Constants.SessionManagerInterfaceName,
+				                                                                new ObjectPath (Constants.SessionManagerPath));
+				session_client_id = session.RegisterClient (display_name, startup_id);
+				
+				ClientPrivate client = Bus.Session.GetObject<ClientPrivate> (Constants.SessionManagerInterfaceName,
+				                                                             session_client_id);
+				client.QueryEndSession += OnQueryEndSession;
+				client.EndSession += OnEndSession;
+			} catch (Exception e) {
+				Logger.Debug ("Failed to register with session manager: {0}", e.Message);
+			}
+
 			Gtk.Application.Init ();
 			program = new Gnome.Program (display_name,
 			                             Defines.VERSION,
 			                             Gnome.Modules.UI,
 			                             args);
-
-			// Register handler for saving session when logging out of Gnome
-			Gnome.Client client = Gnome.Global.MasterClient ();
-			client.SaveYourself += OnSaveYourself;
 		}
 
 		public void RegisterSessionManagerRestart (string executable_path,
 		                string[] args,
 		                string[] environment)
 		{
-			if (executable_path == null)
-				return;
-
-			// Restart if we are running when the session ends or at crash...
-			Gnome.Client client = Gnome.Global.MasterClient ();
-			client.RestartStyle =
-			        Gnome.RestartStyle.IfRunning | Gnome.RestartStyle.Immediately;
-			client.Die += OnSessionManagerDie;
-
-			foreach (string env in environment) {
-				string [] split = env.Split (new char [] { '=' }, 2);
-				if (split.Length == 2) {
-					client.SetEnvironment (split[0], split[1]);
-				}
-			}
-
-			// Get the args for session restart...
-			string [] restart_args = new string [args.Length + 1];
-			restart_args [0] = executable_path;
-			args.CopyTo (restart_args, 1);
-			client.SetRestartCommand (restart_args.Length, restart_args);
+			// Nothing to do, we dropped the .desktop file in the autostart
+			// folder which should be enough to handle this in Gnome
 		}
 
 		public void RegisterSignalHandlers ()
@@ -125,25 +125,8 @@ namespace Tomboy
 				        Mono.Unix.Native.Stdlib.GetLastError ());
 		}
 
-		private void OnSessionManagerDie (object sender, EventArgs args)
-		{
-			// Don't let the exit signal run, which would cancel
-			// session management.
-			Gtk.Main.Quit ();
-		}
-
-		private void CancelSessionManagerRestart ()
-		{
-			Gnome.Client client = Gnome.Global.MasterClient ();
-			client.RestartStyle = Gnome.RestartStyle.IfRunning;
-			client.Flush ();
-		}
-
 		private void OnExitSignal (int signal)
 		{
-			// Don't auto-restart after exit/kill.
-			CancelSessionManagerRestart ();
-
 			if (ExitingEvent != null)
 				ExitingEvent (null, new EventArgs ());
 
@@ -151,12 +134,39 @@ namespace Tomboy
 				System.Environment.Exit (0);
 		}
 
-		private void OnSaveYourself (object sender, Gnome.SaveYourselfArgs args)
+		private void OnQueryEndSession (uint flags)
 		{
-			Logger.Log ("Received request for saving session");
+			Logger.Info ("Received end session query");
+
+			// The session might not actually end but it would be nice to start
+			// some cleanup actions like saving notes here
+
+			// Let the session manager know its OK to continue
+			try {
+				ClientPrivate client = Bus.Session.GetObject<ClientPrivate> (Constants.SessionManagerInterfaceName,
+				                                                             session_client_id);
+				client.EndSessionResponse(true, String.Empty);
+			} catch (Exception e) {
+				Logger.Debug("Failed to respond to session manager: {0}", e.Message);
+			}
+		}
+
+		private void OnEndSession (uint flags)
+		{
+			Logger.Info ("Received end session signal");
 
 			if (ExitingEvent != null)
 				ExitingEvent (null, new EventArgs ());
+
+			// Let the session manager know its OK to continue
+			// Ideally we would wait for all the exit events to finish
+			try {
+				ClientPrivate client = Bus.Session.GetObject<ClientPrivate> (Constants.SessionManagerInterfaceName,
+				                                                             session_client_id);
+				client.EndSessionResponse (true, String.Empty);
+			} catch (Exception e) {
+				Logger.Debug ("Failed to respond to session manager: {0}", e.Message);
+			}
 		}
 		
 		public void OpenUrl (string url, Gdk.Screen screen)

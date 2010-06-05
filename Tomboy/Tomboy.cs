@@ -78,7 +78,7 @@ namespace Tomboy
 
 			// NOTE: It is important not to use the Preferences
 			//       class before this call.
-			Initialize ("tomboy", "tomboy", "tomboy", args);
+			Initialize ("tomboy", "Tomboy", "tomboy", args);
 
 			// Add private icon dir to search path
 			icon_theme = Gtk.IconTheme.Default;
