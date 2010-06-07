@@ -28,7 +28,6 @@ install-data-local:
 endif
 
 
-if ENABLE_DBUS
 dbusservicedir       = $(DBUS_SERVICE_DIR)
 dbusservice_in_files = org.gnome.Tomboy.service.in
 dbusservice_DATA     = $(dbusservice_in_files:.service.in=.service)
@@ -37,7 +36,6 @@ $(dbusservice_DATA): $(dbusservice_in_files) Makefile
 	sed -e "s|\@bindir\@|$(bindir)|g"	\
 	    -e "s|\@wrapper\@|tomboy|g"		\
 	    < $< > $@
-endif
 
 
 serverdir       = $(PANELAPPLET_SERVER_DIR)

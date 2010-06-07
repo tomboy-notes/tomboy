@@ -16,7 +16,6 @@ ASSEMBLIES = 					\
 
 ADDIN_NAME = Tasque
 
-if ENABLE_DBUS
 TARGET = $(ADDIN_NAME).Addin.dll
 CSFILES = \
 	$(srcdir)/TasqueNoteAddin.cs \
@@ -35,7 +34,6 @@ addinsdir = $(pkglibdir)/addins
 addins_DATA = 			\
 	$(TARGET)		\
 	$(TARGET).mdb
-endif
 
 EXTRA_DIST =            	\
 	$(CSFILES) \

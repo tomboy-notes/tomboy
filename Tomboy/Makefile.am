@@ -11,11 +11,6 @@ DBUS_CSFILES = 				\
 	$(srcdir)/RemoteControl.cs	\
 	$(srcdir)/RemoteControlProxy.cs
 
-if ENABLE_DBUS
-DBUS_CSFLAGS = -define:ENABLE_DBUS
-DBUS_USED_CSFILES = $(DBUS_CSFILES)
-endif
-
 OSX_CSFILES =					\
 	$(srcdir)/MacApplication.cs		\
 	$(srcdir)/MacFactory.cs			\
@@ -58,6 +53,8 @@ PANELAPPLET_CSFILES =			\
 	$(srcdir)/panelapplet/*.cs
 
 if ENABLE_GNOME
+DBUS_CSFLAGS = -define:ENABLE_DBUS
+DBUS_USED_CSFILES = $(DBUS_CSFILES)
 GNOME_USED_CSFILES = $(GNOME_CSFILES)
 
 if FIXED_PANELAPPLET
