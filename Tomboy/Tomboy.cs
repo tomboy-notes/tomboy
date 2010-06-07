@@ -205,7 +205,8 @@ namespace Tomboy
 			// instead, launch the Search All Notes window so the user can
 			// can still use Tomboy.
 #if !MAC
-			if (tray_icon_showing == false)
+			if (tray_icon_showing == false &&
+			    (bool) Preferences.Get (Preferences.ENABLE_TRAY_ICON))
 				ActionManager ["ShowSearchAllNotesAction"].Activate ();
 #endif
 			

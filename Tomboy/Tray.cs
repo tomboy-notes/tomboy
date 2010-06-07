@@ -158,6 +158,12 @@ namespace Tomboy
 
 			Tooltip = TomboyTrayUtils.GetToolTipText ();
 
+			Visible = (bool) Preferences.Get (Preferences.ENABLE_TRAY_ICON);
+			Preferences.SettingChanged += (o, args) => {
+				if (args.Key == Preferences.ENABLE_TRAY_ICON)
+					Visible = (bool) args.Value;
+			};
+
 			Tomboy.ExitingEvent += OnExit;
 #if MAC
 			Visible = false;

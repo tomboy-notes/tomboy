@@ -230,7 +230,8 @@ namespace Tomboy
 			am ["NewNotebookAction"].Activated += OnNewNotebook;
 			am ["DeleteNotebookAction"].Activated += OnDeleteNotebook;
 			am ["CloseWindowAction"].Activated += OnCloseWindow;
-			if (Tomboy.TrayIconShowing == false)
+			if (Tomboy.TrayIconShowing == false &&
+			    (bool) Preferences.Get (Preferences.ENABLE_TRAY_ICON))
 				am ["CloseWindowAction"].Visible = false;
 
 			// Allow Escape to close the window as well as <Control>W
@@ -1011,7 +1012,8 @@ namespace Tomboy
 			Destroy ();
 			instance = null;
 #if !MAC
-			if (Tomboy.TrayIconShowing == false)
+			if (Tomboy.TrayIconShowing == false &&
+			    (bool) Preferences.Get (Preferences.ENABLE_TRAY_ICON))
 				Tomboy.ActionManager ["QuitTomboyAction"].Activate ();
 #endif
 		}
