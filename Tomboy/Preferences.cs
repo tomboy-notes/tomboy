@@ -15,6 +15,7 @@ namespace Tomboy
 		public const string ENABLE_AUTO_BULLETED_LISTS = "/apps/tomboy/enable_bulleted_lists";
 		public const string ENABLE_ICON_PASTE = "/apps/tomboy/enable_icon_paste";
 		public const string ENABLE_CLOSE_NOTE_ON_ESCAPE = "/apps/tomboy/enable_close_note_on_escape";
+		public const string ENABLE_DELETE_CONFIRM = "/apps/tomboy/enable_delete_confirm";
 
 		public const string START_NOTE_URI = "/apps/tomboy/start_note";
 		public const string CUSTOM_FONT_FACE = "/apps/tomboy/custom_font_face";
@@ -84,6 +85,9 @@ namespace Tomboy
 				return false;
 
 			case ENABLE_CLOSE_NOTE_ON_ESCAPE:
+				return true;
+
+			case ENABLE_DELETE_CONFIRM:
 				return true;
 
 			case START_NOTE_URI:

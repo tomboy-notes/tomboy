@@ -1561,46 +1561,54 @@ namespace Tomboy
 		public static void ShowDeletionDialog (List<Note> notes, Gtk.Window parent)
 		{
 			string message;
+
+			if ((bool) Preferences.Get (Preferences.ENABLE_DELETE_CONFIRM)) {
+				// show confirmation dialog
+				if (notes.Count == 1)
+					message = Catalog.GetString ("Really delete this note?");
+				else
+					message = string.Format (Catalog.GetPluralString (
+						"Really delete this {0} note?",
+						"Really delete these {0} notes?",
+						notes.Count), notes.Count);
 			
-			if (notes.Count == 1)
-				message = Catalog.GetString ("Really delete this note?");
-			else
-				message = string.Format (Catalog.GetPluralString (
-					"Really delete this {0} note?",
-					"Really delete these {0} notes?",
-					notes.Count), notes.Count);
-			
-			HIGMessageDialog dialog =
-			        new HIGMessageDialog (
-			        parent,
-			        Gtk.DialogFlags.DestroyWithParent,
-			        Gtk.MessageType.Question,
-			        Gtk.ButtonsType.None,
-			        message,
-			        Catalog.GetString ("If you delete a note it is " +
+				HIGMessageDialog dialog =
+				        new HIGMessageDialog (
+				        parent,
+				        Gtk.DialogFlags.DestroyWithParent,
+				        Gtk.MessageType.Question,
+				        Gtk.ButtonsType.None,
+				        message,
+				        Catalog.GetString ("If you delete a note it is " +
 			                           "permanently lost."));
 
-			Gtk.Button button;
+				Gtk.Button button;
 
-			button = new Gtk.Button (Gtk.Stock.Cancel);
-			button.CanDefault = true;
-			button.Show ();
-			dialog.AddActionWidget (button, Gtk.ResponseType.Cancel);
-			dialog.DefaultResponse = Gtk.ResponseType.Cancel;
+				button = new Gtk.Button (Gtk.Stock.Cancel);
+				button.CanDefault = true;
+				button.Show ();
+				dialog.AddActionWidget (button, Gtk.ResponseType.Cancel);
+				dialog.DefaultResponse = Gtk.ResponseType.Cancel;
 
-			button = new Gtk.Button (Gtk.Stock.Delete);
-			button.CanDefault = true;
-			button.Show ();
-			dialog.AddActionWidget (button, 666);
+				button = new Gtk.Button (Gtk.Stock.Delete);
+				button.CanDefault = true;
+				button.Show ();
+				dialog.AddActionWidget (button, 666);
 
-			int result = dialog.Run ();
-			if (result == 666) {
+				int result = dialog.Run ();
+				if (result == 666) {
+					foreach (Note note in notes) {
+						note.Manager.Delete (note);
+					}
+				}
+
+				dialog.Destroy();
+			} else {
+				// no confirmation dialog, just delete
 				foreach (Note note in notes) {
 					note.Manager.Delete (note);
 				}
 			}
-
-			dialog.Destroy();
 		}
 		
 		public static void ShowIOErrorDialog (Gtk.Window parent)
