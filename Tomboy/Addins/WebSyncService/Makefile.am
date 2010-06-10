@@ -32,6 +32,7 @@ CSFILES = \
 	$(srcdir)/Api/Tests/*.cs            \
 	$(srcdir)/Hyena.Json/*.cs           \
 	$(srcdir)/Hyena.Json/Tests/*.cs     \
+	$(srcdir)/LibProxy/*.cs             \
 	$(srcdir)/OAuth/*.cs                \
 	$(srcdir)/OAuth/Mono.Rocks/*.cs
 RESOURCES = \

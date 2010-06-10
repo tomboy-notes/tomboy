@@ -70,7 +70,7 @@ namespace Tomboy.WebSync.Api
 			ServicePointManager.CertificatePolicy = new CertificateManager ();
 
 			try {
-				webRequest = System.Net.WebRequest.Create (uri) as HttpWebRequest;
+				webRequest = ProxiedWebRequest.Create (uri);
 
 				webRequest.Method = method;
 				webRequest.ServicePoint.Expect100Continue = false;

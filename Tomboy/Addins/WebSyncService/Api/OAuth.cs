@@ -234,7 +234,7 @@ namespace Tomboy.WebSync.Api
 			ServicePointManager.CertificatePolicy = new CertificateManager ();
 
 			// TODO: Set UserAgent, Timeout, KeepAlive, Proxy?
-			HttpWebRequest webRequest = System.Net.WebRequest.Create (url) as HttpWebRequest;
+			HttpWebRequest webRequest = ProxiedWebRequest.Create (url);
 			webRequest.Method = method.ToString ();
 			webRequest.ServicePoint.Expect100Continue = false;
 
