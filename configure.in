@@ -180,30 +180,14 @@ PKG_CHECK_MODULES(MONO_ADDINS, mono-addins >= 0.3 \
 # Tomboy.exe needs Gtk# Gnome# GConf#
 #
 GTKSHARP2_MINIMUM_VERSION=2.10.1
-GNOMESHARP_MINIMUM_VERSION=2.15
+GNOMESHARP_MINIMUM_VERSION=2.24
 if test "x$ENABLE_GNOME" != "xno"; then
-	if pkg-config --atleast-version=2.23.90 gnome-sharp-2.0; then
-		PKG_CHECK_MODULES(GNOME,
-			          gnome-sharp-2.0
-			          gconf-sharp-2.0
-			          gconf-sharp-peditors-2.0
-			          gnome-panel-sharp-2.24)
-		has_fixed_panelapplet="yes"
-
-	else
-		if pkg-config --atleast-version=2.16.1 gconf-sharp-2.0; then
-			PKG_CHECK_MODULES(GNOME,
-					  gnome-sharp-2.0 > $GNOMESHARP_MINIMUM_VERSION
-					  gconf-sharp-2.0
-					  gconf-sharp-peditors-2.0)
-		else
-			PKG_CHECK_MODULES(GNOME,
-					  gnome-sharp-2.0 > $GNOMESHARP_MINIMUM_VERSION
-					  gconf-sharp-2.0)
-		fi
-	fi
+	PKG_CHECK_MODULES(GNOME,
+		          gnome-sharp-2.0 >= $GNOMESHARP_MINIMUM_VERSION
+		          gconf-sharp-2.0
+		          gconf-sharp-peditors-2.0
+		          gnome-panel-sharp-2.24)
 fi
-AM_CONDITIONAL(FIXED_PANELAPPLET, test "x$has_fixed_panelapplet" = "xyes")
 AC_SUBST(GNOME_LIBS)
 
 PKG_CHECK_MODULES(GTKSHARP,

@@ -4,10 +4,8 @@ using System.IO;
 using System.Xml;
 using Mono.Unix;
 
-#if FIXED_PANELAPPLET
+#if !WIN32 && !MAC
 using Gnome;
-#elif !WIN32 && !MAC
-using _Gnome;
 #endif
 
 using Tomboy.Sync;

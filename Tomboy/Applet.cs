@@ -6,11 +6,7 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using Mono.Unix;
 
-#if FIXED_PANELAPPLET
 using Gnome;
-#else
-using _Gnome;
-#endif
 
 namespace Tomboy
 {
