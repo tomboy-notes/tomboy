@@ -38,6 +38,7 @@ $(dbusservice_DATA): $(dbusservice_in_files) Makefile
 	    < $< > $@
 
 
+if ENABLE_PANEL_APPLET
 serverdir       = $(PANELAPPLET_SERVER_DIR)
 server_in_files = GNOME_TomboyApplet.server.in
 server_DATA     = $(server_in_files:.server.in=.server)
@@ -46,6 +47,7 @@ $(server_in_files): $(server_in_files:.server.in=.server.in.in) Makefile
 	sed -e "s|\@bindir\@|$(bindir)|g"	\
 	    -e "s|\@wrapper\@|tomboy-panel|g"		\
 	    < $< > $@
+endif
 
 @INTLTOOL_SERVER_RULE@
 

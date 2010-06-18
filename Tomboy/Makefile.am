@@ -40,14 +40,21 @@ WIN_LIBS =					\
 	-r:System.Windows.Forms.dll
 endif
 
+PANELAPPLET_CSFILES =					\
+	$(srcdir)/Applet.cs
+
 GNOME_CSFILES =					\
-	$(srcdir)/Applet.cs 			\
 	$(srcdir)/GConfPreferencesClient.cs	\
 	$(srcdir)/GnomeApplication.cs		\
 	$(srcdir)/GnomeFactory.cs		\
 	$(srcdir)/GnomeSession.cs		\
 	$(srcdir)/XKeybinder.cs			\
 	$(srcdir)/gtk-sharp-beans/*.cs
+
+if ENABLE_PANEL_APPLET
+PANEL_APPLET_CSFLAGS = -define:PANEL_APPLET
+PANELAPPLET_USED_CSFILES = $(PANELAPPLET_CSFILES)
+endif
 
 if ENABLE_GNOME
 DBUS_CSFLAGS = -define:ENABLE_DBUS
@@ -72,6 +79,7 @@ CSFLAGS = 				\
 	$(DBUS_CSFLAGS) 		\
 	$(OSX_CSFLAGS) 		\
 	$(WIN_CSFLAGS) 		\
+	$(PANEL_APPLET_CSFLAGS)		\
 	$(FIXED_GTKSPELL_CSFLAGS) \
 	$(HAS_GTK_2_16_FLAGS) \
 	$(CSC_DEFINES)
@@ -166,7 +174,10 @@ tomboylibdir = $(pkglibdir)
 tomboylib_DATA = $(TARGET) $(TARGET).config $(TARGET).mdb
 
 
-bin_SCRIPTS = $(WRAPPER) $(PANEL_WRAPPER)
+bin_SCRIPTS = $(WRAPPER)
+if ENABLE_PANEL_APPLET
+bin_SCRIPTS += $(PANEL_WRAPPER)
+endif
 
 $(WRAPPER): $(srcdir)/$(WRAPPER).in Makefile
 	sed -e "s|\@prefix\@|$(prefix)|g" 		\

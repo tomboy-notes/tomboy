@@ -4,9 +4,7 @@ using System.IO;
 using System.Xml;
 using Mono.Unix;
 
-#if !WIN32 && !MAC
 using Gnome;
-#endif
 
 using Tomboy.Sync;
 
@@ -72,7 +70,11 @@ namespace Tomboy
 			}
 
 			Logger.LogLevel = debugging ? Level.DEBUG : Level.INFO;
+#if PANEL_APPLET
 			is_panel_applet = cmd_line.UsePanelApplet;
+#else
+			is_panel_applet = false;
+#endif
 
 			// NOTE: It is important not to use the Preferences
 			//       class before this call.
@@ -132,6 +134,7 @@ namespace Tomboy
 				return false;
 			});
 
+#if PANEL_APPLET
 			if (is_panel_applet) {
 				tray_icon_showing = true;
 
@@ -142,13 +145,13 @@ namespace Tomboy
 				RegisterPanelAppletFactory ();
 				Logger.Log ("All done.  Ciao!");
 				Exit (0);
-			} else {
-				RegisterSessionManagerRestart (
-				        Environment.GetEnvironmentVariable ("TOMBOY_WRAPPER_PATH"),
-				        args,
-				        new string [] { "TOMBOY_PATH=" + note_path  }); // TODO: Pass along XDG_*?
-				StartTrayIcon ();
 			}
+#endif
+			RegisterSessionManagerRestart (
+			        Environment.GetEnvironmentVariable ("TOMBOY_WRAPPER_PATH"),
+			        args,
+			        new string [] { "TOMBOY_PATH=" + note_path  }); // TODO: Pass along XDG_*?
+			StartTrayIcon ();
 
 			Logger.Log ("All done.  Ciao!");
 		}
@@ -175,7 +178,9 @@ namespace Tomboy
 		{
 			// This will block if there is no existing instance running
 #if !WIN32 && !MAC
+#if PANEL_APPLET
 			PanelAppletFactory.Register (typeof (TomboyApplet));
+#endif
 #endif
 		}
 
