@@ -4,8 +4,6 @@ using System.IO;
 using System.Xml;
 using Mono.Unix;
 
-using Gnome;
-
 using Tomboy.Sync;
 
 namespace Tomboy
@@ -179,7 +177,7 @@ namespace Tomboy
 			// This will block if there is no existing instance running
 #if !WIN32 && !MAC
 #if PANEL_APPLET
-			PanelAppletFactory.Register (typeof (TomboyApplet));
+			Gnome.PanelAppletFactory.Register (typeof (TomboyApplet));
 #endif
 #endif
 		}
