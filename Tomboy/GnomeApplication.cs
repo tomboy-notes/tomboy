@@ -16,7 +16,9 @@ namespace Tomboy
 {
 	public class GnomeApplication : INativeApplication
 	{
+#if PANEL_APPLET
 		private Gnome.Program program;
+#endif
 		private static string confDir;
 		private static string dataDir;
 		private static string cacheDir;
@@ -70,10 +72,12 @@ namespace Tomboy
 			}
 
 			Gtk.Application.Init ();
+#if PANEL_APPLET
 			program = new Gnome.Program (display_name,
 			                             Defines.VERSION,
 			                             Gnome.Modules.UI,
 			                             args);
+#endif
 		}
 
 		public void RegisterSessionManagerRestart (string executable_path,
@@ -102,7 +106,11 @@ namespace Tomboy
 
 		public void StartMainLoop ()
 		{
+#if PANEL_APPLET
 			program.Run ();
+#else
+			Gtk.Application.Run ();
+#endif
 		}
 
 		[DllImport("libc")]
