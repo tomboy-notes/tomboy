@@ -1,15 +1,24 @@
-<Project name="Tomboy" fileversion="2.0" language="C#" clr-version="Net_2_0" targetFramework="2.0" ctype="DotNetProject">
+<Project name="Tomboy" fileversion="2.0" DefaultNamespace="Tomboy" language="C#" clr-version="Net_2_0" targetFramework="2.0" ctype="DotNetProject">
+  <MonoDevelop.Autotools.MakefileInfo IntegrationEnabled="True" RelativeMakefileName="./Makefile.am" ExecuteTargetName="run">
+    <BuildFilesVar />
+    <DeployFilesVar />
+    <ResourcesVar />
+    <OthersVar />
+    <GacRefVar />
+    <AsmRefVar />
+    <ProjectRefVar />
+  </MonoDevelop.Autotools.MakefileInfo>
   <Configurations active="Debug">
     <Configuration name="Debug" ctype="DotNetProjectConfiguration">
       <Output directory="bin/Debug" assembly="Tomboy" />
       <Build debugmode="True" target="Exe" />
-      <Execution runwithwarnings="True" consolepause="True" runtime="MsNet" clr-version="Net_2_0" />
+      <Execution consolepause="True" runwithwarnings="True" runtime="MsNet" clr-version="Net_2_0" />
       <CodeGeneration compiler="Mcs" warninglevel="4" optimize="True" unsafecodeallowed="False" generateoverflowchecks="True" generatexmldocumentation="False" ctype="CSharpCompilerParameters" />
     </Configuration>
     <Configuration name="Release" ctype="DotNetProjectConfiguration">
       <Output directory="bin/Release" assembly="Tomboy" />
       <Build debugmode="False" target="Exe" />
-      <Execution runwithwarnings="True" consolepause="True" runtime="MsNet" clr-version="Net_2_0" />
+      <Execution consolepause="True" runwithwarnings="True" runtime="MsNet" clr-version="Net_2_0" />
       <CodeGeneration compiler="Mcs" warninglevel="4" optimize="True" unsafecodeallowed="False" generateoverflowchecks="True" generatexmldocumentation="False" ctype="CSharpCompilerParameters" />
     </Configuration>
   </Configurations>
@@ -18,183 +27,183 @@
     <File subtype="Code" buildaction="Compile" name="Tomboy/RemoteControlWrapper.cs" />
     <File subtype="Code" buildaction="Compile" name="Tomboy/Synchronization/ISyncUI.cs" />
     <File subtype="Code" buildaction="Compile" name="Tomboy/Synchronization/SilentUI.cs" />
-    <File name="Tomboy/ActionManager.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Applet.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Logger.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Note.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/NoteBuffer.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/NoteManager.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/NoteTag.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/NoteWindow.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Preferences.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/RecentChanges.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/RemoteControl.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/RemoteControlProxy.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Tomboy.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Tray.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Trie.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Undo.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Utils.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Watchers.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/XKeybinder.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/TagManager.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Tag.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/TagButton.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Defines.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/PreferencesDialog.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/NoteEditor.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Addins/Backlinks" subtype="Directory" buildaction="Compile" />
-    <File name="Tomboy/Addins/Backlinks/BacklinksNoteAddin.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Addins/Tasks" subtype="Directory" buildaction="Compile" />
-    <File name="Tomboy/Addins/Tasks/CellRendererDate.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Addins/Tasks/DateButton.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Addins/Tasks/Task.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Addins/Tasks/TaskArchiver.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Addins/Tasks/TaskData.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Addins/Tasks/TaskListWindow.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Addins/Tasks/TaskManager.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Addins/Tasks/TaskOptionsDialog.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Addins/Tasks/TasksApplicationAddin.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Addins/Tasks/TaskTag.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/AbstractAddin.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/ApplicationAddin.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/NoteAddin.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Addins/Backlinks/BacklinkMenuItem.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/AddinManager.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Addins/Tasks/TasksNoteAddin.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Addins/WebDavSyncService" subtype="Directory" buildaction="Compile" />
-    <File name="Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Addins/SshSyncService" subtype="Directory" buildaction="Compile" />
-    <File name="Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Addins/FileSystemSyncService" subtype="Directory" buildaction="Compile" />
-    <File name="Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/AddinPreferenceFactory.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Addins/Bugzilla/BugzillaNoteAddin.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Addins/Bugzilla/InsertBugAction.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Addins/Bugzilla/BugzillaLink.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Addins/Bugzilla/BugzillaPreferences.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Addins/Bugzilla/BugzillaPreferencesFactory.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Addins/ExportToHtml/NoteNameResolver.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Addins/ExportToHtml/ExportToHtmlDialog.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Addins/FixedWidth/FixedWidthNoteAddin.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Addins/FixedWidth/FixedWidthTag.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Addins/FixedWidth/FixedWidthMenuItem.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Addins/NoteOfTheDay/NoteOfTheDayApplicationAddin.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Addins/NoteOfTheDay/NoteOfTheDay.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Addins/NoteOfTheDay/NoteOfTheDayPreferences.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Addins/NoteOfTheDay/NoteOfTheDayPreferencesFactory.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Addins/PrintNotes/PrintNotesNoteAddin.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Addins/Evolution/EvolutionNoteAddin.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Addins/GalagoPresence" subtype="Directory" buildaction="Compile" />
-    <File name="Tomboy/Addins/Underline/UnderlineNoteAddin.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Addins/Underline/UnderlineTag.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Addins/Underline/UnderlineMenuItem.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Synchronization" subtype="Directory" buildaction="Compile" />
-    <File name="Tomboy/Synchronization/FuseSyncServiceAddin.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Gnome.Keyring/AccessRights.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Gnome.Keyring/AttributeType.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Gnome.Keyring/GenericItemData.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Gnome.Keyring/ItemACL.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Gnome.Keyring/ItemData.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Gnome.Keyring/ItemType.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Gnome.Keyring/KeyringException.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Gnome.Keyring/KeyringInfo.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Gnome.Keyring/NetItemData.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Gnome.Keyring/NoteItemData.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Gnome.Keyring/Operation.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Gnome.Keyring/RequestMessage.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Gnome.Keyring/ResponseMessage.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Gnome.Keyring/ResultCode.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Gnome.Keyring/Ring.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Synchronization/SyncDialog.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Synchronization/SyncManager.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Synchronization/SyncUtils.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Synchronization/TomboySyncClient.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Synchronization/FileSystemSyncServer.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Synchronization/SyncServiceAddin.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Search.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Notebooks/Notebook.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Notebooks/NotebookManager.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Notebooks/CreateNotebookDialog.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Notebooks/NotebookNoteAddin.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Notebooks/NotebookMenuItem.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Notebooks/NotebookApplicationAddin.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Notebooks/NotebookNewNoteMenuItem.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/PreferenceTabAddin.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Notebooks/NotebooksTreeView.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Addins/InsertTimestamp/InsertTimestampNoteAddin.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Addins/InsertTimestamp/InsertTimestampPreferences.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Addins/InsertTimestamp/InsertTimestampPreferencesFactory.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Addins/Sketching/Handwriting.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Addins/Sketching/Paper.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Addins/Sketching/Pen.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Addins/Sketching/SketchingNoteAddin.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Addins/Sketching/SketchingTextTag.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Addins/Sketching/Stroke.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Addins/Tasque/TasqueNoteAddin.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Addins/Tasque/RemoteControl.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Addins/GalagoPresence/GalagoPresenceNoteAddin.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/RecentTreeView.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Services.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/GConfPreferencesClient.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/GnomeApplication.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/GnomeSession.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Keybinder.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/NativeApplication.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/PlatformFactory.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/PreferencesClient.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/PrefsKeybinder.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/XmlPreferencesClient.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/WindowsApplication.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/GnomeFactory.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/WindowsFactory.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Addins/ExportToHtml/ExportToHtml.xsl" subtype="Code" buildaction="Nothing" />
-    <File name="Tomboy/Addins/NoteDirectoryWatcher/NoteDirectoryWatcher.addin.xml" subtype="Code" buildaction="Nothing" />
-    <File name="Tomboy/Addins/NoteDirectoryWatcher/NoteDirectoryWatcherApplicationAddin.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/NoteRenameDialog.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Addins/WebSyncService" subtype="Directory" buildaction="Compile" />
-    <File name="Tomboy/Addins/WebSyncService/WebSyncServiceAddin.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Addins/WebSyncService/WebSyncServer.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Addins/WebSyncService/Api" subtype="Directory" buildaction="Compile" />
-    <File name="Tomboy/Addins/WebSyncService/Api/AnonymousConnection.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Addins/WebSyncService/Api/CertificateManager.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Addins/WebSyncService/Api/NoteInfo.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Addins/WebSyncService/Api/UserInfo.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Addins/WebSyncService/Api/ResourceReference.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Addins/WebSyncService/Api/IWebConnection.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Addins/WebSyncService/Hyena.Json/Deserializer.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Addins/WebSyncService/Hyena.Json/IJsonCollection.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Addins/WebSyncService/Hyena.Json/JsonArray.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Addins/WebSyncService/Hyena.Json/JsonObject.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Addins/WebSyncService/Hyena.Json/Token.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Addins/WebSyncService/Hyena.Json/Tokenizer.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Addins/WebSyncService/Hyena.Json/TokenType.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Addins/WebSyncService/Hyena.Json/Tests/DeserializerTests.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Addins/WebSyncService/Hyena.Json/Tests/TokenizerTests.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Addins/WebSyncService/Hyena.Json/Serializer.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Addins/WebSyncService/Hyena.Json/Tests/SerializerTests.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Addins/WebSyncService/Api/Tests" subtype="Directory" buildaction="Compile" />
-    <File name="Tomboy/Addins/WebSyncService/NoteConvert.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Addins/WebSyncService/Api/Tests/NoteInfoTests.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Addins/WebSyncService/Api/Tests/UserInfoTests.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Addins/WebSyncService/Api/Tests/ResourceReferenceTests.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Addins/WebSyncService/Tests" subtype="Directory" buildaction="Compile" />
-    <File name="Tomboy/Addins/WebSyncService/Tests/NoteConvertTests.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Addins/WebSyncService/Hyena.Json/README" subtype="Code" buildaction="Nothing" />
-    <File name="Tomboy/Addins/WebSyncService/Api/OAuth.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Addins/WebSyncService/OAuth/Base.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Addins/WebSyncService/OAuth/Enums.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Addins/WebSyncService/OAuth/Extensions.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Addins/WebSyncService/OAuth/QueryParameter.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Addins/WebSyncService/OAuth/Mono.Rocks/Check.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Addins/WebSyncService/OAuth/Mono.Rocks/IEnumerable.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Addins/WebSyncService/Api/RootInfo.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/gtk-sharp-beans/Global.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/Hyena/XdgBaseDirectorySpec.cs" subtype="Code" buildaction="Compile" />
-    <File name="Tomboy/MacApplication.cs" subtype="Code" buildaction="Compile" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/ActionManager.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Applet.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Logger.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Note.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/NoteBuffer.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/NoteManager.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/NoteTag.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/NoteWindow.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Preferences.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/RecentChanges.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/RemoteControl.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/RemoteControlProxy.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Tomboy.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Tray.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Trie.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Undo.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Utils.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Watchers.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/XKeybinder.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/TagManager.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Tag.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/TagButton.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Defines.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/PreferencesDialog.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/NoteEditor.cs" />
+    <File subtype="Directory" buildaction="Compile" name="Tomboy/Addins/Backlinks" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Addins/Backlinks/BacklinksNoteAddin.cs" />
+    <File subtype="Directory" buildaction="Compile" name="Tomboy/Addins/Tasks" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Addins/Tasks/CellRendererDate.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Addins/Tasks/DateButton.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Addins/Tasks/Task.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Addins/Tasks/TaskArchiver.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Addins/Tasks/TaskData.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Addins/Tasks/TaskListWindow.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Addins/Tasks/TaskManager.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Addins/Tasks/TaskOptionsDialog.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Addins/Tasks/TasksApplicationAddin.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Addins/Tasks/TaskTag.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/AbstractAddin.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/ApplicationAddin.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/NoteAddin.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Addins/Backlinks/BacklinkMenuItem.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/AddinManager.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Addins/Tasks/TasksNoteAddin.cs" />
+    <File subtype="Directory" buildaction="Compile" name="Tomboy/Addins/WebDavSyncService" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs" />
+    <File subtype="Directory" buildaction="Compile" name="Tomboy/Addins/SshSyncService" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs" />
+    <File subtype="Directory" buildaction="Compile" name="Tomboy/Addins/FileSystemSyncService" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/AddinPreferenceFactory.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Addins/Bugzilla/BugzillaNoteAddin.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Addins/Bugzilla/InsertBugAction.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Addins/Bugzilla/BugzillaLink.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Addins/Bugzilla/BugzillaPreferences.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Addins/Bugzilla/BugzillaPreferencesFactory.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Addins/ExportToHtml/NoteNameResolver.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Addins/ExportToHtml/ExportToHtmlDialog.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Addins/FixedWidth/FixedWidthNoteAddin.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Addins/FixedWidth/FixedWidthTag.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Addins/FixedWidth/FixedWidthMenuItem.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Addins/NoteOfTheDay/NoteOfTheDayApplicationAddin.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Addins/NoteOfTheDay/NoteOfTheDay.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Addins/NoteOfTheDay/NoteOfTheDayPreferences.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Addins/NoteOfTheDay/NoteOfTheDayPreferencesFactory.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Addins/PrintNotes/PrintNotesNoteAddin.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Addins/Evolution/EvolutionNoteAddin.cs" />
+    <File subtype="Directory" buildaction="Compile" name="Tomboy/Addins/GalagoPresence" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Addins/Underline/UnderlineNoteAddin.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Addins/Underline/UnderlineTag.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Addins/Underline/UnderlineMenuItem.cs" />
+    <File subtype="Directory" buildaction="Compile" name="Tomboy/Synchronization" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Synchronization/FuseSyncServiceAddin.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Gnome.Keyring/AccessRights.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Gnome.Keyring/AttributeType.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Gnome.Keyring/GenericItemData.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Gnome.Keyring/ItemACL.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Gnome.Keyring/ItemData.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Gnome.Keyring/ItemType.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Gnome.Keyring/KeyringException.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Gnome.Keyring/KeyringInfo.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Gnome.Keyring/NetItemData.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Gnome.Keyring/NoteItemData.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Gnome.Keyring/Operation.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Gnome.Keyring/RequestMessage.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Gnome.Keyring/ResponseMessage.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Gnome.Keyring/ResultCode.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Gnome.Keyring/Ring.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Synchronization/SyncDialog.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Synchronization/SyncManager.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Synchronization/SyncUtils.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Synchronization/TomboySyncClient.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Synchronization/FileSystemSyncServer.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Synchronization/SyncServiceAddin.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Search.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Notebooks/Notebook.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Notebooks/NotebookManager.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Notebooks/CreateNotebookDialog.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Notebooks/NotebookNoteAddin.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Notebooks/NotebookMenuItem.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Notebooks/NotebookApplicationAddin.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Notebooks/NotebookNewNoteMenuItem.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/PreferenceTabAddin.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Notebooks/NotebooksTreeView.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Addins/InsertTimestamp/InsertTimestampNoteAddin.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Addins/InsertTimestamp/InsertTimestampPreferences.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Addins/InsertTimestamp/InsertTimestampPreferencesFactory.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Addins/Sketching/Handwriting.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Addins/Sketching/Paper.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Addins/Sketching/Pen.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Addins/Sketching/SketchingNoteAddin.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Addins/Sketching/SketchingTextTag.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Addins/Sketching/Stroke.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Addins/Tasque/TasqueNoteAddin.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Addins/Tasque/RemoteControl.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Addins/GalagoPresence/GalagoPresenceNoteAddin.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/RecentTreeView.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Services.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/GConfPreferencesClient.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/GnomeApplication.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/GnomeSession.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Keybinder.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/NativeApplication.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/PlatformFactory.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/PreferencesClient.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/PrefsKeybinder.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/XmlPreferencesClient.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/WindowsApplication.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/GnomeFactory.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/WindowsFactory.cs" />
+    <File subtype="Code" buildaction="Nothing" name="Tomboy/Addins/ExportToHtml/ExportToHtml.xsl" />
+    <File subtype="Code" buildaction="Nothing" name="Tomboy/Addins/NoteDirectoryWatcher/NoteDirectoryWatcher.addin.xml" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Addins/NoteDirectoryWatcher/NoteDirectoryWatcherApplicationAddin.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/NoteRenameDialog.cs" />
+    <File subtype="Directory" buildaction="Compile" name="Tomboy/Addins/WebSyncService" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Addins/WebSyncService/WebSyncServiceAddin.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Addins/WebSyncService/WebSyncServer.cs" />
+    <File subtype="Directory" buildaction="Compile" name="Tomboy/Addins/WebSyncService/Api" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Addins/WebSyncService/Api/AnonymousConnection.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Addins/WebSyncService/Api/CertificateManager.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Addins/WebSyncService/Api/NoteInfo.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Addins/WebSyncService/Api/UserInfo.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Addins/WebSyncService/Api/ResourceReference.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Addins/WebSyncService/Api/IWebConnection.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Addins/WebSyncService/Hyena.Json/Deserializer.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Addins/WebSyncService/Hyena.Json/IJsonCollection.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Addins/WebSyncService/Hyena.Json/JsonArray.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Addins/WebSyncService/Hyena.Json/JsonObject.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Addins/WebSyncService/Hyena.Json/Token.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Addins/WebSyncService/Hyena.Json/Tokenizer.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Addins/WebSyncService/Hyena.Json/TokenType.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Addins/WebSyncService/Hyena.Json/Tests/DeserializerTests.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Addins/WebSyncService/Hyena.Json/Tests/TokenizerTests.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Addins/WebSyncService/Hyena.Json/Serializer.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Addins/WebSyncService/Hyena.Json/Tests/SerializerTests.cs" />
+    <File subtype="Directory" buildaction="Compile" name="Tomboy/Addins/WebSyncService/Api/Tests" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Addins/WebSyncService/NoteConvert.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Addins/WebSyncService/Api/Tests/NoteInfoTests.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Addins/WebSyncService/Api/Tests/UserInfoTests.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Addins/WebSyncService/Api/Tests/ResourceReferenceTests.cs" />
+    <File subtype="Directory" buildaction="Compile" name="Tomboy/Addins/WebSyncService/Tests" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Addins/WebSyncService/Tests/NoteConvertTests.cs" />
+    <File subtype="Code" buildaction="Nothing" name="Tomboy/Addins/WebSyncService/Hyena.Json/README" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Addins/WebSyncService/Api/OAuth.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Addins/WebSyncService/OAuth/Base.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Addins/WebSyncService/OAuth/Enums.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Addins/WebSyncService/OAuth/Extensions.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Addins/WebSyncService/OAuth/QueryParameter.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Addins/WebSyncService/OAuth/Mono.Rocks/Check.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Addins/WebSyncService/OAuth/Mono.Rocks/IEnumerable.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Addins/WebSyncService/Api/RootInfo.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/gtk-sharp-beans/Global.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/Hyena/XdgBaseDirectorySpec.cs" />
+    <File subtype="Code" buildaction="Compile" name="Tomboy/MacApplication.cs" />
   </Contents>
   <References>
     <ProjectReference type="Gac" localcopy="True" refto="gdk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
@@ -211,13 +220,4 @@
     <ProjectReference type="Gac" localcopy="True" refto="NDesk.DBus, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f6716e4f9b2ed099" />
     <ProjectReference type="Gac" localcopy="True" refto="NDesk.DBus.GLib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f6716e4f9b2ed099" />
   </References>
-  <MonoDevelop.Autotools.MakefileInfo IntegrationEnabled="True" RelativeMakefileName="./Makefile.am" ExecuteTargetName="run">
-    <BuildFilesVar />
-    <DeployFilesVar />
-    <ResourcesVar />
-    <OthersVar />
-    <GacRefVar />
-    <AsmRefVar />
-    <ProjectRefVar />
-  </MonoDevelop.Autotools.MakefileInfo>
 </Project>
