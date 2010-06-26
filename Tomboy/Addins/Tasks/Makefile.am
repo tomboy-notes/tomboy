@@ -15,7 +15,7 @@ ASSEMBLIES = 					\
 # Tasks Addin
 #
 
-TASKS_TARGET = Tasks.dll
+TASKS_TARGET = $(top_builddir)/bin/addins/Tasks.dll
 TASKS_CSFILES = \
 	$(srcdir)/CellRendererDate.cs \
 	$(srcdir)/ComplexMenuItem.cs \
@@ -42,8 +42,8 @@ TASKS_EXTRA_DIST = \
 
 $(TASKS_TARGET).mdb: $(TARGET)
 
-$(TASKS_TARGET): $(TASKS_CSFILES) $(top_builddir)/Tomboy/Tomboy.exe
-	$(CSC) -out:$@ $(CSFLAGS) $(ASSEMBLIES) $(TASKS_CSFILES) $(TASKS_RESOURCES)
+$(TASKS_TARGET): $(TASKS_CSFILES) $(TOMBOY_EXE_PATH)
+	mkdir -p `dirname $(TASKS_TARGET)` && $(CSC) -out:$@ $(CSFLAGS) $(ASSEMBLIES) $(TASKS_CSFILES) $(TASKS_RESOURCES)
 
 
 addinsdir = $(pkglibdir)/addins

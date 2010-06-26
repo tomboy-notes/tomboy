@@ -15,7 +15,7 @@ ASSEMBLIES = 					\
 # Local File System Sync Service Addin
 #
 
-TARGET = FileSystemSyncService.dll
+TARGET = $(top_builddir)/bin/addins/FileSystemSyncService.dll
 CSFILES = \
 	$(srcdir)/FileSystemSyncServiceAddin.cs
 RESOURCES = \
@@ -23,8 +23,8 @@ RESOURCES = \
 
 $(TARGET).mdb: $(TARGET)
 
-$(TARGET): $(CSFILES) $(top_builddir)/Tomboy/Tomboy.exe
-	$(CSC) -out:$@ $(CSFLAGS) $(ASSEMBLIES) $(CSFILES) $(RESOURCES)
+$(TARGET): $(CSFILES) $(TOMBOY_EXE_PATH)
+	mkdir -p `dirname $(TARGET)` && $(CSC) -out:$@ $(CSFLAGS) $(ASSEMBLIES) $(CSFILES) $(RESOURCES)
 
 
 addinsdir = $(pkglibdir)/addins

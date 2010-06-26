@@ -13,14 +13,14 @@ ASSEMBLIES = 					\
 	-r:Mono.Cairo
 
 ADDIN_NAME = PrintNotes
-TARGET = $(ADDIN_NAME).dll
+TARGET = $(top_builddir)/bin/addins/$(ADDIN_NAME).dll
 CSFILES = \
 	$(srcdir)/PrintNotesNoteAddin.cs
 RESOURCES = \
 	-resource:$(srcdir)/$(ADDIN_NAME).addin.xml
 
-$(TARGET): $(CSFILES) $(top_builddir)/Tomboy/Tomboy.exe
-	$(CSC) -out:$@ $(CSFLAGS) $(ASSEMBLIES) $(CSFILES) $(RESOURCES)
+$(TARGET): $(CSFILES) $(TOMBOY_EXE_PATH)
+	mkdir -p `dirname $(TARGET)` && $(CSC) -out:$@ $(CSFLAGS) $(ASSEMBLIES) $(CSFILES) $(RESOURCES)
 
 
 addinsdir = $(pkglibdir)/addins

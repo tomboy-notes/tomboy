@@ -12,7 +12,7 @@ ASSEMBLIES = 					\
 	-r:Mono.Posix
 
 ADDIN_NAME = NoteOfTheDay
-TARGET = $(ADDIN_NAME).dll
+TARGET = $(top_builddir)/bin/addins/$(ADDIN_NAME).dll
 CSFILES = \
 	$(srcdir)/NoteOfTheDay.cs		\
 	$(srcdir)/NoteOfTheDayApplicationAddin.cs		\
@@ -23,8 +23,8 @@ RESOURCES = \
 
 $(TARGET).mdb: $(TARGET)
 
-$(TARGET): $(CSFILES) $(top_builddir)/Tomboy/Tomboy.exe
-	$(CSC) -out:$@ $(CSFLAGS) $(ASSEMBLIES) $(CSFILES) $(RESOURCES)
+$(TARGET): $(CSFILES) $(TOMBOY_EXE_PATH)
+	mkdir -p `dirname $(TARGET)` && $(CSC) -out:$@ $(CSFLAGS) $(ASSEMBLIES) $(CSFILES) $(RESOURCES)
 
 
 addinsdir = $(pkglibdir)/addins

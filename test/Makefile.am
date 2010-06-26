@@ -1,6 +1,6 @@
 CSC = $(GMCS)
 
-TARGET = TomboyTest.dll
+TARGET = $(top_builddir)/bin/TomboyTest.dll
 
 CSFLAGS =				\
 	-debug				\
@@ -17,14 +17,14 @@ CSFILES =					\
 ASSEMBLIES =							\
 	$(NUNIT_LIBS)						\
 	$(TOMBOY_LIBS)						\
-	-r:$(top_builddir)/Tomboy/Tomboy.exe			\
-	-r:$(top_builddir)/Tomboy/Plugins/ExportToHTML.dll
+	-r:$(LINK_TOMBOY_EXE)			\
+	-r:$(top_builddir)/bin/ExportToHTML.dll
 
 MONO_PATH = $(top_builddir)/Tomboy:$(top_builddir)/Tomboy/Plugins
 
 RESSOURCES =
 
-$(TARGET): $(CSFILES) $(top_builddir)/Tomboy/Tomboy.exe
+$(TARGET): $(CSFILES) $(TOMBOY_EXE_PATH)
 	$(CSC) -out:$@ $(CSFLAGS) $(CSFILES) $(ASSEMBLIES) $(RESSOURCES)
 
 test: $(TARGET)

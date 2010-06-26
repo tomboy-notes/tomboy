@@ -15,7 +15,7 @@ ASSEMBLIES = 					\
 # WebDav Sync Service Addin
 #
 
-TARGET = WebDavSyncService.dll
+TARGET = $(top_builddir)/bin/addins/WebDavSyncService.dll
 CSFILES = \
 	$(srcdir)/WebDavSyncServiceAddin.cs
 RESOURCES = \
@@ -23,8 +23,8 @@ RESOURCES = \
 
 $(TARGET).mdb: $(TARGET)
 
-$(TARGET): $(CSFILES) $(top_builddir)/Tomboy/Tomboy.exe
-	$(CSC) -out:$@ $(CSFLAGS) $(ASSEMBLIES) $(CSFILES) $(RESOURCES)
+$(TARGET): $(CSFILES) $(TOMBOY_EXE_PATH)
+	mkdir -p `dirname $(TARGET)` && $(CSC) -out:$@ $(CSFLAGS) $(ASSEMBLIES) $(CSFILES) $(RESOURCES)
 
 
 addinsdir = $(pkglibdir)/addins

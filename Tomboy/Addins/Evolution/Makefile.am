@@ -19,15 +19,15 @@ CSFILES = \
 
 
 if ENABLE_EVOLUTION
-TARGET = $(ADDIN_NAME).dll
+TARGET = $(top_builddir)/bin/addins/$(ADDIN_NAME).dll
 RESOURCES = \
 	-resource:$(srcdir)/$(ADDIN_NAME).addin.xml \
 	-resource:$(srcdir)/mail.png,mail.png
 
 $(TARGET).mdb: $(TARGET)
 
-$(TARGET): $(CSFILES) $(top_builddir)/Tomboy/Tomboy.exe
-	$(CSC) -out:$@ $(CSFLAGS) $(ASSEMBLIES) $(CSFILES) $(RESOURCES)
+$(TARGET): $(CSFILES) $(TOMBOY_EXE_PATH)
+	mkdir -p `dirname $(TARGET)` && $(CSC) -out:$@ $(CSFLAGS) $(ASSEMBLIES) $(CSFILES) $(RESOURCES)
 
 addinsdir = $(pkglibdir)/addins
 addins_DATA = 			\

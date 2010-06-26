@@ -15,7 +15,7 @@ ASSEMBLIES = 					\
 # SSH Sync Service Addin
 #
 
-TARGET = SshSyncServiceAddin.dll
+TARGET = $(top_builddir)/bin/addins/SshSyncServiceAddin.dll
 CSFILES = \
 	$(srcdir)/SshSyncServiceAddin.cs
 RESOURCES = \
@@ -23,8 +23,8 @@ RESOURCES = \
 
 $(TARGET).mdb: $(TARGET)
 
-$(TARGET): $(CSFILES) $(top_builddir)/Tomboy/Tomboy.exe
-	$(CSC) -out:$@ $(CSFLAGS) $(ASSEMBLIES) $(CSFILES) $(RESOURCES)
+$(TARGET): $(CSFILES) $(TOMBOY_EXE_PATH)
+	mkdir -p `dirname $(TARGET)` && $(CSC) -out:$@ $(CSFLAGS) $(ASSEMBLIES) $(CSFILES) $(RESOURCES)
 
 
 addinsdir = $(pkglibdir)/addins

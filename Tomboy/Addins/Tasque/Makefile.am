@@ -16,7 +16,7 @@ ASSEMBLIES = 					\
 
 ADDIN_NAME = Tasque
 
-TARGET = $(ADDIN_NAME).Addin.dll
+TARGET = $(top_builddir)/bin/addins/$(ADDIN_NAME).Addin.dll
 CSFILES = \
 	$(srcdir)/TasqueNoteAddin.cs \
 	$(srcdir)/RemoteControl.cs
@@ -26,8 +26,8 @@ RESOURCES = \
 
 $(TARGET).mdb: $(TARGET)
 
-$(TARGET): $(CSFILES) $(top_builddir)/Tomboy/Tomboy.exe
-	$(CSC) -out:$@ $(CSFLAGS) $(ASSEMBLIES) $(CSFILES) $(RESOURCES)
+$(TARGET): $(CSFILES) $(TOMBOY_EXE_PATH)
+	mkdir -p `dirname $(TARGET)` && $(CSC) -out:$@ $(CSFLAGS) $(ASSEMBLIES) $(CSFILES) $(RESOURCES)
 
 
 addinsdir = $(pkglibdir)/addins
