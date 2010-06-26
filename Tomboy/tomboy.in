@@ -1,43 +1,32 @@
 #!/usr/bin/env bash
 
-if [ "x$PWD" = "x@srcdir@" ] ; then
-    echo "*** Running uninstalled @target@ ***"
+export LD_LIBRARY_PATH="@pkglibdir@${LD_LIBRARY_PATH+:$LD_LIBRARY_PATH}"
+export MONO_PATH=$MONO_PATH:@pkglibdir@:@pkglibdir@/addins
+export TOMBOY_WRAPPER_PATH="@bindir@/@wrapper@"
 
-    export LD_LIBRARY_PATH="../libtomboy/.libs${LD_LIBRARY_PATH+:$LD_LIBRARY_PATH}:./Addins/PrintNotes/.libs"
-    export TOMBOY_WRAPPER_PATH="$PWD/@wrapper@"
-    export MONO_PATH=$MONO_PATH:./Addins:../Mono.Addins/Mono.Addins:../Mono.Addins/Mono.Addins.Setup:../Mono.Addins/Mono.Addins.Gui
+THIS_EXE="@pkglibdir@/@target@"
 
-    THIS_EXE="--debug ./@target@"
-else
-    export LD_LIBRARY_PATH="@pkglibdir@${LD_LIBRARY_PATH+:$LD_LIBRARY_PATH}"
-    export MONO_PATH=$MONO_PATH:@pkglibdir@:@pkglibdir@/addins
-    export TOMBOY_WRAPPER_PATH="@bindir@/@wrapper@"
+[ -n "$TOMBOY_DEBUG" ] && TOMBOY_DEBUG="--debug"
+[ -n "$TOMBOY_TRACE" ] && TOMBOY_TRACE="--trace=$TOMBOY_TRACE"
+[ -n "$TOMBOY_PROFILE" ] && TOMBOY_PROFILE="--profile=$TOMBOY_PROFILE"
 
-    THIS_EXE="@pkglibdir@/@target@"
+for arg in $*; do
+    case "x--debug" in ("x$arg")
+        TOMBOY_DEBUG=$arg
+    esac
 
-    [ -n "$TOMBOY_DEBUG" ] && TOMBOY_DEBUG="--debug"
-    [ -n "$TOMBOY_TRACE" ] && TOMBOY_TRACE="--trace=$TOMBOY_TRACE"
-    [ -n "$TOMBOY_PROFILE" ] && TOMBOY_PROFILE="--profile=$TOMBOY_PROFILE"
+    case "x--trace=" in ("x${arg:0:8}")
+        TOMBOY_TRACE=$arg
+    esac
 
-    for arg in $*; do
-        case "x--debug" in ("x$arg")
-            TOMBOY_DEBUG=$arg
-        esac
+    case "x--profile=" in ("x${arg:0:10}")
+        TOMBOY_PROFILE=$arg
+    esac
+done
 
-        case "x--trace=" in ("x${arg:0:8}")
-            TOMBOY_TRACE=$arg
-        esac
-
-        case "x--profile=" in ("x${arg:0:10}")
-            TOMBOY_PROFILE=$arg
-        esac
-    done
-
-    if [ -n "$TOMBOY_DEBUG" -o -n "$TOMBOY_TRACE" -o -n "$TOMBOY_PROFILE" -o -n "$MONO_EXTRA_ARGS" ]; then
-        MONO_OPTIONS="$TOMBOY_DEBUG $TOMBOY_TRACE $TOMBOY_PROFILE $MONO_EXTRA_ARGS"
-        echo "** Running Mono with $MONO_OPTIONS **"
-    fi
-
+if [ -n "$TOMBOY_DEBUG" -o -n "$TOMBOY_TRACE" -o -n "$TOMBOY_PROFILE" -o -n "$MONO_EXTRA_ARGS" ]; then
+    MONO_OPTIONS="$TOMBOY_DEBUG $TOMBOY_TRACE $TOMBOY_PROFILE $MONO_EXTRA_ARGS"
+    echo "** Running Mono with $MONO_OPTIONS **"
 fi
 
 if [ -n "@extragac@" ]; then
