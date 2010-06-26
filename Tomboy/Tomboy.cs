@@ -11,6 +11,7 @@ namespace Tomboy
 	public class Tomboy : Application
 	{
 		static bool debugging;
+		static bool uninstalled;
 		static NoteManager manager;
 		static TomboyTrayIcon tray_icon;
 		static TomboyTray tray = null;
@@ -57,6 +58,7 @@ namespace Tomboy
 
 			TomboyCommandLine cmd_line = new TomboyCommandLine (args);
 			debugging = cmd_line.Debug;
+			uninstalled = cmd_line.Uninstalled;
 
 			if (!RemoteControlProxy.FirstInstance) {
 				if (!cmd_line.NeedsExecute)
@@ -157,6 +159,11 @@ namespace Tomboy
 		public static bool Debugging
 		{
 			get { return debugging; }
+		}
+
+		public static bool Uninstalled
+		{
+			get { return uninstalled; }
 		}
 
 		static string GetNotePath (string override_path)
@@ -505,6 +512,12 @@ namespace Tomboy
 			get { return debug; }
 		}
 
+		// TODO: Document this option
+		public bool Uninstalled
+		{
+			get; private set;
+		}
+
 		public bool UsePanelApplet
 		{
 			get {
@@ -582,6 +595,9 @@ namespace Tomboy
 				switch (args [idx]) {
 				case "--debug":
 					debug = true;
+					break;
+				case "--uninstalled":
+					Uninstalled = true;
 					break;
 				case "--new-note":
 					// Get optional name for new note...

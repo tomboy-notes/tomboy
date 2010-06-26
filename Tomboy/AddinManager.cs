@@ -59,7 +59,8 @@ namespace Tomboy
 				}
 			}
 
-			string addins_dir = Path.Combine (tomboy_conf_dir, "addins");
+			string addins_dir = Tomboy.Uninstalled ? ".":
+				Path.Combine (tomboy_conf_dir, "addins");
 			if (!Directory.Exists (addins_dir))
 				Directory.CreateDirectory (addins_dir);
 
@@ -83,13 +84,13 @@ namespace Tomboy
 				                                      "<Addins>\n" +
 				                                      "\t<Directory>{0}</Directory>\n" +
 				                                      "</Addins>\n",
-				                                      Defines.SYS_ADDINS_DIR);
+				                                      Tomboy.Uninstalled ? "./addins" : Defines.SYS_ADDINS_DIR);
 				sw.Write (addins_file_contents);
 			}
 
 			Mono.Addins.AddinManager.AddinLoaded += OnAddinLoaded;
 			Mono.Addins.AddinManager.AddinUnloaded += OnAddinUnloaded;
-			Mono.Addins.AddinManager.Initialize (tomboy_conf_dir);
+			Mono.Addins.AddinManager.Initialize (Tomboy.Uninstalled ? "." : tomboy_conf_dir);
 			UpgradeOldAddinConfig ();
 			if (Tomboy.Debugging) {
 				Mono.Addins.AddinManager.Registry.Rebuild (null);
