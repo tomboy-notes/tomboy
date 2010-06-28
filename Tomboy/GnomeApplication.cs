@@ -181,10 +181,27 @@ namespace Tomboy
 		{
 			GtkBeans.Global.ShowUri (screen, url);
 		}
+
+		[DllImport ("glib-2.0.dll")]
+		static extern IntPtr g_get_language_names ();
 		
-		public void DisplayHelp (string help_uri, Gdk.Screen screen)
+		public void DisplayHelp (string project, string page, Gdk.Screen screen)
 		{
-			GtkBeans.Global.ShowUri (screen, help_uri);
+			string helpUrl = string.Format("http://library.gnome.org/users/{0}/", project);
+
+			var langsPtr = g_get_language_names ();
+			var langs = GLib.Marshaller.NullTermPtrToStringArray (langsPtr, false);
+			var baseHelpDir = Path.Combine (Path.Combine (Defines.DATADIR, "gnome/help"), project);
+			if (Directory.Exists (baseHelpDir)) {
+				foreach (var lang in langs) {
+					var langHelpDir = Path.Combine (baseHelpDir, lang);
+					if (Directory.Exists (langHelpDir))
+						// TODO:Support page
+						helpUrl = String.Format ("ghelp://{0}", langHelpDir);
+				}
+			}
+
+			OpenUrl (helpUrl, screen);
 		}
 		
 		public string DataDirectory {

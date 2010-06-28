@@ -689,7 +689,7 @@ namespace Tomboy
 
 		void OpenHelpActivate (object sender, EventArgs args)
 		{
-			GuiUtils.ShowHelp ("ghelp:tomboy?editing-notes", Screen, this);
+			GuiUtils.ShowHelp ("tomboy", "editing-notes", Screen, this);
 		}
 
 		void CreateNewNote (object sender, EventArgs args)

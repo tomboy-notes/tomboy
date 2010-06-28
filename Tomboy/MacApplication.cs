@@ -286,10 +286,9 @@ namespace Tomboy
 			system ("open \"" + url + "\"");
 		}
 
-		public virtual void DisplayHelp (string help_uri, Gdk.Screen screen)
+		public virtual void DisplayHelp (string project, string page, Gdk.Screen screen)
 		{
-			Match version = Regex.Match (Defines.VERSION, @"^\d+\.\d+");
-			OpenUrl (string.Format ("http://library.gnome.org/users/tomboy/{0}/", version.Value), screen);
+			OpenUrl (string.Format("http://library.gnome.org/users/{0}/", project), screen);
 		}
 
 		#endregion

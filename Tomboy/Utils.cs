@@ -132,12 +132,13 @@ namespace Tomboy
 			return MakeImageButton (image, label);
 		}
 
-		public static void ShowHelp (string help_uri,
+		public static void ShowHelp (string project,
+		                             string page,
 		                             Gdk.Screen screen,
 		                             Gtk.Window parent)
 		{
 			try {
-				Services.NativeApplication.DisplayHelp (help_uri, screen);
+				Services.NativeApplication.DisplayHelp (project, page, screen);
 			} catch {
 				string message =
 					Catalog.GetString ("The \"Tomboy Notes Manual\" could " +

@@ -30,6 +30,6 @@ namespace Tomboy
 
 		void OpenUrl (string url, Gdk.Screen screen);
 
-		void DisplayHelp (string help_uri, Gdk.Screen screen);
+		void DisplayHelp (string project, string page, Gdk.Screen screen);
 	}
 }

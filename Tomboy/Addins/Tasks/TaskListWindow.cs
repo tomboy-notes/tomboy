@@ -758,7 +758,7 @@ enum SortColumn :
 
 		void OnShowHelp (object sender, EventArgs args)
 		{
-			GuiUtils.ShowHelp ("tomboy.xml", "tasks", Screen, this);
+			GuiUtils.ShowHelp ("tomboy", "tasks", Screen, this);
 		}
 
 		void OnCloseWindow (object sender, EventArgs args)

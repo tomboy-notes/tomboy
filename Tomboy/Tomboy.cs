@@ -331,7 +331,7 @@ namespace Tomboy
 				tray_icon.GetGeometry (out screen, out area, out orientation);
 #endif
 			}
-			GuiUtils.ShowHelp ("ghelp:tomboy", screen, null);
+			GuiUtils.ShowHelp ("tomboy", null, screen, null);
 
 		}
 
