@@ -39,7 +39,7 @@
 			<RegistrySearch Id='GtksharpnovellRegistry' Type='raw' Root='HKLM' Key='Software\Novell\GtkSharp\Version' />
 		</Property>
 		<Condition Message="This setup requires Gtk# for .NET (version 2.12.8 or higher). Please download the latest installer from http://ftp.novell.com/pub/mono/gtk-sharp/ ">
-			<![CDATA[GTKSHARPNOVELLINSTALLVERSION >= "2.12.8" OR REMOVE ~= "ALL"]]>
+			<![CDATA[GTKSHARPNOVELLINSTALLVERSION >= "2.12.8" OR (GTKSHARPNOVELLINSTALLVERSION << "2.12.1" AND GTKSHARPNOVELLINSTALLVERSION <> "2.12.1") OR REMOVE ~= "ALL"]]>
 		</Condition>
 		<Condition Message='This setup requires the .NET Framework 2.0 or higher.'>
 			<![CDATA[MsiNetAssemblySupport >= "2.0.50727"]]>
