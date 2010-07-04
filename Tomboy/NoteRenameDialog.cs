@@ -70,7 +70,9 @@ namespace Tomboy
 			                                   "they will no longer link to anything.");
 			var label = new Label ();
 			label.UseMarkup = true;
-			label.Markup = String.Format (labelText, oldTitle, renamedNote.Title);
+			label.Markup = String.Format (labelText,
+			                              GLib.Markup.EscapeText (oldTitle),
+			                              GLib.Markup.EscapeText (renamedNote.Title));
 			label.LineWrap = true;
 			VBox.PackStart (label, false, true, 5);
 
