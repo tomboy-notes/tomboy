@@ -45,4 +45,4 @@ DOC_PAGES = \
 	sync.page \
 	whatsnew.page
 
-DOC_LINGUAS = ca cs de el en_GB es eu fr it lt oc pl pt_BR ru sv uk vi zh_CN
+DOC_LINGUAS = ca cs de el en_GB es eu fr gl it lt oc pl pt_BR ru sv uk vi zh_CN
