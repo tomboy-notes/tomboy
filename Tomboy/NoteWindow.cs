@@ -561,7 +561,7 @@ namespace Tomboy
 			                                                   "not show up in the note menu or search window."));
 			infoLabel.Wrap = true;
 			var untemplateButton = new Gtk.Button ();
-			untemplateButton.Label = "Con_vert to regular note";
+			untemplateButton.Label = Catalog.GetString ("Convert to regular note");
 			untemplateButton.Clicked += (o, e) => {
 				note.RemoveTag (template_tag);
 			};
