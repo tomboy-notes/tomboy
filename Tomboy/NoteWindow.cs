@@ -22,6 +22,7 @@ namespace Tomboy
 		Gtk.ScrolledWindow editor_window;
 		NoteFindBar find_bar;
 		Gtk.ToolButton delete;
+		Gtk.Box template_widget;
 
 		GlobalKeybinder global_keys;
 		InterruptableTimeout mark_set_timeout;
@@ -71,6 +72,9 @@ namespace Tomboy
 			toolbar = MakeToolbar ();
 			toolbar.Show ();
 
+
+			template_widget = MakeTemplateBar ();
+
 			// The main editor widget
 			editor = new NoteEditor (note.Buffer);
 			editor.PopulatePopup += OnPopulatePopup;
@@ -99,6 +103,7 @@ namespace Tomboy
 
 			Gtk.VBox box = new Gtk.VBox (false, 2);
 			box.PackStart (toolbar, false, false, 0);
+			box.PackStart (template_widget, false, false, 0);
 			box.PackStart (editor_window, true, true, 0);
 			box.PackStart (find_bar, false, false, 0);
 
@@ -545,6 +550,37 @@ namespace Tomboy
 		{
 			Gtk.Menu menu = new Gtk.Menu ();
 			return menu;
+		}
+
+		private Gtk.Box MakeTemplateBar ()
+		{
+			var bar = new Gtk.VBox ();
+			Tag template_tag = TagManager.GetOrCreateSystemTag (TagManager.TemplateNoteSystemTag);
+			var infoLabel  = new Gtk.Label (Catalog.GetString ("This note is a template note. It determines " +
+			                                                   "the default content of regular notes, and will " +
+			                                                   "not show up in the note menu or search window."));
+			infoLabel.Wrap = true;
+			var untemplateButton = new Gtk.Button ();
+			untemplateButton.Label = "Con_vert to regular note";
+			untemplateButton.Clicked += (o, e) => {
+				note.RemoveTag (template_tag);
+			};
+			bar.PackStart (infoLabel);
+			bar.PackStart (untemplateButton);
+			if (note.ContainsTag (template_tag))
+				bar.ShowAll ();
+
+			note.TagAdded += delegate (Note taggedNote, Tag tag) {
+				if (taggedNote == note && tag == template_tag)
+					bar.ShowAll ();
+			};
+
+			note.TagRemoved += delegate (Note taggedNote, string tag) {
+				if (taggedNote == note && tag == template_tag.NormalizedName)
+					bar.HideAll ();
+			};
+
+			return bar;
 		}
 
 		//
