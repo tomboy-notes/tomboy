@@ -1135,8 +1135,8 @@ namespace Tomboy
 		void OnTagRemoved (Note note, string tag_name)
 		{
 			Tag tag = TagManager.GetTag (tag_name);
-			Logger.Debug ("Watchers.OnTagRemoved popularity count: {0}", tag.Popularity);
-			if (tag.Popularity == 0)
+			Logger.Debug ("Watchers.OnTagRemoved popularity count: {0}", tag != null ? tag.Popularity : 0);
+			if (tag != null && tag.Popularity == 0)
 				TagManager.RemoveTag (tag);
 		}
 	}
