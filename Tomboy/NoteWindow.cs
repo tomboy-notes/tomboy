@@ -554,19 +554,47 @@ namespace Tomboy
 
 		private Gtk.Box MakeTemplateBar ()
 		{
-			var bar = new Gtk.VBox ();
+			// TODO: Move these to static area
 			Tag template_tag = TagManager.GetOrCreateSystemTag (TagManager.TemplateNoteSystemTag);
+			Tag template_save_size_tag = TagManager.GetOrCreateSystemTag (TagManager.TemplateNoteSystemTag + ":save-size");
+			Tag template_save_selection_tag = TagManager.GetOrCreateSystemTag (TagManager.TemplateNoteSystemTag + ":save-selection");
+
+			var bar = new Gtk.VBox ();
+
 			var infoLabel  = new Gtk.Label (Catalog.GetString ("This note is a template note. It determines " +
 			                                                   "the default content of regular notes, and will " +
 			                                                   "not show up in the note menu or search window."));
 			infoLabel.Wrap = true;
+
 			var untemplateButton = new Gtk.Button ();
 			untemplateButton.Label = Catalog.GetString ("Convert to regular note");
 			untemplateButton.Clicked += (o, e) => {
 				note.RemoveTag (template_tag);
 			};
+
+			var saveSizeCheckbutton = new Gtk.CheckButton (Catalog.GetString ("Save Si_ze"));
+			saveSizeCheckbutton.Active = note.ContainsTag (template_save_size_tag);
+			saveSizeCheckbutton.Toggled += (o, e) => {
+				if (saveSizeCheckbutton.Active)
+					note.AddTag (template_save_size_tag);
+				else
+					note.RemoveTag (template_save_size_tag);
+			};
+
+			var saveSelectionCheckbutton = new Gtk.CheckButton (Catalog.GetString ("Save Se_lection"));
+			saveSelectionCheckbutton.Active = note.ContainsTag (template_save_selection_tag);
+			saveSizeCheckbutton.Toggled += (o, e) => {
+				if (saveSelectionCheckbutton.Active)
+					note.AddTag (template_save_selection_tag);
+				else
+					note.RemoveTag (template_save_selection_tag);
+			};
+
 			bar.PackStart (infoLabel);
 			bar.PackStart (untemplateButton);
+			bar.PackStart (saveSizeCheckbutton);
+			bar.PackStart (saveSelectionCheckbutton);
+
 			if (note.ContainsTag (template_tag))
 				bar.ShowAll ();
 
