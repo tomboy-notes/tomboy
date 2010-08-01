@@ -194,31 +194,7 @@ namespace Tomboy
 			// Create the tray icon and run the main loop
 			tray_icon = new TomboyTrayIcon (manager);
 			tray = tray_icon.Tray;
-
-			// Give the TrayIcon 2 seconds to appear.  If it
-			// doesn't by then, open the SearchAllNotes window.
-			tray_icon_showing = tray_icon.IsEmbedded && tray_icon.Visible;
-			if (!tray_icon_showing)
-				GLib.Timeout.Add (2000, CheckTrayIconShowing);
-
 			StartMainLoop ();
-		}
-
-		static bool CheckTrayIconShowing ()
-		{
-			tray_icon_showing = tray_icon.IsEmbedded && tray_icon.Visible;
-			
-			// Check to make sure the tray icon is showing.  If it's not,
-			// it's likely that the Notification Area isn't available.  So
-			// instead, launch the Search All Notes window so the user can
-			// can still use Tomboy.
-#if !MAC
-			if (tray_icon_showing == false &&
-			    (bool) Preferences.Get (Preferences.ENABLE_TRAY_ICON))
-				ActionManager ["ShowSearchAllNotesAction"].Activate ();
-#endif
-			
-			return false; // prevent GLib.Timeout from calling this method again
 		}
 
 		static void RegisterRemoteControl (NoteManager manager)
