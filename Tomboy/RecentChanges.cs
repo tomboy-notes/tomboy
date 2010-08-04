@@ -161,15 +161,6 @@ namespace Tomboy
 			matches_window = new Gtk.ScrolledWindow ();
 			matches_window.ShadowType = Gtk.ShadowType.In;
 
-			// Reign in the window size if there are notes with long
-			// names, or a lot of notes...
-			Gtk.Requisition tree_req = tree.SizeRequest ();
-			if (tree_req.Height > 420)
-				matches_window.HeightRequest = 420;
-
-			if (tree_req.Width > 480)
-				matches_window.WidthRequest = 480;
-
 			matches_window.HscrollbarPolicy = Gtk.PolicyType.Automatic;
 			matches_window.VscrollbarPolicy = Gtk.PolicyType.Automatic;
 			matches_window.Add (tree);
