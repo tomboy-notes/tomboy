@@ -10,6 +10,24 @@
 			Comments="Installs or upgrades Tomboy notes/"
 			InstallerVersion="200"
 			Compressed="yes"/>
+
+		<Upgrade Id="4401CB77-D6D4-4903-B1F9-41E2F80DF785">
+			<UpgradeVersion Minimum="0.0.13"
+				IncludeMinimum="yes"
+				Maximum="!(bind.FileVersion.Tomboy.exe)"
+				Property="OLDERVERSIONBEINGUPGRADED" />
+			<UpgradeVersion Minimum="!(bind.FileVersion.Tomboy.exe)"
+				OnlyDetect="yes"
+				Property="NEWERVERSIONDETECTED" />
+		</Upgrade>
+		<Condition Message="A later version of [ProductName] is already installed.&#xD;&#xA;If you intend to downgrade, please remove the other version first.">
+			NOT NEWERVERSIONDETECTED OR Installed
+		</Condition>
+
+		<InstallExecuteSequence>
+			<RemoveExistingProducts After="InstallExecute"/>
+		</InstallExecuteSequence>
+
 		<!--
 			Source media for the installation. 
  			Specifies a single cab file to be embedded in the installer's .msi. 
