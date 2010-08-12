@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
@@ -86,7 +87,51 @@ namespace Tomboy
 			// Highlight the parent
 			if (menu.AttachWidget != null)
 				menu.AttachWidget.State = Gtk.StateType.Selected;
+
+#if WIN32
+			BringToForeground ();
+#endif
 		}
+
+		public static void BringToForeground () {
+			try {
+				Process current_proc = Process.GetCurrentProcess ();
+				int current_proc_id = current_proc.Id;
+				bool set_foreground_window = true;
+				IntPtr window_handle = GetForegroundWindow ();
+
+				if (window_handle != IntPtr.Zero) {
+					set_foreground_window = false;
+
+					int window_handle_proc_id;
+					GetWindowThreadProcessId (window_handle, out window_handle_proc_id);
+
+					if (window_handle_proc_id != current_proc_id) {
+						set_foreground_window = true;
+					}
+				}
+
+				if (set_foreground_window) {
+					window_handle = current_proc.MainWindowHandle;
+
+					if (window_handle != IntPtr.Zero) {
+						SetForegroundWindow (window_handle);
+					}
+				}
+			} catch (Exception e) {
+				Logger.Error("Error pulling Tomboy to foreground: {0}", e);
+			}
+		}
+
+		[DllImport ("user32.dll", SetLastError = true)]
+		static extern uint GetWindowThreadProcessId (IntPtr hWnd, out int lpdwProcessId);
+
+		[DllImport ("user32.dll")]
+		static extern IntPtr GetForegroundWindow ();
+
+		[DllImport ("user32.dll")]
+		[return: MarshalAs (UnmanagedType.Bool)]
+		static extern bool SetForegroundWindow (IntPtr hWnd);
 
 		public static Gdk.Pixbuf GetIcon (string resource_name, int size)
 		{
