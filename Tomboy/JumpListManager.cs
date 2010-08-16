@@ -26,30 +26,49 @@ namespace Tomboy
 
 		public static void CreateJumpList (NoteManager note_manager)
 		{
+			ICustomDestinationList custom_destinationd_list = null;
+			IObjectArray removed_objects = null;
+
 			try {
-				ICustomDestinationList custom_destinationd_list =
+				custom_destinationd_list =
 				    (ICustomDestinationList) Activator.CreateInstance (Type.GetTypeFromCLSID (CLSID.DestinationList));
 
 				uint slots;
 				Guid riid = CLSID.IObjectArray;
-				IObjectArray removed_objects;
 
 				Logger.Debug ("Windows Taskbar: Begin jump list");
 				custom_destinationd_list.BeginList (out slots, ref riid, out removed_objects);
 
-				AddUserTasks (custom_destinationd_list);
-				AddRecentNotes (custom_destinationd_list, note_manager, slots);
+				try {
+					AddUserTasks (custom_destinationd_list);
+				} catch (UnauthorizedAccessException uae) {
+					Logger.Warn ("Access denied adding user tasks to jump list: {0}\n{1}",
+						uae.Message, uae.StackTrace);
+				}
+				try {
+					AddRecentNotes (custom_destinationd_list, note_manager, slots);
+				} catch (UnauthorizedAccessException uae) {
+					Logger.Warn ("Access denied adding recent notes to jump list: {0}\n{1}",
+						uae.Message, uae.StackTrace);
+				}
 
 				Logger.Debug ("Windows Taskbar: Commit jump list");
 				custom_destinationd_list.CommitList ();
-
-				Marshal.FinalReleaseComObject (removed_objects);
-				removed_objects = null;
-
-				Marshal.FinalReleaseComObject (custom_destinationd_list);
-				custom_destinationd_list = null;
 			} catch (Exception e) {
 				Logger.Error ("Error creating jump list: {0}\n{1}", e.Message, e.StackTrace);
+				if (custom_destinationd_list != null) {
+					custom_destinationd_list.AbortList ();
+				}
+			} finally {
+				if (removed_objects != null) {
+					Marshal.FinalReleaseComObject (removed_objects);
+					removed_objects = null;
+				}
+
+				if (custom_destinationd_list != null) {
+					Marshal.FinalReleaseComObject (custom_destinationd_list);
+					custom_destinationd_list = null;
+				}
 			}
 		}
 
