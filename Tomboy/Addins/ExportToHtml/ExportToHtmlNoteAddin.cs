@@ -1,5 +1,6 @@
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Xml;
@@ -184,7 +185,7 @@ namespace Tomboy.ExportToHtml
 			args.AddParam ("export-linked-all", "", export_linked_all);
 			args.AddParam ("root-note", "", note.Title);
 			args.AddExtensionObject ("http://beatniksoftware.com/tomboy",
-				new TransformExtension ());
+				new TransformExtension (note.Manager, note));
 
 			if ((bool) Preferences.Get (Preferences.ENABLE_CUSTOM_FONT)) {
 				string font_face = (string) Preferences.Get (Preferences.CUSTOM_FONT_FACE);
@@ -195,20 +196,42 @@ namespace Tomboy.ExportToHtml
 				args.AddParam ("font", "", font);
 			}
 
-			NoteNameResolver resolver = new NoteNameResolver (note.Manager, note);
-			NoteXsl.Transform (doc, args, writer, resolver);
+			NoteXsl.Transform (doc, args, writer);
 		}
 	}
 
 	/// <summary>
 	/// Makes <see cref="System.String.ToLower"/> available in the
-	/// XSL stylesheet.
+	/// XSL stylesheet and manages access to the file path of notes,
+	/// making sure that each note is only exported once.
 	/// </summary>
 	public class TransformExtension
 	{
+		NoteManager manager;
+		List<string> resolved_notes;
+
+		public TransformExtension (NoteManager manager, Note root_note)
+		{
+			this.manager = manager;
+			this.resolved_notes = new List<string> ();
+			this.resolved_notes.Add (root_note.Title.ToLower());
+		}
+
 		public String ToLower (string s)	
 		{
 			return s.ToLower ();
+		}
+
+		public string GetPath (string title)
+		{
+			if (string.IsNullOrEmpty (title))
+				return string.Empty;
+
+			if (resolved_notes.Contains (title.ToLower()))
+				return string.Empty;
+
+			resolved_notes.Add (title.ToLower());
+			return manager.Find (title).FilePath;
 		}
 	}
 }

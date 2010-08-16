@@ -15,8 +15,7 @@ ADDIN_NAME = ExportToHtml
 TARGET = $(top_builddir)/bin/addins/$(ADDIN_NAME).dll
 CSFILES = \
 	$(srcdir)/ExportToHtmlDialog.cs		\
-	$(srcdir)/ExportToHtmlNoteAddin.cs		\
-	$(srcdir)/NoteNameResolver.cs
+	$(srcdir)/ExportToHtmlNoteAddin.cs
 RESOURCES = \
 	-resource:$(srcdir)/$(ADDIN_NAME).addin.xml \
 	-resource:$(srcdir)/ExportToHtml.xsl

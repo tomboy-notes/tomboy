@@ -79,7 +79,10 @@
 	<xsl:if test="$export-linked and ((not($export-linked-all) and /tomboy:note/tomboy:title/text() = $root-note) or $export-linked-all)">
 		<xsl:for-each select=".//link:internal/text()">
 			<!-- Load in the linked note's XML for processing. -->
-			<xsl:apply-templates select="document(.)/node()"/>
+			<xsl:variable name="note_path" select="tomboy:GetPath(.)" />
+			<xsl:if test="string-length($note_path) &gt; 0">
+				<xsl:apply-templates select="document($note_path)/node()"/>
+			</xsl:if>
 		</xsl:for-each>
 	</xsl:if>
 </xsl:template>
