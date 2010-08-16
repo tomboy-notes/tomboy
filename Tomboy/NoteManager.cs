@@ -38,7 +38,7 @@ namespace Tomboy
 
 		public NoteManager (string directory, string backup_directory)
 		{
-			Logger.Log ("NoteManager created with note path \"{0}\".", directory);
+			Logger.Debug ("NoteManager created with note path \"{0}\".", directory);
 
 			notes_dir = directory;
 			backup_dir = backup_directory;
@@ -327,7 +327,7 @@ Ciao!");
 						notes.Add (note);
 					}
 				} catch (System.Xml.XmlException e) {
-					Logger.Log ("Error parsing note XML, skipping \"{0}\": {1}",
+					Logger.Error ("Error parsing note XML, skipping \"{0}\": {1}",
 					            file_path,
 					            e.Message);
 				}
@@ -383,7 +383,7 @@ Ciao!");
 				}
 			}
 
-			Logger.Log ("Saving unsaved notes...");
+			Logger.Debug ("Saving unsaved notes...");
 			
 			// Use a copy of the notes to prevent bug #510442 (crash on exit
 			// when iterating the notes to save them.
@@ -419,7 +419,7 @@ Ciao!");
 			notes.Remove (note);
 			note.Delete ();
 
-			Logger.Log ("Deleting note '{0}'.", note.Title);
+			Logger.Debug ("Deleting note '{0}'.", note.Title);
 
 			if (NoteDeleted != null)
 				NoteDeleted (this, note);

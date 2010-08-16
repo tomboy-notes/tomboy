@@ -131,7 +131,7 @@ namespace Tomboy
 
 		public void ToggleActiveTag (string tag_name)
 		{
-			Logger.Log ("ToggleTag called for '{0}'", tag_name);
+			Logger.Debug ("ToggleTag called for '{0}'", tag_name);
 
 			Gtk.TextTag tag = TagTable.Lookup (tag_name);
 			Gtk.TextIter select_start, select_end;
@@ -155,7 +155,7 @@ namespace Tomboy
 
 		public void SetActiveTag (string tag_name)
 		{
-			Logger.Log ("SetTag called for '{0}'", tag_name);
+			Logger.Debug ("SetTag called for '{0}'", tag_name);
 
 			Gtk.TextTag tag = TagTable.Lookup (tag_name);
 			Gtk.TextIter select_start, select_end;
@@ -169,7 +169,7 @@ namespace Tomboy
 
 		public void RemoveActiveTag (string tag_name)
 		{
-			Logger.Log ("RemoveTag called for '{0}'", tag_name);
+			Logger.Debug ("RemoveTag called for '{0}'", tag_name);
 
 			Gtk.TextTag tag = TagTable.Lookup (tag_name);
 			Gtk.TextIter select_start, select_end;
@@ -1336,7 +1336,7 @@ namespace Tomboy
 
 				// Hidden character representing an anchor
 				if (iter.Char[0] == (char) 0xFFFC) {
-					Logger.Log ("Got child anchor!!!");
+					Logger.Info ("Got child anchor!");
 					if (iter.ChildAnchor != null) {
 						string serialize =
 						        (string) iter.ChildAnchor.Data ["serialize"];
@@ -1571,7 +1571,7 @@ namespace Tomboy
 
 					break;
 				default:
-					Logger.Log ("Unhandled element {0}. Value: '{1}'",
+					Logger.Warn ("Unhandled element {0}. Value: '{1}'",
 					            xml.NodeType,
 					            xml.Value);
 					break;

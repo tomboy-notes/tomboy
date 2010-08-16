@@ -143,7 +143,7 @@ namespace Tomboy
 				am ["QuitTomboyAction"].Visible = false;
 
 				RegisterPanelAppletFactory ();
-				Logger.Log ("All done.  Ciao!");
+				Logger.Debug ("All done.  Ciao!");
 				Exit (0);
 			}
 #endif
@@ -153,7 +153,7 @@ namespace Tomboy
 			        new string [] { "TOMBOY_PATH=" + note_path  }); // TODO: Pass along XDG_*?
 			StartTrayIcon ();
 
-			Logger.Log ("All done.  Ciao!");
+			Logger.Debug ("All done.  Ciao!");
 		}
 
 		public static bool Debugging
@@ -202,7 +202,7 @@ namespace Tomboy
 			try {
 				remote_control = RemoteControlProxy.Register (manager);
 				if (remote_control != null) {
-					Logger.Log ("Tomboy remote control active.");
+					Logger.Debug ("Tomboy remote control active.");
 				} else {
 					// If Tomboy is already running, open the search window
 					// so the user gets some sort of feedback when they
@@ -213,11 +213,11 @@ namespace Tomboy
 						remote.DisplaySearch ();
 					} catch {}
 
-					Logger.Info ("Tomboy is already running.  Exiting...");
+					Logger.Error ("Tomboy is already running.  Exiting...");
 					System.Environment.Exit (-1);
 				}
 			} catch (Exception e) {
-				Logger.Log ("Tomboy remote control disabled (DBus exception): {0}",
+				Logger.Warn ("Tomboy remote control disabled (DBus exception): {0}",
 				            e.Message);
 			}
 		}
@@ -276,7 +276,7 @@ namespace Tomboy
 			if (Tomboy.IsPanelApplet)
 				return; // Ignore the quit action
 
-			Logger.Log ("Quitting Tomboy.  Ciao!");
+			Logger.Debug ("Quitting Tomboy.  Ciao!");
 			Exit (0);
 		}
 
@@ -694,7 +694,7 @@ namespace Tomboy
 			try {
 				remote = RemoteControlProxy.GetInstance ();
 			} catch (Exception e) {
-				Logger.Log ("Unable to connect to Tomboy remote control: {0}",
+				Logger.Error ("Unable to connect to Tomboy remote control: {0}",
 				            e.Message);
 			}
 

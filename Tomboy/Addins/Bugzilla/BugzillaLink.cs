@@ -75,7 +75,7 @@ namespace Tomboy.Bugzilla
 		protected override bool OnActivate (NoteEditor editor, Gtk.TextIter start, Gtk.TextIter end)
 		{
 			if (BugUrl != string.Empty) {
-				Logger.Log ("Opening url '{0}'...", BugUrl);
+				Logger.Debug ("Opening url '{0}'...", BugUrl);
 				
 				try {
 					Services.NativeApplication.OpenUrl (BugUrl, editor.Screen);

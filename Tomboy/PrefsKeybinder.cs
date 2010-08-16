@@ -25,8 +25,8 @@ namespace Tomboy
 				                               native_keybinder);
 				bindings.Add (binding);
 			} catch (Exception e) {
-				Logger.Log ("Error Adding global keybinding:");
-				Logger.Log (e.ToString ());
+				Logger.Error ("Error Adding global keybinding:");
+				Logger.Error (e.ToString ());
 			}
 		}
 
@@ -38,8 +38,8 @@ namespace Tomboy
 				bindings.Clear ();
 				native_keybinder.UnbindAll ();
 			} catch (Exception e) {
-				Logger.Log ("Error Removing global keybinding:");
-				Logger.Log (e.ToString ());
+				Logger.Error ("Error Removing global keybinding:");
+				Logger.Error (e.ToString ());
 			}
 		}
 
@@ -63,7 +63,7 @@ namespace Tomboy
 				try {
 					key_sequence = (string) Preferences.Client.Get (pref_path);
 				} catch {
-				        Logger.Log ("Preference key '{0}' does not exist, using default.",
+				        Logger.Warn ("Preference key '{0}' does not exist, using default.",
 				                    pref_path);
 				}
 
@@ -84,7 +84,7 @@ namespace Tomboy
 			void BindingChanged (object sender, NotifyEventArgs args)
 			{
 				if (args.Key == pref_path) {
-					Logger.Log ("Binding for '{0}' changed to '{1}'!",
+					Logger.Debug ("Binding for '{0}' changed to '{1}'!",
 					            pref_path,
 					            args.Value);
 
@@ -102,7 +102,7 @@ namespace Tomboy
 				                key_sequence == "disabled")
 					return;
 
-				Logger.Log ("Binding key '{0}' for '{1}'",
+				Logger.Debug ("Binding key '{0}' for '{1}'",
 				            key_sequence,
 				            pref_path);
 
@@ -114,7 +114,7 @@ namespace Tomboy
 				if (key_sequence == null)
 					return;
 
-				Logger.Log ("Unbinding key '{0}' for '{1}'",
+				Logger.Debug ("Unbinding key '{0}' for '{1}'",
 				            key_sequence,
 				            pref_path);
 
@@ -149,7 +149,7 @@ namespace Tomboy
 
 		void EnableDisable (bool enable)
 		{
-			Logger.Log ("EnableDisable Called: enabling... {0}", enable);
+			Logger.Debug ("EnableDisable Called: enabling... {0}", enable);
 			if (enable) {
 				BindPreference (Preferences.KEYBINDING_SHOW_NOTE_MENU,
 				                new EventHandler (KeyShowMenu));

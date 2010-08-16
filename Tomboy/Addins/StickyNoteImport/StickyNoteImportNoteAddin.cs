@@ -57,7 +57,7 @@ namespace Tomboy.StickyNoteImport
 					CheckForFirstRun ();
 				} else {
 					sticky_file_might_exist = false;
-					Logger.Log (debug_no_sticky_file);
+					Logger.Debug (debug_no_sticky_file);
 				}
 			}
 		}
@@ -84,7 +84,7 @@ namespace Tomboy.StickyNoteImport
 				try {
 					Preferences.Set (Preferences.STICKYNOTEIMPORTER_FIRST_RUN, false);
 				} catch (Exception e) {
-					Logger.Log (debug_gconf_set_error_base, e);
+					Logger.Debug (debug_gconf_set_error_base, e);
 				}
 
 				Logger.Log (debug_first_run_detected);
@@ -104,12 +104,12 @@ namespace Tomboy.StickyNoteImport
 					xmlDoc.Load (sticky_xml_path);
 					return xmlDoc;
 				} catch {
-				Logger.Log (debug_no_sticky_file);
+					Logger.Debug (debug_no_sticky_file);
 					return null;
 				}
 			}
 			else {
-				Logger.Log (debug_no_sticky_file);
+				Logger.Debug (debug_no_sticky_file);
 				return null;
 			}
 
@@ -176,7 +176,7 @@ namespace Tomboy.StickyNoteImport
 			// TODO: Report the error in the results dialog
 			//  (this error should only happen if somebody has messed with the XML file)
 			if (content.IndexOf ('>') != -1 || content.IndexOf ('<') != -1) {
-				Logger.Log (string.Format (debug_create_error_base,
+				Logger.Error (string.Format (debug_create_error_base,
 				                           stickyTitle,
 				                           "Invalid characters in note XML"));
 				return false;
@@ -197,7 +197,7 @@ namespace Tomboy.StickyNoteImport
 				newNote.Save ();
 				return true;
 			} catch (Exception e) {
-				Logger.Log (string.Format (debug_create_error_base, title, e.Message));
+				Logger.Error (string.Format (debug_create_error_base, title, e.Message));
 				return false;
 			}
 		}

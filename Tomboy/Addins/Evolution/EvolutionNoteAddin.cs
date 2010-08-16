@@ -38,7 +38,7 @@ namespace Tomboy.Evolution
 				SetupAccountUrlToUidMap ();
 			}
 			catch (Exception e) {
-				Logger.Log ("Evolution: Error reading accounts: {0}", e);
+				Logger.Error ("Evolution: Error reading accounts: {0}", e);
 			}
 		}
 
@@ -82,7 +82,7 @@ namespace Tomboy.Evolution
 					Uri uri = new Uri (source_url.InnerText);
 					source_url_to_uid [uri] = uid;
 				} catch (System.UriFormatException) {
-					Logger.Log (
+					Logger.Error (
 					        "Evolution: Unable to parse account source URI \"{0}\"",
 					        source_url.InnerText);
 				}
@@ -139,7 +139,7 @@ namespace Tomboy.Evolution
 
 				if (match) {
 					account_uid = source_url_to_uid [source_uri];
-					Logger.Log ("Evolution: Matching account '{0}'...",
+					Logger.Info ("Evolution: Matching account '{0}'...",
 					            account_uid);
 					break;
 				}
@@ -264,7 +264,7 @@ namespace Tomboy.Evolution
 			} catch (Exception e) {
 				string message = String.Format ("Error running Evolution: {0}",
 				                                e.Message);
-				Logger.Log (message);
+				Logger.Error (message);
 				HIGMessageDialog dialog =
 				        new HIGMessageDialog (editor.Toplevel as Gtk.Window,
 				                              Gtk.DialogFlags.DestroyWithParent,
@@ -379,7 +379,7 @@ namespace Tomboy.Evolution
 
 			UriList uri_list = new UriList (uri_string);
 			foreach (Uri uri in uri_list) {
-				Logger.Log ("Evolution: Dropped URI: {0}", uri.LocalPath);
+				Logger.Debug ("Evolution: Dropped URI: {0}", uri.LocalPath);
 
 				int mail_fd = Syscall.open (uri.LocalPath, OpenFlags.O_RDONLY);
 				if (mail_fd == -1)
@@ -397,7 +397,7 @@ namespace Tomboy.Evolution
 					if (message == null)
 						break;
 					
-					Logger.Log ("Evolution: Message Subject: {0}", message.Subject);
+					Logger.Debug ("Evolution: Message Subject: {0}", message.Subject);
 					subject_list.Add (message.Subject);
 					message.Dispose ();
 				};
@@ -422,7 +422,7 @@ namespace Tomboy.Evolution
 
 			xuid_list = new List<string> ();
 
-			Logger.Log ("Evolution: Dropped XUid: uri = '{0}'", list [0]);
+			Logger.Debug ("Evolution: Dropped XUid: uri = '{0}'", list [0]);
 
 			for (int i = 1; i < list.Length; i++) {
 				if (list [i] == string.Empty)
@@ -432,7 +432,7 @@ namespace Tomboy.Evolution
 				        EvoUtils.EmailUriFromDropUri (list [0] /* evo account uri */,
 				                                      list [i] /* message uid */);
 
-				Logger.Log ("Evolution: Translating XUid uid='{0}' to uri='{1}'",
+				Logger.Debug ("Evolution: Translating XUid uid='{0}' to uri='{1}'",
 				            list [i],
 				            launch_uri);
 

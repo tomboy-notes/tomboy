@@ -30,7 +30,7 @@ namespace Tomboy.ExportToHtml
 					xsl = new XslTransform ();
 		
 					if (File.Exists (stylesheet_file)) {
-						Logger.Log ("ExportToHTML: Using user-custom {0} file.",
+						Logger.Info ("ExportToHTML: Using user-custom {0} file.",
 						            stylesheet_name);
 						xsl.Load (stylesheet_file);
 					} else {
@@ -40,7 +40,7 @@ namespace Tomboy.ExportToHtml
 							xsl.Load (reader, null, null);
 							resource.Close ();
 						} else {
-							Logger.Log ("Unable to find HTML export template '{0}'.",
+							Logger.Error ("Unable to find HTML export template '{0}'.",
 							            stylesheet_name);
 						}
 					}
@@ -82,7 +82,7 @@ namespace Tomboy.ExportToHtml
 				return;
 			}
 
-			Logger.Log ("Exporting Note '{0}' to '{1}'...", Note.Title, output_path);
+			Logger.Debug ("Exporting Note '{0}' to '{1}'...", Note.Title, output_path);
 
 			StreamWriter writer = null;
 			string error_message = null;
@@ -108,7 +108,7 @@ namespace Tomboy.ExportToHtml
 					Services.NativeApplication.OpenUrl (output_uri.AbsoluteUri,
 					                                    Note.Window.Screen);
 				} catch (Exception ex) {
-					Logger.Log ("Could not open exported note in a web browser: {0}",
+					Logger.Error ("Could not open exported note in a web browser: {0}",
 					            ex);
 
 					string detail = String.Format (
@@ -133,7 +133,7 @@ namespace Tomboy.ExportToHtml
 			} catch (DirectoryNotFoundException) {
 				error_message = Catalog.GetString ("Folder does not exist.");
 			} catch (Exception e) {
-				Logger.Log ("Could not export: {0}", e);
+				Logger.Error ("Could not export: {0}", e);
 
 				error_message = e.Message;
 			} finally {
@@ -143,7 +143,7 @@ namespace Tomboy.ExportToHtml
 
 			if (error_message != null)
 			{
-				Logger.Log ("Could not export: {0}", error_message);
+				Logger.Error ("Could not export: {0}", error_message);
 
 				string msg = String.Format (
 				                     Catalog.GetString ("Could not save the file \"{0}\""),

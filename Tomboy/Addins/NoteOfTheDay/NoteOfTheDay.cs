@@ -103,7 +103,7 @@ namespace Tomboy.NoteOfTheDay
 			}
 
 			foreach (Note note in kill_list) {
-				Logger.Log ("NoteOfTheDay: Deleting old unmodified '{0}'",
+				Logger.Debug ("NoteOfTheDay: Deleting old unmodified '{0}'",
 				            note.Title);
 				manager.Delete (note);
 			}

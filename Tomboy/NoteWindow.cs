@@ -333,7 +333,7 @@ namespace Tomboy
 		{
 			args.Menu.AccelGroup = accel_group;
 
-			Logger.Log ("Populating context menu...");
+			Logger.Debug ("Populating context menu...");
 
 			// Remove the lame-o gigantic Insert Unicode Control
 			// Characters menu item.
@@ -1584,7 +1584,7 @@ namespace Tomboy
 		void UndoClicked (object sender, EventArgs args)
 		{
 			if (undo_manager.CanUndo) {
-				Logger.Log ("Running undo...");
+				Logger.Debug ("Running undo...");
 				undo_manager.Undo ();
 			}
 		}
@@ -1592,7 +1592,7 @@ namespace Tomboy
 		void RedoClicked (object sender, EventArgs args)
 		{
 			if (undo_manager.CanRedo) {
-				Logger.Log ("Running redo...");
+				Logger.Debug ("Running redo...");
 				undo_manager.Redo ();
 			}
 		}

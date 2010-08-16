@@ -452,7 +452,7 @@ namespace Tomboy
 		void OpenUrl (string url)
 		{
 			if (url != string.Empty) {
-				Logger.Log ("Opening url '{0}'...", url);
+				Logger.Debug ("Opening url '{0}'...", url);
 				Services.NativeApplication.OpenUrl (url, Note.Window.Screen);
 			}
 		}
@@ -720,7 +720,7 @@ namespace Tomboy
 			if (title_start.HasTag (Note.TagTable.UrlTag))
 				return;
 
-			Logger.Log ("Matching Note title '{0}' at {1}-{2}...",
+			Logger.Debug ("Matching Note title '{0}' at {1}-{2}...",
 			            hit.Key,
 			            hit.Start,
 			            hit.End);
@@ -799,7 +799,7 @@ namespace Tomboy
 			Note link = Manager.Find (link_name);
 
 			if (link == null) {
-				Logger.Log ("Creating note '{0}'...", link_name);
+				Logger.Debug ("Creating note '{0}'...", link_name);
 				try {
 					link = Manager.Create (link_name);
 				} catch {
@@ -814,7 +814,7 @@ namespace Tomboy
 		// as the current note's title, it's safe to omit this check and
 		// also works around the bug.
 		if (link != null) {
-				Logger.Log ("Opening note '{0}' on click...", link_name);
+				Logger.Debug ("Opening note '{0}' on click...", link_name);
 				link.Window.Present ();
 				return true;
 			}
@@ -892,7 +892,7 @@ namespace Tomboy
 			                match = match.NextMatch ()) {
 				System.Text.RegularExpressions.Group group = match.Groups [1];
 
-				Logger.Log ("Highlighting wikiword: '{0}' at offset {1}",
+				Logger.Debug ("Highlighting wikiword: '{0}' at offset {1}",
 				            group,
 				            group.Index);
 

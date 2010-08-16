@@ -59,7 +59,7 @@ namespace Tomboy.Sync
 					AdjustPermissions (serverNotePath);
 					updatedNotes.Add (Path.GetFileNameWithoutExtension (note.FilePath));
 				} catch (Exception e) {
-					Logger.Log ("Sync: Error uploading note \"{0}\": {1}", note.Title, e.Message);
+					Logger.Error ("Sync: Error uploading note \"{0}\": {1}", note.Title, e.Message);
 				}
 			}
 		}
@@ -70,7 +70,7 @@ namespace Tomboy.Sync
 				try {
 					deletedNotes.Add (uuid);
 				} catch (Exception e) {
-					Logger.Log ("Sync: Error deleting note: " + e.Message);
+					Logger.Error ("Sync: Error deleting note: " + e.Message);
 				}
 			}
 		}

@@ -53,8 +53,8 @@ namespace Tomboy
 		public NoteTag (IntPtr raw)
 : base (raw)
 		{
-			Logger.Log ("{0} IntPtr initializer called!", GetType());
-			Logger.Log ((new System.Diagnostics.StackTrace()).ToString());
+			Logger.Info ("{0} IntPtr initializer called!", GetType());
+			Logger.Info ((new System.Diagnostics.StackTrace()).ToString());
 		}
 
 		public virtual void Initialize (string element_name)
@@ -415,7 +415,7 @@ namespace Tomboy
 						Attributes [name] = xml.Value;
 
 						OnAttributeRead (name);
-						Logger.Log (
+						Logger.Debug (
 						        "NoteTag: {0} read attribute {1}='{2}'",
 						        ElementName,
 						        name,

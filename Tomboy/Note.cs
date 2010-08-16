@@ -494,7 +494,7 @@ namespace Tomboy
 			if (!save_needed)
 				return;
 
-			Logger.Log ("Saving '{0}'...", data.Data.Title);
+			Logger.Debug ("Saving '{0}'...", data.Data.Title);
 
 			try {
 				NoteArchiver.Write (filepath, data.GetDataSynchronized ());
@@ -628,7 +628,7 @@ namespace Tomboy
 			} catch (Exception e) {
 				// FIXME: Present a nice dialog here that interprets the
 				// error message correctly.
-				Logger.Log ("Error while saving: {0}", e);
+				Logger.Error ("Error while saving: {0}", e);
 			}
 		}
 
@@ -864,7 +864,7 @@ namespace Tomboy
 			}
 			set {
 				if (buffer != null) {
-					buffer.SetText("");
+					buffer.Text = string.Empty;
 					NoteBufferArchiver.Deserialize (buffer, value);
 				} else
 					data.Text = value;
@@ -985,9 +985,9 @@ namespace Tomboy
 			}
 			set {
 				if (buffer != null)
-					buffer.SetText (value);
+					buffer.Text = value;
 				else
-					Logger.Log ("Setting text content for closed notes not supported");
+					Logger.Error ("Setting text content for closed notes not supported");
 			}
 
 		}
@@ -1062,7 +1062,7 @@ namespace Tomboy
 		{
 			get {
 				if (buffer == null) {
-					Logger.Log ("Creating Buffer for '{0}'...",
+					Logger.Debug ("Creating Buffer for '{0}'...",
 					data.Data.Title);
 
 					buffer = new NoteBuffer (TagTable, this);
@@ -1272,7 +1272,7 @@ namespace Tomboy
 			if (version != NoteArchiver.CURRENT_VERSION) {
 				// Note has old format, so rewrite it.  No need
 				// to reread, since we are not adding anything.
-				Logger.Log ("Updating note XML to newest format...");
+				Logger.Info ("Updating note XML to newest format...");
 				NoteArchiver.Write (read_file, data);
 			}
 

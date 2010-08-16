@@ -392,7 +392,7 @@ namespace Tomboy.Sync
 						throw new Exception ("addin.CreateSyncServer () returned null");
 				} catch (Exception e) {
 					SetState (SyncState.SyncServerCreationFailed);
-					Logger.Log ("Exception while creating SyncServer: {0}\n{1}", e.Message, e.StackTrace);
+					Logger.Error ("Exception while creating SyncServer: {0}\n{1}", e.Message, e.StackTrace);
 					SetState (SyncState.Idle);
 					syncThread = null;
 					addin.PostSyncCleanup ();// TODO: Needed?
@@ -407,7 +407,7 @@ namespace Tomboy.Sync
 				// TODO: We should really throw exceptions from BeginSyncTransaction ()
 				if (!server.BeginSyncTransaction ()) {
 					SetState (SyncState.Locked);
-					Logger.Log ("PerformSynchronization: Server locked, try again later");
+					Logger.Warn ("PerformSynchronization: Server locked, try again later");
 					SetState (SyncState.Idle);
 					syncThread = null;
 					addin.PostSyncCleanup ();
