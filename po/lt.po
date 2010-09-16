@@ -7,17 +7,18 @@
 # Žygimantas Beručka <zygis@gnome.org>, 2005-2007, 2009.
 # Gintautas Miliauskas <gintas@akl.lt>, 2006, 2007, 2008.
 # Vytautas Rėkus <v.rekus@gmail.com>, 2009.
+# Aurimas Černius <aurisc4@gmail.com>, 2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: tomboy.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-22 11:24+0300\n"
-"PO-Revision-Date: 2010-07-22 11:24+0300\n"
-"Last-Translator: Gintautas Miliauskas <gintautas@miliauskas.lt>\n"
-"Language-Team: Lithuanian <gnome-lt@lists.akl.lt>\n"
+"POT-Creation-Date: 2010-09-16 23:31+0300\n"
+"PO-Revision-Date: 2010-09-12 15:21+0300\n"
+"Last-Translator: Aurimas Černius <aurisc4@gmail.com>\n"
+"Language-Team: Lietuvių <gnome-lt@lists.akl.lt>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: UTF-8\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%"
 "100<10 || n%100>=20) ? 1 : 2);\n"
 
@@ -135,7 +136,7 @@ msgstr "Įjungti paleidimo raštelius"
 
 #: ../data/tomboy.schemas.in.h:18
 msgid "Enable the Delete Note confirmation dialog"
-msgstr ""
+msgstr "Įjungti raštelio trynimo patvirtinimo dialogą"
 
 #: ../data/tomboy.schemas.in.h:19
 msgid ""
@@ -180,7 +181,7 @@ msgstr "Eksportuoti į HTML susietus raštelius"
 #: ../data/tomboy.schemas.in.h:26
 msgid ""
 "If disabled, the \"Delete Note\" confirmation dialog will be suppressed."
-msgstr ""
+msgstr "Jei išjungta, patvirtinimo dialogas \"Trinti raštelį\" bus praleistas."
 
 #: ../data/tomboy.schemas.in.h:27
 msgid ""
@@ -208,6 +209,9 @@ msgid ""
 "Disabling this may be useful when another application is providing the "
 "functionality of the tray icon."
 msgstr ""
+"Jei teigiama, Tomboy dėklo piktograma bus rodoma pranešimų vietoje. Šios "
+"funkcijos išjungimas gali būti naudingas, kai kita programa pateikia dėklo "
+"piktogramos funkcionalumą."
 
 #: ../data/tomboy.schemas.in.h:31
 msgid ""
@@ -287,16 +291,16 @@ msgid ""
 "will continue linking to the renamed note."
 msgstr ""
 "Sveikojo skaičiaus reikšmė nurodanti, ar yra pageidavimas visada atlikti tam "
-"tikrus veiksmus aptikus konfliktą, užuot klausus naudotojo. Reikšmės "
-"priskirto vidiniam sąrašui. 0 nurodo, kad naudotojas pageidauja būti "
-"paklaustas, kai atsitinka konfliktas, kad jis galėtų susidoroti su kiekvienu "
-"konfliktu atsižvelgdamas į konkrečią situaciją. 1 – nuorodos "
-"automatiškai šalinamos, 2 – automatiškai pervadinamos, kad rodytų į tą patį "
-"raštelį."
+"tikrus saitų atnaujinimo veiksmus pervadinus raštelį, užuot klausus "
+"naudotojo. Reikšmės priskirtos vidiniam sąrašui. 0 nurodo, kad naudotojas "
+"pageidauja būti paklaustas, kai raštelio pervadinimas gali paveikti saitus "
+"kituose rašteliuose. 1 – saitai automatiškai šalinami, 2 – nurodo, kad saito "
+"tekstas turi būti atnaujintas į naują raštelio pavadinimą, kad.jis toliau "
+"sietų su pervadintu rašteliu."
 
 #: ../data/tomboy.schemas.in.h:39
 msgid "Link Updating Behavior on Note Rename"
-msgstr "Nuorodų atnaujinimo elgsena pervadinant raštelį"
+msgstr "Saitų atnaujinimo elgsena pervadinant raštelį"
 
 #: ../data/tomboy.schemas.in.h:40
 msgid "List of pinned notes."
@@ -692,7 +696,7 @@ msgid ""
 "You can use any bugzilla just by dragging links into notes.  If you want a "
 "special icon for certain hosts, add them here."
 msgstr ""
-"Galite naudoti bugzillą tiesiog nuvilkdami nuorodas į raštelius. Jeigu tam "
+"Galite naudoti bugzillą tiesiog nuvilkdami saitus į raštelius. Jeigu tam "
 "tikriems serveriams norite specialių piktogramų, galite jas čia pridėti."
 
 #: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:41
@@ -737,28 +741,28 @@ msgstr "Tikrai pašalinti šią piktogramą?"
 msgid "If you remove an icon it is permanently lost."
 msgstr "Jeigu pašalinti šią piktogramą, ji bus prarasta visam laikui."
 
-#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:66
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:67
 msgid "Export to HTML"
 msgstr "Eksportuoti į HTML"
 
-#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:114
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:115
 #, csharp-format
 msgid "Your note was exported to \"{0}\"."
 msgstr "Jūsų raštelis buvo eksportuotas į „{0}“."
 
-#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:125
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:126
 msgid "Note exported successfully"
 msgstr "Raštelis eksportuotas sėkmingai"
 
-#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:131
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:132
 msgid "Access denied."
 msgstr "Prieiga uždrausta."
 
-#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:133
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:134
 msgid "Folder does not exist."
 msgstr "Aplankas neegzistuoja."
 
-#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:148
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:149
 #, csharp-format
 msgid "Could not save the file \"{0}\""
 msgstr "Nepavyko išsaugoti failo „{0}“"
@@ -1068,7 +1072,7 @@ msgstr "Autorizuojama naršyklėje (spauskite, jei norite nutraukti ryšį)"
 msgid "Set the default browser and try again"
 msgstr "Nustatykite numatytąją naršyklę ir bandykite dar kartą"
 
-#: ../Tomboy/JumpListManager.cs:77 ../Tomboy/RecentChanges.cs:83
+#: ../Tomboy/JumpListManager.cs:96 ../Tomboy/RecentChanges.cs:83
 msgid "Search All Notes"
 msgstr "Ieškoti visuose rašteliuose"
 
@@ -1076,16 +1080,16 @@ msgstr "Ieškoti visuose rašteliuose"
 #. icons_path, (int)TomboyIcons.NewNotebook);
 #. if (new_notebook != null)
 #. object_collection.AddObject(new_notebook);
-#: ../Tomboy/JumpListManager.cs:87
+#: ../Tomboy/JumpListManager.cs:106
 msgid "Create New Note"
 msgstr "Sukurti naują raštelį"
 
-#: ../Tomboy/JumpListManager.cs:117
+#: ../Tomboy/JumpListManager.cs:136
 #, csharp-format
 msgid "{0} (new)"
 msgstr "{0} (naujas)"
 
-#: ../Tomboy/JumpListManager.cs:139
+#: ../Tomboy/JumpListManager.cs:158
 msgid "Recent Notes"
 msgstr "Vėliausi rašteliai"
 
@@ -1360,18 +1364,18 @@ msgid ""
 "Also, if you type the name of another note in your current note, it will "
 "automatically be linked for you.</note-content>"
 msgstr ""
-"<note-content>Nuorodų naudojimas Tomboy\n"
+"<note-content>Saitų naudojimas Tomboy\n"
 "\n"
 "Programoje Tomboy raštelius galima susieti kartu, pažymėjus raštelyje esantį "
 "tekstą ir spustelėjus virš įrankinės esantį mygtuką <bold>Susieti</bold> "
 "Taip bus sukurtas naujas raštelis bei šiame raštelyje pabrėžtas raštelio "
 "pavadinimas.\n"
 "\n"
-"Pakeitus raštelio pavadinimą, nuorodos, esančios kituose rašteliuose, taip "
-"pat bus atnaujintos. Taip pervadinus raštelį nesugadinamos nuorodos į jį.\n"
+"Pakeitus raštelio pavadinimą, saitai, esantys kituose rašteliuose, taip pat "
+"bus atnaujinti. Taip pervadinus raštelį nesugadinami saitai į jį.\n"
 "\n"
 "Taip pat, jeigu įvesite kito raštelio pavadinimą dabartiniame raštelyje, "
-"automatiškai bus sukurta nuoroda į jį.</note-content>"
+"automatiškai bus sukurtas saitas į jį.</note-content>"
 
 #. Attempt to find an existing Start Here note
 #: ../Tomboy/NoteManager.cs:299 ../Tomboy/NoteManager.cs:368
@@ -1380,7 +1384,7 @@ msgstr "Pradėkite čia"
 
 #: ../Tomboy/NoteManager.cs:304
 msgid "Using Links in Tomboy"
-msgstr "Nuorodų naudojimas Tomboy"
+msgstr "Saitų naudojimas Tomboy"
 
 #: ../Tomboy/NoteManager.cs:445
 #, csharp-format
@@ -1395,15 +1399,15 @@ msgstr "Čia aprašykite naują raštelį"
 
 #: ../Tomboy/NoteRenameDialog.cs:50
 msgid "Rename Note Links?"
-msgstr "Pervadinti raštelių nuorodas?"
+msgstr "Pervadinti raštelių saitus?"
 
 #: ../Tomboy/NoteRenameDialog.cs:56
 msgid "_Rename Links"
-msgstr "_Pervadinti nuorodas"
+msgstr "_Pervadinti saitus"
 
 #: ../Tomboy/NoteRenameDialog.cs:59
 msgid "_Don't Rename Links"
-msgstr "_Nepervadinti nuorodų"
+msgstr "_Nepervadinti saitų"
 
 #: ../Tomboy/NoteRenameDialog.cs:67
 #, csharp-format
@@ -1416,11 +1420,11 @@ msgstr ""
 "Pervadinti \"<span underline=\"single\">{0}</span>\" į \"<span underline="
 "\"single\">{1}</span>\"?\n"
 "\n"
-"Jei nepervadinsite nuorodų, jos į nieką neberodys."
+"Jei nepervadinsite saitų, jos į nieką neberodys."
 
 #: ../Tomboy/NoteRenameDialog.cs:83
 msgid "Rename Links"
-msgstr "Pervadinti nuorodas"
+msgstr "Pervadinti saitus"
 
 #: ../Tomboy/NoteRenameDialog.cs:95
 #: ../Tomboy/Synchronization/SyncDialog.cs:119
@@ -1447,11 +1451,11 @@ msgstr "Visada rodyti šį _langą"
 
 #: ../Tomboy/NoteRenameDialog.cs:155
 msgid "Never rename _links"
-msgstr "_Niekada nepervadinti nuorodų"
+msgstr "_Niekada nepervadinti saitų"
 
 #: ../Tomboy/NoteRenameDialog.cs:163
 msgid "Alwa_ys rename links"
-msgstr "_Visada pervadinti nuorodas"
+msgstr "_Visada pervadinti saitus"
 
 #: ../Tomboy/NoteWindow.cs:58
 msgid "Find in This Note"
@@ -1459,7 +1463,7 @@ msgstr "Ieškoti šiame raštelyje"
 
 #: ../Tomboy/NoteWindow.cs:361
 msgid "_Link to New Note"
-msgstr "Sukurti nuorodą į naują _raštelį"
+msgstr "Sukurti saitą į naują _raštelį"
 
 #: ../Tomboy/NoteWindow.cs:373
 msgid "Te_xt"
@@ -1649,11 +1653,11 @@ msgstr "Paklausti, ką daryti"
 
 #: ../Tomboy/PreferencesDialog.cs:239
 msgid "Never rename links"
-msgstr "Niekada nepervadinti nuorodų"
+msgstr "Niekada nepervadinti saitų"
 
 #: ../Tomboy/PreferencesDialog.cs:240
 msgid "Always rename links"
-msgstr "Visada pervadinti nuorodas"
+msgstr "Visada pervadinti saitus"
 
 #: ../Tomboy/PreferencesDialog.cs:260
 msgid ""
@@ -1890,23 +1894,23 @@ msgstr[2] "Atitinka: {0} raštelių"
 msgid "Notes"
 msgstr "Rašteliai"
 
-#: ../Tomboy/Tomboy.cs:275
+#: ../Tomboy/Tomboy.cs:251
 msgid "Cannot create new note"
 msgstr "Nepavyko sukurti naujo raštelio"
 
-#: ../Tomboy/Tomboy.cs:341
+#: ../Tomboy/Tomboy.cs:317
 msgid "Primary Development:"
 msgstr "Pagrindinis vystymas:"
 
-#: ../Tomboy/Tomboy.cs:347
+#: ../Tomboy/Tomboy.cs:323
 msgid "Contributors:"
 msgstr "Pagalbininkai:"
 
-#: ../Tomboy/Tomboy.cs:412
+#: ../Tomboy/Tomboy.cs:388
 msgid "translator-credits"
 msgstr "Žygimantas Beručka <zygis@gnome.org>"
 
-#: ../Tomboy/Tomboy.cs:421
+#: ../Tomboy/Tomboy.cs:397
 msgid ""
 "Copyright © 2004-2007 Alex Graveley\n"
 "Copyright © 2004-2009 Others\n"
@@ -1914,15 +1918,15 @@ msgstr ""
 "Autorinės teisės priklauso © 2004-2007 Alex Graveley\n"
 "Autorinės teisės priklauso © 2004-2009 kitiems\n"
 
-#: ../Tomboy/Tomboy.cs:423
+#: ../Tomboy/Tomboy.cs:399
 msgid "A simple and easy to use desktop note-taking application."
 msgstr "Paprasta ir lengva naudoti aplinkos užrašinė."
 
-#: ../Tomboy/Tomboy.cs:433
+#: ../Tomboy/Tomboy.cs:409
 msgid "Homepage"
 msgstr "Tinklalapis"
 
-#: ../Tomboy/Tomboy.cs:551
+#: ../Tomboy/Tomboy.cs:527
 msgid ""
 "Tomboy: A simple, easy to use desktop note-taking application.\n"
 "Copyright (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
@@ -1932,7 +1936,7 @@ msgstr ""
 "Autorinės teisės (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
 "\n"
 
-#: ../Tomboy/Tomboy.cs:563
+#: ../Tomboy/Tomboy.cs:539
 msgid ""
 "Usage:\n"
 "  --version\t\t\tPrint version information.\n"
@@ -1947,7 +1951,7 @@ msgstr ""
 "  --search [tekstas]\t\tAtverti paieškos visuose rašteliuose langą su "
 "paieškos tekstu.\n"
 
-#: ../Tomboy/Tomboy.cs:573
+#: ../Tomboy/Tomboy.cs:549
 msgid ""
 "  --new-note\t\t\tCreate and display a new note.\n"
 "  --new-note [title]\t\tCreate and display a new note, with a title.\n"
@@ -1965,7 +1969,7 @@ msgstr ""
 "  --highlight-search [tekstas]\tAtvertame raštelyje surasti ir paryškinti "
 "tekstą.\n"
 
-#: ../Tomboy/Tomboy.cs:587
+#: ../Tomboy/Tomboy.cs:563
 #, csharp-format
 msgid "Version {0}"
 msgstr "Versija {0}"
@@ -1978,7 +1982,7 @@ msgstr " (naujas)"
 msgid "_About Tomboy"
 msgstr "_Apie Tomboy"
 
-#: ../Tomboy/Utils.cs:144
+#: ../Tomboy/Utils.cs:189
 msgid ""
 "The \"Tomboy Notes Manual\" could not be found.  Please verify that your "
 "installation has been completed successfully."
@@ -1986,33 +1990,33 @@ msgstr ""
 "„Tomboy raštelių žinynas“ nerastas. Patikrinkite, ar programa buvo įdiegta "
 "sėkmingai."
 
-#: ../Tomboy/Utils.cs:153
+#: ../Tomboy/Utils.cs:198
 msgid "Help not found"
 msgstr "Žinynas nerastas"
 
-#: ../Tomboy/Utils.cs:169
+#: ../Tomboy/Utils.cs:214
 msgid "Cannot open location"
 msgstr "Nepavyko atverti vietos"
 
-#: ../Tomboy/Utils.cs:191
+#: ../Tomboy/Utils.cs:236
 #, csharp-format
 msgid "Today, {0}"
 msgstr "Šiandien, {0}"
 
-#: ../Tomboy/Utils.cs:193
+#: ../Tomboy/Utils.cs:238
 msgid "Today"
 msgstr "Šiandien"
 
-#: ../Tomboy/Utils.cs:197
+#: ../Tomboy/Utils.cs:242
 #, csharp-format
 msgid "Yesterday, {0}"
 msgstr "Vakar, {0}"
 
-#: ../Tomboy/Utils.cs:199
+#: ../Tomboy/Utils.cs:244
 msgid "Yesterday"
 msgstr "Vakar"
 
-#: ../Tomboy/Utils.cs:204
+#: ../Tomboy/Utils.cs:249
 #, csharp-format
 msgid "{0} day ago, {1}"
 msgid_plural "{0} days ago, {1}"
@@ -2020,7 +2024,7 @@ msgstr[0] "prieš {0} dieną, {1}"
 msgstr[1] "prieš {0} dienas, {1}"
 msgstr[2] "prieš {0} dienų, {1}"
 
-#: ../Tomboy/Utils.cs:208
+#: ../Tomboy/Utils.cs:253
 #, csharp-format
 msgid "{0} day ago"
 msgid_plural "{0} days ago"
@@ -2028,16 +2032,16 @@ msgstr[0] "prieš {0} dieną"
 msgstr[1] "prieš {0} dienas"
 msgstr[2] "prieš {0} dienų"
 
-#: ../Tomboy/Utils.cs:214
+#: ../Tomboy/Utils.cs:259
 #, csharp-format
 msgid "Tomorrow, {0}"
 msgstr "Rytoj, {0}"
 
-#: ../Tomboy/Utils.cs:216
+#: ../Tomboy/Utils.cs:261
 msgid "Tomorrow"
 msgstr "Rytoj"
 
-#: ../Tomboy/Utils.cs:221
+#: ../Tomboy/Utils.cs:266
 #, csharp-format
 msgid "In {0} day, {1}"
 msgid_plural "In {0} days, {1}"
@@ -2045,7 +2049,7 @@ msgstr[0] "Po {0} dienos, {1}"
 msgstr[1] "Po {0} dienų, {1}"
 msgstr[2] "Po {0} dienų, {1}"
 
-#: ../Tomboy/Utils.cs:225
+#: ../Tomboy/Utils.cs:270
 #, csharp-format
 msgid "In {0} day"
 msgid_plural "In {0} days"
@@ -2053,23 +2057,23 @@ msgstr[0] "Po {0} dienos"
 msgstr[1] "Po {0} dienų"
 msgstr[2] "Po {0} dienų"
 
-#: ../Tomboy/Utils.cs:230
+#: ../Tomboy/Utils.cs:275
 msgid "MMMM d, h:mm tt"
 msgstr "MMMM d, h:mm tt"
 
-#: ../Tomboy/Utils.cs:231
+#: ../Tomboy/Utils.cs:276
 msgid "MMMM d"
 msgstr "MMMM d"
 
-#: ../Tomboy/Utils.cs:233
+#: ../Tomboy/Utils.cs:278
 msgid "No Date"
 msgstr "Nėra datos"
 
-#: ../Tomboy/Utils.cs:236
+#: ../Tomboy/Utils.cs:281
 msgid "MMMM d yyyy, h:mm tt"
 msgstr "yyyy MMMM d, hh:mm tt"
 
-#: ../Tomboy/Utils.cs:237
+#: ../Tomboy/Utils.cs:282
 msgid "MMMM d yyyy"
 msgstr "yyyy MMMM d"
 
@@ -2093,11 +2097,11 @@ msgstr "Raštelio pavadinimas užimtas"
 
 #: ../Tomboy/Watchers.cs:549
 msgid "_Copy Link Address"
-msgstr "_Kopijuoti nuorodos adresą"
+msgstr "_Kopijuoti saito adresą"
 
 #: ../Tomboy/Watchers.cs:554
 msgid "_Open Link"
-msgstr "_Atverti nuorodą"
+msgstr "_Atverti saitą"
 
 #: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:94
 #, csharp-format
@@ -2310,7 +2314,7 @@ msgstr "Pervadinti vietinį raštelį:"
 
 #: ../Tomboy/Synchronization/SyncDialog.cs:547
 msgid "Update links in referencing notes"
-msgstr "Atnaujinti nuorodas į nurodų raštelius"
+msgstr "Atnaujinti saitus susietuose rašteliuose"
 
 #: ../Tomboy/Synchronization/SyncDialog.cs:554
 msgid "Overwrite local note"
