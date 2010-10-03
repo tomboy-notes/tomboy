@@ -313,7 +313,7 @@ tomboy_keybinder_is_modifier (guint keycode)
 	XModifierKeymap *mod_keymap;
 	gboolean retval = FALSE;
 
-	mod_keymap = XGetModifierMapping (gdk_display);
+	mod_keymap = XGetModifierMapping (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()));
 
 	map_size = 8 * mod_keymap->max_keypermod;
 
