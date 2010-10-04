@@ -76,8 +76,14 @@ namespace LibProxy {
                 
                 ~ProxyFactory()
                 {
+                    try {
                         // TODO: See note above...
                         px_proxy_factory_free(this.self);
+                    }
+                    catch (DllNotFoundException)
+                    {
+                        // Couldn't load LibProxy previously, prevent failure on GC
+                    }
                 }
         }
 }
