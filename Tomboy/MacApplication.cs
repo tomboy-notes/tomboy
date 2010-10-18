@@ -146,6 +146,9 @@ namespace Tomboy
         <menuitem action=""ShowSearchAllNotesAction""/>
 	<separator />
       </menu>
+      <menu name=""HelpMenu"">
+        <menuitem action=""ShowHelpAction""/>
+      </menu>
     </placeholder>
   </menubar>
 </ui>
