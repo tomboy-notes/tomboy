@@ -120,8 +120,7 @@ namespace Tomboy
 
 		public virtual void DisplayHelp (string project, string page, Gdk.Screen screen)
 		{
-			string version = Defines.VERSION.Remove (Defines.VERSION.LastIndexOf ('.'));
-			OpenUrl (string.Format ("http://library.gnome.org/users/{0}/{1}", project, version), screen);
+			OpenUrl (string.Format("http://library.gnome.org/users/{0}/", project), screen);
 		}
 
 		#endregion
