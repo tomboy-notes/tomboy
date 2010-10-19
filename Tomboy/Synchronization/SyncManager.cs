@@ -892,7 +892,7 @@ namespace Tomboy.Sync
 		private string GetInnerContent (string fullContentElement)
 		{
 			const string noteContentRegex =
-				@"^<note-content(\s+version=""(?<contentVersion>[^""]*)"")?\s*((/>)|(>(?<innerContent>.*)</note-content>))$";
+				@"^<note-content([^>]+version=""(?<contentVersion>[^""]*)"")?[^>]*((/>)|(>(?<innerContent>.*)</note-content>))$";
 			Match m = Regex.Match (fullContentElement, noteContentRegex, RegexOptions.Singleline);
 			Group contentGroup = m.Groups ["innerContent"];
 			if (!contentGroup.Success)
