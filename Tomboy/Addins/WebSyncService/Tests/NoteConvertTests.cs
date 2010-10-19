@@ -231,7 +231,7 @@ Describe your new note here.</note-content>";
 			expectedInfoContents [17] = @"Describe your new note here.";
 			
 
-			for (int i =0; i < titles.Length; i++) {
+			for (int i = 0; i < titles.Length; i++) {
 				NoteData data = new NoteData ("note://tomboy/12345");
 				data.Title = titles [i];
 				data.Text = contents [i];
@@ -243,9 +243,9 @@ Describe your new note here.</note-content>";
 				Note note = Note.CreateExistingNote (data, tmpFileName, null);
 				
 				NoteInfo info = NoteConvert.ToNoteInfo (note);
-				Assert.AreEqual (titles [i], info.Title, "Title");
-				Assert.AreEqual (expectedInfoContents [i], info.NoteContent, "NoteContent");
-				Assert.AreEqual (0.1, info.NoteContentVersion.Value, "NoteContentVersion");
+				Assert.AreEqual (titles [i], info.Title, "Title " + i.ToString ());
+				Assert.AreEqual (expectedInfoContents [i], info.NoteContent, "NoteContent " + i.ToString ());
+				Assert.AreEqual (0.1, info.NoteContentVersion.Value, "NoteContentVersion " + i.ToString ());
 			}
 		}
 	}
