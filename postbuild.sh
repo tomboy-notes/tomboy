@@ -1,9 +1,5 @@
 #!/bin/sh
 
-cp macbin/ige-mac-integration-sharp.dll bin/Debug
-
-cp data/icons/tomboy.ico tomboy.ico
-
 mkdir -p bin/Debug/tomboy/icons/hicolor/16x16/apps
 mkdir -p bin/Debug/tomboy/icons/hicolor/22x22/apps
 mkdir -p bin/Debug/tomboy/icons/hicolor/24x24/apps

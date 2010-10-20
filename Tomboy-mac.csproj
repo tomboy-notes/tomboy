@@ -131,7 +131,6 @@
     <Reference Include="ige-mac-integration-sharp, Version=0.6.0.0, Culture=neutral, PublicKeyToken=8df8155add92b1bc">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>macbin\ige-mac-integration-sharp.dll</HintPath>
-      <Private>False</Private>
     </Reference>
     <Reference Include="System.Runtime.Remoting" />
     <Reference Include="System.Core">
@@ -279,66 +278,7 @@
     <VisualStudio />
   </ProjectExtensions>
   <PropertyGroup>
-    <PreBuildEvent>copy "$(ProjectDir)data\icons\tomboy.ico" "$(ProjectDir)tomboy.ico"
-copy "$(ProjectDir)data\icons\hicolor_apps_48x48_tomboy.png" "$(ProjectDir)tomboy.png"
-copy "$(ProjectDir)data\icons\hicolor_places_22x22_note.png" "$(ProjectDir)note.png"
-copy "$(ProjectDir)data\icons\hicolor_actions_16x16_note-new.png" "$(ProjectDir)note-new.png"
-copy "$(ProjectDir)data\icons\hicolor_actions_22x22_filter-note-all.png" "$(ProjectDir)filter-note-all.png"
-copy "$(ProjectDir)data\icons\hicolor_actions_22x22_filter-note-unfiled.png" "$(ProjectDir)\filter-note-unfiled.png"
-copy "$(ProjectDir)data\icons\hicolor_places_22x22_notebook.png" "$(ProjectDir)notebook.png"
-copy "$(ProjectDir)data\icons\hicolor_actions_48x48_notebook-new.png" "$(ProjectDir)notebook-new.png"
-copy "$(ProjectDir)data\icons\hicolor_status_16x16_pin-down.png" "$(ProjectDir)pin-down.png"
-copy "$(ProjectDir)data\icons\hicolor_status_16x16_pin-up.png" "$(ProjectDir)pin-up.png"
-copy "$(ProjectDir)data\icons\hicolor_status_16x16_pin-active.png" "$(ProjectDir)pin-active.png"
-copy "$(ProjectDir)Tomboy\Tomboy.addin.xml" "$(ProjectDir)"
-copy "$(ProjectDir)data\UIManagerLayout.xml" "$(ProjectDir)"</PreBuildEvent>
-    <PostBuildEvent>copy "$(ProjectDir)data\icons\tomboy.ico" "$(ProjectDir)tomboy.ico"
-
-mkdir "$(ProjectDir)bin\Debug\tomboy\icons\hicolor\16x16\apps"
-mkdir "$(ProjectDir)bin\Debug\tomboy\icons\hicolor\22x22\apps"
-mkdir "$(ProjectDir)bin\Debug\tomboy\icons\hicolor\24x24\apps"
-mkdir "$(ProjectDir)bin\Debug\tomboy\icons\hicolor\32x32\apps"
-mkdir "$(ProjectDir)bin\Debug\tomboy\icons\hicolor\48x48\apps"
-mkdir "$(ProjectDir)bin\Debug\tomboy\icons\hicolor\scalable\apps"
-
-mkdir "$(ProjectDir)bin\Debug\tomboy\icons\hicolor\16x16\actions"
-mkdir "$(ProjectDir)bin\Debug\tomboy\icons\hicolor\22x22\actions"
-mkdir "$(ProjectDir)bin\Debug\tomboy\icons\hicolor\24x24\actions"
-mkdir "$(ProjectDir)bin\Debug\tomboy\icons\hicolor\32x32\actions"
-mkdir "$(ProjectDir)bin\Debug\tomboy\icons\hicolor\48x48\actions"
-mkdir "$(ProjectDir)bin\Debug\tomboy\icons\hicolor\scalable\actions"
-
-mkdir "$(ProjectDir)bin\Debug\tomboy\icons\hicolor\16x16\places"
-mkdir "$(ProjectDir)bin\Debug\tomboy\icons\hicolor\22x22\places"
-mkdir "$(ProjectDir)bin\Debug\tomboy\icons\hicolor\24x24\places"
-mkdir "$(ProjectDir)bin\Debug\tomboy\icons\hicolor\32x32\places"
-mkdir "$(ProjectDir)bin\Debug\tomboy\icons\hicolor\48x48\places"
-mkdir "$(ProjectDir)bin\Debug\tomboy\icons\hicolor\scalable\places"
-
-mkdir "$(ProjectDir)bin\Debug\tomboy\icons\hicolor\16x16\status"
-mkdir "$(ProjectDir)bin\Debug\tomboy\icons\hicolor\22x22\status"
-mkdir "$(ProjectDir)bin\Debug\tomboy\icons\hicolor\24x24\status"
-mkdir "$(ProjectDir)bin\Debug\tomboy\icons\hicolor\32x32\status"
-mkdir "$(ProjectDir)bin\Debug\tomboy\icons\hicolor\48x48\status"
-mkdir "$(ProjectDir)bin\Debug\tomboy\icons\hicolor\scalable\status"
-
-copy "$(ProjectDir)data\icons\hicolor_actions_16x16_note-new.png" "$(ProjectDir)bin\Debug\tomboy\icons\hicolor\16x16\actions\note-new.png"
-copy "$(ProjectDir)data\icons\hicolor_actions_48x48_notebook-new.png" "$(ProjectDir)bin\Debug\tomboy\icons\hicolor\48x48\actions\notebook-new.png"
-copy "$(ProjectDir)data\icons\hicolor_actions_22x22_filter-note-all.png" "$(ProjectDir)bin\Debug\tomboy\icons\hicolor\22x22\actions\filter-note-all.png"
-copy "$(ProjectDir)data\icons\hicolor_actions_22x22_filter-note-unfiled.png" "$(ProjectDir)bin\Debug\tomboy\icons\hicolor\22x22\actions\filter-note-unfiled.png"
-copy "$(ProjectDir)data\icons\hicolor_apps_16x16_tomboy.png" "$(ProjectDir)bin\Debug\tomboy\icons\hicolor\16x16\apps\tomboy.png"
-copy "$(ProjectDir)data\icons\hicolor_apps_22x22_tomboy.png" "$(ProjectDir)bin\Debug\tomboy\icons\hicolor\22x22\apps\tomboy.png"
-copy "$(ProjectDir)data\icons\hicolor_apps_24x24_tomboy.png" "$(ProjectDir)bin\Debug\tomboy\icons\hicolor\24x24\apps\tomboy.png"
-copy "$(ProjectDir)data\icons\hicolor_apps_32x32_tomboy.png" "$(ProjectDir)bin\Debug\tomboy\icons\hicolor\32x32\apps\tomboy.png"
-copy "$(ProjectDir)data\icons\hicolor_apps_48x48_tomboy.png" "$(ProjectDir)bin\Debug\tomboy\icons\hicolor\48x48\apps\tomboy.png"
-copy "$(ProjectDir)data\icons\hicolor_apps_scalable_tomboy.svg" "$(ProjectDir)bin\Debug\tomboy\icons\hicolor\scalable\apps\tomboy.svg"
-copy "$(ProjectDir)data\icons\hicolor_places_22x22_note.png" "$(ProjectDir)bin\Debug\tomboy\icons\hicolor\22x22\places\note.png"
-copy "$(ProjectDir)data\icons\hicolor_places_22x22_notebook.png" "$(ProjectDir)bin\Debug\tomboy\icons\hicolor\22x22\places\notebook.png"
-copy "$(ProjectDir)data\icons\hicolor_status_16x16_pin-down.png" "$(ProjectDir)bin\Debug\tomboy\icons\hicolor\16x16\status\pin-down.png"
-copy "$(ProjectDir)data\icons\hicolor_status_16x16_pin-up.png" "$(ProjectDir)bin\Debug\tomboy\icons\hicolor\16x16\status\pin-up.png"
-copy "$(ProjectDir)data\icons\hicolor_status_16x16_pin-active.png" "$(ProjectDir)bin\Debug\tomboy\icons\hicolor\16x16\status\pin-active.png"
-
-copy "$(ProjectDir)Tomboy\Tomboy.addin.xml" "$(ProjectDir)"
-copy "$(ProjectDir)data\UIManagerLayout.xml" "$(ProjectDir)"</PostBuildEvent>
+    <PreBuildEvent>(cd $(ProjectDir) ; ./prebuild.sh)</PreBuildEvent>
+    <PostBuildEvent>(cd $(ProjectDir) ; ./postbuild.sh)</PostBuildEvent>
   </PropertyGroup>
 </Project>
