@@ -1010,13 +1010,6 @@ namespace Tomboy
 		[GLib.ConnectBefore]
 		void OnEditorMotion (object sender, Gtk.MotionNotifyEventArgs args)
 		{
-			int pointer_x, pointer_y;
-			Gdk.ModifierType pointer_mask;
-
-			Window.Editor.GdkWindow.GetPointer (out pointer_x,
-			                                    out pointer_y,
-			                                    out pointer_mask);
-
 			bool hovering = false;
 
 			// Figure out if we're on a link by getting the text
@@ -1025,8 +1018,8 @@ namespace Tomboy
 
 			int buffer_x, buffer_y;
 			Window.Editor.WindowToBufferCoords (Gtk.TextWindowType.Widget,
-			                                    pointer_x,
-			                                    pointer_y,
+			                                    (int)args.Event.X,
+			                                    (int)args.Event.Y,
 			                                    out buffer_x,
 			                                    out buffer_y);
 
@@ -1040,8 +1033,8 @@ namespace Tomboy
 			}
 
 			// Don't show hand if Shift or Control is pressed
-			bool avoid_hand = (pointer_mask & (Gdk.ModifierType.ShiftMask |
-			                                   Gdk.ModifierType.ControlMask)) != 0;
+			bool avoid_hand = (args.Event.State & (Gdk.ModifierType.ShiftMask |
+			                                       Gdk.ModifierType.ControlMask)) != 0;
 
 			if (hovering != hovering_on_link) {
 				hovering_on_link = hovering;
