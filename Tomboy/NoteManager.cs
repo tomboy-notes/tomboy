@@ -315,6 +315,7 @@ Ciao!");
 
 		protected virtual void LoadNotes ()
 		{
+			Logger.Debug ("Loading notes");
 			string [] files = Directory.GetFiles (notes_dir, "*.note");
 
 			foreach (string file_path in files) {
@@ -369,6 +370,9 @@ Ciao!");
 				if (start_note != null)
 					Preferences.Set (Preferences.START_NOTE_URI, start_note.Uri);
 			}
+
+			if (NotesLoaded != null)
+				NotesLoaded (this, EventArgs.Empty);
 		}
 
 		void OnExitingEvent (object sender, EventArgs args)
@@ -694,6 +698,7 @@ Ciao!");
 		public event NoteRenameHandler NoteRenamed;
 		public event NoteSavedHandler NoteSaved;
 		public event Action<Note> NoteBufferChanged;
+		public event EventHandler NotesLoaded;
 	}
 
 	public class TrieController

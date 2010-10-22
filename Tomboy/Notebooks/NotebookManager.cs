@@ -51,7 +51,12 @@ namespace Tomboy.Notebooks
 			// </summary>
 			notebookMap = new Dictionary<string, Gtk.TreeIter> ();
 			
-			LoadNotebooks ();
+			// Load the notebooks now if the notes have already been loaded
+			// or wait for the NotesLoaded event otherwise.
+			if (Tomboy.DefaultNoteManager.Initialized)
+				LoadNotebooks ();
+			else
+				Tomboy.DefaultNoteManager.NotesLoaded += OnNotesLoaded;
 		}
 		#endregion // Constructors
 		
@@ -456,11 +461,17 @@ namespace Tomboy.Notebooks
 			return string.Compare (notebook_a.Name, notebook_b.Name);
 		}
 		
+		static void OnNotesLoaded(object sender, EventArgs args)
+		{
+			LoadNotebooks ();
+		}
+
 		/// <summary>
 		/// Loop through the system tags looking for notebooks
 		/// </summary>
 		private static void LoadNotebooks ()
 		{
+			Logger.Debug ("Loading notebooks");
 			Gtk.TreeIter iter = Gtk.TreeIter.Zero;
 			foreach (Tag tag in TagManager.AllTags) {
 				// Skip over tags that aren't notebooks
