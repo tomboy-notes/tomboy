@@ -43,6 +43,7 @@ DOC_PAGES = \
 	problems.page \
 	search.page \
 	sync.page \
+	sync-setup.page \
 	whatsnew.page
 
 DOC_LINGUAS = ca cs de el en_GB es eu fr gl hu it lt oc pl pt_BR ru sv uk vi zh_CN
