@@ -9,6 +9,7 @@ SUBDIRS =				\
 	InsertTimestamp		\
 	NoteOfTheDay		\
 	PrintNotes			\
+	RemoveBrokenLinks	\
 	Sketching			\
 	SshSyncService		\
 	StickyNoteImport	\
