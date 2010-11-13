@@ -1167,7 +1167,7 @@ namespace Tomboy
 				                                      "You have disabled the configured synchronization service.  " +
 				                                      "Your synchronization settings will now be cleared.  " +
 				                                      "You may be forced to synchronize all of your notes again " +
-				                                      "when you save new settings"));
+				                                      "when you save new settings."));
 				dialog.Run ();
 				dialog.Destroy ();
 			}
