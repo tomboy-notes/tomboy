@@ -5,15 +5,16 @@
 # Satoru SATOH <ss@gnome.gr.jp>, 2006.
 # Hideki Yamane (Debian-JP) <henrich@debian.or.jp>, 2009.
 # Takayuki KUSANO <AE5T-KSN@asahi-net.or.jp>, 2010.
+# Hiroyuki Sekihara <hiroyuki.sekihara@gmail.com>, 2010.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: tomboy gnome-2-32\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=tomboy&component=general\n"
-"POT-Creation-Date: 2010-10-14 15:47+0000\n"
+"POT-Creation-Date: 2010-11-01 08:23+0000\n"
 "PO-Revision-Date: 2010-10-19 20:23+0900\n"
-"Last-Translator: Takayuki KUSANO <AE5T-KSN@asahi-net.or.jp>\n"
+"Last-Translator: Hiroyuki Sekihara <hiroyuki.sekihara@gmail.com>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -160,8 +161,8 @@ msgid ""
 "Enable this option to highlight words ThatLookLikeThis. Clicking the word "
 "will create a note with that name."
 msgstr ""
-"TRUE の場合、単語を強調表示します。その単語をクリックすると、単語の名前をタイ"
-"トルにした新しいメモを作成します。"
+"TRUE の場合、ThatLookLikeThis のような単語を強調表示します。その単語をクリッ"
+"クすると、単語の名前をタイトルにした新しいメモを作成します。"
 
 #: ../data/tomboy.schemas.in.h:22
 msgid "FUSE Mounting Timeout (ms)"
@@ -376,7 +377,7 @@ msgstr "検索ウィンドウの幅"
 
 #: ../data/tomboy.schemas.in.h:58
 msgid "Selected Synchronization Service Addin"
-msgstr "選択した同期サービスのプラグイン"
+msgstr "選択した Synchronization サービス アドイン"
 
 #: ../data/tomboy.schemas.in.h:59
 msgid "Set to TRUE to activate"
@@ -494,16 +495,16 @@ msgstr "URI \"note://\" で使用するハンドラ"
 msgid ""
 "The last directory a note was exported to using the Export To HTML plugin."
 msgstr ""
-"\"HTMLのエクスポート\" プラグインを使って、最後にエクスポートしたメモの HTML "
-"を格納したフォルダです。"
+"\"Export To HTML\" アドインを使って、最後にエクスポートしたメモの HTML を格納"
+"したフォルダです。"
 
 #: ../data/tomboy.schemas.in.h:73
 msgid ""
 "The last setting for the 'Export linked notes' checkbox in the Export to "
 "HTML plugin."
 msgstr ""
-"\"HTML へエクスポート\" プラグインの \"メモのエクスポート\" で最後に設定した"
-"チェックボックスの状態です。"
+"\"Export To HTML\" アドインの \"メモのエクスポート\" で最後に設定したチェック"
+"ボックスの状態です。"
 
 #: ../data/tomboy.schemas.in.h:74
 msgid ""
@@ -512,10 +513,10 @@ msgid ""
 "Export Linked Notes' setting and is used to specify whether all notes (found "
 "recursively) should be included during an export to HTML."
 msgstr ""
-"HTML にエクスポートするプラグインで設定した \"その他のリンク付きメモをすべて"
-"含める\" のチェックボックスの最後の状態です。この設定は \"リンク付きメモを "
-"HTML にエクスポートする\" 設定と連動して、(再帰的に検出した) メモをすべて "
-"HTML 形式にエクスポートするかどうかを指定する際に使用します。"
+"Export To HTML アドインで設定した \"その他のリンク付きメモをすべて含める\" の"
+"チェックボックスの最後の状態です。この設定は \"リンク付きメモを HTML にエクス"
+"ポートする\" 設定と連動して、(再帰的に検出した) メモをすべて HTML 形式にエク"
+"スポートするかどうかを指定する際に使用します。"
 
 #: ../data/tomboy.schemas.in.h:75
 msgid ""
@@ -555,7 +556,8 @@ msgstr "Tomboy の同期フォルダを格納した SSH サーバの URL です�
 msgid ""
 "Unique identifier for the currently configured note synchronization service "
 "addin."
-msgstr "メモの同期サービス・プラグインで現在設定している重複しない識別子です。"
+msgstr ""
+"Synchronization サービス・アドインで現在設定している重複しない識別子です。"
 
 #: ../data/tomboy.schemas.in.h:81
 msgid ""
@@ -839,7 +841,7 @@ msgstr "今日: "
 #. Format: "Today: Friday, July 01 2005"
 #: ../Tomboy/Addins/NoteOfTheDay/NoteOfTheDay.cs:17
 msgid "dddd, MMMM d yyyy"
-msgstr "MMMM d日 (dddd) tth:mm"
+msgstr "yyyy年 MMMM d日 (dddd)"
 
 #: ../Tomboy/Addins/NoteOfTheDay/NoteOfTheDay.cs:43
 msgid "Tasks"
@@ -1455,7 +1457,7 @@ msgstr "新しいメモへのリンク(_L)"
 
 #: ../Tomboy/NoteWindow.cs:373
 msgid "Te_xt"
-msgstr "文字の種類(_X)"
+msgstr "テキスト(_X)"
 
 #: ../Tomboy/NoteWindow.cs:381
 msgid "_Find in This Note"
@@ -1483,7 +1485,7 @@ msgstr "指定した部分を新しいメモへリンクします (Ctrl-L)"
 
 #: ../Tomboy/NoteWindow.cs:470
 msgid "_Text"
-msgstr "文字の種類(_T)"
+msgstr "テキスト(_T)"
 
 #: ../Tomboy/NoteWindow.cs:475
 msgid "Set properties of text"
@@ -1595,7 +1597,7 @@ msgstr "同期"
 
 #: ../Tomboy/PreferencesDialog.cs:88
 msgid "Add-ins"
-msgstr "プラグイン"
+msgstr "アドイン"
 
 #: ../Tomboy/PreferencesDialog.cs:173
 msgid "_Spell check while typing"
@@ -1619,8 +1621,8 @@ msgid ""
 "Enable this option to highlight words <b>ThatLookLikeThis</b>. Clicking the "
 "word will create a note with that name."
 msgstr ""
-"このオプションを有効にすると<b>こんな感じ</b>で単語を強調表示します。その単語"
-"をクリックすると、それをタイトルにした新しいメモを作成します。"
+"このオプションを有効にすると <b>ThatLookLikeThis</b> の単語を強調表示します。"
+"その単語をクリックすると、それをタイトルにした新しいメモを作成します。"
 
 #. Auto bulleted list
 #: ../Tomboy/PreferencesDialog.cs:208
@@ -1718,7 +1720,7 @@ msgstr "拡張(_A)..."
 
 #: ../Tomboy/PreferencesDialog.cs:601
 msgid "The following add-ins are installed"
-msgstr "次のプラグインが拡張機能としてインストールされています"
+msgstr "次のアドインが拡張機能としてインストールされています"
 
 #: ../Tomboy/PreferencesDialog.cs:622
 msgid "Get More Add-Ins..."
@@ -1829,7 +1831,7 @@ msgstr "著作権:"
 
 #: ../Tomboy/PreferencesDialog.cs:1378
 msgid "Add-in Dependencies:"
-msgstr "プラグインの依存関係:"
+msgstr "アドインの依存関係:"
 
 #: ../Tomboy/RecentChanges.cs:98
 msgid "_Search:"
@@ -1888,6 +1890,7 @@ msgstr ""
 "佐藤 暁 <ss@gnome.gr.jp>\n"
 "やまねひでき <henrich@debian.or.jp>\n"
 "草野 貴之 <AE5T-KSN@asahi-net.or.jp>\n"
+"Hiroyuki Sekihara <hiroyuki.sekihara@gmail.com>\n"
 "日本GNOMEユーザー会 <http://www.gnome.gr.jp/>"
 
 #: ../Tomboy/Tomboy.cs:410
@@ -2078,8 +2081,8 @@ msgid ""
 "This synchronization addin is not supported on your computer. Please make "
 "sure you have FUSE and {0} correctly installed and configured"
 msgstr ""
-"お使いのシステムでは同期プラグインがサポートされていません。FUSE と {0} が正"
-"しくインストールされ設定されているか確認してください。"
+"お使いのシステムでは Synchronization アドインがサポートされていません。FUSE "
+"と {0} が正しくインストールされ設定されているか確認してください。"
 
 #: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:129
 msgid "Could not read testfile."
