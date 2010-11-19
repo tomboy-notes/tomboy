@@ -1574,9 +1574,10 @@ namespace Tomboy
 
 			if ((bool) Preferences.Get (Preferences.ENABLE_DELETE_CONFIRM)) {
 				// show confirmation dialog
-				if (notes.Count == 1)
-					message = Catalog.GetString ("Really delete this note?");
-				else
+				if (notes.Count == 1) {
+					Note note = notes[0];
+					message = string.Format (Catalog.GetString ("Really delete \"{0}\"?"), note.Title) ;	
+				} else
 					message = string.Format (Catalog.GetPluralString (
 						"Really delete this {0} note?",
 						"Really delete these {0} notes?",
