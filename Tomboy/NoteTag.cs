@@ -11,6 +11,12 @@ namespace Tomboy
 	                NoteEditor editor,
 	                Gtk.TextIter start,
 	                Gtk.TextIter end);
+	
+	public enum TagSaveType {
+		NoSave,
+		Meta,
+		Content
+	};
 
 	public class NoteTag : Gtk.TextTag
 	{
@@ -62,6 +68,7 @@ namespace Tomboy
 			this.element_name = element_name;
 
 			flags = TagFlags.CanSerialize | TagFlags.CanSplit;
+			SaveType = TagSaveType.Content;
 		}
 
 		public string ElementName
@@ -70,6 +77,11 @@ namespace Tomboy
 				return element_name;
 			}
 		}
+		
+		/// <summary>
+		/// How the note should be saved when this tag is modified
+		/// </summary>
+		public TagSaveType SaveType;
 
 		public bool CanSerialize
 		{
@@ -555,6 +567,7 @@ namespace Tomboy
 			tag.Background = "green";
 			tag.CanSerialize = false;
 			tag.CanSpellCheck = true;
+			tag.SaveType = TagSaveType.Meta;
 			Add (tag);
 
 			tag = new NoteTag ("note-title");
@@ -564,12 +577,14 @@ namespace Tomboy
 			tag.Scale = Pango.Scale.XXLarge;
 			// FiXME: Hack around extra rewrite on open
 			tag.CanSerialize = false;
+			tag.SaveType = TagSaveType.Meta;
 			Add (tag);
 
 			tag = new NoteTag ("related-to");
 			tag.Scale = Pango.Scale.Small;
 			tag.LeftMargin = 40;
 			tag.Editable = false;
+			tag.SaveType = TagSaveType.Meta;
 			Add (tag);
 
 			tag = new NoteTag ("datetime");
@@ -578,6 +593,7 @@ namespace Tomboy
 			tag.PaletteForeground =
 			        ContrastPaletteColor.Grey;
 			tag.CanGrow = true;
+			tag.SaveType = TagSaveType.Meta;
 			Add (tag);
 
 			// Font sizes
@@ -617,6 +633,7 @@ namespace Tomboy
 			tag.PaletteForeground =
 			        ContrastPaletteColor.Grey;
 			tag.CanActivate = true;
+			tag.SaveType = TagSaveType.Meta;
 			Add (tag);
 			BrokenLinkTag = tag;
 
@@ -625,6 +642,7 @@ namespace Tomboy
 			tag.PaletteForeground =
 			        ContrastPaletteColor.Blue;
 			tag.CanActivate = true;
+			tag.SaveType = TagSaveType.Meta;
 			Add (tag);
 			LinkTag = tag;
 
@@ -633,6 +651,7 @@ namespace Tomboy
 			tag.PaletteForeground =
 			        ContrastPaletteColor.Blue;
 			tag.CanActivate = true;
+			tag.SaveType = TagSaveType.Meta;
 			Add (tag);
 			UrlTag = tag;
 		}
@@ -701,6 +720,45 @@ namespace Tomboy
 			}
 
 			return tag;
+		}
+		
+		/// <summary>
+		/// Maps a Gtk.TextTag to ChangeType for saving notes
+		/// </summary>
+		/// <param name="tag">Gtk.TextTag to map</param>
+		/// <returns>ChangeType to save this NoteTag</returns>
+		public ChangeType GetChangeType (Gtk.TextTag tag)
+		{
+			ChangeType change;
+			
+			// Use tag Name for Gtk.TextTags
+			switch (tag.Name)
+			{
+				// For extensibility, add Gtk.TextTag names here
+				default:
+					change = ChangeType.OtherDataChanged;
+					break;
+			}
+			
+			// Use SaveType for NoteTags
+			NoteTag note_tag = tag as NoteTag;
+			if (note_tag != null) {
+				switch (note_tag.SaveType)
+				{
+					case TagSaveType.Meta:
+						change = ChangeType.OtherDataChanged;
+						break;
+					case TagSaveType.Content:
+						change = ChangeType.ContentChanged;
+						break;
+					case TagSaveType.NoSave:
+					default:
+						change = ChangeType.NoChange;
+						break;
+				}
+			}
+			
+			return change;
 		}
 
 		public DynamicNoteTag CreateDynamicTag (string tag_name)

@@ -535,7 +535,7 @@ namespace Tomboy
 		{
 			if (NoteTagTable.TagIsSerializable (args.Tag)) {
 				DebugSave ("BufferTagApplied queueing save: {0}", args.Tag.Name);
-				QueueSave (ChangeType.ContentChanged);
+				QueueSave (TagTable.GetChangeType (args.Tag));
 			}
 		}
 
@@ -543,7 +543,7 @@ namespace Tomboy
 		{
 			if (NoteTagTable.TagIsSerializable (args.Tag)) {
 				DebugSave ("BufferTagRemoved queueing save: {0}", args.Tag.Name);
-				QueueSave (ChangeType.ContentChanged);
+				QueueSave (TagTable.GetChangeType (args.Tag));
 			}
 		}
 
