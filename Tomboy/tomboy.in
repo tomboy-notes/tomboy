@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-export LD_LIBRARY_PATH="@pkglibdir@${LD_LIBRARY_PATH+:$LD_LIBRARY_PATH}"
+export LD_LIBRARY_PATH="@pkglibdir@${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
 export MONO_PATH=$MONO_PATH:@pkglibdir@:@pkglibdir@/addins
 export TOMBOY_WRAPPER_PATH="@bindir@/@wrapper@"
 
