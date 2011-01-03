@@ -1324,7 +1324,13 @@ namespace Tomboy
 			templateNote.Window.Present ();
 		}
 
-		private Notebooks.Notebook GetSelectedNotebook ()
+		/// <summary>
+		/// Returns the currently selected notebook in the "Search All Notes Window".
+		/// </summary>
+		/// <returns>
+		/// The selected notebook or null if no notebook is selected. <see cref="Notebooks.Notebook"/>
+		/// </returns>
+		public Notebooks.Notebook GetSelectedNotebook ()
 		{
 			Gtk.TreeModel model;
 			Gtk.TreeIter iter;
