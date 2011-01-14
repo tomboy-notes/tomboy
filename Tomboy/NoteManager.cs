@@ -344,7 +344,20 @@ Ciao!");
 					                     );
 					md.Run();
 					md.Destroy();
-				}
+				} catch (System.UnauthorizedAccessException e) {
+					Logger.Error ("Note {0} can not be loaded - access denied: {1}",
+					            file_path,
+					            e.Message);
+					Gtk.MessageDialog md =
+					  new Gtk.MessageDialog(null,Gtk.DialogFlags.DestroyWithParent,
+					                      Gtk.MessageType.Error,
+					                      Gtk.ButtonsType.Close,
+					                      "Skipping a note.\n {0} can not be loaded - Access denied!",
+					                      file_path
+					                     );
+					md.Run();
+					md.Destroy();
+				}	
 			}
 			
 			notes.Sort (new CompareDates ());
