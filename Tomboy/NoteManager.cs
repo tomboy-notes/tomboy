@@ -331,6 +331,19 @@ Ciao!");
 					Logger.Error ("Error parsing note XML, skipping \"{0}\": {1}",
 					            file_path,
 					            e.Message);
+				} catch (System.IO.IOException e) {
+					Logger.Error ("Note {0} can not be loaded - file corrupted?: {1}",
+					            file_path,
+					            e.Message);
+					Gtk.MessageDialog md =
+					  new Gtk.MessageDialog(null,Gtk.DialogFlags.DestroyWithParent,
+					                      Gtk.MessageType.Error,
+					                      Gtk.ButtonsType.Close,
+					                      "Skipping a note.\n {0} can not be loaded - Error loading file!",
+					                      file_path
+					                     );
+					md.Run();
+					md.Destroy();
 				}
 			}
 			
