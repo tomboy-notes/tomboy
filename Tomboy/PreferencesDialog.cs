@@ -621,14 +621,6 @@ namespace Tomboy
 			Gtk.LinkButton get_more_link =
 				new Gtk.LinkButton ("http://live.gnome.org/Tomboy/PluginList",
 				                    Catalog.GetString ("Get More Add-Ins..."));
-			get_more_link.Clicked += delegate(object sender, EventArgs args) {
-				string uri = ((Gtk.LinkButton) sender).Uri;
-				try {
-					Services.NativeApplication.OpenUrl (uri, Screen);
-				} catch (Exception e) {
-					GuiUtils.ShowOpeningLocationError (this, uri, e.Message);
-				}
-			};
 			get_more_link.Show ();
 			Gtk.VBox tree_box = new Gtk.VBox (false, 0);
 			tree_box.Add (sw);
