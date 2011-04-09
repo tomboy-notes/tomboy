@@ -144,6 +144,21 @@ namespace Tomboy.Notebooks
 			return template_note;
 		}
 		
+		public Note CreateNotebookNote ()
+		{
+			string temp_title;
+			Note template = GetTemplateNote ();
+			NoteManager note_manager = Tomboy.DefaultNoteManager;
+			
+			temp_title = note_manager.GetUniqueName (Catalog.GetString ("New Note"), note_manager.Notes.Count);
+			Note note = note_manager.CreateNoteFromTemplate (temp_title, template);
+			
+			// Add the notebook tag
+			note.AddTag (tag);
+			
+			return note;
+		}
+		
 		/// <summary>
 		/// Returns true when the specified note exists in the notebook
 		/// </summary>

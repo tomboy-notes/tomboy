@@ -522,10 +522,9 @@ Ciao!");
 			return CreateNewNote (title, guid);
 		}
 
-		// Create a new note with the specified title, and a simple
-		// "Describe..." body or the body from the "New Note Template"
-		// note if it exists.  If the "New Note Template" body is found
-		// the text will not automatically be highlighted.
+		// Create a new note with the specified title from the default
+		// template note. Optionally the body can be overridden by appending
+		// it to title.
 		private Note CreateNewNote (string title, string guid)
 		{
 			string body = null;
@@ -534,16 +533,13 @@ Ciao!");
 			if (title == null)
 				return null;
 			
-			Note note_template = GetOrCreateTemplateNote ();
+			Note template_note = GetOrCreateTemplateNote ();
 
-			if (String.IsNullOrEmpty (body)) {
-				// Use the body from the "New Note Template" note
-				string xml_content =
-					note_template.XmlContent.Replace (XmlEncoder.Encode (note_template.Title),
-						XmlEncoder.Encode (title));
-				xml_content = SanitizeXmlContent (xml_content);
-				return CreateNewNote (title, xml_content, guid);
-			}
+			if (String.IsNullOrEmpty(title))
+				title = GetUniqueName (Catalog.GetString ("New Note"), notes.Count);
+			
+			if (String.IsNullOrEmpty (body))
+				return CreateNoteFromTemplate (title, template_note, guid);
 			
 			// Use a simple "Describe..." body and highlight
 			// it so it can be easily overwritten
@@ -687,7 +683,51 @@ Ciao!");
 			
 			return xml_content;
 		}
+		
+		/// <summary>
+		/// Creates a new note with the given titel based on the template note.
+		/// </summary>
+		/// <param name="title">
+		/// A <see cref="System.String"/>
+		/// </param>
+		/// <param name="template_note">
+		/// A <see cref="Note"/>
+		/// </param>
+		/// <returns>
+		/// A <see cref="Note"/>
+		/// </returns>
+		public Note CreateNoteFromTemplate (string title, Note template_note)
+		{
+			return CreateNoteFromTemplate (title, template_note, null);
+		}
+		
+		// Creates a new note with the given title and guid with body based on
+		// the template note.
+		private Note CreateNoteFromTemplate (string title, Note template_note, string guid)
+		{
+			// Use the body from the template note
+			string xml_content =
+				template_note.XmlContent.Replace (XmlEncoder.Encode (template_note.Title),
+				                                  XmlEncoder.Encode (title));
+			xml_content = SanitizeXmlContent (xml_content);
 
+			Note new_note = CreateNewNote (title, xml_content, guid);
+			return new_note;
+		}
+		
+		// Find a title that does not exist using basename and id as
+		// a starting point
+		public string GetUniqueName (string basename, int id)
+		{
+			string title;
+			while (true) {
+				title = String.Concat (basename, " ", id++);
+				if (Find (title) == null)
+					break;
+			}
+			
+			return title;
+		}
 
 		class CompareDates : IComparer<Note>
 		{
