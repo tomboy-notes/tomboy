@@ -15,7 +15,9 @@ namespace Tomboy
 		}
 		
 		/// <summary>
-		/// Search the notes!
+		/// Search the notes! A match number of
+		/// <see cref="int.MaxValue"/> indicates that the note
+		/// title contains the search term.
 		/// </summary>
 		/// <param name="query">
 		/// A <see cref="System.String"/>
@@ -29,7 +31,9 @@ namespace Tomboy
 		/// be searched.
 		/// </param>
 		/// <returns>
-		/// A <see cref="IDictionary`2"/>
+		/// A <see cref="IDictionary`2"/> with the relevant Notes
+		/// and a match number. If the search term is in the title,
+		/// number will be <see cref="int.MaxValue"/>.
 		/// </returns>
 		public IDictionary<Note,int> SearchNotes (
 				string query,
@@ -56,16 +60,23 @@ namespace Tomboy
 						&& selected_notebook.ContainsNote (note) == false)
 					continue;
 				
-				// Check the note's raw XML for at least one
-				// match, to avoid deserializing Buffers
-				// unnecessarily.
-				if (CheckNoteHasMatch (note,
+				// First check the note's title for a match,
+				// if there is no match check the note's raw
+				// XML for at least one match, to avoid
+				// deserializing Buffers unnecessarily.
+
+				if (0 < FindMatchCountInNote (note.Title,
+						                      words,
+						                      case_sensitive))
+					temp_matches.Add(note,int.MaxValue);
+				else if (CheckNoteHasMatch (note,
 					               encoded_words,
 					               case_sensitive)){
 					int match_count =
 						FindMatchCountInNote (note.TextContent,
 						                      words,
 						                      case_sensitive);
+
 					if (match_count > 0)
 						// TODO: Improve note.GetHashCode()
 						temp_matches.Add(note,match_count);

@@ -530,7 +530,10 @@ namespace Tomboy
 			if (note != null) {
 				int match_count;
 				if (current_matches.TryGetValue (note.Uri, out match_count)) {
-					if (match_count > 0) {
+					if (match_count == int.MaxValue) {
+						match_str = string.Format (
+								    Catalog.GetString ("Title match"));
+					} else if (match_count > 0) {
 						match_str = string.Format (
 								    Catalog.GetPluralString ("{0} match",
 											     "{0} matches",
