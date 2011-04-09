@@ -375,10 +375,12 @@ namespace Tomboy.Notebooks
 			if (response != (int) Gtk.ResponseType.Yes)
 				return;
 			
+			// Grab the template note before removing all the notebook tags
+			Note templateNote = notebook.GetTemplateNote ();
+			
 			DeleteNotebook (notebook);
 
 			// Delete the template note
-			Note templateNote = notebook.GetTemplateNote ();
 			if (templateNote != null) {
 				NoteManager noteManager = Tomboy.DefaultNoteManager;
 				noteManager.Delete (templateNote);

@@ -47,7 +47,9 @@ namespace Tomboy.Notebooks
 			note = noteManager.Create ();
 			if (templateNote != null) {
 				// Use the body from the template note
-				string xmlContent = templateNote.XmlContent.Replace (templateNote.Title, note.Title);
+				string xmlContent = templateNote.XmlContent.Replace (XmlEncoder.Encode (templateNote.Title),
+					XmlEncoder.Encode (note.Title));
+				xmlContent = NoteManager.SanitizeXmlContent (xmlContent);
 				note.XmlContent = xmlContent;
 			}
 			

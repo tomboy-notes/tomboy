@@ -534,12 +534,14 @@ Ciao!");
 			if (title == null)
 				return null;
 			
-			Note note_template = Find (NoteTemplateTitle);
-			if (note_template != null) {
+			Note note_template = GetOrCreateTemplateNote ();
+
+			if (String.IsNullOrEmpty (body)) {
 				// Use the body from the "New Note Template" note
 				string xml_content =
-					note_template.XmlContent.Replace (NoteTemplateTitle,
-					                                  XmlEncoder.Encode (title));
+					note_template.XmlContent.Replace (XmlEncoder.Encode (note_template.Title),
+						XmlEncoder.Encode (title));
+				xml_content = SanitizeXmlContent (xml_content);
 				return CreateNewNote (title, xml_content, guid);
 			}
 			
@@ -555,8 +557,7 @@ Ciao!");
 
 			Note new_note = CreateNewNote (title, content, guid);
 
-			// Select the inital
-			// "Describe..." text so typing will overwrite the body text,
+			// Select the inital text so typing will overwrite the body text
 			NoteBuffer buffer = new_note.Buffer;
 			Gtk.TextIter iter = buffer.GetIterAtOffset (header.Length);
 			buffer.MoveMark (buffer.SelectionBound, iter);
@@ -606,7 +607,19 @@ Ciao!");
 		/// </returns>
 		public Note GetOrCreateTemplateNote ()
 		{
-			Note template_note = Find (NoteTemplateTitle);
+			// The default template note will have the system template tag and
+			// will belong to zero notebooks. We find this by searching all
+			// notes with the TemplateNoteSystemTag and check that it's
+			// notebook == null
+			Note template_note = null;
+			Tag template_tag = TagManager.GetOrCreateSystemTag (TagManager.TemplateNoteSystemTag);
+			foreach (Note note in template_tag.Notes) {
+				if (Notebooks.NotebookManager.GetNotebookFromNote (note) == null) {
+					template_note = note;
+					break;
+				}
+			}
+			
 			if (template_note == null) {
 				template_note =
 					Create (NoteTemplateTitle,
@@ -619,8 +632,7 @@ Ciao!");
 				buffer.MoveMark (buffer.InsertMark, buffer.EndIter);
 
 				// Flag this as a template note
-				Tag tag = TagManager.GetOrCreateSystemTag (TagManager.TemplateNoteSystemTag);
-				template_note.AddTag (tag);
+				template_note.AddTag (template_tag);
 
 				template_note.QueueSave (ChangeType.ContentChanged);
 			}
@@ -658,6 +670,24 @@ Ciao!");
 			}
 			return null;
 		}
+		
+		// Removes any trailing whitespace on the title line
+		public static string SanitizeXmlContent (string xml_content)
+		{
+			int i = String.IsNullOrEmpty (xml_content) ? -1 : xml_content.IndexOf ('\n');
+			while (--i >= 0) {
+				if (xml_content [i].Equals ('\r'))
+					continue;
+			
+				if (Char.IsWhiteSpace (xml_content [i]))
+					xml_content = xml_content.Remove (i,1);
+				else
+					break;
+			}
+			
+			return xml_content;
+		}
+
 
 		class CompareDates : IComparer<Note>
 		{

@@ -683,7 +683,7 @@ namespace Tomboy
 		
 		public bool ContainsTag (Tag tag)
 		{
-			if (data.Data.Tags.ContainsKey (tag.NormalizedName) == true)
+			if (tag != null && data.Data.Tags.ContainsKey (tag.NormalizedName))
 				return true;
 			
 			return false;
