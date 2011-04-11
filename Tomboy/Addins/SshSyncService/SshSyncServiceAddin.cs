@@ -127,7 +127,7 @@ namespace Tomboy.Sync
 		public override string Name
 		{
 			get {
-				return Mono.Unix.Catalog.GetString ("SSH (sshfs FUSE)");
+				return Mono.Unix.Catalog.GetString ("SSH");
 			}
 		}
 

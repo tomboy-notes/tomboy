@@ -1146,7 +1146,7 @@ namespace Tomboy
 				                              Gtk.DialogFlags.Modal,
 				                              Gtk.MessageType.Question,
 				                              Gtk.ButtonsType.YesNo,
-				                              Catalog.GetString ("WARNING: Are you sure?"),
+				                              Catalog.GetString ("Are you sure?"),
 				                              Catalog.GetString (
 				                                      "Clearing your synchronization settings is not recommended.  " +
 				                                      "You may be forced to synchronize all of your notes again " +
@@ -1241,7 +1241,7 @@ namespace Tomboy
 				                              Gtk.DialogFlags.Modal,
 				                              Gtk.MessageType.Info,
 				                              Gtk.ButtonsType.YesNo,
-				                              Catalog.GetString ("Success! You're connected!"),
+				                              Catalog.GetString ("Connection successful"),
 				                              Catalog.GetString (
 				                                      "Tomboy is ready to synchronize your notes. Would you like to synchronize them now?"));
 				int response = dialog.Run ();
@@ -1266,10 +1266,9 @@ namespace Tomboy
 				// Give the user a visual letting them know that connecting
 				// was successful.
 				if (errorMsg == null) {
-					errorMsg = Catalog.GetString ("Sorry, but something went wrong.  " +
-					                              "Please check your information and " +
-					                              "try again.  The {0} might " +
-					                              "be useful too.");
+					errorMsg = Catalog.GetString ("Please check your information and " +
+					                              "try again.  The log file {0} may " +
+					                              "contain more information about the error.");
 					string logPath = System.IO.Path.Combine (Services.NativeApplication.LogDirectory,
 					                                         "tomboy.log");
 					errorMsg = String.Format (errorMsg, logPath);
@@ -1279,7 +1278,7 @@ namespace Tomboy
 				                              Gtk.DialogFlags.Modal,
 				                              Gtk.MessageType.Warning,
 				                              Gtk.ButtonsType.Close,
-				                              Catalog.GetString ("Error connecting :("),
+				                              Catalog.GetString ("Error connecting"),
 				                              errorMsg);
 				dialog.Run ();
 				dialog.Destroy ();

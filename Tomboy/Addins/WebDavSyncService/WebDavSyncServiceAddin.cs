@@ -116,7 +116,7 @@ namespace Tomboy.Sync
 		public override string Name
 		{
 			get {
-				return Mono.Unix.Catalog.GetString ("WebDAV (wdfs FUSE)");
+				return Mono.Unix.Catalog.GetString ("WebDAV");
 			}
 		}
 
