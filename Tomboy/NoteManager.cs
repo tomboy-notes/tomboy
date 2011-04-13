@@ -712,6 +712,27 @@ Ciao!");
 			xml_content = SanitizeXmlContent (xml_content);
 
 			Note new_note = CreateNewNote (title, xml_content, guid);
+			
+			// Copy template note's properties
+			Tag template_save_size = TagManager.GetOrCreateSystemTag (TagManager.TemplateNoteSaveSizeSystemTag);
+			if (template_note.Data.HasExtent () && template_note.ContainsTag (template_save_size)) {
+				new_note.Data.Height = template_note.Data.Height;
+				new_note.Data.Width = template_note.Data.Width;
+			}
+			
+			Tag template_save_selection = TagManager.GetOrCreateSystemTag (TagManager.TemplateNoteSaveSelectionSystemTag);
+			if (template_note.Data.CursorPosition > 0 && template_note.ContainsTag (template_save_selection)) {
+				// Because the titles will be different between template and
+				// new note, we can't just drop the cursor at template's
+				// CursorPosition. Whitespace after the title makes this more
+				// complicated so let's just start counting from the line after the title.
+				int template_cursor_offset_normalized = template_note.Data.CursorPosition - template_note.Buffer.GetIterAtLine (1).Offset;
+				
+				Gtk.TextBuffer buffer = new_note.Buffer;
+				Gtk.TextIter cursor = buffer.GetIterAtOffset (buffer.GetIterAtLine (1).Offset + template_cursor_offset_normalized);
+				buffer.PlaceCursor(cursor);
+			}
+			
 			return new_note;
 		}
 		

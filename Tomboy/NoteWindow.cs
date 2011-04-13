@@ -556,8 +556,8 @@ namespace Tomboy
 		{
 			// TODO: Move these to static area
 			Tag template_tag = TagManager.GetOrCreateSystemTag (TagManager.TemplateNoteSystemTag);
-			Tag template_save_size_tag = TagManager.GetOrCreateSystemTag (TagManager.TemplateNoteSystemTag + ":save-size");
-			Tag template_save_selection_tag = TagManager.GetOrCreateSystemTag (TagManager.TemplateNoteSystemTag + ":save-selection");
+			Tag template_save_size_tag = TagManager.GetOrCreateSystemTag (TagManager.TemplateNoteSaveSizeSystemTag);
+			Tag template_save_selection_tag = TagManager.GetOrCreateSystemTag (TagManager.TemplateNoteSaveSelectionSystemTag);
 
 			var bar = new Gtk.VBox ();
 
@@ -583,7 +583,7 @@ namespace Tomboy
 
 			var saveSelectionCheckbutton = new Gtk.CheckButton (Catalog.GetString ("Save Se_lection"));
 			saveSelectionCheckbutton.Active = note.ContainsTag (template_save_selection_tag);
-			saveSizeCheckbutton.Toggled += (o, e) => {
+			saveSelectionCheckbutton.Toggled += (o, e) => {
 				if (saveSelectionCheckbutton.Active)
 					note.AddTag (template_save_selection_tag);
 				else
