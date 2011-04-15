@@ -722,15 +722,20 @@ Ciao!");
 			
 			Tag template_save_selection = TagManager.GetOrCreateSystemTag (TagManager.TemplateNoteSaveSelectionSystemTag);
 			if (template_note.Data.CursorPosition > 0 && template_note.ContainsTag (template_save_selection)) {
+				Gtk.TextBuffer buffer = new_note.Buffer;
+				Gtk.TextIter iter;
+				
 				// Because the titles will be different between template and
 				// new note, we can't just drop the cursor at template's
 				// CursorPosition. Whitespace after the title makes this more
 				// complicated so let's just start counting from the line after the title.
-				int template_cursor_offset_normalized = template_note.Data.CursorPosition - template_note.Buffer.GetIterAtLine (1).Offset;
+				int title_offset_difference = buffer.GetIterAtLine (1).Offset - template_note.Buffer.GetIterAtLine (1).Offset;
 				
-				Gtk.TextBuffer buffer = new_note.Buffer;
-				Gtk.TextIter cursor = buffer.GetIterAtOffset (buffer.GetIterAtLine (1).Offset + template_cursor_offset_normalized);
-				buffer.PlaceCursor(cursor);
+				iter = buffer.GetIterAtOffset (template_note.Data.CursorPosition + title_offset_difference);
+				buffer.PlaceCursor(iter);
+				
+				iter = buffer.GetIterAtOffset (template_note.Data.SelectionBoundPosition + title_offset_difference);
+				buffer.MoveMark (buffer.SelectionBound.Name, iter);
 			}
 			
 			return new_note;
