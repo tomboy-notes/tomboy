@@ -317,6 +317,7 @@ namespace Tomboy
 			tree.Selection.Mode = Gtk.SelectionMode.Multiple;
 			tree.Selection.Changed += OnSelectionChanged;
 			tree.ButtonPressEvent += OnTreeViewButtonPressed;
+			tree.KeyPressEvent += OnTreeViewKeyPressed;
 			tree.MotionNotifyEvent += OnTreeViewMotionNotify;
 			tree.ButtonReleaseEvent += OnTreeViewButtonReleased;
 			tree.DragDataGet += OnTreeViewDragDataGet;
@@ -811,6 +812,22 @@ namespace Tomboy
 			}
 		}
 
+		void OnTreeViewKeyPressed (object sender, Gtk.KeyPressEventArgs args)
+		{
+			switch (args.Event.Key) {
+			case Gdk.Key.Menu:
+				// Pop up the context menu if a note is selected
+				List<Note> selected_notes = GetSelectedNotes ();
+				if (selected_notes != null && selected_notes.Count > 0) {
+						Gtk.Menu menu = Tomboy.ActionManager.GetWidget (
+						"/MainWindowContextMenu") as Gtk.Menu;
+					PopupContextMenuAtLocation (menu, 0, 0);
+				}
+
+				break;
+			}
+		}
+
 		[GLib.ConnectBefore]
 		void OnTreeViewMotionNotify (object sender, Gtk.MotionNotifyEventArgs args)
 		{
@@ -877,30 +894,36 @@ namespace Tomboy
 		void PositionContextMenu (Gtk.Menu menu,
 					  out int x, out int y, out bool push_in)
 		{
-			Gtk.TreeIter iter;
+			int pos_x;
+			int pos_y;
 			Gtk.TreePath path;
-			Gtk.TreeSelection selection;
+			Gtk.TreePath [] selected_rows;
+			Gdk.Rectangle cell_rect;
 
 			// Set default "return" values
-			push_in = false; // not used
+			push_in = true;
 			x = 0;
 			y = 0;
 
-			selection = tree.Selection;
-			if (!selection.GetSelected (out iter))
-				return;
+			// Are we currently in the note list?
+			// else, assume we're in the notebook list
+			Gtk.TreeView currentTree = (tree.HasFocus) ? tree : notebooksTree;
 
-			path = store_sort.GetPath (iter);
+			selected_rows = currentTree.Selection.GetSelectedRows ();
+			// Get TreeView's coordinates
+			currentTree.GdkWindow.GetOrigin (out pos_x, out pos_y);
 
-			int pos_x = 0;
-			int pos_y = 0;
+			if (selected_rows.Length > 0) {
+				// Popup near the selection
+				path = selected_rows [0];
+				cell_rect = currentTree.GetCellArea (path, currentTree.Columns [0]);
 
-			GetWidgetScreenPos (tree, ref pos_x, ref pos_y);
-			Gdk.Rectangle cell_rect = tree.GetCellArea (path, tree.Columns [0]);
+				// Add 100 to x, so it isn't too close to the left border
+				x = pos_x + cell_rect.X + 100;
+				// Add 47 to y, so it's right at the bottom of the selected row
+				y = pos_y + cell_rect.Y + 47;
 
-			// Add 100 to x so it's not be at the far left
-			x = pos_x + cell_rect.X + 100;
-			y = pos_y + cell_rect.Y;
+			}
 		}
 
 		// Walk the widget hiearchy to figure out
@@ -1033,16 +1056,6 @@ namespace Tomboy
 			case Gdk.Key.Escape:
 				// Allow Escape to close the window
 				OnCloseWindow (this, EventArgs.Empty);
-				break;
-			case Gdk.Key.Menu:
-				// Pop up the context menu if a note is selected
-				List<Note> selected_notes = GetSelectedNotes ();
-				if (selected_notes != null && selected_notes.Count > 0) {
-						Gtk.Menu menu = Tomboy.ActionManager.GetWidget (
-						"/MainWindowContextMenu") as Gtk.Menu;
-				    PopupContextMenuAtLocation (menu, 0, 0);
-				}
-
 				break;
 			}
 		}
