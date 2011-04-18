@@ -730,7 +730,7 @@ namespace Tomboy
 			if (selected_notes == null || selected_notes.Count == 0) {
 				Tomboy.ActionManager ["OpenNoteAction"].Sensitive = false;
 				Tomboy.ActionManager ["DeleteNoteAction"].Sensitive = false;
-			} else if (selected_notes.Count == 1) {
+			} else if (selected_notes.Count > 0) {
 				Tomboy.ActionManager ["OpenNoteAction"].Sensitive = true;
 				Tomboy.ActionManager ["DeleteNoteAction"].Sensitive = true;
 			} else {
@@ -814,6 +814,7 @@ namespace Tomboy
 			}
 		}
 
+		[GLib.ConnectBefore]
 		void OnTreeViewKeyPressed (object sender, Gtk.KeyPressEventArgs args)
 		{
 			switch (args.Event.Key) {
@@ -824,8 +825,15 @@ namespace Tomboy
 						Gtk.Menu menu = Tomboy.ActionManager.GetWidget (
 						"/MainWindowContextMenu") as Gtk.Menu;
 					PopupContextMenuAtLocation (menu, 0, 0);
+					args.RetVal = true;
 				}
 
+				break;
+			case Gdk.Key.Return:
+			case Gdk.Key.KP_Enter:
+				// Open all selected notes
+				OnOpenNote (this, args);
+				args.RetVal = true;
 				break;
 			}
 		}
@@ -1007,10 +1015,9 @@ namespace Tomboy
 		void OnOpenNote (object sender, EventArgs args)
 		{
 			List<Note> selected_notes = GetSelectedNotes ();
-			if (selected_notes == null || selected_notes.Count != 1)
-				return;
-
-			selected_notes [0].Window.Present ();
+			if (selected_notes != null)
+				foreach (Note note in selected_notes)
+					note.Window.Present ();
 		}
 
 		void OnDeleteNote (object sender, EventArgs args)
