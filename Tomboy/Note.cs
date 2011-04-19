@@ -494,6 +494,16 @@ namespace Tomboy
 			if (!save_needed)
 				return;
 
+			string new_note_pattern = String.Format (Catalog.GetString ("New Note {0}"), @"\d+");
+			Note template_note = manager.GetOrCreateTemplateNote ();
+			string template_content = template_note.TextContent.Replace (template_note.Title, Title);
+
+			// Do nothing if this note contains the unchanged template content
+			// and if the title matches the new note title template to prevent
+			// lots of unwanted "New Note NNN" notes: Bug #545252
+			if (Regex.IsMatch (Title, new_note_pattern) && TextContent.Equals (template_content))
+				return;
+
 			Logger.Debug ("Saving '{0}'...", data.Data.Title);
 
 			try {
