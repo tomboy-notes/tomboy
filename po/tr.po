@@ -1,28 +1,32 @@
 # Turkish translation of Tomboy
 # Copyright (C) 2005 Free Software Foundation.
 # This file is distributed under the same license as the Tomboy package.
-#
+# 
 # Enver ALTIN <ealtin@parkyeri.com>, 2005.
 # Serdar Cicek <serdar@nerd.com.tr>, 2006.
 # Baris Cicek <baris@teamforce.name.tr>, 2008.
+# Fatih Ergüven <fatih@erguven.org>, 2009.
+# Muhammet Kara <muhammet.k@gmail.com>, 2011.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: tomboy\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-09-13 06:57+0300\n"
-"PO-Revision-Date: 2008-09-13 06:59+0300\n"
-"Last-Translator: Baris Cicek <baris@teamforce.name.tr>\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=tomboy&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2011-04-21 04:22+0000\n"
+"PO-Revision-Date: 2011-04-29 02:41+0300\n"
+"Last-Translator: Muhammet Kara <muhammet.k@gmail.com>\n"
 "Language-Team: Turkish <gnome-turk@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms:  nplurals=1; plural=0;\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 #: ../data/GNOME_TomboyApplet.server.in.in.h:1
 msgid "Accessories"
 msgstr "Donatılar"
 
-#: ../data/GNOME_TomboyApplet.server.in.in.h:2 ../data/tomboy.desktop.in.h:2
+#: ../data/GNOME_TomboyApplet.server.in.in.h:2
 msgid "Simple and easy to use note-taking"
 msgstr "Basit ve kullanışlı not alma"
 
@@ -31,21 +35,26 @@ msgid "Tomboy Applet Factory"
 msgstr "Tomboy Uygulamacık Üreticisi"
 
 #: ../data/GNOME_TomboyApplet.server.in.in.h:4 ../data/tomboy.desktop.in.h:3
-#: ../Tomboy/Tray.cs:514
+#: ../Tomboy/Tray.cs:579
 msgid "Tomboy Notes"
 msgstr "Tomboy Notları"
 
-#: ../data/GNOME_TomboyApplet.xml.h:1 ../Tomboy/ActionManager.cs:164
+#: ../data/GNOME_TomboyApplet.xml.h:1 ../Tomboy/ActionManager.cs:179
+#: ../Tomboy/Tray.cs:274
+msgid "S_ynchronize Notes"
+msgstr "Notları _Eşzamanlandır"
+
+#: ../data/GNOME_TomboyApplet.xml.h:2 ../Tomboy/ActionManager.cs:164
 msgid "_About"
 msgstr "_Hakkında"
 
-#: ../data/GNOME_TomboyApplet.xml.h:2 ../Tomboy/ActionManager.cs:157
-#: ../Tomboy/Tray.cs:223
+#: ../data/GNOME_TomboyApplet.xml.h:3 ../Tomboy/ActionManager.cs:157
+#: ../Tomboy/Tray.cs:288
 msgid "_Help"
 msgstr "_Yardım"
 
-#: ../data/GNOME_TomboyApplet.xml.h:3 ../Tomboy/ActionManager.cs:153
-#: ../Tomboy/Tray.cs:218
+#: ../data/GNOME_TomboyApplet.xml.h:4 ../Tomboy/ActionManager.cs:153
+#: ../Tomboy/Tray.cs:283
 msgid "_Preferences"
 msgstr "_Tercihler"
 
@@ -53,47 +62,103 @@ msgstr "_Tercihler"
 msgid "Note-taker"
 msgstr "Not Tutucu"
 
+#: ../data/tomboy.desktop.in.h:2
+msgid "Take notes, link ideas, and stay organized"
+msgstr "Not tutun, düşünceleri bağlayın, ve düzenli kalın"
+
 #: ../data/tomboy.schemas.in.h:1
+msgid "Accept SSL Certificates"
+msgstr "SSL Sertifikalarını Kabul Et"
+
+#: ../data/tomboy.schemas.in.h:2
+msgid "Automatic Background Synchronization Timeout"
+msgstr ""
+
+#: ../data/tomboy.schemas.in.h:3
 msgid "Create a new Note"
 msgstr "Yeni bir not oluştur"
 
-#: ../data/tomboy.schemas.in.h:2
+#: ../data/tomboy.schemas.in.h:4
 msgid "Custom Font Face"
 msgstr "Özel Yazı Tipi"
 
-#: ../data/tomboy.schemas.in.h:3
+#: ../data/tomboy.schemas.in.h:5
+#, fuzzy
+#| msgid "Determines X coordinate of Search window; stored on Tomboy exit."
+msgid ""
+"Determines X coordinate of \"Search All Notes\" window; stored on Tomboy "
+"exit."
+msgstr ""
+"Arama penceresinin X koordinatını saptar; Tomboy kapandığında saklanır."
+
+#: ../data/tomboy.schemas.in.h:6
+#, fuzzy
+#| msgid "Determines Y coordinate of Search window; stored on Tomboy exit."
+msgid ""
+"Determines Y coordinate of \"Search All Notes\" window; stored on Tomboy "
+"exit."
+msgstr ""
+"Arama penceresinin Y koordinatını saptar; Tomboy kapandığında saklanır."
+
+#: ../data/tomboy.schemas.in.h:7
+#, fuzzy
+#| msgid "Determines pixel height of Search window; stored on Tomboy exit."
+msgid ""
+"Determines pixel height of \"Search All Notes\" window; stored on Tomboy "
+"exit."
+msgstr ""
+"Arama penceresinin piksel yüksekliğini saptar; Tomboy kapandığında saklanır."
+
+#: ../data/tomboy.schemas.in.h:8
+#, fuzzy
+#| msgid "Determines pixel width of Search window; stored on Tomboy exit."
+msgid ""
+"Determines pixel width of \"Search All Notes\" window; stored on Tomboy exit."
+msgstr ""
+"Arama penceresinin piksel genişliğini saptar; Tomboy kapandığında saklanır."
+
+#: ../data/tomboy.schemas.in.h:9
 msgid "Enable Auto bulleted lists."
 msgstr "Kendiliğinden işaretli listeleri etkinleştir."
 
-#: ../data/tomboy.schemas.in.h:4
+#: ../data/tomboy.schemas.in.h:10
 msgid "Enable Middle-Click Paste On Icon."
 msgstr "Simge Üzerine Orta Tuşla Tıklandığında Yapıştırmayı Etkinleştir."
 
-#: ../data/tomboy.schemas.in.h:5
+#: ../data/tomboy.schemas.in.h:11
+#| msgid "TrayIcon"
+msgid "Enable Tray Icon"
+msgstr "Bildirim Simgesini Etkinleştir"
+
+#: ../data/tomboy.schemas.in.h:12
 msgid "Enable WikiWord highlighting"
 msgstr "WikiWord belirtecini etkinleştir"
 
-#: ../data/tomboy.schemas.in.h:6
+#: ../data/tomboy.schemas.in.h:13
 msgid "Enable closing notes with escape."
 msgstr "Esc tuşu ile notları kapatmayı etkinleştir."
 
-#: ../data/tomboy.schemas.in.h:7
+#: ../data/tomboy.schemas.in.h:14
 msgid "Enable custom font"
 msgstr "Özel yazı tiplerini etkinleştir"
 
-#: ../data/tomboy.schemas.in.h:8
+#: ../data/tomboy.schemas.in.h:15
 msgid "Enable global keybindings"
 msgstr "Genel tuş bağlarını etkinleştir"
 
-#: ../data/tomboy.schemas.in.h:9
+#: ../data/tomboy.schemas.in.h:16
 msgid "Enable spellchecking"
 msgstr "İmla denetimini etkinleştir"
 
-#: ../data/tomboy.schemas.in.h:10
+#: ../data/tomboy.schemas.in.h:17
 msgid "Enable startup notes"
 msgstr "Başlangıç notlarını etkinleştir"
 
-#: ../data/tomboy.schemas.in.h:11
+#: ../data/tomboy.schemas.in.h:18
+msgid "Enable the Delete Note confirmation dialog"
+msgstr "Not Silme onay penceresini etkinleştir"
+
+#: ../data/tomboy.schemas.in.h:19
 msgid ""
 "Enable this option if you want bulleted lists to be automatic when you place "
 "- or * at the beginning of a line."
@@ -101,7 +166,7 @@ msgstr ""
 "Bu seçeneği işaretli listelerin satır başında - ya da * kullanıldığında "
 "kendiliğinden etkinleşmesi için etkinleştirin."
 
-#: ../data/tomboy.schemas.in.h:12
+#: ../data/tomboy.schemas.in.h:20
 msgid ""
 "Enable this option if you want to be able to middle-click the Tomboy icon to "
 "paste timestamped content into the Start Here note."
@@ -109,7 +174,7 @@ msgstr ""
 "Bu seçeneği Tomboy simgesine orta tuşla bastığında Buradan Başla notuna "
 "zaman belirtici yapıştırılmasını mümkün kılabilmek için etkinleştirin."
 
-#: ../data/tomboy.schemas.in.h:13
+#: ../data/tomboy.schemas.in.h:21
 msgid ""
 "Enable this option to highlight words ThatLookLikeThis. Clicking the word "
 "will create a note with that name."
@@ -118,19 +183,28 @@ msgstr ""
 "etkinleştirin. Bu sözcüğü tıklatmak bu adla yeni bir not oluşturulmasını "
 "sağlayacaktır."
 
-#: ../data/tomboy.schemas.in.h:14
+#: ../data/tomboy.schemas.in.h:22
+msgid "FUSE Mounting Timeout (ms)"
+msgstr "FUSE Bağlama Zaman Aşımı (ms)"
+
+#: ../data/tomboy.schemas.in.h:23
 msgid "HTML Export All Linked Notes"
 msgstr "Tüm Bağlı Notları HTML Olarak Aktar"
 
-#: ../data/tomboy.schemas.in.h:15
+#: ../data/tomboy.schemas.in.h:24
 msgid "HTML Export Last Directory"
 msgstr "HTML Olarak Dışa Aktarma Son Dizini"
 
-#: ../data/tomboy.schemas.in.h:16
+#: ../data/tomboy.schemas.in.h:25
 msgid "HTML Export Linked Notes"
 msgstr "Bağlı Notları HTML Olarak Dışa Aktar"
 
-#: ../data/tomboy.schemas.in.h:17
+#: ../data/tomboy.schemas.in.h:26
+msgid ""
+"If disabled, the \"Delete Note\" confirmation dialog will be suppressed."
+msgstr ""
+
+#: ../data/tomboy.schemas.in.h:27
 msgid ""
 "If enable_custom_font is true, the font name set here will be used as the "
 "font when displaying notes."
@@ -138,7 +212,7 @@ msgstr ""
 "Eğer enable_custom_font seçiliyse, burada ayarlanan yazı tipi ismi notlar "
 "gösterilirken kullanılacak."
 
-#: ../data/tomboy.schemas.in.h:18
+#: ../data/tomboy.schemas.in.h:28
 msgid ""
 "If enabled, all notes that were open when Tomboy quit will automatically be "
 "reopened at startup."
@@ -146,12 +220,19 @@ msgstr ""
 "Eğer etkinse, Tomboy'dan çıkışta açık olan tüm notlar başlangıçta "
 "kendiliğinden tekrar açılacak."
 
-#: ../data/tomboy.schemas.in.h:19
+#: ../data/tomboy.schemas.in.h:29
 msgid "If enabled, an opened note can be closed by hitting the escape key."
 msgstr ""
 "Eğer etkinse, açık olan bir not esc tuşuna basıldığında kapatılabilecek."
 
-#: ../data/tomboy.schemas.in.h:20
+#: ../data/tomboy.schemas.in.h:30
+msgid ""
+"If true, Tomboy's tray icon will be displayed in the notification area. "
+"Disabling this may be useful when another application is providing the "
+"functionality of the tray icon."
+msgstr ""
+
+#: ../data/tomboy.schemas.in.h:31
 msgid ""
 "If true, misspellings will be underlined in red, and correct spelling "
 "suggestions shown in the right-click menu."
@@ -159,7 +240,7 @@ msgstr ""
 "Eğer seçiliyse, imla hatalarının altı kırmızı çizilir ve doğru yazım "
 "tavsiyeleri sağ tıklama menüsünde görüntülenir."
 
-#: ../data/tomboy.schemas.in.h:21
+#: ../data/tomboy.schemas.in.h:32
 msgid ""
 "If true, the desktop-global keybindings set in /apps/tomboy/"
 "global_keybindings will be enabled, allowing for useful Tomboy actions to be "
@@ -169,7 +250,7 @@ msgstr ""
 "tuş bağları etkinleştirilecek. Bu kullanışlı Tomboy eylemlerinin her "
 "uygulamalamada mevcut olabilmesine olanak sağlayacak. "
 
-#: ../data/tomboy.schemas.in.h:22
+#: ../data/tomboy.schemas.in.h:33
 msgid ""
 "If true, the font name set in custom_font_face will be used as the font when "
 "displaying notes. Otherwise the desktop default font will be used."
@@ -177,7 +258,7 @@ msgstr ""
 "Eğer seçiliyse, notlar gösterilirken custom_font_face'de ayarlı olan yazı "
 "tipi kullanılacak. Aksi taktirde masaüstünde öntanımlı yazıtipi kullanılacak."
 
-#: ../data/tomboy.schemas.in.h:23
+#: ../data/tomboy.schemas.in.h:34
 msgid ""
 "Indicates that the Sticky Note Importer plugin has not been run, so it "
 "should run automatically the next time Tomboy starts."
@@ -186,14 +267,22 @@ msgstr ""
 "Böylece eklenti Tomboy'un bir sonraki başlatılmasında kendiliğinden "
 "çalışacak."
 
-#: ../data/tomboy.schemas.in.h:24
+#: ../data/tomboy.schemas.in.h:35
 msgid ""
 "Integer determining the minimum number of notes to show in the Tomboy note "
 "menu."
 msgstr ""
 "Tomboy not menüsünde gösterilecek asgari not sayısını belirten tamsayı."
 
-#: ../data/tomboy.schemas.in.h:25
+#: ../data/tomboy.schemas.in.h:36
+msgid ""
+"Integer value indicating how frequently to perform a background sync of your "
+"notes (when sync is configured). Any value less than 1 indicates that "
+"autosync is disabled. The lowest acceptable positive value is 5. Value is in "
+"minutes."
+msgstr ""
+
+#: ../data/tomboy.schemas.in.h:37
 msgid ""
 "Integer value indicating if there is a preference to always perform a "
 "specific behavior when a conflict is detected, instead of prompting the "
@@ -207,31 +296,74 @@ msgstr ""
 "bir çakışma olduğunda sorulmasını istediği anlamına gelir, böylelikle her "
 "çakışmayı durumdan duruma değerlendirebilirler."
 
-#: ../data/tomboy.schemas.in.h:26
+#: ../data/tomboy.schemas.in.h:38
+#, fuzzy
+#| msgid ""
+#| "Integer value indicating if there is a preference to always perform a "
+#| "specific behavior when a conflict is detected, instead of prompting the "
+#| "user. The values map to an internal enumeration. 0 indicates that the "
+#| "user wishes to be prompted when a conflict occurs, so that they may "
+#| "handle each conflict situation on a case-by-case basis."
+msgid ""
+"Integer value indicating if there is a preference to always perform a "
+"specific link updating behavior when a note is renamed, instead of prompting "
+"the user. The values map to an internal enumeration. 0 indicates that the "
+"user wishes to be prompted when renaming a note may impact links that exist "
+"in other notes. 1 indicates that links should automatically be removed. 2 "
+"indicates that link text should be updated to the new note name so that it "
+"will continue linking to the renamed note."
+msgstr ""
+"Bir çakışma meydana geldiğinde kullanıcıya sormak yerine her zaman belirli "
+"bir işleyişi yerine getirmek yönünde bir tercih olup olmadığını belirten "
+"tamsayı değeri. Değerler dahili değerlendirme ile eşleşirler. 0 kullanıcının "
+"bir çakışma olduğunda sorulmasını istediği anlamına gelir, böylelikle her "
+"çakışmayı durumdan duruma değerlendirebilirler."
+
+#: ../data/tomboy.schemas.in.h:39
+msgid "Link Updating Behavior on Note Rename"
+msgstr ""
+
+#: ../data/tomboy.schemas.in.h:40
 msgid "List of pinned notes."
 msgstr "İğnelenmiş notları listele."
 
-#: ../data/tomboy.schemas.in.h:27
+#: ../data/tomboy.schemas.in.h:41
+msgid ""
+"Maximum characters of note title to show in the Tomboy tray or panel applet "
+"note menu."
+msgstr ""
+"Tomboy uyarı alanı ya da panel uygulamacığı not menüsünde gösterilecek olan "
+"not başlığının azami karakter sayısı."
+
+#: ../data/tomboy.schemas.in.h:42
+msgid "Maximum note title length to show in tray menu."
+msgstr "Uyarı alanı menüsünde gösterilecek olan azami not başlığı uzunluğu."
+
+#: ../data/tomboy.schemas.in.h:43
 msgid "Minimum number of notes to show in menu"
 msgstr "Menüde gösterilecek azami not sayısı"
 
-#: ../data/tomboy.schemas.in.h:28
+#: ../data/tomboy.schemas.in.h:44
 msgid "Note Synchronization Conflict Saved Behavior"
 msgstr "Not Eşzamanlandırma Kaydetme Çakışması İşleyişi"
 
-#: ../data/tomboy.schemas.in.h:29
+#: ../data/tomboy.schemas.in.h:45
 msgid "Open Recent Changes"
 msgstr "Son Yapılan Değişiklikleri Aç"
 
-#: ../data/tomboy.schemas.in.h:30
+#: ../data/tomboy.schemas.in.h:46
 msgid "Open Search Dialog"
 msgstr "Arama Penceresini Aç"
 
-#: ../data/tomboy.schemas.in.h:31
+#: ../data/tomboy.schemas.in.h:47
 msgid "Open Start Here"
 msgstr "Buradan Başla'yı Aç"
 
-#: ../data/tomboy.schemas.in.h:32
+#: ../data/tomboy.schemas.in.h:48
+msgid "Path on SSH server to Tomboy synchronization directory (optional)."
+msgstr "SSH sunucusundaki Tomboy eşzamanlama dizininin yolu (isteğe bağlı)."
+
+#: ../data/tomboy.schemas.in.h:49
 msgid ""
 "Path to the synchronization server when using the filesystem synchronization "
 "service addin."
@@ -239,39 +371,79 @@ msgstr ""
 "Dosya sistemi eşzamanlandırma servis eklentisi kullanılırken eşzamanladırma "
 "sunucusunun yolu."
 
-#: ../data/tomboy.schemas.in.h:33
+#: ../data/tomboy.schemas.in.h:50
+msgid "SSHFS Remote Synchronization Folder"
+msgstr "SSHFS Uzak Eşzamanlama Klasörü"
+
+#: ../data/tomboy.schemas.in.h:51
+msgid "SSHFS Remote Synchronization User Name"
+msgstr "SSHFS Uzak Eşzamanlama Kullanıcı Adı"
+
+#: ../data/tomboy.schemas.in.h:52
+msgid "SSHFS Synchronization Server Port"
+msgstr "SSHFS Eşzamanlama Sunucu Portu"
+
+#: ../data/tomboy.schemas.in.h:53
+msgid "SSHFS Synchronization Server URL"
+msgstr "SSHFS Eşzamanlama Sunucusu Adresi (URL)"
+
+#: ../data/tomboy.schemas.in.h:54
+#, fuzzy
+#| msgid "Saved height of Search window"
+msgid "Saved height of \"Search All Notes\" window"
+msgstr "Arama penceresinin kaydedilmiş yüksekliği"
+
+#: ../data/tomboy.schemas.in.h:55
+#, fuzzy
+#| msgid "Saved horizontal position of Search window"
+msgid "Saved horizontal position of \"Search All Notes\" window"
+msgstr "Arama penceresinin kaydedilmiş yatay pozisyonu"
+
+#: ../data/tomboy.schemas.in.h:56
+#, fuzzy
+#| msgid "Saved vertical position of Search window"
+msgid "Saved vertical position of \"Search All Notes\" window"
+msgstr "Arama penceresinin kaydedilmiş dikey pozisyonu"
+
+#: ../data/tomboy.schemas.in.h:57
+#, fuzzy
+#| msgid "Saved width of Search window"
+msgid "Saved width of \"Search All Notes\" window"
+msgstr "Arama penceresinin kaydedilmiş genişliği"
+
+#: ../data/tomboy.schemas.in.h:58
 msgid "Selected Synchronization Service Addin"
 msgstr "Seçili Eşzamanlandırma Servis Eklentisi"
 
-#: ../data/tomboy.schemas.in.h:34
+#: ../data/tomboy.schemas.in.h:59
 msgid "Set to TRUE to activate"
 msgstr "Etkinleştirmek için seçin"
 
-#: ../data/tomboy.schemas.in.h:35
+#: ../data/tomboy.schemas.in.h:60
 msgid "Show applet menu"
 msgstr "Uygulamacık menüsünü göster"
 
-#: ../data/tomboy.schemas.in.h:36
+#: ../data/tomboy.schemas.in.h:61
 msgid "Start Here Note"
 msgstr "Buradan Başla Notu"
 
-#: ../data/tomboy.schemas.in.h:37
+#: ../data/tomboy.schemas.in.h:62
 msgid "Sticky Note Importer First Run"
 msgstr "En Başta Yapışkan Not İçe Aktarıcısını Çalıştır"
 
-#: ../data/tomboy.schemas.in.h:38
+#: ../data/tomboy.schemas.in.h:63
 msgid "Synchronization Client ID"
 msgstr "Eşzamanlandırma İstemci Kimliği"
 
-#: ../data/tomboy.schemas.in.h:39
+#: ../data/tomboy.schemas.in.h:64
 msgid "Synchronization Local Server Path"
 msgstr "Eşzamanlandırma Yerel Sunucu Yolu"
 
-#: ../data/tomboy.schemas.in.h:40
+#: ../data/tomboy.schemas.in.h:65
 msgid "The date format that is used for the timestamp."
 msgstr "Zaman etiketi için kullanılacak tarih biçimi."
 
-#: ../data/tomboy.schemas.in.h:41
+#: ../data/tomboy.schemas.in.h:66
 msgid ""
 "The global keybinding for creating and displaying a new Note. The format "
 "looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The "
@@ -286,7 +458,7 @@ msgstr ""
 "\"&lt;Ctrl&gt;\" gibi kısaltmalara izin verir. Eğer seçenek özel dizgi "
 "\"disabled\" olarak atandıysa bu eylem için tuş bağı olmayacak."
 
-#: ../data/tomboy.schemas.in.h:42
+#: ../data/tomboy.schemas.in.h:67
 msgid ""
 "The global keybinding for opening the \"Start Here\" note. The format looks "
 "like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
@@ -301,7 +473,7 @@ msgstr ""
 "\"&lt;Ctrl&gt;\" gibi kısaltmalara izin verir. Eğer seçenek özel dizgi "
 "\"disabled\" olarak atandıysa bu eylem için tuş bağı olmayacak."
 
-#: ../data/tomboy.schemas.in.h:43
+#: ../data/tomboy.schemas.in.h:68
 msgid ""
 "The global keybinding for opening the Note Search dialog. The format looks "
 "like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
@@ -316,7 +488,7 @@ msgstr ""
 "kısaltmalara izin verir. Eğer seçenek özel dizgi \"disabled\" olarak "
 "atandıysa bu eylem için tuş bağı olmayacak."
 
-#: ../data/tomboy.schemas.in.h:44
+#: ../data/tomboy.schemas.in.h:69
 msgid ""
 "The global keybinding for opening the Recent Changes dialog. The format "
 "looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The "
@@ -331,7 +503,7 @@ msgstr ""
 "\"&lt;Ctrl&gt;\" gibi kısaltmalara izin verir. Eğer seçenek özel dizgi "
 "\"disabled\" olarak atandıysa bu eylem için tuş bağı olmayacak."
 
-#: ../data/tomboy.schemas.in.h:45
+#: ../data/tomboy.schemas.in.h:70
 msgid ""
 "The global keybinding for showing the Tomboy applet's menu. The format looks "
 "like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
@@ -346,18 +518,18 @@ msgstr ""
 "\"&lt;Ctrl&gt;\" gibi kısaltmalara izin verir. Eğer seçenek özel dizgi "
 "\"disabled\" olarak atandıysa bu eylem için tuş bağı olmayacak."
 
-#: ../data/tomboy.schemas.in.h:46
+#: ../data/tomboy.schemas.in.h:71
 msgid "The handler for \"note://\" URLs"
 msgstr "\"note://\" URL'leri için işleyici"
 
-#: ../data/tomboy.schemas.in.h:47
+#: ../data/tomboy.schemas.in.h:72
 msgid ""
 "The last directory a note was exported to using the Export To HTML plugin."
 msgstr ""
 "Bir notun HTML Dışa Aktarım Eklentisi kullanılarak dışa aktarıldığı en son "
 "dizin."
 
-#: ../data/tomboy.schemas.in.h:48
+#: ../data/tomboy.schemas.in.h:73
 msgid ""
 "The last setting for the 'Export linked notes' checkbox in the Export to "
 "HTML plugin."
@@ -365,7 +537,7 @@ msgstr ""
 "HTML Dışa Aktarım Eklentisi içindeki 'Bağlı Notlar Dışa Aktar' seçeneği için "
 "son ayar."
 
-#: ../data/tomboy.schemas.in.h:49
+#: ../data/tomboy.schemas.in.h:74
 msgid ""
 "The last setting for the 'Include all other linked notes' checkbox in the "
 "Export to HTML plugin. This setting is used in conjunction with the 'HTML "
@@ -377,7 +549,7 @@ msgstr ""
 "ve tüm notların (iç içe bulunan) HTML aktarmada dahil edilip edilmeyeceğini "
 "belirler."
 
-#: ../data/tomboy.schemas.in.h:50
+#: ../data/tomboy.schemas.in.h:75
 msgid ""
 "The note URI of the note that should be considered the \"Start Here\" note, "
 "which is always placed at the bottom of the Tomboy note menu and also "
@@ -386,11 +558,32 @@ msgstr ""
 "Her zaman Tomboy not menüsünün en altına yerleşecek ve bir tuş ile "
 "erişilebilecek \"Buradan Başla\" notu için not URI'si."
 
-#: ../data/tomboy.schemas.in.h:51
+#: ../data/tomboy.schemas.in.h:76
+msgid ""
+"The port to use when connecting to the synchronization server via SSH. Set "
+"to -1 or less if default SSH port settings should be used instead."
+msgstr ""
+"Eşzamanlama servisine SSH aracılığıyla bağlanırken kullanılacak port. Eğer "
+"öntanımlı SSH port ayarları kullanılacaksa -1 ya da daha küçük miktara "
+"ayarlayın."
+
+#: ../data/tomboy.schemas.in.h:77
+msgid ""
+"Time (in milliseconds) Tomboy should wait for a response when using FUSE to "
+"mount a sync share."
+msgstr ""
+"Bir eşzamanlama paylaşımına FUSE kullanarak bağlandığında Tomboy'un bir "
+"cevap için beklemesi gereken zaman (milisaniye olarak)."
+
+#: ../data/tomboy.schemas.in.h:78
 msgid "Timestamp format"
 msgstr "Zaman etiketi biçimi"
 
-#: ../data/tomboy.schemas.in.h:52
+#: ../data/tomboy.schemas.in.h:79
+msgid "URL of SSH server containing Tomboy synchronization directory."
+msgstr "Tomboy eşzamanlama dizinini içeren SSH sunucusunun adresi (URL)."
+
+#: ../data/tomboy.schemas.in.h:80
 msgid ""
 "Unique identifier for the currently configured note synchronization service "
 "addin."
@@ -398,7 +591,7 @@ msgstr ""
 "Yapılandırılmış mevcut not eşzamanlandırma servisi eklentisi için tekil "
 "belirteç."
 
-#: ../data/tomboy.schemas.in.h:53
+#: ../data/tomboy.schemas.in.h:81
 msgid ""
 "Unique identifier for this Tomboy client, used when communicating with a "
 "sychronization server."
@@ -406,26 +599,27 @@ msgstr ""
 "Bir eşzamanlandırma servisi ile bağlantı kurulduğunda kullanılacak bu Tomboy "
 "istemcisi için tekil beliteç."
 
-#: ../data/tomboy.schemas.in.h:54
+#: ../data/tomboy.schemas.in.h:82
+msgid ""
+"Use wdfs option \"-ac\" to accept SSL certificates without prompting the "
+"user."
+msgstr ""
+"SSL sertifikalarını kullanıcıya sormadan kabul etmek için \"-ac\" wdfs "
+"seçeneğini kullanın."
+
+#: ../data/tomboy.schemas.in.h:83
+msgid "User name to use when connecting to the synchronization server via SSH."
+msgstr ""
+"Eşzamanlama hizmetine SSH aracılığıyla bağlanılırken kullanılacak kullanıcı "
+"adı."
+
+#: ../data/tomboy.schemas.in.h:84
 msgid ""
 "Whitespace-separated list of note URIs for notes that should always appear "
 "in the Tomboy note menu."
 msgstr ""
 "Tomboy not menüsünde görünmesi gereken URI'lerin boşluk karakterleri ile "
 "ayırılmış listesi."
-
-#: ../Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinTreeWidget.cs:91
-msgid "Add-in"
-msgstr "Eklenti"
-
-#: ../Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinTreeWidget.cs:112
-msgid "Version"
-msgstr "Sürüm"
-
-#. Default category name to use if no category is specified for this addin
-#: ../Mono.Addins/Mono.Addins.Gui/Mono.Addins.Gui/AddinTreeWidget.cs:169
-msgid "Other"
-msgstr "Diğer"
 
 #: ../Tomboy/ActionManager.cs:127
 msgid "_File"
@@ -455,7 +649,7 @@ msgstr "_Sil"
 msgid "Delete the selected note"
 msgstr "Seçilen notu sil"
 
-#: ../Tomboy/ActionManager.cs:142 ../Tomboy/NoteWindow.cs:412
+#: ../Tomboy/ActionManager.cs:142 ../Tomboy/NoteWindow.cs:406
 msgid "_Close"
 msgstr "_Kapat"
 
@@ -463,7 +657,7 @@ msgstr "_Kapat"
 msgid "Close this window"
 msgstr "Bu pencereyi kapat"
 
-#: ../Tomboy/ActionManager.cs:146 ../Tomboy/Tray.cs:235
+#: ../Tomboy/ActionManager.cs:146 ../Tomboy/Tray.cs:300
 msgid "_Quit"
 msgstr "Çı_k"
 
@@ -475,7 +669,7 @@ msgstr "Tomboy'dan Çık"
 msgid "_Edit"
 msgstr "_Düzenle"
 
-#: ../Tomboy/ActionManager.cs:154 ../Tomboy/PreferencesDialog.cs:63
+#: ../Tomboy/ActionManager.cs:154 ../Tomboy/PreferencesDialog.cs:65
 msgid "Tomboy Preferences"
 msgstr "Tomboy Tercihleri"
 
@@ -487,7 +681,7 @@ msgstr "İçi_ndekiler"
 msgid "Tomboy Help"
 msgstr "Tomboy Yardım"
 
-#: ../Tomboy/ActionManager.cs:165
+#: ../Tomboy/ActionManager.cs:165 ../Tomboy/MacApplication.cs:233
 msgid "About Tomboy"
 msgstr "Tomboy Hakkında"
 
@@ -499,7 +693,7 @@ msgstr "UyarıAlanıSimgesi"
 msgid "Create _New Note"
 msgstr "Yeni _Not Oluştur"
 
-#: ../Tomboy/ActionManager.cs:175 ../Tomboy/NoteWindow.cs:355
+#: ../Tomboy/ActionManager.cs:175 ../Tomboy/NoteWindow.cs:349
 msgid "_Search All Notes"
 msgstr "_Tüm Notları Ara"
 
@@ -507,23 +701,19 @@ msgstr "_Tüm Notları Ara"
 msgid "Open the Search All Notes window"
 msgstr "Tüm Notları Ara penceresini aç"
 
-#: ../Tomboy/ActionManager.cs:179
-msgid "S_ynchronize Notes"
-msgstr "Notları _Eşzamanlandır"
-
 #: ../Tomboy/ActionManager.cs:180
 msgid "Start synchronizing notes"
 msgstr "Notları eşzamanlandırmayı başlat"
 
-#: ../Tomboy/Addins/Backlinks/BacklinksNoteAddin.cs:25
+#: ../Tomboy/Addins/Backlinks/BacklinksNoteAddin.cs:38
 msgid "What links here?"
 msgstr "Buraya ne bağlı?"
 
-#: ../Tomboy/Addins/Backlinks/BacklinksNoteAddin.cs:83
+#: ../Tomboy/Addins/Backlinks/BacklinksNoteAddin.cs:84
 msgid "(none)"
 msgstr "(hiçbiri)"
 
-#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:32
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:23
 msgid ""
 "You can use any bugzilla just by dragging links into notes.  If you want a "
 "special icon for certain hosts, add them here."
@@ -532,69 +722,69 @@ msgstr ""
 "Eğer belirli makinalar için özel simgeler istiyorsanız, onları buraya "
 "ekleyin."
 
-#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:50
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:41
 msgid "Host Name"
 msgstr "Makina İsmi"
 
-#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:67
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:58
 msgid "Icon"
 msgstr "Simge"
 
-#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:185
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:176
 msgid "Select an icon..."
 msgstr "Bir simge seçin..."
 
 #. Extra Widget
-#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:200
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:191
 msgid "_Host name:"
 msgstr "_Makina ismi:"
 
-#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:229
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:220
 msgid "No host name specified"
 msgstr "Hiçbir makina ismi belirtilmemiş"
 
-#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:230
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:221
 msgid "You must specify the Bugzilla host name to use with this icon."
 msgstr "Bu simge ile kullanmak için bir Bugzilla makina ismi belirtmelisiniz."
 
-#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:256
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:247
 msgid "Error saving icon"
 msgstr "Simge kaydedilirken hata"
 
-#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:257
-msgid "Could not save the icon file.  "
-msgstr "Simge dosyası kaydedilemedi.  "
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:248
+msgid "Could not save the icon file."
+msgstr "Simge dosyası kaydedilemedi."
 
-#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:310
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:302
 msgid "Really remove this icon?"
 msgstr "Bu simgeyi silmek istediğinizden emin misiniz?"
 
-#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:311
+#: ../Tomboy/Addins/Bugzilla/BugzillaPreferences.cs:303
 msgid "If you remove an icon it is permanently lost."
 msgstr "Eğer bir simgeyi silerseniz kalıcı olarak kaybolacaktır."
 
-#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:50
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:67
 msgid "Export to HTML"
 msgstr "HTML olarak dışa aktar"
 
-#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:109
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:115
 #, csharp-format
 msgid "Your note was exported to \"{0}\"."
 msgstr "Notunuz \"{0}\" konumuna aktarıldı."
 
-#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:120
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:126
 msgid "Note exported successfully"
 msgstr "Not başarıyla dışa aktarıldı"
 
-#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:126
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:132
 msgid "Access denied."
 msgstr "İzin verilmedi."
 
-#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:128
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:134
 msgid "Folder does not exist."
 msgstr "Klasör mevcut değil."
 
-#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:143
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:149
 #, csharp-format
 msgid "Could not save the file \"{0}\""
 msgstr "\"{0}\" dosyası kaydedilemedi"
@@ -611,38 +801,34 @@ msgstr "Bağlı notları dışa aktar"
 msgid "Include all other linked notes"
 msgstr "Bağlı notları içer"
 
-#: ../Tomboy/Addins/Evolution/EvolutionNoteAddin.cs:268
+#: ../Tomboy/Addins/Evolution/EvolutionNoteAddin.cs:273
 msgid "Cannot open email"
 msgstr "E-posta açılamıyor"
 
-#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:91
+#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:93
 msgid "_Folder Path:"
 msgstr "_Klasör Yolu:"
 
-#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:101
-msgid "_Browse..."
-msgstr "_Göz at..."
-
-#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:120
+#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:100
 msgid "Select Synchronization Folder..."
 msgstr "Eşzamanlandırma Klasörü Seç..."
 
-#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:148
+#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:126
 msgid "Folder path field is empty."
 msgstr "Klasör yol alanı boş."
 
-#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:157
+#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:135
 msgid ""
 "Specified folder path does not exist, and Tomboy was unable to create it."
 msgstr "Belirtilen klasör yolu mevcut değil, ve Tomboy onu oluşturamadı."
 
-#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:235
+#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:213
 msgid "Local Folder"
 msgstr "Yerel Klasör"
 
-#: ../Tomboy/Addins/FixedWidth/FixedWidthMenuItem.cs:14
-msgid "_Fixed Width"
-msgstr "_Eş Aralıklı"
+#: ../Tomboy/Addins/FixedWidth/FixedWidthMenuItem.cs:13
+msgid "Fixed Wid_th"
+msgstr "_Sabit Genişlik"
 
 #: ../Tomboy/Addins/GalagoPresence/GalagoPresenceNoteAddin.cs:244
 #, csharp-format
@@ -659,21 +845,21 @@ msgid "Insert Timestamp"
 msgstr "Zaman Etiketi Ekle"
 
 #. initial newline
-#: ../Tomboy/Addins/InsertTimestamp/InsertTimestampPreferences.cs:30
-#: ../Tomboy/Applet.cs:205 ../Tomboy/Preferences.cs:137
+#: ../Tomboy/Addins/InsertTimestamp/InsertTimestampPreferences.cs:29
+#: ../Tomboy/Applet.cs:223 ../Tomboy/Preferences.cs:154
 msgid "dddd, MMMM d, h:mm tt"
 msgstr "dddd, d MMMM, HH:mm"
 
-#: ../Tomboy/Addins/InsertTimestamp/InsertTimestampPreferences.cs:55
+#: ../Tomboy/Addins/InsertTimestamp/InsertTimestampPreferences.cs:54
 msgid "Choose one of the predefined formats or use your own."
 msgstr ""
 "Önceden tanımlanmış biçimlerin bir tanesini seçin ya da sizinkini kullanın."
 
-#: ../Tomboy/Addins/InsertTimestamp/InsertTimestampPreferences.cs:63
+#: ../Tomboy/Addins/InsertTimestamp/InsertTimestampPreferences.cs:62
 msgid "Use _Selected Format"
 msgstr "_Seçili Biçimi Kullan"
 
-#: ../Tomboy/Addins/InsertTimestamp/InsertTimestampPreferences.cs:88
+#: ../Tomboy/Addins/InsertTimestamp/InsertTimestampPreferences.cs:87
 msgid "_Use Custom Format"
 msgstr "Özel _Biçim Kullan"
 
@@ -710,166 +896,45 @@ msgstr ""
 msgid "_Open Today: Template"
 msgstr "Bugün: Şablom _Aç"
 
-#: ../Tomboy/Addins/PrintNotes/PrintNotesNoteAddin.cs:18
-#: ../Tomboy/Addins/PrintNotes/gedit-print.c:142
+#: ../Tomboy/Addins/PrintNotes/PrintNotesNoteAddin.cs:52
 msgid "Print"
 msgstr "Yazdır"
-#: ../Tomboy/Addins/PrintNotes/gedit-print.c:240
-msgid "Preparing pages..."
-msgstr "Sayfalar hazırlanıyor..."
 
-#: ../Tomboy/Addins/PrintNotes/gedit-print.c:267
-#, c-format
-msgid "Rendering page %d of %d..."
-msgstr "Toplam %2$d sayfadan %1$d hazırlanıyor..."
+#: ../Tomboy/Addins/PrintNotes/PrintNotesNoteAddin.cs:82
+msgid "Error printing note"
+msgstr "Not yazdırılırken hata oluştu"
 
-#: ../Tomboy/Addins/PrintNotes/gedit-print.c:269
-#, c-format
-msgid "Printing page %d of %d..."
-msgstr "Toplam %2$d sayfadan %1$d yazdırılıyor..."
+#: ../Tomboy/Addins/PrintNotes/PrintNotesNoteAddin.cs:223
+#, csharp-format
+msgid "Page {0} of {1}"
+msgstr "{1} sayfadan {0}"
 
-#: ../Tomboy/Addins/PrintNotes/gedit-print.c:291
-msgid "Print preview"
-msgstr "Baskı önizleme"
-
-#: ../Tomboy/Addins/PrintNotes/gedit-print.c:442
-msgid "Page %N of %Q"
-msgstr "%Q sayfadan %N"
-
-#: ../Tomboy/Addins/PrintNotes/gedit-print.c:445
-#, no-c-format
-msgid "%A %x, %X"
-msgstr "%A %x, %X"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:268
-msgid "Configuration"
-msgstr "Yapılandırma"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:269
-msgid "Configuration options for the print job"
-msgstr "Yazdırma görevi için yapılandırma seçenekleri"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:276
-msgid "Source Buffer"
-msgstr "Kaynak Tamponu"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:277
-msgid "GtkTextBuffer object to print"
-msgstr "Yazdırmak için GtkTextBuffer nesnesi"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:283
-msgid "Tabs Width"
-msgstr "Sekme Genişliği"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:284
-msgid "Width in equivalent space characters of tabs"
-msgstr "Sekmeklerin boşluk karakteri eşleniği olarak genişliği"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:291
-msgid "Wrap Mode"
-msgstr "Bölme Kipi"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:292
-msgid "Word wrapping mode"
-msgstr "Kelime bölme kipi"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:299
-msgid "Highlight"
-msgstr "Vurgulama"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:300
-msgid "Whether to print the document with highlighted syntax"
-msgstr "Belgenin sözdizimi vurgulaması ile yazdırılıp yazdırılmaması"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:308
-msgid "Font"
-msgstr "Yazıtipi"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:309
-msgid "GnomeFont name to use for the document text (deprecated)"
-msgstr "Belge metni için kullanılacak GnomeFont ismi (kullanılmıyor)"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:316
-msgid "Font Description"
-msgstr "Yazıtipi Açıklaması"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:317
-msgid "Font to use for the document text (e.g. \"Monospace 10\")"
-msgstr "Belge metni için kullanılacak yazıtipi (örn. \"Monospace 10\")"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:324
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:332
-msgid "Numbers Font"
-msgstr "Rakamlar Yazıtipi"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:325
-msgid "GnomeFont name to use for the line numbers (deprecated)"
-msgstr "Satır numaraları için kullanılacak GnomeFont ismi (kullanılmıyor)"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:333
-msgid "Font description to use for the line numbers"
-msgstr "Satır numaraları için kullanılacak yazıtipi açıklaması"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:340
-msgid "Print Line Numbers"
-msgstr "Satır Numaralarını Yazdır"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:341
-msgid "Interval of printed line numbers (0 means no numbers)"
-msgstr "Yazdırılan satır numaraları aralığı (0 hiçbir numara anlamına gelir)"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:348
-msgid "Print Header"
-msgstr "Başlığı Yazdır"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:349
-msgid "Whether to print a header in each page"
-msgstr "Her sayfada bir başlığın yazdırılması"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:356
-msgid "Print Footer"
-msgstr "Soneki Yazdır"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:357
-msgid "Whether to print a footer in each page"
-msgstr "Her sayfanın sonunda son ekin yazdırılması"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:364
-msgid "Header and Footer Font"
-msgstr "Başlık ve Son Ek Yazıtipi"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:365
-msgid "GnomeFont name to use for the header and footer (deprecated)"
-msgstr "Başlık ve son ek için kullanılacak GnomeFont ismi (kullanılmıyor)"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:372
-msgid "Header and Footer Font Description"
-msgstr "Başlık ve Son Ek Yazıtipi Açıklaması"
-
-#: ../Tomboy/Addins/PrintNotes/gtksourceprintjob.c:373
-msgid "Font to use for headers and footers (e.g. \"Monospace 10\")"
-msgstr ""
-"Başlıklar ve son ekler için kullanılacak yazıtipi (örn. \"Monospace 10\")"
+#. Translators: Explanation of the date and time format specifications can be found here:
+#. * http://msdn.microsoft.com/en-us/library/system.globalization.datetimeformatinfo.aspx
+#: ../Tomboy/Addins/PrintNotes/PrintNotesNoteAddin.cs:242
+msgid "dddd MM/dd/yyyy, hh:mm:ss tt"
+msgstr "dd/MM/yyyy dddd, hh:mm:ss tt"
 
 #: ../Tomboy/Addins/Sketching/SketchingNoteAddin.cs:19
 msgid "Add a sketch"
 msgstr "Bir çizim ekle"
 
-#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:43
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:47
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:59
 msgid "Se_rver:"
 msgstr "_Sunucu:"
 
-#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:52
-#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:60
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:51
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:59
 msgid "User_name:"
 msgstr "_Kullanıcı adı:"
 
-#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:61
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:55
 msgid "_Folder Path (optional):"
 msgstr "_Klasör Yolu (tercihi):"
 
 #. Text for label describing setup required for SSH sync addin to work
-#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:71
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:58
 msgid ""
 "SSH synchronization requires an existing SSH key for this server and user, "
 "added to a running SSH daemon."
@@ -877,15 +942,15 @@ msgstr ""
 "SSH eşzamanlandırması çalışan SSH servisine ekli bu sunucu ve kullanıcı için "
 "mevcut bir SSH anahtarı gerektiriyor."
 
-#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:95
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:82
 msgid "Server or username field is empty."
 msgstr "Sunucu ya da kullanıcı adı alanı boş."
 
-#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:143
-msgid "SSH (sshfs FUSE)"
-msgstr "SSH (sshfs FUSE)"
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:130
+msgid "SSH"
+msgstr "SSH"
 
-#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:191
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:179
 msgid ""
 "Timeout connecting to server. Please ensure that your SSH key has been added "
 "to a running SSH daemon."
@@ -923,7 +988,7 @@ msgstr "Başlıksız"
 msgid "Sticky Note: "
 msgstr "Yapışkan Not: "
 
-#: ../Tomboy/Addins/Tasque/TasqueNoteAddin.cs:57
+#: ../Tomboy/Addins/Tasque/TasqueNoteAddin.cs:62
 msgid "Tasque"
 msgstr "Tasque"
 
@@ -931,31 +996,35 @@ msgstr "Tasque"
 #. category translation in Tasque for this to work properly.  "All"
 #. is used here to allow Tasque to decide which default category
 #. will be used to create the new task.
-#: ../Tomboy/Addins/Tasque/TasqueNoteAddin.cs:81
+#: ../Tomboy/Addins/Tasque/TasqueNoteAddin.cs:86
 msgid "All"
 msgstr "Hepsi"
 
-#: ../Tomboy/Addins/Tasque/TasqueNoteAddin.cs:140
+#: ../Tomboy/Addins/Tasque/TasqueNoteAddin.cs:145
 msgid "--- Tasque is not running ---"
 msgstr "--- Tasque çalışmıyor ---"
 
-#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:51
+#: ../Tomboy/Addins/Underline/UnderlineMenuItem.cs:12
+msgid "_Underline"
+msgstr "_Altı çizili"
+
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:55
 msgid "_URL:"
 msgstr "_URL:"
 
-#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:69
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:64
 msgid "_Password:"
 msgstr "_Parola:"
 
-#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:90
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:77
 msgid "URL, username, or password field is empty."
 msgstr "URL, kullanıcı ismi ya da parola alanı boş."
 
-#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:132
-msgid "WebDAV (wdfs FUSE)"
-msgstr "WebDAV (wdfs FUSE)"
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:119
+msgid "WebDAV"
+msgstr "WebDAV"
 
-#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:190
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:178
 msgid ""
 "There was an error connecting to the server.  This may be caused by using an "
 "incorrect user name and/or password."
@@ -968,15 +1037,101 @@ msgstr ""
 #. Save configuration into GConf
 #. Preferences.Set ("/apps/tomboy/sync_wdfs_url", url ?? string.Empty);
 #. Preferences.Set ("/apps/tomboy/sync_wdfs_username", username ?? string.Empty);
-#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:266
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:254
 msgid ""
 "Saving configuration to the GNOME keyring failed with the following message:"
 msgstr ""
 "Yapılandırmanın GNOME anahtarlığına kaydedilmesi aşağıdaki ileti ile "
 "başarısız oldu:"
 
+#: ../Tomboy/Addins/WebSyncService/WebSyncServiceAddin.cs:70
+msgid "Tomboy Web"
+msgstr "Tomboy Web"
+
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:66
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:96
+msgid "Connect to Server"
+msgstr "Sunucuya Bağlan"
+
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:68
+msgid "Connected"
+msgstr "Bağlandı"
+
+#. Translators: The web service supporting Tomboy WebSync is not responding as expected
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:125
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:156
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:170
+msgid "Server not responding. Try again later."
+msgstr "Sunucu yanıt vermiyor. Daha sonra tekrar deneyin."
+
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:201
+msgid "Authorization Failed, Try Again"
+msgstr "Kimlik Doğrulama Başarısız Oldu, Tekrar Deneyin"
+
+#. Translators: Title of web page presented to user after they authorized Tomboy for sync
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:210
+msgid "Tomboy Web Authorization Successful"
+msgstr ""
+
+#. Translators: Body of web page presented to user after they authorized Tomboy for sync
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:212
+msgid ""
+"Please return to the Tomboy Preferences window and press Save to start "
+"synchronizing."
+msgstr ""
+
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:221
+#, fuzzy
+#| msgid "Connected. Click Save to start synchronizing"
+msgid "Connected. Press Save to start synchronizing"
+msgstr "Bağlandı. Eşzamanlamanın başlaması için Kaydet'e tıklayın"
+
+#. Translators: The user must take action in their web browser to continue the authorization process
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:227
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:239
+msgid "Authorizing in browser (Press to reset connection)"
+msgstr ""
+
+#. Translators: Sometimes a user's default browser is not set, so we recommend setting it and trying again
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:235
+msgid "Set the default browser and try again"
+msgstr "Öntanımlı tarayıcıyı ayarla ve tekrar dene"
+
+#: ../Tomboy/JumpListManager.cs:96 ../Tomboy/RecentChanges.cs:83
+msgid "Search All Notes"
+msgstr "Tüm Notları Ara"
+
+#. IShellLink new_notebook = CreateShellLink("New Notebook", topmboy_path, "--new-notebook",
+#. icons_path, (int)TomboyIcons.NewNotebook);
+#. if (new_notebook != null)
+#. object_collection.AddObject(new_notebook);
+#: ../Tomboy/JumpListManager.cs:106
+#| msgid "Create _New Note"
+msgid "Create New Note"
+msgstr "Yeni Not Oluştur"
+
+#: ../Tomboy/JumpListManager.cs:136
+#, csharp-format
+#| msgid " (new)"
+msgid "{0} (new)"
+msgstr "{0} (yeni)"
+
+#: ../Tomboy/JumpListManager.cs:158
+msgid "Recent Notes"
+msgstr "Son Notlar"
+
+#. Translators: This is the name of "Window" menu in the Mac menubar
+#: ../Tomboy/MacApplication.cs:215
+msgid "_Window"
+msgstr "_Pencere"
+
+#: ../Tomboy/MacApplication.cs:234
+#| msgid "_Preferences"
+msgid "Preferences..."
+msgstr "Tercihler..."
+
 #: ../Tomboy/Notebooks/CreateNotebookDialog.cs:24
-#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:42
+#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:53
 msgid "Create a new notebook"
 msgstr "Yeni bir not defteri oluştur"
 
@@ -1018,54 +1173,54 @@ msgstr "Tüm Notlar"
 msgid "Unfiled Notes"
 msgstr "Dosyalanmamış Notlar"
 
-#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:37
+#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:48
 msgid "Note_books"
 msgstr "_Not Defterleri"
 
-#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:38
-#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:58
+#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:49
+#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:69
 msgid "Create a new note in a notebook"
 msgstr "Bir not defteri içerisinde yeni bir not oluştur"
 
-#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:41
-#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:201
+#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:52
+#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:223
 msgid "New Note_book..."
 msgstr "Yeni _Not Defteri..."
 
-#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:45
+#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:56
 msgid "_New Note"
 msgstr "_Yeni Not"
 
-#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:46
+#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:57
 msgid "Create a new note in this notebook"
 msgstr "Bu not defterinde yeni bir not oluştur"
 
-#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:49
+#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:60
 msgid "_Open Template Note"
 msgstr "Şablom Notunu _Aç"
 
-#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:50
+#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:61
 msgid "Open this notebook's template note"
 msgstr "Bu not defterinin şablom notunu aç"
 
-#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:53
+#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:64
 msgid "Delete Note_book"
 msgstr "Not Defterini _Sil"
 
-#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:54
+#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:65
 msgid "Delete the selected notebook"
 msgstr "Seçilen not defterini sil"
 
-#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:57
-#: ../Tomboy/RecentChanges.cs:250
+#: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:68
+#: ../Tomboy/RecentChanges.cs:260
 msgid "Notebooks"
 msgstr "Not Defterleri"
 
-#: ../Tomboy/Notebooks/NotebookManager.cs:356
+#: ../Tomboy/Notebooks/NotebookManager.cs:361
 msgid "Really delete this notebook?"
 msgstr "Bu not defterini silmek istediğinizden emin misiniz?"
 
-#: ../Tomboy/Notebooks/NotebookManager.cs:358
+#: ../Tomboy/Notebooks/NotebookManager.cs:363
 msgid ""
 "The notes that belong to this notebook will not be deleted, but they will no "
 "longer be associated with this notebook.  This action cannot be undone."
@@ -1086,50 +1241,112 @@ msgstr "Not defteri yok"
 msgid "New \"{0}\" Note"
 msgstr "Yeni \"{0}\" Not"
 
-#: ../Tomboy/Notebooks/NotebookNoteAddin.cs:36
+#: ../Tomboy/Notebooks/NotebookNoteAddin.cs:46
 msgid "Place this note into a notebook"
 msgstr "Bu notu not defteri içerisine yerleştir"
 
-#: ../Tomboy/Notebooks/NotebookNoteAddin.cs:112
+#: ../Tomboy/Notebooks/NotebookNoteAddin.cs:127
 msgid "Notebook"
 msgstr "Not defteri"
 
-#: ../Tomboy/Notebooks/NotebookNoteAddin.cs:141
+#: ../Tomboy/Notebooks/NotebookNoteAddin.cs:156
 msgid "_New notebook..."
 msgstr "Yeni _not defteri..."
 
-#: ../Tomboy/Note.cs:1438
+#: ../Tomboy/Note.cs:1568
 msgid "Really delete this note?"
 msgstr "Bu notu silmek istediğinizden emin misiniz?"
 
-#: ../Tomboy/Note.cs:1440
-msgid "Really delete these notes?"
-msgstr "Bu notları silmek istediğinizden emin misiniz?"
+#: ../Tomboy/Note.cs:1571
+#, csharp-format
+msgid "Really delete this {0} note?"
+msgid_plural "Really delete these {0} notes?"
+msgstr[0] "Bu {0} not gerçekten silinsin mi?"
 
-#: ../Tomboy/Note.cs:1449
+#: ../Tomboy/Note.cs:1582
 msgid "If you delete a note it is permanently lost."
 msgstr "Eğer bir notu silerseniz kalıcı olarak kaybolacaktır."
 
-#: ../Tomboy/Note.cs:1483
-msgid "Error saving note data."
-msgstr "Not bilgisi kaydedilirken hata."
-
-#: ../Tomboy/Note.cs:1484
+#: ../Tomboy/Note.cs:1616
+#, fuzzy, csharp-format
+#| msgid ""
+#| "An error occurred while saving your notes. Please check that you have "
+#| "sufficient disk space, and that you have appropriate rights on ~/.tomboy. "
+#| "Error details can be found in ~/.tomboy.log."
 msgid ""
 "An error occurred while saving your notes. Please check that you have "
-"sufficient disk space, and that you have appropriate rights on ~/.tomboy. "
-"Error details can be found in ~/.tomboy.log."
+"sufficient disk space, and that you have appropriate rights on {0}. Error "
+"details can be found in {1}."
 msgstr ""
 "Notlarınız kaydedilirken bir hata oluştu. Lütfen yeterli boş disk alanınız "
 "olduğunu kontrol edin ve ~/.tomboy üzerinde yeterli haklara sahip olduğunuza "
 "emin olun. Hata ayrıntıları ~/.tomboy.log içerisinde bulunabilir."
 
+#: ../Tomboy/Note.cs:1632
+msgid "Error saving note data."
+msgstr "Not bilgisi kaydedilirken hata."
+
 #. New Note Template
-#: ../Tomboy/NoteManager.cs:20 ../Tomboy/PreferencesDialog.cs:210
+#. Translators: This is 'New Note' Template, not New 'Note Template'
+#: ../Tomboy/NoteManager.cs:21 ../Tomboy/PreferencesDialog.cs:256
 msgid "New Note Template"
 msgstr "Yeni Not Şablomu"
 
-#: ../Tomboy/NoteManager.cs:138
+#. Create migration notification note
+#. Translators: The title of the data migration note
+#: ../Tomboy/NoteManager.cs:147
+msgid "Your Notes Have Moved!"
+msgstr "Notlarınız Taşındı!"
+
+#. Translators: The contents (not including the title) of the data migration note. {0}, {1}, {2}, {3}, and {4} are replaced by directory paths and should not be changed
+#: ../Tomboy/NoteManager.cs:160
+#, csharp-format
+msgid ""
+"In the latest version of Tomboy, your note files have moved.  You have "
+"probably never cared where your notes are stored, and if you still don't "
+"care, please go ahead and <bold>delete this note</bold>.  :-)\n"
+"\n"
+"Your old note directory is still safe and sound at <link:url>{0}</link:"
+"url> . If you go back to an older version of Tomboy, it will look for notes "
+"there.\n"
+"\n"
+"But we've copied your notes and configuration info into new directories, "
+"which will be used from now on:\n"
+"\n"
+"<list><list-item dir=\"ltr\">Notes can now be found at <link:url>{1}</link:"
+"url>\n"
+"</list-item><list-item dir=\"ltr\">Configuration is at <link:url>{2}</link:"
+"url>\n"
+"</list-item><list-item dir=\"ltr\">You can install add-ins at <link:url>{3}</"
+"link:url>\n"
+"</list-item><list-item dir=\"ltr\">Log files can be found at <link:url>{4}</"
+"link:url></list-item></list>\n"
+"\n"
+"Ciao!"
+msgstr ""
+"Tomboy'un en son sürümünde not dosyalarınız taşındı.  Muhtemelen "
+"notlarınızın nerede saklandığını önemsemiyorsunuz, ve hâlâ önemsemiyorsanız, "
+"lütfen devam edin ve <bold>bu notu silin</bold>.  :-)\n"
+"\n"
+"Eski not dizininiz hâlâ <link:url>{0}</link:url> dizininde, güvende ve "
+"sapasağlam. Eğer Tomboy'un eski bir sürümüne geri dönerseniz, notlar için "
+"oraya bakacak.\n"
+"\n"
+"Fakat dosyalarınızı ve yapılandırma bilgilerinizi, şu andan itibaren "
+"kullanılacak olan yeni dizinlerin içine kopyaladık:\n"
+"\n"
+"<list><list-item dir=\"ltr\">Notlar şimdi <link:url>{1}</link:url> dizininde "
+"bulunabilir.\n"
+"</list-item><list-item dir=\"ltr\">Yapılandırma <link:url>{2}</link:url> "
+"dizininde.\n"
+"</list-item><list-item dir=\"ltr\"><link:url>{3}</link:url> dizinine "
+"eklentiler yükleyebilirsiniz.\n"
+"</list-item><list-item dir=\"ltr\">Günlük dosyaları <link:url>{4}</link:"
+"url>dizininde bulunabilir.</list-item></list>\n"
+"\n"
+"Hoşçakal!"
+
+#: ../Tomboy/NoteManager.cs:265
 msgid ""
 "<note-content>Start Here\n"
 "\n"
@@ -1168,7 +1385,7 @@ msgstr ""
 "yazışımızda kendiliğinden altının çizildiğini farkettiniz mi? Notu açmak "
 "için bağın üzerine tıklayın.</note-content>"
 
-#: ../Tomboy/NoteManager.cs:157
+#: ../Tomboy/NoteManager.cs:284
 msgid ""
 "<note-content>Using Links in Tomboy\n"
 "\n"
@@ -1197,146 +1414,219 @@ msgstr ""
 "kendiliğinden sizin için bağlanmış olur.</note-content>"
 
 #. Attempt to find an existing Start Here note
-#: ../Tomboy/NoteManager.cs:172 ../Tomboy/NoteManager.cs:239
+#: ../Tomboy/NoteManager.cs:299 ../Tomboy/NoteManager.cs:369
 msgid "Start Here"
 msgstr "Buradan Başla"
 
-#: ../Tomboy/NoteManager.cs:177
+#: ../Tomboy/NoteManager.cs:304
 msgid "Using Links in Tomboy"
 msgstr "Tomboy'da Bağları Kullanmak"
 
-#: ../Tomboy/NoteManager.cs:316
+#: ../Tomboy/NoteManager.cs:449
 #, csharp-format
 msgid "New Note {0}"
 msgstr "Yeni Not {0}"
 
 #. Use a simple "Describe..." body and highlight
 #. it so it can be easily overwritten
-#: ../Tomboy/NoteManager.cs:388 ../Tomboy/NoteManager.cs:480
+#: ../Tomboy/NoteManager.cs:522 ../Tomboy/NoteManager.cs:615
 msgid "Describe your new note here."
 msgstr "Yeni notunuzu burada açıklayın."
+
+#: ../Tomboy/NoteRenameDialog.cs:50
+msgid "Rename Note Links?"
+msgstr "Not Bağlantıları Yeniden Adlandırılsın Mı?"
+
+#: ../Tomboy/NoteRenameDialog.cs:56
+#| msgid "_Open Link"
+msgid "_Rename Links"
+msgstr "_Bağlantıları Yeniden Adlandır"
+
+#: ../Tomboy/NoteRenameDialog.cs:59
+msgid "_Don't Rename Links"
+msgstr "Bağlantıları _Yeniden Adlandırma"
+
+#: ../Tomboy/NoteRenameDialog.cs:67
+#, csharp-format
+msgid ""
+"Rename links in other notes from \"<span underline=\"single\">{0}</span>\" "
+"to \"<span underline=\"single\">{1}</span>\"?\n"
+"\n"
+"If you do not rename the links, they will no longer link to anything."
+msgstr ""
+
+#: ../Tomboy/NoteRenameDialog.cs:83
+#| msgid "_Open Link"
+msgid "Rename Links"
+msgstr "Bağlantıları Yeniden Adlandır"
+
+#: ../Tomboy/NoteRenameDialog.cs:95
+#: ../Tomboy/Synchronization/SyncDialog.cs:119
+msgid "Note Title"
+msgstr "Not Başlığı"
+
+#. Translators: This button causes all notes in the list to be selected
+#: ../Tomboy/NoteRenameDialog.cs:118
+msgid "Select All"
+msgstr "Tümünü Seç"
+
+#. Translators: This button causes all notes in the list to be unselected
+#: ../Tomboy/NoteRenameDialog.cs:127
+#| msgid "Select an icon..."
+msgid "Select None"
+msgstr "Hiçbirini Seçme"
+
+#: ../Tomboy/NoteRenameDialog.cs:144
+#| msgid "_Advanced..."
+msgid "Ad_vanced"
+msgstr "_Gelişmiş"
+
+#: ../Tomboy/NoteRenameDialog.cs:147
+#| msgid "Close this window"
+msgid "Always show this _window"
+msgstr "Bu _pencereyi herzaman göster"
+
+#: ../Tomboy/NoteRenameDialog.cs:155
+msgid "Never rename _links"
+msgstr "_Bağlantıları hiçbir zaman yeniden adlandırma"
+
+#: ../Tomboy/NoteRenameDialog.cs:163
+msgid "Alwa_ys rename links"
+msgstr "Bağlantıları her _zaman yeniden adlandır"
 
 #: ../Tomboy/NoteWindow.cs:58
 msgid "Find in This Note"
 msgstr "Bu Not İçinde Bul"
 
-#: ../Tomboy/NoteWindow.cs:367
+#: ../Tomboy/NoteWindow.cs:361
 msgid "_Link to New Note"
 msgstr "Yeni notla _bağla"
 
-#: ../Tomboy/NoteWindow.cs:379
+#: ../Tomboy/NoteWindow.cs:373
 msgid "Te_xt"
 msgstr "M_etin"
 
-#: ../Tomboy/NoteWindow.cs:387
+#: ../Tomboy/NoteWindow.cs:381
 msgid "_Find in This Note"
 msgstr "_Bu Not İçinde Bul"
 
-#: ../Tomboy/NoteWindow.cs:402
+#: ../Tomboy/NoteWindow.cs:396
 msgid "Clos_e All Notes"
 msgstr "Tü_m Notları Kapat"
 
-#: ../Tomboy/NoteWindow.cs:442
+#: ../Tomboy/NoteWindow.cs:436
 msgid "Search"
 msgstr "Ara"
 
-#: ../Tomboy/NoteWindow.cs:445
+#: ../Tomboy/NoteWindow.cs:439
 msgid "Search your notes (Ctrl-Shift-F)"
 msgstr "Notlarınızı arayın (Ctrl-Shift-F)"
 
-#: ../Tomboy/NoteWindow.cs:457
+#: ../Tomboy/NoteWindow.cs:451
 msgid "Link"
 msgstr "Bağ"
 
-#: ../Tomboy/NoteWindow.cs:463
+#: ../Tomboy/NoteWindow.cs:457
 msgid "Link selected text to a new note (Ctrl-L)"
 msgstr "Seçilmiş metni yeni bir not ile bağla (Ctrl-L)"
 
-#: ../Tomboy/NoteWindow.cs:476
+#: ../Tomboy/NoteWindow.cs:470
 msgid "_Text"
 msgstr "_Metin"
 
-#: ../Tomboy/NoteWindow.cs:481
+#: ../Tomboy/NoteWindow.cs:475
 msgid "Set properties of text"
 msgstr "Metin özelliklerini ayarla"
 
-#: ../Tomboy/NoteWindow.cs:486
+#: ../Tomboy/NoteWindow.cs:480
 msgid "T_ools"
 msgstr "_Araçlar"
 
-#: ../Tomboy/NoteWindow.cs:490
+#: ../Tomboy/NoteWindow.cs:484
 msgid "Use tools on this note"
 msgstr "Bu notta araçları kullan"
 
-#: ../Tomboy/NoteWindow.cs:498
+#: ../Tomboy/NoteWindow.cs:492
 msgid "Delete this note"
 msgstr "Bu notu sil"
 
-#: ../Tomboy/NoteWindow.cs:507 ../Tomboy/Synchronization/SyncManager.cs:161
+#: ../Tomboy/NoteWindow.cs:500 ../Tomboy/Synchronization/SyncManager.cs:163
 msgid "Synchronize Notes"
 msgstr "Notları Eşzamanlandır"
 
-#: ../Tomboy/NoteWindow.cs:550
+#: ../Tomboy/NoteWindow.cs:562
 msgid "_Find..."
 msgstr "_Bul..."
 
-#: ../Tomboy/NoteWindow.cs:561 ../Tomboy/NoteWindow.cs:763
+#: ../Tomboy/NoteWindow.cs:573
 msgid "Find _Next"
 msgstr "So_nrakini Bul"
 
-#: ../Tomboy/NoteWindow.cs:574
+#: ../Tomboy/NoteWindow.cs:586
 msgid "Find _Previous"
 msgstr "Ön_cekini Bul"
 
-#: ../Tomboy/NoteWindow.cs:662
+#: ../Tomboy/NoteWindow.cs:674
 msgid "Cannot create note"
 msgstr "Not oluşturulamıyor"
 
-#: ../Tomboy/NoteWindow.cs:743
+#: ../Tomboy/NoteWindow.cs:755
 msgid "_Find:"
 msgstr "_Bul:"
 
-#: ../Tomboy/NoteWindow.cs:754
+#: ../Tomboy/NoteWindow.cs:766
 msgid "_Previous"
 msgstr "Ö_nceki"
 
-#: ../Tomboy/NoteWindow.cs:1238
+#: ../Tomboy/NoteWindow.cs:775
+msgid "_Next"
+msgstr "_Sonraki"
+
+#: ../Tomboy/NoteWindow.cs:1258
 msgid "_Bold"
 msgstr "_Kalın"
 
-#: ../Tomboy/NoteWindow.cs:1250
+#: ../Tomboy/NoteWindow.cs:1270
 msgid "_Italic"
 msgstr "_Eğik"
 
-#: ../Tomboy/NoteWindow.cs:1262
+#: ../Tomboy/NoteWindow.cs:1282
 msgid "_Strikeout"
 msgstr "Ü_stü çizili"
 
-#: ../Tomboy/NoteWindow.cs:1274
+#: ../Tomboy/NoteWindow.cs:1294
 msgid "_Highlight"
 msgstr "_Aydınlat"
 
-#: ../Tomboy/NoteWindow.cs:1287
+#: ../Tomboy/NoteWindow.cs:1307
 msgid "Font Size"
 msgstr "Yazıtipi Boyutu"
 
-#: ../Tomboy/NoteWindow.cs:1290
+#: ../Tomboy/NoteWindow.cs:1310
 msgid "_Normal"
 msgstr "_Normal"
 
-#: ../Tomboy/NoteWindow.cs:1297
+#: ../Tomboy/NoteWindow.cs:1327
 msgid "Hu_ge"
 msgstr "Çok _büyük"
 
-#: ../Tomboy/NoteWindow.cs:1305
+#: ../Tomboy/NoteWindow.cs:1335
 msgid "_Large"
 msgstr "Bü_yük"
 
-#: ../Tomboy/NoteWindow.cs:1313
+#: ../Tomboy/NoteWindow.cs:1343
 msgid "S_mall"
 msgstr "_Küçük"
 
-#: ../Tomboy/NoteWindow.cs:1324
+#: ../Tomboy/NoteWindow.cs:1352
+msgid "Increase Font Size"
+msgstr "Yazıtipi Boyutunu Büyüt"
+
+#: ../Tomboy/NoteWindow.cs:1370
+msgid "Decrease Font Size"
+msgstr "Yazıtipi Boyutunu Küçült"
+
+#: ../Tomboy/NoteWindow.cs:1390
 msgid "Bullets"
 msgstr "İşaretler"
 
@@ -1344,23 +1634,23 @@ msgstr "İşaretler"
 msgid "Editing"
 msgstr "Düzenleme"
 
-#: ../Tomboy/PreferencesDialog.cs:83
+#: ../Tomboy/PreferencesDialog.cs:84
 msgid "Hotkeys"
 msgstr "Kısayollar"
 
-#: ../Tomboy/PreferencesDialog.cs:85
+#: ../Tomboy/PreferencesDialog.cs:86
 msgid "Synchronization"
 msgstr "Eşzamanlandırma"
 
-#: ../Tomboy/PreferencesDialog.cs:87
+#: ../Tomboy/PreferencesDialog.cs:88
 msgid "Add-ins"
 msgstr "Eklentiler"
 
-#: ../Tomboy/PreferencesDialog.cs:146
+#: ../Tomboy/PreferencesDialog.cs:173
 msgid "_Spell check while typing"
 msgstr "_Yazarken imla denetimi yap"
 
-#: ../Tomboy/PreferencesDialog.cs:155
+#: ../Tomboy/PreferencesDialog.cs:182
 msgid ""
 "Misspellings will be underlined in red, with correct spelling suggestions "
 "shown in the context menu."
@@ -1369,11 +1659,11 @@ msgstr ""
 "menüsünde görüntülenir."
 
 #. WikiWords...
-#: ../Tomboy/PreferencesDialog.cs:166
+#: ../Tomboy/PreferencesDialog.cs:193
 msgid "Highlight _WikiWords"
 msgstr "_WikiSözcükleri aydınlat"
 
-#: ../Tomboy/PreferencesDialog.cs:174
+#: ../Tomboy/PreferencesDialog.cs:201
 msgid ""
 "Enable this option to highlight words <b>ThatLookLikeThis</b>. Clicking the "
 "word will create a note with that name."
@@ -1383,32 +1673,48 @@ msgstr ""
 "sağlayacaktır."
 
 #. Auto bulleted list
-#: ../Tomboy/PreferencesDialog.cs:181
+#: ../Tomboy/PreferencesDialog.cs:208
 msgid "Enable auto-_bulleted lists"
 msgstr "_Kendiliğinden işaretli listeleri etkinleştir"
 
-#. Custom font...
-#: ../Tomboy/PreferencesDialog.cs:190
+#: ../Tomboy/PreferencesDialog.cs:217
 msgid "Use custom _font"
 msgstr "Özel _yazı tipi kullan"
 
-#: ../Tomboy/PreferencesDialog.cs:214
+#: ../Tomboy/PreferencesDialog.cs:235
+msgid "When renaming a linked note: "
+msgstr ""
+
+#: ../Tomboy/PreferencesDialog.cs:238
+#| msgid "Always ask me what to do."
+msgid "Ask me what to do"
+msgstr "Ne yapılacağını bana sor"
+
+#: ../Tomboy/PreferencesDialog.cs:239
+msgid "Never rename links"
+msgstr "Bağlantıları hiçbir zaman yeniden adlandırma"
+
+#: ../Tomboy/PreferencesDialog.cs:240
+msgid "Always rename links"
+msgstr "Bağlantıları her zaman yeniden adlandır"
+
+#: ../Tomboy/PreferencesDialog.cs:260
 msgid ""
 "Use the new note template to specify the text that should be used when "
 "creating a new note."
 msgstr ""
 "Yeni bir not oluştururken kullanılacak metni yeni not şablomu olarak belirt."
 
-#: ../Tomboy/PreferencesDialog.cs:224
+#: ../Tomboy/PreferencesDialog.cs:269
 msgid "Open New Note Template"
 msgstr "Yeni Not Şablomu Aç"
 
 #. Hotkeys...
-#: ../Tomboy/PreferencesDialog.cs:281
+#: ../Tomboy/PreferencesDialog.cs:326
 msgid "Listen for _Hotkeys"
 msgstr "Kısayol _tuşlarını dinle"
 
-#: ../Tomboy/PreferencesDialog.cs:290
+#: ../Tomboy/PreferencesDialog.cs:335
 msgid ""
 "Hotkeys allow you to quickly access your notes from anywhere with a "
 "keypress. Example Hotkeys: <b>&lt;Control&gt;&lt;Shift&gt;F11</b>, <b>&lt;"
@@ -1419,68 +1725,82 @@ msgstr ""
 "F11</b>, <b>&lt;Alt&gt;N</b>"
 
 #. Show notes menu keybinding...
-#: ../Tomboy/PreferencesDialog.cs:310
+#: ../Tomboy/PreferencesDialog.cs:355
 msgid "Show notes _menu"
 msgstr "Notlar _menüsünü görüntüle"
 
 #. Open Start Here keybinding...
-#: ../Tomboy/PreferencesDialog.cs:327
+#: ../Tomboy/PreferencesDialog.cs:372
 msgid "Open \"_Start Here\""
 msgstr "\"_Buradan Başla\" notunu aç"
 
 #. Create new note keybinding...
-#: ../Tomboy/PreferencesDialog.cs:344
+#: ../Tomboy/PreferencesDialog.cs:389
 msgid "Create _new note"
 msgstr "Yeni _not oluştur"
 
 #. Open Search All Notes window keybinding...
-#: ../Tomboy/PreferencesDialog.cs:361
+#: ../Tomboy/PreferencesDialog.cs:406
 msgid "Open \"Search _All Notes\""
 msgstr "\"Tüm Notları Ara\" _Aç"
 
-#: ../Tomboy/PreferencesDialog.cs:388
+#: ../Tomboy/PreferencesDialog.cs:433
 msgid "Ser_vice:"
 msgstr "_Servis:"
 
-#: ../Tomboy/PreferencesDialog.cs:441 ../Tomboy/PreferencesDialog.cs:1019
+#: ../Tomboy/PreferencesDialog.cs:486 ../Tomboy/PreferencesDialog.cs:1113
 msgid "Not configurable"
 msgstr "Yapılandırılamaz"
 
+#: ../Tomboy/PreferencesDialog.cs:512
+msgid "Automaticall_y Sync in Background Every"
+msgstr ""
+
+#. Translators: See above comment for details on
+#. this string.
+#: ../Tomboy/PreferencesDialog.cs:518
+msgid "Minutes"
+msgstr "Dakika"
+
 #. "Advanced..." button to bring up extra sync config dialog
-#: ../Tomboy/PreferencesDialog.cs:461
+#: ../Tomboy/PreferencesDialog.cs:540
 msgid "_Advanced..."
 msgstr "_Gelişmiş..."
 
-#: ../Tomboy/PreferencesDialog.cs:522
+#: ../Tomboy/PreferencesDialog.cs:601
 msgid "The following add-ins are installed"
 msgstr "Aşağıdaki eklentiler kurulmuş"
 
-#: ../Tomboy/PreferencesDialog.cs:553
+#: ../Tomboy/PreferencesDialog.cs:622
+msgid "Get More Add-Ins..."
+msgstr "Daha Fazla Eklenti Al..."
+
+#: ../Tomboy/PreferencesDialog.cs:648
 msgid "_Enable"
 msgstr "_Etkinleştir"
 
-#: ../Tomboy/PreferencesDialog.cs:559
+#: ../Tomboy/PreferencesDialog.cs:654
 msgid "_Disable"
 msgstr "_Etkisizleştir"
 
-#: ../Tomboy/PreferencesDialog.cs:690
+#: ../Tomboy/PreferencesDialog.cs:785
 msgid "Not Implemented"
 msgstr "UygulanmamışIugul"
 
-#: ../Tomboy/PreferencesDialog.cs:704
+#: ../Tomboy/PreferencesDialog.cs:799
 #, csharp-format
 msgid "{0} Preferences"
 msgstr "{0} Tercihleri"
 
-#: ../Tomboy/PreferencesDialog.cs:843
+#: ../Tomboy/PreferencesDialog.cs:938
 msgid "Choose Note Font"
 msgstr "Not Yazıtipi Seçin"
 
-#: ../Tomboy/PreferencesDialog.cs:887
+#: ../Tomboy/PreferencesDialog.cs:982
 msgid "Other Synchronization Options"
 msgstr "Diğer Eşzamanlandırma Seçenekleri"
 
-#: ../Tomboy/PreferencesDialog.cs:894
+#: ../Tomboy/PreferencesDialog.cs:988
 msgid ""
 "When a conflict is detected between a local note and a note on the "
 "configured synchronization server:"
@@ -1488,23 +1808,24 @@ msgstr ""
 "Yerel bir not ile yapılandırılmış eşzamanlandırma sunucusu üzerindeki not "
 "arasında çakışma tespit edildiğinde:"
 
-#: ../Tomboy/PreferencesDialog.cs:901
+#: ../Tomboy/PreferencesDialog.cs:995
 msgid "Always ask me what to do."
 msgstr "Ne yapılacağını her zaman bana sor."
 
-#: ../Tomboy/PreferencesDialog.cs:905
+#: ../Tomboy/PreferencesDialog.cs:999
 msgid "Rename my local note."
 msgstr "Yerel notumu yeniden adlandır."
 
-#: ../Tomboy/PreferencesDialog.cs:909
+#: ../Tomboy/PreferencesDialog.cs:1003
 msgid "Replace my local note with the server's update."
 msgstr "Sunucudaki güncel olaranı ile beni notumu yer değiştir."
 
-#: ../Tomboy/PreferencesDialog.cs:1055
-msgid "WARNING: Are you sure?"
-msgstr "UYARI: Emin misiniz?"
+#: ../Tomboy/PreferencesDialog.cs:1149
+#| msgid "WARNING: Are you sure?"
+msgid "Are you sure?"
+msgstr "Emin misiniz?"
 
-#: ../Tomboy/PreferencesDialog.cs:1057
+#: ../Tomboy/PreferencesDialog.cs:1151
 msgid ""
 "Clearing your synchronization settings is not recommended.  You may be "
 "forced to synchronize all of your notes again when you save new settings."
@@ -1512,11 +1833,11 @@ msgstr ""
 "Eşzamanlandırma ayarlarınızı temizlemek tavsiye edilmiyor. Yeni ayarları "
 "kaydettiğinizde tüm notlarınızı tekrar eşzamanlandırmaya zorlanabilrisiniz."
 
-#: ../Tomboy/PreferencesDialog.cs:1070
+#: ../Tomboy/PreferencesDialog.cs:1164
 msgid "Resetting Synchronization Settings"
 msgstr "Eşzamanlandırma Ayarları Sıfırlanıyor"
 
-#: ../Tomboy/PreferencesDialog.cs:1072
+#: ../Tomboy/PreferencesDialog.cs:1166
 msgid ""
 "You have disabled the configured synchronization service.  Your "
 "synchronization settings will now be cleared.  You may be forced to "
@@ -1526,109 +1847,129 @@ msgstr ""
 "eşzamanlandırma ayarlarını temizlenecek. Yeni ayarları kaydettiğinizde "
 "terkar tüm notlarınızı eşzamanlandırmaya zorlanabilirsiniz"
 
-#: ../Tomboy/PreferencesDialog.cs:1169
-msgid "Success! You're connected!"
-msgstr "Başarılı! Bağlandınız!"
+#: ../Tomboy/PreferencesDialog.cs:1244
+msgid "Connection successful"
+msgstr "Bağlantı başarılı"
 
-#: ../Tomboy/PreferencesDialog.cs:1171
-msgid "Tomboy is ready to synchronize your notes."
-msgstr "Tomboy notlarınızı eşzamanlandırmak için hazır."
-
-#: ../Tomboy/PreferencesDialog.cs:1190
+#: ../Tomboy/PreferencesDialog.cs:1246
 msgid ""
-"Sorry, but something went wrong.  Please check your information and try "
-"again.  The ~/.tomboy.log might be useful too."
+"Tomboy is ready to synchronize your notes. Would you like to synchronize "
+"them now?"
 msgstr ""
-"Üzgünüz, ancak bir şey yanlış gitti. Lütfen bilgilerinizi kontrol edip "
-"tekrar deneyin. ~/.tomboy.log da faydalı olabilir."
+"Tomboy notlarınızı eşzamanlandırmak için hazır. Notlarınızı şimdi "
+"eşzamanlandırmak istiyor musunuz?"
 
-#: ../Tomboy/PreferencesDialog.cs:1199
-msgid "Error connecting :("
-msgstr "Bağlanıken hata :("
+#: ../Tomboy/PreferencesDialog.cs:1269
+#, csharp-format
+msgid ""
+"Please check your information and try again.  The log file {0} may contain "
+"more information about the error."
+msgstr ""
 
-#: ../Tomboy/PreferencesDialog.cs:1275
+#: ../Tomboy/PreferencesDialog.cs:1281
+#| msgid "Error connecting :("
+msgid "Error connecting"
+msgstr "Bağlanırken hata oluştu"
+
+#: ../Tomboy/PreferencesDialog.cs:1357
 msgid "Version:"
 msgstr "Sürüm:"
 
-#: ../Tomboy/PreferencesDialog.cs:1282
+#: ../Tomboy/PreferencesDialog.cs:1364
 msgid "Author:"
 msgstr "Yazan:"
 
-#: ../Tomboy/PreferencesDialog.cs:1289
+#: ../Tomboy/PreferencesDialog.cs:1371
 msgid "Copyright:"
 msgstr "Telif Hakkı:"
 
-#: ../Tomboy/PreferencesDialog.cs:1295
+#: ../Tomboy/PreferencesDialog.cs:1377
 msgid "Add-in Dependencies:"
 msgstr "Eklenti Bağımlılıkları:"
 
-#: ../Tomboy/RecentChanges.cs:77
-msgid "Search All Notes"
-msgstr "Tüm Notları Ara"
-
-#: ../Tomboy/RecentChanges.cs:94
+#: ../Tomboy/RecentChanges.cs:98
 msgid "_Search:"
 msgstr "_Ara:"
 
-#: ../Tomboy/RecentChanges.cs:115
-msgid "C_ase Sensitive"
-msgstr "Büyük/Küçük Harf _Duyarlı"
-
-#: ../Tomboy/RecentChanges.cs:315
+#: ../Tomboy/RecentChanges.cs:334
 msgid "Note"
 msgstr "Not"
 
-#: ../Tomboy/RecentChanges.cs:337
+#: ../Tomboy/RecentChanges.cs:356
 msgid "Last Changed"
 msgstr "Son Değiştirilme"
 
-#: ../Tomboy/RecentChanges.cs:469
+#: ../Tomboy/RecentChanges.cs:487
 msgid "Matches"
 msgstr "Eşleşmeler"
 
-#: ../Tomboy/RecentChanges.cs:521
+#: ../Tomboy/RecentChanges.cs:538
+#| msgid "{0} match"
+#| msgid_plural "{0} matches"
+msgid "Title match"
+msgstr "Başlık eşleşmesi"
+
+#: ../Tomboy/RecentChanges.cs:541
 #, csharp-format
 msgid "{0} match"
 msgid_plural "{0} matches"
 msgstr[0] "{0} eşleşme"
 
-#: ../Tomboy/RecentChanges.cs:535
+#: ../Tomboy/RecentChanges.cs:555
 #, csharp-format
 msgid "Total: {0} note"
 msgid_plural "Total: {0} notes"
 msgstr[0] "Toplam: {0} not"
 
-#: ../Tomboy/RecentChanges.cs:545
+#: ../Tomboy/RecentChanges.cs:566
 #, csharp-format
 msgid "Matches: {0} note"
 msgid_plural "Matches: {0} notes"
 msgstr[0] "Eşleşmeler: {0} not"
 
-#: ../Tomboy/RecentChanges.cs:676
+#: ../Tomboy/RecentChanges.cs:702
 msgid "Notes"
 msgstr "Notlar"
 
-#: ../Tomboy/Tomboy.cs:193
+#: ../Tomboy/Tomboy.cs:251
 msgid "Cannot create new note"
 msgstr "Yeni not oluşturulamıyor"
 
-#: ../Tomboy/Tomboy.cs:276
+#: ../Tomboy/Tomboy.cs:317
+msgid "Primary Development:"
+msgstr "Birincil Geliştirme:"
+
+#: ../Tomboy/Tomboy.cs:330
+msgid "Contributors:"
+msgstr "Katkıda Bulunanlar:"
+
+#: ../Tomboy/Tomboy.cs:405
 msgid "translator-credits"
-msgstr "Serdar ÇİÇEK <serdar@nerd.com.tr>"
+msgstr ""
+"Serdar ÇİÇEK <serdar@nerd.com.tr>\n"
+"Fatih Ergüven <fatih@erguven.org>\n"
+"Muhammet Kara <muhammet.k@gmail.com>"
 
-#: ../Tomboy/Tomboy.cs:285
-msgid "Copyright © 2004-2007 Alex Graveley"
-msgstr "Telif hakkı © 2004-2007 Alex Graveley"
+#: ../Tomboy/Tomboy.cs:414
+#| msgid ""
+#| "Copyright © 2004-2007 Alex Graveley\n"
+#| "Copyright © 2004-2009 Others\n"
+msgid ""
+"Copyright © 2004-2007 Alex Graveley\n"
+"Copyright © 2004-2010 Others\n"
+msgstr ""
+"Telif Hakkı © 2004-2007 Alex Graveley\n"
+"Telif Hakkı © 2004-2010 Diğerleri\n"
 
-#: ../Tomboy/Tomboy.cs:286
+#: ../Tomboy/Tomboy.cs:416
 msgid "A simple and easy to use desktop note-taking application."
 msgstr "Basit ve kullanışlı bir not tutucu uygulaması."
 
-#: ../Tomboy/Tomboy.cs:289
+#: ../Tomboy/Tomboy.cs:426
 msgid "Homepage"
 msgstr "Web Sitesi"
 
-#: ../Tomboy/Tomboy.cs:396
+#: ../Tomboy/Tomboy.cs:544
 msgid ""
 "Tomboy: A simple, easy to use desktop note-taking application.\n"
 "Copyright (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
@@ -1638,7 +1979,7 @@ msgstr ""
 "Telif hakkı (C) 2004, 2006 Alex Graveley <alex@beatniksoftware.com>\n"
 "\n"
 
-#: ../Tomboy/Tomboy.cs:408
+#: ../Tomboy/Tomboy.cs:556
 msgid ""
 "Usage:\n"
 "  --version\t\t\tPrint version information.\n"
@@ -1652,7 +1993,7 @@ msgstr ""
 "  --note-path [yol]\t\tBu dizin içindeki not verisini yükle/sakla.\n"
 "  --search [metin]\t\tTüm notları arama penceresini metin araması ile aç.\n"
 
-#: ../Tomboy/Tomboy.cs:419
+#: ../Tomboy/Tomboy.cs:566
 msgid ""
 "  --new-note\t\t\tCreate and display a new note.\n"
 "  --new-note [title]\t\tCreate and display a new note, with a title.\n"
@@ -1668,40 +2009,20 @@ msgstr ""
 "  --highlight-search [metin]\tAçık notlar içerisinde 'metin' metnini ara ve "
 "aydınlat.\n"
 
-#. TODO: Restore this functionality with addins
-#. usage +=
-#. Catalog.GetString (
-#. "  --check-plugin-unloading\tCheck if plugins are " +
-#. "unloaded properly.\n");
-#: ../Tomboy/Tomboy.cs:436
-msgid "D-BUS remote control disabled.\n"
-msgstr "D-BUS uzaktan kumandası kapalı.\n"
-
-#: ../Tomboy/Tomboy.cs:444
+#: ../Tomboy/Tomboy.cs:580
 #, csharp-format
 msgid "Version {0}"
 msgstr "Sürüm {0}"
 
-#: ../Tomboy/Tomboy.cs:514
-#, csharp-format
-msgid ""
-"Tomboy: unsupported option '{0}'\n"
-"Try 'tomboy --help' for more information.\n"
-"D-BUS remote control disabled."
-msgstr ""
-"Tomboy: desteklenmeyen seçenek '{0}'\n"
-"Daha fazla bilgi için 'tomboy --help' komutunu deneyin.\n"
-"D-BUS uzaktan denetim etkin değil."
-
-#: ../Tomboy/Tray.cs:64
+#: ../Tomboy/Tray.cs:68
 msgid " (new)"
 msgstr " (yeni)"
 
-#: ../Tomboy/Tray.cs:228
+#: ../Tomboy/Tray.cs:293
 msgid "_About Tomboy"
 msgstr "Tomboy _Hakkında"
 
-#: ../Tomboy/Utils.cs:148
+#: ../Tomboy/Utils.cs:189
 msgid ""
 "The \"Tomboy Notes Manual\" could not be found.  Please verify that your "
 "installation has been completed successfully."
@@ -1709,74 +2030,82 @@ msgstr ""
 "\"Tomboy Not Kılavuzu\" bulunamadı. Lütfen kurulumunuzun başarıyla "
 "tamamlandığından emin olun."
 
-#: ../Tomboy/Utils.cs:157
+#: ../Tomboy/Utils.cs:198
 msgid "Help not found"
 msgstr "Yardım bulunamadı"
 
-#: ../Tomboy/Utils.cs:180
+#: ../Tomboy/Utils.cs:214
+msgid "Cannot open location"
+msgstr "Konum açılamıyor"
+
+#: ../Tomboy/Utils.cs:236
 #, csharp-format
 msgid "Today, {0}"
 msgstr "Bugün, {0}"
 
-#: ../Tomboy/Utils.cs:182
+#: ../Tomboy/Utils.cs:238
 msgid "Today"
 msgstr "Bugün"
 
-#: ../Tomboy/Utils.cs:186
+#: ../Tomboy/Utils.cs:242
 #, csharp-format
 msgid "Yesterday, {0}"
 msgstr "Dün, {0}"
 
-#: ../Tomboy/Utils.cs:188
+#: ../Tomboy/Utils.cs:244
 msgid "Yesterday"
 msgstr "Dün"
 
-#: ../Tomboy/Utils.cs:192
+#: ../Tomboy/Utils.cs:249
 #, csharp-format
-msgid "{0} days ago, {1}"
-msgstr "{0} gün önce, {1}"
+msgid "{0} day ago, {1}"
+msgid_plural "{0} days ago, {1}"
+msgstr[0] "{0} gün önce, {1}"
 
-#: ../Tomboy/Utils.cs:194
+#: ../Tomboy/Utils.cs:253
 #, csharp-format
-msgid "{0} days ago"
-msgstr "{0} gün önce"
+msgid "{0} day ago"
+msgid_plural "{0} days ago"
+msgstr[0] "{0} gün önce"
 
-#: ../Tomboy/Utils.cs:199
+#: ../Tomboy/Utils.cs:259
 #, csharp-format
 msgid "Tomorrow, {0}"
 msgstr "Yarın, {0}"
 
-#: ../Tomboy/Utils.cs:201
+#: ../Tomboy/Utils.cs:261
 msgid "Tomorrow"
 msgstr "Yarın"
 
-#: ../Tomboy/Utils.cs:205
+#: ../Tomboy/Utils.cs:266
 #, csharp-format
-msgid "In {0} days, {1}"
-msgstr "{0} gün içinde, {1}"
+msgid "In {0} day, {1}"
+msgid_plural "In {0} days, {1}"
+msgstr[0] "{0} gün içinde, {1}"
 
-#: ../Tomboy/Utils.cs:207
+#: ../Tomboy/Utils.cs:270
 #, csharp-format
-msgid "In {0} days"
-msgstr "{0} gün içinde"
+msgid "In {0} day"
+msgid_plural "In {0} days"
+msgstr[0] "{0} gün içinde"
 
-#: ../Tomboy/Utils.cs:211
+#: ../Tomboy/Utils.cs:275
 msgid "MMMM d, h:mm tt"
 msgstr "d MMMM, HH:mm"
 
-#: ../Tomboy/Utils.cs:212
+#: ../Tomboy/Utils.cs:276
 msgid "MMMM d"
 msgstr "d MMMM"
 
-#: ../Tomboy/Utils.cs:214
+#: ../Tomboy/Utils.cs:278
 msgid "No Date"
 msgstr "Tarih Yok"
 
-#: ../Tomboy/Utils.cs:217
+#: ../Tomboy/Utils.cs:281
 msgid "MMMM d yyyy, h:mm tt"
 msgstr "d MMMM yyyy, HH:mm"
 
-#: ../Tomboy/Utils.cs:218
+#: ../Tomboy/Utils.cs:282
 msgid "MMMM d yyyy"
 msgstr "d MMMM yyyy"
 
@@ -1785,7 +2114,7 @@ msgstr "d MMMM yyyy"
 msgid "(Untitled {0})"
 msgstr "(Başlıksız {0})"
 
-#: ../Tomboy/Watchers.cs:188
+#: ../Tomboy/Watchers.cs:189
 #, csharp-format
 msgid ""
 "A note with the title <b>{0}</b> already exists. Please choose another name "
@@ -1794,19 +2123,15 @@ msgstr ""
 "<b>{0}</b> başlıklı bir not zaten var. Devam etmeden önce bu not için başka "
 "bir başlık seçin."
 
-#: ../Tomboy/Watchers.cs:203
+#: ../Tomboy/Watchers.cs:204
 msgid "Note title taken"
 msgstr "Not başlığı alındı"
 
-#: ../Tomboy/Watchers.cs:472
-msgid "Cannot open location"
-msgstr "Konum açılamıyor"
-
-#: ../Tomboy/Watchers.cs:566
+#: ../Tomboy/Watchers.cs:549
 msgid "_Copy Link Address"
 msgstr "Bağlantı Adresini _Kopyala"
 
-#: ../Tomboy/Watchers.cs:571
+#: ../Tomboy/Watchers.cs:554
 msgid "_Open Link"
 msgstr "_Bağlantıyı Aç"
 
@@ -1819,19 +2144,27 @@ msgstr ""
 "Eşzamanlandırma eklentisi bilgisayarınızda desteklenmiyor. Lütfen FUSE'ün "
 "bulunduğundan ve {0} kurulumunun doğru yapılıp yapılandırıldığından emin olun"
 
-#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:178
+#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:129
+msgid "Could not read testfile."
+msgstr "Test dosyası okunamadı."
+
+#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:132
+msgid "Write test failed."
+msgstr "Yazma testi başarısız oldu."
+
+#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:176
 msgid "Timeout connecting to server."
 msgstr "Sunucuya bağlanırken zaman aşımı."
 
-#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:186
+#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:184
 msgid "Error connecting to server."
 msgstr "Sunucuya bağlanırken hata."
 
-#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:200
+#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:198
 msgid "FUSE could not be enabled."
 msgstr "FUSE etkinleştirilemedi."
 
-#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:235
+#: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:233
 msgid "An error ocurred while connecting to the specified server:"
 msgstr "Belirtilen sunucuya bağlanılırken bir hata oluştu:"
 
@@ -1840,55 +2173,51 @@ msgstr "Belirtilen sunucuya bağlanılırken bir hata oluştu:"
 msgid "Details"
 msgstr "Ayrıntılar"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:119
-msgid "Note Title"
-msgstr "Not Başlığı"
-
 #: ../Tomboy/Synchronization/SyncDialog.cs:126
 msgid "Status"
 msgstr "Durum"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:241
+#: ../Tomboy/Synchronization/SyncDialog.cs:236
 msgid "Acquiring sync lock..."
 msgstr "Eşzamanlama kilidi alınıyor..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:244
+#: ../Tomboy/Synchronization/SyncDialog.cs:239
 msgid "Committing changes..."
 msgstr "Değişiklikler gönderiliyor..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:247
+#: ../Tomboy/Synchronization/SyncDialog.cs:242
 msgid "Synchronizing Notes"
 msgstr "Notlar Eşzamanlandırılıyor"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:248
+#: ../Tomboy/Synchronization/SyncDialog.cs:243
 msgid "Synchronizing your notes..."
 msgstr "Notlarınız eşzamanlandırılıyor..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:249
+#: ../Tomboy/Synchronization/SyncDialog.cs:244
 msgid "This may take a while, kick back and enjoy!"
 msgstr "Bu biraz zaman alabilir, arkaya yaslanın ve keyfini çıkartın!"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:251
+#: ../Tomboy/Synchronization/SyncDialog.cs:246
 msgid "Connecting to the server..."
 msgstr "Sunucuya bağlanılıyor..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:257
+#: ../Tomboy/Synchronization/SyncDialog.cs:252
 msgid "Deleting notes off of the server..."
 msgstr "Notlar sunucudan siliniyor..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:261
+#: ../Tomboy/Synchronization/SyncDialog.cs:256
 msgid "Downloading new/updated notes..."
 msgstr "Yeni/güncellenmiş notlar indiriliyor..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:273
+#: ../Tomboy/Synchronization/SyncDialog.cs:268
 msgid "Server Locked"
 msgstr "Sunucu Kilitli"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:274
+#: ../Tomboy/Synchronization/SyncDialog.cs:269
 msgid "Server is locked"
 msgstr "Sunucu kilitli"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:275
+#: ../Tomboy/Synchronization/SyncDialog.cs:270
 msgid ""
 "One of your other computers is currently synchronizing.  Please wait 2 "
 "minutes and try again."
@@ -1896,141 +2225,141 @@ msgstr ""
 "Diğer bilgisayarlarınızdan birisi şu anda eşzamanlandırılıyor. Lütfen 2 "
 "dakika bekleyin ve tekrar deneyin."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:279
+#: ../Tomboy/Synchronization/SyncDialog.cs:274
 msgid "Preparing to download updates from server..."
 msgstr "Sunucudan güncellemeleri indirmek için hazırlanılıyor..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:282
+#: ../Tomboy/Synchronization/SyncDialog.cs:277
 msgid "Preparing to upload updates to server..."
 msgstr "Sunucuya güncellemeleri yüklemek için hazırlanılıyor..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:285
+#: ../Tomboy/Synchronization/SyncDialog.cs:280
 msgid "Uploading notes to server..."
 msgstr "Notlar sunucuya yükleniyor..."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:288
+#: ../Tomboy/Synchronization/SyncDialog.cs:283
 msgid "Synchronization Failed"
 msgstr "Eşzamanlandırma Başarısız Oldu"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:289
+#: ../Tomboy/Synchronization/SyncDialog.cs:284
 msgid "Failed to synchronize"
 msgstr "Eşzamanlandırma başarısız oldu"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:290
+#: ../Tomboy/Synchronization/SyncDialog.cs:285
 msgid "Could not synchronize notes.  Check the details below and try again."
 msgstr ""
 "Notlar eşzamanlandırılamadı. Aşağıdaki ayrıntıları kontrol edin ve tekrar "
 "deneyin."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:296
+#: ../Tomboy/Synchronization/SyncDialog.cs:291
 msgid "Synchronization Complete"
 msgstr "Eşzamanlandırma Tamamlandı"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:297
+#: ../Tomboy/Synchronization/SyncDialog.cs:292
 msgid "Synchronization is complete"
 msgstr "Eşzamanlandırma tatmlandı"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:299
+#: ../Tomboy/Synchronization/SyncDialog.cs:294
 #, csharp-format
 msgid "{0} note updated."
 msgid_plural "{0} notes updated."
 msgstr[0] "{0} not güncellendi."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:304
+#: ../Tomboy/Synchronization/SyncDialog.cs:299
 msgid "Your notes are now up to date."
 msgstr "Notlarınızı artık güncel."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:308
+#: ../Tomboy/Synchronization/SyncDialog.cs:303
 msgid "Synchronization Canceled"
 msgstr "Eşzamanlandırma İptal Edildi"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:309
+#: ../Tomboy/Synchronization/SyncDialog.cs:304
 msgid "Synchronization was canceled"
 msgstr "Eşzamanlandırma iptal edildi"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:310
+#: ../Tomboy/Synchronization/SyncDialog.cs:305
 msgid "You canceled the synchronization.  You may close the window now."
 msgstr "Eşzamanlandırmayı iptal ettiniz. Şimdi pencereyi kapatabilirsiniz."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:314
+#: ../Tomboy/Synchronization/SyncDialog.cs:309
 msgid "Synchronization Not Configured"
 msgstr "Eşzamanlandırma Yapılandırılmamış"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:315
+#: ../Tomboy/Synchronization/SyncDialog.cs:310
 msgid "Synchronization is not configured"
 msgstr "Eşzamanlandırma yapılandırılmamış"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:316
+#: ../Tomboy/Synchronization/SyncDialog.cs:311
 msgid "Please configure synchronization in the preferences dialog."
 msgstr "Lütfen eşzamanlandırmanızı tercihler penceresinden yapılandırın."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:320
+#: ../Tomboy/Synchronization/SyncDialog.cs:315
 msgid "Synchronization Service Error"
 msgstr "Eşzamanlandırma Servis Hatası"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:321
+#: ../Tomboy/Synchronization/SyncDialog.cs:316
 msgid "Service error"
 msgstr "Servis hatası"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:322
+#: ../Tomboy/Synchronization/SyncDialog.cs:317
 msgid "Error connecting to the synchronization service.  Please try again."
 msgstr "Eşzamanlandırma servisine bağlanırken hata. Lütfen tekrar deneyin."
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:339
+#: ../Tomboy/Synchronization/SyncDialog.cs:334
 msgid "Deleted locally"
 msgstr "Yerelde silindi"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:342
+#: ../Tomboy/Synchronization/SyncDialog.cs:337
 msgid "Deleted from server"
 msgstr "Sunucudan silindi"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:345
+#: ../Tomboy/Synchronization/SyncDialog.cs:340
 msgid "Updated"
 msgstr "Güncellendi"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:348
+#: ../Tomboy/Synchronization/SyncDialog.cs:343
 msgid "Added"
 msgstr "Eklendi"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:351
+#: ../Tomboy/Synchronization/SyncDialog.cs:346
 msgid "Uploaded changes to server"
 msgstr "Değişiklikler sunucuya yüklendi"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:354
+#: ../Tomboy/Synchronization/SyncDialog.cs:349
 msgid "Uploaded new note to server"
 msgstr "Sunucuya yeni not yüklendi"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:502
+#: ../Tomboy/Synchronization/SyncDialog.cs:496
 msgid "Note Conflict"
 msgstr "Not Çakışması"
 
 #. Suggest renaming note by appending " (old)" to the existing title
-#: ../Tomboy/Synchronization/SyncDialog.cs:508
+#: ../Tomboy/Synchronization/SyncDialog.cs:502
 msgid " (old)"
 msgstr " (eski)"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:547
+#: ../Tomboy/Synchronization/SyncDialog.cs:541
 msgid "Rename local note:"
 msgstr "Yerel notu yeniden adlandır:"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:553
+#: ../Tomboy/Synchronization/SyncDialog.cs:547
 msgid "Update links in referencing notes"
 msgstr "Referans notlardaki bağları güncelle"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:560
+#: ../Tomboy/Synchronization/SyncDialog.cs:554
 msgid "Overwrite local note"
 msgstr "Yerel notun üzerine yaz"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:564
+#: ../Tomboy/Synchronization/SyncDialog.cs:558
 msgid "Always perform this action"
 msgstr "Her zaman bu eylemi uygula"
 
 #. Set initial dialog text
-#: ../Tomboy/Synchronization/SyncDialog.cs:570
+#: ../Tomboy/Synchronization/SyncDialog.cs:564
 msgid "Note conflict detected"
 msgstr "Not çakışması tespit edildi"
 
-#: ../Tomboy/Synchronization/SyncDialog.cs:571
+#: ../Tomboy/Synchronization/SyncDialog.cs:565
 #, csharp-format
 msgid ""
 "The server version of \"{0}\" conflicts with your local note.  What do you "
@@ -2039,17 +2368,17 @@ msgstr ""
 "Sunucu sürümü \"{0}\" yerel notunuzla çakışıyor. Yerel notla ne yapmak "
 "istiyor sunuz?"
 
-#: ../Tomboy/Synchronization/SyncManager.cs:159
+#: ../Tomboy/Synchronization/SyncManager.cs:161
 msgid "_Tools"
 msgstr "_Araçlar"
 
-#: ../Tomboy/Synchronization/SyncUtils.cs:133
-#: ../Tomboy/Synchronization/SyncUtils.cs:177
+#: ../Tomboy/Synchronization/SyncUtils.cs:119
+#: ../Tomboy/Synchronization/SyncUtils.cs:163
 msgid "Could not enable FUSE"
 msgstr "FUSE etkinleştirilemedi"
 
-#: ../Tomboy/Synchronization/SyncUtils.cs:134
-#: ../Tomboy/Synchronization/SyncUtils.cs:178
+#: ../Tomboy/Synchronization/SyncUtils.cs:120
+#: ../Tomboy/Synchronization/SyncUtils.cs:164
 msgid ""
 "The FUSE module could not be loaded. Please check that it is installed "
 "properly and try again."
@@ -2057,13 +2386,13 @@ msgstr ""
 "FUSE modülü yüklenemedi. Lütfen doğru bir şekilde kurulduğundan emin olun ve "
 "tekrar deneyin."
 
-#: ../Tomboy/Synchronization/SyncUtils.cs:149
+#: ../Tomboy/Synchronization/SyncUtils.cs:135
 msgid "Enable FUSE?"
 msgstr "FUSE etkinleştirilsin mi?"
 
 #. TODO: This message isn't entirely accurate.
 #. We should fix it.
-#: ../Tomboy/Synchronization/SyncUtils.cs:153
+#: ../Tomboy/Synchronization/SyncUtils.cs:139
 msgid ""
 "The synchronization you've chosen requires the FUSE module to be loaded.\n"
 "\n"
@@ -2076,6 +2405,156 @@ msgstr ""
 "Gelecekte bu soruyla karşılaşmamak için, başlangıçta FUSE'ü yüklemelisiniz. /"
 "etc/init.d/boot.local içerisine \"modprbe fuse\" ekleyin ya da /etc/modules "
 "içerisine \"fuse\" ekleyin."
+
+#~ msgid "_Browse..."
+#~ msgstr "_Göz at..."
+
+#~ msgid "SSH (sshfs FUSE)"
+#~ msgstr "SSH (sshfs FUSE)"
+
+#~ msgid "WebDAV (wdfs FUSE)"
+#~ msgstr "WebDAV (wdfs FUSE)"
+
+#~ msgid "Click Here After Authorizing"
+#~ msgstr "Yetkilendirmeden Sonra Buraya Tıklayın"
+
+#~ msgid "Processing..."
+#~ msgstr "İşleniyor..."
+
+#~ msgid "Success! You're connected!"
+#~ msgstr "Başarılı! Bağlandınız!"
+
+#~ msgid ""
+#~ "Sorry, but something went wrong.  Please check your information and try "
+#~ "again.  The ~/.tomboy.log might be useful too."
+#~ msgstr ""
+#~ "Üzgünüz, ancak bir şey yanlış gitti. Lütfen bilgilerinizi kontrol edip "
+#~ "tekrar deneyin. ~/.tomboy.log da faydalı olabilir."
+
+#~ msgid "D-BUS remote control disabled.\n"
+#~ msgstr "D-BUS uzaktan kumandası kapalı.\n"
+
+#~ msgid ""
+#~ "Tomboy: unsupported option '{0}'\n"
+#~ "Try 'tomboy --help' for more information.\n"
+#~ "D-BUS remote control disabled."
+#~ msgstr ""
+#~ "Tomboy: desteklenmeyen seçenek '{0}'\n"
+#~ "Daha fazla bilgi için 'tomboy --help' komutunu deneyin.\n"
+#~ "D-BUS uzaktan denetim etkin değil."
+
+#~ msgid "Add-in"
+#~ msgstr "Eklenti"
+
+#~ msgid "Version"
+#~ msgstr "Sürüm"
+
+#~ msgid "Other"
+#~ msgstr "Diğer"
+
+#~ msgid "Preparing pages..."
+#~ msgstr "Sayfalar hazırlanıyor..."
+
+#~ msgid "Rendering page %d of %d..."
+#~ msgstr "Toplam %2$d sayfadan %1$d hazırlanıyor..."
+
+#~ msgid "Printing page %d of %d..."
+#~ msgstr "Toplam %2$d sayfadan %1$d yazdırılıyor..."
+
+#~ msgid "Print preview"
+#~ msgstr "Baskı önizleme"
+
+#~ msgid "%A %x, %X"
+#~ msgstr "%A %x, %X"
+
+#~ msgid "Configuration"
+#~ msgstr "Yapılandırma"
+
+#~ msgid "Configuration options for the print job"
+#~ msgstr "Yazdırma görevi için yapılandırma seçenekleri"
+
+#~ msgid "Source Buffer"
+#~ msgstr "Kaynak Tamponu"
+
+#~ msgid "GtkTextBuffer object to print"
+#~ msgstr "Yazdırmak için GtkTextBuffer nesnesi"
+
+#~ msgid "Tabs Width"
+#~ msgstr "Sekme Genişliği"
+
+#~ msgid "Width in equivalent space characters of tabs"
+#~ msgstr "Sekmeklerin boşluk karakteri eşleniği olarak genişliği"
+
+#~ msgid "Wrap Mode"
+#~ msgstr "Bölme Kipi"
+
+#~ msgid "Word wrapping mode"
+#~ msgstr "Kelime bölme kipi"
+
+#~ msgid "Highlight"
+#~ msgstr "Vurgulama"
+
+#~ msgid "Whether to print the document with highlighted syntax"
+#~ msgstr "Belgenin sözdizimi vurgulaması ile yazdırılıp yazdırılmaması"
+
+#~ msgid "Font"
+#~ msgstr "Yazıtipi"
+
+#~ msgid "GnomeFont name to use for the document text (deprecated)"
+#~ msgstr "Belge metni için kullanılacak GnomeFont ismi (kullanılmıyor)"
+
+#~ msgid "Font Description"
+#~ msgstr "Yazıtipi Açıklaması"
+
+#~ msgid "Font to use for the document text (e.g. \"Monospace 10\")"
+#~ msgstr "Belge metni için kullanılacak yazıtipi (örn. \"Monospace 10\")"
+
+#~ msgid "Numbers Font"
+#~ msgstr "Rakamlar Yazıtipi"
+
+#~ msgid "GnomeFont name to use for the line numbers (deprecated)"
+#~ msgstr "Satır numaraları için kullanılacak GnomeFont ismi (kullanılmıyor)"
+
+#~ msgid "Font description to use for the line numbers"
+#~ msgstr "Satır numaraları için kullanılacak yazıtipi açıklaması"
+
+#~ msgid "Print Line Numbers"
+#~ msgstr "Satır Numaralarını Yazdır"
+
+#~ msgid "Interval of printed line numbers (0 means no numbers)"
+#~ msgstr ""
+#~ "Yazdırılan satır numaraları aralığı (0 hiçbir numara anlamına gelir)"
+
+#~ msgid "Print Header"
+#~ msgstr "Başlığı Yazdır"
+
+#~ msgid "Whether to print a header in each page"
+#~ msgstr "Her sayfada bir başlığın yazdırılması"
+
+#~ msgid "Print Footer"
+#~ msgstr "Soneki Yazdır"
+
+#~ msgid "Whether to print a footer in each page"
+#~ msgstr "Her sayfanın sonunda son ekin yazdırılması"
+
+#~ msgid "Header and Footer Font"
+#~ msgstr "Başlık ve Son Ek Yazıtipi"
+
+#~ msgid "GnomeFont name to use for the header and footer (deprecated)"
+#~ msgstr "Başlık ve son ek için kullanılacak GnomeFont ismi (kullanılmıyor)"
+
+#~ msgid "Header and Footer Font Description"
+#~ msgstr "Başlık ve Son Ek Yazıtipi Açıklaması"
+
+#~ msgid "Font to use for headers and footers (e.g. \"Monospace 10\")"
+#~ msgstr ""
+#~ "Başlıklar ve son ekler için kullanılacak yazıtipi (örn. \"Monospace 10\")"
+
+#~ msgid "Really delete these notes?"
+#~ msgstr "Bu notları silmek istediğinizden emin misiniz?"
+
+#~ msgid "C_ase Sensitive"
+#~ msgstr "Büyük/Küçük Harf _Duyarlı"
 
 #~ msgid "_Open New Note Template..."
 #~ msgstr "Yeni Not Şablomu _Aç..."
