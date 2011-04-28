@@ -705,6 +705,10 @@ Ciao!");
 		// the template note.
 		private Note CreateNoteFromTemplate (string title, Note template_note, string guid)
 		{
+			Tag template_save_title = TagManager.GetOrCreateSystemTag (TagManager.TemplateNoteSaveTitleSystemTag);
+			if (template_note.ContainsTag (template_save_title))
+				title = GetUniqueName (template_note.Title, notes.Count);
+			
 			// Use the body from the template note
 			string xml_content =
 				template_note.XmlContent.Replace (XmlEncoder.Encode (template_note.Title),

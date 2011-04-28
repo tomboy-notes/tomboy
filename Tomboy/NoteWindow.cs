@@ -558,6 +558,7 @@ namespace Tomboy
 			Tag template_tag = TagManager.GetOrCreateSystemTag (TagManager.TemplateNoteSystemTag);
 			Tag template_save_size_tag = TagManager.GetOrCreateSystemTag (TagManager.TemplateNoteSaveSizeSystemTag);
 			Tag template_save_selection_tag = TagManager.GetOrCreateSystemTag (TagManager.TemplateNoteSaveSelectionSystemTag);
+			Tag template_save_title_tag = TagManager.GetOrCreateSystemTag (TagManager.TemplateNoteSaveTitleSystemTag);
 
 			var bar = new Gtk.VBox ();
 
@@ -589,11 +590,21 @@ namespace Tomboy
 				else
 					note.RemoveTag (template_save_selection_tag);
 			};
+			
+			var saveTitleCheckbutton = new Gtk.CheckButton (Catalog.GetString ("Save _Title"));
+			saveTitleCheckbutton.Active = note.ContainsTag (template_save_title_tag);
+			saveTitleCheckbutton.Toggled += (o, e) => {
+				if (saveTitleCheckbutton.Active)
+					note.AddTag (template_save_title_tag);
+				else
+					note.RemoveTag (template_save_title_tag);
+			};
 
 			bar.PackStart (infoLabel);
 			bar.PackStart (untemplateButton);
 			bar.PackStart (saveSizeCheckbutton);
 			bar.PackStart (saveSelectionCheckbutton);
+			bar.PackStart (saveTitleCheckbutton);
 
 			if (note.ContainsTag (template_tag))
 				bar.ShowAll ();

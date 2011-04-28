@@ -27,6 +27,7 @@ namespace Tomboy
 		public static string TemplateNoteSystemTag = "template";
 		public static string TemplateNoteSaveSizeSystemTag = TemplateNoteSystemTag + ":save-size";
 		public static string TemplateNoteSaveSelectionSystemTag = TemplateNoteSystemTag + ":save-selection";
+		public static string TemplateNoteSaveTitleSystemTag = TemplateNoteSystemTag + ":save-title";
 		
 		#region Constructors
 		static TagManager ()
