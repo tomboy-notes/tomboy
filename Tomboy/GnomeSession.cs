@@ -21,7 +21,7 @@
 //
 
 using System;
-using NDesk.DBus;
+using DBus;
 using org.freedesktop.DBus;
 
 // Gnome Session DBus API

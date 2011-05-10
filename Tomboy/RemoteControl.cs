@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 #if ENABLE_DBUS
-using NDesk.DBus;
+using DBus;
 using org.freedesktop.DBus;
 #endif
 

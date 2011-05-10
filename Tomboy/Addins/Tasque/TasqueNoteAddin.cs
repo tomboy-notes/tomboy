@@ -5,7 +5,7 @@ using Mono.Unix;
 
 using Tomboy;
 
-using NDesk.DBus;
+using DBus;
 using org.freedesktop.DBus;
 
 namespace Tomboy.TasqueAddin

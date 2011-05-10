@@ -39,7 +39,7 @@ using System.Reflection;
 using Mono.Unix;
 
 #if ENABLE_DBUS
-using NDesk.DBus;
+using DBus;
 #endif
 
 namespace Gnome.Keyring {

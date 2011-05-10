@@ -1,7 +1,7 @@
 using System;
 using System.Threading;
 #if ENABLE_DBUS
-using NDesk.DBus;
+using DBus;
 using org.freedesktop.DBus;
 #else
 using System.Runtime.Remoting;

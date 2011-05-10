@@ -9,7 +9,7 @@ using Mono.Unix.Native;
 
 using Hyena;
 
-using NDesk.DBus;
+using DBus;
 using org.gnome.SessionManager;
 
 namespace Tomboy
