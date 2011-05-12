@@ -94,6 +94,7 @@ CSFILES = 					\
 	$(srcdir)/AddinPreferenceFactory.cs	\
 	$(srcdir)/ApplicationAddin.cs		\
 	$(srcdir)/Contrast.cs		\
+	$(srcdir)/ExportAllApplicationAddin.cs		\
 	$(srcdir)/Keybinder.cs			\
 	$(srcdir)/Logger.cs			\
 	$(srcdir)/NativeApplication.cs		\
