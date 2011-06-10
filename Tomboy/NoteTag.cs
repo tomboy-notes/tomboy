@@ -699,6 +699,11 @@ namespace Tomboy
 			return false;
 		}
 
+		public bool HasLinkTag (Gtk.TextIter iter)
+		{
+			return iter.HasTag (LinkTag) || iter.HasTag (UrlTag) || iter.HasTag (BrokenLinkTag);
+		}
+
 		public DepthNoteTag GetDepthTag(int depth, Pango.Direction direction)
 		{
 			string name = "depth:" + depth + ":" + direction;

@@ -755,7 +755,7 @@ namespace Tomboy
 				return;
 
 			// Don't create links inside URLs
-			if (title_start.HasTag (Note.TagTable.UrlTag))
+			if (Note.TagTable.HasLinkTag (title_start))
 				return;
 
 			Logger.Debug ("Matching Note title '{0}' at {1}-{2}...",
@@ -930,15 +930,18 @@ namespace Tomboy
 			                match = match.NextMatch ()) {
 				System.Text.RegularExpressions.Group group = match.Groups [1];
 
-				Logger.Debug ("Highlighting wikiword: '{0}' at offset {1}",
-				            group,
-				            group.Index);
-
 				Gtk.TextIter start_cpy = start;
 				start_cpy.ForwardChars (group.Index);
 
 				end = start_cpy;
 				end.ForwardChars (group.Length);
+
+				if (Note.TagTable.HasLinkTag (start_cpy))
+					break;
+
+				Logger.Debug ("Highlighting wikiword: '{0}' at offset {1}",
+							group,
+							group.Index);
 
 				if (Manager.Find (group.ToString ()) == null) {
 					Buffer.ApplyTag (broken_link_tag, start_cpy, end);
