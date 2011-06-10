@@ -206,7 +206,30 @@ namespace Tomboy
 			// until the note's QueueSave () kicks in.
 			Notebooks.NotebookManager.NoteAddedToNotebook += OnNoteAddedToNotebook;
 			Notebooks.NotebookManager.NoteRemovedFromNotebook += OnNoteRemovedFromNotebook;
+			
+			// Set the focus chain for the top-most containers Bug #512175
+			Gtk.Widget[] vbox_focus = new Gtk.Widget[2];
+			vbox_focus[0] = hbox;
+			vbox_focus[1] = hpaned;
+			vbox.FocusChain = vbox_focus;
 
+			// Set focus chain for sub widgits of first top-most container
+			Gtk.Widget[] table_focus = new Gtk.Widget[2];
+			table_focus[0] = find_combo;
+			table_focus[1] = matches_window;
+			hbox.FocusChain = table_focus;
+			
+			// set focus chain for sub widgits of seconf top-most container
+			Gtk.Widget[] hpaned_focus = new Gtk.Widget[2];
+			hpaned_focus[0] = matches_window;
+			hpaned_focus[1] = notebooksPane;
+			hpaned.FocusChain = hpaned_focus;
+			
+			// get back to the beginning of the focus chain
+			Gtk.Widget[] scroll_right = new Gtk.Widget[1];
+			scroll_right[0] = tree;
+			matches_window.FocusChain = scroll_right;
+			
 			Tomboy.ExitingEvent += OnExitingEvent;
 		}
 
