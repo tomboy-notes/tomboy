@@ -96,8 +96,9 @@ namespace Tomboy
 					if (tabAddin.GetPreferenceTabWidget (this, out tabName, out tabWidget) == true) {
 						notebook.AppendPage (tabWidget, new Gtk.Label (tabName));
 					}
-				} catch {
+				} catch (Exception e) {
 					Logger.Warn ("Problems adding preferences tab addin: {0}", tabAddin.GetType ().Name);
+					Logger.Debug ("{0}:\n{1}", e.Message, e.StackTrace);
 				}
 			}
 
