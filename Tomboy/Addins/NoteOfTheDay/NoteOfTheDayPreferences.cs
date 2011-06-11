@@ -13,8 +13,8 @@ namespace Tomboy.NoteOfTheDay
 		{
 			Gtk.Label label = new Gtk.Label (
 			        Catalog.GetString (
-			                "Change the <span weight=\"bold\">Today: Template</span> " +
-			                "note to customize the text that new Today notes have."));
+						"Change the <b>Today: Template</b> note to customize " +
+						"the text that new Today notes have."));
 			label.UseMarkup = true;
 			label.Wrap = true;
 			label.Show ();

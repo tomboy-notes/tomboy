@@ -436,7 +436,8 @@ namespace Tomboy
 				Catalog.GetString ("Search"));
 			search.IsImportant = true;
 			search.Clicked += SearchActivate;
-			toolbar_tips.SetTip (search, Catalog.GetString ("Search your notes (Ctrl-Shift-F)"), null);
+			// TODO: If we ever add a way to customize internal keybindings, this will need to change
+			toolbar_tips.SetTip (search, Catalog.GetString ("Search your notes") + " (Ctrl-Shift-F)", null);
 			search.AddAccelerator ("clicked",
 			                       accel_group,
 			                       (uint) Gdk.Key.f,
@@ -452,9 +453,10 @@ namespace Tomboy
 			link_button.IsImportant = true;
 			link_button.Sensitive = (note.Buffer.Selection != null);
 			link_button.Clicked += LinkToNoteActivate;
+			// TODO: If we ever add a way to customize internal keybindings, this will need to change
 			toolbar_tips.SetTip (
 				link_button,
-				Catalog.GetString ("Link selected text to a new note (Ctrl-L)"),
+				Catalog.GetString ("Link selected text to a new note") + " (Ctrl-L)",
 				null);
 			link_button.AddAccelerator ("clicked",
 			                            accel_group,

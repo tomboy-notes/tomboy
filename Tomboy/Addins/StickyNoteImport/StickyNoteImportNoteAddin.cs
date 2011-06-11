@@ -141,8 +141,11 @@ namespace Tomboy.StickyNoteImport
 		{
 			ShowMessageDialog (
 			        Catalog.GetString ("Sticky Notes import completed"),
-			        string.Format (Catalog.GetString ("<b>{0}</b> of <b>{1}</b> Sticky Notes " +
-			                                          "were successfully imported."),
+			        string.Format (Catalog.GetPluralString ("<b>{0}</b> of <b>{1}</b> Sticky " +
+									"Note was successfully imported.",
+									"<b>{0}</b> of <b>{1}</b> Sticky " +
+									"Notes were successfully imported.",
+									numNotesImported),
 			                       numNotesImported,
 			                       numNotesTotal),
 			        Gtk.MessageType.Info);

@@ -81,6 +81,7 @@ namespace Tomboy.Backlinks
 
 			// If nothing was found, add in a "dummy" item
 			if (menu.Children.Length == 0) {
+				// This is a disabled placeholder item for an empty menu
 				Gtk.MenuItem blank_item = new Gtk.MenuItem (Catalog.GetString ("(none)"));
 				blank_item.Sensitive = false;
 				blank_item.ShowAll ();
