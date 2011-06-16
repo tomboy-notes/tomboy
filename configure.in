@@ -192,12 +192,10 @@ if test "x$ENABLE_GNOME" != "xno"; then
 		PKG_CHECK_MODULES(GNOME,
 				  gnome-sharp-2.0 >= $GNOMESHARP_MINIMUM_VERSION
 				  gconf-sharp-2.0
-				  gconf-sharp-peditors-2.0
 				  gnome-panel-sharp-2.24)
 	else
 		PKG_CHECK_MODULES(GNOME,
-				  gconf-sharp-2.0
-				  gconf-sharp-peditors-2.0)
+				  gconf-sharp-2.0)
 	fi
 fi
 AC_SUBST(GNOME_LIBS)
