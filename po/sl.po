@@ -10,14 +10,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tomboy\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=tomboy&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2011-06-13 21:14+0000\n"
-"PO-Revision-Date: 2011-06-14 08:09+0100\n"
+"POT-Creation-Date: 2011-06-19 10:17+0000\n"
+"PO-Revision-Date: 2011-06-19 21:07+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian <gnome-si@googlegroups.com>\n"
+"Language: sl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: sl\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n%100==4 ? 3 : 0);\\n\n"
 "X-Poedit-Language: Slovenian\n"
 "X-Poedit-Country: Slovenia\n"
@@ -552,6 +552,10 @@ msgstr "Ali želite res izbrisati to ikono?"
 msgid "If you remove an icon it is permanently lost."
 msgstr "V primeru da ikono izbrišete, bo ta trajno izgubljena."
 
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlApplicationAddin.cs:22
+msgid "HTML"
+msgstr "HTML"
+
 #: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:67
 msgid "Export to HTML"
 msgstr "Izvozi v HTML"
@@ -566,10 +570,14 @@ msgid "Note exported successfully"
 msgstr "Sporočilce je bilo uspešno izvoženo"
 
 #: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:132
+#: ../Tomboy/ExportAllApplicationAddin.cs:189
+#: ../Tomboy/ExportAllApplicationAddin.cs:265
 msgid "Access denied."
 msgstr "Dostop je zavrnjen."
 
 #: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:134
+#: ../Tomboy/ExportAllApplicationAddin.cs:194
+#: ../Tomboy/ExportAllApplicationAddin.cs:270
 msgid "Folder does not exist."
 msgstr "Mapa ne obstaja."
 
@@ -871,6 +879,87 @@ msgstr "Overjanje v brskalniku (Pritisnite za ponastavitev povezave)"
 msgid "Set the default browser and try again"
 msgstr "Določite privzeti brskalnik in poskusite znova"
 
+#: ../Tomboy/ExportAllApplicationAddin.cs:48
+msgid "Export All Notes to "
+msgstr "Izvozi vsa sporočilca v"
+
+#: ../Tomboy/ExportAllApplicationAddin.cs:49
+msgid "Start exporting notes to "
+msgstr "Začni izvažanje sporočilc na"
+
+#: ../Tomboy/ExportAllApplicationAddin.cs:53
+msgid "Export selected notebook to "
+msgstr "Izvozi izbrano beležko na"
+
+#: ../Tomboy/ExportAllApplicationAddin.cs:54
+msgid "Start exporting notebook to "
+msgstr "Začni izvažanje beležke na"
+
+#: ../Tomboy/ExportAllApplicationAddin.cs:60
+#: ../Tomboy/Synchronization/SyncManager.cs:161
+msgid "_Tools"
+msgstr "_Orodja"
+
+#: ../Tomboy/ExportAllApplicationAddin.cs:63
+msgid "Export"
+msgstr "Izvozi"
+
+#: ../Tomboy/ExportAllApplicationAddin.cs:64
+msgid "Export your notes."
+msgstr "Izvozi sporočilca."
+
+#: ../Tomboy/ExportAllApplicationAddin.cs:67
+msgid "Export All Notes To "
+msgstr "Izvozi vsa sporočilca na"
+
+#: ../Tomboy/ExportAllApplicationAddin.cs:72
+msgid "Export Selected Notebook To "
+msgstr "Izvozi izbrano beležko na"
+
+#: ../Tomboy/ExportAllApplicationAddin.cs:187
+#: ../Tomboy/ExportAllApplicationAddin.cs:263
+msgid "Could not export, access denied."
+msgstr "Ni mogoče izvoziti sporočilc: dostop je zavrnjen."
+
+#: ../Tomboy/ExportAllApplicationAddin.cs:192
+#: ../Tomboy/ExportAllApplicationAddin.cs:268
+msgid "Could not export, folder does not exist."
+msgstr "Ni mogoče izvoziti sporočilc: mapa ne obstaja."
+
+#: ../Tomboy/ExportAllApplicationAddin.cs:197
+#: ../Tomboy/ExportAllApplicationAddin.cs:273
+#, csharp-format
+msgid "Could not export: {0}"
+msgstr "Ni mogoče izvoziti: {0}"
+
+#: ../Tomboy/ExportAllApplicationAddin.cs:199
+#: ../Tomboy/ExportAllApplicationAddin.cs:275
+msgid "Unknown error."
+msgstr "neznana napaka."
+
+#: ../Tomboy/ExportAllApplicationAddin.cs:230
+#: ../Tomboy/Notebooks/Notebook.cs:215
+msgid "Unfiled Notes"
+msgstr "Nezapolnjena sporočilca"
+
+#: ../Tomboy/ExportAllApplicationAddin.cs:381
+#, csharp-format
+msgid "Your notes were exported to \"{0}\"."
+msgstr "Sporočilca so bila izvožena na \"{0}\"."
+
+#: ../Tomboy/ExportAllApplicationAddin.cs:390
+msgid "Notes exported successfully"
+msgstr "Sporočilca so uspešno izvožena"
+
+#: ../Tomboy/ExportAllApplicationAddin.cs:413
+#, csharp-format
+msgid "Could not save the files in \"{0}\""
+msgstr "Ni mogoče shraniti datotek v \"{0}\""
+
+#: ../Tomboy/ExportAllApplicationAddin.cs:437
+msgid "Create destination folder for "
+msgstr "Ustvari ciljno mapo za"
+
 #: ../Tomboy/JumpListManager.cs:96
 #: ../Tomboy/RecentChanges.cs:83
 msgid "Search All Notes"
@@ -940,10 +1029,6 @@ msgstr "{0} Predloga sporočilca"
 #: ../Tomboy/Notebooks/Notebook.cs:183
 msgid "All Notes"
 msgstr "Vsa sporočilca"
-
-#: ../Tomboy/Notebooks/Notebook.cs:215
-msgid "Unfiled Notes"
-msgstr "Nezapolnjena sporočilca"
 
 #: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:48
 msgid "Note_books"
@@ -2044,10 +2129,6 @@ msgstr "Zaznan je spor sporočilc"
 #, csharp-format
 msgid "The server version of \"{0}\" conflicts with your local note.  What do you want to do with your local note?"
 msgstr "Različica strežnika  \"{0}\" je v sporu z vašim krajevnim sporočilcem. Kaj želite storiti s svojim krajevnim sporočilcem?"
-
-#: ../Tomboy/Synchronization/SyncManager.cs:161
-msgid "_Tools"
-msgstr "_Orodja"
 
 #: ../Tomboy/Synchronization/SyncUtils.cs:119
 #: ../Tomboy/Synchronization/SyncUtils.cs:163
