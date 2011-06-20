@@ -1,0 +1,22 @@
+﻿<Addin id="AdvancedPreferencesAddin"
+	namespace="Tomboy"
+	name="Advanced Preferences"
+	author="Alex Tereschenko"
+	description="Adds Advanced tab to preferences dialog"
+	category="Preferences"
+	defaultEnabled="false"
+	version="1.1">
+
+ 	<Runtime>
+ 		<Import assembly="AdvancedPreferences.dll" />
+ 	</Runtime>
+
+	<Dependencies>
+		<Addin id="Tomboy" version="0.10" />
+	</Dependencies>
+
+	<Extension path="/Tomboy/PreferenceTabAddins">
+		<PreferenceTabAddin type="Tomboy.AdvancedPreferences.AdvancedPreferencesAddin" />
+	</Extension>
+	
+</Addin>

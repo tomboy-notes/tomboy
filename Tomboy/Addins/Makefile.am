@@ -1,4 +1,5 @@
 SUBDIRS =				\
+	AdvancedPreferences	\
 	Backlinks			\
 	Bugzilla			\
 	Evolution		\
