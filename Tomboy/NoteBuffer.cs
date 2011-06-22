@@ -546,7 +546,11 @@ namespace Tomboy
 			} else if (start.EndsLine () && start.Line < LineCount) {
 				Gtk.TextIter next = GetIterAtLine (start.Line + 1);
 				end = start;
-				end.ForwardChars (3);
+				
+				if (IsBulletedListActive ())
+					end.ForwardChars (3);
+				else
+					end.ForwardChars (1);
 
 				DepthNoteTag depth = FindDepthTag (next);
 
