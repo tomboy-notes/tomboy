@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: tomboy.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=tomboy&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2011-06-16 21:45+0000\n"
-"PO-Revision-Date: 2011-06-19 12:09+0200\n"
+"POT-Creation-Date: 2011-06-25 15:47+0000\n"
+"PO-Revision-Date: 2011-06-25 18:56+0200\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -126,7 +126,6 @@ msgid "Enable WikiWord highlighting"
 msgstr "Activar resaltado de Wikipalabras"
 
 #: ../data/tomboy.schemas.in.h:12
-#| msgid "Enable Auto bulleted lists."
 msgid "Enable automatic bulleted lists."
 msgstr "Activar listas de topos automáticas."
 
@@ -769,7 +768,7 @@ msgstr "¿Desea quitar este icono?"
 msgid "If you remove an icon it is permanently lost."
 msgstr "Si borra un icono se perderá permanentemente."
 
-#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlApplicationAddin.cs:22
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlApplicationAddin.cs:59
 msgid "HTML"
 msgstr "HTML"
 
@@ -787,14 +786,14 @@ msgid "Note exported successfully"
 msgstr "Nota exportada con éxito"
 
 #: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:132
-#: ../Tomboy/ExportAllApplicationAddin.cs:189
-#: ../Tomboy/ExportAllApplicationAddin.cs:265
+#: ../Tomboy/ExportAllApplicationAddin.cs:195
+#: ../Tomboy/ExportAllApplicationAddin.cs:273
 msgid "Access denied."
 msgstr "Acceso denegado."
 
 #: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:134
-#: ../Tomboy/ExportAllApplicationAddin.cs:194
-#: ../Tomboy/ExportAllApplicationAddin.cs:270
+#: ../Tomboy/ExportAllApplicationAddin.cs:200
+#: ../Tomboy/ExportAllApplicationAddin.cs:278
 msgid "Folder does not exist."
 msgstr "La carpeta no existe."
 
@@ -898,9 +897,6 @@ msgid "Appointments"
 msgstr "Citas"
 
 #: ../Tomboy/Addins/NoteOfTheDay/NoteOfTheDayPreferences.cs:16
-#| msgid ""
-#| "Change the <span weight=\"bold\">Today: Template</span> note to customize "
-#| "the text that new Today notes have."
 msgid ""
 "Change the <b>Today: Template</b> note to customize the text that new Today "
 "notes have."
@@ -933,7 +929,6 @@ msgstr "dddd dd/MM/yyyy, hh:mm:ss"
 
 #. Adding menu item when note is opened and window created
 #: ../Tomboy/Addins/RemoveBrokenLinks/RemoveBrokenLinksAddin.cs:32
-#| msgid "Never rename links"
 msgid "Remove broken links"
 msgstr "Quitar enlaces rotos"
 
@@ -999,7 +994,6 @@ msgstr "Importación de notas adhesivas completada"
 
 #: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:144
 #, csharp-format
-#| msgid "<b>{0}</b> of <b>{1}</b> Sticky Notes were successfully imported."
 msgid "<b>{0}</b> of <b>{1}</b> Sticky Note was successfully imported."
 msgid_plural ""
 "<b>{0}</b> of <b>{1}</b> Sticky Notes were successfully imported."
@@ -1123,97 +1117,84 @@ msgstr "Autorizar en el navegador (pulse para reiniciar la conexión)"
 msgid "Set the default browser and try again"
 msgstr "Establecer el navegador predeterminado e intentarlo de nuevo"
 
-#: ../Tomboy/ExportAllApplicationAddin.cs:48
-#| msgid "HTML Export All Linked Notes"
+#: ../Tomboy/ExportAllApplicationAddin.cs:53
 msgid "Export All Notes to "
 msgstr "Exportar todas las notas a "
 
-#: ../Tomboy/ExportAllApplicationAddin.cs:49
-#| msgid "Start synchronizing notes"
+#: ../Tomboy/ExportAllApplicationAddin.cs:54
 msgid "Start exporting notes to "
 msgstr "Comenzar a exportar las notas a"
 
-#: ../Tomboy/ExportAllApplicationAddin.cs:53
-#| msgid "Delete the selected notebook"
+#: ../Tomboy/ExportAllApplicationAddin.cs:58
 msgid "Export selected notebook to "
 msgstr "Exportar el cuaderno de notas seleccionado a"
 
-#: ../Tomboy/ExportAllApplicationAddin.cs:54
+#: ../Tomboy/ExportAllApplicationAddin.cs:59
 msgid "Start exporting notebook to "
 msgstr "Comenzar a exportar el cuaderno a"
 
-#: ../Tomboy/ExportAllApplicationAddin.cs:60
+#: ../Tomboy/ExportAllApplicationAddin.cs:65
 #: ../Tomboy/Synchronization/SyncManager.cs:161
 msgid "_Tools"
 msgstr "_Herramientas"
 
-#: ../Tomboy/ExportAllApplicationAddin.cs:63
-#| msgid "Export to HTML"
+#: ../Tomboy/ExportAllApplicationAddin.cs:68
 msgid "Export"
 msgstr "Exportar"
 
-#: ../Tomboy/ExportAllApplicationAddin.cs:64
-#| msgid "Export linked notes"
+#: ../Tomboy/ExportAllApplicationAddin.cs:69
 msgid "Export your notes."
 msgstr "Exportar sus notas."
 
-#: ../Tomboy/ExportAllApplicationAddin.cs:67
-#| msgid "HTML Export All Linked Notes"
+#: ../Tomboy/ExportAllApplicationAddin.cs:72
 msgid "Export All Notes To "
 msgstr "Exportar todas las notas a "
 
-#: ../Tomboy/ExportAllApplicationAddin.cs:72
-#| msgid "Delete Note_book"
+#: ../Tomboy/ExportAllApplicationAddin.cs:77
 msgid "Export Selected Notebook To "
 msgstr "Exportar el cuaderno de notas seleccionado a "
 
-#: ../Tomboy/ExportAllApplicationAddin.cs:187
-#: ../Tomboy/ExportAllApplicationAddin.cs:263
-#| msgid "Could not read testfile."
+#: ../Tomboy/ExportAllApplicationAddin.cs:193
+#: ../Tomboy/ExportAllApplicationAddin.cs:271
 msgid "Could not export, access denied."
 msgstr "No se pudo exportar, acceso denegado."
 
-#: ../Tomboy/ExportAllApplicationAddin.cs:192
-#: ../Tomboy/ExportAllApplicationAddin.cs:268
-#| msgid "Folder does not exist."
+#: ../Tomboy/ExportAllApplicationAddin.cs:198
+#: ../Tomboy/ExportAllApplicationAddin.cs:276
 msgid "Could not export, folder does not exist."
 msgstr "No se pudo exportar, la carpeta no existe."
 
-#: ../Tomboy/ExportAllApplicationAddin.cs:197
-#: ../Tomboy/ExportAllApplicationAddin.cs:273
+#: ../Tomboy/ExportAllApplicationAddin.cs:203
+#: ../Tomboy/ExportAllApplicationAddin.cs:281
 #, csharp-format
-#| msgid "Your note was exported to \"{0}\"."
 msgid "Could not export: {0}"
 msgstr "No se pudo exportar: {0}"
 
-#: ../Tomboy/ExportAllApplicationAddin.cs:199
-#: ../Tomboy/ExportAllApplicationAddin.cs:275
+#: ../Tomboy/ExportAllApplicationAddin.cs:205
+#: ../Tomboy/ExportAllApplicationAddin.cs:283
 msgid "Unknown error."
 msgstr "Error desconocido."
 
-#: ../Tomboy/ExportAllApplicationAddin.cs:230
+#: ../Tomboy/ExportAllApplicationAddin.cs:236
 #: ../Tomboy/Notebooks/Notebook.cs:215
 msgid "Unfiled Notes"
 msgstr "Notas sin archivar"
 
-#: ../Tomboy/ExportAllApplicationAddin.cs:381
+#: ../Tomboy/ExportAllApplicationAddin.cs:389
 #, csharp-format
-#| msgid "Your note was exported to \"{0}\"."
 msgid "Your notes were exported to \"{0}\"."
 msgstr "Sus notas se exportaron a «{0}»."
 
-#: ../Tomboy/ExportAllApplicationAddin.cs:390
-#| msgid "Note exported successfully"
+#: ../Tomboy/ExportAllApplicationAddin.cs:398
 msgid "Notes exported successfully"
 msgstr "Notas exportadas correctamente"
 
-#: ../Tomboy/ExportAllApplicationAddin.cs:413
+#: ../Tomboy/ExportAllApplicationAddin.cs:421
 #, csharp-format
-#| msgid "Could not save the file \"{0}\""
 msgid "Could not save the files in \"{0}\""
 msgstr "No se pudieron guardar los archivos «{0}»"
 
-#: ../Tomboy/ExportAllApplicationAddin.cs:437
+#: ../Tomboy/ExportAllApplicationAddin.cs:506
 msgid "Create destination folder for "
 msgstr "Crear carpeta de destino para "
 
@@ -1630,7 +1611,6 @@ msgstr "Buscar"
 
 #. TODO: If we ever add a way to customize internal keybindings, this will need to change
 #: ../Tomboy/NoteWindow.cs:440
-#| msgid "Search All Notes"
 msgid "Search your notes"
 msgstr "Buscar sus notas"
 
@@ -1639,7 +1619,6 @@ msgid "Link"
 msgstr "Enlazar"
 
 #: ../Tomboy/NoteWindow.cs:459
-#| msgid "Link selected text to a new note (Ctrl-L)"
 msgid "Link selected text to a new note"
 msgstr "Enlazar el texto seleccionado a una nota nueva"
 
@@ -1949,14 +1928,18 @@ msgid "Resetting Synchronization Settings"
 msgstr "Reiniciando los ajustes de sincronización"
 
 #: ../Tomboy/PreferencesDialog.cs:1167
+#| msgid ""
+#| "You have disabled the configured synchronization service.  Your "
+#| "synchronization settings will now be cleared.  You may be forced to "
+#| "synchronize all of your notes again when you save new settings"
 msgid ""
 "You have disabled the configured synchronization service.  Your "
 "synchronization settings will now be cleared.  You may be forced to "
-"synchronize all of your notes again when you save new settings"
+"synchronize all of your notes again when you save new settings."
 msgstr ""
-"Ha deshabilitado el servicio de configuración sincronizado. Sus ajustes de "
+"Ha desactivado el servicio de sincronización configurado. Sus ajustes de "
 "sincronización se limpiarán. Quizá se vea forzado a sincronizar todas sus "
-"notas de nuevo cuando guarde los nuevos ajustes."
+"notas de nuevo cuando guarde los ajustes nuevos."
 
 #: ../Tomboy/PreferencesDialog.cs:1245
 msgid "Connection successful"
@@ -2063,9 +2046,6 @@ msgstr ""
 "Jorge González <jorgegonz@svn.gnome.org>, 2004-2009"
 
 #: ../Tomboy/Tomboy.cs:421
-#| msgid ""
-#| "Copyright © 2004-2007 Alex Graveley\n"
-#| "Copyright © 2004-2010 Others\n"
 msgid ""
 "Copyright © 2004-2007 Alex Graveley\n"
 "Copyright © 2004-2011 Others\n"
