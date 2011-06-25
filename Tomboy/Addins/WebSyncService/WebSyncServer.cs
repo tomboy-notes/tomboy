@@ -44,7 +44,7 @@ namespace Tomboy.WebSync
 		public WebSyncServer (string serverUrl, IWebConnection connection)
 		{
 			this.connection = connection;
-			rootUri = serverUrl + "/api/1.0/"; // TODO: Trim trailing / from serverUrl if necessary
+			rootUri = serverUrl.TrimEnd ('/') + "/api/1.0/";
 		}
 
 		#region SyncServer implementation
