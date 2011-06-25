@@ -12,6 +12,7 @@
 <xsl:param name="export-linked" />
 <xsl:param name="export-linked-all" />
 <xsl:param name="root-note" />
+<xsl:param name="exporting-multiple" />
 
 <xsl:param name="newline" select="'&#xA;'" />
 
@@ -133,9 +134,18 @@
 </xsl:template>
 
 <xsl:template match="link:internal">
-	<a style="color:#204A87" href="#{tomboy:ToLower(node())}">
-		<xsl:value-of select="node()"/>
-	</a>
+	<xsl:choose>
+		<xsl:when test="$exporting-multiple">
+			<a style="color:#204A87" href="{tomboy:GetRelativePath(node())}">
+				<xsl:value-of select="node()"/>
+			</a>
+		</xsl:when>
+		<xsl:otherwise>
+			<a style="color:#204A87" href="#{tomboy:ToLower(node())}">
+				<xsl:value-of select="node()"/>
+			</a>
+		</xsl:otherwise>
+	</xsl:choose>
 </xsl:template>
 
 <xsl:template match="link:url">

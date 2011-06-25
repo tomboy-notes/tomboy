@@ -32,6 +32,11 @@ namespace Tomboy
 		private bool initialized = false;
 
 		/// <summary>
+		/// Used to inform the path resolver if all notes are being exported or just one notebook.
+		/// </summary>
+		private bool exporting_single_notebook = false;
+
+		/// <summary>
 		/// Called when Tomboy has started up and is nearly 100% initialized.
 		/// </summary>
 		public override void Initialize ()
@@ -141,6 +146,7 @@ namespace Tomboy
 		void ExportAllNotes ()
 		{
 			Logger.Info ("Activated export all to " + export_type_pretty_name);
+			exporting_single_notebook = false;
 
 			//Opens the folder selection dialog
 			ExportMultipleDialog dialog =
@@ -236,6 +242,7 @@ namespace Tomboy
 						return;
 					}
 
+					exporting_single_notebook = true;
 					Logger.Debug ("Creating an export folder in: " + output_folder);
 					System.IO.Directory.CreateDirectory (output_folder);
 					ExportNotesInList (ListUnfiledNotes (), output_folder);
@@ -250,6 +257,7 @@ namespace Tomboy
 						return;
 					}
 
+					exporting_single_notebook = true;
 					Logger.Debug ("Creating an export folder in: " + output_folder);
 					System.IO.Directory.CreateDirectory (output_folder);
 					ExportNotesInList (notebook.Tag.Notes, output_folder);
@@ -424,6 +432,67 @@ namespace Tomboy
 				msg_dialog.Destroy ();
 			dialog.Destroy ();
 			Logger.Error (error_message);
+		}
+
+		/// <summary>
+		/// Determines the relative path between two exported files, can optionally be used
+		/// by the subclass.
+		/// </summary>
+		/// <param name="title_from">
+		/// The note we're finding the relative path from.
+		/// </param>
+		/// <param name="title_to">
+		/// The title of the note we're finding the relative path to.
+		/// </param>
+		/// <returns>
+		/// A <see cref="System.String"/>
+		/// </returns>
+		public string ResolveRelativePath (Note note_from, string title_to)
+		{
+			NoteManager manager = Tomboy.DefaultNoteManager;
+			Note note_to = manager.Find (title_to);
+			string title_from = SanitizeNoteTitle (note_from.Title);
+			title_to = SanitizeNoteTitle (note_to.Title);
+
+			if (exporting_single_notebook) {
+				//If there is only one notebook being exported
+				if (NotebookManager.GetNotebookFromNote (note_from) == NotebookManager.GetNotebookFromNote (note_to)) {
+					return title_to + "." + export_file_suffix;
+				} else {
+					return "";
+				}
+			} else {
+				//If all notebooks are available
+				if (NotebookManager.GetNotebookFromNote (note_from) == NotebookManager.GetNotebookFromNote (note_to)) {
+					//Both notes are in the same notebook
+					return title_to + "." + export_file_suffix;
+				} else {
+					//Unfiled notes are a special case because they're in the root directory and will
+					// throw an exception from the notebookmanager
+					string notebook_from;
+					string notebook_to;
+					try {
+						notebook_from = NotebookManager.GetNotebookFromNote (note_from).NormalizedName;
+					} catch (Exception ex) {
+						notebook_from = "___NotebookManager___UnfiledNotes__Notebook___"; //TODO: Ugly!
+					}
+					try {
+						notebook_to = NotebookManager.GetNotebookFromNote (note_to).NormalizedName;
+					} catch (Exception ex) {
+						notebook_to = "___NotebookManager___UnfiledNotes__Notebook___";
+					}
+
+					if (notebook_to == "___NotebookManager___UnfiledNotes__Notebook___") {
+						return ".." + System.IO.Path.DirectorySeparatorChar + title_to + "." + export_file_suffix;
+					} else if (notebook_from == "___NotebookManager___UnfiledNotes__Notebook___") {
+						return SanitizePath (notebook_to) + System.IO.Path.DirectorySeparatorChar
+							+ title_to + "." + export_file_suffix;
+					} else {
+						return ".." + System.IO.Path.DirectorySeparatorChar + SanitizePath (notebook_to)
+							+ System.IO.Path.DirectorySeparatorChar + title_to + "." + export_file_suffix;
+					}
+				}
+			}
 		}
 	}
 
