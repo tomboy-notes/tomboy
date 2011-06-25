@@ -1297,8 +1297,10 @@ namespace Tomboy
 			if (notebook is Notebooks.SpecialNotebook) {
 				// Bold the "Special" Notebooks
 				crt.Markup = string.Format ("<span weight=\"bold\">{0}</span>", notebook.Name);
+				crt.Editable = false;
 			} else {
 				crt.Text = notebook.Name;
+				crt.Editable = true;
 			}
 		}
 
