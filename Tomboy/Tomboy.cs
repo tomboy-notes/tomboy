@@ -550,8 +550,10 @@ namespace Tomboy
 			        Catalog.GetString (
 			                "Tomboy: A simple, easy to use desktop note-taking " +
 			                "application.\n" +
-			                "Copyright (C) 2004-2006 Alex Graveley " +
-			                "<alex@beatniksoftware.com>\n\n");
+			                "Copyright \xa9 2004-2007 Alex Graveley\n" +
+							"<alex@beatniksoftware.com>\n\n" +		
+							"Copyright \xa9 2004-2011 Others\n"
+							);
 
 			Console.Write (about);
 		}
