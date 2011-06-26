@@ -269,11 +269,24 @@ AC_SUBST(GALAGO_LIBS)
 
 #
 # NUnit required for (optional) unit tests
+# 
+# Added optional arg support. Default now is no NUNIT support instead of yes.
+# bgo #647591
+# 
 #
-PKG_CHECK_MODULES(NUNIT, mono-nunit, HAVE_NUNIT="yes", HAVE_NUNIT="no")
-AM_CONDITIONAL(HAVE_NUNIT, test "$HAVE_NUNIT" = "yes")
+AC_ARG_ENABLE(tests,
+	      [  --enable-tests[[=no/yes]]  compile with unit tests [[default: no]]],
+	      [ENABLE_NUNIT="$enableval"],
+          [ENABLE_NUNIT="no"]
+	      )
+	      
+if test "x$ENABLE_NUNIT" = "xyes" ; then
+	PKG_CHECK_MODULES(NUNIT, mono-nunit, HAVE_NUNIT="yes", HAVE_NUNIT="no")
+	AC_PATH_PROG(NUNIT, nunit-console)
+fi
+AM_CONDITIONAL(HAVE_NUNIT, test "x$HAVE_NUNIT" = "xyes")
 AC_SUBST(NUNIT_LIBS)
-AC_PATH_PROG(NUNIT, nunit-console)
+	
 
 #
 # Check for X11 libraries
@@ -370,6 +383,7 @@ ${PACKAGE}-${VERSION}
     GNOME Support:              ${ENABLE_GNOME}
     Mac OS X Support:           ${ENABLE_OSX}
     Windows Support:            ${ENABLE_WIN}
+    UNIT Test Support:          ${ENABLE_NUNIT}
 
     D-Bus Support:              ${ENABLE_DBUS}
 
