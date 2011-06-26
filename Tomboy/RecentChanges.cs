@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Mono.Unix;
+using Gtk;
 
 namespace Tomboy
 {
@@ -25,7 +26,8 @@ namespace Tomboy
 		Gtk.HPaned hpaned;
 		Gtk.VBox content_vbox;
 		Gtk.TreeViewColumn matches_column;
-
+		Gtk.HBox no_matches_box;	//to display a message with buttons when no results are found.
+		
 		Notebooks.NotebooksTreeView notebooksTree;
 
 		// Use the following like a Set
@@ -491,14 +493,22 @@ namespace Tomboy
 
 			IDictionary<Note,int> results =
 				search.SearchNotes(text, false, selected_notebook);
-			foreach (Note note in results.Keys){
-				current_matches.Add(note.Uri, results[note]);
+			
+			// if no results found in current notebook ask user whether
+			// to search in all notebooks
+			if (results.Count == 0 && selected_notebook != null) {
+				NoMatchesFoundAction ();
 			}
+			else {
+				foreach (Note note in results.Keys){
+					current_matches.Add (note.Uri, results[note]);
+				}
 
-			AddMatchesColumn ();
-			store_filter.Refilter ();
-			tree.ScrollToPoint (0, 0);
-			UpdateMatchNoteCount (current_matches.Count);
+				AddMatchesColumn ();
+				store_filter.Refilter ();
+				tree.ScrollToPoint (0, 0);
+				UpdateMatchNoteCount (current_matches.Count);
+			}
 		}
 
 		void AddMatchesColumn ()
@@ -593,6 +603,51 @@ namespace Tomboy
 			status_bar.Pop (0);
 			status_bar.Push (0, status);
 		}
+		
+		// called when no search results are found in the selected notebook
+		void NoMatchesFoundAction ()
+		{
+			hpaned.Remove (matches_window);
+			String message = Catalog.GetString ("No results found " +
+				"in the selected notebook.\nClick here to " +
+				"search across all notes.");
+			Gtk.LinkButton link_button = new Gtk.LinkButton ("", message);
+			Gtk.LinkButton.SetUriHook(ShowAllSearchResults);
+			link_button.TooltipText = Catalog.GetString 
+				("Click here to search across all notebooks");
+			link_button.Show();
+			Gtk.Table no_matches_found_table = new Gtk.Table (1, 3, false);
+			no_matches_found_table.Attach (link_button, 1, 2, 0, 1,
+			                               Gtk.AttachOptions.Fill | Gtk.AttachOptions.Shrink,
+			                 Gtk.AttachOptions.Shrink,
+			                0, 0
+			              );
+			
+			no_matches_found_table.ColumnSpacing = 4;
+			no_matches_found_table.ShowAll ();
+			no_matches_box = new HBox (false, 0);
+			no_matches_box.PackStart (no_matches_found_table, true, true, 0);
+			no_matches_box.Show ();
+			hpaned.Add2 (no_matches_box);
+		}
+		
+		void RestoreMatchesWindow ()
+		{
+			if (no_matches_box != null) {
+				hpaned.Remove (no_matches_box);
+				hpaned.Add2 (matches_window);
+				no_matches_box = null;
+				RestorePosition();
+			}	
+		}
+		
+		private void ShowAllSearchResults (Gtk.LinkButton button, String param)
+		{
+			TreeIter iter;
+			notebooksTree.Model.GetIterFirst (out iter);
+			notebooksTree.Selection.SelectIter (iter);
+		}		
+		
 
 		/// <summary>
 		/// Filter out notes based on the current search string
@@ -681,17 +736,20 @@ namespace Tomboy
 
 		void OnNotesChanged (object sender, Note changed)
 		{
+			RestoreMatchesWindow ();
 			UpdateResults ();
 		}
 
 		void OnNoteRenamed (Note note, string old_title)
 		{
+			RestoreMatchesWindow ();
 			UpdateResults ();
 		}
 
 		void OnNoteSaved (Note note)
 		{
 			var rect = tree.VisibleRect;
+			RestoreMatchesWindow ();
 			UpdateResults ();
 			tree.ScrollToPoint (rect.X, rect.Y);
 		}
@@ -1221,6 +1279,8 @@ namespace Tomboy
 				entry_changed_timeout.Reset (500);
 				clear_search_button.Sensitive = true;
 			}
+			
+			RestoreMatchesWindow ();
 		}
 
 		// Called in after .5 seconds of typing inactivity, or on
@@ -1306,6 +1366,7 @@ namespace Tomboy
 
 		private void OnNotebookSelectionChanged (object sender, EventArgs args)
 		{
+			RestoreMatchesWindow ();
 			Notebooks.Notebook notebook = GetSelectedNotebook ();
 			if (notebook == null) {
 				// Clear out the currently selected tags so that no notebook is selected
@@ -1475,11 +1536,13 @@ namespace Tomboy
 
 		private void OnNoteAddedToNotebook (Note note, Notebooks.Notebook notebook)
 		{
+			RestoreMatchesWindow ();
 			UpdateResults ();
 		}
 
 		private void OnNoteRemovedFromNotebook (Note note, Notebooks.Notebook notebook)
 		{
+			RestoreMatchesWindow ();
 			UpdateResults ();
 		}
 
