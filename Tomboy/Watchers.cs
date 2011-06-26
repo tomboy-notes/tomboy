@@ -374,7 +374,45 @@ namespace Tomboy
 		Gtk.TextMark click_mark;
 
 		const string URL_REGEX =
-			@"((\b((news|http|https|ftp|file|irc)://|mailto:|(www|ftp)\.|\S*@\S*\.)|(?<=^|\s)/\S+/|(?<=^|\s)~/\S+)\S*\b/?)";
+			//@"((\b((news|http|https|ftp|file|irc)://|mailto:|(www|ftp)\.|\S*@\S*\.)|(?<=^|\s)/\S+/|(?<=^|\s)~/\S+)\S*\b/?)";
+			    @"("+
+		    		@"(("+
+		    		    @"((?<=(?<starter>("+        // preceded by a starter
+		    			 @"(?<starterA>(\())"+	//	opening parenthesis closed by )
+		    			@"|(?<starterB>(\[))"+	// or	opening bracket	    closed by ]
+		    			@"|(?<starterC>(\{))"+	// or	opening thing	    closed by }
+		    		    @")))"+
+		    		    @"|\b)"+			    //  or at beginning of a word \b
+		    		    @"("+
+		    			@"(news|http|https|ftp|file|irc)://"+    // http:// ...
+		    		        @"|mailto:"+				// or mailto...
+		    			@"|(www|ftp)\."+				// or www...
+		    		        @"|\S*@\S*\."+				// or email adress
+		    		    @")"+
+		    		@")"+
+		    		@"|("+
+		    		    @"((?<=(?<starter>("+        // preceded by a starter
+		    			 @"(?<starterA>(\())"+	//	opening parenthesis closed by )
+		    			@"|(?<starterB>(\[))"+	// or	opening bracket	    closed by ]
+		    			@"|(?<starterC>(\{))"+	// or	opening thing	    closed by }
+		    		    @")))"+
+				    @"|(?<=^|\s))"+
+		    		    @"("+
+			    		    @"(/\S+/)"+				// or starting with '/'
+			    		    @"|(~/\S+?)"+				// or starting with '~/'
+		    		    @")"+
+		    		@"))"+
+		    		@"(?(starter)"+			    //
+		    		    @"(\S(?!("+			    // if starter detected : forbid ender
+									//ignore this comment (for syntax) ([{
+		    			@"(?(starterA)\)|"+				// closing parenthesis
+		    			@"(?(starterB)\]|"+				// closing bracket
+		    			@"(?(starterC)\})))"+				// closing thing
+		    		    @")))*\S?"+
+		    		    @"|\S*/?"+			    // else anything without space
+		    		@")"+
+		    	    @")";
+
 		
 
 		static Regex regex;
