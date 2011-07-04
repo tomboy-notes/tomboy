@@ -764,6 +764,8 @@ Ciao!");
 			foreach (Note note in manager.Notes) {
 				title_trie.AddKeyword (note.Title, note);
 			}
+
+			title_trie.ComputeFailureGraph ();
 		}
 
 		public TrieTree TitleTrie
