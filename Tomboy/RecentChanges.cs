@@ -348,6 +348,7 @@ namespace Tomboy
 
 			Gtk.TreeViewColumn title = new Gtk.TreeViewColumn ();
 			title.Title = Catalog.GetString ("Note");
+			title.MinWidth = 150; // Fix for bgo 575337 - "Matches" column causes notes name not to be shown. jjennings jul 13, 2011
 			title.Sizing = Gtk.TreeViewColumnSizing.Autosize;
 			title.Expand = true;
 			title.Resizable = true;
