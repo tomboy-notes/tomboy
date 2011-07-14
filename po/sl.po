@@ -10,14 +10,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tomboy\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=tomboy&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2011-06-26 11:05+0000\n"
-"PO-Revision-Date: 2011-06-26 20:31+0100\n"
+"POT-Creation-Date: 2011-07-13 19:01+0000\n"
+"PO-Revision-Date: 2011-07-14 08:10+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian <gnome-si@googlegroups.com>\n"
-"Language: sl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: sl\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n%100==4 ? 3 : 0);\\n\n"
 "X-Poedit-Language: Slovenian\n"
 "X-Poedit-Country: Slovenia\n"
@@ -498,6 +498,16 @@ msgstr "Odpre okno za iskanje v vseh sporočilcih"
 msgid "Start synchronizing notes"
 msgstr "Začni usklajevanje sporočilc"
 
+#. Addin's tab caption
+#: ../Tomboy/Addins/AdvancedPreferences/AdvancedPreferencesAddin.cs:38
+msgid "Advanced"
+msgstr "Napredno"
+
+#. Menu Note Count option
+#: ../Tomboy/Addins/AdvancedPreferences/AdvancedPreferencesAddin.cs:56
+msgid "Minimum number of notes to show in Recent list (maximum 18)"
+msgstr "Najmanjše število sporočilc prikazanih v seznamu nedavnih sporočilc (največ 18)"
+
 #: ../Tomboy/Addins/Backlinks/BacklinksNoteAddin.cs:38
 msgid "What links here?"
 msgstr "Kaj se povezuje sem?"
@@ -552,9 +562,25 @@ msgstr "Ali želite res izbrisati to ikono?"
 msgid "If you remove an icon it is permanently lost."
 msgstr "V primeru da ikono izbrišete, bo ta trajno izgubljena."
 
+#: ../Tomboy/Addins/Evolution/EvolutionNoteAddin.cs:273
+msgid "Cannot open email"
+msgstr "Ni mogoče odpreti elektronske pošte"
+
 #: ../Tomboy/Addins/ExportToHtml/ExportToHtmlApplicationAddin.cs:59
 msgid "HTML"
 msgstr "HTML"
+
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlDialog.cs:13
+msgid "Destination for HTML Export"
+msgstr "Cilj izvoza HTML"
+
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlDialog.cs:23
+msgid "Export linked notes"
+msgstr "Izvozi povezana sporočilca"
+
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlDialog.cs:28
+msgid "Include all other linked notes"
+msgstr "Vključi vsa ostala povezana sporočilca"
 
 #: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:67
 msgid "Export to HTML"
@@ -585,22 +611,6 @@ msgstr "Mapa ne obstaja."
 #, csharp-format
 msgid "Could not save the file \"{0}\""
 msgstr "Ni mogoče shraniti datoteke \"{0}\""
-
-#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlDialog.cs:13
-msgid "Destination for HTML Export"
-msgstr "Cilj izvoza HTML"
-
-#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlDialog.cs:23
-msgid "Export linked notes"
-msgstr "Izvozi povezana sporočilca"
-
-#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlDialog.cs:28
-msgid "Include all other linked notes"
-msgstr "Vključi vsa ostala povezana sporočilca"
-
-#: ../Tomboy/Addins/Evolution/EvolutionNoteAddin.cs:273
-msgid "Cannot open email"
-msgstr "Ni mogoče odpreti elektronske pošte"
 
 #: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:93
 msgid "_Folder Path:"
@@ -830,10 +840,6 @@ msgstr "Prišlo je do napake med povezovanjem s strežnikom. Morda ste vnesli na
 msgid "Saving configuration to the GNOME keyring failed with the following message:"
 msgstr "Neuspešno shranjevanje nastavitev v zbirko ključev GNOME:"
 
-#: ../Tomboy/Addins/WebSyncService/WebSyncServiceAddin.cs:70
-msgid "Tomboy Web"
-msgstr "Tomboy spletišče"
-
 #: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:66
 #: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:96
 msgid "Connect to Server"
@@ -878,6 +884,10 @@ msgstr "Overjanje v brskalniku (Pritisnite za ponastavitev povezave)"
 #: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:235
 msgid "Set the default browser and try again"
 msgstr "Določite privzeti brskalnik in poskusite znova"
+
+#: ../Tomboy/Addins/WebSyncService/WebSyncServiceAddin.cs:70
+msgid "Tomboy Web"
+msgstr "Tomboy spletišče"
 
 #: ../Tomboy/ExportAllApplicationAddin.cs:53
 msgid "Export All Notes to "
@@ -1014,22 +1024,6 @@ msgstr "Ime je že zasedeno"
 msgid "C_reate"
 msgstr "Ustva_ri"
 
-#. The templateNoteTite should show the name of the
-#. notebook.  For example, if the name of the notebooks
-#. "Meetings", the templateNoteTitle should be "Meetings
-#. Notebook Template".  Translators should place the
-#. name of the notebook accordingly using "{0}".
-#. TODO: Figure out how to make this note for
-#. translators appear properly.
-#: ../Tomboy/Notebooks/Notebook.cs:79
-#, csharp-format
-msgid "{0} Notebook Template"
-msgstr "{0} Predloga sporočilca"
-
-#: ../Tomboy/Notebooks/Notebook.cs:183
-msgid "All Notes"
-msgstr "Vsa sporočilca"
-
 #: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:48
 msgid "Note_books"
 msgstr "_Beležke"
@@ -1069,9 +1063,25 @@ msgid "Delete the selected notebook"
 msgstr "Izbriše izbrano beležko"
 
 #: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:68
-#: ../Tomboy/RecentChanges.cs:285
+#: ../Tomboy/RecentChanges.cs:276
 msgid "Notebooks"
 msgstr "Beležke"
+
+#. The templateNoteTite should show the name of the
+#. notebook.  For example, if the name of the notebooks
+#. "Meetings", the templateNoteTitle should be "Meetings
+#. Notebook Template".  Translators should place the
+#. name of the notebook accordingly using "{0}".
+#. TODO: Figure out how to make this note for
+#. translators appear properly.
+#: ../Tomboy/Notebooks/Notebook.cs:79
+#, csharp-format
+msgid "{0} Notebook Template"
+msgstr "{0} Predloga sporočilca"
+
+#: ../Tomboy/Notebooks/Notebook.cs:183
+msgid "All Notes"
+msgstr "Vsa sporočilca"
 
 #: ../Tomboy/Notebooks/NotebookManager.cs:361
 msgid "Really delete this notebook?"
@@ -1659,23 +1669,23 @@ msgstr "Odvisnosti vstavkov:"
 msgid "_Search:"
 msgstr "_Išči:"
 
-#: ../Tomboy/RecentChanges.cs:359
+#: ../Tomboy/RecentChanges.cs:350
 msgid "Note"
 msgstr "Sporočilce"
 
-#: ../Tomboy/RecentChanges.cs:381
+#: ../Tomboy/RecentChanges.cs:372
 msgid "Last Changed"
 msgstr "Zadnjič spremenjeno"
 
-#: ../Tomboy/RecentChanges.cs:520
+#: ../Tomboy/RecentChanges.cs:511
 msgid "Matches"
 msgstr "Zadetki"
 
-#: ../Tomboy/RecentChanges.cs:571
+#: ../Tomboy/RecentChanges.cs:562
 msgid "Title match"
 msgstr "Zadetki naslova"
 
-#: ../Tomboy/RecentChanges.cs:574
+#: ../Tomboy/RecentChanges.cs:565
 #, csharp-format
 msgid "{0} match"
 msgid_plural "{0} matches"
@@ -1684,7 +1694,7 @@ msgstr[1] "{0} zadetek"
 msgstr[2] "{0} zadetka"
 msgstr[3] "{0} zadetki"
 
-#: ../Tomboy/RecentChanges.cs:588
+#: ../Tomboy/RecentChanges.cs:579
 #, csharp-format
 msgid "Total: {0} note"
 msgid_plural "Total: {0} notes"
@@ -1693,7 +1703,7 @@ msgstr[1] "Skupaj: {0} sporočilce"
 msgstr[2] "Skupaj: {0} sporočilci"
 msgstr[3] "Skupaj: {0} sporočilca"
 
-#: ../Tomboy/RecentChanges.cs:599
+#: ../Tomboy/RecentChanges.cs:590
 #, csharp-format
 msgid "Matches: {0} note"
 msgid_plural "Matches: {0} notes"
@@ -1702,7 +1712,7 @@ msgstr[1] "Skupaj: {0} sporočilce"
 msgstr[2] "Skupaj: {0} sporočilci"
 msgstr[3] "Skupaj: {0} sporočilca"
 
-#: ../Tomboy/RecentChanges.cs:611
+#: ../Tomboy/RecentChanges.cs:602
 msgid ""
 "No results found in the selected notebook.\n"
 "Click here to search across all notes."
@@ -1710,219 +1720,13 @@ msgstr ""
 "Ni najdenih zadetkov v izbrani beležnici.\n"
 "Kliknite tu za iskanje med vsemi beležkami."
 
-#: ../Tomboy/RecentChanges.cs:617
+#: ../Tomboy/RecentChanges.cs:608
 msgid "Click here to search across all notebooks"
 msgstr "Kliknite tu za iskanje med vsemi beležkami."
 
-#: ../Tomboy/RecentChanges.cs:783
+#: ../Tomboy/RecentChanges.cs:774
 msgid "Notes"
 msgstr "Sporočilca"
-
-#: ../Tomboy/Tomboy.cs:251
-msgid "Cannot create new note"
-msgstr "Ni mogoče ustvariti novega sporočilca"
-
-#: ../Tomboy/Tomboy.cs:317
-msgid "Primary Development:"
-msgstr "Osnovni razvoj:"
-
-#: ../Tomboy/Tomboy.cs:330
-msgid "Contributors:"
-msgstr "Sodelavci:"
-
-#: ../Tomboy/Tomboy.cs:412
-msgid "translator-credits"
-msgstr ""
-"Matej Urbančič <mateju@svn.gnome.org>\n"
-"Matjaž Horvat <m@owca.info>"
-
-#: ../Tomboy/Tomboy.cs:421
-msgid ""
-"Copyright © 2004-2007 Alex Graveley\n"
-"Copyright © 2004-2011 Others\n"
-msgstr ""
-"Avtorske pravice © 2004-2007 Alex Graveley\n"
-"Avtorske pravice © 2004-2011 Drugi\n"
-
-#: ../Tomboy/Tomboy.cs:423
-msgid "A simple and easy to use desktop note-taking application."
-msgstr "Preprost in enostaven program za pisanje sporočilc."
-
-#: ../Tomboy/Tomboy.cs:433
-msgid "Homepage"
-msgstr "Domača stran"
-
-#: ../Tomboy/Tomboy.cs:551
-msgid ""
-"Tomboy: A simple, easy to use desktop note-taking application.\n"
-"Copyright © 2004-2007 Alex Graveley\n"
-"<alex@beatniksoftware.com>\n"
-"\n"
-"Copyright © 2004-2011 Others\n"
-msgstr ""
-"Tomboy: enostaven program za pisanje sporočilc na namizju.\n"
-"Avtorske pravice © 2004-2007 Alex Graveley\n"
-"<alex@beatniksoftware.com>\n"
-"\n"
-"Avtorske pravice © 2004-2011 Drugi razvijalci\n"
-
-#: ../Tomboy/Tomboy.cs:565
-msgid ""
-"Usage:\n"
-"  --version\t\t\tPrint version information.\n"
-"  --help\t\t\tPrint this usage message.\n"
-"  --note-path [path]\t\tLoad/store note data in this directory.\n"
-"  --search [text]\t\tOpen the search all notes window with the search text.\n"
-msgstr ""
-"Uporaba:\n"
-"  --version\t\t\tIzpiše podatke o različici.\n"
-"  --help\t\t\tIzpiše to sporočilo o uporabi.\n"
-"  --note-path [path]\t\tNaloži/shrani podatke o sporočilcu v tej mapi.\n"
-"  --search [text]\t\tOdpre okno vseh sporočil z iskanim besedilom.\n"
-
-#: ../Tomboy/Tomboy.cs:575
-msgid ""
-"  --new-note\t\t\tCreate and display a new note.\n"
-"  --new-note [title]\t\tCreate and display a new note, with a title.\n"
-"  --open-note [title/url]\tDisplay the existing note matching title.\n"
-"  --start-here\t\t\tDisplay the 'Start Here' note.\n"
-"  --highlight-search [text]\tSearch and highlight text in the opened note.\n"
-msgstr ""
-"  --new-note\t\t\tUstvari in prikaže novo sporočilce.\n"
-"  --new-note [title]\t\tUstvari in prikaže novo sporočilce z naslovom.\n"
-"  --open-note [title/url]\tPrikaže obstoječe sporočilce z ustreznim naslovom.\n"
-"  --start-here\t\t\tPrikaže sporočilce 'Začnite tukaj'.\n"
-"  --highlight-search [text]\tIšče in poudari besedilo v odprtem sporočilcu.\n"
-
-#: ../Tomboy/Tomboy.cs:589
-#, csharp-format
-msgid "Version {0}"
-msgstr "Različica {0}"
-
-#: ../Tomboy/Tray.cs:68
-msgid " (new)"
-msgstr "(novo)"
-
-#: ../Tomboy/Tray.cs:293
-msgid "_About Tomboy"
-msgstr "_O Tomboy"
-
-#: ../Tomboy/Utils.cs:189
-msgid "The \"Tomboy Notes Manual\" could not be found.  Please verify that your installation has been completed successfully."
-msgstr "Priročnika \"Tomboy sporočilc\" ni mogoče najti. Preverite, če je namestitev pravilna in da je potekla do konca."
-
-#: ../Tomboy/Utils.cs:198
-msgid "Help not found"
-msgstr "Pomoči ni mogoče najti"
-
-#: ../Tomboy/Utils.cs:214
-msgid "Cannot open location"
-msgstr "Mesta ni mogoče odpreti "
-
-#: ../Tomboy/Utils.cs:236
-#, csharp-format
-msgid "Today, {0}"
-msgstr "Danes, {0}"
-
-#: ../Tomboy/Utils.cs:238
-msgid "Today"
-msgstr "Danes"
-
-#: ../Tomboy/Utils.cs:242
-#, csharp-format
-msgid "Yesterday, {0}"
-msgstr "Včeraj, {0}"
-
-#: ../Tomboy/Utils.cs:244
-msgid "Yesterday"
-msgstr "Včeraj"
-
-#: ../Tomboy/Utils.cs:249
-#, csharp-format
-msgid "{0} day ago, {1}"
-msgid_plural "{0} days ago, {1}"
-msgstr[0] "{0} dni nazaj, {1}"
-msgstr[1] "{0} dan nazaj, {1}"
-msgstr[2] "{0} dni nazaj, {1}"
-msgstr[3] "{0} dni nazaj, {1}"
-
-#: ../Tomboy/Utils.cs:253
-#, csharp-format
-msgid "{0} day ago"
-msgid_plural "{0} days ago"
-msgstr[0] "{0} dni nazaj"
-msgstr[1] "{0} dan nazaj"
-msgstr[2] "{0} dni nazaj"
-msgstr[3] "{0} dni nazaj"
-
-#: ../Tomboy/Utils.cs:259
-#, csharp-format
-msgid "Tomorrow, {0}"
-msgstr "Jutri, {0}"
-
-#: ../Tomboy/Utils.cs:261
-msgid "Tomorrow"
-msgstr "Jutri"
-
-#: ../Tomboy/Utils.cs:266
-#, csharp-format
-msgid "In {0} day, {1}"
-msgid_plural "In {0} days, {1}"
-msgstr[0] "V {0} dneh, {1}"
-msgstr[1] "V {0} dnevu, {1}"
-msgstr[2] "V {0} dneh, {1}"
-msgstr[3] "V {0} dneh, {1}"
-
-#: ../Tomboy/Utils.cs:270
-#, csharp-format
-msgid "In {0} day"
-msgid_plural "In {0} days"
-msgstr[0] "V {0} dneh"
-msgstr[1] "V {0} dnevu"
-msgstr[2] "V {0} dneh"
-msgstr[3] "V {0} dneh"
-
-#: ../Tomboy/Utils.cs:275
-msgid "MMMM d, h:mm tt"
-msgstr "MMMM d, h:mm tt"
-
-#: ../Tomboy/Utils.cs:276
-msgid "MMMM d"
-msgstr "MMMM d"
-
-#: ../Tomboy/Utils.cs:278
-msgid "No Date"
-msgstr "Brez datuma"
-
-#: ../Tomboy/Utils.cs:281
-msgid "MMMM d yyyy, h:mm tt"
-msgstr "MMMM d yyyy, h:mm tt"
-
-#: ../Tomboy/Utils.cs:282
-msgid "MMMM d yyyy"
-msgstr "MMMM d yyyy"
-
-#: ../Tomboy/Watchers.cs:155
-#, csharp-format
-msgid "(Untitled {0})"
-msgstr "(Neimenovano {0})"
-
-#: ../Tomboy/Watchers.cs:189
-#, csharp-format
-msgid "A note with the title <b>{0}</b> already exists. Please choose another name for this note before continuing."
-msgstr "Sporočilce z naslovom <b>{0}</b> že obstaja. Pred nadaljevanjem izberite drug naslov sporočilca."
-
-#: ../Tomboy/Watchers.cs:204
-msgid "Note title taken"
-msgstr "Naslov sporočilca je v uporabi"
-
-#: ../Tomboy/Watchers.cs:587
-msgid "_Copy Link Address"
-msgstr "_Kopiraj naslov povezave"
-
-#: ../Tomboy/Watchers.cs:592
-msgid "_Open Link"
-msgstr "_Odpri povezavo"
 
 #: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:94
 #, csharp-format
@@ -2171,6 +1975,212 @@ msgstr ""
 "Način usklajevanja, ki ste ga izbrali zahteva naložen modul FUSE.\n"
 "\n"
 "Sporočilu se lahko izognete, če bo modul FUSE naložen ob zagonu računalnika. Dodajte \"modprobe fuse\" v datoteko /etc/init.d/boot.local ali \"fuse\" v /etc/modules."
+
+#: ../Tomboy/Tomboy.cs:251
+msgid "Cannot create new note"
+msgstr "Ni mogoče ustvariti novega sporočilca"
+
+#: ../Tomboy/Tomboy.cs:317
+msgid "Primary Development:"
+msgstr "Osnovni razvoj:"
+
+#: ../Tomboy/Tomboy.cs:330
+msgid "Contributors:"
+msgstr "Sodelavci:"
+
+#: ../Tomboy/Tomboy.cs:415
+msgid "translator-credits"
+msgstr ""
+"Matej Urbančič <mateju@svn.gnome.org>\n"
+"Matjaž Horvat <m@owca.info>"
+
+#: ../Tomboy/Tomboy.cs:424
+msgid ""
+"Copyright © 2004-2007 Alex Graveley\n"
+"Copyright © 2004-2011 Others\n"
+msgstr ""
+"Avtorske pravice © 2004-2007 Alex Graveley\n"
+"Avtorske pravice © 2004-2011 Drugi\n"
+
+#: ../Tomboy/Tomboy.cs:426
+msgid "A simple and easy to use desktop note-taking application."
+msgstr "Preprost in enostaven program za pisanje sporočilc."
+
+#: ../Tomboy/Tomboy.cs:436
+msgid "Homepage"
+msgstr "Domača stran"
+
+#: ../Tomboy/Tomboy.cs:554
+msgid ""
+"Tomboy: A simple, easy to use desktop note-taking application.\n"
+"Copyright © 2004-2007 Alex Graveley\n"
+"<alex@beatniksoftware.com>\n"
+"\n"
+"Copyright © 2004-2011 Others\n"
+msgstr ""
+"Tomboy: enostaven program za pisanje sporočilc na namizju.\n"
+"Avtorske pravice © 2004-2007 Alex Graveley\n"
+"<alex@beatniksoftware.com>\n"
+"\n"
+"Avtorske pravice © 2004-2011 Drugi razvijalci\n"
+
+#: ../Tomboy/Tomboy.cs:568
+msgid ""
+"Usage:\n"
+"  --version\t\t\tPrint version information.\n"
+"  --help\t\t\tPrint this usage message.\n"
+"  --note-path [path]\t\tLoad/store note data in this directory.\n"
+"  --search [text]\t\tOpen the search all notes window with the search text.\n"
+msgstr ""
+"Uporaba:\n"
+"  --version\t\t\tIzpiše podatke o različici.\n"
+"  --help\t\t\tIzpiše to sporočilo o uporabi.\n"
+"  --note-path [path]\t\tNaloži/shrani podatke o sporočilcu v tej mapi.\n"
+"  --search [text]\t\tOdpre okno vseh sporočil z iskanim besedilom.\n"
+
+#: ../Tomboy/Tomboy.cs:578
+msgid ""
+"  --new-note\t\t\tCreate and display a new note.\n"
+"  --new-note [title]\t\tCreate and display a new note, with a title.\n"
+"  --open-note [title/url]\tDisplay the existing note matching title.\n"
+"  --start-here\t\t\tDisplay the 'Start Here' note.\n"
+"  --highlight-search [text]\tSearch and highlight text in the opened note.\n"
+msgstr ""
+"  --new-note\t\t\tUstvari in prikaže novo sporočilce.\n"
+"  --new-note [title]\t\tUstvari in prikaže novo sporočilce z naslovom.\n"
+"  --open-note [title/url]\tPrikaže obstoječe sporočilce z ustreznim naslovom.\n"
+"  --start-here\t\t\tPrikaže sporočilce 'Začnite tukaj'.\n"
+"  --highlight-search [text]\tIšče in poudari besedilo v odprtem sporočilcu.\n"
+
+#: ../Tomboy/Tomboy.cs:592
+#, csharp-format
+msgid "Version {0}"
+msgstr "Različica {0}"
+
+#: ../Tomboy/Tray.cs:68
+msgid " (new)"
+msgstr "(novo)"
+
+#: ../Tomboy/Tray.cs:293
+msgid "_About Tomboy"
+msgstr "_O Tomboy"
+
+#: ../Tomboy/Utils.cs:189
+msgid "The \"Tomboy Notes Manual\" could not be found.  Please verify that your installation has been completed successfully."
+msgstr "Priročnika \"Tomboy sporočilc\" ni mogoče najti. Preverite, če je namestitev pravilna in da je potekla do konca."
+
+#: ../Tomboy/Utils.cs:198
+msgid "Help not found"
+msgstr "Pomoči ni mogoče najti"
+
+#: ../Tomboy/Utils.cs:214
+msgid "Cannot open location"
+msgstr "Mesta ni mogoče odpreti "
+
+#: ../Tomboy/Utils.cs:236
+#, csharp-format
+msgid "Today, {0}"
+msgstr "Danes, {0}"
+
+#: ../Tomboy/Utils.cs:238
+msgid "Today"
+msgstr "Danes"
+
+#: ../Tomboy/Utils.cs:242
+#, csharp-format
+msgid "Yesterday, {0}"
+msgstr "Včeraj, {0}"
+
+#: ../Tomboy/Utils.cs:244
+msgid "Yesterday"
+msgstr "Včeraj"
+
+#: ../Tomboy/Utils.cs:249
+#, csharp-format
+msgid "{0} day ago, {1}"
+msgid_plural "{0} days ago, {1}"
+msgstr[0] "{0} dni nazaj, {1}"
+msgstr[1] "{0} dan nazaj, {1}"
+msgstr[2] "{0} dni nazaj, {1}"
+msgstr[3] "{0} dni nazaj, {1}"
+
+#: ../Tomboy/Utils.cs:253
+#, csharp-format
+msgid "{0} day ago"
+msgid_plural "{0} days ago"
+msgstr[0] "{0} dni nazaj"
+msgstr[1] "{0} dan nazaj"
+msgstr[2] "{0} dni nazaj"
+msgstr[3] "{0} dni nazaj"
+
+#: ../Tomboy/Utils.cs:259
+#, csharp-format
+msgid "Tomorrow, {0}"
+msgstr "Jutri, {0}"
+
+#: ../Tomboy/Utils.cs:261
+msgid "Tomorrow"
+msgstr "Jutri"
+
+#: ../Tomboy/Utils.cs:266
+#, csharp-format
+msgid "In {0} day, {1}"
+msgid_plural "In {0} days, {1}"
+msgstr[0] "V {0} dneh, {1}"
+msgstr[1] "V {0} dnevu, {1}"
+msgstr[2] "V {0} dneh, {1}"
+msgstr[3] "V {0} dneh, {1}"
+
+#: ../Tomboy/Utils.cs:270
+#, csharp-format
+msgid "In {0} day"
+msgid_plural "In {0} days"
+msgstr[0] "V {0} dneh"
+msgstr[1] "V {0} dnevu"
+msgstr[2] "V {0} dneh"
+msgstr[3] "V {0} dneh"
+
+#: ../Tomboy/Utils.cs:275
+msgid "MMMM d, h:mm tt"
+msgstr "MMMM d, h:mm tt"
+
+#: ../Tomboy/Utils.cs:276
+msgid "MMMM d"
+msgstr "MMMM d"
+
+#: ../Tomboy/Utils.cs:278
+msgid "No Date"
+msgstr "Brez datuma"
+
+#: ../Tomboy/Utils.cs:281
+msgid "MMMM d yyyy, h:mm tt"
+msgstr "MMMM d yyyy, h:mm tt"
+
+#: ../Tomboy/Utils.cs:282
+msgid "MMMM d yyyy"
+msgstr "MMMM d yyyy"
+
+#: ../Tomboy/Watchers.cs:155
+#, csharp-format
+msgid "(Untitled {0})"
+msgstr "(Neimenovano {0})"
+
+#: ../Tomboy/Watchers.cs:189
+#, csharp-format
+msgid "A note with the title <b>{0}</b> already exists. Please choose another name for this note before continuing."
+msgstr "Sporočilce z naslovom <b>{0}</b> že obstaja. Pred nadaljevanjem izberite drug naslov sporočilca."
+
+#: ../Tomboy/Watchers.cs:204
+msgid "Note title taken"
+msgstr "Naslov sporočilca je v uporabi"
+
+#: ../Tomboy/Watchers.cs:587
+msgid "_Copy Link Address"
+msgstr "_Kopiraj naslov povezave"
+
+#: ../Tomboy/Watchers.cs:592
+msgid "_Open Link"
+msgstr "_Odpri povezavo"
 
 #~ msgid "HTML Export Last Directory"
 #~ msgstr "Zadnja mapa izvoza v HTML"
