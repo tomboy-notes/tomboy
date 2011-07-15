@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-07-02 11:02+0300\n"
-"PO-Revision-Date: 2011-07-02 11:10+0200\n"
+"POT-Creation-Date: 2011-07-15 10:16+0300\n"
+"PO-Revision-Date: 2011-07-15 10:16+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew (he@li.org)\n"
 "Language: he\n"
@@ -690,6 +690,16 @@ msgstr "פתיחת חלון החיפוש בכל הפתקיות"
 msgid "Start synchronizing notes"
 msgstr "התחלת סנכרון הפתקיות"
 
+#. Addin's tab caption
+#: ../Tomboy/Addins/AdvancedPreferences/AdvancedPreferencesAddin.cs:38
+msgid "Advanced"
+msgstr "מתקדם"
+
+#. Menu Note Count option
+#: ../Tomboy/Addins/AdvancedPreferences/AdvancedPreferencesAddin.cs:56
+msgid "Minimum number of notes to show in Recent list (maximum 18)"
+msgstr "המספר המזערי של פתקיות להצגה ברשימת הפתקיות האחרונות (18 לכל היותר)"
+
 #: ../Tomboy/Addins/Backlinks/BacklinksNoteAddin.cs:38
 msgid "What links here?"
 msgstr "מה מקושר לכאן?"
@@ -748,9 +758,25 @@ msgstr "האם להסיר את סמל זה?"
 msgid "If you remove an icon it is permanently lost."
 msgstr "אם הסמל יוסר הוא יאבד לעד."
 
+#: ../Tomboy/Addins/Evolution/EvolutionNoteAddin.cs:273
+msgid "Cannot open email"
+msgstr "לא ניתן לפתוח דוא״ל"
+
 #: ../Tomboy/Addins/ExportToHtml/ExportToHtmlApplicationAddin.cs:59
 msgid "HTML"
 msgstr "HTML"
+
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlDialog.cs:13
+msgid "Destination for HTML Export"
+msgstr "יעד עבור יצוא HTML"
+
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlDialog.cs:23
+msgid "Export linked notes"
+msgstr "יצוא פתקיות מקושרות"
+
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlDialog.cs:28
+msgid "Include all other linked notes"
+msgstr "הכללת כל הפתקיות המקושרות"
 
 #: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:67
 msgid "Export to HTML"
@@ -781,22 +807,6 @@ msgstr "התיקייה לא קיימת."
 #, csharp-format
 msgid "Could not save the file \"{0}\""
 msgstr "לא ניתן לשמור את הקובץ \"{0}\""
-
-#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlDialog.cs:13
-msgid "Destination for HTML Export"
-msgstr "יעד עבור יצוא HTML"
-
-#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlDialog.cs:23
-msgid "Export linked notes"
-msgstr "יצוא פתקיות מקושרות"
-
-#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlDialog.cs:28
-msgid "Include all other linked notes"
-msgstr "הכללת כל הפתקיות המקושרות"
-
-#: ../Tomboy/Addins/Evolution/EvolutionNoteAddin.cs:273
-msgid "Cannot open email"
-msgstr "לא ניתן לפתוח דוא״ל"
 
 #: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:93
 msgid "_Folder Path:"
@@ -1039,10 +1049,6 @@ msgid ""
 "Saving configuration to the GNOME keyring failed with the following message:"
 msgstr "שמירת ההגדרות לקבוצת המפתחות של GNOME נכשלה עם ההודעה הבאה:"
 
-#: ../Tomboy/Addins/WebSyncService/WebSyncServiceAddin.cs:70
-msgid "Tomboy Web"
-msgstr "האתר של Tomboy"
-
 #: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:66
 #: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:96
 msgid "Connect to Server"
@@ -1089,6 +1095,10 @@ msgstr "מתבצע אימות בדפדפן (יש ללחוץ לאיפוס ההת�
 #: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:235
 msgid "Set the default browser and try again"
 msgstr "הגדרת דפדפן בררת המחדל ולנסות שוב."
+
+#: ../Tomboy/Addins/WebSyncService/WebSyncServiceAddin.cs:70
+msgid "Tomboy Web"
+msgstr "האתר של Tomboy"
 
 #: ../Tomboy/ExportAllApplicationAddin.cs:53
 msgid "Export All Notes to "
@@ -1224,22 +1234,6 @@ msgstr "השם תפוס"
 msgid "C_reate"
 msgstr "י_צירה"
 
-#. The templateNoteTite should show the name of the
-#. notebook.  For example, if the name of the notebooks
-#. "Meetings", the templateNoteTitle should be "Meetings
-#. Notebook Template".  Translators should place the
-#. name of the notebook accordingly using "{0}".
-#. TODO: Figure out how to make this note for
-#. translators appear properly.
-#: ../Tomboy/Notebooks/Notebook.cs:79
-#, csharp-format
-msgid "{0} Notebook Template"
-msgstr "תבנית פתקית {0}"
-
-#: ../Tomboy/Notebooks/Notebook.cs:183
-msgid "All Notes"
-msgstr "כל הפתקיות"
-
 #: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:48
 msgid "Note_books"
 msgstr "פנ_קסים"
@@ -1279,9 +1273,25 @@ msgid "Delete the selected notebook"
 msgstr "מחיקת הפנקס הנבחר"
 
 #: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:68
-#: ../Tomboy/RecentChanges.cs:285
+#: ../Tomboy/RecentChanges.cs:276
 msgid "Notebooks"
 msgstr "פנקסים"
+
+#. The templateNoteTite should show the name of the
+#. notebook.  For example, if the name of the notebooks
+#. "Meetings", the templateNoteTitle should be "Meetings
+#. Notebook Template".  Translators should place the
+#. name of the notebook accordingly using "{0}".
+#. TODO: Figure out how to make this note for
+#. translators appear properly.
+#: ../Tomboy/Notebooks/Notebook.cs:79
+#, csharp-format
+msgid "{0} Notebook Template"
+msgstr "תבנית פתקית {0}"
+
+#: ../Tomboy/Notebooks/Notebook.cs:183
+msgid "All Notes"
+msgstr "כל הפתקיות"
 
 #: ../Tomboy/Notebooks/NotebookManager.cs:361
 msgid "Really delete this notebook?"
@@ -1940,44 +1950,44 @@ msgstr "תלויות התוסף:"
 msgid "_Search:"
 msgstr "_חיפוש:"
 
-#: ../Tomboy/RecentChanges.cs:359
+#: ../Tomboy/RecentChanges.cs:350
 msgid "Note"
 msgstr "פתקית"
 
-#: ../Tomboy/RecentChanges.cs:381
+#: ../Tomboy/RecentChanges.cs:372
 msgid "Last Changed"
 msgstr "שונה לאחרונה"
 
-#: ../Tomboy/RecentChanges.cs:520
+#: ../Tomboy/RecentChanges.cs:511
 msgid "Matches"
 msgstr "התאמות"
 
-#: ../Tomboy/RecentChanges.cs:571
+#: ../Tomboy/RecentChanges.cs:562
 msgid "Title match"
 msgstr "התאמת כותרת"
 
-#: ../Tomboy/RecentChanges.cs:574
+#: ../Tomboy/RecentChanges.cs:565
 #, csharp-format
 msgid "{0} match"
 msgid_plural "{0} matches"
 msgstr[0] "התאמה אחת"
 msgstr[1] "{0} התאמות"
 
-#: ../Tomboy/RecentChanges.cs:588
+#: ../Tomboy/RecentChanges.cs:579
 #, csharp-format
 msgid "Total: {0} note"
 msgid_plural "Total: {0} notes"
 msgstr[0] "סך הכול: פתקית אחת"
 msgstr[1] "סך הכל: {0} פתקיות"
 
-#: ../Tomboy/RecentChanges.cs:599
+#: ../Tomboy/RecentChanges.cs:590
 #, csharp-format
 msgid "Matches: {0} note"
 msgid_plural "Matches: {0} notes"
 msgstr[0] "התאמות: פתקית אחת"
 msgstr[1] "התאמות: {0} פתקיות"
 
-#: ../Tomboy/RecentChanges.cs:611
+#: ../Tomboy/RecentChanges.cs:602
 msgid ""
 "No results found in the selected notebook.\n"
 "Click here to search across all notes."
@@ -1985,218 +1995,13 @@ msgstr ""
 "לא נמצאו תוצאות בפנקס הנבחר.\n"
 "יש ללחוץ כאן כדי לחפש בין כל הפתקיות."
 
-#: ../Tomboy/RecentChanges.cs:617
+#: ../Tomboy/RecentChanges.cs:608
 msgid "Click here to search across all notebooks"
 msgstr "יש ללחוץ כאן כדי לחפש בין כל הפנקסים"
 
-#: ../Tomboy/RecentChanges.cs:783
+#: ../Tomboy/RecentChanges.cs:774
 msgid "Notes"
 msgstr "פתקיות"
-
-#: ../Tomboy/Tomboy.cs:251
-msgid "Cannot create new note"
-msgstr "לא ניתן ליצור פתקית חדשה"
-
-#: ../Tomboy/Tomboy.cs:317
-msgid "Primary Development:"
-msgstr "פיתוח עיקרי:"
-
-#: ../Tomboy/Tomboy.cs:330
-msgid "Contributors:"
-msgstr "תורמים"
-
-#: ../Tomboy/Tomboy.cs:412
-msgid "translator-credits"
-msgstr ""
-"יאיר הרשקוביץ <yairhr@gmail.com>\n"
-"מארק קרפיבנר <mark125@gmail.com>\n"
-"ירון שהרבני <sh.yaron@gmail.com>\n"
-"\n"
-"פרויקט תרגום GNOME לעברית:\n"
-"‏http://gnome-il.berlios.de"
-
-#: ../Tomboy/Tomboy.cs:421
-msgid ""
-"Copyright © 2004-2007 Alex Graveley\n"
-"Copyright © 2004-2011 Others\n"
-msgstr ""
-"Copyright © 2004-2007 Alex Graveley\n"
-"Copyright © 2004-2011 אחרים\n"
-
-#: ../Tomboy/Tomboy.cs:423
-msgid "A simple and easy to use desktop note-taking application."
-msgstr "יישום פתקיות פשוט וקל לשימוש לשולחן העבודה."
-
-#: ../Tomboy/Tomboy.cs:433
-msgid "Homepage"
-msgstr "דף הבית"
-
-#: ../Tomboy/Tomboy.cs:551
-msgid ""
-"Tomboy: A simple, easy to use desktop note-taking application.\n"
-"Copyright © 2004-2007 Alex Graveley\n"
-"<alex@beatniksoftware.com>\n"
-"\n"
-"Copyright © 2004-2011 Others\n"
-msgstr ""
-"‏Tomboy: יישום פשוט וקל לרישום פתקים בשולחן העבודה.\n"
-"Copyright (C) 2004-2007 Alex Graveley\n"
-"\n"
-"Copyright © 2004-2011 אחרים\n"
-
-#: ../Tomboy/Tomboy.cs:565
-msgid ""
-"Usage:\n"
-"  --version\t\t\tPrint version information.\n"
-"  --help\t\t\tPrint this usage message.\n"
-"  --note-path [path]\t\tLoad/store note data in this directory.\n"
-"  --search [text]\t\tOpen the search all notes window with the search text.\n"
-msgstr ""
-"Usage:\n"
-"  --version\t\t\tPrint version information.\n"
-"  --help\t\t\tPrint this usage message.\n"
-"  --note-path [path]\t\tLoad/store note data in this directory.\n"
-"  --search [text]\t\tOpen the search all notes window with the search text.\n"
-
-#: ../Tomboy/Tomboy.cs:575
-msgid ""
-"  --new-note\t\t\tCreate and display a new note.\n"
-"  --new-note [title]\t\tCreate and display a new note, with a title.\n"
-"  --open-note [title/url]\tDisplay the existing note matching title.\n"
-"  --start-here\t\t\tDisplay the 'Start Here' note.\n"
-"  --highlight-search [text]\tSearch and highlight text in the opened note.\n"
-msgstr ""
-"  --new-note\t\t\tCreate and display a new note.\n"
-"  --new-note [title]\t\tCreate and display a new note, with a title.\n"
-"  --open-note [title/url]\tDisplay the existing note matching title.\n"
-"  --start-here\t\t\tDisplay the 'Start Here' note.\n"
-"  --highlight-search [text]\tSearch and highlight text in the opened note.\n"
-
-#: ../Tomboy/Tomboy.cs:589
-#, csharp-format
-msgid "Version {0}"
-msgstr "Version {0}"
-
-#: ../Tomboy/Tray.cs:68
-msgid " (new)"
-msgstr " (חדשה)"
-
-#: ../Tomboy/Tray.cs:293
-msgid "_About Tomboy"
-msgstr "על _אודות Tomboy"
-
-#: ../Tomboy/Utils.cs:189
-msgid ""
-"The \"Tomboy Notes Manual\" could not be found.  Please verify that your "
-"installation has been completed successfully."
-msgstr "\"מדריך פתקיות Tomboy\" לא נמצא. נא לוודא שההתקנה הסתיימה בהצלחה."
-
-#: ../Tomboy/Utils.cs:198
-msgid "Help not found"
-msgstr "לא נמצאה עזרה"
-
-#: ../Tomboy/Utils.cs:214
-msgid "Cannot open location"
-msgstr "לא ניתן לפתוח מיקום"
-
-#: ../Tomboy/Utils.cs:236
-#, csharp-format
-msgid "Today, {0}"
-msgstr "היום, {0}"
-
-#: ../Tomboy/Utils.cs:238
-msgid "Today"
-msgstr "היום"
-
-#: ../Tomboy/Utils.cs:242
-#, csharp-format
-msgid "Yesterday, {0}"
-msgstr "אתמול, {0}"
-
-#: ../Tomboy/Utils.cs:244
-msgid "Yesterday"
-msgstr "אתמול"
-
-#: ../Tomboy/Utils.cs:249
-#, csharp-format
-msgid "{0} day ago, {1}"
-msgid_plural "{0} days ago, {1}"
-msgstr[0] "לפני יום, {1}"
-msgstr[1] "לפני {0} ימים, {1}"
-
-#: ../Tomboy/Utils.cs:253
-#, csharp-format
-msgid "{0} day ago"
-msgid_plural "{0} days ago"
-msgstr[0] "לפני יום"
-msgstr[1] "לפני {0} ימים"
-
-#: ../Tomboy/Utils.cs:259
-#, csharp-format
-msgid "Tomorrow, {0}"
-msgstr "מחר, {0}"
-
-#: ../Tomboy/Utils.cs:261
-msgid "Tomorrow"
-msgstr "מחר"
-
-#: ../Tomboy/Utils.cs:266
-#, csharp-format
-msgid "In {0} day, {1}"
-msgid_plural "In {0} days, {1}"
-msgstr[0] "בעוד יום, {1}"
-msgstr[1] "בעוד {0} ימים, {1}"
-
-#: ../Tomboy/Utils.cs:270
-#, csharp-format
-msgid "In {0} day"
-msgid_plural "In {0} days"
-msgstr[0] "בעוד יום"
-msgstr[1] "בעוד {0} ימים"
-
-#: ../Tomboy/Utils.cs:275
-msgid "MMMM d, h:mm tt"
-msgstr "ה־d בMMMM, ׁHH:mm"
-
-#: ../Tomboy/Utils.cs:276
-msgid "MMMM d"
-msgstr "ה־d בMMMM"
-
-#: ../Tomboy/Utils.cs:278
-msgid "No Date"
-msgstr "אין תאריך"
-
-#: ../Tomboy/Utils.cs:281
-msgid "MMMM d yyyy, h:mm tt"
-msgstr "ה־d בMMMM yyyy, HH:mm"
-
-#: ../Tomboy/Utils.cs:282
-msgid "MMMM d yyyy"
-msgstr "ה־d בMMMM yyyy"
-
-#: ../Tomboy/Watchers.cs:155
-#, csharp-format
-msgid "(Untitled {0})"
-msgstr "(ללא שם {0})"
-
-#: ../Tomboy/Watchers.cs:189
-#, csharp-format
-msgid ""
-"A note with the title <b>{0}</b> already exists. Please choose another name "
-"for this note before continuing."
-msgstr "פתקית בשם <b>‏{0}</b> כבר קיימת. נא לבחור שם אחר."
-
-#: ../Tomboy/Watchers.cs:204
-msgid "Note title taken"
-msgstr "שם הפתקית תפוס"
-
-#: ../Tomboy/Watchers.cs:587
-msgid "_Copy Link Address"
-msgstr "ה_עתקת מיקום הקישור"
-
-#: ../Tomboy/Watchers.cs:592
-msgid "_Open Link"
-msgstr "_פתיחת הקישור"
 
 #: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:94
 #, csharp-format
@@ -2458,6 +2263,211 @@ msgstr ""
 "כדי להימנע מהודעה זו בעתיד, עליך לטעון את FUSE עם ההפעלה.  יש להוסיף את "
 "הביטוי \"modprobe fuse\" אל ‎/etc/init.d/boot.local או את \"fuse\" אל ‎/etc/"
 "modules."
+
+#: ../Tomboy/Tomboy.cs:251
+msgid "Cannot create new note"
+msgstr "לא ניתן ליצור פתקית חדשה"
+
+#: ../Tomboy/Tomboy.cs:317
+msgid "Primary Development:"
+msgstr "פיתוח עיקרי:"
+
+#: ../Tomboy/Tomboy.cs:330
+msgid "Contributors:"
+msgstr "תורמים"
+
+#: ../Tomboy/Tomboy.cs:415
+msgid "translator-credits"
+msgstr ""
+"יאיר הרשקוביץ <yairhr@gmail.com>\n"
+"מארק קרפיבנר <mark125@gmail.com>\n"
+"ירון שהרבני <sh.yaron@gmail.com>\n"
+"\n"
+"פרויקט תרגום GNOME לעברית:\n"
+"‏http://gnome-il.berlios.de"
+
+#: ../Tomboy/Tomboy.cs:424
+msgid ""
+"Copyright © 2004-2007 Alex Graveley\n"
+"Copyright © 2004-2011 Others\n"
+msgstr ""
+"Copyright © 2004-2007 Alex Graveley\n"
+"Copyright © 2004-2011 אחרים\n"
+
+#: ../Tomboy/Tomboy.cs:426
+msgid "A simple and easy to use desktop note-taking application."
+msgstr "יישום פתקיות פשוט וקל לשימוש לשולחן העבודה."
+
+#: ../Tomboy/Tomboy.cs:436
+msgid "Homepage"
+msgstr "דף הבית"
+
+#: ../Tomboy/Tomboy.cs:554
+msgid ""
+"Tomboy: A simple, easy to use desktop note-taking application.\n"
+"Copyright © 2004-2007 Alex Graveley\n"
+"<alex@beatniksoftware.com>\n"
+"\n"
+"Copyright © 2004-2011 Others\n"
+msgstr ""
+"‏Tomboy: יישום פשוט וקל לרישום פתקים בשולחן העבודה.\n"
+"Copyright (C) 2004-2007 Alex Graveley\n"
+"\n"
+"Copyright © 2004-2011 אחרים\n"
+
+#: ../Tomboy/Tomboy.cs:568
+msgid ""
+"Usage:\n"
+"  --version\t\t\tPrint version information.\n"
+"  --help\t\t\tPrint this usage message.\n"
+"  --note-path [path]\t\tLoad/store note data in this directory.\n"
+"  --search [text]\t\tOpen the search all notes window with the search text.\n"
+msgstr ""
+"Usage:\n"
+"  --version\t\t\tPrint version information.\n"
+"  --help\t\t\tPrint this usage message.\n"
+"  --note-path [path]\t\tLoad/store note data in this directory.\n"
+"  --search [text]\t\tOpen the search all notes window with the search text.\n"
+
+#: ../Tomboy/Tomboy.cs:578
+msgid ""
+"  --new-note\t\t\tCreate and display a new note.\n"
+"  --new-note [title]\t\tCreate and display a new note, with a title.\n"
+"  --open-note [title/url]\tDisplay the existing note matching title.\n"
+"  --start-here\t\t\tDisplay the 'Start Here' note.\n"
+"  --highlight-search [text]\tSearch and highlight text in the opened note.\n"
+msgstr ""
+"  --new-note\t\t\tCreate and display a new note.\n"
+"  --new-note [title]\t\tCreate and display a new note, with a title.\n"
+"  --open-note [title/url]\tDisplay the existing note matching title.\n"
+"  --start-here\t\t\tDisplay the 'Start Here' note.\n"
+"  --highlight-search [text]\tSearch and highlight text in the opened note.\n"
+
+#: ../Tomboy/Tomboy.cs:592
+#, csharp-format
+msgid "Version {0}"
+msgstr "Version {0}"
+
+#: ../Tomboy/Tray.cs:68
+msgid " (new)"
+msgstr " (חדשה)"
+
+#: ../Tomboy/Tray.cs:293
+msgid "_About Tomboy"
+msgstr "על _אודות Tomboy"
+
+#: ../Tomboy/Utils.cs:189
+msgid ""
+"The \"Tomboy Notes Manual\" could not be found.  Please verify that your "
+"installation has been completed successfully."
+msgstr "\"מדריך פתקיות Tomboy\" לא נמצא. נא לוודא שההתקנה הסתיימה בהצלחה."
+
+#: ../Tomboy/Utils.cs:198
+msgid "Help not found"
+msgstr "לא נמצאה עזרה"
+
+#: ../Tomboy/Utils.cs:214
+msgid "Cannot open location"
+msgstr "לא ניתן לפתוח מיקום"
+
+#: ../Tomboy/Utils.cs:236
+#, csharp-format
+msgid "Today, {0}"
+msgstr "היום, {0}"
+
+#: ../Tomboy/Utils.cs:238
+msgid "Today"
+msgstr "היום"
+
+#: ../Tomboy/Utils.cs:242
+#, csharp-format
+msgid "Yesterday, {0}"
+msgstr "אתמול, {0}"
+
+#: ../Tomboy/Utils.cs:244
+msgid "Yesterday"
+msgstr "אתמול"
+
+#: ../Tomboy/Utils.cs:249
+#, csharp-format
+msgid "{0} day ago, {1}"
+msgid_plural "{0} days ago, {1}"
+msgstr[0] "לפני יום, {1}"
+msgstr[1] "לפני {0} ימים, {1}"
+
+#: ../Tomboy/Utils.cs:253
+#, csharp-format
+msgid "{0} day ago"
+msgid_plural "{0} days ago"
+msgstr[0] "לפני יום"
+msgstr[1] "לפני {0} ימים"
+
+#: ../Tomboy/Utils.cs:259
+#, csharp-format
+msgid "Tomorrow, {0}"
+msgstr "מחר, {0}"
+
+#: ../Tomboy/Utils.cs:261
+msgid "Tomorrow"
+msgstr "מחר"
+
+#: ../Tomboy/Utils.cs:266
+#, csharp-format
+msgid "In {0} day, {1}"
+msgid_plural "In {0} days, {1}"
+msgstr[0] "בעוד יום, {1}"
+msgstr[1] "בעוד {0} ימים, {1}"
+
+#: ../Tomboy/Utils.cs:270
+#, csharp-format
+msgid "In {0} day"
+msgid_plural "In {0} days"
+msgstr[0] "בעוד יום"
+msgstr[1] "בעוד {0} ימים"
+
+#: ../Tomboy/Utils.cs:275
+msgid "MMMM d, h:mm tt"
+msgstr "ה־d בMMMM, ׁHH:mm"
+
+#: ../Tomboy/Utils.cs:276
+msgid "MMMM d"
+msgstr "ה־d בMMMM"
+
+#: ../Tomboy/Utils.cs:278
+msgid "No Date"
+msgstr "אין תאריך"
+
+#: ../Tomboy/Utils.cs:281
+msgid "MMMM d yyyy, h:mm tt"
+msgstr "ה־d בMMMM yyyy, HH:mm"
+
+#: ../Tomboy/Utils.cs:282
+msgid "MMMM d yyyy"
+msgstr "ה־d בMMMM yyyy"
+
+#: ../Tomboy/Watchers.cs:155
+#, csharp-format
+msgid "(Untitled {0})"
+msgstr "(ללא שם {0})"
+
+#: ../Tomboy/Watchers.cs:189
+#, csharp-format
+msgid ""
+"A note with the title <b>{0}</b> already exists. Please choose another name "
+"for this note before continuing."
+msgstr "פתקית בשם <b>‏{0}</b> כבר קיימת. נא לבחור שם אחר."
+
+#: ../Tomboy/Watchers.cs:204
+msgid "Note title taken"
+msgstr "שם הפתקית תפוס"
+
+#: ../Tomboy/Watchers.cs:587
+msgid "_Copy Link Address"
+msgstr "ה_עתקת מיקום הקישור"
+
+#: ../Tomboy/Watchers.cs:592
+msgid "_Open Link"
+msgstr "_פתיחת הקישור"
 
 #~ msgid "HTML Export Last Directory"
 #~ msgstr "HTML Export Last Directory"
