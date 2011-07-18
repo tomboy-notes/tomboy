@@ -503,7 +503,7 @@ namespace Tomboy
 	{
 
 		public ExportMultipleDialog (string default_folder, string export_type_name) :
-		    base (Catalog.GetString ("Create destination folder for " +  export_type_name + " Export"),
+		    base (String.Format (Catalog.GetString ("Create destination folder for {0} export"), export_type_name),
 		        null, Gtk.FileChooserAction.Save, new object[] {})
 		//Using action Save insted of CreateFolder because of Win32 issue
 		{
