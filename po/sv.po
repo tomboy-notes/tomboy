@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tomboy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-06-16 22:50+0200\n"
-"PO-Revision-Date: 2011-06-16 22:56+0100\n"
+"POT-Creation-Date: 2011-08-02 00:27+0200\n"
+"PO-Revision-Date: 2011-08-02 00:33+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -493,6 +493,16 @@ msgstr "Öppna \"Sök i alla anteckningar\"-fönstret"
 msgid "Start synchronizing notes"
 msgstr "Starta synkronisering av anteckningar"
 
+#. Addin's tab caption
+#: ../Tomboy/Addins/AdvancedPreferences/AdvancedPreferencesAddin.cs:38
+msgid "Advanced"
+msgstr "Avancerat"
+
+#. Menu Note Count option
+#: ../Tomboy/Addins/AdvancedPreferences/AdvancedPreferencesAddin.cs:56
+msgid "Minimum number of notes to show in Recent list (maximum 18)"
+msgstr "Minsta antal anteckningar att visa i Tidigare-listan (högst 18)"
+
 #: ../Tomboy/Addins/Backlinks/BacklinksNoteAddin.cs:38
 msgid "What links here?"
 msgstr "Vad länkar hit?"
@@ -547,6 +557,26 @@ msgstr "Verkligen ta bort den här ikonen?"
 msgid "If you remove an icon it is permanently lost."
 msgstr "Om du tar bort en ikon försvinner den för alltid."
 
+#: ../Tomboy/Addins/Evolution/EvolutionNoteAddin.cs:273
+msgid "Cannot open email"
+msgstr "Kan inte öppna e-post"
+
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlApplicationAddin.cs:59
+msgid "HTML"
+msgstr "HTML"
+
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlDialog.cs:13
+msgid "Destination for HTML Export"
+msgstr "Mål för HTML-export"
+
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlDialog.cs:23
+msgid "Export linked notes"
+msgstr "Exportera länkade anteckningar"
+
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlDialog.cs:28
+msgid "Include all other linked notes"
+msgstr "Inkludera alla andra länkade anteckningar"
+
 #: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:67
 msgid "Export to HTML"
 msgstr "Exportera till HTML"
@@ -561,10 +591,14 @@ msgid "Note exported successfully"
 msgstr "Anteckningen exporterades"
 
 #: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:132
+#: ../Tomboy/ExportAllApplicationAddin.cs:195
+#: ../Tomboy/ExportAllApplicationAddin.cs:273
 msgid "Access denied."
 msgstr "Åtkomst nekas."
 
 #: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:134
+#: ../Tomboy/ExportAllApplicationAddin.cs:200
+#: ../Tomboy/ExportAllApplicationAddin.cs:278
 msgid "Folder does not exist."
 msgstr "Mappen finns inte."
 
@@ -572,22 +606,6 @@ msgstr "Mappen finns inte."
 #, csharp-format
 msgid "Could not save the file \"{0}\""
 msgstr "Kunde inte spara filen \"{0}\""
-
-#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlDialog.cs:13
-msgid "Destination for HTML Export"
-msgstr "Mål för HTML-export"
-
-#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlDialog.cs:23
-msgid "Export linked notes"
-msgstr "Exportera länkade anteckningar"
-
-#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlDialog.cs:28
-msgid "Include all other linked notes"
-msgstr "Inkludera alla andra länkade anteckningar"
-
-#: ../Tomboy/Addins/Evolution/EvolutionNoteAddin.cs:273
-msgid "Cannot open email"
-msgstr "Kan inte öppna e-post"
 
 #: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:93
 msgid "_Folder Path:"
@@ -815,10 +833,6 @@ msgstr "Det inträffade ett fel vid anslutning till servern.  Det kan ha orsakat
 msgid "Saving configuration to the GNOME keyring failed with the following message:"
 msgstr "Sparning av konfiguration till GNOME-nyckelringen misslyckades med följande meddelande:"
 
-#: ../Tomboy/Addins/WebSyncService/WebSyncServiceAddin.cs:70
-msgid "Tomboy Web"
-msgstr "Tomboys webbsida"
-
 #: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:66
 #: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:96
 msgid "Connect to Server"
@@ -864,8 +878,93 @@ msgstr "Auktorisering i webbläsare (Tryck för att nollställa anslutningen)"
 msgid "Set the default browser and try again"
 msgstr "Ställ in standardwebbläsare och försök igen"
 
+#: ../Tomboy/Addins/WebSyncService/WebSyncServiceAddin.cs:70
+msgid "Tomboy Web"
+msgstr "Tomboys webbsida"
+
+#: ../Tomboy/ExportAllApplicationAddin.cs:53
+msgid "Export All Notes to "
+msgstr "Exportera alla anteckningar till "
+
+#: ../Tomboy/ExportAllApplicationAddin.cs:54
+msgid "Start exporting notes to "
+msgstr "Starta export av anteckningar till "
+
+#: ../Tomboy/ExportAllApplicationAddin.cs:58
+msgid "Export selected notebook to "
+msgstr "Exportera markerat anteckningsblock till "
+
+#: ../Tomboy/ExportAllApplicationAddin.cs:59
+msgid "Start exporting notebook to "
+msgstr "Starta export av anteckningsblock till "
+
+#: ../Tomboy/ExportAllApplicationAddin.cs:65
+#: ../Tomboy/Synchronization/SyncManager.cs:161
+msgid "_Tools"
+msgstr "_Verktyg"
+
+#: ../Tomboy/ExportAllApplicationAddin.cs:68
+msgid "Export"
+msgstr "Exportera"
+
+#: ../Tomboy/ExportAllApplicationAddin.cs:69
+msgid "Export your notes."
+msgstr "Exportera dina anteckningar."
+
+#: ../Tomboy/ExportAllApplicationAddin.cs:72
+msgid "Export All Notes To "
+msgstr "Exportera alla anteckningar till "
+
+#: ../Tomboy/ExportAllApplicationAddin.cs:77
+msgid "Export Selected Notebook To "
+msgstr "Exportera markerat anteckningsblock till "
+
+#: ../Tomboy/ExportAllApplicationAddin.cs:193
+#: ../Tomboy/ExportAllApplicationAddin.cs:271
+msgid "Could not export, access denied."
+msgstr "Kunde inte exportera. Åtkomst nekas."
+
+#: ../Tomboy/ExportAllApplicationAddin.cs:198
+#: ../Tomboy/ExportAllApplicationAddin.cs:276
+msgid "Could not export, folder does not exist."
+msgstr "Kunde inte exportera. Mappen finns inte."
+
+#: ../Tomboy/ExportAllApplicationAddin.cs:203
+#: ../Tomboy/ExportAllApplicationAddin.cs:281
+#, csharp-format
+msgid "Could not export: {0}"
+msgstr "Kunde inte exportera: {0}"
+
+#: ../Tomboy/ExportAllApplicationAddin.cs:205
+#: ../Tomboy/ExportAllApplicationAddin.cs:283
+msgid "Unknown error."
+msgstr "Okänt fel."
+
+#: ../Tomboy/ExportAllApplicationAddin.cs:236
+#: ../Tomboy/Notebooks/Notebook.cs:215
+msgid "Unfiled Notes"
+msgstr "Ej arkiverade anteckningar"
+
+#: ../Tomboy/ExportAllApplicationAddin.cs:389
+#, csharp-format
+msgid "Your notes were exported to \"{0}\"."
+msgstr "Dina anteckningar exporterades till \"{0}\"."
+
+#: ../Tomboy/ExportAllApplicationAddin.cs:398
+msgid "Notes exported successfully"
+msgstr "Anteckningarna exporterades"
+
+#: ../Tomboy/ExportAllApplicationAddin.cs:421
+#, csharp-format
+msgid "Could not save the files in \"{0}\""
+msgstr "Kunde inte spara filerna i \"{0}\""
+
+#: ../Tomboy/ExportAllApplicationAddin.cs:506
+msgid "Create destination folder for "
+msgstr "Skapa målmapp för "
+
 #: ../Tomboy/JumpListManager.cs:96
-#: ../Tomboy/RecentChanges.cs:83
+#: ../Tomboy/RecentChanges.cs:85
 msgid "Search All Notes"
 msgstr "Sök i alla anteckningar"
 
@@ -918,26 +1017,6 @@ msgstr "Namnet används redan"
 msgid "C_reate"
 msgstr "S_kapa"
 
-#. The templateNoteTite should show the name of the
-#. notebook.  For example, if the name of the notebooks
-#. "Meetings", the templateNoteTitle should be "Meetings
-#. Notebook Template".  Translators should place the
-#. name of the notebook accordingly using "{0}".
-#. TODO: Figure out how to make this note for
-#. translators appear properly.
-#: ../Tomboy/Notebooks/Notebook.cs:79
-#, csharp-format
-msgid "{0} Notebook Template"
-msgstr "Anteckningsmall för {0}"
-
-#: ../Tomboy/Notebooks/Notebook.cs:183
-msgid "All Notes"
-msgstr "Alla anteckningar"
-
-#: ../Tomboy/Notebooks/Notebook.cs:215
-msgid "Unfiled Notes"
-msgstr "Ej arkiverade anteckningar"
-
 #: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:48
 msgid "Note_books"
 msgstr "Antecknings_block"
@@ -977,9 +1056,25 @@ msgid "Delete the selected notebook"
 msgstr "Ta bort det valda anteckningsblocket"
 
 #: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:68
-#: ../Tomboy/RecentChanges.cs:283
+#: ../Tomboy/RecentChanges.cs:276
 msgid "Notebooks"
 msgstr "Anteckningsblock"
+
+#. The templateNoteTite should show the name of the
+#. notebook.  For example, if the name of the notebooks
+#. "Meetings", the templateNoteTitle should be "Meetings
+#. Notebook Template".  Translators should place the
+#. name of the notebook accordingly using "{0}".
+#. TODO: Figure out how to make this note for
+#. translators appear properly.
+#: ../Tomboy/Notebooks/Notebook.cs:79
+#, csharp-format
+msgid "{0} Notebook Template"
+msgstr "Anteckningsmall för {0}"
+
+#: ../Tomboy/Notebooks/Notebook.cs:183
+msgid "All Notes"
+msgstr "Alla anteckningar"
 
 #: ../Tomboy/Notebooks/NotebookManager.cs:361
 msgid "Really delete this notebook?"
@@ -1015,7 +1110,7 @@ msgid "_New notebook..."
 msgstr "_Nytt anteckningsblock..."
 
 #: ../Tomboy/Note.cs:497
-#: ../Tomboy/NoteManager.cs:449
+#: ../Tomboy/NoteManager.cs:475
 #, csharp-format
 msgid "New Note {0}"
 msgstr "Ny anteckning {0}"
@@ -1133,7 +1228,7 @@ msgstr ""
 
 #. Attempt to find an existing Start Here note
 #: ../Tomboy/NoteManager.cs:299
-#: ../Tomboy/NoteManager.cs:369
+#: ../Tomboy/NoteManager.cs:395
 msgid "Start Here"
 msgstr "Börja här"
 
@@ -1143,8 +1238,8 @@ msgstr "Användning av länkar i Tomboy"
 
 #. Use a simple "Describe..." body and highlight
 #. it so it can be easily overwritten
-#: ../Tomboy/NoteManager.cs:522
-#: ../Tomboy/NoteManager.cs:615
+#: ../Tomboy/NoteManager.cs:548
+#: ../Tomboy/NoteManager.cs:641
 msgid "Describe your new note here."
 msgstr "Beskriv din nya anteckning här."
 
@@ -1445,7 +1540,7 @@ msgid "Ser_vice:"
 msgstr "T_jänst:"
 
 #: ../Tomboy/PreferencesDialog.cs:487
-#: ../Tomboy/PreferencesDialog.cs:1114
+#: ../Tomboy/PreferencesDialog.cs:1106
 msgid "Not configurable"
 msgstr "Inte konfigurerbar"
 
@@ -1472,338 +1567,152 @@ msgstr "Följande tillägg är installerade"
 msgid "Get More Add-Ins..."
 msgstr "Hämta fler tillägg..."
 
-#: ../Tomboy/PreferencesDialog.cs:649
+#: ../Tomboy/PreferencesDialog.cs:641
 msgid "_Enable"
 msgstr "_Aktivera"
 
-#: ../Tomboy/PreferencesDialog.cs:655
+#: ../Tomboy/PreferencesDialog.cs:647
 msgid "_Disable"
 msgstr "_Inaktivera"
 
-#: ../Tomboy/PreferencesDialog.cs:786
+#: ../Tomboy/PreferencesDialog.cs:778
 msgid "Not Implemented"
 msgstr "Inte implementerad"
 
-#: ../Tomboy/PreferencesDialog.cs:800
+#: ../Tomboy/PreferencesDialog.cs:792
 #, csharp-format
 msgid "{0} Preferences"
 msgstr "Inställningar för {0}"
 
-#: ../Tomboy/PreferencesDialog.cs:939
+#: ../Tomboy/PreferencesDialog.cs:931
 msgid "Choose Note Font"
 msgstr "Välj anteckningstypsnitt"
 
-#: ../Tomboy/PreferencesDialog.cs:983
+#: ../Tomboy/PreferencesDialog.cs:975
 msgid "Other Synchronization Options"
 msgstr "Andra synkroniseringsalternativ"
 
-#: ../Tomboy/PreferencesDialog.cs:989
+#: ../Tomboy/PreferencesDialog.cs:981
 msgid "When a conflict is detected between a local note and a note on the configured synchronization server:"
 msgstr "När en konflikt upptäcks mellan en lokal anteckning och en anteckning på den konfigurerade synkroniseringsservern:"
 
-#: ../Tomboy/PreferencesDialog.cs:996
+#: ../Tomboy/PreferencesDialog.cs:988
 msgid "Always ask me what to do."
 msgstr "Fråga mig alltid vad som ska göras."
 
-#: ../Tomboy/PreferencesDialog.cs:1000
+#: ../Tomboy/PreferencesDialog.cs:992
 msgid "Rename my local note."
 msgstr "Byt namn på min lokala anteckning."
 
-#: ../Tomboy/PreferencesDialog.cs:1004
+#: ../Tomboy/PreferencesDialog.cs:996
 msgid "Replace my local note with the server's update."
 msgstr "Ersätt min lokal anteckning med serverns uppdatering."
 
-#: ../Tomboy/PreferencesDialog.cs:1150
+#: ../Tomboy/PreferencesDialog.cs:1142
 msgid "Are you sure?"
 msgstr "Är du säker?"
 
-#: ../Tomboy/PreferencesDialog.cs:1152
+#: ../Tomboy/PreferencesDialog.cs:1144
 msgid "Clearing your synchronization settings is not recommended.  You may be forced to synchronize all of your notes again when you save new settings."
 msgstr "Tömning av dina synkroniseringsinställningar rekommenderas inte. Du kan tvingas att synkronisera alla dina anteckningar igen när du sparar nya inställningar."
 
-#: ../Tomboy/PreferencesDialog.cs:1165
+#: ../Tomboy/PreferencesDialog.cs:1157
 msgid "Resetting Synchronization Settings"
 msgstr "Återställer synkroniseringsinställningar"
 
-#: ../Tomboy/PreferencesDialog.cs:1167
-msgid "You have disabled the configured synchronization service.  Your synchronization settings will now be cleared.  You may be forced to synchronize all of your notes again when you save new settings"
-msgstr "Du har inaktiverat den konfigurerade synkroniseringstjänsten.  Dina synkroniseringsinställningar kommer nu att tömmas. Du kan tvingas att synkronisera alla dina anteckningar igen när du sparar nya inställningar."
+#: ../Tomboy/PreferencesDialog.cs:1159
+msgid "You have disabled the configured synchronization service.  Your synchronization settings will now be cleared.  You may be forced to synchronize all of your notes again when you save new settings."
+msgstr "Du har inaktiverat den konfigurerade synkroniseringstjänsten.  Dina synkroniseringsinställningar kommer nu att tömmas. Du kanske måste synkronisera alla dina anteckningar igen när du sparar nya inställningar."
 
-#: ../Tomboy/PreferencesDialog.cs:1245
+#: ../Tomboy/PreferencesDialog.cs:1237
 msgid "Connection successful"
 msgstr "Anslutningen lyckades"
 
-#: ../Tomboy/PreferencesDialog.cs:1247
+#: ../Tomboy/PreferencesDialog.cs:1239
 msgid "Tomboy is ready to synchronize your notes. Would you like to synchronize them now?"
 msgstr "Tomboy är redo att synkronisera dina anteckningar. Vill du synkronisera dem nu?"
 
-#: ../Tomboy/PreferencesDialog.cs:1270
+#: ../Tomboy/PreferencesDialog.cs:1262
 #, csharp-format
 msgid "Please check your information and try again.  The log file {0} may contain more information about the error."
 msgstr "Kontrollera din information och försök igen.  Loggfilen {0} kan innehålla mer information om felet."
 
-#: ../Tomboy/PreferencesDialog.cs:1282
+#: ../Tomboy/PreferencesDialog.cs:1274
 msgid "Error connecting"
 msgstr "Fel vid anslutning"
 
-#: ../Tomboy/PreferencesDialog.cs:1358
+#: ../Tomboy/PreferencesDialog.cs:1350
 msgid "Version:"
 msgstr "Version:"
 
-#: ../Tomboy/PreferencesDialog.cs:1365
+#: ../Tomboy/PreferencesDialog.cs:1357
 msgid "Author:"
 msgstr "Upphovsman:"
 
-#: ../Tomboy/PreferencesDialog.cs:1372
+#: ../Tomboy/PreferencesDialog.cs:1364
 msgid "Copyright:"
 msgstr "Copyright:"
 
-#: ../Tomboy/PreferencesDialog.cs:1378
+#: ../Tomboy/PreferencesDialog.cs:1370
 msgid "Add-in Dependencies:"
 msgstr "Tilläggsberoenden:"
 
-#: ../Tomboy/RecentChanges.cs:98
+#: ../Tomboy/RecentChanges.cs:100
 msgid "_Search:"
 msgstr "_Sök:"
 
-#: ../Tomboy/RecentChanges.cs:357
+#: ../Tomboy/RecentChanges.cs:350
 msgid "Note"
 msgstr "Anteckning"
 
-#: ../Tomboy/RecentChanges.cs:379
+#: ../Tomboy/RecentChanges.cs:373
 msgid "Last Changed"
 msgstr "Senast ändrad"
 
-#: ../Tomboy/RecentChanges.cs:510
+#: ../Tomboy/RecentChanges.cs:512
 msgid "Matches"
 msgstr "Träffar"
 
-#: ../Tomboy/RecentChanges.cs:561
+#: ../Tomboy/RecentChanges.cs:563
 msgid "Title match"
 msgstr "Titelmatchning"
 
-#: ../Tomboy/RecentChanges.cs:564
+#: ../Tomboy/RecentChanges.cs:566
 #, csharp-format
 msgid "{0} match"
 msgid_plural "{0} matches"
 msgstr[0] "{0} träff"
 msgstr[1] "{0} träffar"
 
-#: ../Tomboy/RecentChanges.cs:578
+#: ../Tomboy/RecentChanges.cs:580
 #, csharp-format
 msgid "Total: {0} note"
 msgid_plural "Total: {0} notes"
 msgstr[0] "Totalt: {0} anteckning"
 msgstr[1] "Totalt: {0} anteckningar"
 
-#: ../Tomboy/RecentChanges.cs:589
+#: ../Tomboy/RecentChanges.cs:591
 #, csharp-format
 msgid "Matches: {0} note"
 msgid_plural "Matches: {0} notes"
 msgstr[0] "Sökträffar: {0} anteckning"
 msgstr[1] "Sökträffar: {0} anteckningar"
 
-#: ../Tomboy/RecentChanges.cs:725
+#: ../Tomboy/RecentChanges.cs:603
+msgid ""
+"No results found in the selected notebook.\n"
+"Click here to search across all notes."
+msgstr ""
+"Inga sökresultat hittades i det markerade anteckningsblocket.\n"
+"Klicka här för att söka igenom alla anteckningar."
+
+#: ../Tomboy/RecentChanges.cs:609
+msgid "Click here to search across all notebooks"
+msgstr "Klicka här för att söka igenom alla anteckningsblock"
+
+#: ../Tomboy/RecentChanges.cs:775
 msgid "Notes"
 msgstr "Anteckningar"
-
-#: ../Tomboy/Tomboy.cs:251
-msgid "Cannot create new note"
-msgstr "Kan inte skapa ny anteckning"
-
-#: ../Tomboy/Tomboy.cs:317
-msgid "Primary Development:"
-msgstr "Primär utveckling:"
-
-#: ../Tomboy/Tomboy.cs:330
-msgid "Contributors:"
-msgstr "Bidragsgivare:"
-
-#: ../Tomboy/Tomboy.cs:412
-msgid "translator-credits"
-msgstr ""
-"Daniel Nylander\n"
-"Sergej Kotliar\n"
-"Christian Rose\n"
-"\n"
-"Skicka synpunkter på översättningen till\n"
-"<tp-sv@listor.tp-sv.se>."
-
-#: ../Tomboy/Tomboy.cs:421
-msgid ""
-"Copyright © 2004-2007 Alex Graveley\n"
-"Copyright © 2004-2011 Others\n"
-msgstr ""
-"Copyright © 2004-2007 Alex Graveley\n"
-"Copyright © 2004-2011 Övriga\n"
-
-#: ../Tomboy/Tomboy.cs:423
-msgid "A simple and easy to use desktop note-taking application."
-msgstr "Ett enkelt och lättanvänt program för att ta anteckningar."
-
-#: ../Tomboy/Tomboy.cs:433
-msgid "Homepage"
-msgstr "Webbplats"
-
-#: ../Tomboy/Tomboy.cs:551
-msgid ""
-"Tomboy: A simple, easy to use desktop note-taking application.\n"
-"Copyright (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
-"\n"
-msgstr ""
-"Tomboy: Ett enkelt program för att ta anteckningar på ditt skrivbord\n"
-"Copyright © 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
-"\n"
-
-#: ../Tomboy/Tomboy.cs:563
-msgid ""
-"Usage:\n"
-"  --version\t\t\tPrint version information.\n"
-"  --help\t\t\tPrint this usage message.\n"
-"  --note-path [path]\t\tLoad/store note data in this directory.\n"
-"  --search [text]\t\tOpen the search all notes window with the search text.\n"
-msgstr ""
-"Användning:\n"
-"  --version\t\t\tSkriv ut versionsinformation.\n"
-"  --help\t\t\tSkriv ut detta meddelande.\n"
-"  --note-path [sökväg]\t\tLäs in/Spara anteckningsdata i denna katalog\n"
-"  --search [text]\t\tÖppna sökfönster för att anteckningar med angiven text.\n"
-
-#: ../Tomboy/Tomboy.cs:573
-msgid ""
-"  --new-note\t\t\tCreate and display a new note.\n"
-"  --new-note [title]\t\tCreate and display a new note, with a title.\n"
-"  --open-note [title/url]\tDisplay the existing note matching title.\n"
-"  --start-here\t\t\tDisplay the 'Start Here' note.\n"
-"  --highlight-search [text]\tSearch and highlight text in the opened note.\n"
-msgstr ""
-"  --new-note\t\t\tSkapa och visa en ny anteckning.\n"
-"  --new-note [titel]\t\tSkapa och visa en ny anteckning, med en titel.\n"
-"  --open-note [titel/url]\tVisa anteckningen med denna titel\n"
-"  --start-here\t\t\tVisa \"Börja här\"-anteckningen.\n"
-"  --highlight-search [text]\tSök och färgmarkera text i den öppnade anteckningen\n"
-
-#: ../Tomboy/Tomboy.cs:587
-#, csharp-format
-msgid "Version {0}"
-msgstr "Version {0}"
-
-#: ../Tomboy/Tray.cs:68
-msgid " (new)"
-msgstr " (ny)"
-
-#: ../Tomboy/Tray.cs:293
-msgid "_About Tomboy"
-msgstr "_Om Tomboy"
-
-#: ../Tomboy/Utils.cs:189
-msgid "The \"Tomboy Notes Manual\" could not be found.  Please verify that your installation has been completed successfully."
-msgstr "\"Handbok för Tomboy-anteckningar\" kunde inte hittas.  Verifiera att din installation har färdigställts korrekt."
-
-#: ../Tomboy/Utils.cs:198
-msgid "Help not found"
-msgstr "Hjälp hittades inte"
-
-#: ../Tomboy/Utils.cs:214
-msgid "Cannot open location"
-msgstr "Kan inte öppna plats"
-
-#: ../Tomboy/Utils.cs:236
-#, csharp-format
-msgid "Today, {0}"
-msgstr "Idag, {0}"
-
-#: ../Tomboy/Utils.cs:238
-msgid "Today"
-msgstr "Idag"
-
-#: ../Tomboy/Utils.cs:242
-#, csharp-format
-msgid "Yesterday, {0}"
-msgstr "Igår, {0}"
-
-#: ../Tomboy/Utils.cs:244
-msgid "Yesterday"
-msgstr "Igår"
-
-#: ../Tomboy/Utils.cs:249
-#, csharp-format
-msgid "{0} day ago, {1}"
-msgid_plural "{0} days ago, {1}"
-msgstr[0] "{0} dag sedan, {1}"
-msgstr[1] "{0} dagar sedan, {1}"
-
-#: ../Tomboy/Utils.cs:253
-#, csharp-format
-msgid "{0} day ago"
-msgid_plural "{0} days ago"
-msgstr[0] "{0} dag sedan"
-msgstr[1] "{0} dagar sedan"
-
-#: ../Tomboy/Utils.cs:259
-#, csharp-format
-msgid "Tomorrow, {0}"
-msgstr "Imorgon, {0}"
-
-#: ../Tomboy/Utils.cs:261
-msgid "Tomorrow"
-msgstr "Imorgon"
-
-#: ../Tomboy/Utils.cs:266
-#, csharp-format
-msgid "In {0} day, {1}"
-msgid_plural "In {0} days, {1}"
-msgstr[0] "Inom {0} dag, {1}"
-msgstr[1] "Inom {0} dagar, {1}"
-
-#: ../Tomboy/Utils.cs:270
-#, csharp-format
-msgid "In {0} day"
-msgid_plural "In {0} days"
-msgstr[0] "Inom {0} dag"
-msgstr[1] "Inom {0} dagar"
-
-#: ../Tomboy/Utils.cs:275
-msgid "MMMM d, h:mm tt"
-msgstr "d MMMM, H.mm"
-
-#: ../Tomboy/Utils.cs:276
-msgid "MMMM d"
-msgstr "d MMMM"
-
-#: ../Tomboy/Utils.cs:278
-msgid "No Date"
-msgstr "Inget datum"
-
-#: ../Tomboy/Utils.cs:281
-msgid "MMMM d yyyy, h:mm tt"
-msgstr "yyyy d MMMM, H.mm"
-
-#: ../Tomboy/Utils.cs:282
-msgid "MMMM d yyyy"
-msgstr "d MMMM yyyy"
-
-#: ../Tomboy/Watchers.cs:155
-#, csharp-format
-msgid "(Untitled {0})"
-msgstr "(Namnlös {0})"
-
-#: ../Tomboy/Watchers.cs:189
-#, csharp-format
-msgid "A note with the title <b>{0}</b> already exists. Please choose another name for this note before continuing."
-msgstr "En anteckning med titeln <b>{0}</b> finns redan. Välj ett annat namn för denna anteckning innan du fortsätter."
-
-#: ../Tomboy/Watchers.cs:204
-msgid "Note title taken"
-msgstr "Anteckningstiteln är upptagen"
-
-#: ../Tomboy/Watchers.cs:549
-msgid "_Copy Link Address"
-msgstr "_Kopiera länkadress"
-
-#: ../Tomboy/Watchers.cs:554
-msgid "_Open Link"
-msgstr "_Öppna länk"
 
 #: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:94
 #, csharp-format
@@ -2025,10 +1934,6 @@ msgstr "Anteckningskonflikt upptäcktes"
 msgid "The server version of \"{0}\" conflicts with your local note.  What do you want to do with your local note?"
 msgstr "Serverversionen av \"{0}\" står i konflikt med din lokala anteckning.  Vad vill du göra med din lokala anteckning?"
 
-#: ../Tomboy/Synchronization/SyncManager.cs:161
-msgid "_Tools"
-msgstr "_Verktyg"
-
 #: ../Tomboy/Synchronization/SyncUtils.cs:119
 #: ../Tomboy/Synchronization/SyncUtils.cs:163
 msgid "Could not enable FUSE"
@@ -2054,6 +1959,208 @@ msgstr ""
 "Synkroniseringen som du har valt kräver att FUSE-modulen läses in.\n"
 "\n"
 "För att undvika att få den här prompten i framtiden bör du läsa in FUSE vid uppstart.  Lägg till \"modprobe fuse\" till /etc/init.d/boot.local eller \"fuse\" till /etc/modules."
+
+#: ../Tomboy/Tomboy.cs:251
+msgid "Cannot create new note"
+msgstr "Kan inte skapa ny anteckning"
+
+#: ../Tomboy/Tomboy.cs:317
+msgid "Primary Development:"
+msgstr "Primär utveckling:"
+
+#: ../Tomboy/Tomboy.cs:330
+msgid "Contributors:"
+msgstr "Bidragsgivare:"
+
+#: ../Tomboy/Tomboy.cs:415
+msgid "translator-credits"
+msgstr ""
+"Daniel Nylander\n"
+"Sergej Kotliar\n"
+"Christian Rose\n"
+"\n"
+"Skicka synpunkter på översättningen till\n"
+"<tp-sv@listor.tp-sv.se>."
+
+#: ../Tomboy/Tomboy.cs:424
+msgid ""
+"Copyright © 2004-2007 Alex Graveley\n"
+"Copyright © 2004-2011 Others\n"
+msgstr ""
+"Copyright © 2004-2007 Alex Graveley\n"
+"Copyright © 2004-2011 Övriga\n"
+
+#: ../Tomboy/Tomboy.cs:426
+msgid "A simple and easy to use desktop note-taking application."
+msgstr "Ett enkelt och lättanvänt program för att ta anteckningar."
+
+#: ../Tomboy/Tomboy.cs:436
+msgid "Homepage"
+msgstr "Webbplats"
+
+#: ../Tomboy/Tomboy.cs:554
+msgid ""
+"Tomboy: A simple, easy to use desktop note-taking application.\n"
+"Copyright © 2004-2007 Alex Graveley\n"
+"<alex@beatniksoftware.com>\n"
+"\n"
+"Copyright © 2004-2011 Others\n"
+msgstr ""
+"Tomboy: Ett enkelt program för att ta anteckningar på ditt skrivbord\n"
+"Copyright © 2004-2007 Alex Graveley\n"
+"<alex@beatniksoftware.com>\n"
+"\n"
+"Copyright © 2004-2011 Övriga\n"
+
+#: ../Tomboy/Tomboy.cs:568
+msgid ""
+"Usage:\n"
+"  --version\t\t\tPrint version information.\n"
+"  --help\t\t\tPrint this usage message.\n"
+"  --note-path [path]\t\tLoad/store note data in this directory.\n"
+"  --search [text]\t\tOpen the search all notes window with the search text.\n"
+msgstr ""
+"Användning:\n"
+"  --version\t\t\tSkriv ut versionsinformation.\n"
+"  --help\t\t\tSkriv ut detta meddelande.\n"
+"  --note-path [sökväg]\t\tLäs in/Spara anteckningsdata i denna katalog\n"
+"  --search [text]\t\tÖppna sökfönster för att anteckningar med angiven text.\n"
+
+#: ../Tomboy/Tomboy.cs:578
+msgid ""
+"  --new-note\t\t\tCreate and display a new note.\n"
+"  --new-note [title]\t\tCreate and display a new note, with a title.\n"
+"  --open-note [title/url]\tDisplay the existing note matching title.\n"
+"  --start-here\t\t\tDisplay the 'Start Here' note.\n"
+"  --highlight-search [text]\tSearch and highlight text in the opened note.\n"
+msgstr ""
+"  --new-note\t\t\tSkapa och visa en ny anteckning.\n"
+"  --new-note [titel]\t\tSkapa och visa en ny anteckning, med en titel.\n"
+"  --open-note [titel/url]\tVisa anteckningen med denna titel\n"
+"  --start-here\t\t\tVisa \"Börja här\"-anteckningen.\n"
+"  --highlight-search [text]\tSök och färgmarkera text i den öppnade anteckningen\n"
+
+#: ../Tomboy/Tomboy.cs:592
+#, csharp-format
+msgid "Version {0}"
+msgstr "Version {0}"
+
+#: ../Tomboy/Tray.cs:68
+msgid " (new)"
+msgstr " (ny)"
+
+#: ../Tomboy/Tray.cs:293
+msgid "_About Tomboy"
+msgstr "_Om Tomboy"
+
+#: ../Tomboy/Utils.cs:189
+msgid "The \"Tomboy Notes Manual\" could not be found.  Please verify that your installation has been completed successfully."
+msgstr "\"Handbok för Tomboy-anteckningar\" kunde inte hittas.  Verifiera att din installation har färdigställts korrekt."
+
+#: ../Tomboy/Utils.cs:198
+msgid "Help not found"
+msgstr "Hjälp hittades inte"
+
+#: ../Tomboy/Utils.cs:214
+msgid "Cannot open location"
+msgstr "Kan inte öppna plats"
+
+#: ../Tomboy/Utils.cs:236
+#, csharp-format
+msgid "Today, {0}"
+msgstr "Idag, {0}"
+
+#: ../Tomboy/Utils.cs:238
+msgid "Today"
+msgstr "Idag"
+
+#: ../Tomboy/Utils.cs:242
+#, csharp-format
+msgid "Yesterday, {0}"
+msgstr "Igår, {0}"
+
+#: ../Tomboy/Utils.cs:244
+msgid "Yesterday"
+msgstr "Igår"
+
+#: ../Tomboy/Utils.cs:249
+#, csharp-format
+msgid "{0} day ago, {1}"
+msgid_plural "{0} days ago, {1}"
+msgstr[0] "{0} dag sedan, {1}"
+msgstr[1] "{0} dagar sedan, {1}"
+
+#: ../Tomboy/Utils.cs:253
+#, csharp-format
+msgid "{0} day ago"
+msgid_plural "{0} days ago"
+msgstr[0] "{0} dag sedan"
+msgstr[1] "{0} dagar sedan"
+
+#: ../Tomboy/Utils.cs:259
+#, csharp-format
+msgid "Tomorrow, {0}"
+msgstr "Imorgon, {0}"
+
+#: ../Tomboy/Utils.cs:261
+msgid "Tomorrow"
+msgstr "Imorgon"
+
+#: ../Tomboy/Utils.cs:266
+#, csharp-format
+msgid "In {0} day, {1}"
+msgid_plural "In {0} days, {1}"
+msgstr[0] "Inom {0} dag, {1}"
+msgstr[1] "Inom {0} dagar, {1}"
+
+#: ../Tomboy/Utils.cs:270
+#, csharp-format
+msgid "In {0} day"
+msgid_plural "In {0} days"
+msgstr[0] "Inom {0} dag"
+msgstr[1] "Inom {0} dagar"
+
+#: ../Tomboy/Utils.cs:275
+msgid "MMMM d, h:mm tt"
+msgstr "d MMMM, H.mm"
+
+#: ../Tomboy/Utils.cs:276
+msgid "MMMM d"
+msgstr "d MMMM"
+
+#: ../Tomboy/Utils.cs:278
+msgid "No Date"
+msgstr "Inget datum"
+
+#: ../Tomboy/Utils.cs:281
+msgid "MMMM d yyyy, h:mm tt"
+msgstr "yyyy d MMMM, H.mm"
+
+#: ../Tomboy/Utils.cs:282
+msgid "MMMM d yyyy"
+msgstr "d MMMM yyyy"
+
+#: ../Tomboy/Watchers.cs:155
+#, csharp-format
+msgid "(Untitled {0})"
+msgstr "(Namnlös {0})"
+
+#: ../Tomboy/Watchers.cs:189
+#, csharp-format
+msgid "A note with the title <b>{0}</b> already exists. Please choose another name for this note before continuing."
+msgstr "En anteckning med titeln <b>{0}</b> finns redan. Välj ett annat namn för denna anteckning innan du fortsätter."
+
+#: ../Tomboy/Watchers.cs:204
+msgid "Note title taken"
+msgstr "Anteckningstiteln är upptagen"
+
+#: ../Tomboy/Watchers.cs:587
+msgid "_Copy Link Address"
+msgstr "_Kopiera länkadress"
+
+#: ../Tomboy/Watchers.cs:592
+msgid "_Open Link"
+msgstr "_Öppna länk"
 
 #~ msgid "HTML Export Last Directory"
 #~ msgstr "HTML-exportera senaste katalogen"
