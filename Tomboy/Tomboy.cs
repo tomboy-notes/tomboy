@@ -284,11 +284,8 @@ namespace Tomboy
 
 		static void OnShowPreferencesAction (object sender, EventArgs args)
 		{
-			if (prefs_dlg == null) {
-				prefs_dlg = new PreferencesDialog (manager.AddinManager);
-				prefs_dlg.Response += OnPreferencesResponse;
-			}
-			prefs_dlg.Present ();
+			prefs_dlg = new PreferencesDialog (manager);
+			prefs_dlg.ShowAll ();
 		}
 
 		static void OnPreferencesResponse (object sender, Gtk.ResponseArgs args)
