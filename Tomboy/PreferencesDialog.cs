@@ -3,12 +3,12 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Mono.Unix;
-
+using Gtk;
 using Tomboy.Sync;
 
 namespace Tomboy
 {
-	public class PreferencesDialog : Gtk.Dialog
+	public class PreferencesDialog : Gtk.Window
 	{
 		Gtk.ListStore syncAddinStore;
 		Dictionary<string, Gtk.TreeIter> syncAddinIters;
@@ -53,39 +53,31 @@ namespace Tomboy
 		/// </summary>
 		Dictionary<string, Gtk.Dialog> addin_info_dialogs;
 
-		public PreferencesDialog (AddinManager addin_manager)
-: base ()
+		public PreferencesDialog (NoteManager manager) : base(Gtk.WindowType.Toplevel)
 		{
-			this.addin_manager = addin_manager;
-
+			this.addin_manager = manager.AddinManager;
+			
 			IconName = "tomboy";
-			HasSeparator = false;
 			BorderWidth = 5;
 			Resizable = true;
 			Title = Catalog.GetString ("Tomboy Preferences");
-
-			ActionArea.Layout = Gtk.ButtonBoxStyle.End;
-
-			addin_prefs_dialogs =
-			        new Dictionary<string, Gtk.Dialog> ();
-			addin_info_dialogs =
-			        new Dictionary<string, Gtk.Dialog> ();
-
+			
+			addin_prefs_dialogs = new Dictionary<string, Gtk.Dialog> ();
+			addin_info_dialogs = new Dictionary<string, Gtk.Dialog> ();
+			
 			// Notebook Tabs (Editing, Hotkeys)...
-
+			
 			Gtk.Notebook notebook = new Gtk.Notebook ();
 			notebook.TabPos = Gtk.PositionType.Top;
 			notebook.Show ();
-
-			notebook.AppendPage (MakeEditingPane (),
-			                     new Gtk.Label (Catalog.GetString ("Editing")));
-			if (! (Services.Keybinder is NullKeybinder))
-				notebook.AppendPage (MakeHotkeysPane (),
-				                     new Gtk.Label (Catalog.GetString ("Hotkeys")));
-			notebook.AppendPage (MakeSyncPane (),
-			                     new Gtk.Label (Catalog.GetString ("Synchronization")));
-			notebook.AppendPage (MakeAddinsPane (),
-			                     new Gtk.Label (Catalog.GetString ("Add-ins")));
+			
+			notebook.AppendPage (MakeEditingPane (), new Gtk.Label (Catalog.GetString ("Editing")));
+			
+			if (!(Services.Keybinder is NullKeybinder))
+				notebook.AppendPage (MakeHotkeysPane (), new Gtk.Label (Catalog.GetString ("Hotkeys")));
+			
+			notebook.AppendPage (MakeSyncPane (), new Gtk.Label (Catalog.GetString ("Synchronization")));
+			notebook.AppendPage (MakeAddinsPane (), new Gtk.Label (Catalog.GetString ("Add-ins")));
 			
 			// TODO: Figure out a way to have these be placed in a specific order
 			foreach (PreferenceTabAddin tabAddin in addin_manager.GetPreferenceTabAddins ()) {
@@ -101,32 +93,46 @@ namespace Tomboy
 					Logger.Debug ("{0}:\n{1}", e.Message, e.StackTrace);
 				}
 			}
-
+			Gtk.VBox VBox = new Gtk.VBox ();
 			VBox.PackStart (notebook, true, true, 0);
-
+			
 			addin_manager.ApplicationAddinListChanged += OnAppAddinListChanged;
-
-
-			// Ok button...
-
+			
+			// Close Button
 			Gtk.Button button = new Gtk.Button (Gtk.Stock.Close);
 			button.CanDefault = true;
+			button.Label = "Close";
+			button.Clicked += OnClickedClose;
+			VBox.Add (button);
 			button.Show ();
-
+			
 			Gtk.AccelGroup accel_group = new Gtk.AccelGroup ();
 			AddAccelGroup (accel_group);
-
-			button.AddAccelerator ("activate",
-			                       accel_group,
-			                       (uint) Gdk.Key.Escape,
-			                       0,
-			                       0);
-
-			AddActionWidget (button, Gtk.ResponseType.Close);
-			DefaultResponse = Gtk.ResponseType.Close;
-
+			
+			button.AddAccelerator ("activate", accel_group, (uint)Gdk.Key.Escape, 0, 0);
+			
+			this.Add (VBox);
+			if ((this.Child != null)) {
+				this.Child.ShowAll ();
+			}
+			this.Show ();
 			Preferences.SettingChanged += HandlePreferencesSettingChanged;
 		}
+		
+		/// <summary>
+		/// Close the Preferences Window
+		/// </summary>
+		/// <param name="sender">
+		/// A <see cref="System.Object"/>
+		/// </param>
+		/// <param name="args">
+		/// A <see cref="EventArgs"/>
+		/// </param>
+		void OnClickedClose (object sender, EventArgs args)
+		{
+			Hide ();
+			Destroy ();
+		}		
 
 		void HandlePreferencesSettingChanged (object sender, NotifyEventArgs args)
 		{
@@ -1282,7 +1288,8 @@ namespace Tomboy
 		{
 			NoteManager manager = Tomboy.DefaultNoteManager;
 			Note template_note = manager.GetOrCreateTemplateNote ();
-
+			// Template Window should be top-most. bgo #527177
+			template_note.Window.KeepAbove = true;
 			// Open the template note
 			template_note.Window.Show ();
 		}
