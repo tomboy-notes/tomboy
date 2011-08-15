@@ -48,6 +48,10 @@ namespace Tomboy
 			get; private set;
 		}
 
+		public TomboyCommandLine CommandLine {
+			get; set;
+		}
+
 		// TODO: Decide if/how to enforce
 		public bool ReadOnly {
 			get; set;
