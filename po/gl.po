@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tomboy-master-po-gl-54142\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-07-04 21:46+0200\n"
-"PO-Revision-Date: 2011-07-04 21:46+0200\n"
+"POT-Creation-Date: 2011-08-16 19:24+0200\n"
+"PO-Revision-Date: 2011-08-16 19:24+0200\n"
 "Last-Translator: Fran Diéguez <frandieguez@gnome.org>\n"
 "Language-Team: Galician <gnome-l10n-gl@gnome.org>\n"
 "Language: gl\n"
@@ -707,6 +707,16 @@ msgstr "Abre a xanela de buscar en todas as notas"
 msgid "Start synchronizing notes"
 msgstr "Comezar a sincronizar notas"
 
+#. Addin's tab caption
+#: ../Tomboy/Addins/AdvancedPreferences/AdvancedPreferencesAddin.cs:38
+msgid "Advanced"
+msgstr "Avanzado"
+
+#. Menu Note Count option
+#: ../Tomboy/Addins/AdvancedPreferences/AdvancedPreferencesAddin.cs:56
+msgid "Minimum number of notes to show in Recent list (maximum 18)"
+msgstr "Número mínimo de notas para mostrar na lista de recentes (máximo 18)"
+
 #: ../Tomboy/Addins/Backlinks/BacklinksNoteAddin.cs:38
 msgid "What links here?"
 msgstr "Que liga aquí?"
@@ -765,9 +775,25 @@ msgstr "Está seguro de que quere eliminar esta icona?"
 msgid "If you remove an icon it is permanently lost."
 msgstr "Se elimina unha icona perderase permanentemente."
 
+#: ../Tomboy/Addins/Evolution/EvolutionNoteAddin.cs:273
+msgid "Cannot open email"
+msgstr "Non foi posíbel abrir o correo electrónico"
+
 #: ../Tomboy/Addins/ExportToHtml/ExportToHtmlApplicationAddin.cs:59
 msgid "HTML"
 msgstr "HTML"
+
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlDialog.cs:13
+msgid "Destination for HTML Export"
+msgstr "Destino para a exportación a HTML"
+
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlDialog.cs:23
+msgid "Export linked notes"
+msgstr "Exportar as notas ligadas"
+
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlDialog.cs:28
+msgid "Include all other linked notes"
+msgstr "Incluír todas as notas ligadas"
 
 #: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:67
 msgid "Export to HTML"
@@ -798,22 +824,6 @@ msgstr "O cartafol non existe."
 #, csharp-format
 msgid "Could not save the file \"{0}\""
 msgstr "Non foi posíbel gardar o ficheiro «{0}»"
-
-#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlDialog.cs:13
-msgid "Destination for HTML Export"
-msgstr "Destino para a exportación a HTML"
-
-#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlDialog.cs:23
-msgid "Export linked notes"
-msgstr "Exportar as notas ligadas"
-
-#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlDialog.cs:28
-msgid "Include all other linked notes"
-msgstr "Incluír todas as notas ligadas"
-
-#: ../Tomboy/Addins/Evolution/EvolutionNoteAddin.cs:273
-msgid "Cannot open email"
-msgstr "Non foi posíbel abrir o correo electrónico"
 
 #: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:93
 msgid "_Folder Path:"
@@ -1061,10 +1071,6 @@ msgstr ""
 "Produciuse un fallo ao gardar a configuración no anel de chaves coa seguinte "
 "mensaxe:"
 
-#: ../Tomboy/Addins/WebSyncService/WebSyncServiceAddin.cs:70
-msgid "Tomboy Web"
-msgstr "Sitio web do Tomboy"
-
 #: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:66
 #: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:96
 msgid "Connect to Server"
@@ -1113,6 +1119,10 @@ msgstr "Autorizando no navegador (prema para reiniciar a conexión)"
 #: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:235
 msgid "Set the default browser and try again"
 msgstr "Configure o navegador predeterminado e probe outra vez"
+
+#: ../Tomboy/Addins/WebSyncService/WebSyncServiceAddin.cs:70
+msgid "Tomboy Web"
+msgstr "Sitio web do Tomboy"
 
 #: ../Tomboy/ExportAllApplicationAddin.cs:53
 msgid "Export All Notes to "
@@ -1248,22 +1258,6 @@ msgstr "O nome xa existe"
 msgid "C_reate"
 msgstr "C_rear"
 
-#. The templateNoteTite should show the name of the
-#. notebook.  For example, if the name of the notebooks
-#. "Meetings", the templateNoteTitle should be "Meetings
-#. Notebook Template".  Translators should place the
-#. name of the notebook accordingly using "{0}".
-#. TODO: Figure out how to make this note for
-#. translators appear properly.
-#: ../Tomboy/Notebooks/Notebook.cs:79
-#, csharp-format
-msgid "{0} Notebook Template"
-msgstr "Modelo de caderno de {0}"
-
-#: ../Tomboy/Notebooks/Notebook.cs:183
-msgid "All Notes"
-msgstr "Todas as notas"
-
 #: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:48
 msgid "Note_books"
 msgstr "C_adernos"
@@ -1303,9 +1297,25 @@ msgid "Delete the selected notebook"
 msgstr "Eliminar o carderno seleccionado"
 
 #: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:68
-#: ../Tomboy/RecentChanges.cs:285
+#: ../Tomboy/RecentChanges.cs:276
 msgid "Notebooks"
 msgstr "Cadernos"
+
+#. The templateNoteTite should show the name of the
+#. notebook.  For example, if the name of the notebooks
+#. "Meetings", the templateNoteTitle should be "Meetings
+#. Notebook Template".  Translators should place the
+#. name of the notebook accordingly using "{0}".
+#. TODO: Figure out how to make this note for
+#. translators appear properly.
+#: ../Tomboy/Notebooks/Notebook.cs:79
+#, csharp-format
+msgid "{0} Notebook Template"
+msgstr "Modelo de caderno de {0}"
+
+#: ../Tomboy/Notebooks/Notebook.cs:183
+msgid "All Notes"
+msgstr "Todas as notas"
 
 #: ../Tomboy/Notebooks/NotebookManager.cs:361
 msgid "Really delete this notebook?"
@@ -1979,44 +1989,44 @@ msgstr "Dependencias dos engadidos:"
 msgid "_Search:"
 msgstr "_Buscar:"
 
-#: ../Tomboy/RecentChanges.cs:359
+#: ../Tomboy/RecentChanges.cs:350
 msgid "Note"
 msgstr "Nota"
 
-#: ../Tomboy/RecentChanges.cs:381
+#: ../Tomboy/RecentChanges.cs:373
 msgid "Last Changed"
 msgstr "Último cambio"
 
-#: ../Tomboy/RecentChanges.cs:520
+#: ../Tomboy/RecentChanges.cs:512
 msgid "Matches"
 msgstr "Coincidencias"
 
-#: ../Tomboy/RecentChanges.cs:571
+#: ../Tomboy/RecentChanges.cs:563
 msgid "Title match"
 msgstr "Coincidencia de título"
 
-#: ../Tomboy/RecentChanges.cs:574
+#: ../Tomboy/RecentChanges.cs:566
 #, csharp-format
 msgid "{0} match"
 msgid_plural "{0} matches"
 msgstr[0] "{0} coincidencia"
 msgstr[1] "{0} coincidencias"
 
-#: ../Tomboy/RecentChanges.cs:588
+#: ../Tomboy/RecentChanges.cs:580
 #, csharp-format
 msgid "Total: {0} note"
 msgid_plural "Total: {0} notes"
 msgstr[0] "Total: {0} nota"
 msgstr[1] "Total: {0} notas"
 
-#: ../Tomboy/RecentChanges.cs:599
+#: ../Tomboy/RecentChanges.cs:591
 #, csharp-format
 msgid "Matches: {0} note"
 msgid_plural "Matches: {0} notes"
 msgstr[0] "Coincidencias: {0} nota"
 msgstr[1] "Coincidencias: {0} notas"
 
-#: ../Tomboy/RecentChanges.cs:611
+#: ../Tomboy/RecentChanges.cs:603
 msgid ""
 "No results found in the selected notebook.\n"
 "Click here to search across all notes."
@@ -2024,224 +2034,13 @@ msgstr ""
 "Non foi posíbel atopar resultados no caderno de notas seleccionado.\n"
 "Prema aquí para buscar en tódalas notas."
 
-#: ../Tomboy/RecentChanges.cs:617
+#: ../Tomboy/RecentChanges.cs:609
 msgid "Click here to search across all notebooks"
 msgstr "Prema aquí para buscar en tódolos cadernos de notas"
 
-#: ../Tomboy/RecentChanges.cs:783
+#: ../Tomboy/RecentChanges.cs:775
 msgid "Notes"
 msgstr "Notas"
-
-#: ../Tomboy/Tomboy.cs:251
-msgid "Cannot create new note"
-msgstr "Non foi posíbel crear unha nota nova"
-
-#: ../Tomboy/Tomboy.cs:317
-msgid "Primary Development:"
-msgstr "Desenvolvemento primario:"
-
-#: ../Tomboy/Tomboy.cs:330
-msgid "Contributors:"
-msgstr "Contribuidores:"
-
-#: ../Tomboy/Tomboy.cs:412
-msgid "translator-credits"
-msgstr ""
-"Fran Diéguez <frandieguez@ubuntu.com>, 2009, 2010.\n"
-"Antón Méixome <meixome@mancomun.org>, 2009.\n"
-"Ignacio Casal Quinteiro <icq@cvs.gnome.org>, 2005, 2006, 2007, 2008."
-
-#: ../Tomboy/Tomboy.cs:421
-msgid ""
-"Copyright © 2004-2007 Alex Graveley\n"
-"Copyright © 2004-2011 Others\n"
-msgstr ""
-"Copyright © 2004-2007 Alex Graveley\n"
-"Copyright © 2004-2011 Outros\n"
-
-#: ../Tomboy/Tomboy.cs:423
-msgid "A simple and easy to use desktop note-taking application."
-msgstr "Un aplicativo sinxelo e fácil de usar para tomar notas no escritorio."
-
-#: ../Tomboy/Tomboy.cs:433
-msgid "Homepage"
-msgstr "Páxina de inicio"
-
-#: ../Tomboy/Tomboy.cs:551
-msgid ""
-"Tomboy: A simple, easy to use desktop note-taking application.\n"
-"Copyright © 2004-2007 Alex Graveley\n"
-"<alex@beatniksoftware.com>\n"
-"\n"
-"Copyright © 2004-2011 Others\n"
-msgstr ""
-"Tomboy: Un aplicativo sinxelo e doado de usar para tomar notas no "
-"escritorio.\n"
-"Copyright © 2004-2007 Alex Graveley \n"
-"<alex@beatniksoftware.com>\n"
-"\n"
-"\n"
-"Copyright © 2004-2011 Otros\n"
-
-#: ../Tomboy/Tomboy.cs:565
-msgid ""
-"Usage:\n"
-"  --version\t\t\tPrint version information.\n"
-"  --help\t\t\tPrint this usage message.\n"
-"  --note-path [path]\t\tLoad/store note data in this directory.\n"
-"  --search [text]\t\tOpen the search all notes window with the search text.\n"
-msgstr ""
-"Uso:\n"
-"  --version\t\t\tImprime información da versión.\n"
-"  --help\t\t\tImprime esta mensaxe de uso.\n"
-"  --note-path [ruta]\t\tCargar ou almacenar datos da nota neste directorio.\n"
-"  --search [texto]\t\tAbre a xanela buscar en todas as notas co texto a "
-"buscar.\n"
-
-#: ../Tomboy/Tomboy.cs:575
-msgid ""
-"  --new-note\t\t\tCreate and display a new note.\n"
-"  --new-note [title]\t\tCreate and display a new note, with a title.\n"
-"  --open-note [title/url]\tDisplay the existing note matching title.\n"
-"  --start-here\t\t\tDisplay the 'Start Here' note.\n"
-"  --highlight-search [text]\tSearch and highlight text in the opened note.\n"
-msgstr ""
-"  --new-note\t\t\tCrea e mostra unha nota.\n"
-"  --new-note [título]\t\tCrea e mostra unha nova nota, cun título.\n"
-"  --open-note [título/url]\tMostra a nota existente que coincida co título.\n"
-"  --start-here\t\t\tMostra a nota 'Comezar aquí'.\n"
-"  --highlight-search [texto]\tBuscar e realzar o texto coincidente na nota "
-"aberta.\n"
-
-#: ../Tomboy/Tomboy.cs:589
-#, csharp-format
-msgid "Version {0}"
-msgstr "Versión {0}"
-
-#: ../Tomboy/Tray.cs:68
-msgid " (new)"
-msgstr " (nova)"
-
-#: ../Tomboy/Tray.cs:293
-msgid "_About Tomboy"
-msgstr "_Sobre o Tomboy"
-
-#: ../Tomboy/Utils.cs:189
-msgid ""
-"The \"Tomboy Notes Manual\" could not be found.  Please verify that your "
-"installation has been completed successfully."
-msgstr ""
-"Non foi posíbel atopar o \"Manual de Notas de Tomboy\".  Comprobe que a súa "
-"instalación rematou correctamente."
-
-#: ../Tomboy/Utils.cs:198
-msgid "Help not found"
-msgstr "Non foi posíbel atopar a axuda"
-
-#: ../Tomboy/Utils.cs:214
-msgid "Cannot open location"
-msgstr "Non é posíbel abrir a localización"
-
-#: ../Tomboy/Utils.cs:236
-#, csharp-format
-msgid "Today, {0}"
-msgstr "Hoxe, {0}"
-
-#: ../Tomboy/Utils.cs:238
-msgid "Today"
-msgstr "Hoxe"
-
-#: ../Tomboy/Utils.cs:242
-#, csharp-format
-msgid "Yesterday, {0}"
-msgstr "Onte, {0}"
-
-#: ../Tomboy/Utils.cs:244
-msgid "Yesterday"
-msgstr "Onte"
-
-#: ../Tomboy/Utils.cs:249
-#, csharp-format
-msgid "{0} day ago, {1}"
-msgid_plural "{0} days ago, {1}"
-msgstr[0] "fai {0} día, {1}"
-msgstr[1] "fai {0} días, {1}"
-
-#: ../Tomboy/Utils.cs:253
-#, csharp-format
-msgid "{0} day ago"
-msgid_plural "{0} days ago"
-msgstr[0] "fai {0} días"
-msgstr[1] "fai {0} días"
-
-#: ../Tomboy/Utils.cs:259
-#, csharp-format
-msgid "Tomorrow, {0}"
-msgstr "Mañá, {0}"
-
-#: ../Tomboy/Utils.cs:261
-msgid "Tomorrow"
-msgstr "Mañán"
-
-#: ../Tomboy/Utils.cs:266
-#, csharp-format
-msgid "In {0} day, {1}"
-msgid_plural "In {0} days, {1}"
-msgstr[0] "En {0} día, {1}"
-msgstr[1] "En {0} días, {1}"
-
-#: ../Tomboy/Utils.cs:270
-#, csharp-format
-msgid "In {0} day"
-msgid_plural "In {0} days"
-msgstr[0] "En {0} día"
-msgstr[1] "En {0} días"
-
-#: ../Tomboy/Utils.cs:275
-msgid "MMMM d, h:mm tt"
-msgstr "MMMM d, h:mm tt"
-
-#: ../Tomboy/Utils.cs:276
-msgid "MMMM d"
-msgstr "d MMMM"
-
-#: ../Tomboy/Utils.cs:278
-msgid "No Date"
-msgstr "Sen data"
-
-#: ../Tomboy/Utils.cs:281
-msgid "MMMM d yyyy, h:mm tt"
-msgstr "MMMM d yyyy, h:mm tt"
-
-#: ../Tomboy/Utils.cs:282
-msgid "MMMM d yyyy"
-msgstr "d MMMM yyyy"
-
-#: ../Tomboy/Watchers.cs:155
-#, csharp-format
-msgid "(Untitled {0})"
-msgstr "(Sen título {0})"
-
-#: ../Tomboy/Watchers.cs:189
-#, csharp-format
-msgid ""
-"A note with the title <b>{0}</b> already exists. Please choose another name "
-"for this note before continuing."
-msgstr ""
-"Xa existe unha nota co título <b>{0}</b>. Escolla outro nome para esta nota "
-"antes de continuar."
-
-#: ../Tomboy/Watchers.cs:204
-msgid "Note title taken"
-msgstr "O título da nota xa existe"
-
-#: ../Tomboy/Watchers.cs:587
-msgid "_Copy Link Address"
-msgstr "_Copiar a ligazón do enderezo"
-
-#: ../Tomboy/Watchers.cs:592
-msgid "_Open Link"
-msgstr "_Abrir a ligazón"
 
 #: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:94
 #, csharp-format
@@ -2512,6 +2311,217 @@ msgstr ""
 "Para evitar que se lle mostre esta mensaxe no futuro, debería cargar FUSE ao "
 "inicio.  Engada «modprobe fuse» a /etc/init.d/boot.local ou «fuse» a /etc/"
 "modules."
+
+#: ../Tomboy/Tomboy.cs:251
+msgid "Cannot create new note"
+msgstr "Non foi posíbel crear unha nota nova"
+
+#: ../Tomboy/Tomboy.cs:317
+msgid "Primary Development:"
+msgstr "Desenvolvemento primario:"
+
+#: ../Tomboy/Tomboy.cs:330
+msgid "Contributors:"
+msgstr "Contribuidores:"
+
+#: ../Tomboy/Tomboy.cs:415
+msgid "translator-credits"
+msgstr ""
+"Fran Diéguez <frandieguez@ubuntu.com>, 2009, 2010.\n"
+"Antón Méixome <meixome@mancomun.org>, 2009.\n"
+"Ignacio Casal Quinteiro <icq@cvs.gnome.org>, 2005, 2006, 2007, 2008."
+
+#: ../Tomboy/Tomboy.cs:424
+msgid ""
+"Copyright © 2004-2007 Alex Graveley\n"
+"Copyright © 2004-2011 Others\n"
+msgstr ""
+"Copyright © 2004-2007 Alex Graveley\n"
+"Copyright © 2004-2011 Outros\n"
+
+#: ../Tomboy/Tomboy.cs:426
+msgid "A simple and easy to use desktop note-taking application."
+msgstr "Un aplicativo sinxelo e fácil de usar para tomar notas no escritorio."
+
+#: ../Tomboy/Tomboy.cs:436
+msgid "Homepage"
+msgstr "Páxina de inicio"
+
+#: ../Tomboy/Tomboy.cs:554
+msgid ""
+"Tomboy: A simple, easy to use desktop note-taking application.\n"
+"Copyright © 2004-2007 Alex Graveley\n"
+"<alex@beatniksoftware.com>\n"
+"\n"
+"Copyright © 2004-2011 Others\n"
+msgstr ""
+"Tomboy: Un aplicativo sinxelo e doado de usar para tomar notas no "
+"escritorio.\n"
+"Copyright © 2004-2007 Alex Graveley \n"
+"<alex@beatniksoftware.com>\n"
+"\n"
+"\n"
+"Copyright © 2004-2011 Otros\n"
+
+#: ../Tomboy/Tomboy.cs:568
+msgid ""
+"Usage:\n"
+"  --version\t\t\tPrint version information.\n"
+"  --help\t\t\tPrint this usage message.\n"
+"  --note-path [path]\t\tLoad/store note data in this directory.\n"
+"  --search [text]\t\tOpen the search all notes window with the search text.\n"
+msgstr ""
+"Uso:\n"
+"  --version\t\t\tImprime información da versión.\n"
+"  --help\t\t\tImprime esta mensaxe de uso.\n"
+"  --note-path [ruta]\t\tCargar ou almacenar datos da nota neste directorio.\n"
+"  --search [texto]\t\tAbre a xanela buscar en todas as notas co texto a "
+"buscar.\n"
+
+#: ../Tomboy/Tomboy.cs:578
+msgid ""
+"  --new-note\t\t\tCreate and display a new note.\n"
+"  --new-note [title]\t\tCreate and display a new note, with a title.\n"
+"  --open-note [title/url]\tDisplay the existing note matching title.\n"
+"  --start-here\t\t\tDisplay the 'Start Here' note.\n"
+"  --highlight-search [text]\tSearch and highlight text in the opened note.\n"
+msgstr ""
+"  --new-note\t\t\tCrea e mostra unha nota.\n"
+"  --new-note [título]\t\tCrea e mostra unha nova nota, cun título.\n"
+"  --open-note [título/url]\tMostra a nota existente que coincida co título.\n"
+"  --start-here\t\t\tMostra a nota 'Comezar aquí'.\n"
+"  --highlight-search [texto]\tBuscar e realzar o texto coincidente na nota "
+"aberta.\n"
+
+#: ../Tomboy/Tomboy.cs:592
+#, csharp-format
+msgid "Version {0}"
+msgstr "Versión {0}"
+
+#: ../Tomboy/Tray.cs:68
+msgid " (new)"
+msgstr " (nova)"
+
+#: ../Tomboy/Tray.cs:293
+msgid "_About Tomboy"
+msgstr "_Sobre o Tomboy"
+
+#: ../Tomboy/Utils.cs:189
+msgid ""
+"The \"Tomboy Notes Manual\" could not be found.  Please verify that your "
+"installation has been completed successfully."
+msgstr ""
+"Non foi posíbel atopar o \"Manual de Notas de Tomboy\".  Comprobe que a súa "
+"instalación rematou correctamente."
+
+#: ../Tomboy/Utils.cs:198
+msgid "Help not found"
+msgstr "Non foi posíbel atopar a axuda"
+
+#: ../Tomboy/Utils.cs:214
+msgid "Cannot open location"
+msgstr "Non é posíbel abrir a localización"
+
+#: ../Tomboy/Utils.cs:236
+#, csharp-format
+msgid "Today, {0}"
+msgstr "Hoxe, {0}"
+
+#: ../Tomboy/Utils.cs:238
+msgid "Today"
+msgstr "Hoxe"
+
+#: ../Tomboy/Utils.cs:242
+#, csharp-format
+msgid "Yesterday, {0}"
+msgstr "Onte, {0}"
+
+#: ../Tomboy/Utils.cs:244
+msgid "Yesterday"
+msgstr "Onte"
+
+#: ../Tomboy/Utils.cs:249
+#, csharp-format
+msgid "{0} day ago, {1}"
+msgid_plural "{0} days ago, {1}"
+msgstr[0] "fai {0} día, {1}"
+msgstr[1] "fai {0} días, {1}"
+
+#: ../Tomboy/Utils.cs:253
+#, csharp-format
+msgid "{0} day ago"
+msgid_plural "{0} days ago"
+msgstr[0] "fai {0} días"
+msgstr[1] "fai {0} días"
+
+#: ../Tomboy/Utils.cs:259
+#, csharp-format
+msgid "Tomorrow, {0}"
+msgstr "Mañá, {0}"
+
+#: ../Tomboy/Utils.cs:261
+msgid "Tomorrow"
+msgstr "Mañán"
+
+#: ../Tomboy/Utils.cs:266
+#, csharp-format
+msgid "In {0} day, {1}"
+msgid_plural "In {0} days, {1}"
+msgstr[0] "En {0} día, {1}"
+msgstr[1] "En {0} días, {1}"
+
+#: ../Tomboy/Utils.cs:270
+#, csharp-format
+msgid "In {0} day"
+msgid_plural "In {0} days"
+msgstr[0] "En {0} día"
+msgstr[1] "En {0} días"
+
+#: ../Tomboy/Utils.cs:275
+msgid "MMMM d, h:mm tt"
+msgstr "MMMM d, h:mm tt"
+
+#: ../Tomboy/Utils.cs:276
+msgid "MMMM d"
+msgstr "d MMMM"
+
+#: ../Tomboy/Utils.cs:278
+msgid "No Date"
+msgstr "Sen data"
+
+#: ../Tomboy/Utils.cs:281
+msgid "MMMM d yyyy, h:mm tt"
+msgstr "MMMM d yyyy, h:mm tt"
+
+#: ../Tomboy/Utils.cs:282
+msgid "MMMM d yyyy"
+msgstr "d MMMM yyyy"
+
+#: ../Tomboy/Watchers.cs:155
+#, csharp-format
+msgid "(Untitled {0})"
+msgstr "(Sen título {0})"
+
+#: ../Tomboy/Watchers.cs:189
+#, csharp-format
+msgid ""
+"A note with the title <b>{0}</b> already exists. Please choose another name "
+"for this note before continuing."
+msgstr ""
+"Xa existe unha nota co título <b>{0}</b>. Escolla outro nome para esta nota "
+"antes de continuar."
+
+#: ../Tomboy/Watchers.cs:204
+msgid "Note title taken"
+msgstr "O título da nota xa existe"
+
+#: ../Tomboy/Watchers.cs:587
+msgid "_Copy Link Address"
+msgstr "_Copiar a ligazón do enderezo"
+
+#: ../Tomboy/Watchers.cs:592
+msgid "_Open Link"
+msgstr "_Abrir a ligazón"
 
 #~ msgid "HTML Export Last Directory"
 #~ msgstr "Último directorio de exportación en HTML"
