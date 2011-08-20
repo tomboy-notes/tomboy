@@ -33,7 +33,7 @@ namespace Tomboy.Sync
 		/// not automatically be saved by a GConf Property Editor.  Preferences
 		/// should be saved when SaveConfiguration () is called.
 		/// </summary>
-		public override Gtk.Widget CreatePreferencesControl ()
+		public override Gtk.Widget CreatePreferencesControl (EventHandler requiredPrefChanged)
 		{
 			Gtk.Table table = new Gtk.Table (3, 2, false);
 			table.RowSpacing = 5;
@@ -52,15 +52,18 @@ namespace Tomboy.Sync
 
 			urlEntry = new Entry ();
 			urlEntry.Text = url;
+			urlEntry.Changed += requiredPrefChanged;
 			AddRow (table, urlEntry, Catalog.GetString ("_URL:"), 0);
 
 			usernameEntry = new Entry ();
 			usernameEntry.Text = username;
+			usernameEntry.Changed += requiredPrefChanged;
 			AddRow (table, usernameEntry, Catalog.GetString ("User_name:"), 1);
 
 			passwordEntry = new Entry ();
 			passwordEntry.Text = password;
 			passwordEntry.Visibility = false;
+			passwordEntry.Changed += requiredPrefChanged;
 			AddRow (table, passwordEntry, Catalog.GetString ("_Password:"), 2);
 
 			table.ShowAll ();
@@ -106,6 +109,17 @@ namespace Tomboy.Sync
 			get {
 				string url, username, password;
 				return GetConfigSettings (out url, out username, out password);
+			}
+		}
+		
+		/// <summary>
+		/// Returns true if required settings are non-empty in the preferences widget
+		/// </summary>
+		public override bool AreSettingsValid
+		{
+			get {
+				string url, username, password;
+				return GetPrefWidgetSettings (out url, out username, out password);
 			}
 		}
 
