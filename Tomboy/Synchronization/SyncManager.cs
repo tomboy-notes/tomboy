@@ -232,14 +232,19 @@ namespace Tomboy.Sync
 
 		static void HandleNoteBufferChanged (Note note)
 		{
-			// If note text changes, kill the timer.  It will
-			// automatically be resurrected once a Save occurs.
+			// Note changed, iff a sync is coming up we kill the
+			// timer to avoid interupting the user (we want to
+			// make sure not to sync more often than the user's pref)
 			if (syncThread == null && autosyncTimer != null) {
-				Logger.Debug ("Note edited...killing autosync timer until next save or delete event");
-				autosyncTimer.Dispose ();
-				autosyncTimer = null;
+				TimeSpan timeSinceLastCheck =
+					DateTime.Now - lastBackgroundCheck;
+				if (timeSinceLastCheck.TotalMinutes > autosyncTimeoutPrefMinutes - 1) {
+					Logger.Debug ("Note edited...killing autosync timer until next save or delete event");
+					autosyncTimer.Dispose ();
+					autosyncTimer = null;
+					NoteMgr.NoteBufferChanged -= HandleNoteBufferChanged;
+				}
 			}
-			NoteMgr.NoteBufferChanged -= HandleNoteBufferChanged;
 		}
 
 		static void Preferences_SettingChanged (object sender, EventArgs args)
@@ -271,8 +276,8 @@ namespace Tomboy.Sync
 					Logger.Debug ("Autosync pref changed...restarting sync timer");
 					autosyncTimeoutPrefMinutes = autosyncTimeoutPrefMinutes >= 5 ? autosyncTimeoutPrefMinutes : 5;
 					lastBackgroundCheck = DateTime.Now;
-					 // Perform a sync one minute after setting change
-					currentAutosyncTimeoutMinutes = 1;
+					 // Perform a sync no sooner than user specified
+					currentAutosyncTimeoutMinutes = autosyncTimeoutPrefMinutes;
 					autosyncTimer = new Timer ((o) => BackgroundSyncChecker (),
 					                           null,
 					                           currentAutosyncTimeoutMinutes * 60000,
