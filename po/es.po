@@ -12,13 +12,13 @@ msgstr ""
 "Project-Id-Version: tomboy.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=tomboy&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2011-07-10 12:21+0000\n"
-"PO-Revision-Date: 2011-07-10 15:37+0200\n"
+"POT-Creation-Date: 2011-08-20 21:18+0000\n"
+"PO-Revision-Date: 2011-08-21 14:35+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español; Castellano <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bits\n"
+"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
 "X-Generator: KBabel 1.11.4\n"
 
@@ -711,13 +711,11 @@ msgstr "Comenzar a sincronizar las notas"
 
 #. Addin's tab caption
 #: ../Tomboy/Addins/AdvancedPreferences/AdvancedPreferencesAddin.cs:38
-#| msgid "Ad_vanced"
 msgid "Advanced"
 msgstr "Avanzadas"
 
 #. Menu Note Count option
 #: ../Tomboy/Addins/AdvancedPreferences/AdvancedPreferencesAddin.cs:56
-#| msgid "Minimum number of notes to show in menu"
 msgid "Minimum number of notes to show in Recent list (maximum 18)"
 msgstr ""
 "Número mínimo de notas que mostrar en la lista de recientes (máximo 18)"
@@ -1208,8 +1206,10 @@ msgid "Could not save the files in \"{0}\""
 msgstr "No se pudieron guardar los archivos «{0}»"
 
 #: ../Tomboy/ExportAllApplicationAddin.cs:506
-msgid "Create destination folder for "
-msgstr "Crear carpeta de destino para "
+#, csharp-format
+#| msgid "Create destination folder for "
+msgid "Create destination folder for {0} export"
+msgstr "Crear carpeta de destino para exportar {0}"
 
 #: ../Tomboy/JumpListManager.cs:96 ../Tomboy/RecentChanges.cs:85
 msgid "Search All Notes"
@@ -1366,22 +1366,25 @@ msgstr "Cuaderno de _notas nuevo…"
 msgid "New Note {0}"
 msgstr "Nota nueva {0}"
 
-#: ../Tomboy/Note.cs:1578
-msgid "Really delete this note?"
-msgstr "¿Desea eliminar esta nota?"
+#: ../Tomboy/Note.cs:1579
+#, csharp-format
+#| msgid "Really delete this {0} note?"
+#| msgid_plural "Really delete these {0} notes?"
+msgid "Really delete \"{0}\"?"
+msgstr "¿Desea eliminar «{0}»?"
 
-#: ../Tomboy/Note.cs:1581
+#: ../Tomboy/Note.cs:1582
 #, csharp-format
 msgid "Really delete this {0} note?"
 msgid_plural "Really delete these {0} notes?"
 msgstr[0] "¿Desea eliminar esta nota?"
 msgstr[1] "¿Desea eliminar estas {0} notas?"
 
-#: ../Tomboy/Note.cs:1592
+#: ../Tomboy/Note.cs:1593
 msgid "If you delete a note it is permanently lost."
 msgstr "Si borra esta nota se perderá permanentemente."
 
-#: ../Tomboy/Note.cs:1626
+#: ../Tomboy/Note.cs:1627
 #, csharp-format
 msgid ""
 "An error occurred while saving your notes. Please check that you have "
@@ -1392,7 +1395,7 @@ msgstr ""
 "espacio en disco y que tiene los permisos apropiados en {0}. Puede encontrar "
 "detalles sobre el error en {1}."
 
-#: ../Tomboy/Note.cs:1642
+#: ../Tomboy/Note.cs:1643
 msgid "Error saving note data."
 msgstr "Error al guardar los datos de la nota"
 
@@ -1999,40 +2002,40 @@ msgstr "_Buscar:"
 msgid "Note"
 msgstr "Nota"
 
-#: ../Tomboy/RecentChanges.cs:372
+#: ../Tomboy/RecentChanges.cs:373
 msgid "Last Changed"
 msgstr "Último cambio"
 
-#: ../Tomboy/RecentChanges.cs:511
+#: ../Tomboy/RecentChanges.cs:512
 msgid "Matches"
 msgstr "Coincidencias"
 
-#: ../Tomboy/RecentChanges.cs:562
+#: ../Tomboy/RecentChanges.cs:563
 msgid "Title match"
 msgstr "Coincidir con el título"
 
-#: ../Tomboy/RecentChanges.cs:565
+#: ../Tomboy/RecentChanges.cs:566
 #, csharp-format
 msgid "{0} match"
 msgid_plural "{0} matches"
 msgstr[0] "{0} coincidencia"
 msgstr[1] "{0} coincidencias"
 
-#: ../Tomboy/RecentChanges.cs:579
+#: ../Tomboy/RecentChanges.cs:580
 #, csharp-format
 msgid "Total: {0} note"
 msgid_plural "Total: {0} notes"
 msgstr[0] "Total: {0} nota"
 msgstr[1] "Total: {0} notas"
 
-#: ../Tomboy/RecentChanges.cs:590
+#: ../Tomboy/RecentChanges.cs:591
 #, csharp-format
 msgid "Matches: {0} note"
 msgid_plural "Matches: {0} notes"
 msgstr[0] "Coincide con: {0} nota"
 msgstr[1] "Coincide con: {0} notas"
 
-#: ../Tomboy/RecentChanges.cs:602
+#: ../Tomboy/RecentChanges.cs:603
 msgid ""
 "No results found in the selected notebook.\n"
 "Click here to search across all notes."
@@ -2040,11 +2043,11 @@ msgstr ""
 "No se han encontrado resultados en el cuaderno de notas seleccionado.\n"
 "Pulse aquí para buscar en todas las notas."
 
-#: ../Tomboy/RecentChanges.cs:608
+#: ../Tomboy/RecentChanges.cs:609
 msgid "Click here to search across all notebooks"
 msgstr "Pulse aquí para buscar en todos los cuadernos de notas"
 
-#: ../Tomboy/RecentChanges.cs:774
+#: ../Tomboy/RecentChanges.cs:775
 msgid "Notes"
 msgstr "Notas"
 
@@ -2529,6 +2532,9 @@ msgstr "_Copiar la dirección del enlace"
 #: ../Tomboy/Watchers.cs:592
 msgid "_Open Link"
 msgstr "_Abrir enlace"
+
+#~ msgid "Really delete this note?"
+#~ msgstr "¿Desea eliminar esta nota?"
 
 #~ msgid "HTML Export Last Directory"
 #~ msgstr "Exportar al último directorio usado en formato HTML"
