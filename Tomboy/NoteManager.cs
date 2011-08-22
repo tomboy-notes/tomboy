@@ -535,9 +535,6 @@ Ciao!");
 			
 			Note template_note = GetOrCreateTemplateNote ();
 
-			if (String.IsNullOrEmpty(title))
-				title = GetUniqueName (Catalog.GetString ("New Note"), notes.Count);
-			
 			if (String.IsNullOrEmpty (body))
 				return CreateNoteFromTemplate (title, template_note, guid);
 			
