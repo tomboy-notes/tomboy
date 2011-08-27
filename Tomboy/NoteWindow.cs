@@ -22,6 +22,7 @@ namespace Tomboy
 		Gtk.ScrolledWindow editor_window;
 		NoteFindBar find_bar;
 		Gtk.ToolButton delete;
+		Gtk.Box template_widget;
 
 		GlobalKeybinder global_keys;
 		InterruptableTimeout mark_set_timeout;
@@ -71,6 +72,9 @@ namespace Tomboy
 			toolbar = MakeToolbar ();
 			toolbar.Show ();
 
+
+			template_widget = MakeTemplateBar ();
+
 			// The main editor widget
 			editor = new NoteEditor (note.Buffer);
 			editor.PopulatePopup += OnPopulatePopup;
@@ -99,6 +103,7 @@ namespace Tomboy
 
 			Gtk.VBox box = new Gtk.VBox (false, 2);
 			box.PackStart (toolbar, false, false, 0);
+			box.PackStart (template_widget, false, false, 0);
 			box.PackStart (editor_window, true, true, 0);
 			box.PackStart (find_bar, false, false, 0);
 
@@ -545,6 +550,76 @@ namespace Tomboy
 		{
 			Gtk.Menu menu = new Gtk.Menu ();
 			return menu;
+		}
+
+		private Gtk.Box MakeTemplateBar ()
+		{
+			// TODO: Move these to static area
+			Tag template_tag = TagManager.GetOrCreateSystemTag (TagManager.TemplateNoteSystemTag);
+			Tag template_save_size_tag = TagManager.GetOrCreateSystemTag (TagManager.TemplateNoteSaveSizeSystemTag);
+			Tag template_save_selection_tag = TagManager.GetOrCreateSystemTag (TagManager.TemplateNoteSaveSelectionSystemTag);
+			Tag template_save_title_tag = TagManager.GetOrCreateSystemTag (TagManager.TemplateNoteSaveTitleSystemTag);
+
+			var bar = new Gtk.VBox ();
+
+			var infoLabel  = new Gtk.Label (Catalog.GetString ("This note is a template note. It determines " +
+			                                                   "the default content of regular notes, and will " +
+			                                                   "not show up in the note menu or search window."));
+			infoLabel.Wrap = true;
+
+			var untemplateButton = new Gtk.Button ();
+			untemplateButton.Label = Catalog.GetString ("Convert to regular note");
+			untemplateButton.Clicked += (o, e) => {
+				note.RemoveTag (template_tag);
+			};
+
+			var saveSizeCheckbutton = new Gtk.CheckButton (Catalog.GetString ("Save Si_ze"));
+			saveSizeCheckbutton.Active = note.ContainsTag (template_save_size_tag);
+			saveSizeCheckbutton.Toggled += (o, e) => {
+				if (saveSizeCheckbutton.Active)
+					note.AddTag (template_save_size_tag);
+				else
+					note.RemoveTag (template_save_size_tag);
+			};
+
+			var saveSelectionCheckbutton = new Gtk.CheckButton (Catalog.GetString ("Save Se_lection"));
+			saveSelectionCheckbutton.Active = note.ContainsTag (template_save_selection_tag);
+			saveSelectionCheckbutton.Toggled += (o, e) => {
+				if (saveSelectionCheckbutton.Active)
+					note.AddTag (template_save_selection_tag);
+				else
+					note.RemoveTag (template_save_selection_tag);
+			};
+			
+			var saveTitleCheckbutton = new Gtk.CheckButton (Catalog.GetString ("Save _Title"));
+			saveTitleCheckbutton.Active = note.ContainsTag (template_save_title_tag);
+			saveTitleCheckbutton.Toggled += (o, e) => {
+				if (saveTitleCheckbutton.Active)
+					note.AddTag (template_save_title_tag);
+				else
+					note.RemoveTag (template_save_title_tag);
+			};
+
+			bar.PackStart (infoLabel);
+			bar.PackStart (untemplateButton);
+			bar.PackStart (saveSizeCheckbutton);
+			bar.PackStart (saveSelectionCheckbutton);
+			bar.PackStart (saveTitleCheckbutton);
+
+			if (note.ContainsTag (template_tag))
+				bar.ShowAll ();
+
+			note.TagAdded += delegate (Note taggedNote, Tag tag) {
+				if (taggedNote == note && tag == template_tag)
+					bar.ShowAll ();
+			};
+
+			note.TagRemoved += delegate (Note taggedNote, string tag) {
+				if (taggedNote == note && tag == template_tag.NormalizedName)
+					bar.HideAll ();
+			};
+
+			return bar;
 		}
 
 		//

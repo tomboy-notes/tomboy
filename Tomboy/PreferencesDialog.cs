@@ -488,7 +488,7 @@ namespace Tomboy
 				selectedSyncAddin = syncAddinStore.GetValue (active_iter, 0) as SyncServiceAddin;
 
 			if (selectedSyncAddin != null)
-				syncAddinPrefsWidget = selectedSyncAddin.CreatePreferencesControl ();
+				syncAddinPrefsWidget = selectedSyncAddin.CreatePreferencesControl (OnSyncAddinPrefsChanged);
 			if (syncAddinPrefsWidget == null) {
 				Gtk.Label l = new Gtk.Label (Catalog.GetString ("Not configurable"));
 				l.Yalign = 0.5f;
@@ -1107,7 +1107,7 @@ namespace Tomboy
 				        syncAddinStore.GetValue (iter, 0) as SyncServiceAddin;
 				if (newAddin != null) {
 					selectedSyncAddin = newAddin;
-					syncAddinPrefsWidget = selectedSyncAddin.CreatePreferencesControl ();
+					syncAddinPrefsWidget = selectedSyncAddin.CreatePreferencesControl (OnSyncAddinPrefsChanged);
 					if (syncAddinPrefsWidget == null) {
 						Gtk.Label l = new Gtk.Label (Catalog.GetString ("Not configurable"));
 						l.Yalign = 0.5f;
@@ -1119,7 +1119,7 @@ namespace Tomboy
 					syncAddinPrefsContainer.PackStart (syncAddinPrefsWidget, false, false, 0);
 
 					resetSyncAddinButton.Sensitive = false;
-					saveSyncAddinButton.Sensitive = true;
+					saveSyncAddinButton.Sensitive = false;
 				}
 			} else {
 				selectedSyncAddin = null;
@@ -1282,6 +1282,13 @@ namespace Tomboy
 				dialog.Run ();
 				dialog.Destroy ();
 			}
+		}
+		
+		void OnSyncAddinPrefsChanged (object sender, EventArgs args)
+		{
+			// Enable/disable the save button based on required fields
+			if (selectedSyncAddin != null)
+				saveSyncAddinButton.Sensitive = selectedSyncAddin.AreSettingsValid;
 		}
 
 		void OpenTemplateButtonClicked (object sender, EventArgs args)

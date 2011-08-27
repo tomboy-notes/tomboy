@@ -208,9 +208,15 @@ namespace Tomboy.Notebooks
 		/// </returns>
 		public static bool GetNotebookIter (Notebook notebook, out Gtk.TreeIter iter)
 		{
-			if (notebookMap.ContainsKey (notebook.NormalizedName) == true) {
-				iter = notebookMap [notebook.NormalizedName];
-				return true;
+			Gtk.TreeIter current_iter;
+			if (sortedNotebooks.GetIterFirst (out current_iter)) {
+				do {
+					Notebook current_notebook = (Notebook)sortedNotebooks.GetValue (current_iter, 0);
+					if (notebook == current_notebook) {
+						iter = current_iter;
+						return true;
+					}
+				} while (sortedNotebooks.IterNext (ref current_iter));
 			}
 			
 			iter = Gtk.TreeIter.Zero;
@@ -369,10 +375,12 @@ namespace Tomboy.Notebooks
 			if (response != (int) Gtk.ResponseType.Yes)
 				return;
 			
+			// Grab the template note before removing all the notebook tags
+			Note templateNote = notebook.GetTemplateNote ();
+			
 			DeleteNotebook (notebook);
 
 			// Delete the template note
-			Note templateNote = notebook.GetTemplateNote ();
 			if (templateNote != null) {
 				NoteManager noteManager = Tomboy.DefaultNoteManager;
 				noteManager.Delete (templateNote);

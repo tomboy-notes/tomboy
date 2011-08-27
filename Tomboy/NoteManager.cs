@@ -522,10 +522,9 @@ Ciao!");
 			return CreateNewNote (title, guid);
 		}
 
-		// Create a new note with the specified title, and a simple
-		// "Describe..." body or the body from the "New Note Template"
-		// note if it exists.  If the "New Note Template" body is found
-		// the text will not automatically be highlighted.
+		// Create a new note with the specified title from the default
+		// template note. Optionally the body can be overridden by appending
+		// it to title.
 		private Note CreateNewNote (string title, string guid)
 		{
 			string body = null;
@@ -534,14 +533,10 @@ Ciao!");
 			if (title == null)
 				return null;
 			
-			Note note_template = Find (NoteTemplateTitle);
-			if (note_template != null) {
-				// Use the body from the "New Note Template" note
-				string xml_content =
-					note_template.XmlContent.Replace (NoteTemplateTitle,
-					                                  XmlEncoder.Encode (title));
-				return CreateNewNote (title, xml_content, guid);
-			}
+			Note template_note = GetOrCreateTemplateNote ();
+
+			if (String.IsNullOrEmpty (body))
+				return CreateNoteFromTemplate (title, template_note, guid);
 			
 			// Use a simple "Describe..." body and highlight
 			// it so it can be easily overwritten
@@ -555,8 +550,7 @@ Ciao!");
 
 			Note new_note = CreateNewNote (title, content, guid);
 
-			// Select the inital
-			// "Describe..." text so typing will overwrite the body text,
+			// Select the inital text so typing will overwrite the body text
 			NoteBuffer buffer = new_note.Buffer;
 			Gtk.TextIter iter = buffer.GetIterAtOffset (header.Length);
 			buffer.MoveMark (buffer.SelectionBound, iter);
@@ -606,7 +600,19 @@ Ciao!");
 		/// </returns>
 		public Note GetOrCreateTemplateNote ()
 		{
-			Note template_note = Find (NoteTemplateTitle);
+			// The default template note will have the system template tag and
+			// will belong to zero notebooks. We find this by searching all
+			// notes with the TemplateNoteSystemTag and check that it's
+			// notebook == null
+			Note template_note = null;
+			Tag template_tag = TagManager.GetOrCreateSystemTag (TagManager.TemplateNoteSystemTag);
+			foreach (Note note in template_tag.Notes) {
+				if (Notebooks.NotebookManager.GetNotebookFromNote (note) == null) {
+					template_note = note;
+					break;
+				}
+			}
+			
 			if (template_note == null) {
 				template_note =
 					Create (NoteTemplateTitle,
@@ -619,8 +625,7 @@ Ciao!");
 				buffer.MoveMark (buffer.InsertMark, buffer.EndIter);
 
 				// Flag this as a template note
-				Tag tag = TagManager.GetOrCreateSystemTag (TagManager.TemplateNoteSystemTag);
-				template_note.AddTag (tag);
+				template_note.AddTag (template_tag);
 
 				template_note.QueueSave (ChangeType.ContentChanged);
 			}
@@ -657,6 +662,98 @@ Ciao!");
 					return note;
 			}
 			return null;
+		}
+		
+		// Removes any trailing whitespace on the title line
+		public static string SanitizeXmlContent (string xml_content)
+		{
+			int i = String.IsNullOrEmpty (xml_content) ? -1 : xml_content.IndexOf ('\n');
+			while (--i >= 0) {
+				if (xml_content [i].Equals ('\r'))
+					continue;
+			
+				if (Char.IsWhiteSpace (xml_content [i]))
+					xml_content = xml_content.Remove (i,1);
+				else
+					break;
+			}
+			
+			return xml_content;
+		}
+		
+		/// <summary>
+		/// Creates a new note with the given titel based on the template note.
+		/// </summary>
+		/// <param name="title">
+		/// A <see cref="System.String"/>
+		/// </param>
+		/// <param name="template_note">
+		/// A <see cref="Note"/>
+		/// </param>
+		/// <returns>
+		/// A <see cref="Note"/>
+		/// </returns>
+		public Note CreateNoteFromTemplate (string title, Note template_note)
+		{
+			return CreateNoteFromTemplate (title, template_note, null);
+		}
+		
+		// Creates a new note with the given title and guid with body based on
+		// the template note.
+		private Note CreateNoteFromTemplate (string title, Note template_note, string guid)
+		{
+			Tag template_save_title = TagManager.GetOrCreateSystemTag (TagManager.TemplateNoteSaveTitleSystemTag);
+			if (template_note.ContainsTag (template_save_title))
+				title = GetUniqueName (template_note.Title, notes.Count);
+			
+			// Use the body from the template note
+			string xml_content =
+				template_note.XmlContent.Replace (XmlEncoder.Encode (template_note.Title),
+				                                  XmlEncoder.Encode (title));
+			xml_content = SanitizeXmlContent (xml_content);
+
+			Note new_note = CreateNewNote (title, xml_content, guid);
+			
+			// Copy template note's properties
+			Tag template_save_size = TagManager.GetOrCreateSystemTag (TagManager.TemplateNoteSaveSizeSystemTag);
+			if (template_note.Data.HasExtent () && template_note.ContainsTag (template_save_size)) {
+				new_note.Data.Height = template_note.Data.Height;
+				new_note.Data.Width = template_note.Data.Width;
+			}
+			
+			Tag template_save_selection = TagManager.GetOrCreateSystemTag (TagManager.TemplateNoteSaveSelectionSystemTag);
+			if (template_note.Data.CursorPosition > 0 && template_note.ContainsTag (template_save_selection)) {
+				Gtk.TextBuffer buffer = new_note.Buffer;
+				Gtk.TextIter iter;
+				
+				// Because the titles will be different between template and
+				// new note, we can't just drop the cursor at template's
+				// CursorPosition. Whitespace after the title makes this more
+				// complicated so let's just start counting from the line after the title.
+				int title_offset_difference = buffer.GetIterAtLine (1).Offset - template_note.Buffer.GetIterAtLine (1).Offset;
+				
+				iter = buffer.GetIterAtOffset (template_note.Data.CursorPosition + title_offset_difference);
+				buffer.PlaceCursor(iter);
+				
+				iter = buffer.GetIterAtOffset (template_note.Data.SelectionBoundPosition + title_offset_difference);
+				buffer.MoveMark (buffer.SelectionBound.Name, iter);
+			}
+			
+			return new_note;
+		}
+		
+		// Find a title that does not exist using basename and id as
+		// a starting point
+		public string GetUniqueName (string basename, int id)
+		{
+			string title;
+			while (true) {
+				title = String.Concat (basename, " ", id++);
+				if (Find (title) == null)
+					break;
+			}
+			
+			return title;
 		}
 
 		class CompareDates : IComparer<Note>

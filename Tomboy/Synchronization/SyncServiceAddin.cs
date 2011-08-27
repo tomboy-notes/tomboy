@@ -23,9 +23,11 @@ namespace Tomboy.Sync
 		/// Creates a Gtk.Widget that's used to configure the service.  This
 		/// will be used in the Synchronization Preferences.  Preferences should
 		/// not automatically be saved by a GConf Property Editor.  Preferences
-		/// should be saved when SaveConfiguration () is called.
+		/// should be saved when SaveConfiguration () is called. requiredPrefChanged
+		/// should be called when a required setting is changed.
 		/// </summary>
-		public abstract Gtk.Widget CreatePreferencesControl ();
+		/// <param name="requiredPrefChanged">Delegate to be called when a required preference is changed</param>
+		public abstract Gtk.Widget CreatePreferencesControl (EventHandler requiredPrefChanged);
 
 		/// <summary>
 		/// The Addin should verify and check the connection to the service
@@ -45,6 +47,15 @@ namespace Tomboy.Sync
 		public abstract bool IsConfigured
 		{
 			get;
+		}
+		
+		/// <summary>
+		/// Returns true if required settings are valid in the widget
+		/// (Required setings are non-empty)
+		/// </summary>
+		public virtual bool AreSettingsValid
+		{
+			get { return true; }
 		}
 
 		/// <summary>

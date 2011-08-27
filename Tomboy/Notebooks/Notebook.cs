@@ -109,30 +109,52 @@ namespace Tomboy.Notebooks
 		public virtual Note GetTemplateNote ()
 		{
 			NoteManager noteManager = Tomboy.DefaultNoteManager;
-			Note note = noteManager.Find (templateNoteTitle);
-			if (note == null) {
-				note =
+			Note template_note = null;
+			Tag template_tag = TagManager.GetOrCreateSystemTag (TagManager.TemplateNoteSystemTag);
+			Tag notebook_tag = TagManager.GetOrCreateSystemTag (NotebookTagPrefix + Name);
+			foreach (Note note in template_tag.Notes) {
+				if (note.ContainsTag (notebook_tag)) {
+					template_note = note;
+					break;
+				}
+			}
+			
+			if (template_note == null) {
+				template_note =
 					noteManager.Create (templateNoteTitle,
 							NoteManager.GetNoteTemplateContent (templateNoteTitle));
 					
 				// Select the initial text
-				NoteBuffer buffer = note.Buffer;
+				NoteBuffer buffer = template_note.Buffer;
 				Gtk.TextIter iter = buffer.GetIterAtLineOffset (2, 0);
 				buffer.MoveMark (buffer.SelectionBound, iter);
 				buffer.MoveMark (buffer.InsertMark, buffer.EndIter);
 
 				// Flag this as a template note
-				Tag tag = TagManager.GetOrCreateSystemTag (TagManager.TemplateNoteSystemTag);
-				note.AddTag (tag);
+				template_note.AddTag (template_tag);
 
 				// Add on the notebook system tag so Tomboy
 				// will persist the tag/notebook across sessions
 				// if no other notes are added to the notebook.
-				tag = TagManager.GetOrCreateSystemTag (NotebookTagPrefix + Name);
-				note.AddTag (tag);
+				template_note.AddTag (notebook_tag);
 				
-				note.QueueSave (ChangeType.ContentChanged);
+				template_note.QueueSave (ChangeType.ContentChanged);
 			}
+			
+			return template_note;
+		}
+		
+		public Note CreateNotebookNote ()
+		{
+			string temp_title;
+			Note template = GetTemplateNote ();
+			NoteManager note_manager = Tomboy.DefaultNoteManager;
+			
+			temp_title = note_manager.GetUniqueName (Catalog.GetString ("New Note"), note_manager.Notes.Count);
+			Note note = note_manager.CreateNoteFromTemplate (temp_title, template);
+			
+			// Add the notebook tag
+			note.AddTag (tag);
 			
 			return note;
 		}

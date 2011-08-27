@@ -11,6 +11,16 @@ namespace Tomboy.Notebooks
 		Gtk.Menu menu;
 		static Gdk.Pixbuf notebookIcon;
 		static Gdk.Pixbuf newNotebookIcon;
+		static Tag templateTag;
+
+		static Tag TemplateTag
+		{
+			get {
+				if (templateTag == null)
+					templateTag = TagManager.GetOrCreateSystemTag (TagManager.TemplateNoteSystemTag);
+				return templateTag;
+			}
+		}
 		
 		static Gdk.Pixbuf NotebookIcon
 		{
@@ -53,6 +63,18 @@ namespace Tomboy.Notebooks
 			
 			NotebookManager.NoteAddedToNotebook += OnNoteAddedToNotebook;
 			NotebookManager.NoteRemovedFromNotebook += OnNoteRemovedFromNotebook;
+
+
+			Note.TagAdded += delegate (Note taggedNote, Tag tag) {
+				if (taggedNote == Note && tag == TemplateTag)
+					UpdateButtonSensitivity (true);
+			};
+
+			// TODO: Make sure this is handled in NotebookNoteAddin, too
+			Note.TagRemoved += delegate (Note taggedNote, string tag) {
+				if (taggedNote == Note && tag == TemplateTag.NormalizedName)
+					UpdateButtonSensitivity (false);
+			};
 		}
 
 		public override void Shutdown ()
@@ -77,17 +99,16 @@ namespace Tomboy.Notebooks
 			
 			if (toolButton == null) {
 				InitializeToolButton ();
-
-				// Disable the notebook button if this note is a template note
-				Tag templateTag = TagManager.GetOrCreateSystemTag (TagManager.TemplateNoteSystemTag);
-				if (Note.ContainsTag (templateTag) == true) {
-					toolButton.Sensitive = false;
-				
-					// Also prevent notebook templates from being deleted
-					if (NotebookManager.GetNotebookFromNote (Note) != null)
-						Note.Window.DeleteButton.Sensitive = false;
-				}
+				UpdateButtonSensitivity (Note.ContainsTag (TemplateTag));
 			}
+		}
+
+		private void UpdateButtonSensitivity (bool isTemplate)
+		{
+			if (toolButton != null)
+				toolButton.Sensitive = !isTemplate;
+			if (Note.HasWindow)
+				Note.Window.DeleteButton.Sensitive = !isTemplate || NotebookManager.GetNotebookFromNote (Note) == null;
 		}
 		
 		void OnMenuShown (object sender, EventArgs args)

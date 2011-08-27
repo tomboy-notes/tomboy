@@ -23,7 +23,7 @@ namespace Tomboy.Sync
 		/// not automatically be saved by a GConf Property Editor.  Preferences
 		/// should be saved when SaveConfiguration () is called.
 		/// </summary>
-		public override Gtk.Widget CreatePreferencesControl ()
+		public override Gtk.Widget CreatePreferencesControl (EventHandler requiredPrefChanged)
 		{
 			Gtk.Table table = new Gtk.Table (3, 2, false);
 			table.RowSpacing = 5;
@@ -44,6 +44,7 @@ namespace Tomboy.Sync
 
 			serverEntry = new Entry ();
 			serverEntry.Text = server;
+			serverEntry.Changed += requiredPrefChanged;
 			AddRow (table, serverEntry, Catalog.GetString ("Se_rver:"), 0);
 
 			usernameEntry = new Entry ();
@@ -119,6 +120,18 @@ namespace Tomboy.Sync
 				return GetConfigSettings (out server, out folder, out username, out port);
 			}
 		}
+		
+		/// <summary>
+		/// Returns true if required widget settings are non-empty
+		/// </summary>
+		public override bool AreSettingsValid
+		{
+			get {
+				string server, folder, username;
+				int port;
+				return GetPrefWidgetSettings (out server, out folder, out username, out port);
+			}
+		}
 
 		/// <summary>
 		/// The name that will be shown in the preferences to distinguish
@@ -187,6 +200,7 @@ namespace Tomboy.Sync
 		/// <summary>
 		/// Get config settings
 		/// </summary>
+		/// <returns>true if saved settings are valid</returns>
 		private bool GetConfigSettings (out string server, out string folder, out string username, out int port)
 		{
 			server = Preferences.Get ("/apps/tomboy/sync_sshfs_server") as String;
@@ -199,7 +213,6 @@ namespace Tomboy.Sync
 
 			return !string.IsNullOrEmpty (server) && !string.IsNullOrEmpty (username);
 		}
-
 
 		/// <summary>
 		/// Get config settings

@@ -31,7 +31,7 @@ namespace Tomboy
 		DateTime change_date;
 		DateTime metadata_change_date;
 
-		int cursor_pos;
+		int cursor_pos, selection_bound_pos;
 		int width, height;
 		int x, y;
 		bool open_on_startup;
@@ -46,6 +46,7 @@ namespace Tomboy
 			this.text = "";
 			x = noPosition;
 			y = noPosition;
+			selection_bound_pos = noPosition;
 
 			tags = new Dictionary<string, Tag> ();
 
@@ -121,7 +122,7 @@ namespace Tomboy
 		}
 		
 
-		// FIXME: the next five attributes don't belong here (the data
+		// FIXME: the next six attributes don't belong here (the data
 		// model), but belong into the view; for now they are kept here
 		// for backwards compatibility
 
@@ -132,6 +133,16 @@ namespace Tomboy
 			}
 			set {
 				cursor_pos = value;
+			}
+		}
+		
+		public int SelectionBoundPosition
+		{
+			get {
+				return selection_bound_pos;
+			}
+			set {
+				selection_bound_pos = value;
 			}
 		}
 
@@ -317,6 +328,13 @@ namespace Tomboy
 					cursor = buffer.GetIterAtLine (2);
 				}
 				buffer.PlaceCursor (cursor);
+				
+				if (data.SelectionBoundPosition >= 0) {
+					// Move selection bound to last-saved position
+					Gtk.TextIter selection_bound;
+					selection_bound = buffer.GetIterAtOffset (data.SelectionBoundPosition);
+					buffer.MoveMark (buffer.SelectionBound.Name, selection_bound);
+				}
 
 				// New events should create Undo actions
 				buffer.Undoer.ThawUndo ();
@@ -535,7 +553,7 @@ namespace Tomboy
 		{
 			if (NoteTagTable.TagIsSerializable (args.Tag)) {
 				DebugSave ("BufferTagApplied queueing save: {0}", args.Tag.Name);
-				QueueSave (ChangeType.ContentChanged);
+				QueueSave (TagTable.GetChangeType (args.Tag));
 			}
 		}
 
@@ -543,18 +561,20 @@ namespace Tomboy
 		{
 			if (NoteTagTable.TagIsSerializable (args.Tag)) {
 				DebugSave ("BufferTagRemoved queueing save: {0}", args.Tag.Name);
-				QueueSave (ChangeType.ContentChanged);
+				QueueSave (TagTable.GetChangeType (args.Tag));
 			}
 		}
 
-		void BufferInsertMarkSet (object sender, Gtk.MarkSetArgs args)
+		void OnBufferMarkSet (object sender, Gtk.MarkSetArgs args)
 		{
-			if (args.Mark != buffer.InsertMark)
+			if (args.Mark == buffer.InsertMark)
+				data.Data.CursorPosition = args.Location.Offset;
+			else if (args.Mark == buffer.SelectionBound)
+				data.Data.SelectionBoundPosition = args.Location.Offset;
+			else
 				return;
 
-			data.Data.CursorPosition = args.Location.Offset;
-
-			DebugSave ("BufferInsertSetMark queueing save");
+			DebugSave ("OnBufferSetMark queueing save");
 			QueueSave (ChangeType.NoChange);
 		}
 
@@ -683,7 +703,7 @@ namespace Tomboy
 		
 		public bool ContainsTag (Tag tag)
 		{
-			if (data.Data.Tags.ContainsKey (tag.NormalizedName) == true)
+			if (tag != null && data.Data.Tags.ContainsKey (tag.NormalizedName))
 				return true;
 			
 			return false;
@@ -1082,7 +1102,7 @@ namespace Tomboy
 					buffer.Changed += OnBufferChanged;
 					buffer.TagApplied += BufferTagApplied;
 					buffer.TagRemoved += BufferTagRemoved;
-					buffer.MarkSet += BufferInsertMarkSet;
+					buffer.MarkSet += OnBufferMarkSet;
 				}
 				return buffer;
 			}
@@ -1340,6 +1360,10 @@ namespace Tomboy
 						if (int.TryParse (xml.ReadString (), out num))
 							note.CursorPosition = num;
 						break;
+					case "selection-bound-position":
+						if (int.TryParse (xml.ReadString (), out num))
+							note.SelectionBoundPosition = num;
+						break;
 					case "width":
 						if (int.TryParse (xml.ReadString (), out num))
 							note.Width = num;
@@ -1475,6 +1499,10 @@ namespace Tomboy
 			xml.WriteStartElement (null, "cursor-position", null);
 			xml.WriteString (note.CursorPosition.ToString ());
 			xml.WriteEndElement ();
+			
+			xml.WriteStartElement (null, "selection-bound-position", null);
+			xml.WriteString (note.SelectionBoundPosition.ToString ());
+			xml.WriteEndElement ();
 
 			xml.WriteStartElement (null, "width", null);
 			xml.WriteString (note.Width.ToString ());
@@ -1574,9 +1602,10 @@ namespace Tomboy
 
 			if ((bool) Preferences.Get (Preferences.ENABLE_DELETE_CONFIRM)) {
 				// show confirmation dialog
-				if (notes.Count == 1)
-					message = Catalog.GetString ("Really delete this note?");
-				else
+				if (notes.Count == 1) {
+					Note note = notes[0];
+					message = string.Format (Catalog.GetString ("Really delete \"{0}\"?"), note.Title) ;	
+				} else
 					message = string.Format (Catalog.GetPluralString (
 						"Really delete this {0} note?",
 						"Really delete these {0} notes?",

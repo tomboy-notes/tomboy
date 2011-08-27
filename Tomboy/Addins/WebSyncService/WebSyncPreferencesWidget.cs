@@ -46,7 +46,7 @@ namespace Tomboy.WebSync
 		private const string callbackHtmlTemplate =
 				@"<html><head><meta http-equiv=""content-type"" content=""text/html; charset=utf-8""><title>{0}</title></head><body><div><h1>{0}</h1>{1}</div></body></html>";
 		
-		public WebSyncPreferencesWidget (Api.OAuth oauth, string server) : base (false, 5)
+		public WebSyncPreferencesWidget (Api.OAuth oauth, string server, EventHandler requiredPrefChanged) : base (false, 5)
 		{
 			this.oauth = oauth;
 			
@@ -73,6 +73,7 @@ namespace Tomboy.WebSync
 			serverEntry.Changed += delegate {
 				Auth = null;
 			};
+			serverEntry.Changed += requiredPrefChanged;
 
 			Add (authButton);
 

@@ -75,10 +75,14 @@ namespace Tomboy.WebSync
 			get {
 				string serverPref;
 				Api.OAuth oauth;
-				GetConfigSettings (out oauth, out serverPref);
-				return !string.IsNullOrEmpty (serverPref) &&
-					oauth != null &&
-					oauth.IsAccessToken;
+				return GetConfigSettings (out oauth, out serverPref);
+			}
+		}
+		
+		public override bool AreSettingsValid
+		{
+			get {
+				return prefsWidget != null && !String.IsNullOrEmpty(prefsWidget.Server);
 			}
 		}
 
@@ -88,12 +92,12 @@ namespace Tomboy.WebSync
 			}
 		}
 
-		public override Gtk.Widget CreatePreferencesControl ()
+		public override Gtk.Widget CreatePreferencesControl (EventHandler requiredPrefChanged)
 		{
 			string serverPref;
 			Api.OAuth oauth;
 			GetConfigSettings (out oauth, out serverPref);
-			prefsWidget = new WebSyncPreferencesWidget (oauth, serverPref);
+			prefsWidget = new WebSyncPreferencesWidget (oauth, serverPref, requiredPrefChanged);
 			return prefsWidget;
 		}
 
@@ -148,7 +152,7 @@ namespace Tomboy.WebSync
 
 		#region Private Members
 
-		private void GetConfigSettings (out Api.OAuth oauthConfig, out string serverPref)
+		private bool GetConfigSettings (out Api.OAuth oauthConfig, out string serverPref)
 		{
 			serverPref = (string)
 				Preferences.Get (serverUrlPrefPath);
@@ -177,6 +181,9 @@ namespace Tomboy.WebSync
 			//       case of weird circumstances?
 			oauthConfig.IsAccessToken =
 				!String.IsNullOrEmpty (oauthConfig.Token);
+			
+			return !string.IsNullOrEmpty (serverPref)
+				&& oauthConfig.IsAccessToken;
 		}
 
 		private void SaveConfigSettings (Api.OAuth oauthConfig, string serverPref)
