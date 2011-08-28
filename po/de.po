@@ -15,8 +15,8 @@ msgstr ""
 "Project-Id-Version: tomboy\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=tomboy&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2011-06-26 04:42+0000\n"
-"PO-Revision-Date: 2011-07-07 15:58+0100\n"
+"POT-Creation-Date: 2011-08-22 21:48+0000\n"
+"PO-Revision-Date: 2011-08-28 14:11+0100\n"
 "Last-Translator: Mario Blättermann <mariobl@freenet.de>\n"
 "Language-Team: Deutsch <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -651,7 +651,7 @@ msgstr "_Löschen"
 msgid "Delete the selected note"
 msgstr "Ausgewählte Notiz löschen"
 
-#: ../Tomboy/ActionManager.cs:142 ../Tomboy/NoteWindow.cs:406
+#: ../Tomboy/ActionManager.cs:142 ../Tomboy/NoteWindow.cs:411
 msgid "_Close"
 msgstr "S_chließen"
 
@@ -695,7 +695,7 @@ msgstr "Benachrichtigungsfeld"
 msgid "Create _New Note"
 msgstr "_Neue Notiz anlegen"
 
-#: ../Tomboy/ActionManager.cs:175 ../Tomboy/NoteWindow.cs:349
+#: ../Tomboy/ActionManager.cs:175 ../Tomboy/NoteWindow.cs:354
 msgid "_Search All Notes"
 msgstr "_Alle Notizen durchsuchen"
 
@@ -706,6 +706,16 @@ msgstr "Fenster zum Durchsuchen aller Notizen öffnen"
 #: ../Tomboy/ActionManager.cs:180
 msgid "Start synchronizing notes"
 msgstr "Abgleich der Notizen starten"
+
+#. Addin's tab caption
+#: ../Tomboy/Addins/AdvancedPreferences/AdvancedPreferencesAddin.cs:38
+msgid "Advanced"
+msgstr "Erweitert"
+
+#. Menu Note Count option
+#: ../Tomboy/Addins/AdvancedPreferences/AdvancedPreferencesAddin.cs:56
+msgid "Minimum number of notes to show in Recent list (maximum 18)"
+msgstr "Mindestanzahl der in der Notizliste anzuzeigenden Notizen (maximal 18)"
 
 #: ../Tomboy/Addins/Backlinks/BacklinksNoteAddin.cs:38
 msgid "What links here?"
@@ -768,9 +778,25 @@ msgstr "Dieses Symbol wirklich entfernen?"
 msgid "If you remove an icon it is permanently lost."
 msgstr "Wenn Sie dieses Symbol entfernen, geht es unwiderruflich verloren."
 
+#: ../Tomboy/Addins/Evolution/EvolutionNoteAddin.cs:273
+msgid "Cannot open email"
+msgstr "E-Mail kann nicht geöffnet werden"
+
 #: ../Tomboy/Addins/ExportToHtml/ExportToHtmlApplicationAddin.cs:59
 msgid "HTML"
 msgstr "HTML"
+
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlDialog.cs:13
+msgid "Destination for HTML Export"
+msgstr "Ziel für die HTML-Exportierung"
+
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlDialog.cs:23
+msgid "Export linked notes"
+msgstr "Verknüpfte Notizen exportieren"
+
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlDialog.cs:28
+msgid "Include all other linked notes"
+msgstr "Alle anderen verknüpften Notizen einschließen"
 
 #: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:67
 msgid "Export to HTML"
@@ -802,22 +828,6 @@ msgstr "Ordner existiert nicht."
 msgid "Could not save the file \"{0}\""
 msgstr "Die Datei {0} konnte nicht gespeichert werden."
 
-#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlDialog.cs:13
-msgid "Destination for HTML Export"
-msgstr "Ziel für die HTML-Exportierung"
-
-#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlDialog.cs:23
-msgid "Export linked notes"
-msgstr "Verknüpfte Notizen exportieren"
-
-#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlDialog.cs:28
-msgid "Include all other linked notes"
-msgstr "Alle anderen verknüpften Notizen einschließen"
-
-#: ../Tomboy/Addins/Evolution/EvolutionNoteAddin.cs:273
-msgid "Cannot open email"
-msgstr "E-Mail kann nicht geöffnet werden"
-
 #: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:93
 msgid "_Folder Path:"
 msgstr "_Ordnerpfad:"
@@ -826,18 +836,18 @@ msgstr "_Ordnerpfad:"
 msgid "Select Synchronization Folder..."
 msgstr "Ordner für den Abgleich auswählen …"
 
-#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:126
+#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:127
 msgid "Folder path field is empty."
 msgstr "Feld für Ordnerpfad ist leer."
 
-#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:135
+#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:136
 msgid ""
 "Specified folder path does not exist, and Tomboy was unable to create it."
 msgstr ""
 "Der angegebene Ordnerpfad existiert nicht und konnte von Tomboy nicht erzeugt "
 "werden."
 
-#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:213
+#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:214
 msgid "Local Folder"
 msgstr "Lokaler Ordner"
 
@@ -939,22 +949,22 @@ msgstr "Ungültige Verknüpfungen entfernen"
 msgid "Add a sketch"
 msgstr "Entwurf hinzufügen"
 
-#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:47
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:48
 #: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:59
 msgid "Se_rver:"
 msgstr "Se_rver:"
 
-#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:51
-#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:59
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:52
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:61
 msgid "User_name:"
 msgstr "Benutzer_name:"
 
-#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:55
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:56
 msgid "_Folder Path (optional):"
 msgstr "_Ordnerpfad (optional):"
 
 #. Text for label describing setup required for SSH sync addin to work
-#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:58
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:59
 msgid ""
 "SSH synchronization requires an existing SSH key for this server and user, "
 "added to a running SSH daemon."
@@ -962,15 +972,15 @@ msgstr ""
 "Der SSH-Abgleich erfordert es, dass ein bestehender SSH-Schlüssel für diesen "
 "Server und Benutzer zu einem laufenden SSH-Daemon hinzugefügt wird."
 
-#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:82
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:83
 msgid "Server or username field is empty."
 msgstr "Feld für Server oder Benutzername ist leer."
 
-#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:130
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:143
 msgid "SSH"
 msgstr "SSH"
 
-#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:179
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:192
 msgid ""
 "Timeout connecting to server. Please ensure that your SSH key has been added "
 "to a running SSH daemon."
@@ -1034,23 +1044,23 @@ msgstr "--- Tasque wurde nicht gestartet ---"
 msgid "_Underline"
 msgstr "_Unterstreichen"
 
-#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:55
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:56
 msgid "_URL:"
 msgstr "_Adresse:"
 
-#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:64
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:67
 msgid "_Password:"
 msgstr "_Passwort:"
 
-#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:77
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:80
 msgid "URL, username, or password field is empty."
 msgstr "Feld für Adresse, Benutzername oder Passwort ist leer."
 
-#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:119
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:133
 msgid "WebDAV"
 msgstr "WebDAV"
 
-#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:178
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:192
 msgid ""
 "There was an error connecting to the server.  This may be caused by using an "
 "incorrect user name and/or password."
@@ -1064,19 +1074,15 @@ msgstr ""
 #. Save configuration into GConf
 #. Preferences.Set ("/apps/tomboy/sync_wdfs_url", url ?? string.Empty);
 #. Preferences.Set ("/apps/tomboy/sync_wdfs_username", username ?? string.Empty);
-#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:254
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:268
 msgid ""
 "Saving configuration to the GNOME keyring failed with the following message:"
 msgstr ""
 "Das Speichern der Konfiguration in den GNOME-Schlüsselbund ist mit folgender "
 "Meldung gescheitert:"
 
-#: ../Tomboy/Addins/WebSyncService/WebSyncServiceAddin.cs:70
-msgid "Tomboy Web"
-msgstr "Tomboy im Internet"
-
 #: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:66
-#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:96
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:97
 msgid "Connect to Server"
 msgstr "Mit Server verbinden"
 
@@ -1085,23 +1091,23 @@ msgid "Connected"
 msgstr "Verbunden"
 
 #. Translators: The web service supporting Tomboy WebSync is not responding as expected
-#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:125
-#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:156
-#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:170
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:126
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:157
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:171
 msgid "Server not responding. Try again later."
 msgstr "Server antwortet nicht. Bitte später versuchen."
 
-#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:201
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:202
 msgid "Authorization Failed, Try Again"
 msgstr "Legitimierung gescheitert, bitte erneut versuchen"
 
 #. Translators: Title of web page presented to user after they authorized Tomboy for sync
-#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:210
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:211
 msgid "Tomboy Web Authorization Successful"
 msgstr "Tomboy-Web-Legitimierung erfolgreich"
 
 #. Translators: Body of web page presented to user after they authorized Tomboy for sync
-#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:212
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:213
 msgid ""
 "Please return to the Tomboy Preferences window and press Save to start "
 "synchronizing."
@@ -1109,31 +1115,34 @@ msgstr ""
 "Drücken Sie im Einstellungsfenster von Tomboy die Eingabetaste und klicken "
 "Sie auf »Speichern«, um mit dem Abgleich zu beginnen."
 
-#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:221
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:222
 msgid "Connected. Press Save to start synchronizing"
 msgstr ""
 "Verbindung hergestellt. Klicken Sie auf »Speichern«, um mit dem Abgleich zu "
 "beginnen."
 
 #. Translators: The user must take action in their web browser to continue the authorization process
-#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:227
-#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:239
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:228
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:240
 msgid "Authorizing in browser (Press to reset connection)"
 msgstr "Legitimierung im Browser (Klicken, um die Verbindung zurückzusetzen)"
 
 #. Translators: Sometimes a user's default browser is not set, so we recommend setting it and trying again
-#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:235
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:236
 msgid "Set the default browser and try again"
 msgstr "Legen Sie Ihren Vorgabe-Browser fest und versuchen Sie es erneut."
+
+#: ../Tomboy/Addins/WebSyncService/WebSyncServiceAddin.cs:70
+msgid "Tomboy Web"
+msgstr "Tomboy im Internet"
 
 #: ../Tomboy/ExportAllApplicationAddin.cs:53
 msgid "Export All Notes to "
 msgstr "Alle Notizen exportieren nach"
 
 #: ../Tomboy/ExportAllApplicationAddin.cs:54
-#, fuzzy
 msgid "Start exporting notes to "
-msgstr "Abgleich der Notizen starten"
+msgstr "Notizexport beginnen nach"
 
 #: ../Tomboy/ExportAllApplicationAddin.cs:58
 msgid "Export selected notebook to "
@@ -1141,7 +1150,7 @@ msgstr "Ausgewähltes Notizbuch exportieren nach"
 
 #: ../Tomboy/ExportAllApplicationAddin.cs:59
 msgid "Start exporting notebook to "
-msgstr ""
+msgstr "Notizbuchexport beginnen nach"
 
 #: ../Tomboy/ExportAllApplicationAddin.cs:65
 #: ../Tomboy/Synchronization/SyncManager.cs:161
@@ -1186,7 +1195,7 @@ msgid "Unknown error."
 msgstr "Unbekannter Fehler."
 
 #: ../Tomboy/ExportAllApplicationAddin.cs:236
-#: ../Tomboy/Notebooks/Notebook.cs:215
+#: ../Tomboy/Notebooks/Notebook.cs:237
 msgid "Unfiled Notes"
 msgstr "Nicht zugeordnete Notizen"
 
@@ -1205,8 +1214,9 @@ msgid "Could not save the files in \"{0}\""
 msgstr "Die Dateien konnten nicht in »{0}« gespeichert werden"
 
 #: ../Tomboy/ExportAllApplicationAddin.cs:506
-msgid "Create destination folder for "
-msgstr "Zielordner anlegen für"
+#, csharp-format
+msgid "Create destination folder for {0} export"
+msgstr "Zielordner anlegen für {0}-Export"
 
 #: ../Tomboy/JumpListManager.cs:96 ../Tomboy/RecentChanges.cs:85
 msgid "Search All Notes"
@@ -1261,22 +1271,6 @@ msgstr "Name bereits vergeben"
 msgid "C_reate"
 msgstr "_Anlegen"
 
-#. The templateNoteTite should show the name of the
-#. notebook.  For example, if the name of the notebooks
-#. "Meetings", the templateNoteTitle should be "Meetings
-#. Notebook Template".  Translators should place the
-#. name of the notebook accordingly using "{0}".
-#. TODO: Figure out how to make this note for
-#. translators appear properly.
-#: ../Tomboy/Notebooks/Notebook.cs:79
-#, csharp-format
-msgid "{0} Notebook Template"
-msgstr "Notizbuchvorlage für {0}"
-
-#: ../Tomboy/Notebooks/Notebook.cs:183
-msgid "All Notes"
-msgstr "Alle Notizen"
-
 #: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:48
 msgid "Note_books"
 msgstr "Notiz_bücher"
@@ -1316,15 +1310,35 @@ msgid "Delete the selected notebook"
 msgstr "Das ausgewählte Notizbuch löschen"
 
 #: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:68
-#: ../Tomboy/RecentChanges.cs:285
+#: ../Tomboy/RecentChanges.cs:276
 msgid "Notebooks"
 msgstr "Notizbücher"
 
-#: ../Tomboy/Notebooks/NotebookManager.cs:361
+#. The templateNoteTite should show the name of the
+#. notebook.  For example, if the name of the notebooks
+#. "Meetings", the templateNoteTitle should be "Meetings
+#. Notebook Template".  Translators should place the
+#. name of the notebook accordingly using "{0}".
+#. TODO: Figure out how to make this note for
+#. translators appear properly.
+#: ../Tomboy/Notebooks/Notebook.cs:79
+#, csharp-format
+msgid "{0} Notebook Template"
+msgstr "Notizbuchvorlage für {0}"
+
+#: ../Tomboy/Notebooks/Notebook.cs:153
+msgid "New Note"
+msgstr "Neue Notiz"
+
+#: ../Tomboy/Notebooks/Notebook.cs:205
+msgid "All Notes"
+msgstr "Alle Notizen"
+
+#: ../Tomboy/Notebooks/NotebookManager.cs:367
 msgid "Really delete this notebook?"
 msgstr "Dieses Notizbuch wirklich löschen?"
 
-#: ../Tomboy/Notebooks/NotebookManager.cs:363
+#: ../Tomboy/Notebooks/NotebookManager.cs:369
 msgid ""
 "The notes that belong to this notebook will not be deleted, but they will no "
 "longer be associated with this notebook.  This action cannot be undone."
@@ -1346,39 +1360,40 @@ msgstr "Kein Notizbuch"
 msgid "New \"{0}\" Note"
 msgstr "Neue »{0}«-Notiz"
 
-#: ../Tomboy/Notebooks/NotebookNoteAddin.cs:46
+#: ../Tomboy/Notebooks/NotebookNoteAddin.cs:56
 msgid "Place this note into a notebook"
 msgstr "Diese Notiz in einem Notizbuch ablegen"
 
-#: ../Tomboy/Notebooks/NotebookNoteAddin.cs:127
+#: ../Tomboy/Notebooks/NotebookNoteAddin.cs:148
 msgid "Notebook"
 msgstr "Notizbuch"
 
-#: ../Tomboy/Notebooks/NotebookNoteAddin.cs:156
+#: ../Tomboy/Notebooks/NotebookNoteAddin.cs:177
 msgid "_New notebook..."
 msgstr "Neues Notiz_buch …"
 
-#: ../Tomboy/Note.cs:497 ../Tomboy/NoteManager.cs:475
+#: ../Tomboy/Note.cs:515 ../Tomboy/NoteManager.cs:475
 #, csharp-format
 msgid "New Note {0}"
 msgstr "Neue Notiz {0}"
 
-#: ../Tomboy/Note.cs:1578
-msgid "Really delete this note?"
-msgstr "Diese Notiz wirklich löschen?"
+#: ../Tomboy/Note.cs:1607
+#, csharp-format
+msgid "Really delete \"{0}\"?"
+msgstr "Soll »{0}« wirklich gelöscht werden?"
 
-#: ../Tomboy/Note.cs:1581
+#: ../Tomboy/Note.cs:1610
 #, csharp-format
 msgid "Really delete this {0} note?"
 msgid_plural "Really delete these {0} notes?"
 msgstr[0] "Diese {0} Notiz wirklich löschen?"
 msgstr[1] "Diese {0} Notizen wirklich löschen?"
 
-#: ../Tomboy/Note.cs:1592
+#: ../Tomboy/Note.cs:1621
 msgid "If you delete a note it is permanently lost."
 msgstr "Ein gelöschte Notiz ist für immer verloren."
 
-#: ../Tomboy/Note.cs:1626
+#: ../Tomboy/Note.cs:1655
 #, csharp-format
 msgid ""
 "An error occurred while saving your notes. Please check that you have "
@@ -1389,7 +1404,7 @@ msgstr ""
 "Ihnen ausreichend Speicherplatz und die notwendigen Zugriffsrechte auf {0} "
 "zur Verfügung stehen. Details zu dem Fehler finden sich in {1}."
 
-#: ../Tomboy/Note.cs:1642
+#: ../Tomboy/Note.cs:1671
 msgid "Error saving note data."
 msgstr "Fehler beim Speichern der Notizdaten."
 
@@ -1534,7 +1549,7 @@ msgstr "Verknüpfungen in Tomboy nutzen"
 
 #. Use a simple "Describe..." body and highlight
 #. it so it can be easily overwritten
-#: ../Tomboy/NoteManager.cs:548 ../Tomboy/NoteManager.cs:641
+#: ../Tomboy/NoteManager.cs:543 ../Tomboy/NoteManager.cs:646
 msgid "Describe your new note here."
 msgstr "Beschreiben Sie Ihre neue Notiz hier."
 
@@ -1598,140 +1613,165 @@ msgstr "Verknüpfungen _nie umbenennen"
 msgid "Alwa_ys rename links"
 msgstr "Verknüpfungen _immer umbenennen"
 
-#: ../Tomboy/NoteWindow.cs:58
+#: ../Tomboy/NoteWindow.cs:59
 msgid "Find in This Note"
 msgstr "In dieser Notiz suchen"
 
-#: ../Tomboy/NoteWindow.cs:361
+#: ../Tomboy/NoteWindow.cs:366
 msgid "_Link to New Note"
 msgstr "_Verknüpfung zu neuer Notiz"
 
-#: ../Tomboy/NoteWindow.cs:373
+#: ../Tomboy/NoteWindow.cs:378
 msgid "Te_xt"
 msgstr "Te_xt"
 
-#: ../Tomboy/NoteWindow.cs:381
+#: ../Tomboy/NoteWindow.cs:386
 msgid "_Find in This Note"
 msgstr "In dieser Notiz _suchen"
 
-#: ../Tomboy/NoteWindow.cs:396
+#: ../Tomboy/NoteWindow.cs:401
 msgid "Clos_e All Notes"
 msgstr "Alle Notizen schli_eßen"
 
-#: ../Tomboy/NoteWindow.cs:436
+#: ../Tomboy/NoteWindow.cs:441
 msgid "Search"
 msgstr "Suchen"
 
 #. TODO: If we ever add a way to customize internal keybindings, this will need to change
-#: ../Tomboy/NoteWindow.cs:440
+#: ../Tomboy/NoteWindow.cs:445
 msgid "Search your notes"
 msgstr "Notizen durchsuchen"
 
-#: ../Tomboy/NoteWindow.cs:452
+#: ../Tomboy/NoteWindow.cs:457
 msgid "Link"
 msgstr "Verknüpfung"
 
-#: ../Tomboy/NoteWindow.cs:459
+#: ../Tomboy/NoteWindow.cs:464
 msgid "Link selected text to a new note"
 msgstr "Gewählten Text mit einer neuen Notiz verknüpfen"
 
-#: ../Tomboy/NoteWindow.cs:472
+#: ../Tomboy/NoteWindow.cs:477
 msgid "_Text"
 msgstr "_Text"
 
-#: ../Tomboy/NoteWindow.cs:477
+#: ../Tomboy/NoteWindow.cs:482
 msgid "Set properties of text"
 msgstr "Text-Einstellungen"
 
-#: ../Tomboy/NoteWindow.cs:482
+#: ../Tomboy/NoteWindow.cs:487
 msgid "T_ools"
 msgstr "W_erkzeuge"
 
-#: ../Tomboy/NoteWindow.cs:486
+#: ../Tomboy/NoteWindow.cs:491
 msgid "Use tools on this note"
 msgstr "Werkzeuge auf diese Notiz anwenden"
 
-#: ../Tomboy/NoteWindow.cs:494
+#: ../Tomboy/NoteWindow.cs:499
 msgid "Delete this note"
 msgstr "Diese Notiz löschen"
 
-#: ../Tomboy/NoteWindow.cs:502 ../Tomboy/Synchronization/SyncManager.cs:163
+#: ../Tomboy/NoteWindow.cs:507 ../Tomboy/Synchronization/SyncManager.cs:163
 msgid "Synchronize Notes"
 msgstr "Notizen abgleichen"
 
-#: ../Tomboy/NoteWindow.cs:564
+#: ../Tomboy/NoteWindow.cs:565
+msgid ""
+"This note is a template note. It determines the default content of regular "
+"notes, and will not show up in the note menu or search window."
+msgstr ""
+"Diese Notiz ist eine Vorlage. Sie legt lediglich den vorgegebenen Inhalt "
+"regulärer Notizen fest und wird nicht im Notizmenü oder im Suchfenster "
+"angezeigt."
+
+#: ../Tomboy/NoteWindow.cs:571
+msgid "Convert to regular note"
+msgstr "In reguläre Notiz umwandeln"
+
+#: ../Tomboy/NoteWindow.cs:576
+msgid "Save Si_ze"
+msgstr "_Größe speichern"
+
+#: ../Tomboy/NoteWindow.cs:585
+msgid "Save Se_lection"
+msgstr "Auswah_l speichern"
+
+#: ../Tomboy/NoteWindow.cs:594
+msgid "Save _Title"
+msgstr "_Titel speichern"
+
+#: ../Tomboy/NoteWindow.cs:639
 msgid "_Find..."
 msgstr "_Suchen …"
 
-#: ../Tomboy/NoteWindow.cs:575
+#: ../Tomboy/NoteWindow.cs:650
 msgid "Find _Next"
 msgstr "_Nächster Treffer"
 
-#: ../Tomboy/NoteWindow.cs:588
+#: ../Tomboy/NoteWindow.cs:663
 msgid "Find _Previous"
 msgstr "_Vorheriger Treffer"
 
-#: ../Tomboy/NoteWindow.cs:676
+#: ../Tomboy/NoteWindow.cs:751
 msgid "Cannot create note"
 msgstr "Notiz konnte nicht angelegt werden"
 
-#: ../Tomboy/NoteWindow.cs:757
+#: ../Tomboy/NoteWindow.cs:832
 msgid "_Find:"
 msgstr "_Suchen:"
 
-#: ../Tomboy/NoteWindow.cs:768
+#: ../Tomboy/NoteWindow.cs:843
 msgid "_Previous"
 msgstr "_Vorheriger"
 
-#: ../Tomboy/NoteWindow.cs:777
+#: ../Tomboy/NoteWindow.cs:852
 msgid "_Next"
 msgstr "_Nächste"
 
-#: ../Tomboy/NoteWindow.cs:1260
+#: ../Tomboy/NoteWindow.cs:1335
 msgid "_Bold"
 msgstr "_Fett"
 
-#: ../Tomboy/NoteWindow.cs:1272
+#: ../Tomboy/NoteWindow.cs:1347
 msgid "_Italic"
 msgstr "_Kursiv"
 
-#: ../Tomboy/NoteWindow.cs:1284
+#: ../Tomboy/NoteWindow.cs:1359
 msgid "_Strikeout"
 msgstr "_Durchgestrichen"
 
-#: ../Tomboy/NoteWindow.cs:1296
+#: ../Tomboy/NoteWindow.cs:1371
 msgid "_Highlight"
 msgstr "_Hervorheben"
 
-#: ../Tomboy/NoteWindow.cs:1309
+#: ../Tomboy/NoteWindow.cs:1384
 msgid "Font Size"
 msgstr "Schriftgröße"
 
-#: ../Tomboy/NoteWindow.cs:1312
+#: ../Tomboy/NoteWindow.cs:1387
 msgid "_Normal"
 msgstr "_Normal"
 
-#: ../Tomboy/NoteWindow.cs:1329
+#: ../Tomboy/NoteWindow.cs:1404
 msgid "Hu_ge"
 msgstr "_Riesig"
 
-#: ../Tomboy/NoteWindow.cs:1337
+#: ../Tomboy/NoteWindow.cs:1412
 msgid "_Large"
 msgstr "_Groß"
 
-#: ../Tomboy/NoteWindow.cs:1345
+#: ../Tomboy/NoteWindow.cs:1420
 msgid "S_mall"
 msgstr "_Klein"
 
-#: ../Tomboy/NoteWindow.cs:1354
+#: ../Tomboy/NoteWindow.cs:1429
 msgid "Increase Font Size"
 msgstr "Schrift vergrößern"
 
-#: ../Tomboy/NoteWindow.cs:1372
+#: ../Tomboy/NoteWindow.cs:1447
 msgid "Decrease Font Size"
 msgstr "Schrift verkleinern"
 
-#: ../Tomboy/NoteWindow.cs:1392
+#: ../Tomboy/NoteWindow.cs:1467
 msgid "Bullets"
 msgstr "Aufzählungspunkte"
 
@@ -1976,19 +2016,19 @@ msgstr ""
 msgid "Error connecting"
 msgstr "Verbindungsfehler"
 
-#: ../Tomboy/PreferencesDialog.cs:1350
+#: ../Tomboy/PreferencesDialog.cs:1357
 msgid "Version:"
 msgstr "Version:"
 
-#: ../Tomboy/PreferencesDialog.cs:1357
+#: ../Tomboy/PreferencesDialog.cs:1364
 msgid "Author:"
 msgstr "Autor:"
 
-#: ../Tomboy/PreferencesDialog.cs:1364
+#: ../Tomboy/PreferencesDialog.cs:1371
 msgid "Copyright:"
 msgstr "Copyright:"
 
-#: ../Tomboy/PreferencesDialog.cs:1370
+#: ../Tomboy/PreferencesDialog.cs:1377
 msgid "Add-in Dependencies:"
 msgstr "Add-In Abhängigkeiten:"
 
@@ -1996,45 +2036,44 @@ msgstr "Add-In Abhängigkeiten:"
 msgid "_Search:"
 msgstr "_Suchen:"
 
-#: ../Tomboy/RecentChanges.cs:359
+#: ../Tomboy/RecentChanges.cs:350
 msgid "Note"
 msgstr "Notiz"
 
-#: ../Tomboy/RecentChanges.cs:381
+#: ../Tomboy/RecentChanges.cs:373
 msgid "Last Changed"
 msgstr "Zuletzt geändert"
 
-#: ../Tomboy/RecentChanges.cs:520
+#: ../Tomboy/RecentChanges.cs:512
 msgid "Matches"
 msgstr "Stimmt überein"
 
-#: ../Tomboy/RecentChanges.cs:571
-#, fuzzy
+#: ../Tomboy/RecentChanges.cs:563
 msgid "Title match"
-msgstr "({0} Treffer)"
+msgstr "Titel-Übereinstimmung"
 
-#: ../Tomboy/RecentChanges.cs:574
+#: ../Tomboy/RecentChanges.cs:566
 #, csharp-format
 msgid "{0} match"
 msgid_plural "{0} matches"
 msgstr[0] "({0} Treffer)"
 msgstr[1] "({0} Treffer)"
 
-#: ../Tomboy/RecentChanges.cs:588
+#: ../Tomboy/RecentChanges.cs:580
 #, csharp-format
 msgid "Total: {0} note"
 msgid_plural "Total: {0} notes"
 msgstr[0] "Insgesamt: {0} Notiz"
 msgstr[1] "Insgesamt: {0} Notizen"
 
-#: ../Tomboy/RecentChanges.cs:599
+#: ../Tomboy/RecentChanges.cs:591
 #, csharp-format
 msgid "Matches: {0} note"
 msgid_plural "Matches: {0} notes"
 msgstr[0] "Treffer: {0} Notiz"
 msgstr[1] "Treffer: {0} Notizen"
 
-#: ../Tomboy/RecentChanges.cs:611
+#: ../Tomboy/RecentChanges.cs:603
 msgid ""
 "No results found in the selected notebook.\n"
 "Click here to search across all notes."
@@ -2042,226 +2081,13 @@ msgstr ""
 "Keine Ergebnisse im ausgewählten Notizbuch.\n"
 "Hier klicken, um alle Notizen zu durchsuchen."
 
-#: ../Tomboy/RecentChanges.cs:617
+#: ../Tomboy/RecentChanges.cs:609
 msgid "Click here to search across all notebooks"
 msgstr "Hier klicken, um alle Notizbücher zu durchsuchen"
 
-#: ../Tomboy/RecentChanges.cs:783
+#: ../Tomboy/RecentChanges.cs:775
 msgid "Notes"
 msgstr "Notizen"
-
-#: ../Tomboy/Tomboy.cs:251
-msgid "Cannot create new note"
-msgstr "Neue Notiz konnte nicht angelegt werden"
-
-#: ../Tomboy/Tomboy.cs:317
-msgid "Primary Development:"
-msgstr "Hauptentwickler:"
-
-#: ../Tomboy/Tomboy.cs:330
-msgid "Contributors:"
-msgstr "Mitwirkende:"
-
-#: ../Tomboy/Tomboy.cs:412
-msgid "translator-credits"
-msgstr ""
-"Philipp Meier <meier@fnogol.de>\n"
-"Frank Arnold <frank@scirocco-5v-turbo.de>\n"
-"Jochen Skulj <jochen@jochenskulj.de>\n"
-"Hendrik Richter <hendrikr@gnome.org>\n"
-"Andre Klapper <ak-47@gmx.net>\n"
-"Mario Blättermann <mariobl@freenet.de>\n"
-"Christian Kirbach <Christian.Kirbach@googlemail.com>"
-
-#: ../Tomboy/Tomboy.cs:421
-msgid ""
-"Copyright © 2004-2007 Alex Graveley\n"
-"Copyright © 2004-2011 Others\n"
-msgstr ""
-"Copyright © 2004-2007 Alex Graveley\n"
-"Copyright © 2004-2011 Andere\n"
-
-#: ../Tomboy/Tomboy.cs:423
-msgid "A simple and easy to use desktop note-taking application."
-msgstr "Eine einfache und leicht bedienbare Anwendung für Notizen."
-
-#: ../Tomboy/Tomboy.cs:433
-msgid "Homepage"
-msgstr "Homepage"
-
-#: ../Tomboy/Tomboy.cs:551
-msgid ""
-"Tomboy: A simple, easy to use desktop note-taking application.\n"
-"Copyright © 2004-2007 Alex Graveley\n"
-"<alex@beatniksoftware.com>\n"
-"\n"
-"Copyright © 2004-2011 Others\n"
-msgstr ""
-"Tomboy: Eine einfache und leicht bedienbare Anwendung für Notizen.\n"
-"Copyright © 2004-2007 Alex Graveley\n"
-"<alex@beatniksoftware.com>\n"
-"\n"
-"Copyright © 2004-2011 Andere\n"
-
-#: ../Tomboy/Tomboy.cs:565
-msgid ""
-"Usage:\n"
-"  --version\t\t\tPrint version information.\n"
-"  --help\t\t\tPrint this usage message.\n"
-"  --note-path [path]\t\tLoad/store note data in this directory.\n"
-"  --search [text]\t\tOpen the search all notes window with the search text.\n"
-msgstr ""
-"Optionen:\n"
-"  --version\t\t\tAusgabe der Versionsinformationen.\n"
-"  --help\t\t\tAusgabe dieser Hilfe.\n"
-"  --note-path [Ordner]\t\tLaden/Speichern von Notizdaten aus diesem Ordner\n"
-"  --search [text]\t\tÖffnen eines Fensters zum Durchsuchen aller Notizen nach "
-"dem angegebenen Suchtext.\n"
-
-#: ../Tomboy/Tomboy.cs:575
-msgid ""
-"  --new-note\t\t\tCreate and display a new note.\n"
-"  --new-note [title]\t\tCreate and display a new note, with a title.\n"
-"  --open-note [title/url]\tDisplay the existing note matching title.\n"
-"  --start-here\t\t\tDisplay the 'Start Here' note.\n"
-"  --highlight-search [text]\tSearch and highlight text in the opened note.\n"
-msgstr ""
-"  --new-note\t\t\tNeue Notiz erstellen und anzeigen.\n"
-"  --new-note [Titel]\t\tBenannte neue Notiz erstellen und anzeigen.\n"
-"  --open-note [Titel/Adresse]\tVorhandene Notiz mit angegebenem Titel "
-"anzeigen.\n"
-"  --start-here\t\t\tDie »Hier starten«-Notiz anzeigen.\n"
-"  --highlight-search [Text]\tText in geöffneter Notiz suchen und markieren.\n"
-
-#: ../Tomboy/Tomboy.cs:589
-#, csharp-format
-msgid "Version {0}"
-msgstr "Version {0}"
-
-#: ../Tomboy/Tray.cs:68
-msgid " (new)"
-msgstr " (neu)"
-
-#: ../Tomboy/Tray.cs:293
-msgid "_About Tomboy"
-msgstr "_Info zu Tomboy"
-
-#: ../Tomboy/Utils.cs:189
-msgid ""
-"The \"Tomboy Notes Manual\" could not be found.  Please verify that your "
-"installation has been completed successfully."
-msgstr ""
-"Das »Tomboy Notizenhandbuch« konnte nicht gefunden werden. Bitte stellen Sie "
-"sicher, dass Ihre Installation erfolgreich abgeschlossen wurde."
-
-#: ../Tomboy/Utils.cs:198
-msgid "Help not found"
-msgstr "Hilfe wurde nicht gefunden"
-
-#: ../Tomboy/Utils.cs:214
-msgid "Cannot open location"
-msgstr "Ort kann nicht geöffnet werden"
-
-#: ../Tomboy/Utils.cs:236
-#, csharp-format
-msgid "Today, {0}"
-msgstr "Heute, {0}"
-
-#: ../Tomboy/Utils.cs:238
-msgid "Today"
-msgstr "Heute"
-
-#: ../Tomboy/Utils.cs:242
-#, csharp-format
-msgid "Yesterday, {0}"
-msgstr "Gestern, {0}"
-
-#: ../Tomboy/Utils.cs:244
-msgid "Yesterday"
-msgstr "Gestern"
-
-#: ../Tomboy/Utils.cs:249
-#, csharp-format
-msgid "{0} day ago, {1}"
-msgid_plural "{0} days ago, {1}"
-msgstr[0] "Vor {0} Tag, {1}"
-msgstr[1] "Vor {0} Tagen, {1}"
-
-#: ../Tomboy/Utils.cs:253
-#, csharp-format
-msgid "{0} day ago"
-msgid_plural "{0} days ago"
-msgstr[0] "Vor {0} Tag"
-msgstr[1] "Vor {0} Tagen"
-
-#: ../Tomboy/Utils.cs:259
-#, csharp-format
-msgid "Tomorrow, {0}"
-msgstr "Morgen, {0}"
-
-#: ../Tomboy/Utils.cs:261
-msgid "Tomorrow"
-msgstr "Morgen"
-
-#: ../Tomboy/Utils.cs:266
-#, csharp-format
-msgid "In {0} day, {1}"
-msgid_plural "In {0} days, {1}"
-msgstr[0] "In {0} Tag, {1}"
-msgstr[1] "In {0} Tagen, {1}"
-
-#: ../Tomboy/Utils.cs:270
-#, csharp-format
-msgid "In {0} day"
-msgid_plural "In {0} days"
-msgstr[0] "In {0} Tag"
-msgstr[1] "In {0} Tagen"
-
-#: ../Tomboy/Utils.cs:275
-msgid "MMMM d, h:mm tt"
-msgstr "d. MMMM HH:mm"
-
-#: ../Tomboy/Utils.cs:276
-msgid "MMMM d"
-msgstr "d. MMMM"
-
-#: ../Tomboy/Utils.cs:278
-msgid "No Date"
-msgstr "Kein Datum"
-
-#: ../Tomboy/Utils.cs:281
-msgid "MMMM d yyyy, h:mm tt"
-msgstr "d. MMMM yyyy HH:mm"
-
-#: ../Tomboy/Utils.cs:282
-msgid "MMMM d yyyy"
-msgstr "d. MMMM yyyy"
-
-#: ../Tomboy/Watchers.cs:155
-#, csharp-format
-msgid "(Untitled {0})"
-msgstr "(Unbenannt {0})"
-
-#: ../Tomboy/Watchers.cs:189
-#, csharp-format
-msgid ""
-"A note with the title <b>{0}</b> already exists. Please choose another name "
-"for this note before continuing."
-msgstr ""
-"Es gibt bereits eine Notiz mit dem Titel <b>{0}</b>. Bitte wählen Sie einen "
-"anderen Namen für diese Notiz."
-
-#: ../Tomboy/Watchers.cs:204
-msgid "Note title taken"
-msgstr "Titel der Notiz übernommen"
-
-#: ../Tomboy/Watchers.cs:549
-msgid "_Copy Link Address"
-msgstr "Link-Adresse _kopieren"
-
-#: ../Tomboy/Watchers.cs:554
-msgid "_Open Link"
-msgstr "Link ö_ffnen"
 
 #: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:94
 #, csharp-format
@@ -2531,6 +2357,222 @@ msgstr ""
 "Um diese Meldung zukünftig zu vermeiden, sollten Sie FUSE beim Starten laden. "
 "Fügen Sie »modprobe fuse« in /etc/init.d/boot.local oder »fuse« in /etc/"
 "modules hinzu."
+
+#: ../Tomboy/Tomboy.cs:251
+msgid "Cannot create new note"
+msgstr "Neue Notiz konnte nicht angelegt werden"
+
+#: ../Tomboy/Tomboy.cs:317
+msgid "Primary Development:"
+msgstr "Hauptentwickler:"
+
+#: ../Tomboy/Tomboy.cs:330
+msgid "Contributors:"
+msgstr "Mitwirkende:"
+
+#: ../Tomboy/Tomboy.cs:415
+msgid "translator-credits"
+msgstr ""
+"Philipp Meier <meier@fnogol.de>\n"
+"Frank Arnold <frank@scirocco-5v-turbo.de>\n"
+"Jochen Skulj <jochen@jochenskulj.de>\n"
+"Hendrik Richter <hendrikr@gnome.org>\n"
+"Andre Klapper <ak-47@gmx.net>\n"
+"Mario Blättermann <mariobl@freenet.de>\n"
+"Christian Kirbach <Christian.Kirbach@googlemail.com>"
+
+#: ../Tomboy/Tomboy.cs:424
+msgid ""
+"Copyright © 2004-2007 Alex Graveley\n"
+"Copyright © 2004-2011 Others\n"
+msgstr ""
+"Copyright © 2004-2007 Alex Graveley\n"
+"Copyright © 2004-2011 Andere\n"
+
+#: ../Tomboy/Tomboy.cs:426
+msgid "A simple and easy to use desktop note-taking application."
+msgstr "Eine einfache und leicht bedienbare Anwendung für Notizen."
+
+#: ../Tomboy/Tomboy.cs:436
+msgid "Homepage"
+msgstr "Homepage"
+
+#: ../Tomboy/Tomboy.cs:554
+msgid ""
+"Tomboy: A simple, easy to use desktop note-taking application.\n"
+"Copyright © 2004-2007 Alex Graveley\n"
+"<alex@beatniksoftware.com>\n"
+"\n"
+"Copyright © 2004-2011 Others\n"
+msgstr ""
+"Tomboy: Eine einfache und leicht bedienbare Anwendung für Notizen.\n"
+"Copyright © 2004-2007 Alex Graveley\n"
+"<alex@beatniksoftware.com>\n"
+"\n"
+"Copyright © 2004-2011 Andere\n"
+
+#: ../Tomboy/Tomboy.cs:568
+msgid ""
+"Usage:\n"
+"  --version\t\t\tPrint version information.\n"
+"  --help\t\t\tPrint this usage message.\n"
+"  --note-path [path]\t\tLoad/store note data in this directory.\n"
+"  --search [text]\t\tOpen the search all notes window with the search text.\n"
+msgstr ""
+"Optionen:\n"
+"  --version\t\t\tAusgabe der Versionsinformationen.\n"
+"  --help\t\t\tAusgabe dieser Hilfe.\n"
+"  --note-path [Ordner]\t\tLaden/Speichern von Notizdaten aus diesem Ordner\n"
+"  --search [text]\t\tÖffnen eines Fensters zum Durchsuchen aller Notizen nach "
+"dem angegebenen Suchtext.\n"
+
+#: ../Tomboy/Tomboy.cs:578
+msgid ""
+"  --new-note\t\t\tCreate and display a new note.\n"
+"  --new-note [title]\t\tCreate and display a new note, with a title.\n"
+"  --open-note [title/url]\tDisplay the existing note matching title.\n"
+"  --start-here\t\t\tDisplay the 'Start Here' note.\n"
+"  --highlight-search [text]\tSearch and highlight text in the opened note.\n"
+msgstr ""
+"  --new-note\t\t\tNeue Notiz erstellen und anzeigen.\n"
+"  --new-note [Titel]\t\tBenannte neue Notiz erstellen und anzeigen.\n"
+"  --open-note [Titel/Adresse]\tVorhandene Notiz mit angegebenem Titel "
+"anzeigen.\n"
+"  --start-here\t\t\tDie »Hier starten«-Notiz anzeigen.\n"
+"  --highlight-search [Text]\tText in geöffneter Notiz suchen und markieren.\n"
+
+#: ../Tomboy/Tomboy.cs:592
+#, csharp-format
+msgid "Version {0}"
+msgstr "Version {0}"
+
+#: ../Tomboy/Tray.cs:68
+msgid " (new)"
+msgstr " (neu)"
+
+#: ../Tomboy/Tray.cs:293
+msgid "_About Tomboy"
+msgstr "_Info zu Tomboy"
+
+#: ../Tomboy/Utils.cs:189
+msgid ""
+"The \"Tomboy Notes Manual\" could not be found.  Please verify that your "
+"installation has been completed successfully."
+msgstr ""
+"Das »Tomboy Notizenhandbuch« konnte nicht gefunden werden. Bitte stellen Sie "
+"sicher, dass Ihre Installation erfolgreich abgeschlossen wurde."
+
+#: ../Tomboy/Utils.cs:198
+msgid "Help not found"
+msgstr "Hilfe wurde nicht gefunden"
+
+#: ../Tomboy/Utils.cs:214
+msgid "Cannot open location"
+msgstr "Ort kann nicht geöffnet werden"
+
+#: ../Tomboy/Utils.cs:236
+#, csharp-format
+msgid "Today, {0}"
+msgstr "Heute, {0}"
+
+#: ../Tomboy/Utils.cs:238
+msgid "Today"
+msgstr "Heute"
+
+#: ../Tomboy/Utils.cs:242
+#, csharp-format
+msgid "Yesterday, {0}"
+msgstr "Gestern, {0}"
+
+#: ../Tomboy/Utils.cs:244
+msgid "Yesterday"
+msgstr "Gestern"
+
+#: ../Tomboy/Utils.cs:249
+#, csharp-format
+msgid "{0} day ago, {1}"
+msgid_plural "{0} days ago, {1}"
+msgstr[0] "Vor {0} Tag, {1}"
+msgstr[1] "Vor {0} Tagen, {1}"
+
+#: ../Tomboy/Utils.cs:253
+#, csharp-format
+msgid "{0} day ago"
+msgid_plural "{0} days ago"
+msgstr[0] "Vor {0} Tag"
+msgstr[1] "Vor {0} Tagen"
+
+#: ../Tomboy/Utils.cs:259
+#, csharp-format
+msgid "Tomorrow, {0}"
+msgstr "Morgen, {0}"
+
+#: ../Tomboy/Utils.cs:261
+msgid "Tomorrow"
+msgstr "Morgen"
+
+#: ../Tomboy/Utils.cs:266
+#, csharp-format
+msgid "In {0} day, {1}"
+msgid_plural "In {0} days, {1}"
+msgstr[0] "In {0} Tag, {1}"
+msgstr[1] "In {0} Tagen, {1}"
+
+#: ../Tomboy/Utils.cs:270
+#, csharp-format
+msgid "In {0} day"
+msgid_plural "In {0} days"
+msgstr[0] "In {0} Tag"
+msgstr[1] "In {0} Tagen"
+
+#: ../Tomboy/Utils.cs:275
+msgid "MMMM d, h:mm tt"
+msgstr "d. MMMM HH:mm"
+
+#: ../Tomboy/Utils.cs:276
+msgid "MMMM d"
+msgstr "d. MMMM"
+
+#: ../Tomboy/Utils.cs:278
+msgid "No Date"
+msgstr "Kein Datum"
+
+#: ../Tomboy/Utils.cs:281
+msgid "MMMM d yyyy, h:mm tt"
+msgstr "d. MMMM yyyy HH:mm"
+
+#: ../Tomboy/Utils.cs:282
+msgid "MMMM d yyyy"
+msgstr "d. MMMM yyyy"
+
+#: ../Tomboy/Watchers.cs:155
+#, csharp-format
+msgid "(Untitled {0})"
+msgstr "(Unbenannt {0})"
+
+#: ../Tomboy/Watchers.cs:189
+#, csharp-format
+msgid ""
+"A note with the title <b>{0}</b> already exists. Please choose another name "
+"for this note before continuing."
+msgstr ""
+"Es gibt bereits eine Notiz mit dem Titel <b>{0}</b>. Bitte wählen Sie einen "
+"anderen Namen für diese Notiz."
+
+#: ../Tomboy/Watchers.cs:204
+msgid "Note title taken"
+msgstr "Titel der Notiz übernommen"
+
+#: ../Tomboy/Watchers.cs:587
+msgid "_Copy Link Address"
+msgstr "Link-Adresse _kopieren"
+
+#: ../Tomboy/Watchers.cs:592
+msgid "_Open Link"
+msgstr "Link ö_ffnen"
+
+#~ msgid "Really delete this note?"
+#~ msgstr "Diese Notiz wirklich löschen?"
 
 #~ msgid "HTML Export Last Directory"
 #~ msgstr "HTML-Export: Letzter Ordner"
