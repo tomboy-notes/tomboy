@@ -50,13 +50,13 @@ namespace Tomboy
 
 				am.MainWindowActions.Add (new Gtk.ActionEntry [] {
 					new Gtk.ActionEntry ("NoteExportAll"+export_file_suffix+"Action", null,
-					Catalog.GetString ("Export All Notes to "+export_type_pretty_name), null,
-					Catalog.GetString ("Start exporting notes to "+export_type_pretty_name), null)
+					String.Format (Catalog.GetString ("Export All Notes to {0}"), export_type_pretty_name), null,
+					String.Format (Catalog.GetString ("Start exporting notes to {0}"), export_type_pretty_name), null)
 				});
 				am.MainWindowActions.Add (new Gtk.ActionEntry [] {
 					new Gtk.ActionEntry ("NoteExportNotebook"+export_file_suffix+"Action", null,
-					Catalog.GetString ("Export selected notebook to "+export_type_pretty_name), null,
-					Catalog.GetString ("Start exporting notebook to "+export_type_pretty_name), null)
+					String.Format (Catalog.GetString ("Export selected notebook to {0}"), export_type_pretty_name), null,
+					String.Format (Catalog.GetString ("Start exporting notebook to {0}"), export_type_pretty_name), null)
 				});
 
 				action_group = new Gtk.ActionGroup ("Export");
@@ -69,12 +69,12 @@ namespace Tomboy
 					Catalog.GetString ("Export your notes."), null),
 
 					new Gtk.ActionEntry ("ExportAllNotes"+export_file_suffix+"Action", null,
-						Catalog.GetString ("Export All Notes To "+export_type_pretty_name), null, null,
+						String.Format (Catalog.GetString ("Export All Notes To {0}"), export_type_pretty_name), null, null,
 						delegate {
 							am ["NoteExportAll"+export_file_suffix+"Action"].Activate ();
 					}),
 					new Gtk.ActionEntry ("ExportNotebook"+export_file_suffix+"Action", null,
-						Catalog.GetString ("Export Selected Notebook To "+export_type_pretty_name), null, null,
+						String.Format (Catalog.GetString ("Export Selected Notebook To {0}"), export_type_pretty_name), null, null,
 						delegate {
 							am ["NoteExportNotebook"+export_file_suffix+"Action"].Activate ();
 					})
@@ -150,7 +150,7 @@ namespace Tomboy
 
 			//Opens the folder selection dialog
 			ExportMultipleDialog dialog =
-			    new ExportMultipleDialog ("All Notes " + export_type_pretty_name +" Export", export_type_pretty_name);
+			    new ExportMultipleDialog (String.Format (Catalog.GetString ("All Notes {0} Export"), export_type_pretty_name), export_type_pretty_name);
 			int response = dialog.Run ();
 			if (response != (int) Gtk.ResponseType.Ok) {
 				Logger.Debug("User clicked cancel.");
