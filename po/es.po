@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: tomboy.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=tomboy&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2011-08-22 21:48+0000\n"
-"PO-Revision-Date: 2011-08-24 21:09+0200\n"
+"POT-Creation-Date: 2011-08-30 20:22+0000\n"
+"PO-Revision-Date: 2011-08-31 15:42Centra\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español; Castellano <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -513,9 +513,9 @@ msgid ""
 "action."
 msgstr ""
 "Combinación de teclas global para mostrar el menú de miniaplicaciones de "
-"Tomboy. El formato sería \"&lt;Control&gt;a\" o \"&lt;Shift&gt;&lt;Alt&gt;"
-"F1\". El analizador léxico es bastante tolerante y permite letras mayúsculas "
-"o minúsculas, y abreviaciones tales como \"&lt;Ctl&gt;\" y \"&lt;Ctrl&gt;\". "
+"Tomboy. El formato sería \"&lt;Control&gt;a\" o \"&lt;Shift&gt;&lt;Alt&gt;F1"
+"\". El analizador léxico es bastante tolerante y permite letras mayúsculas o "
+"minúsculas, y abreviaciones tales como \"&lt;Ctl&gt;\" y \"&lt;Ctrl&gt;\". "
 "Si activa la opción de cadena especial \"disabled\" (desactivada) no habrá "
 "combinación de teclas para esta acción."
 
@@ -535,8 +535,8 @@ msgid ""
 "The last setting for the 'Export linked notes' checkbox in the Export to "
 "HTML plugin."
 msgstr ""
-"Las última casilla de preferencias para «Exportar las notas enlazadas a "
-"HTML» en el complemento Exportar a HTML."
+"Las última casilla de preferencias para «Exportar las notas enlazadas a HTML» "
+"en el complemento Exportar a HTML."
 
 #: ../data/tomboy.schemas.in.h:74
 msgid ""
@@ -545,10 +545,10 @@ msgid ""
 "Export Linked Notes' setting and is used to specify whether all notes (found "
 "recursively) should be included during an export to HTML."
 msgstr ""
-"El último ajuste para la casilla de «Incluir todas las notas enlazadas» en "
-"el complemento de exportar a HTML. Esta opción se usa junto con los ajustes "
-"de «Exportar las notas enlazadas a HTML» y se usa para especificar si todas "
-"las notas (encontradas recursivamente) deberían ser incluídas durante la "
+"El último ajuste para la casilla de «Incluir todas las notas enlazadas» en el "
+"complemento de exportar a HTML. Esta opción se usa junto con los ajustes de "
+"«Exportar las notas enlazadas a HTML» y se usa para especificar si todas las "
+"notas (encontradas recursivamente) deberían ser incluídas durante la "
 "exportación a HTML."
 
 #: ../data/tomboy.schemas.in.h:75
@@ -1129,20 +1129,28 @@ msgid "Tomboy Web"
 msgstr "Web de Tomboy"
 
 #: ../Tomboy/ExportAllApplicationAddin.cs:53
-msgid "Export All Notes to "
-msgstr "Exportar todas las notas a "
+#, csharp-format
+#| msgid "Export All Notes to "
+msgid "Export All Notes to {0}"
+msgstr "Exportar todas las notas en {0}"
 
 #: ../Tomboy/ExportAllApplicationAddin.cs:54
-msgid "Start exporting notes to "
-msgstr "Comenzar a exportar las notas a"
+#, csharp-format
+#| msgid "Start exporting notes to "
+msgid "Start exporting notes to {0}"
+msgstr "Comenzar a exportar las notas en {0}"
 
 #: ../Tomboy/ExportAllApplicationAddin.cs:58
-msgid "Export selected notebook to "
-msgstr "Exportar el cuaderno de notas seleccionado a"
+#, csharp-format
+#| msgid "Export selected notebook to "
+msgid "Export selected notebook to {0}"
+msgstr "Exportar el cuaderno de notas seleccionado en {0}"
 
 #: ../Tomboy/ExportAllApplicationAddin.cs:59
-msgid "Start exporting notebook to "
-msgstr "Comenzar a exportar el cuaderno a"
+#, csharp-format
+#| msgid "Start exporting notebook to "
+msgid "Start exporting notebook to {0}"
+msgstr "Comenzar a exportar el cuaderno en {0}"
 
 #: ../Tomboy/ExportAllApplicationAddin.cs:65
 #: ../Tomboy/Synchronization/SyncManager.cs:161
@@ -1158,12 +1166,22 @@ msgid "Export your notes."
 msgstr "Exportar sus notas."
 
 #: ../Tomboy/ExportAllApplicationAddin.cs:72
-msgid "Export All Notes To "
-msgstr "Exportar todas las notas a "
+#, csharp-format
+#| msgid "Export All Notes To "
+msgid "Export All Notes To {0}"
+msgstr "Exportar todas las notas en {0}"
 
 #: ../Tomboy/ExportAllApplicationAddin.cs:77
-msgid "Export Selected Notebook To "
-msgstr "Exportar el cuaderno de notas seleccionado a "
+#, csharp-format
+#| msgid "Export Selected Notebook To "
+msgid "Export Selected Notebook To {0}"
+msgstr "Exportar el cuaderno de notas seleccionado en {0}"
+
+#: ../Tomboy/ExportAllApplicationAddin.cs:153
+#, csharp-format
+#| msgid "All Notes"
+msgid "All Notes {0} Export"
+msgstr "Exportado en {0} de todas las notas"
 
 #: ../Tomboy/ExportAllApplicationAddin.cs:193
 #: ../Tomboy/ExportAllApplicationAddin.cs:271
@@ -1205,7 +1223,8 @@ msgstr "Notas exportadas correctamente"
 msgid "Could not save the files in \"{0}\""
 msgstr "No se pudieron guardar los archivos «{0}»"
 
-#: ../Tomboy/ExportAllApplicationAddin.cs:506
+#. Translators: {0} is the export type, e.g. HTML
+#: ../Tomboy/ExportAllApplicationAddin.cs:507
 #, csharp-format
 msgid "Create destination folder for {0} export"
 msgstr "Crear carpeta de destino para exportar {0}"
@@ -1319,7 +1338,6 @@ msgid "{0} Notebook Template"
 msgstr "Plantilla del cuaderno de notas de {0}"
 
 #: ../Tomboy/Notebooks/Notebook.cs:153
-#| msgid "_New Note"
 msgid "New Note"
 msgstr "Nota nueva"
 
@@ -1563,8 +1581,8 @@ msgid ""
 "\n"
 "If you do not rename the links, they will no longer link to anything."
 msgstr ""
-"Renombrar enlaces en otras notas de «<span underline=\"single\">{0}</span>» "
-"a «<span underline=\"single\">{1}</span>»?\n"
+"Renombrar enlaces en otras notas de «<span underline=\"single\">{0}</span>» a "
+"«<span underline=\"single\">{1}</span>»?\n"
 "\n"
 "Si no renombra los enlaces, no apuntarán a nada."
 
@@ -1674,7 +1692,6 @@ msgstr ""
 "búsqueda."
 
 #: ../Tomboy/NoteWindow.cs:571
-#| msgid "Connect to Server"
 msgid "Convert to regular note"
 msgstr "Convertir en una nota normal"
 
@@ -1683,12 +1700,10 @@ msgid "Save Si_ze"
 msgstr "Guardar tama_ño"
 
 #: ../Tomboy/NoteWindow.cs:585
-#| msgid "Select None"
 msgid "Save Se_lection"
 msgstr "Guardar se_lección"
 
 #: ../Tomboy/NoteWindow.cs:594
-#| msgid "Note Title"
 msgid "Save _Title"
 msgstr "Guardar _título"
 
