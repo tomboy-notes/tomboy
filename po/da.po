@@ -6,7 +6,7 @@
 # Michael Hastrup Bendsen <michael.bendsen@tele2adsl.dk>, 2007.
 # Ask Hjorth Larsen <asklarsen@gmail.com>, 2008, 09.
 # Peter Bach <bach.peter@gmail.com>, 2007, 09.
-#
+# flemming christensen <fc@stromata.dk>, 2011.
 # Konventioner
 # ------------
 #
@@ -16,14 +16,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tomboy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-02 10:50+0100\n"
-"PO-Revision-Date: 2010-12-26 23:48+0100\n"
-"Last-Translator: Peter Bach <bach.peter@gmail.com>\n"
+"POT-Creation-Date: 2011-10-01 16:23+0200\n"
+"PO-Revision-Date: 2011-10-01 16:23+0200\n"
+"Last-Translator: flemming christensen <fc@stromata.dk>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
+"Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: ../data/GNOME_TomboyApplet.server.in.in.h:1
 msgid "Accessories"
@@ -40,7 +41,7 @@ msgstr "Tomboy-programfabrik"
 #: ../data/GNOME_TomboyApplet.server.in.in.h:4 ../data/tomboy.desktop.in.h:3
 #: ../Tomboy/Tray.cs:579
 msgid "Tomboy Notes"
-msgstr "Tomboy-notesblok"
+msgstr "Tomboy-noter"
 
 #: ../data/GNOME_TomboyApplet.xml.h:1 ../Tomboy/ActionManager.cs:179
 #: ../Tomboy/Tray.cs:274
@@ -87,36 +88,51 @@ msgid "Custom Font Face"
 msgstr "Tilpasset skrifttype"
 
 #: ../data/tomboy.schemas.in.h:5
-msgid "Determines X coordinate of Search window; stored on Tomboy exit."
-msgstr "Bestemmer x-koordinaten af søgevinduet; gemmes når Tomboy afsluttes."
+msgid ""
+"Determines X coordinate of \"Search All Notes\" window; stored on Tomboy "
+"exit."
+msgstr ""
+"Bestemmer x-koordinaten af vinduet \"Søg i alle noterne\"; gemmes når Tomboy "
+"afsluttes."
 
 #: ../data/tomboy.schemas.in.h:6
-msgid "Determines Y coordinate of Search window; stored on Tomboy exit."
-msgstr "Bestemmer y-koordinaten af søgevinduet; gemmes når Tomboy afsluttes."
+msgid ""
+"Determines Y coordinate of \"Search All Notes\" window; stored on Tomboy "
+"exit."
+msgstr ""
+"Bestemmer y-koordinaten af vinduet \"Søg i alle noterne\"; gemmes når Tomboy "
+"afsluttes."
 
 #: ../data/tomboy.schemas.in.h:7
-msgid "Determines pixel height of Search window; stored on Tomboy exit."
-msgstr "Bestemmer pixelhøjden af søgevinduet; gemmes når Tomboy afsluttes."
+msgid ""
+"Determines pixel height of \"Search All Notes\" window; stored on Tomboy "
+"exit."
+msgstr ""
+"Bestemmer pixelhøjden af vinduet \"Søg i alle noterne\"; gemmes når Tomboy "
+"afsluttes."
 
 #: ../data/tomboy.schemas.in.h:8
-msgid "Determines pixel width of Search window; stored on Tomboy exit."
-msgstr "Bestemmer pixelbredden af søgevinduet; gemmes når Tomboy afsluttes."
+msgid ""
+"Determines pixel width of \"Search All Notes\" window; stored on Tomboy exit."
+msgstr ""
+"Bestemmer pixelbredden af vinduet \"Søg i alle noterne\"; gemmes når Tomboy "
+"afsluttes."
 
 #: ../data/tomboy.schemas.in.h:9
-msgid "Enable Auto bulleted lists."
-msgstr "Aktivér autolistepunkter."
-
-#: ../data/tomboy.schemas.in.h:10
 msgid "Enable Middle-Click Paste On Icon."
 msgstr "Aktivér mellemklik-tekstindsættelse på ikon."
 
-#: ../data/tomboy.schemas.in.h:11
+#: ../data/tomboy.schemas.in.h:10
 msgid "Enable Tray Icon"
 msgstr "Aktivér statusikon"
 
-#: ../data/tomboy.schemas.in.h:12
+#: ../data/tomboy.schemas.in.h:11
 msgid "Enable WikiWord highlighting"
 msgstr "Aktivér WikiWord-fremhævning"
+
+#: ../data/tomboy.schemas.in.h:12
+msgid "Enable automatic bulleted lists."
+msgstr "Aktivér automatiske punktlister."
 
 #: ../data/tomboy.schemas.in.h:13
 msgid "Enable closing notes with escape."
@@ -175,20 +191,16 @@ msgid "HTML Export All Linked Notes"
 msgstr "HTML-eksportér alle sammenkædede noter"
 
 #: ../data/tomboy.schemas.in.h:24
-msgid "HTML Export Last Directory"
-msgstr "HTML-eksportér sidste mappe"
-
-#: ../data/tomboy.schemas.in.h:25
 msgid "HTML Export Linked Notes"
 msgstr "HTML-eksportér sammenkædede noter"
 
-#: ../data/tomboy.schemas.in.h:26
+#: ../data/tomboy.schemas.in.h:25
 msgid ""
 "If disabled, the \"Delete Note\" confirmation dialog will be suppressed."
 msgstr ""
 "Hvis deaktiveret, vil \"Slet note\"-bekræftelsesdialogen blive undertrykt."
 
-#: ../data/tomboy.schemas.in.h:27
+#: ../data/tomboy.schemas.in.h:26
 msgid ""
 "If enable_custom_font is true, the font name set here will be used as the "
 "font when displaying notes."
@@ -196,7 +208,7 @@ msgstr ""
 "Hvis enable_custom_font er sand, vil skrifttypen her blive brugt ved visning "
 "af noter."
 
-#: ../data/tomboy.schemas.in.h:28
+#: ../data/tomboy.schemas.in.h:27
 msgid ""
 "If enabled, all notes that were open when Tomboy quit will automatically be "
 "reopened at startup."
@@ -204,11 +216,11 @@ msgstr ""
 "Hvis aktiveret, vil alle noter der var åbne, da Tomboy lukkede, automatisk "
 "blive genåbnet ved næste programstart."
 
-#: ../data/tomboy.schemas.in.h:29
+#: ../data/tomboy.schemas.in.h:28
 msgid "If enabled, an opened note can be closed by hitting the escape key."
 msgstr "Hvis aktiveret, kan en åben note lukkes ved at trykke esc-tasten."
 
-#: ../data/tomboy.schemas.in.h:30
+#: ../data/tomboy.schemas.in.h:29
 msgid ""
 "If true, Tomboy's tray icon will be displayed in the notification area. "
 "Disabling this may be useful when another application is providing the "
@@ -218,7 +230,7 @@ msgstr ""
 "dette fra kan være praktisk, når et andet program giver statusikonets "
 "funktionalitet."
 
-#: ../data/tomboy.schemas.in.h:31
+#: ../data/tomboy.schemas.in.h:30
 msgid ""
 "If true, misspellings will be underlined in red, and correct spelling "
 "suggestions shown in the right-click menu."
@@ -226,7 +238,7 @@ msgstr ""
 "Hvis sand, vil stavefejl blive understreget med rødt, og forslag til korrekt "
 "staving vil kunne vælges i højrekliksmenuen."
 
-#: ../data/tomboy.schemas.in.h:32
+#: ../data/tomboy.schemas.in.h:31
 msgid ""
 "If true, the desktop-global keybindings set in /apps/tomboy/"
 "global_keybindings will be enabled, allowing for useful Tomboy actions to be "
@@ -236,7 +248,7 @@ msgstr ""
 "global_keybindings blive aktiveret og dermed tillade brugen af nyttige "
 "Tomboy-handlinger fra alle programmer."
 
-#: ../data/tomboy.schemas.in.h:33
+#: ../data/tomboy.schemas.in.h:32
 msgid ""
 "If true, the font name set in custom_font_face will be used as the font when "
 "displaying notes. Otherwise the desktop default font will be used."
@@ -245,7 +257,7 @@ msgstr ""
 "noter. Ellers vil den forvalgte skrifttype for skrivebordet blive brugt i "
 "stedet."
 
-#: ../data/tomboy.schemas.in.h:34
+#: ../data/tomboy.schemas.in.h:33
 msgid ""
 "Indicates that the Sticky Note Importer plugin has not been run, so it "
 "should run automatically the next time Tomboy starts."
@@ -253,14 +265,14 @@ msgstr ""
 "Indikerer om Sticky Note-importeringsmodulet ikke er blevet kørt, så det "
 "bliver automatisk kørt næste gang Tomboy startes."
 
-#: ../data/tomboy.schemas.in.h:35
+#: ../data/tomboy.schemas.in.h:34
 msgid ""
 "Integer determining the minimum number of notes to show in the Tomboy note "
 "menu."
 msgstr ""
 "Heltal der viser det mindste antal af noter, der vises i Tomboy-notemenuen."
 
-#: ../data/tomboy.schemas.in.h:36
+#: ../data/tomboy.schemas.in.h:35
 msgid ""
 "Integer value indicating how frequently to perform a background sync of your "
 "notes (when sync is configured). Any value less than 1 indicates that "
@@ -272,7 +284,7 @@ msgstr ""
 "1 angiver, at automatisk synkronisering er slået fra. Den laveste acceptable "
 "positive værdi er 5. Værdien er i minutter."
 
-#: ../data/tomboy.schemas.in.h:37
+#: ../data/tomboy.schemas.in.h:36
 msgid ""
 "Integer value indicating if there is a preference to always perform a "
 "specific behavior when a conflict is detected, instead of prompting the "
@@ -285,7 +297,7 @@ msgstr ""
 "gang. Værdien svarer til en intern nummerering. 0 indikerer at brugeren vil "
 "spørges hver gang så den enkelte konflikt kan blive håndteret særskilt."
 
-#: ../data/tomboy.schemas.in.h:38
+#: ../data/tomboy.schemas.in.h:37
 msgid ""
 "Integer value indicating if there is a preference to always perform a "
 "specific link updating behavior when a note is renamed, instead of prompting "
@@ -300,6 +312,10 @@ msgstr ""
 "stedet for at spørge brugeren hver gang. Værdien svarer til en intern "
 "nummerering. 0 indikerer at brugeren vil spørges hver gang så den enkelte "
 "konflikt kan blive håndteret særskilt."
+
+#: ../data/tomboy.schemas.in.h:38
+msgid "Last Directory used in HTML Export"
+msgstr "Seneste mappe brugt i HTML-eksport"
 
 #: ../data/tomboy.schemas.in.h:39
 msgid "Link Updating Behavior on Note Rename"
@@ -371,20 +387,20 @@ msgid "SSHFS Synchronization Server URL"
 msgstr "SSHFS-serveradresse til synkronisering"
 
 #: ../data/tomboy.schemas.in.h:54
-msgid "Saved height of Search window"
-msgstr "Gemt højde af søgevindue"
+msgid "Saved height of \"Search All Notes\" window"
+msgstr "Gemt højde af vinduet \"Søg i alle noterne\""
 
 #: ../data/tomboy.schemas.in.h:55
-msgid "Saved horizontal position of Search window"
-msgstr "Gemt vandret position af søgevindue"
+msgid "Saved horizontal position of \"Search All Notes\" window"
+msgstr "Gemt vandret position af vinduet \"Søg i alle noterne\""
 
 #: ../data/tomboy.schemas.in.h:56
-msgid "Saved vertical position of Search window"
-msgstr "Gemt lodret position af søgevindue"
+msgid "Saved vertical position of \"Search All Notes\" window"
+msgstr "Gemt lodret position af vinduet \"Søg i alle noterne\""
 
 #: ../data/tomboy.schemas.in.h:57
-msgid "Saved width of Search window"
-msgstr "Gem bredde af søgevindue"
+msgid "Saved width of \"Search All Notes\" window"
+msgstr "Gem bredde af vinduet \"Søg i alle noterne\""
 
 #: ../data/tomboy.schemas.in.h:58
 msgid "Selected Synchronization Service Addin"
@@ -632,7 +648,7 @@ msgstr "_Slet"
 msgid "Delete the selected note"
 msgstr "Slet den valgte note"
 
-#: ../Tomboy/ActionManager.cs:142 ../Tomboy/NoteWindow.cs:406
+#: ../Tomboy/ActionManager.cs:142 ../Tomboy/NoteWindow.cs:411
 msgid "_Close"
 msgstr "_Luk"
 
@@ -676,7 +692,7 @@ msgstr "Statusikon"
 msgid "Create _New Note"
 msgstr "Opret _ny note"
 
-#: ../Tomboy/ActionManager.cs:175 ../Tomboy/NoteWindow.cs:349
+#: ../Tomboy/ActionManager.cs:175 ../Tomboy/NoteWindow.cs:354
 msgid "_Search All Notes"
 msgstr "_Søg i alle noterne"
 
@@ -688,11 +704,22 @@ msgstr "Åbn søg i alle noterne-vinduet"
 msgid "Start synchronizing notes"
 msgstr "Start synkronisering af noter"
 
+#. Addin's tab caption
+#: ../Tomboy/Addins/AdvancedPreferences/AdvancedPreferencesAddin.cs:38
+msgid "Advanced"
+msgstr "Avanceret"
+
+#. Menu Note Count option
+#: ../Tomboy/Addins/AdvancedPreferences/AdvancedPreferencesAddin.cs:56
+msgid "Minimum number of notes to show in Recent list (maximum 18)"
+msgstr "Mindste antal af noter der vises i Nylige filer (maksimalt 18)"
+
 #: ../Tomboy/Addins/Backlinks/BacklinksNoteAddin.cs:38
 msgid "What links here?"
 msgstr "Hvad kædes her?"
 
-#: ../Tomboy/Addins/Backlinks/BacklinksNoteAddin.cs:84
+#. This is a disabled placeholder item for an empty menu
+#: ../Tomboy/Addins/Backlinks/BacklinksNoteAddin.cs:85
 msgid "(none)"
 msgstr "(intet)"
 
@@ -745,31 +772,13 @@ msgstr "Er du sikker på at du vil fjerne dette ikon?"
 msgid "If you remove an icon it is permanently lost."
 msgstr "Hvis du fjerner et ikon bliver det fjernet permanent."
 
-#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:67
-msgid "Export to HTML"
-msgstr "Eksportér til HTML"
+#: ../Tomboy/Addins/Evolution/EvolutionNoteAddin.cs:273
+msgid "Cannot open email"
+msgstr "Kan ikke åbne e-post"
 
-#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:115
-#, csharp-format
-msgid "Your note was exported to \"{0}\"."
-msgstr "Din note blev eksporteret til \"{0}\"."
-
-#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:126
-msgid "Note exported successfully"
-msgstr "Note eksporteret problemfrit"
-
-#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:132
-msgid "Access denied."
-msgstr "Ingen adgang."
-
-#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:134
-msgid "Folder does not exist."
-msgstr "Mappe findes ikke."
-
-#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:149
-#, csharp-format
-msgid "Could not save the file \"{0}\""
-msgstr "Kunne ikke gemme filen \"{0}\""
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlApplicationAddin.cs:59
+msgid "HTML"
+msgstr "HTML"
 
 #: ../Tomboy/Addins/ExportToHtml/ExportToHtmlDialog.cs:13
 msgid "Destination for HTML Export"
@@ -783,9 +792,35 @@ msgstr "Eksportér sammenkædede noter"
 msgid "Include all other linked notes"
 msgstr "Inkludér alle andre sammenkædede noter"
 
-#: ../Tomboy/Addins/Evolution/EvolutionNoteAddin.cs:273
-msgid "Cannot open email"
-msgstr "Kan ikke åbne e-post"
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:67
+msgid "Export to HTML"
+msgstr "Eksportér til HTML"
+
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:115
+#, csharp-format
+msgid "Your note was exported to \"{0}\"."
+msgstr "Din note blev eksporteret til \"{0}\"."
+
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:126
+msgid "Note exported successfully"
+msgstr "Note eksporteret med succes"
+
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:132
+#: ../Tomboy/ExportAllApplicationAddin.cs:195
+#: ../Tomboy/ExportAllApplicationAddin.cs:273
+msgid "Access denied."
+msgstr "Ingen adgang."
+
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:134
+#: ../Tomboy/ExportAllApplicationAddin.cs:200
+#: ../Tomboy/ExportAllApplicationAddin.cs:278
+msgid "Folder does not exist."
+msgstr "Mappe findes ikke."
+
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:149
+#, csharp-format
+msgid "Could not save the file \"{0}\""
+msgstr "Kunne ikke gemme filen \"{0}\""
 
 #: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:93
 msgid "_Folder Path:"
@@ -795,18 +830,18 @@ msgstr "_Mappesti:"
 msgid "Select Synchronization Folder..."
 msgstr "Vælg synkroniseringsmappe..."
 
-#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:126
+#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:127
 msgid "Folder path field is empty."
 msgstr "Felt til mappens sti er tomt."
 
-#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:135
+#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:136
 msgid ""
 "Specified folder path does not exist, and Tomboy was unable to create it."
 msgstr ""
 "Den specificerede mappesti findes ikke og Tomboy var ikke i stand til at "
 "oprette den."
 
-#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:213
+#: ../Tomboy/Addins/FileSystemSyncService/FileSystemSyncServiceAddin.cs:214
 msgid "Local Folder"
 msgstr "Lokal mappe"
 
@@ -869,11 +904,11 @@ msgstr "Aftaler"
 
 #: ../Tomboy/Addins/NoteOfTheDay/NoteOfTheDayPreferences.cs:16
 msgid ""
-"Change the <span weight=\"bold\">Today: Template</span> note to customize "
-"the text that new Today notes have."
+"Change the <b>Today: Template</b> note to customize the text that new Today "
+"notes have."
 msgstr ""
-"Ændr noten <span weight=\"bold\">I dag: Skabelonen</span> for at tilpasse "
-"teksten som nye i dag-noter anvender."
+"Ændr noten <b>I dag: Skabelonen</b> for at tilpasse teksten som nye i dag-"
+"noter anvender."
 
 # Det er lidt uklart hvad det betyder, men med denne her oversættelse er det vist begrænset hvor galt det kan gå
 #: ../Tomboy/Addins/NoteOfTheDay/NoteOfTheDayPreferences.cs:24
@@ -899,26 +934,31 @@ msgstr "Side {0} af {1}"
 msgid "dddd MM/dd/yyyy, hh:mm:ss tt"
 msgstr "dddd dd/MM/yyyy, hh:mm:ss tt"
 
+#. Adding menu item when note is opened and window created
+#: ../Tomboy/Addins/RemoveBrokenLinks/RemoveBrokenLinksAddin.cs:32
+msgid "Remove broken links"
+msgstr "Fjern ugyldige henvisninger"
+
 #: ../Tomboy/Addins/Sketching/SketchingNoteAddin.cs:19
 msgid "Add a sketch"
 msgstr "Tilføj en skitse"
 
-#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:47
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:48
 #: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:59
 msgid "Se_rver:"
 msgstr "Se_rver:"
 
-#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:51
-#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:59
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:52
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:61
 msgid "User_name:"
 msgstr "Bruger_navn:"
 
-#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:55
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:56
 msgid "_Folder Path (optional):"
 msgstr "_Sti til mappe (valgfri):"
 
 #. Text for label describing setup required for SSH sync addin to work
-#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:58
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:59
 msgid ""
 "SSH synchronization requires an existing SSH key for this server and user, "
 "added to a running SSH daemon."
@@ -926,15 +966,15 @@ msgstr ""
 "SSH-synkronisering kræver at en eksisterende SSH-nøgle for denne server og "
 "bruger er tilføjet til en kørende SSH-dæmon."
 
-#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:82
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:83
 msgid "Server or username field is empty."
 msgstr "Feltet til server eller brugernavn er tomt."
 
-#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:130
-msgid "SSH (sshfs FUSE)"
-msgstr "SSH (sshfs FUSE)"
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:143
+msgid "SSH"
+msgstr "SSH"
 
-#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:179
+#: ../Tomboy/Addins/SshSyncService/SshSyncServiceAddin.cs:192
 msgid ""
 "Timeout connecting to server. Please ensure that your SSH key has been added "
 "to a running SSH daemon."
@@ -961,14 +1001,18 @@ msgstr "Sticky Notes import fuldført"
 
 #: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:144
 #, csharp-format
-msgid "<b>{0}</b> of <b>{1}</b> Sticky Notes were successfully imported."
-msgstr "<b>{0}</b> af <b>{1}</b> Sticky Notes blev problemfrit importeret."
+msgid "<b>{0}</b> of <b>{1}</b> Sticky Note was successfully imported."
+msgid_plural ""
+"<b>{0}</b> of <b>{1}</b> Sticky Notes were successfully imported."
+msgstr[0] "<b>{0}</b> af <b>{1}</b> Klæbrig note blev importeret med succes."
+msgstr[1] ""
+"<b>{0}</b> af <b>{1}</b> Klæbrige noter blev problemfrit importeret."
 
-#: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:156
+#: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:159
 msgid "Untitled"
 msgstr "Uden titel"
 
-#: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:185
+#: ../Tomboy/Addins/StickyNoteImport/StickyNoteImportNoteAddin.cs:188
 msgid "Sticky Note: "
 msgstr "Sticky Note: "
 
@@ -992,23 +1036,23 @@ msgstr "--- Tasque kører ikke ---"
 msgid "_Underline"
 msgstr "_Understreg"
 
-#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:55
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:56
 msgid "_URL:"
 msgstr "_URL:"
 
-#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:64
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:67
 msgid "_Password:"
 msgstr "_Adgangskode:"
 
-#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:77
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:80
 msgid "URL, username, or password field is empty."
 msgstr "URL, brugernavn eller kodeordsfeltet er tomt."
 
-#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:119
-msgid "WebDAV (wdfs FUSE)"
-msgstr "WebDAV (wdfs FUSE)"
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:133
+msgid "WebDAV"
+msgstr "WebDAV"
 
-#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:178
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:192
 msgid ""
 "There was an error connecting to the server.  This may be caused by using an "
 "incorrect user name and/or password."
@@ -1021,19 +1065,15 @@ msgstr ""
 #. Save configuration into GConf
 #. Preferences.Set ("/apps/tomboy/sync_wdfs_url", url ?? string.Empty);
 #. Preferences.Set ("/apps/tomboy/sync_wdfs_username", username ?? string.Empty);
-#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:254
+#: ../Tomboy/Addins/WebDavSyncService/WebDavSyncServiceAddin.cs:268
 msgid ""
 "Saving configuration to the GNOME keyring failed with the following message:"
 msgstr ""
 "Forsøget på at gemme konfiguration til GNOME-nøgleringen slog fejl med den "
 "følgende besked:"
 
-#: ../Tomboy/Addins/WebSyncService/WebSyncServiceAddin.cs:70
-msgid "Tomboy Web"
-msgstr "Tomboy-web"
-
 #: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:66
-#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:96
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:97
 msgid "Connect to Server"
 msgstr "Forbind til server"
 
@@ -1042,23 +1082,23 @@ msgid "Connected"
 msgstr "Tilsluttet"
 
 #. Translators: The web service supporting Tomboy WebSync is not responding as expected
-#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:125
-#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:156
-#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:170
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:126
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:157
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:171
 msgid "Server not responding. Try again later."
 msgstr "Serveren svarer ikke. Prøv igen senere."
 
-#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:201
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:202
 msgid "Authorization Failed, Try Again"
 msgstr "Autorisering slog fejl, prøv igen"
 
 #. Translators: Title of web page presented to user after they authorized Tomboy for sync
-#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:210
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:211
 msgid "Tomboy Web Authorization Successful"
 msgstr "Tomboy-webautorisering fuldført"
 
 #. Translators: Body of web page presented to user after they authorized Tomboy for sync
-#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:212
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:213
 msgid ""
 "Please return to the Tomboy Preferences window and press Save to start "
 "synchronizing."
@@ -1066,22 +1106,121 @@ msgstr ""
 "Gå venligst tilbage til Tomboys indstillingsvindue og tryk Gem for at "
 "påbegynde synkronisering."
 
-#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:221
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:222
 msgid "Connected. Press Save to start synchronizing"
 msgstr "Tilsluttet. Tryk Gem for at påbegynde synkronisering"
 
 #. Translators: The user must take action in their web browser to continue the authorization process
-#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:227
-#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:239
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:228
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:240
 msgid "Authorizing in browser (Press to reset connection)"
 msgstr "Autoriserer i browser (Tryk for at nulstille forbindelsen)"
 
 #. Translators: Sometimes a user's default browser is not set, so we recommend setting it and trying again
-#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:235
+#: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:236
 msgid "Set the default browser and try again"
 msgstr "Indstil standardbrowser og prøv igen"
 
-#: ../Tomboy/JumpListManager.cs:96 ../Tomboy/RecentChanges.cs:83
+#: ../Tomboy/Addins/WebSyncService/WebSyncServiceAddin.cs:70
+msgid "Tomboy Web"
+msgstr "Tomboy-web"
+
+#: ../Tomboy/ExportAllApplicationAddin.cs:53
+#, csharp-format
+msgid "Export All Notes to {0}"
+msgstr "Eksportér alle noter til {0}"
+
+#: ../Tomboy/ExportAllApplicationAddin.cs:54
+#, csharp-format
+msgid "Start exporting notes to {0}"
+msgstr "Start eksport af noter til {0}"
+
+#: ../Tomboy/ExportAllApplicationAddin.cs:58
+#, csharp-format
+msgid "Export selected notebook to {0}"
+msgstr "Eksportér den valgte notesblok til {0}"
+
+#: ../Tomboy/ExportAllApplicationAddin.cs:59
+#, csharp-format
+msgid "Start exporting notebook to {0}"
+msgstr "Start eksport af notesblok til {0}"
+
+#: ../Tomboy/ExportAllApplicationAddin.cs:65
+#: ../Tomboy/Synchronization/SyncManager.cs:161
+msgid "_Tools"
+msgstr "_Værktøjer"
+
+#: ../Tomboy/ExportAllApplicationAddin.cs:68
+msgid "Export"
+msgstr "Eksportér"
+
+#: ../Tomboy/ExportAllApplicationAddin.cs:69
+msgid "Export your notes."
+msgstr "Eksportér dine noter."
+
+#: ../Tomboy/ExportAllApplicationAddin.cs:72
+#, csharp-format
+msgid "Export All Notes To {0}"
+msgstr "Eksportér Alle noter Til {0}"
+
+#: ../Tomboy/ExportAllApplicationAddin.cs:77
+#, csharp-format
+msgid "Export Selected Notebook To {0}"
+msgstr "Eksportér den valgte notesblok Til {0}"
+
+#: ../Tomboy/ExportAllApplicationAddin.cs:153
+#, csharp-format
+msgid "All Notes {0} Export"
+msgstr "Alle noter {0} Eksportér"
+
+#: ../Tomboy/ExportAllApplicationAddin.cs:193
+#: ../Tomboy/ExportAllApplicationAddin.cs:271
+msgid "Could not export, access denied."
+msgstr "Kunne ikke eksportere, adgang nægtet."
+
+#: ../Tomboy/ExportAllApplicationAddin.cs:198
+#: ../Tomboy/ExportAllApplicationAddin.cs:276
+msgid "Could not export, folder does not exist."
+msgstr "Kunne ikke eksportere, mappen findes ikke."
+
+#: ../Tomboy/ExportAllApplicationAddin.cs:203
+#: ../Tomboy/ExportAllApplicationAddin.cs:281
+#, csharp-format
+msgid "Could not export: {0}"
+msgstr "Kunne ikke eksportere: {0}"
+
+#: ../Tomboy/ExportAllApplicationAddin.cs:205
+#: ../Tomboy/ExportAllApplicationAddin.cs:283
+msgid "Unknown error."
+msgstr "Ukendt fejl."
+
+# ???
+#: ../Tomboy/ExportAllApplicationAddin.cs:236
+#: ../Tomboy/Notebooks/Notebook.cs:237
+msgid "Unfiled Notes"
+msgstr "Ugemte noter"
+
+#: ../Tomboy/ExportAllApplicationAddin.cs:389
+#, csharp-format
+msgid "Your notes were exported to \"{0}\"."
+msgstr "Dine noter blev eksporteret til \"{0}\"."
+
+#: ../Tomboy/ExportAllApplicationAddin.cs:398
+msgid "Notes exported successfully"
+msgstr "Noterne blev eksporteret problemfrit"
+
+#: ../Tomboy/ExportAllApplicationAddin.cs:421
+#, csharp-format
+msgid "Could not save the files in \"{0}\""
+msgstr "Kunne ikke gemme filerne i \"{0}\""
+
+#. Translators: {0} is the export type, e.g. HTML
+#: ../Tomboy/ExportAllApplicationAddin.cs:507
+#, csharp-format
+msgid "Create destination folder for {0} export"
+msgstr "Opret destinationsmappe til {0} eksport"
+
+#: ../Tomboy/JumpListManager.cs:96 ../Tomboy/RecentChanges.cs:85
 msgid "Search All Notes"
 msgstr "Søg i alle noterne"
 
@@ -1134,27 +1273,6 @@ msgstr "Navnet er allerede brugt"
 msgid "C_reate"
 msgstr "O_pret"
 
-#. The templateNoteTite should show the name of the
-#. notebook.  For example, if the name of the notebooks
-#. "Meetings", the templateNoteTitle should be "Meetings
-#. Notebook Template".  Translators should place the
-#. name of the notebook accordingly using "{0}".
-#. TODO: Figure out how to make this note for
-#. translators appear properly.
-#: ../Tomboy/Notebooks/Notebook.cs:79
-#, csharp-format
-msgid "{0} Notebook Template"
-msgstr "{0}-notesblokskabelon"
-
-#: ../Tomboy/Notebooks/Notebook.cs:183
-msgid "All Notes"
-msgstr "Alle noter"
-
-# ???
-#: ../Tomboy/Notebooks/Notebook.cs:215
-msgid "Unfiled Notes"
-msgstr "Ugemte noter"
-
 #: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:48
 msgid "Note_books"
 msgstr "Notes_blok"
@@ -1194,15 +1312,35 @@ msgid "Delete the selected notebook"
 msgstr "Slet den valgte notesblok"
 
 #: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:68
-#: ../Tomboy/RecentChanges.cs:260
+#: ../Tomboy/RecentChanges.cs:276
 msgid "Notebooks"
 msgstr "Notesblokke"
 
-#: ../Tomboy/Notebooks/NotebookManager.cs:361
+#. The templateNoteTite should show the name of the
+#. notebook.  For example, if the name of the notebooks
+#. "Meetings", the templateNoteTitle should be "Meetings
+#. Notebook Template".  Translators should place the
+#. name of the notebook accordingly using "{0}".
+#. TODO: Figure out how to make this note for
+#. translators appear properly.
+#: ../Tomboy/Notebooks/Notebook.cs:79
+#, csharp-format
+msgid "{0} Notebook Template"
+msgstr "{0}-notesblokskabelon"
+
+#: ../Tomboy/Notebooks/Notebook.cs:153
+msgid "New Note"
+msgstr "Ny note"
+
+#: ../Tomboy/Notebooks/Notebook.cs:205
+msgid "All Notes"
+msgstr "Alle noter"
+
+#: ../Tomboy/Notebooks/NotebookManager.cs:367
 msgid "Really delete this notebook?"
 msgstr "Er du sikker på at du vil slette denne notesblok?"
 
-#: ../Tomboy/Notebooks/NotebookManager.cs:363
+#: ../Tomboy/Notebooks/NotebookManager.cs:369
 msgid ""
 "The notes that belong to this notebook will not be deleted, but they will no "
 "longer be associated with this notebook.  This action cannot be undone."
@@ -1223,34 +1361,40 @@ msgstr "Ingen notesblok"
 msgid "New \"{0}\" Note"
 msgstr "Ny \"{0}\"-note"
 
-#: ../Tomboy/Notebooks/NotebookNoteAddin.cs:46
+#: ../Tomboy/Notebooks/NotebookNoteAddin.cs:56
 msgid "Place this note into a notebook"
 msgstr "Indsæt denne note i en notesblok"
 
-#: ../Tomboy/Notebooks/NotebookNoteAddin.cs:127
+#: ../Tomboy/Notebooks/NotebookNoteAddin.cs:148
 msgid "Notebook"
 msgstr "Notesblok"
 
-#: ../Tomboy/Notebooks/NotebookNoteAddin.cs:156
+#: ../Tomboy/Notebooks/NotebookNoteAddin.cs:177
 msgid "_New notebook..."
 msgstr "_Ny notesblok..."
 
-#: ../Tomboy/Note.cs:1568
-msgid "Really delete this note?"
-msgstr "Er du sikker på at du vil slette denne note?"
+#: ../Tomboy/Note.cs:515 ../Tomboy/NoteManager.cs:475
+#, csharp-format
+msgid "New Note {0}"
+msgstr "Ny note {0}"
 
-#: ../Tomboy/Note.cs:1571
+#: ../Tomboy/Note.cs:1607
+#, csharp-format
+msgid "Really delete \"{0}\"?"
+msgstr "Er du sikker på at du vil slette \"{0}\"?"
+
+#: ../Tomboy/Note.cs:1610
 #, csharp-format
 msgid "Really delete this {0} note?"
 msgid_plural "Really delete these {0} notes?"
 msgstr[0] "Er du sikker på at du vil slette {0} note?"
 msgstr[1] "Er du sikker på at du vil slette disse {0} noter?"
 
-#: ../Tomboy/Note.cs:1582
+#: ../Tomboy/Note.cs:1621
 msgid "If you delete a note it is permanently lost."
 msgstr "Hvis du sletter en note, bliver den slettet permanent."
 
-#: ../Tomboy/Note.cs:1616
+#: ../Tomboy/Note.cs:1655
 #, csharp-format
 msgid ""
 "An error occurred while saving your notes. Please check that you have "
@@ -1261,13 +1405,13 @@ msgstr ""
 "tilstrækkeligt med diskplads, og at du har passende rettigheder til {0}. "
 "Fejldetaljer kan findes i {1}."
 
-#: ../Tomboy/Note.cs:1632
+#: ../Tomboy/Note.cs:1671
 msgid "Error saving note data."
 msgstr "Fejl ved gemning af notedata."
 
 #. New Note Template
 #. Translators: This is 'New Note' Template, not New 'Note Template'
-#: ../Tomboy/NoteManager.cs:21 ../Tomboy/PreferencesDialog.cs:256
+#: ../Tomboy/NoteManager.cs:21 ../Tomboy/PreferencesDialog.cs:257
 msgid "New Note Template"
 msgstr "Ny noteskabelon"
 
@@ -1391,7 +1535,7 @@ msgstr ""
 "automatisk blive kædet for dig.</note-content>"
 
 #. Attempt to find an existing Start Here note
-#: ../Tomboy/NoteManager.cs:299 ../Tomboy/NoteManager.cs:369
+#: ../Tomboy/NoteManager.cs:299 ../Tomboy/NoteManager.cs:395
 msgid "Start Here"
 msgstr "Start her"
 
@@ -1399,14 +1543,9 @@ msgstr "Start her"
 msgid "Using Links in Tomboy"
 msgstr "Brug kæder i Tomboy"
 
-#: ../Tomboy/NoteManager.cs:449
-#, csharp-format
-msgid "New Note {0}"
-msgstr "Ny note {0}"
-
 #. Use a simple "Describe..." body and highlight
 #. it so it can be easily overwritten
-#: ../Tomboy/NoteManager.cs:522 ../Tomboy/NoteManager.cs:615
+#: ../Tomboy/NoteManager.cs:543 ../Tomboy/NoteManager.cs:646
 msgid "Describe your new note here."
 msgstr "Beskriv din nye note her."
 
@@ -1470,139 +1609,167 @@ msgstr "Omdøb aldrig _henvisninger"
 msgid "Alwa_ys rename links"
 msgstr "O_mdøb altid henvisninger"
 
-#: ../Tomboy/NoteWindow.cs:58
+#: ../Tomboy/NoteWindow.cs:59
 msgid "Find in This Note"
 msgstr "Søg i denne note"
 
-#: ../Tomboy/NoteWindow.cs:361
+#: ../Tomboy/NoteWindow.cs:366
 msgid "_Link to New Note"
 msgstr "_Kæd til ny note"
 
-#: ../Tomboy/NoteWindow.cs:373
+#: ../Tomboy/NoteWindow.cs:378
 msgid "Te_xt"
 msgstr "_Tekst"
 
-#: ../Tomboy/NoteWindow.cs:381
+#: ../Tomboy/NoteWindow.cs:386
 msgid "_Find in This Note"
 msgstr "_Søg i denne note"
 
-#: ../Tomboy/NoteWindow.cs:396
+#: ../Tomboy/NoteWindow.cs:401
 msgid "Clos_e All Notes"
 msgstr "_Luk alle noterne"
 
-#: ../Tomboy/NoteWindow.cs:436
+#: ../Tomboy/NoteWindow.cs:441
 msgid "Search"
 msgstr "Søg"
 
-#: ../Tomboy/NoteWindow.cs:439
-msgid "Search your notes (Ctrl-Shift-F)"
-msgstr "Søg i dine noter (Ctrl-Skift-F)"
+#. TODO: If we ever add a way to customize internal keybindings, this will need to change
+#: ../Tomboy/NoteWindow.cs:445
+msgid "Search your notes"
+msgstr "Søg i dine noter"
 
-#: ../Tomboy/NoteWindow.cs:451
+#: ../Tomboy/NoteWindow.cs:457
 msgid "Link"
 msgstr "Kæde"
 
-#: ../Tomboy/NoteWindow.cs:457
-msgid "Link selected text to a new note (Ctrl-L)"
-msgstr "Kæd markeret tekst til en ny note (Ctrl-L)"
+#: ../Tomboy/NoteWindow.cs:464
+msgid "Link selected text to a new note"
+msgstr "Kæd markeret tekst til en ny note"
 
-#: ../Tomboy/NoteWindow.cs:470
+#: ../Tomboy/NoteWindow.cs:477
 msgid "_Text"
 msgstr "_Tekst"
 
-#: ../Tomboy/NoteWindow.cs:475
+#: ../Tomboy/NoteWindow.cs:482
 msgid "Set properties of text"
 msgstr "Angiv tekstegenskaber"
 
-#: ../Tomboy/NoteWindow.cs:480
+#: ../Tomboy/NoteWindow.cs:487
 msgid "T_ools"
 msgstr "_Værktøjer"
 
-#: ../Tomboy/NoteWindow.cs:484
+#: ../Tomboy/NoteWindow.cs:491
 msgid "Use tools on this note"
 msgstr "Brug værktøjer på denne note"
 
-#: ../Tomboy/NoteWindow.cs:492
+#: ../Tomboy/NoteWindow.cs:499
 msgid "Delete this note"
 msgstr "Slet denne note"
 
-#: ../Tomboy/NoteWindow.cs:500 ../Tomboy/Synchronization/SyncManager.cs:163
+#: ../Tomboy/NoteWindow.cs:507 ../Tomboy/Synchronization/SyncManager.cs:163
 msgid "Synchronize Notes"
 msgstr "Synkronisér noter"
 
-#: ../Tomboy/NoteWindow.cs:562
+#: ../Tomboy/NoteWindow.cs:565
+msgid ""
+"This note is a template note. It determines the default content of regular "
+"notes, and will not show up in the note menu or search window."
+msgstr ""
+"Denne note er en skabelon-note. Den bestemmer det forvalgte indhold af de "
+"almindelige noter og vil hverken blive vist i menuen note eller i "
+"søgevinduet."
+
+#: ../Tomboy/NoteWindow.cs:571
+msgid "Convert to regular note"
+msgstr "Omdan til almindelig note"
+
+# Er det ok?
+#: ../Tomboy/NoteWindow.cs:576
+msgid "Save Si_ze"
+msgstr "Gem S_tørrelse"
+
+# Er det en rigtig måde at gøre det på?
+#: ../Tomboy/NoteWindow.cs:585
+msgid "Save Se_lection"
+msgstr "Gem _markering"
+
+#: ../Tomboy/NoteWindow.cs:594
+msgid "Save _Title"
+msgstr "Gem _Titel"
+
+#: ../Tomboy/NoteWindow.cs:639
 msgid "_Find..."
 msgstr "_Find..."
 
-#: ../Tomboy/NoteWindow.cs:573
+#: ../Tomboy/NoteWindow.cs:650
 msgid "Find _Next"
 msgstr "Find _næste"
 
-#: ../Tomboy/NoteWindow.cs:586
+#: ../Tomboy/NoteWindow.cs:663
 msgid "Find _Previous"
 msgstr "Find _forrige"
 
-#: ../Tomboy/NoteWindow.cs:674
+#: ../Tomboy/NoteWindow.cs:751
 msgid "Cannot create note"
 msgstr "Kan ikke oprette note"
 
-#: ../Tomboy/NoteWindow.cs:755
+#: ../Tomboy/NoteWindow.cs:832
 msgid "_Find:"
 msgstr "_Find:"
 
-#: ../Tomboy/NoteWindow.cs:766
+#: ../Tomboy/NoteWindow.cs:843
 msgid "_Previous"
 msgstr "_Forrige"
 
-#: ../Tomboy/NoteWindow.cs:775
+#: ../Tomboy/NoteWindow.cs:852
 msgid "_Next"
 msgstr "_Næste"
 
-#: ../Tomboy/NoteWindow.cs:1258
+#: ../Tomboy/NoteWindow.cs:1335
 msgid "_Bold"
 msgstr "_Fed"
 
-#: ../Tomboy/NoteWindow.cs:1270
+#: ../Tomboy/NoteWindow.cs:1347
 msgid "_Italic"
 msgstr "_Kursiv"
 
-#: ../Tomboy/NoteWindow.cs:1282
+#: ../Tomboy/NoteWindow.cs:1359
 msgid "_Strikeout"
 msgstr "_Gennemstreget"
 
-#: ../Tomboy/NoteWindow.cs:1294
+#: ../Tomboy/NoteWindow.cs:1371
 msgid "_Highlight"
 msgstr "_Fremhævet"
 
-#: ../Tomboy/NoteWindow.cs:1307
+#: ../Tomboy/NoteWindow.cs:1384
 msgid "Font Size"
 msgstr "Skriftstørrelse"
 
-#: ../Tomboy/NoteWindow.cs:1310
+#: ../Tomboy/NoteWindow.cs:1387
 msgid "_Normal"
 msgstr "_Normal"
 
-#: ../Tomboy/NoteWindow.cs:1327
+#: ../Tomboy/NoteWindow.cs:1404
 msgid "Hu_ge"
 msgstr "_Meget stor"
 
-#: ../Tomboy/NoteWindow.cs:1335
+#: ../Tomboy/NoteWindow.cs:1412
 msgid "_Large"
 msgstr "_Stor"
 
-#: ../Tomboy/NoteWindow.cs:1343
+#: ../Tomboy/NoteWindow.cs:1420
 msgid "S_mall"
 msgstr "_Lille"
 
-#: ../Tomboy/NoteWindow.cs:1352
+#: ../Tomboy/NoteWindow.cs:1429
 msgid "Increase Font Size"
 msgstr "Forøg skriftstørrelse"
 
-#: ../Tomboy/NoteWindow.cs:1370
+#: ../Tomboy/NoteWindow.cs:1447
 msgid "Decrease Font Size"
 msgstr "Formindsk skriftstørrelse"
 
-#: ../Tomboy/NoteWindow.cs:1390
+#: ../Tomboy/NoteWindow.cs:1467
 msgid "Bullets"
 msgstr "Punkter"
 
@@ -1622,11 +1789,11 @@ msgstr "Synkronisering"
 msgid "Add-ins"
 msgstr "Tilføjelser"
 
-#: ../Tomboy/PreferencesDialog.cs:173
+#: ../Tomboy/PreferencesDialog.cs:174
 msgid "_Spell check while typing"
 msgstr "Løbende _stavekontrol"
 
-#: ../Tomboy/PreferencesDialog.cs:182
+#: ../Tomboy/PreferencesDialog.cs:183
 msgid ""
 "Misspellings will be underlined in red, with correct spelling suggestions "
 "shown in the context menu."
@@ -1635,11 +1802,11 @@ msgstr ""
 "vil blive vist i højreknapsmenuen."
 
 #. WikiWords...
-#: ../Tomboy/PreferencesDialog.cs:193
+#: ../Tomboy/PreferencesDialog.cs:194
 msgid "Highlight _WikiWords"
 msgstr "Fremhæv _wiki-ord"
 
-#: ../Tomboy/PreferencesDialog.cs:201
+#: ../Tomboy/PreferencesDialog.cs:202
 msgid ""
 "Enable this option to highlight words <b>ThatLookLikeThis</b>. Clicking the "
 "word will create a note with that name."
@@ -1648,31 +1815,31 @@ msgstr ""
 "på ordet vil oprette en ny note med samme navn som ordet."
 
 #. Auto bulleted list
-#: ../Tomboy/PreferencesDialog.cs:208
+#: ../Tomboy/PreferencesDialog.cs:209
 msgid "Enable auto-_bulleted lists"
 msgstr "Aktivér auto-liste_punkttegn"
 
-#: ../Tomboy/PreferencesDialog.cs:217
+#: ../Tomboy/PreferencesDialog.cs:218
 msgid "Use custom _font"
 msgstr "Brug tilpasset _skrifttype"
 
-#: ../Tomboy/PreferencesDialog.cs:235
+#: ../Tomboy/PreferencesDialog.cs:236
 msgid "When renaming a linked note: "
 msgstr "Når en note med henvisninger omdøbes: "
 
-#: ../Tomboy/PreferencesDialog.cs:238
+#: ../Tomboy/PreferencesDialog.cs:239
 msgid "Ask me what to do"
 msgstr "Spørg mig om hvad der skal gøres"
 
-#: ../Tomboy/PreferencesDialog.cs:239
+#: ../Tomboy/PreferencesDialog.cs:240
 msgid "Never rename links"
 msgstr "Omdøb aldrig henvisninger"
 
-#: ../Tomboy/PreferencesDialog.cs:240
+#: ../Tomboy/PreferencesDialog.cs:241
 msgid "Always rename links"
 msgstr "Omdøb altid henvisninger"
 
-#: ../Tomboy/PreferencesDialog.cs:260
+#: ../Tomboy/PreferencesDialog.cs:261
 msgid ""
 "Use the new note template to specify the text that should be used when "
 "creating a new note."
@@ -1680,16 +1847,16 @@ msgstr ""
 "Brug den nye noteskabelon til at angive den tekst, der skal bruges ved "
 "oprettelse af en ny note."
 
-#: ../Tomboy/PreferencesDialog.cs:269
+#: ../Tomboy/PreferencesDialog.cs:270
 msgid "Open New Note Template"
 msgstr "Åbn ny noteskabelon"
 
 #. Hotkeys...
-#: ../Tomboy/PreferencesDialog.cs:326
+#: ../Tomboy/PreferencesDialog.cs:327
 msgid "Listen for _Hotkeys"
 msgstr "Lyt efter _genvejstaster"
 
-#: ../Tomboy/PreferencesDialog.cs:335
+#: ../Tomboy/PreferencesDialog.cs:336
 msgid ""
 "Hotkeys allow you to quickly access your notes from anywhere with a "
 "keypress. Example Hotkeys: <b>&lt;Control&gt;&lt;Shift&gt;F11</b>, <b>&lt;"
@@ -1700,83 +1867,83 @@ msgstr ""
 "Control&gt;&lt;Shift&gt;F11</b>, <b>&lt;Alt&gt;N</b>"
 
 #. Show notes menu keybinding...
-#: ../Tomboy/PreferencesDialog.cs:355
+#: ../Tomboy/PreferencesDialog.cs:356
 msgid "Show notes _menu"
 msgstr "Vis note_menuen"
 
 #. Open Start Here keybinding...
-#: ../Tomboy/PreferencesDialog.cs:372
+#: ../Tomboy/PreferencesDialog.cs:373
 msgid "Open \"_Start Here\""
 msgstr "Åbn \"_Start her\""
 
 #. Create new note keybinding...
-#: ../Tomboy/PreferencesDialog.cs:389
+#: ../Tomboy/PreferencesDialog.cs:390
 msgid "Create _new note"
 msgstr "Opret _ny note"
 
 #. Open Search All Notes window keybinding...
-#: ../Tomboy/PreferencesDialog.cs:406
+#: ../Tomboy/PreferencesDialog.cs:407
 msgid "Open \"Search _All Notes\""
 msgstr "Åbn \"Søg i _alle noterne\""
 
-#: ../Tomboy/PreferencesDialog.cs:433
+#: ../Tomboy/PreferencesDialog.cs:434
 msgid "Ser_vice:"
 msgstr "Tje_neste:"
 
-#: ../Tomboy/PreferencesDialog.cs:486 ../Tomboy/PreferencesDialog.cs:1113
+#: ../Tomboy/PreferencesDialog.cs:487 ../Tomboy/PreferencesDialog.cs:1106
 msgid "Not configurable"
 msgstr "Ikke konfigurerbar"
 
-#: ../Tomboy/PreferencesDialog.cs:512
+#: ../Tomboy/PreferencesDialog.cs:513
 msgid "Automaticall_y Sync in Background Every"
 msgstr "S_ynkronisér automatisk i baggrunden hvert"
 
 # Det er nok til konstruktion af strengen "Synkronisér automatisk i baggrunden hvert %d minut"
 #. Translators: See above comment for details on
 #. this string.
-#: ../Tomboy/PreferencesDialog.cs:518
+#: ../Tomboy/PreferencesDialog.cs:519
 msgid "Minutes"
 msgstr "minut"
 
 #. "Advanced..." button to bring up extra sync config dialog
-#: ../Tomboy/PreferencesDialog.cs:540
+#: ../Tomboy/PreferencesDialog.cs:541
 msgid "_Advanced..."
 msgstr "_Avanceret..."
 
-#: ../Tomboy/PreferencesDialog.cs:601
+#: ../Tomboy/PreferencesDialog.cs:602
 msgid "The following add-ins are installed"
 msgstr "De følgende tilføjelser er installeret"
 
-#: ../Tomboy/PreferencesDialog.cs:622
+#: ../Tomboy/PreferencesDialog.cs:623
 msgid "Get More Add-Ins..."
 msgstr "Hent flere tilføjelser..."
 
-#: ../Tomboy/PreferencesDialog.cs:648
+#: ../Tomboy/PreferencesDialog.cs:641
 msgid "_Enable"
 msgstr "_Aktivér"
 
-#: ../Tomboy/PreferencesDialog.cs:654
+#: ../Tomboy/PreferencesDialog.cs:647
 msgid "_Disable"
 msgstr "_Deaktivér"
 
-#: ../Tomboy/PreferencesDialog.cs:785
+#: ../Tomboy/PreferencesDialog.cs:778
 msgid "Not Implemented"
 msgstr "Ikke implementeret"
 
-#: ../Tomboy/PreferencesDialog.cs:799
+#: ../Tomboy/PreferencesDialog.cs:792
 #, csharp-format
 msgid "{0} Preferences"
 msgstr "{0} Indstillinger"
 
-#: ../Tomboy/PreferencesDialog.cs:938
+#: ../Tomboy/PreferencesDialog.cs:931
 msgid "Choose Note Font"
 msgstr "Vælg skrifttype for note"
 
-#: ../Tomboy/PreferencesDialog.cs:982
+#: ../Tomboy/PreferencesDialog.cs:975
 msgid "Other Synchronization Options"
 msgstr "Andre synkroniseringsindstillinger"
 
-#: ../Tomboy/PreferencesDialog.cs:988
+#: ../Tomboy/PreferencesDialog.cs:981
 msgid ""
 "When a conflict is detected between a local note and a note on the "
 "configured synchronization server:"
@@ -1784,23 +1951,23 @@ msgstr ""
 "Når der bliver opdaget en konflikt mellem en lokal note og en note på en "
 "synkroniseringsserver:"
 
-#: ../Tomboy/PreferencesDialog.cs:995
+#: ../Tomboy/PreferencesDialog.cs:988
 msgid "Always ask me what to do."
 msgstr "Spørg mig altid hvad der skal gøres."
 
-#: ../Tomboy/PreferencesDialog.cs:999
+#: ../Tomboy/PreferencesDialog.cs:992
 msgid "Rename my local note."
 msgstr "Omdøb min lokale note."
 
-#: ../Tomboy/PreferencesDialog.cs:1003
+#: ../Tomboy/PreferencesDialog.cs:996
 msgid "Replace my local note with the server's update."
 msgstr "Erstat min lokale note med serverens opdatering."
 
-#: ../Tomboy/PreferencesDialog.cs:1149
-msgid "WARNING: Are you sure?"
-msgstr "ADVARSEL: Er du sikker?"
+#: ../Tomboy/PreferencesDialog.cs:1142
+msgid "Are you sure?"
+msgstr "Er du sikker?"
 
-#: ../Tomboy/PreferencesDialog.cs:1151
+#: ../Tomboy/PreferencesDialog.cs:1144
 msgid ""
 "Clearing your synchronization settings is not recommended.  You may be "
 "forced to synchronize all of your notes again when you save new settings."
@@ -1809,311 +1976,116 @@ msgstr ""
 "blive tvunget til at synkronisere alle dine noter igen, når du gemmer dine "
 "nye indstillinger."
 
-#: ../Tomboy/PreferencesDialog.cs:1164
+#: ../Tomboy/PreferencesDialog.cs:1157
 msgid "Resetting Synchronization Settings"
 msgstr "Nulstiller synkroniseringsindstillinger"
 
-#: ../Tomboy/PreferencesDialog.cs:1166
+#: ../Tomboy/PreferencesDialog.cs:1159
 msgid ""
 "You have disabled the configured synchronization service.  Your "
 "synchronization settings will now be cleared.  You may be forced to "
-"synchronize all of your notes again when you save new settings"
+"synchronize all of your notes again when you save new settings."
 msgstr ""
 "Du har deaktiveret den konfigurerede synkroniseringsservice. Dine "
 "synkroniserings-indstillinger vil nu blive ryddet. Du vil måske være nødt "
-"til at synkronisere alle dine noter igen når du gemmer de nye indstillinger"
+"til at synkronisere alle dine noter igen når du gemmer de nye indstillinger."
 
-#: ../Tomboy/PreferencesDialog.cs:1244
-msgid "Success! You're connected!"
-msgstr "Succes! Du er nu tilsluttet!"
+#: ../Tomboy/PreferencesDialog.cs:1237
+msgid "Connection successful"
+msgstr "Forbindelsen er oprettet"
 
-#: ../Tomboy/PreferencesDialog.cs:1246
+#: ../Tomboy/PreferencesDialog.cs:1239
 msgid ""
 "Tomboy is ready to synchronize your notes. Would you like to synchronize "
 "them now?"
 msgstr ""
 "Tomboy er klar til at synkronisere dine noter. Vil du synkronisere dem nu?"
 
-#: ../Tomboy/PreferencesDialog.cs:1269
+#: ../Tomboy/PreferencesDialog.cs:1262
 #, csharp-format
 msgid ""
-"Sorry, but something went wrong.  Please check your information and try "
-"again.  The {0} might be useful too."
+"Please check your information and try again.  The log file {0} may contain "
+"more information about the error."
 msgstr ""
-"Beklager, men noget gik galt.  Kontrollér venligst dine informationer og "
-"prøv igen. Filen {0} kan også være behjælpelig."
+"Kontrollér venligst dine informationer og prøv igen. Logfilen {0} indeholder "
+"muligvis flere oplysninger om fejlen."
 
-#: ../Tomboy/PreferencesDialog.cs:1282
-msgid "Error connecting :("
-msgstr "Fejl ved tilslutning :("
+#: ../Tomboy/PreferencesDialog.cs:1274
+msgid "Error connecting"
+msgstr "Fejl ved tilslutning"
 
-#: ../Tomboy/PreferencesDialog.cs:1358
+#: ../Tomboy/PreferencesDialog.cs:1357
 msgid "Version:"
 msgstr "Version:"
 
-#: ../Tomboy/PreferencesDialog.cs:1365
+#: ../Tomboy/PreferencesDialog.cs:1364
 msgid "Author:"
 msgstr "Forfatter:"
 
-#: ../Tomboy/PreferencesDialog.cs:1372
+#: ../Tomboy/PreferencesDialog.cs:1371
 msgid "Copyright:"
 msgstr "Copyright:"
 
-#: ../Tomboy/PreferencesDialog.cs:1378
+#: ../Tomboy/PreferencesDialog.cs:1377
 msgid "Add-in Dependencies:"
 msgstr "Tilføjelses-afhængigheder:"
 
-#: ../Tomboy/RecentChanges.cs:98
+#: ../Tomboy/RecentChanges.cs:100
 msgid "_Search:"
 msgstr "_Søg:"
 
-#: ../Tomboy/RecentChanges.cs:331
+#: ../Tomboy/RecentChanges.cs:350
 msgid "Note"
 msgstr "Note"
 
-#: ../Tomboy/RecentChanges.cs:353
+#: ../Tomboy/RecentChanges.cs:373
 msgid "Last Changed"
 msgstr "Sidst ændret"
 
-#: ../Tomboy/RecentChanges.cs:484
+#: ../Tomboy/RecentChanges.cs:512
 msgid "Matches"
 msgstr "Matchende"
 
-#: ../Tomboy/RecentChanges.cs:535
+#: ../Tomboy/RecentChanges.cs:563
+msgid "Title match"
+msgstr "Titel fundet"
+
+#: ../Tomboy/RecentChanges.cs:566
 #, csharp-format
 msgid "{0} match"
 msgid_plural "{0} matches"
 msgstr[0] "{0} fundet"
 msgstr[1] "{0} fundet"
 
-#: ../Tomboy/RecentChanges.cs:549
+#: ../Tomboy/RecentChanges.cs:580
 #, csharp-format
 msgid "Total: {0} note"
 msgid_plural "Total: {0} notes"
 msgstr[0] "Total: {0} note"
 msgstr[1] "Total: {0} noter"
 
-#: ../Tomboy/RecentChanges.cs:560
+#: ../Tomboy/RecentChanges.cs:591
 #, csharp-format
 msgid "Matches: {0} note"
 msgid_plural "Matches: {0} notes"
 msgstr[0] "Træf: {0} note"
 msgstr[1] "Træf: {0} noter"
 
-#: ../Tomboy/RecentChanges.cs:696
+#: ../Tomboy/RecentChanges.cs:603
+msgid ""
+"No results found in the selected notebook.\n"
+"Click here to search across all notes."
+msgstr ""
+"Der er ikke fundet resultater i den valgte notesblok.\n"
+"Klik her for at søge i alle noterne."
+
+#: ../Tomboy/RecentChanges.cs:609
+msgid "Click here to search across all notebooks"
+msgstr "Klik her for at søge i alle notesblokkene"
+
+#: ../Tomboy/RecentChanges.cs:775
 msgid "Notes"
 msgstr "Noter"
-
-#: ../Tomboy/Tomboy.cs:251
-msgid "Cannot create new note"
-msgstr "Kan ikke oprette ny note"
-
-#: ../Tomboy/Tomboy.cs:317
-msgid "Primary Development:"
-msgstr "Primær udvikling:"
-
-#: ../Tomboy/Tomboy.cs:323
-msgid "Contributors:"
-msgstr "Bidragydere:"
-
-#: ../Tomboy/Tomboy.cs:401
-msgid "translator-credits"
-msgstr ""
-"Martin Willemoes Hansen\n"
-"Peter Bach\n"
-"Kenneth Nielsen\n"
-"Michael Hastrup\n"
-"Ask Hjorth Larsen\n"
-"\n"
-"Dansk-gruppen <dansk@dansk-gruppen.dk>\n"
-"Mere info: http://www.dansk-gruppen.dk"
-
-#: ../Tomboy/Tomboy.cs:410
-msgid ""
-"Copyright © 2004-2007 Alex Graveley\n"
-"Copyright © 2004-2010 Others\n"
-msgstr ""
-"Copyright © 2004-2007 Alex Graveley\n"
-"Copyright © 2004-2010 Andre\n"
-
-#: ../Tomboy/Tomboy.cs:412
-msgid "A simple and easy to use desktop note-taking application."
-msgstr "En enkel og brugervenlig notesblok til skrivebordet."
-
-#: ../Tomboy/Tomboy.cs:422
-msgid "Homepage"
-msgstr "Hjemmeside"
-
-#: ../Tomboy/Tomboy.cs:540
-msgid ""
-"Tomboy: A simple, easy to use desktop note-taking application.\n"
-"Copyright (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
-"\n"
-msgstr ""
-"Tomboy: En enkel og brugervenlig notesblok.\n"
-"Copyright (C) 2004-2006 Alex Graveley <alex@beatniksoftware.com>\n"
-"\n"
-
-#: ../Tomboy/Tomboy.cs:552
-msgid ""
-"Usage:\n"
-"  --version\t\t\tPrint version information.\n"
-"  --help\t\t\tPrint this usage message.\n"
-"  --note-path [path]\t\tLoad/store note data in this directory.\n"
-"  --search [text]\t\tOpen the search all notes window with the search text.\n"
-msgstr ""
-"Brug:\n"
-"  --version\t\t\tVis versionsinformation.\n"
-"  --help\t\t\tVis denne brugstekst.\n"
-"  --note-path [sti]\t\tHent/gem notedata i denne mappe.\n"
-"  --search [tekst]\t\tÅben søg i alle noter-vinduet med søgeteksten.\n"
-
-#: ../Tomboy/Tomboy.cs:562
-msgid ""
-"  --new-note\t\t\tCreate and display a new note.\n"
-"  --new-note [title]\t\tCreate and display a new note, with a title.\n"
-"  --open-note [title/url]\tDisplay the existing note matching title.\n"
-"  --start-here\t\t\tDisplay the 'Start Here' note.\n"
-"  --highlight-search [text]\tSearch and highlight text in the opened note.\n"
-msgstr ""
-"  --new-note\t\t\tOpret og vis en ny note.\n"
-"  --new-note [titel]\t\tOpret og vis en ny note med en titel.\n"
-"  --open-note [titel/url]\tVis den eksisterende note samme titel.\n"
-"  --start-here\t\t\tVis \"Start her\"-noten.\n"
-"  --highlight-search [tekst]\tSøg og fremhæv tekst i den åbnede note.\n"
-
-#: ../Tomboy/Tomboy.cs:576
-#, csharp-format
-msgid "Version {0}"
-msgstr "Version {0}"
-
-#: ../Tomboy/Tray.cs:68
-msgid " (new)"
-msgstr " (ny)"
-
-#: ../Tomboy/Tray.cs:293
-msgid "_About Tomboy"
-msgstr "_Om Tomboy"
-
-#: ../Tomboy/Utils.cs:189
-msgid ""
-"The \"Tomboy Notes Manual\" could not be found.  Please verify that your "
-"installation has been completed successfully."
-msgstr ""
-"Tomboy-notemanualen kunne ikke findes. Kontrollér at din installation er "
-"udført korrekt."
-
-#: ../Tomboy/Utils.cs:198
-msgid "Help not found"
-msgstr "Hjælp ikke fundet"
-
-#: ../Tomboy/Utils.cs:214
-msgid "Cannot open location"
-msgstr "Kan ikke åbne sted"
-
-#: ../Tomboy/Utils.cs:236
-#, csharp-format
-msgid "Today, {0}"
-msgstr "I dag, {0}"
-
-#: ../Tomboy/Utils.cs:238
-msgid "Today"
-msgstr "I dag"
-
-#: ../Tomboy/Utils.cs:242
-#, csharp-format
-msgid "Yesterday, {0}"
-msgstr "I går, {0}"
-
-#: ../Tomboy/Utils.cs:244
-msgid "Yesterday"
-msgstr "I går"
-
-#: ../Tomboy/Utils.cs:249
-#, csharp-format
-msgid "{0} day ago, {1}"
-msgid_plural "{0} days ago, {1}"
-msgstr[0] "{0} dag siden, {1}"
-msgstr[1] "{0} dage siden, {1}"
-
-#: ../Tomboy/Utils.cs:253
-#, csharp-format
-msgid "{0} day ago"
-msgid_plural "{0} days ago"
-msgstr[0] "{0} dag siden"
-msgstr[1] "{0} dage siden"
-
-#: ../Tomboy/Utils.cs:259
-#, csharp-format
-msgid "Tomorrow, {0}"
-msgstr "I morgen, {0}"
-
-#: ../Tomboy/Utils.cs:261
-msgid "Tomorrow"
-msgstr "I morgen"
-
-# Et kig i kildekoden afslører at der her er tale om at udtrykke en forskel i dage mellem to datoer og den korrekte oversættelse må derfor være "Om .."
-#: ../Tomboy/Utils.cs:266
-#, csharp-format
-msgid "In {0} day, {1}"
-msgid_plural "In {0} days, {1}"
-msgstr[0] "Om {0} dag, {1}"
-msgstr[1] "Om {0} dage, {1}"
-
-# Et kig i kildekoden afslører at der her er tale om at udtrykke en forskel i dage mellem to datoer og den korrekte oversættelse må derfor være "Om .."
-#: ../Tomboy/Utils.cs:270
-#, csharp-format
-msgid "In {0} day"
-msgid_plural "In {0} days"
-msgstr[0] "Om {0} dag"
-msgstr[1] "Om {0} dage"
-
-#: ../Tomboy/Utils.cs:275
-msgid "MMMM d, h:mm tt"
-msgstr "d MMMM, h:mm tt"
-
-#: ../Tomboy/Utils.cs:276
-msgid "MMMM d"
-msgstr "d MMMM"
-
-#: ../Tomboy/Utils.cs:278
-msgid "No Date"
-msgstr "Ingen Dato"
-
-#: ../Tomboy/Utils.cs:281
-msgid "MMMM d yyyy, h:mm tt"
-msgstr "d MMMM yyyy, h:mm tt"
-
-# TILFØJET FEJLRAPPORT. Det er tåbeligt at bede os om at lokalisere sådanne strenge uden at fortælle os i hvilken sammen hæng de skal bruges. Jeg har beholdt det der ser ud til at være konventionen ved oversættelse nemlig at overæstte MMMM d til d MMMM indtil jeg finder ud af i hvilken sammenhæng det skal bruges
-#: ../Tomboy/Utils.cs:282
-msgid "MMMM d yyyy"
-msgstr "d MMMM yyyy"
-
-#: ../Tomboy/Watchers.cs:155
-#, csharp-format
-msgid "(Untitled {0})"
-msgstr "(Uden titel {0})"
-
-#: ../Tomboy/Watchers.cs:189
-#, csharp-format
-msgid ""
-"A note with the title <b>{0}</b> already exists. Please choose another name "
-"for this note before continuing."
-msgstr ""
-"En note med navnet <b>{0}</b> findes allerede. Vælg venligst et andet navn "
-"til denne note før du fortsætter."
-
-#: ../Tomboy/Watchers.cs:204
-msgid "Note title taken"
-msgstr "Notetitel optaget"
-
-#: ../Tomboy/Watchers.cs:549
-msgid "_Copy Link Address"
-msgstr "_Kopiér kædeadresse"
-
-#: ../Tomboy/Watchers.cs:554
-msgid "_Open Link"
-msgstr "_Åbn kæde"
 
 #: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:94
 #, csharp-format
@@ -2284,7 +2256,8 @@ msgstr "Servicefejl"
 
 #: ../Tomboy/Synchronization/SyncDialog.cs:317
 msgid "Error connecting to the synchronization service.  Please try again."
-msgstr "Fejl ved forbindelsen til synkroniseringsservicen. Prøv venligst igen."
+msgstr ""
+"Fejl ved forbindelsen til synkroniseringstjenesten. Prøv venligst igen."
 
 #: ../Tomboy/Synchronization/SyncDialog.cs:334
 msgid "Deleted locally"
@@ -2349,10 +2322,6 @@ msgstr ""
 "Der er konflikt mellem serverversionen af \"{0}\" og din lokale version. "
 "Hvad ønsker du at gøre med din lokale note?"
 
-#: ../Tomboy/Synchronization/SyncManager.cs:161
-msgid "_Tools"
-msgstr "_Værktøjer"
-
 #: ../Tomboy/Synchronization/SyncUtils.cs:119
 #: ../Tomboy/Synchronization/SyncUtils.cs:163
 msgid "Could not enable FUSE"
@@ -2389,6 +2358,238 @@ msgstr ""
 "indlæse FUSE allerede ved opstart. Det gør du ved enten at tilføje "
 "\"modprobe fuse\" i /etc/init.d/boot.local eller tilføje \"fuse\" i /etc/"
 "modules."
+
+#: ../Tomboy/Tomboy.cs:251
+msgid "Cannot create new note"
+msgstr "Kan ikke oprette ny note"
+
+#: ../Tomboy/Tomboy.cs:317
+msgid "Primary Development:"
+msgstr "Primær udvikling:"
+
+#: ../Tomboy/Tomboy.cs:330
+msgid "Contributors:"
+msgstr "Bidragydere:"
+
+#: ../Tomboy/Tomboy.cs:415
+msgid "translator-credits"
+msgstr ""
+"Martin Willemoes Hansen\n"
+"Peter Bach\n"
+"Kenneth Nielsen\n"
+"Michael Hastrup\n"
+"Ask Hjorth Larsen\n"
+"\n"
+"Dansk-gruppen <dansk@dansk-gruppen.dk>\n"
+"Mere info: http://www.dansk-gruppen.dk"
+
+#: ../Tomboy/Tomboy.cs:424
+msgid ""
+"Copyright © 2004-2007 Alex Graveley\n"
+"Copyright © 2004-2011 Others\n"
+msgstr ""
+"Copyright © 2004-2007 Alex Graveley\n"
+"Copyright © 2004-2010 Andre\n"
+
+#: ../Tomboy/Tomboy.cs:426
+msgid "A simple and easy to use desktop note-taking application."
+msgstr "En enkel og brugervenlig notesblok til skrivebordet."
+
+#: ../Tomboy/Tomboy.cs:436
+msgid "Homepage"
+msgstr "Hjemmeside"
+
+#: ../Tomboy/Tomboy.cs:554
+msgid ""
+"Tomboy: A simple, easy to use desktop note-taking application.\n"
+"Copyright © 2004-2007 Alex Graveley\n"
+"<alex@beatniksoftware.com>\n"
+"\n"
+"Copyright © 2004-2011 Others\n"
+msgstr ""
+"Tomboy: Et enkelt og letanvendeligt program til oprettelse af noter.\n"
+"Copyright (C) 2004-2007 Alex Graveley <alex@beatniksoftware.com>\n"
+"\n"
+"Copyright © 2004-2011 Andre\n"
+
+#: ../Tomboy/Tomboy.cs:568
+msgid ""
+"Usage:\n"
+"  --version\t\t\tPrint version information.\n"
+"  --help\t\t\tPrint this usage message.\n"
+"  --note-path [path]\t\tLoad/store note data in this directory.\n"
+"  --search [text]\t\tOpen the search all notes window with the search text.\n"
+msgstr ""
+"Brug:\n"
+"  --version\t\t\tVis versionsinformation.\n"
+"  --help\t\t\tVis denne brugstekst.\n"
+"  --note-path [sti]\t\tHent/gem notedata i denne mappe.\n"
+"  --search [tekst]\t\tÅben søg i alle noter-vinduet med søgeteksten.\n"
+
+#: ../Tomboy/Tomboy.cs:578
+msgid ""
+"  --new-note\t\t\tCreate and display a new note.\n"
+"  --new-note [title]\t\tCreate and display a new note, with a title.\n"
+"  --open-note [title/url]\tDisplay the existing note matching title.\n"
+"  --start-here\t\t\tDisplay the 'Start Here' note.\n"
+"  --highlight-search [text]\tSearch and highlight text in the opened note.\n"
+msgstr ""
+"  --new-note\t\t\tOpret og vis en ny note.\n"
+"  --new-note [titel]\t\tOpret og vis en ny note med en titel.\n"
+"  --open-note [titel/url]\tVis den eksisterende note samme titel.\n"
+"  --start-here\t\t\tVis \"Start her\"-noten.\n"
+"  --highlight-search [tekst]\tSøg og fremhæv tekst i den åbnede note.\n"
+
+#: ../Tomboy/Tomboy.cs:592
+#, csharp-format
+msgid "Version {0}"
+msgstr "Version {0}"
+
+#: ../Tomboy/Tray.cs:68
+msgid " (new)"
+msgstr " (ny)"
+
+#: ../Tomboy/Tray.cs:293
+msgid "_About Tomboy"
+msgstr "_Om Tomboy"
+
+#: ../Tomboy/Utils.cs:189
+msgid ""
+"The \"Tomboy Notes Manual\" could not be found.  Please verify that your "
+"installation has been completed successfully."
+msgstr ""
+"Tomboy-notemanualen kunne ikke findes. Kontrollér at din installation er "
+"udført korrekt."
+
+#: ../Tomboy/Utils.cs:198
+msgid "Help not found"
+msgstr "Hjælp ikke fundet"
+
+#: ../Tomboy/Utils.cs:214
+msgid "Cannot open location"
+msgstr "Kan ikke åbne sted"
+
+#: ../Tomboy/Utils.cs:236
+#, csharp-format
+msgid "Today, {0}"
+msgstr "I dag, {0}"
+
+#: ../Tomboy/Utils.cs:238
+msgid "Today"
+msgstr "I dag"
+
+#: ../Tomboy/Utils.cs:242
+#, csharp-format
+msgid "Yesterday, {0}"
+msgstr "I går, {0}"
+
+#: ../Tomboy/Utils.cs:244
+msgid "Yesterday"
+msgstr "I går"
+
+#: ../Tomboy/Utils.cs:249
+#, csharp-format
+msgid "{0} day ago, {1}"
+msgid_plural "{0} days ago, {1}"
+msgstr[0] "{0} dag siden, {1}"
+msgstr[1] "{0} dage siden, {1}"
+
+#: ../Tomboy/Utils.cs:253
+#, csharp-format
+msgid "{0} day ago"
+msgid_plural "{0} days ago"
+msgstr[0] "{0} dag siden"
+msgstr[1] "{0} dage siden"
+
+#: ../Tomboy/Utils.cs:259
+#, csharp-format
+msgid "Tomorrow, {0}"
+msgstr "I morgen, {0}"
+
+#: ../Tomboy/Utils.cs:261
+msgid "Tomorrow"
+msgstr "I morgen"
+
+# Et kig i kildekoden afslører at der her er tale om at udtrykke en forskel i dage mellem to datoer og den korrekte oversættelse må derfor være "Om .."
+#: ../Tomboy/Utils.cs:266
+#, csharp-format
+msgid "In {0} day, {1}"
+msgid_plural "In {0} days, {1}"
+msgstr[0] "Om {0} dag, {1}"
+msgstr[1] "Om {0} dage, {1}"
+
+# Et kig i kildekoden afslører at der her er tale om at udtrykke en forskel i dage mellem to datoer og den korrekte oversættelse må derfor være "Om .."
+#: ../Tomboy/Utils.cs:270
+#, csharp-format
+msgid "In {0} day"
+msgid_plural "In {0} days"
+msgstr[0] "Om {0} dag"
+msgstr[1] "Om {0} dage"
+
+#: ../Tomboy/Utils.cs:275
+msgid "MMMM d, h:mm tt"
+msgstr "d MMMM, h:mm tt"
+
+#: ../Tomboy/Utils.cs:276
+msgid "MMMM d"
+msgstr "d MMMM"
+
+#: ../Tomboy/Utils.cs:278
+msgid "No Date"
+msgstr "Ingen Dato"
+
+#: ../Tomboy/Utils.cs:281
+msgid "MMMM d yyyy, h:mm tt"
+msgstr "d MMMM yyyy, h:mm tt"
+
+# TILFØJET FEJLRAPPORT. Det er tåbeligt at bede os om at lokalisere sådanne strenge uden at fortælle os i hvilken sammen hæng de skal bruges. Jeg har beholdt det der ser ud til at være konventionen ved oversættelse nemlig at overæstte MMMM d til d MMMM indtil jeg finder ud af i hvilken sammenhæng det skal bruges
+#: ../Tomboy/Utils.cs:282
+msgid "MMMM d yyyy"
+msgstr "d MMMM yyyy"
+
+#: ../Tomboy/Watchers.cs:155
+#, csharp-format
+msgid "(Untitled {0})"
+msgstr "(Uden titel {0})"
+
+#: ../Tomboy/Watchers.cs:189
+#, csharp-format
+msgid ""
+"A note with the title <b>{0}</b> already exists. Please choose another name "
+"for this note before continuing."
+msgstr ""
+"En note med navnet <b>{0}</b> findes allerede. Vælg venligst et andet navn "
+"til denne note før du fortsætter."
+
+#: ../Tomboy/Watchers.cs:204
+msgid "Note title taken"
+msgstr "Notetitel optaget"
+
+#: ../Tomboy/Watchers.cs:587
+msgid "_Copy Link Address"
+msgstr "_Kopiér kædeadresse"
+
+#: ../Tomboy/Watchers.cs:592
+msgid "_Open Link"
+msgstr "_Åbn kæde"
+
+#~ msgid "HTML Export Last Directory"
+#~ msgstr "HTML-eksportér sidste mappe"
+
+#~ msgid "SSH (sshfs FUSE)"
+#~ msgstr "SSH (sshfs FUSE)"
+
+#~ msgid "WebDAV (wdfs FUSE)"
+#~ msgstr "WebDAV (wdfs FUSE)"
+
+#~ msgid "Really delete this note?"
+#~ msgstr "Er du sikker på at du vil slette denne note?"
+
+#~ msgid "Search your notes (Ctrl-Shift-F)"
+#~ msgstr "Søg i dine noter (Ctrl-Skift-F)"
+
+#~ msgid "Success! You're connected!"
+#~ msgstr "Succes! Du er nu tilsluttet!"
 
 #~ msgid "_Browse..."
 #~ msgstr "_Gennemse..."

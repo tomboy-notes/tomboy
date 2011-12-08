@@ -5,6 +5,7 @@ mkdir -p bin/Debug/tomboy/icons/hicolor/22x22/apps
 mkdir -p bin/Debug/tomboy/icons/hicolor/24x24/apps
 mkdir -p bin/Debug/tomboy/icons/hicolor/32x32/apps
 mkdir -p bin/Debug/tomboy/icons/hicolor/48x48/apps
+mkdir -p bin/Debug/tomboy/icons/hicolor/256x256/apps
 mkdir -p bin/Debug/tomboy/icons/hicolor/scalable/apps
 
 mkdir -p bin/Debug/tomboy/icons/hicolor/16x16/actions
@@ -37,6 +38,7 @@ cp data/icons/hicolor_apps_22x22_tomboy.png bin/Debug/tomboy/icons/hicolor/22x22
 cp data/icons/hicolor_apps_24x24_tomboy.png bin/Debug/tomboy/icons/hicolor/24x24/apps/tomboy.png
 cp data/icons/hicolor_apps_32x32_tomboy.png bin/Debug/tomboy/icons/hicolor/32x32/apps/tomboy.png
 cp data/icons/hicolor_apps_48x48_tomboy.png bin/Debug/tomboy/icons/hicolor/48x48/apps/tomboy.png
+cp data/icons/hicolor_apps_256x256_tomboy.png bin/Debug/tomboy/icons/hicolor/256x256/apps/tomboy.png
 cp data/icons/hicolor_apps_scalable_tomboy.svg bin/Debug/tomboy/icons/hicolor/scalable/apps/tomboy.svg
 cp data/icons/hicolor_places_22x22_note.png bin/Debug/tomboy/icons/hicolor/22x22/places/note.png
 cp data/icons/hicolor_places_22x22_notebook.png bin/Debug/tomboy/icons/hicolor/22x22/places/notebook.png
