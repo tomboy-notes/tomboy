@@ -120,9 +120,15 @@ namespace Tomboy.Notebooks
 			}
 			
 			if (template_note == null) {
+				// Check name does not exist
+				String template_name = templateNoteTitle;
+				if (noteManager.Find(template_name) != null) {
+					template_name = noteManager.GetUniqueName(template_name, 1);
+				}
+				
 				template_note =
-					noteManager.Create (templateNoteTitle,
-							NoteManager.GetNoteTemplateContent (templateNoteTitle));
+					noteManager.Create (template_name,
+							NoteManager.GetNoteTemplateContent (template_name));
 					
 				// Select the initial text
 				NoteBuffer buffer = template_note.Buffer;

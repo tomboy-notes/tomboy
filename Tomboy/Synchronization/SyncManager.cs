@@ -487,9 +487,10 @@ namespace Tomboy.Sync
 						existingNote = NoteMgr.Find (noteUpdate.Title);
 						if (existingNote != null) {
 							Logger.Debug ("SyncManager: Deleting auto-generated note: " + noteUpdate.Title);
-							DeleteNoteInMainThread (existingNote);
+							RecreateNoteInMainThread (existingNote, noteUpdate);
+						} else {
+							CreateNoteInMainThread (noteUpdate);
 						}
-						CreateNoteInMainThread (noteUpdate);
 					} else if (existingNote.MetadataChangeDate.CompareTo (client.LastSyncDate) <= 0 ||
 					           noteUpdate.BasicallyEqualTo (existingNote)) {
 						// Existing note hasn't been modified since last sync; simply update it from server
@@ -674,7 +675,7 @@ namespace Tomboy.Sync
 			});
 		}
 
-		private static void DeleteNoteInMainThread (Note existingNote)
+		private static void RecreateNoteInMainThread (Note existingNote, NoteUpdate noteUpdate)
 		{
 			// Note deletion may affect the GUI, so we have to use the
 			// delegate to run in the main gtk thread.
@@ -682,6 +683,9 @@ namespace Tomboy.Sync
 			// and then rethrown in the synchronization thread.
 			GuiUtils.GtkInvokeAndWait (() => {
 				NoteMgr.Delete (existingNote);
+				// Create note with existing content
+				existingNote = NoteMgr.CreateWithGuid (noteUpdate.Title, noteUpdate.UUID);
+				UpdateLocalNote (existingNote, noteUpdate, NoteSyncType.DownloadNew);
 			});
 		}
 
