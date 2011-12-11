@@ -117,6 +117,7 @@ namespace Tomboy.Sync
 
 	public class SyncManager
 	{
+		private static AutoResetEvent suspendEvent = new AutoResetEvent(false);
 		private static ISyncUI syncUI;
 		private static SyncClient client;
 		private static SyncState state = SyncState.Idle;
@@ -377,6 +378,7 @@ namespace Tomboy.Sync
 		{
 			SyncServiceAddin addin = null;
 			SyncServer server = null;
+			suspendEvent.Reset();
 			try {
 
 				addin = GetConfiguredSyncService ();
@@ -463,7 +465,7 @@ namespace Tomboy.Sync
 
 								// Suspend this thread while the GUI is presented to
 								// the user.
-								syncThread.Suspend ();
+								suspendEvent.WaitOne();
 							}
 						}
 					}
@@ -506,7 +508,7 @@ namespace Tomboy.Sync
 
 							// Suspend this thread while the GUI is presented to
 							// the user.
-							syncThread.Suspend ();
+							suspendEvent.WaitOne();
 						}
 
 						// Note has been deleted or okay'd for overwrite
@@ -648,7 +650,7 @@ namespace Tomboy.Sync
 		{
 			if (syncThread != null) {
 				conflictResolution = resolution;
-				syncThread.Resume ();
+				suspendEvent.Set();
 			}
 		}
 
