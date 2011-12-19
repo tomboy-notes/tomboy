@@ -486,7 +486,9 @@ namespace Tomboy.Sync
 						// template notes (if a note with a new tag syncs
 						// before its associated template). So check by
 						// title and delete if necessary.
-						existingNote = NoteMgr.Find (noteUpdate.Title);
+						GuiUtils.GtkInvokeAndWait (() => {
+							existingNote = NoteMgr.Find (noteUpdate.Title);
+						});
 						if (existingNote != null) {
 							Logger.Debug ("SyncManager: Deleting auto-generated note: " + noteUpdate.Title);
 							RecreateNoteInMainThread (existingNote, noteUpdate);
@@ -553,13 +555,17 @@ namespace Tomboy.Sync
 						// This is a new note that has never been synchronized to the server
 						// TODO: *OR* this is a note that we lost revision info for!!!
 						// TODO: Do the above NOW!!! (don't commit this dummy)
-						note.Save ();
+						GuiUtils.GtkInvokeAndWait (() => {
+							note.Save ();
+						});
 						newOrModifiedNotes.Add (note);
 						if (syncUI != null)
 							syncUI.NoteSynchronized (note.Title, NoteSyncType.UploadNew);
 					} else if (client.GetRevision (note) <= client.LastSynchronizedRevision &&
 					                note.MetadataChangeDate > client.LastSyncDate) {
-						note.Save ();
+						GuiUtils.GtkInvokeAndWait (() => {
+							note.Save ();
+						});
 						newOrModifiedNotes.Add (note);
 						if (syncUI != null)
 							syncUI.NoteSynchronized (note.Title, NoteSyncType.UploadModified);
