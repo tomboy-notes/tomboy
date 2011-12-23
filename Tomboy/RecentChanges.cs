@@ -150,7 +150,7 @@ namespace Tomboy
 			status_bar.Show ();
 
 			// Update on changes to notes
-			manager.NoteDeleted += OnNotesChanged;
+			manager.NoteDeleted += OnNotesDeleted;
 			manager.NoteAdded += OnNotesChanged;
 			manager.NoteRenamed += OnNoteRenamed;
 			manager.NoteSaved += OnNoteSaved;
@@ -725,6 +725,11 @@ namespace Tomboy
 		{
 			PerformSearch ();
 		}
+		
+		void OnNotesDeleted (object sender, Note deleted)
+		{
+			RestoreMatchesWindow ();
+		}
 
 		void OnNotesChanged (object sender, Note changed)
 		{
@@ -1098,8 +1103,9 @@ namespace Tomboy
 			List<Note> selected_notes = GetSelectedNotes ();
 			if (selected_notes == null || selected_notes.Count == 0)
 				return;
-
-	       		NoteUtils.ShowDeletionDialog (selected_notes, this);
+			
+			NoteUtils.ShowDeletionDialog (selected_notes, this);
+			UpdateResults (); //Update results after all notes have been deleted
 		}
 
 		void OnCloseWindow (object sender, EventArgs args)
