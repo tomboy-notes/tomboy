@@ -392,6 +392,7 @@ namespace Tomboy
 				"\tRodrigo Moya",
 				"\tRomain Tartiere",
 				"\tRyan Lortie",
+				"\tSam Lin",
 				"\tSebastian Dröge",
 				"\tSebastian Rittau",
 				"\tStefan Cosma",
