@@ -67,6 +67,7 @@ namespace Tomboy
 				                                                             session_client_id);
 				client.QueryEndSession += OnQueryEndSession;
 				client.EndSession += OnEndSession;
+				client.Stop += OnStop;
 			} catch (Exception e) {
 				Logger.Debug ("Failed to register with session manager: {0}", e.Message);
 			}
@@ -142,6 +143,10 @@ namespace Tomboy
 				System.Environment.Exit (0);
 		}
 
+		private void OnStop () {
+			Exit(0);
+		}
+
 		private void OnQueryEndSession (uint flags)
 		{
 			Logger.Info ("Received end session query");
@@ -175,6 +180,7 @@ namespace Tomboy
 			} catch (Exception e) {
 				Logger.Debug ("Failed to respond to session manager: {0}", e.Message);
 			}
+			Exit (0);
 		}
 		
 		public void OpenUrl (string url, Gdk.Screen screen)
