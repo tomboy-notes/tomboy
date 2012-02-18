@@ -1,8 +1,8 @@
-﻿using System;
+using System;
 using System.Reflection;
 
 // TODO: Automate this
-[assembly: AssemblyVersion ("1.9.7")]
+[assembly: AssemblyVersion ("1.9.8")]
 [assembly: AssemblyProduct("Tomboy")]
 [assembly: AssemblyTitle("Tomboy Notes")]
 
