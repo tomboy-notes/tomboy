@@ -350,6 +350,7 @@ namespace Tomboy
 			note_title = note_title.Replace ('/', '_');
 			note_title = note_title.Replace ('\\', '_');
 			note_title = note_title.Replace ('.', '_');
+			note_title = note_title.Replace ('?', '_');
 
 			return note_title;
 		}
