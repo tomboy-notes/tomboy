@@ -2,10 +2,10 @@
 	namespace="Tomboy"
 	name="RemoveBrokenLinks"
 	author="Alex Tereschenko"
-	description="Adds ability to remove broken links."
+	description="Adds an ability to remove broken links."
 	category="Tools"
 	defaultEnabled="false"
-	version="0.1">
+	version="0.2">
 
  	<Runtime>
  		<Import assembly="RemoveBrokenLinks.dll" />
@@ -18,4 +18,9 @@
 	<Extension path="/Tomboy/NoteAddins">
 		<NoteAddin type="Tomboy.RemoveBrokenLinks.RemoveBrokenLinksAddin" />
 	</Extension>
+
+	<Extension path="/Tomboy/ApplicationAddins">
+		<ApplicationAddin type="Tomboy.RemoveBrokenLinks.RemoveBrokenLinksApplicationAddin" />
+	</Extension>
+
 </Addin>

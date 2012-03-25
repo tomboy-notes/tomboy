@@ -1604,5 +1604,23 @@ namespace Tomboy
 		{
 			SavePosition ();
 		}
+
+		// This one presents a List of notes that Search has found
+		public List<Note> GetFilteredNotes ()
+		{
+			Gtk.TreeIter iter;
+			List<Note> filtered_notes = new List<Note> ();
+
+			if (store_sort.IterChildren (out iter) == false)
+				return filtered_notes; /* if nothing was found we return empty list */
+
+			// Getting filtered out notes (found by search) to our list
+			// 3 is a column where note itself is stored
+			do {
+				filtered_notes.Add ((Note) store_sort.GetValue (iter, 3));
+			} while (store_sort.IterNext (ref iter));
+
+			return filtered_notes;
+		}
 	}
 }
