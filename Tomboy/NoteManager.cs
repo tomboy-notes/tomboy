@@ -380,7 +380,6 @@ Ciao!");
 					if (startup_notes_enabled)
 						note.Window.Show ();
 
-					note.IsOpenOnStartup = false;
 					note.QueueSave (ChangeType.NoChange);
 				}
 			}
@@ -423,6 +422,8 @@ Ciao!");
 				// next startup
 				if (note.HasWindow && note.Window.Visible)
 					note.IsOpenOnStartup = true;
+				else
+					note.IsOpenOnStartup = false; /* bgo #672482 */
 
 				note.Save ();
 			}
