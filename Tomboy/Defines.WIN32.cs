@@ -2,7 +2,7 @@ using System;
 using System.Reflection;
 
 // TODO: Automate this
-[assembly: AssemblyVersion ("1.10.0")]
+[assembly: AssemblyVersion ("1.11.1")]
 [assembly: AssemblyProduct("Tomboy")]
 [assembly: AssemblyTitle("Tomboy Notes")]
 
