@@ -14,7 +14,9 @@ ASSEMBLIES = 					\
 ADDIN_NAME = RemoveBrokenLinks
 TARGET = $(top_builddir)/bin/addins/$(ADDIN_NAME).dll
 CSFILES = \
-	$(srcdir)/RemoveBrokenLinksAddin.cs
+	$(srcdir)/RemoveBrokenLinksAddin.cs	\
+	$(srcdir)/RemoveBrokenLinksApplicationAddin.cs	\
+	$(srcdir)/RemoveBrokenLinksUtils.cs
 	
 RESOURCES = \
 	-resource:$(srcdir)/$(ADDIN_NAME).addin.xml
