@@ -604,6 +604,12 @@ namespace Tomboy
 			                "  --start-here\t\t\tDisplay the 'Start Here' note.\n" +
 			                "  --highlight-search [text]\tSearch and highlight text " +
 			                "in the opened note.\n");
+			usage +=
+			        Catalog.GetString (
+			                "  --addin:html-export-all [path]\tExports all notes to " +
+			                "HTML in the given location.\n" +
+			                "  --addin:html-export-all-quit [path]\tExports all notes to " +
+			                "HTML in the given location and then quits.\n");
 
 			Console.WriteLine (usage);
 		}
