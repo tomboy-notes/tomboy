@@ -48,6 +48,10 @@ namespace Tomboy
 			get; private set;
 		}
 
+		public TomboyCommandLine CommandLine {
+			get; set;
+		}
+
 		// TODO: Decide if/how to enforce
 		public bool ReadOnly {
 			get; set;
@@ -380,7 +384,6 @@ Ciao!");
 					if (startup_notes_enabled)
 						note.Window.Show ();
 
-					note.IsOpenOnStartup = false;
 					note.QueueSave (ChangeType.NoChange);
 				}
 			}
@@ -423,6 +426,8 @@ Ciao!");
 				// next startup
 				if (note.HasWindow && note.Window.Visible)
 					note.IsOpenOnStartup = true;
+				else
+					note.IsOpenOnStartup = false; /* bgo #672482 */
 
 				note.Save ();
 			}
@@ -516,10 +521,22 @@ Ciao!");
 		{
 			return CreateNewNote (title, xml_content, null);
 		}
-
+		
+		/// <summary>
+		/// Creates a new note with GUID.
+		/// </summary>
+		/// <returns>
+		/// Empty note with specified title and GUID.
+		/// </returns>
+		/// <param name='title'>
+		/// Title.
+		/// </param>
+		/// <param name='guid'>
+		/// GUID.
+		/// </param>
 		public Note CreateWithGuid (string title, string guid)
 		{
-			return CreateNewNote (title, guid);
+			return CreateNewNote (title, "", guid);
 		}
 
 		// Create a new note with the specified title from the default

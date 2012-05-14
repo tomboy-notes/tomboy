@@ -117,6 +117,7 @@ namespace Tomboy.Sync
 
 	public class SyncManager
 	{
+		private static AutoResetEvent suspendEvent = new AutoResetEvent(false);
 		private static ISyncUI syncUI;
 		private static SyncClient client;
 		private static SyncState state = SyncState.Idle;
@@ -377,6 +378,7 @@ namespace Tomboy.Sync
 		{
 			SyncServiceAddin addin = null;
 			SyncServer server = null;
+			suspendEvent.Reset();
 			try {
 
 				addin = GetConfiguredSyncService ();
@@ -463,7 +465,7 @@ namespace Tomboy.Sync
 
 								// Suspend this thread while the GUI is presented to
 								// the user.
-								syncThread.Suspend ();
+								suspendEvent.WaitOne();
 							}
 						}
 					}
@@ -484,12 +486,15 @@ namespace Tomboy.Sync
 						// template notes (if a note with a new tag syncs
 						// before its associated template). So check by
 						// title and delete if necessary.
-						existingNote = NoteMgr.Find (noteUpdate.Title);
+						GuiUtils.GtkInvokeAndWait (() => {
+							existingNote = NoteMgr.Find (noteUpdate.Title);
+						});
 						if (existingNote != null) {
 							Logger.Debug ("SyncManager: Deleting auto-generated note: " + noteUpdate.Title);
-							DeleteNoteInMainThread (existingNote);
+							RecreateNoteInMainThread (existingNote, noteUpdate);
+						} else {
+							CreateNoteInMainThread (noteUpdate);
 						}
-						CreateNoteInMainThread (noteUpdate);
 					} else if (existingNote.MetadataChangeDate.CompareTo (client.LastSyncDate) <= 0 ||
 					           noteUpdate.BasicallyEqualTo (existingNote)) {
 						// Existing note hasn't been modified since last sync; simply update it from server
@@ -505,7 +510,7 @@ namespace Tomboy.Sync
 
 							// Suspend this thread while the GUI is presented to
 							// the user.
-							syncThread.Suspend ();
+							suspendEvent.WaitOne();
 						}
 
 						// Note has been deleted or okay'd for overwrite
@@ -550,13 +555,17 @@ namespace Tomboy.Sync
 						// This is a new note that has never been synchronized to the server
 						// TODO: *OR* this is a note that we lost revision info for!!!
 						// TODO: Do the above NOW!!! (don't commit this dummy)
-						note.Save ();
+						GuiUtils.GtkInvokeAndWait (() => {
+							note.Save ();
+						});
 						newOrModifiedNotes.Add (note);
 						if (syncUI != null)
 							syncUI.NoteSynchronized (note.Title, NoteSyncType.UploadNew);
 					} else if (client.GetRevision (note) <= client.LastSynchronizedRevision &&
 					                note.MetadataChangeDate > client.LastSyncDate) {
-						note.Save ();
+						GuiUtils.GtkInvokeAndWait (() => {
+							note.Save ();
+						});
 						newOrModifiedNotes.Add (note);
 						if (syncUI != null)
 							syncUI.NoteSynchronized (note.Title, NoteSyncType.UploadModified);
@@ -647,7 +656,7 @@ namespace Tomboy.Sync
 		{
 			if (syncThread != null) {
 				conflictResolution = resolution;
-				syncThread.Resume ();
+				suspendEvent.Set();
 			}
 		}
 
@@ -674,7 +683,7 @@ namespace Tomboy.Sync
 			});
 		}
 
-		private static void DeleteNoteInMainThread (Note existingNote)
+		private static void RecreateNoteInMainThread (Note existingNote, NoteUpdate noteUpdate)
 		{
 			// Note deletion may affect the GUI, so we have to use the
 			// delegate to run in the main gtk thread.
@@ -682,6 +691,9 @@ namespace Tomboy.Sync
 			// and then rethrown in the synchronization thread.
 			GuiUtils.GtkInvokeAndWait (() => {
 				NoteMgr.Delete (existingNote);
+				// Create note with existing content
+				existingNote = NoteMgr.CreateWithGuid (noteUpdate.Title, noteUpdate.UUID);
+				UpdateLocalNote (existingNote, noteUpdate, NoteSyncType.DownloadNew);
 			});
 		}
 

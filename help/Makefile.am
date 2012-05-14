@@ -46,4 +46,4 @@ DOC_PAGES = \
 	sync-setup.page \
 	whatsnew.page
 
-DOC_LINGUAS = ca cs de el en_GB es eu fr gl hu it lt oc pl pt_BR ru sl sv uk vi zh_CN
+DOC_LINGUAS = ca cs de el en_GB es eu fr gl hu it lt lv oc pl pt_BR ru sl sv uk vi zh_CN

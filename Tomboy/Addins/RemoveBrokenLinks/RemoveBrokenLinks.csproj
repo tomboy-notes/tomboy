@@ -1,8 +1,9 @@
-﻿<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{AD6C9F12-3F95-497C-AF7E-629F787A097E}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <OutputType>Library</OutputType>
     <RootNamespace>RemoveBrokenLinks</RootNamespace>
     <AssemblyName>RemoveBrokenLinks</AssemblyName>
@@ -13,6 +14,12 @@
     <NoStdLib>False</NoStdLib>
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <ProductVersion>10.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Platform)' == 'x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -67,6 +74,8 @@
     <Compile Include="RemoveBrokenLinksAddin.cs" />
     <EmbeddedResource Include="RemoveBrokenLinks.addin.xml" />
     <None Include="Makefile.am" />
+    <Compile Include="RemoveBrokenLinksApplicationAddin.cs" />
+    <Compile Include="RemoveBrokenLinksUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Tomboy.csproj">

@@ -51,6 +51,7 @@ namespace Tomboy
 		public const string SEARCH_WINDOW_WIDTH = "/apps/tomboy/search_window_width";
 		public const string SEARCH_WINDOW_HEIGHT = "/apps/tomboy/search_window_height";
 		public const string SEARCH_WINDOW_SPLITTER_POS = "/apps/tomboy/search_window_splitter_pos";
+		public const string SEARCH_WINDOW_MONITOR_NUM = "/apps/tomboy/search_window_monitor_num";
 
 		static IPreferencesClient client;
 

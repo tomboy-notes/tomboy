@@ -339,6 +339,20 @@ namespace Tomboy
 						break;
 					}
 				}
+				// Remove misspelled tag for acronyms (in all caps)
+				if (!args.StartChar.EndsWord() && System.Char.IsUpper(args.StartChar.Char, 0)) {
+					Gtk.TextIter char_iter = args.StartChar;
+					remove = true;
+					while (!char_iter.EndsWord()) {
+						if (Char.IsLower(char_iter.Char, 0)) {
+							remove = false;
+							break;
+						}
+						else {
+							char_iter.ForwardChar();
+						}
+					}
+				}
 			} else if (!NoteTagTable.TagIsSpellCheckable (args.Tag)) {
 				remove = true;
 			}

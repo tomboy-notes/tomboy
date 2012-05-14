@@ -1,5 +1,6 @@
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Xml;
 using Mono.Unix;
@@ -87,6 +88,7 @@ namespace Tomboy
 			// Create the default note manager instance.
 			string note_path = GetNotePath (cmd_line.NotePath);
 			manager = new NoteManager (note_path);
+			manager.CommandLine = cmd_line;
 
 			SetupGlobalActions ();
 			ActionManager am = Tomboy.ActionManager;
@@ -389,6 +391,7 @@ namespace Tomboy
 				"\tRodrigo Moya",
 				"\tRomain Tartiere",
 				"\tRyan Lortie",
+				"\tSam Lin",
 				"\tSebastian Dröge",
 				"\tSebastian Rittau",
 				"\tStefan Cosma",
@@ -486,6 +489,8 @@ namespace Tomboy
 		}
 	}
 
+	public delegate void AddinCommandLineEventHandler (Object sender, EventArgs e);
+
 	public class TomboyCommandLine
 	{
 		bool debug;
@@ -500,10 +505,25 @@ namespace Tomboy
 		string note_path;
 		string search_text;
 		bool open_search;
+		bool addin_args;
+
+		List<string> addin_argslist = new List<string> ();
+		public event AddinCommandLineEventHandler AddinCmdLineArgsDetected;
 
 		public TomboyCommandLine (string [] args)
 		{
 			Parse (args);
+		}
+
+		/// <summary>
+		/// Returns all the command line arguments that are
+		/// prefixed with "--addin:" and their parameters.
+		/// </summary>
+		public List<string> Addin_argslist
+		{
+			get {
+				return addin_argslist;
+			}
 		}
 
 		// TODO: Document this option
@@ -533,7 +553,8 @@ namespace Tomboy
 				open_note_uri != null ||
 				open_search ||
 				open_start_here ||
-				open_external_note_path != null;
+				open_external_note_path != null ||
+				addin_args;
 			}
 		}
 
@@ -580,6 +601,12 @@ namespace Tomboy
 			                "  --start-here\t\t\tDisplay the 'Start Here' note.\n" +
 			                "  --highlight-search [text]\tSearch and highlight text " +
 			                "in the opened note.\n");
+			usage +=
+			        Catalog.GetString (
+			                "  --addin:html-export-all [path]\tExports all notes to " +
+			                "HTML in the given location.\n" +
+			                "  --addin:html-export-all-quit [path]\tExports all notes to " +
+			                "HTML in the given location and then quits.\n");
 
 			Console.WriteLine (usage);
 		}
@@ -706,6 +733,10 @@ namespace Tomboy
 					break;
 
 				default:
+					if (args[idx].StartsWith ("--addin:")) addin_args = true;
+					//All nonrecognized args are added to the add-in argslist in
+					//case they're params for the add-in. (The order is preserved.)
+					addin_argslist.Add (args[idx]);
 					break;
 				}
 
@@ -808,6 +839,8 @@ namespace Tomboy
 				else
 					remote.DisplaySearch ();
 			}
+
+			if (addin_args) AddinCmdLineArgsDetected (this, new EventArgs ());
 		}
 	}
 }

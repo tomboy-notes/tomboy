@@ -87,7 +87,9 @@ namespace Tomboy.Sync
 			// TODO: At least respect conflict prefs
 			// TODO: Implement more useful conflict handling
 			if (localConflictNote.Id != remoteNote.UUID)
-				manager.Delete (localConflictNote);
+				GuiUtils.GtkInvokeAndWait (() => {
+					manager.Delete (localConflictNote);
+				});
 			SyncManager.ResolveConflict (SyncTitleConflictResolution.OverwriteExisting);
 		}
 		#endregion

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using Mono.Unix;
 using Tomboy;
 using Tomboy.Notebooks;
@@ -30,6 +31,7 @@ namespace Tomboy
 		private uint action_group_id;
 		private ActionManager am = Tomboy.ActionManager;
 		private bool initialized = false;
+		private bool cmdline_parsed = false;
 
 		/// <summary>
 		/// Used to inform the path resolver if all notes are being exported or just one notebook.
@@ -43,6 +45,9 @@ namespace Tomboy
 		{
 			// Gets names from subclass.
 			SetNames ();
+
+			//Listens for command line args
+			Tomboy.DefaultNoteManager.CommandLine.AddinCmdLineArgsDetected += new AddinCommandLineEventHandler (ParseArgs);
 
 			/*Adds "Export All Notes/Notebook To ***" to Tomboy's Main Menu */
 
@@ -134,16 +139,89 @@ namespace Tomboy
 			}
 		}
 
+		/// <summary>
+		/// An event handler that parses add-in commandline args looking for commands relating to
+		/// this class and executes them.
+		/// </summary>
+		void ParseArgs (object sender, EventArgs e)
+		{
+			if (cmdline_parsed) return; //The event is sometimes fired twice
+			Logger.Debug (export_type_pretty_name + " exporter checking command line args");
+			cmdline_parsed = true;
+
+			TomboyCommandLine cmd_line = sender as TomboyCommandLine;
+			for (int i = 0; i < cmd_line.Addin_argslist.Count; i++) {
+				if (cmd_line.Addin_argslist[i] == "--addin:" + export_file_suffix + "-export-all"
+				    || cmd_line.Addin_argslist[i] == "--addin:" + export_file_suffix + "-export-all-quit") {
+					try {
+						if (cmd_line.Addin_argslist[i].StartsWith ("\"")) {
+							//Path may include spaces, have to look for ending quotation mark
+							StringBuilder pathbuilder = new StringBuilder (cmd_line.Addin_argslist[i]);
+							for (int j = 1; j < cmd_line.Addin_argslist.Count; j++) {
+								pathbuilder.Append (cmd_line.Addin_argslist[i+j]);
+								if (cmd_line.Addin_argslist[i+j].EndsWith ("\"")) break;
+							}
+							ExportAllNotes (SanitizePath (pathbuilder.ToString ().Trim ('"')));
+						} else {
+							//Expecting a whole path without spaces
+							ExportAllNotes (SanitizePath (cmd_line.Addin_argslist[i+1]));
+						}
+
+					} catch (UnauthorizedAccessException) {
+						Logger.Error (Catalog.GetString ("Could not export, access denied."));
+					} catch (DirectoryNotFoundException) {
+						Logger.Error (Catalog.GetString ("Could not export, folder does not exist."));
+					} catch (IndexOutOfRangeException) {
+						Logger.Error (Catalog.GetString ("Could not export, error with the path. (No ending \"?)"));
+					} catch (Exception ex) {
+						Logger.Error (Catalog.GetString ("Could not export: {0}"), ex);
+					}
+					if (cmd_line.Addin_argslist[i] == "--addin:" + export_file_suffix + "-export-all-quit")
+						System.Environment.Exit (1);
+				}
+			}
+		}
+
 		void ExportAllButtonClicked (object sender, EventArgs args)
 		{
-			ExportAllNotes ();
+			ExportAllNotesViaGUI ();
 		}
 
 		/// <summary>
-		/// Called when the user chooses "Export All"
+		/// Exports all notes to a given folder.
+		/// </summary>
+		/// <param name="output_folder"> The folder that the notes will be exported to. </param>
+		private void ExportAllNotes (string output_folder)
+		{
+			Logger.Debug ("Creating an export folder in: " + output_folder);
+			System.IO.Directory.CreateDirectory (output_folder);
+
+			//Iterate through notebooks
+			Notebooks.Notebook notebook;
+			string notebook_folder;
+
+			foreach (Tag tag in TagManager.AllTags) {
+				// Skip over tags that aren't notebooks
+				notebook = NotebookManager.GetNotebookFromTag (tag);
+				if (notebook == null)
+				continue;
+
+				Logger.Debug ("Exporting notebook " + notebook.Name);
+				notebook_folder = SanitizePath (output_folder + System.IO.Path.DirectorySeparatorChar
+				                  + notebook.NormalizedName);
+				System.IO.Directory.CreateDirectory (notebook_folder);
+				ExportNotesInList (notebook.Tag.Notes, notebook_folder);
+			}
+			//Finally we have to export all unfiled notes.
+			Logger.Debug ("Exporting Unfiled Notes");
+			ExportNotesInList (ListUnfiledNotes (), output_folder);
+		}
+
+		/// <summary>
+		/// Called when the user chooses "Export All" from the menu, allows user to select destination via GUI.
 		/// </summary>
 		/// <param name="sender">
-		void ExportAllNotes ()
+		void ExportAllNotesViaGUI ()
 		{
 			Logger.Info ("Activated export all to " + export_type_pretty_name);
 			exporting_single_notebook = false;
@@ -160,30 +238,7 @@ namespace Tomboy
 			string output_folder = SanitizePath (dialog.Filename);
 
 			try {
-				Logger.Debug ("Creating an export folder in: " + output_folder);
-				System.IO.Directory.CreateDirectory (output_folder);
-
-				//Iterate through notebooks
-				Notebooks.Notebook notebook;
-				string notebook_folder;
-
-				foreach (Tag tag in TagManager.AllTags) {
-					// Skip over tags that aren't notebooks
-					notebook = NotebookManager.GetNotebookFromTag (tag);
-					if (notebook == null)
-						continue;
-
-					Logger.Debug ("Exporting notebook " + notebook.Name);
-					notebook_folder = SanitizePath (output_folder + System.IO.Path.DirectorySeparatorChar
-					                  + notebook.NormalizedName);
-					System.IO.Directory.CreateDirectory (notebook_folder);
-					ExportNotesInList (notebook.Tag.Notes, notebook_folder);
-
-				}
-
-				//Finally we have to export all unfiled notes.
-				Logger.Debug ("Exporting Unfiled Notes");
-				ExportNotesInList (ListUnfiledNotes (), output_folder);
+				ExportAllNotes (output_folder);
 
 				//Successful export: clean up and inform.
 				dialog.SavePreferences ();
@@ -230,7 +285,7 @@ namespace Tomboy
 				string notebook_name = notebook.NormalizedName;
 				if (notebook_name == "___NotebookManager___AllNotes__Notebook___") {
 					Logger.Info ("This notebook includes all notes, activating Export All");
-					ExportAllNotes ();
+					ExportAllNotesViaGUI ();
 					return;
 				} else if (notebook_name == "___NotebookManager___UnfiledNotes__Notebook___") {
 					dialog = new ExportMultipleDialog (Catalog.GetString ("Unfiled Notes"), export_type_pretty_name);
@@ -350,6 +405,7 @@ namespace Tomboy
 			note_title = note_title.Replace ('/', '_');
 			note_title = note_title.Replace ('\\', '_');
 			note_title = note_title.Replace ('.', '_');
+			note_title = note_title.Replace ('?', '_');
 
 			return note_title;
 		}

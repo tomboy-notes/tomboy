@@ -1574,15 +1574,18 @@ namespace Tomboy
 			int y;
 			int width;
 			int height;
+			int mon;
 
 			GetPosition(out x, out y);
 			GetSize(out width, out height);
+			mon = Screen.GetMonitorAtPoint(x, y);
 			
 			Preferences.Set (Preferences.SEARCH_WINDOW_X_POS, x);
 			Preferences.Set (Preferences.SEARCH_WINDOW_Y_POS, y);
 			Preferences.Set (Preferences.SEARCH_WINDOW_WIDTH, width);
 			Preferences.Set (Preferences.SEARCH_WINDOW_HEIGHT, height);
 			Preferences.Set (Preferences.SEARCH_WINDOW_SPLITTER_POS, hpaned.Position);
+			Preferences.Set (Preferences.SEARCH_WINDOW_MONITOR_NUM, mon);
 		}
 
 		private void RestorePosition ()
@@ -1592,23 +1595,67 @@ namespace Tomboy
 			object width = Preferences.Get (Preferences.SEARCH_WINDOW_WIDTH);
 			object height = Preferences.Get (Preferences.SEARCH_WINDOW_HEIGHT);
 			object splitter_pos = Preferences.Get (Preferences.SEARCH_WINDOW_SPLITTER_POS);
+			object mon = Preferences.Get (Preferences.SEARCH_WINDOW_MONITOR_NUM);
+			int new_mon, new_x, new_y;
 
 			if (x == null || !(x is int)
 				|| y == null || !(y is int)
 				|| width == null || !(width is int)
 				|| height == null || !(height is int)
-				|| splitter_pos == null || !(splitter_pos is int))
+				|| splitter_pos == null || !(splitter_pos is int)
+				|| mon == null || !(mon is int))
 			return;
-		
+
+			new_mon = Screen.GetMonitorAtPoint ((int) x, (int) y);
+			Logger.Info ("Monitor number returned by GetMonitorAtPoint (actual) is: {0}", new_mon);
+			Logger.Info ("Saved monitor number is: {0}", mon);
+			Logger.Info ("Saved Search window position is {0} x {1}", (int) x, (int) y);
+
+			// If saved monitor number doesn't match the one returned by GetMonitorAtPoint for saved coords
+			// then it means that something has changed in the monitors layout and saved coordinates may not be valid.
+			// Therefore we'll restore the window to the center of the monitor closest to the saved coordinates.
+			/// It will be returned by the same GetMonitorAtPoint call.
+			if (new_mon == (int) mon) {
+				Logger.Info ("Saved monitor number does match the actual one - restoring as-is");
+				new_x = (int) x;
+				new_y = (int) y;
+			} else {
+				Logger.Info ("Saved monitor number does NOT match the actual one - restoring to the center");
+				//getting the monitor size to calculate the center
+				Gdk.Rectangle new_mon_geom = Screen.GetMonitorGeometry (new_mon);
+				new_x = new_mon_geom.Right/2 - (int) width/2;
+				new_y = new_mon_geom.Bottom/2 - (int) height/2;
+			}
+
+			Logger.Info ("Restoring Search window to position {0} x {1} at monitor {2}", new_x, new_y, new_mon);
 			DefaultSize =
 				new Gdk.Size ((int) width, (int) height);
-			Move ((int) x, (int) y);
+			Move (new_x, new_y);
 			hpaned.Position = (int) splitter_pos;
+
 		}
 
 		private void OnExitingEvent (object sender, EventArgs args)
 		{
 			SavePosition ();
+		}
+
+		// This one presents a List of notes that Search has found
+		public List<Note> GetFilteredNotes ()
+		{
+			Gtk.TreeIter iter;
+			List<Note> filtered_notes = new List<Note> ();
+
+			if (store_sort.IterChildren (out iter) == false)
+				return filtered_notes; /* if nothing was found we return empty list */
+
+			// Getting filtered out notes (found by search) to our list
+			// 3 is a column where note itself is stored
+			do {
+				filtered_notes.Add ((Note) store_sort.GetValue (iter, 3));
+			} while (store_sort.IterNext (ref iter));
+
+			return filtered_notes;
 		}
 	}
 }
