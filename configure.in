@@ -35,9 +35,12 @@ AM_GCONF_SOURCE_2
 #
 # Find mcs
 #
-AC_PATH_PROG(GMCS, gmcs)
+AC_PATH_PROG(GMCS, dmcs)
 if test "x$GMCS" = "x" ; then
-	AC_MSG_ERROR([Can't find "gmcs" in your PATH])
+	AC_PATH_PROG(GMCS, gmcs)
+fi
+if test "x$GMCS" = "x" ; then
+	AC_MSG_ERROR([Can't find "dmcs" or "gmcs" in your PATH])
 fi
 
 #
