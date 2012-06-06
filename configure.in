@@ -1,4 +1,4 @@
-AC_INIT(tomboy, 1.11.2)
+AC_INIT(tomboy, 1.11.3)
 AC_CONFIG_SRCDIR(Tomboy/Tomboy.cs)
 AM_INIT_AUTOMAKE([foreign tar-ustar])
 AM_MAINTAINER_MODE
@@ -35,9 +35,12 @@ AM_GCONF_SOURCE_2
 #
 # Find mcs
 #
-AC_PATH_PROG(GMCS, gmcs)
+AC_PATH_PROG(GMCS, dmcs)
 if test "x$GMCS" = "x" ; then
-	AC_MSG_ERROR([Can't find "gmcs" in your PATH])
+	AC_PATH_PROG(GMCS, gmcs)
+fi
+if test "x$GMCS" = "x" ; then
+	AC_MSG_ERROR([Can't find "dmcs" or "gmcs" in your PATH])
 fi
 
 #
