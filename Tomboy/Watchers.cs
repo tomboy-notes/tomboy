@@ -242,14 +242,14 @@ namespace Tomboy
 					gtkspell_detach (test_ptr);
 				return true;
 			} catch {
-			return false;
-		}
-	}
+			        return false;
+		        }
+	        }
 
-	public static bool GtkSpellAvailable
-	{
-		get {
-			if (!gtkspell_available_tested) {
+	        public static bool GtkSpellAvailable
+	        {
+		        get {
+			        if (!gtkspell_available_tested) {
 					gtkspell_available_result = DetectGtkSpellAvailable ();
 					gtkspell_available_tested = true;
 				}
@@ -266,12 +266,12 @@ namespace Tomboy
 
 		public override void Initialize ()
 		{
-			// Do nothing.
+			Manager.NoteDeleted += OnNoteDeleted;
 		}
 
 		public override void Shutdown ()
 		{
-			// Do nothing.
+			Manager.NoteDeleted -= OnNoteDeleted;
 		}
 
 		public override void OnNoteOpened ()
@@ -281,6 +281,13 @@ namespace Tomboy
 			if ((bool) Preferences.Get (Preferences.ENABLE_SPELLCHECKING)) {
 				Attach ();
 			}
+		}
+
+		// Stop listening for spellchecking enable/disable on delete (fixes bug #655067)
+		void OnNoteDeleted (object sender, Note deleted)
+		{
+			if (deleted == this.Note)
+				Preferences.SettingChanged -= OnEnableSpellcheckChanged;
 		}
 
 		void Attach ()
