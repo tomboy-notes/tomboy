@@ -111,7 +111,7 @@ namespace Tomboy.WebSync
 			if (Auth == null)
 				Auth = new Api.OAuth ();
 
-			string rootUri = Server + "/api/1.0";
+			string rootUri = Server.TrimEnd('/') + "/api/1.0";
 			try {
 				RootInfo root = RootInfo.GetRoot (rootUri, new Api.AnonymousConnection ());
 
