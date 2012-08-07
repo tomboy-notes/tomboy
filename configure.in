@@ -1,4 +1,4 @@
-AC_INIT(tomboy, 1.11.5)
+AC_INIT(tomboy, 1.11.6)
 AC_CONFIG_SRCDIR(Tomboy/Tomboy.cs)
 AM_INIT_AUTOMAKE([foreign tar-ustar])
 AM_MAINTAINER_MODE
@@ -237,6 +237,8 @@ done
 if test "x$ENABLE_GNOME" != "xno"; then
 	if pkg-config --exists gmime-sharp-2.4; then
 		PKG_CHECK_MODULES(EVOLUTION, gmime-sharp-2.4, ENABLE_EVOLUTION="yes", ENABLE_EVOLUTION="no")
+	elif pkg-config --exists gmime-sharp-2.6; then
+		PKG_CHECK_MODULES(EVOLUTION, gmime-sharp-2.6, ENABLE_EVOLUTION="yes", ENABLE_EVOLUTION="no")
 	else
 		PKG_CHECK_MODULES(EVOLUTION, gmime-sharp >= 2.2.7, ENABLE_EVOLUTION="yes", ENABLE_EVOLUTION="no")
 	fi
