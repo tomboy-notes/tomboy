@@ -1,9 +1,9 @@
 using System;
-using System.Threading;
 #if ENABLE_DBUS
 using DBus;
 using org.freedesktop.DBus;
 #else
+using System.Threading;
 using System.Runtime.Remoting;
 using System.Runtime.Remoting.Activation;
 using System.Runtime.Remoting.Channels;
@@ -13,13 +13,15 @@ using System.Runtime.Remoting.Channels.Ipc;
 namespace Tomboy
 {
 	public static class RemoteControlProxy {
-		private static Mutex mutex;
-		private static bool firstInstance;
-		private const string MutexName = "{9EF7D32D-3392-4940-8A28-1320A7BD42AB}";
 #if ENABLE_DBUS
 		private const string Path = "/org/gnome/Tomboy/RemoteControl";
 		private const string Namespace = "org.gnome.Tomboy";
+		private static bool? firstInstance;
 #else
+		private static Mutex mutex;
+		private static bool firstInstance;
+		private const string MutexName = "{9EF7D32D-3392-4940-8A28-1320A7BD42AB}";
+
 		private static IpcChannel IpcChannel;
 		private const string ServerName = "TomboyServer";
 		private const string ClientName = "TomboyClient";
@@ -49,17 +51,13 @@ namespace Tomboy
 		public static RemoteControl Register (NoteManager manager)
 		{
 #if ENABLE_DBUS
-			BusG.Init ();
+			if (!FirstInstance)
+				return null;
 
 			RemoteControl remote_control = new RemoteControl (manager);
 			Bus.Session.Register (Namespace,
 			                      new ObjectPath (Path),
 			                      remote_control);
-
-			if (Bus.Session.RequestName (Namespace)
-			                != RequestNameReply.PrimaryOwner)
-				return null;
-
 			return remote_control;
 #else
 			if (FirstInstance) {
@@ -102,10 +100,19 @@ namespace Tomboy
 
 		public static bool FirstInstance {
 			get {
+#if ENABLE_DBUS
+				// We use DBus to provide single-instance detection
+				if (!firstInstance.HasValue) {
+					BusG.Init ();
+					firstInstance = Bus.Session.RequestName (Namespace) == RequestNameReply.PrimaryOwner;
+				}
+				return firstInstance.Value;
+#else
 				// Use a mutex to provide single-instance detection
 				if (mutex == null)
 					mutex = new Mutex (true, MutexName, out firstInstance);
 				return firstInstance;
+#endif
 			}
 		}
 	}
