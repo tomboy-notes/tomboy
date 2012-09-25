@@ -17,10 +17,11 @@ msgstr ""
 "Project-Id-Version: tomboy.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=tomboy&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2012-05-01 16:57+0000\n"
-"PO-Revision-Date: 2012-04-30 19:24+0100\n"
+"POT-Creation-Date: 2012-09-24 23:43+0000\n"
+"PO-Revision-Date: 2012-09-25 18:19+0200\n"
 "Last-Translator: Pierre Henry <pierrehenry73@yahoo.fr>\n"
 "Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -304,9 +305,9 @@ msgstr ""
 "Les raccourcis généraux pour la création et l'affichage d'une nouvelle note. "
 "Le format ressemble à « &lt;Control&gt;a » ou à « &lt;Shift&gt;&lt;Alt&gt;"
 "F1 ». L'analyseur est assez tolérant et autorise majuscules et minuscules "
-"ainsi que les abréviations comme « &lt;Ctl&gt; » et « &lt;Ctrl&gt; ». Si vous "
-"renseignez l'option avec la chaîne « disabled » (désactivé), il n'y aura pas "
-"de raccourci clavier pour cette action."
+"ainsi que les abréviations comme « &lt;Ctl&gt; » et « &lt;Ctrl&gt; ». Si "
+"vous renseignez l'option avec la chaîne « disabled » (désactivé), il n'y "
+"aura pas de raccourci clavier pour cette action."
 
 #: ../data/tomboy.schemas.in.h:35
 msgid "Open Search Dialog"
@@ -346,8 +347,8 @@ msgstr ""
 "Alt&gt;F1 ». L'analyseur est assez tolérant et autorise majuscules et "
 "minuscules ainsi que les abréviations comme « &lt;Ctl&gt; » et « &lt;"
 "Ctrl&gt; ». Si vous renseignez l'option avec la chaîne "
-"« disabled » (« désactivé »), il n'y aura pas de raccourci clavier pour cette "
-"action."
+"« disabled » (« désactivé »), il n'y aura pas de raccourci clavier pour "
+"cette action."
 
 #: ../data/tomboy.schemas.in.h:39
 msgid "Saved height of \"Search All Notes\" window"
@@ -434,11 +435,11 @@ msgid ""
 "Export Linked Notes' setting and is used to specify whether all notes (found "
 "recursively) should be included during an export to HTML."
 msgstr ""
-"Le dernier paramètre pour la case à cocher « Exporter toutes les autres notes "
-"liées » dans le greffon d'export en HTML. Ce paramètre est utilisé de "
-"concert avec le paramètre « Exporter les notes liées » et sert à spécifier si "
-"toutes les notes (trouvées récursivement) doivent être incluses durant une "
-"exportation en HTML."
+"Le dernier paramètre pour la case à cocher « Exporter toutes les autres "
+"notes liées » dans le greffon d'export en HTML. Ce paramètre est utilisé de "
+"concert avec le paramètre « Exporter les notes liées » et sert à spécifier "
+"si toutes les notes (trouvées récursivement) doivent être incluses durant "
+"une exportation en HTML."
 
 #: ../data/tomboy.schemas.in.h:53
 msgid "Sticky Note Importer First Run"
@@ -1211,7 +1212,8 @@ msgstr "Impossible d'exporter, le dossier n'existe pas."
 
 #: ../Tomboy/ExportAllApplicationAddin.cs:175
 msgid "Could not export, error with the path. (No ending \"?)"
-msgstr "Impossible d'exporter, erreur avec le chemin d'accès (aucun \" terminal ?)"
+msgstr ""
+"Impossible d'exporter, erreur avec le chemin d'accès (aucun \" terminal ?)"
 
 #: ../Tomboy/ExportAllApplicationAddin.cs:177
 #: ../Tomboy/ExportAllApplicationAddin.cs:258
@@ -1611,8 +1613,8 @@ msgid ""
 "\n"
 "If you do not rename the links, they will no longer link to anything."
 msgstr ""
-"Renommer les liens dans les autres notes de « <span underline=\"single\">{0}</"
-"span> » vers « <span underline=\"single\">{1}</span> » ?\n"
+"Renommer les liens dans les autres notes de « <span underline=\"single\">{0}"
+"</span> » vers « <span underline=\"single\">{1}</span> » ?\n"
 "\n"
 "Si vous ne renommez pas les liens, ils ne pointeront plus vers rien."
 
@@ -1753,63 +1755,69 @@ msgstr "Rechercher le _précédent"
 msgid "Cannot create note"
 msgstr "Impossible de créer la note"
 
-#: ../Tomboy/NoteWindow.cs:832
+#: ../Tomboy/NoteWindow.cs:833
 msgid "_Find:"
 msgstr "_Rechercher :"
 
-#: ../Tomboy/NoteWindow.cs:843
+#: ../Tomboy/NoteWindow.cs:847
 msgid "_Previous"
 msgstr "_Précédent"
 
-#: ../Tomboy/NoteWindow.cs:852
+#: ../Tomboy/NoteWindow.cs:856
 msgid "_Next"
 msgstr "_Suivant"
 
-#: ../Tomboy/NoteWindow.cs:1335
+#. x of x - specifically Number of Matches and what location is the cursor in the list of matches
+#: ../Tomboy/NoteWindow.cs:885
+#, csharp-format
+msgid "{0} of {1}"
+msgstr "{0} sur {1}"
+
+#: ../Tomboy/NoteWindow.cs:1368
 msgid "_Bold"
 msgstr "Gr_as"
 
-#: ../Tomboy/NoteWindow.cs:1347
+#: ../Tomboy/NoteWindow.cs:1380
 msgid "_Italic"
 msgstr "_Italique"
 
-#: ../Tomboy/NoteWindow.cs:1359
+#: ../Tomboy/NoteWindow.cs:1392
 msgid "_Strikeout"
 msgstr "_Barré"
 
-#: ../Tomboy/NoteWindow.cs:1371
+#: ../Tomboy/NoteWindow.cs:1404
 msgid "_Highlight"
 msgstr "_Surligné"
 
-#: ../Tomboy/NoteWindow.cs:1384
+#: ../Tomboy/NoteWindow.cs:1417
 msgid "Font Size"
 msgstr "Taille de la police"
 
-#: ../Tomboy/NoteWindow.cs:1387
+#: ../Tomboy/NoteWindow.cs:1420
 msgid "_Normal"
 msgstr "_Normale"
 
-#: ../Tomboy/NoteWindow.cs:1404
+#: ../Tomboy/NoteWindow.cs:1437
 msgid "Hu_ge"
 msgstr "Énorm_e"
 
-#: ../Tomboy/NoteWindow.cs:1412
+#: ../Tomboy/NoteWindow.cs:1445
 msgid "_Large"
 msgstr "_Grande"
 
-#: ../Tomboy/NoteWindow.cs:1420
+#: ../Tomboy/NoteWindow.cs:1453
 msgid "S_mall"
 msgstr "_Petite"
 
-#: ../Tomboy/NoteWindow.cs:1429
+#: ../Tomboy/NoteWindow.cs:1462
 msgid "Increase Font Size"
 msgstr "Augmenter la taille de la police"
 
-#: ../Tomboy/NoteWindow.cs:1447
+#: ../Tomboy/NoteWindow.cs:1480
 msgid "Decrease Font Size"
 msgstr "Diminuer la taille de la police"
 
-#: ../Tomboy/NoteWindow.cs:1467
+#: ../Tomboy/NoteWindow.cs:1500
 msgid "Bullets"
 msgstr "Puces"
 
@@ -2125,7 +2133,7 @@ msgstr ""
 msgid "Click here to search across all notebooks"
 msgstr "Cliquer ici pour rechercher dans tous les bloc-notes"
 
-#: ../Tomboy/RecentChanges.cs:775
+#: ../Tomboy/RecentChanges.cs:780
 msgid "Notes"
 msgstr "Notes"
 
@@ -2417,7 +2425,7 @@ msgstr "Équipe de développement :"
 msgid "Contributors:"
 msgstr "Contributeurs :"
 
-#: ../Tomboy/Tomboy.cs:418
+#: ../Tomboy/Tomboy.cs:420
 msgid "translator-credits"
 msgstr ""
 "Benoît Dejean <benoit@placenet.org>\n"
@@ -2427,7 +2435,7 @@ msgstr ""
 "Jonathan Ernst <jonathan@ernstfamily.ch>\n"
 "Bruno Brouard <annoa.b@gmail.com>"
 
-#: ../Tomboy/Tomboy.cs:427
+#: ../Tomboy/Tomboy.cs:429
 msgid ""
 "Copyright © 2004-2007 Alex Graveley\n"
 "Copyright © 2004-2011 Others\n"
@@ -2435,15 +2443,15 @@ msgstr ""
 "Copyright © 2004-2007 Alex Graveley\n"
 "Copyright © 2004-2011 Autres personnes\n"
 
-#: ../Tomboy/Tomboy.cs:429
+#: ../Tomboy/Tomboy.cs:431
 msgid "A simple and easy to use desktop note-taking application."
 msgstr "Une application de prise de notes simple et facile à utiliser."
 
-#: ../Tomboy/Tomboy.cs:439
+#: ../Tomboy/Tomboy.cs:441
 msgid "Homepage"
 msgstr "Site Web"
 
-#: ../Tomboy/Tomboy.cs:575
+#: ../Tomboy/Tomboy.cs:577
 msgid ""
 "Tomboy: A simple, easy to use desktop note-taking application.\n"
 "Copyright © 2004-2007 Alex Graveley\n"
@@ -2457,7 +2465,7 @@ msgstr ""
 "\n"
 "Copyright © 2004-2011 Autres personnes\n"
 
-#: ../Tomboy/Tomboy.cs:589
+#: ../Tomboy/Tomboy.cs:591
 msgid ""
 "Usage:\n"
 "  --version\t\t\tPrint version information.\n"
@@ -2473,7 +2481,7 @@ msgstr ""
 "  --search [texte]\t\tOuvre la fenêtre de recherche dans toutes les notes "
 "avec le texte recherché.\n"
 
-#: ../Tomboy/Tomboy.cs:599
+#: ../Tomboy/Tomboy.cs:601
 msgid ""
 "  --new-note\t\t\tCreate and display a new note.\n"
 "  --new-note [title]\t\tCreate and display a new note, with a title.\n"
@@ -2489,7 +2497,7 @@ msgstr ""
 "  --highlight-search [texte]\tRecherche et surligne le texte dans la note "
 "ouverte.\n"
 
-#: ../Tomboy/Tomboy.cs:609
+#: ../Tomboy/Tomboy.cs:611
 msgid ""
 "  --addin:html-export-all [path]\tExports all notes to HTML in the given "
 "location.\n"
@@ -2501,7 +2509,7 @@ msgstr ""
 "  --addin:html-export-all-quit [chemin]\tExporte toutes les notes en HTML à "
 "l'emplacement fourni puis quitte.\n"
 
-#: ../Tomboy/Tomboy.cs:619
+#: ../Tomboy/Tomboy.cs:621
 #, csharp-format
 msgid "Version {0}"
 msgstr "Version {0}"
@@ -2624,10 +2632,10 @@ msgstr ""
 msgid "Note title taken"
 msgstr "Ce titre de note est déjà utilisé"
 
-#: ../Tomboy/Watchers.cs:587
+#: ../Tomboy/Watchers.cs:601
 msgid "_Copy Link Address"
 msgstr "_Copier l'adresse du lien"
 
-#: ../Tomboy/Watchers.cs:592
+#: ../Tomboy/Watchers.cs:606
 msgid "_Open Link"
 msgstr "_Ouvrir le lien"
