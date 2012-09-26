@@ -12,14 +12,15 @@ msgstr ""
 "Project-Id-Version: tomboy.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=tomboy&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2012-05-01 16:57+0000\n"
-"PO-Revision-Date: 2012-05-02 13:11+0200\n"
+"POT-Creation-Date: 2012-09-24 23:43+0000\n"
+"PO-Revision-Date: 2012-09-26 16:37+0200\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
 "X-Generator: KBabel 1.11.4\n"
 
 #: ../data/GNOME_TomboyApplet.server.in.in.h:1
@@ -255,9 +256,9 @@ msgid ""
 "action."
 msgstr ""
 "Combinación de teclas global para mostrar el menú de miniaplicaciones de "
-"Tomboy. El formato sería \"&lt;Control&gt;a\" o \"&lt;Shift&gt;&lt;Alt&gt;"
-"F1\". El analizador léxico es bastante tolerante y permite letras mayúsculas "
-"o minúsculas, y abreviaciones tales como \"&lt;Ctl&gt;\" y \"&lt;Ctrl&gt;\". "
+"Tomboy. El formato sería \"&lt;Control&gt;a\" o \"&lt;Shift&gt;&lt;Alt&gt;F1"
+"\". El analizador léxico es bastante tolerante y permite letras mayúsculas o "
+"minúsculas, y abreviaciones tales como \"&lt;Ctl&gt;\" y \"&lt;Ctrl&gt;\". "
 "Si activa la opción de cadena especial \"disabled\" (desactivada) no habrá "
 "combinación de teclas para esta acción."
 
@@ -408,8 +409,8 @@ msgid ""
 "The last setting for the 'Export linked notes' checkbox in the Export to "
 "HTML plugin."
 msgstr ""
-"Las última casilla de preferencias para «Exportar las notas enlazadas a "
-"HTML» en el complemento Exportar a HTML."
+"Las última casilla de preferencias para «Exportar las notas enlazadas a HTML» "
+"en el complemento Exportar a HTML."
 
 #: ../data/tomboy.schemas.in.h:51
 msgid "HTML Export All Linked Notes"
@@ -422,10 +423,10 @@ msgid ""
 "Export Linked Notes' setting and is used to specify whether all notes (found "
 "recursively) should be included during an export to HTML."
 msgstr ""
-"El último ajuste para la casilla de «Incluir todas las notas enlazadas» en "
-"el complemento de exportar a HTML. Esta opción se usa junto con los ajustes "
-"de «Exportar las notas enlazadas a HTML» y se usa para especificar si todas "
-"las notas (encontradas recursivamente) deberían ser incluídas durante la "
+"El último ajuste para la casilla de «Incluir todas las notas enlazadas» en el "
+"complemento de exportar a HTML. Esta opción se usa junto con los ajustes de "
+"«Exportar las notas enlazadas a HTML» y se usa para especificar si todas las "
+"notas (encontradas recursivamente) deberían ser incluídas durante la "
 "exportación a HTML."
 
 #: ../data/tomboy.schemas.in.h:53
@@ -1586,8 +1587,8 @@ msgid ""
 "\n"
 "If you do not rename the links, they will no longer link to anything."
 msgstr ""
-"Renombrar enlaces en otras notas de «<span underline=\"single\">{0}</span>» "
-"a «<span underline=\"single\">{1}</span>»?\n"
+"Renombrar enlaces en otras notas de «<span underline=\"single\">{0}</span>» a "
+"«<span underline=\"single\">{1}</span>»?\n"
 "\n"
 "Si no renombra los enlaces, no apuntarán a nada."
 
@@ -1728,63 +1729,70 @@ msgstr "Buscar _anterior"
 msgid "Cannot create note"
 msgstr "No se puede crear la nota"
 
-#: ../Tomboy/NoteWindow.cs:832
+#: ../Tomboy/NoteWindow.cs:833
 msgid "_Find:"
 msgstr "_Buscar:"
 
-#: ../Tomboy/NoteWindow.cs:843
+#: ../Tomboy/NoteWindow.cs:847
 msgid "_Previous"
 msgstr "_Anterior"
 
-#: ../Tomboy/NoteWindow.cs:852
+#: ../Tomboy/NoteWindow.cs:856
 msgid "_Next"
 msgstr "_Siguiente"
 
-#: ../Tomboy/NoteWindow.cs:1335
+#. x of x - specifically Number of Matches and what location is the cursor in the list of matches
+#: ../Tomboy/NoteWindow.cs:885
+#, csharp-format
+#| msgid "Page {0} of {1}"
+msgid "{0} of {1}"
+msgstr "{0} de {1}"
+
+#: ../Tomboy/NoteWindow.cs:1368
 msgid "_Bold"
 msgstr "_Negrita"
 
-#: ../Tomboy/NoteWindow.cs:1347
+#: ../Tomboy/NoteWindow.cs:1380
 msgid "_Italic"
 msgstr "_Cursiva"
 
-#: ../Tomboy/NoteWindow.cs:1359
+#: ../Tomboy/NoteWindow.cs:1392
 msgid "_Strikeout"
 msgstr "_Tachado"
 
-#: ../Tomboy/NoteWindow.cs:1371
+#: ../Tomboy/NoteWindow.cs:1404
 msgid "_Highlight"
 msgstr "_Resaltado"
 
-#: ../Tomboy/NoteWindow.cs:1384
+#: ../Tomboy/NoteWindow.cs:1417
 msgid "Font Size"
 msgstr "Tamaño de la tipografía"
 
-#: ../Tomboy/NoteWindow.cs:1387
+#: ../Tomboy/NoteWindow.cs:1420
 msgid "_Normal"
 msgstr "_Normal"
 
-#: ../Tomboy/NoteWindow.cs:1404
+#: ../Tomboy/NoteWindow.cs:1437
 msgid "Hu_ge"
 msgstr "_Enorme"
 
-#: ../Tomboy/NoteWindow.cs:1412
+#: ../Tomboy/NoteWindow.cs:1445
 msgid "_Large"
 msgstr "_Grande"
 
-#: ../Tomboy/NoteWindow.cs:1420
+#: ../Tomboy/NoteWindow.cs:1453
 msgid "S_mall"
 msgstr "_Pequeña"
 
-#: ../Tomboy/NoteWindow.cs:1429
+#: ../Tomboy/NoteWindow.cs:1462
 msgid "Increase Font Size"
 msgstr "Aumentar el tamaño de la tipografía"
 
-#: ../Tomboy/NoteWindow.cs:1447
+#: ../Tomboy/NoteWindow.cs:1480
 msgid "Decrease Font Size"
 msgstr "Reducir el tamaño de la tipografía"
 
-#: ../Tomboy/NoteWindow.cs:1467
+#: ../Tomboy/NoteWindow.cs:1500
 msgid "Bullets"
 msgstr "Topos"
 
@@ -2097,7 +2105,7 @@ msgstr ""
 msgid "Click here to search across all notebooks"
 msgstr "Pulse aquí para buscar en todos los cuadernos de notas"
 
-#: ../Tomboy/RecentChanges.cs:775
+#: ../Tomboy/RecentChanges.cs:780
 msgid "Notes"
 msgstr "Notas"
 
@@ -2383,13 +2391,13 @@ msgstr "Desarrollo inicial:"
 msgid "Contributors:"
 msgstr "Colaboradores:"
 
-#: ../Tomboy/Tomboy.cs:418
+#: ../Tomboy/Tomboy.cs:420
 msgid "translator-credits"
 msgstr ""
 "Daniel Mustieles <daniel.mustieles@gmail.com>, 2009\n"
 "Jorge González <jorgegonz@svn.gnome.org>, 2004-2009"
 
-#: ../Tomboy/Tomboy.cs:427
+#: ../Tomboy/Tomboy.cs:429
 msgid ""
 "Copyright © 2004-2007 Alex Graveley\n"
 "Copyright © 2004-2011 Others\n"
@@ -2397,16 +2405,16 @@ msgstr ""
 "Copyright © 2004-2007 Alex Graveley\n"
 "Copyright © 2004-2011 Otros\n"
 
-#: ../Tomboy/Tomboy.cs:429
+#: ../Tomboy/Tomboy.cs:431
 msgid "A simple and easy to use desktop note-taking application."
 msgstr ""
 "Una aplicación simple y fácil de usar para tomar notas en el escritorio."
 
-#: ../Tomboy/Tomboy.cs:439
+#: ../Tomboy/Tomboy.cs:441
 msgid "Homepage"
 msgstr "Página web"
 
-#: ../Tomboy/Tomboy.cs:575
+#: ../Tomboy/Tomboy.cs:577
 msgid ""
 "Tomboy: A simple, easy to use desktop note-taking application.\n"
 "Copyright © 2004-2007 Alex Graveley\n"
@@ -2421,7 +2429,7 @@ msgstr ""
 "\n"
 "Copyright © 2004-2011 Otros\n"
 
-#: ../Tomboy/Tomboy.cs:589
+#: ../Tomboy/Tomboy.cs:591
 msgid ""
 "Usage:\n"
 "  --version\t\t\tPrint version information.\n"
@@ -2437,7 +2445,7 @@ msgstr ""
 "  --search [texto]\t\tAbre la ventana de búsqueda de todas las notas con el "
 "texto buscado.\n"
 
-#: ../Tomboy/Tomboy.cs:599
+#: ../Tomboy/Tomboy.cs:601
 msgid ""
 "  --new-note\t\t\tCreate and display a new note.\n"
 "  --new-note [title]\t\tCreate and display a new note, with a title.\n"
@@ -2453,7 +2461,7 @@ msgstr ""
 "  --highlight-search [texto]\tBuscar y resaltar texto coincidente en la nota "
 "abierta\n"
 
-#: ../Tomboy/Tomboy.cs:609
+#: ../Tomboy/Tomboy.cs:611
 msgid ""
 "  --addin:html-export-all [path]\tExports all notes to HTML in the given "
 "location.\n"
@@ -2465,7 +2473,7 @@ msgstr ""
 "  --addin:html-export-all-quit [ruta]\tExporta a HTML todas la notas de una "
 "ubicación dada y sale del programa.\n"
 
-#: ../Tomboy/Tomboy.cs:619
+#: ../Tomboy/Tomboy.cs:621
 #, csharp-format
 msgid "Version {0}"
 msgstr "Versión {0}"
@@ -2587,11 +2595,11 @@ msgstr ""
 msgid "Note title taken"
 msgstr "El título de la nota ya existe"
 
-#: ../Tomboy/Watchers.cs:587
+#: ../Tomboy/Watchers.cs:601
 msgid "_Copy Link Address"
 msgstr "_Copiar la dirección del enlace"
 
-#: ../Tomboy/Watchers.cs:592
+#: ../Tomboy/Watchers.cs:606
 msgid "_Open Link"
 msgstr "_Abrir enlace"
 
