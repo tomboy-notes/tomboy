@@ -6,7 +6,8 @@ using LibProxy;
 namespace Tomboy.WebSync
 {
 	public static class ProxiedWebRequest
-	{		
+	{
+		private static ProxyFactory proxyFactory = null;
 		private const string useProxyAuthentication =
 			"/system/http_proxy/use_authentication";
 		private const string proxyAuthenticationUser =
@@ -32,9 +33,11 @@ namespace Tomboy.WebSync
 		
 		private static void ApplyProxy (HttpWebRequest webRequest, string uri)
 		{
-			ProxyFactory pf = new LibProxy.ProxyFactory ();
-			string[] proxies = pf.GetProxies (uri);
-			
+			if (proxyFactory == null) {
+				proxyFactory = new LibProxy.ProxyFactory ();
+			}
+
+			string[] proxies = proxyFactory.GetProxies (uri);
 			foreach (string proxy in proxies) {
 				Uri proxyUri = new Uri (proxy);
 				string scheme = proxyUri.Scheme;
