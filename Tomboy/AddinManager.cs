@@ -90,17 +90,7 @@ namespace Tomboy
 
 			Mono.Addins.AddinManager.AddinLoaded += OnAddinLoaded;
 			Mono.Addins.AddinManager.AddinUnloaded += OnAddinUnloaded;
-
-                        /* Hopefully adding the try / catch block will fix an exception when the Addin Manager cannot read the Addin description.
-                         * bgo #681542
-                         * jjenings Aug 22, 2012
-                         */
-                        try {
-                                Mono.Addins.AddinManager.Initialize (Tomboy.Uninstalled ? "." : tomboy_conf_dir);
-                        } catch (System.InvalidOperationException e) {
-                                Logger.Error ("Failed to load add-ins into AddinManager", e);
-                        }
-
+			Mono.Addins.AddinManager.Initialize (Tomboy.Uninstalled ? "." : tomboy_conf_dir);
 			UpgradeOldAddinConfig ();
 			if (Tomboy.Debugging) {
 				Mono.Addins.AddinManager.Registry.Rebuild (null);
