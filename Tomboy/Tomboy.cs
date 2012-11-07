@@ -372,6 +372,7 @@ namespace Tomboy
 				"\tŁukasz Jernaś",
 				"\tMark Wakim",
 				"\tMathias Hasselmann",
+				"\tMatteo Nardi",
 				"\tMatthew Pirocchi",
 				"\tMatt Johnston",
 				"\tMatt Jones",
