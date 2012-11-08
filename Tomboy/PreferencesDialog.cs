@@ -342,8 +342,8 @@ namespace Tomboy
 			                Catalog.GetString ("Hotkeys allow you to quickly access " +
 			                                   "your notes from anywhere with a keypress. " +
 			                                   "Example Hotkeys: " +
-			                                   "<b>&lt;Control&gt;&lt;Shift&gt;F11</b>, " +
-			                                   "<b>&lt;Alt&gt;N</b>"));
+			                                   "<b>&lt;ALT&gt;F11</b>, " +
+			                                   "<b>&lt;ALT&gt;N</b>"));
 			hotkeys_list.PackStart (label, false, false, 0);
 
 			align = new Gtk.Alignment (0.5f, 0.5f, 0.0f, 1.0f);
