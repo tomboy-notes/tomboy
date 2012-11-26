@@ -36,6 +36,7 @@ public ExportToHtmlDialog (string default_file) :
 
 			ShowAll ();
 			LoadPreferences (default_file);
+			SetExportLinkedAllSensitivity ();
 		}
 
 		public bool ExportLinked
@@ -80,6 +81,11 @@ public ExportToHtmlDialog (string default_file) :
 		}
 
 		protected void OnExportLinkedToggled (object sender, EventArgs args)
+		{
+			SetExportLinkedAllSensitivity ();
+		}
+
+		protected void SetExportLinkedAllSensitivity ()
 		{
 			if (export_linked.Active)
 				export_linked_all.Sensitive = true;
