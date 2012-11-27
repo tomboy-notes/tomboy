@@ -30,7 +30,6 @@ DOC_PAGES = \
 	addins.page \
 	addins-sync.page \
 	addins-tools.page \
-	advanced.page \
 	create-notebook.page \
 	create-note.page \
 	delete-notes.page \
@@ -40,7 +39,6 @@ DOC_PAGES = \
 	introduction.page \
 	note-edit-prefs.page \
 	prefs.page \
-	problems.page \
 	search.page \
 	sync.page \
 	sync-setup.page \
