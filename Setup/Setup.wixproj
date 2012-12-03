@@ -26,6 +26,14 @@
   </PropertyGroup>
   <Import Project="$(WixToolPath)\wix.targets" />
   <ItemGroup>
+    <ProjectReference Include="..\Tomboy\Addins\AdvancedPreferences\AdvancedPreferences.csproj">
+      <Project>{35C7F93C-F4D2-4FD0-B669-B02CE1EF29FD}</Project>
+      <Name>AdvancedPreferences</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tomboy\Addins\RemoveBrokenLinks\RemoveBrokenLinks.csproj">
+      <Project>{AD6C9F12-3F95-497C-AF7E-629F787A097E}</Project>
+      <Name>RemoveBrokenLinks</Name>
+    </ProjectReference>
     <WixExtension Include="$(WixToolPath)\WixUIExtension.dll" />
     <WixExtension Include="$(WixToolPath)\WixNetFxExtension.dll" />
     <Compile Include="Files.wxs" />

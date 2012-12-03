@@ -122,7 +122,7 @@ namespace Tomboy
 				return "disabled";
 
 			case EXPORTHTML_EXPORT_LINKED:
-				return true;
+				return false;
 
 			case EXPORTHTML_EXPORT_LINKED_ALL:
 				return false;
