@@ -1145,8 +1145,76 @@ namespace Tomboy
 						window.SetDefaultSize (data.Data.Width,
 						                       data.Data.Height);
 
-					if (data.Data.HasPosition ())
+					if (data.Data.HasPosition ()) {
+						// This would return the monitor where the point is, or the nearest one,
+						// protecting us from restoring onto non-existing monitor
+						int mon = window.Screen.GetMonitorAtPoint(data.Data.X, data.Data.Y);
+						Gdk.Rectangle mon_geom = window.Screen.GetMonitorGeometry(mon);
+						if (!mon_geom.Contains(data.Data.X, data.Data.Y)) {
+							// If we're here, then the saved position was
+							// on some now-disconnected monitor
+							Logger.Debug("Saved note position {0} x {1} is off-screen, " +
+							             "we'll move it to the center of the nearest monitor",
+							             data.Data.X, data.Data.Y);
+							data.Data.X = mon_geom.Right / 2 - data.Data.Width / 2;
+							data.Data.Y = mon_geom.Bottom / 2 - data.Data.Height / 2;
+						}
+
+						// 100px is a clearance space to accommodate taskbars and such.
+						// There's no nice and cross-platform way to get this information, but
+						// System.Windows.Forms.Screen.GetWorkingArea which adds unwanted deps
+						int clearance = 100;
+						int ne_x = data.Data.X + data.Data.Width + clearance;
+						if (ne_x > mon_geom.Right) {
+							Logger.Debug("Note runs beyond the screen on X coord, " +
+							             "we'll adjust the position");
+							// We'll first try to just move the window so that it's shown in full
+							int new_x = data.Data.X - (ne_x - mon_geom.Right);
+							if (new_x >= mon_geom.Left+clearance) {
+								// New position places the whole note within the screen
+								data.Data.X = new_x;
+								Logger.Debug("Moving note to {0} on X axis", new_x);
+							} else {
+								// Adjusted position is still beyond the allowable area,
+								// so we'll adjust & resize the note window
+								data.Data.X = mon_geom.Left + clearance;
+								data.Data.Width = mon_geom.Width - 2*clearance;
+								int win_w, win_h;
+								window.GetSize(out win_w, out win_h);
+								window.Resize(data.Data.Width, win_h);
+								Logger.Debug("Note is too wide to fully fit, " +
+								             "can't move nicely, " +
+								             "moving to fallback position {0} and resizing to {1} on X axis",
+								             data.Data.X, data.Data.Width);
+							}
+						}
+
+						int sw_y = data.Data.Y + data.Data.Height + clearance;
+						if (sw_y > mon_geom.Bottom) {
+							Logger.Debug("Note runs beyond the screen on Y coord, " +
+							             "we'll adjust the position");
+							// We'll first try to just move the window so that it's shown in full
+							int new_y = data.Data.Y - (sw_y - mon_geom.Bottom);
+							if (new_y >= mon_geom.Top+clearance) {
+								data.Data.Y = new_y;
+								Logger.Debug("Moving note to {0} on Y axis", new_y);
+							} else {
+								// Adjusted position is still beyond the allowable area,
+								// so we'll adjust & resize the note window
+								data.Data.Y = mon_geom.Top + clearance;
+								data.Data.Height = mon_geom.Height - 2*clearance;
+								int win_w, win_h;
+								window.GetSize(out win_w, out win_h);
+								window.Resize(win_w, data.Data.Height);
+								Logger.Debug("Note is too tall to fully fit, " +
+								             "can't move nicely, " +
+								             "moving to fallback position {0} and resizing to {1} on Y axis",
+								             data.Data.Y, data.Data.Height);
+							}
+						}
+						// Now we're sure this positions the note within the screen
 						window.Move (data.Data.X, data.Data.Y);
+					}
 
 					// This is here because emiting inside
 					// OnRealized causes segfaults.
