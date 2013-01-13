@@ -14,7 +14,8 @@ ASSEMBLIES = 					\
 ADDIN_NAME = AdvancedPreferences
 TARGET = $(top_builddir)/bin/addins/$(ADDIN_NAME).dll
 CSFILES = \
-	$(srcdir)/AdvancedPreferencesAddin.cs
+	$(srcdir)/AdvancedPreferencesAddin.cs \
+	$(srcdir)/MenuMinMaxNoteCountPreference.cs
 	
 RESOURCES = \
 	-resource:$(srcdir)/$(ADDIN_NAME).addin.xml
