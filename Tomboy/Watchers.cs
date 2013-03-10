@@ -181,9 +181,6 @@ namespace Tomboy
 
 		void ShowNameClashError (string title)
 		{
-			// Select text from TitleStart to TitleEnd
-			Buffer.MoveMark (Buffer.SelectionBound, TitleStart);
-			Buffer.MoveMark (Buffer.InsertMark, TitleEnd);
 
 			string message =
 			        String.Format (Catalog.GetString ("A note with the title " +
