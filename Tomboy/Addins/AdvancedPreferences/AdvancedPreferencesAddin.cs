@@ -1,5 +1,5 @@
 ﻿// Plugin for Tomboy Advanced preferences tab
-// (c) 2011 Alex Tereschenko <frozenblue@zoho.com>
+// (c) 2011-2013 Alex Tereschenko <frozen.and.blue@gmail.com>
 // LGPL 2.1 or later
 
 using System;
@@ -14,25 +14,13 @@ namespace Tomboy.AdvancedPreferences
 	/// </summary>
 	public class AdvancedPreferencesAddin : PreferenceTabAddin
 	{
-		
-		// This one is an event handler for a SpinButton, used to set the menu note count
-		private void UpdateMenuNoteCountPreference (object source, EventArgs args)
-		{
-			Gtk.SpinButton spinner = source as SpinButton;
-			Preferences.Set (Preferences.MENU_NOTE_COUNT, spinner.ValueAsInt);
-			
-		}
-		
-		
+
 		public override bool GetPreferenceTabWidget (	PreferencesDialog parent,
 								out string tabLabel,
 								out Gtk.Widget preferenceWidget)
 		{
 			
-			Gtk.Label label;
-			Gtk.SpinButton menuNoteCountSpinner;
 			Gtk.Alignment align;
-			int menuNoteCount;
 
 			// Addin's tab caption
 			tabLabel = Catalog.GetString ("Advanced");
@@ -45,33 +33,17 @@ namespace Tomboy.AdvancedPreferences
 			align.Show ();
 			opts_list.PackStart (align, false, false, 0);
 
-			Gtk.Table table = new Gtk.Table (1, 2, false);
-			table.ColumnSpacing = 6;
-			table.RowSpacing = 6;
-			table.Show ();
-			align.Add (table);
+			/*
+			If you want to add new settings to the Advanced tab - follow the steps below:
+				1) define a class which implements the functionality (see e.g. MenuMinMaxNoteCountPreference.cs);
+				2) define property/method for that class that returns the widget you want to place onto the tab;
+				3) (similar to the below) instantiate object of your class and add its widget to the "align" widget;
+			*/
+			// Instantiate class for Menu Min/Max Note Count setting
+			MenuMinMaxNoteCountPreference menuNoteCountPref = new MenuMinMaxNoteCountPreference();
+			// Add the widget for this setting to the Advanced tab
+			align.Add (menuNoteCountPref.Widget);
 
-
-			// Menu Note Count option
-			label = new Gtk.Label (Catalog.GetString ("Minimum number of notes to show in Recent list (maximum 18)"));
-
-			label.UseMarkup = true;
-			label.Justify = Gtk.Justification.Left;
-			label.SetAlignment (0.0f, 0.5f);
-			label.Show ();
-			
-			table.Attach (label, 0, 1, 0, 1);
-		
-			menuNoteCount = (int) Preferences.Get (Preferences.MENU_NOTE_COUNT);
-			// we have a hard limit of 18 set, thus not allowing anything bigger than 18
-			menuNoteCountSpinner = new Gtk.SpinButton (1, 18, 1);
-			menuNoteCountSpinner.Value = menuNoteCount <= 18 ? menuNoteCount : 18;
-			
-			menuNoteCountSpinner.Show ();
-			table.Attach (menuNoteCountSpinner, 1, 2, 0, 1);
-			
-			menuNoteCountSpinner.ValueChanged += UpdateMenuNoteCountPreference;
-			
 			if (opts_list != null) {
 				preferenceWidget = opts_list;
 				return true;

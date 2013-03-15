@@ -21,6 +21,7 @@ namespace Tomboy
 		public const string START_NOTE_URI = "/apps/tomboy/start_note";
 		public const string CUSTOM_FONT_FACE = "/apps/tomboy/custom_font_face";
 		public const string MENU_NOTE_COUNT = "/apps/tomboy/menu_note_count";
+		public const string MENU_MAX_NOTE_COUNT = "/apps/tomboy/menu_max_note_count";
 		public const string MENU_PINNED_NOTES = "/apps/tomboy/menu_pinned_notes";
 		public const string MENU_ITEM_MAX_LENGTH = "/apps/tomboy/tray_menu_item_max_length";
 
@@ -103,6 +104,9 @@ namespace Tomboy
 
 			case MENU_NOTE_COUNT:
 				return 10;
+
+			case MENU_MAX_NOTE_COUNT:
+				return 18;
 
 			case MENU_PINNED_NOTES:
 				return string.Empty;

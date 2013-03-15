@@ -105,6 +105,7 @@ namespace Tomboy
 			find_combo.Changed += OnEntryChanged;
 			find_combo.Entry.ActivatesDefault = false;
 			find_combo.Entry.Activated += OnEntryActivated;
+			find_combo.Entry.FocusInEvent += OnEntryFocusIn;
 			if (previous_searches != null) {
 				foreach (string prev in previous_searches) {
 					find_combo.AppendText (prev);
@@ -296,6 +297,7 @@ namespace Tomboy
 			notebooksTree.Selection.Changed += OnNotebookSelectionChanged;
 			notebooksTree.ButtonPressEvent += OnNotebooksTreeButtonPressed;
 			notebooksTree.KeyPressEvent += OnNotebooksKeyPressed;
+			notebooksTree.FocusInEvent += OnNotebooksFocusIn;
 
 			notebooksTree.Show ();
 			Gtk.ScrolledWindow sw = new Gtk.ScrolledWindow ();
@@ -337,8 +339,6 @@ namespace Tomboy
 			tree.MotionNotifyEvent += OnTreeViewMotionNotify;
 			tree.ButtonReleaseEvent += OnTreeViewButtonReleased;
 			tree.DragDataGet += OnTreeViewDragDataGet;
-			tree.FocusInEvent += OnTreeViewFocused;
-			tree.FocusOutEvent += OnTreeViewFocusedOut;
 
 			tree.EnableModelDragSource (Gdk.ModifierType.Button1Mask | Gdk.ModifierType.Button3Mask,
 						    targets,
@@ -952,20 +952,6 @@ namespace Tomboy
 				tree.Selection.SelectPath (path);
 			}
 		}
-		
-		// called when the user moves the focus into the notes TreeView
-		void OnTreeViewFocused (object sender, EventArgs args)
-		{
-			// enable the Delete Note option in the menu bar 
-			Tomboy.ActionManager ["DeleteNoteAction"].Sensitive = true;
-		}
-		
-		// called when the focus moves out of the notes TreeView
-		void OnTreeViewFocusedOut (object sender, EventArgs args)
-		{
-			// Disable the Delete Note option in the menu bar (bug #647462)
-			Tomboy.ActionManager ["DeleteNoteAction"].Sensitive = false;
-		}
 
 		void PopupContextMenuAtLocation (Gtk.Menu menu, int x, int y)
 		{
@@ -1263,6 +1249,13 @@ namespace Tomboy
 			EntryChangedTimeout (null, null);
 		}
 
+		void OnEntryFocusIn (object sender, EventArgs args)
+		{
+			// To make sure DeleteNoteAction gets disabled
+			// when we're not in the notes list (bgo647472)
+			tree.Selection.UnselectAll ();
+		}
+
 		void OnEntryChanged (object sender, EventArgs args)
 		{
 			if (entry_changed_timeout == null) {
@@ -1532,6 +1525,13 @@ namespace Tomboy
 
 					break;
 			}
+		}
+
+		void OnNotebooksFocusIn (object sender, EventArgs args)
+		{
+			// To make sure DeleteNoteAction gets disabled
+			// when we're not in the notes list (bgo647472)
+			tree.Selection.UnselectAll ();
 		}
 
 		private void OnNoteAddedToNotebook (Note note, Notebooks.Notebook notebook)

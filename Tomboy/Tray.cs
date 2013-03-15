@@ -439,7 +439,9 @@ namespace Tomboy
 		public void AddRecentlyChangedNotes ()
 		{
 			int min_size = (int) Preferences.Get (Preferences.MENU_NOTE_COUNT);
-			int max_size = 18;
+			int max_size = (int) Preferences.Get (Preferences.MENU_MAX_NOTE_COUNT);
+			if (max_size < min_size)
+				max_size = min_size;
 			int list_size = 0;
 			bool menuOpensUpward = tray.MenuOpensUpward ();
 			NoteMenuItem item;
