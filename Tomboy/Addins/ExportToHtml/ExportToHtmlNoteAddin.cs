@@ -73,7 +73,8 @@ namespace Tomboy.ExportToHtml
 
 		void ExportButtonClicked (object sender, EventArgs args)
 		{
-			ExportToHtmlDialog dialog = new ExportToHtmlDialog (Note.Title + ".html");
+                        String sanitized_title = ExportAllApplicationAddin.SanitizeNoteTitle (Note.Title);
+			ExportToHtmlDialog dialog = new ExportToHtmlDialog (sanitized_title + ".html");
 			int response = dialog.Run();
 			string output_path = dialog.Filename;
 

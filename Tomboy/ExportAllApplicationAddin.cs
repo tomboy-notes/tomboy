@@ -397,7 +397,7 @@ namespace Tomboy
 		/// <summary>
 		/// Removes elements from the note title that might be problematic in a file name.
 		/// </summary>
-		public string SanitizeNoteTitle (string note_title)
+		public static string SanitizeNoteTitle (string note_title)
 		{
 			note_title = SanitizePath (note_title);
 
@@ -406,14 +406,14 @@ namespace Tomboy
 			note_title = note_title.Replace ('\\', '_');
 			note_title = note_title.Replace ('.', '_');
 			note_title = note_title.Replace ('?', '_');
-
+                        note_title = note_title.Replace (':', '_');
 			return note_title;
 		}
 
 		/// <summary>
 		/// Makes sure a path doesn't have any illegal characters.
 		/// </summary>
-		private string SanitizePath (string path)
+		private static string SanitizePath (string path)
 		{
 			char[] invalid_path_chars = Path.GetInvalidPathChars ();
 
