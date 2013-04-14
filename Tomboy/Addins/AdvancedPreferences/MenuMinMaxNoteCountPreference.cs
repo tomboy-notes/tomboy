@@ -22,6 +22,7 @@ namespace Tomboy.AdvancedPreferences
 		private int menuMaxNoteCount;
 		// This will store both labels and spinbuttons
 		private Gtk.Table table;
+		private Gtk.Alignment align;
 
 		public MenuMinMaxNoteCountPreference ()
 		{
@@ -68,6 +69,10 @@ namespace Tomboy.AdvancedPreferences
 			menuMaxNoteCountSpinner.Show ();
 			table.Attach (menuMaxNoteCountSpinner, 1, 2, 1, 2);
 			menuMaxNoteCountSpinner.ValueChanged += UpdateMenuMaxNoteCountPreference;
+
+			align = new Gtk.Alignment (0.0f, 0.0f, 0.0f, 1.0f);
+			align.Show ();
+			align.Add (table);
 		}
 
 		// This one is an event handler for a SpinButton, used to set the menu Min note count
@@ -92,11 +97,11 @@ namespace Tomboy.AdvancedPreferences
 			menuMinNoteCountSpinner.SetRange(min, spinner.Value);
 		}
 
-		public Gtk.Table Widget
+		public Gtk.Widget Widget
 		{
 			get
 			{
-				return table;
+				return align;
 			}
 		}
 	}
