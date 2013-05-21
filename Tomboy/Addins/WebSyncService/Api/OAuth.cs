@@ -245,10 +245,12 @@ namespace Tomboy.WebSync.Api
 			webRequest.Headers.Add ("Authorization",
 			                        String.Format ("OAuth realm=\"{0}\",{1}",
 			                                       Realm, headerParams));
+            if (postData == null) {
+                postData = string.Empty;
+            }
 
-			if (!String.IsNullOrEmpty (postData) &&
-			    (method == RequestMethod.PUT ||
-			     method == RequestMethod.POST)) {
+			if (method == RequestMethod.PUT ||
+			     method == RequestMethod.POST) {
 				webRequest.ContentType = "application/json";
 				// TODO: Error handling?
 				using (var requestWriter = new StreamWriter (webRequest.GetRequestStream ()))
