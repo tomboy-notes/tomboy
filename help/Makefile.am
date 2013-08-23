@@ -25,23 +25,33 @@ DOC_FIGURES = \
 	figures/tomboy-tools.png
 
 DOC_PAGES = \
-	addins-desktop.page \
-	addins-formatting.page \
+	addins-desktop-bugzilla.page \
+	addins-desktop-evolution.page \
+	addins-desktop-printing.page \
+	addins-formatting-fixed-width.page \
+	addins-formatting-underline.page \
+	addins-preferences.page \
+	addins-sync-local.page \
+	addins-sync-ssh.page \
+	addins-sync-webdav.page \
+	addins-tools-backlinks.page \
+	addins-tools-html-export.page \
+	addins-tools-note-of-day.page \
+	addins-tools-timestamp.page \
 	addins.page \
-	addins-sync.page \
-	addins-tools.page \
-	create-notebook.page \
 	create-note.page \
+	create-notebook.page \
 	delete-notes.page \
 	edit-note.page \
 	hotkeys.page \
 	index.page \
 	introduction.page \
+	legal.xml \
 	note-edit-prefs.page \
 	prefs.page \
 	search.page \
-	sync.page \
 	sync-setup.page \
+	sync.page \
 	whatsnew.page
 
 DOC_LINGUAS = ca cs de el en_GB es eu fr gl hu it lt lv oc pl pt_BR ru sl sv uk vi zh_CN
