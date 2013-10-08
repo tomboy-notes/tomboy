@@ -26,7 +26,6 @@ DOC_FIGURES = \
 
 DOC_PAGES = \
 	addins-desktop-bugzilla.page \
-	addins-desktop-evolution.page \
 	addins-desktop-printing.page \
 	addins-formatting-fixed-width.page \
 	addins-formatting-underline.page \
@@ -34,6 +33,7 @@ DOC_PAGES = \
 	addins-sync-local.page \
 	addins-sync-ssh.page \
 	addins-sync-webdav.page \
+	addins-sync-webservice.page \
 	addins-tools-backlinks.page \
 	addins-tools-html-export.page \
 	addins-tools-note-of-day.page \
