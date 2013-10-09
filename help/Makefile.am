@@ -48,6 +48,7 @@ DOC_PAGES = \
 	introduction.page \
 	legal.xml \
 	note-edit-prefs.page \
+	pin-notes.page \
 	prefs.page \
 	search.page \
 	sync-setup.page \
