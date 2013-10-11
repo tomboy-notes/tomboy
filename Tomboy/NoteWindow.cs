@@ -442,8 +442,7 @@ namespace Tomboy
 			search.IsImportant = true;
 			search.Clicked += SearchActivate;
 			// TODO: If we ever add a way to customize internal keybindings, this will need to change
-			toolbar_tips.Text = Catalog.GetString ("Search your notes");
-			toolbar_tips.SetTip (search, Catalog.GetString ("Search your notes") + " (Ctrl-Shift-F)", null);
+			toolbar_tips.Text = Catalog.GetString ("Search your notes") + " (Ctrl-Shift-F)";
 			search.AddAccelerator ("clicked",
 			                       accel_group,
 			                       (uint) Gdk.Key.f,
