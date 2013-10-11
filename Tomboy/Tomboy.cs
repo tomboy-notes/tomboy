@@ -428,6 +428,8 @@ namespace Tomboy
 				                   "Copyright \xa9 2004-2011 Others\n");
 			about.Comments = Catalog.GetString ("A simple and easy to use desktop " +
 			                                    "note-taking application.");
+			about.WindowPosition = Gtk.WindowPosition.Center;
+
 			Gtk.AboutDialog.SetUrlHook (delegate (Gtk.AboutDialog dialog, string link) {
 				try {
 					Services.NativeApplication.OpenUrl (link, null);

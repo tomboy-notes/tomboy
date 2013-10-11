@@ -2,20 +2,21 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
+#
 # Raivis Dejus <orvils@gmail.com>, 2006, 2007, 2009.
 # Peteris Krisjanis <pecisk@gmail.com>, 2010.
 # Rudolfs <rudolfs.mazurs@gmail.com>, 2011.
 # Rūdofls Mazurs <rudolfs.mazurs@gmail.com>, 2011, 2012.
-# Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>, 2009, 2012.
-#
+# Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>, 2009, 2012, 2013.
 msgid ""
 msgstr ""
 "Project-Id-Version: tomboy.gnome-2-26.lv\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-20 20:47+0300\n"
-"PO-Revision-Date: 2012-06-20 20:51+0300\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=tomboy&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2013-07-21 23:20+0000\n"
+"PO-Revision-Date: 2013-09-21 23:38+0300\n"
 "Last-Translator: Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>\n"
-"Language-Team: Latviešu <lata-l10n@googlegroups.com>\n"
+"Language-Team: Latvian <lata-l10n@googlegroups.com>\n"
 "Language: lv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,14 +24,14 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
 "2);\n"
 "X-Launchpad-Export-Date: 2009-01-04 12:52+0000\n"
-"X-Generator: Lokalize 1.2\n"
+"X-Generator: Lokalize 1.5\n"
 
 #: ../data/GNOME_TomboyApplet.server.in.in.h:1
 msgid "Tomboy Applet Factory"
 msgstr "Tomboy sīklietotņu ražotne"
 
 #: ../data/GNOME_TomboyApplet.server.in.in.h:2 ../data/tomboy.desktop.in.h:1
-#: ../Tomboy/Tray.cs:579
+#: ../Tomboy/Tray.cs:581
 msgid "Tomboy Notes"
 msgstr "Tomboy piezīmes"
 
@@ -205,10 +206,25 @@ msgid ""
 msgstr "Skaitlis, kas nosaka minimālo piezīmju skaitu Tomboy piezīmju izvēlnē."
 
 #: ../data/tomboy.schemas.in.h:23
+#| msgid "Minimum number of notes to show in menu"
+msgid "Maximum number of notes to show in menu"
+msgstr "Maksimālais izvēlnē rādāmo piezīmju skaits"
+
+#: ../data/tomboy.schemas.in.h:24
+#| msgid ""
+#| "Integer determining the minimum number of notes to show in the Tomboy "
+#| "note menu."
+msgid ""
+"Integer determining the maximum number of notes to show in the Tomboy note "
+"menu."
+msgstr ""
+"Skaitlis, kas nosaka maksimālo piezīmju skaitu Tomboy piezīmju izvēlnē."
+
+#: ../data/tomboy.schemas.in.h:25
 msgid "List of pinned notes."
 msgstr "Saraksts ar piespraustajām piezīmēm."
 
-#: ../data/tomboy.schemas.in.h:24
+#: ../data/tomboy.schemas.in.h:26
 msgid ""
 "Whitespace-separated list of note URIs for notes that should always appear "
 "in the Tomboy note menu."
@@ -216,11 +232,11 @@ msgstr ""
 "Atdalītājsimbolu atdalīts saraksts ar to piezīmju URI, kurām vienmēr būtu "
 "jāparādās Tomboy piezīmju izvēlnē."
 
-#: ../data/tomboy.schemas.in.h:25
+#: ../data/tomboy.schemas.in.h:27
 msgid "Maximum note title length to show in tray menu."
 msgstr "Maksimālais piezīmes virsraksta garums, kuru rādīt ikonu joslā."
 
-#: ../data/tomboy.schemas.in.h:26
+#: ../data/tomboy.schemas.in.h:28
 msgid ""
 "Maximum characters of note title to show in the Tomboy tray or panel applet "
 "note menu."
@@ -228,11 +244,13 @@ msgstr ""
 "Maksimālais rakstzīmju skaits piezīmes virsrakstā, kuru rādīt Tomboy ikonu "
 "joslā vai paneļa sīklietotnes piezīmju izvēlnē."
 
-#: ../data/tomboy.schemas.in.h:27
+#. Enable Startup Notes option
+#: ../data/tomboy.schemas.in.h:29
+#: ../Tomboy/Addins/AdvancedPreferences/EnableStartupNotesPreference.cs:27
 msgid "Enable startup notes"
 msgstr "Aktivēt sākuma piezīmes"
 
-#: ../data/tomboy.schemas.in.h:28
+#: ../data/tomboy.schemas.in.h:30
 msgid ""
 "If enabled, all notes that were open when Tomboy quit will automatically be "
 "reopened at startup."
@@ -240,11 +258,11 @@ msgstr ""
 "Ja patiess, visas piezīmes, kas atvērtas pie Tomboy aizvēršanas, tiks "
 "automātiski pāratvērtas pie startēšanas."
 
-#: ../data/tomboy.schemas.in.h:29
+#: ../data/tomboy.schemas.in.h:31
 msgid "Show applet menu"
 msgstr "Rādīt sīklitotnes izvēlni"
 
-#: ../data/tomboy.schemas.in.h:30
+#: ../data/tomboy.schemas.in.h:32
 msgid ""
 "The global keybinding for showing the Tomboy applet's menu. The format looks "
 "like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
@@ -259,11 +277,11 @@ msgstr ""
 "izmantojot saīsinājumus piem. \"&lt;Ctl&gt;\" un \"&lt;Ctrl&gt;\". Ja kā "
 "taustiņsaite ir norādīts \"disabled\", tad tā netiks izmantota."
 
-#: ../data/tomboy.schemas.in.h:31
+#: ../data/tomboy.schemas.in.h:33
 msgid "Open Start Here"
 msgstr "Atvērt startu šeit"
 
-#: ../data/tomboy.schemas.in.h:32
+#: ../data/tomboy.schemas.in.h:34
 msgid ""
 "The global keybinding for opening the \"Start Here\" note. The format looks "
 "like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
@@ -278,11 +296,11 @@ msgstr ""
 "\"&lt;Ctl&gt;\" un \"&lt;Ctrl&gt;\". Ja kā taustiņsaite ir norādīts "
 "\"disabled\", tad tā netiks izmantota."
 
-#: ../data/tomboy.schemas.in.h:33
+#: ../data/tomboy.schemas.in.h:35
 msgid "Create a new Note"
 msgstr "Izveidot jaunu piezīmi"
 
-#: ../data/tomboy.schemas.in.h:34
+#: ../data/tomboy.schemas.in.h:36
 msgid ""
 "The global keybinding for creating and displaying a new Note. The format "
 "looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The "
@@ -297,11 +315,11 @@ msgstr ""
 "izmantojot saīsinājumus piem. \"&lt;Ctl&gt;\" un \"&lt;Ctrl&gt;\". Ja kā "
 "taustiņsaite ir norādīts \"disabled\", tad tā netiks izmantota."
 
-#: ../data/tomboy.schemas.in.h:35
+#: ../data/tomboy.schemas.in.h:37
 msgid "Open Search Dialog"
 msgstr "Atvērt meklēšanas dialogu"
 
-#: ../data/tomboy.schemas.in.h:36
+#: ../data/tomboy.schemas.in.h:38
 msgid ""
 "The global keybinding for opening the Note Search dialog. The format looks "
 "like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The parser is "
@@ -316,11 +334,11 @@ msgstr ""
 "izmantojot saīsinājumus piem. \"&lt;Ctl&gt;\" un \"&lt;Ctrl&gt;\". Ja kā "
 "taustiņsaite ir norādīts \"disabled\", tad tā netiks izmantota."
 
-#: ../data/tomboy.schemas.in.h:37
+#: ../data/tomboy.schemas.in.h:39
 msgid "Open Recent Changes"
 msgstr "Atvērt nesenās izmaiņas"
 
-#: ../data/tomboy.schemas.in.h:38
+#: ../data/tomboy.schemas.in.h:40
 msgid ""
 "The global keybinding for opening the Recent Changes dialog. The format "
 "looks like \"&lt;Control&gt;a\" or \"&lt;Shift&gt;&lt;Alt&gt;F1\". The "
@@ -335,11 +353,11 @@ msgstr ""
 "piem. \"&lt;Ctl&gt;\" un \"&lt;Ctrl&gt;\". Ja kā taustiņsaite ir norādīts "
 "\"disabled\", tad tā netiks izmantota."
 
-#: ../data/tomboy.schemas.in.h:39
+#: ../data/tomboy.schemas.in.h:41
 msgid "Saved height of \"Search All Notes\" window"
 msgstr "Visu piezīmju meklēšanas loga saglabātais augstums"
 
-#: ../data/tomboy.schemas.in.h:40
+#: ../data/tomboy.schemas.in.h:42
 msgid ""
 "Determines pixel height of \"Search All Notes\" window; stored on Tomboy "
 "exit."
@@ -347,55 +365,55 @@ msgstr ""
 "Nosaka visu piezīmju meklēšanas loga augstumu pikseļos; saglabā, aizverot "
 "Tomboy."
 
-#: ../data/tomboy.schemas.in.h:41
+#: ../data/tomboy.schemas.in.h:43
 msgid "Saved width of \"Search All Notes\" window"
 msgstr "Visu piezīmju meklēšanas loga saglabātais platums"
 
-#: ../data/tomboy.schemas.in.h:42
+#: ../data/tomboy.schemas.in.h:44
 msgid ""
 "Determines pixel width of \"Search All Notes\" window; stored on Tomboy exit."
 msgstr ""
 "Nosaka visu piezīmju meklēšanas loga platumu pikseļos; saglabā aizverot "
 "Tomboy."
 
-#: ../data/tomboy.schemas.in.h:43
+#: ../data/tomboy.schemas.in.h:45
 msgid "Saved horizontal position of \"Search All Notes\" window"
 msgstr "Saglabātais visu piezīmju meklēšanas loga horizontālais novietojums"
 
-#: ../data/tomboy.schemas.in.h:44
+#: ../data/tomboy.schemas.in.h:46
 msgid ""
 "Determines X coordinate of \"Search All Notes\" window; stored on Tomboy "
 "exit."
 msgstr ""
 "Nosaka visu piezīmju meklēšanas loga X koordinātu; saglabā, aizverot Tomboy."
 
-#: ../data/tomboy.schemas.in.h:45
+#: ../data/tomboy.schemas.in.h:47
 msgid "Saved vertical position of \"Search All Notes\" window"
 msgstr "Saglabātais visu piezīmju meklēšanas loga vertikālais novietojums"
 
-#: ../data/tomboy.schemas.in.h:46
+#: ../data/tomboy.schemas.in.h:48
 msgid ""
 "Determines Y coordinate of \"Search All Notes\" window; stored on Tomboy "
 "exit."
 msgstr ""
 "Nosaka visu piezīmju meklēšanas loga Y koordinātu; saglabā, aizverot Tomboy."
 
-#: ../data/tomboy.schemas.in.h:47
+#: ../data/tomboy.schemas.in.h:49
 msgid "Last Directory used in HTML Export"
 msgstr "Pēdējā mape, kas izmantota HTML eksportēšanai"
 
-#: ../data/tomboy.schemas.in.h:48
+#: ../data/tomboy.schemas.in.h:50
 msgid ""
 "The last directory a note was exported to using the Export To HTML plugin."
 msgstr ""
 "Pēdējā mape, kurā tika eksportēta piezīme izmantojot 'Eksportēt kā HTML' "
 "spraudni."
 
-#: ../data/tomboy.schemas.in.h:49
+#: ../data/tomboy.schemas.in.h:51
 msgid "HTML Export Linked Notes"
 msgstr "Saistīto piezīmju HTML eksportēšana"
 
-#: ../data/tomboy.schemas.in.h:50
+#: ../data/tomboy.schemas.in.h:52
 msgid ""
 "The last setting for the 'Export linked notes' checkbox in the Export to "
 "HTML plugin."
@@ -403,11 +421,11 @@ msgstr ""
 "Pēdējais iestatījums izvēles rūtiņai \"Eksportēt savienotās piezīmes\" "
 "'Eksportēt kā HTML' spraudnī."
 
-#: ../data/tomboy.schemas.in.h:51
+#: ../data/tomboy.schemas.in.h:53
 msgid "HTML Export All Linked Notes"
 msgstr "Saistīto piezīmju HTML eksportēšana"
 
-#: ../data/tomboy.schemas.in.h:52
+#: ../data/tomboy.schemas.in.h:54
 msgid ""
 "The last setting for the 'Include all other linked notes' checkbox in the "
 "Export to HTML plugin. This setting is used in conjunction with the 'HTML "
@@ -419,11 +437,11 @@ msgstr ""
 "piezīmju HTML eksportēšanas' vērtību un nosaka, vai eksportējot HTML būtu "
 "jāeksportē visas piezīmes."
 
-#: ../data/tomboy.schemas.in.h:53
+#: ../data/tomboy.schemas.in.h:55
 msgid "Sticky Note Importer First Run"
 msgstr "Sticky Notes importēšanas pirmā palaišana"
 
-#: ../data/tomboy.schemas.in.h:54
+#: ../data/tomboy.schemas.in.h:56
 msgid ""
 "Indicates that the Sticky Note Importer plugin has not been run, so it "
 "should run automatically the next time Tomboy starts."
@@ -431,11 +449,11 @@ msgstr ""
 "Norāda, ka Sticky Notes importēšanas spraudnis nav darbināts, tāpēc tam būtu "
 "jābūt palaistam automātiski, nākošo reizi Tomboy startējoties."
 
-#: ../data/tomboy.schemas.in.h:55
+#: ../data/tomboy.schemas.in.h:57
 msgid "Synchronization Client ID"
 msgstr "Sinhronizācijas klienta ID"
 
-#: ../data/tomboy.schemas.in.h:56
+#: ../data/tomboy.schemas.in.h:58
 msgid ""
 "Unique identifier for this Tomboy client, used when communicating with a "
 "sychronization server."
@@ -443,11 +461,11 @@ msgstr ""
 "Unikāls Tomboy klienta identifikators, tiek izmantots sazinoties ar "
 "sinhronizācijas serveri."
 
-#: ../data/tomboy.schemas.in.h:57
+#: ../data/tomboy.schemas.in.h:59
 msgid "Synchronization Local Server Path"
 msgstr "Sinhronizācijas lokālā servera ceļš"
 
-#: ../data/tomboy.schemas.in.h:58
+#: ../data/tomboy.schemas.in.h:60
 msgid ""
 "Path to the synchronization server when using the filesystem synchronization "
 "service addin."
@@ -455,22 +473,22 @@ msgstr ""
 "Ceļš uz sinhronizācijas serveri, izmantojot failu sistēmas sinhronizācijas "
 "servisa ievietojumu."
 
-#: ../data/tomboy.schemas.in.h:59
+#: ../data/tomboy.schemas.in.h:61
 msgid "Selected Synchronization Service Addin"
 msgstr "Izvēlētais sinhronizācijas servisa ievietojums"
 
-#: ../data/tomboy.schemas.in.h:60
+#: ../data/tomboy.schemas.in.h:62
 msgid ""
 "Unique identifier for the currently configured note synchronization service "
 "addin."
 msgstr ""
 "Unikāls nokonfigurētā piezīmju sinhronizācijas spraudņa identifikators."
 
-#: ../data/tomboy.schemas.in.h:61
+#: ../data/tomboy.schemas.in.h:63
 msgid "FUSE Mounting Timeout (ms)"
 msgstr "FUSE montēšanas noildze (ms)"
 
-#: ../data/tomboy.schemas.in.h:62
+#: ../data/tomboy.schemas.in.h:64
 msgid ""
 "Time (in milliseconds) Tomboy should wait for a response when using FUSE to "
 "mount a sync share."
@@ -478,37 +496,37 @@ msgstr ""
 "Laiks (milisekundēs) ko Tomboy gaidīs lai saņemtu atbildi izmantojot FUSE "
 "sinhronizācijas kopvietu montēšanā."
 
-#: ../data/tomboy.schemas.in.h:63
+#: ../data/tomboy.schemas.in.h:65
 msgid "SSHFS Remote Synchronization Folder"
 msgstr "SSHFS attālinātās sinhronizācijas mape"
 
-#: ../data/tomboy.schemas.in.h:64
+#: ../data/tomboy.schemas.in.h:66
 msgid "Path on SSH server to Tomboy synchronization directory (optional)."
 msgstr ""
 "Ceļš SSH serverī līdz Tomboy sinhronizācijas direktorijai (neobligāts)."
 
-#: ../data/tomboy.schemas.in.h:65
+#: ../data/tomboy.schemas.in.h:67
 msgid "SSHFS Synchronization Server URL"
 msgstr "SSHFS attālinātās sinhronizācijas servera URL"
 
-#: ../data/tomboy.schemas.in.h:66
+#: ../data/tomboy.schemas.in.h:68
 msgid "URL of SSH server containing Tomboy synchronization directory."
 msgstr "SSH servera URL, kas satur Tomboy sinhronizācijas mapi."
 
-#: ../data/tomboy.schemas.in.h:67
+#: ../data/tomboy.schemas.in.h:69
 msgid "SSHFS Remote Synchronization User Name"
 msgstr "SSHFS attālinātās sinhronizācijas lietotājvārds"
 
-#: ../data/tomboy.schemas.in.h:68
+#: ../data/tomboy.schemas.in.h:70
 msgid "User name to use when connecting to the synchronization server via SSH."
 msgstr ""
 "Lietotājvārds, ko izmantot pieslēdzoties sinhronizācijas servisam caur SSH."
 
-#: ../data/tomboy.schemas.in.h:69
+#: ../data/tomboy.schemas.in.h:71
 msgid "SSHFS Synchronization Server Port"
 msgstr "SSHFS attālinātās sinhronizācijas servera ports"
 
-#: ../data/tomboy.schemas.in.h:70
+#: ../data/tomboy.schemas.in.h:72
 msgid ""
 "The port to use when connecting to the synchronization server via SSH. Set "
 "to -1 or less if default SSH port settings should be used instead."
@@ -516,11 +534,11 @@ msgstr ""
 "Ports, ko izmantot pieslēdzoties sinhronizācijas servisam caur SSH. "
 "Iestatiet kā -1 vai mazāk, ja ir jāizmanto noklusētais SSH ports."
 
-#: ../data/tomboy.schemas.in.h:71
+#: ../data/tomboy.schemas.in.h:73
 msgid "Accept SSL Certificates"
 msgstr "Pieņemt SSL sertifikātus"
 
-#: ../data/tomboy.schemas.in.h:72
+#: ../data/tomboy.schemas.in.h:74
 msgid ""
 "Use wdfs option \"-ac\" to accept SSL certificates without prompting the "
 "user."
@@ -528,11 +546,11 @@ msgstr ""
 "Izmantot wdfs opciju \"-ac\", lai pieņemtu SSL sertifikātus bez lietotāja "
 "iesaistes."
 
-#: ../data/tomboy.schemas.in.h:73
+#: ../data/tomboy.schemas.in.h:75
 msgid "Note Synchronization Conflict Saved Behavior"
 msgstr "Piezīmju sinhronizācijas konflikta saglabāšanas veids"
 
-#: ../data/tomboy.schemas.in.h:74
+#: ../data/tomboy.schemas.in.h:76
 msgid ""
 "Integer value indicating if there is a preference to always perform a "
 "specific behavior when a conflict is detected, instead of prompting the "
@@ -546,11 +564,11 @@ msgstr ""
 "tiktu brīdināts, kad ir konstatēts konflikts; tādējādi lai viņi varētu "
 "noskaidrot konfliktējošo situāciju katru reizi."
 
-#: ../data/tomboy.schemas.in.h:75
+#: ../data/tomboy.schemas.in.h:77
 msgid "Automatic Background Synchronization Timeout"
 msgstr "Automātiskās fona sinhronizācijas laika noildze"
 
-#: ../data/tomboy.schemas.in.h:76
+#: ../data/tomboy.schemas.in.h:78
 msgid ""
 "Integer value indicating how frequently to perform a background sync of your "
 "notes (when sync is configured). Any value less than 1 indicates that "
@@ -562,11 +580,11 @@ msgstr ""
 "norāda, ka automātiskā sinhronizācija ir deaktivēta. Zemākā pieņemamā "
 "vērtība ir 5 (norādītā vienība ir minūtes)."
 
-#: ../data/tomboy.schemas.in.h:77
+#: ../data/tomboy.schemas.in.h:79
 msgid "Link Updating Behavior on Note Rename"
 msgstr "Saišu atjaunināšanas princips pārsaucot piezīmi"
 
-#: ../data/tomboy.schemas.in.h:78
+#: ../data/tomboy.schemas.in.h:80
 msgid ""
 "Integer value indicating if there is a preference to always perform a "
 "specific link updating behavior when a note is renamed, instead of prompting "
@@ -584,27 +602,27 @@ msgstr ""
 "tekstu automātiski vajadzētu atjaunināt ar jauno piezīmes nosaukumu, "
 "tādējādi tās turpinās norādīt uz pārsaukto piezīmi."
 
-#: ../data/tomboy.schemas.in.h:79
+#: ../data/tomboy.schemas.in.h:81
 msgid "Timestamp format"
 msgstr "Laika spiedogu formāts"
 
-#: ../data/tomboy.schemas.in.h:80
+#: ../data/tomboy.schemas.in.h:82
 msgid "The date format that is used for the timestamp."
 msgstr "Laika spiedogiem izmantotais datuma formāts."
 
-#: ../data/tomboy.schemas.in.h:81
+#: ../data/tomboy.schemas.in.h:83
 msgid "Enable closing notes with escape."
 msgstr "Aktivēt piezīmju aizvēršanu ar Escape taustiņu."
 
-#: ../data/tomboy.schemas.in.h:82
+#: ../data/tomboy.schemas.in.h:84
 msgid "If enabled, an opened note can be closed by hitting the escape key."
 msgstr "Ja aktivēts, atvērtās piezīmes var aizvērt, nospiežot ESC taustiņu."
 
-#: ../data/tomboy.schemas.in.h:83
+#: ../data/tomboy.schemas.in.h:85
 msgid "The handler for \"note://\" URLs"
 msgstr "\"note://\" URL apstrādātājs"
 
-#: ../data/tomboy.schemas.in.h:84
+#: ../data/tomboy.schemas.in.h:86
 msgid "Set to TRUE to activate"
 msgstr "Uzstādiet kā PATIESS, lai aktivizētu"
 
@@ -656,7 +674,7 @@ msgstr "Aizvērt Tomboy"
 msgid "_Edit"
 msgstr "R_ediģēt"
 
-#: ../Tomboy/ActionManager.cs:154 ../Tomboy/PreferencesDialog.cs:65
+#: ../Tomboy/ActionManager.cs:154 ../Tomboy/PreferencesDialog.cs:63
 msgid "Tomboy Preferences"
 msgstr "Tomboy iestatījumi"
 
@@ -693,14 +711,21 @@ msgid "Start synchronizing notes"
 msgstr "Sākt piezīmju sinhronizāciju"
 
 #. Addin's tab caption
-#: ../Tomboy/Addins/AdvancedPreferences/AdvancedPreferencesAddin.cs:38
+#: ../Tomboy/Addins/AdvancedPreferences/AdvancedPreferencesAddin.cs:24
 msgid "Advanced"
 msgstr "Paplašināti"
 
-#. Menu Note Count option
-#: ../Tomboy/Addins/AdvancedPreferences/AdvancedPreferencesAddin.cs:56
-msgid "Minimum number of notes to show in Recent list (maximum 18)"
-msgstr "Minimālais neseno sarakstā rādāmo piezīmju skaits (maks. 18)"
+#. Menu Min Note Count option
+#: ../Tomboy/Addins/AdvancedPreferences/MenuMinMaxNoteCountPreference.cs:35
+#| msgid "Minimum number of notes to show in Recent list (maximum 18)"
+msgid "Minimum number of notes to show in Recent list"
+msgstr "Minimālais neseno sarakstā rādāmo piezīmju skaits"
+
+#. Menu Max Note Count option
+#: ../Tomboy/Addins/AdvancedPreferences/MenuMinMaxNoteCountPreference.cs:59
+#| msgid "Minimum number of notes to show in Recent list (maximum 18)"
+msgid "Maximum number of notes to show in Recent list"
+msgstr "Maksimālais neseno sarakstā rādāmo piezīmju skaits"
 
 #: ../Tomboy/Addins/Backlinks/BacklinksNoteAddin.cs:38
 msgid "What links here?"
@@ -784,28 +809,28 @@ msgstr "Iekļaut visas citas savienotās piezīmes"
 msgid "Export to HTML"
 msgstr "Eksportēt uz HTML"
 
-#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:115
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:116
 #, csharp-format
 msgid "Your note was exported to \"{0}\"."
 msgstr "Jūsu piezīme tika eksportēta uz \"{0}\"."
 
-#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:126
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:127
 msgid "Note exported successfully"
 msgstr "Piezīme eksportēta veiksmīgi"
 
-#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:132
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:133
 #: ../Tomboy/ExportAllApplicationAddin.cs:250
 #: ../Tomboy/ExportAllApplicationAddin.cs:328
 msgid "Access denied."
 msgstr "Pieeja liegta."
 
-#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:134
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:135
 #: ../Tomboy/ExportAllApplicationAddin.cs:255
 #: ../Tomboy/ExportAllApplicationAddin.cs:333
 msgid "Folder does not exist."
 msgstr "Mape neeksistē."
 
-#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:149
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:150
 #, csharp-format
 msgid "Could not save the file \"{0}\""
 msgstr "Nevar saglabāt failu \"{0}\""
@@ -851,7 +876,7 @@ msgstr "Ievietot laika spiedogu"
 
 #. initial newline
 #: ../Tomboy/Addins/InsertTimestamp/InsertTimestampPreferences.cs:29
-#: ../Tomboy/Applet.cs:223 ../Tomboy/Preferences.cs:155
+#: ../Tomboy/Applet.cs:223 ../Tomboy/Preferences.cs:159
 msgid "dddd, MMMM d, h:mm tt"
 msgstr "dddd, d. MMMM, h:mm tt"
 
@@ -1310,7 +1335,7 @@ msgid "Delete the selected notebook"
 msgstr "Izdzēst izvēlēto piezīmju bloku"
 
 #: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:68
-#: ../Tomboy/RecentChanges.cs:276
+#: ../Tomboy/RecentChanges.cs:277
 msgid "Notebooks"
 msgstr "Piezīmju bloki"
 
@@ -1376,12 +1401,12 @@ msgstr "Jau_ns piezīmju bloks..."
 msgid "New Note {0}"
 msgstr "Jauna piezīme {0}"
 
-#: ../Tomboy/Note.cs:1607
+#: ../Tomboy/Note.cs:1678
 #, csharp-format
 msgid "Really delete \"{0}\"?"
 msgstr "Tiešām dzēst \"{0}\"?"
 
-#: ../Tomboy/Note.cs:1610
+#: ../Tomboy/Note.cs:1681
 #, csharp-format
 msgid "Really delete this {0} note?"
 msgid_plural "Really delete these {0} notes?"
@@ -1389,11 +1414,11 @@ msgstr[0] "Tiešām dzēst šo {0} piezīmi?"
 msgstr[1] "Tiešām dzēst šīs {0} piezīmes?"
 msgstr[2] "Tiešām dzēst šīs {0} piezīmes?"
 
-#: ../Tomboy/Note.cs:1621
+#: ../Tomboy/Note.cs:1692
 msgid "If you delete a note it is permanently lost."
 msgstr "Ja jūs dzēsīsiet piezīmi, tā tiks  neatgriezeniski zaudēta."
 
-#: ../Tomboy/Note.cs:1655
+#: ../Tomboy/Note.cs:1726
 #, csharp-format
 msgid ""
 "An error occurred while saving your notes. Please check that you have "
@@ -1404,13 +1429,13 @@ msgstr ""
 "daudz brīvās diska vietas un ka jums ir nepieciešamās atļaujas {0} mapei. "
 "Sīkāka informācija par kļūdu pieejama {1}."
 
-#: ../Tomboy/Note.cs:1671
+#: ../Tomboy/Note.cs:1742
 msgid "Error saving note data."
 msgstr "Kļūda saglabājot datus."
 
 #. New Note Template
 #. Translators: This is 'New Note' Template, not New 'Note Template'
-#: ../Tomboy/NoteManager.cs:21 ../Tomboy/PreferencesDialog.cs:257
+#: ../Tomboy/NoteManager.cs:21 ../Tomboy/PreferencesDialog.cs:264
 msgid "New Note Template"
 msgstr "Jauna piezīmes sagatave"
 
@@ -1710,87 +1735,94 @@ msgstr "Meklēt ie_priekšējo"
 msgid "Cannot create note"
 msgstr "Nevar izveidot piezīmi"
 
-#: ../Tomboy/NoteWindow.cs:832
+#: ../Tomboy/NoteWindow.cs:833
 msgid "_Find:"
 msgstr "_Meklēt:"
 
-#: ../Tomboy/NoteWindow.cs:843
+#: ../Tomboy/NoteWindow.cs:847
 msgid "_Previous"
 msgstr "Ie_priekšējais"
 
-#: ../Tomboy/NoteWindow.cs:852
+#: ../Tomboy/NoteWindow.cs:856
 msgid "_Next"
 msgstr "_Nākamais"
 
-#: ../Tomboy/NoteWindow.cs:1335
+#. x of x - specifically Number of Matches and what location is the cursor in the list of matches
+#: ../Tomboy/NoteWindow.cs:885
+#, csharp-format
+#| msgid "Page {0} of {1}"
+msgid "{0} of {1}"
+msgstr "{0} no {1}"
+
+#: ../Tomboy/NoteWindow.cs:1368
 msgid "_Bold"
 msgstr "_Treknraksts"
 
-#: ../Tomboy/NoteWindow.cs:1347
+#: ../Tomboy/NoteWindow.cs:1380
 msgid "_Italic"
 msgstr "_Slīpraksts"
 
-#: ../Tomboy/NoteWindow.cs:1359
+#: ../Tomboy/NoteWindow.cs:1392
 msgid "_Strikeout"
 msgstr "_Pārsvītrots"
 
-#: ../Tomboy/NoteWindow.cs:1371
+#: ../Tomboy/NoteWindow.cs:1404
 msgid "_Highlight"
 msgstr "_Izcelts"
 
-#: ../Tomboy/NoteWindow.cs:1384
+#: ../Tomboy/NoteWindow.cs:1417
 msgid "Font Size"
 msgstr "Fonta izmērs"
 
-#: ../Tomboy/NoteWindow.cs:1387
+#: ../Tomboy/NoteWindow.cs:1420
 msgid "_Normal"
 msgstr "_Normāls"
 
-#: ../Tomboy/NoteWindow.cs:1404
+#: ../Tomboy/NoteWindow.cs:1437
 msgid "Hu_ge"
 msgstr "Milzī_gs"
 
-#: ../Tomboy/NoteWindow.cs:1412
+#: ../Tomboy/NoteWindow.cs:1445
 msgid "_Large"
 msgstr "_Liels"
 
-#: ../Tomboy/NoteWindow.cs:1420
+#: ../Tomboy/NoteWindow.cs:1453
 msgid "S_mall"
 msgstr "Maz_s"
 
-#: ../Tomboy/NoteWindow.cs:1429
+#: ../Tomboy/NoteWindow.cs:1462
 msgid "Increase Font Size"
 msgstr "Palielināt fonta izmēru"
 
-#: ../Tomboy/NoteWindow.cs:1447
+#: ../Tomboy/NoteWindow.cs:1480
 msgid "Decrease Font Size"
 msgstr "Samazināt fonta izmēru"
 
-#: ../Tomboy/NoteWindow.cs:1467
+#: ../Tomboy/NoteWindow.cs:1500
 msgid "Bullets"
 msgstr "Aizzīmes"
 
-#: ../Tomboy/PreferencesDialog.cs:81
+#: ../Tomboy/PreferencesDialog.cs:75
 msgid "Editing"
 msgstr "Rediģēšana"
 
-#: ../Tomboy/PreferencesDialog.cs:84
+#: ../Tomboy/PreferencesDialog.cs:78
 msgid "Hotkeys"
 msgstr "Karstie taustiņi"
 
-#: ../Tomboy/PreferencesDialog.cs:86
+#: ../Tomboy/PreferencesDialog.cs:80
 msgid "Synchronization"
 msgstr "Sinhronizācija"
 
-#: ../Tomboy/PreferencesDialog.cs:88
+#: ../Tomboy/PreferencesDialog.cs:81
 msgid "Add-ins"
 msgstr "Pielikumi"
 
-#: ../Tomboy/PreferencesDialog.cs:174
+#: ../Tomboy/PreferencesDialog.cs:181
 msgid "_Spell check while typing"
 msgstr "Pareizrakstība_s pārbaude rakstīšanas laikā"
 
-#: ../Tomboy/PreferencesDialog.cs:183
+#: ../Tomboy/PreferencesDialog.cs:190
 msgid ""
 "Misspellings will be underlined in red, with correct spelling suggestions "
 "shown in the context menu."
@@ -1799,11 +1831,11 @@ msgstr ""
 "parādīts klikšķinot labo peles pogu."
 
 #. WikiWords...
-#: ../Tomboy/PreferencesDialog.cs:194
+#: ../Tomboy/PreferencesDialog.cs:201
 msgid "Highlight _WikiWords"
 msgstr "Izcelt _WikiWords"
 
-#: ../Tomboy/PreferencesDialog.cs:202
+#: ../Tomboy/PreferencesDialog.cs:209
 msgid ""
 "Enable this option to highlight words <b>ThatLookLikeThis</b>. Clicking the "
 "word will create a note with that name."
@@ -1812,31 +1844,31 @@ msgstr ""
 "vārda, tiks izveidota piezīme ar šo vārdu."
 
 #. Auto bulleted list
-#: ../Tomboy/PreferencesDialog.cs:209
+#: ../Tomboy/PreferencesDialog.cs:216
 msgid "Enable auto-_bulleted lists"
 msgstr "Aktivēt automātisko aizzīmju sarakstu"
 
-#: ../Tomboy/PreferencesDialog.cs:218
+#: ../Tomboy/PreferencesDialog.cs:225
 msgid "Use custom _font"
 msgstr "Lietot pielāgotu _fontu"
 
-#: ../Tomboy/PreferencesDialog.cs:236
+#: ../Tomboy/PreferencesDialog.cs:243
 msgid "When renaming a linked note: "
 msgstr "Pārsaucot saistīto piezīmi: "
 
-#: ../Tomboy/PreferencesDialog.cs:239
+#: ../Tomboy/PreferencesDialog.cs:246
 msgid "Ask me what to do"
 msgstr "Vienmēr jautāt man, kā rīkoties."
 
-#: ../Tomboy/PreferencesDialog.cs:240
+#: ../Tomboy/PreferencesDialog.cs:247
 msgid "Never rename links"
 msgstr "Nekad nepārsaukt saites"
 
-#: ../Tomboy/PreferencesDialog.cs:241
+#: ../Tomboy/PreferencesDialog.cs:248
 msgid "Always rename links"
 msgstr "Vienmēr pārsaukt saites"
 
-#: ../Tomboy/PreferencesDialog.cs:261
+#: ../Tomboy/PreferencesDialog.cs:268
 msgid ""
 "Use the new note template to specify the text that should be used when "
 "creating a new note."
@@ -1844,101 +1876,104 @@ msgstr ""
 "Lietojiet, jauna piezīmes sagatave, lai norādītu tekstu kas tiks izmantots "
 "jaunu piezīmju veidošanai."
 
-#: ../Tomboy/PreferencesDialog.cs:270
+#: ../Tomboy/PreferencesDialog.cs:277
 msgid "Open New Note Template"
 msgstr "Atvērt jaunu piezīmes sagatavi"
 
 #. Hotkeys...
-#: ../Tomboy/PreferencesDialog.cs:327
+#: ../Tomboy/PreferencesDialog.cs:334
 msgid "Listen for _Hotkeys"
 msgstr "Aktivizēt karstos ta_ustiņus"
 
-#: ../Tomboy/PreferencesDialog.cs:336
+#: ../Tomboy/PreferencesDialog.cs:343
+#| msgid ""
+#| "Hotkeys allow you to quickly access your notes from anywhere with a "
+#| "keypress. Example Hotkeys: <b>&lt;Control&gt;&lt;Shift&gt;F11</b>, <b>&lt;"
+#| "Alt&gt;N</b>"
 msgid ""
 "Hotkeys allow you to quickly access your notes from anywhere with a "
-"keypress. Example Hotkeys: <b>&lt;Control&gt;&lt;Shift&gt;F11</b>, <b>&lt;"
-"Alt&gt;N</b>"
+"keypress. Example Hotkeys: <b>&lt;ALT&gt;F11</b>, <b>&lt;ALT&gt;N</b>"
 msgstr ""
 "Karstie taustiņi ļauj piekļūt piezīmēm jebkurā brīdī, izmantojot tastatūru. "
-"Piemēram:<b>&lt;Control&gt;&lt;Shift&gt;F11</b>, <b>&lt;Alt&gt;N</b>"
+"Piemēram:<b>&lt;ALT&gt;F11</b>, <b>&lt;ALT&gt;N</b>"
 
 #. Show notes menu keybinding...
-#: ../Tomboy/PreferencesDialog.cs:356
+#: ../Tomboy/PreferencesDialog.cs:363
 msgid "Show notes _menu"
 msgstr "Parādīt piezī_mju izvēlni"
 
 #. Open Start Here keybinding...
-#: ../Tomboy/PreferencesDialog.cs:373
+#: ../Tomboy/PreferencesDialog.cs:380
 msgid "Open \"_Start Here\""
 msgstr "Atvērt \"_Sākt šeit\""
 
 #. Create new note keybinding...
-#: ../Tomboy/PreferencesDialog.cs:390
+#: ../Tomboy/PreferencesDialog.cs:397
 msgid "Create _new note"
 msgstr "Izveidot jau_nu piezīmi"
 
 #. Open Search All Notes window keybinding...
-#: ../Tomboy/PreferencesDialog.cs:407
+#: ../Tomboy/PreferencesDialog.cs:414
 msgid "Open \"Search _All Notes\""
 msgstr "Atvērt \"M_eklēt visās piezīmēs\""
 
-#: ../Tomboy/PreferencesDialog.cs:434
+#: ../Tomboy/PreferencesDialog.cs:441
 msgid "Ser_vice:"
 msgstr "Ser_viss:"
 
-#: ../Tomboy/PreferencesDialog.cs:487 ../Tomboy/PreferencesDialog.cs:1106
+#: ../Tomboy/PreferencesDialog.cs:494 ../Tomboy/PreferencesDialog.cs:1113
 msgid "Not configurable"
 msgstr "Nav konfigurējams"
 
-#: ../Tomboy/PreferencesDialog.cs:513
+#: ../Tomboy/PreferencesDialog.cs:520
 msgid "Automaticall_y Sync in Background Every"
 msgstr "_Automātiski sinhronizēt fonā katras"
 
 #. Translators: See above comment for details on
 #. this string.
-#: ../Tomboy/PreferencesDialog.cs:519
+#: ../Tomboy/PreferencesDialog.cs:526
 msgid "Minutes"
 msgstr "minūtes"
 
 #. "Advanced..." button to bring up extra sync config dialog
-#: ../Tomboy/PreferencesDialog.cs:541
+#: ../Tomboy/PreferencesDialog.cs:548
 msgid "_Advanced..."
 msgstr "_Paplašināti..."
 
-#: ../Tomboy/PreferencesDialog.cs:602
+#: ../Tomboy/PreferencesDialog.cs:609
 msgid "The following add-ins are installed"
 msgstr "Sekojoši pielikumi tika uzstādīti"
 
-#: ../Tomboy/PreferencesDialog.cs:623
+#: ../Tomboy/PreferencesDialog.cs:630
 msgid "Get More Add-Ins..."
 msgstr "Iegūt vēl pielikumus..."
 
-#: ../Tomboy/PreferencesDialog.cs:641
+#: ../Tomboy/PreferencesDialog.cs:648
 msgid "_Enable"
 msgstr "_Aktivēt"
 
-#: ../Tomboy/PreferencesDialog.cs:647
+#: ../Tomboy/PreferencesDialog.cs:654
 msgid "_Disable"
 msgstr "_Deaktivēt"
 
-#: ../Tomboy/PreferencesDialog.cs:778
+#: ../Tomboy/PreferencesDialog.cs:785
 msgid "Not Implemented"
 msgstr "Nav ieviests"
 
-#: ../Tomboy/PreferencesDialog.cs:792
+#: ../Tomboy/PreferencesDialog.cs:799
 #, csharp-format
 msgid "{0} Preferences"
 msgstr "{0} iestatījumi"
 
-#: ../Tomboy/PreferencesDialog.cs:931
+#: ../Tomboy/PreferencesDialog.cs:938
 msgid "Choose Note Font"
 msgstr "Izvēlieties piezīmju fontu"
 
-#: ../Tomboy/PreferencesDialog.cs:975
+#: ../Tomboy/PreferencesDialog.cs:982
 msgid "Other Synchronization Options"
 msgstr "Citas sinhronizācijas opcijas"
 
-#: ../Tomboy/PreferencesDialog.cs:981
+#: ../Tomboy/PreferencesDialog.cs:988
 msgid ""
 "When a conflict is detected between a local note and a note on the "
 "configured synchronization server:"
@@ -1946,23 +1981,23 @@ msgstr ""
 "Kad atklāts konflikts starp lokālo piezīmi un piezīmi, kas atrodas uz "
 "konfigurēta sinhronizācijas servera:"
 
-#: ../Tomboy/PreferencesDialog.cs:988
+#: ../Tomboy/PreferencesDialog.cs:995
 msgid "Always ask me what to do."
 msgstr "Vienmēr jautāt man kā rīkoties."
 
-#: ../Tomboy/PreferencesDialog.cs:992
+#: ../Tomboy/PreferencesDialog.cs:999
 msgid "Rename my local note."
 msgstr "Pārsaukt manu lokālo piezīmi."
 
-#: ../Tomboy/PreferencesDialog.cs:996
+#: ../Tomboy/PreferencesDialog.cs:1003
 msgid "Replace my local note with the server's update."
 msgstr "Aizvietot manu lokālo piezīmi ar servera atjauninājumu."
 
-#: ../Tomboy/PreferencesDialog.cs:1142
+#: ../Tomboy/PreferencesDialog.cs:1149
 msgid "Are you sure?"
 msgstr "Esat pārliecināts?"
 
-#: ../Tomboy/PreferencesDialog.cs:1144
+#: ../Tomboy/PreferencesDialog.cs:1151
 msgid ""
 "Clearing your synchronization settings is not recommended.  You may be "
 "forced to synchronize all of your notes again when you save new settings."
@@ -1971,11 +2006,11 @@ msgstr ""
 "nākties sinhronizēt vēlreiz visas piezīmes pēc jauno iestatījumu "
 "saglabāšanas."
 
-#: ../Tomboy/PreferencesDialog.cs:1157
+#: ../Tomboy/PreferencesDialog.cs:1164
 msgid "Resetting Synchronization Settings"
 msgstr "Atiestatu sinhronizācijas iestatījumus"
 
-#: ../Tomboy/PreferencesDialog.cs:1159
+#: ../Tomboy/PreferencesDialog.cs:1166
 msgid ""
 "You have disabled the configured synchronization service.  Your "
 "synchronization settings will now be cleared.  You may be forced to "
@@ -1985,11 +2020,11 @@ msgstr ""
 "iestatījumi tiks attīrīti. Piespiedu kārtā var nākties sinhronizēt vēlreiz "
 "visas piezīmes pēc jauno iestatījumu saglabāšanas."
 
-#: ../Tomboy/PreferencesDialog.cs:1237
+#: ../Tomboy/PreferencesDialog.cs:1244
 msgid "Connection successful"
 msgstr "Savienojums veiksmīgs"
 
-#: ../Tomboy/PreferencesDialog.cs:1239
+#: ../Tomboy/PreferencesDialog.cs:1246
 msgid ""
 "Tomboy is ready to synchronize your notes. Would you like to synchronize "
 "them now?"
@@ -1997,7 +2032,7 @@ msgstr ""
 "Tomboy ir gatavs sinhronizēt jūsu piezīmes. Vai vēlaties tās sinhronizēt "
 "tagad?"
 
-#: ../Tomboy/PreferencesDialog.cs:1262
+#: ../Tomboy/PreferencesDialog.cs:1269
 #, csharp-format
 msgid ""
 "Please check your information and try again.  The log file {0} may contain "
@@ -2006,23 +2041,23 @@ msgstr ""
 "Lūdzu, pārbaudiet savu informāciju un mēģiniet vēlreiz. Iespējams, {0} satur "
 "vairāk informācijas par kļūdu."
 
-#: ../Tomboy/PreferencesDialog.cs:1274
+#: ../Tomboy/PreferencesDialog.cs:1281
 msgid "Error connecting"
 msgstr "Kļūda savienojoties"
 
-#: ../Tomboy/PreferencesDialog.cs:1357
+#: ../Tomboy/PreferencesDialog.cs:1365
 msgid "Version:"
 msgstr "Versija:"
 
-#: ../Tomboy/PreferencesDialog.cs:1364
+#: ../Tomboy/PreferencesDialog.cs:1372
 msgid "Author:"
 msgstr "Autors:"
 
-#: ../Tomboy/PreferencesDialog.cs:1371
+#: ../Tomboy/PreferencesDialog.cs:1379
 msgid "Copyright:"
 msgstr "Autortiesības:"
 
-#: ../Tomboy/PreferencesDialog.cs:1377
+#: ../Tomboy/PreferencesDialog.cs:1385
 msgid "Add-in Dependencies:"
 msgstr "Pielikumu atkarības:"
 
@@ -2358,11 +2393,11 @@ msgstr ""
 msgid "Cannot create new note"
 msgstr "Nevar izveidot jaunu piezīmi"
 
-#: ../Tomboy/Tomboy.cs:319
+#: ../Tomboy/Tomboy.cs:316
 msgid "Primary Development:"
 msgstr "Galvenā izstrāde:"
 
-#: ../Tomboy/Tomboy.cs:332
+#: ../Tomboy/Tomboy.cs:329
 msgid "Contributors:"
 msgstr "Atbalstītāji:"
 
@@ -2392,11 +2427,11 @@ msgstr ""
 msgid "A simple and easy to use desktop note-taking application."
 msgstr "Vienkārša un viegli lietojama piezīmju programma."
 
-#: ../Tomboy/Tomboy.cs:439
+#: ../Tomboy/Tomboy.cs:441
 msgid "Homepage"
 msgstr "Mājas lapa"
 
-#: ../Tomboy/Tomboy.cs:575
+#: ../Tomboy/Tomboy.cs:577
 msgid ""
 "Tomboy: A simple, easy to use desktop note-taking application.\n"
 "Copyright © 2004-2007 Alex Graveley\n"
@@ -2410,7 +2445,7 @@ msgstr ""
 "\n"
 "Autortiesības (C) 2004-2011 Citi\n"
 
-#: ../Tomboy/Tomboy.cs:589
+#: ../Tomboy/Tomboy.cs:591
 msgid ""
 "Usage:\n"
 "  --version\t\t\tPrint version information.\n"
@@ -2425,7 +2460,7 @@ msgstr ""
 "  --search [teksts]\t\tAtvērt meklēt visās piezīmēs logu ar norādīto "
 "tekstu.\n"
 
-#: ../Tomboy/Tomboy.cs:599
+#: ../Tomboy/Tomboy.cs:601
 msgid ""
 "  --new-note\t\t\tCreate and display a new note.\n"
 "  --new-note [title]\t\tCreate and display a new note, with a title.\n"
@@ -2440,7 +2475,7 @@ msgstr ""
 "  --start-here\t\t\tParāda 'Sākt šeit' piezīmi.\n"
 "  --highlight-search [text]\tMeklē un izceļ tekstu atvērtajā piezīmē.\n"
 
-#: ../Tomboy/Tomboy.cs:609
+#: ../Tomboy/Tomboy.cs:611
 msgid ""
 "  --addin:html-export-all [path]\tExports all notes to HTML in the given "
 "location.\n"
@@ -2452,7 +2487,7 @@ msgstr ""
 "  --addin:html-export-all-quit [ceļš]\tEksportē visas piezīmes uz HTML "
 "dotajā vietā un tad iziet.\n"
 
-#: ../Tomboy/Tomboy.cs:619
+#: ../Tomboy/Tomboy.cs:621
 #, csharp-format
 msgid "Version {0}"
 msgstr "Versija {0}"
@@ -2565,7 +2600,7 @@ msgstr "d MMMM yyyy"
 msgid "(Untitled {0})"
 msgstr "(Nenosaukts {0})"
 
-#: ../Tomboy/Watchers.cs:189
+#: ../Tomboy/Watchers.cs:186
 #, csharp-format
 msgid ""
 "A note with the title <b>{0}</b> already exists. Please choose another name "
@@ -2574,15 +2609,15 @@ msgstr ""
 "Piezīme ar virsrakstu <b>{0}</b> jau eksistē. Lūdzu, izvēlieties citu "
 "virsrakstu."
 
-#: ../Tomboy/Watchers.cs:204
+#: ../Tomboy/Watchers.cs:201
 msgid "Note title taken"
 msgstr "Piezīmes virsraksts jau eksistē"
 
-#: ../Tomboy/Watchers.cs:601
+#: ../Tomboy/Watchers.cs:605
 msgid "_Copy Link Address"
 msgstr "_Kopēt saites adresi"
 
-#: ../Tomboy/Watchers.cs:606
+#: ../Tomboy/Watchers.cs:610
 msgid "_Open Link"
 msgstr "_Atvērt saiti"
 

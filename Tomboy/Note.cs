@@ -1487,8 +1487,11 @@ namespace Tomboy
 		{
 			string tmp_file = write_file + ".tmp";
 
-			using (var xml = XmlWriter.Create (tmp_file, XmlEncoder.DocumentSettings))
-				Write (xml, note);
+			using (FileStream fs = new FileStream(tmp_file, FileMode.Create, FileAccess.Write)) {
+				using (var xml = XmlWriter.Create (fs, XmlEncoder.DocumentSettings))
+					Write (xml, note);
+				fs.Flush(true);
+			}
 
 			if (File.Exists (write_file)) {
 				string backup_path = write_file + "~";

@@ -48,12 +48,12 @@
 				to be able to install this as smoothly (outside of the
 				"Program Files" folder), we need to fall back to HKCU?
 		-->
-		<Property Id="INSTALLDIR">
+		<Property Id="INSTALLDIR" Secure="yes">
 			<RegistrySearch Id='SearchTomboyInstallDir' Type='directory' Root='HKLM' Key='Software\Tomboy' Name='InstallDir' />
 		</Property>
 		
 		
-		<Property Id="GTKSHARPNOVELLINSTALLVERSION">
+		<Property Id="GTKSHARPNOVELLINSTALLVERSION" Secure="yes">
 			<RegistrySearch Id='GtksharpnovellRegistry' Type='raw' Root='HKLM' Key='Software\Xamarin\GtkSharp\Version' />
 		</Property>
 		<Condition Message="This setup requires Gtk# for .NET (version 2.12.20 or higher). Please download the latest installer from http://www.mono-project.com/GtkSharp ">
@@ -104,14 +104,14 @@
 			features but adds a dialog to let the user choose a 
 			directory where the product will be installed
 		-->
-		<Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR" />
+		<Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR" Secure="yes"/>
 		<UIRef Id="WixUI_InstallDir"/>
 
 		<Icon Id="Tomboy.exe" SourceFile="..\bin\Debug\Tomboy.exe" />
 		
 		<!-- Icon for "Add/Remove programs" entry and help link -->
 		<Icon Id="icon.ico" SourceFile="..\data\icons\tomboy.ico" />
-		<Property Id="ARPPRODUCTICON" Value="icon.ico" />
-		<Property Id="ARPHELPLINK" Value="http://projects.gnome.org/tomboy/" />
+		<Property Id="ARPPRODUCTICON" Value="icon.ico" Secure="yes"/>
+		<Property Id="ARPHELPLINK" Value="http://projects.gnome.org/tomboy/" Secure="yes"/>
 	</Product>
 </Wix>

@@ -61,6 +61,7 @@ namespace Tomboy
 			BorderWidth = 5;
 			Resizable = true;
 			Title = Catalog.GetString ("Tomboy Preferences");
+			WindowPosition = WindowPosition.Center;
 			
 			addin_prefs_dialogs = new Dictionary<string, Gtk.Dialog> ();
 			addin_info_dialogs = new Dictionary<string, Gtk.Dialog> ();
