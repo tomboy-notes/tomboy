@@ -27,12 +27,6 @@ AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, "$GETTEXT_PACKAGE", [Gettext package])
 AM_GLIB_GNU_GETTEXT
 
 #
-# Find gconftool-2
-#
-AC_PATH_PROG(GCONFTOOL, gconftool-2)
-AM_GCONF_SOURCE_2
-
-#
 # Find mcs
 #
 AC_PATH_PROG(GMCS, dmcs)
@@ -169,7 +163,7 @@ PKG_CHECK_MODULES(MONO_ADDINS, mono-addins >= 0.3 \
 	mono-addins-setup >= 0.3)
 
 #
-# Tomboy.exe needs Gtk# Gnome# GConf#
+# Tomboy.exe needs Gtk# Gnome#
 #
 GTKSHARP3_MINIMUM_VERSION=2.99.1
 

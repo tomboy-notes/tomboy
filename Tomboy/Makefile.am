@@ -45,11 +45,6 @@ PANELAPPLET_CSFILES =					\
 	$(srcdir)/Applet.cs
 
 GNOME_CSFILES =								\
-	$(srcdir)/GConf.PropertyEditors/PropertyEditor.cs		\
-	$(srcdir)/GConf.PropertyEditors/PropertyEditorBool.cs		\
-	$(srcdir)/GConf.PropertyEditors/PropertyEditorEntry.cs		\
-	$(srcdir)/GConf.PropertyEditors/PropertyEditorToggleButton.cs	\
-	$(srcdir)/GConfPreferencesClient.cs				\
 	$(srcdir)/GnomeApplication.cs					\
 	$(srcdir)/GnomeFactory.cs					\
 	$(srcdir)/GnomeSession.cs					\

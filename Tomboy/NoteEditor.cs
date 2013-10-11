@@ -119,7 +119,7 @@ namespace Tomboy
 		{
 			bool has_url = false;
 
-			foreach (Gdk.Atom target in context.Targets) {
+			foreach (Gdk.Atom target in context.ListTargets()) {
 				if (target.Name == "text/uri-list" ||
 				                target.Name == "_NETSCAPE_URL") {
 					has_url = true;
