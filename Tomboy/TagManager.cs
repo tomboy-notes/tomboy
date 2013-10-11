@@ -51,7 +51,7 @@ namespace Tomboy
 		#endregion
 
 		#region Private Methods
-		static int CompareTagsSortFunc (TreeModel model, TreeIter a, TreeIter b)
+		static int CompareTagsSortFunc (ITreeModel model, TreeIter a, TreeIter b)
 		{
 			Tag tag_a = model.GetValue (a, 0) as Tag;
 			Tag tag_b = model.GetValue (b, 0) as Tag;
@@ -213,7 +213,7 @@ namespace Tomboy
 		#endregion
 
 		#region Properties
-		public static Gtk.TreeModel Tags
+		public static Gtk.ITreeModel Tags
 		{
 			get {
 				return sorted_tags;

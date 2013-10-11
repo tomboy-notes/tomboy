@@ -46,32 +46,15 @@ fi
 #
 # Check Mono version
 #
-MONO_MINIMUM_VERSION=1.9.1
+MONO_MINIMUM_VERSION=2.10.8
 PKG_CHECK_MODULES(MONO, mono >= $MONO_MINIMUM_VERSION)
 
 #
 # Gdk and Atk are needed for libtrayicon
 #
-GDK20_MINIMUM_VERSION=2.6.0
-GTK20_MINIMUM_VERSION=2.14.0
+GDK30_MINIMUM_VERSION=2.6.0
+GTK30_MINIMUM_VERSION=2.14.0
 ATK_MINIMUM_VERSION=1.2.4
-
-PKG_CHECK_MODULES(LIBTOMBOY, 
-		  gdk-2.0 >= $GDK20_MINIMUM_VERSION
-		  gtk+-2.0 >= $GTK20_MINIMUM_VERSION
-		  atk >= $ATK_MINIMUM_VERSION)
-AC_SUBST(LIBTOMBOY_CFLAGS)
-AC_SUBST(LIBTOMBOY_LIBS)
-
-if pkg-config --atleast-version=2.16 gtk+-2.0; then
-	HAS_GTK_2_16=yes
-fi
-AM_CONDITIONAL(HAS_GTK_2_16, test "x$HAS_GTK_2_16" = "xyes")
-
-if pkg-config --atleast-version=2.19.7 gtk+-2.0; then
-	HAS_GTK_2_20=yes
-fi
-AM_CONDITIONAL(HAS_GTK_2_20, test "x$HAS_GTK_2_20" = "xyes")
 
 #
 # Use pkg-config to check for the panel applet server directory if
@@ -180,31 +163,18 @@ AC_SUBST(DBUS_LIBS)
 
 #
 # Check for Mono.Addins
+# 	Temporarily removed: mono-addins-gui >= 0.3 \
 #
 PKG_CHECK_MODULES(MONO_ADDINS, mono-addins >= 0.3 \
-	mono-addins-gui >= 0.3 \
 	mono-addins-setup >= 0.3)
 
 #
 # Tomboy.exe needs Gtk# Gnome# GConf#
 #
-GTKSHARP2_MINIMUM_VERSION=2.10.1
-GNOMESHARP_MINIMUM_VERSION=2.24
-if test "x$ENABLE_GNOME" != "xno"; then
-	if test "x$ENABLE_PANEL_APPLET" != "xno"; then
-		PKG_CHECK_MODULES(GNOME,
-				  gnome-sharp-2.0 >= $GNOMESHARP_MINIMUM_VERSION
-				  gconf-sharp-2.0
-				  gnome-panel-sharp-2.24)
-	else
-		PKG_CHECK_MODULES(GNOME,
-				  gconf-sharp-2.0)
-	fi
-fi
-AC_SUBST(GNOME_LIBS)
+GTKSHARP3_MINIMUM_VERSION=2.99.1
 
 PKG_CHECK_MODULES(GTKSHARP,
-		  gtk-sharp-2.0 >= $GTKSHARP2_MINIMUM_VERSION)
+		  gtk-sharp-3.0 >= $GTKSHARP3_MINIMUM_VERSION)
 AC_SUBST(GTKSHARP_LIBS)
 
 #
@@ -347,7 +317,6 @@ data/Makefile
 data/tomboy-addins.pc
 data/icons/Makefile
 help/Makefile
-libtomboy/Makefile
 Tomboy/Makefile
 Tomboy/Addins/Makefile
 Tomboy/Addins/Backlinks/Makefile

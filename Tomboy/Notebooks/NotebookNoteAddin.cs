@@ -202,8 +202,8 @@ namespace Tomboy.Notebooks
 		List<NotebookMenuItem> GetNotebookMenuItems ()
 		{
 			List<NotebookMenuItem> items = new List<NotebookMenuItem> ();
-			
-			Gtk.TreeModel model = NotebookManager.Notebooks;
+
+			Gtk.ITreeModel model = NotebookManager.Notebooks;
 			Gtk.TreeIter iter;
 			
 			if (model.GetIterFirst (out iter) == true) {

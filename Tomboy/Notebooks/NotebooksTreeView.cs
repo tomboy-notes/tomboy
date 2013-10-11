@@ -8,7 +8,7 @@ namespace Tomboy.Notebooks
 	{
 		NoteManager noteManager;
 		
-		public NotebooksTreeView(Gtk.TreeModel model) : base (model)
+		public NotebooksTreeView(Gtk.ITreeModel model) : base (model)
 		{
 			noteManager = Tomboy.DefaultNoteManager;
 			

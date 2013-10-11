@@ -13,7 +13,7 @@ namespace Tomboy
 
 		Gtk.AccelGroup accel_group;
 		Gtk.Toolbar toolbar;
-		Gtk.Tooltips toolbar_tips;
+		Gtk.Tooltip toolbar_tips;
 		Gtk.ToolButton link_button;
 		NoteTextMenu text_menu;
 		Gtk.Menu plugin_menu;
@@ -432,9 +432,9 @@ namespace Tomboy
 		Gtk.Toolbar MakeToolbar ()
 		{
 			Gtk.Toolbar tb = new Gtk.Toolbar ();
-			tb.Tooltips = true;
+			tb.HasTooltip = true;
 
-			toolbar_tips = new Gtk.Tooltips ();
+			toolbar_tips = new Gtk.Tooltip ();
 
 			Gtk.ToolButton search = new Gtk.ToolButton (
 				new Gtk.Image (Gtk.Stock.Find, tb.IconSize),
@@ -442,6 +442,7 @@ namespace Tomboy
 			search.IsImportant = true;
 			search.Clicked += SearchActivate;
 			// TODO: If we ever add a way to customize internal keybindings, this will need to change
+			toolbar_tips.Text = Catalog.GetString ("Search your notes");
 			toolbar_tips.SetTip (search, Catalog.GetString ("Search your notes") + " (Ctrl-Shift-F)", null);
 			search.AddAccelerator ("clicked",
 			                       accel_group,

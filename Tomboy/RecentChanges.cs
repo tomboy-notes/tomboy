@@ -19,7 +19,7 @@ namespace Tomboy
 		NoteManager manager;
 
 		Gtk.MenuBar menu_bar;
-		Gtk.ComboBoxEntry find_combo;
+		Gtk.ComboBox find_combo;
 		Gtk.Button clear_search_button;
 		Gtk.Statusbar status_bar;
 		Gtk.ScrolledWindow matches_window;
@@ -100,7 +100,7 @@ namespace Tomboy
 			Gtk.Label label = new Gtk.Label (Catalog.GetString ("_Search:"));
 			label.Xalign = 0.0f;
 
-			find_combo = Gtk.ComboBoxEntry.NewText ();
+			find_combo = Gtk.ComboBox.NewWithEntry ();
 			label.MnemonicWidget = find_combo;
 			find_combo.Changed += OnEntryChanged;
 			find_combo.Entry.ActivatesDefault = false;
@@ -545,7 +545,7 @@ namespace Tomboy
 
 		void MatchesColumnDataFunc (Gtk.TreeViewColumn column,
 					    Gtk.CellRenderer cell,
-					    Gtk.TreeModel model,
+					    Gtk.ITreeModel model,
 					    Gtk.TreeIter iter)
 		{
 			Gtk.CellRendererText crt = cell as Gtk.CellRendererText;
@@ -646,7 +646,7 @@ namespace Tomboy
 		/// and selected tags.  Also prevent template notes from
 		/// appearing.
 		/// </summary>
-		bool FilterNotes (Gtk.TreeModel model, Gtk.TreeIter iter)
+		bool FilterNotes (Gtk.ITreeModel model, Gtk.TreeIter iter)
 		{
 			Note note = model.GetValue (iter, 3 /* note */) as Note;
 			if (note == null)
@@ -677,7 +677,7 @@ namespace Tomboy
 		       // return true;
 		}
 
-		bool FilterTags (Gtk.TreeModel model, Gtk.TreeIter iter)
+		bool FilterTags (Gtk.ITreeModel model, Gtk.TreeIter iter)
 		{
 			Tag t = model.GetValue (iter, 0 /* note */) as Tag;
 			if(t.IsProperty || t.IsSystem)
@@ -1044,7 +1044,7 @@ namespace Tomboy
 
 		List<Note> GetSelectedNotes ()
 		{
-			Gtk.TreeModel model;
+			Gtk.ITreeModel model;
 			List<Note> selected_notes = new List<Note> ();
 
 			Gtk.TreePath [] selected_rows =
@@ -1156,7 +1156,7 @@ namespace Tomboy
 			base.OnShown ();
 		}
 
-		int CompareTitles (Gtk.TreeModel model, Gtk.TreeIter a, Gtk.TreeIter b)
+		int CompareTitles (Gtk.ITreeModel model, Gtk.TreeIter a, Gtk.TreeIter b)
 		{
 			string title_a = model.GetValue (a, 1 /* title */) as string;
 			string title_b = model.GetValue (b, 1 /* title */) as string;
@@ -1167,7 +1167,7 @@ namespace Tomboy
 			return title_a.CompareTo (title_b);
 		}
 
-		int CompareDates (Gtk.TreeModel model, Gtk.TreeIter a, Gtk.TreeIter b)
+		int CompareDates (Gtk.ITreeModel model, Gtk.TreeIter a, Gtk.TreeIter b)
 		{
 			Note note_a = (Note) model.GetValue (a, 3 /* note */);
 			Note note_b = (Note) model.GetValue (b, 3 /* note */);
@@ -1178,7 +1178,7 @@ namespace Tomboy
 				return DateTime.Compare (note_a.ChangeDate, note_b.ChangeDate);
 		}
 
-		int CompareSearchHits (Gtk.TreeModel model, Gtk.TreeIter a, Gtk.TreeIter b)
+		int CompareSearchHits (Gtk.ITreeModel model, Gtk.TreeIter a, Gtk.TreeIter b)
 		{
 			Note note_a = model.GetValue (a, 3 /* note */) as Note;
 			Note note_b = model.GetValue (b, 3 /* note */) as Note;
@@ -1314,7 +1314,7 @@ namespace Tomboy
 		}
 
 		private void NotebookPixbufCellDataFunc (Gtk.TreeViewColumn treeColumn,
-				Gtk.CellRenderer renderer, Gtk.TreeModel model,
+				Gtk.CellRenderer renderer, Gtk.ITreeModel model,
 				Gtk.TreeIter iter)
 		{
 			Notebooks.Notebook notebook = model.GetValue (iter, 0) as Notebooks.Notebook;
@@ -1332,7 +1332,7 @@ namespace Tomboy
 		}
 
 		private void NotebookTextCellDataFunc (Gtk.TreeViewColumn treeColumn,
-				Gtk.CellRenderer renderer, Gtk.TreeModel model,
+				Gtk.CellRenderer renderer, Gtk.ITreeModel model,
 				Gtk.TreeIter iter)
 		{
 			Gtk.CellRendererText crt = renderer as Gtk.CellRendererText;
@@ -1450,7 +1450,7 @@ namespace Tomboy
 		/// </returns>
 		public Notebooks.Notebook GetSelectedNotebook ()
 		{
-			Gtk.TreeModel model;
+			Gtk.ITreeModel model;
 			Gtk.TreeIter iter;
 
 			Gtk.TreeSelection selection = notebooksTree.Selection;

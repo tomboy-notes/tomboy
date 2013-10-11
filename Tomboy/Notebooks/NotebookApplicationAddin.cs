@@ -215,7 +215,7 @@ namespace Tomboy.Notebooks
 
 			NotebookNewNoteMenuItem item;
 
-			Gtk.TreeModel model = NotebookManager.Notebooks;
+			Gtk.ITreeModel model = NotebookManager.Notebooks;
 			Gtk.TreeIter iter;
 			
 			// Add in the "New Notebook..." menu item

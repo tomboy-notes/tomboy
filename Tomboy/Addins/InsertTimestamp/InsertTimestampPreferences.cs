@@ -154,7 +154,7 @@ namespace Tomboy.InsertTimestamp {
 		/// </summary>
 		void OnSelectionChanged (object sender, EventArgs args)
 		{
-			Gtk.TreeModel model;
+			Gtk.ITreeModel model;
 			Gtk.TreeIter iter;
 
 			if (((Gtk.TreeSelection) sender).GetSelected (out model, 

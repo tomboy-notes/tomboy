@@ -27,7 +27,7 @@ namespace Tomboy
 		Gtk.Label font_face;
 		Gtk.Label font_size;
 
-		Mono.Addins.Gui.AddinTreeWidget addin_tree;
+//		Mono.Addins.Gui.AddinTreeWidget addin_tree;
 
 		Gtk.Button enable_addin_button;
 		Gtk.Button disable_addin_button;
@@ -586,8 +586,8 @@ namespace Tomboy
 			return addin1.Name.CompareTo (addin2.Name);
 		}
 
-		private void ComboBoxTextDataFunc (Gtk.CellLayout cell_layout, Gtk.CellRenderer cell,
-		                                   Gtk.TreeModel tree_model, Gtk.TreeIter iter)
+		private void ComboBoxTextDataFunc (Gtk.ICellLayout cell_layout, Gtk.CellRenderer cell,
+		                                   Gtk.ITreeModel tree_model, Gtk.TreeIter iter)
 		{
 			Gtk.CellRendererText crt = cell as Gtk.CellRendererText;
 			SyncServiceAddin addin = tree_model.GetValue (iter, 0) as SyncServiceAddin;
@@ -600,285 +600,285 @@ namespace Tomboy
 
 		// Page 3
 		// Extension Preferences
-		public Gtk.Widget MakeAddinsPane ()
-		{
-			Gtk.VBox vbox = new Gtk.VBox (false, 6);
-			vbox.BorderWidth = 6;
-			Gtk.Label l = new Gtk.Label (Catalog.GetString (
-			                                     "The following add-ins are installed"));
-			l.Xalign = 0;
-			l.Show ();
-			vbox.PackStart (l, false, false, 0);
-
-			Gtk.HBox hbox = new Gtk.HBox (false, 6);
-
-			// TreeView of Add-ins
-			Gtk.TreeView tree = new Gtk.TreeView ();
-			addin_tree = new Mono.Addins.Gui.AddinTreeWidget (tree);
-
-			tree.Show ();
-
-			Gtk.ScrolledWindow sw = new Gtk.ScrolledWindow ();
-			sw.HscrollbarPolicy = Gtk.PolicyType.Automatic;
-			sw.VscrollbarPolicy = Gtk.PolicyType.Automatic;
-			sw.ShadowType = Gtk.ShadowType.In;
-			sw.Add (tree);
-			sw.Show ();
-			Gtk.LinkButton get_more_link =
-				new Gtk.LinkButton ("http://live.gnome.org/Tomboy/PluginList",
-				                    Catalog.GetString ("Get More Add-Ins..."));
-			get_more_link.Show ();
-			Gtk.VBox tree_box = new Gtk.VBox (false, 0);
-			tree_box.Add (sw);
-			tree_box.PackEnd (get_more_link, false, false, 5);
-			tree_box.Show ();
-			hbox.PackStart (tree_box, true, true, 0);
-
-			// Action Buttons (right of TreeView)
-			Gtk.VButtonBox button_box = new Gtk.VButtonBox ();
-			button_box.Spacing = 4;
-			button_box.Layout = Gtk.ButtonBoxStyle.Start;
-
-			// TODO: In a future version, add in an "Install Add-ins..." button
-
-			// TODO: In a future version, add in a "Repositories..." button
-
-			enable_addin_button =
-			        new Gtk.Button (Catalog.GetString ("_Enable"));
-			enable_addin_button.Sensitive = false;
-			enable_addin_button.Clicked += OnEnableAddinButton;
-			enable_addin_button.Show ();
-
-			disable_addin_button =
-			        new Gtk.Button (Catalog.GetString ("_Disable"));
-			disable_addin_button.Sensitive = false;
-			disable_addin_button.Clicked += OnDisableAddinButton;
-			disable_addin_button.Show ();
-
-			addin_prefs_button =
-			        new Gtk.Button (Gtk.Stock.Preferences);
-			addin_prefs_button.Sensitive = false;
-			addin_prefs_button.Clicked += OnAddinPrefsButton;
-			addin_prefs_button.Show ();
-
-			addin_info_button =
-			        new Gtk.Button (Gtk.Stock.Info);
-			addin_info_button.Sensitive = false;
-			addin_info_button.Clicked += OnAddinInfoButton;
-			addin_info_button.Show ();
-
-			button_box.PackStart (enable_addin_button);
-			button_box.PackStart (disable_addin_button);
-			button_box.PackStart (addin_prefs_button);
-			button_box.PackStart (addin_info_button);
-
-			button_box.Show ();
-			hbox.PackStart (button_box, false, false, 0);
-
-			hbox.Show ();
-			vbox.PackStart (hbox, true, true, 0);
-			vbox.Show ();
-
-			tree.Selection.Changed += OnAddinTreeSelectionChanged;
-			LoadAddins ();
-
-			return vbox;
-		}
-
-		void OnAddinTreeSelectionChanged (object sender, EventArgs args)
-		{
-			UpdateAddinButtons ();
-		}
-
-		/// <summary>
-		/// Set the sensitivity of the buttons based on what is selected
-		/// </summary>
-		void UpdateAddinButtons ()
-		{
-			Mono.Addins.Addin sinfo =
-			        addin_tree.ActiveAddinData as Mono.Addins.Addin;
-
-			if (sinfo == null) {
-				enable_addin_button.Sensitive = false;
-				disable_addin_button.Sensitive = false;
-				addin_prefs_button.Sensitive = false;
-				addin_info_button.Sensitive = false;
-			} else {
-				enable_addin_button.Sensitive = !sinfo.Enabled;
-				disable_addin_button.Sensitive = sinfo.Enabled;
-				addin_prefs_button.Sensitive = addin_manager.IsAddinConfigurable (sinfo);
-				addin_info_button.Sensitive = true;
-			}
-		}
-
-		void LoadAddins ()
-		{
-			object s = addin_tree.SaveStatus ();
-
-			addin_tree.Clear ();
-			foreach (Mono.Addins.Addin ainfo in addin_manager.GetAllAddins ()) {
-				addin_tree.AddAddin (
-				        Mono.Addins.Setup.SetupService.GetAddinHeader (ainfo),
-				        ainfo,
-				        ainfo.Enabled,
-				        ainfo.IsUserAddin);
-			}
-
-			addin_tree.RestoreStatus (s);
-			UpdateAddinButtons ();
-		}
-
-		void OnEnableAddinButton (object sender, EventArgs args)
-		{
-			Mono.Addins.Addin sinfo =
-			        addin_tree.ActiveAddinData as Mono.Addins.Addin;
-
-			if (sinfo == null)
-				return;
-
-			EnableAddin (sinfo, true);
-		}
-
-		void OnDisableAddinButton (object sender, EventArgs args)
-		{
-			Mono.Addins.Addin sinfo =
-			        addin_tree.ActiveAddinData as Mono.Addins.Addin;
-
-			if (sinfo == null)
-				return;
-
-			EnableAddin (sinfo, false);
-		}
-
-		void EnableAddin (Mono.Addins.Addin addin, bool enable)
-		{
-			addin.Enabled = enable;
-			LoadAddins ();
-		}
-
-		void OnAddinPrefsButton (object sender, EventArgs args)
-		{
-			Gtk.Dialog dialog = null;
-			Mono.Addins.Addin addin =
-			        addin_tree.ActiveAddinData as Mono.Addins.Addin;
-
-			if (addin == null)
-				return;
-
-			if (addin_prefs_dialogs.ContainsKey (addin.Id) == false) {
-				// A preference dialog isn't open already so create a new one
-				Gtk.Image icon =
-				        new Gtk.Image (Gtk.Stock.Preferences, Gtk.IconSize.Dialog);
-				Gtk.Label caption = new Gtk.Label ();
-				caption.Markup = string.Format (
-				                         "<span size='large' weight='bold'>{0} {1}</span>",
-				                         addin.Name, addin.Version);
-				caption.Xalign = 0;
-				caption.UseMarkup = true;
-				caption.UseUnderline = false;
-
-				Gtk.Widget pref_widget =
-				        addin_manager.CreateAddinPreferenceWidget (addin);
-
-				if (pref_widget == null)
-					pref_widget = new Gtk.Label (Catalog.GetString ("Not Implemented"));
-
-				Gtk.HBox hbox = new Gtk.HBox (false, 6);
-				Gtk.VBox vbox = new Gtk.VBox (false, 6);
-				vbox.BorderWidth = 6;
-
-				hbox.PackStart (icon, false, false, 0);
-				hbox.PackStart (caption, true, true, 0);
-				vbox.PackStart (hbox, false, false, 0);
-
-				vbox.PackStart (pref_widget, true, true, 0);
-				vbox.ShowAll ();
-
-				dialog = new Gtk.Dialog (
-				        string.Format (Catalog.GetString ("{0} Preferences"),
-				                       addin.Name),
-				        this,
-				        Gtk.DialogFlags.DestroyWithParent | Gtk.DialogFlags.NoSeparator,
-				        Gtk.Stock.Close, Gtk.ResponseType.Close);
-
-				dialog.VBox.PackStart (vbox, true, true, 0);
-				dialog.DeleteEvent += AddinPrefDialogDeleted;
-				dialog.Response += AddinPrefDialogResponse;
-
-				// Store this dialog off in the dictionary so it can be
-				// presented again if the user clicks on the preferences button
-				// again before closing the preferences dialog.
-				dialog.Data ["AddinId"] = addin.Id;
-				addin_prefs_dialogs [addin.Id] = dialog;
-			} else {
-				// It's already opened so just present it again
-				dialog = addin_prefs_dialogs [addin.Id];
-			}
-
-			dialog.Present ();
-		}
-
-		[GLib.ConnectBeforeAttribute]
-		void AddinPrefDialogDeleted (object sender, Gtk.DeleteEventArgs args)
-		{
-			// Remove the addin from the addin_prefs_dialogs Dictionary
-			Gtk.Dialog dialog = sender as Gtk.Dialog;
-			dialog.Hide ();
-
-			if (dialog.Data.ContainsKey ("AddinId")) {
-				addin_prefs_dialogs.Remove (dialog.Data ["AddinId"] as String);
-			}
-
-			dialog.Destroy ();
-		}
-
-		void AddinPrefDialogResponse (object sender, Gtk.ResponseArgs args)
-		{
-			AddinPrefDialogDeleted (sender, null);
-		}
-
-		void OnAddinInfoButton (object sender, EventArgs args)
-		{
-			Mono.Addins.Addin addin =
-			        addin_tree.ActiveAddinData as Mono.Addins.Addin;
-
-			if (addin == null)
-				return;
-
-			Gtk.Dialog dialog = null;
-			if (addin_info_dialogs.ContainsKey (addin.Id) == false) {
-				dialog = new AddinInfoDialog (
-				        Mono.Addins.Setup.SetupService.GetAddinHeader (addin),
-				        this);
-				dialog.DeleteEvent += AddinInfoDialogDeleted;
-				dialog.Response += AddinInfoDialogResponse;
-
-				// Store this dialog off in a dictionary so it can be presented
-				// again if the user clicks on the Info button before closing
-				// the original dialog.
-				dialog.Data ["AddinId"] = addin.Id;
-				addin_info_dialogs [addin.Id] = dialog;
-			} else {
-				// It's already opened so just present it again
-				dialog = addin_info_dialogs [addin.Id];
-			}
-
-			dialog.Present ();
-		}
-
-		[GLib.ConnectBeforeAttribute]
-		void AddinInfoDialogDeleted (object sender, Gtk.DeleteEventArgs args)
-		{
-			// Remove the addin from the addin_prefs_dialogs Dictionary
-			Gtk.Dialog dialog = sender as Gtk.Dialog;
-			dialog.Hide ();
-
-			if (dialog.Data.ContainsKey ("AddinId")) {
-				addin_info_dialogs.Remove (dialog.Data ["AddinId"] as String);
-			}
-
-			dialog.Destroy ();
-		}
+//		public Gtk.Widget MakeAddinsPane ()
+//		{
+//			Gtk.VBox vbox = new Gtk.VBox (false, 6);
+//			vbox.BorderWidth = 6;
+//			Gtk.Label l = new Gtk.Label (Catalog.GetString (
+//			                                     "The following add-ins are installed"));
+//			l.Xalign = 0;
+//			l.Show ();
+//			vbox.PackStart (l, false, false, 0);
+//
+//			Gtk.HBox hbox = new Gtk.HBox (false, 6);
+//
+//			// TreeView of Add-ins
+//			Gtk.TreeView tree = new Gtk.TreeView ();
+//			addin_tree = new Mono.Addins.Gui.AddinTreeWidget (tree);
+//
+//			tree.Show ();
+//
+//			Gtk.ScrolledWindow sw = new Gtk.ScrolledWindow ();
+//			sw.HscrollbarPolicy = Gtk.PolicyType.Automatic;
+//			sw.VscrollbarPolicy = Gtk.PolicyType.Automatic;
+//			sw.ShadowType = Gtk.ShadowType.In;
+//			sw.Add (tree);
+//			sw.Show ();
+//			Gtk.LinkButton get_more_link =
+//				new Gtk.LinkButton ("http://live.gnome.org/Tomboy/PluginList",
+//				                    Catalog.GetString ("Get More Add-Ins..."));
+//			get_more_link.Show ();
+//			Gtk.VBox tree_box = new Gtk.VBox (false, 0);
+//			tree_box.Add (sw);
+//			tree_box.PackEnd (get_more_link, false, false, 5);
+//			tree_box.Show ();
+//			hbox.PackStart (tree_box, true, true, 0);
+//
+//			// Action Buttons (right of TreeView)
+//			Gtk.VButtonBox button_box = new Gtk.VButtonBox ();
+//			button_box.Spacing = 4;
+//			button_box.Layout = Gtk.ButtonBoxStyle.Start;
+//
+//			// TODO: In a future version, add in an "Install Add-ins..." button
+//
+//			// TODO: In a future version, add in a "Repositories..." button
+//
+//			enable_addin_button =
+//			        new Gtk.Button (Catalog.GetString ("_Enable"));
+//			enable_addin_button.Sensitive = false;
+//			enable_addin_button.Clicked += OnEnableAddinButton;
+//			enable_addin_button.Show ();
+//
+//			disable_addin_button =
+//			        new Gtk.Button (Catalog.GetString ("_Disable"));
+//			disable_addin_button.Sensitive = false;
+//			disable_addin_button.Clicked += OnDisableAddinButton;
+//			disable_addin_button.Show ();
+//
+//			addin_prefs_button =
+//			        new Gtk.Button (Gtk.Stock.Preferences);
+//			addin_prefs_button.Sensitive = false;
+//			addin_prefs_button.Clicked += OnAddinPrefsButton;
+//			addin_prefs_button.Show ();
+//
+//			addin_info_button =
+//			        new Gtk.Button (Gtk.Stock.Info);
+//			addin_info_button.Sensitive = false;
+//			addin_info_button.Clicked += OnAddinInfoButton;
+//			addin_info_button.Show ();
+//
+//			button_box.PackStart (enable_addin_button);
+//			button_box.PackStart (disable_addin_button);
+//			button_box.PackStart (addin_prefs_button);
+//			button_box.PackStart (addin_info_button);
+//
+//			button_box.Show ();
+//			hbox.PackStart (button_box, false, false, 0);
+//
+//			hbox.Show ();
+//			vbox.PackStart (hbox, true, true, 0);
+//			vbox.Show ();
+//
+//			tree.Selection.Changed += OnAddinTreeSelectionChanged;
+//			LoadAddins ();
+//
+//			return vbox;
+////		}
+//
+//		void OnAddinTreeSelectionChanged (object sender, EventArgs args)
+//		{
+//			UpdateAddinButtons ();
+//		}
+//
+//		/// <summary>
+//		/// Set the sensitivity of the buttons based on what is selected
+//		/// </summary>
+//		void UpdateAddinButtons ()
+//		{
+//			Mono.Addins.Addin sinfo =
+//			        addin_tree.ActiveAddinData as Mono.Addins.Addin;
+//
+//			if (sinfo == null) {
+//				enable_addin_button.Sensitive = false;
+//				disable_addin_button.Sensitive = false;
+//				addin_prefs_button.Sensitive = false;
+//				addin_info_button.Sensitive = false;
+//			} else {
+//				enable_addin_button.Sensitive = !sinfo.Enabled;
+//				disable_addin_button.Sensitive = sinfo.Enabled;
+//				addin_prefs_button.Sensitive = addin_manager.IsAddinConfigurable (sinfo);
+//				addin_info_button.Sensitive = true;
+//			}
+//		}
+//
+//		void LoadAddins ()
+//		{
+//			object s = addin_tree.SaveStatus ();
+//
+//			addin_tree.Clear ();
+//			foreach (Mono.Addins.Addin ainfo in addin_manager.GetAllAddins ()) {
+//				addin_tree.AddAddin (
+//				        Mono.Addins.Setup.SetupService.GetAddinHeader (ainfo),
+//				        ainfo,
+//				        ainfo.Enabled,
+//				        ainfo.IsUserAddin);
+//			}
+//
+//			addin_tree.RestoreStatus (s);
+//			UpdateAddinButtons ();
+//		}
+//
+//		void OnEnableAddinButton (object sender, EventArgs args)
+//		{
+//			Mono.Addins.Addin sinfo =
+//			        addin_tree.ActiveAddinData as Mono.Addins.Addin;
+//
+//			if (sinfo == null)
+//				return;
+//
+//			EnableAddin (sinfo, true);
+//		}
+//
+//		void OnDisableAddinButton (object sender, EventArgs args)
+//		{
+//			Mono.Addins.Addin sinfo =
+//			        addin_tree.ActiveAddinData as Mono.Addins.Addin;
+//
+//			if (sinfo == null)
+//				return;
+//
+//			EnableAddin (sinfo, false);
+//		}
+//
+//		void EnableAddin (Mono.Addins.Addin addin, bool enable)
+//		{
+//			addin.Enabled = enable;
+//			LoadAddins ();
+//		}
+//
+//		void OnAddinPrefsButton (object sender, EventArgs args)
+//		{
+//			Gtk.Dialog dialog = null;
+//			Mono.Addins.Addin addin =
+//			        addin_tree.ActiveAddinData as Mono.Addins.Addin;
+//
+//			if (addin == null)
+//				return;
+//
+//			if (addin_prefs_dialogs.ContainsKey (addin.Id) == false) {
+//				// A preference dialog isn't open already so create a new one
+//				Gtk.Image icon =
+//				        new Gtk.Image (Gtk.Stock.Preferences, Gtk.IconSize.Dialog);
+//				Gtk.Label caption = new Gtk.Label ();
+//				caption.Markup = string.Format (
+//				                         "<span size='large' weight='bold'>{0} {1}</span>",
+//				                         addin.Name, addin.Version);
+//				caption.Xalign = 0;
+//				caption.UseMarkup = true;
+//				caption.UseUnderline = false;
+//
+//				Gtk.Widget pref_widget =
+//				        addin_manager.CreateAddinPreferenceWidget (addin);
+//
+//				if (pref_widget == null)
+//					pref_widget = new Gtk.Label (Catalog.GetString ("Not Implemented"));
+//
+//				Gtk.HBox hbox = new Gtk.HBox (false, 6);
+//				Gtk.VBox vbox = new Gtk.VBox (false, 6);
+//				vbox.BorderWidth = 6;
+//
+//				hbox.PackStart (icon, false, false, 0);
+//				hbox.PackStart (caption, true, true, 0);
+//				vbox.PackStart (hbox, false, false, 0);
+//
+//				vbox.PackStart (pref_widget, true, true, 0);
+//				vbox.ShowAll ();
+//
+//				dialog = new Gtk.Dialog (
+//				        string.Format (Catalog.GetString ("{0} Preferences"),
+//				                       addin.Name),
+//				        this,
+//				        Gtk.DialogFlags.DestroyWithParent | Gtk.DialogFlags.NoSeparator,
+//				        Gtk.Stock.Close, Gtk.ResponseType.Close);
+//
+//				dialog.VBox.PackStart (vbox, true, true, 0);
+//				dialog.DeleteEvent += AddinPrefDialogDeleted;
+//				dialog.Response += AddinPrefDialogResponse;
+//
+//				// Store this dialog off in the dictionary so it can be
+//				// presented again if the user clicks on the preferences button
+//				// again before closing the preferences dialog.
+//				dialog.Data ["AddinId"] = addin.Id;
+//				addin_prefs_dialogs [addin.Id] = dialog;
+//			} else {
+//				// It's already opened so just present it again
+//				dialog = addin_prefs_dialogs [addin.Id];
+//			}
+//
+//			dialog.Present ();
+//		}
+//
+//		[GLib.ConnectBeforeAttribute]
+//		void AddinPrefDialogDeleted (object sender, Gtk.DeleteEventArgs args)
+//		{
+//			// Remove the addin from the addin_prefs_dialogs Dictionary
+//			Gtk.Dialog dialog = sender as Gtk.Dialog;
+//			dialog.Hide ();
+//
+//			if (dialog.Data.ContainsKey ("AddinId")) {
+//				addin_prefs_dialogs.Remove (dialog.Data ["AddinId"] as String);
+//			}
+//
+//			dialog.Destroy ();
+//		}
+//
+//		void AddinPrefDialogResponse (object sender, Gtk.ResponseArgs args)
+//		{
+//			AddinPrefDialogDeleted (sender, null);
+//		}
+//
+//		void OnAddinInfoButton (object sender, EventArgs args)
+//		{
+//			Mono.Addins.Addin addin =
+//			        addin_tree.ActiveAddinData as Mono.Addins.Addin;
+//
+//			if (addin == null)
+//				return;
+//
+//			Gtk.Dialog dialog = null;
+//			if (addin_info_dialogs.ContainsKey (addin.Id) == false) {
+//				dialog = new AddinInfoDialog (
+//				        Mono.Addins.Setup.SetupService.GetAddinHeader (addin),
+//				        this);
+//				dialog.DeleteEvent += AddinInfoDialogDeleted;
+//				dialog.Response += AddinInfoDialogResponse;
+//
+//				// Store this dialog off in a dictionary so it can be presented
+//				// again if the user clicks on the Info button before closing
+//				// the original dialog.
+//				dialog.Data ["AddinId"] = addin.Id;
+//				addin_info_dialogs [addin.Id] = dialog;
+//			} else {
+//				// It's already opened so just present it again
+//				dialog = addin_info_dialogs [addin.Id];
+//			}
+//
+//			dialog.Present ();
+//		}
+//
+//		[GLib.ConnectBeforeAttribute]
+//		void AddinInfoDialogDeleted (object sender, Gtk.DeleteEventArgs args)
+//		{
+//			// Remove the addin from the addin_prefs_dialogs Dictionary
+//			Gtk.Dialog dialog = sender as Gtk.Dialog;
+//			dialog.Hide ();
+//
+//			if (dialog.Data.ContainsKey ("AddinId")) {
+//				addin_info_dialogs.Remove (dialog.Data ["AddinId"] as String);
+//			}
+//
+//			dialog.Destroy ();
+//		}
 
 		void AddinInfoDialogResponse (object sender, Gtk.ResponseArgs args)
 		{
