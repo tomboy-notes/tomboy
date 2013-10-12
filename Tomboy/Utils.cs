@@ -356,7 +356,7 @@ namespace Tomboy
 		                         string          msg)
 : base ()
 		{
-			HasSeparator = false;
+//			HasSeparator = false;
 			BorderWidth = 5;
 			Resizable = false;
 			Title = "";

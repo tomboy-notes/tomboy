@@ -70,9 +70,9 @@ namespace Tomboy.Sync
 			vbox.PackStart (messageLabel, false, false, 0);
 
 			progressBar = new Gtk.ProgressBar ();
-			progressBar.Orientation = Gtk.ProgressBarOrientation.LeftToRight;
-			progressBar.BarStyle = ProgressBarStyle.Continuous;
-			progressBar.ActivityBlocks = 30;
+			progressBar.Orientation = Gtk.Orientation.Horizontal;
+//			progressBar.BarStyle = ProgressBarStyle.Continuous;
+//			progressBar.ActivityBlocks = 30;
 			progressBar.Show ();
 			outerVBox.PackStart (progressBar, false, false, 0);
 
