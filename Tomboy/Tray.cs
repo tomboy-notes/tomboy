@@ -150,7 +150,8 @@ namespace Tomboy
 		public TomboyTrayIcon (NoteManager manager)
 		{
 			tray = new TomboyTray (manager, this);
-			keybinder = new TomboyPrefsKeybinder (manager, this);
+			//FIXME: Need to port to a keybinder that's not crazy.
+//			keybinder = new TomboyPrefsKeybinder (manager, this);
 			int panel_size = 22;
 			// Load Icon to display in the notification area.
 			// First we try the "tomboy-panel" icon. This icon can be replaced
