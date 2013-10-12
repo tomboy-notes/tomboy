@@ -981,8 +981,9 @@ namespace Tomboy
 			Gtk.Dialog advancedDlg =
 			        new Gtk.Dialog (Catalog.GetString ("Other Synchronization Options"),
 			                        this,
-			                        Gtk.DialogFlags.DestroyWithParent | Gtk.DialogFlags.Modal | Gtk.DialogFlags.NoSeparator,
-			                        Gtk.Stock.Close, Gtk.ResponseType.Close);
+			                        Gtk.DialogFlags.DestroyWithParent | Gtk.DialogFlags.Modal//, | Gtk.DialogFlags.NoSeparator,
+			                        //Gtk.Stock.Close, Gtk.ResponseType.Close);
+				                );
 			// Populate dialog
 			Gtk.Label label =
 			        new Gtk.Label (Catalog.GetString ("When a conflict is detected between " +
