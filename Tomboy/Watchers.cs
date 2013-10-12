@@ -567,7 +567,7 @@ namespace Tomboy
 		void OnInsertText (object sender, Gtk.InsertTextArgs args)
 		{
 			Gtk.TextIter start = args.Pos;
-			start.BackwardChars (args.Length);
+			start.BackwardChars (args.NewTextLength);
 
 			ApplyUrlToBlock (start, args.Pos);
 		}
@@ -836,7 +836,7 @@ namespace Tomboy
 		void OnInsertText (object sender, Gtk.InsertTextArgs args)
 		{
 			Gtk.TextIter start = args.Pos;
-			start.BackwardChars (args.Length);
+			start.BackwardChars (args.NewTextLength);
 
 			Gtk.TextIter end = args.Pos;
 
@@ -976,7 +976,7 @@ namespace Tomboy
 		void OnInsertText (object sender, Gtk.InsertTextArgs args)
 		{
 			Gtk.TextIter start = args.Pos;
-			start.BackwardChars (args.Length);
+			start.BackwardChars (args.NewTextLength);
 
 			ApplyWikiwordToBlock (start, args.Pos);
 			

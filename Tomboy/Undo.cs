@@ -684,8 +684,8 @@ namespace Tomboy
 		{
 			if (frozen_cnt == 0) {
 				InsertAction action = new InsertAction (args.Pos,
-				                                        args.Text,
-				                                        args.Text.Length,
+				                                        args.NewText,
+				                                        args.NewTextLength,
 				                                        chop_buffer);
 
 				/*

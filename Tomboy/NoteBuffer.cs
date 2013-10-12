@@ -276,9 +276,9 @@ namespace Tomboy
 		void TextInsertedEvent (object sender, Gtk.InsertTextArgs args)
 		{
 			// Only apply active tags when typing, not on paste.
-			if (args.Text.Length == 1) {
+			if (args.NewTextLength == 1) {
 				Gtk.TextIter insert_start = args.Pos;
-				insert_start.BackwardChars (args.Text.Length);
+				insert_start.BackwardChars (args.NewTextLength);
 
 				Undoer.FreezeUndo ();
 				foreach (Gtk.TextTag tag in insert_start.Tags) {
@@ -295,12 +295,12 @@ namespace Tomboy
 			Gtk.TextIter line_start = args.Pos;
 			line_start.LineOffset = 0;
 
-			if (args.Pos.LineOffset - args.Text.Length == 2 &&
+			if (args.Pos.LineOffset - args.NewTextLength == 2 &&
 			                FindDepthTag (line_start) != null) {
 				Pango.Direction direction = Pango.Direction.Ltr;
 
-				if (args.Text.Length > 0)
-					direction = Pango.Global.UnicharDirection (args.Text[0]);
+				if (args.NewTextLength > 0)
+					direction = Pango.Global.UnicharDirection (args.NewText[0]);
 
 				ChangeBulletDirection (args.Pos, direction);
 			}
