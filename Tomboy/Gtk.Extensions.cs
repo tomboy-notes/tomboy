@@ -36,6 +36,30 @@ namespace Gtk.Extensions
 
             return (string) comboBox.Model.GetValue(activeIter, textColumn);
         }
+
+		public static void AppendText(this Gtk.ComboBox comboBox, string text)
+		{
+			Gtk.TreeIter activeIter;
+			if (!comboBox.GetActiveIter(out activeIter)) {
+				return;
+			}
+			
+			var textColumn = comboBox.EntryTextColumn;
+
+			comboBox.Model.SetValue (activeIter, 0, (string) comboBox.Model.GetValue(activeIter, textColumn) + text);
+		}
+
+		public static void PrependText(this Gtk.ComboBox comboBox, string text)
+		{
+			Gtk.TreeIter activeIter;
+			if (!comboBox.GetActiveIter(out activeIter)) {
+				return;
+			}
+
+			var textColumn = comboBox.EntryTextColumn;
+
+			comboBox.Model.SetValue (activeIter, 0, text + (string) comboBox.Model.GetValue(activeIter, textColumn));
+		}
     }
 
     public static class BoxExtensions

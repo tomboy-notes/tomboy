@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Mono.Unix;
 using Gtk;
+using Gtk.Extensions;
 
 namespace Tomboy
 {
@@ -604,7 +605,7 @@ namespace Tomboy
 				"in the selected notebook.\nClick here to " +
 				"search across all notes.");
 			Gtk.LinkButton link_button = new Gtk.LinkButton ("", message);
-			Gtk.LinkButton.SetUriHook(ShowAllSearchResults);
+			link_button.ActivateLink += ShowAllSearchResults;
 			link_button.TooltipText = Catalog.GetString 
 				("Click here to search across all notebooks");
 			link_button.Show();
@@ -633,7 +634,7 @@ namespace Tomboy
 			}	
 		}
 		
-		private void ShowAllSearchResults (Gtk.LinkButton button, String param)
+		private void ShowAllSearchResults (object o, ActivateLinkArgs args)
 		{
 			TreeIter iter;
 			notebooksTree.Model.GetIterFirst (out iter);
