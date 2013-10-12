@@ -171,29 +171,6 @@ PKG_CHECK_MODULES(GTKSHARP,
 		  gtk-sharp-3.0 >= $GTKSHARP3_MINIMUM_VERSION)
 AC_SUBST(GTKSHARP_LIBS)
 
-#
-# Printing at least needs Mono.Cairo
-#
-required_assemblies="Mono.Cairo"
-
-#
-# This check stolen from banshee/build/m4/shamrock/mono.m4, because pkg-config
-# seems to find the wrong Mono.Cairo (1.0).
-#
-for asm in $required_assemblies
-do
-	AC_MSG_CHECKING([for Mono 2.0 GAC for $asm.dll])
-	if test \
-		-e "$($PKG_CONFIG --variable=libdir mono)/mono/2.0/$asm.dll" -o \
-		-e "$($PKG_CONFIG --variable=prefix mono)/lib/mono/2.0/$asm.dll"; \
-		then \
-		AC_MSG_RESULT([found])
-	else
-		AC_MSG_RESULT([not found])
-		AC_MSG_ERROR([missing reqired Mono 2.0 assembly: $asm.dll])
-	fi
-done
-
 
 #
 # Evolution.dll needs GMime#

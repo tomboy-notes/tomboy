@@ -333,7 +333,7 @@ namespace Tomboy.Evolution
 				return;
 
 			if (args.Info == 1) {
-				foreach (Gdk.Atom atom in args.Context.Targets) {
+				foreach (Gdk.Atom atom in args.Context.TargetList ()) {
 					if (atom.Name == "x-uid-list") {
 						// Parse MIME mails in tmp files
 						DropEmailUriList (args);
