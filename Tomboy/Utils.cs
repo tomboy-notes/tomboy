@@ -55,7 +55,7 @@ namespace Tomboy
 
 			// Unhighlight the parent
 			if (menu.AttachWidget != null)
-				menu.AttachWidget.State = Gtk.StateType.Normal;
+				menu.AttachWidget.SetStateFlags (Gtk.StateFlags.Normal, true);
 		}
 
 		// Place the menu underneath an arbitrary parent widget.  The
@@ -86,7 +86,7 @@ namespace Tomboy
 
 			// Highlight the parent
 			if (menu.AttachWidget != null)
-				menu.AttachWidget.State = Gtk.StateType.Selected;
+				menu.AttachWidget.SetStateFlags (Gtk.StateFlags.Selected, true);
 
 #if WIN32
 			BringToForeground ();
