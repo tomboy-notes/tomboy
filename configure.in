@@ -9,7 +9,7 @@ GNOME_DOC_INIT([0.17.3])
 AM_CONFIG_HEADER(config.h)
 
 AC_PROG_INSTALL
-IT_PROG_INTLTOOL([0.35])
+IT_PROG_INTLTOOL([0.50.1])
 AC_PROG_CC
 AC_ISC_POSIX
 AC_HEADER_STDC
@@ -126,7 +126,11 @@ if (test "x$ENABLE_WIN" = "xno") && (test "x$ENABLE_OSX" = "xno") ; then
 else
 	ENABLE_GNOME="no"
 fi
-AM_CONDITIONAL(ENABLE_GNOME, test "x$ENABLE_GNOME" != "xno")
+
+if (test "x$ENABLE_GNOME" != "xno") ; then
+	GLIB_GSETTINGS
+	AM_CONDITIONAL(ENABLE_GNOME, true)
+fi
 
 #
 # Check for GNOME Panel Support
@@ -285,6 +289,7 @@ AC_OUTPUT([
 Makefile
 tomboy.spec
 data/Makefile
+data/org.gnome.tomboy.gschema.xml
 data/tomboy-addins.pc
 data/icons/Makefile
 help/Makefile

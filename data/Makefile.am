@@ -14,12 +14,11 @@ pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_in_files = tomboy-addins.pc.in
 pkgconfig_DATA = $(pkgconfig_in_files:.pc.in=.pc)
 
+gsettingsdir = $(datadir)/glib-2.0/schemas
+gsettingsschema_in_files = org.gnome.tomboy.gschema.xml.in
+gsettings_SCHEMAS = $(gsettingsschema_in_files:.xml.in=.xml)
 
-schemasdir	 = $(GCONF_SCHEMA_FILE_DIR)
-schemas_in_files = tomboy.schemas.in
-schemas_DATA     = $(schemas_in_files:.schemas.in=.schemas)
-
-@INTLTOOL_SCHEMAS_RULE@
+@GSETTINGS_RULES@
 
 dbusservicedir       = $(DBUS_SERVICE_DIR)
 dbusservice_in_files = org.gnome.Tomboy.service.in
@@ -57,23 +56,23 @@ noinst_DATA = 			\
 EXTRA_DIST = 					\
 	$(desktop_in_files)     		\
 	$(pkgconfig_in_files)			\
-	$(schemas_in_files)     		\
 	$(man_MANS)				\
 	$(noinst_DATA)				\
 	GNOME_TomboyApplet.server.in.in		\
 	$(dbusservice_in_files)				\
 	tomboy-note-clipboard-html.xsl		\
 	UIManagerLayout.xml		\
-	tomboy.xml
+	tomboy.xml				\
+	$(gsettings_SCHEMAS)
 
 
 DISTCLEANFILES = 				\
 	$(desktop_files)       			\
 	$(pkgconfig_DATA)			\
-	$(schemas_DATA)				\
 	$(server_in_files) 			\
 	$(server_DATA)				\
-	$(dbusservice_DATA)
+	$(dbusservice_DATA)			\
+	$(gsettings_SCHEMAS)
 
 install-data-hook:
 if ENABLE_UPDATE_MIMEDB
