@@ -206,7 +206,7 @@ namespace Tomboy
 				// Remove the tag from any bullets in the selection
 				Undoer.FreezeUndo ();
 				Gtk.TextIter iter;
-				for (int i = args.StartChar.Line; i <= args.EndChar.Line; i++) {
+				for (int i = args.Start.Line; i <= args.End.Line; i++) {
 					iter = GetIterAtLine(i);
 
 					if (FindDepthTag (iter) != null) {
@@ -219,9 +219,9 @@ namespace Tomboy
 			} else {
 				// Remove any existing tags when a depth tag is applied
 				Undoer.FreezeUndo ();
-				foreach (Gtk.TextTag tag in args.StartChar.Tags) {
+				foreach (Gtk.TextTag tag in args.Start.Tags) {
 					if (!(tag is DepthNoteTag)) {
-						RemoveTag (tag, args.StartChar, args.EndChar);
+						RemoveTag (tag, args.Start, args.End);
 					}
 				}
 				Undoer.ThawUndo ();
