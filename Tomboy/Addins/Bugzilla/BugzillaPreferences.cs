@@ -87,8 +87,8 @@ namespace Tomboy.Bugzilla
 			hbutton_box.Layout = Gtk.ButtonBoxStyle.Start;
 			hbutton_box.Spacing = 6;
 
-			hbutton_box.PackStart (add_button);
-			hbutton_box.PackStart (remove_button);
+			hbutton_box.PackStart (add_button, false, false, 0);
+			hbutton_box.PackStart (remove_button, false, false, 0);
 			PackStart (hbutton_box, false, false, 0);
 
 			ShowAll ();
