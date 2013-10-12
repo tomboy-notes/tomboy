@@ -727,8 +727,8 @@ namespace Tomboy
 			if (frozen_cnt == 0) {
 				if (NoteTagTable.TagIsUndoable (args.Tag)) {
 					AddUndoAction (new TagApplyAction (args.Tag,
-					                                   args.StartChar,
-					                                   args.EndChar));
+					                                   args.Start,
+					                                   args.End));
 				}
 			}
 		}
