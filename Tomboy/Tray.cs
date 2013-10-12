@@ -143,14 +143,15 @@ namespace Tomboy
 	public class TomboyTrayIcon : Gtk.StatusIcon, ITomboyTray
 	{
 		TomboyTray tray;
-		TomboyPrefsKeybinder keybinder;
+//		TomboyPrefsKeybinder keybinder;
 		Gtk.Menu context_menu;
 		Gtk.ImageMenuItem sync_menu_item;
 
 		public TomboyTrayIcon (NoteManager manager)
 		{
 			tray = new TomboyTray (manager, this);
-			//FIXME: Need to port to a keybinder that's not crazy.
+			//FIXME: Global hotkeys and C code are a no-no. We need to do this via central settings and Dbus, but for 
+			//       now we simply cut it.
 //			keybinder = new TomboyPrefsKeybinder (manager, this);
 			int panel_size = 22;
 			// Load Icon to display in the notification area.

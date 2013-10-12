@@ -72,9 +72,11 @@ namespace Tomboy
 			get {
 				// Initialize on-demand. XKeybinder must not be
 				// created too early.
-				if (keybinder == null)
-					keybinder = factory.CreateKeybinder ();
-				return keybinder;
+//				if (keybinder == null)
+//					keybinder = factory.CreateKeybinder ();
+//				return keybinder;
+				//FIXME: We no longer have keybinders, need to make a new one.
+				return new NullKeybinder ();
 			}
 		}
 	}
