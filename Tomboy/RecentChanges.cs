@@ -866,7 +866,8 @@ namespace Tomboy
 				if (tree.Selection.PathIsSelected (path) && (args.Event.State &
 						(Gdk.ModifierType.ControlMask | Gdk.ModifierType.ShiftMask)) == 0) {
 					if (column != null && args.Event.Button == 1) {
-						Gtk.CellRenderer renderer = column.CellRenderers [0];
+//						Gtk.CellRenderer renderer = column.CellRenderers [0];
+						Gtk.CellRenderer renderer = column.Cells[0];
 						Gdk.Rectangle background_area = tree.GetBackgroundArea (path, column);
 						Gdk.Rectangle cell_area = tree.GetCellArea (path, column);
 
