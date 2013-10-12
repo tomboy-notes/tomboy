@@ -2,6 +2,9 @@ using System;
 using System.Collections.Generic;
 using Mono.Unix;
 using System.Runtime.InteropServices;
+using Gtk;
+
+
 #if !WIN32 && !MAC
 using GtkBeans;
 #endif
@@ -156,7 +159,7 @@ namespace Tomboy
 			Pixbuf = GuiUtils.GetIcon ("tomboy-panel", panel_size) ??
 				GuiUtils.GetIcon ("tomboy", panel_size);
 
-			Tooltip = TomboyTrayUtils.GetToolTipText ();
+			this.TooltipText = TomboyTrayUtils.GetToolTipText ();
 
 			Visible = (bool) Preferences.Get (Preferences.ENABLE_TRAY_ICON);
 			Preferences.SettingChanged += (o, args) => {
