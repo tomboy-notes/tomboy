@@ -157,10 +157,10 @@ AC_SUBST(DBUS_LIBS)
 
 #
 # Check for Mono.Addins
-# 	Temporarily removed: mono-addins-gui >= 0.3 \
 #
-PKG_CHECK_MODULES(MONO_ADDINS, mono-addins >= 0.3 \
-	mono-addins-setup >= 0.3)
+PKG_CHECK_MODULES(MONO_ADDINS, mono-addins >= 1.0 \
+	mono-addins-gui-gtk3 >= 1.0 \
+	mono-addins-setup >= 1.0)
 
 #
 # Tomboy.exe needs Gtk# Gnome#
