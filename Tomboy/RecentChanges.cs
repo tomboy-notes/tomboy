@@ -148,7 +148,7 @@ namespace Tomboy
 			tree.Show ();
 
 			status_bar = new Gtk.Statusbar ();
-			status_bar.HasResizeGrip = true;
+			HasResizeGrip = true;
 			status_bar.Show ();
 
 			// Update on changes to notes
