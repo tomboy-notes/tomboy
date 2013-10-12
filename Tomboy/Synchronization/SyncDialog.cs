@@ -29,7 +29,7 @@ namespace Tomboy.Sync
 			progressBarTimeoutId = 0;
 
 			SetSizeRequest (400, -1);
-			HasSeparator = false;
+//			HasSeparator = false;
 
 			// Outer box. Surrounds all of our content.
 			VBox outerVBox = new VBox (false, 12);
