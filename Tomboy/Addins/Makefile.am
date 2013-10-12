@@ -2,7 +2,6 @@ SUBDIRS =				\
 	AdvancedPreferences	\
 	Backlinks			\
 	Bugzilla			\
-	Evolution		\
 	ExportToHtml			\
 	FileSystemSyncService	\
 	FixedWidth			\
@@ -19,4 +18,5 @@ SUBDIRS =				\
 	Underline		\
 	WebDavSyncService			\
 	WebSyncService
+#	Evolution		\ (FIXME: Temporarily removed!)
 
