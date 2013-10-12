@@ -223,7 +223,7 @@ namespace Tomboy
 			// Custom font...
 			Gtk.HBox font_box = new Gtk.HBox (false, 0);
 			check = MakeCheckButton (Catalog.GetString ("Use custom _font"));
-			font_box.PackStart (check);
+			font_box.PackStart (check, false, false, 0);
 
 			font_peditor =
 			        Services.Factory.CreatePropertyEditorToggleButton (Preferences.ENABLE_CUSTOM_FONT,
@@ -232,7 +232,7 @@ namespace Tomboy
 
 			font_button = MakeFontButton ();
 			font_button.Sensitive = check.Active;
-			font_box.PackStart (font_button);
+			font_box.PackStart (font_button, false, false, 0);
 			font_box.ShowAll ();
 			options_list.PackStart (font_box, false, false, 0);
 
@@ -241,7 +241,7 @@ namespace Tomboy
 			// Note renaming bahvior
 			Gtk.HBox rename_behavior_box = new Gtk.HBox (false, 0);
 			label = MakeLabel (Catalog.GetString ("When renaming a linked note: "));
-			rename_behavior_box.PackStart (label);
+			rename_behavior_box.PackStart (label, false, false, 0);
 			rename_behavior_combo = new Gtk.ComboBox (new string [] {
 				Catalog.GetString ("Ask me what to do"),
 				Catalog.GetString ("Never rename links"),
@@ -255,7 +255,7 @@ namespace Tomboy
 			rename_behavior_combo.Changed += (o, e) =>
 				Preferences.Set (Preferences.NOTE_RENAME_BEHAVIOR,
 				                 rename_behavior_combo.Active);
-			rename_behavior_box.PackStart (rename_behavior_combo);
+			rename_behavior_box.PackStart (rename_behavior_combo, false, false, 0);
 			rename_behavior_box.ShowAll ();
 			options_list.PackStart (rename_behavior_box, false, false, 0);
 			
@@ -535,9 +535,9 @@ namespace Tomboy
 			};
 			autosyncSpinner.ValueChanged += updateTimeoutPref;
 
-			autosyncBox.PackStart (autosyncCheck);
-			autosyncBox.PackStart (autosyncSpinner);
-			autosyncBox.PackStart (autosyncExtraText);
+			autosyncBox.PackStart (autosyncCheck, false, false, 0);
+			autosyncBox.PackStart (autosyncSpinner, false, false, 0);
+			autosyncBox.PackStart (autosyncExtraText, false, false, 0);
 			vbox.PackStart (autosyncBox, false, true, 0);
 
 			Gtk.HButtonBox bbox = new Gtk.HButtonBox ();
@@ -1018,9 +1018,9 @@ namespace Tomboy
 			Gtk.VBox vbox = new Gtk.VBox ();
 			vbox.BorderWidth = 18;
 
-			vbox.PackStart (promptOnConflictRadio);
-			vbox.PackStart (renameOnConflictRadio);
-			vbox.PackStart (overwriteOnConflictRadio);
+			vbox.PackStart (promptOnConflictRadio, false, false, 0);
+			vbox.PackStart (renameOnConflictRadio, false, false, 0);
+			vbox.PackStart (overwriteOnConflictRadio, false, false, 0);
 
 			advancedDlg.VBox.PackStart (label, false, false, 6);
 			advancedDlg.VBox.PackStart (vbox, false, false, 0);

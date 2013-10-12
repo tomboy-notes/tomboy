@@ -138,12 +138,12 @@ namespace Tomboy
 			notesButtonBox.LayoutStyle = ButtonBoxStyle.End;
 			var notesScroll = new ScrolledWindow ();
 			notesScroll.Add (notesView);
-			notesBox.PackStart (notesScroll);
+			notesBox.PackStart (notesScroll, false, false, 0);
 			notesBox.PackStart (notesButtonBox, false, true, 0);
 
 			var advancedExpander = new Expander (Catalog.GetString ("Ad_vanced"));
 			var expandBox = new VBox ();
-			expandBox.PackStart (notesBox);
+			expandBox.PackStart (notesBox, false, false, 0);
 			alwaysShowDlgRadio = new RadioButton (Catalog.GetString ("Always show this _window"));
 			alwaysShowDlgRadio.Clicked += (o, e) => {
 				selectAllButton.Click ();
