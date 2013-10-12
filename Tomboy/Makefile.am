@@ -49,7 +49,9 @@ GNOME_CSFILES =								\
 	$(srcdir)/GnomeFactory.cs					\
 	$(srcdir)/GnomeSession.cs					\
 	$(srcdir)/XKeybinder.cs						\
-	$(srcdir)/gtk-sharp-beans/*.cs
+	$(srcdir)/gtk-sharp-beans/*.cs					\
+	$(srcdir)/XmlPreferencesClient.cs
+#FIXME: temporary use of XmlPrefs before porting to gSettings
 
 if ENABLE_PANEL_APPLET
 PANEL_APPLET_CSFLAGS = -define:PANEL_APPLET
