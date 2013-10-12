@@ -58,7 +58,7 @@ namespace Tomboy
 		{
 			// Ensure Gtk# has the fix for BNC #555495
 			if (text_buffer_serialize_func_fixed) {
-				RegisterSerializeFormat ("text/html", (Gtk.TextBufferSerializeFunc) Delegate.CreateDelegate (typeof(Gtk.TextBufferSerializeFunc), this, "SerializeToHtml"));
+				RegisterSerializeFormat ("text/html", SerializeToHtml);
 			}
 
 			active_tags = new List<Gtk.TextTag> ();
@@ -92,10 +92,9 @@ namespace Tomboy
 			}
 		}
 
-		private byte [] SerializeToHtml (Gtk.TextBuffer register_buffer, Gtk.TextBuffer content_buffer, Gtk.TextIter start, Gtk.TextIter end, out ulong length)
+		private static byte [] SerializeToHtml (Gtk.TextBuffer register_buffer, Gtk.TextBuffer content_buffer, Gtk.TextIter start, Gtk.TextIter end)
 		{
 			if (start.Equals (end) || start.Equals (Gtk.TextIter.Zero) || end.Equals (Gtk.TextIter.Zero) || HtmlTransform == null) {
-				length = 0;
 				return new byte [0];
 			}
 
@@ -116,7 +115,6 @@ namespace Tomboy
 
 			string html = writer.ToString ();
 			byte [] bytes = System.Text.Encoding.UTF8.GetBytes (html);
-			length = (ulong)bytes.Length;
 			return bytes;
 		}
 
