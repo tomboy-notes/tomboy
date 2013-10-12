@@ -1022,8 +1022,8 @@ namespace Tomboy
 			vbox.PackStart (renameOnConflictRadio, false, false, 0);
 			vbox.PackStart (overwriteOnConflictRadio, false, false, 0);
 
-			advancedDlg.VBox.PackStart (label, false, false, 6);
-			advancedDlg.VBox.PackStart (vbox, false, false, 0);
+			advancedDlg.ContentArea.PackStart (label, false, false, 6);
+			advancedDlg.ContentArea.PackStart (vbox, false, false, 0);
 
 			advancedDlg.ShowAll ();
 
@@ -1315,7 +1315,7 @@ namespace Tomboy
 		        Gtk.Window parent)
 : base (info.Name,
 		        parent,
-		        Gtk.DialogFlags.DestroyWithParent | Gtk.DialogFlags.NoSeparator,
+		        Gtk.DialogFlags.DestroyWithParent, // | Gtk.DialogFlags.NoSeparator,
 		        Gtk.Stock.Close, Gtk.ResponseType.Close)
 		{
 			this.info = info;
@@ -1344,7 +1344,7 @@ namespace Tomboy
 
 			hbox.ShowAll ();
 
-			VBox.PackStart (hbox, true, true, 0);
+			ContentArea.PackStart (hbox, true, true, 0);
 
 			Fill ();
 		}

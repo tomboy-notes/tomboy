@@ -361,7 +361,7 @@ namespace Tomboy
 			Resizable = false;
 			Title = "";
 
-			VBox.Spacing = 12;
+			ContentArea.Spacing = 12;
 			ActionArea.Layout = Gtk.ButtonBoxStyle.End;
 
 			accel_group = new Gtk.AccelGroup ();
@@ -370,7 +370,7 @@ namespace Tomboy
 			Gtk.HBox hbox = new Gtk.HBox (false, 12);
 			hbox.BorderWidth = 5;
 			hbox.Show ();
-			VBox.PackStart (hbox, false, false, 0);
+			ContentArea.PackStart (hbox, false, false, 0);
 
 			switch (type) {
 			case Gtk.MessageType.Error:

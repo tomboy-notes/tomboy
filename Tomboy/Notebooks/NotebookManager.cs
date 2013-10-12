@@ -321,7 +321,8 @@ namespace Tomboy.Notebooks
 				new Notebooks.CreateNotebookDialog (parent,
 							Gtk.DialogFlags.Modal
 								| Gtk.DialogFlags.DestroyWithParent
-								| Gtk.DialogFlags.NoSeparator);
+//								| Gtk.DialogFlags.NoSeparator
+				                                    );
 			
 			
 			int response = dialog.Run ();
