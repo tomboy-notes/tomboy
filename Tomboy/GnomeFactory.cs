@@ -13,7 +13,7 @@ namespace Tomboy
 		        string key, Gtk.CheckButton sourceButton)
 		{
 			//Think this should work since it references the global client
-			return new PropertyEditorBool (key);
+			return new PropertyEditorToggleButton (key, sourceButton);
 		}
 
 		public IPreferencesClient CreatePreferencesClient ()
