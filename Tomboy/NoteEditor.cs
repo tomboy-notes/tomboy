@@ -18,9 +18,10 @@ namespace Tomboy
 			RightMargin = DefaultMargin;
 			CanDefault = true;
 
+			//FIXME: This no longer works since GNOME has moved to GSettings
 			//Set up the GConf client to watch the default document font
-			Preferences.Client.AddNotify (DESKTOP_GNOME_INTERFACE_PATH,
-			                              OnFontSettingChanged);
+//			Preferences.Client.AddNotify (DESKTOP_GNOME_INTERFACE_PATH,
+//			                              OnFontSettingChanged);
 
 			// Make sure the cursor position is visible
 			ScrollMarkOnscreen (buffer.InsertMark);

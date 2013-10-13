@@ -36,23 +36,16 @@ namespace Tomboy
 
 		private void handleChanges (object o, ChangedArgs args)
 		{
-			string dir = stripDir (args.Key);
-			if (events.ContainsKey (dir)) {
-				NotifyEventHandler handler = events [dir] as NotifyEventHandler;
-				NotifyEventArgs notify_args = new NotifyEventArgs (dir, Get (args.Key));
+			if (events.ContainsKey ("/apps/tomboy")) {
+				NotifyEventHandler handler = events ["/apps/tomboy"] as NotifyEventHandler;
+				NotifyEventArgs notify_args = new NotifyEventArgs (args.Key, Get (args.Key));
 				handler (this, notify_args);
 			}
 		}
 
-		private string stripKey (string key)
+		private static string stripKey (string key)
 		{
 			return key.Substring (key.LastIndexOf ('/') + 1).Replace ('_', '-');
-		}
-
-		private string stripDir (string key)
-		{
-			Logger.Debug ("StripDir: Stripping key by name {0}.", key);
-			return key.Substring (0, key.LastIndexOf ('/'));
 		}
 
 		#region IPreferencesClient implementation
@@ -192,96 +185,94 @@ namespace Tomboy
 
 		public object Get (string key)
 		{
-			switch (key)
-			{
+			key = stripKey (key);
 				//Booleans from core Tomboy
-				case Preferences.ENABLE_SPELLCHECKING:
-					return settings_core.GetBoolean (stripKey (key));
-				case Preferences.ENABLE_WIKIWORDS:
-					return settings_core.GetBoolean (stripKey (key));
-				case Preferences.ENABLE_CUSTOM_FONT:
-					return settings_core.GetBoolean (stripKey (key));
-				case Preferences.ENABLE_KEYBINDINGS:
-					return settings_core.GetBoolean (stripKey (key));
-				case Preferences.ENABLE_STARTUP_NOTES:
-					return settings_core.GetBoolean (stripKey (key));
-				case Preferences.ENABLE_AUTO_BULLETED_LISTS:
-					return settings_core.GetBoolean (stripKey (key));
-				case Preferences.ENABLE_ICON_PASTE:
-					return settings_core.GetBoolean (stripKey (key));
-				case Preferences.ENABLE_CLOSE_NOTE_ON_ESCAPE:
-					return settings_core.GetBoolean (stripKey (key));
-				case Preferences.ENABLE_TRAY_ICON:
-					return settings_core.GetBoolean (stripKey (key));
-				case Preferences.ENABLE_DELETE_CONFIRM:
-					return settings_core.GetBoolean (stripKey (key));
+				if (key == stripKey (Preferences.ENABLE_SPELLCHECKING))
+					return settings_core.GetBoolean (key);
+				if (key == stripKey (Preferences.ENABLE_WIKIWORDS))
+					return settings_core.GetBoolean (key);
+				if (key == stripKey (Preferences.ENABLE_CUSTOM_FONT))
+					return settings_core.GetBoolean (key);
+				if (key == stripKey (Preferences.ENABLE_KEYBINDINGS))
+					return settings_core.GetBoolean (key);
+				if (key == stripKey (Preferences.ENABLE_STARTUP_NOTES))
+					return settings_core.GetBoolean (key);
+				if (key == stripKey (Preferences.ENABLE_AUTO_BULLETED_LISTS))
+					return settings_core.GetBoolean (key);
+				if (key == stripKey (Preferences.ENABLE_ICON_PASTE))
+					return settings_core.GetBoolean (key);
+				if (key == stripKey (Preferences.ENABLE_CLOSE_NOTE_ON_ESCAPE))
+					return settings_core.GetBoolean (key);
+				if (key == stripKey (Preferences.ENABLE_TRAY_ICON))
+					return settings_core.GetBoolean (key);
+				if (key == stripKey (Preferences.ENABLE_DELETE_CONFIRM))
+					return settings_core.GetBoolean (key);
 				//Other types from core
-				case Preferences.START_NOTE_URI:
-					return settings_core.GetString (stripKey (key));
-				case Preferences.CUSTOM_FONT_FACE:
-					return settings_core.GetString (stripKey (key));
-				case Preferences.MENU_NOTE_COUNT:
-					return settings_core.GetInt (stripKey (key));
-				case Preferences.MENU_MAX_NOTE_COUNT:
-					return settings_core.GetInt (stripKey (key));
-				case Preferences.MENU_PINNED_NOTES:
-					return settings_core.GetString (stripKey (key));
-				case Preferences.MENU_ITEM_MAX_LENGTH:
-					return settings_core.GetInt (stripKey (key));
-				case Preferences.NOTE_RENAME_BEHAVIOR:
-					return settings_core.GetInt (stripKey (key));
+				if (key == stripKey (Preferences.START_NOTE_URI))
+					return settings_core.GetString (key);
+				if (key == stripKey (Preferences.CUSTOM_FONT_FACE))
+					return settings_core.GetString (key);
+				if (key == stripKey (Preferences.MENU_NOTE_COUNT))
+					return settings_core.GetInt (key);
+				if (key == stripKey (Preferences.MENU_MAX_NOTE_COUNT))
+					return settings_core.GetInt (key);
+				if (key == stripKey (Preferences.MENU_PINNED_NOTES))
+					return settings_core.GetString (key);
+				if (key == stripKey (Preferences.MENU_ITEM_MAX_LENGTH))
+					return settings_core.GetInt (key);
+				if (key == stripKey (Preferences.NOTE_RENAME_BEHAVIOR))
+					return settings_core.GetInt (key);
 				//Window position for search window (are these still respected on GNOME3?)
-				case Preferences.SEARCH_WINDOW_X_POS:
-					return settings_core.GetInt (stripKey (key));
-				case Preferences.SEARCH_WINDOW_Y_POS:
-					return settings_core.GetInt (stripKey (key));
-				case Preferences.SEARCH_WINDOW_WIDTH:
-					return settings_core.GetInt (stripKey (key));
-				case Preferences.SEARCH_WINDOW_HEIGHT:
-					return settings_core.GetInt (stripKey (key));
-				case Preferences.SEARCH_WINDOW_SPLITTER_POS:
-					return settings_core.GetInt (stripKey (key));
-				case Preferences.SEARCH_WINDOW_MONITOR_NUM:
-					return settings_core.GetInt (stripKey (key));
+				if (key == stripKey (Preferences.SEARCH_WINDOW_X_POS))
+					return settings_core.GetInt (key);
+				if (key == stripKey (Preferences.SEARCH_WINDOW_Y_POS))
+					return settings_core.GetInt (key);
+				if (key == stripKey (Preferences.SEARCH_WINDOW_WIDTH))
+					return settings_core.GetInt (key);
+				if (key == stripKey (Preferences.SEARCH_WINDOW_HEIGHT))
+					return settings_core.GetInt (key);
+				if (key == stripKey (Preferences.SEARCH_WINDOW_SPLITTER_POS))
+					return settings_core.GetInt (key);
+				if (key == stripKey (Preferences.SEARCH_WINDOW_MONITOR_NUM))
+					return settings_core.GetInt (key);
 				//Keybindings
-				case Preferences.KEYBINDING_SHOW_NOTE_MENU:
-					return settings_keybindings.GetString (stripKey (key));
-				case Preferences.KEYBINDING_OPEN_START_HERE:
-					return settings_keybindings.GetString (stripKey (key));
-				case Preferences.KEYBINDING_CREATE_NEW_NOTE:
-					return settings_keybindings.GetString (stripKey (key));
-				case Preferences.KEYBINDING_OPEN_SEARCH:
-					return settings_keybindings.GetString (stripKey (key));
-				case Preferences.KEYBINDING_OPEN_RECENT_CHANGES:
-					return settings_keybindings.GetString (stripKey (key));
+				if (key == stripKey (Preferences.KEYBINDING_SHOW_NOTE_MENU))
+					return settings_keybindings.GetString (key);
+				if (key == stripKey (Preferences.KEYBINDING_OPEN_START_HERE))
+					return settings_keybindings.GetString (key);
+				if (key == stripKey (Preferences.KEYBINDING_CREATE_NEW_NOTE))
+					return settings_keybindings.GetString (key);
+				if (key == stripKey (Preferences.KEYBINDING_OPEN_SEARCH))
+					return settings_keybindings.GetString (key);
+				if (key == stripKey (Preferences.KEYBINDING_OPEN_RECENT_CHANGES))
+					return settings_keybindings.GetString (key);
 				//Export to HTML
-				case Preferences.EXPORTHTML_LAST_DIRECTORY:
-					return settings_exporthtml.GetString (stripKey (key));
-				case Preferences.EXPORTHTML_EXPORT_LINKED:
-					return settings_exporthtml.GetBoolean (stripKey (key));
-				case Preferences.EXPORTHTML_EXPORT_LINKED_ALL:
-					return settings_exporthtml.GetBoolean (stripKey (key));
+				if (key == stripKey (Preferences.EXPORTHTML_LAST_DIRECTORY))
+					return settings_exporthtml.GetString (key);
+				if (key == stripKey (Preferences.EXPORTHTML_EXPORT_LINKED))
+					return settings_exporthtml.GetBoolean (key);
+				if (key == stripKey (Preferences.EXPORTHTML_EXPORT_LINKED_ALL))
+					return settings_exporthtml.GetBoolean (key);
 				//Sticky note importer
-				case Preferences.STICKYNOTEIMPORTER_FIRST_RUN:
-					return settings_stickynoteimport.GetBoolean (stripKey (key));
+				if (key == stripKey (Preferences.STICKYNOTEIMPORTER_FIRST_RUN))
+					return settings_stickynoteimport.GetBoolean (key);
 					//Sync
-				case Preferences.SYNC_CLIENT_ID:
-					return settings_sync.GetString (stripKey (key));
-				case Preferences.SYNC_LOCAL_PATH:
-					return settings_sync.GetString (stripKey (key));
-				case Preferences.SYNC_SELECTED_SERVICE_ADDIN:
-					return settings_sync.GetString (stripKey (key));
-				case Preferences.SYNC_CONFIGURED_CONFLICT_BEHAVIOR:
-					return settings_sync.GetInt(stripKey (key));
-				case Preferences.SYNC_AUTOSYNC_TIMEOUT:
-					return settings_sync.GetInt(stripKey (key));
+				if (key == stripKey (Preferences.SYNC_CLIENT_ID))
+					return settings_sync.GetString (key);
+				if (key == stripKey (Preferences.SYNC_LOCAL_PATH))
+					return settings_sync.GetString (key);
+				if (key == stripKey (Preferences.SYNC_SELECTED_SERVICE_ADDIN))
+					return settings_sync.GetString (key);
+				if (key == stripKey (Preferences.SYNC_CONFIGURED_CONFLICT_BEHAVIOR))
+					return settings_sync.GetInt(key);
+				if (key == stripKey (Preferences.SYNC_AUTOSYNC_TIMEOUT))
+					return settings_sync.GetInt(key);
 				//Insert timestamp
-				case Preferences.INSERT_TIMESTAMP_FORMAT:
-					return settings_inserttimestamp.GetString (stripKey (key));
+				if (key == stripKey (Preferences.INSERT_TIMESTAMP_FORMAT))
+					return settings_inserttimestamp.GetString (key);
 				
-				default:
-					throw new NoSuchKeyException (key);
-			}
+				throw new NoSuchKeyException (key);
+			
 		}
 
 		public void AddNotify (string dir, NotifyEventHandler notify)
