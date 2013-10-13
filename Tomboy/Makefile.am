@@ -50,8 +50,9 @@ GNOME_CSFILES =								\
 	$(srcdir)/GnomeSession.cs					\
 	$(srcdir)/XKeybinder.cs						\
 	$(srcdir)/gtk-sharp-beans/*.cs					\
+	$(srcdir)/GSettingsPreferencesClient.cs				\
 	$(srcdir)/XmlPreferencesClient.cs
-#FIXME: temporary use of XmlPrefs before porting to gSettings
+#XmlPrefs is not used, but we want the PrefEditor. (Should refactor)
 
 if ENABLE_PANEL_APPLET
 PANEL_APPLET_CSFLAGS = -define:PANEL_APPLET
