@@ -2,7 +2,6 @@ SUBDIRS =				\
 	AdvancedPreferences	\
 	Backlinks			\
 	Bugzilla			\
-	Evolution		\
 	ExportToHtml			\
 	FileSystemSyncService	\
 	FixedWidth			\
