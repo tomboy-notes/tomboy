@@ -55,12 +55,12 @@ namespace Tomboy.InsertTimestamp {
 				"or use your own."));
 			label.Wrap = true;
 			label.Xalign = 0;
-			PackStart (label);
+			PackStart (label, false, false, 0);
 
 			// Use Selected Format
 			selected_radio = new Gtk.RadioButton (Catalog.GetString (
 				"Use _Selected Format"));
-			PackStart (selected_radio);
+			PackStart (selected_radio, false, false, 0);
 
 			// 1st column (visible): formatted date
 			// 2nd column (not visible): date format
@@ -71,7 +71,7 @@ namespace Tomboy.InsertTimestamp {
 
 			scroll = new Gtk.ScrolledWindow();
 			scroll.ShadowType = Gtk.ShadowType.In;
-			PackStart (scroll);
+			PackStart (scroll, false, false, 0);
 
 			tv = new Gtk.TreeView (store);
 			tv.HeadersVisible = false;
@@ -81,14 +81,14 @@ namespace Tomboy.InsertTimestamp {
 
 			// Use Custom Format
 			Gtk.HBox customBox = new Gtk.HBox (false, 12);
-			PackStart (customBox);
+			PackStart (customBox, false, false, 0);
 
 			custom_radio = new Gtk.RadioButton (
 				selected_radio, Catalog.GetString ("_Use Custom Format"));
-			customBox.PackStart (custom_radio);
+			customBox.PackStart (custom_radio, false, false, 0);
 
 			custom_entry = new Gtk.Entry ();
-			customBox.PackStart (custom_entry);
+			customBox.PackStart (custom_entry, false, false, 0);
 
 			IPropertyEditor entryEditor = Services.Factory.CreatePropertyEditorEntry (
 				Preferences.INSERT_TIMESTAMP_FORMAT, custom_entry);
@@ -154,7 +154,7 @@ namespace Tomboy.InsertTimestamp {
 		/// </summary>
 		void OnSelectionChanged (object sender, EventArgs args)
 		{
-			Gtk.TreeModel model;
+			Gtk.ITreeModel model;
 			Gtk.TreeIter iter;
 
 			if (((Gtk.TreeSelection) sender).GetSelected (out model, 

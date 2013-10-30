@@ -9,8 +9,7 @@ ASSEMBLIES = 					\
 	$(LINK_TOMBOY_EXE)			\
 	$(GTKSHARP_LIBS) 				\
 	$(LINK_MONO_ADDINS)			\
-	-r:Mono.Posix				\
-	-r:Mono.Cairo
+	-r:Mono.Posix
 
 ADDIN_NAME = PrintNotes
 TARGET = $(top_builddir)/bin/addins/$(ADDIN_NAME).dll

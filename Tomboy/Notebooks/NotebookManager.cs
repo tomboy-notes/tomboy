@@ -61,7 +61,7 @@ namespace Tomboy.Notebooks
 		#endregion // Constructors
 		
 		#region Properties
-		public static Gtk.TreeModel Notebooks
+		public static Gtk.ITreeModel Notebooks
 		{
 			get {
 				return filteredNotebooks;
@@ -69,7 +69,7 @@ namespace Tomboy.Notebooks
 		}
 		
 		/// <summary>
-		/// A Gtk.TreeModel that contains all of the items in the
+		/// A Gtk.ITreeModel that contains all of the items in the
 		/// NotebookManager TreeStore including SpecialNotebooks
 		/// which are used in the "Search All Notes" window.
 		/// </summary>
@@ -79,7 +79,7 @@ namespace Tomboy.Notebooks
 		/// <returns>
 		/// A <see cref="Notebook"/>
 		/// </returns>
-		public static Gtk.TreeModel NotebooksWithSpecialItems
+		public static Gtk.ITreeModel NotebooksWithSpecialItems
 		{
 			get {
 				return sortedNotebooks;
@@ -321,7 +321,8 @@ namespace Tomboy.Notebooks
 				new Notebooks.CreateNotebookDialog (parent,
 							Gtk.DialogFlags.Modal
 								| Gtk.DialogFlags.DestroyWithParent
-								| Gtk.DialogFlags.NoSeparator);
+//								| Gtk.DialogFlags.NoSeparator
+				                                    );
 			
 			
 			int response = dialog.Run ();
@@ -446,7 +447,7 @@ namespace Tomboy.Notebooks
 		#endregion // Public Methods
 		
 		#region Private Methods
-		static int CompareNotebooksSortFunc (Gtk.TreeModel model,
+		static int CompareNotebooksSortFunc (Gtk.ITreeModel model,
 											 Gtk.TreeIter a,
 											 Gtk.TreeIter b)
 		{
@@ -497,7 +498,7 @@ namespace Tomboy.Notebooks
 	        /// <summary>
 	        /// Filter out SpecialNotebooks from the model
 	        /// </summary>
-	        static bool FilterNotebooks (Gtk.TreeModel model, Gtk.TreeIter iter)
+	        static bool FilterNotebooks (Gtk.ITreeModel model, Gtk.TreeIter iter)
 	        {
 	        	Notebook notebook = model.GetValue (iter, 0) as Notebook;
 	        	if (notebook == null || notebook is SpecialNotebook)

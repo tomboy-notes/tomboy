@@ -45,16 +45,14 @@ PANELAPPLET_CSFILES =					\
 	$(srcdir)/Applet.cs
 
 GNOME_CSFILES =								\
-	$(srcdir)/GConf.PropertyEditors/PropertyEditor.cs		\
-	$(srcdir)/GConf.PropertyEditors/PropertyEditorBool.cs		\
-	$(srcdir)/GConf.PropertyEditors/PropertyEditorEntry.cs		\
-	$(srcdir)/GConf.PropertyEditors/PropertyEditorToggleButton.cs	\
-	$(srcdir)/GConfPreferencesClient.cs				\
 	$(srcdir)/GnomeApplication.cs					\
 	$(srcdir)/GnomeFactory.cs					\
 	$(srcdir)/GnomeSession.cs					\
 	$(srcdir)/XKeybinder.cs						\
-	$(srcdir)/gtk-sharp-beans/*.cs
+	$(srcdir)/gtk-sharp-beans/*.cs					\
+	$(srcdir)/GSettingsPreferencesClient.cs				\
+	$(srcdir)/XmlPreferencesClient.cs
+#XmlPrefs is not used, but we want the PrefEditor. (Should refactor)
 
 if ENABLE_PANEL_APPLET
 PANEL_APPLET_CSFLAGS = -define:PANEL_APPLET
@@ -69,10 +67,6 @@ endif
 
 if FIXED_GTKSPELL
 FIXED_GTKSPELL_CSFLAGS = -define:FIXED_GTKSPELL
-endif
-
-if HAS_GTK_2_16
-HAS_GTK_2_16_FLAGS = -define:HAS_GTK_2_16
 endif
 
 CSFLAGS = 				\
@@ -99,6 +93,7 @@ CSFILES = 					\
 	$(srcdir)/ApplicationAddin.cs		\
 	$(srcdir)/Contrast.cs		\
 	$(srcdir)/ExportAllApplicationAddin.cs		\
+	$(srcdir)/Gtk.Extensions.cs	\
 	$(srcdir)/Keybinder.cs			\
 	$(srcdir)/Logger.cs			\
 	$(srcdir)/NativeApplication.cs		\

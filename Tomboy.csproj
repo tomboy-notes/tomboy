@@ -7,7 +7,6 @@
     <ProjectGuid>{315DBB30-1461-4A41-A23F-A888D84E1EA0}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AssemblyName>Tomboy</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
@@ -30,6 +29,7 @@
     <BootstrapperEnabled>true</BootstrapperEnabled>
     <ApplicationIcon>data\icons\tomboy.ico</ApplicationIcon>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -73,12 +73,9 @@
     <DebugType>full</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="atk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
-    <Reference Include="gdk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
-    <Reference Include="glib-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
-    <Reference Include="gtk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
     <Reference Include="ICSharpCode.SharpZipLib">
       <HintPath>winbin\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
@@ -88,16 +85,9 @@
     <Reference Include="Mono.Addins.CecilReflector">
       <HintPath>winbin\Mono.Addins.CecilReflector.dll</HintPath>
     </Reference>
-    <Reference Include="Mono.Addins.Gui">
-      <HintPath>winbin\Mono.Addins.Gui.dll</HintPath>
-    </Reference>
     <Reference Include="Mono.Addins.Setup">
       <HintPath>winbin\Mono.Addins.Setup.dll</HintPath>
     </Reference>
-    <Reference Include="Mono.Posix">
-      <HintPath>winbin\Mono.Posix.dll</HintPath>
-    </Reference>
-    <Reference Include="pango-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
@@ -107,7 +97,32 @@
     <Reference Include="System.Runtime.Remoting" />
     <Reference Include="System.Xml" />
     <Reference Include="System" />
-    <Reference Include="Mono.Cairo" />
+    <Reference Include="gtk-sharp, Version=3.0.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
+      <Private>False</Private>
+      <Package>gtk-sharp-3.0</Package>
+    </Reference>
+    <Reference Include="atk-sharp, Version=3.0.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
+      <Package>gtk-sharp-3.0</Package>
+    </Reference>
+    <Reference Include="gdk-sharp, Version=3.0.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
+      <Package>gtk-sharp-3.0</Package>
+    </Reference>
+    <Reference Include="glib-sharp, Version=3.0.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
+      <Package>glib-sharp-3.0</Package>
+    </Reference>
+    <Reference Include="pango-sharp, Version=3.0.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
+      <Package>gtk-sharp-3.0</Package>
+    </Reference>
+    <Reference Include="Mono.Addins.GuiGtk3">
+      <HintPath>winbin\Mono.Addins.GuiGtk3.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Posix">
+      <HintPath>winbin\Mono.Posix.dll</HintPath>
+    </Reference>
+    <Reference Include="cairo-sharp, Version=1.10.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756">
+      <Private>False</Private>
+      <Package>gtk-sharp-3.0</Package>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Tomboy\ActionManager.cs" />
@@ -179,6 +194,7 @@
     <Compile Include="Tomboy\WindowsApplication.cs" />
     <Compile Include="Tomboy\XmlPreferencesClient.cs" />
     <None Include="COPYING" />
+    <Compile Include="Tomboy\Gtk.Extensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
@@ -216,17 +232,16 @@
     <None Include="Tomboy\Defines.cs.in" />
   </ItemGroup>
   <ItemGroup>
-    <JumpListIcons Include="data\icons\tomboy.ico;data\icons\new_note.ico;data\icons\note.ico;data\icons\search.ico" />
+    <JumpListIcons Include="data\icons\tomboy.ico%3Bdata\icons\new_note.ico%3Bdata\icons\note.ico%3Bdata\icons\search.ico" />
   </ItemGroup>
   <ItemGroup>
-    <BinaryContent Include="winbin\MonoPosixHelper.dll;winbin\Mono.Addins.dll.config" />
+    <BinaryContent Include="winbin\MonoPosixHelper.dll%3Bwinbin\Mono.Addins.dll.config" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <MonoDevelop>
-      <Properties xmlns="">
-        <GtkDesignInfo gtkVersion="2.10.3" />
-        <MonoDevelop.Autotools.MakefileInfo IntegrationEnabled="true" RelativeMakefileName="./Makefile.am" ExecuteTargetName="run">
+      <Properties>
+        <MonoDevelop.Autotools.MakefileInfo IntegrationEnabled="True" RelativeMakefileName="./Makefile.am" ExecuteTargetName="run">
           <BuildFilesVar />
           <DeployFilesVar />
           <ResourcesVar />

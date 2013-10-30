@@ -55,7 +55,7 @@ namespace Tomboy
 
 			// Unhighlight the parent
 			if (menu.AttachWidget != null)
-				menu.AttachWidget.State = Gtk.StateType.Normal;
+				menu.AttachWidget.SetStateFlags (Gtk.StateFlags.Normal, true);
 		}
 
 		// Place the menu underneath an arbitrary parent widget.  The
@@ -86,7 +86,7 @@ namespace Tomboy
 
 			// Highlight the parent
 			if (menu.AttachWidget != null)
-				menu.AttachWidget.State = Gtk.StateType.Selected;
+				menu.AttachWidget.SetStateFlags (Gtk.StateFlags.Selected, true);
 
 #if WIN32
 			BringToForeground ();
@@ -356,12 +356,12 @@ namespace Tomboy
 		                         string          msg)
 : base ()
 		{
-			HasSeparator = false;
+//			HasSeparator = false;
 			BorderWidth = 5;
 			Resizable = false;
 			Title = "";
 
-			VBox.Spacing = 12;
+			ContentArea.Spacing = 12;
 			ActionArea.Layout = Gtk.ButtonBoxStyle.End;
 
 			accel_group = new Gtk.AccelGroup ();
@@ -370,7 +370,7 @@ namespace Tomboy
 			Gtk.HBox hbox = new Gtk.HBox (false, 12);
 			hbox.BorderWidth = 5;
 			hbox.Show ();
-			VBox.PackStart (hbox, false, false, 0);
+			ContentArea.PackStart (hbox, false, false, 0);
 
 			switch (type) {
 			case Gtk.MessageType.Error:

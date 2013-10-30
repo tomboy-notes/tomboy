@@ -13,7 +13,6 @@ namespace Tomboy
 
 		Gtk.AccelGroup accel_group;
 		Gtk.Toolbar toolbar;
-		Gtk.Tooltips toolbar_tips;
 		Gtk.ToolButton link_button;
 		NoteTextMenu text_menu;
 		Gtk.Menu plugin_menu;
@@ -432,9 +431,8 @@ namespace Tomboy
 		Gtk.Toolbar MakeToolbar ()
 		{
 			Gtk.Toolbar tb = new Gtk.Toolbar ();
-			tb.Tooltips = true;
+			tb.HasTooltip = true;
 
-			toolbar_tips = new Gtk.Tooltips ();
 
 			Gtk.ToolButton search = new Gtk.ToolButton (
 				new Gtk.Image (Gtk.Stock.Find, tb.IconSize),
@@ -442,7 +440,8 @@ namespace Tomboy
 			search.IsImportant = true;
 			search.Clicked += SearchActivate;
 			// TODO: If we ever add a way to customize internal keybindings, this will need to change
-			toolbar_tips.SetTip (search, Catalog.GetString ("Search your notes") + " (Ctrl-Shift-F)", null);
+			tb.TooltipText = Catalog.GetString ("Search your notes") + " (Ctrl-Shift-F)";
+
 			search.AddAccelerator ("clicked",
 			                       accel_group,
 			                       (uint) Gdk.Key.f,
@@ -458,11 +457,8 @@ namespace Tomboy
 			link_button.IsImportant = true;
 			link_button.Sensitive = (note.Buffer.Selection != null);
 			link_button.Clicked += LinkToNoteActivate;
-			// TODO: If we ever add a way to customize internal keybindings, this will need to change
-			toolbar_tips.SetTip (
-				link_button,
-				Catalog.GetString ("Link selected text to a new note") + " (Ctrl-L)",
-				null);
+			link_button.TooltipText = Catalog.GetString ("Link selected text to a new note") + " (Ctrl-L)";
+
 			link_button.AddAccelerator ("clicked",
 			                            accel_group,
 			                            (uint) Gdk.Key.l,
@@ -479,7 +475,7 @@ namespace Tomboy
 			text_button.IsImportant = true;
 			text_button.ShowAll ();
 			tb.Insert (text_button, -1);
-			toolbar_tips.SetTip (text_button, Catalog.GetString ("Set properties of text"), null);
+			text_button.TooltipText = Catalog.GetString ("Set properties of text");
 
 			ToolMenuButton plugin_button =
 			        new ToolMenuButton (tb,
@@ -488,7 +484,7 @@ namespace Tomboy
 			                            plugin_menu);
 			plugin_button.ShowAll ();
 			tb.Insert (plugin_button, -1);
-			toolbar_tips.SetTip (plugin_button, Catalog.GetString ("Use tools on this note"), null);
+			plugin_button.TooltipText = Catalog.GetString ("Use tools on this note");
 
 			tb.Insert (new Gtk.SeparatorToolItem (), -1);
 
@@ -496,7 +492,7 @@ namespace Tomboy
 			delete.Clicked += OnDeleteButtonClicked;
 			delete.ShowAll ();
 			tb.Insert (delete, -1);
-			toolbar_tips.SetTip (delete, Catalog.GetString ("Delete this note"), null);
+			delete.TooltipText = Catalog.GetString ("Delete this note");
 
 			// Don't allow deleting the "Start Here" note...
 			if (note.IsSpecial)
@@ -600,11 +596,11 @@ namespace Tomboy
 					note.RemoveTag (template_save_title_tag);
 			};
 
-			bar.PackStart (infoLabel);
-			bar.PackStart (untemplateButton);
-			bar.PackStart (saveSizeCheckbutton);
-			bar.PackStart (saveSelectionCheckbutton);
-			bar.PackStart (saveTitleCheckbutton);
+			bar.PackStart (infoLabel, true, true, 0);
+			bar.PackStart (untemplateButton, true, true, 0);
+			bar.PackStart (saveSizeCheckbutton, true, true, 0);
+			bar.PackStart (saveSelectionCheckbutton, true, true, 0);
+			bar.PackStart (saveTitleCheckbutton, true, true, 0);
 
 			if (note.ContainsTag (template_tag))
 				bar.ShowAll ();
@@ -616,7 +612,7 @@ namespace Tomboy
 
 			note.TagRemoved += delegate (Note taggedNote, string tag) {
 				if (taggedNote == note && tag == template_tag.NormalizedName)
-					bar.HideAll ();
+					bar.Hide ();
 			};
 
 			return bar;

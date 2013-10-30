@@ -684,8 +684,8 @@ namespace Tomboy
 		{
 			if (frozen_cnt == 0) {
 				InsertAction action = new InsertAction (args.Pos,
-				                                        args.Text,
-				                                        args.Text.Length,
+				                                        args.NewText,
+				                                        args.NewTextLength,
 				                                        chop_buffer);
 
 				/*
@@ -727,8 +727,8 @@ namespace Tomboy
 			if (frozen_cnt == 0) {
 				if (NoteTagTable.TagIsUndoable (args.Tag)) {
 					AddUndoAction (new TagApplyAction (args.Tag,
-					                                   args.StartChar,
-					                                   args.EndChar));
+					                                   args.Start,
+					                                   args.End));
 				}
 			}
 		}

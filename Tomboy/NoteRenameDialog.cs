@@ -47,7 +47,8 @@ namespace Tomboy
 		private RadioButton alwaysRenameRadio;
 
 		public NoteRenameDialog (IList<Note> notes, string oldTitle, Note renamedNote) :
-			base (Catalog.GetString ("Rename Note Links?"), renamedNote.Window, DialogFlags.NoSeparator)
+			base (Catalog.GetString ("Rename Note Links?"), renamedNote.Window, DialogFlags.DestroyWithParent)
+			//USed to set flag NoSeperator, but that no longer exists
 		{
 			this.DefaultResponse = ResponseType.Cancel;
 			this.BorderWidth = 10;
@@ -74,7 +75,7 @@ namespace Tomboy
 			                              GLib.Markup.EscapeText (oldTitle),
 			                              GLib.Markup.EscapeText (renamedNote.Title));
 			label.LineWrap = true;
-			VBox.PackStart (label, false, true, 5);
+			ContentArea.PackStart (label, false, true, 5);
 
 			var notesView = new TreeView (notesModel);
 			notesView.SetSizeRequest (-1, 200);
@@ -138,12 +139,12 @@ namespace Tomboy
 			notesButtonBox.LayoutStyle = ButtonBoxStyle.End;
 			var notesScroll = new ScrolledWindow ();
 			notesScroll.Add (notesView);
-			notesBox.PackStart (notesScroll);
+			notesBox.PackStart (notesScroll, false, false, 0);
 			notesBox.PackStart (notesButtonBox, false, true, 0);
 
 			var advancedExpander = new Expander (Catalog.GetString ("Ad_vanced"));
 			var expandBox = new VBox ();
-			expandBox.PackStart (notesBox);
+			expandBox.PackStart (notesBox, false, false, 0);
 			alwaysShowDlgRadio = new RadioButton (Catalog.GetString ("Always show this _window"));
 			alwaysShowDlgRadio.Clicked += (o, e) => {
 				selectAllButton.Click ();
@@ -171,13 +172,13 @@ namespace Tomboy
 			expandBox.PackStart (neverRenameRadio, false, true, 0);
 			expandBox.PackStart (alwaysRenameRadio, false, true, 0);
 			advancedExpander.Add (expandBox);
-			VBox.PackStart (advancedExpander, true, true, 5);
+			ContentArea.PackStart (advancedExpander, true, true, 5);
 
 			advancedExpander.Activated += (o, e) =>
 				this.Resizable = advancedExpander.Expanded;
 
 			this.Focus = dontRenameButton;
-			VBox.ShowAll ();
+			ContentArea.ShowAll ();
 		}
 
 		public Dictionary<Note, bool> Notes

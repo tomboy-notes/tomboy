@@ -26,8 +26,7 @@ namespace Tomboy
 		Gtk.Button font_button;
 		Gtk.Label font_face;
 		Gtk.Label font_size;
-
-		Mono.Addins.Gui.AddinTreeWidget addin_tree;
+		Mono.Addins.GuiGtk3.AddinTreeWidget addin_tree;
 
 		Gtk.Button enable_addin_button;
 		Gtk.Button disable_addin_button;
@@ -223,7 +222,7 @@ namespace Tomboy
 			// Custom font...
 			Gtk.HBox font_box = new Gtk.HBox (false, 0);
 			check = MakeCheckButton (Catalog.GetString ("Use custom _font"));
-			font_box.PackStart (check);
+			font_box.PackStart (check, false, false, 0);
 
 			font_peditor =
 			        Services.Factory.CreatePropertyEditorToggleButton (Preferences.ENABLE_CUSTOM_FONT,
@@ -232,7 +231,7 @@ namespace Tomboy
 
 			font_button = MakeFontButton ();
 			font_button.Sensitive = check.Active;
-			font_box.PackStart (font_button);
+			font_box.PackStart (font_button, false, false, 0);
 			font_box.ShowAll ();
 			options_list.PackStart (font_box, false, false, 0);
 
@@ -241,7 +240,7 @@ namespace Tomboy
 			// Note renaming bahvior
 			Gtk.HBox rename_behavior_box = new Gtk.HBox (false, 0);
 			label = MakeLabel (Catalog.GetString ("When renaming a linked note: "));
-			rename_behavior_box.PackStart (label);
+			rename_behavior_box.PackStart (label, false, false, 0);
 			rename_behavior_combo = new Gtk.ComboBox (new string [] {
 				Catalog.GetString ("Ask me what to do"),
 				Catalog.GetString ("Never rename links"),
@@ -255,7 +254,7 @@ namespace Tomboy
 			rename_behavior_combo.Changed += (o, e) =>
 				Preferences.Set (Preferences.NOTE_RENAME_BEHAVIOR,
 				                 rename_behavior_combo.Active);
-			rename_behavior_box.PackStart (rename_behavior_combo);
+			rename_behavior_box.PackStart (rename_behavior_combo, false, false, 0);
 			rename_behavior_box.ShowAll ();
 			options_list.PackStart (rename_behavior_box, false, false, 0);
 			
@@ -535,9 +534,9 @@ namespace Tomboy
 			};
 			autosyncSpinner.ValueChanged += updateTimeoutPref;
 
-			autosyncBox.PackStart (autosyncCheck);
-			autosyncBox.PackStart (autosyncSpinner);
-			autosyncBox.PackStart (autosyncExtraText);
+			autosyncBox.PackStart (autosyncCheck, false, false, 0);
+			autosyncBox.PackStart (autosyncSpinner, false, false, 0);
+			autosyncBox.PackStart (autosyncExtraText, false, false, 0);
 			vbox.PackStart (autosyncBox, false, true, 0);
 
 			Gtk.HButtonBox bbox = new Gtk.HButtonBox ();
@@ -587,8 +586,8 @@ namespace Tomboy
 			return addin1.Name.CompareTo (addin2.Name);
 		}
 
-		private void ComboBoxTextDataFunc (Gtk.CellLayout cell_layout, Gtk.CellRenderer cell,
-		                                   Gtk.TreeModel tree_model, Gtk.TreeIter iter)
+		private void ComboBoxTextDataFunc (Gtk.ICellLayout cell_layout, Gtk.CellRenderer cell,
+		                                   Gtk.ITreeModel tree_model, Gtk.TreeIter iter)
 		{
 			Gtk.CellRendererText crt = cell as Gtk.CellRendererText;
 			SyncServiceAddin addin = tree_model.GetValue (iter, 0) as SyncServiceAddin;
@@ -615,7 +614,7 @@ namespace Tomboy
 
 			// TreeView of Add-ins
 			Gtk.TreeView tree = new Gtk.TreeView ();
-			addin_tree = new Mono.Addins.Gui.AddinTreeWidget (tree);
+			addin_tree = new Mono.Addins.GuiGtk3.AddinTreeWidget (tree);
 
 			tree.Show ();
 
@@ -668,10 +667,10 @@ namespace Tomboy
 			addin_info_button.Clicked += OnAddinInfoButton;
 			addin_info_button.Show ();
 
-			button_box.PackStart (enable_addin_button);
-			button_box.PackStart (disable_addin_button);
-			button_box.PackStart (addin_prefs_button);
-			button_box.PackStart (addin_info_button);
+			button_box.PackStart (enable_addin_button, false, false, 0);
+			button_box.PackStart (disable_addin_button, false, false, 0);
+			button_box.PackStart (addin_prefs_button, false, false, 0);
+			button_box.PackStart (addin_info_button, false, false, 0);
 
 			button_box.Show ();
 			hbox.PackStart (button_box, false, false, 0);
@@ -799,10 +798,11 @@ namespace Tomboy
 				        string.Format (Catalog.GetString ("{0} Preferences"),
 				                       addin.Name),
 				        this,
-				        Gtk.DialogFlags.DestroyWithParent | Gtk.DialogFlags.NoSeparator,
-				        Gtk.Stock.Close, Gtk.ResponseType.Close);
+				        Gtk.DialogFlags.DestroyWithParent //| Gtk.DialogFlags.NoSeparator,
+				        //Gtk.Stock.Close, Gtk.ResponseType.Close);
+					);
 
-				dialog.VBox.PackStart (vbox, true, true, 0);
+				dialog.ContentArea.PackStart (vbox, true, true, 0);
 				dialog.DeleteEvent += AddinPrefDialogDeleted;
 				dialog.Response += AddinPrefDialogResponse;
 
@@ -981,8 +981,9 @@ namespace Tomboy
 			Gtk.Dialog advancedDlg =
 			        new Gtk.Dialog (Catalog.GetString ("Other Synchronization Options"),
 			                        this,
-			                        Gtk.DialogFlags.DestroyWithParent | Gtk.DialogFlags.Modal | Gtk.DialogFlags.NoSeparator,
-			                        Gtk.Stock.Close, Gtk.ResponseType.Close);
+			                        Gtk.DialogFlags.DestroyWithParent | Gtk.DialogFlags.Modal//, | Gtk.DialogFlags.NoSeparator,
+			                        //Gtk.Stock.Close, Gtk.ResponseType.Close);
+				                );
 			// Populate dialog
 			Gtk.Label label =
 			        new Gtk.Label (Catalog.GetString ("When a conflict is detected between " +
@@ -1018,12 +1019,12 @@ namespace Tomboy
 			Gtk.VBox vbox = new Gtk.VBox ();
 			vbox.BorderWidth = 18;
 
-			vbox.PackStart (promptOnConflictRadio);
-			vbox.PackStart (renameOnConflictRadio);
-			vbox.PackStart (overwriteOnConflictRadio);
+			vbox.PackStart (promptOnConflictRadio, false, false, 0);
+			vbox.PackStart (renameOnConflictRadio, false, false, 0);
+			vbox.PackStart (overwriteOnConflictRadio, false, false, 0);
 
-			advancedDlg.VBox.PackStart (label, false, false, 6);
-			advancedDlg.VBox.PackStart (vbox, false, false, 0);
+			advancedDlg.ContentArea.PackStart (label, false, false, 6);
+			advancedDlg.ContentArea.PackStart (vbox, false, false, 0);
 
 			advancedDlg.ShowAll ();
 
@@ -1315,7 +1316,7 @@ namespace Tomboy
 		        Gtk.Window parent)
 : base (info.Name,
 		        parent,
-		        Gtk.DialogFlags.DestroyWithParent | Gtk.DialogFlags.NoSeparator,
+		        Gtk.DialogFlags.DestroyWithParent, // | Gtk.DialogFlags.NoSeparator,
 		        Gtk.Stock.Close, Gtk.ResponseType.Close)
 		{
 			this.info = info;
@@ -1344,7 +1345,7 @@ namespace Tomboy
 
 			hbox.ShowAll ();
 
-			VBox.PackStart (hbox, true, true, 0);
+			ContentArea.PackStart (hbox, true, true, 0);
 
 			Fill ();
 		}

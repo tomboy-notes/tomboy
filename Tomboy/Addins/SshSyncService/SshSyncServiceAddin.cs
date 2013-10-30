@@ -65,8 +65,8 @@ namespace Tomboy.Sync
 			l.Wrap = true;
 
 			VBox vbox = new VBox (false, 5);
-			vbox.PackStart (table);
-			vbox.PackStart (l);
+			vbox.PackStart (table, false, false, 0);
+			vbox.PackStart (l, false, false, 0);
 			vbox.ShowAll ();
 
 			return vbox;

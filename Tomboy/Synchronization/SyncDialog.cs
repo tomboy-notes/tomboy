@@ -29,13 +29,13 @@ namespace Tomboy.Sync
 			progressBarTimeoutId = 0;
 
 			SetSizeRequest (400, -1);
-			HasSeparator = false;
+//			HasSeparator = false;
 
 			// Outer box. Surrounds all of our content.
 			VBox outerVBox = new VBox (false, 12);
 			outerVBox.BorderWidth = 6;
 			outerVBox.Show ();
-			VBox.PackStart (outerVBox, true, true, 0);
+			ContentArea.PackStart (outerVBox, true, true, 0);
 
 			// Top image and label
 			HBox hbox = new HBox (false, 12);
@@ -70,9 +70,9 @@ namespace Tomboy.Sync
 			vbox.PackStart (messageLabel, false, false, 0);
 
 			progressBar = new Gtk.ProgressBar ();
-			progressBar.Orientation = Gtk.ProgressBarOrientation.LeftToRight;
-			progressBar.BarStyle = ProgressBarStyle.Continuous;
-			progressBar.ActivityBlocks = 30;
+			progressBar.Orientation = Gtk.Orientation.Horizontal;
+//			progressBar.BarStyle = ProgressBarStyle.Continuous;
+//			progressBar.ActivityBlocks = 30;
 			progressBar.Show ();
 			outerVBox.PackStart (progressBar, false, false, 0);
 
@@ -534,8 +534,8 @@ public SyncTitleConflictDialog (Note existingNote, IList<string> noteUpdateTitle
 			hbox.PackStart (vbox, true, true, 0);
 
 			hbox.Show ();
-			outerVBox.PackStart (hbox);
-			VBox.PackStart (outerVBox);
+			outerVBox.PackStart (hbox, false, false, 0);
+			ContentArea.PackStart (outerVBox, false, false, 0);
 
 			Gtk.HBox renameHBox = new Gtk.HBox ();
 			renameRadio = new Gtk.RadioButton (Catalog.GetString ("Rename local note:"));
@@ -545,18 +545,18 @@ public SyncTitleConflictDialog (Note existingNote, IList<string> noteUpdateTitle
 			renameEntry = new Gtk.Entry (suggestedRename);
 			renameEntry.Changed += renameEntry_Changed;
 			renameUpdateCheck = new Gtk.CheckButton (Catalog.GetString ("Update links in referencing notes"));
-			renameOptionsVBox.PackStart (renameEntry);
+			renameOptionsVBox.PackStart (renameEntry, false, false, 0);
 			//renameOptionsVBox.PackStart (renameUpdateCheck); // This seems like a superfluous option
-			renameHBox.PackStart (renameRadio);
-			renameHBox.PackStart (renameOptionsVBox);
-			VBox.PackStart (renameHBox);
+			renameHBox.PackStart (renameRadio, false, false, 0);
+			renameHBox.PackStart (renameOptionsVBox, false, false, 0);
+			ContentArea.PackStart (renameHBox, false, false, 0);
 
 			deleteExistingRadio = new Gtk.RadioButton (renameRadio, Catalog.GetString ("Overwrite local note"));
 			deleteExistingRadio.Toggled += radio_Toggled;
-			VBox.PackStart (deleteExistingRadio);
+			ContentArea.PackStart (deleteExistingRadio, false, false, 0);
 
 			alwaysDoThisCheck = new Gtk.CheckButton (Catalog.GetString ("Always perform this action"));
-			VBox.PackStart (alwaysDoThisCheck);
+			ContentArea.PackStart (alwaysDoThisCheck, false, false, 0);
 
 			continueButton = (Gtk.Button) AddButton (Gtk.Stock.GoForward, Gtk.ResponseType.Accept);
 

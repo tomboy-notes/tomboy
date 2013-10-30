@@ -430,13 +430,13 @@ namespace Tomboy
 			                                    "note-taking application.");
 			about.WindowPosition = Gtk.WindowPosition.Center;
 
-			Gtk.AboutDialog.SetUrlHook (delegate (Gtk.AboutDialog dialog, string link) {
-				try {
-					Services.NativeApplication.OpenUrl (link, null);
-				} catch (Exception e) {
-					GuiUtils.ShowOpeningLocationError (dialog, link, e.Message);
-				}
-			}); 
+//			Gtk.AboutDialog.SetUrlHook (delegate (Gtk.AboutDialog dialog, string link) {
+//				try {
+//					Services.NativeApplication.OpenUrl (link, null);
+//				} catch (Exception e) {
+//					GuiUtils.ShowOpeningLocationError (dialog, link, e.Message);
+//				}
+//			}); 
 			about.Website = Defines.TOMBOY_WEBSITE;
 			about.WebsiteLabel = Catalog.GetString("Homepage");
 			about.Authors = authors;

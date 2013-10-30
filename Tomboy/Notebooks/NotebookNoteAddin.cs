@@ -52,8 +52,7 @@ namespace Tomboy.Notebooks
 										string.Empty, menu);
 			toolButton.IsImportant = true;
 			toolButton.Homogeneous = false;
-			Gtk.Tooltips toolbarTips = new Gtk.Tooltips ();
-			toolbarTips.SetTip (toolButton, Catalog.GetString ("Place this note into a notebook"), null);
+			toolButton.TooltipText = Catalog.GetString ("Place this note into a notebook");
 			
 			// Set the notebook submenu
 			menu.Shown += OnMenuShown;
@@ -202,8 +201,8 @@ namespace Tomboy.Notebooks
 		List<NotebookMenuItem> GetNotebookMenuItems ()
 		{
 			List<NotebookMenuItem> items = new List<NotebookMenuItem> ();
-			
-			Gtk.TreeModel model = NotebookManager.Notebooks;
+
+			Gtk.ITreeModel model = NotebookManager.Notebooks;
 			Gtk.TreeIter iter;
 			
 			if (model.GetIterFirst (out iter) == true) {

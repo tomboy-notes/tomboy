@@ -1,0 +1,252 @@
+<schemalist>
+  <schema id="org.gnome.tomboy" path="/apps/tomboy/">
+    <key name="enable-spellchecking" type="b">
+      <default>true</default>
+      <summary>Enable spellchecking</summary>
+      <description>If true, misspellings will be underlined in red, and correct spelling suggestions shown in the right-click menu.</description>
+    </key>
+    <key name="enable-wikiwords" type="b">
+      <default>false</default>
+      <summary>Enable WikiWord highlighting</summary>
+      <description>Enable this option to highlight words ThatLookLikeThis.  Clicking the word will create a note with that name.</description>
+    </key>
+    <key name="enable-bulleted-lists" type="b">
+      <default>true</default>
+      <summary>Enable automatic bulleted lists.</summary>
+      <description>Enable this option if you want bulleted lists to be automatic when you place - or * at the beginning of a line.</description>
+    </key>
+    <key name="enable-icon-paste" type="b">
+      <default>false</default>
+      <summary>Enable Middle-Click Paste On Icon.</summary>
+      <description>Enable this option if you want to be able to middle-click the Tomboy icon to paste timestamped content into the Start Here note.</description>
+    </key>
+    <key name="enable-custom-font" type="b">
+      <default>false</default>
+      <summary>Enable custom font</summary>
+      <description>If true, the font name set in custom_font_face will be used as the font when displaying notes.  Otherwise the desktop default font will be used.</description>
+    </key>
+    <key name="custom-font-face" type="s">
+      <default>'Serif 11'</default>
+      <summary>Custom Font Face</summary>
+      <description>If enable_custom_font is true, the font name set here will be used as the font when displaying notes.</description>
+    </key>
+    <key name="enable-keybindings" type="b">
+      <default>true</default>
+      <summary>Enable global keybindings</summary>
+      <description>If true, the desktop-global keybindings set in /apps/tomboy/global_keybindings will be enabled, allowing for useful Tomboy actions to be available from any application.</description>
+    </key>
+    <key name="enable-delete-confirm" type="b">
+      <default>true</default>
+      <summary>Enable the Delete Note confirmation dialog</summary>
+      <description>If disabled, the "Delete Note" confirmation dialog will be suppressed.</description>
+    </key>
+    <key name="enable-tray-icon" type="b">
+      <default>true</default>
+      <summary>Enable Tray Icon</summary>
+      <description>If true, Tomboy's tray icon will be displayed in the notification area. Disabling this may be useful when another application is providing the functionality of the tray icon.</description>
+    </key>
+    <key name="start-note" type="s">
+      <default>''</default>
+      <summary>Start Here Note</summary>
+      <description>The note URI of the note that should be considered the "Start Here" note, which is always placed at the bottom of the Tomboy note menu and also accessible by hotkey.</description>
+    </key>
+    <key name="menu-note-count" type="i">
+      <default>10</default>
+      <summary>Minimum number of notes to show in menu</summary>
+      <description>Integer determining the minimum number of notes to show in the Tomboy note menu.</description>
+    </key>
+    <key name="menu-max-note-count" type="i">
+      <default>18</default>
+      <summary>Maximum number of notes to show in menu</summary>
+      <description>Integer determining the maximum number of notes to show in the Tomboy note menu.</description>
+    </key>
+    <key name="menu-pinned-notes" type="s">
+      <default>''</default>
+      <summary>List of pinned notes.</summary>
+      <description>Whitespace-separated list of note URIs for notes that should always appear in the Tomboy note menu.</description>
+    </key>
+    <key name="tray-menu-item-max-length" type="i">
+      <default>100</default>
+      <summary>Maximum note title length to show in tray menu.</summary>
+      <description>Maximum characters of note title to show in the Tomboy tray or panel applet note menu.</description>
+    </key>
+    <key name="enable-startup-notes" type="b">
+      <default>true</default>
+      <summary>Enable startup notes</summary>
+      <description>If enabled, all notes that were open when Tomboy quit will automatically be reopened at startup.</description>
+    </key>
+    <key name="search-window-height" type="i">
+      <default>480</default>
+      <summary>Saved height of "Search All Notes" window</summary>
+      <description>Determines pixel height of "Search All Notes" window; stored on Tomboy exit.</description>
+    </key>
+    <key name="search-window-width" type="i">
+      <default>550</default>
+      <summary>Saved width of "Search All Notes" window</summary>
+      <description>Determines pixel width of "Search All Notes" window; stored on Tomboy exit.</description>
+    </key>
+    <key name="search-window-x-pos" type="i">
+      <default>0</default>
+      <summary>Saved horizontal position of "Search All Notes" window</summary>
+      <description>Determines X coordinate of "Search All Notes" window; stored on Tomboy exit.</description>
+    </key>
+    <key name="search-window-y-pos" type="i">
+      <default>0</default>
+      <summary>Saved vertical position of "Search All Notes" window</summary>
+      <description>Determines Y coordinate of "Search All Notes" window; stored on Tomboy exit.</description>
+    </key>
+    <key name="search-window-splitter-pos" type="i">
+      <default>150</default>
+      <summary>Saved horisontal position of "Search All Notes" window splitter bar</summary>
+      <description>Determines X coordinate of "Search All Notes" window splitter bar; stored on Tomboy exit.</description>
+    </key>
+    <key name="search-window-monitor-num" type="i">
+      <default>0</default>
+      <summary>Saved monitor position of "Search All Notes" window</summary>
+      <description>Determines monitor number for "Search All Notes" window; stored on Tomboy exit.</description>
+    </key>
+    <key name="sync-fuse-mount-timeout-ms" type="i">
+      <default>10000</default>
+      <summary>FUSE Mounting Timeout (ms)</summary>
+      <description>Time (in milliseconds) Tomboy should wait for a response when using FUSE to mount a sync share.</description>
+    </key>
+    <key name="sync-sshfs-folder" type="s">
+      <default>''</default>
+      <summary>SSHFS Remote Synchronization Folder</summary>
+      <description>Path on SSH server to Tomboy synchronization directory (optional).</description>
+    </key>
+    <key name="sync-sshfs-server" type="s">
+      <default>''</default>
+      <summary>SSHFS Synchronization Server URL</summary>
+      <description>URL of SSH server containing Tomboy synchronization directory.</description>
+    </key>
+    <key name="sync-sshfs-username" type="s">
+      <default>''</default>
+      <summary>SSHFS Remote Synchronization User Name</summary>
+      <description>User name to use when connecting to the synchronization server via SSH.</description>
+    </key>
+    <key name="sync-sshfs-port" type="i">
+      <default>-1</default>
+      <summary>SSHFS Synchronization Server Port</summary>
+      <description>The port to use when connecting to the synchronization server via SSH. Set to -1 or less if default SSH port settings should be used instead.</description>
+    </key>
+    <key name="note-rename-behavior" type="i">
+      <default>0</default>
+      <summary>Link Updating Behavior on Note Rename</summary>
+      <description>Integer value indicating if there is a preference to always perform a specific link updating behavior when a note is renamed, instead of prompting the user.  The values map to an internal enumeration.  0 indicates that the user wishes to be prompted when renaming a note may impact links that exist in other notes. 1 indicates that links should automatically be removed. 2 indicates that link text should be updated to the new note name so that it will continue linking to the renamed note.</description>
+    </key>
+    <key name="enable-close-note-on-escape" type="b">
+      <default>true</default>
+      <summary>Enable closing notes with escape.</summary>
+      <description>If enabled, an opened note can be closed by hitting the escape key.</description>
+    </key>
+    <child name="global-keybindings" schema="org.gnome.tomboy.global-keybindings"/>
+    <child name="export-html" schema="org.gnome.tomboy.export-html"/>
+    <child name="sticky-note-importer" schema="org.gnome.tomboy.sticky-note-importer"/>
+    <child name="sync" schema="org.gnome.tomboy.sync"/>
+    <child name="insert-timestamp" schema="org.gnome.tomboy.insert-timestamp"/>
+  </schema>
+  <schema id="org.gnome.tomboy.global-keybindings" path="/apps/tomboy/global-keybindings/">
+    <key name="show-note-menu" type="s">
+      <default>'&lt;Alt&gt;F12'</default>
+      <summary>Show applet menu</summary>
+      <description>The global keybinding for showing the Tomboy applet's menu.  The format looks like "&lt;Control&gt;a" or "&lt;Shift&gt;&lt;Alt&gt;F1".  The parser is fairly liberal and allows lower or upper case, and also abbreviations such as "&lt;Ctl&gt;" and "&lt;Ctrl&gt;". If you set the option to the special string "disabled", then there will be no keybinding for this action.</description>
+    </key>
+    <key name="open-start-here" type="s">
+      <default>'&lt;Alt&gt;F11'</default>
+      <summary>Open Start Here</summary>
+      <description>The global keybinding for opening the "Start Here" note.  The format looks like "&lt;Control&gt;a" or "&lt;Shift&gt;&lt;Alt&gt;F1".  The parser is fairly liberal and allows lower or upper case, and also abbreviations such as "&lt;Ctl&gt;" and "&lt;Ctrl&gt;". If you set the option to the special string "disabled", then there will be no keybinding for this action.</description>
+    </key>
+    <key name="create-new-note" type="s">
+      <default>'disabled'</default>
+      <summary>Create a new Note</summary>
+      <description>The global keybinding for creating and displaying a new Note.  The format looks like "&lt;Control&gt;a" or "&lt;Shift&gt;&lt;Alt&gt;F1".  The parser is fairly liberal and allows lower or upper case, and also abbreviations such as "&lt;Ctl&gt;" and "&lt;Ctrl&gt;". If you set the option to the special string "disabled", then there will be no keybinding for this action.</description>
+    </key>
+    <key name="open-search" type="s">
+      <default>'disabled'</default>
+      <summary>Open Search Dialog</summary>
+      <description>The global keybinding for opening the Note Search dialog.  The format looks like "&lt;Control&gt;a" or "&lt;Shift&gt;&lt;Alt&gt;F1".  The parser is fairly liberal and allows lower or upper case, and also abbreviations such as "&lt;Ctl&gt;" and "&lt;Ctrl&gt;". If you set the option to the special string "disabled", then there will be no keybinding for this action.</description>
+    </key>
+    <key name="open-recent-changes" type="s">
+      <default>'disabled'</default>
+      <summary>Open Recent Changes</summary>
+      <description>The global keybinding for opening the Recent Changes dialog.  The format looks like "&lt;Control&gt;a" or "&lt;Shift&gt;&lt;Alt&gt;F1".  The parser is fairly liberal and allows lower or upper case, and also abbreviations such as "&lt;Ctl&gt;" and "&lt;Ctrl&gt;". If you set the option to the special string "disabled", then there will be no keybinding for this action.</description>
+    </key>
+  </schema>
+  <schema id="org.gnome.tomboy.export-html" path="/apps/tomboy/export-html/">
+    <key name="last-directory" type="s">
+      <default>''</default>
+      <summary>Last Directory used in HTML Export</summary>
+      <description>The last directory a note was exported to using the Export To HTML plugin.</description>
+    </key>
+    <key name="export-linked" type="b">
+      <default>false</default>
+      <summary>HTML Export Linked Notes</summary>
+      <description>The last setting for the 'Export linked notes' checkbox in the Export to HTML plugin.</description>
+    </key>
+    <key name="export-linked-all" type="b">
+      <default>false</default>
+      <summary>HTML Export All Linked Notes</summary>
+      <description>The last setting for the 'Include all other linked notes' checkbox in the Export to HTML plugin.  This setting is used in conjunction with the 'HTML Export Linked Notes' setting and is used to specify whether all notes (found recursively) should be included during an export to HTML.</description>
+    </key>
+  </schema>
+  <schema id="org.gnome.tomboy.sticky-note-importer" path="/apps/tomboy/sticky-note-importer/">
+    <key name="sticky-importer-first-run" type="b">
+      <default>true</default>
+      <summary>Sticky Note Importer First Run</summary>
+      <description>Indicates that the Sticky Note Importer plugin has not been run, so it should run automatically the next time Tomboy starts.</description>
+    </key>
+  </schema>
+  <schema id="org.gnome.tomboy.sync" path="/apps/tomboy/sync/">
+    <key name="sync-guid" type="s">
+      <default>''</default>
+      <summary>Synchronization Client ID</summary>
+      <description>Unique identifier for this Tomboy client, used when communicating with a sychronization server.</description>
+    </key>
+    <key name="sync-local-path" type="s">
+      <default>''</default>
+      <summary>Synchronization Local Server Path</summary>
+      <description>Path to the synchronization server when using the filesystem synchronization service addin.</description>
+    </key>
+    <key name="sync-selected-service-addin" type="s">
+      <default>''</default>
+      <summary>Selected Synchronization Service Addin</summary>
+      <description>Unique identifier for the currently configured note synchronization service addin.</description>
+    </key>
+    <key name="sync-conflict-behavior" type="i">
+      <default>0</default>
+      <summary>Note Synchronization Conflict Saved Behavior</summary>
+      <description>Integer value indicating if there is a preference to always perform a specific behavior when a conflict is detected, instead of prompting the user.  The values map to an internal enumeration.  0 indicates that the user wishes to be prompted when a conflict occurs, so that they may handle each conflict situation on a case-by-case basis.</description>
+    </key>
+    <key name="autosync-timeout" type="i">
+      <default>-1</default>
+      <summary>Automatic Background Synchronization Timeout</summary>
+      <description>Integer value indicating how frequently to perform a background sync of your notes (when sync is configured).  Any value less than 1 indicates that autosync is disabled.  The lowest acceptable positive value is 5.  Value is in minutes.</description>
+    </key>
+    <child name="wdfs" schema="org.gnome.tomboy.sync.wdfs"/>
+  </schema>
+  <schema id="org.gnome.tomboy.sync.wdfs" path="/apps/tomboy/sync/wdfs/">
+    <key name="accept-sslcert" type="b">
+      <default>false</default>
+      <summary>Accept SSL Certificates</summary>
+      <description>Use wdfs option "-ac" to accept SSL certificates without prompting the user.</description>
+    </key>
+  </schema>
+  <schema id="org.gnome.tomboy.insert-timestamp" path="/apps/tomboy/insert-timestamp/">
+    <key name="format" type="s">
+      <default>'dddd, MMMM d, h:mm tt'</default>
+      <summary>Timestamp format</summary>
+      <description>The date format that is used for the timestamp.</description>
+    </key>
+  </schema>
+  <schema id="org.gnome.tomboy.FIXME-1" path="/desktop/gnome/url-handlers/note/">
+    <key name="command" type="s">
+      <default>'tomboy --open-note \'%s\''</default>
+      <summary>The handler for "note://" URLs</summary>
+    </key>
+    <key name="enabled" type="b">
+      <default>true</default>
+      <summary>Set to TRUE to activate</summary>
+    </key>
+  </schema>
+</schemalist>

@@ -59,7 +59,7 @@ namespace Tomboy.Bugzilla
 		void OnDragDataReceived (object sender, Gtk.DragDataReceivedArgs args)
 		{
 			Logger.Debug ("Bugzilla.OnDragDataReceived");
-			foreach (Gdk.Atom atom in args.Context.Targets) {
+			foreach (Gdk.Atom atom in args.Context.ListTargets ()) {
 				if (atom.Name == "text/uri-list" ||
 				                atom.Name == "_NETSCAPE_URL") {
 					DropUriList (args);

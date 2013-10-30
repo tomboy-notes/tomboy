@@ -2,6 +2,9 @@ using System;
 using System.Collections.Generic;
 using Mono.Unix;
 using System.Runtime.InteropServices;
+using Gtk;
+
+
 #if !WIN32 && !MAC
 using GtkBeans;
 #endif
@@ -140,14 +143,16 @@ namespace Tomboy
 	public class TomboyTrayIcon : Gtk.StatusIcon, ITomboyTray
 	{
 		TomboyTray tray;
-		TomboyPrefsKeybinder keybinder;
+//		TomboyPrefsKeybinder keybinder;
 		Gtk.Menu context_menu;
 		Gtk.ImageMenuItem sync_menu_item;
 
 		public TomboyTrayIcon (NoteManager manager)
 		{
 			tray = new TomboyTray (manager, this);
-			keybinder = new TomboyPrefsKeybinder (manager, this);
+			//FIXME: Global hotkeys and C code are a no-no. We need to do this via central settings and Dbus, but for 
+			//       now we simply cut it.
+//			keybinder = new TomboyPrefsKeybinder (manager, this);
 			int panel_size = 22;
 			// Load Icon to display in the notification area.
 			// First we try the "tomboy-panel" icon. This icon can be replaced
@@ -156,7 +161,7 @@ namespace Tomboy
 			Pixbuf = GuiUtils.GetIcon ("tomboy-panel", panel_size) ??
 				GuiUtils.GetIcon ("tomboy", panel_size);
 
-			Tooltip = TomboyTrayUtils.GetToolTipText ();
+			this.TooltipText = TomboyTrayUtils.GetToolTipText ();
 
 			Visible = (bool) Preferences.Get (Preferences.ENABLE_TRAY_ICON);
 			Preferences.SettingChanged += (o, args) => {

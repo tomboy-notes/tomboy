@@ -2,20 +2,23 @@ namespace Tomboy
 {
 	public class GnomeFactory : IPlatformFactory
 	{
+		//FIXME: This needs to be properly ported to gSettings, this is just super temporary
 		public IPropertyEditor CreatePropertyEditorEntry (string key, Gtk.Entry sourceEntry)
 		{
-			return new GConfPropertyEditorEntry (key, sourceEntry);
+			////Think this should work since it references the global client
+			return new PropertyEditorEntry (key, sourceEntry);
 		}
 
 		public IPropertyEditorBool CreatePropertyEditorToggleButton (
 		        string key, Gtk.CheckButton sourceButton)
 		{
-			return new GConfPropertyEditorToggleButton (key, sourceButton);
+			//Think this should work since it references the global client
+			return new PropertyEditorToggleButton (key, sourceButton);
 		}
 
 		public IPreferencesClient CreatePreferencesClient ()
 		{
-			return new GConfPreferencesClient ();
+			return new GSettingsPreferencesClient ();
 		}
 
 		public INativeApplication CreateNativeApplication ()
