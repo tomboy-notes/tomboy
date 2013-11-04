@@ -53,44 +53,60 @@ namespace Tomboy.WebSync.Api
 			note.Guid = (string) jsonObj ["guid"];
 
 			// TODO: Decide how much is required
-			object val;
+			object val = 0;
+			string key = "<unknown>";
+			try {
+				key = TitleElementName;
+				if (jsonObj.TryGetValue (key, out val))
+					note.Title = (string) val;
+				key = NoteContentElementName;
+				if (jsonObj.TryGetValue (key, out val))
+					note.NoteContent = (string) val;
+				key = NoteContentVersionElementName;
+				if (jsonObj.TryGetValue (key, out val))
+					note.NoteContentVersion = (double) val;
 
-			if (jsonObj.TryGetValue (TitleElementName, out val))
-				note.Title = (string) val;
-			if (jsonObj.TryGetValue (NoteContentElementName, out val))
-				note.NoteContent = (string) val;
-			if (jsonObj.TryGetValue (NoteContentVersionElementName, out val))
-				note.NoteContentVersion = (double) val;
-			
-			if (jsonObj.TryGetValue (LastChangeDateElementName, out val))
-				note.LastChangeDate = DateTime.Parse ((string) val);
-			if (jsonObj.TryGetValue (LastMetadataChangeDateElementName, out val))
-				note.LastMetadataChangeDate = DateTime.Parse ((string) val);
-			if (jsonObj.TryGetValue (CreateDateElementName, out val))
-				note.CreateDate = DateTime.Parse ((string) val);
-			
-			if (jsonObj.TryGetValue (LastSyncRevisionElementName, out val))
-				note.LastSyncRevision = (int) val;
-			if (jsonObj.TryGetValue (OpenOnStartupElementName, out val))
-				note.OpenOnStartup = (bool) val;
-			if (jsonObj.TryGetValue (PinnedElementName, out val))
-				note.Pinned = (bool) val;
-			
-			if (jsonObj.TryGetValue (TagsElementName, out val)) {
-				Hyena.Json.JsonArray tagsJsonArray =
-					(Hyena.Json.JsonArray) val;
-				note.Tags = new List<string> (tagsJsonArray.Count);
-				foreach (string tag in tagsJsonArray)
-					note.Tags.Add (tag);
+				key = LastChangeDateElementName;
+				if (jsonObj.TryGetValue (key, out val))
+					note.LastChangeDate = DateTime.Parse ((string) val);
+				key = LastMetadataChangeDateElementName;
+				if (jsonObj.TryGetValue (key, out val))
+					note.LastMetadataChangeDate = DateTime.Parse ((string) val);
+				key = CreateDateElementName;
+				if (jsonObj.TryGetValue (key, out val))
+					note.CreateDate = DateTime.Parse ((string) val);
+
+				key = LastSyncRevisionElementName;
+				if (jsonObj.TryGetValue (key, out val))
+					note.LastSyncRevision = (int) val;
+				key = OpenOnStartupElementName;
+				if (jsonObj.TryGetValue (key, out val))
+					note.OpenOnStartup = (bool) val;
+				key = PinnedElementName;
+				if (jsonObj.TryGetValue (key, out val))
+					note.Pinned = (bool) val;
+
+				key = TagsElementName;
+				if (jsonObj.TryGetValue (key, out val)) {
+					Hyena.Json.JsonArray tagsJsonArray =
+						(Hyena.Json.JsonArray) val;
+					note.Tags = new List<string> (tagsJsonArray.Count);
+					foreach (string tag in tagsJsonArray)
+						note.Tags.Add (tag);
+				}
+
+				key = ResourceReferenceElementName;
+				if (jsonObj.TryGetValue (key, out val))
+					note.ResourceReference =
+						ResourceReference.ParseJson ((Hyena.Json.JsonObject) val);
+			} catch (InvalidCastException e) {
+				Logger.Error("Note '{0}': Key '{1}', value  '{2}' failed to parse due to invalid type", note.Guid, key, val);
+				throw e;
 			}
-
-			if (jsonObj.TryGetValue (ResourceReferenceElementName, out val))
-				note.ResourceReference =
-					ResourceReference.ParseJson ((Hyena.Json.JsonObject) val);
 
 			return note;
 		}
-		
+
 		#endregion
 
 		#region Public Methods
