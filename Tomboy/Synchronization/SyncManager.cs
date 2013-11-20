@@ -430,7 +430,8 @@ namespace Tomboy.Sync
 				// to prevent this situation.
 				string serverId = server.Id;
 				if (client.AssociatedServerId != serverId) {
-					client.Reset ();
+				        Logger.Debug("ServerID is {0}, expected {1}", serverId, client.AssociatedServerId);
+					ResetClient ();
 					client.AssociatedServerId = serverId;
 				}
 

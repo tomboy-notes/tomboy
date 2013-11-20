@@ -116,7 +116,7 @@ namespace Tomboy.Sync
 					try {
 						lastSyncRev = int.Parse (node.InnerText);
 					} catch {
-					Logger.Error ("Unparsable last-sync-rev element in " + manifestPath);
+					Logger.Error ("Unparsable last-sync-rev '" + node.InnerText + "' in " + manifestPath);
 					}
 				}
 
@@ -127,7 +127,7 @@ namespace Tomboy.Sync
 					try {
 						lastSyncDate = DateTime.Parse (node.InnerText);
 					} catch {
-					Logger.Error ("Unparsable last-sync-date element in " + manifestPath);
+					Logger.Error ("Unparsable last-sync-date '" + node.InnerText + "' in " + manifestPath);
 					}
 				}
 			} finally {

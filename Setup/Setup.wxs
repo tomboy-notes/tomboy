@@ -59,14 +59,10 @@
 		<Condition Message="This setup requires Gtk# for .NET (version 2.12.20 or higher). Please download the latest installer from http://www.mono-project.com/GtkSharp ">
 			<![CDATA[GTKSHARPNOVELLINSTALLVERSION >= "2.12.20" OR (GTKSHARPNOVELLINSTALLVERSION << "2.12.1" AND GTKSHARPNOVELLINSTALLVERSION <> "2.12.1") OR REMOVE ~= "ALL"]]>
 		</Condition>
-		<Condition Message='This setup requires the .NET Framework 4.0 or higher.'>
-			<![CDATA[MsiNetAssemblySupport >= "4.0.30319"]]>
-		</Condition>
 
-		
-		<PropertyRef Id="NETFRAMEWORK35"/>
-		<Condition Message="This application requires .NET Framework 3.5. Please install the .NET Framework then run this installer again.">
-			<![CDATA[Installed OR NETFRAMEWORK35]]>
+		<PropertyRef Id="NETFRAMEWORK40FULL"/>
+		<Condition Message="This application requires .NET Framework 4.0. Please install the .NET Framework then run this installer again.">
+			<![CDATA[Installed OR NETFRAMEWORK40FULL]]>
 		</Condition>
 
 
