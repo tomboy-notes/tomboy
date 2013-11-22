@@ -477,8 +477,7 @@ Ciao!");
 			string temp_title;
 
 			while (true) {
-				temp_title = String.Format (Catalog.GetString ("New Note {0}"),
-				                            ++new_num);
+                temp_title = String.Format (Catalog.GetString ("Note from {0}"), DateTime.Now.ToString ( Catalog.GetString ("yyyy-MM-dd HH:mm:ss.fff")));
 				if (Find (temp_title) == null)
 					break;
 			}
