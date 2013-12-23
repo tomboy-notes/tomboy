@@ -626,7 +626,7 @@ namespace Tomboy
 			sw.Add (tree);
 			sw.Show ();
 			Gtk.LinkButton get_more_link =
-				new Gtk.LinkButton ("http://live.gnome.org/Tomboy/PluginList",
+				new Gtk.LinkButton ("https://wiki.gnome.org/Apps/Tomboy/PluginList",
 				                    Catalog.GetString ("Get More Add-Ins..."));
 			get_more_link.Show ();
 			Gtk.VBox tree_box = new Gtk.VBox (false, 0);
