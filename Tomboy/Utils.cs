@@ -802,7 +802,7 @@ namespace Tomboy
 		{
 			Gtk.TextIter iter = buffer.GetIterAtMark (mark);
 
-			if (iter.Equal (buffer.EndIter)) {
+			if (iter.Equals (buffer.EndIter)) {
 				range.Destroy ();
 				buffer.DeleteMark (mark);
 				return false;
