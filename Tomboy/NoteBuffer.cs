@@ -1257,7 +1257,7 @@ namespace Tomboy
 				}
 			}
 
-			while (!iter.Equal (end) && iter.Char != null) {
+			while (!iter.Equals (end) && iter.Char != null) {
 				DepthNoteTag depth_tag = ((NoteBuffer)buffer).FindDepthTag (iter);
 
 				// If we are at a character with a depth tag we are at the
