@@ -1,0 +1,282 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <ProjectGuid>{315DBB30-1461-4A41-A23F-A888D84E1EA0}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AssemblyName>Tomboy</AssemblyName>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <ApplicationIcon>data\icons\tomboy.ico</ApplicationIcon>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <SchemaVersion>2.0</SchemaVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <Execution>
+      <Execution xmlns="" />
+    </Execution>
+    <Build>
+      <Build xmlns="" />
+    </Build>
+    <DefineConstants>WIN32</DefineConstants>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <Execution>
+      <Execution xmlns="" />
+    </Execution>
+    <Build>
+      <Build xmlns="" />
+    </Build>
+    <DefineConstants>WIN32</DefineConstants>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>winbin\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Addins">
+      <HintPath>winbin\Mono.Addins.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Addins.CecilReflector">
+      <HintPath>winbin\Mono.Addins.CecilReflector.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Addins.Setup">
+      <HintPath>winbin\Mono.Addins.Setup.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Runtime.Remoting" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System" />
+    <Reference Include="gtk-sharp, Version=3.0.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
+      <Private>False</Private>
+      <Package>gtk-sharp-3.0</Package>
+    </Reference>
+    <Reference Include="atk-sharp, Version=3.0.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
+      <Package>gtk-sharp-3.0</Package>
+    </Reference>
+    <Reference Include="gdk-sharp, Version=3.0.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
+      <Package>gtk-sharp-3.0</Package>
+    </Reference>
+    <Reference Include="glib-sharp, Version=3.0.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
+      <Package>glib-sharp-3.0</Package>
+    </Reference>
+    <Reference Include="pango-sharp, Version=3.0.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
+      <Package>gtk-sharp-3.0</Package>
+    </Reference>
+    <Reference Include="Mono.Addins.GuiGtk3">
+      <HintPath>winbin\Mono.Addins.GuiGtk3.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Posix">
+      <HintPath>winbin\Mono.Posix.dll</HintPath>
+    </Reference>
+    <Reference Include="cairo-sharp, Version=1.10.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756">
+      <Private>False</Private>
+      <Package>gtk-sharp-3.0</Package>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Tomboy\ActionManager.cs" />
+    <Compile Include="Tomboy\JumpListManager.cs" />
+    <Compile Include="Tomboy\Contrast.cs" />
+    <Compile Include="Tomboy\IRemoteControl.cs" />
+    <Compile Include="Tomboy\Logger.cs" />
+    <Compile Include="Tomboy\Note.cs" />
+    <Compile Include="Tomboy\NoteBuffer.cs" />
+    <Compile Include="Tomboy\NoteManager.cs" />
+    <Compile Include="Tomboy\NoteRenameDialog.cs" />
+    <Compile Include="Tomboy\NoteTag.cs" />
+    <Compile Include="Tomboy\NoteWindow.cs" />
+    <Compile Include="Tomboy\Preferences.cs" />
+    <Compile Include="Tomboy\RecentChanges.cs" />
+    <Compile Include="Tomboy\RemoteControl.cs" />
+    <Compile Include="Tomboy\RemoteControlProxy.cs" />
+    <Compile Include="Tomboy\RemoteControlWrapper.cs" />
+    <Compile Include="Tomboy\Synchronization\ISyncUI.cs" />
+    <Compile Include="Tomboy\Synchronization\SilentUI.cs" />
+    <Compile Include="Tomboy\Tomboy.cs" />
+    <Compile Include="Tomboy\Tray.cs" />
+    <Compile Include="Tomboy\Trie.cs" />
+    <Compile Include="Tomboy\Undo.cs" />
+    <Compile Include="Tomboy\Utils.cs" />
+    <Compile Include="Tomboy\Watchers.cs" />
+    <Compile Include="Tomboy\TagManager.cs" />
+    <Compile Include="Tomboy\Tag.cs" />
+    <Compile Include="Tomboy\TagButton.cs" />
+    <Compile Include="Tomboy\PreferencesDialog.cs" />
+    <Compile Include="Tomboy\NoteEditor.cs" />
+    <Compile Include="Tomboy\AbstractAddin.cs" />
+    <Compile Include="Tomboy\ApplicationAddin.cs" />
+    <Compile Include="Tomboy\ExportAllApplicationAddin.cs" />
+    <Compile Include="Tomboy\NoteAddin.cs" />
+    <Compile Include="Tomboy\AddinManager.cs" />
+    <Compile Include="Tomboy\AddinPreferenceFactory.cs" />
+    <Compile Include="Tomboy\Synchronization\SyncDialog.cs" />
+    <Compile Include="Tomboy\Synchronization\SyncManager.cs" />
+    <Compile Include="Tomboy\Synchronization\SyncUtils.cs" />
+    <Compile Include="Tomboy\Synchronization\TomboySyncClient.cs" />
+    <Compile Include="Tomboy\Synchronization\FileSystemSyncServer.cs" />
+    <Compile Include="Tomboy\Synchronization\SyncServiceAddin.cs" />
+    <Compile Include="Tomboy\Search.cs" />
+    <Compile Include="Tomboy\Notebooks\Notebook.cs" />
+    <Compile Include="Tomboy\Notebooks\NotebookManager.cs" />
+    <Compile Include="Tomboy\Notebooks\CreateNotebookDialog.cs" />
+    <Compile Include="Tomboy\Notebooks\NotebookNoteAddin.cs" />
+    <Compile Include="Tomboy\Notebooks\NotebookMenuItem.cs" />
+    <Compile Include="Tomboy\Notebooks\NotebookApplicationAddin.cs" />
+    <Compile Include="Tomboy\Notebooks\NotebookNewNoteMenuItem.cs" />
+    <Compile Include="Tomboy\PreferenceTabAddin.cs" />
+    <Compile Include="Tomboy\Notebooks\NotebooksTreeView.cs" />
+    <Compile Include="Tomboy\RecentTreeView.cs" />
+    <Compile Include="Tomboy\Services.cs" />
+    <Compile Include="Tomboy\Keybinder.cs" />
+    <Compile Include="Tomboy\NativeApplication.cs" />
+    <Compile Include="Tomboy\PlatformFactory.cs" />
+    <Compile Include="Tomboy\PreferencesClient.cs" />
+    <Compile Include="Tomboy\PrefsKeybinder.cs" />
+    <Compile Include="Tomboy\XmlPreferencesClient.cs" />
+    <None Include="COPYING" />
+    <Compile Include="Tomboy\Gtk.Extensions.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="data\UIManagerLayout.xml">
+      <LogicalName>UIManagerLayout.xml</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Tomboy\Tomboy.addin.xml">
+      <LogicalName>Tomboy.addin.xml</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="data\tomboy-note-clipboard-html.xsl">
+      <LogicalName>tomboy-note-clipboard-html.xsl</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Tomboy\Defines.cs.in" />
+  </ItemGroup>
+  <ItemGroup>
+    <JumpListIcons Include="data\icons\tomboy.ico%3Bdata\icons\new_note.ico%3Bdata\icons\note.ico%3Bdata\icons\search.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <BinaryContent Include="winbin\MonoPosixHelper.dll%3Bwinbin\Mono.Addins.dll.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ProjectExtensions>
+    <MonoDevelop>
+      <Properties>
+        <MonoDevelop.Autotools.MakefileInfo IntegrationEnabled="True" RelativeMakefileName="./Makefile.am" ExecuteTargetName="run">
+          <BuildFilesVar />
+          <DeployFilesVar />
+          <ResourcesVar />
+          <OthersVar />
+          <GacRefVar />
+          <AsmRefVar />
+          <ProjectRefVar />
+        </MonoDevelop.Autotools.MakefileInfo>
+      </Properties>
+    </MonoDevelop>
+    <VisualStudio />
+  </ProjectExtensions>
+  <Target Name="AfterBuild">
+    <Copy SourceFiles="@(JumpListIcons)" DestinationFolder="$(OutputPath)" />
+    <Copy SourceFiles="@(BinaryContent)" DestinationFolder="$(OutputPath)" />
+    <MakeDir Directories="$(OutputPath)\tomboy\icons\hicolor\16x16\apps" />
+    <MakeDir Directories="$(OutputPath)\tomboy\icons\hicolor\22x22\apps" />
+    <MakeDir Directories="$(OutputPath)\tomboy\icons\hicolor\24x24\apps" />
+    <MakeDir Directories="$(OutputPath)\tomboy\icons\hicolor\32x32\apps" />
+    <MakeDir Directories="$(OutputPath)\tomboy\icons\hicolor\48x48\apps" />
+    <MakeDir Directories="$(OutputPath)\tomboy\icons\hicolor\256x256\apps" />
+    <MakeDir Directories="$(OutputPath)\tomboy\icons\hicolor\scalable\apps" />
+    <MakeDir Directories="$(OutputPath)\tomboy\icons\hicolor\16x16\actions" />
+    <MakeDir Directories="$(OutputPath)\tomboy\icons\hicolor\22x22\actions" />
+    <MakeDir Directories="$(OutputPath)\tomboy\icons\hicolor\24x24\actions" />
+    <MakeDir Directories="$(OutputPath)\tomboy\icons\hicolor\32x32\actions" />
+    <MakeDir Directories="$(OutputPath)\tomboy\icons\hicolor\48x48\actions" />
+    <MakeDir Directories="$(OutputPath)\tomboy\icons\hicolor\scalable\actions" />
+    <MakeDir Directories="$(OutputPath)\tomboy\icons\hicolor\16x16\places" />
+    <MakeDir Directories="$(OutputPath)\tomboy\icons\hicolor\22x22\places" />
+    <MakeDir Directories="$(OutputPath)\tomboy\icons\hicolor\24x24\places" />
+    <MakeDir Directories="$(OutputPath)\tomboy\icons\hicolor\32x32\places" />
+    <MakeDir Directories="$(OutputPath)\tomboy\icons\hicolor\48x48\places" />
+    <MakeDir Directories="$(OutputPath)\tomboy\icons\hicolor\scalable\places" />
+    <MakeDir Directories="$(OutputPath)\tomboy\icons\hicolor\16x16\status" />
+    <MakeDir Directories="$(OutputPath)\tomboy\icons\hicolor\22x22\status" />
+    <MakeDir Directories="$(OutputPath)\tomboy\icons\hicolor\24x24\status" />
+    <MakeDir Directories="$(OutputPath)\tomboy\icons\hicolor\32x32\status" />
+    <MakeDir Directories="$(OutputPath)\tomboy\icons\hicolor\48x48\status" />
+    <MakeDir Directories="$(OutputPath)\tomboy\icons\hicolor\scalable\status" />
+    <Copy SourceFiles="data\icons\hicolor_apps_16x16_tomboy.png" DestinationFiles="$(OutputPath)\tomboy\icons\hicolor\16x16\apps\tomboy.png" />
+    <Copy SourceFiles="data\icons\hicolor_apps_22x22_tomboy.png" DestinationFiles="$(OutputPath)\tomboy\icons\hicolor\22x22\apps\tomboy.png" />
+    <Copy SourceFiles="data\icons\hicolor_apps_24x24_tomboy.png" DestinationFiles="$(OutputPath)\tomboy\icons\hicolor\24x24\apps\tomboy.png" />
+    <Copy SourceFiles="data\icons\hicolor_apps_32x32_tomboy.png" DestinationFiles="$(OutputPath)\tomboy\icons\hicolor\32x32\apps\tomboy.png" />
+    <Copy SourceFiles="data\icons\hicolor_apps_48x48_tomboy.png" DestinationFiles="$(OutputPath)\tomboy\icons\hicolor\48x48\apps\tomboy.png" />
+    <Copy SourceFiles="data\icons\hicolor_apps_256x256_tomboy.png" DestinationFiles="$(OutputPath)\tomboy\icons\hicolor\256x256\apps\tomboy.png" />
+    <Copy SourceFiles="data\icons\hicolor_apps_scalable_tomboy.svg" DestinationFiles="$(OutputPath)\tomboy\icons\hicolor\scalable\apps\tomboy.svg" />
+    <Copy SourceFiles="data\icons\hicolor_actions_16x16_note-new.png" DestinationFiles="$(OutputPath)\tomboy\icons\hicolor\16x16\actions\note-new.png" />
+    <Copy SourceFiles="data\icons\hicolor_actions_48x48_notebook-new.png" DestinationFiles="$(OutputPath)\tomboy\icons\hicolor\48x48\actions\notebook-new.png" />
+    <Copy SourceFiles="data\icons\hicolor_actions_22x22_filter-note-all.png" DestinationFiles="$(OutputPath)\tomboy\icons\hicolor\22x22\actions\filter-note-all.png" />
+    <Copy SourceFiles="data\icons\hicolor_actions_22x22_filter-note-unfiled.png" DestinationFiles="$(OutputPath)\tomboy\icons\hicolor\22x22\actions\filter-note-unfiled.png" />
+    <Copy SourceFiles="data\icons\hicolor_places_22x22_note.png" DestinationFiles="$(OutputPath)\tomboy\icons\hicolor\22x22\places\note.png" />
+    <Copy SourceFiles="data\icons\hicolor_places_22x22_notebook.png" DestinationFiles="$(OutputPath)\tomboy\icons\hicolor\22x22\places\notebook.png" />
+    <Copy SourceFiles="data\icons\hicolor_status_16x16_pin-down.png" DestinationFiles="$(OutputPath)\tomboy\icons\hicolor\16x16\status\pin-down.png" />
+    <Copy SourceFiles="data\icons\hicolor_status_16x16_pin-up.png" DestinationFiles="$(OutputPath)\tomboy\icons\hicolor\16x16\status\pin-up.png" />
+    <Copy SourceFiles="data\icons\hicolor_status_16x16_pin-active.png" DestinationFiles="$(OutputPath)\tomboy\icons\hicolor\16x16\status\pin-active.png" />
+  </Target>
+</Project>
