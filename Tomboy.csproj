@@ -97,44 +97,37 @@
     <Reference Include="System.Runtime.Remoting" />
     <Reference Include="System.Xml" />
     <Reference Include="System" />
-    <Reference Include="gtk-sharp, Version=3.0.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
-      <Private>False</Private>
-      <Package>gtk-sharp-3.0</Package>
-    </Reference>
-    <Reference Include="atk-sharp, Version=3.0.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
-      <Package>gtk-sharp-3.0</Package>
-    </Reference>
-    <Reference Include="gdk-sharp, Version=3.0.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
-      <Package>gtk-sharp-3.0</Package>
-    </Reference>
-    <Reference Include="glib-sharp, Version=3.0.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
-      <Package>glib-sharp-3.0</Package>
-    </Reference>
-    <Reference Include="pango-sharp, Version=3.0.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
-      <Package>gtk-sharp-3.0</Package>
-    </Reference>
     <Reference Include="Mono.Addins.GuiGtk3">
       <HintPath>winbin\Mono.Addins.GuiGtk3.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Posix">
       <HintPath>winbin\Mono.Posix.dll</HintPath>
     </Reference>
-    <Reference Include="cairo-sharp, Version=1.10.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756">
-      <Private>False</Private>
-      <Package>gtk-sharp-3.0</Package>
+    <Reference Include="atk-sharp">
+      <HintPath>..\output\lib\mono\gtk-sharp-3.0\atk-sharp.dll</HintPath>
+    </Reference>
+    <Reference Include="cairo-sharp">
+      <HintPath>..\output\lib\mono\gtk-sharp-3.0\cairo-sharp.dll</HintPath>
+    </Reference>
+    <Reference Include="gdk-sharp">
+      <HintPath>..\output\lib\mono\gtk-sharp-3.0\gdk-sharp.dll</HintPath>
+    </Reference>
+    <Reference Include="glib-sharp">
+      <HintPath>..\output\lib\mono\gtk-sharp-3.0\glib-sharp.dll</HintPath>
+    </Reference>
+    <Reference Include="pango-sharp">
+      <HintPath>..\output\lib\mono\gtk-sharp-3.0\pango-sharp.dll</HintPath>
+    </Reference>
+    <Reference Include="gtk-sharp">
+      <HintPath>..\output\lib\mono\gtk-sharp-3.0\gtk-sharp.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Tomboy\ActionManager.cs" />
     <Compile Include="Tomboy\JumpListManager.cs" />
     <Compile Include="Tomboy\Contrast.cs" />
-    <Compile Include="Tomboy\Defines.WIN32.cs" />
     <Compile Include="Tomboy\IRemoteControl.cs" />
     <Compile Include="Tomboy\Logger.cs" />
-    <Compile Include="Tomboy\ManagedWinapi.EventDispatchingNativeWindow.cs" />
-    <Compile Include="Tomboy\ManagedWinapi.Hotkey.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Tomboy\Note.cs" />
     <Compile Include="Tomboy\NoteBuffer.cs" />
     <Compile Include="Tomboy\NoteManager.cs" />
@@ -157,9 +150,6 @@
     <Compile Include="Tomboy\TagManager.cs" />
     <Compile Include="Tomboy\Tag.cs" />
     <Compile Include="Tomboy\TagButton.cs" />
-    <Compile Include="Tomboy\WindowsInterop.cs" />
-    <Compile Include="Tomboy\WindowsFactory.cs" />
-    <Compile Include="Tomboy\WindowsKeybinder.cs" />
     <Compile Include="Tomboy\PreferencesDialog.cs" />
     <Compile Include="Tomboy\NoteEditor.cs" />
     <Compile Include="Tomboy\AbstractAddin.cs" />
@@ -191,10 +181,38 @@
     <Compile Include="Tomboy\PlatformFactory.cs" />
     <Compile Include="Tomboy\PreferencesClient.cs" />
     <Compile Include="Tomboy\PrefsKeybinder.cs" />
-    <Compile Include="Tomboy\WindowsApplication.cs" />
     <Compile Include="Tomboy\XmlPreferencesClient.cs" />
     <None Include="COPYING" />
     <Compile Include="Tomboy\Gtk.Extensions.cs" />
+    <Compile Include="Tomboy\Applet.cs" />
+    <Compile Include="Tomboy\Defines.cs" />
+    <Compile Include="Tomboy\GConfPreferencesClient.cs" />
+    <Compile Include="Tomboy\GnomeApplication.cs" />
+    <Compile Include="Tomboy\GnomeFactory.cs" />
+    <Compile Include="Tomboy\GnomeSession.cs" />
+    <Compile Include="Tomboy\GSettingsPreferencesClient.cs" />
+    <Compile Include="Tomboy\XKeybinder.cs" />
+    <Compile Include="Tomboy\GConf.PropertyEditors\PropertyEditor.cs" />
+    <Compile Include="Tomboy\GConf.PropertyEditors\PropertyEditorBool.cs" />
+    <Compile Include="Tomboy\GConf.PropertyEditors\PropertyEditorEntry.cs" />
+    <Compile Include="Tomboy\GConf.PropertyEditors\PropertyEditorToggleButton.cs" />
+    <Compile Include="Tomboy\Gnome.Keyring\AccessRights.cs" />
+    <Compile Include="Tomboy\Gnome.Keyring\AttributeType.cs" />
+    <Compile Include="Tomboy\Gnome.Keyring\GenericItemData.cs" />
+    <Compile Include="Tomboy\Gnome.Keyring\ItemACL.cs" />
+    <Compile Include="Tomboy\Gnome.Keyring\ItemData.cs" />
+    <Compile Include="Tomboy\Gnome.Keyring\ItemType.cs" />
+    <Compile Include="Tomboy\Gnome.Keyring\KeyringException.cs" />
+    <Compile Include="Tomboy\Gnome.Keyring\KeyringInfo.cs" />
+    <Compile Include="Tomboy\Gnome.Keyring\NetItemData.cs" />
+    <Compile Include="Tomboy\Gnome.Keyring\NoteItemData.cs" />
+    <Compile Include="Tomboy\Gnome.Keyring\Operation.cs" />
+    <Compile Include="Tomboy\Gnome.Keyring\RequestMessage.cs" />
+    <Compile Include="Tomboy\Gnome.Keyring\ResponseMessage.cs" />
+    <Compile Include="Tomboy\Gnome.Keyring\ResultCode.cs" />
+    <Compile Include="Tomboy\Gnome.Keyring\Ring.cs" />
+    <None Include="Tomboy\Gnome.Keyring\sync-tree.sh" />
+    <Compile Include="Tomboy\Hyena\XdgBaseDirectorySpec.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
@@ -233,9 +251,6 @@
   </ItemGroup>
   <ItemGroup>
     <JumpListIcons Include="data\icons\tomboy.ico%3Bdata\icons\new_note.ico%3Bdata\icons\note.ico%3Bdata\icons\search.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <BinaryContent Include="winbin\MonoPosixHelper.dll%3Bwinbin\Mono.Addins.dll.config" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
@@ -299,4 +314,9 @@
     <Copy SourceFiles="data\icons\hicolor_status_16x16_pin-up.png" DestinationFiles="$(OutputPath)\tomboy\icons\hicolor\16x16\status\pin-up.png" />
     <Copy SourceFiles="data\icons\hicolor_status_16x16_pin-active.png" DestinationFiles="$(OutputPath)\tomboy\icons\hicolor\16x16\status\pin-active.png" />
   </Target>
+  <ItemGroup>
+    <Folder Include="Tomboy\GConf.PropertyEditors\" />
+    <Folder Include="Tomboy\Gnome.Keyring\" />
+    <Folder Include="Tomboy\Hyena\" />
+  </ItemGroup>
 </Project>
