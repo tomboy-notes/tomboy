@@ -135,8 +135,8 @@ namespace Tomboy
 			}
 
 			trie_controller = CreateTrieController ();
-			addin_mgr = new AddinManager (conf_dir,
-			                              migration_needed ? old_notes_dir : null);
+			//TODO romu
+			//!!addin_mgr = new AddinManager (conf_dir, migration_needed ? old_notes_dir : null);
 
 			if (first_run) {
 				// First run. Create "Start Here" notes.
@@ -319,9 +319,10 @@ Ciao!");
 
 		protected virtual void LoadNotes ()
 		{
-			Logger.Debug ("Loading notes");
+			Logger.Debug ("Loading notes from '{0}'.", notes_dir);
 			string [] files = Directory.GetFiles (notes_dir, "*.note");
 
+			Logger.Debug ("To load '{0}' notes.", files.Length);
 			foreach (string file_path in files) {
 				try {
 					Note note = Note.Load (file_path, this);
@@ -363,7 +364,8 @@ Ciao!");
 					md.Destroy();
 				}	
 			}
-			
+			Logger.Debug ("All notes loaded.");
+
 			notes.Sort (new CompareDates ());
 
 			// Update the trie so addins can access it, if they want.
@@ -377,7 +379,8 @@ Ciao!");
 			// changed when loading addins.
 			List<Note> notesCopy = new List<Note> (notes);
 			foreach (Note note in notesCopy) {
-				addin_mgr.LoadAddinsForNote (note);
+				//TODO romu
+				//!!addin_mgr.LoadAddinsForNote (note);
 
 				// Show all notes that were visible when tomboy was shut down
 				if (note.IsOpenOnStartup) {
@@ -387,6 +390,8 @@ Ciao!");
 					note.QueueSave (ChangeType.NoChange);
 				}
 			}
+
+			Logger.Debug ("Addins for notes loaded.");
 
 			// Make sure that a Start Note Uri is set in the preferences, and
 			// make sure that the Uri is valid to prevent bug #508982. This
@@ -402,6 +407,8 @@ Ciao!");
 
 			if (NotesLoaded != null)
 				NotesLoaded (this, EventArgs.Empty);
+
+			Logger.Debug ("Exit NoteManager.LoadNotes");
 		}
 
 		void OnExitingEvent (object sender, EventArgs args)
