@@ -135,8 +135,7 @@ namespace Tomboy
 			}
 
 			trie_controller = CreateTrieController ();
-			//TODO romu
-			//!!addin_mgr = new AddinManager (conf_dir, migration_needed ? old_notes_dir : null);
+			addin_mgr = new AddinManager (conf_dir, migration_needed ? old_notes_dir : null);
 
 			if (first_run) {
 				// First run. Create "Start Here" notes.

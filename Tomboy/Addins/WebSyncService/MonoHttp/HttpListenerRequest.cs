@@ -36,7 +36,11 @@ using System.Globalization;
 using System.IO;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
-using System; using System.Net; namespace MonoHttp {
+using System;
+using System.Net;
+using System.Web;
+
+namespace MonoHttp {
 	internal class HttpListenerRequest
 	{
 		string [] accept_types;

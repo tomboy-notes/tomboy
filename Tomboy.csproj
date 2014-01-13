@@ -103,23 +103,29 @@
     <Reference Include="Mono.Posix">
       <HintPath>winbin\Mono.Posix.dll</HintPath>
     </Reference>
-    <Reference Include="atk-sharp">
-      <HintPath>..\output\lib\mono\gtk-sharp-3.0\atk-sharp.dll</HintPath>
+    <Reference Include="atk-sharp, Version=3.0.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
+      <Private>False</Private>
+      <Package>/home/rtisserand/tomboy/output/lib/mono/gtk-sharp-3.0/atk-sharp.dll</Package>
     </Reference>
-    <Reference Include="cairo-sharp">
-      <HintPath>..\output\lib\mono\gtk-sharp-3.0\cairo-sharp.dll</HintPath>
+    <Reference Include="gdk-sharp, Version=3.0.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
+      <Private>False</Private>
+      <Package>/home/rtisserand/tomboy/output/lib/mono/gtk-sharp-3.0/gdk-sharp.dll</Package>
     </Reference>
-    <Reference Include="gdk-sharp">
-      <HintPath>..\output\lib\mono\gtk-sharp-3.0\gdk-sharp.dll</HintPath>
+    <Reference Include="gio-sharp, Version=3.0.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
+      <Private>False</Private>
+      <Package>/home/rtisserand/tomboy/output/lib/mono/gtk-sharp-3.0/gio-sharp.dll</Package>
     </Reference>
-    <Reference Include="glib-sharp">
-      <HintPath>..\output\lib\mono\gtk-sharp-3.0\glib-sharp.dll</HintPath>
+    <Reference Include="glib-sharp, Version=3.0.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
+      <Private>False</Private>
+      <Package>/home/rtisserand/tomboy/output/lib/mono/gtk-sharp-3.0/glib-sharp.dll</Package>
     </Reference>
-    <Reference Include="pango-sharp">
-      <HintPath>..\output\lib\mono\gtk-sharp-3.0\pango-sharp.dll</HintPath>
+    <Reference Include="gtk-sharp, Version=3.0.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
+      <Private>False</Private>
+      <Package>/home/rtisserand/tomboy/output/lib/mono/gtk-sharp-3.0/gtk-sharp.dll</Package>
     </Reference>
-    <Reference Include="gtk-sharp">
-      <HintPath>..\output\lib\mono\gtk-sharp-3.0\gtk-sharp.dll</HintPath>
+    <Reference Include="pango-sharp, Version=3.0.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
+      <Private>False</Private>
+      <Package>/home/rtisserand/tomboy/output/lib/mono/gtk-sharp-3.0/pango-sharp.dll</Package>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -213,6 +219,7 @@
     <Compile Include="Tomboy\Gnome.Keyring\Ring.cs" />
     <None Include="Tomboy\Gnome.Keyring\sync-tree.sh" />
     <Compile Include="Tomboy\Hyena\XdgBaseDirectorySpec.cs" />
+    <Compile Include="Tomboy\System.Web\HttpUtility.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
@@ -318,5 +325,6 @@
     <Folder Include="Tomboy\GConf.PropertyEditors\" />
     <Folder Include="Tomboy\Gnome.Keyring\" />
     <Folder Include="Tomboy\Hyena\" />
+    <Folder Include="Tomboy\System.Web\" />
   </ItemGroup>
 </Project>
