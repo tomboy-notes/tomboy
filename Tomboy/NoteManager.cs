@@ -378,8 +378,7 @@ Ciao!");
 			// changed when loading addins.
 			List<Note> notesCopy = new List<Note> (notes);
 			foreach (Note note in notesCopy) {
-				//TODO romu
-				//!!addin_mgr.LoadAddinsForNote (note);
+				addin_mgr.LoadAddinsForNote (note);
 
 				// Show all notes that were visible when tomboy was shut down
 				if (note.IsOpenOnStartup) {

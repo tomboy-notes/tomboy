@@ -182,18 +182,17 @@ namespace Tomboy.Sync
 			Tomboy.ActionManager.UI.InsertActionGroup (action_group, 0);
 
 			// Initialize all the SyncServiceAddins
-			//TODO romu
-//			SyncServiceAddin [] addins = Tomboy.DefaultNoteManager.AddinManager.GetSyncServiceAddins ();
-//			foreach (SyncServiceAddin addin in addins) {
-//				try {
-//					addin.Initialize ();
-//				} catch (Exception e) {
-//					Logger.Debug ("Error calling {0}.Initialize (): {1}\n{2}",
-//					              addin.Id, e.Message, e.StackTrace);
-//
-//					// TODO: Call something like AddinManager.Disable (addin)
-//				}
-//			}
+			SyncServiceAddin [] addins = Tomboy.DefaultNoteManager.AddinManager.GetSyncServiceAddins ();
+			foreach (SyncServiceAddin addin in addins) {
+				try {
+					addin.Initialize ();
+				} catch (Exception e) {
+					Logger.Debug ("Error calling {0}.Initialize (): {1}\n{2}",
+					              addin.Id, e.Message, e.StackTrace);
+
+					// TODO: Call something like AddinManager.Disable (addin)
+				}
+			}
 
 			Preferences.SettingChanged += Preferences_SettingChanged;
 			NoteMgr.NoteSaved += (n) => HandleNoteSavedOrDeleted ();
