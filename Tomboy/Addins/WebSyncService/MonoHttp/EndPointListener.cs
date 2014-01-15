@@ -36,8 +36,11 @@ using System.Collections;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 //using Mono.Security.Authenticode;
+using System;
+using System.Net;
+using System.Web;
 
-using System; using System.Net; namespace MonoHttp {
+namespace MonoHttp {
 	
 	sealed class EndPointListener : IHttpListenerContextBinder
 	{

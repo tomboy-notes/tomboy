@@ -99,13 +99,13 @@ namespace Tomboy
 			//       previously-opened notes)
 			GLib.Timeout.Add (500, () => {
 				manager.Initialize ();
-				SyncManager.Initialize ();
-
-				ApplicationAddin [] addins =
-				        manager.AddinManager.GetApplicationAddins ();
-				foreach (ApplicationAddin addin in addins) {
-					addin.Initialize ();
-				}
+//				SyncManager.Initialize ();
+//
+//				ApplicationAddin [] addins =
+//				        manager.AddinManager.GetApplicationAddins ();
+//				foreach (ApplicationAddin addin in addins) {
+//					addin.Initialize ();
+//				}
 
 				// Register the manager to handle remote requests.
 				RegisterRemoteControl (manager);
