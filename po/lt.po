@@ -7,18 +7,18 @@
 # Žygimantas Beručka <zygis@gnome.org>, 2005-2007, 2009.
 # Gintautas Miliauskas <gintas@akl.lt>, 2006, 2007, 2008.
 # Vytautas Rėkus <v.rekus@gmail.com>, 2009.
-# Aurimas Černius <aurisc4@gmail.com>, 2010, 2013.
+# Aurimas Černius <aurisc4@gmail.com>, 2010, 2013, 2014.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: tomboy.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=tomboy&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-01-20 01:02+0000\n"
-"PO-Revision-Date: 2013-03-02 17:07+0200\n"
+"POT-Creation-Date: 2014-03-02 11:35+0000\n"
+"PO-Revision-Date: 2014-03-02 23:30+0200\n"
 "Last-Translator: Aurimas Černius <aurisc4@gmail.com>\n"
 "Language-Team: Lietuvių <gnome-lt@lists.akl.lt>\n"
-"Language: \n"
+"Language: lt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -205,14 +205,10 @@ msgstr ""
 "raštelių meniu, skaičių."
 
 #: ../data/tomboy.schemas.in.h:23
-#| msgid "Minimum number of notes to show in menu"
 msgid "Maximum number of notes to show in menu"
 msgstr "Didžiausias leistinas meniu rodomų raštelių skaičius"
 
 #: ../data/tomboy.schemas.in.h:24
-#| msgid ""
-#| "Integer determining the minimum number of notes to show in the Tomboy "
-#| "note menu."
 msgid ""
 "Integer determining the maximum number of notes to show in the Tomboy note "
 "menu."
@@ -244,7 +240,9 @@ msgstr ""
 "Maksimalus simbolių skaičius užrašo antraštėje, rodomas Tomboy dėklės ar "
 "įtaiso užrašo meniu."
 
+#. Enable Startup Notes option
 #: ../data/tomboy.schemas.in.h:29
+#: ../Tomboy/Addins/AdvancedPreferences/EnableStartupNotesPreference.cs:27
 msgid "Enable startup notes"
 msgstr "Įjungti paleidimo raštelius"
 
@@ -719,19 +717,17 @@ msgid "Start synchronizing notes"
 msgstr "Pradėti raštelių sinchronizavimą"
 
 #. Addin's tab caption
-#: ../Tomboy/Addins/AdvancedPreferences/AdvancedPreferencesAddin.cs:26
+#: ../Tomboy/Addins/AdvancedPreferences/AdvancedPreferencesAddin.cs:24
 msgid "Advanced"
 msgstr "Sudėtingesni"
 
 #. Menu Min Note Count option
-#: ../Tomboy/Addins/AdvancedPreferences/MenuMinMaxNoteCountPreference.cs:34
-#| msgid "Minimum number of notes to show in Recent list (maximum 18)"
+#: ../Tomboy/Addins/AdvancedPreferences/MenuMinMaxNoteCountPreference.cs:35
 msgid "Minimum number of notes to show in Recent list"
 msgstr "Mažiausias rodomų raštelių skaičius nesenų sąraše"
 
 #. Menu Max Note Count option
-#: ../Tomboy/Addins/AdvancedPreferences/MenuMinMaxNoteCountPreference.cs:58
-#| msgid "Minimum number of notes to show in Recent list (maximum 18)"
+#: ../Tomboy/Addins/AdvancedPreferences/MenuMinMaxNoteCountPreference.cs:59
 msgid "Maximum number of notes to show in Recent list"
 msgstr "Didžiausias rodomų raštelių skaičius nesenų sąraše"
 
@@ -818,28 +814,28 @@ msgstr "Įtraukti visus kitus susietus raštelius"
 msgid "Export to HTML"
 msgstr "Eksportuoti į HTML"
 
-#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:115
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:116
 #, csharp-format
 msgid "Your note was exported to \"{0}\"."
 msgstr "Jūsų raštelis buvo eksportuotas į „{0}“."
 
-#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:126
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:127
 msgid "Note exported successfully"
 msgstr "Raštelis eksportuotas sėkmingai"
 
-#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:132
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:133
 #: ../Tomboy/ExportAllApplicationAddin.cs:250
 #: ../Tomboy/ExportAllApplicationAddin.cs:328
 msgid "Access denied."
 msgstr "Prieiga uždrausta."
 
-#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:134
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:135
 #: ../Tomboy/ExportAllApplicationAddin.cs:255
 #: ../Tomboy/ExportAllApplicationAddin.cs:333
 msgid "Folder does not exist."
 msgstr "Aplankas neegzistuoja."
 
-#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:149
+#: ../Tomboy/Addins/ExportToHtml/ExportToHtmlNoteAddin.cs:150
 #, csharp-format
 msgid "Could not save the file \"{0}\""
 msgstr "Nepavyko išsaugoti failo „{0}“"
@@ -1401,17 +1397,17 @@ msgstr "Užrašinė"
 msgid "_New notebook..."
 msgstr "Nauja _užrašinė..."
 
-#: ../Tomboy/Note.cs:515 ../Tomboy/NoteManager.cs:480
+#: ../Tomboy/Note.cs:515
 #, csharp-format
 msgid "New Note {0}"
 msgstr "Naujas raštelis {0}"
 
-#: ../Tomboy/Note.cs:1675
+#: ../Tomboy/Note.cs:1678
 #, csharp-format
 msgid "Really delete \"{0}\"?"
 msgstr "Tikrai ištrinti „{0}“?"
 
-#: ../Tomboy/Note.cs:1678
+#: ../Tomboy/Note.cs:1681
 #, csharp-format
 msgid "Really delete this {0} note?"
 msgid_plural "Really delete these {0} notes?"
@@ -1419,11 +1415,11 @@ msgstr[0] "Tikrai ištrinti šį {0} raštelį?"
 msgstr[1] "Tikrai ištrinti šiuos {0} raštelius?"
 msgstr[2] "Tikrai ištrinti šiuos {0} raštelių?"
 
-#: ../Tomboy/Note.cs:1689
+#: ../Tomboy/Note.cs:1692
 msgid "If you delete a note it is permanently lost."
 msgstr "Jeigu ištrinsite raštelį, jis bus prarastas visam laikui."
 
-#: ../Tomboy/Note.cs:1723
+#: ../Tomboy/Note.cs:1726
 #, csharp-format
 msgid ""
 "An error occurred while saving your notes. Please check that you have "
@@ -1434,13 +1430,13 @@ msgstr ""
 "vietos diske ir ar turite teises keisti aplanką {0}. Smulkesnę informaciją "
 "galima rasti faile {1}."
 
-#: ../Tomboy/Note.cs:1739
+#: ../Tomboy/Note.cs:1742
 msgid "Error saving note data."
 msgstr "Klaida įrašant raštelio duomenis."
 
 #. New Note Template
 #. Translators: This is 'New Note' Template, not New 'Note Template'
-#: ../Tomboy/NoteManager.cs:21 ../Tomboy/PreferencesDialog.cs:263
+#: ../Tomboy/NoteManager.cs:21 ../Tomboy/PreferencesDialog.cs:264
 msgid "New Note Template"
 msgstr "Naujas raštelio šablonas"
 
@@ -1568,9 +1564,19 @@ msgstr "Pradėkite čia"
 msgid "Using Links in Tomboy"
 msgstr "Saitų naudojimas Tomboy"
 
+#: ../Tomboy/NoteManager.cs:480
+#, csharp-format
+#| msgid "New Note {0}"
+msgid "Note from {0}"
+msgstr "Raštelis iš {0}"
+
+#: ../Tomboy/NoteManager.cs:480
+msgid "yyyy-MM-dd HH:mm:ss.fff"
+msgstr "yyyy-MM-dd HH:mm:ss.fff"
+
 #. Use a simple "Describe..." body and highlight
 #. it so it can be easily overwritten
-#: ../Tomboy/NoteManager.cs:560 ../Tomboy/NoteManager.cs:663
+#: ../Tomboy/NoteManager.cs:559 ../Tomboy/NoteManager.cs:662
 msgid "Describe your new note here."
 msgstr "Čia aprašykite naują raštelį"
 
@@ -1801,27 +1807,27 @@ msgstr "Mažinti šriftą"
 msgid "Bullets"
 msgstr "Punktai"
 
-#: ../Tomboy/PreferencesDialog.cs:74
+#: ../Tomboy/PreferencesDialog.cs:75
 msgid "Editing"
 msgstr "Redagavimas"
 
-#: ../Tomboy/PreferencesDialog.cs:77
+#: ../Tomboy/PreferencesDialog.cs:78
 msgid "Hotkeys"
 msgstr "Karštieji klavišai"
 
-#: ../Tomboy/PreferencesDialog.cs:79
+#: ../Tomboy/PreferencesDialog.cs:80
 msgid "Synchronization"
 msgstr "Sinchronizavimas"
 
-#: ../Tomboy/PreferencesDialog.cs:80
+#: ../Tomboy/PreferencesDialog.cs:81
 msgid "Add-ins"
 msgstr "Priedai"
 
-#: ../Tomboy/PreferencesDialog.cs:180
+#: ../Tomboy/PreferencesDialog.cs:181
 msgid "_Spell check while typing"
 msgstr "_Rašant tekstą tikrinti rašybą"
 
-#: ../Tomboy/PreferencesDialog.cs:189
+#: ../Tomboy/PreferencesDialog.cs:190
 msgid ""
 "Misspellings will be underlined in red, with correct spelling suggestions "
 "shown in the context menu."
@@ -1830,11 +1836,11 @@ msgstr ""
 "rodant teisingos rašybos pasiūlymus."
 
 #. WikiWords...
-#: ../Tomboy/PreferencesDialog.cs:200
+#: ../Tomboy/PreferencesDialog.cs:201
 msgid "Highlight _WikiWords"
 msgstr "Paryškinti _WikiŽodžius"
 
-#: ../Tomboy/PreferencesDialog.cs:208
+#: ../Tomboy/PreferencesDialog.cs:209
 msgid ""
 "Enable this option to highlight words <b>ThatLookLikeThis</b>. Clicking the "
 "word will create a note with that name."
@@ -1843,31 +1849,31 @@ msgstr ""
 "b>. Paspaudus tokį žodį bus sukurtas raštelis su tokiu pavadinimu."
 
 #. Auto bulleted list
-#: ../Tomboy/PreferencesDialog.cs:215
+#: ../Tomboy/PreferencesDialog.cs:216
 msgid "Enable auto-_bulleted lists"
 msgstr "Įjungti automatinį _sąrašų formatą"
 
-#: ../Tomboy/PreferencesDialog.cs:224
+#: ../Tomboy/PreferencesDialog.cs:225
 msgid "Use custom _font"
 msgstr "Naudoti pasirinktinį šri_ftą"
 
-#: ../Tomboy/PreferencesDialog.cs:242
+#: ../Tomboy/PreferencesDialog.cs:243
 msgid "When renaming a linked note: "
 msgstr "Pervadinant susijusį raštelį: "
 
-#: ../Tomboy/PreferencesDialog.cs:245
+#: ../Tomboy/PreferencesDialog.cs:246
 msgid "Ask me what to do"
 msgstr "Paklausti, ką daryti"
 
-#: ../Tomboy/PreferencesDialog.cs:246
+#: ../Tomboy/PreferencesDialog.cs:247
 msgid "Never rename links"
 msgstr "Niekada nepervadinti saitų"
 
-#: ../Tomboy/PreferencesDialog.cs:247
+#: ../Tomboy/PreferencesDialog.cs:248
 msgid "Always rename links"
 msgstr "Visada pervadinti saitus"
 
-#: ../Tomboy/PreferencesDialog.cs:267
+#: ../Tomboy/PreferencesDialog.cs:268
 msgid ""
 "Use the new note template to specify the text that should be used when "
 "creating a new note."
@@ -1875,16 +1881,16 @@ msgstr ""
 "Nurodykite naujo raštelio šablone tekstą, kuris turėtų būti naudojamas "
 "kuriant naujus raštelius."
 
-#: ../Tomboy/PreferencesDialog.cs:276
+#: ../Tomboy/PreferencesDialog.cs:277
 msgid "Open New Note Template"
 msgstr "Atverti naujo raštelio šabloną"
 
 #. Hotkeys...
-#: ../Tomboy/PreferencesDialog.cs:333
+#: ../Tomboy/PreferencesDialog.cs:334
 msgid "Listen for _Hotkeys"
 msgstr "Klausytis _karštųjų klavišų"
 
-#: ../Tomboy/PreferencesDialog.cs:342
+#: ../Tomboy/PreferencesDialog.cs:343
 msgid ""
 "Hotkeys allow you to quickly access your notes from anywhere with a "
 "keypress. Example Hotkeys: <b>&lt;ALT&gt;F11</b>, <b>&lt;ALT&gt;N</b>"
@@ -1894,82 +1900,82 @@ msgstr ""
 "ALT&gt;N</b>"
 
 #. Show notes menu keybinding...
-#: ../Tomboy/PreferencesDialog.cs:362
+#: ../Tomboy/PreferencesDialog.cs:363
 msgid "Show notes _menu"
 msgstr "Rodyti raštelių _meniu"
 
 #. Open Start Here keybinding...
-#: ../Tomboy/PreferencesDialog.cs:379
+#: ../Tomboy/PreferencesDialog.cs:380
 msgid "Open \"_Start Here\""
 msgstr "Atverti „Pradėti čia“"
 
 #. Create new note keybinding...
-#: ../Tomboy/PreferencesDialog.cs:396
+#: ../Tomboy/PreferencesDialog.cs:397
 msgid "Create _new note"
 msgstr "Sukurti _naują raštelį"
 
 #. Open Search All Notes window keybinding...
-#: ../Tomboy/PreferencesDialog.cs:413
+#: ../Tomboy/PreferencesDialog.cs:414
 msgid "Open \"Search _All Notes\""
 msgstr "Atverti „Ieškoti _visuose rašteliuose“"
 
-#: ../Tomboy/PreferencesDialog.cs:440
+#: ../Tomboy/PreferencesDialog.cs:441
 msgid "Ser_vice:"
 msgstr "Tar_nyba:"
 
-#: ../Tomboy/PreferencesDialog.cs:493 ../Tomboy/PreferencesDialog.cs:1112
+#: ../Tomboy/PreferencesDialog.cs:494 ../Tomboy/PreferencesDialog.cs:1113
 msgid "Not configurable"
 msgstr "Nekonfigūruojama"
 
-#: ../Tomboy/PreferencesDialog.cs:519
+#: ../Tomboy/PreferencesDialog.cs:520
 msgid "Automaticall_y Sync in Background Every"
 msgstr "_Automatiškai sinchronizuoti fone kas"
 
 #. Translators: See above comment for details on
 #. this string.
-#: ../Tomboy/PreferencesDialog.cs:525
+#: ../Tomboy/PreferencesDialog.cs:526
 msgid "Minutes"
 msgstr "minučių"
 
 #. "Advanced..." button to bring up extra sync config dialog
-#: ../Tomboy/PreferencesDialog.cs:547
+#: ../Tomboy/PreferencesDialog.cs:548
 msgid "_Advanced..."
 msgstr "_Sudėtingesni..."
 
-#: ../Tomboy/PreferencesDialog.cs:608
+#: ../Tomboy/PreferencesDialog.cs:609
 msgid "The following add-ins are installed"
 msgstr "Įdiegti šie priedai"
 
-#: ../Tomboy/PreferencesDialog.cs:629
+#: ../Tomboy/PreferencesDialog.cs:630
 msgid "Get More Add-Ins..."
 msgstr "Parsiųsti daugiau įskiepių..."
 
-#: ../Tomboy/PreferencesDialog.cs:647
+#: ../Tomboy/PreferencesDialog.cs:648
 msgid "_Enable"
 msgstr "Įj_ungti"
 
-#: ../Tomboy/PreferencesDialog.cs:653
+#: ../Tomboy/PreferencesDialog.cs:654
 msgid "_Disable"
 msgstr "_Išjungti"
 
-#: ../Tomboy/PreferencesDialog.cs:784
+#: ../Tomboy/PreferencesDialog.cs:785
 msgid "Not Implemented"
 msgstr "Neįgyvendinta"
 
-#: ../Tomboy/PreferencesDialog.cs:798
+#: ../Tomboy/PreferencesDialog.cs:799
 #, csharp-format
 msgid "{0} Preferences"
 msgstr "{0} nustatymai"
 
-#: ../Tomboy/PreferencesDialog.cs:937
+#: ../Tomboy/PreferencesDialog.cs:938
 msgid "Choose Note Font"
 msgstr "Pasirinkite raštelio šriftą"
 
-#: ../Tomboy/PreferencesDialog.cs:981
+#: ../Tomboy/PreferencesDialog.cs:982
 msgid "Other Synchronization Options"
 msgstr "Kitos sinchronizavimo parinktys"
 
-#: ../Tomboy/PreferencesDialog.cs:987
+#: ../Tomboy/PreferencesDialog.cs:988
 msgid ""
 "When a conflict is detected between a local note and a note on the "
 "configured synchronization server:"
@@ -1977,23 +1983,23 @@ msgstr ""
 "Kai randamas konfliktas tarp vietinio raštelio ir raštelio sukonfigūruotame "
 "sinchronizavimo serveryje:"
 
-#: ../Tomboy/PreferencesDialog.cs:994
+#: ../Tomboy/PreferencesDialog.cs:995
 msgid "Always ask me what to do."
 msgstr "Visada paklausti manęs ką daryti."
 
-#: ../Tomboy/PreferencesDialog.cs:998
+#: ../Tomboy/PreferencesDialog.cs:999
 msgid "Rename my local note."
 msgstr "Pervadinti mano vietinį raštelį."
 
-#: ../Tomboy/PreferencesDialog.cs:1002
+#: ../Tomboy/PreferencesDialog.cs:1003
 msgid "Replace my local note with the server's update."
 msgstr "Pakeisti mano vietinį raštelį naujesniu iš serverio."
 
-#: ../Tomboy/PreferencesDialog.cs:1148
+#: ../Tomboy/PreferencesDialog.cs:1149
 msgid "Are you sure?"
 msgstr "Ar tikrai?"
 
-#: ../Tomboy/PreferencesDialog.cs:1150
+#: ../Tomboy/PreferencesDialog.cs:1151
 msgid ""
 "Clearing your synchronization settings is not recommended.  You may be "
 "forced to synchronize all of your notes again when you save new settings."
@@ -2002,11 +2008,11 @@ msgstr ""
 "parametrus galite būti priversti sinchronizuoti visus savo raštelius dar "
 "kartą."
 
-#: ../Tomboy/PreferencesDialog.cs:1163
+#: ../Tomboy/PreferencesDialog.cs:1164
 msgid "Resetting Synchronization Settings"
 msgstr "Atstatomi sinchronizavimo parametrai"
 
-#: ../Tomboy/PreferencesDialog.cs:1165
+#: ../Tomboy/PreferencesDialog.cs:1166
 msgid ""
 "You have disabled the configured synchronization service.  Your "
 "synchronization settings will now be cleared.  You may be forced to "
@@ -2016,11 +2022,11 @@ msgstr ""
 "parametrai dabar bus išvalyti. Išsaugoję naujus parametrus galite būti "
 "priversti sinchronizuoti visus savo raštelius dar kartą."
 
-#: ../Tomboy/PreferencesDialog.cs:1243
+#: ../Tomboy/PreferencesDialog.cs:1244
 msgid "Connection successful"
 msgstr "Prisijungimas sėkmingas"
 
-#: ../Tomboy/PreferencesDialog.cs:1245
+#: ../Tomboy/PreferencesDialog.cs:1246
 msgid ""
 "Tomboy is ready to synchronize your notes. Would you like to synchronize "
 "them now?"
@@ -2028,7 +2034,7 @@ msgstr ""
 "Tomboy paruošta jūsų raštelių sinchronizavimui. Ar norėtumėte sinchronizuoti "
 "juos dabar?"
 
-#: ../Tomboy/PreferencesDialog.cs:1268
+#: ../Tomboy/PreferencesDialog.cs:1269
 #, csharp-format
 msgid ""
 "Please check your information and try again.  The log file {0} may contain "
@@ -2037,23 +2043,23 @@ msgstr ""
 "Patikrinkite savo informaciją ir bandykite dar kartą. Žurnalo failas {0} "
 "gali turėti daugiau informacijos apie klaidą."
 
-#: ../Tomboy/PreferencesDialog.cs:1280
+#: ../Tomboy/PreferencesDialog.cs:1281
 msgid "Error connecting"
 msgstr "Klaida jungiantis"
 
-#: ../Tomboy/PreferencesDialog.cs:1364
+#: ../Tomboy/PreferencesDialog.cs:1365
 msgid "Version:"
 msgstr "Versija:"
 
-#: ../Tomboy/PreferencesDialog.cs:1371
+#: ../Tomboy/PreferencesDialog.cs:1372
 msgid "Author:"
 msgstr "Autorius:"
 
-#: ../Tomboy/PreferencesDialog.cs:1378
+#: ../Tomboy/PreferencesDialog.cs:1379
 msgid "Copyright:"
 msgstr "Autorinės teisės:"
 
-#: ../Tomboy/PreferencesDialog.cs:1384
+#: ../Tomboy/PreferencesDialog.cs:1385
 msgid "Add-in Dependencies:"
 msgstr "Priedo priklausomybės:"
 
@@ -2414,11 +2420,11 @@ msgstr ""
 msgid "A simple and easy to use desktop note-taking application."
 msgstr "Paprasta ir lengva naudoti aplinkos užrašinė."
 
-#: ../Tomboy/Tomboy.cs:439
+#: ../Tomboy/Tomboy.cs:441
 msgid "Homepage"
 msgstr "Tinklalapis"
 
-#: ../Tomboy/Tomboy.cs:575
+#: ../Tomboy/Tomboy.cs:577
 msgid ""
 "Tomboy: A simple, easy to use desktop note-taking application.\n"
 "Copyright © 2004-2007 Alex Graveley\n"
@@ -2432,7 +2438,7 @@ msgstr ""
 "\n"
 "Autorinės teisės priklauso © 2004-2011 kitiems\n"
 
-#: ../Tomboy/Tomboy.cs:589
+#: ../Tomboy/Tomboy.cs:591
 msgid ""
 "Usage:\n"
 "  --version\t\t\tPrint version information.\n"
@@ -2447,7 +2453,7 @@ msgstr ""
 "  --search [tekstas]\t\tAtverti paieškos visuose rašteliuose langą su "
 "paieškos tekstu.\n"
 
-#: ../Tomboy/Tomboy.cs:599
+#: ../Tomboy/Tomboy.cs:601
 msgid ""
 "  --new-note\t\t\tCreate and display a new note.\n"
 "  --new-note [title]\t\tCreate and display a new note, with a title.\n"
@@ -2465,7 +2471,7 @@ msgstr ""
 "  --highlight-search [tekstas]\tAtvertame raštelyje surasti ir paryškinti "
 "tekstą.\n"
 
-#: ../Tomboy/Tomboy.cs:609
+#: ../Tomboy/Tomboy.cs:611
 msgid ""
 "  --addin:html-export-all [path]\tExports all notes to HTML in the given "
 "location.\n"
@@ -2477,7 +2483,7 @@ msgstr ""
 "  --addin:html-export-all-quit [kelias]\tEksportuoja visus raštelius į HTML "
 "nurodytoje vietoje ir baigia darbą.\n"
 
-#: ../Tomboy/Tomboy.cs:619
+#: ../Tomboy/Tomboy.cs:621
 #, csharp-format
 msgid "Version {0}"
 msgstr "Versija {0}"
@@ -2590,7 +2596,7 @@ msgstr "yyyy MMMM d"
 msgid "(Untitled {0})"
 msgstr "(Nepavadinta {0})"
 
-#: ../Tomboy/Watchers.cs:189
+#: ../Tomboy/Watchers.cs:186
 #, csharp-format
 msgid ""
 "A note with the title <b>{0}</b> already exists. Please choose another name "
@@ -2599,14 +2605,14 @@ msgstr ""
 "Raštelis pavadinimu <b>{0}</b> jau egzistuoja. Norėdami tęsti, turite "
 "pasirinkti kitą šio raštelio pavadinimą."
 
-#: ../Tomboy/Watchers.cs:204
+#: ../Tomboy/Watchers.cs:201
 msgid "Note title taken"
 msgstr "Raštelio pavadinimas užimtas"
 
-#: ../Tomboy/Watchers.cs:608
+#: ../Tomboy/Watchers.cs:605
 msgid "_Copy Link Address"
 msgstr "_Kopijuoti saito adresą"
 
-#: ../Tomboy/Watchers.cs:613
+#: ../Tomboy/Watchers.cs:610
 msgid "_Open Link"
 msgstr "_Atverti saitą"
