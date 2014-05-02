@@ -1,6 +1,8 @@
 
 SUBDIRS = data libtomboy Tomboy test po help
 
+ACLOCAL_AMFLAGS = -I m4 ${ACLOCAL_FLAGS}
+
 EXTRA_DIST = 			\
 	gnome-doc-utils.make	\
 	\
