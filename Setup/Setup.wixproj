@@ -6,9 +6,7 @@
     <OutputType>Package</OutputType>
     <RootNamespace>Setup</RootNamespace>
     <OutputName>Tomboy</OutputName>
-    <WixToolPath Condition=" '$(WixToolPath)' == '' ">$(SharpDevelopBinPath)\Tools\Wix</WixToolPath>
-    <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' ">$(WixToolPath)\wix.targets</WixTargetsPath>
-    <WixTasksPath Condition=" '$(WixTasksPath)' == '' ">$(WixToolPath)\WixTasks.dll</WixTasksPath>
+    <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' ">$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\wix.targets</WixTargetsPath>
     <SupressIces>ICE45</SupressIces>
     <WixVariables>WixUILicenseRtf=license.rtf</WixVariables>
   </PropertyGroup>
@@ -24,7 +22,7 @@
     <DebugType>None</DebugType>
     <Optimize>True</Optimize>
   </PropertyGroup>
-  <Import Project="$(WixToolPath)\wix.targets" />
+  <Import Project="$(WixTargetsPath)" />
   <ItemGroup>
     <ProjectReference Include="..\Tomboy\Addins\AdvancedPreferences\AdvancedPreferences.csproj">
       <Project>{35C7F93C-F4D2-4FD0-B669-B02CE1EF29FD}</Project>
@@ -34,8 +32,8 @@
       <Project>{AD6C9F12-3F95-497C-AF7E-629F787A097E}</Project>
       <Name>RemoveBrokenLinks</Name>
     </ProjectReference>
-    <WixExtension Include="$(WixToolPath)\WixUIExtension.dll" />
-    <WixExtension Include="$(WixToolPath)\WixNetFxExtension.dll" />
+    <WixExtension Include="$(WixInstallPath)\WixUIExtension.dll" />
+    <WixExtension Include="$(WixInstallPath)\WixNetFxExtension.dll" />
     <Compile Include="Files.wxs" />
     <Compile Include="Setup.wxs" />
     <None Include="BannrBmp.bmp" />
