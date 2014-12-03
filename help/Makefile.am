@@ -8,6 +8,7 @@ DOC_FIGURES = \
 	figures/add-notebook-search.png \
 	figures/add-to-notebook.png \
 	figures/delete-notebook.png \
+	figures/icon.png \
 	figures/move-notes-search.png \
 	figures/new-notebook.png \
 	figures/notebook-icon.png \
