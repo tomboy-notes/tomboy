@@ -230,7 +230,7 @@ namespace Tomboy.Sync
 			} else if (p.ExitCode == 1) {
 				UnmountTimeout (null, null); // TODO: This is awfully ugly
 				Logger.Debug ("Error calling " + fuseMountExePath);
-				throw new TomboySyncException (Catalog.GetString ("An error ocurred while connecting to the specified server:") +
+				throw new TomboySyncException (Catalog.GetString ("An error occurred while connecting to the specified server:") +
 				                               "\n\n" + p.StandardError.ReadToEnd ());
 			}
 
