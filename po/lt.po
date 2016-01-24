@@ -7,15 +7,15 @@
 # Žygimantas Beručka <zygis@gnome.org>, 2005-2007, 2009.
 # Gintautas Miliauskas <gintas@akl.lt>, 2006, 2007, 2008.
 # Vytautas Rėkus <v.rekus@gmail.com>, 2009.
-# Aurimas Černius <aurisc4@gmail.com>, 2010, 2013, 2014.
+# Aurimas Černius <aurisc4@gmail.com>, 2010, 2013, 2014, 2016.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: tomboy.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=tomboy&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2014-03-02 11:35+0000\n"
-"PO-Revision-Date: 2014-03-02 23:30+0200\n"
+"POT-Creation-Date: 2016-01-08 14:44+0000\n"
+"PO-Revision-Date: 2016-01-24 19:38+0200\n"
 "Last-Translator: Aurimas Černius <aurisc4@gmail.com>\n"
 "Language-Team: Lietuvių <gnome-lt@lists.akl.lt>\n"
 "Language: lt\n"
@@ -24,7 +24,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
 "%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Gtranslator 2.91.6\n"
+"X-Generator: Gtranslator 2.91.7\n"
 
 #: ../data/GNOME_TomboyApplet.server.in.in.h:1
 msgid "Tomboy Applet Factory"
@@ -51,7 +51,7 @@ msgstr "S_inchronizuoti raštelius"
 #: ../data/GNOME_TomboyApplet.xml.h:2 ../Tomboy/ActionManager.cs:153
 #: ../Tomboy/Tray.cs:283
 msgid "_Preferences"
-msgstr "_Nustatymai"
+msgstr "_Nuostatos"
 
 #: ../data/GNOME_TomboyApplet.xml.h:3 ../Tomboy/ActionManager.cs:157
 #: ../Tomboy/Tray.cs:288
@@ -91,7 +91,7 @@ msgid ""
 "Enable this option to highlight words ThatLookLikeThis. Clicking the word "
 "will create a note with that name."
 msgstr ""
-"Įjunkite šį nustatymą norėdami paryškinti žodžius KurieAtrodoŠtaiTaip. "
+"Įjunkite šį parametrą, norėdami paryškinti žodžius KurieAtrodoŠtaiTaip. "
 "Paspaudus šį žodį bus sukurtas naujas raštelis su tokiu pavadinimu."
 
 #: ../data/tomboy.schemas.in.h:5
@@ -128,7 +128,7 @@ msgid ""
 "displaying notes. Otherwise the desktop default font will be used."
 msgstr ""
 "Jei teigiama, rašteliuose bus naudojamas šriftas nurodytas custom_font_face "
-"rakte. Kitu atveju bus naudojamas numatytasis aplinkos šriftas."
+"rakte. Kitu atveju bus naudojamas numatytasis darbalaukio šriftas."
 
 #: ../data/tomboy.schemas.in.h:11
 msgid "Custom Font Face"
@@ -152,7 +152,7 @@ msgid ""
 "global_keybindings will be enabled, allowing for useful Tomboy actions to be "
 "available from any application."
 msgstr ""
-"Jei teigiama, bus įjungti visoje aplinkoje veikiantys klavišų susiejimai, "
+"Jei teigiama, bus įjungti visame darbalaukyje veikiantys klavišų susiejimai, "
 "nurodyti /apps/tomboy/global_keybindings rakte."
 
 #: ../data/tomboy.schemas.in.h:15
@@ -421,7 +421,7 @@ msgid ""
 "The last setting for the 'Export linked notes' checkbox in the Export to "
 "HTML plugin."
 msgstr ""
-"Paskutinis „Eksportuoti susietus raštelius“ žymimosios akutės pažymėjimas "
+"Paskutinis „Eksportuoti susietus raštelius“ žymimosios akutės nustatymas "
 "„Eksportuoti į HTML“ įskiepyje."
 
 #: ../data/tomboy.schemas.in.h:53
@@ -435,9 +435,9 @@ msgid ""
 "Export Linked Notes' setting and is used to specify whether all notes (found "
 "recursively) should be included during an export to HTML."
 msgstr ""
-"Paskutinis parametras žymės langeliui „Įtraukti visus kitus susietus "
-"raštelius“ įskiepyje Eksportuoti į HTML. Šis parametras yra naudojamas kartu "
-"su parametru „Eksportuoti į HTML susietus raštelius“ ir yra naudojamas "
+"Paskutinis nustatymas žymės langeliui „Įtraukti visus kitus susietus "
+"raštelius“ įskiepyje Eksportuoti į HTML. Šis nustatymas yra naudojamas kartu "
+"su nustatymu „Eksportuoti į HTML susietus raštelius“ ir yra naudojamas "
 "nurodyti, ar visi rašteliai (rasti rekursyviai) turėtų būti įtraukti "
 "eksportuojant į HTML."
 
@@ -458,9 +458,12 @@ msgid "Synchronization Client ID"
 msgstr "Sinchronizavimo kliento ID"
 
 #: ../data/tomboy.schemas.in.h:58
+#| msgid ""
+#| "Unique identifier for this Tomboy client, used when communicating with a "
+#| "sychronization server."
 msgid ""
 "Unique identifier for this Tomboy client, used when communicating with a "
-"sychronization server."
+"synchronization server."
 msgstr ""
 "Unikalus šio Tomboy kliento identifikatorius, naudojamas bendraujant su "
 "sinchronizavimo serveriu."
@@ -549,7 +552,7 @@ msgid ""
 "Use wdfs option \"-ac\" to accept SSL certificates without prompting the "
 "user."
 msgstr ""
-"Naudokite wdfs parinktį „-ac“, jei norite priimti SSL sertifikatus be "
+"Naudokite wdfs parametrą „-ac“, jei norite priimti SSL sertifikatus, "
 "neklausiant naudotojo."
 
 #: ../data/tomboy.schemas.in.h:75
@@ -605,7 +608,7 @@ msgstr ""
 "naudotojo. Reikšmės priskirtos vidiniam sąrašui. 0 nurodo, kad naudotojas "
 "pageidauja būti paklaustas, kai raštelio pervadinimas gali paveikti saitus "
 "kituose rašteliuose. 1 – saitai automatiškai šalinami, 2 – nurodo, kad saito "
-"tekstas turi būti atnaujintas į naują raštelio pavadinimą, kad.jis toliau "
+"tekstas turi būti atnaujintas į naują raštelio pavadinimą, kad jis toliau "
 "sietų su pervadintu rašteliu."
 
 #: ../data/tomboy.schemas.in.h:81
@@ -682,7 +685,7 @@ msgstr "K_eisti"
 
 #: ../Tomboy/ActionManager.cs:154 ../Tomboy/PreferencesDialog.cs:63
 msgid "Tomboy Preferences"
-msgstr "Tomboy nustatymai"
+msgstr "Tomboy nuostatos"
 
 #: ../Tomboy/ActionManager.cs:160
 msgid "_Contents"
@@ -1126,7 +1129,7 @@ msgid ""
 "Please return to the Tomboy Preferences window and press Save to start "
 "synchronizing."
 msgstr ""
-"Grįžkite į Tomboy nustatymų langą ir spauskite „Įrašyti“, jei norite pradėti "
+"Grįžkite į Tomboy nuostatų langą ir spauskite „Įrašyti“, jei norite pradėti "
 "sinchronizuoti."
 
 #: ../Tomboy/Addins/WebSyncService/WebSyncPreferencesWidget.cs:222
@@ -1272,7 +1275,7 @@ msgstr "_Langas"
 
 #: ../Tomboy/MacApplication.cs:234
 msgid "Preferences..."
-msgstr "Nustatymai..."
+msgstr "Nuostatos..."
 
 #: ../Tomboy/Notebooks/CreateNotebookDialog.cs:24
 #: ../Tomboy/Notebooks/NotebookApplicationAddin.cs:53
@@ -1566,7 +1569,6 @@ msgstr "Saitų naudojimas Tomboy"
 
 #: ../Tomboy/NoteManager.cs:480
 #, csharp-format
-#| msgid "New Note {0}"
 msgid "Note from {0}"
 msgstr "Raštelis iš {0}"
 
@@ -1609,8 +1611,7 @@ msgstr ""
 msgid "Rename Links"
 msgstr "Pervadinti saitus"
 
-#: ../Tomboy/NoteRenameDialog.cs:95
-#: ../Tomboy/Synchronization/SyncDialog.cs:119
+#: ../Tomboy/NoteRenameDialog.cs:95 ../Tomboy/Synchronization/SyncDialog.cs:119
 msgid "Note Title"
 msgstr "Raštelio pavadinimas"
 
@@ -1845,7 +1846,7 @@ msgid ""
 "Enable this option to highlight words <b>ThatLookLikeThis</b>. Clicking the "
 "word will create a note with that name."
 msgstr ""
-"Įjunkite šį nustatymą norėdami paryškinti žodžius <b>AtrodančiusŠtaiTaip</"
+"Įjunkite šį parametrą, norėdami paryškinti žodžius <b>AtrodančiusŠtaiTaip</"
 "b>. Paspaudus tokį žodį bus sukurtas raštelis su tokiu pavadinimu."
 
 #. Auto bulleted list
@@ -1965,7 +1966,7 @@ msgstr "Neįgyvendinta"
 #: ../Tomboy/PreferencesDialog.cs:799
 #, csharp-format
 msgid "{0} Preferences"
-msgstr "{0} nustatymai"
+msgstr "{0} nuostatos"
 
 #: ../Tomboy/PreferencesDialog.cs:938
 msgid "Choose Note Font"
@@ -1973,7 +1974,7 @@ msgstr "Pasirinkite raštelio šriftą"
 
 #: ../Tomboy/PreferencesDialog.cs:982
 msgid "Other Synchronization Options"
-msgstr "Kitos sinchronizavimo parinktys"
+msgstr "Kiti sinchronizavimo parametrai"
 
 #: ../Tomboy/PreferencesDialog.cs:988
 msgid ""
@@ -2004,13 +2005,13 @@ msgid ""
 "Clearing your synchronization settings is not recommended.  You may be "
 "forced to synchronize all of your notes again when you save new settings."
 msgstr ""
-"Išvalyti sinchronizavimo parametrų nerekomenduojama. Išsaugojus naujus "
-"parametrus galite būti priversti sinchronizuoti visus savo raštelius dar "
+"Išvalyti sinchronizavimo nustatymų nerekomenduojama. Išsaugojus naujus "
+"nustatymus galite būti priversti sinchronizuoti visus savo raštelius dar "
 "kartą."
 
 #: ../Tomboy/PreferencesDialog.cs:1164
 msgid "Resetting Synchronization Settings"
-msgstr "Atstatomi sinchronizavimo parametrai"
+msgstr "Atstatomi sinchronizavimo nustatymai"
 
 #: ../Tomboy/PreferencesDialog.cs:1166
 msgid ""
@@ -2019,7 +2020,7 @@ msgid ""
 "synchronize all of your notes again when you save new settings."
 msgstr ""
 "Jūs išjungėte sukonfigūruotą sinchronizavimo tarnybą. Jūsų sinchronizavimo "
-"parametrai dabar bus išvalyti. Išsaugoję naujus parametrus galite būti "
+"nustatymai dabar bus išvalyti. Išsaugoję naujus nustatymus galite būti "
 "priversti sinchronizuoti visus savo raštelius dar kartą."
 
 #: ../Tomboy/PreferencesDialog.cs:1244
@@ -2153,7 +2154,8 @@ msgid "FUSE could not be enabled."
 msgstr "Nepavyko įjungti FUSE."
 
 #: ../Tomboy/Synchronization/FuseSyncServiceAddin.cs:233
-msgid "An error ocurred while connecting to the specified server:"
+#| msgid "An error ocurred while connecting to the specified server:"
+msgid "An error occurred while connecting to the specified server:"
 msgstr "Jungiantis prie nurodyto serverio įvyko klaida:"
 
 #. Expander containing TreeView
@@ -2281,7 +2283,7 @@ msgstr "Sinchronizacija nesukonfigūruota"
 
 #: ../Tomboy/Synchronization/SyncDialog.cs:311
 msgid "Please configure synchronization in the preferences dialog."
-msgstr "Sukonfigūruokite sinchronizaciją nustatymų dialoge."
+msgstr "Sukonfigūruokite sinchronizaciją nuostatų dialoge."
 
 #: ../Tomboy/Synchronization/SyncDialog.cs:315
 msgid "Synchronization Service Error"
@@ -2418,7 +2420,7 @@ msgstr ""
 
 #: ../Tomboy/Tomboy.cs:429
 msgid "A simple and easy to use desktop note-taking application."
-msgstr "Paprasta ir lengva naudoti aplinkos užrašinė."
+msgstr "Paprasta ir lengva naudoti darbalaukio užrašinė."
 
 #: ../Tomboy/Tomboy.cs:441
 msgid "Homepage"
@@ -2432,7 +2434,7 @@ msgid ""
 "\n"
 "Copyright © 2004-2011 Others\n"
 msgstr ""
-"Tomboy: Paprasta, lengva naudoti darbastalio užrašinė.\n"
+"Tomboy: Paprasta, lengva naudoti darbalaukio užrašinė.\n"
 "Autorinės teisės priklauso © 2004-2007 Alex Graveley\n"
 "<alex@beatniksoftware.com>\n"
 "\n"
