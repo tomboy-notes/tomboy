@@ -208,7 +208,7 @@ $(PANEL_WRAPPER): $(srcdir)/$(PANEL_WRAPPER).in Makefile
 	    < $< > $@
 	chmod +x $(PANEL_WRAPPER)
 
-$(TARGET).config: $(srcdir)/$(TARGET_NAME$).config.in Makefile
+$(TARGET).config: $(srcdir)/$(TARGET_NAME).config.in Makefile
 	sed -e "s|\@pkglibdir\@|$(pkglibdir)|" \
 	    < $< > $@
 
