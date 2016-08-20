@@ -213,20 +213,19 @@ AC_SUBST(GTKSHARP_LIBS)
 required_assemblies="Mono.Cairo"
 
 #
-# This check stolen from banshee/build/m4/shamrock/mono.m4, because pkg-config
-# seems to find the wrong Mono.Cairo (1.0).
+# By now we should have found Mono installation, so we can assume gacutil is available.
+# gacutil prints out a string like below only if assembly with given name is found:
+# Mono.Cairo, Version=4.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756
 #
 for asm in $required_assemblies
 do
-	AC_MSG_CHECKING([for Mono 2.0 GAC for $asm.dll])
-	if test \
-		-e "$($PKG_CONFIG --variable=libdir mono)/mono/2.0/$asm.dll" -o \
-		-e "$($PKG_CONFIG --variable=prefix mono)/lib/mono/2.0/$asm.dll"; \
+	AC_MSG_CHECKING([for Mono GAC for $asm.dll])
+	if ( gacutil -l $asm |grep -q $asm );
 		then \
 		AC_MSG_RESULT([found])
 	else
 		AC_MSG_RESULT([not found])
-		AC_MSG_ERROR([missing reqired Mono 2.0 assembly: $asm.dll])
+		AC_MSG_ERROR([missing reqired Mono assembly: $asm.dll])
 	fi
 done
 
