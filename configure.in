@@ -35,12 +35,9 @@ AM_GCONF_SOURCE_2
 #
 # Find mcs
 #
-AC_PATH_PROG(GMCS, dmcs)
+AC_PATH_PROG(GMCS, mcs)
 if test "x$GMCS" = "x" ; then
-	AC_PATH_PROG(GMCS, gmcs)
-fi
-if test "x$GMCS" = "x" ; then
-	AC_MSG_ERROR([Can't find "dmcs" or "gmcs" in your PATH])
+	AC_MSG_ERROR([Can't find "mcs" in your PATH, is Mono installed?])
 fi
 
 #
