@@ -56,7 +56,7 @@
 		<Property Id="GTKSHARPNOVELLINSTALLVERSION" Secure="yes">
 			<RegistrySearch Id='GtksharpnovellRegistry' Type='raw' Root='HKLM' Key='Software\Xamarin\GtkSharp\Version' />
 		</Property>
-		<Condition Message="This setup requires Gtk# for .NET (version 2.12.20 or higher). Please download the latest installer from http://www.mono-project.com/GtkSharp ">
+		<Condition Message="This setup requires Gtk# for .NET (version 2.12.20 or higher). Please download the latest installer from http://www.mono-project.com/download/ ">
 			<![CDATA[GTKSHARPNOVELLINSTALLVERSION >= "2.12.20" OR (GTKSHARPNOVELLINSTALLVERSION << "2.12.1" AND GTKSHARPNOVELLINSTALLVERSION <> "2.12.1") OR REMOVE ~= "ALL"]]>
 		</Condition>
 
