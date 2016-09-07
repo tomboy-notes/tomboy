@@ -729,6 +729,7 @@ namespace Tomboy
 		void OnNotesDeleted (object sender, Note deleted)
 		{
 			RestoreMatchesWindow ();
+			UpdateResults ();	// To Fix GH Issue 13, Davo, 2016/09/07
 		}
 
 		void OnNotesChanged (object sender, Note changed)
