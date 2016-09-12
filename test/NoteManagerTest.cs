@@ -8,7 +8,7 @@ namespace TomboyTest
 	class MyNoteManager : NoteManager
 	{
 		public string LastDirCreated = null;
-		public bool CreatedStartNote = false;
+		public bool CreatedStartNotes = false;
 		public bool LoadedNotes = false;
 
 public MyNoteManager () :
@@ -27,16 +27,11 @@ public MyNoteManager () :
 			return null;
 		}
 
-		protected override PluginManager CreatePluginManager ()
+		protected override void CreateStartNotes ()
 		{
-			return null;
-		}
-
-		protected override void CreateStartNote ()
-		{
-			Assert.IsFalse(CreatedStartNote,
-			               "CreateStartNote called twice");
-			CreatedStartNote = true;
+			Assert.IsFalse(CreatedStartNotes,
+			               "CreateStartNotes called twice");
+			CreatedStartNotes = true;
 		}
 
 		protected override void LoadNotes ()

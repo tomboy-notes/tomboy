@@ -1,3 +1,5 @@
+include $(top_srcdir)/Makefile.include
+
 CSC = $(GMCS)
 
 TARGET = $(top_builddir)/bin/TomboyTest.dll
@@ -16,9 +18,13 @@ CSFILES =					\
 
 ASSEMBLIES =							\
 	$(NUNIT_LIBS)						\
-	$(TOMBOY_LIBS)						\
-	-r:$(LINK_TOMBOY_EXE)			\
-	-r:$(top_builddir)/bin/ExportToHTML.dll
+	$(GTKSHARP_LIBS)        				\
+	$(GNOME_LIBS)   					\
+	-r:Mono.Posix   					\
+	$(DBUS_LIBS)    					\
+	$(LINK_MONO_ADDINS)					\
+	$(LINK_TOMBOY_EXE)					\
+	-r:$(top_builddir)/bin/addins/ExportToHtml.dll
 
 MONO_PATH = $(top_builddir)/Tomboy:$(top_builddir)/Tomboy/Plugins
 
