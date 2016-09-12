@@ -4,7 +4,6 @@ SUBDIRS = data libtomboy Tomboy test po help
 ACLOCAL_AMFLAGS = -I m4 ${ACLOCAL_FLAGS}
 
 EXTRA_DIST = 			\
-	gnome-doc-utils.make	\
 	\
 	intltool-extract.in     \
 	intltool-merge.in       \
@@ -18,17 +17,13 @@ EXTRA_DIST = 			\
 	MAINTAINERS
 
 DISTCLEANFILES = 			\
-	gnome-doc-utils.make		\
 	\
 	intltool-extract        	\
 	intltool-merge          	\
 	intltool-update         	\
 	po/.intltool-merge-cache
 
-DISTCHECK_CONFIGURE_FLAGS = --disable-schemas-install --disable-scrollkeeper --disable-update-mimedb
-
-# Ignore scrollkeeper issues for now.  @#*$& scrollkeeper (from Evince)
-distuninstallcheck_listfiles = find . -type f -print | grep -v scrollkeeper | grep -v /share/gnome/help/ | grep -v \.omf
+DISTCHECK_CONFIGURE_FLAGS = --disable-schemas-install --disable-update-mimedb
 
 run: $(PROGRAM)
 	(cd bin && LD_LIBRARY_PATH="../libtomboy/.libs${LD_LIBRARY_PATH+:$LD_LIBRARY_PATH}" mono --debug $(TOMBOY_DEV_MONO_OPTIONS) Tomboy.exe --debug --uninstalled $(TOMBOY_DEV_OPTIONS))

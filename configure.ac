@@ -1,9 +1,11 @@
 AC_INIT(tomboy, 1.15.6)
+AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_SRCDIR(Tomboy/Tomboy.cs)
 AM_INIT_AUTOMAKE([dist-xz foreign no-dist-gzip tar-ustar])
 AM_MAINTAINER_MODE
 
-GNOME_DOC_INIT([0.17.3])
+AX_REQUIRE_DEFINED([YELP_HELP_INIT])
+YELP_HELP_INIT
 
 AM_CONFIG_HEADER(config.h)
 

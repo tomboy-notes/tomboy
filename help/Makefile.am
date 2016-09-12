@@ -1,10 +1,14 @@
 
-include $(top_srcdir)/gnome-doc-utils.make
-dist-hook: doc-dist-hook
+@YELP_HELP_RULES@
 
-DOC_ID = tomboy
+# TODO: it's unclear to me whether after migrating to Yelp
+# this is needed or not. Seems to work without it,
+# but needs to be checked. GH issue #18.
+#dist-hook: doc-dist-hook
+
+HELP_ID = tomboy
 DOC_INCLUDES = legal.xml
-DOC_FIGURES = \
+HELP_MEDIA = \
 	figures/add-notebook-search.png \
 	figures/add-to-notebook.png \
 	figures/delete-notebook.png \
@@ -25,7 +29,7 @@ DOC_FIGURES = \
 	figures/tomboy-preferences-synchronization.png \
 	figures/tomboy-tools.png
 
-DOC_PAGES = \
+HELP_FILES = \
 	addins-desktop-bugzilla.page \
 	addins-desktop-printing.page \
 	addins-formatting-fixed-width.page \
@@ -56,4 +60,4 @@ DOC_PAGES = \
 	sync.page \
 	whatsnew.page
 
-DOC_LINGUAS = ca cs de el en_GB es eu fr gl hu it lt lv oc pl pt_BR ro ru sl sv uk vi zh_CN
+HELP_LINGUAS = ca cs de el en_GB es eu fr gl hu it lt lv oc pl pt_BR ro ru sl sv uk vi zh_CN
