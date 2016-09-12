@@ -14,7 +14,7 @@ EXTRA_DIST = 			\
 	tomboy.spec.in		\
 	tomboy.spec			\
 	\
-	MAINTAINERS
+	tomboy.doap
 
 DISTCLEANFILES = 			\
 	\
