@@ -101,11 +101,21 @@ namespace Tomboy
 				                     DateTime.Now.ToString(),
 				                     Enum.GetName (typeof (Level), lvl),
 				                     msg);
-				if (args.Length > 0)
-					log.WriteLine (msg, args);
-				else
-					log.WriteLine (msg);
-				log.Flush();
+				try {
+					if (args.Length > 0)
+						log.WriteLine (msg, args);
+					else
+						log.WriteLine (msg);
+					log.Flush();
+				} catch (IOException iox) {
+					console.Log(Level.ERROR,
+					            "Failed to write to the log file due to IO exception: {0}",
+					            iox.Message);
+				} catch (Exception ex) {
+					console.Log(Level.ERROR,
+					            "Failed to write to the log file due to exception: {0}, stack trace: {1}",
+					            ex.Message, ex.StackTrace);
+				}
 			}
 		}
 	}

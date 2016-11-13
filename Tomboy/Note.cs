@@ -372,6 +372,7 @@ namespace Tomboy
 		bool save_needed;
 		bool is_deleting;
 		bool enabled = true;
+		bool save_errordlg_active;
 
 		NoteManager manager;
 		NoteWindow window;
@@ -379,6 +380,8 @@ namespace Tomboy
 		NoteTagTable tag_table;
 
 		InterruptableTimeout save_timeout;
+		// By default we'll be saving our notes every 4 seconds
+		const uint SAVE_TIMEOUT_MS = 4000;
 
 		struct ChildWidgetData
 		{
@@ -412,6 +415,7 @@ namespace Tomboy
 			childWidgetQueue = new Queue <ChildWidgetData> ();
 			
 			is_deleting = false;
+			save_errordlg_active = false;
 		}
 		/// <summary>
 		/// Returns a Tomboy URL from the given path.
@@ -512,6 +516,12 @@ namespace Tomboy
 			if (!save_needed)
 				return;
 
+			// Do nothing if an error happened and we are presenting an error dialog
+			if (save_errordlg_active) {
+				Logger.Debug("Error dialog is active - skipping saving");
+				return;
+			}
+
 			string new_note_pattern = String.Format (Catalog.GetString ("New Note {0}"), @"\d+");
 			Note template_note = manager.GetOrCreateTemplateNote ();
 			string template_content = template_note.TextContent.Replace (template_note.Title, Title);
@@ -529,7 +539,13 @@ namespace Tomboy
 			} catch (Exception e) {
 				// Probably IOException or UnauthorizedAccessException?
 				Logger.Error ("Exception while saving note: " + e.ToString ());
+				// This will disable note saving until the user takes an action
+				// and closes the error dialog.
+				save_errordlg_active = true;
+				save_timeout.Cancel ();
 				NoteUtils.ShowIOErrorDialog (window);
+				save_errordlg_active = false;
+				save_timeout.Reset(SAVE_TIMEOUT_MS);
 			}
 
 			if (Saved != null)
@@ -615,7 +631,7 @@ namespace Tomboy
 		}
 		
 		/// <summary>
-		/// Set a 4 second timeout to execute the save.  Possibly
+		/// Set a timeout to execute the save.  Possibly
 		/// invalidate the text, which causes a re-serialize when the
 		/// timeout is called...
 		/// </summary>
@@ -625,9 +641,9 @@ namespace Tomboy
 		{
 			DebugSave ("Got QueueSave");
 
-			// Replace the existing save timeout.  Wait 4 seconds
+			// Replace the existing save timeout.  Wait SAVE_TIMEOUT_MS milliseconds
 			// before saving...
-			save_timeout.Reset (4000);
+			save_timeout.Reset (SAVE_TIMEOUT_MS);
 			if (!is_deleting)
 				save_needed = true;
 			
@@ -649,7 +665,7 @@ namespace Tomboy
 			}
 		}
 
-		// Save timeout to avoid constanly resaving.  Called every 4 seconds.
+		// Save timeout to avoid constanly resaving.  Called every SAVE_TIMEOUT_MS milliseconds.
 		void SaveTimeout (object sender, EventArgs args)
 		{
 			try {
@@ -1727,7 +1743,9 @@ namespace Tomboy
 			                                     "Please check that you have sufficient disk " +
 			                                     "space, and that you have appropriate rights " +
 			                                     "on {0}. Error details can be found in " +
-			                                     "{1}.");
+			                                     "{1}.\n\n" +
+			                                     "Note autosaving is disabled until you close this dialog, " +
+			                                     "to allow you to take an appropriate action.");
 			string logPath = System.IO.Path.Combine (Services.NativeApplication.LogDirectory,
 			                                         "tomboy.log");
 			errorMsg = String.Format (errorMsg,
