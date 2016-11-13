@@ -134,11 +134,10 @@ namespace Tomboy.Sync
 			                              Gtk.ButtonsType.YesNo,
 			                              Catalog.GetString ("Enable FUSE?"),
 			                              Catalog.GetString (
-			                                      // TODO: This message isn't entirely accurate.
-			                                      //       We should fix it.
-			                                      "The synchronization you've chosen requires the FUSE module to be loaded.\n\n" +
+			                                      "The synchronization option you have chosen requires the FUSE module to be loaded.\n\n" +
 			                                      "To avoid getting this prompt in the future, you should load FUSE at startup.  " +
-			                                      "Add \"modprobe fuse\" to /etc/init.d/boot.local or \"fuse\" to /etc/modules."));
+			                                      "Add \"modprobe fuse\" to /etc/init.d/boot.local or \"fuse\" to /etc/modules.\n\n" +
+			                                      "Do you want to load the FUSE module now?"));
 			int response = dialog.Run ();
 			dialog.Destroy ();
 			if (response == (int) Gtk.ResponseType.Yes) {
