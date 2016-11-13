@@ -1,11 +1,6 @@
 
 @YELP_HELP_RULES@
 
-# TODO: it's unclear to me whether after migrating to Yelp
-# this is needed or not. Seems to work without it,
-# but needs to be checked. GH issue #18.
-#dist-hook: doc-dist-hook
-
 HELP_ID = tomboy
 DOC_INCLUDES = legal.xml
 HELP_MEDIA = \
