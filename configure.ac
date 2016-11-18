@@ -173,7 +173,9 @@ AC_SUBST(DBUS_SERVICE_DIR)
 #
 # Check for dbus-sharp
 #
-PKG_CHECK_MODULES(DBUS, dbus-sharp-1.0 >= 0.4 dbus-sharp-glib-1.0 >= 0.3)
+PKG_CHECK_MODULES([DBUS], [dbus-sharp-1.0 >= 0.4 dbus-sharp-glib-1.0 >= 0.3],, [
+	PKG_CHECK_MODULES([DBUS], [dbus-sharp-2.0 >= 0.4 dbus-sharp-glib-2.0 >= 0.3])
+])
 AC_SUBST(DBUS_LIBS)
 
 #
