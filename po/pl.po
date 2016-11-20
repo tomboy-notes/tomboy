@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tomboy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-18 19:01+0200\n"
-"PO-Revision-Date: 2016-09-18 19:02+0200\n"
+"POT-Creation-Date: 2016-11-20 18:18+0100\n"
+"PO-Revision-Date: 2016-11-20 18:19+0100\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <community-poland@mozilla.org>\n"
 "Language: pl\n"
@@ -1412,17 +1412,17 @@ msgstr "Notatnik"
 msgid "_New notebook..."
 msgstr "Nowy _notatnik…"
 
-#: ../Tomboy/Note.cs:515
+#: ../Tomboy/Note.cs:525
 #, csharp-format
 msgid "New Note {0}"
 msgstr "Nowa notatka „{0}”"
 
-#: ../Tomboy/Note.cs:1678
+#: ../Tomboy/Note.cs:1694
 #, csharp-format
 msgid "Really delete \"{0}\"?"
 msgstr "Ne pewno usunąć „{0}”?"
 
-#: ../Tomboy/Note.cs:1681
+#: ../Tomboy/Note.cs:1697
 #, csharp-format
 msgid "Really delete this {0} note?"
 msgid_plural "Really delete these {0} notes?"
@@ -1430,22 +1430,29 @@ msgstr[0] "Ne pewno usunąć tę {0} notatkę?"
 msgstr[1] "Ne pewno usunąć te {0} notatki?"
 msgstr[2] "Ne pewno usunąć tych {0} notatek?"
 
-#: ../Tomboy/Note.cs:1692
+#: ../Tomboy/Note.cs:1708
 msgid "If you delete a note it is permanently lost."
 msgstr "Usunięcie spowoduję bezpowrotną utratę notatki."
 
-#: ../Tomboy/Note.cs:1726
+#: ../Tomboy/Note.cs:1742
 #, csharp-format
 msgid ""
 "An error occurred while saving your notes. Please check that you have "
 "sufficient disk space, and that you have appropriate rights on {0}. Error "
-"details can be found in {1}."
+"details can be found in {1}.\n"
+"\n"
+"Note autosaving is disabled until you close this dialog, to allow you to "
+"take an appropriate action."
 msgstr ""
 "Wystąpił błąd podczas zapisywania notatek. Proszę sprawdzić, czy dostępna "
 "jest wystarczająca ilość miejsca na dysku i czy użytkownik ma odpowiednie "
-"uprawnienia do katalogu {0}. Szczegóły błędu można znaleźć w pliku {1}."
+"uprawnienia do katalogu {0}. Szczegóły błędu można znaleźć w pliku {1}.\n"
+"\n"
+"Proszę zauważyć, że automatyczne zapisywanie jest wyłączone do zamknięcia "
+"tego okna dialogowego, aby umożliwić użytkownikowi podjęcie odpowiedniego "
+"działania."
 
-#: ../Tomboy/Note.cs:1742
+#: ../Tomboy/Note.cs:1760
 msgid "Error saving note data."
 msgstr "Wystąpił błąd podczas zapisywania danych notatki."
 
@@ -2380,12 +2387,12 @@ msgstr ""
 "z notatką lokalną?"
 
 #: ../Tomboy/Synchronization/SyncUtils.cs:119
-#: ../Tomboy/Synchronization/SyncUtils.cs:163
+#: ../Tomboy/Synchronization/SyncUtils.cs:162
 msgid "Could not enable FUSE"
 msgstr "Nie można włączyć FUSE"
 
 #: ../Tomboy/Synchronization/SyncUtils.cs:120
-#: ../Tomboy/Synchronization/SyncUtils.cs:164
+#: ../Tomboy/Synchronization/SyncUtils.cs:163
 msgid ""
 "The FUSE module could not be loaded. Please check that it is installed "
 "properly and try again."
@@ -2397,21 +2404,24 @@ msgstr ""
 msgid "Enable FUSE?"
 msgstr "Włączyć FUSE?"
 
-#. TODO: This message isn't entirely accurate.
-#. We should fix it.
-#: ../Tomboy/Synchronization/SyncUtils.cs:139
+#: ../Tomboy/Synchronization/SyncUtils.cs:137
 msgid ""
-"The synchronization you've chosen requires the FUSE module to be loaded.\n"
+"The synchronization option you have chosen requires the FUSE module to be "
+"loaded.\n"
 "\n"
 "To avoid getting this prompt in the future, you should load FUSE at "
 "startup.  Add \"modprobe fuse\" to /etc/init.d/boot.local or \"fuse\" to /"
-"etc/modules."
+"etc/modules.\n"
+"\n"
+"Do you want to load the FUSE module now?"
 msgstr ""
-"Wybrana synchronizacja wymaga wczytania modułu FUSE.\n"
+"Wybrana opcja synchronizacji wymaga wczytania modułu FUSE.\n"
 "\n"
 "Aby uniknąć tej wiadomości, należy wczytywać FUSE podczas uruchamiania "
 "systemu. Należy dopisać „modprobe fuse” do pliku /etc/init.d/boot.local lub "
-"„fuse” do pliku /etc/modules."
+"„fuse” do pliku /etc/modules.\n"
+"\n"
+"Wczytać moduł FUSE teraz?"
 
 #: ../Tomboy/Tomboy.cs:253
 msgid "Cannot create new note"
