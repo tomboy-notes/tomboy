@@ -508,7 +508,13 @@ namespace Tomboy
 			NoteManager manager = Tomboy.DefaultNoteManager;
 			Note note_to = manager.Find (title_to);
 			string title_from = SanitizeNoteTitle (note_from.Title);
-			title_to = SanitizeNoteTitle (note_to.Title);
+			if (note_to != null) {
+				title_to = SanitizeNoteTitle(note_to.Title);
+				Logger.Debug("Found linked note '{0}', sanitized title: '{1}'", note_to.Title, title_to);
+			} else {
+				Logger.Error("Could not find note titled '{0}' to construct a link to it", title_to);
+				return "";
+			}
 
 			if (exporting_single_notebook) {
 				//If there is only one notebook being exported
