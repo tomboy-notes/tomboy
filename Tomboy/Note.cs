@@ -1739,6 +1739,8 @@ namespace Tomboy
 		
 		public static void ShowIOErrorDialog (Gtk.Window parent)
 		{
+			// Translators: "note autosaving" is a periodic process we normally run
+			// in the background and not an invitation for the user to note something.
 			string errorMsg = Catalog.GetString ("An error occurred while saving your notes. " +
 			                                     "Please check that you have sufficient disk " +
 			                                     "space, and that you have appropriate rights " +
