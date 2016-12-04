@@ -9,6 +9,33 @@ Please send questions and suggestions to
 Please report bugs using GitHub
 (https://github.com/tomboy-notes/tomboy/issues).
 
+Version 1.15.6
+* Translation updates: pl, lt, sr, sv, cs, hu, da, pt, pt_BR, de, fr
+* Multiple build infrastructure updates and general cleanup
+  (Alex Tereschenko with contribution from Philip Withnall)
+    ** Updates for modern versions of Mono, make and autotools
+    ** Migrated off of gnome-common infrastructure
+    ** We are now using Yelp for doc generation
+    ** Fixed building on Debian and derivatives with DBus 2.0 (inspired by
+       Debian's distro-level patch by Iain Lane, gh9)
+    ** Added a copy of ax_require_config macro into our repo to fix building
+       on Ubuntu 14 (gh26)
+* Fixed bug with note still being shown in Search All after deletion
+  from Note window (gh13, David Bannon)
+* Removed GNOME panel mention from Start Here note (bgo559723, Jared Jennings)
+* Made FUSE module load dialog more readable (gh21, bgo595283, Alex Tereschenko)
+* Reworked note saving exception handling to avoid program crashes
+  on disk full (gh24, Alex Tereschenko)
+* Fixed crash upon exporting notes to HTML when a linked note
+  is not found (gh25, Alex Tereschenko)
+* Windows: fixed URL generation for drag'n'drop, updated GTK#
+  download link (gh22, bgo604671, Alex Tereschenko)
+* Some housekeeping (Alex Tereschenko):
+    ** Removed unused files (Changelog.pre-git, MAINTAINERS)
+    ** Updated information in NEWS and main README files
+    ** Added contribution guidelines
+    ** .gitignore updates
+
 Version 1.15.5
 * Translation updates: zh_CN, sr, hu, lt, id, es, el, eu, sv, fi, ro, cs, tr,
                        ca, bs, oc, pl, pt, de, pt_BR
