@@ -418,6 +418,7 @@ namespace Tomboy
 		    		    @"("+
 			    		    @"(/\S+/)"+				// or starting with '/'
 			    		    @"|(~/\S+?)"+				// or starting with '~/'
+			    		    @"|(\p{L}{1}:%5C\S+?)"+		// or starting with something like "C:\"
 		    		    @")"+
 		    		@"))"+
 		    		@"(?(starter)"+			    //
@@ -487,7 +488,7 @@ namespace Tomboy
 
 			// Simple url massaging.  Add to 'http://' to the front
 			// of www.foo.com, 'mailto:' to alex@foo.com, 'file://'
-			// to /home/alex/foo.
+			// to /home/alex/foo, 'file:///' to C:\my\file.
 			if (url.StartsWith ("www."))
 				url = "http://" + url;
 			else if (url.StartsWith ("/") &&
@@ -501,6 +502,9 @@ namespace Tomboy
 				@"^(?!(news|mailto|http|https|ftp|file|irc):).+@.{2,}$",
 				RegexOptions.IgnoreCase))
 				url = "mailto:" + url;
+			else if (Regex.IsMatch (url,
+				@"^\p{L}{1}:%5C\S+?"))
+				url = "file:///" + url;
 
 			return url;
 		}
