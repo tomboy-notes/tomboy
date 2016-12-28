@@ -402,7 +402,7 @@ namespace Tomboy
 		    		    @")))"+
 		    		    @"|\b)"+			    //  or at beginning of a word \b
 		    		    @"("+
-		    			@"(news|http|https|ftp|file|irc)://"+    // http:// ...
+		    			@"(news|http|https|ftp|file|irc|ircs)://"+    // http:// ...
 		    		        @"|mailto:"+				// or mailto...
 		    			@"|(www|ftp)\."+				// or www...
 		    		        @"|\S*@\S*\."+				// or email adress
@@ -499,7 +499,7 @@ namespace Tomboy
 				      Path.Combine (Environment.GetEnvironmentVariable ("HOME"),
 				                    url.Substring (2));
 			else if (Regex.IsMatch (url, 
-				@"^(?!(news|mailto|http|https|ftp|file|irc):).+@.{2,}$",
+				@"^(?!(news|mailto|http|https|ftp|file|irc|ircs):).+@.{2,}$",
 				RegexOptions.IgnoreCase))
 				url = "mailto:" + url;
 			else if (Regex.IsMatch (url,
