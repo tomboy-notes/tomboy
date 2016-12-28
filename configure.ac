@@ -383,8 +383,6 @@ ${PACKAGE}-${VERSION}
     Windows Support:            ${ENABLE_WIN}
     UNIT Test Support:          ${ENABLE_NUNIT}
 
-    D-Bus Support:              ${ENABLE_DBUS}
-
     GNOME Panel Applet Support: ${ENABLE_PANEL_APPLET}
 
     Evolution Add-in:           ${ENABLE_EVOLUTION}
