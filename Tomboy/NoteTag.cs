@@ -564,7 +564,7 @@ namespace Tomboy
 			Add (tag);
 
 			tag = new NoteTag ("find-match");
-			tag.Background = "green";
+			tag.Background = "lawngreen";
 			tag.CanSerialize = false;
 			tag.CanSpellCheck = true;
 			tag.SaveType = TagSaveType.Meta;
