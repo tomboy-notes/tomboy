@@ -35,7 +35,11 @@ namespace Tomboy
 				ModifyFont (GetGnomeDocumentFontDescription ());
 			}
 
+			// Update search match color
+			UpdateSearchMatchColor ();
+
 			Preferences.SettingChanged += OnFontSettingChanged;
+			Preferences.SettingChanged += OnSearchMatchColorSettingChanged;
 
 			// Set extra editor drag targets supported (in addition
 			// to the default TextView's various text formats)...
@@ -87,6 +91,33 @@ namespace Tomboy
 					ModifyFontFromString ((string) args.Value);
 				break;
 			}
+		}
+
+		//
+		// Update the search match highlight color based on the changed Preference dialog setting.
+		//
+		void OnSearchMatchColorSettingChanged (object sender, NotifyEventArgs args)
+		{
+			switch (args.Key) {
+				case Preferences.ENABLE_CUSTOM_SEARCH_MATCH_COLOR:
+				case Preferences.CUSTOM_SEARCH_MATCH_COLOR:
+					UpdateSearchMatchColor ();
+					break;
+			}
+		}
+
+		void UpdateSearchMatchColor ()
+		{
+			Gdk.Color search_match_color = GuiUtils.GetSearchMatchColor ();
+			string search_match_color_str = GuiUtils.GetHexRgbHashStringFromGdkColor (search_match_color);
+
+			if ((bool) Preferences.Get (Preferences.ENABLE_CUSTOM_SEARCH_MATCH_COLOR)) {
+				Logger.Debug ("Switching search match highlight color to {0}", search_match_color_str);
+			} else {
+				Logger.Debug ("Switching search match highlight color to default {0}", search_match_color_str);
+			}
+
+			NoteTagTable.Instance.SearchMatchTag.BackgroundGdk = search_match_color;
 		}
 		
 		void UpdateCustomFontSetting ()

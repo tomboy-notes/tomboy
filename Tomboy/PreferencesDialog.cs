@@ -27,6 +27,8 @@ namespace Tomboy
 		Gtk.Label font_face;
 		Gtk.Label font_size;
 
+		Gtk.ColorButton search_match_color_button;
+
 		Mono.Addins.Gui.AddinTreeWidget addin_tree;
 
 		Gtk.Button enable_addin_button;
@@ -166,7 +168,7 @@ namespace Tomboy
 			Gtk.Label label;
 			Gtk.CheckButton check;
 			Gtk.Alignment align;
-			IPropertyEditorBool peditor, font_peditor, bullet_peditor;
+			IPropertyEditorBool peditor, font_peditor, bullet_peditor, search_match_color_peditor;
 
 			Gtk.VBox options_list = new Gtk.VBox (false, 12);
 			options_list.BorderWidth = 12;
@@ -237,6 +239,23 @@ namespace Tomboy
 			options_list.PackStart (font_box, false, false, 0);
 
 			font_peditor.AddGuard (font_button);
+
+			// Custom search match highlight color
+			Gtk.HBox search_match_color_box = new Gtk.HBox (false, 0);
+			check = MakeCheckButton (Catalog.GetString ("Use custom search match highlight _color"));
+			search_match_color_box.PackStart (check);
+
+			search_match_color_peditor =
+				Services.Factory.CreatePropertyEditorToggleButton (Preferences.ENABLE_CUSTOM_SEARCH_MATCH_COLOR, check);
+			SetupPropertyEditor (search_match_color_peditor);
+
+			search_match_color_button = MakeSearchMatchColorButton ();
+			search_match_color_button.Sensitive = check.Active;
+			search_match_color_box.PackStart (search_match_color_button);
+			search_match_color_box.ShowAll ();
+			options_list.PackStart (search_match_color_box, false, false, 0);
+
+			search_match_color_peditor.AddGuard (search_match_color_button);
 
 			// Note renaming bahvior
 			Gtk.HBox rename_behavior_box = new Gtk.HBox (false, 0);
@@ -309,6 +328,15 @@ namespace Tomboy
 
 			string font_desc = (string) Preferences.Get (Preferences.CUSTOM_FONT_FACE);
 			UpdateFontButton (font_desc);
+
+			return button;
+		}
+
+		Gtk.ColorButton MakeSearchMatchColorButton ()
+		{
+			Gtk.ColorButton button = new Gtk.ColorButton (GuiUtils.GetPrefSearchMatchColor ());
+			button.ColorSet += OnSearchMatchColorSet;
+			button.Show ();
 
 			return button;
 		}
@@ -967,6 +995,22 @@ namespace Tomboy
 			font_face.Markup = String.Format ("<span font_desc='{0}'>{1}</span>",
 			                                  font_desc,
 			                                  desc.ToString ());
+		}
+
+		// Search match highlight color change handler
+		void OnSearchMatchColorSet (object sender, EventArgs args)
+		{
+			Gdk.Color color_pref = GuiUtils.GetSearchMatchColor ();
+			Gdk.Color color_selected = search_match_color_button.Color;
+			string color_selected_str = GuiUtils.GetHexRgbHashStringFromGdkColor (color_selected);
+
+			if (!color_pref.Equal (color_selected)) {
+				Logger.Debug ("New search match highlight color selected: {0}", color_selected_str);
+				Preferences.Set (Preferences.CUSTOM_SEARCH_MATCH_COLOR, color_selected_str);
+				NoteTagTable.Instance.SearchMatchTag.BackgroundGdk = color_selected;
+			} else {
+				Logger.Debug ("Same search match highlight color selected: {0}", color_selected_str);
+			}
 		}
 
 		private void OnAdvancedSyncConfigButton (object sender, EventArgs args)

@@ -308,6 +308,91 @@ namespace Tomboy
 			if (mainThreadException != null)
 				throw mainThreadException;
 		}
+
+		/// <summary>
+		/// Returns Gdk.Color used as the background for the Search Match Highlight tag.
+		/// If current preference value is unparsable or custom option is not selected,
+		/// default preference value is returned instead.
+		/// </summary>
+		/// <returns>Gdk.Color for search match highlight</returns>
+		public static Gdk.Color GetSearchMatchColor ()
+		{
+			Gdk.Color search_match_color;
+
+			if ((bool) Preferences.Get (Preferences.ENABLE_CUSTOM_SEARCH_MATCH_COLOR)) {
+				search_match_color = GetPrefSearchMatchColor ();
+			} else {
+				search_match_color = GetDefaultSearchMatchColor ();
+			}
+
+			return search_match_color;
+		}
+
+		/// <summary>
+		/// Gets the search match highlight color from the preference.
+		/// </summary>
+		/// <returns>The preference search match highlight color or default if unparsable.</returns>
+		public static Gdk.Color GetPrefSearchMatchColor ()
+		{
+			string color_pref = (string) Preferences.Get (Preferences.CUSTOM_SEARCH_MATCH_COLOR);
+			try {
+				Gdk.Color search_match_color = GetGdkColorFromHexRgbHashString (color_pref);
+				return search_match_color;
+			} catch (InvalidDataException) {
+				Logger.Error ("Cannot parse search match color from preferences {0}, will use defaults", color_pref);
+				return GetDefaultSearchMatchColor ();
+			}
+		}
+
+		/// <summary>
+		/// Gets the default highlight color of the search match.
+		/// </summary>
+		/// <returns>The default search match highlight color.</returns>
+		public static Gdk.Color GetDefaultSearchMatchColor ()
+		{
+			string color_pref = (string) Preferences.GetDefault (Preferences.CUSTOM_SEARCH_MATCH_COLOR);
+
+			// The function may return throw an exception if the color is unparsable,
+			// but our precondition is that our default value is always parsable.
+			return GetGdkColorFromHexRgbHashString (color_pref);
+		}
+
+		/// <summary>
+		/// Converts hex RGB hash string to Gdk.Color, see Gdk.Color.Parse() docs for acceptable formats.
+		/// </summary>
+		/// <returns>The Gdk.Color or throws an InvalidDataException if unparsable.</returns>
+		/// <param name="hash_string">Hex RGB hash string.</param>
+		public static Gdk.Color GetGdkColorFromHexRgbHashString (string hash_string)
+		{
+			Gdk.Color color = new Gdk.Color ();
+
+			if (Gdk.Color.Parse (hash_string, ref color)) {
+				return color;
+			} else {
+				throw new InvalidDataException ("Search match color from preference is unparsable");
+			}
+		}
+
+		/// <summary>
+		/// Converts Gdk.Color to hex RGB hash string using ToString() and some custom parsing to alleviate
+		/// GTK# 2.12 limitation of ToString() result being unparsable with Parse().
+		/// </summary>
+		/// <returns>The hex RGB hash string.</returns>
+		/// <param name="color">Color as Gdk.Color</param>
+		public static string GetHexRgbHashStringFromGdkColor (Gdk.Color color)
+		{
+			// In gtk-sharp 2.12 the result of ToString() is not parsable with Parse(), need to pre-process.
+			// It looks like this: "rgb:rrrr/gggg/bbbb", we want "#rrrrggggbbbb".
+			char[] delim_chars = { ':', '/' };
+			// First - split the string to pieces
+			string[] color_selected_str_parts = color.ToString ().Split (delim_chars);
+			// Replace "rgb" with "#"
+			color_selected_str_parts[0] = "#";
+			// Assemble it all back together
+			string color_selected_str = string.Join (null, color_selected_str_parts);
+
+			return color_selected_str;
+		}
 	}
 
 	public class GlobalKeybinder

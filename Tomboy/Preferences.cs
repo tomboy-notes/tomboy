@@ -10,6 +10,7 @@ namespace Tomboy
 		public const string ENABLE_SPELLCHECKING = "/apps/tomboy/enable_spellchecking";
 		public const string ENABLE_WIKIWORDS = "/apps/tomboy/enable_wikiwords";
 		public const string ENABLE_CUSTOM_FONT = "/apps/tomboy/enable_custom_font";
+		public const string ENABLE_CUSTOM_SEARCH_MATCH_COLOR = "/apps/tomboy/enable_custom_search_match_color";
 		public const string ENABLE_KEYBINDINGS = "/apps/tomboy/enable_keybindings";
 		public const string ENABLE_STARTUP_NOTES = "/apps/tomboy/enable_startup_notes";
 		public const string ENABLE_AUTO_BULLETED_LISTS = "/apps/tomboy/enable_bulleted_lists";
@@ -20,6 +21,7 @@ namespace Tomboy
 
 		public const string START_NOTE_URI = "/apps/tomboy/start_note";
 		public const string CUSTOM_FONT_FACE = "/apps/tomboy/custom_font_face";
+		public const string CUSTOM_SEARCH_MATCH_COLOR = "/apps/tomboy/custom_search_match_color";
 		public const string MENU_NOTE_COUNT = "/apps/tomboy/menu_note_count";
 		public const string MENU_MAX_NOTE_COUNT = "/apps/tomboy/menu_max_note_count";
 		public const string MENU_PINNED_NOTES = "/apps/tomboy/menu_pinned_notes";
@@ -78,6 +80,9 @@ namespace Tomboy
 			case ENABLE_CUSTOM_FONT:
 				return false;
 
+			case ENABLE_CUSTOM_SEARCH_MATCH_COLOR:
+				return false;
+
 			case ENABLE_WIKIWORDS:
 				return false;
 
@@ -101,6 +106,9 @@ namespace Tomboy
 
 			case CUSTOM_FONT_FACE:
 				return "Serif 11";
+
+			case CUSTOM_SEARCH_MATCH_COLOR:
+				return "#7cfc00"; // "lawngreen", provides good contrast with default font color
 
 			case MENU_NOTE_COUNT:
 				return 10;

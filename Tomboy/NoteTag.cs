@@ -521,6 +521,7 @@ namespace Tomboy
 		public NoteTag UrlTag { get; private set; }
 		public NoteTag LinkTag { get; private set; }
 		public NoteTag BrokenLinkTag { get; private set; }
+		public NoteTag SearchMatchTag { get; private set; }
 
 		void InitCommonTags ()
 		{
@@ -564,11 +565,12 @@ namespace Tomboy
 			Add (tag);
 
 			tag = new NoteTag ("find-match");
-			tag.Background = "lawngreen";
+			tag.BackgroundGdk = GuiUtils.GetSearchMatchColor ();
 			tag.CanSerialize = false;
 			tag.CanSpellCheck = true;
 			tag.SaveType = TagSaveType.Meta;
 			Add (tag);
+			SearchMatchTag = tag;
 
 			tag = new NoteTag ("note-title");
 			tag.Underline = Pango.Underline.Single;

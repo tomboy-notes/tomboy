@@ -91,6 +91,37 @@
     </schema>
 
     <schema>
+      <key>/schemas/apps/tomboy/enable_custom_search_match_color</key>
+      <applyto>/apps/tomboy/enable_custom_search_match_color</applyto>
+      <owner>tomboy</owner>
+      <type>bool</type>
+      <default>false</default>
+      <locale name="C">
+         <short>Enable custom search match highlight color</short>
+         <long>
+       If true, the color set in custom_search_match_color will be used as
+       the text background for search matches. Otherwise some default one
+       will be used.
+         </long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/tomboy/custom_search_match_color</key>
+      <applyto>/apps/tomboy/custom_search_match_color</applyto>
+      <owner>tomboy</owner>
+      <type>string</type>
+      <default>#7cfc00</default>
+      <locale name="C">
+         <short>Custom search match highlight color</short>
+         <long>
+       If enable_custom_search_match_color is true, the color set here
+       will be used as the text background for search matches.
+         </long>
+      </locale>
+    </schema>
+
+    <schema>
       <key>/schemas/apps/tomboy/enable_keybindings</key>
       <applyto>/apps/tomboy/enable_keybindings</applyto>
       <owner>tomboy</owner>
