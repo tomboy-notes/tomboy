@@ -427,7 +427,7 @@ namespace Tomboy
 			about.Logo = GuiUtils.GetIcon ("tomboy", 48);
 			about.Copyright =
 			        Catalog.GetString ("Copyright \xa9 2004-2007 Alex Graveley\n" +
-				                   "Copyright \xa9 2004-2016 Others\n");
+				                   "Copyright \xa9 2004-2017 Others\n");
 			about.Comments = Catalog.GetString ("A simple and easy to use desktop " +
 			                                    "note-taking application.");
 			about.WindowPosition = Gtk.WindowPosition.Center;
@@ -580,7 +580,7 @@ namespace Tomboy
 			                "application.\n" +
 			                "Copyright \xa9 2004-2007 Alex Graveley\n" +
 							"<alex@beatniksoftware.com>\n\n" +		
-							"Copyright \xa9 2004-2016 Others\n"
+							"Copyright \xa9 2004-2017 Others\n"
 							);
 
 			Console.Write (about);
