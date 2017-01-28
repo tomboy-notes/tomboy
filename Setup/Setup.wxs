@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0"?>
-<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+     xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
 	<Product Id="*"
 		Name="Tomboy Notes"
 		Language="1033"
@@ -60,9 +61,9 @@
 			<![CDATA[GTKSHARPNOVELLINSTALLVERSION >= "2.12.20" OR (GTKSHARPNOVELLINSTALLVERSION << "2.12.1" AND GTKSHARPNOVELLINSTALLVERSION <> "2.12.1") OR REMOVE ~= "ALL"]]>
 		</Condition>
 
-		<PropertyRef Id="NETFRAMEWORK40FULL"/>
-		<Condition Message="This application requires .NET Framework 4.0. Please install the .NET Framework then run this installer again.">
-			<![CDATA[Installed OR NETFRAMEWORK40FULL]]>
+		<PropertyRef Id="WIX_IS_NETFRAMEWORK_45_OR_LATER_INSTALLED"/>
+		<Condition Message="This application requires .NET Framework 4.5 or later. Please install the .NET Framework then run this installer again.">
+			<![CDATA[Installed OR WIX_IS_NETFRAMEWORK_45_OR_LATER_INSTALLED]]>
 		</Condition>
 
 
