@@ -1233,37 +1233,33 @@ namespace Tomboy
 			note_text = note_text.ToLower ();
 
 			foreach (string word in words) {
-				int idx = 0;
 				bool this_word_found = false;
 
 				if (word == String.Empty)
 					continue;
 
+				Gtk.TextIter searchiter = buffer.GetIterAtOffset (0);
 				while (true) {
-					idx = note_text.IndexOf (word, idx);
+					Gtk.TextIter startiter, enditer;
+					bool word_found = searchiter.ForwardSearch (word, TextSearchFlags.VisibleOnly, out startiter, out enditer, buffer.EndIter);
 
-					if (idx == -1) {
+					if (!word_found) {
 						if (this_word_found)
 							break;
 						else
 							return null;
 					}
 
-					this_word_found = true;
-
-					Gtk.TextIter start = buffer.GetIterAtOffset (idx);
-					Gtk.TextIter end = start;
-					end.ForwardChars (word.Length);
+					searchiter = enditer;
+					this_word_found = word_found;
 
 					Match match = new Match ();
 					match.Buffer = buffer;
-					match.StartMark = buffer.CreateMark (null, start, false);
-					match.EndMark = buffer.CreateMark (null, end, true);
+					match.StartMark = buffer.CreateMark (null, startiter, false);
+					match.EndMark = buffer.CreateMark (null, enditer, true);
 					match.Highlighting = false;
 
 					matches.Add (match);
-
-					idx += word.Length;
 				}
 			}
 
