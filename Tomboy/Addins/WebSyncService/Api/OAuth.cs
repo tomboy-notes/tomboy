@@ -231,6 +231,11 @@ namespace Tomboy.WebSync.Api
 		{
 			var responseData = string.Empty;
 
+			Logger.Debug("OAuth: SecurityProtocol before enforcement: {0}", ServicePointManager.SecurityProtocol);
+			ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls |
+												   SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
+			Logger.Debug("OAuth: SecurityProtocol after enforcement: {0}", ServicePointManager.SecurityProtocol);
+
 			ServicePointManager.CertificatePolicy = new CertificateManager ();
 
 			// TODO: Set UserAgent, Timeout, KeepAlive, Proxy?

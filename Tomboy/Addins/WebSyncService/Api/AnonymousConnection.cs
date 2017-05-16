@@ -67,6 +67,11 @@ namespace Tomboy.WebSync.Api
 			string responseData = string.Empty;
 			HttpWebRequest webRequest;
 
+			Logger.Debug ("AnonymousConnection: SecurityProtocol before enforcement: {0}", ServicePointManager.SecurityProtocol);
+			ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls |
+												   SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
+			Logger.Debug ("AnonymousConnection: SecurityProtocol after enforcement: {0}", ServicePointManager.SecurityProtocol);
+
 			ServicePointManager.CertificatePolicy = new CertificateManager ();
 
 			try {
