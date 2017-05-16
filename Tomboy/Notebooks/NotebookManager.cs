@@ -372,6 +372,7 @@ namespace Tomboy.Notebooks
 			dialog.DefaultResponse = Gtk.ResponseType.No;
 			int response = dialog.Run ();
 			dialog.Destroy ();
+			Logger.Debug("Return was {0}", response);
 			if (response != (int) Gtk.ResponseType.Yes)
 				return;
 			
