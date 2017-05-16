@@ -231,6 +231,8 @@ namespace Tomboy.WebSync.Api
 		{
 			var responseData = string.Empty;
 
+			ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
+
 			ServicePointManager.CertificatePolicy = new CertificateManager ();
 
 			// TODO: Set UserAgent, Timeout, KeepAlive, Proxy?

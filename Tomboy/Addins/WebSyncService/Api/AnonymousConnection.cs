@@ -67,6 +67,8 @@ namespace Tomboy.WebSync.Api
 			string responseData = string.Empty;
 			HttpWebRequest webRequest;
 
+			ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
+
 			ServicePointManager.CertificatePolicy = new CertificateManager ();
 
 			try {
