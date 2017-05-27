@@ -542,6 +542,7 @@ namespace Tomboy
 
 			Buffer.RemoveTag (Note.TagTable.UrlTag, start, end);
 
+			Gtk.TextIter searchiter = start;
 			for (Match match = regex.Match (start.GetSlice (end));
 			                match.Success;
 			                match = match.NextMatch ()) {
@@ -553,13 +554,13 @@ namespace Tomboy
 				     group.Index);
 				*/
 
-				Gtk.TextIter start_cpy = start;
-				start_cpy.ForwardChars (group.Index);
+				// Use the ForwardSearch instead of group's Index to account for multibyte chars in the text.
+				// We'll search using the exact match value within provided boundaries.
+				Gtk.TextIter startiter, enditer;
+				searchiter.ForwardSearch (group.Value, Gtk.TextSearchFlags.VisibleOnly, out startiter, out enditer, end);
+				searchiter = enditer;
 
-				end = start_cpy;
-				end.ForwardChars (group.Length);
-
-				Buffer.ApplyTag (Note.TagTable.UrlTag, start_cpy, end);
+				Buffer.ApplyTag (Note.TagTable.UrlTag, startiter, enditer);
 			}
 		}
 
