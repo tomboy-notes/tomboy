@@ -1098,7 +1098,7 @@ namespace Tomboy
 		void OnCloseWindow (object sender, EventArgs args)
 		{
 			// Disconnect external signal handlers to prevent bloweup
-			manager.NoteDeleted -= OnNotesChanged;
+			manager.NoteDeleted -= OnNotesDeleted;
 			manager.NoteAdded -= OnNotesChanged;
 			manager.NoteRenamed -= OnNoteRenamed;
 			manager.NoteSaved -= OnNoteSaved;
