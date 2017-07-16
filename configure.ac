@@ -1,4 +1,4 @@
-AC_INIT(tomboy, 1.15.9)
+AC_INIT(tomboy, 1.15.10)
 AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_SRCDIR(Tomboy/Tomboy.cs)
 AM_INIT_AUTOMAKE([dist-xz foreign no-dist-gzip tar-ustar])
