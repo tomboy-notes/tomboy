@@ -4,25 +4,8 @@
 HELP_ID = tomboy
 DOC_INCLUDES = legal.xml
 HELP_MEDIA = \
-	figures/add-notebook-search.png \
-	figures/add-to-notebook.png \
-	figures/delete-notebook.png \
 	figures/icon.png \
-	figures/move-notes-search.png \
-	figures/new-notebook.png \
-	figures/notebook-icon.png \
-	figures/note-template.png \
-	figures/tomboy-main-menu.png \
-	figures/tomboy-new-note.png \
-	figures/tomboy-panel.png \
-	figures/tomboy-pindown.png \
-	figures/tomboy-pinup.png \
-	figures/tomboy.png \
-	figures/tomboy-preferences-add-ins.png \
-	figures/tomboy-preferences-editing.png \
-	figures/tomboy-preferences-hotkeys.png \
-	figures/tomboy-preferences-synchronization.png \
-	figures/tomboy-tools.png
+	figures/tomboy.png
 
 HELP_FILES = \
 	addins-desktop-bugzilla.page \
