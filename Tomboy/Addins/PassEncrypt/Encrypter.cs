@@ -21,7 +21,7 @@ namespace Tomboy.PassEncrypt
             // so that the same Salt and IV values can be used when decrypting.  
             var saltStringBytes = Generate256BitsOfRandomEntropy();
             var ivStringBytes = Generate256BitsOfRandomEntropy();
-            var plainTextBytes = Encoding.UTF8.GetBytes(plainText);
+            var plainTextBytes = Encoding.Unicode.GetBytes(plainText);
             using (var password = new Rfc2898DeriveBytes(passPhrase, saltStringBytes, DerivationIterations))
             {
                 var keyBytes = password.GetBytes(Keysize / 8);

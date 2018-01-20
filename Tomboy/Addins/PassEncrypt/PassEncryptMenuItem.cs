@@ -47,20 +47,25 @@ namespace Tomboy.PassEncrypt
                 if (string.IsNullOrWhiteSpace(passPhrase))
                     return;
                 string encPassword = Encrypter.Encrypt(selection, passPhrase);
-                PassEncryptTag encPassTag = new PassEncryptTag(encPassword);
-                if (Addin.Note.TagTable.Lookup(encPassTag.Name) != null)
-                {
-                    // error same passwort hashcode
-                    PasswordWindow showException= new PasswordWindow(false);
-                    showException.ShowAll();
-                    showException.ShowNonEditableText(Catalog.GetString(" Error - same password Id detected: " + encPassTag.Name));
-                    return;
-                }
-                Addin.Note.TagTable.Add(encPassTag);
-
+                PassEncryptTag encPassTag = (PassEncryptTag) Addin.Note.TagTable.CreateDynamicTag(PassEncryptTag.TagName);
+                encPassTag.SetPassword(encPassword);
+                Gtk.TextTag[] tags = { encPassTag };
                 Addin.Note.Buffer.DeleteInteractive(ref start, ref end, true);
+                Addin.Note.Buffer.InsertWithTags(ref start, Catalog.GetString(" -Encoded Password- "), tags);
+                //PassEncryptTag encPassTag = new PassEncryptTag(encPassword);
+                //encPassTag.Initialize(PassEncryptTag.TagName);
+                //if (Addin.Note.TagTable.Lookup(encPassTag.ElementName) != null)
+                //{
+                //    // error same passwort hashcode
+                //    PasswordWindow showException= new PasswordWindow(false);
+                //    showException.ShowAll();
+                //    showException.ShowNonEditableText(Catalog.GetString(" Error - same password Id detected: " + encPassTag.Name));
+                //    return;
+                //}
+                //Addin.Note.TagTable.Add(encPassTag);
+                //Addin.Note.Buffer.DeleteInteractive(ref start, ref end, true);
                 //Addin.Note.Buffer.InsertInteractive(ref start, Catalog.GetString(" -Encoded Password- "), true);
-                Addin.Note.Buffer.InsertWithTagsByName(ref start, Catalog.GetString(" -Encoded Password- "), encPassTag.Name);
+                //Addin.Note.Buffer.InsertWithTagsByName(ref start, Catalog.GetString(" -Encoded Password- "), encPassTag.ElementName);
             }
         }
 

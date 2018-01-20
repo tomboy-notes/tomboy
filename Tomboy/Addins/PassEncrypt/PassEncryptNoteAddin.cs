@@ -13,6 +13,11 @@ namespace Tomboy.PassEncrypt
 
 		public override void Initialize ()
 		{
+            if (!Note.TagTable.IsDynamicTagRegistered(PassEncryptTag.TagName))
+            {
+                Note.TagTable.RegisterDynamicTag(PassEncryptTag.TagName, typeof(PassEncryptTag));
+            }
+            //Note.TagTable.RegisterDynamicTag(PassEncryptTag.TagName, typeof(PassEncryptTag));
         }
 
 		public override void Shutdown ()
@@ -24,6 +29,9 @@ namespace Tomboy.PassEncrypt
 			// Add here instead of in Initialize to avoid creating unopened
 			// notes' windows/buffers.
 			AddTextMenuItem (new PassEncryptMenuItem (this));
+            // get all note xml and search for passencrypt tags
+            string xml = Note.TextContent;
+            
 		}
 	}
 }
