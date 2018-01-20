@@ -1,4 +1,5 @@
-﻿using System;
+﻿//According to https://stackoverflow.com/questions/10168240/encrypting-decrypting-a-string-in-c-sharp CraigTP answer.
+using System;
 using System.Text;
 using System.Security.Cryptography;
 using System.IO;
@@ -84,7 +85,7 @@ namespace Tomboy.PassEncrypt
                                     var decryptedByteCount = cryptoStream.Read(plainTextBytes, 0, plainTextBytes.Length);
                                     memoryStream.Close();
                                     cryptoStream.Close();
-                                    return Encoding.UTF8.GetString(plainTextBytes, 0, decryptedByteCount);
+                                    return Encoding.Unicode.GetString(plainTextBytes, 0, decryptedByteCount);
                                 }
                             }
                         }

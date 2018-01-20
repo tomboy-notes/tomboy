@@ -1,4 +1,6 @@
-﻿using Gtk;
+﻿
+// (C) 2018 Piotr Wiśniowski <contact.wisniowskipiotr@gmail.com>, LGPL 2.1 or later.
+using Gtk;
 using Mono.Unix;
 using System;
 using System.Collections.Generic;

@@ -1,3 +1,5 @@
+
+// (C) 2018 Piotr Wiœniowski <contact.wisniowskipiotr@gmail.com>, LGPL 2.1 or later.
 using System;
 using Gtk;
 using Mono.Unix;
