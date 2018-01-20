@@ -1,5 +1,5 @@
 
-// (C) 2018 Piotr Wiœniowski <contact.wisniowskipiotr@gmail.com>, LGPL 2.1 or later.
+// (C) 2018 Piotr Wiœniowski <contact.wisniowskipiotr@gmail.com>, LGPL 2.1 or later. 
 using Gtk;
 using System;
 using System.Xml;
