@@ -1,0 +1,21 @@
+<Addin id="PassEncryptAddin"
+	namespace="Tomboy"
+	name="PassEncrypt"
+	author="Tomboy Project"
+	description="Adds ability to Encrypt text. Just select text and press ctrl+e to encrypt some text. To decrypt it just click link and enter password. Decrypted text is shown and copied to clipboard."
+	category="Formatting"
+	defaultEnabled="false"
+	version="0.1">
+
+ 	<Runtime>
+ 		<Import assembly="PassEncrypt.dll" />
+ 	</Runtime>
+
+	<Dependencies>
+		<Addin id="Tomboy" version="0.10" />
+	</Dependencies>
+
+	<Extension path="/Tomboy/NoteAddins">
+		<NoteAddin type="Tomboy.PassEncrypt.PassEncryptNoteAddin" />
+	</Extension>
+</Addin>
