@@ -4,6 +4,9 @@ Copyright (C) 2004-2007 Alex Graveley <alex@beatniksoftware.com>
 
 Copyright (C) 2004-2017 Others
 
+**Please note that this repo is for the previous generation of Tomboy, which is no longer actively developed.**  
+**See [Tomboy-NG](https://github.com/tomboy-notes/tomboy-ng) for current activities.**
+
 The Tomboy homepage is located [here](https://wiki.gnome.org/Apps/Tomboy).
 
 We use GitHub to store sources and track bugs, see [Tomboy](https://github.com/tomboy-notes/tomboy).
